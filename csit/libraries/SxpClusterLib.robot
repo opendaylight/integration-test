@@ -73,6 +73,13 @@ Check Device is Connected
     \    ...    ELSE    Set Variable    ${is_connected}
     Should Be True    ${is_connected}
 
+Check Cluster is Connected
+    [Arguments]    ${node}    ${version}=version4    ${port}=64999    ${mode}=speaker    ${session}=session
+    [Documentation]    Checks if SXP device is connected to at least one cluster node
+    ${is_connected}    Set Variable    ${False}
+    ${resp}    Get Connections    node=${node}    session=${session}
+    Should Contain Connection    ${resp}    ${TOOLS_SYSTEM_IP}    ${port}    ${mode}    ${version}
+
 Get Active Controller
     [Documentation]    Find cluster controller that is marked as leader for SXP service in cluster
     ${controller}    Set Variable    0
@@ -92,3 +99,34 @@ Get Any Controller
     [Documentation]    Get any controller from cluster range
     ${follower}    Evaluate    random.choice( range(1, ${NUM_ODL_SYSTEM} + 1))    random
     [Return]    ${follower}
+
+Map Followers To Mac Addresses
+    [Documentation]    TODO
+    ${mac_addresses}    create dictionary
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    ${mac_address}     Find Mac Address Of Ip Address    ${ODL_SYSTEM_${i+1}_IP}
+    \    Set To Dictionary    ${mac_addresses}    ${ODL_SYSTEM_${i+1}_IP}    ${mac_address}
+    Log    ${mac_addresses}
+    [return]    ${mac_addresses}
+
+Find Mac Address Of Ip Address
+    [Arguments]    ${ip}
+    [Documentation]
+    ${mac_address}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    ping -c 1 -W 1 ${ip} >/dev/null && arp -n | grep ${ip} | awk '{print $3}'    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
+    [return]    ${mac_address}
+
+Ip Addres Should Not Be Routed To Follower
+    [Arguments]    ${mac_addresses}    ${ip_address}    ${follower_index}
+    [Documentation]
+    ${mac_address_assigned}    Get From Dictionary    ${mac_addresses}    ${ODL_SYSTEM_${follower_index}_IP}
+    ${mac_address_resolved}    Find Mac Address Of Ip Address    ${ip_address}
+    Should Not Be Empty    ${mac_address_resolved}
+    Should Not Be Equal As Strings    ${mac_address_assigned}    ${mac_address_resolved}
+
+Ip Addres Should Be Routed To Follower
+    [Arguments]    ${mac_addresses}    ${ip_address}    ${follower_index}
+    [Documentation]
+    ${mac_address_assigned}    Get From Dictionary    ${mac_addresses}    ${ODL_SYSTEM_${follower_index}_IP}
+    ${mac_address_resolved}    Find Mac Address Of Ip Address    ${ip_address}
+    Should Not Be Empty    ${mac_address_resolved}
+    Should Be Equal As Strings    ${mac_address_assigned}    ${mac_address_resolved}

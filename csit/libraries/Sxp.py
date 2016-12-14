@@ -1061,3 +1061,42 @@ def prefix_range(start, end):
         if index < end:
             prefixes += ','
     return prefixes
+
+
+def route_definition_xml(virtual_ip, net_mask, interface):
+    """Generate xml for Add Bindings request
+
+    :param interface:
+    :type interface: string
+    :param net_mask:
+    :type net_mask: string
+    :param virtual_ip:
+    :type virtual_ip: string
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''
+    <routing-definition>
+        <ip-address>$vip</ip-address>
+        <interface>$interface</interface>
+        <netmask>$mask</netmask>
+    </routing-definition>
+    ''')
+    data = templ.substitute({'mask': net_mask, 'vip': virtual_ip, 'interface': interface})
+    return data
+
+
+def route_definitions_xml(routes):
+    """Generate xml for Add Bindings request
+
+    :param routes:
+    :type routes: string
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''<sxp-cluster-route xmlns="urn:opendaylight:sxp:cluster:route">
+    $routes
+</sxp-cluster-route>
+    ''')
+    data = templ.substitute({'routes': routes})
+    return data

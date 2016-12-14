@@ -323,3 +323,15 @@ Clean SXP Environment
     \    ${ip}    Get Ip From Number    ${num}
     \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Delete Node    ${ip}
     Clean SXP Session
+
+Put Routing Configuration To Controller
+    [Arguments]    ${DATA}    ${session}
+    [Documentation]    Post request to Controller and checks response
+    ${resp}    RequestsLibrary.Put Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/        data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    201
+
+Clean Routing Configuration To Controller
+    [Arguments]    ${session}
+    [Documentation]    Post request to Controller and checks response
+    ${resp}    RequestsLibrary.Delete Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/
+    Should be Equal As Strings    ${resp.status_code}    201
