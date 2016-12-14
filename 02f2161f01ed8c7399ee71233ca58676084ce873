@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_bc76aa3c",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-14T01:38:38Z",
+      "side": 1,
+      "message": "this feels too long.  that is, if it takes 10m for our cluster to be up and healthy after starting up, I think we\nmight want to report a failure and maybe find/fix a bug.\n\nwhat is a good number?  ha.  I don\u0027t know.  but looking at\nother CSIT I can see that we bring up 3 controllers in a \ncluster and just 2-3 min later robot test cases are passing\nthat are checking for shard status, etc.  maybe reduce to 5m?",
+      "range": {
+        "startLine": 28,
+        "startChar": 40,
+        "endLine": 28,
+        "endChar": 45
+      },
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9c73ee4c",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-14T01:38:38Z",
+      "side": 1,
+      "message": "these can also go in the *** Variables *** section which is\nbetter for a few reasons.\n\n1) maybe a little more readable\n\n2) if you wanted to, for some reason, override the values of\n   these values when running pybot (e.g. locally) you could\n   pass a -v on the command line to do so.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 128
+      },
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5ca03690",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-14T01:38:38Z",
+      "side": 1,
+      "message": "this should be in a common library, if it\u0027s needed, but I\nthink you can probably just use one that we already have:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Utils.robot#L285",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bcad0a8b",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-14T01:38:38Z",
+      "side": 1,
+      "message": "good local keyword to help make your test case more readable\n\nsame with the next one.\n\n:)",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 100
+      },
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9caace6e",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-14T01:38:38Z",
+      "side": 1,
+      "message": "since this keyword is only a single line I think maybe it\nwould be ok to use that single line in place of the \nkeyword above.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 107
+      },
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fcb662db",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-14T01:38:38Z",
+      "side": 1,
+      "message": "if this is all you ar edoing here, then just put \"Delete\nAll Sessions\" inline for the Suite Teardown section in the\n*** Settings ***",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 23
+      },
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
