@@ -1,0 +1,56 @@
+# EditorConfig root file
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+
+[*.robot]
+indent_size = 4
+
+[*.rb]
+charset = utf-8
+indent_size = 2
+max_line_length = 80
+
+[*.sh]
+indent_size = 2
+max_line_length = 80
+
+[*.py]
+charset = utf-8
+indent_size = 4
+max_line_length = 79
+
+[*.rst]
+indent_size = 2
+max_line_length = 79
+trim_trailing_whitespace = false
+
+[*.json]
+indent_size = 4
+
+[*.yaml]
+indent_size = 2
+
+[{*.md, *.markdown, *.patch.*}]
+trim_trailing_whitespace = false
+insert_final_newline = false
+
+[Vagrantfile]
+indent_size = 2
+
+[Dockerfile]
+indent_size = 2
+
+[Gemfile]
+indent_size = 2
+
+[*.pp]
+indent_size = 2
+
+[*.erb]
+indent_size = 2
+
