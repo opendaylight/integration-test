@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_3cb1fae1",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-14T01:53:59Z",
+      "side": 1,
+      "message": "what\u0027s wrong with the keyword above on line 285",
+      "range": {
+        "startLine": 478,
+        "startChar": 0,
+        "endLine": 482,
+        "endChar": 68
+      },
+      "revId": "026c8267d3e9a493e32aaef1dfcee1146ac3290e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5cc79645",
+        "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-14T01:53:59Z",
+      "side": 1,
+      "message": "I think I saw this here too:\nhttps://git.opendaylight.org/gerrit/#/c/48813\n\nmaybe you want to make this a common lib keyword?",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 63
+      },
+      "revId": "026c8267d3e9a493e32aaef1dfcee1146ac3290e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
