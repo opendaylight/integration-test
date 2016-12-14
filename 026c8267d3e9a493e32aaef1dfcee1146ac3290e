@@ -25,6 +25,46 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_172699b7",
+        "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-14T09:05:24Z",
+      "side": 1,
+      "message": "Test cases should be independent. But this one looks as a preparations for the tests to come in the same test suite. Such code should be better place in the Test Suite Setup.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 20
+      },
+      "revId": "026c8267d3e9a493e32aaef1dfcee1146ac3290e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d7526112",
+        "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-14T09:05:24Z",
+      "side": 1,
+      "message": "\u0027Create Session in Controller\u0027 could be extended to manage this as well?",
+      "revId": "026c8267d3e9a493e32aaef1dfcee1146ac3290e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_5cc79645",
         "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
         "patchSetId": 5
@@ -41,6 +81,29 @@
         "startChar": 0,
         "endLine": 242,
         "endChar": 63
+      },
+      "revId": "026c8267d3e9a493e32aaef1dfcee1146ac3290e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b73405df",
+        "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-14T09:05:24Z",
+      "side": 1,
+      "message": "This looks a generic function to be refactored into KarafKeywords",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 120
       },
       "revId": "026c8267d3e9a493e32aaef1dfcee1146ac3290e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
