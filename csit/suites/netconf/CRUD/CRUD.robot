@@ -35,6 +35,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
 ${device_name}    netconf-test-device
 ${device_type}    full-uri-device
+${USE_NETCONF_CONNECTOR}    ${False}
 
 *** Test Cases ***
 Start_Testtool
