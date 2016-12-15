@@ -1,0 +1,6 @@
+{
+  "forwarding-rules-manager-config": {
+    "stale-marking-enabled": $STALE,
+    "reconciliation-retry-count": 5
+  }
+}
