@@ -1,0 +1,44 @@
+module eid-mapping-context {
+    yang-version 1;
+    namespace "urn:honeycomb:params:xml:ns:yang:eid:mapping:context";
+    prefix "eid-mapping-context";
+
+    description
+        "This module contains mappings stored for local-mappings id to actual eid";
+
+    revision "2016-08-01" {
+        description
+            "Initial revision.";
+    }
+
+    import lisp {prefix "lisp";}
+    import ietf-lisp-address-types {prefix "lisp-types";}
+
+    container contexts {
+        list eid-mapping-context {
+
+            key "name";
+
+            leaf name {
+                type string;
+            }
+
+            container mappings{
+                list mapping {
+
+                    key "id";
+
+                    leaf id {
+                      type lisp:mapping-id;
+                      description "Id that uniquely identifies a mapping";
+                    }
+
+                    container eid {
+                      uses lisp-types:lisp-address;
+                      description "EID address";
+                    }
+                }
+            }
+        }
+    }
+}

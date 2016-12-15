@@ -1,0 +1,67 @@
+module ietf-acl-context {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:vpp:acl:context";
+    prefix "nc";
+
+    description "Context for ietf-acl assignment mapping";
+
+    revision "2016-12-14" {
+        description "Initial revision.";
+    }
+
+    import ietf-inet-types {
+       prefix "inet";
+    }
+
+    import naming-context {
+       prefix "nc";
+    }
+
+    import yang-ext {
+       prefix "ext";
+    }
+
+    grouping mapping-entry-context-attributes {
+        container acl-mapping-entry-context {
+            list mapping-table {
+                key "direction";
+
+                leaf direction {
+                    type enumeration {
+                        enum "ingress";
+                        enum "egress";
+                    }
+                }
+
+                list mapping-entry {
+                    key "index";
+
+                    leaf index {
+                        type int32;
+                        description "interface id";
+                    }
+
+                    leaf ip4_table_id {
+                        type int32;
+                        description "ip4 table id";
+                    }
+
+                    leaf ip6_table_id {
+                        type int32;
+                        description "ip6 table id";
+                    }
+
+                    leaf l2_table_id {
+                        type int32;
+                        description "l2 table id";
+                    }
+                }
+            }
+        }
+    }
+
+    augment /nc:contexts {
+        ext:augment-identifier "acl-mapping-entry-ctx-augmentation";
+        uses mapping-entry-context-attributes;
+    }
+}

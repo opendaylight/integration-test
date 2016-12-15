@@ -1,0 +1,81 @@
+module pbb-types {
+  yang-version 1;
+  namespace "urn:opendaylight:params:xml:ns:yang:pbb-types";
+  prefix "pbb-types";
+
+  description "Common types used for defining Pbb based subinterfaces";
+
+  revision "2016-12-14" {
+          description
+              "Initial revision.";
+  }
+
+  import ietf-yang-types {
+      prefix yang;
+  }
+
+  import ietf-interfaces {
+      prefix if;
+  }
+
+  import yang-ext {
+      prefix "ext";
+  }
+
+  typedef operation {
+      type enumeration {
+        // NOTE - Does not specify disabled enum value(0), because its used internally to delete/disable rewrite
+        enum "push-2" {
+            value 2;
+        }
+
+        enum "pop-2" {
+            value 4;
+            description "Encapsulate/Decapsulate pbb packet according to incoming/outcoming direction";
+        }
+        enum "translate-2-1" {
+            value 7;
+        }
+      }
+  }
+
+  grouping pbb-rewrite-attributes {
+    description "Provider Backbone Bridge attributes";
+
+    leaf destination-address {
+      type yang:mac-address;
+      description "backbone destination address";
+    }
+
+    leaf source-address {
+      type yang:mac-address;
+      description "backbone source address";
+    }
+
+    leaf outer-tag {
+        type uint16;
+    }
+
+    leaf b-vlan-tag-vlan-id {
+        type uint16 {
+            //12 bit range
+            range "1..4095";
+        }
+        description "backbone vlan id";
+    }
+
+    leaf i-tag-isid {
+        type uint32 {
+          //24 bit range
+          range "1..16777215";
+        }
+        description "identifier of the backbone service instance ";
+    }
+
+    leaf interface-operation {
+        type operation;
+        default pop-2;
+        description "Define operation that will pbb interface perform while processing packets";
+    }
+  }
+}
