@@ -1,0 +1,2 @@
+# Place the scripts in run order:
+integration/test/csit/suites/sxp/scripts/tools_node_setup.sh
