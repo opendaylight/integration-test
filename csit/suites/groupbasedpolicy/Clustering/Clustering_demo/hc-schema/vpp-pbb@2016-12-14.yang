@@ -1,0 +1,32 @@
+module vpp-pbb {
+  yang-version 1;
+  namespace "urn:opendaylight:params:xml:ns:yang:vpp-pbb";
+  prefix "vpp-pbb";
+
+  revision "2016-12-14" {
+    description "Initial revision of pbb model";
+  }
+
+  import pbb-types {
+    prefix "pbb-types";
+  }
+
+  import yang-ext {
+    prefix "ext";
+  }
+
+  augment /if:interfaces/if:interface {
+     ext:augment-identifier "pbb-rewrite-interface-augmentation";
+     container pbb-rewrite{
+        uses pbb-types:pbb-rewrite-attributes;
+     }
+  }
+
+  augment /if:interfaces-state/if:interface {
+      ext:augment-identifier "pbb-rewrite-state-interface-augmentation";
+      container pbb-rewrite-state{
+         uses pbb-types:pbb-rewrite-attributes;
+         config false;
+      }
+  }
+}

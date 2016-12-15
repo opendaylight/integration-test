@@ -1,0 +1,68 @@
+module multi-naming-context {
+    yang-version 1;
+    namespace "urn:honeycomb:params:xml:ns:yang:multi:naming:context";
+    prefix "mnc";
+
+    description
+        "This module contains data definition for naming multi-mapping context";
+
+    import naming-context {
+       prefix "nc";
+    }
+
+    import yang-ext {
+       prefix "ext";
+    }
+
+
+    revision "2016-4-11" {
+        description
+            "Initial revision.";
+    }
+
+
+    grouping multi-naming-contexts-attributes{
+        container multi-naming-contexts {
+            config false;
+            // context data
+
+            list multi-naming {
+
+                key "name";
+
+                leaf name {
+                    type string;
+                }
+
+                container mappings {
+                    list mapping {
+
+                        key "name";
+
+                        leaf name {
+                            type string;
+                        }
+
+                        list value{
+                            key "name";
+
+                            unique "index";
+                            leaf index {
+                                type int32;
+                            }
+
+                            leaf name {
+                                type string;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    augment /nc:contexts {
+        ext:augment-identifier "multi-mapping-ctx-augmentation";
+        uses multi-naming-contexts-attributes;
+    }
+}
