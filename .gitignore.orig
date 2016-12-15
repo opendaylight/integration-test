@@ -1,0 +1,33 @@
+<<<<<<< HEAD
+*.class
+**/target
+bin/
+dist
+**/logs
+products
+repository
+workspace
+*~
+target
+.classpath
+.project
+.settings
+MANIFEST.MF
+opendaylight/northbound/integrationtest/logs/*
+*.ipr
+*.iml
+*.iws
+.idea
+*.png
+*.pyc
+log.html
+output.xml
+report.html
+.*.sw?
+.vagrant
+.tox/
+*.egg-info/
+=======
+.idea/
+target/
+>>>>>>> Initial commit
