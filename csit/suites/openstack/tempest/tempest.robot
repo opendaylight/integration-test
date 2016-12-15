@@ -29,6 +29,9 @@ tempest.api.network
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
+tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_hotplug_nic
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_mtu_sized_frames
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
@@ -62,10 +65,19 @@ tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.t
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_rebuild
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
+tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_resize
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_suspend_resume
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
 tempest.scenario.test_server_basic_ops.TestServerBasicOps.test_server_basic_ops
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_multi_prefix_dhcpv6_stateless
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_multi_prefix_slaac
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
 *** Keywords ***
