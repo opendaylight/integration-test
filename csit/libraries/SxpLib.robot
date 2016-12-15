@@ -346,3 +346,22 @@ Clean SXP Environment
     \    ${ip}    Get Ip From Number    ${num}
     \    CompareStream.Run_Keyword_If_At_Least_Boron    Delete Node    ${ip}
     Clean SXP Session
+
+Get Routing Configuration From Controller
+    [Arguments]    ${session}
+    [Documentation]    Get Routing configuration from config DS
+    ${resp}    RequestsLibrary.Get Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/    headers=${ACCEPT_XML}
+    ${data}    Set Variable If    "${resp.status_code}" == "200"    ${resp.content}    ${EMPTY}
+    [Return]    ${data}
+
+Put Routing Configuration To Controller
+    [Arguments]    ${DATA}    ${session}
+    [Documentation]    Put Routing configuration to Config DS
+    ${resp}    RequestsLibrary.Put Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/    data=${DATA}    headers=${HEADERS_XML}
+    Should Match    "${resp.status_code}"    "20?"
+
+Clean Routing Configuration To Controller
+    [Arguments]    ${session}
+    [Documentation]    Delete Routing configuration from Config DS
+    ${resp}    RequestsLibrary.Get Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/    headers=${ACCEPT_XML}
+    Run Keyword If    "${resp.status_code}" == "200"    RequestsLibrary.Delete Request    ${session}    /restconf/config/sxp-cluster-route:sxp-cluster-route/
