@@ -1,0 +1,68 @@
+module vpp-classifier-context {
+  yang-version 1;
+  namespace "urn:opendaylight:params:xml:ns:yang:vpp:classifier";
+  prefix "vpp-classifier-context";
+
+  description
+    "This module contains vpp classfier metadata definition";
+
+  revision "2016-09-09" {
+    description
+      "Initial revision.";
+  }
+
+  container vpp-classifier-context {
+
+    config "false";
+
+    description
+      "Classify tables and sessions contain relative node indexes. Management agent like Honeycomb,
+       needs to use node names instead (indexes might change after vpp restart).
+       VPP does not provide relative index to node name conversion (https://jira.fd.io/browse/VPP-219),
+       also finding base node that is needed to perform the conversion
+       is not allways possible (https://jira.fd.io/browse/VPP-220).
+
+       Therefore Honeycomb needs to provide relative node to index mapping.
+       ";
+
+    list classify-table-context {
+      key "name";
+      unique "index";
+
+      leaf name {
+        type string;
+        description
+          "Name of the classify table.";
+      }
+
+      leaf index {
+        type int32;
+        description
+          "Classify table index used by VPP.";
+      }
+
+      leaf classifier-node-name {
+        type string;
+        description
+          "Name of VPP node the table is defined for.";
+      }
+
+      list node-context {
+        key "name";
+        unique "index";
+
+        leaf name {
+          type string;
+          description
+            "Name of vpp node (neighbour of classifier-node-name)";
+        }
+
+        leaf index {
+          type int32;
+          description
+            "Inted of the vpp node relative to classifier-node-name";
+        }
+      }
+    }
+  }
+}

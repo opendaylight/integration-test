@@ -1,0 +1,65 @@
+module adjacencies-identification-context {
+    yang-version 1;
+    namespace "urn:honeycomb:params:xml:ns:yang:adjacencies:identification:context";
+    prefix "adjacencies-identification-context";
+
+    description
+            "This module contains mappings between adjacency identificator and actual unique combination of
+             remote and local eid in vpp";
+
+    revision "2016-08-01" {
+        description
+            "Initial revision.";
+    }
+
+    import lisp {prefix "lisp";}
+    import ietf-lisp-address-types {prefix "lisp-types";}
+    import yang-ext {prefix "ext";}
+    import naming-context { prefix "nc";}
+
+    grouping adjacencies-identification-context-attributes{
+
+        container adjacencies-identification-contexts {
+
+            list adjacencies-identification {
+
+                key "name";
+
+                leaf name {
+                    type string;
+                }
+
+                container mappings{
+                    list mapping {
+
+                        key "id";
+
+                        leaf id {
+                          type string;
+                          description "Id that uniquely identifies adjacency";
+                        }
+
+                        container eid-identificator-pair{
+                            leaf local-eid-id {
+                              type lisp:mapping-id;
+                              description "Local EID identifier";
+                              mandatory true;
+                            }
+
+                            leaf remote-eid-id {
+                              type lisp:mapping-id;
+                              description "Remote EID identifier";
+                              mandatory true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+     augment /nc:contexts {
+            ext:augment-identifier "adjacencies-identification-ctx-augmentation";
+            uses adjacencies-identification-context-attributes;
+     }
+}
