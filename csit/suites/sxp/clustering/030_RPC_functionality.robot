@@ -13,6 +13,12 @@ Resource          ../../../libraries/SxpClusterLib.robot
 ${SAMPLES}        1
 
 *** Test Cases ***
+Check Shards Status
+    [Documentation]    Check Status for all shards in SXP application.
+    ClusterManagement.Check_Cluster_Is_In_Sync
+    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_OPER_LIST}    shard_type=operational
+    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_CONF_LIST}    shard_type=config
+
 Isolation of RCP service Test
     [Documentation]    Test SXP RPC functionality only if Controller with SCS is isolated
     : FOR    ${i}    IN RANGE    0    ${SAMPLES}
