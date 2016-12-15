@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_aa865711",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-15T08:56:48Z",
+      "side": 1,
+      "message": "This is reverting a commit by Vivek. Is it alright?\n\nhttps://git.opendaylight.org/gerrit/#/c/49225/3/csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "5a6463efe66fda1477b6d1fb68d4c291e5459f33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
