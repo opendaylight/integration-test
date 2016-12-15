@@ -4,15 +4,100 @@ Documentation     Keywords used to create/modify flow objects. The object is def
 ...               cookie and barrier fields, string formatted xml that can be used to push to
 ...               controller)
 Library           XML
+Library           String
 Library           RequestsLibrary
-Library           ./FlowLib.py
-Library           ./XmlComparator.py
-Library           ./Common.py
+Library           ScaleClient.py
+Library           FlowLib.py
+Library           XmlComparator.py
+Library           Common.py
 Variables         ../variables/Variables.py
 
 *** Variables ***
 
 *** Keywords ***
+Check No Switches In Inventory
+    [Arguments]    ${switches}
+    [Documentation]    Check no switch is in inventory
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Not Contain    ${resp.content}    "openflow:${switch}"
+
+Check No Switches In Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check no switch is in topology
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Not Contain    ${resp.content}    openflow:${switch}
+
+Check Switches In Inventory
+    [Arguments]    ${switches}
+    [Documentation]    Check all switches and stats in operational inventory
+    ${mac}=    String.Replace String Using Regexp    ${base_mac}    :    ${EMPTY}
+    ${mac}=    Evaluate    int(${mac}, 16)
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    ${dpid_decimal}=    Evaluate    ${mac} + ${switch}
+    \    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${dpid_decimal}
+    \    Should Be Equal As Strings    ${resp.status_code}    200
+    \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
+    \    Should Contain    ${resp.content}    flow-table-statistics
+
+Check Switches In Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check switches are in the topology.
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${count}=    Get Count    ${resp.content}    "node-id":"openflow:
+    BuiltIn.Should Be Equal As Numbers    ${count}    ${switches}
+
+Check Number Of Links
+    [Arguments]    ${links}
+    [Documentation]    Check number of links in the topolgy.
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${count}=    Get Count    ${resp.content}    "link-id":"openflow:
+    Should Be Equal As Integers    ${count}    ${links}
+
+Check Linear Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check Linear topology.
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
+    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
+    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
+    \    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
+    \    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
+    \    ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3"
+
+Check Flows Operational Datastore
+    [Arguments]    ${flow_count}    ${controller_ip}=${ODL_SYSTEM_IP}
+    [Documentation]    Check if number of Operational Flows on member of given index is equal to ${flow_count}.
+    ${sw}    ${reported_flow}    ${found_flow}=    ScaleClient.Flow Stats Collected    controller=${controller_ip}
+    Should_Be_Equal_As_Numbers    ${flow_count}    ${found_flow}
+
+Check Number Of Flows
+    [Arguments]    ${flows}
+    [Documentation]    Check number of flows in the inventory.
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${count}=    Get Count    ${resp.content}    "priority"
+    Should Be Equal As Integers    ${count}    ${flows}
+
+Check Number Of Groups
+    [Arguments]    ${groups}
+    [Documentation]    Check number of groups in the inventory.
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${group_count}=    Get Count    ${resp.content}    "group-type"
+    ${count}=    CompareStream.Set_Variable_If_At Least_Boron    ${group_count}    ${group_count/2}
+    Should Be Equal As Integers    ${count}    ${groups}
+
 Check Flow Stats Are Available
     [Arguments]    ${node_id}    ${flows}
     [Documentation]    A GET on the /node/${node_id} inventory API is made and flow stats string is checked for existence.

@@ -92,6 +92,9 @@ ${NEUTRON_NB_API}    /controller/nb/v2/neutron    # FIXME: Move to a separate Ne
 ${NEUTRON_NETWORKS_API}    ${NEUTRON_NB_API}/networks    # FIXME: Move to a separate Neutron-related Resource and add description.
 ${NEUTRON_PORTS_API}    ${NEUTRON_NB_API}/ports    # FIXME: Move to a separate Neutron-related Resource and add description.
 ${NEUTRON_ROUTERS_API}    ${NEUTRON_NB_API}/routers    # FIXME: Move to a separate Neutron-related Resource and add description.
+${NODE_START_COMMAND}    ${KARAF_HOME}/bin/start
+${NODE_STOP_COMMAND}    ${KARAF_HOME}/bin/stop
+${NODE_KILL_COMMAND}    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 ${ODL_BGP_PORT}    1790    # ODL side of BGP communication listens on this port number.
 ${ODL_CONTROLLER_SESSION}    ${NONE}    # Deprecated. Not clear if this refers to HTTP or SSH sessions. FIXME: Eradicate, or at least convert to a resource-private variable.
 ${ODL_NETCONF_CONFIG_PORT}    1830    # Port number ODL NETCONF server of Config Subsystem listens on.
