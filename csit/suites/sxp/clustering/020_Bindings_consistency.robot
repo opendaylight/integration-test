@@ -12,6 +12,13 @@ Resource          ../../../libraries/SxpClusterLib.robot
 ${SAMPLES}        1
 
 *** Test Cases ***
+Check Shards Status
+    [Arguments]    ${controller_index_list}=${EMPTY}
+    [Documentation]    Check Status for all shards in SXP application.
+    ClusterManagement.Check_Cluster_Is_In_Sync
+    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_OPER_LIST}    shard_type=operational    member_index_list=${controller_index_list}
+    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_CONF_LIST}    shard_type=config    member_index_list=${controller_index_list}
+
 Isolation of SXP service follower Test Listener Part
     [Documentation]    Test SXP binding propagation only if Controller with SCS is isolated
     Setup Custom SXP Cluster    listener    ${CLUSTER_NODE_ID}    controller1
