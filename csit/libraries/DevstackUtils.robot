@@ -24,7 +24,8 @@ ${CLEAN_DEVSTACK_HOST}    False
 
 *** Keywords ***
 Run Tempest Tests
-    [Arguments]    ${tempest_regex}    ${tempest_exclusion_regex}=""    ${tempest_conf}=""    ${tempest_directory}=/opt/stack/tempest    ${timeout}=600s
+    [Arguments]    ${tempest_regex}    ${tempest_exclusion_regex}=""    ${tempest_conf}=""    ${skip}=false    ${tempest_directory}=/opt/stack/tempest    ${timeout}=600s
+    ...    ${openstack_branch}=${OPENSTACK_BRANCH}
     [Documentation]    Execute the tempest tests.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
@@ -34,7 +35,8 @@ Run Tempest Tests
     ${tests_to_execute}=    Write Commands Until Prompt    sudo cat tests_to_execute.txt
     Log    ${tests_to_execute}
     # run_tempests.sh is a wrapper to testr, and we are providing the config file
-    ${results}=    Write Commands Until Prompt    sudo -E ${tempest_directory}/run_tempest.sh -C ${tempest_conf} -N ${tempest_regex} -- --load-list tests_to_execute.txt    timeout=${timeout}
+    ${results}=    Run Keyword If    "${openstack_branch}" == "stable/mitaka" and "${skip}" == "yes"    Set Variable    "SKIP - it being a bug that was fixed in Newton, but not Mitaka v1 so skipping to avoid the noise of a failure that will never be resolved" 
+    ...   ELSE    Write Commands Until Prompt    sudo -E ${tempest_directory}/run_tempest.sh -C ${tempest_conf} -N ${tempest_regex} -- --load-list tests_to_execute.txt    timeout=${timeout}
     Log    ${results}
     # Save stdout to file
     Create File    tempest_output_${tempest_regex}.log    data=${results}
@@ -46,7 +48,7 @@ Run Tempest Tests
     # to this. For now, commenting out this next debug step.
     # ${output}=    Write Commands Until Prompt    cat ${tempest_directory}/tempest.log    timeout=120s
     # Log    ${output}
-    Should Contain    ${results}    Failed: 0
+    Run Keyword If    "${openstack_branch}" != "stable/mitaka" and "${skip}" != "yes"    Should Contain    ${results}    Failed: 0
     # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
 
 Devstack Suite Setup
