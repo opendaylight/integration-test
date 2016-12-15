@@ -1,0 +1,21 @@
+    {
+      "group-id": ${i},
+      "buckets": {
+        "bucket": [
+          {
+            "bucket-id": 1,
+            "watch_group": ${i}000,
+            "action": [
+              {
+                "order": 1,
+                "group-action": {
+                  "group-id": ${i}000
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "group-name": "FF-${i}",
+      "group-type": "group-ff"
+    }

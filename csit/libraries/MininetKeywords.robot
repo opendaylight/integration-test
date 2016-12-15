@@ -6,6 +6,10 @@ Resource          OVSDB.robot
 Resource          ClusterManagement.robot
 Variables         ../variables/Variables.py
 
+*** Variables ***
+${topology_file}    create_fullymesh.py
+${topology_file_path}    MininetTopo/${topology_file}
+
 *** Keywords ***
 Start Mininet Single Controller
     [Arguments]    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}    ${timeout}=${DEFAULT_TIMEOUT}
@@ -53,6 +57,31 @@ Start Mininet Multiple Controllers
     SSHLibrary.Write    sh ovs-vsctl show
     SSHLibrary.Read Until    mininet>
     [Return]    ${mininet_conn_id}
+
+Start Mininet Linear
+    [Arguments]    ${switches}    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${mininet_timeout}=${DEFAULT_TIMEOUT}
+    [Documentation]    Start mininet linear topology with ${switches} nodes.
+    Log    Start Mininet Linear
+    MininetKeywords.StartMininet Single Controller    options=--topo linear,${switches} --switch ovsk,protocols=OpenFlow13    timeout=${mininet_timeout}
+
+Start Mininet Full Mesh
+    [Arguments]    ${switches}    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${hosts}=0    ${mininet_timeout}=${DEFAULT_TIMEOUT}
+    [Documentation]    Start a custom mininet topology.
+    ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${mininet_timeout}
+    Set Suite Variable    ${mininet_conn_id}
+    Utils.Flexible_Mininet_Login
+    Log    Copying ${topology_file_path} file to Mininet VM and Creating Full Mesh topology
+    SSHLibrary.Put File    ${CURDIR}/${topology_file_path}
+    SSHLibrary.Write    python ${topology_file} ${switches} ${hosts} 00:00:00:00:00:00 10.0.0.0
+    SSHLibrary.Read Until    ${TOOLS_SYSTEM_PROMPT}
+    Log    Start Mininet Full Mesh
+    SSHLibrary.Write    sudo mn --controller=remote,ip=${controller} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow13
+    Read Until    mininet>
+    Log    Check OVS configuratiom
+    Write    sh ovs-vsctl show
+    ${output}=    Read Until    mininet>
+    # Ovsdb connection is sometimes lost after mininet is started. Checking if the connection is alive before proceeding.
+    Should Not Contain    ${output}    database connection failed
 
 Send Mininet Command
     [Arguments]    ${mininet_conn}=${EMPTY}    ${cmd}=help

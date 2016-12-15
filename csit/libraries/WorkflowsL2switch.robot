@@ -6,6 +6,7 @@ Library           String
 Library           Collections
 Library           SwitchClasses/BaseSwitch.py
 Resource          Utils.robot
+Resource          FlowLib.robot
 Variables         ../variables/Variables.py
 
 *** Keywords ***
@@ -22,7 +23,7 @@ Find Max Hosts
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    Log To Console    Checking ${switches} switches
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    30s
-    \    ...    Check Every Switch    ${1}
+    \    ...    FlowLib.Check Switches In Inventory   ${1}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    Log To Console    Ping all hosts
     \    @{host_list}=    Get Mininet Hosts
@@ -43,7 +44,7 @@ Find Max Hosts
     \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    Log To Console    Checking No Switches
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Check No Switches
+    \    ${status}    ${result}    Run Keyword And Ignore Error    FlowLib.Check No Switches In Inventory
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    Log To Console    Checking no hosts are present in operational database
     \    ${status}    ${result}    Run Keyword And Ignore Error    Check No Hosts
@@ -106,14 +107,6 @@ Check No Hosts
     Log    Checking no hosts are present in operational database
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    "node-id":"host:
-
-Check No Switches
-    [Arguments]    ${switches}
-    [Documentation]    Check no switch is in inventory
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    Should Not Contain    ${resp.content}    "openflow:${switch}"
 
 Stop Mininet Simulation
     [Documentation]    Stop mininet
