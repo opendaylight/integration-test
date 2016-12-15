@@ -1,0 +1,29 @@
+module v3po-context {
+  yang-version 1;
+  namespace "urn:opendaylight:params:xml:ns:yang:v3po:context";
+  prefix "v3po-ctx";
+
+  revision "2016-09-09" {
+    description
+    "Initial revision of v3po specific context";
+  }
+
+  container disabled-interfaces {
+    config false;
+    // context data
+
+    description "Index list of disabled interfaces. VPP does not always delete an interface after deletion. It just
+                 disables it and keeps it there. Honeycomb can hide such interfaces from operational data, and this
+                 is the place to heep track of which interfaces were deleted, but are expected to show up in VPP";
+
+    list disabled-interface-index {
+
+        key "index";
+
+        leaf index {
+            type int32;
+        }
+    }
+  }
+
+}

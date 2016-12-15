@@ -1,0 +1,353 @@
+//TODO mandatory statements
+module lisp {
+  yang-version 1;
+  namespace "urn:opendaylight:params:xml:ns:yang:lisp";
+  prefix "lisp";
+  import ietf-interfaces {
+    prefix "if";
+  }
+  import ietf-inet-types {
+    prefix "inet";
+  }
+  import ietf-lisp-address-types {
+    prefix "lisp-types";
+  }
+  organization
+    "FD.io Overlay Forwarding Engine (ONE) project";
+  contact
+    "Florin Coras <fcoras@cisco.com>
+     Vina Ermagan <vermagan@cisco.com>
+     ONE list <one@lists.fd.io>";
+
+  description
+    "This YANG module defines the generic configuration and
+    operational data for LISP in VPP";
+
+  revision 2016-12-14 {
+    description
+     "This revision adds support for L2 features, by adding vrf-subtable/bridge-domain-subtable
+     containers under vni-table. Both contains mandatory reference to index(vrf-subtable)
+     or name(bridge-domain-subtable) of respective kind of table.";
+
+    reference
+      "https://tools.ietf.org/html/rfc6830";
+  }
+
+  revision "2016-05-20" {
+    description
+      "Initial revision of LISP model";
+    reference
+      "https://tools.ietf.org/html/rfc6830";
+  }
+
+  typedef locator-set-ref {
+    type leafref {
+      path "/lisp/lisp-feature-data/locator-sets/locator-set/name";
+    }
+    description "Locator-set reference";
+  }
+
+  typedef mapping-id {
+    type string;
+    description "Mapping ID";
+  }
+
+  typedef map-reply-action {
+    type enumeration {
+      enum no-action {
+        value 0;
+        description
+          "Mapping is kept alive and no encapsulation occurs.";
+      }
+      enum natively-forward {
+        value 1;
+        description
+          "Matching packets are not encapsulated or dropped but
+           natively forwarded.";
+      }
+      enum send-map-request {
+        value 2;
+        description
+          "Matching packets invoke Map-Requests.";
+      }
+      enum drop {
+        value 3;
+        description
+          "Matching packets are dropped.";
+      }
+    }
+    description
+      "Defines the lisp map-cache ACT type";
+    reference
+      "https://tools.ietf.org/html/rfc6830#section-6.1.4";
+  }
+  grouping locator-properties-grouping {
+    description
+      "Properties of a RLOC";
+    leaf priority {
+      type uint8;
+      description
+        "Locator priority.";
+    }
+    leaf weight {
+      type uint8;
+      description
+        "Locator weight.";
+    }
+  }
+
+  grouping locator-sets-grouping {
+    // NOTE: to be used only for local locators
+    // lisp_add_del_locator_set locator-set <ls_name> [del]
+    // lisp_add_del_locator locator-set <ls_name> iface <iface_name>
+    //                                  p <val> w <val> [del]
+    container locator-sets {
+      list locator-set {
+        key "name";
+        leaf name {
+          type string;
+          description "Locator-set name";
+        }
+        list interface {
+          key "interface-ref";
+          leaf interface-ref {
+            type if:interface-ref;
+            description "Interface reference";
+          }
+          uses locator-properties-grouping;
+          description "List of interfaces part of the locator-set";
+        }
+        description "Locator-set";
+      }
+      description "Locator-sets";
+    }
+    description "Grouping for locator-sets";
+  }
+
+  grouping adjacencies-grouping {
+    container adjacencies {
+      list adjacency {
+        key "id";
+        leaf id {
+          type string;
+          description "Adjacency id";
+        }
+        container local-eid {
+          uses lisp-types:lisp-address;
+          description "Local EID that must have a local mapping";
+        }
+        container remote-eid {
+          uses lisp-types:lisp-address;
+          description "Remote EID that must have a remote mapping";
+        }
+        description "List of adjacencies";
+      }
+      description "Adjacencies programmed into the data plane";
+    }
+    description "Adjacencies grouping";
+  }
+
+  grouping dp-subtable-grouping {
+    // Once both vni and table-id are set:
+    // lisp_eid_table_add_del_map <vni> <dp_table>
+    container local-mappings {
+      list local-mapping {
+        key "id";
+        leaf id {
+          type mapping-id;
+          description "Id that uniquely identifies a mapping";
+        }
+        container eid {
+          uses lisp-types:lisp-address;
+          description "EID address";
+        }
+        leaf locator-set {
+          type locator-set-ref;
+          description "Locator-set";
+        }
+        description "Local mapping";
+      }
+      description "Local EID to locator-set mappings";
+    }
+    // lisp_add_del_local_eid eid <ip-address/mask> locator-set
+    //                            <ls-name> [del]
+    // lisp_add_del_remote_mapping vni <vni> eid <eid> seid
+    //                             <seid> [action <action>] rloc
+    //                             <ip-addr> [rloc <ip-addr> ..]
+    // NOTE: 1.lisp_add_del_remote_mapping seid is used to build
+    //         src/dst mappings. Rlocs have p/w in them
+    container remote-mappings {
+      list remote-mapping {
+        key "id";
+        leaf id {
+          type mapping-id;
+          description "Id that uniquely identifies a mapping";
+        }
+        container eid {
+            description "Remote EID address";
+            uses lisp-types:lisp-address;
+        }
+        leaf ttl {
+          type uint32;
+          description "Mapping validity period.";
+        }
+        leaf authoritative {
+          type bits {
+            bit A {
+              description "Authoritative bit.";
+            }
+          }
+          description
+            "Bit that indicates if mapping comes from an
+             authoritative source.";
+        }
+        choice locator-list {
+          description
+            "list of locators are either negative, or positive.";
+          case negative-mapping {
+            //NOTE - Wrapped in container to prevent leaf map-reply-action enforcing impresence of rlocs
+            container map-reply{
+                leaf map-reply-action {
+                  type map-reply-action;
+                  description
+                    "Forwarding action for a negative mapping.";
+                }
+            }
+          }
+          case positive-mapping {
+            // NOTE if container is not needed to encapsulate
+            // locator list, remove it
+            container rlocs {
+              list locator {
+                 key "address";
+                 leaf address {
+                   type inet:ip-address;
+                   description "Locator address";
+                 }
+                 uses locator-properties-grouping;
+                 description "Remote locator";
+              }
+              description
+                "List of locators for a positive mapping.";
+            }
+          }
+        }
+        uses adjacencies-grouping;
+        description "List of remote mappings";
+      }
+      description "Map-cache/remote mappings cache";
+    }
+    description "Data path subtable (VRF/bridge domain) grouping";
+  }
+
+  grouping eid-table-grouping {
+    container eid-table {
+      list vni-table {
+        key "virtual-network-identifier";
+        leaf virtual-network-identifier {
+            type uint32;
+            description "vni";
+        }
+        container vrf-subtable {
+          presence "Enable L3 mapping";
+          leaf table-id {
+             type uint32;
+             description "table-id";
+             mandatory true;
+          }
+
+          uses dp-subtable-grouping;
+          description "VRF subtable";
+        }
+        container bridge-domain-subtable {
+          presence "Enable L2 mapping";
+          leaf bridge-domain-ref {
+            type string;
+            description "Name reference to existing bridge domain";
+            mandatory true;
+          }
+
+          uses dp-subtable-grouping;
+          description "Bridge domain subtable";
+        }
+        description "VNI tables";
+      }
+      description "EID table";
+    }
+    description "EID table grouping";
+  }
+  grouping map-resolvers-grouping {
+    container map-resolvers {
+      // lisp_add_del_map_resolver <ip>
+      list map-resolver {
+        key ip-address;
+        leaf ip-address {
+          type inet:ip-address;
+          description "Map-resolver IP address";
+        }
+        description "List of map-resolvers";
+      }
+      description "Map-resolvers configured";
+    }
+    description "Map-Resolver grouping";
+  }
+  grouping pitr-cfg-grouping {
+    // lisp_pitr_set_locator_set <ip>
+    container pitr-cfg {
+      leaf locator-set {
+        type locator-set-ref;
+        description "Locator-set reference";
+      }
+      description "Proxy-ITR configuration";
+    }
+    description "PITR configuration grouping";
+  }
+
+  grouping itr-remote-locator-sets-grouping{
+    container itr-remote-locator-set{
+    // lisp_add_del_map_request_itr_rlocs add/del <ls_name>
+    // lisp_get_map_request_itr_rlocs
+        leaf remote-locator-set-name{
+            type locator-set-ref;
+            description "Locators to be used in map-requests";
+        }
+    }
+  }
+
+  grouping lisp-feature-data-grouping{
+    //aggregation of all lisp data, restricted by Lisp beeing enabled
+
+    container lisp-feature-data{
+        when "../lisp:enable = 'true'";
+
+        uses locator-sets-grouping;
+        uses eid-table-grouping;
+        uses map-resolvers-grouping;
+        uses pitr-cfg-grouping;
+        uses itr-remote-locator-sets-grouping;
+    }
+  }
+
+  // ref https://wiki.fd.io/view/ONE/Command-line_Interface_CLI_Guide
+  container lisp {
+
+    // lisp_enable_disable / lisp_enable_disable_status_dump
+    leaf enable {
+      type boolean;
+      description "Enable/disable LISP feature";
+    }
+    uses lisp-feature-data-grouping;
+    description "LISP configuration";
+  }
+
+  container lisp-state {
+
+    // lisp_enable_disable / lisp_enable_disable_status_dump
+    leaf enable {
+      type boolean;
+      description "Enable/disable LISP feature";
+    }
+    uses lisp-feature-data-grouping;
+    description "LISP state";
+  }
+}

@@ -1,0 +1,44 @@
+module interface-nat {
+  yang-version 1;
+  namespace "urn:opendaylight:params:xml:ns:yang:interface:nat";
+  prefix "ifc-nat";
+
+  revision "2016-12-14" {
+    description "Initial revision of v3po model";
+  }
+
+  import ietf-interfaces {
+    prefix "if";
+  }
+  import ietf-nat {
+    prefix "nat";
+  }
+  import yang-ext {
+    prefix "ext";
+  }
+
+  description "Augmentations to interfaces model to connect interfaces with nat configuration";
+
+  grouping interface-nat-attributes {
+    container nat {
+        container inbound {
+            presence "Enables inbound NAT";
+        }
+        container outbound {
+            presence "Enables outbound NAT";
+        }
+    }
+  }
+
+  augment /if:interfaces/if:interface {
+    ext:augment-identifier "nat-interface-augmentation";
+
+    uses interface-nat-attributes;
+  }
+
+  augment /if:interfaces-state/if:interface {
+    ext:augment-identifier "nat-interface-state-augmentation";
+
+    uses interface-nat-attributes;
+  }
+}

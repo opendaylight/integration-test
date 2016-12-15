@@ -1,0 +1,64 @@
+module nat-context {
+    yang-version 1;
+    namespace "urn:honeycomb:params:xml:ns:yang:nat:context";
+    prefix "nc";
+
+    description "Context for nat mapping";
+
+    revision "2016-12-14" {
+        description "Initial revision.";
+    }
+
+    import ietf-inet-types {
+       prefix "inet";
+    }
+
+    import naming-context {
+       prefix "nc";
+    }
+
+    import yang-ext {
+       prefix "ext";
+    }
+
+    grouping mapping-entry-context-attributes {
+        container nat-mapping-entry-context {
+            list nat-instance {
+                key "id";
+
+                leaf id {
+                    type uint32;
+                    description "ID of the NAT instance from ietf-nat. Maps to VRF-ID in VPP";
+                }
+
+                container mapping-table {
+                    list mapping-entry {
+
+                        key "internal external";
+                        unique "index";
+
+                        leaf internal {
+                            type inet:ip-address;
+                            description "Local IP address set in VPP";
+                        }
+
+                        leaf external {
+                            type inet:ip-address;
+                            description "Extarnal IP address set in VPP";
+                        }
+
+                        leaf index {
+                            type uint32;
+                            description "ID of the NAT's mapping entry from ietf-nat";
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    augment /nc:contexts {
+        ext:augment-identifier "nat-mapping-entry-ctx-augmentation";
+        uses mapping-entry-context-attributes;
+    }
+}
