@@ -7,6 +7,7 @@ Library           SSHLibrary
 Library           RequestsLibrary
 Library           XML
 Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/FlowLib.robot
 Resource          ${CURDIR}/../../../libraries/OvsManager.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/ClusterOpenFlow.robot
@@ -49,18 +50,11 @@ Start Suite
     \    Collections.Append To List    ${switch_list}    s${sid}
     BuiltIn.Set Suite Variable    ${active_member}    1
     OvsManager.Setup Clustered Controller For Switches    ${switch_list}    ${cntls_list}
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Verify Switch Connections Running On Member    ${SWITCHES}    1
 
 End Suite
     RequestsLibrary.Delete All Sessions
     Utils.Stop Mininet
-
-Are Switches Connected Topo
-    [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    ClusterManagement.Get From Member    ${OPERATIONAL_TOPO_API}/topology/flow:1    ${active_member}    access=${ACCEPT_XML}
-    BuiltIn.Log    ${resp}
-    ${count}=    XML.Get Element Count    ${resp}    xpath=node
-    BuiltIn.Should Be Equal As Numbers    ${count}    ${SWITCHES}
 
 Check All Switches Connected To All Cluster Nodes
     [Documentation]    Verifies all switches are connected to all cluster nodes

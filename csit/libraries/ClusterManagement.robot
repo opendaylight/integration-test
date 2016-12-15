@@ -50,9 +50,6 @@ ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-
 ${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ]]]]}']
 ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
-${NODE_START_COMMAND}    ${KARAF_HOME}/bin/start
-${NODE_STOP_COMMAND}    ${KARAF_HOME}/bin/stop
-${NODE_KILL_COMMAND}    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 
 *** Keywords ***
 ClusterManagement_Setup
