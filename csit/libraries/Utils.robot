@@ -10,7 +10,7 @@ Library           RequestsLibrary
 Library           ${CURDIR}/UtilLibrary.py
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
-Variables         ${CURDIR}/../variables/Variables.py
+Resource          ${CURDIR}/../variables/Variables.robot
 
 *** Variables ***
 # TODO: Introduce ${tree_size} and use instead of 1 in the next line.
@@ -474,3 +474,26 @@ Install Package On Ubuntu System
     Flexible Mininet Login    user=${user}    password=${password}
     Write    sudo apt-get install -y ${package_name}
     Read Until    ${prompt}
+
+Controller Is Not Running
+    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
+    [Documentation]    Remotely execute grep for karaf process, return count as string and compare to 0.
+    ${command} =    BuiltIn.Set Variable    ps axf | grep org.apache.karaf | grep -v grep | wc -l
+    ${count} =    Run Command On Controller    ${controller_ip}    ${command}
+    BuiltIn.Should_Be_Equal    0    ${count}    Found running Karaf count: ${count}
+
+Kill Controller
+    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
+    [Documentation]    Kills controller.
+    Run Command On Controller    ${controller_ip}    ${NODE_KILL_COMMAND}
+
+Stop Controller
+    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
+    [Documentation]    Stops controller.
+    Run Command On Controller    ${controller_ip}    ${NODE_STOP_COMMAND}
+
+Start Controller
+    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
+    [Documentation]    Starts controller.
+    ...    If ${wait_for_sync}, wait for cluster sync on listed members.
+    Run Command On Controller    ${controller_ip}    ${NODE_START_COMMAND}
