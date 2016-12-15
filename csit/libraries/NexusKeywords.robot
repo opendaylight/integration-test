@@ -18,6 +18,7 @@ Library           OperatingSystem
 Library           SSHLibrary
 Library           String
 Resource          ${CURDIR}/SSHKeywords.robot
+Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
 ${JDKVERSION}     None
@@ -53,6 +54,7 @@ NexusKeywords__Get_Items_To_Look_At
     [Arguments]    ${component}
     [Documentation]    Get a list of items that might contain the version number that we are looking for.
     BuiltIn.Return_From_Keyword_If    '${component}' == 'bgpcep'    pcep-impl
+    BuiltIn.Return_From_Keyword_If    '${component}' == 'yangtools'    yang-data-impl
     [Return]    ${component}-impl
 
 NexusKeywords__Detect_Version_To_Pull
@@ -91,8 +93,8 @@ Deploy_Artifact
     ${version}    ${location} =    NexusKeywords__Detect_Version_To_Pull    ${component}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
-    ${metadata}=    SSHKeywords.Execute_Command_Should_Pass    curl -L ${url}/maven-metadata.xml
-    ${namepart}=    SSHKeywords.Execute_Command_Should_Pass    echo "${metadata}" | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1    stderr_must_be_empty=${True}
+    ${metadata} =    SSHKeywords.Execute_Command_Should_Pass    curl -L ${url}/maven-metadata.xml
+    ${namepart} =    SSHKeywords.Execute_Command_Should_Pass    echo "${metadata}" | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1    stderr_must_be_empty=${True}
     ${length} =    BuiltIn.Get_Length    ${namepart}
     ${namepart} =    BuiltIn.Set_Variable_If    ${length} == 0    ${version}    ${namepart}
     ${filename} =    BuiltIn.Set_Variable    ${name_prefix}${namepart}${name_suffix}
@@ -114,9 +116,22 @@ Deploy_Test_Tool
     ...    "Deploy_Artifact" and then calls "Deploy_Artifact" to do the real
     ...    work of deploying the artifact.
     ${name_prefix} =    BuiltIn.Set_Variable    ${artifact}-
-    ${name_suffix} =    BuiltIn.Set_Variable    -${suffix}.jar
+    ${name_suffix} =    BuiltIn.Set_Variable_If    "${suffix}" != ""    -${suffix}.jar    .jar
     ${filename} =    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}
     [Return]    ${filename}
+
+Install_And_Start_Java_Artifact
+    [Arguments]    ${component}    ${artifact}    ${suffix}=executable    ${tool_options}=${EMPTY}    ${java_options}=${EMPTY}    ${openjdk}=${JDKVERSION}
+    [Documentation]    Deploy the artifact, assign name for log file, figure out java command, write the command to active SSH connection and return the log name.
+    ...    This keyword does not examine whether the artifact was started successfully or whether is still running upon return.
+    # TODO: Unify this keyword with what NexusKeywords.Install_And_Start_Testtool does.
+    ${default_java_options} =    Default_Java_Options    ${openjdk}
+    ${actual_java_options} =    BuiltIn.Set_Variable_If    """${java_options}""" != ""    ${java_options}    ${default_java_options}
+    ${filename} =    Deploy_Test_Tool    ${component}    ${artifact}    suffix=${suffix}
+    ${command} =    Compose_Full_Java_Command    ${actual_java_options} -jar ${filename} ${tool_options}
+    ${logfile} =    Utils.Get_Log_File_Name    testtool
+    SSHLibrary.Write    ${command} >${logfile} 2>&1
+    [Return]    ${logfile}
 
 Compose_Dilemma_Filepath
     [Arguments]    ${default_path}    ${specific_path}
@@ -176,6 +191,12 @@ Compose_Java_Home
     ${java_home}    ${bin}    ${java} =    String.Split_String_From_Right    ${java_command}    separator=/    max_split=2
     [Return]    ${java_home}
 
+Default_Java_Options
+    [Arguments]    ${openjdk}=${JDKVERSION}
+    [Documentation]    Return Java options suitable for current JDK version.
+    ${java_actual_options} =    BuiltIn.Set_Variable_If    """${openjdk}""" == "openjdk7"    ${JAVA_7_OPTIONS}    ${JAVA_OPTIONS}
+    [Return]    ${java_actual_options}
+
 Install_Maven_Bare
     [Arguments]    ${maven_version}=3.3.9    ${openjdk}=${JDKVERSION}
     [Documentation]    Download and unpack Maven, prepare launch command with proper Java version and download settings file.
@@ -194,7 +215,7 @@ Install_Maven_Bare
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    wget -N '${maven_download_url}'    stderr_must_be_empty=False
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    tar xvf '${maven_archive_filename}'
     ${java_home} =    NexusKeywords.Compose_Java_Home    openjdk=${openjdk}
-    ${java_actual_options} =    BuiltIn.Set_Variable_If    """${openjdk}""" == "openjdk7"    ${JAVA_7_OPTIONS}    ${JAVA_OPTIONS}
+    ${java_actual_options} =    Default_Java_Options    ${openjdk}
     BuiltIn.Set_Global_Variable    \${maven_bash_command}    export JAVA_HOME='${java_home}' && export MAVEN_OPTS='${java_actual_options}' && ./${maven_directory}/bin/mvn
     # TODO: Get settings files from Jenkins settings provider, somehow.
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    wget '${MAVEN_SETTINGS_URL}' -O settings.xml    stderr_must_be_empty=False
