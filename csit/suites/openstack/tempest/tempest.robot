@@ -29,6 +29,10 @@ tempest.api.network
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
+tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_hotplug_nic
+    [Tags]    skip_if_stable/mitaka
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_mtu_sized_frames
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
