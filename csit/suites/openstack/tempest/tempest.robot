@@ -21,6 +21,7 @@ ${external_net_name}    external-net
 ${external_subnet_name}    external-subnet
 ${external_gateway}    10.10.10.250
 ${external_subnet}    10.10.10.0/24
+${skip}           yes
 
 *** Test Cases ***
 tempest.api.network
@@ -28,6 +29,9 @@ tempest.api.network
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_hotplug_nic
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}    ${skip}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_mtu_sized_frames
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
