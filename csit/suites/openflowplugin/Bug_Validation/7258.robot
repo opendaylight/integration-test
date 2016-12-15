@@ -29,17 +29,10 @@ Initialization Phase
     ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    FlowLib.Check Switches In Topology    1
 
 Final Phase
     [Documentation]    Stops mininet.
     BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
     RequestsLibrary.Delete All Sessions
-
-Are Switches Connected Topo
-    [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
-    Log    ${resp.content}
-    ${count}=    XML.Get Element Count    ${resp.content}    xpath=node
-    BuiltIn.Should Be Equal As Numbers    ${count}    1
