@@ -41,6 +41,8 @@ Bug 5221
     # Depending on when the retry timers are firing, it may take some 10s of seconds to reconnect, so setting to 30 to cover that.
     Wait Until Keyword Succeeds    30s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
     [Teardown]    Run Keywords    Clean OVSDB Test Environment
+    ...    AND    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634%2Fbridge%2F${BRIDGE}
+    ...    AND    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634
     ...    AND    Report_Failure_Due_To_Bug    5221
 
 Bug 5177
@@ -81,6 +83,47 @@ Bug 4794
     # TODO: Bug 5178
     [Teardown]    Run Keywords    Clean OVSDB Test Environment
     ...    AND    Report_Failure_Due_To_Bug    4794
+
+Bug 7160
+    [Documentation]    If this bug is reproduced, it's possible that the operational store will be
+    ...    stuck with leftover nodes and further system tests could fail.  It's advised to run this
+    ...    test last if possible. See the bug description for high level steps to reproduce
+    ...    https://bugs.opendaylight.org/show_bug.cgi?id=7160#c0
+    [Setup]    Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    ...    AND    Clean OVSDB Test Environment
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDB_PORT}
+    Connect Controller To OVSDB Node
+    ${QOS}=    Set Variable    QOS-1
+    ${QUEUE}=    Set Variable    QUEUE-1
+    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_node.json
+    ${sample1}    Replace String    ${sample}    127.0.0.1    ${TOOLS_SYSTEM_IP}
+    ${body}    Replace String    ${sample1}    61644    ${OVSDB_PORT}
+    ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1    data=${body}
+    Log Config And Operational Topology
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_qos.json
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/    data=${body}
+    Log Config And Operational Topology
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_queue.json
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${QUEUE}/    data=${body}
+    Log Config And Operational Topology
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/bug_7160/create_qoslinkedqueue.json
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1    data=${body}
+    Log Config And Operational Topology
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/queue-list/0/
+    Log Config And Operational Topology
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/
+    Log Config And Operational Topology
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${QUEUE}/
+    Log Config And Operational Topology
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1
+    Log Config And Operational Topology
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    ${node}    Set Variable    ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
+    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
+    Log Config And Operational Topology
+    Wait Until Keyword Succeeds    5s    1s    Config and Operational Topology Should Be Empty
+    [Teardown]    Run Keywords    Clean OVSDB Test Environment
+    ...    AND    Report_Failure_Due_To_Bug    7160
 
 *** Keywords ***
 OVSDB Connection Manager Suite Setup
@@ -135,3 +178,18 @@ Connect Controller To OVSDB Node
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
+
+Log Config And Operational Topology
+    [Documentation]    For debugging purposes, this will log both config and operational topo data stores
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    Log    ${resp.content}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
+
+Config and Operational Topology Should Be Empty
+    [Documentation]    This will check that only the expected output is there for both operational and config
+    ...    topology data stores. Empty probably means that only ovsdb:1 is there.
+    ${config_resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${operational_resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Should Be Equal As Strings    ${config_resp.content}    {"network-topology":{"topology":[{"topology-id":"ovsdb:1"}]}}
+    Should Be Equal As Strings    ${operational_resp.content}    {"network-topology":{"topology":[{"topology-id":"ovsdb:1"}]}}

@@ -1,0 +1,46 @@
+{
+    "network-topology:node": [
+        {
+            "node-id": "ovsdb:HOST1",
+            "ovsdb:qos-entries": [
+                {
+                    "qos-id": "QOS-1",
+                    "qos-other-config": [
+                        {
+                            "other-config-key": "max-rate",
+                            "other-config-value": "3300000"
+                        }
+                    ],
+                    "qos-type": "ovsdb:qos-type-linux-htb",
+                    "queue-list": [
+                        {
+                            "queue-number": "0"
+                        }
+                    ]
+                }
+            ],
+            "ovsdb:queues": [
+                {
+                    "queue-id": "QUEUE-1",
+                    "dscp" : 51,
+                    "queues-other-config": [
+                        {
+                            "queue-other-config-key": "max-rate",
+                            "queue-other-config-value": "1230000"
+                        },
+                        {
+                            "queue-other-config-key": "min-rate",
+                            "queue-other-config-value": "1000000"
+                        }
+                    ],
+                    "queues-external-ids": [
+                        {
+                            "queues-external-id-key": "qexid",
+                            "queues-external-id-value": "qexvalue"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
