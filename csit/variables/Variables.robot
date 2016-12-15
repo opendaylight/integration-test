@@ -94,6 +94,9 @@ ${NEUTRON_PORTS_API}    ${NEUTRON_NB_API}/ports    # FIXME: Move to a separate N
 ${NEUTRON_ROUTERS_API}    ${NEUTRON_NB_API}/routers    # FIXME: Move to a separate Neutron-related Resource and add description.
 ${ODL_BGP_PORT}    1790    # ODL side of BGP communication listens on this port number.
 ${ODL_CONTROLLER_SESSION}    ${NONE}    # Deprecated. Not clear if this refers to HTTP or SSH sessions. FIXME: Eradicate, or at least convert to a resource-private variable.
+${ODL_FLOWTABLE_ELAN_DMAC}    51
+${ODL_FLOWTABLE_ELAN_SMAC}    50
+${ODL_FLOWTABLE_L3VPN}    21
 ${ODL_NETCONF_CONFIG_PORT}    1830    # Port number ODL NETCONF server of Config Subsystem listens on.
 ${ODL_NETCONF_MDSAL_PORT}    2830    # Port number ODL NETCONF server of MD-SAL listens on.
 ${ODL_NETCONF_NAMESPACE}    urn:ietf:params:xml:ns:netconf:base:1.0    # Namespace of standardized NETCONF elements.
