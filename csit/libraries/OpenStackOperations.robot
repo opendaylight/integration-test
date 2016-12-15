@@ -2,6 +2,7 @@
 Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           SSHLibrary
 Resource          Utils.robot
+Resource          ../variables/Variables.robot
 Variables         ../variables/Variables.py
 
 *** Keywords ***
@@ -186,6 +187,17 @@ Get Net Id
     Log    ${net_id}
     [Return]    ${net_id}
 
+Get Subnet Id
+    [Arguments]    ${subnet_name}    ${devstack_conn_id}
+    [Documentation]    Retrieve the net id for the given network name to create specific vm instance
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron subnet-list | grep "${subnet_name}" | awk '{print $2}'    30s
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${subnet_id}=    Get from List    ${splitted_output}    0
+    Log    ${subnet_id}
+    [Return]    ${subnet_id}
+
 Get Port Id
     [Arguments]    ${port_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
@@ -227,7 +239,6 @@ Create Vm Instance With Port On Compute Node
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
     ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} --availability-zone nova:${hostname_compute_node}    30s
     Log    ${output}
-    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
@@ -406,6 +417,15 @@ Create Router
     Close Connection
     Should Contain    ${output}    Created a new router
 
+List Router
+    [Documentation]    List Router and return output with neutron client.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron router-list    30s
+    Close Connection
+    Log    ${output}
+    [Return]    ${output}
+
 Add Router Interface
     [Arguments]    ${router_name}    ${interface_name}
     ${devstack_conn_id}=    Get ControlNode Connection
@@ -413,6 +433,16 @@ Add Router Interface
     ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router_name} ${interface_name}
     Close Connection
     Should Contain    ${output}    Added interface
+
+Show Router Interface
+    [Arguments]    ${router_name}
+    [Documentation]    List Router interface associated with given Router and return output with neutron client.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron router-port-list ${router_name} -f csv    30s
+    Close Connection
+    Log    ${output}
+    [Return]    ${output}
 
 Add Router Gateway
     [Arguments]    ${router_name}    ${network_name}
