@@ -7,7 +7,7 @@ Library           json
 Library           RequestsLibrary
 Variables         ../variables/Variables.py
 Resource          Utils.robot
-Resource          WorkflowsOpenFlow.robot
+Resource          MininetKeywords.robot
 
 *** Variables ***
 ${switches}       2
@@ -34,7 +34,7 @@ Start NIC VTN Rest Test Suite
 
 Stop NIC VTN Rest Test Suite
     [Documentation]    Stop Nic VTN Renderer Test Suite
-    Stop Mininet Simulation
+    Stop Mininet And Exit
 
 Fetch Intent List
     [Documentation]    Check if VTN Renderer feature is installed.

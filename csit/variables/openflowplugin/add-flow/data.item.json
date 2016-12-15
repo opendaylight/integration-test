@@ -1,0 +1,31 @@
+        {
+          "id": "${i}",
+          "priority": 100,
+          "table_id": 0,
+          "match": {
+            "ethernet-match": {
+              "ethernet-type": {
+                "type": 2048
+              }
+            },
+            "ipv4-destination": "10.0.10.${i}/32"
+          },
+          "flow-name": "Flow-${i}",
+          "instructions": {
+            "instruction": [
+              {
+                "order": 1,
+                "apply-actions": {
+                  "action": [
+                    {
+                      "order": 1,
+                      "group-action": {
+                        "group-id": ${i}
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }

@@ -7,6 +7,7 @@ Library           SSHLibrary
 Library           RequestsLibrary
 Library           XML
 Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/FlowLib.robot
 Resource          ${CURDIR}/../../../libraries/OvsManager.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/ClusterOpenFlow.robot
@@ -37,7 +38,7 @@ Start Mininet To All Nodes
     \    Collections.Append To List    ${switch_list}    s${sid}
     BuiltIn.Set Suite Variable    ${active_member}    1
     OvsManager.Setup Clustered Controller For Switches    ${switch_list}    ${cntls_list}
-    BuiltIn.Wait Until Keyword Succeeds    15s    1s    Are Switches Connected Topo
+    BuiltIn.Wait Until Keyword Succeeds    15s    1s    FlowLib.Check Switches In Topology    ${SWITCHES}
 
 Switches To Be Connected To All Nodes
     [Documentation]    Initial check for correct connected topology.
@@ -66,13 +67,6 @@ Start Suite
 End Suite
     ClusterManagement.Flush Iptables From List Or All
     RequestsLibrary.Delete All Sessions
-
-Are Switches Connected Topo
-    [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    ClusterManagement.Get From Member    ${OPERATIONAL_TOPO_API}/topology/flow:1    ${active_member}    access=${ACCEPT_XML}
-    BuiltIn.Log    ${resp}
-    ${count}=    XML.Get Element Count    ${resp}    xpath=node
-    BuiltIn.Should Be Equal As Numbers    ${count}    ${SWITCHES}
 
 Check All Switches Connected To All Cluster Nodes
     [Documentation]    Verifies all switches are connected to all cluster nodes
