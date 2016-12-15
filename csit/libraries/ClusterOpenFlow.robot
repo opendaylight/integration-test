@@ -136,13 +136,13 @@ Take OpenFlow Device Link Up and Verify
     ${dictionary}    Create Dictionary    openflow:1=21    openflow:2=19    openflow:3=19
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
-Verify_Switch_Connections_Running_On_Member
+Verify Switch Connections Running On Member
     [Arguments]    ${switch_count}    ${member_index}
     [Documentation]    Check if number of Switch connections on member of given index is equal to ${switch_count}.
     ${count} =    ScaleClient.Get_Switches_Count    controller=${ODL_SYSTEM_${member_index}_IP}
     BuiltIn.Should_Be_Equal_As_Numbers    ${switch_count}    ${count}
 
-Check_Flows_Operational_Datastore_On_Member
+Check Flows Operational Datastore On Member
     [Arguments]    ${flow_count}    ${member_index}
     [Documentation]    Check if number of Operational Flows on member of given index is equal to ${flow_count}.
     ${sw}    ${reported_flow}    ${found_flow}=    ScaleClient.Flow Stats Collected    controller=${ODL_SYSTEM_${member_index}_IP}
