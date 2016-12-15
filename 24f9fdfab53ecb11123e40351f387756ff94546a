@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_4a7863f2",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-15T09:47:51Z",
+      "side": 1,
+      "message": "This value should not be default, only set in Setup_Everything when ${USE_NETCONF_CONNECTOR} is true.\nYou need to create *-via-topology device to use as default.",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 60
+      },
+      "revId": "24f9fdfab53ecb11123e40351f387756ff94546a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
