@@ -22,6 +22,30 @@
       "revId": "24f9fdfab53ecb11123e40351f387756ff94546a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2af88748",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-12-15T10:03:36Z",
+      "side": 1,
+      "message": "The is the case when it is not completely finished. From hard coded values it was moved to variables which a step forward.\nWhen adapting this to use USE_NETCONF_CONNECTOR as i did in refs/changes/66/48866/4 the result is \nhttps://logs.opendaylight.org/sandbox/jenkins091/netconf-csit-1node-periodic-scale-all-carbon/2/archives/log.html.gz#s1-s2 \nand the test Run_RestPerfClient_Through_Netconf_Connector will take 1 hour. I prefer to be merged as it is for better debugging as a next step.",
+      "parentUuid": "1a622d24_4a7863f2",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 60
+      },
+      "revId": "24f9fdfab53ecb11123e40351f387756ff94546a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
