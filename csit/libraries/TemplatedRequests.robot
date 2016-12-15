@@ -371,7 +371,6 @@ Resolve_Text_From_Template_Folder
     ${items} =    BuiltIn.Create_List
     ${separator} =    BuiltIn.Set_Variable_If    '${extension}' != 'json'    ${endline}    ,${endline}
     : FOR    ${iteration}    IN RANGE    ${iter_start}    ${iterations}+${iter_start}
-    \    # Add separator only if we are beyond first item.
     \    BuiltIn.Run_Keyword_If    ${iteration} > ${iter_start}    Collections.Append_To_List    ${items}    ${separator}
     \    ${item} =    BuiltIn.Evaluate    string.Template('''${item_template}''').substitute({"i":"${iteration}"})    modules=string
     \    Collections.Append_To_List    ${items}    ${item}
