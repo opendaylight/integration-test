@@ -1,0 +1,21 @@
+        {
+          "group-id": ${i}000,
+          "buckets": {
+            "bucket": [
+              {
+                "bucket-id": 1,
+                "weight": 1,
+                "action": [
+                  {
+                    "order": 1,
+                    "output-action": {
+                      "output-node-connector": "1"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "group-name": "Select-${i}",
+          "group-type": "group-select"
+        }
