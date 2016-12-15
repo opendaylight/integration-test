@@ -40,6 +40,12 @@ DEFAULT_PROTOCOL_LOG_LEVEL = DEFAULT_BGPCEP_LOG_LEVEL
 BGPCEP_LOG_LEVEL = DEFAULT_BGPCEP_LOG_LEVEL
 PROTOCOL_LOG_LEVEL = BGPCEP_LOG_LEVEL
 
+# System restart
+NODE_START_COMMAND = KARAF_HOME + '/bin/start'
+NODE_STOP_COMMAND = KARAF_HOME + '/bin/stop'
+NODE_KILL_COMMAND = 'ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh'
+
+
 # BGP variables
 ODL_BGP_PORT = '1790'
 BGP_TOOL_PORT = '17900'
