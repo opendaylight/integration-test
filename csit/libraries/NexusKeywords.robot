@@ -53,6 +53,7 @@ NexusKeywords__Get_Items_To_Look_At
     [Arguments]    ${component}
     [Documentation]    Get a list of items that might contain the version number that we are looking for.
     BuiltIn.Return_From_Keyword_If    '${component}' == 'bgpcep'    pcep-impl
+    BuiltIn.Return_From_Keyword_If    '${component}' == 'yangtools'    yang-data-impl
     [Return]    ${component}-impl
 
 NexusKeywords__Detect_Version_To_Pull
@@ -114,7 +115,7 @@ Deploy_Test_Tool
     ...    "Deploy_Artifact" and then calls "Deploy_Artifact" to do the real
     ...    work of deploying the artifact.
     ${name_prefix} =    BuiltIn.Set_Variable    ${artifact}-
-    ${name_suffix} =    BuiltIn.Set_Variable    -${suffix}.jar
+    ${name_suffix} =    BuiltIn.Set_Variable_If    "${suffix}" != ""    -${suffix}.jar    .jar
     ${filename} =    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}
     [Return]    ${filename}
 
