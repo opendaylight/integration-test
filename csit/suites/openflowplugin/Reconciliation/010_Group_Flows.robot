@@ -1,118 +1,159 @@
 *** Settings ***
-Documentation     Test reconciliation of chained groups and flows after switch is restart.
+Documentation     Test reconciliation of chained groups and flows after switch connection and controller are restarted.
 Suite Setup       Initialization Phase
 Suite Teardown    Final Phase
-Library           XML
-Library           OperatingSystem
 Library           RequestsLibrary
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/FlowLib.robot
 Resource          ../../../libraries/Utils.robot
-Variables         ../../../variables/Variables.py
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${XmlsDir}        ${CURDIR}/../../../variables/xmls
-${groupfile1}     g4.xml
-${groupfile2}     g5.xml
-${flowfile}       f50.xml
+${SWITCHES}       ${10}
+${ITER}           ${100}
+${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
 
 *** Test Cases ***
-Add Group 1 And Verify In Config Datastore
-    [Documentation]    Add a group and verify.
-    ${body}=    OperatingSystem.Get File    ${XmlsDir}/${groupfile1}
-    FlowLib.Add Group To Controller And Verify    ${body}    openflow:1    1
+Enable Stale Flow Entry
+    [Documentation]    Check Flows after mininet starts.
+    # Stale flows/groups feature is only available in Boron onwards.
+    CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"true"}    session=session
 
-Verify After Adding Group 1 In Operational DataStore
-    [Documentation]    Get the group stats in operational.
-    ${elements}=    BuiltIn.Create List    group-statistics    ref-count    packet-count    byte-count    buckets
-    ...    weight    group-select
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/group/1    ${elements}
+Add Group 1 In Every Switch
+    [Documentation]    Add ${ITER} groups of type 1 in every switch.
+    : FOR    ${switch}    IN RANGE    1    ${SWITCHES+1}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=session    iterations=${ITER}
 
-Add Group 2 And Verify In Config Datastore
-    [Documentation]    Add a group and verify.
-    ${body}=    OperatingSystem.Get File    ${XmlsDir}/${groupfile2}
-    FlowLib.Add Group To Controller And Verify    ${body}    openflow:1    2
+Add Group 2 In Every Switch
+    [Documentation]    Add ${ITER} groups of type 2 in every switch.
+    : FOR    ${switch}    IN RANGE    1    ${SWITCHES+1}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=session    iterations=${ITER}
 
-Verify After Adding Group 2 In Operational DataStore
-    [Documentation]    Get the group stats in operational.
-    ${elements}=    BuiltIn.Create List    group-statistics    ref-count    packet-count    byte-count    buckets
-    ...    watch_group    watch_port    group-ff
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/group/2    ${elements}
+Add Flow to Group 2 In Every Switch
+    [Documentation]    Add ${ITER} flows to group type 2 in every switch.
+    : FOR    ${switch}    IN RANGE    1    ${SWITCHES+1}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=session    iterations=${ITER}
 
-Add Flow And Verify In Config Datastore
-    [Documentation]    Add a flow pointing to the group and verify.
-    ${body}    OperatingSystem.Get File    ${XmlsDir}/${flowfile}
-    FlowLib.Add Flow To Controller And Verify    ${body}    openflow:1    0    1
+Start Mininet Linear
+    [Documentation]    Start Mininet Linear with ${SWITCHES} switches.
+    MininetKeywords.Start Mininet Linear    ${SWITCHES}
 
-Verify After Adding Flow In Operational DataStore
-    [Documentation]    Get the flow stats in operational.
-    ${elements}=    BuiltIn.Create List    group-action    group-id
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/flow/1    ${elements}
+Check Linear Topology
+    [Documentation]    Check Linear Topology.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
 
-Restart Mininet
-    [Documentation]    Restart Mininet and verify.
-    MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller
-    BuiltIn.Set Suite Variable    ${mininet_conn_id}
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
+Check Flows In Operational DS
+    [Documentation]    Check Groups after mininet starts.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${all_flows}
 
-Verify Group 1 In Operational DataStore
-    [Documentation]    Get the group stats in operational.
-    ${elements}=    BuiltIn.Create List    group-statistics    ref-count    packet-count    byte-count    buckets
-    ...    weight    group-select
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/group/1    ${elements}
+Check Groups In Operational DS
+    [Documentation]    Check Flows after mininet starts.
+    FlowLib.Check Number Of Groups    ${all_groups}
 
-Verify Group 2 In Operational DataStore
-    [Documentation]    Get the group stats in operational.
-    ${elements}=    BuiltIn.Create List    group-statistics    ref-count    packet-count    byte-count    buckets
-    ...    watch_group    watch_port    group-ff
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/group/2    ${elements}
+Check Flows In Switch
+    [Documentation]    Check Flows after mininet starts.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
 
-Verify Flow In Operational DataStore
-    [Documentation]    Get the flow stats in operational.
-    ${elements}=    BuiltIn.Create List    group-action    group-id
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/flow/1    ${elements}
+Disconnect Mininet
+    [Documentation]    Disconnect Mininet.
+    Disconnect Controller Mininet
 
-Remove Flow And Verify In Config Datastore
-    [Documentation]    Remove the flow and verify.
-    FlowLib.Remove Flow From Controller And Verify    openflow:1    0    1
+Check No Switches After Disconnect
+    [Documentation]    Check no switches in topology.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check No Switches In Topology    ${SWITCHES}
 
-Verify After Removing Flow In Operational DataStore
-    [Documentation]    Get the flow stats in operational.
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.No Content From URI    session    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/flow/1
+Remove Flows And Groups While Mininet Is Disconnected
+    [Documentation]    Remove some groups and flows while network is down.
+    : FOR    ${switch}    IN RANGE    1    ${SWITCHES+1}
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
 
-Remove Group 2 And Verify In Config Datastore
-    [Documentation]    Remove the group and verify.
-    FlowLib.Remove Group From Controller And Verify    openflow:1    2
+Reconnect Mininet
+    [Documentation]    Connect Mininet.
+    Disconnect Controller Mininet    restore
 
-Verify After Removing Group 2 In Operational DataStore
-    [Documentation]    Get the group stats in operational.
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.No Content From URI    session    ${OPERATIONAL_NODES_API}/node/openflow:1/group/2
+Check Linear Topology After Mininet Reconnects
+    [Documentation]    Check Linear Topology.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
 
-Remove Group 1 And Verify In Config Datastore
-    [Documentation]    Remove the group and verify.
-    FlowLib.Remove Group From Controller And Verify    openflow:1    1
+Check Flows In Operational DS After Mininet Reconnects
+    [Documentation]    Check Flows after mininet starts.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${less_flows}
 
-Verify After Removing Group 1 In Operational DataStore
-    [Documentation]    Get the group stats in operational.
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.No Content From URI    session    ${OPERATIONAL_NODES_API}/node/openflow:1/group/1
+Check Groups In Operational DS After Mininet Reconnects
+    [Documentation]    Check Flows after mininet starts.
+    FlowLib.Check Number Of Groups    ${less_groups}
+
+Check Flows In Switch After Mininet Reconnects
+    [Documentation]    Check Flows after mininet starts.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
+
+Restart Controller
+    [Documentation]    Stop and Start controller.
+    ClusterManagement.Stop_Members_From_List_Or_All
+    ClusterManagement.Start_Members_From_List_Or_All    wait_for_sync=False
+
+Check Linear Topology After Controller Restarts
+    [Documentation]    Check Linear Topology.
+    BuiltIn.Wait Until Keyword Succeeds    120s    2s    FlowLib.Check Linear Topology    ${SWITCHES}
+
+Check Flows In Operational DS After Controller Restarts
+    [Documentation]    Check Flows after mininet starts.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${less_flows}
+
+Check Groups In Operational DS After Controller Restarts
+    [Documentation]    Check Flows after mininet starts.
+    FlowLib.Check Number Of Groups    ${less_groups}
+
+Check Flows In Switch After Controller Restarts
+    [Documentation]    Check Flows after mininet starts.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
+
+Stop Mininet
+    [Documentation]    Stop Mininet.
+    MininetKeywords.Stop Mininet And Exit
+
+Check No Switches
+    [Documentation]    Check no switches in topology.
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    FlowLib.Check No Switches In Topology    ${SWITCHES}
 
 *** Keywords ***
 Initialization Phase
-    [Documentation]    Starts mininet and verify if topology is in operational datastore.
-    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller
-    BuiltIn.Set Suite Variable    ${mininet_conn_id}
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
+    [Documentation]    Create controller session and set variables.
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    # Still need to open controller HTTP session with name session because of old FlowLib.robot library dependency.
+    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
+    ${all_groups}=    BuiltIn.Evaluate    ${SWITCHES} * ${ITER} * 2
+    ${less_groups}=    BuiltIn.Evaluate    ${all_groups} - ${SWITCHES} * 2
+    # Stale flows/groups feature enabled in Boron onwards.
+    ${less_groups}=    CompareStream.Set Variable If At Least Boron    ${less_groups}    ${all_groups}
+    ${all_flows}=    BuiltIn.Evaluate    ${SWITCHES} * ${ITER+1}
+    ${less_flows}=    BuiltIn.Evaluate    ${all_flows} - ${SWITCHES}
+    # Stale flows/groups feature enabled in Boron onwards.
+    ${less_flows}=    CompareStream.Set Variable If At Least Boron    ${less_flows}    ${all_flows}
+    BuiltIn.Set Suite Variable    ${all_groups}
+    BuiltIn.Set Suite Variable    ${less_groups}
+    BuiltIn.Set Suite Variable    ${all_flows}
+    BuiltIn.Set Suite Variable    ${less_flows}
+    BuiltIn.Set Suite Variable    ${no_flows}    ${SWITCHES}
 
 Final Phase
-    [Documentation]    Stops mininet.
-    MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
+    [Documentation]    Delete all sessions.
+    ${command} =    BuiltIn.Set Variable    sudo iptables -v -F
+    Utils.Run Command On Controller    cmd=${command}
+    CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"false"}    session=session
+    BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
     RequestsLibrary.Delete All Sessions
 
-Are Switches Connected Topo
-    [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
-    Log    ${resp.content}
-    ${count}=    XML.Get Element Count    ${resp.content}    xpath=node
-    Should Be Equal As Numbers    ${count}    1
+Disconnect Controller Mininet
+    [Arguments]    ${action}=break
+    [Documentation]    Break and restore controller to mininet connection via iptables.
+    ${rule} =    BuiltIn.Set Variable    OUTPUT -p all --source ${ODL_SYSTEM_IP} --destination ${TOOLS_SYSTEM_IP} -j DROP
+    ${command} =    BuiltIn.Set Variable If    '${action}'=='restore'    sudo /sbin/iptables -D ${rule}    sudo /sbin/iptables -I ${rule}
+    Utils.Run Command On Controller    cmd=${command}
+    ${command} =    BuiltIn.Set Variable    sudo /sbin/iptables -L -n
+    ${output} =    Utils.Run Command On Controller    cmd=${command}
+    BuiltIn.Log    ${output}

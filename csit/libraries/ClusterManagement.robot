@@ -52,7 +52,7 @@ ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
 ${NODE_START_COMMAND}    ${KARAF_HOME}/bin/start
 ${NODE_STOP_COMMAND}    ${KARAF_HOME}/bin/stop
-${NODE_KILL_COMMAND}    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
+${NODE_KILL_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 
 *** Keywords ***
 ClusterManagement_Setup
@@ -400,7 +400,7 @@ Verify_Single_Karaf_Is_Running_On_Member
 Count_Running_Karafs_On_Member
     [Arguments]    ${member_index}
     [Documentation]    Remotely execute grep for karaf process, return count as string.
-    ${command} =    BuiltIn.Set_Variable    ps axf | grep karaf | grep -v grep | wc -l
+    ${command} =    BuiltIn.Set_Variable    ps axf | grep org.apache.karaf | grep -v grep | wc -l
     ${count} =    Run_Bash_Command_On_Member    command=${command}    member_index=${member_index}
     [Return]    ${count}
 

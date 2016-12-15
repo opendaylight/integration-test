@@ -6,6 +6,7 @@ Library           XML
 Library           RequestsLibrary
 Library           SSHLibrary
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/FlowLib.robot
 Variables         ../../../variables/ofplugin/RpcVariables.py
 
 *** Variables ***
@@ -24,16 +25,9 @@ Initialization Phase
     [Documentation]    Starts mininet and verify if topology is in operational ds
     Start Mininet
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Wait Until Keyword Succeeds    90s    1s    Are Switches Connected Topo
+    Wait Until Keyword Succeeds    90s    1s    FlowLib.Check Switches In Topology    1
 
 Final Phase
     [Documentation]    Stops mininet
     Stop Mininet
     Delete All Sessions
-
-Are Switches Connected Topo
-    [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
-    Log    ${resp.content}
-    ${count}=    Get Element Count    ${resp.content}    xpath=node
-    Should Be Equal As Numbers    ${count}    1
