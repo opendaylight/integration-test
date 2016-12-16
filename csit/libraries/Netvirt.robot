@@ -9,6 +9,8 @@ Library           RequestsLibrary
 ...               operational/l3vpn:vpn-interfaces    operational/odl-nat:floating-ip-info    operational/odl-l3vpn:prefix-to-interface    config/elan:elan-instances    config/elan:elan-interfaces    operational/elan:elan-interfaces    operational/elan:elan-forwarding-tables
 ...               operational/elan:elan-state    config/neutron:neutron/routers    operational/odl-nat:intext-ip-map    operational/odl-nat:external-ips-counter    config/odl-nat:intext-ip-port-map    operational/odl-nat:intext-ip-port-map    config/odl-nat:snatint-ip-port-map
 ...               operational/odl-nat:snatint-ip-port-map    operational/odl-nat:router-id-name
+...               config/network-topology:network-topology/topology/ovsdb:1
+...               operational/network-topology:network-topology/topology/ovsdb:1
 
 *** Keywords ***
 Get Model Dump
