@@ -86,6 +86,9 @@ Execute_Command_Passes
     ...    Log everything, depending on arguments and success. Return either success string or stdout.
     ...    TODO: Do we want to support customizing return values the same way as SSHLibrary.Execute_Command does?
     ${stdout}    ${stderr}    ${rc} =    SSHLibrary.Execute_Command    ${command}    return_stderr=True    return_rc=True
+    BuiltIn.Log    ${stdout}
+    BuiltIn.Log    ${stderr}
+    BuiltIn.Log    ${rc}
     ${emptiness_status}    ${result} =    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Should_Be_Empty    ${stderr}
     ${success} =    BuiltIn.Set_Variable_If    (${rc} == 0) and (("${emptiness_status}" == "PASS") or not ${stderr_must_be_empty})    True    False
     BuiltIn.Run_Keyword_If    (${log_on_success} and ${success}) or (${log_on_failure} and not ${success})    Log_Command_Results    ${stdout}    ${stderr}    ${rc}
