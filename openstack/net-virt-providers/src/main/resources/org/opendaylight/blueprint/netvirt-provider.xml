@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+  xmlns:odl="http://opendaylight.org/xmlns/blueprint/v1.0.0"
+  odl:use-default-for-reference-types="true">
+
+  <reference id="dataBroker"
+    interface="org.opendaylight.controller.md.sal.binding.api.DataBroker" />
+  <reference id="entityOwnershipService"
+    interface="org.opendaylight.controller.md.sal.common.api.clustering.EntityOwnershipService" />
+  <reference id="notificationService"
+    interface="org.opendaylight.controller.sal.binding.api.NotificationProviderService" />
+  <reference id="rpcRegistry"
+    interface="org.opendaylight.controller.sal.binding.api.RpcProviderRegistry" />
+  <reference id="ovsdbInventoryService"
+    interface="org.opendaylight.netvirt.openstack.netvirt.api.OvsdbInventoryService" />
+
+  <odl:rpc-service id="salFlowService"
+    interface="org.opendaylight.yang.gen.v1.urn.opendaylight.flow.service.rev130819.SalFlowService" />
+  <odl:rpc-service id="packetProcessingService"
+    interface="org.opendaylight.yang.gen.v1.urn.opendaylight.packet.service.rev130709.PacketProcessingService" />
+
+  <bean id="netvirtProviders"
+    class="org.opendaylight.netvirt.openstack.netvirt.providers.NetvirtProvidersProvider"
+    init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="entityOwnershipService" />
+    <argument ref="notificationService" />
+    <argument ref="packetProcessingService" />
+    <argument ref="salFlowService" />
+    <argument value="0" />
+  </bean>
+
+</blueprint>

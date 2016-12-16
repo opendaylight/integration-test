@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vi: set et smarttab sw=4 tabstop=4: --><!--
+Copyright (c) 2015 Ericsson India Global Services Pvt Ltd. and others.  All rights reserved.
+
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this distribution,
+and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <groupId>org.opendaylight.controller</groupId>
+    <artifactId>config-parent</artifactId>
+    <version>0.6.0-SNAPSHOT</version>
+    <relativePath/>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.opendaylight.netvirt</groupId>
+  <artifactId>config-parent</artifactId>
+  <version>0.4.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <controller.mdsal.version>1.5.0-SNAPSHOT</controller.mdsal.version>
+    <genius.version>0.2.0-SNAPSHOT</genius.version>
+    <infrautils.version>1.1.0-SNAPSHOT</infrautils.version>
+    <karaf.shell.console.version>3.0.3</karaf.shell.console.version>
+    <liblldp.version>0.12.0-SNAPSHOT</liblldp.version>
+    <mdsal.model.version>0.10.0-SNAPSHOT</mdsal.model.version>
+    <model.bgp.version>2013.07.15.10-SNAPSHOT</model.bgp.version>
+    <neutron.version>0.8.0-SNAPSHOT</neutron.version>
+    <openflowplugin.version>0.4.0-SNAPSHOT</openflowplugin.version>
+    <vpns.mdsalutil.version>0.4.0-SNAPSHOT</vpns.mdsalutil.version>
+    <vpns.ovsdb.version>1.4.0-SNAPSHOT</vpns.ovsdb.version>
+    <vpnservices.version>0.4.0-SNAPSHOT</vpnservices.version>
+    <yangtools.version>1.1.0-SNAPSHOT</yangtools.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.sonar-plugins.java</groupId>
+      <artifactId>sonar-jacoco-listeners</artifactId>
+      <version>${sonar-jacoco-listeners.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <!--<propertyExpansion>checkstyle.violationSeverity=error</propertyExpansion>-->
+          <excludes>**/yang/</excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <properties>
+            <property>
+              <name>listener</name>
+              <value>org.sonar.java.jacoco.JUnitListener</value>
+            </property>
+          </properties>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!--
+      Maven Site Configuration
+
+      The following configuration is necessary for maven-site-plugin to
+      correctly identify the correct deployment path for OpenDaylight Maven
+      sites.
+  -->
+  <url>${odl.site.url}/${project.groupId}/${stream}/${project.artifactId}/</url>
+
+  <distributionManagement>
+    <site>
+      <id>opendaylight-site</id>
+      <url>${nexus.site.url}/${project.artifactId}/</url>
+    </site>
+  </distributionManagement>
+</project>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vi: set et smarttab sw=4 tabstop=4: -->
+<!--
+Copyright (c) 2015 - 2016 Ericsson India Global Services Pvt Ltd. and others.  All rights reserved.
+
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this distribution,
+and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<features name="odl-netvirt-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+  <repository>mvn:org.opendaylight.yangtools/features-yangtools/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.controller/features-mdsal/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin-extension/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.netconf/features-restconf/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.ovsdb/southbound-features/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.neutron/features-neutron/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.ovsdb/hwvtepsouthbound-features/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.genius/genius-features/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.infrautils/infrautils-features/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.dlux/features-dlux/{{VERSION}}/xml/features</repository>
+
+  <feature name='odl-netvirt-api' version='${project.version}' description='OpenDaylight :: NetVirt :: api'>
+    <feature version='${mdsal.version}'>odl-mdsal-broker</feature>
+    <feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
+    <feature version='${openflowplugin.version}'>odl-openflowplugin-nsf-model</feature>
+    <feature version="${openflowplugin.version}">odl-openflowplugin-nxm-extensions</feature>
+    <feature version="${ovsdb.version}">odl-ovsdb-southbound-api</feature>
+    <feature version='${ovsdb.version}'>odl-ovsdb-hwvtepsouthbound-api</feature>
+    <feature version='${genius.version}'>odl-genius-api</feature>
+    <feature version='${infrautils.version}'>odl-infrautils-counters</feature>
+    <bundle>mvn:org.opendaylight.controller/liblldp/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.neutron/model/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/model-bgp/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/vpnmanager-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/fibmanager-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/neutronvpn-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/dhcpservice-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/natservice-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/aclservice-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/ipv6service-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/elanmanager-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/cloud-servicechain-api/{{VERSION}}</bundle>
+  </feature>
+
+  <feature name='odl-netvirt-impl' version='${project.version}' description='OpenDaylight :: NetVirt :: impl'>
+    <feature version='${mdsal.version}'>odl-mdsal-broker</feature>
+    <feature version="${ovsdb.version}">odl-ovsdb-southbound-impl</feature>
+    <feature version='${ovsdb.version}'>odl-ovsdb-hwvtepsouthbound</feature>
+    <feature version='${project.version}'>odl-netvirt-api</feature>
+    <feature version="${openflowplugin.version}">odl-openflowplugin-southbound</feature>
+    <feature version="${openflowplugin.version}">odl-openflowplugin-flow-services</feature>
+    <feature version='${genius.version}'>odl-genius</feature>
+    <feature version='${infrautils.version}'>odl-infrautils-inject</feature>
+    <bundle>mvn:commons-net/commons-net/{{VERSION}}</bundle>
+    <bundle>wrap:mvn:com.googlecode.java-ipv6/java-ipv6/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/bgpmanager-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/bgpmanager-impl/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/vpnmanager-impl/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/vpnmanager-shell/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/fibmanager-impl/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/fibmanager-shell/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/neutronvpn-impl/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/neutronvpn-shell/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/dhcpservice-impl/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/cloud-servicechain-impl/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/elanmanager-impl/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/natservice-impl/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/aclservice-impl/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/ipv6service-impl/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/ipv6service-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/statemanager-impl/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.mdsal-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.southbound-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.mdsal-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.southbound-utils/{{VERSION}}</bundle>
+    <bundle>wrap:mvn:org.apache.thrift/libthrift/0.9.1$overwrite=merge&amp;Bundle-Version=0.9.1&amp;Export-Package=*;-noimport:=true;version="0.9.1"</bundle>
+    <configfile finalname="etc/opendaylight/datastore/initial/config/netvirt-aclservice-config.xml">mvn:org.opendaylight.netvirt/aclservice-impl/{{VERSION}}/xml/config</configfile>
+    <configfile finalname="etc/opendaylight/datastore/initial/config/netvirt-dhcpservice-config.xml">mvn:org.opendaylight.netvirt/dhcpservice-impl/{{VERSION}}/xml/config</configfile>
+    <configfile finalname="etc/opendaylight/datastore/initial/config/netvirt-neutronvpn-config.xml">mvn:org.opendaylight.netvirt/neutronvpn-impl/{{VERSION}}/xml/config</configfile>
+  </feature>
+
+  <feature name='odl-netvirt-openstack' version='${project.version}' description='OpenDaylight :: NetVirt :: OpenStack'>
+    <feature version="${neutron.version}">odl-neutron-service</feature>
+    <feature version="${project.version}">odl-netvirt-impl</feature>
+    <feature version="${restconf.version}">odl-restconf</feature>
+  </feature>
+
+  <feature name="odl-netvirt-ui" description="OpenDaylight :: NetVirt :: DLUX Integration Plugin" version='${project.version}'>
+    <feature version="${dlux.version}">odl-dlux-core</feature>
+    <bundle>mvn:org.opendaylight.netvirt/ovsdb-ui-bundle/{{VERSION}}</bundle>
+  </feature>
+</features>

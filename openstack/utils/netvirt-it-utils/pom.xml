@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016 Red Hat, Inc. and others. All rights reserved.
+
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this distribution,
+and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <groupId>org.opendaylight.controller</groupId>
+    <artifactId>config-parent</artifactId>
+    <version>0.6.0-SNAPSHOT</version>
+    <relativePath/>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.opendaylight.netvirt</groupId>
+  <artifactId>utils.netvirt-it-utils</artifactId>
+  <version>1.4.0-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+
+  <scm>
+    <connection>scm:git:ssh://git.opendaylight.org:29418/netvirt.git</connection>
+    <developerConnection>scm:git:ssh://git.opendaylight.org:29418/netvirt.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://wiki.opendaylight.org/view/OVSDB_Integration:Main</url>
+  </scm>
+
+  <properties>
+    <ovsdb.version>1.4.0-SNAPSHOT</ovsdb.version>
+    <openflowplugin.version>0.4.0-SNAPSHOT</openflowplugin.version>
+  </properties>
+
+  <dependencies>
+      <dependency>
+          <groupId>org.opendaylight.controller</groupId>
+          <artifactId>sal-binding-api</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>utils.mdsal-utils</artifactId>
+          <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>openstack.net-virt</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>utils.neutron-utils</artifactId>
+          <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opendaylight.ovsdb</groupId>
+        <artifactId>utils.mdsal-utils</artifactId>
+        <version>${ovsdb.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.opendaylight.ovsdb</groupId>
+          <artifactId>southbound-api</artifactId>
+          <version>${ovsdb.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.opendaylight.ovsdb</groupId>
+          <artifactId>utils.southbound-utils</artifactId>
+          <version>${project.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.opendaylight.netvirt</groupId>
+          <artifactId>utils.mdsal-openflow</artifactId>
+          <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opendaylight.ovsdb</groupId>
+        <artifactId>utils.ovsdb-it-utils</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.opendaylight.mdsal.model</groupId>
+          <artifactId>ietf-inet-types-2013-07-15</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.opendaylight.mdsal.model</groupId>
+          <artifactId>ietf-topology</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <scope>compile</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.opendaylight.openflowplugin</groupId>
+          <artifactId>openflowplugin-extension-api</artifactId>
+          <version>${openflowplugin.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.opendaylight.openflowplugin</groupId>
+          <artifactId>openflowplugin-extension-nicira</artifactId>
+          <version>${openflowplugin.version}</version>
+      </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Embed-Dependency>
+              utils.mdsal-openflow;groupId=org.opendaylight.netvirt;type=!pom;inline=false
+            </Embed-Dependency>
+            <Embed-Transitive>true</Embed-Transitive>
+            <Export-Package>
+              org.opendaylight.netvirt.utils.netvirt.it.utils
+            </Export-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+    <!--
+        Maven Site Configuration
+
+        The following configuration is necessary for maven-site-plugin to
+        correctly identify the correct deployment path for OpenDaylight Maven
+        sites.
+    -->
+    <url>${odl.site.url}/${project.groupId}/${stream}/${project.artifactId}/</url>
+
+    <distributionManagement>
+        <site>
+            <id>opendaylight-site</id>
+            <url>${nexus.site.url}/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+</project>

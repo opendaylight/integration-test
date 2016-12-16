@@ -1,0 +1,431 @@
+module odl-l3vpn {
+    namespace "urn:opendaylight:netvirt:l3vpn";
+    prefix odl-l3vpn;
+
+    import yang-ext {prefix ext; revision-date "2013-07-09";}
+    import l3vpn { prefix l3vpn; revision-date "2014-08-15"; }
+    import ietf-yang-types { prefix "yang"; revision-date "2013-07-15"; }
+    import odl-interface { prefix odlif; revision-date "2016-04-06"; }
+
+    revision "2013-09-11" {
+        description "L3 VPN Service module";
+    }
+
+    grouping adjacency-list{
+        list adjacency{
+            key "ip_address";
+            leaf-list next-hop-ip-list { type string; }
+            leaf ip_address {type string;}
+            leaf primary-adjacency {
+                type boolean;
+                default false;
+                description "Value of True indicates this is a primary adjacency";
+            }
+            leaf label { type uint32; config "false"; } /* optional */
+            leaf mac_address {type string;} /* optional */
+            leaf subnet_id {type yang:uuid;} /* optional */
+        }
+    }
+
+    grouping vpn-route-list{
+        leaf-list route-entry-id{
+            type uint32;
+        }
+    }
+
+    augment "/l3vpn:vpn-interfaces/l3vpn:vpn-interface" {
+        ext:augment-identifier "adjacencies";
+        uses adjacency-list;
+    }
+
+    augment "/l3vpn:vpn-interfaces/l3vpn:vpn-interface" {
+        ext:augment-identifier "opState";
+        leaf stateUp {type boolean; config false;}
+    }
+
+    /* Operational DS containers for reverse lookups*/
+    container prefix-to-interface {
+        config false;
+        list vpn-ids {
+           key vpn-id;
+           leaf vpn-id {type uint32;}
+           list prefixes {
+              key ip_address;
+              leaf ip_address {type string;}
+              leaf dpnId {
+                 type uint64;
+              }
+              leaf vpn-interface-name {
+                  type string;
+              }
+           }
+        }
+    }
+
+    container vpn-to-extraroute {
+        config false;
+        list vpn {
+           key vrf-id;
+           leaf vrf-id {
+              description
+                 "The vrf-id command configures a route distinguisher (RD)
+                  for the IPv4 or IPv6 address family of a VPN instance or
+                  vpn instance name for internal vpn case.";
+              type string;
+           }
+           list extraroute {
+              key prefix;
+              leaf prefix {type string;}
+              leaf-list nexthop-ip-list {
+                  type string;
+              }
+           }
+        }
+    }
+
+    /* Data models to adhere to restart requirements */
+    container vpn-instance-to-vpn-id {
+       list vpn-instance {
+          key vpn-instance-name;
+          leaf vpn-instance-name {
+             type string;
+          }
+          leaf vpn-id {
+             type uint32;
+          }
+          leaf vrf-id {
+              description
+                 "The vrf-id command configures a route distinguisher (RD)
+                  for the IPv4 or IPv6 address family of a VPN instance or
+                  vpn instance name for internal vpn case.";
+              type string;
+          }
+       }
+    }
+
+    container vpn-id-to-vpn-instance {
+           list vpn-ids {
+              key vpn-id;
+              leaf vpn-id {
+                 type uint32;
+              }
+              leaf vpn-instance-name {
+                 type string;
+              }
+              leaf vrf-id {
+                  description
+                     "The vrf-id command configures a route distinguisher (RD)
+                      for the IPv4 or IPv6 address family of a VPN instance or
+                      vpn instance name for internal vpn case.";
+                  type string;
+              }
+              leaf external-vpn {
+                  type boolean;
+                  description "The VPN is external?";
+              }
+           }
+    }
+
+    container vpn-instance-op-data {
+        config false;
+        list vpn-instance-op-data-entry {
+           key vrf-id;
+           leaf vpn-id { type uint32;}
+           leaf vrf-id {
+              description
+                 "The vrf-id command configures a route distinguisher (RD)
+                  for the IPv4 or IPv6 address family of a VPN instance or
+                  vpn instance name for internal vpn case.";
+              type string;
+           }
+
+           leaf vpn-instance-name {
+               description "Typical the VPN Uuid";
+               type string;
+           }
+
+           leaf vpn-interface-count { type uint32; }
+           uses vpn-route-list;
+           list vpn-to-dpn-list {
+               key dpnId;
+               leaf dpnId {
+                  type uint64;
+               }
+               list vpn-interfaces {
+                  key interface-name;
+                  leaf interface-name {
+                      type string;
+                  }
+               }
+               list ip-addresses {
+                   key ip-address;
+                   leaf ip-address { type string; }
+               }
+               leaf dpn-state {
+                  description
+                  "This flag indicates the state of the DPN.
+                   Active state indicates atleast one vpn interface present on that DPN for the vpn.
+                   Inactive state indicates no vpn interface present on that DPN for this vpn.";
+
+                  type enumeration {
+                     enum active {
+                        value "0";
+                        description
+                        "Active state";
+                     }
+                     enum inactive {
+                        value "1";
+                        description
+                        "Inactive state";
+                     }
+                  }
+                  default "active";
+               }
+           }
+           leaf type {
+              description
+                 "The type of the VPN Instance.
+                  L3 indicates it is an L3VPN.
+                  L2 indicates it is an EVPN";
+
+              type enumeration {
+                 enum l3 {
+                    value "0";
+                    description “L3VPN";
+                 }
+                 enum l2{
+                    value "1";
+                    description "EVPN";
+                 }
+              }
+              default "l3";
+           }
+           leaf l3vni {
+              type uint32;
+           }
+           container vpnTargets {
+              description
+                "The vpn-target command configures the export or import VPN target
+                 extended community attribute for the VPN instance IPv4/IPv6 address
+                 family.
+                 Format is ASN:nn or IP-address:nn.";
+
+              list vpnTarget {
+                 key "vrfRTValue";
+                 max-elements "unbounded";
+                 min-elements "0";
+                 description
+                    "L3vpn vpntarget configure class";
+
+                 leaf vrfRTValue {
+                    description
+                       "Vpn-target: adds VPN target extended community attribute to the
+                        export or import VPN target extended community list. The
+                        vpn-target can be expressed in either of the following formats:
+                        (1)16-bit AS number:32-bit user-defined number
+                           For example, 1:3. The AS number ranges from 0 to 65535. The
+                           user-defined number ranges from 0 to 4294967295. The AS number
+                           and the user-defined number cannot be 0s at the same time.
+                           That is, a VPN target cannot be 0:0.
+                        (2)32-bit IP address:16-bit user-defined number
+                           For example, 192.168.122.15:1. The IP address ranges from
+                           0.0.0.0 to 255.255.255.255. The user-defined number ranges from
+                           0 to 65535.
+                        (3)32-bit IP address:16-bit user-defined number
+                           For example, 192.168.122.15:1. An IP address ranges from
+                           0.0.0.0 to 255.255.255.255. A user-defined number ranges from 0
+                           to 65535.";
+                    type string {
+                       length "3..21";
+                    }
+                 }
+
+                 leaf vrfRTType {
+                    description
+                       "Specifies the vpn target type, export-extcommunity:
+                        specifies the extended community attributes carried in routing
+                        information to be sent. import-extcommunity: receives routing
+                        information carrying specified extended community attributes.";
+
+                    type enumeration {
+                       enum export_extcommunity {
+                          value "0";
+                          description "export-extcommunity:";
+                       }
+                       enum import_extcommunity {
+                          value "1";
+                          description "import-extcommunity:";
+                       }
+                       enum both {
+                          value "2";
+                          description "export-extcommunity & import-extcommunity:";
+                       }
+                    }
+                 }
+              }
+           }
+        }
+    }
+
+
+    typedef task-state {
+         type enumeration {
+           enum na {
+             value "0";
+             description
+              "Task not applicable";
+           }
+           enum pending {
+             value "1";
+             description
+              "Task is in pending state";
+           }
+           enum done {
+             value "2";
+             description
+              "Task has been completed";
+           }
+         }
+         description
+          "This value the status of any task.
+           The possible values are NA, PENDING or DONE.
+           ";
+           }
+
+
+    container subnet-op-data {
+        config false;
+        list subnet-op-data-entry {
+            key subnet-id;
+            leaf subnet-id {
+                type    yang:uuid;
+                description "UUID representing the subnet ";
+            }
+            leaf nh-dpnId {
+                type uint64;
+                description "DpnId for the DPN used as nexthop for this subnet";
+            }
+            leaf vpn-name {
+                type string;
+                description "VPN Instance name";
+            }
+            leaf vrf-id {
+                type string;
+            }
+            leaf subnet-cidr {
+                type string;
+                description "Subnet in cidr notation";
+            }
+            leaf route-adv-state {
+                type task-state;
+                description "The status of the subnet route advertisement. Route advertisement could be in a NA, PENDING or DONE state.";
+            }
+            leaf elan-tag{
+                type uint32;
+            }
+            list subnet-to-dpn {
+                key dpnId;
+                leaf dpnId {
+                    type uint64;
+                }
+                list vpn-interfaces {
+                    key interface-name;
+                    leaf interface-name {
+                        type string;
+                    }
+                }
+            }
+
+        }
+    }
+
+    container port-op-data {
+        config false;
+        list port-op-data-entry {
+            key port-id;
+            leaf port-id {
+                type  string;
+                description "UUID in string format representing the port ";
+            }
+            leaf subnet-id {
+                type  yang:uuid;
+                description "Back reference to obtain the subnet for a port ";
+            }
+            leaf dpnId {
+                type uint64;
+            }
+        }
+    }
+
+
+    grouping dpn-in-vpn-event {
+        leaf dpn-id { type uint64; }
+        leaf vpn-name { type string; }
+        leaf rd { type string; }
+    }
+
+    notification add-dpn-event {
+        container add-event-data {
+           uses dpn-in-vpn-event;
+        }
+    }
+
+    notification remove-dpn-event {
+        container remove-event-data {
+           uses dpn-in-vpn-event;
+        }
+    }
+
+    /*
+     * Configured Transport Type for l3vpn service.
+     */
+    container conf-transport-type-l3vpn {
+        leaf transport-type {
+            mandatory "true";
+            type identityref {
+                base odlif:tunnel-type-base;
+            }
+            description
+                "L3VPN service will use this config to setup
+                the transport type for tunnels between DPNs.";
+        }
+    }
+
+    /* container to maintain mapping between neutron router and DPN(s) on which vpn-interfaces for router are present */
+    container neutron-router-dpns {
+        config false;
+        list router-dpn-list {
+            key router-id;
+            leaf router-id { type string;}
+            list dpn-vpninterfaces-list {
+                key dpn-id;
+                leaf dpn-id { type uint64;}
+                list router-interfaces {
+                    key interface;
+                    leaf interface { type string; }
+                }
+            }
+        }
+    }
+
+    /* container to maintain mapping between DPN(s) and the routers */
+    container dpn-routers {
+        config false;
+        list dpn-routers-list {
+            key dpn-id;
+            leaf dpn-id { type uint64;}
+            list routers-list {
+                key router;
+                leaf router { type string;}
+            }
+        }
+    }
+
+    container router-interfaces {
+        list router-interface {
+            key interface-name;
+            leaf interface-name { type string; }
+            leaf router-name { type string; }
+        }
+    }
+}

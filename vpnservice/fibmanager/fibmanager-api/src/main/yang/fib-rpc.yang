@@ -1,0 +1,88 @@
+module fib-rpc {
+    namespace "urn:opendaylight:netvirt:fib:rpc";
+    prefix "fib-rpc";
+
+    import ietf-inet-types {
+        prefix inet;
+        revision-date "2013-07-15";
+    }
+
+    import opendaylight-flow-types {
+        prefix offlow;
+        revision-date "2013-10-26";
+    }
+
+    revision "2016-01-21" {
+        description "FIB Servicer RPC Module";
+    }
+
+    /* RPCs */
+
+    rpc create-fib-entry {
+        description "to install FIB/LFIB/TST routes on specified dpn with given instructions";
+        input {
+            leaf source-dpid {
+                type uint64;
+            }
+            leaf vpn-name {
+                type string;
+            }
+            leaf service-id {
+                type uint32;
+            }
+            leaf ip-address {
+                type string;
+            }
+            uses offlow:instruction-list;
+        }
+    }
+
+    rpc remove-fib-entry {
+        description "to remove FIB/LFIB/TST routes from specified dpn";
+        input {
+            leaf source-dpid {
+                type uint64;
+            }
+            leaf vpn-name {
+                type string;
+            }
+            leaf service-id {
+                type uint32;
+            }
+            leaf ip-address {
+                type string;
+            }
+        }
+    }
+
+    rpc populate-fib-on-dpn {
+        description "Populates FIB table in specified DPN";
+        input {
+            leaf dpid {
+                type uint64;
+            }
+            leaf vpn-id {
+                type uint32;
+            }
+            leaf rd {
+                type string;
+            }
+        }
+    }
+
+    rpc cleanup-dpn-for-vpn {
+        description "Removes the VPN Fib entries in a given DPN";
+        input {
+            leaf dpid {
+                type uint64;
+            }
+            leaf vpn-id {
+                type uint32;
+            }
+            leaf rd {
+                type string;
+            }
+
+        }
+    }
+}

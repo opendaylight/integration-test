@@ -1,0 +1,59 @@
+module aclservice-config {
+    yang-version 1;
+    namespace "urn:opendaylight:netvirt:aclservice-config";
+    prefix "aclservice-config";
+
+    description
+        "Configuration for acl-serviceImpl.";
+
+    revision "2016-08-06" {
+        description
+                "Initial revision.";
+    }
+
+    container aclservice-config {
+        config true;
+        leaf security-group-mode {
+            type enumeration {
+                enum "transparent";
+                enum "stateless";
+                enum "stateful";
+                enum "learn";
+            }
+            default "stateful";
+        }
+
+        leaf security-group-tcp-idle-timeout {
+            type uint16;
+            default 18000;
+        }
+        leaf security-group-tcp-hard-timeout {
+            type uint16;
+            default 0;
+        }
+        leaf security-group-tcp-fin-idle-timeout {
+            type uint16;
+            default 300;
+        }
+        leaf security-group-tcp-fin-hard-timeout {
+            type uint16;
+            default 0;
+        }
+        leaf security-group-udp-idle-timeout {
+            type uint16;
+            default 300;
+        }
+        leaf security-group-udp-hard-timeout {
+            type uint16;
+            default 0;
+        }
+        leaf security-group-default-idle-timeout {
+            type uint16;
+            default 300;
+        }
+        leaf security-group-default-hard-timeout {
+            type uint16;
+            default 0;
+        }
+    }
+}

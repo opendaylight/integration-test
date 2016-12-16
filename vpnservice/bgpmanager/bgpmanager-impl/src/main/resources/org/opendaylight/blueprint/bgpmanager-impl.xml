@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:odl="http://opendaylight.org/xmlns/blueprint/v1.0.0"
+           odl:use-default-for-reference-types="true">
+
+  <reference id="dataBroker"
+             interface="org.opendaylight.controller.md.sal.binding.api.DataBroker"
+             odl:type="default" />
+  <reference id="entityOwnershipService"
+             interface="org.opendaylight.controller.md.sal.common.api.clustering.EntityOwnershipService" />
+
+  <bean id="bgpAlarmBroadcaster"
+        class="org.opendaylight.netvirt.bgpmanager.oam.BgpAlarmBroadcaster"
+        init-method="init" >
+  </bean>
+
+  <bean id="fibDSWriter" class="org.opendaylight.netvirt.bgpmanager.FibDSWriter">
+    <argument ref="dataBroker" />
+  </bean>
+  
+  <bean id="bgpCommands" class="org.opendaylight.netvirt.bgpmanager.commands.Commands">
+    <argument ref="bgpManager" />
+  </bean>
+
+  <bean id="bgpManager" class="org.opendaylight.netvirt.bgpmanager.BgpManager"
+        init-method="init" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="bgpConfigurationManager" />
+    <argument ref="bgpAlarmBroadcaster" />
+    <argument ref="fibDSWriter" />
+  </bean>
+  <service ref="bgpManager" odl:type="default"
+           interface="org.opendaylight.netvirt.bgpmanager.api.IBgpManager" />
+
+  <bean id="bgpConfigurationManager"
+        class="org.opendaylight.netvirt.bgpmanager.BgpConfigurationManager"
+        destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="entityOwnershipService" />
+    <argument ref="fibDSWriter" />
+    <argument ref="blueprintBundleContext" />
+  </bean>
+</blueprint>

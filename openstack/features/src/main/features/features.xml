@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features name="ovsdb-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+  <repository>mvn:org.opendaylight.controller/features-mdsal/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.dlux/features-dlux/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.netconf/features-restconf/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin-extension/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.neutron/features-neutron/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.ovsdb/southbound-features/{{VERSION}}/xml/features</repository>
+
+  <feature name="odl-ovsdb-openstack" description="OpenDaylight :: OVSDB :: OpenStack Network Virtualization"
+           version='${project.version}'>
+    <feature version='${controller.mdsal.version}'>odl-mdsal-broker</feature>
+    <feature version="${openflowplugin.version}">odl-openflowplugin-nsf-model</feature>
+    <bundle>mvn:org.opendaylight.neutron/model/{{VERSION}}</bundle>
+    <feature version="${neutron.version}">odl-neutron-service</feature>
+    <feature version="${ovsdb.version}">odl-ovsdb-southbound-impl-ui</feature>
+    <feature version="${openflowplugin.version}">odl-openflowplugin-southbound</feature>
+    <feature version="${openflowplugin.version}">odl-openflowplugin-flow-services</feature>
+    <feature version="${openflowplugin.version}">odl-openflowplugin-nxm-extensions</feature>
+    <bundle>mvn:org.opendaylight.netvirt/utils.servicehelper/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/utils.neutron-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/utils.mdsal-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.mdsal-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.southbound-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/openstack.net-virt/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/openstack.net-virt-providers/{{VERSION}}</bundle>
+    <bundle>mvn:commons-net/commons-net/{{VERSION}}</bundle>
+  </feature>
+
+  <feature name="odl-ovsdb-openstack-it" description="OpenDaylight :: OVSDB :: OpenStack Network Virtualization IT"
+           version='${project.version}'>
+    <feature version="${project.version}">odl-ovsdb-openstack</feature>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.ovsdb-it-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.mdsal-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/utils.netvirt-it-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/utils.neutron-utils/{{VERSION}}</bundle>
+  </feature>
+
+  <feature name="odl-ovsdb-ui" description="OpenDaylight :: OVSDB :: DLUX Integration Plugin" version='${project.version}'>
+    <feature version="${dlux.version}">odl-dlux-core</feature>
+    <bundle>mvn:org.opendaylight.netvirt/ovsdb-ui-bundle/{{VERSION}}</bundle>
+  </feature>
+</features>

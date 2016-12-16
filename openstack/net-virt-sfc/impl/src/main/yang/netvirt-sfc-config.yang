@@ -1,0 +1,24 @@
+module netvirt-sfc-config {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:netvirt:sfc:impl:config";
+    prefix "netvirt-sfc-config";
+
+    description
+        "Service configuration for netvirt sfc project";
+
+    revision "2016-05-17" {
+        description
+            "Initial revision";
+    }
+
+    container netvirt-sfc-config {
+        leaf of13provider {
+           type string;
+           default "workaround";
+        }
+        leaf addsflows {
+            type boolean;
+            default false;
+        }
+    }
+}

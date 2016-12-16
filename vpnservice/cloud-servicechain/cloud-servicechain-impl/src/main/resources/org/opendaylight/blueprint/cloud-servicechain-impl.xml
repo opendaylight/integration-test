@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:odl="http://opendaylight.org/xmlns/blueprint/v1.0.0"
+           odl:use-default-for-reference-types="true">
+
+    <reference id="dataBroker" interface="org.opendaylight.controller.md.sal.binding.api.DataBroker"
+               odl:type="pingpong" />
+    <reference id="mdsalManager" interface="org.opendaylight.genius.mdsalutil.interfaces.IMdsalApiManager" />
+    <reference id="vpnManager" interface="org.opendaylight.netvirt.vpnmanager.api.IVpnManager" />
+
+    <bean id="vpnServiceChainHandler" class="org.opendaylight.netvirt.cloudservicechain.VPNServiceChainHandler"
+          init-method="init" destroy-method="close">
+        <argument ref="dataBroker" />
+        <argument ref="mdsalManager" />
+        <argument ref="vpnManager" />
+    </bean>
+
+    <bean id="elanServiceChainHandler" class="org.opendaylight.netvirt.cloudservicechain.ElanServiceChainHandler">
+        <argument ref="dataBroker" />
+        <argument ref="mdsalManager" />
+    </bean>
+
+    <bean id="cloudServiceChain" class="org.opendaylight.netvirt.cloudservicechain.CloudServiceChainProvider">
+        <argument ref="vpnServiceChainHandler" />
+        <argument ref="elanServiceChainHandler" />
+    </bean>
+    <service ref="cloudServiceChain" odl:type="default"
+             interface="org.opendaylight.netvirt.cloudservicechain.api.ICloudServiceChain"/>
+
+    <bean id="vpnPseudoPortListener" class="org.opendaylight.netvirt.cloudservicechain.listeners.VpnPseudoPortListener"
+          init-method="init" destroy-method="close">
+        <argument ref="dataBroker" />
+    </bean>
+
+    <bean id="vrfListener" class="org.opendaylight.netvirt.cloudservicechain.listeners.VrfListener"
+          init-method="init" destroy-method="close">
+        <argument ref="dataBroker" />
+        <argument ref="mdsalManager" />
+    </bean>
+
+    <bean id="vpnToDpnListener" class="org.opendaylight.netvirt.cloudservicechain.listeners.VpnToDpnListener">
+        <argument ref="dataBroker" />
+        <argument ref="mdsalManager" />
+        <argument ref="vpnServiceChainHandler" />
+    </bean>
+    <odl:notification-listener ref="vpnToDpnListener" />
+
+    <bean id="vpn2ElanFallbackNodeListener"
+          class="org.opendaylight.netvirt.cloudservicechain.listeners.VpnToElanFallbackNodeListener"
+          init-method="init" destroy-method="close">
+        <argument ref="dataBroker" />
+        <argument ref="mdsalManager" />
+    </bean>
+
+    <bean id="elanDpnInterfacesListener"
+          class="org.opendaylight.netvirt.cloudservicechain.listeners.ElanDpnInterfacesListener"
+          init-method="init" destroy-method="close">
+        <argument ref="dataBroker"/>
+        <argument ref="mdsalManager"/>
+    </bean>
+</blueprint>

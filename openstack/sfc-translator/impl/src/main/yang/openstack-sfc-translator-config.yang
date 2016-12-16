@@ -1,0 +1,16 @@
+module openstack-sfc-translator-config {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:netvirt:openstack:sfc:translator:config";
+    prefix "openstack-sfc-translator-config";
+
+    description
+        "Service configuration for OpenStack sfc translator project";
+
+    revision "2016-07-20" {
+        description
+            "Initial revision";
+    }
+
+    container openstack-sfc-translator-config {
+    }
+}

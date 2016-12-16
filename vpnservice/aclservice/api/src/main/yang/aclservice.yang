@@ -1,0 +1,83 @@
+module aclservice {
+    yang-version 1;
+    namespace "urn:opendaylight:netvirt:aclservice";
+    prefix "aclservice";
+
+    import ietf-access-control-list { prefix ietf-acl;}
+    import ietf-yang-types { prefix "yang"; revision-date 2013-07-15; }
+    import yang-ext { prefix ext; revision-date 2013-07-09;}
+    import ietf-interfaces { prefix "ietf-if"; revision-date 2014-05-08;}
+    import ietf-inet-types { prefix "inet"; revision-date 2013-07-15; }
+
+    description
+        "ACL Service module";
+
+    revision "2016-06-08" {
+        description
+            "Initial revision";
+    }
+
+    identity direction-base {
+        description "Base identity for direction";
+    }
+
+    identity direction-ingress {
+        description "Ingress direction.";
+        base direction-base;
+    }
+
+    identity direction-egress {
+        description "Egress direction.";
+        base direction-base;
+
+    }
+
+    typedef ip-prefix-or-address {
+        description "ip prefix or ip address";
+        type union {
+            type inet:ip-prefix;
+            type inet:ip-address;
+        }
+    }
+
+    augment "/ietf-acl:access-lists/ietf-acl:acl/ietf-acl:access-list-entries/ietf-acl:ace" {
+        description "Security Rule Attributes";
+        ext:augment-identifier "security-rule-attr";
+        leaf remote-group-id {
+            description "The remote group ID to be associated with this security group rule.";
+            type yang:uuid;
+        }
+        leaf direction {
+            type identityref {
+                base "direction-base";
+            }
+            description "The direction in which metering rule is applied.
+                For a compute instance, an ingress security group rule is
+                applied to incoming (ingress) traffic for that instance.
+                An egress rule is applied to traffic leaving the instance.";
+        }
+    }
+
+    augment "/ietf-if:interfaces/ietf-if:interface" {
+        description "Apply ACL to interfaces";
+        ext:augment-identifier "interface-acl";
+        leaf port-security-enabled {
+            type boolean;
+            description "The port security status. The status is enabled (true) or disabled (false).";
+        }
+        leaf-list security-groups {
+            type yang:uuid;
+            description "The security group ID to associate with this interface.";
+        }
+        list allowed-address-pairs {
+            description "Allowed address pairs for this interface.";
+            key "mac-address ip-address";
+            leaf mac-address {
+                type yang:mac-address;
+            }
+            leaf ip-address {
+                type ip-prefix-or-address;
+            }
+        }
+    }
+}

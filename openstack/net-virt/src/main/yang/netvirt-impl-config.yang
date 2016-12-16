@@ -1,0 +1,24 @@
+module netvirt-impl-config {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:netvirt:impl:config";
+    prefix "netvirt-impl-config";
+
+    description
+        "Configuration for Netvirt Impl.";
+
+    revision "2016-05-17" {
+        description
+                "Initial revision.";
+    }
+
+    container netvirt-impl-config {
+        leaf conntrack-enabled {
+            type boolean;
+            default false;
+        }
+        leaf int-bridge-gen-mac {
+            type boolean;
+            default true;
+        }
+    }
+}

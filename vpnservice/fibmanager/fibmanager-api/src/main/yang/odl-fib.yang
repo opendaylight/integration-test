@@ -1,0 +1,113 @@
+module odl-fib {
+    namespace "urn:opendaylight:netvirt:fibmanager";
+    prefix odl-fib;
+
+    import yang-ext {prefix ext; revision-date "2013-07-09";}
+
+    revision "2015-03-30" {
+        description "FIB Manager module";
+    }
+
+    grouping ipv4Entries{
+        list ipv4Entry{
+            key  "destPrefix";
+            leaf destPrefix {type string;}
+            leaf nextHopAddress {type string;}
+        }
+    }
+
+    grouping vrfEntries{
+        list vrfEntry{
+            key  "destPrefix";
+            leaf destPrefix {
+                type string;
+                mandatory true;
+            }
+            leaf label {
+                type uint32;
+                mandatory false;
+            }
+            leaf-list nextHopAddressList {
+                type string;
+                min-elements "1";
+            }
+            leaf origin {
+                type string;
+                mandatory true;
+            }
+            leaf encap-type {
+               description
+                  "This flag indicates how to interpret the existing label field.
+                   A value of mplsgre indicates that the label will continue to be considered as an MPLS Label.
+                   A value of vxlan indicates that vni should be used to advertise to bgp.";
+
+               type enumeration {
+                  enum mplsgre {
+                     value "0";
+                     description "MPLSOverGRE";
+                  }
+                  enum vxlan {
+                     value "1";
+                     description “VNI";
+                  }
+               }
+               default "mplsgre";
+            }
+
+            leaf mac_address {
+               type string;
+               mandatory false;
+            }
+
+            leaf l3vni {
+               type uint32;
+               mandatory false;
+            }
+            leaf gateway_mac_address {
+               type string;
+               mandatory false;
+            }
+
+        }
+    }
+
+    augment "/odl-fib:fibEntries/odl-fib:vrfTables/odl-fib:vrfEntry" {
+            ext:augment-identifier "subnetRoute";
+            leaf elantag {type uint32;}
+    }
+
+    augment "/odl-fib:fibEntries/odl-fib:vrfTables/odl-fib:vrfEntry" {
+        ext:augment-identifier "routerInterface";
+        leaf uuid {type string;}
+    }
+
+    container fibEntries {
+        config true;
+        list vrfTables{
+            key "routeDistinguisher";
+            leaf routeDistinguisher {type string;}
+            uses vrfEntries;
+        }
+
+        container ipv4Table{
+            uses ipv4Entries;
+        }
+    }
+
+    container label-route-map {
+         config false;
+         list label-route-info {
+            key label;
+            leaf label { type uint32; }
+            leaf dpn-id { type uint64; }
+            leaf prefix { type string; }
+            leaf-list next-hop-ip-list { type string; }
+            leaf-list vpn-instance-list { type string; }
+            leaf parent-vpnid { type uint32; }
+            leaf vpn-interface-name { type string; }
+            leaf elan-tag { type uint32; }
+            leaf is-subnet-route { type boolean; }
+            leaf parent-vpn-rd { type string; }
+         }
+    }
+}
