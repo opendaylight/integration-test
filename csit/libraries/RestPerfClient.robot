@@ -55,7 +55,7 @@ RestPerfClient__Kill
 Restperfclient__Invoke_With_Timeout
     [Arguments]    ${timeout}    ${command}
     [Timeout]    ${timeout}
-    Execute_Command_Passes    ${command} >${RestPerfClient__restperfclientlog} 2>&1
+    Execute_Command_Passes    ${command} 2>&1 | tee ${RestPerfClient__restperfclientlog}
     Execute_Command_Passes    cat ${RestPerfClient__restperfclientlog}
 
 Invoke_Restperfclient
