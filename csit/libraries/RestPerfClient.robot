@@ -52,10 +52,15 @@ RestPerfClient__Kill
     SSHLibrary.Set_Client_Configuration    timeout=5
     SSHLibrary.Read_Until_Prompt
 
+Restperfclient__Wait_For_Finish
+    SSHLibrary.Set_Client_Configuration    timeout=120
+    SSHLibrary.Write    ${Empty}
+    SSHLibrary.Read_Until_Prompt
+
 Restperfclient__Invoke_With_Timeout
     [Arguments]    ${timeout}    ${command}
-    [Timeout]    ${timeout}
-    Execute_Command_Passes    ${command} >${RestPerfClient__restperfclientlog} 2>&1
+    SSHLibrary.Write    ${command} 2>&1 | tee ${RestPerfClient__restperfclientlog}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Restperfclient__Wait_For_Finish
     Execute_Command_Passes    cat ${RestPerfClient__restperfclientlog}
 
 Invoke_Restperfclient
@@ -76,7 +81,6 @@ Invoke_Restperfclient
     ${command}=    BuiltIn.Set_Variable    ${RestPerfClient__restperfclient_invocation_command_prefix} ${options}
     BuiltIn.Log    Running restperfclient: ${command}
     SSHLibrary.Switch_Connection    ${RestPerfClient__restperfclient}
-    SSHLibrary.Set_Client_Configuration    timeout=${timeout}
     ${keyword_timeout}=    DateTime.Add_Time_To_Time    ${timeout}    2m    result_format=compact
     SetupUtils.Set_Known_Bug_Id    5413
     ${restperfclient_running}=    Set_Variable    True
