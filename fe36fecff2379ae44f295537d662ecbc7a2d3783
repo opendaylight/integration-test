@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_691e0465",
+        "filename": "csit/libraries/Netvirt.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-12-17T00:25:39Z",
+      "side": 1,
+      "message": "Sorry for a late comment\nThere is a library called DataStoreCRUD can we use the READ from that library?",
+      "revId": "fe36fecff2379ae44f295537d662ecbc7a2d3783",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_29140c43",
         "filename": "csit/variables/netvirt/Modules.py",
         "patchSetId": 1
