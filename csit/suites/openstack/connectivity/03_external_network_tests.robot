@@ -64,13 +64,12 @@ Create Vm Instances
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
-    ...    We are polling first and longest on the last VM created assuming that if it's received it's address
-    ...    already the other instances should have theirs already or at least shortly thereafter.
-    # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
-    # for dhcp addresses
+    ...    if any of the VM IPs are given as 'None' this test case will fail, and it's expected that others after
+    ...    this will also fail.
     : FOR    ${vm}    IN    @{VM_INSTANCES}
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
-    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES}
+    ${vm_ips}    ${dhcp_ip}    Get Vm Ip Addresses    @{VM_INSTANCES}
+    List Should Not Contain Value    ${vm_ips}    None
     [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES}
     ...    AND    Get Test Teardown Debugs
 
