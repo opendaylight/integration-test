@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_29140c43",
+        "filename": "csit/variables/netvirt/Modules.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-12-17T00:24:38Z",
+      "side": 1,
+      "message": "Can we name it like netvirt, so that every  project can add differnt list of models and use the Keyword?",
+      "revId": "fe36fecff2379ae44f295537d662ecbc7a2d3783",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
