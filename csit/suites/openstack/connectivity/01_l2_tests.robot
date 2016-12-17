@@ -70,6 +70,7 @@ Check Vm Instances Have Ip Address
     \    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
     \    ${NET1_VM_LIST_LENGTH}=    Get Length    ${NET1_VM_IPS}
     \    ${NET2_VM_LIST_LENGTH}=    Get Length    ${NET2_VM_IPS}
+    \    Continue For Loop If    None in ${NET1_VM_IPS} or None in ${NET2_VM_IPS}
     \    Exit For Loop If    ${NET1_VM_LIST_LENGTH}==${NET1_VM_COUNT} and ${NET2_VM_LIST_LENGTH}==${NET2_VM_COUNT}
     Append To List    ${NET1_VM_IPS}    ${NET1_DHCP_IP}
     Set Suite Variable    ${NET1_VM_IPS}
