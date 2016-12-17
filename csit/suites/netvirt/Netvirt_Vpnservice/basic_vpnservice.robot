@@ -85,10 +85,10 @@ Create Nova VMs
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET20[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
     Log    Check for routes
     Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate
-    ${VM_IP_NET10}    ${DHCP_IP1}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET10}
+    ${VM_IP_NET10}    ${DHCP_IP1}    Wait Until Keyword Succeeds    15s    5s    Check Vm For Ip Address    @{VM_INSTANCES_NET10}
     Log    ${VM_IP_NET10}
     Set Suite Variable    ${VM_IP_NET10}
-    ${VM_IP_NET20}    ${DHCP_IP2}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET20}
+    ${VM_IP_NET20}    ${DHCP_IP2}    Wait Until Keyword Succeeds    15s    5s    Check Vm For Ip Address    @{VM_INSTANCES_NET20}
     Log    ${VM_IP_NET20}
     Set Suite Variable    ${VM_IP_NET20}
 
@@ -302,3 +302,9 @@ Wait For Routes To Propogate
     ${net_id} =    Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
     ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
     Should Contain    ${output}    @{SUBNET_CIDR}[1]
+
+Check Vm For Ip Address
+    [Arguments]    ${vm}
+    ${vm_ip}    ${dhcp_ip}    Get Vms DHCP Leases    ${vm}
+    Should Not Be Equal    'None'    ${vm_ip}
+    [Return]    ${vm_ip}    ${dhcp_ip}
