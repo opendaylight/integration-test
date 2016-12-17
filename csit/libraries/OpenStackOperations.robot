@@ -263,6 +263,21 @@ Verify VMs Received DHCP Lease
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    @{dhcp_ip}[0]
 
+Get Vm Ip Addresses
+    [Documentation]    Each VM in the given list will be checked to see if it's dhcp address can be determined.
+    ...    Through trial and error, it was found that looking for these addresses in a loop the size of the number
+    ...    of VMs given is enough to account for those times that dhcp needs a little more time to be learned, but
+    ...    if all ips are found beforehand the loop will exit and this keyword will finish sooner
+    [Arguments]    @{vm_list}
+    ${vm_count}    Get Length    ${vm_list}
+    : FOR    ${index}    IN RANGE    1    ${vm_count}
+    \    ${vm_ips}    ${dhcp_ip}    Verify VMs Received DHCP Lease    @{vm_list}
+    \    ${num_ips_found}=    Get Length    ${vm_ips}
+    \    Continue For Loop If    'None' in ${vm_ips}
+    \    Exit For Loop If    ${vm_count}==${num_ips_found}
+    Append To List    ${vm_ips}    ${dhcp_ip}
+    [Return]    ${vm_ips}
+
 View Vm Console
     [Arguments]    ${vm_instance_names}
     [Documentation]    View Console log of the created vm instances using nova show.
