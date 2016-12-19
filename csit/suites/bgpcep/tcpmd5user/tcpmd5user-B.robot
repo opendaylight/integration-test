@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     TCPMD5 user-facing feature system tests, using PCEP.
 ...
-...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
+...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
 ...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -10,8 +10,6 @@ Documentation     TCPMD5 user-facing feature system tests, using PCEP.
 ...
 ...               The original brief description of this suite is at
 ...               https://wiki.opendaylight.org/view/TCPMD5:Lithium_Feature_Tests#How_to_test
-...               Carbon tcpmd5 configuration details are at
-...               http://docs.opendaylight.org/en/stable-boron/user-guide/bgp-user-guide.html#md5-authentication-configuration
 Suite Setup       Set_It_Up
 Suite Teardown    Tear_It_Down
 Test Setup        FailFast.Fail_This_Fast_On_Previous_Error
@@ -189,7 +187,7 @@ Compare_Topology
 Construct_Password_Element_Line_Using_Password
     [Arguments]    ${password}
     [Documentation]    Return line with password XML element containing given password, whitespace is there so that data to send looks neat.
-    ${element}=    String.Replace_String    ${SPACE}${SPACE}<auth-password>$PASSWORD</auth-password>${\n}    $PASSWORD    ${password}
+    ${element}=    String.Replace_String    ${SPACE}${SPACE}<password>$PASSWORD</password>${\n}    $PASSWORD    ${password}
     BuiltIn.Log    ${element}
     [Return]    ${element}
 
