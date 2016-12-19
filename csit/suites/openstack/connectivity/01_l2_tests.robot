@@ -14,6 +14,7 @@ Resource          ../../../libraries/Netvirt.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
@@ -25,19 +26,30 @@ Resource          ../../../libraries/Utils.robot
 *** Test Cases ***
 Create Networks
     [Documentation]    Create Network with neutron request.
+    [Tags]    vishaldebug
+    KarafKeywords.Issue Command On Karaf Console    log:set DEBUG org.opendaylight.genius
+    KarafKeywords.Issue Command On Karaf Console    log:set TRACE org.opendaylight.genius.itm.confighelpers.ItmInternalTunnelAddWorker
+    KarafKeywords.Issue Command On Karaf Console    log:list
+    ${tcpdump_conn_id}=    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    Set Suite Variable    ${tcpdump_conn_id}
+    SSHLibrary.Write    sudo tcpdump -ni eth0 port 6640 -s 0 -w /tmp/ovsdb_packet_capture.pcap &
+    ${output}=    SSHLibrary.Read Until Prompt
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Create Network    ${NetworkElement}
 
 Create Subnets For l2_network_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
+    [Tags]    vishaldebug
     Create SubNet    l2_network_1    l2_subnet_1    @{SUBNETS_RANGE}[0]
 
 Create Subnets For l2_network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
+    [Tags]    vishaldebug
     Create SubNet    l2_network_2    l2_subnet_2    @{SUBNETS_RANGE}[1]
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    [Tags]    vishaldebug
     Neutron Security Group Create    csit
     Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
@@ -48,16 +60,19 @@ Add Ssh Allow Rule
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    [Tags]    vishaldebug
     Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=csit
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    [Tags]    vishaldebug
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=csit
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
     ...    We are polling first and longest on the last VM created assuming that if it's received it's address
     ...    already the other instances should have theirs already or at least shortly thereafter.
+    [Tags]    vishaldebug
     # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
     # for dhcp addresses
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
@@ -81,7 +96,18 @@ Check Vm Instances Have Ip Address
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
+    [Tags]    vishaldebug
     Ping Vm From DHCP Namespace    l2_network_1    @{NET1_VM_IPS}[0]
+
+Show PKT CAP Output
+    [Tags]    vishaldebug
+    Switch Connection    ${tcpdump_conn_id}
+    SSHLibrary.Write    sudo kill $(pgrep tcpdump)
+    ${output}=    SSHLibrary.Read Until Prompt
+    SSHLibrary.Set Client Configuration    timeout=120s
+    SSHLibrary.Write    sudo tcpdump -vvv -r /tmp/ovsdb_packet_capture.pcap
+    ${pkt_cap_output}=    SSHLibrary.Read Until Prompt
+    Log    ${pkt_cap_output}
 
 Ping Vm Instance2 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
