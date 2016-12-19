@@ -16,6 +16,52 @@
       "revId": "609bac4a6975e3f08fc8800803ba4c1f2904feed",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d3b0a28d",
+        "filename": ".editorconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-19T13:26:28Z",
+      "side": 1,
+      "message": "I prefer 4.",
+      "range": {
+        "startLine": 19,
+        "startChar": 14,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "609bac4a6975e3f08fc8800803ba4c1f2904feed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b3ab661d",
+        "filename": ".editorconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-19T13:26:28Z",
+      "side": 1,
+      "message": "*.xml as well?",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 7
+      },
+      "revId": "609bac4a6975e3f08fc8800803ba4c1f2904feed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
