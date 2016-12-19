@@ -1,0 +1,9 @@
+[gerrit]
+host=git.opendaylight.org
+port=29418
+<<<<<<< HEAD
+project=integration/test.git
+=======
+project=netvirt.git
+>>>>>>> e3b56f921ea9185f15c8c8af9425d50f9d35947b
+defaultbranch=master

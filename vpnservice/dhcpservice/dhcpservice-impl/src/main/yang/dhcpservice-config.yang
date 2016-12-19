@@ -1,0 +1,21 @@
+module dhcpservice-config {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:dhcpservice:config";
+    prefix "dhcpservice-config";
+
+    description
+        "Service definition for dhcpservice project";
+
+    revision "2015-07-10" {
+        description
+                "Initial revision";
+    }
+
+    container dhcpservice-config {
+        leaf controller-dhcp-enabled {
+            description "Enable the dhcpservice on the controller";
+            type boolean;
+            default false;
+        }
+    }
+}

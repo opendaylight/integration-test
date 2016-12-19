@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2016 Ericsson India Global Services Pvt Ltd. and others.  All rights reserved.
+
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this distribution,
+and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <reference id="neutronVpnManagerRef"
+               interface="org.opendaylight.netvirt.neutronvpn.interfaces.INeutronVpnManager"
+               availability="optional"/>
+    <reference id="rpcRegistryRef" interface="org.opendaylight.controller.sal.binding.api.RpcProviderRegistry"
+               availability="optional"/>
+    <reference id="dataBrokerRef" interface="org.opendaylight.controller.md.sal.binding.api.DataBroker"
+               availability="optional"/>
+    <command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.1.0">
+
+        <command>
+            <action class="org.opendaylight.netvirt.neutronvpn.shell.ConfigureL3VpnCommand">
+                <property name="neutronVpnManager" ref="neutronVpnManagerRef"/>
+                <property name="rpcRegistry" ref="rpcRegistryRef"/>
+            </action>
+        </command>
+
+        <command>
+            <action class="org.opendaylight.netvirt.neutronvpn.shell.ShowVpnConfigCommand">
+                <property name="neutronVpnManager" ref="neutronVpnManagerRef"/>
+            </action>
+        </command>
+
+        <command>
+            <action class="org.opendaylight.netvirt.neutronvpn.shell.ShowNeutronPortsCommand">
+                <property name="neutronVpnManager" ref="neutronVpnManagerRef"/>
+            </action>
+        </command>
+
+        <command>
+            <action class="org.opendaylight.netvirt.neutronvpn.shell.DhcpConfigureCommand">
+                <property name="dataBroker" ref="dataBrokerRef"/>
+            </action>
+        </command>
+
+        <command>
+            <action class="org.opendaylight.netvirt.neutronvpn.shell.DhcpShowCommand">
+                <property name="dataBroker" ref="dataBrokerRef"/>
+            </action>
+        </command>
+
+        <command>
+            <action class="org.opendaylight.netvirt.neutronvpn.shell.ShowNeutronVpnPort">
+                <property name="dataBroker" ref="dataBrokerRef"/>
+            </action>
+        </command>
+
+        <command>
+            <action class="org.opendaylight.netvirt.neutronvpn.shell.ShowSubnet">
+                <property name="dataBroker" ref="dataBrokerRef"/>
+            </action>
+        </command>
+
+    </command-bundle>
+
+</blueprint>

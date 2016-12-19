@@ -1,0 +1,61 @@
+{
+	"id": "2513a35d-6416-8451-b251-550ab3cf8f79",
+	"name": "VPN Service NetVirt",
+	"description": "",
+	"order": [
+		"4d682dd1-aa80-ae2e-23aa-397d3a808a44",
+		"7ff70bdc-2838-6528-eecb-13a1c2e85c79"
+	],
+	"folders": [],
+	"timestamp": 0,
+	"owner": "738147",
+	"remoteLink": "",
+	"public": false,
+	"published": false,
+	"requests": [
+		{
+			"id": "4d682dd1-aa80-ae2e-23aa-397d3a808a44",
+			"headers": "Authorization: Basic YWRtaW46YWRtaW4=\n",
+			"url": "http://localhost:8181/restconf/operational/odl-interface-meta:bridge-ref-info/",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "2513a35d-6416-8451-b251-550ab3cf8f79",
+			"data": null,
+			"dataMode": "params",
+			"name": "Get DPID's",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1467202730788,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "basicAuth",
+			"helperAttributes": {
+				"id": "basic",
+				"username": "admin",
+				"password": "admin",
+				"saveToRequest": true
+			}
+		},
+		{
+			"id": "7ff70bdc-2838-6528-eecb-13a1c2e85c79",
+			"headers": "Content-Type: application/json\nCache-Control: no-cache\nAccept: application/json\nAuthorization: Basic YWRtaW46YWRtaW4=\n",
+			"url": "http://localhost:8181/restconf/config/itm:transport-zones/",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1467203271797,
+			"name": "Create TZA",
+			"description": "",
+			"collectionId": "2513a35d-6416-8451-b251-550ab3cf8f79",
+			"responses": [],
+			"rawModeData": "  {\n       \"transport-zone\": [\n           {\n               \"zone-name\": \"TZA\",\n               \"subnets\": [\n                   {\n                       \"prefix\": \"192.168.254.0/24\",\n                       \"vlan-id\": 0,\n                       \"vteps\": [\n                           {\n                               \"dpn-id\": 222424687511880,\n                               \"portname\": \"eth1\",\n                               \"ip-address\": \"192.168.254.31\"\n                           },\n                           {\n                               \"dpn-id\": 112209065868365,\n                               \"portname\": \"eth1\",\n                               \"ip-address\": \"192.168.254.32\"\n                           }\n                        ],\n                       \"gateway-ip\": \"0.0.0.0\"\n                   }\n               ],\n               \"tunnel-type\": \"odl-interface:tunnel-type-vxlan\"\n           }\n       ]\n  }"
+		}
+	]
+}

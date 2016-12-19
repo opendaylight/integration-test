@@ -1,0 +1,27 @@
+module elan-config {
+    yang-version 1;
+    namespace "urn:opendaylight:netvirt:elan:config";
+    prefix "elan-config";
+
+    description
+        "Configuration for elanmanager";
+
+    revision "2015-07-10" {
+        description
+                "Initial revision";
+    }
+
+    container elan-config {
+        config true;
+        leaf int-bridge-gen-mac {
+            description "If true, generate a mac, else use the bridge generated mac";
+            type boolean;
+            default true;
+        }
+        leaf temp-smac-learn-timeout {
+            description "Temporary source MAC learning timeout";
+            type uint16;
+            default 10;
+        }
+    }
+}

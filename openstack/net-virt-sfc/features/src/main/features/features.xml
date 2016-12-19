@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vi: set et smarttab sw=4 tabstop=4: -->
+<!--
+Copyright © 2015 Red Hat, Inc. and others. All rights reserved.
+
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this distribution,
+and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<features name="odl-ovsdb-sfc-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+  <repository>mvn:org.opendaylight.controller/features-mdsal/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.dlux/features-dlux/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.netconf/features-restconf/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.netvirt/features-netvirt/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin-extension/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.ovsdb/southbound-features/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.sfc/features-sfc/{{VERSION}}/xml/features</repository>
+  <feature name='odl-ovsdb-sfc-api' version='${project.version}' description='OpenDaylight :: ovsdb-sfc :: api'>
+    <feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
+    <bundle>mvn:org.opendaylight.netvirt/openstack.net-virt-sfc-api/{{VERSION}}</bundle>
+  </feature>
+  <feature name='odl-ovsdb-sfc' version='${project.version}' description='OpenDaylight :: ovsdb-sfc'>
+    <feature version='${controller.mdsal.version}'>odl-mdsal-broker</feature>
+    <feature version="${openflowplugin.version}">odl-openflowplugin-flow-services</feature>
+    <feature version='${openflowplugin.version}'>odl-openflowplugin-nxm-extensions</feature>
+    <feature version='${ovsdb.version}'>odl-ovsdb-southbound-impl</feature>
+    <feature version='${project.version}'>odl-ovsdb-openstack</feature>
+    <feature version='${sfc.version}'>odl-sfc-openflow-renderer</feature>
+    <feature version='${project.version}'>odl-ovsdb-sfc-api</feature>
+    <bundle>mvn:org.opendaylight.netvirt/utils.servicehelper/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/utils.mdsal-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.mdsal-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.southbound-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/openstack.net-virt-sfc-impl/{{VERSION}}</bundle>
+  </feature>
+  <feature name='odl-ovsdb-sfc-rest' version='${project.version}' description='OpenDaylight :: ovsdb-sfc :: REST'>
+    <feature version="${project.version}">odl-ovsdb-sfc</feature>
+    <feature version="${restconf.version}">odl-restconf</feature>
+  </feature>
+  <feature name='odl-ovsdb-sfc-ui' version='${project.version}' description='OpenDaylight :: ovsdb-sfc :: UI'>
+    <feature version="${project.version}">odl-ovsdb-sfc-rest</feature>
+    <feature version="${restconf.version}">odl-mdsal-apidocs</feature>
+    <feature version="${controller.mdsal.version}">odl-mdsal-xsql</feature>
+    <feature version="${dlux.version}">odl-dlux-yangui</feature>
+  </feature>
+  <feature name='odl-ovsdb-sfc-test' version='${project.version}' description='OpenDaylight :: ovsdb-sfc-test'>
+    <bundle>mvn:org.opendaylight.netvirt/utils.netvirt-it-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.ovsdb-it-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.netvirt/utils.mdsal-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.mdsal-utils/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.ovsdb/utils.southbound-utils/{{VERSION}}</bundle>
+    <feature version='${project.version}'>odl-ovsdb-sfc</feature>
+  </feature>
+</features>

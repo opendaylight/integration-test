@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2015 Red Hat, Inc. and others. All rights reserved.
+
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this distribution,
+and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+      <groupId>org.opendaylight.controller</groupId>
+      <artifactId>config-parent</artifactId>
+      <version>0.6.0-SNAPSHOT</version>
+      <relativePath/>
+    </parent>
+
+    <groupId>org.opendaylight.netvirt</groupId>
+    <artifactId>utils.neutron-utils</artifactId>
+    <version>1.4.0-SNAPSHOT</version>
+    <packaging>bundle</packaging>
+
+    <properties>
+        <neutron.version>0.8.0-SNAPSHOT</neutron.version>
+    </properties>
+
+    <dependencies>
+    <!-- project specific dependencies -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>utils.mdsal-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>utils.servicehelper</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>openstack.net-virt</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    <!-- neutron dependencies -->
+        <dependency>
+            <groupId>org.opendaylight.neutron</groupId>
+            <artifactId>model</artifactId>
+            <version>0.8.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <!--
+        Maven Site Configuration
+
+        The following configuration is necessary for maven-site-plugin to
+        correctly identify the correct deployment path for OpenDaylight Maven
+        sites.
+    -->
+    <url>${odl.site.url}/${project.groupId}/${stream}/${project.artifactId}/</url>
+
+    <distributionManagement>
+        <site>
+            <id>opendaylight-site</id>
+            <url>${nexus.site.url}/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+</project>

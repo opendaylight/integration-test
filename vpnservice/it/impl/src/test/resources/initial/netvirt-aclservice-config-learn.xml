@@ -1,0 +1,3 @@
+<aclservice-config xmlns="urn:opendaylight:netvirt:aclservice-config">
+  <security-group-mode>learn</security-group-mode>
+</aclservice-config>

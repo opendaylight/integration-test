@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:odl="http://opendaylight.org/xmlns/blueprint/v1.0.0"
+           odl:use-default-for-reference-types="true">
+
+  <reference id="dataBroker"
+             interface="org.opendaylight.controller.md.sal.binding.api.DataBroker"
+             odl:type="default" />
+  <reference id="elanService"
+             interface="org.opendaylight.netvirt.elanmanager.api.IElanService" />
+  <reference id="entityOwnershipService"
+             interface="org.opendaylight.controller.md.sal.common.api.clustering.EntityOwnershipService" />
+  <reference id="mdsalUtils"
+             interface="org.opendaylight.genius.mdsalutil.interfaces.IMdsalApiManager" />
+  <reference id="notificationPublishService"
+             interface="org.opendaylight.controller.md.sal.binding.api.NotificationPublishService" />
+  <reference id="vpnManager"
+           interface="org.opendaylight.netvirt.vpnmanager.api.IVpnManager" />
+  <reference id="centralizedSwitchProvider"
+           interface="org.opendaylight.netvirt.vpnmanager.api.ICentralizedSwitchProvider" />
+
+  <odl:rpc-service id="idManagerService"
+                   interface="org.opendaylight.yang.gen.v1.urn.opendaylight.genius.idmanager.rev160406.IdManagerService" />
+  <odl:rpc-service id="odlInterfaceRpcService"
+                   interface="org.opendaylight.yang.gen.v1.urn.opendaylight.genius.interfacemanager.rpcs.rev160406.OdlInterfaceRpcService" />
+  <odl:rpc-service id="itmRpcService"
+                   interface="org.opendaylight.yang.gen.v1.urn.opendaylight.genius.itm.rpcs.rev160406.ItmRpcService" />
+  <odl:rpc-service id="vpnRpcService"
+                   interface="org.opendaylight.yang.gen.v1.urn.opendaylight.netvirt.vpn.rpc.rev160201.VpnRpcService" />
+  <odl:rpc-service id="odlArputilService"
+                   interface="org.opendaylight.yang.gen.v1.urn.opendaylight.genius.arputil.rev160406.OdlArputilService" />
+
+  <odl:clustered-app-config id="neutronvpnConfig"
+                            binding-class="org.opendaylight.yang.gen.v1.urn.opendaylight.netvirt.neutronvpn.config.rev160806.NeutronvpnConfig"
+                            default-config-file-name="netvirt-neutronvpn-config.xml">
+  </odl:clustered-app-config>
+
+  <bean id="neutronvpnNatManager"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronvpnNatManager"
+        destroy-method="close">
+    <argument ref="dataBroker" />
+  </bean>
+
+  <bean id="neutronFloatingToFixedIpMappingChangeListener"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronFloatingToFixedIpMappingChangeListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+  </bean>
+
+  <bean id="neutronvpnManager" class="org.opendaylight.netvirt.neutronvpn.NeutronvpnManager"
+        destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="mdsalUtils" />
+    <argument ref="notificationPublishService" />
+    <argument ref="neutronvpnNatManager" />
+    <argument ref="vpnRpcService" />
+    <argument ref="elanService" />
+    <argument ref="neutronFloatingToFixedIpMappingChangeListener" />
+    <argument ref="neutronvpnConfig" />
+  </bean>
+  <odl:rpc-implementation ref="neutronvpnManager" />
+
+  <bean id="neutronBgpvpnChangeListener"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronBgpvpnChangeListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="neutronvpnManager" />
+    <argument ref="idManagerService" />
+  </bean>
+
+  <bean id="neutronHostConfigChangeListener"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronHostConfigChangeListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+  </bean>
+
+  <bean id="neutronNetworkChangeListener"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronNetworkChangeListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="neutronvpnManager" />
+    <argument ref="neutronvpnNatManager" />
+    <argument ref="elanService" />
+    <argument ref="odlInterfaceRpcService" />
+  </bean>
+
+  <bean id="neutronQosPolicyChangeListener"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronQosPolicyChangeListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="odlInterfaceRpcService" />
+  </bean>
+
+  <bean id="neutronSubnetChangeListener"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronSubnetChangeListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="neutronvpnManager" />
+  </bean>
+
+  <bean id="neutronRouterChangeListener"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronRouterChangeListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="neutronvpnManager" />
+    <argument ref="neutronvpnNatManager" />
+    <argument ref="neutronSubnetGwMacResolver" />
+  </bean>
+
+  <bean id="neutronPortChangeListener"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronPortChangeListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="neutronvpnManager" />
+    <argument ref="neutronvpnNatManager" />
+    <argument ref="notificationPublishService" />
+    <argument ref="neutronSubnetGwMacResolver" />
+    <argument ref="odlInterfaceRpcService" />
+    <argument ref="elanService" />
+  </bean>
+
+  <bean id="neutronSubnetGwMacResolver"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronSubnetGwMacResolver"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="vpnManager" />
+    <argument ref="odlArputilService" />
+    <argument ref="elanService" />
+    <argument ref="centralizedSwitchProvider" />
+  </bean>
+
+  <bean id="l2GatewayListener"
+        class="org.opendaylight.netvirt.neutronvpn.l2gw.L2GatewayListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="entityOwnershipService" />
+    <argument ref="itmRpcService" />
+  </bean>
+
+  <bean id="l2GwTransportZoneListener"
+        class="org.opendaylight.netvirt.neutronvpn.l2gw.L2GwTransportZoneListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="itmRpcService" />
+  </bean>
+
+  <bean id="neutronSecurityRuleListener"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronSecurityRuleListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+  </bean>
+
+  <bean id="neutronvpnManagerImpl"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronvpnManagerImpl">
+        <argument ref="neutronvpnManager" />
+  </bean>
+
+  <bean id="InterfaceStateToTransportZoneListener"
+        class="org.opendaylight.netvirt.neutronvpn.InterfaceStateToTransportZoneListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="neutronvpnManager" />
+  </bean>
+
+  <bean id="BridgeRefEntryToTransportZoneListener"
+        class="org.opendaylight.netvirt.neutronvpn.BridgeRefEntryToTransportZoneListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="neutronvpnManager" />
+  </bean>
+
+  <bean id="NeutronRouterDpnsToTransportZoneListener"
+        class="org.opendaylight.netvirt.neutronvpn.NeutronRouterDpnsToTransportZoneListener"
+        init-method="start" destroy-method="close">
+    <argument ref="dataBroker" />
+    <argument ref="neutronvpnManager" />
+  </bean>
+
+  <service ref="neutronvpnManagerImpl" odl:type="default"
+           interface="org.opendaylight.netvirt.neutronvpn.interfaces.INeutronVpnManager" />
+</blueprint>

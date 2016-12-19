@@ -1,0 +1,45 @@
+*.class
+**/target
+bin/
+dist
+**/logs
+products
+repository
+workspace
+*~
+target
+.classpath
+.project
+.settings
+MANIFEST.MF
+opendaylight/northbound/integrationtest/logs/*
+*.ipr
+*.iml
+*.iws
+.idea
+<<<<<<< HEAD
+*.png
+=======
+>>>>>>> e3b56f921ea9185f15c8c8af9425d50f9d35947b
+*.pyc
+log.html
+output.xml
+report.html
+<<<<<<< HEAD
+.*.sw?
+.vagrant
+.tox/
+*.egg-info/
+=======
+*.swp
+.gitignore
+target-ide/
+.tox
+.vagrant
+.DS_Store
+.checkstyle
+.factorypath
+yang-gen-config
+yang-gen-sal
+maven-metadata-local.xml
+>>>>>>> e3b56f921ea9185f15c8c8af9425d50f9d35947b
