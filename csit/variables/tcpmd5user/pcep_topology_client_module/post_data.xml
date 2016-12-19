@@ -1,0 +1,10 @@
+<client xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:topology:provider">
+ <address xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:topology:provider">$IP</address>
+$PASSWD</client>
+
+<neighbor xmlns="urn:opendaylight:params:xml:ns:yang:bgp:openconfig-extensions">
+    <neighbor-address>$IP</neighbor-address>
+    <config>
+        $PASSWD
+    </config>
+</neighbor>
