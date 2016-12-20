@@ -5,7 +5,6 @@
         "name": "SFP1",
         "service-chain-name": "SFC1",
         "starting-index": 255,
-        "symmetric": "true",
         "context-metadata": "NSH1",
         "service-path-hop": [
                     {
