@@ -1,6 +1,7 @@
 *** Variables ***
 # Generic Service Chains and Function URIs
 ${SERVICE_FUNCTIONS_URI}    /restconf/config/service-function:service-functions/
+${SERVICE_TYPES_URI}    /restconf/config/service-function-type:service-function-types/
 ${SERVICE_FUNCTION_ACLS_URI}    /restconf/config/ietf-access-control-list:access-lists/
 ${SERVICE_CLASSIFIERS_URI}    /restconf/config/service-function-classifier:service-function-classifiers/
 ${SERVICE_FORWARDERS_URI}    /restconf/config/service-function-forwarder:service-function-forwarders/
