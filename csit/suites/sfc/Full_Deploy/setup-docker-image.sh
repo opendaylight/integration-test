@@ -1,85 +1,128 @@
 #!/bin/bash
 
-set -o xtrace
-set -o nounset #Don't allow for unset variables
-#set -e #Exit script if a command fails
-
-# bootstrap_centos
 WORK_DIR=`pwd`
-if sudo yum install -y "kernel-devel-uname-r == $(uname -r)"; then
-   echo "Kernel-devel installed correctly"
-else
-   echo "Warning: Errors issued when installing kernel-devel"
-fi
 
-APT="sudo yum install -y git kernel-debug-devel kernel-headers python-devel vim autoconf automake libtool systemd-units rpm-build openssl openssl-devel groff graphviz selinux-policy-devel python python-twisted-core python-zope-interface python-twisted-web PyQt4 python-six desktop-file-utils procps-ng"
-if $APT; then
-  echo "Pacakges installed correctly"
-else
-  echo "Installation of packages failed"
-  exit 1
-fi
+function bootstrap {
+    ## TEMPORAL SOLUTION KERNEL PROBLEMS >>>
+    ##??? yum install -y kernel-devel kernel-debug-devel
+    curl -O ftp://rpmfind.net/linux/centos/7.2.1511/updates/x86_64/Packages/kernel-devel-3.10.0-327.36.3.el7.x86_64.rpm
+    rpm -Uvh kernel-devel-3.10.0-327.36.3.el7.x86_64.rpm
+    curl -O ftp://rpmfind.net/linux/centos/7.2.1511/updates/x86_64/Packages/kernel-debug-devel-3.10.0-327.36.3.el7.x86_64.rpm
+    rpm -Uvh kernel-debug-devel-3.10.0-327.36.3.el7.x86_64.rpm
+    ##??? yum -y update
+    ## TEMPORAL SOLUTION KERNEL PROBLEMS <<<
+    rpm -Uvh http://epel.mirror.net.in/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
+    yum -y install git dkms vim python-six python-pip bridge-utils
+    yum -y install python34 tcpdump
+    pip install --upgrade pip
+    cd ${WORK_DIR}/dovs
+    pip install .
+}
 
-cd $WORK_DIR
-[ -e configure-ovs.sh ] || \
-   wget https://raw.githubusercontent.com/socketplane/docker-ovs/master/configure-ovs.sh
-chmod a+x configure-ovs.sh
-[ -e supervisord.conf ] || \
-   wget https://raw.githubusercontent.com/socketplane/docker-ovs/master/supervisord.conf
+function build_ovs {
+    [ -e ${WORK_DIR}/ovs_package/openvswitch-2.5.90-1.el7.centos.x86_64.rpm ] && return 0
 
-[ -e ovs_nsh_patches ] || \
-   git clone https://github.com/yyang13/ovs_nsh_patches.git
-[ -e ovs ] || \
-   git clone https://github.com/openvswitch/ovs.git
+    yum install -y python-twisted-core gcc make python-devel openssl-devel  \
+       graphviz autoconf automake rpm-build \
+       redhat-rpm-config libtool python-zope-interface PyQt4                \
+       desktop-file-utils groff selinux-policy-devel net-tools
 
-cd ovs
-git reset --hard 7d433ae57ebb90cd68e8fa948a096f619ac4e2d8
-cp ../ovs_nsh_patches/*.patch ./
-git apply *.patch
+    cd ${WORK_DIR}
+    git clone https://github.com/yyang13/ovs_nsh_patches.git
+    pushd ovs_nsh_patches && git reset --hard HEAD && popd
+    git clone https://github.com/openvswitch/ovs.git
+    cd ovs
+    git reset --hard 7d433ae57ebb90cd68e8fa948a096f619ac4e2d8
+    cp ../ovs_nsh_patches/*.patch ./
+    git apply *.patch
+    ./boot.sh
+    ./configure --disable-shared
+    make
+    make dist
+    make DESTDIR=${WORK_DIR}/ovs_install/openvswitch-2.5.90 install
+    cd .. && tar xvzf ovs/openvswitch-2.5.90.tar.gz
+    mkdir -p ~/rpmbuild/SOURCES/
+    cp ovs/openvswitch-2.5.90.tar.gz cp ~/rpmbuild/SOURCES/
+    cd openvswitch-2.5.90
+    rpmbuild -bb --without check --without libcapng rhel/openvswitch-fedora.spec
+    ## TEMPORAL SOLUTION KERNEL PROBLEMS >>>
+    rpmbuild -bb --without check -D "kversion $(uname -r)" rhel/openvswitch-kmod-fedora.spec
+    ##??? kernel_version=`sudo yum list kernel-devel | grep kernel-devel | awk '{print $2".x86_64"}'`
+    ##??? rpmbuild -bb --without check -D "kversion ${kernel_version}" rhel/openvswitch-kmod-fedora.spec
+    ## TEMPORAL SOLUTION KERNEL PROBLEMS <<<
+    mkdir -p ${WORK_DIR}/ovs_package
+    cp ~/rpmbuild/RPMS/x86_64/openvswitch*.rpm ${WORK_DIR}/ovs_package/
+    tar cvzf ${WORK_DIR}/ovs_package/openvswitch-2.5.90.tar.gz -C ${WORK_DIR}/ovs_install .
+}
 
-#compile ovs
-./boot.sh
-./configure --with-linux=/lib/modules/`uname -r`/build --prefix=/usr/local
-make rpm-fedora RPMBUILD_OPT="--without check --without libcapng"
-make DESTDIR=$WORK_DIR/ovs_install/openvswitch_2.5.90-1 install
+function install_ovs {
+    rpm -ivh --nodeps ${WORK_DIR}/ovs_package/openvswitch*.rpm
+    yum localinstall ${WORK_DIR}/ovs_package/openvswitch-kmod-2.5.90-1.el7.centos.x86_64.rpm -y
+    yum localinstall ${WORK_DIR}/ovs_package/openvswitch-2.5.90-1.el7.centos.x86_64.rpm -y
+    systemctl enable openvswitch
+    systemctl start openvswitch
+}
 
-#copy rpms and installation
-mkdir -p $WORK_DIR/ovs_package
-find . -name "*.rpm"|xargs -I[] cp [] $WORK_DIR/ovs_package
-tar cvzf $WORK_DIR/ovs_package/openvswitch_2.5.90-1.tgz -C $WORK_DIR/ovs_install .
+function build_ovs_docker {
+    [ ! -z `docker images | awk '/^docker-ovs:yy / {print $1}'` ] && \
+       return 0
+    cd ${WORK_DIR}
+    git clone https://github.com/socketplane/docker-ovs.git
+    cd docker-ovs
+    git reset --hard fede8851e05b984e6f850752d5bc604ac4d7a71c
+    cp ../docker-ovs.patches/*.patch .
+    cp ${WORK_DIR}/ovs_package/openvswitch-2.5.90.tar.gz .
+    mkdir host_libs
+    cp /usr/lib64/libcrypto.so.10 host_libs/
+    cp /usr/lib64/libssl.so.10 host_libs/
+    cp /usr/lib64/libgssapi_krb5.so.2 host_libs/
+    cp /usr/lib64/libkrb5.so.3 host_libs/
+    cp /usr/lib64/libcom_err.so.2 host_libs/
+    cp /usr/lib64/libk5crypto.so.3 host_libs/
+    cp /usr/lib64/libkrb5support.so.0 host_libs/
+    cp /usr/lib64/libkeyutils.so.1 host_libs/
+    cp /usr/lib64/libselinux.so.1 host_libs/
+    cp /usr/lib64/libpcre.so.1 host_libs/
+    cp /usr/lib64/liblzma.so.5 host_libs/
+    git apply *.patch || return 1
+    docker build -t docker-ovs:yyang .
+    return 0
+}
 
-# install_ovs
-cd $WORK_DIR/ovs_package
-CMD='sudo yum list installed openvswitch'
-if $CMD; then
-  echo "openvswitch already installed"
-else
-  sudo yum --nogpgcheck -y install `find . -regex "\./openvswitch-[0-9,.,-].*"`
-fi
+function configure_dovs_bridge {
+    BRIDGE="dovsbr0"
+    BRIDGE_CFG="/etc/sysconfig/network-scripts/ifcfg-${BRIDGE}"
+    ETH="eth1"
+    ETH_CFG="/etc/sysconfig/network-scripts/ifcfg-${ETH}"
+    [ ! -e "$BRIDGE_CFG" ] || return 0
+    echo "DEVICE=${BRIDGE}" > "$BRIDGE_CFG"
+    echo "TYPE=Bridge" >> "$BRIDGE_CFG"
+    echo "BOOTPROTO=dhcp" >> "$BRIDGE_CFG"
+    echo "ONBOOT=yes" >> "$BRIDGE_CFG"
+    echo "PERSISTENT_DHCLIENT=yes" >> "$BRIDGE_CFG"
+    mv "$ETH_CFG" "${ETH_CFG}.old"
+    echo "DEVICE=${ETH}" > "$ETH_CFG"
+    echo "ONBOOT=yes" >> "$ETH_CFG"
+    echo "TYPE=Ethernet" >> "$ETH_CFG"
+    echo "BRIDGE=${BRIDGE}" >> "$ETH_CFG"
+    systemctl restart network
+}
 
-#start ovs
-sudo /sbin/service openvswitch start
+function configure_pipework {
+    cd ${WORK_DIR}
+    [ ! -e "/usr/local/sbin/pipework" ] || return 0
+    git clone https://github.com/jpetazzo/pipework.git
+    cd pipework
+    git reset --hard HEAD
+    cp ../pipework.patches/*.patch .
+    git apply *.patch || return 1
+    cp pipework /usr/local/sbin
+}
 
-#prepare libraries for docker image in busybox
-cd $WORK_DIR
-cp /usr/lib64/libcrypto.so.10 .
-cp /usr/lib64/libssl.so.10 .
-cp /usr/lib64/libgssapi_krb5.so.2 .
-cp /usr/lib64/libkrb5.so.3 .
-cp /usr/lib64/libcom_err.so.2 .
-cp /usr/lib64/libk5crypto.so.3 .
-cp /usr/lib64/libkrb5support.so.0 .
-cp /usr/lib64/libkeyutils.so.1 .
-cp /usr/lib64/libselinux.so.1 .
-cp /usr/lib64/libpcre.so.1 .
-cp /usr/lib64/liblzma.so.5 .
-
-# build_ovs_docker
-cd $WORK_DIR
-if [ -z `sudo docker images | awk '/^ovs-docker / {print $1}'` ];
- then
-   sudo docker build -t ovs-docker .
-fi
-
-
+bootstrap
+build_ovs
+install_ovs
+build_ovs_docker
+configure_dovs_bridge
+configure_pipework
 
