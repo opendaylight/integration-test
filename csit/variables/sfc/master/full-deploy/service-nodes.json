@@ -6,30 +6,30 @@
                 "service-function": [
                     "dpi-1"
                 ],
-                "ip-mgmt-address": "ovs-node-4"
+                "ip-mgmt-address": "dovs-node-4"
             },
             {
                 "name": "sf2",
                 "service-function": [
                     "firewall-1"
                 ],
-                "ip-mgmt-address": "ovs-node-2"
+                "ip-mgmt-address": "dovs-node-2"
             },
             {
                 "name": "sff1",
-                "ip-mgmt-address": "ovs-node-5"
+                "ip-mgmt-address": "dovs-node-5"
             },
             {
                 "name": "sff2",
-                "ip-mgmt-address": "ovs-node-3"
+                "ip-mgmt-address": "dovs-node-3"
             },
             {
                 "name": "classifier1",
-                "ip-mgmt-address": "ovs-node-6"
+                "ip-mgmt-address": "dovs-node-6"
             },
             {
                 "name": "classifier2",
-                "ip-mgmt-address": "ovs-node-1"
+                "ip-mgmt-address": "dovs-node-1"
             }
        ]
     }
