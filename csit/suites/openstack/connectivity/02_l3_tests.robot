@@ -57,11 +57,11 @@ Create Subnets For network_3
 
 Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=csit
+    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=csit
+    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}
 
 Create Vm Instances For network_3
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
