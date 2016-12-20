@@ -100,6 +100,22 @@ Verify Created Routers
     Log    ${data}
     Should Contain    ${data}    router1
 
+Create Vm Instances
+    [Documentation]    Create VM instances using flavor and image names for a network.
+    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES}
+
+Check Vm Instances Have Ip Address
+    [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
+    ...    We are polling first and longest on the last VM created assuming that if it's received it's address
+    ...    already the other instances should have theirs already or at least shortly thereafter.
+    # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
+    # for dhcp addresses
+    : FOR    ${vm}    IN    @{VM_INSTANCES}
+    \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
+    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES}
+    [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES}
+    ...    AND    Get Test Teardown Debugs
+
 Create And Associate Floating IPs for VMs
     [Documentation]    Create and associate a floating IP for the VM
     ${VM_FLOATING_IPS}    OpenStackOperations.Create And Associate Floating IPs    ${external_net_name}    @{VM_INSTANCES_FLOATING}
