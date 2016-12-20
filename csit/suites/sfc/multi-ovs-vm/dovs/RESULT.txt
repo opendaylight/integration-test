@@ -1,0 +1,156 @@
+sudo ./dovs.py clean --odl 192.168.99.100
+
+Outstanding dovs nodes & guests setup:
+
+Empty
+
+sudo ./dovs.py sfc-config --node-names client1,client2,server --chains "['firewall, napt44', 'napt44']" --odl 192.168.99.100
+
+self._node_names:set(['client1', 'client2', 'server'])
+./dovs.py arguments: ['sfc-config', '--node-names', 'client1,client2,server', '--chains', "['firewall, napt44', 'napt44']", '--odl', '192.168.99.100']
+
+http://192.168.99.100:8181/restconf/config/service-function-chain:service-function-chains/
+{'content-type': 'application/json', 'authorization': 'Basic YWRtaW46YWRtaW4=', 'cache-control': 'no-cache'}
+{
+    "service-function-chains": {
+        "service-function-chain": [
+            {
+                "name": "SFC1",
+                "sfc-service-function": [
+                    {
+                        "name": "firewall-0",
+                        "order": "0",
+                        "type": "firewall"
+                    },
+                    {
+                        "name": "napt44-1",
+                        "order": "1",
+                        "type": "napt44"
+                    }
+                ],
+                "symmetric": "true"
+            },
+            {
+                "name": "SFC2",
+                "sfc-service-function": [
+                    {
+                        "name": "napt44-0",
+                        "order": "0",
+                        "type": "napt44"
+                    }
+                ],
+                "symmetric": "true"
+            }
+        ]
+    }
+}
+
+http://192.168.99.100:8181/restconf/config/service-function-path:service-function-paths/
+{'content-type': 'application/json', 'authorization': 'Basic YWRtaW46YWRtaW4=', 'cache-control': 'no-cache'}
+{
+    "service-function-paths": {
+        "service-function-path": [
+            {
+                "name": "SFP1",
+                "service-chain-name": "SFC1"
+            },
+            {
+                "name": "SFP2",
+                "service-chain-name": "SFC2"
+            }
+        ]
+    }
+}
+
+http://192.168.99.100:8181/restconf/config/service-function-forwarder:service-function-forwarders/
+{'content-type': 'application/json', 'authorization': 'Basic YWRtaW46YWRtaW4=', 'cache-control': 'no-cache'}
+
+{
+    "service-function-forwarders": {
+        "service-function-forwarder": [
+           {
+                "name": "sfflogical1"
+            }
+        ]
+    }
+}
+
+
+http://192.168.99.100:8181/restconf/config/service-function:service-functions/
+{'content-type': 'application/json', 'authorization': 'Basic YWRtaW46YWRtaW4=', 'cache-control': 'no-cache'}
+{
+    "service-functions": {
+        "service-function": [
+            {
+                "name": "firewall",
+                "sf-data-plane-locator": [
+                    {
+                        "interface-name": "2cf4dc61-f289-44e5-a75a-e96e3c12d39f",
+                        "name": "firewall-sfflogical1-dpl",
+                        "service-function-forwarder": "sfflogical1",
+                        "transport": "service-locator:vxlan-gpe"
+                    }
+                ],
+                "type": "firewall"
+            },
+            {
+                "name": "napt44",
+                "sf-data-plane-locator": [
+                    {
+                        "interface-name": "6dd72e4c-511b-4845-85b1-fc292e4d2a7c",
+                        "name": "napt44-sfflogical1-dpl",
+                        "service-function-forwarder": "sfflogical1",
+                        "transport": "service-locator:vxlan-gpe"
+                    }
+                ],
+                "type": "napt44"
+            }
+        ]
+    }
+}
+
+Other nodes(set(['client1', 'client2', 'server']))
+
+Outstanding dovs nodes & guests setup:
+
+Node: server
+ Guest: server
+  namespace: dovs-server
+  subnet: server
+  mac: e2:ad:fb:f0:78:06
+  ip: 10.0.0.1/24
+  of-port: 1
+  neutron-id: eba7f67b-c610-4866-8cb3-070e361d8e9e
+Node: client2
+ Guest: client2
+  namespace: dovs-client2
+  subnet: client2
+  mac: 46:6c:23:06:dc:4e
+  ip: 10.0.0.1/24
+  of-port: 1
+  neutron-id: 54684ca6-1690-4576-a60d-c1d32372bbe4
+Node: client1
+ Guest: client1
+  namespace: dovs-client1
+  subnet: client1
+  mac: 46:eb:c4:6c:71:4f
+  ip: 10.0.0.1/24
+  of-port: 1
+  neutron-id: f20bdbbd-9de8-4062-887c-ddeceb396204
+Node: napt44
+ Guest: napt44
+  namespace: dovs-napt44
+  subnet: napt44
+  mac: c6:86:67:5a:95:0a
+  ip: 10.0.0.1/24
+  of-port: 1
+  neutron-id: 6dd72e4c-511b-4845-85b1-fc292e4d2a7c
+Node: firewall
+ Guest: firewall
+  namespace: dovs-firewall
+  subnet: firewall
+  mac: 86:ad:c3:bc:29:06
+  ip: 10.0.0.1/24
+  of-port: 1
+  neutron-id: 2cf4dc61-f289-44e5-a75a-e96e3c12d39f
+
