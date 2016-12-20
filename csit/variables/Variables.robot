@@ -28,6 +28,9 @@ ${ALERTFIELDCONTENTRULERECORD}    /restconf/config/alertrule:alertFieldContentRu
 ${ALERTFIELDVALUERULERECORD}    /restconf/config/alertrule:alertFieldValueRuleRecord    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 @{AUTH}           admin    admin    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
+@{AUTH_SDN}           sdnadmin    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
+@{AUTH_ADMIN_SDN}           CSC_user    cscuser    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
+@{AUTH_SDN}           sdnadmin    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 ${AUTH_TOKEN_API}    /oauth2/token    # FIXME: Move to a separate AAA-related Resource and add description.
 ${BGP_TOOL_PORT}    17900    # Tool side of BGP communication listens on this port.
 ${BGPCEP_LOG_LEVEL}    ${DEFAULT_BGPCEP_LOG_LEVEL}    # Some suites temporarily override org.opendaylight.bgpcep Karaf log level to this value.
