@@ -1,7 +1,10 @@
 *** Settings ***
-Documentation     Test suite for SFC Service Functions, Operates functions from Restconf APIs.
+Documentation     Test suite for SFC Service Functions, Operates functions from Restconf APIs
+...
+...               No logical SFF functionality
 Suite Setup       Init Suite
 Suite Teardown    Cleanup Suite
+Test Timeout
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
@@ -21,8 +24,10 @@ ${CREATE_RSP_FAILURE_INPUT}    {"input":{"parent-service-function-path":"SFC1-em
 *** Test Cases ***
 Basic Environment Setup Tests
     [Documentation]    Prepare Basic Test Environment
+    [Timeout]    10 minutes
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
+    Add Elements To URI From File    ${SERVICE_TYPES_URI}    ${SERVICE_TYPES_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_METADATA_URI}    ${SERVICE_METADATA_FILE}
@@ -40,6 +45,12 @@ Create and Get Rendered Service Path
 
 Create and Get Classifiers
     [Documentation]    Apply json file descriptions of ACLs and Classifiers
+    ${tap1}=    Get Docker Ovs Tap    "dovs-node-1"
+    ${tap2}=    Get Docker Ovs Tap    "dovs-node-6"
+    ${content_clas}=    OperatingSystem.Get File    ${SERVICE_CLASSIFIERS_FILE}
+    ${content_clas}=    Replace String    ${content_clas}    "v-ovsnsn1g1"    "${tap1}"
+    ${content_clas}=    Replace String    ${content_clas}    "v-ovsnsn6g1"    "${tap2}"
+    Create File    ${SERVICE_CLASSIFIERS_FILE}    ${content_clas}
     Add Elements To URI From File    ${SERVICE_CLASSIFIERS_URI}    ${SERVICE_CLASSIFIERS_FILE}
     ${classifiers}=    Create List    "service-function-classifiers"    "service-function-classifier"    "type":"ietf-access-control-list:ipv4-acl"    "scl-service-function-forwarder"
     Append To List    ${classifiers}    "name":"Classifier2"    "name":"ACL2"
@@ -74,32 +85,45 @@ Switch Ips In Json Files
 
 Init Suite
     [Documentation]    Connect Create session and initialize ODL version specific variables
+    [Timeout]    30 minutes
     SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    timeout=3s
-    ${result} =    Run Command On Remote System    ${ODL_SYSTEM_IP}    cat /etc/hosts    ${ODL_SYSTEM_USER}    prompt=${ODL_SYSTEM_PROMPT}
-    Log    ${result}
-    ${result}    SSHLibrary.Execute Command    cat /etc/hosts    return_stderr=True    return_stdout=True    return_rc=True
-    log    ${result}
-    ${result}    OperatingSystem.Run    cat /etc/hosts
-    log    ${result}
     Utils.Flexible Mininet Login
     ${docker_cidr}=    DockerSfc.Get Docker Bridge Subnet
     ${docker_nw}=    SfcUtils.Get Network From Cidr    ${docker_cidr}
     ${docker_mask}=    SfcUtils.Get Mask From Cidr    ${docker_cidr}
-    ${route_to_docker_net}=    Set Variable    sudo route add -net ${docker_nw} netmask ${docker_mask} gw ${TOOLS_SYSTEM_IP}
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    ${route_to_docker_net}    ${ODL_SYSTEM_USER}    prompt=${ODL_SYSTEM_PROMPT}
-    SSHLibrary.Put File    ${CURDIR}/docker-ovs.sh    .    mode=0755
-    SSHLibrary.Put File    ${CURDIR}/Dockerfile    .    mode=0755
-    SSHLibrary.Put File    ${CURDIR}/setup-docker-image.sh    .    mode=0755
-    ${result}    SSHLibrary.Execute Command    ./setup-docker-image.sh > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
+    SSHLibrary.Put Directory    ${CURDIR}/sfc-docker    .    mode=0755    recursive=True
+    ${result}    SSHLibrary.Execute Command    cd sfc-docker/provision;sudo ./setup_ovs.sh > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
     log    ${result}
     Should be equal as integers    ${result[2]}    0
-    DockerSfc.Docker Ovs Start    nodes=6    guests=1    tunnel=vxlan-gpe    odl_ip=${ODL_SYSTEM_IP}
+    ${result}    SSHLibrary.Execute Command    cd sfc-docker/provision;sudo ./setup_ovs_docker.sh > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
+    log    ${result}
+    Should be equal as integers    ${result[2]}    0
+    ${result}    SSHLibrary.Execute Command    cd sfc-docker/provision;sudo ./setup_dovs_network.sh > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
+    log    ${result}
+    Should be equal as integers    ${result[2]}    0
+    ${result}    SSHLibrary.Execute Command    cd sfc-docker/provision;sudo ./setup_dovs.sh > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
+    log    ${result}
+    Should be equal as integers    ${result[2]}    0
+    ${nwbrmgmt}    SSHLibrary.Execute Command    sudo ip a show dovs-mgmt|grep dovs-mgmt|grep inet|awk '{ print $2 }' \ > >(tee myFile.log) 2> >(tee myFile.log)
+    ${nw_brmgmt}    SfcUtils.Get Network From Cidr    ${nwbrmgmt}
+    ${route_to_docker_net}=    Set Variable    sudo route add -net ${nw_brmgmt} netmask ${docker_mask} gw ${TOOLS_SYSTEM_IP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    ${route_to_docker_net}    ${ODL_SYSTEM_USER}    prompt=${ODL_SYSTEM_PROMPT}
+    ${result}    SSHLibrary.Execute Command    cd sfc-docker/dovs/;sudo ./dovs.py -d spawn --nodes=6 --guests=1 --odl=${ODL_SYSTEM_IP} > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
+    log    ${result}
+    Should be equal as integers    ${result[2]}    0
+    ${result}    SSHLibrary.Execute Command    sudo ip a show docker0 > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
+    log    ${result}
+    Should be equal as integers    ${result[2]}    0
+    ${result}    SSHLibrary.Execute Command    sudo ip a \ > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
+    log    ${result}
+    Should be equal as integers    ${result[2]}    0
     ${docker_name_list}=    DockerSfc.Get Docker Names As List
     Set Suite Variable    ${DOCKER_NAMES_LIST}    ${docker_name_list}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
     Set Suite Variable    ${CONFIG_DIR}    ${CURDIR}/../../../variables/sfc/master/full-deploy
     Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ${CONFIG_DIR}/service-functions.json
+    Set Suite Variable    ${SERVICE_TYPES_FILE}    ${CONFIG_DIR}/service-function-types.json
     Set Suite Variable    ${SERVICE_FORWARDERS_FILE}    ${CONFIG_DIR}/service-function-forwarders.json
     Set Suite Variable    ${SERVICE_NODES_FILE}    ${CONFIG_DIR}/service-nodes.json
     Set Suite Variable    ${SERVICE_CHAINS_FILE}    ${CONFIG_DIR}/service-function-chains.json
@@ -111,6 +135,10 @@ Init Suite
 
 Cleanup Suite
     [Documentation]    Clean up all docker containers created and delete sessions
+    [Timeout]    10 minutes
+    ${result}    SSHLibrary.Execute Command    cd sfc-docker/dovs/;sudo cat myFile.log    return_stderr=True    return_stdout=True    return_rc=True
+    log    ${result}
+    Should be equal as integers    ${result[2]}    0
     Remove All Elements At URI    ${SERVICE_CLASSIFIERS_URI}
     Remove All Elements At URI    ${SERVICE_FUNCTION_ACLS_URI}
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
@@ -119,6 +147,6 @@ Cleanup Suite
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
     Remove All Elements At URI    ${SERVICE_METADATA_URI}
-    DockerSfc.Docker Ovs Clean    log_file=myFile4.log
+    DockerSfc.Docker Ovs Clean    odl_ip=${ODL_SYSTEM_IP}    log_file=myFile4.log
     Delete All Sessions
     SSHLibrary.Close Connection
