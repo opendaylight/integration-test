@@ -5,16 +5,16 @@ Library           SSHLibrary
 
 *** Keywords ***
 Docker Ovs Start
-    [Arguments]    ${nodes}    ${guests}    ${tunnel}    ${odl_ip}    ${log_file}=myFile2.log
+    [Arguments]    ${nodes}    ${guests}    ${nets}    ${odl_ip}    ${log_file}=myFile2.log
     [Documentation]    Run the docker-ovs.sh script with specific input arguments. Run ./docker-ovs.sh --help for more info.
-    ${result}    SSHLibrary.Execute Command    ./docker-ovs.sh spawn --nodes=${nodes} --guests=${guests} --tun=${tunnel} --odl=${odl_ip} > >(tee ${log_file}) 2> >(tee ${log_file})    return_stderr=True    return_stdout=True    return_rc=True
+    ${result}    SSHLibrary.Execute Command    cd sfc-docker/dovs/;sudo ./dovs.py spawn --nodes=${nodes} --guests=${guests} --nets=${nets} --odl=${odl_ip} > >(tee ${log_file}) 2> >(tee ${log_file})    return_stderr=True    return_stdout=True    return_rc=True
     log    ${result}
     Should be equal as integers    ${result[2]}    0
 
 Docker Ovs Clean
-    [Arguments]    ${log_file}=myFile3.log
+    [Arguments]    ${odl_ip}    ${log_file}=myFile3.log
     [Documentation]    Run the docker-ovs.sh script with --clean option to clean up all containers deployment. Run ./docker-ovs.sh --help for more info.
-    ${result}    SSHLibrary.Execute Command    ./docker-ovs.sh clean > >(tee ${log_file}) 2> >(tee ${log_file})    return_stderr=True    return_stdout=True    return_rc=True
+    ${result}    SSHLibrary.Execute Command    cd sfc-docker/dovs/;sudo ./dovs.py clean --odl=${odl_ip} \ > >(tee ${log_file}) 2> >(tee ${log_file})    return_stderr=True    return_stdout=True    return_rc=True
     log    ${result}
     Should be equal as integers    ${result[2]}    0
 
