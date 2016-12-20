@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_ea967893",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-20T18:28:14Z",
+      "side": 1,
+      "message": "I agree that it\u0027s not the best way to check, but even with a WUKS we don\u0027t\nreally know how long to check.  if 100 VMs were given to this keyword and\nthe WUKS was only for 30s it might not be enough.\n\nanyway, this is how it is currently running upstream.  If we can get a better\nmethod in place I\u0027m all for it.",
+      "parentUuid": "1a622d24_82f412f3",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 114
+      },
+      "revId": "b2fcf38d7ae1cf285b40866510a51785b3b349d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_42eafa0f",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2016-12-20T08:19:51Z",
       "side": 1,
       "message": "Is this a string or a NoneType?",
+      "range": {
+        "startLine": 276,
+        "startChar": 33,
+        "endLine": 276,
+        "endChar": 39
+      },
+      "revId": "b2fcf38d7ae1cf285b40866510a51785b3b349d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0a8c947e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-20T18:28:14Z",
+      "side": 1,
+      "message": "it\u0027s coming back as a string I guess.  see line 257 above",
+      "parentUuid": "1a622d24_42eafa0f",
       "range": {
         "startLine": 276,
         "startChar": 33,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_6aea6810",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-20T18:28:14Z",
+      "side": 1,
+      "message": "cool, thanks.  trying this in my next patch set",
+      "parentUuid": "1a622d24_e28b4666",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 58
+      },
+      "revId": "b2fcf38d7ae1cf285b40866510a51785b3b349d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_a2d82e80",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 4
@@ -82,6 +154,24 @@
       "writtenOn": "2016-12-20T08:19:51Z",
       "side": 1,
       "message": "Overall I think the function and the test case would be cleaner if only one single VM were checked at a time. Moreover, this function would be more reusable also.",
+      "revId": "b2fcf38d7ae1cf285b40866510a51785b3b349d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4aedec24",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-20T18:28:14Z",
+      "side": 1,
+      "message": "you can pass a list of 1, so the keyword would work that way too.  in patch set 5, I\u0027m re-working the basic_vpnservice.robot suite too and there you can see it using a single VM",
+      "parentUuid": "1a622d24_a2d82e80",
       "revId": "b2fcf38d7ae1cf285b40866510a51785b3b349d8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
