@@ -6,7 +6,7 @@
         "scl-service-function-forwarder": [
           {
             "name": "Classifier1",
-            "interface": "v-ovsnsn6g1"
+            "interface": "v-ovsnsn1g1"
           }
         ],
         "acl": {
@@ -19,7 +19,7 @@
         "scl-service-function-forwarder": [
           {
             "name": "Classifier2",
-            "interface": "v-ovsnsn1g1"
+            "interface": "v-ovsnsn6g1"
           }
         ],
         "acl": {
