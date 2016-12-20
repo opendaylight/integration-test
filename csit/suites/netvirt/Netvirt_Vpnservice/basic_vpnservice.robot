@@ -96,6 +96,8 @@ Create Nova VMs
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN    ${OS_COMPUTE_2_IP}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ping -c 3 ${VM_IP_NET10[1]}
     Should Contain    ${output}    64 bytes
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[0]}    ping -c 3 ${VM_IP_NET20[1]}
@@ -247,6 +249,11 @@ Delete Router And Router Interfaces With L3VPN
     # Verify Router Entry removed from L3VPN
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Not Contain    ${resp}    ${router_id}
+    Log    "Verify FIB entries"
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    180s    30s    Check For Elements Not At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
+    #Wait Until Keyword Succeeds    180s    30s    Verify Flows Are Present For ELAN    ${OS_COMPUTE_1_IP}
+    #Wait Until Keyword Succeeds    180s    30s    Verify Flows Are Present For ELAN    ${OS_COMPUTE_2_IP}
 
 Delete Router With Unknown ID
     [Documentation]    Delete router with unknown ID
@@ -262,10 +269,9 @@ Associate L3VPN To Networks
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     Associate L3VPN To Network    networkid=${network1_id}    vpnid=${VPN_INSTANCE_ID[0]}
-    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
-    Should Contain    ${resp}    ${network1_id}
     Associate L3VPN To Network    networkid=${network2_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    Should Contain    ${resp}    ${network1_id}
     Should Contain    ${resp}    ${network2_id}
 
 Dissociate L3VPN From Networks
@@ -274,15 +280,81 @@ Dissociate L3VPN From Networks
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=${VPN_INSTANCE_ID[0]}
-    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
-    Should Not Contain    ${resp}    ${network1_id}
     Dissociate L3VPN From Networks    networkid=${network2_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    Should Not Contain    ${resp}    ${network1_id}
     Should Not Contain    ${resp}    ${network2_id}
+    #Log    "Verify FIB entries"
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    300s    30s    Check For Elements Not At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
+    #Wait Until Keyword Succeeds    180s    30s    Verify Flows Are Present For ELAN    ${OS_COMPUTE_1_IP}
+    #Wait Until Keyword Succeeds    180s    30s    Verify Flows Are Present For ELAN    ${OS_COMPUTE_2_IP}
+
+Associate L3VPN To Networks and Router
+    [Documentation]    Create L3VPN and associate with Router and Network
+    ${devstack_conn_id} =    Get ControlNode Connection
+    ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    Associate L3VPN To Network    networkid=${net_id}    vpnid=${VPN_INSTANCE_ID[0]}
+    Create Router    ${ROUTERS[0]}
+    Add Router Interface    ${ROUTERS[0]}    ${SUBNETS[1]}
+    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
+    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    Should Contain    ${resp}    ${net_id}
+    Should Contain    ${resp}    ${router_id}
+
+Verify L3VPN Datapath with network and router asscoation
+    [Documentation]    Verify the datapath for L3VPN with Router and Network associate
+    Log    "Verify FIB entries and Flow table"
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    180s    30s    Check For Elements At URI    ${CONFIG_API}/l3vpn:vpn-interfaces/    ${vm_instances}
+    ${RD} =    Strip String       ${CREATE_RD[0]}     characters="[]
+    Log     ${RD}
+    Wait Until Keyword Succeeds    600s    50s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
+    Wait Until Keyword Succeeds    180s    30s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    180s    30s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    # Check datapath from network1 to network2
+    ${dst_ip_list} =    Create List    ${VM_IP_NET10[1]}    @{VM_IP_NET20}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[1]}    ${dst_ip_list}
+    ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
+
+Dissociate L3VPN from Networks and Router
+    [Documentation]    Dissociate L3VPN from Router and Network then delete L3VPN
+    ${devstack_conn_id} =    Get ControlNode Connection
+    ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    Dissociate L3VPN From Networks    networkid=${net_id}    vpnid=${VPN_INSTANCE_ID[0]}
+    Dissociate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
+    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    Should Not Contain    ${resp}    ${router_id}
+    Should Not Contain    ${resp}    ${net_id}
+    Remove Interface    ${ROUTERS[0]}    ${SUBNETS[1]}
+    Delete Router    ${ROUTERS[0]}
+    ${router_output} =    List Router
+    Log    ${router_output}
+    Should Not Contain    ${router_output}    ${ROUTERS[0]}
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    180s    30s    Check For Elements Not At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
+    #Wait Until Keyword Succeeds    180s    30s    Verify Flows Are Present For ELAN    ${OS_COMPUTE_1_IP}
+    #Wait Until Keyword Succeeds    180s    30s    Verify Flows Are Present For ELAN    ${OS_COMPUTE_2_IP}
 
 Delete L3VPN
     [Documentation]    Delete L3VPN
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+
+Delete L3VPN with unknowID
+    [Documentation]    Delete L3VPN with UnknowID
+    ${json_body} =    OperatingSystem.Get File    ${CURDIR}/../../../variables/vpnservice/l3vpn_delete/post_data.json
+    Log    ${json_body}
+    ${json_body} =    Replace String    ${json_body}    $vpnid    4ae8cd92-48ca-49b5-94e1-b2921a261119
+    ${resp} =    RequestsLibrary.Post Request    session    ${CONFIG_API}/neutronvpn:deleteL3VPN    ${json_body}
+    Log    ${resp.text}
+    Log    ${resp.status_code}
+    Should Be Equal As Strings    ${resp.status_code}    204
+    Should Not Contain    ${resp.text}    Operation successful with no errors
 
 Create Multiple L3VPN
     [Documentation]    Creates three L3VPNs and then verify the same
@@ -367,6 +439,14 @@ Wait For Routes To Propogate
     ${net_id} =    Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
     ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
     Should Contain    ${output}    @{SUBNET_CIDR}[1]
+
+Enable ODL DHCP Service
+    [Documentation]    Enable and Verify ODL DHCP service
+    TemplatedRequests.Post_As_Json_Templated    folder=${CURDIR}/../../../variables/vpnservice/enable_dhcp    mapping={}    session=session
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/dhcpservice-config:dhcpservice-config
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    "controller-dhcp-enabled":true
 
 Enable ODL Karaf Log
     [Documentation]    Uses log:set TRACE org.opendaylight.netvirt to enable log
