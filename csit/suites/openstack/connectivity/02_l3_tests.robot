@@ -25,15 +25,9 @@ Resource          ../../../variables/netvirt/Variables.robot
 ${network1_vlan_id}    1236
 
 *** Test Cases ***
-Create VLAN Network (network_1)
+Create VXLAN Network (network_1)
     [Documentation]    Create Network with neutron request.
-    # in the case that the controller under test is using legacy netvirt features, vlan segmentation is not supported,
-    # and we cannot create a vlan network. If those features are installed we will instead stick with vxlan.
-    : FOR    ${feature_name}    IN    @{legacy_feature_list}
-    \    ${feature_check_status}=    Run Keyword And Return Status    Verify Feature Is Installed    ${feature_name}
-    \    Exit For Loop If    '${feature_check_status}' == 'True'
-    Run Keyword If    '${feature_check_status}' == 'True'    Create Network    @{NETWORKS_NAME}[0]
-    ...    ELSE    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    Create Network    @{NETWORKS_NAME}[0]
 
 Create VXLAN Network (network_2)
     [Documentation]    Create Network with neutron request.
@@ -57,11 +51,11 @@ Create Subnets For network_3
 
 Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=csit
+    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=csit
+    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}
 
 Create Vm Instances For network_3
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
@@ -112,42 +106,6 @@ Add Interfaces To Router
     [Documentation]    Add Interfaces
     : FOR    ${interface}    IN    @{SUBNETS_NAME}
     \    Add Router Interface    router_1    ${interface}
-
-Ping Vm Instance1 In network_2 From network_1(vxlan to vlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_1    @{NET2_L3_VM_IPS}[0]
-
-Ping Vm Instance2 In network_2 From network_1(vxlan to vlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_1    @{NET2_L3_VM_IPS}[1]
-
-Ping Vm Instance3 In network_2 From network_1(vxlan to vlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_1    @{NET2_L3_VM_IPS}[2]
-
-Ping Vm Instance1 In network_1 From network_2(vlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET1_L3_VM_IPS}[0]
-
-Ping Vm Instance2 In network_1 From network_2(vlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET1_L3_VM_IPS}[1]
-
-Ping Vm Instance3 In network_1 From network_2(vlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET1_L3_VM_IPS}[2]
-
-Ping Vm Instance1 In network_3 From network_2(vxlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET3_L3_VM_IPS}[0]
-
-Ping Vm Instance2 In network_3 From network_2(vxlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET3_L3_VM_IPS}[1]
-
-Ping Vm Instance3 In network_3 From network_2(vxlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET3_L3_VM_IPS}[2]
 
 Connectivity Tests From Vm Instance1 In network_1
     [Documentation]    Login to the VM instance and test operations
