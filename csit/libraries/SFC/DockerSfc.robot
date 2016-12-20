@@ -5,16 +5,16 @@ Library           SSHLibrary
 
 *** Keywords ***
 Docker Ovs Start
-    [Arguments]    ${nodes}    ${guests}    ${tunnel}    ${odl_ip}    ${log_file}=myFile2.log
+    [Arguments]    ${nodes}    ${guests}    ${nets}    ${odl_ip}    ${log_file}=myFile2.log
     [Documentation]    Run the docker-ovs.sh script with specific input arguments. Run ./docker-ovs.sh --help for more info.
-    ${result}    SSHLibrary.Execute Command    ./docker-ovs.sh spawn --nodes=${nodes} --guests=${guests} --tun=${tunnel} --odl=${odl_ip} > >(tee ${log_file}) 2> >(tee ${log_file})    return_stderr=True    return_stdout=True    return_rc=True
+    ${result}    SSHLibrary.Execute Command    cd sfc-docker/dovs/;sudo ./dovs.py spawn --nodes=${nodes} --guests=${guests} --nets=${nets} --odl=${odl_ip} > >(tee ${log_file}) 2> >(tee ${log_file})    return_stderr=True    return_stdout=True    return_rc=True
     log    ${result}
     Should be equal as integers    ${result[2]}    0
 
 Docker Ovs Clean
-    [Arguments]    ${log_file}=myFile3.log
+    [Arguments]    ${odl_ip}    ${log_file}=myFile3.log
     [Documentation]    Run the docker-ovs.sh script with --clean option to clean up all containers deployment. Run ./docker-ovs.sh --help for more info.
-    ${result}    SSHLibrary.Execute Command    ./docker-ovs.sh clean > >(tee ${log_file}) 2> >(tee ${log_file})    return_stderr=True    return_stdout=True    return_rc=True
+    ${result}    SSHLibrary.Execute Command    cd sfc-docker/dovs/;sudo ./dovs.py clean --odl=${odl_ip} \ > >(tee ${log_file}) 2> >(tee ${log_file})    return_stderr=True    return_stdout=True    return_rc=True
     log    ${result}
     Should be equal as integers    ${result[2]}    0
 
@@ -69,5 +69,11 @@ Get Flows In Docker Containers
 Get Docker Bridge Subnet
     [Documentation]    Obtain the subnet used by docker bridge using the docker inspect tool
     ${output}    ${rc}    SSHLibrary.Execute Command    sudo docker network inspect bridge --format {{.IPAM.Config}} | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}[\/][0-9]{1,2}"    return_stdout=True    return_stderr=False    return_rc=True
+    Should Be Equal As Numbers    ${rc}    0
+    [Return]    ${output}
+
+Get Docker Ovs Tap
+    [Arguments]    ${docker_name}
+    ${output}    ${rc}    SSHLibrary.Execute Command    docker exec ${docker_name} ovs-ofctl -O OpenFlow13 show br-int|grep tap| cut -d'(' -f 1    return_stdout=True    return_stderr=False    return_rc=True
     Should Be Equal As Numbers    ${rc}    0
     [Return]    ${output}
