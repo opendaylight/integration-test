@@ -2,36 +2,34 @@
   "service-functions": {
     "service-function": [
       {
-        "ip-mgmt-address": "ovs-node-4",
+        "ip-mgmt-address": "dovs-node-4",
         "sf-data-plane-locator": [
           {
             "name": "dpi-1-dpl",
             "port": 6633,
-            "ip": "ovs-node-4",
+            "ip": "dovs-node-4",
             "transport": "service-locator:vxlan-gpe",
             "service-function-forwarder": "SFF1"
           }
         ],
         "name": "dpi-1",
         "type": "dpi",
-        "nsh-aware": true,
-        "rest-uri": "http://ovs-node-4:5000"
+        "rest-uri": "http://dovs-node-4:5000"
       },
       {
-        "ip-mgmt-address": "ovs-node-2",
+        "ip-mgmt-address": "dovs-node-2",
         "sf-data-plane-locator": [
           {
             "name": "firewall-1-dpl",
             "port": 6633,
-            "ip": "ovs-node-2",
+            "ip": "dovs-node-2",
             "transport": "service-locator:vxlan-gpe",
             "service-function-forwarder": "SFF2"
           }
         ],
         "name": "firewall-1",
         "type": "firewall",
-        "nsh-aware": true,
-        "rest-uri": "http://ovs-node-2:5000"
+        "rest-uri": "http://dovs-node-2:5000"
       }
    ]
   }
