@@ -32,6 +32,15 @@ VPN Get L3VPN
     Log    ${resp}
     [Return]    ${resp}
 
+List L3VPN From Neutron
+    [Documentation]    List L3VPN and return output with neutron client.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-list    30s
+    Close Connection
+    Log    ${output}
+    [Return]    ${output}
+
 Associate L3VPN To Network
     [Arguments]    &{Kwargs}
     [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
@@ -79,6 +88,23 @@ ITM Delete Tunnel
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
+Verify Flows Are Present For ELAN
+    [Arguments]    ${ip}
+    [Documentation]    Verify Flows Are Present For ELAN
+    ${flow_output} =    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${flow_output}
+    ${resp}=    Should Contain    ${flow_output}    table=50
+    Log    ${resp}
+    ${resp}=    Should Not Contain    ${flow_output}    table=21
+    Log    ${resp}
+    ${resp}=    Should Match regexp    ${flow_output}    table=0.*goto_table:36
+    ${resp}=    Should Match regexp    ${flow_output}    table=0.*goto_table:17
+    ${table51_output} =    Get Lines Containing String    ${flow_output}    table=51
+    Log     ${table51_output}
+    @{table51_output}=    Split To Lines    ${table51_output}    0    -1
+    : FOR    ${line}    IN    @{table51_output}
+    \    ${resp}=    Should Match Regexp    ${line}    ${MAC_REGEX}
+
 Verify Flows Are Present For L3VPN
     [Arguments]    ${ip}    ${vm_ips}
     [Documentation]    Verify Flows Are Present For L3VPN
@@ -89,3 +115,14 @@ Verify Flows Are Present For L3VPN
     Log    ${l3vpn_table}
     : FOR    ${i}    IN    @{vm_ips}
     \    ${resp}=    Should Contain    ${l3vpn_table}    ${i}
+
+Get Packet Count From FlowTable
+    [Arguments]    ${ip}    ${TableNO}
+    [Documentation]    Display packet count for given table no
+    ${flow_output}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${flow_output}
+    ${table_output} =    Get Lines Containing String    ${flow_output}    table=${TABLENO}
+    Log    ${table_output}
+    ${Group} =     Get Regexp Matches    ${table_output}      ${NPACKET_REGX}     1
+    Log     ${Group}
+
