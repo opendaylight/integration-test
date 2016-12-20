@@ -1,0 +1,40 @@
+
+    dovs is a small companion utility to the docker-ovs image. It helps with:
+
+    - running multiple independant OVS instances (nodes)
+    - attaching network namespaces to such instances (guests)
+    - Setup overlay networks with the help of a running ODL instance.
+
+    In regards to ODL, genius and a neutron provider must be installed.
+
+    Examples:
+
+     Run a OVS instance and attach a guest namespace:
+      > dovs.py add-node --name node-1
+      > dovs.py add-guest --name guest-1 --ip 10.0.0.1/24
+
+     Something more elaborated, with ODL providing overlay networking:
+      > dovs.py add-node --name node-1 --odl 192.168.56.1
+      > dovs.py add-node --name node-2 --odl 192.168.56.1
+      > dovs.py add-net --name subnet-A --prefix 10.0.0.1/24 --odl 192.168.56.1
+      > dovs.py add-net --name subnet-B --prefix 10.0.0.1/24 --odl 192.168.56.1
+      > dovs.py add-guest --name guest-1 --ip 10.0.0.1/24 --net subnet-A --odl 192.168.56.1 --node node-1
+      > dovs.py add-guest --name guest-2 --ip 10.0.0.1/24 --net subnet-B --odl 192.168.56.1 --node node-1
+      > dovs.py add-guest --name guest-3 --ip 10.0.0.2/24 --net subnet-A --odl 192.168.56.1 --node node-2
+      > dovs.py add-guest --name guest-4 --ip 10.0.0.2/24 --net subnet-B --odl 192.168.56.1 --node node-2
+
+     Similar thing can be achieved with one spawn command
+      > sudo ./dovs.py spawn --nodes 2 --guests 2 --nets 2 --odl 192.168.56.1
+
+     Afterwards SFC-ODL configuration (SF and Logical SFF) could be set
+     base on networking previously created
+      > sudo ./dovs.py sfc-config --cfg-from-net --odl 192.168.56.1
+
+     Command that creates networking and SFC-ODL configuration base on
+     the list of chains (--chains "['firewall, napt44', 'napt44']") and
+     creates other nodes base on their names (--node-names client1,client2,server)
+     (see RESULT.txt file for execution output)
+      echo sudo ./dovs.py clean --odl 192.168.99.100 > RESULT.txt
+      sudo ./dovs.py clean --odl 192.168.99.100 >> RESULT.txt
+      echo sudo ./dovs.py sfc-config --node-names client1,client2,server --chains \"[\'firewall, napt44\', \'napt44\']\" --odl 192.168.99.100 >> RESULT.txt ; echo >> RESULT.txt
+      sudo ./dovs.py sfc-config --node-names client1,client2,server --chains "['firewall, napt44', 'napt44']" --odl 192.168.99.100 >> RESULT.txt

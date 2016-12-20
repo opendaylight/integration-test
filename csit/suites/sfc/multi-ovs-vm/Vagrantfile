@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.require_version ">=1.7.0"
+
+$setup_docker_image = <<SCRIPT
+cd /vagrant
+./setup_docker_image.sh
+SCRIPT
+
+#system("vagrant plugin install vagrant-vbguest") unless Vagrant.has_plugin?("vagrant-vbguest")
+raise "vagrant-vbguest plugin must be installed (vagrant plugin install vagrant-vbguest)" unless Vagrant.has_plugin?("vagrant-vbguest")
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "centos/7"
+  #config.vm.box = "boxcutter/centos72"
+  config.ssh.insert_key = false
+  config.vm.network "private_network", type: "dhcp", auto_config: false
+  config.vm.provider "virtualbox" do |vb|
+      vb.customize ['modifyvm', :id, '--nictype1', 'virtio']
+      vb.customize ['modifyvm', :id, '--nictype2', 'virtio']
+      vb.customize ['modifyvm', :id, '--nicpromisc2', 'allow-all']
+  end
+  #config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+  config.vm.synced_folder ".", "/vagrant", type: "rsync"
+  config.vm.provision "docker"
+  config.vm.provision "setup_docker_image", type: "shell", inline: $setup_docker_image
+end
