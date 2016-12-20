@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_ec54d855",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-12-20T14:38:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_3cb1fae1",
+      "range": {
+        "startLine": 478,
+        "startChar": 0,
+        "endLine": 482,
+        "endChar": 68
+      },
+      "revId": "026c8267d3e9a493e32aaef1dfcee1146ac3290e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_172699b7",
         "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2016-12-14T09:05:24Z",
       "side": 1,
       "message": "Test cases should be independent. But this one looks as a preparations for the tests to come in the same test suite. Such code should be better place in the Test Suite Setup.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 20
+      },
+      "revId": "026c8267d3e9a493e32aaef1dfcee1146ac3290e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0ce1549a",
+        "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-12-20T14:38:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_172699b7",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_6cef2888",
+        "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-12-20T14:38:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_d7526112",
+      "revId": "026c8267d3e9a493e32aaef1dfcee1146ac3290e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_5cc79645",
         "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
         "patchSetId": 5
@@ -76,6 +142,30 @@
       "writtenOn": "2016-12-14T01:53:59Z",
       "side": 1,
       "message": "I think I saw this here too:\nhttps://git.opendaylight.org/gerrit/#/c/48813\n\nmaybe you want to make this a common lib keyword?",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 63
+      },
+      "revId": "026c8267d3e9a493e32aaef1dfcee1146ac3290e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ccd63cc3",
+        "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-12-20T14:38:45Z",
+      "side": 1,
+      "message": "Yes, you are right. This way we are duplicating code.\nHowever, we would like to do a refactoring of all the SFC test suites, so this can be done as part of that activity.",
+      "parentUuid": "1a622d24_5cc79645",
       "range": {
         "startLine": 228,
         "startChar": 0,
