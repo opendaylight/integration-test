@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_82f412f3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-20T08:19:51Z",
+      "side": 1,
+      "message": "This does not look as a good way to check. You could better use \"Wait Until Keyword Succeeds\", explicitly stating the time to wait for the results to come.",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 114
+      },
+      "revId": "b2fcf38d7ae1cf285b40866510a51785b3b349d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_42eafa0f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-20T08:19:51Z",
+      "side": 1,
+      "message": "Is this a string or a NoneType?",
+      "range": {
+        "startLine": 276,
+        "startChar": 33,
+        "endLine": 276,
+        "endChar": 39
+      },
+      "revId": "b2fcf38d7ae1cf285b40866510a51785b3b349d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e28b4666",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-20T08:19:51Z",
+      "side": 1,
+      "message": "You could write in one line:\n\n  Exit For Loop if    not \u0027None\u0027 in ${vm_ips} and ${vm_count}\u003d\u003d${num_ips_found}",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 58
+      },
+      "revId": "b2fcf38d7ae1cf285b40866510a51785b3b349d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a2d82e80",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-20T08:19:51Z",
+      "side": 1,
+      "message": "Overall I think the function and the test case would be cleaner if only one single VM were checked at a time. Moreover, this function would be more reusable also.",
+      "revId": "b2fcf38d7ae1cf285b40866510a51785b3b349d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
