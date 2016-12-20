@@ -15,7 +15,7 @@ ${GBPSFC3}        ${TOOLS_SYSTEM_3_IP}
 ${GBPSFC4}        ${TOOLS_SYSTEM_4_IP}
 ${GBPSFC5}        ${TOOLS_SYSTEM_5_IP}
 ${GBPSFC6}        ${TOOLS_SYSTEM_6_IP}
-@{GBPSFCs}        ${GBPSFC1}    ${GBPSFC2}    ${GBPSFC3}    ${GBPSFC4}    ${GBPSFC5}    ${GBPSFC6}
+@{GBPSFCs}        ${GBPSFC1}
 ${OF_OVERLAY_CONFIG_PATH}    /restconf/config/ofoverlay:of-overlay-config
 ${TOPOLOGY_PATH}    ${CONFIG_TOPO_API}/topology/ovsdb:1
 ${SF_PATH}        /restconf/config/service-function:service-functions
