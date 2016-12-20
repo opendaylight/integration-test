@@ -1,2 +1,3 @@
 # Place the suites in run order:
+integration/test/csit/suites/sfc/multi-ovs-vm/020__sfc_full_deploy_lsff.robot
 integration/test/csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot
