@@ -28,6 +28,12 @@ Make the OVS instance to listen for connection
 
 Connect to OVSDB Node
     [Documentation]    Initiate the connection to OVSDB node from controller
+    [Tags]    jamodebug
+    ${tcpdump_conn_id}=    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    Flexible SSH Login    ${ODL_SYSTEM_USER}
+    Set Suite Variable    ${tcpdump_conn_id}
+    SSHLibrary.Execute Command    sudo tcpdump -ni eth0 port 6640 -s 0 -w /tmp/ovsdb_packet_capture.pcap &    return_stderr=True
+#
     ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/connect.json
     ${sample1}    Replace String    ${sample}    127.0.0.1    ${TOOLS_SYSTEM_IP}
     ${body}    Replace String    ${sample1}    61644    ${OVSDB_PORT}
@@ -37,6 +43,13 @@ Connect to OVSDB Node
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
+#
+#    Switch Connection    ${tcpdump_conn_id}
+    SSHLibrary.Execute Command    sudo kill $(pgrep tcpdump)    return_stderr=True
+    SSHLibrary.Set Client Configuration    timeout=120s
+    ${pkt_cap_output}=    SSHLibrary.Execute Command    sudo tcpdump -vvv -r /tmp/ovsdb_packet_capture.pcap    return_stderr=True
+    SSHLibrary.Close Connection
+    Log    ${pkt_cap_output}
 
 Get Operational Topology
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
