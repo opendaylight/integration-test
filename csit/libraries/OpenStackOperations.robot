@@ -8,7 +8,7 @@ Variables         ../variables/Variables.py
 Source Password
     [Arguments]    ${force}=no    ${source_pwd}=yes
     [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
-    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
+    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc demo demo
 
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
