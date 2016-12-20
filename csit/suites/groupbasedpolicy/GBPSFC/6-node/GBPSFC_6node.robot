@@ -11,6 +11,11 @@ Setup Node
     [Documentation]    Configures underlying infrastructure composed of Docker containers and OVS switches on remote VM.
     ...    Python and Bash scripts are used.
     ConnUtils.Connect and Login    ${GBPSFC}    timeout=${timeout}
+    ${stdout}    ${stderr}    ${rc}    SSHLibrary.Execute Command    cd $HOME && ls && sudo rm -r ovs    return_stderr=True    return_stdout=True    return_rc=True
+    ${stdout}    ${stderr}    ${rc}    SSHLibrary.Execute Command    wget https://raw.githubusercontent.com/yyang13/ovs_nsh_patches/master/start-ovs-deb.sh    return_stderr=True    return_stdout=True    return_rc=True
+    ${stdout}    ${stderr}    ${rc}    SSHLibrary.Execute Command    sudo chmod u+x start-ovs-deb.sh    return_stderr=True    return_stdout=True    return_rc=True
+    ${stdout}    ${stderr}    ${rc}    SSHLibrary.Execute Command    sudo ./start-ovs-deb.sh    return_stderr=True    return_stdout=True    return_rc=True
+    Log    ${stdout}
     SSHLibrary.Put File    ${suite_dir}/*    ${VM_HOME_FOLDER}${/}${VM_SCRIPTS_FOLDER}/    mode=0755
     ${stdout}    ${stderr}    ${rc}    Execute in VE    python ${VM_HOME_FOLDER}${/}${VM_SCRIPTS_FOLDER}/infrastructure_launch.py ${ODL} ${sw_index}    timeout=${timeout}
     Should Be Equal As Numbers    ${rc}    0
