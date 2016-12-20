@@ -293,10 +293,10 @@ Verify_Response_Templated
     ...    ELSE    BuiltIn.Should_Be_Equal    ${expected_text}    ${response}
 
 Get_From_Uri
-    [Arguments]    ${uri}    ${accept}    ${session}=default    ${normalize_json}=False
+    [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False
     [Documentation]    GET data from given URI, check status code and return response text.
-    ...    \${accept} is a mandatory Python object with headers to use.
-    ...    If \${normalize_json}, normalize text before returning.
+    ...    \${accept} is a Python object with headers to use.
+    ...    If \${normalize_json}, normalize as JSON text before returning.
     BuiltIn.Log    ${uri}
     BuiltIn.Log    ${accept}
     ${response} =    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}
