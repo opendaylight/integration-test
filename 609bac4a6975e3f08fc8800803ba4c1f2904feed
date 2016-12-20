@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_9c3c77c1",
+        "filename": ".editorconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-12-20T01:24:02Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong preference as long as it\u0027s standardized",
+      "parentUuid": "1a622d24_d3b0a28d",
+      "range": {
+        "startLine": 19,
+        "startChar": 14,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "609bac4a6975e3f08fc8800803ba4c1f2904feed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b3ab661d",
         "filename": ".editorconfig",
         "patchSetId": 1
@@ -53,6 +77,30 @@
       "writtenOn": "2016-12-19T13:26:28Z",
       "side": 1,
       "message": "*.xml as well?",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 7
+      },
+      "revId": "609bac4a6975e3f08fc8800803ba4c1f2904feed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fc4beb56",
+        "filename": ".editorconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-12-20T01:24:02Z",
+      "side": 1,
+      "message": "That would be good, +1",
+      "parentUuid": "1a622d24_b3ab661d",
       "range": {
         "startLine": 32,
         "startChar": 1,
