@@ -1,38 +1,36 @@
 {
-  "service-functions": {
-    "service-function": [
-      {
-        "ip-mgmt-address": "ovs-node-4",
-        "sf-data-plane-locator": [
-          {
-            "name": "dpi-1-dpl",
-            "port": 6633,
-            "ip": "ovs-node-4",
-            "transport": "service-locator:vxlan-gpe",
-            "service-function-forwarder": "SFF1"
-          }
-        ],
-        "name": "dpi-1",
-        "type": "dpi",
-        "nsh-aware": true,
-        "rest-uri": "http://ovs-node-4:5000"
-      },
-      {
-        "ip-mgmt-address": "ovs-node-2",
-        "sf-data-plane-locator": [
-          {
-            "name": "firewall-1-dpl",
-            "port": 6633,
-            "ip": "ovs-node-2",
-            "transport": "service-locator:vxlan-gpe",
-            "service-function-forwarder": "SFF2"
-          }
-        ],
-        "name": "firewall-1",
-        "type": "firewall",
-        "nsh-aware": true,
-        "rest-uri": "http://ovs-node-2:5000"
-      }
-   ]
-  }
+    "service-functions": {
+        "service-function": [
+            {
+                "name": "dpi-1",
+                "ip-mgmt-address": "192.168.1.30",
+                "rest-uri": "http://192.168.1.30:5000",
+                "type": "dpi",
+                "sf-data-plane-locator": [
+                    {
+                        "name": "dpi-1-dpl",
+                        "port": 6633,
+                        "ip": "192.168.1.30",
+                        "transport": "service-locator:vxlan-gpe",
+                        "service-function-forwarder": "SFF1"
+                    }
+                ]
+            },
+            {
+                "name": "firewall-1",
+                "ip-mgmt-address": "192.168.1.40",
+                "rest-uri": "http://192.168.1.40:5000",
+                "type": "firewall",
+                "sf-data-plane-locator": [
+                    {
+                        "name": "firewall-1-dpl",
+                        "port": 6633,
+                        "ip": "192.168.1.40",
+                        "transport": "service-locator:vxlan-gpe",
+                        "service-function-forwarder": "SFF2"
+                    }
+                ]
+            }
+        ]
+    }
 }
