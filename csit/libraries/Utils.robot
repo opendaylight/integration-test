@@ -311,6 +311,7 @@ Add Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    Log    ${resp.json()}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add Elements To URI From File And Verify
