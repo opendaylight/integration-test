@@ -1,3 +1,4 @@
 # Place the suites in run order:
-integration/test/csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot
-integration/test/csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot
+#integration/test/csit/suites/sfc/multi-ovs-vm/010__sfc_full_deploy.robot
+integration/test/csit/suites/sfc/multi-ovs-vm/020__sfc__lsff_vm_migration_different_subnets.robot
+#integration/test/csit/suites/sfc/multi-ovs-vm/030__sfc__lsff_vm_migration_same_subnet.robot
