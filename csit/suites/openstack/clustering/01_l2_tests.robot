@@ -95,12 +95,12 @@ Take Down ODL2
 
 Create Vm Instances For l2_net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    l2_net_2    ${NET_2_VM_INSTANCES}    sg=csit
+    OpenStackOperations.Create Vm Instances    l2_net_2    ${NET_2_VM_INSTANCES}
 
 Create Vm Instances For l2_net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
     Log    ${devstack_conn_id}
-    OpenStackOperations.Create Vm Instances    l2_net_1    ${NET_1_VM_INSTANCES}    sg=csit
+    OpenStackOperations.Create Vm Instances    l2_net_1    ${NET_1_VM_INSTANCES}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
