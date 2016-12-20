@@ -1,0 +1,26 @@
+This repository provides:
+
+- A virtual environment with docker installed
+- A openvswitch docker container image (by default 2.5.9 yi yang patch)
+- A companion utility, 'dovs', to run multiple containers with different setups
+
+
+Startup and connect to the virtual environment:
+
+> vagrant up
+> vagrant ssh
+
+Run a standalone openvswitch instance:
+
+> docker run -itd --cap-add NET_ADMIN [--name NAME] docker-ovs:yyang
+
+
+Use dovs to run complex configurations. For example:
+
+- Spawn two independant openvswitch instances, with two namespaces attached to
+  each instance, and use a running ODL to setup 2 overlay networks
+
+  > dovs spawn --nodes 2 --guests 2 --nets 2 --odl 192.168.56.1 
+
+See dovs/README for more info on dovs
+
