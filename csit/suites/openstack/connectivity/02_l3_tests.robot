@@ -19,6 +19,10 @@ Resource          ../../../libraries/Utils.robot
 @{NET_1_VM_INSTANCES}    l3_instance_net_1_1    l3_instance_net_1_2    l3_instance_net_1_3
 @{NET_2_VM_INSTANCES}    l3_instance_net_2_1    l3_instance_net_2_2    l3_instance_net_2_3
 @{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24
+@{NET1_L3_VM_IPS}      50.0.0.3      50.0.0.4      50.0.0.5
+@{NET2_L3_VM_IPS}      60.0.0.3      60.0.0.4      60.0.0.5
+${NET1_DHCP_IP}     50.0.0.2
+${NET2_DHCP_IP}     60.0.0.2
 
 *** Test Cases ***
 Create Networks
@@ -54,15 +58,13 @@ Check Vm Instances Have Ip Address
     ${NET2_VM_COUNT}    Get Length    ${NET_2_VM_INSTANCES}
     ${LOOP_COUNT}    Evaluate    ${NET1_VM_COUNT}+${NET2_VM_COUNT}
     : FOR    ${index}    IN RANGE    1    ${LOOP_COUNT}
-    \    ${NET1_L3_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    \    ${NET2_L3_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    \    ${NET1_L3_NVM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    \    ${NET2_L3_NVM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
     \    ${NET1_VM_LIST_LENGTH}=    Get Length    ${NET1_L3_VM_IPS}
     \    ${NET2_VM_LIST_LENGTH}=    Get Length    ${NET2_L3_VM_IPS}
     \    Exit For Loop If    ${NET1_VM_LIST_LENGTH}==${NET1_VM_COUNT} and ${NET2_VM_LIST_LENGTH}==${NET2_VM_COUNT}
-    Set Suite Variable    ${NET1_L3_VM_IPS}
-    Set Suite Variable    ${NET1_DHCP_IP}
-    Set Suite Variable    ${NET2_L3_VM_IPS}
-    Set Suite Variable    ${NET2_DHCP_IP}
+    Set Suite Variable    ${NET1_L3_NVM_IPS}
+    Set Suite Variable    ${NET2_L3_NVM_IPS}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get Test Teardown Debugs
 

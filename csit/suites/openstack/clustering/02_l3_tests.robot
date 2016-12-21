@@ -20,12 +20,16 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 @{NETWORKS_NAME}    l3_net_1    l3_net_2
 @{SUBNETS_NAME}    l3_sub_net_1    l3_sub_net_2
-@{NET_1_VM_INSTANCES}    VmInstance1_net_1    VmInstance2_net_1    VmInstance3_net_1
-@{NET_2_VM_INSTANCES}    VmInstance1_net_2    VmInstance2_net_2    VmInstance3_net_2
+@{NET_1_VM_INSTANCES}    VMInstance1_net_1    VmInstance2_net_1    VmInstance3_net_1
+@{NET_2_VM_INSTANCES}    VMInstance1_net_2    VmInstance2_net_2    VmInstance3_net_2
 @{GATEWAY_IPS}    90.0.0.1    100.0.0.1
 @{SUBNETS_RANGE}    90.0.0.0/24    100.0.0.0/24
 @{odl_1_and_2_down}    ${1}    ${2}
 @{odl_2_and_3_down}    ${2}    ${3}
+@{NET1_L3_VM_IPS}      90.0.0.3      90.0.0.4      90.0.0.5
+@{NET2_L3_VM_IPS}      100.0.0.3      100.0.0.4      100.0.0.5
+${NET1_DHCP_IP}     90.0.0.2
+${NET2_DHCP_IP}     100.0.0.2
 
 *** Test Cases ***
 Create All Controller Sessions
@@ -77,15 +81,13 @@ Check Vm Instances Have Ip Address
     ${NET2_VM_COUNT}    Get Length    ${NET_2_VM_INSTANCES}
     ${LOOP_COUNT}    Evaluate    ${NET1_VM_COUNT}+${NET2_VM_COUNT}
     : FOR    ${index}    IN RANGE    1    ${LOOP_COUNT}
-    \    ${NET1_L3_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    \    ${NET2_L3_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    \    ${NET1_L3_NVM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    \    ${NET2_L3_NVM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
     \    ${NET1_VM_LIST_LENGTH}=    Get Length    ${NET1_L3_VM_IPS}
     \    ${NET2_VM_LIST_LENGTH}=    Get Length    ${NET2_L3_VM_IPS}
     \    Exit For Loop If    ${NET1_VM_LIST_LENGTH}==${NET1_VM_COUNT} and ${NET2_VM_LIST_LENGTH}==${NET2_VM_COUNT}
-    Set Suite Variable    ${NET1_L3_VM_IPS}
-    Set Suite Variable    ${NET1_DHCP_IP}
-    Set Suite Variable    ${NET2_L3_VM_IPS}
-    Set Suite Variable    ${NET2_DHCP_IP}
+    Set Suite Variable    ${NET1_L3_NVM_IPS}
+    Set Suite Variable    ${NET2_L3_NVM_IPS}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get Test Teardown Debugs
 

@@ -25,6 +25,10 @@ Variables         ../../../variables/Variables.py
 @{VM_IPS_NOT_DELETED}    70.0.0.4
 @{cluster_down_list}    ${1}    ${2}
 @{SUBNETS_RANGE}    70.0.0.0/24    80.0.0.0/24
+@{NET1_VM_IPS}      70.0.0.3      70.0.0.4      70.0.0.5
+@{NET2_VM_IPS}      80.0.0.3      80.0.0.4      80.0.0.5
+${NET1_DHCP_IP}     70.0.0.2
+${NET2_DHCP_IP}     80.0.0.2
 
 *** Test Cases ***
 Create All Controller Sessions
@@ -114,15 +118,13 @@ Check Vm Instances Have Ip Address
     ${NET2_VM_COUNT}    Get Length    ${NET_2_VM_INSTANCES}
     ${LOOP_COUNT}    Evaluate    ${NET1_VM_COUNT}+${NET2_VM_COUNT}
     : FOR    ${index}    IN RANGE    1    ${LOOP_COUNT}
-    \    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    \    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    \    ${NET1_NVM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    \    ${NET2_NVM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
     \    ${NET1_VM_LIST_LENGTH}=    Get Length    ${NET1_VM_IPS}
     \    ${NET2_VM_LIST_LENGTH}=    Get Length    ${NET2_VM_IPS}
     \    Exit For Loop If    ${NET1_VM_LIST_LENGTH}==${NET1_VM_COUNT} and ${NET2_VM_LIST_LENGTH}==${NET2_VM_COUNT}
-    Append To List    ${NET1_VM_IPS}    ${NET1_DHCP_IP}
-    Set Suite Variable    ${NET1_VM_IPS}
-    Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
-    Set Suite Variable    ${NET2_VM_IPS}
+    Set Suite Variable    ${NET1_NVM_IPS}
+    Set Suite Variable    ${NET2_NVM_IPS}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get Test Teardown Debugs
 

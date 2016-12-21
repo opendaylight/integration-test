@@ -216,7 +216,7 @@ Create Vm Instances
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-groups ${sg}    30s
+    \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-groups ${sg} --poll    60s
     \    Log    ${output}
 
 Create Vm Instance With Port On Compute Node
@@ -514,9 +514,12 @@ Get OvsDebugInfo
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${TEST_NAME}
     Get OvsDebugInfo
-    Get Model Dump    ${ODL_SYSTEM_IP}
+    Get Model Dump    ${HA_PROXY_IP}
     ${log_types} =    Create List    ERROR    WARN    Exception
     Get Karaf Log Types From Test Start    ${ODL_SYSTEM_IP}    ${test_name}    ${log_types}
+    Run Keyword If    0 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_IP}    ${test_name}    ${log_types}
+    Run Keyword If    1 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_2_IP}    ${test_name}    ${log_types}
+    Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_3_IP}    ${test_name}    ${log_types}
 
 Show Debugs
     [Arguments]    @{vm_indices}

@@ -19,6 +19,11 @@ Resource          ../../../libraries/Utils.robot
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
 @{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+@{NET1_VM_IPS}      30.0.0.3      30.0.0.4      30.0.0.5
+@{NET2_VM_IPS}      40.0.0.3      40.0.0.4      40.0.0.5
+${NET1_DHCP_IP}     30.0.0.2
+${NET2_DHCP_IP}     40.0.0.2
+
 
 *** Test Cases ***
 Create Networks
@@ -64,18 +69,21 @@ Check Vm Instances Have Ip Address
     ${NET2_VM_COUNT}    Get Length    ${NET_2_VM_INSTANCES}
     ${LOOP_COUNT}    Evaluate    ${NET1_VM_COUNT}+${NET2_VM_COUNT}
     : FOR    ${index}    IN RANGE    1    ${LOOP_COUNT}
-    \    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    \    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    \    ${NET1_NVM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    \    ${NET2_NVM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
     \    ${NET1_VM_LIST_LENGTH}=    Get Length    ${NET1_VM_IPS}
     \    ${NET2_VM_LIST_LENGTH}=    Get Length    ${NET2_VM_IPS}
     \    Exit For Loop If    ${NET1_VM_LIST_LENGTH}==${NET1_VM_COUNT} and ${NET2_VM_LIST_LENGTH}==${NET2_VM_COUNT}
-    Append To List    ${NET1_VM_IPS}    ${NET1_DHCP_IP}
-    Set Suite Variable    ${NET1_VM_IPS}
-    Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
-    Set Suite Variable    ${NET2_VM_IPS}
+    Set Suite Variable    ${NET1_NVM_IPS}
+    Set Suite Variable    ${NET2_NVM_IPS}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    ...    AND    Get Test Teardown Debugs
+    ...    AND    Get OvsDebugInfo
 
+Bring Up ODL2
+    [Documentation]    Bring up ODL2 again
+    ClusterManagement.Start Single Member    2
+
+Ping Vm Instance1 In l2_net_1
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET1_VM_IPS}[0]
