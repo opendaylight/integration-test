@@ -1,0 +1,59 @@
+{
+    "network-topology:network-topology": {
+        "topology": [
+            {
+                "topology-id": "ovsdb:1",
+                "node": [
+                    {
+                        "node-id": "ovsdb://uuid/OVS_1_UUID/bridge/OVS_1_BRIDGE_NAME",
+                        "termination-point": [
+                            {
+                                "ovsdb:options": [
+                                    {
+                                        "ovsdb:option": "remote_ip",
+                                        "ovsdb:value" : "OVS_2_IP"
+                                    },
+                                    {
+                                        "ovsdb:option":"local_ip",
+                                        "ovsdb:value":"OVS_1_IP"
+                                    },
+                                    {
+                                        "ovsdb:option":"key",
+                                        "ovsdb:value":"flow"
+                                    }
+                                ],
+                                "ovsdb:name": "OVS_1_PORT_NAME",
+                                "ovsdb:interface-type": "ovsdb:interface-type-vxlan",
+                                "tp-id": "OVS_1_PORT_NAME"
+                            }
+                        ]
+                    },
+                    {
+                        "node-id": "ovsdb://uuid/OVS_2_UUID/bridge/OVS_2_BRIDGE_NAME",
+                        "termination-point": [
+                            {
+                                "ovsdb:options": [
+                                    {
+                                        "ovsdb:option": "remote_ip",
+                                        "ovsdb:value" : "OVS_1_IP"
+                                    },
+                                    {
+                                        "ovsdb:option":"local_ip",
+                                        "ovsdb:value":"OVS_2_IP"
+                                    },
+                                    {
+                                        "ovsdb:option":"key",
+                                        "ovsdb:value":"flow"
+                                    }
+                                ],
+                                "ovsdb:name": "OVS_2_PORT_NAME",
+                                "ovsdb:interface-type": "ovsdb:interface-type-vxlan",
+                                "tp-id": "OVS_2_PORT_NAME"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
