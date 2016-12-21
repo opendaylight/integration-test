@@ -1,8 +1,16 @@
 *** Settings ***
 Documentation     Collection of test cases to validate OVSDB projects bugs.
+...               - https://bugs.opendaylight.org/show_bug.cgi?id=7414
 ...               - https://bugs.opendaylight.org/show_bug.cgi?id=5221
 ...               - https://bugs.opendaylight.org/show_bug.cgi?id=5177
 ...               - https://bugs.opendaylight.org/show_bug.cgi?id=4794
+...               - https://bugs.opendaylight.org/show_bug.cgi?id=7160
+...
+...               TODO: there seems to be some thoughts around never having one-off bug reproduction
+...               test cases, but rather they should exist as another test case in some appropriate
+...               suite. Also it was suggested that using bug ids for test case names was not ideal
+...               this to-do is written in case it's decided to refactor all of these test cases out
+...               of this suite and/or to rename the test cases at a later time.
 Suite Setup       OVSDB Connection Manager Suite Setup
 Suite Teardown    OVSDB Connection Manager Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -18,11 +26,79 @@ Resource          ../../../libraries/OVSDB.robot
 
 *** Variables ***
 ${OVSDB_PORT}     6634
-${BRIDGE}         ovsdb-csit-test-5177
+${BRIDGE}         ovsdb-csit-bug-validation
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 
 *** Test Cases ***
+Bug 7414 Same Endpoint Name
+    [Documentation]    To help validate bug 7414, this test case will send a single rest request to create two
+    ...    ports (one for each of two OVS instances connected). The port names will be the same.
+    ...    If the bug happens, the request would be accepted, but internally the two creations are seen as the
+    ...    same and there is a conflict such that neither ovs will receive the port create.
+    [Tags]    7414
+    [Setup]    Run Keywords    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
+    ...    AND    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
+    # connect two ovs
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_2_IP}
+    # add brtest to both
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${BRIDGE}
+    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl add-br ${BRIDGE}
+    # send one rest request to create a TP endpoint on each ovs (same name)
+    ${body}=    Modify Multi Port Body    vtep1    vtep1
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}    data=${body}
+    Log    ${resp.content}
+    # check that each ovs has the correct endpoint
+    ${ovs_1_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Log    ${ovs_1_output}
+    ${ovs_2_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl show
+    Log    ${ovs_2_output}
+    Should Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
+    Should Not Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
+    Should Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
+    Should Not Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
+    [Teardown]    Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
+    ...    AND    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
+    ...    AND    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
+
+Bug 7414 Different Endpoint Name
+    [Documentation]    This test case is supplemental to the other test case for bug 7414. Even when the other
+    ...    test case would fail and no ovs would receive a port create because the port names are the same, this
+    ...    case should still be able to create ports on the ovs since the port names are different. However,
+    ...    another symptom of this bug is that multiple creations in the same request would end up creating
+    ...    all the ports on all of the ovs, which is incorrect. Both test cases check for this, but in the
+    ...    case where the other test case were to fail this would also help understand if this symptom is still
+    ...    happening
+    [Tags]    7414
+    [Setup]    Clean OVSDB Test Environment
+    # connect two ovs
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_2_IP}
+    # add brtest to both
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${BRIDGE}
+    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl add-br ${BRIDGE}
+    # send one rest request to create a TP endpoint on each ovs (different name)
+    ${body}=    Modify Multi Port Body    vtep1    vtep2
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}    data=${body}
+    Log    ${resp.content}
+    # check that each ovs has the correct endpoint
+    ${ovs_1_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Log    ${ovs_1_output}
+    ${ovs_2_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl show
+    Log    ${ovs_2_output}
+    Should Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
+    Should Not Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
+    Should Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
+    Should Not Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
+    [Teardown]    Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
+    ...    AND    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
+    ...    AND    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
+
 Bug 5221
     [Documentation]    In the case that an ovs node is rebooted, or the ovs service is
     ...    otherwise restarted, a controller initiated connection should reconnect when
@@ -193,3 +269,20 @@ Config and Operational Topology Should Be Empty
     ${operational_resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Should Contain    ${config_resp.content}    {"topology-id":"ovsdb:1"}
     Should Contain    ${operational_resp.content}    {"topology-id":"ovsdb:1"}
+
+Modify Multi Port Body
+    [Arguments]    ${ovs_1_port_name}    ${ovs_2_port_name}
+    [Documentation]    these steps are needed multiple times in bug reproductions above.
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/bug_7414/create_multiple_ports.json
+    ${ovs_1_ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
+    ${ovs_2_ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_2_IP}
+    ${body}    Replace String    ${body}    OVS_1_UUID    ${ovs_1_ovsdb_uuid}
+    ${body}    Replace String    ${body}    OVS_2_UUID    ${ovs_2_ovsdb_uuid}
+    ${body}    Replace String    ${body}    OVS_1_BRIDGE_NAME    ${BRIDGE}
+    ${body}    Replace String    ${body}    OVS_2_BRIDGE_NAME    ${BRIDGE}
+    ${body}    Replace String    ${body}    OVS_1_IP    ${TOOLS_SYSTEM_IP}
+    ${body}    Replace String    ${body}    OVS_2_IP    ${TOOLS_SYSTEM_2_IP}
+    ${body}    Replace String    ${body}    OVS_1_PORT_NAME    ${ovs_1_port_name}
+    ${body}    Replace String    ${body}    OVS_2_PORT_NAME    ${ovs_2_port_name}
+    Log    ${body}
+    [Return]    ${body}
