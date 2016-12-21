@@ -514,9 +514,12 @@ Get OvsDebugInfo
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${TEST_NAME}
     Get OvsDebugInfo
-    Get Model Dump    ${ODL_SYSTEM_IP}
+    Get Model Dump    ${HA_PROXY_IP}
     ${log_types} =    Create List    ERROR    WARN    Exception
     Get Karaf Log Types From Test Start    ${ODL_SYSTEM_IP}    ${test_name}    ${log_types}
+    Run Keyword If    0 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_IP}    ${test_name}    ${log_types}
+    Run Keyword If    1 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_2_IP}    ${test_name}    ${log_types}
+    Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_3_IP}    ${test_name}    ${log_types}
 
 Show Debugs
     [Arguments]    @{vm_indices}
