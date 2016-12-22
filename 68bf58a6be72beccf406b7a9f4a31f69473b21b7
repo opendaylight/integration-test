@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_d316d0f0",
+        "filename": ".editorconfig",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-22T14:30:28Z",
+      "side": 1,
+      "message": "Most patterns are self-explanatory, but I do not get this one. How can I see this matches just markdown?",
+      "range": {
+        "startLine": 61,
+        "startChar": 18,
+        "endLine": 61,
+        "endChar": 27
+      },
+      "revId": "68bf58a6be72beccf406b7a9f4a31f69473b21b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
