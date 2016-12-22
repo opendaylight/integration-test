@@ -13,8 +13,7 @@
           }
         ],
         "name": "napt44-103-2",
-        "type": "napt44",
-        "nsh-aware": true
+        "type": "napt44"
       },
       {
         "rest-uri": "http://localhost:10001",
@@ -28,8 +27,7 @@
           }
         ],
         "name": "napt44-103-1",
-        "type": "napt44",
-        "nsh-aware": true
+        "type": "napt44"
       },
       {
         "rest-uri": "http://localhost:10002",
@@ -43,8 +41,7 @@
           }
         ],
         "name": "dpi-102-2",
-        "type": "dpi",
-        "nsh-aware": true
+        "type": "dpi"
       },
       {
         "rest-uri": "http://localhost:10002",
@@ -58,8 +55,7 @@
           }
         ],
         "name": "firewall-101-2",
-        "type": "firewall",
-        "nsh-aware": true
+        "type": "firewall"
       },
       {
         "rest-uri": "http://localhost:10002",
@@ -73,8 +69,7 @@
           }
         ],
         "name": "napt44-104",
-        "type": "napt44",
-        "nsh-aware": true
+        "type": "napt44"
       },
       {
         "rest-uri": "http://localhost:10001",
@@ -88,8 +83,7 @@
           }
         ],
         "name": "dpi-102-1",
-        "type": "dpi",
-        "nsh-aware": true
+        "type": "dpi"
       },
       {
         "rest-uri": "http://localhost:10001",
@@ -103,8 +97,7 @@
           }
         ],
         "name": "firewall-104",
-        "type": "firewall",
-        "nsh-aware": true
+        "type": "firewall"
       },
       {
         "rest-uri": "http://localhost:10003",
@@ -118,8 +111,7 @@
           }
         ],
         "name": "dpi-102-3",
-        "type": "dpi",
-        "nsh-aware": true
+        "type": "dpi"
       },
       {
         "rest-uri": "http://localhost:10001",
@@ -133,8 +125,7 @@
           }
         ],
         "name": "firewall-101-1",
-        "type": "firewall",
-        "nsh-aware": true
+        "type": "firewall"
       }
     ]
   }
