@@ -5,7 +5,6 @@
                 "name": "firewall-72",
                 "ip-mgmt-address": "_SF1",
                 "type": "service-function-type:firewall",
-                "nsh-aware": "true",
                 "sf-data-plane-locator": [
                     {
                         "name": "2",
@@ -20,7 +19,6 @@
                 "name": "dpi-74",
                 "ip-mgmt-address": "_SF2",
                 "type": "service-function-type:dpi",
-                "nsh-aware": "true",
                 "sf-data-plane-locator": [
                     {
                         "name": "3",
