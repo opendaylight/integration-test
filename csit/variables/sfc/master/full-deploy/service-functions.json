@@ -13,8 +13,7 @@
           }
         ],
         "name": "dpi-1",
-        "type": "dpi",
-        "nsh-aware": true,
+        "type": "dpi"
         "rest-uri": "http://ovs-node-4:5000"
       },
       {
@@ -29,8 +28,7 @@
           }
         ],
         "name": "firewall-1",
-        "type": "firewall",
-        "nsh-aware": true,
+        "type": "firewall"
         "rest-uri": "http://ovs-node-2:5000"
       }
    ]
