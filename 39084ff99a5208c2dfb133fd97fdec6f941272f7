@@ -51,6 +51,40 @@
       "revId": "39084ff99a5208c2dfb133fd97fdec6f941272f7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ae264bcc",
+        "filename": "csit/suites/openflowplugin/Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-12-23T01:02:58Z",
+      "side": 1,
+      "message": "The keyword name has changed in flowLib.robot, the underscores are removed. Can we please checked to the same kW as in Flowlib.robot? so that there is no confusion",
+      "revId": "39084ff99a5208c2dfb133fd97fdec6f941272f7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8e21cfb6",
+        "filename": "csit/suites/openflowplugin/Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-12-23T01:02:58Z",
+      "side": 1,
+      "message": "the KW has changed in FlowLib.robot, withour under scrores.Can we please replace here?",
+      "revId": "39084ff99a5208c2dfb133fd97fdec6f941272f7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
