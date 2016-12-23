@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_993d97be",
+        "filename": "csit/suites/openflowplugin/Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-12-23T04:40:01Z",
+      "side": 1,
+      "message": "Robot KWs can be called with underscore or spaces. Our recomendation is to use the former: https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Trailing_and_separation_spaces.\n\nSo I am doing this for any new test but keeping spaces for old test as otherwise it i too much work.",
+      "parentUuid": "1a622d24_ae264bcc",
+      "revId": "39084ff99a5208c2dfb133fd97fdec6f941272f7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_8e21cfb6",
         "filename": "csit/suites/openflowplugin/Reconciliation/010_Group_Flows.robot",
         "patchSetId": 6
@@ -82,6 +100,24 @@
       "writtenOn": "2016-12-23T01:02:58Z",
       "side": 1,
       "message": "the KW has changed in FlowLib.robot, withour under scrores.Can we please replace here?",
+      "revId": "39084ff99a5208c2dfb133fd97fdec6f941272f7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f94c8b72",
+        "filename": "csit/suites/openflowplugin/Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-12-23T04:40:01Z",
+      "side": 1,
+      "message": "Same comment.",
+      "parentUuid": "1a622d24_8e21cfb6",
       "revId": "39084ff99a5208c2dfb133fd97fdec6f941272f7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
