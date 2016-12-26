@@ -250,15 +250,16 @@ Verify VMs Received DHCP Lease
     ${ip_list}    Create List    @{EMPTY}
     ${dhcp_ip}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
+    \    ${vm_console_log}=    Write Commands Until Prompt    nova console-log ${vm}    30s
     \    ${vm_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "obtained"    30s
-    \    Log    ${vm_ip_line}
     \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
+    \    Log    @{vm_ip}
     \    ${vm_ip_length}    Get Length    ${vm_ip}
     \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
     \    ...    ELSE    Append To List    ${ip_list}    None
     \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
     \    Log    ${dhcp_ip_line}
-    \    @{dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
+    \    @{dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}   [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
     \    Log    ${dhcp_ip}
     ${dhcp_length}    Get Length    ${dhcp_ip}
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
