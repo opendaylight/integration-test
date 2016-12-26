@@ -34,6 +34,7 @@ Variables         ../../../variables/Variables.py
 # Values passed for extra routes
 ${RT_OPTIONS}     --routes type=dict list=true
 ${RT_CLEAR}       --routes action=clear
+${CREATE_l3VNI}        200
 
 *** Test Cases ***
 Create Neutron Networks
@@ -167,7 +168,7 @@ Create L3VPN
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
-    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=${CREATE_RD[0]}    exportrt=${CREATE_EXPORT_RT[0]}    importrt=${CREATE_IMPORT_RT[0]}    tenantid=${tenant_id}
+    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=${CREATE_RD[0]}    exportrt=${CREATE_EXPORT_RT[0]}    importrt=${CREATE_IMPORT_RT[0]}    l3vni=${CREATE_L3VNI}    tenantid=${tenant_id}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[0]}
 
@@ -225,9 +226,9 @@ Create Multiple L3VPN
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
-    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=${CREATE_RD[0]}    exportrt=${CREATE_EXPORT_RT[0]}    importrt=${CREATE_IMPORT_RT[0]}    tenantid=${tenant_id}
-    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[1]}    name=${VPN_NAME[1]}    rd=${CREATE_RD[1]}    exportrt=${CREATE_EXPORT_RT[1]}    importrt=${CREATE_IMPORT_RT[1]}    tenantid=${tenant_id}
-    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[2]}    name=${VPN_NAME[2]}    rd=${CREATE_RD[2]}    exportrt=${CREATE_EXPORT_RT[2]}    importrt=${CREATE_IMPORT_RT[2]}    tenantid=${tenant_id}
+    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=${CREATE_RD[0]}    exportrt=${CREATE_EXPORT_RT[0]}    importrt=${CREATE_IMPORT_RT[0]}    l3vni=${CREATE_L3VNI}    tenantid=${tenant_id}
+    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[1]}    name=${VPN_NAME[1]}    rd=${CREATE_RD[1]}    exportrt=${CREATE_EXPORT_RT[1]}    importrt=${CREATE_IMPORT_RT[1]}    l3vni=${CREATE_L3VNI}    tenantid=${tenant_id}
+    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[2]}    name=${VPN_NAME[2]}    rd=${CREATE_RD[2]}    exportrt=${CREATE_EXPORT_RT[2]}    importrt=${CREATE_IMPORT_RT[2]}    l3vni=${CREATE_L3VNI}    tenantid=${tenant_id}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
