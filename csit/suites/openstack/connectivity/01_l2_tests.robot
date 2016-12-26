@@ -60,19 +60,21 @@ Check Vm Instances Have Ip Address
     # for dhcp addresses
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
-    ${NET1_VM_COUNT}    Get Length    ${NET_1_VM_INSTANCES}
-    ${NET2_VM_COUNT}    Get Length    ${NET_2_VM_INSTANCES}
-    ${LOOP_COUNT}    Evaluate    ${NET1_VM_COUNT}+${NET2_VM_COUNT}
-    : FOR    ${index}    IN RANGE    1    ${LOOP_COUNT}
+    : FOR    ${index}    IN RANGE    1    10 
+    \    BuiltIn.Sleep    5s
     \    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
     \    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
-    \    ${NET1_VM_LIST_LENGTH}=    Get Length    ${NET1_VM_IPS}
-    \    ${NET2_VM_LIST_LENGTH}=    Get Length    ${NET2_VM_IPS}
-    \    Exit For Loop If    ${NET1_VM_LIST_LENGTH}==${NET1_VM_COUNT} and ${NET2_VM_LIST_LENGTH}==${NET2_VM_COUNT}
+    \    ${NET1_VM_IPS[0]}=    Set Variable    None
+    \    ${contain_none}=    Check If Vm Has None Ip    ${NET1_VM_IPS}    ${NET2_VM_IPS}
+    \    Exit For Loop If    ${contain_none} == 'false'
+    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
+    \    Write Commands Until Prompt    nova console-log ${vm}    30s
     Append To List    ${NET1_VM_IPS}    ${NET1_DHCP_IP}
     Set Suite Variable    ${NET1_VM_IPS}
     Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
     Set Suite Variable    ${NET2_VM_IPS}
+    Should Not Contain    ${NET1_VM_IPS}    None
+    Should Not Contain    ${NET2_VM_IPS}    None
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get Test Teardown Debugs
 
@@ -156,3 +158,15 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
+
+*** Keywords ***
+Check If Vm Has None Ip
+    [Arguments]    ${NET1_VM_IPS}    ${NET2_VM_IPS}
+    [Documentation]    check if vm recieved None ip from Verify VMs Received DHCP Lease function
+    : FOR    ${ip}    IN    @{NET1_VM_IPS}    @{NET2_VM_IPS}
+    \    Run Keyword If    '${ip}' == 'None'    Set Test Variable    ${contains_none}    'true'
+    \    ...    ELSE    Set Test Variable    ${contains_none}    'false'
+    \    Exit For Loop If    ${contains_none} == 'true'
+    [Return]    ${contains_none}
+
+
