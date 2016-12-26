@@ -255,7 +255,13 @@ Verify VMs Received DHCP Lease
     \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
     \    ${vm_ip_length}    Get Length    ${vm_ip}
     \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
-    \    ...    ELSE    Append To List    ${ip_list}    None
+    \    ...    ELSE    Run Keywords    Append To List    ${ip_list}    None
+    \    ...    AND    BuiltIn.Set Test Variable    @{console_output}    nova console-log ${vm}
+    \    ...    AND    Log    ${console_output}
+    \    ${console_output1}=    Set Variable    nova console-log ${vm}
+    \    Log    ${console_output1}
+    \    ${console_output2}=    Builtin.Set Variable    nova console-log ${vm}    30s
+    \    Log    ${console_output2}
     \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
     \    Log    ${dhcp_ip_line}
     \    @{dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
