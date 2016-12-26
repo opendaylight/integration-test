@@ -87,12 +87,20 @@ Create Nova VMs
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
     Log    Check for routes
     Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate
-    ${VM_IP_NET10}    ${DHCP_IP1}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET10}
+    : FOR    ${index}    IN RANGE    1    10
+    \    BuiltIn.Sleep    5s
+    \    ${VM_IP_NET10}    ${DHCP_IP1}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET10}
+    \    ${VM_IP_NET20}    ${DHCP_IP2}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET20}
+    \    ${contain_none}=    Check If Vm Has None Ip    ${VM_IP_NET10}    ${VM_IP_NET20}
+    \    Exit For Loop If    ${contain_none} == 'false'
+    : FOR    ${vm}    IN    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
+    \    Write Commands Until Prompt    nova console-log ${vm}    30s
     Log    ${VM_IP_NET10}
     Set Suite Variable    ${VM_IP_NET10}
-    ${VM_IP_NET20}    ${DHCP_IP2}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET20}
     Log    ${VM_IP_NET20}
     Set Suite Variable    ${VM_IP_NET20}
+    Should Not Contain    ${VM_IP_NET10)    None
+    Should Not Contain    ${VM_IP_NET20}    None
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
@@ -373,3 +381,12 @@ Enable ODL Karaf Log
     Log    "Enabled ODL Karaf log for org.opendaylight.netvirt"
     ${output}=    Issue Command On Karaf Console    log:set TRACE org.opendaylight.netvirt
     Log    ${output}
+
+Check If Vm Has None Ip
+    [Arguments]    ${VM_IP_NET10}    ${VM_IP_NET20}
+    [Documentation]    check if vm recieved None ip from Verify VMs Received DHCP Lease function
+    : FOR    ${ip}    IN    @{VM_IP_NET10}    @{VM_IP_NET20}
+    \    Run Keyword If    '${ip}' == 'None'    Set Test Variable    ${contains_none}    'true'
+    \    ...    ELSE    Set Test Variable    ${contains_none}    'false'
+    \    Exit For Loop If    ${contains_none} == 'true'
+    [Return]    ${contains_none}
