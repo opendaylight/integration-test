@@ -87,12 +87,23 @@ Create Nova VMs
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
     Log    Check for routes
     Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate
-    ${VM_IP_NET10}    ${DHCP_IP1}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET10}
+    : FOR    ${index}    IN RANGE    1    10
+    \    BuiltIn.Sleep    5s
+    \    ${VM_IP_NET10}    ${DHCP_IP1}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease
+    \    ...    @{VM_INSTANCES_NET10}
+    \    ${VM_IP_NET20}    ${DHCP_IP2}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease
+    \    ...    @{VM_INSTANCES_NET20}
+    \    ${VM_IPS}=    Collections.Combine Lists    ${VM_IP_NET10}    ${VM_IP_NET20}
+    \    ${status}    ${message}    Run Keyword And Ignore Error    List Should Not Contain Value    ${VM_IPS}    None
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    : FOR    ${vm}    IN    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
+    \    Write Commands Until Prompt    nova console-log ${vm}    30s
     Log    ${VM_IP_NET10}
     Set Suite Variable    ${VM_IP_NET10}
-    ${VM_IP_NET20}    ${DHCP_IP2}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET20}
     Log    ${VM_IP_NET20}
     Set Suite Variable    ${VM_IP_NET20}
+    Should Not Contain    ${VM_IP_NET10)    None
+    Should Not Contain    ${VM_IP_NET20}    None
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
