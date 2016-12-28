@@ -27,6 +27,7 @@ data_models = [
         'config/odl-nat:napt-switches',
         'config/odl-nat:snatint-ip-port-map',
         'config/opendaylight-inventory:nodes',
+        'operational/elan:elan-dpn-interfaces',
         'operational/elan:elan-forwarding-tables',
         'operational/elan:elan-interfaces',
         'operational/elan:elan-state',
