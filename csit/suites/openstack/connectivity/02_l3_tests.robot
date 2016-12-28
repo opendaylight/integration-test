@@ -19,20 +19,26 @@ Resource          ../../../libraries/Utils.robot
 @{NET_1_VM_INSTANCES}    l3_instance_net_1_1    l3_instance_net_1_2    l3_instance_net_1_3
 @{NET_2_VM_INSTANCES}    l3_instance_net_2_1    l3_instance_net_2_2    l3_instance_net_2_3
 @{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24
+${external_physical_network}    physnet1
+${network2_vlan_id}    1236
+${network1_vlan_id}    1237
 
 *** Test Cases ***
-Create Networks
+Create Network 1
     [Documentation]    Create Network with neutron request.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Create Network    ${NetworkElement}
+    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${external_physical_network} --provider:segmentation_id=${network1_vlan_id}
+
+Create Network 2
+    [Documentation]    Create Network with neutron request.
+    Create Network    @{NETWORKS_NAME}[1]    --provider:network_type=vlan --provider:physical_network=${external_physical_network} --provider:segmentation_id=${network2_vlan_id}
 
 Create Subnets For network_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    Create SubNet    network_1    subnet_1    @{SUBNETS_RANGE}[0]
+    Create SubNet    @{NETWORKS_NAME}[0]    @{SUBNETS_NAME}[0]    @{SUBNETS_RANGE}[0]
 
 Create Subnets For network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    Create SubNet    network_2    subnet_2    @{SUBNETS_RANGE}[1]
+    Create SubNet    @{NETWORKS_NAME}[1]    @{SUBNETS_NAME}[1]    @{SUBNETS_RANGE}[1]
 
 Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
@@ -98,6 +104,7 @@ Ping Vm Instance2 In network_1 From network_2
 Ping Vm Instance3 In network_1 From network_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     Ping Vm From DHCP Namespace    network_2    @{NET1_L3_VM_IPS}[2]
+    Sleep    5h
 
 Connectivity Tests From Vm Instance1 In network_1
     [Documentation]    Login to the VM instance and test operations
