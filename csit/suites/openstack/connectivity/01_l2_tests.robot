@@ -19,20 +19,27 @@ Resource          ../../../libraries/Utils.robot
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
 @{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+${external_physical_network}    physnet1
+${network2_vlan_id}    1234
+${network1_vlan_id}    1235
+${sleep_time}    10000000000000000000000000000000000000000000000
 
 *** Test Cases ***
-Create Networks
+Create Network 1
     [Documentation]    Create Network with neutron request.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Create Network    ${NetworkElement}
+    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${external_physical_network} --provider:segmentation_id=${network1_vlan_id}
+
+Create Network 2
+    [Documentation]    Create Network with neutron request.
+    Create Network    @{NETWORKS_NAME}[1]    --provider:network_type=vlan --provider:physical_network=${external_physical_network} --provider:segmentation_id=${network2_vlan_id}
 
 Create Subnets For l2_network_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    Create SubNet    l2_network_1    l2_subnet_1    @{SUBNETS_RANGE}[0]
+    Create SubNet    @{NETWORKS_NAME}[0]    @{SUBNETS_NAME}[0]    @{SUBNETS_RANGE}[0]
 
 Create Subnets For l2_network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    Create SubNet    l2_network_2    l2_subnet_2    @{SUBNETS_RANGE}[1]
+    Create SubNet    @{NETWORKS_NAME}[1]    @{SUBNETS_NAME}[1]    @{SUBNETS_RANGE}[1]
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -123,6 +130,7 @@ Connectivity Tests From Vm Instance2 In l2_network_2
 Connectivity Tests From Vm Instance3 In l2_network_2
     [Documentation]    Login to the vm instance using generated key pair.
     Test Operations From Vm Instance    l2_network_2    @{NET2_VM_IPS}[2]    ${NET2_VM_IPS}
+    Sleep    10h 	
 
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names.
