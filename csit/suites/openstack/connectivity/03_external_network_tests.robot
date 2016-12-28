@@ -21,7 +21,6 @@ Resource          ../../../libraries/Utils.robot
 @{SUBNETS_RANGE}    90.0.0.0/24
 ${external_gateway}    10.10.10.250
 ${external_subnet}    10.10.10.0/24
-${external_physical_network}    physnet1
 ${external_net_name}    external-net
 ${external_subnet_name}    external-subnet
 
@@ -71,7 +70,7 @@ Check Vm Instances Have Ip Address
     ...    AND    Get Test Teardown Debugs
 
 Create External Network And Subnet
-    Create Network    ${external_net_name} --router:external --provider:network_type=flat --provider:physical_network=${external_physical_network}
+    Create Network    ${external_net_name} --router:external --provider:network_type=flat --provider:physical_network=${EXTERNAL_PHYSICAL_NETWORK}
     Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway}
 
 Create Router
