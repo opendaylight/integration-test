@@ -16,11 +16,11 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 ${exclusion_regex}    'metering|test_l3_agent_scheduler.L3AgentSchedulerTestJSON|test_extensions.ExtensionsTestJSON.test_list_show_extensions|test_routers_dvr.RoutersTestDVR.test_centralized_router_update_to_dvr'
 ${tempest_config_file}    /opt/stack/tempest/etc/tempest.conf
-${external_physical_network}    physnet1
 ${external_net_name}    external-net
 ${external_subnet_name}    external-subnet
 ${external_gateway}    10.10.10.250
 ${external_subnet}    10.10.10.0/24
+${network_vlan_id}    1232
 
 *** Test Cases ***
 tempest.api.network
@@ -77,7 +77,7 @@ Log In To Tempest Executor And Setup Test Environment
     ${source_pwd}    Set Variable    yes
     Set Suite Variable    ${source_pwd}
     # Tempest tests need an existing external network in order to create routers.
-    Create Network    ${external_net_name} --router:external --provider:network_type=flat --provider:physical_network=${external_physical_network}
+    Create Network    ${external_net_name} --router:external --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network_vlan_id}
     Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway}
     List Networks
     ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
