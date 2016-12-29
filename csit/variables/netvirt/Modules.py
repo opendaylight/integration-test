@@ -48,4 +48,8 @@ data_models = [
         'operational/odl-nat:intext-ip-port-map',
         'operational/odl-nat:router-id-name',
         'operational/odl-nat:snatint-ip-port-map'
+        'config/network-topology:network-topology'
+        'operational/network-topology:network-topology'
+        'config/opendaylight-inventory:nodes'
+        'operational/opendaylight-inventory:nodes'
 ]
