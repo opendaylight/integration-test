@@ -176,6 +176,12 @@ Delete Vm Instance
     ${output}=    Write Commands Until Prompt    nova force-delete ${vm_name}    40s
     Close Connection
 
+Stop And Start Ovs Wrapper
+    [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
+    Run Keyword If    0 < ${NUM_OS_SYSTEM}    Stop and Start Ovs    ${OS_CONTROL_NODE_IP}
+    Run Keyword If    1 < ${NUM_OS_SYSTEM}    Stop and Start Ovs    ${OS_COMPUTE_1_IP}
+    Run Keyword If    2 < ${NUM_OS_SYSTEM}    Stop and Start Ovs    ${OS_COMPUTE_2_IP}
+
 Get Net Id
     [Arguments]    ${network_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
@@ -458,6 +464,18 @@ Delete Router
     ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}    60s
     Close Connection
     Should Match Regexp    ${output}    Deleted router: ${router_name}|Deleted router\\(s\\): ${router_name}
+
+Stop And Start Ovs
+    [Arguments]    ${openstack_node_ip}
+    [Documentation]    Get the OvsConfig and Flow entries from OVS from the Openstack Node
+    Log    ${openstack_node_ip}
+    SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    Write Commands Until Expected Prompt    sudo systemctl stop openvswitch     ]>
+    Write Commands Until Expected Prompt    sudo systemctl start openvswitch     ]>
+    Close Connection
+
 
 Get DumpFlows And Ovsconfig
     [Arguments]    ${openstack_node_ip}
