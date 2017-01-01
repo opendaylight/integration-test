@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_7126cacf",
+        "filename": "csit/variables/netvirt/Modules.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-01-01T09:12:43Z",
+      "side": 1,
+      "message": "please sort and remove dups (no need for ovsdb:1 if you do full operational)",
+      "revId": "584a7f23e4f348dc6fb42d1e44484febac264142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
