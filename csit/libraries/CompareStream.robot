@@ -4,6 +4,7 @@ Documentation     This Resource contains list of Keywords Set_Variable_If_At_Lea
 ...               Run_Keyword_If_More_Than*, Run_Keyword_If_Less_Than*,
 ...               for comparison ${ODL_STREAM} to the given ${lower_bound},
 ...               in order to replace ad-hoc conditional execution in suites.
+Library           Collections
 
 *** Variables ***
 &{Stream_dict}    hydrogen=${1}    stable-helium=${2}    stable-lithium=${3}    beryllium=${4}    boron=${5}    carbon=${6}    nitrogen=${7}
@@ -87,11 +88,35 @@ Run_Keyword_If_At_Least
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_At_Least_Else
+    [Arguments]    ${lower_bound}    @{varargs}
+    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is at least ${lower_bound},
+    ...    run @{varargs} and return its value. Does not support kwargs and ELSE IF.
+    ${position}    Collections.Get_Index_From_List    ${varargs}    \ELSE
+    BuiltIn.Run_Keyword_If    "${position}" == "-1"    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    @{varargs}    &{kwargs}
+    ${varargs_if}    Collections.Get_Slice_From_List    ${varargs}    0    ${position}
+    ${varargs_else}    Collections.Get_Slice_From_List    ${varargs}    ${position+1}
+    ${resp}    BuiltIn.Run_Keyword_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    @{varargs_if}
+    ...    ELSE    @{varargs_else}
+    [Return]    ${resp}
+
 Run_Keyword_If_At_Most
     [Arguments]    ${upper_bound}    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare ${upper_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is at most ${upper_bound},
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[${upper_bound}]    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_At_Most_Else
+    [Arguments]    ${upper_bound}    @{varargs}
+    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is at least ${lower_bound},
+    ...    run @{varargs} and return its value. Does not support kwargs and ELSE IF.
+    ${position}    Collections.Get_Index_From_List    ${varargs}    \ELSE
+    BuiltIn.Run_Keyword_If    "${position}" == "-1"    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[${upper_bound}]    @{varargs}    &{kwargs}
+    ${varargs_if}    Collections.Get_Slice_From_List    ${varargs}    0    ${position}
+    ${varargs_else}    Collections.Get_Slice_From_List    ${varargs}    ${position+1}
+    ${resp}    BuiltIn.Run_Keyword_If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[${upper_bound}]    @{varargs_if}
+    ...    ELSE    @{varargs_else}
+    [Return]    ${resp}
 
 Run_Keyword_If_More_Than
     [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
