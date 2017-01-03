@@ -744,7 +744,7 @@ def get_peer_groups_from_node_xml(ip):
     return data
 
 
-def add_filter_xml(group, filter_type, entries, ip):
+def add_filter_xml(group, filter_type, entries, ip, policy=None):
     """Generate xml for Add Filter request
 
     :param group: Name of group containing filter
@@ -755,18 +755,25 @@ def add_filter_xml(group, filter_type, entries, ip):
     :type entries: string
     :param ip: Ipv4 address of node
     :type ip: string
+    :param policy: Policy of filter update mechanism
+    :type policy: string
     :returns: String containing xml data for request
 
     """
+    if policy:
+        policy = "<filter-policy>" + policy + "</filter-policy>"
+    else:
+        policy = ""
     templ = Template('''<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
   <peer-group-name xmlns="urn:opendaylight:sxp:controller">$group</peer-group-name>
   <sxp-filter xmlns="urn:opendaylight:sxp:controller">
+    $filter_policy
     <filter-type>$filter_type</filter-type>$entries
   </sxp-filter>
 </input>''')
     data = templ.substitute(
-        {'group': group, 'filter_type': filter_type, 'ip': ip, 'entries': entries})
+        {'group': group, 'filter_type': filter_type, 'ip': ip, 'entries': entries, 'filter_policy': policy})
     return data
 
 
