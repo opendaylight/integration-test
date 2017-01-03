@@ -161,11 +161,13 @@ Execute Controller Karaf Command With Retry On Background
     [Return]    ${message}
 
 Log Message To Controller Karaf
-    [Arguments]    ${message}    ${member_index_list}=${EMPTY}
+    [Arguments]    ${message}    ${member_index_list}=${EMPTY}    ${tolerate_failure}=True
     [Documentation]    Make sure this resource is initialized. Send a message into the controller's karaf log file on every node listed (or all).
+    ...    By default, failure while processing a node is silently ignored, unless ${tolerate_failure} is False.
     ${index_list} =    ClusterManagement.ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
-    \    Execute Controller Karaf Command With Retry On Background    log:log "ROBOT MESSAGE: ${message}"    member_index=${index}
+    \    ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Execute Controller Karaf Command With Retry On Background    log:log "ROBOT MESSAGE: ${message}"    member_index=${index}
+    \    BuiltIn.Run_Keyword_Unless    ${tolerate_failure} or "${status}" == "PASS"    BuiltIn.Fail    ${message}
 
 Log Test Suite Start To Controller Karaf
     [Arguments]    ${member_index_list}=${EMPTY}
