@@ -19,6 +19,15 @@ Get Tenant ID From Security Group
     Log    ${output}
     [Return]    ${output}
 
+Update Quota To Create More Nets
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron quota-update --network 310
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron quota-update --subnet 310
+    Log    ${output}
+
+
 Get Tenant ID From Network
     [Arguments]    ${network_uuid}
     [Documentation]    Returns tenant ID by reading it from existing network.
@@ -59,20 +68,18 @@ Delete Network
     [Documentation]    Delete Network with neutron request.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v net-delete ${network_name}    30s
+    ${output}=    Write Commands Until Prompt    neutron -v net-delete ${network_name}    60s
     Close Connection
     Log    ${output}
-    Should Match Regexp    ${output}    Deleted network: ${network_name}|Deleted network\\(s\\): ${network_name}
 
 Create SubNet
     [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${additional_args}=${EMPTY}
     [Documentation]    Create SubNet for the Network with neutron request.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet} ${additional_args}    30s
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet} ${additional_args}    60s
     Close Connection
     Log    ${output}
-    Should Contain    ${output}    Created a new subnet
 
 Create Port
     [Arguments]    ${network_name}    ${port_name}    ${sg}=default
