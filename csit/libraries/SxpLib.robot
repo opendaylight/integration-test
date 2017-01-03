@@ -7,6 +7,7 @@ Library           String
 Library           ./Sxp.py
 Resource          KarafKeywords.robot
 Resource          Utils.robot
+Resource          CompareStream.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
@@ -156,9 +157,11 @@ Clean Peer Groups
     \    Delete Peer Group    ${group['name']}    ${node}    ${session}
 
 Add Filter
-    [Arguments]    ${name}    ${type}    ${entries}    ${node}=127.0.0.1    ${session}=session
+    [Arguments]    ${name}    ${type}    ${entries}    ${node}=127.0.0.1    ${session}=session    ${policy}=auto-update
     [Documentation]    Add Filter via RPC from Node
-    ${DATA}    Add Filter Xml    ${name}    ${type}    ${entries}    ${node}
+    ${DATA}    Run_Keyword_If_At_Least_Else    carbon    Add Filter Xml    ${name}    ${type}    ${entries}
+    ...    ${node}    ${policy}
+    ...    ELSE    Add Filter Xml    ${name}    ${type}    ${entries}    ${node}
     Post To Controller    ${session}    add-filter    ${DATA}
 
 Add Domain Filter
