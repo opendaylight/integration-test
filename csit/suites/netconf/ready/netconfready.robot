@@ -57,6 +57,7 @@ Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Library           RequestsLibrary
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
@@ -132,7 +133,7 @@ Wait_For_MDSAL
 Setup_Everything
     [Documentation]    Initialize SetupUtils. Setup requests library and log into karaf.log that the netconf readiness wait starts.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    ${connector}=    BuiltIn.Set_Variable_If    ${USE_NETCONF_CONNECTOR}    /node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/controller-config    ${EMPTY}
+    ${connector}=    Set_Netconf_Connector
     BuiltIn.Set_Suite_Variable    ${netconf_connector}    ${connector}
     BuiltIn.Comment    A workaround for EOF error follows. TODO: Create a test case for the EOF bug, possibly tagged "exclude".
     BuiltIn.Wait_Until_Keyword_Succeeds    2x    1s    KarafKeywords.Open_Controller_Karaf_Console_On_Background
@@ -145,6 +146,12 @@ Teardown_Everything
     [Documentation]    Destroy all sessions in the requests library and log into karaf.log that the netconf readiness wait is over.
     KarafKeywords.Log_Message_To_Controller_Karaf    Ending Netconf readiness test suite
     RequestsLibrary.Delete_All_Sessions
+
+Set_Netconf_Connector
+    [Documentation]    Sets netconf connector verify url according to the ${ODL_STREAM} and ${USE_NETCONF_CONNECTOR} combination
+    ${streamconnector}=    CompareStream.Set_Variable_If_At_Most_Boron    /node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/controller-config    /node/controller-config/yang-ext:mount/config:modules/module/sal-restconf-service:json-restconf-service-impl/json-restconf-service-impl
+    ${connector}=    BuiltIn.Set_Variable_If    ${USE_NETCONF_CONNECTOR}    ${streamconnector}    ${EMPTY}
+    BuiltIn.Return_From_Keyword    ${connector}
 
 Check_Netconf_Topology_Ready
     [Documentation]    Verifies the netconf readiness for every odl node.
