@@ -19,6 +19,15 @@ Get Tenant ID From Security Group
     Log    ${output}
     [Return]    ${output}
 
+Update Quota To Create More Nets
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron quota-update --network 310
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron quota-update --subnet 310
+    Log    ${output}
+
+
 Get Tenant ID From Network
     [Arguments]    ${network_uuid}
     [Documentation]    Returns tenant ID by reading it from existing network.
