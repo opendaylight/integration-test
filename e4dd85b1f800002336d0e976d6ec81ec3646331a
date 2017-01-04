@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_69e1b699",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-04T17:37:44Z",
+      "side": 1,
+      "message": "-1 unless documented why this is needed.\n\nWe should be moving variables from Variables.robot (and keywords from Utils.robot) to specific Resources which use them, not the other way around.",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 35
+      },
+      "revId": "e4dd85b1f800002336d0e976d6ec81ec3646331a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_89e6d2b2",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-04T17:37:44Z",
+      "side": 1,
+      "message": "We already recommend SetupUtils.robot for their useful Setups and Teardowns, which initializes KarafKeywords.robot which initializes ClusterManagement.robot so there is no need for these keywords (unless you really want to have IP argument instead of member index).\n\nI think it is time to include odl-jolokia in 1node jobs and call that \"1 node cluster\".",
+      "range": {
+        "startLine": 485,
+        "startChar": 0,
+        "endLine": 485,
+        "endChar": 15
+      },
+      "revId": "e4dd85b1f800002336d0e976d6ec81ec3646331a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
