@@ -1,0 +1,5 @@
+# Place the scripts in run order:
+integration/test/csit/scripts/set_elasticsearch_attribute_short.sh
+integration/test/csit/scripts/set_jvm_common_attribute.sh
+#integration/test/csit/scripts/tor_setup.sh
+integration/test/csit/scripts/dcgw_setup.sh
