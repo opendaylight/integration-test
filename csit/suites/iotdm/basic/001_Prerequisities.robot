@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite to verify Restconf is OK
+Documentation     Testing of essential functionality which is not directly implemented by IoTDM
 Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
@@ -12,7 +12,7 @@ ${REST_CONTEXT}    /restconf/modules
 
 *** Test Cases ***
 Get Controller Modules
-    [Documentation]    Get the controller modules via Restconf
+    [Documentation]    Get the controller modules via Restconf (verifies the Restconf)
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
