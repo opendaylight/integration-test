@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation     Tests for Content Instance resource attributes
 Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
 Library           Collections
@@ -130,31 +131,36 @@ Delete the ContenInstance 2.33
     [Documentation]    Mulitiple labels should return error
     ${attr} =    Set Variable    "con": "1", "lbl":["label1"],"lbl":["label2"]
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    lbl
+    Should Contain    ${error}    Duplicate
+    Should Contain    ${error}    lbl
 
 3.12 Multiple creator should return error
     [Documentation]    Multiple creator should return error
     ${attr} =    Set Variable    "con": "1", "cr":null, "cr":null
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    cr
+    Should Contain    ${error}    Duplicate
+    Should Contain    ${error}    cr
 
 3.13 Multiple contentInfo should return error
     [Documentation]    Multiple contentInfo should return error
     ${attr} =    Set Variable    "con": "1", "cnf":"1","cnf":"2"
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    cnf
+    Should Contain    ${error}    Duplicate
+    Should Contain    ${error}    cnf
 
 3.14 Multiple ontologyRef should return error
     [Documentation]    Multiple ontologyRef should return error
     ${attr} =    Set Variable    "con": "1", "or":"http://cisco.com","or":"http://google.com"
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    or
+    Should Contain    ${error}    Duplicate
+    Should Contain    ${error}    or
 
 3.15 Mulptiple content should return error
     [Documentation]    Mulptiple content should return error
     ${attr} =    Set Variable    "con": "1", "con":"2313"
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    con
+    Should Contain    ${error}    Duplicate
+    Should Contain    ${error}    con
     #----------------All attributes cannot be updated----------
 
 3.21 resourceType cannot be updated.
@@ -187,7 +193,7 @@ Delete the ContenInstance 2.33
     ${error} =    Cannot Update ContentInstance Error    ${attr}
     Should Contain    ${error}    Not permitted to update content
 
-3.26 lastmodifiedTime cannot be updated.
+3.26 last modified time cannot be updated.
     [Documentation]    update lt then expect error
     ${attr} =    Set Variable    "lt": "434343T23232"
     ${error} =    Cannot Update ContentInstance Error    ${attr}
