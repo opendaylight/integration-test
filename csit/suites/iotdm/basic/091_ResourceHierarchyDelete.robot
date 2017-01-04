@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation     Tests deleting resources from multiple places in resource tree
 Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
 Library           Collections
