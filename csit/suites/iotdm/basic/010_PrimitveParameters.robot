@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation     Testing of request and response primitives parameters
 Suite Setup       Connect And Create The Tree
 Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
@@ -88,22 +89,34 @@ Create the tree
     Connect And Create The Tree
 
 1. createdBefore
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&crb=20160612T033748Z
+    # need to sleep at least one second becase we are checking if resource was created before resource time and if
+    # this test and test before was created in the same second then this test will fail.
+    Sleep    1
+    # time format is specified in TS0004 specification at http://onem2m.org/technical/published-documents page 35
+    # DateTime string using 'Basic Format' specified in ISO8601 [27]. Time zone shall be interpreted as UTC timezone.
+    ${cty} =    Get Time    year    UTC
+    ${ctm} =    Get Time    month    UTC
+    ${ctd} =    Get Time    day    UTC
+    ${cth} =    Get Time    hour    UTC
+    ${ctmin} =    Get Time    min    UTC
+    ${ctsec} =    Get Time    sec    UTC
+    Set Suite Variable    ${ts}    ${cty}${ctm}${ctd}T${cth}${ctmin}${ctsec}
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&crb=${ts}
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
 2. createdAfter
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&cra=20150612T033748Z
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&cra=20150612T033748
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
 3. modifiedSince
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&ms=20150612T033748Z
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&ms=20150612T033748
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
 4. unmodifiedSince
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&us=20160612T033748Z
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&us=${ts}
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
