@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_ee5e6c75",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-04T14:54:39Z",
+      "side": 1,
+      "message": "Redundant.",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 34
+      },
+      "revId": "888791aa7440e19aaae19b74ce455e62910b326f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
