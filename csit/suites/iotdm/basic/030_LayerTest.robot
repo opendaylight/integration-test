@@ -61,19 +61,19 @@ Set Suite Variable
     #    Container Test
     #==================================================
 
-2.11 Create Container under AE without name
+2.11 Create Container without name under AE
     [Documentation]    Create Container under AE without name
     ${attr} =    Set Variable    "cr":null,"mni":1,"mbs":15,"or":"http://hey/you"
     Connect And Create Resource    InCSE1/ODL3    ${rt_container}    ${attr}
 
-2.12 Create Container under AE with name
-    [Documentation]    Invalid Input for Container Under AE with name (Already exist)
+2.12 Create Container with name under AE
+    [Documentation]    Create Container Under AE with name containerUnderAE and retrieve it to check if it is created
     ${attr} =    Set Variable    "cr":null,"mni":1,"mbs":15,"or":"http://hey/you","rn":"containerUnderAE"
-    ${r} =    Create Resource    ${iserver}    InCSE1/ODL3    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    /InCSE1/ODL3    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     # retrieve it
-    ${result} =    Retrieve Resource    ${iserver}    ${container}
+    ${result} =    Retrieve Resource    ${iserver}    ${container[2:]}
     ${text} =    Text    ${result}
     Should Contain    ${text}    containerUnderAE
 
@@ -143,7 +143,7 @@ Set Suite Variable
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     # retrieve it
-    ${result} =    Retrieve Resource    ${iserver}    ${container}
+    ${result} =    Retrieve Resource    ${iserver}    ${container[2:]}
     ${text} =    Text    ${result}
     Should Contain    ${text}    containerUnderContainer
 
@@ -237,11 +237,11 @@ Set Suite Variable
     ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
     ${ae} =    Location    ${r}
     Response Is Correct    ${r}
-    ${deleteRes} =    Delete Resource    ${iserver}    ${ae}
+    ${deleteRes} =    Delete Resource    ${iserver}    ${ae[2:]}
     ${status_code} =    Status Code    ${deleteRes}
     Should Be Equal As Integers    ${status_code}    200
     # Delete AE that does not exist/has been deleted should return error
-    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${ae}
+    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${ae[2:]}
     Should Start with    ${error}    Cannot delete this resource [404]
 
 4.12 Delete Container without child resource
@@ -250,11 +250,11 @@ Set Suite Variable
     ${r} =    Create Resource    ${iserver}    InCSE1/ODL3    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
-    ${deleteRes} =    Delete Resource    ${iserver}    ${container}
+    ${deleteRes} =    Delete Resource    ${iserver}    ${container[2:]}
     ${status_code} =    Status Code    ${deleteRes}
     Should Be Equal As Integers    ${status_code}    200
     # Delete container that does not exist/has been deleted should return error
-    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${container}
+    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${container[2:]}
     Should Start with    ${error}    Cannot delete this resource [404]
 
 Delete the Container Under CSEBase

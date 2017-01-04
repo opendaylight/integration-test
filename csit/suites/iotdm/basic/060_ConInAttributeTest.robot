@@ -187,7 +187,7 @@ Delete the ContenInstance 2.33
     ${error} =    Cannot Update ContentInstance Error    ${attr}
     Should Contain    ${error}    Not permitted to update content
 
-3.26 lastmodifiedTime cannot be updated.
+3.26 last modified time cannot be updated.
     [Documentation]    update lt then expect error
     ${attr} =    Set Variable    "lt": "434343T23232"
     ${error} =    Cannot Update ContentInstance Error    ${attr}
@@ -212,8 +212,8 @@ Delete the ContenInstance 2.33
     ${container} =    Location    ${r}
     ${random} =    Evaluate    random.randint(0,50)    modules=random
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"${random}"
-    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
-    ${latestCon} =    Get Latest    ${container}
+    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr}
+    ${latestCon} =    Get Latest    ${container[2:]}
     Should Be Equal As Strings    ${random}    ${latestCon}
 
 4.12 GetLatest Loop 50 times Test
@@ -222,7 +222,7 @@ Delete the ContenInstance 2.33
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     : FOR    ${INDEX}    IN RANGE    1    100
-    \    Latest Con Test    ${container}
+    \    Latest Con Test    ${container[2:]}
 
 Delete the test Container1
     [Documentation]    Delete the test Container1
@@ -248,7 +248,7 @@ Check Create and Retrieve ContentInstance
     ${con} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
-    ${rr} =    Retrieve Resource    ${iserver}    ${con}
+    ${rr} =    Retrieve Resource    ${iserver}    ${con[2:]}
     ${text} =    Text    ${rr}
     [Return]    ${text}
 

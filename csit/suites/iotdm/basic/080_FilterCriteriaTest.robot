@@ -88,22 +88,34 @@ Create the tree
     Connect And Create The Tree
 
 1. createdBefore
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&crb=20160612T033748Z
+    ${cty} =    Get Time    year
+    ${ctm} =    Get Time    month
+    ${ctd} =    Get Time    day
+    ${cth} =    Get Time    hour
+    ${ctmin} =    Get Time    min
+    ${ctsec} =    Get Time    sec
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&crb=${cty}${ctm}${ctd}T${cth}${ctmin}${ctsec}
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
 2. createdAfter
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&cra=20150612T033748Z
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&cra=20150612T033748
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
 3. modifiedSince
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&ms=20150612T033748Z
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&ms=20150612T033748
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
 4. unmodifiedSince
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&us=20160612T033748Z
+    ${cty} =    Get Time    year
+    ${ctm} =    Get Time    month
+    ${ctd} =    Get Time    day
+    ${cth} =    Get Time    hour
+    ${ctmin} =    Get Time    min
+    ${ctsec} =    Get Time    sec
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&us=${cty}${ctm}${ctd}T${cth}${ctmin}${ctsec}
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
