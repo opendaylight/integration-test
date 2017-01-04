@@ -23,22 +23,22 @@ Set Suite Variable
     # For Creation, there are no mandatory input attribute
 
 1.0 Test whether default ACP exist
-    Modify Headers Origin    ${iserver}    //iotsandbox.cisco.com:10000
+    Modify Headers Origin    ${iserver}    admin
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/_defaultACP
     ${text} =    Text    ${r}
     LOG    ${text}
     ${status_code} =    Status Code    ${r}
     Should Be True    199 < ${status_code} < 299
 
-1.1 Create ACP without context, test whether all the reponse mandatory attribtues are exist.
-    [Documentation]    After Created, test whether all the mandatory attribtues are exist.
+1.1 Create ACP without context, test whether all the reponse mandatory attribtues exist.
+    [Documentation]    After Created, test whether all the mandatory attribtues exist.
     ${attr} =    Set Variable    "pv":{"acr":[{"acor" : ["111","222"],"acop":35},{"acor" : ["111","222"],"acop":35}]},"pvs":{"acr":[{"acor" : ["111","222"],"acop":7},{"acor" : ["111","222"],"acop":9}]},"rn":"Acp1"
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_acp}    ${attr}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${text} =    Text    ${r}
-    Should Contain    ${text}    "ct":    "lt":    "ty"
-    Should Contain    ${text}    "ri":    "pi":
+    ${sc} =    Set Variable    "ct":    "lt":    "ty"    "ri":    "pi":
+    List should contain Sub List    ${text}    ${sc}
 
 1.2 Create ACP with valid acip(ipv4)
     [Documentation]    After Created, test whether all the mandatory attribtues are exist.
@@ -47,8 +47,8 @@ Set Suite Variable
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${text} =    Text    ${r}
-    Should Contain    ${text}    "ct":    "lt":    "ty"
-    Should Contain    ${text}    "ri":    "pi":
+    ${sc} =    Set Variable    "ct":    "lt":    "ty"    "ri":    "pi":
+    List should contain Sub List    ${text}    ${sc}
 
 1.3 Create ACP with invalid acip(ipv4)
     [Documentation]    input a invalid ipv4 address and expect error
@@ -65,8 +65,8 @@ Set Suite Variable
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${text} =    Text    ${r}
-    Should Contain    ${text}    "ct":    "lt":    "ty"
-    Should Contain    ${text}    "ri":    "pi":
+    ${sc} =    Set Variable    "ct":    "lt":    "ty"    "ri":    "pi":
+    List should contain Sub List    ${text}    ${sc}
 
 1.5 Create ACP with invalid acip(ipv6)
     [Documentation]    input a invalid Ipv6 address and expect error

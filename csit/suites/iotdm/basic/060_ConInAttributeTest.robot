@@ -130,31 +130,36 @@ Delete the ContenInstance 2.33
     [Documentation]    Mulitiple labels should return error
     ${attr} =    Set Variable    "con": "1", "lbl":["label1"],"lbl":["label2"]
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    lbl
+    Should Contain    ${error}    Duplicate
+    Should Contain    ${error}    lbl
 
 3.12 Multiple creator should return error
     [Documentation]    Multiple creator should return error
     ${attr} =    Set Variable    "con": "1", "cr":null, "cr":null
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    cr
+    Should Contain    ${error}    Duplicate
+    Should Contain    ${error}    cr
 
 3.13 Multiple contentInfo should return error
     [Documentation]    Multiple contentInfo should return error
     ${attr} =    Set Variable    "con": "1", "cnf":"1","cnf":"2"
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    cnf
+    Should Contain    ${error}    Duplicate
+    Should Contain    ${error}    cnf
 
 3.14 Multiple ontologyRef should return error
     [Documentation]    Multiple ontologyRef should return error
     ${attr} =    Set Variable    "con": "1", "or":"http://cisco.com","or":"http://google.com"
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    or
+    Should Contain    ${error}    Duplicate
+    Should Contain    ${error}    or
 
 3.15 Mulptiple content should return error
     [Documentation]    Mulptiple content should return error
     ${attr} =    Set Variable    "con": "1", "con":"2313"
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    con
+    Should Contain    ${error}    Duplicate
+    Should Contain    ${error}    con
     #----------------All attributes cannot be updated----------
 
 3.21 resourceType cannot be updated.
@@ -187,7 +192,7 @@ Delete the ContenInstance 2.33
     ${error} =    Cannot Update ContentInstance Error    ${attr}
     Should Contain    ${error}    Not permitted to update content
 
-3.26 lastmodifiedTime cannot be updated.
+3.26 last modified time cannot be updated.
     [Documentation]    update lt then expect error
     ${attr} =    Set Variable    "lt": "434343T23232"
     ${error} =    Cannot Update ContentInstance Error    ${attr}
@@ -212,8 +217,8 @@ Delete the ContenInstance 2.33
     ${container} =    Location    ${r}
     ${random} =    Evaluate    random.randint(0,50)    modules=random
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"${random}"
-    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
-    ${latestCon} =    Get Latest    ${container}
+    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr}
+    ${latestCon} =    Get Latest    ${container[2:]}
     Should Be Equal As Strings    ${random}    ${latestCon}
 
 4.12 GetLatest Loop 50 times Test
@@ -222,7 +227,7 @@ Delete the ContenInstance 2.33
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     : FOR    ${INDEX}    IN RANGE    1    100
-    \    Latest Con Test    ${container}
+    \    Latest Con Test    ${container[2:]}
 
 Delete the test Container1
     [Documentation]    Delete the test Container1
@@ -248,7 +253,7 @@ Check Create and Retrieve ContentInstance
     ${con} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
-    ${rr} =    Retrieve Resource    ${iserver}    ${con}
+    ${rr} =    Retrieve Resource    ${iserver}    ${con[2:]}
     ${text} =    Text    ${rr}
     [Return]    ${text}
 
