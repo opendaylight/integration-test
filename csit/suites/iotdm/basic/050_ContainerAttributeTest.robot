@@ -234,74 +234,86 @@ Delete the Container2-2.3
 3.31 resourceType cannot be update.
     [Documentation]    when update resourceType, expect error
     ${attr} =    Set Variable    "ty":2
-    ${error} =    Cannot Update Container Error    ${attr}
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
     Should Contain    ${error}    error
+    Should Contain    ${error}    CONTENT(pc) attribute not recognized: ty
 
-3.32 resoureceID cannot be update.
+3.32 resourceID cannot be update.
     [Documentation]    update resoureceID then expect error
     ${attr} =    Set Variable    "ri":"aaa"
-    ${error} =    Cannot Update Container Error    ${attr}
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
     Should Contain    ${error}    error    ri
+    Should Contain    ${error}    CONTENT(pc) attribute not recognized: ri
 
-3.33 resouceNme cannot be update.(write once)
+3.33 resouceName cannot be update.(write once)
     [Documentation]    update resourceName and expect error
     ${attr} =    Set Variable    "rn":"aaa"
-    ${error} =    Cannot Update Container Error    ${attr}
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
     Should Contain    ${error}    error    rn
+    Should Contain    ${error}    Resource Name cannot be updated: InCSE1/Container1/aaa
 
 3.34 parentID cannot be update.
     [Documentation]    update parentID and expect error
     ${attr} =    Set Variable    "pi":"aaa"
-    ${error} =    Cannot Update Container Error    ${attr}
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
     Should Contain    ${error}    error    pi
+    Should Contain    ${error}    CONTENT(pc) attribute not recognized: pi
 
 3.35 createTime cannot be update.
     [Documentation]    update createTime and expect error
     ${attr} =    Set Variable    "ct":"aaa"
-    ${error} =    Cannot Update Container Error    ${attr}
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
     Should Contain    ${error}    error    ct
+    Should Contain    ${error}    CONTENT(pc) attribute not recognized: ct
 
 3.36 curerntByteSize cannot be update --- Special, cannot be modified by the user
     [Documentation]    update currentByteSize and expect error
     ${attr} =    Set Variable    "cbs":123
-    ${error} =    Cannot Update Container Error    ${attr}
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
     Should Contain    ${error}    error    api
+    Should Contain    ${error}    cbs: read-only parameter
 
 3.37 currentNrofInstance cannot be updated --- Special, cannot be modified by the user
     [Documentation]    update cni and expect error
     ${attr} =    Set Variable    "cni":3
-    ${error} =    Cannot Update Container Error    ${attr}
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
     Should Contain    ${error}    error    aei
+    Should Contain    ${error}    cni: read-only parameter
 
 3.38 LastMoifiedTime --- Special, cannot be modified by the user
     [Documentation]    update lt and expect error
     ${attr} =    Set Variable    "lt":"aaa"
-    ${error} =    Cannot Update Container Error    ${attr}
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
     Should Contain    ${error}    error    lt
+    Should Contain    ${error}    CONTENT(pc) attribute not recognized: lt
 
 3.39 stateTag --- Special, cannot be modified by the user
     [Documentation]    update st and expect error
     ${attr} =    Set Variable    "st":3
-    ${error} =    Cannot Update Container Error    ${attr}
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
     Should Contain    ${error}    error    st
+    Should Contain    ${error}    st: read-only parameter
 
 3.310 creator -- cannot be modified
     [Documentation]    update cr and expect error
     ${attr} =    Set Variable    "cr":null
-    ${error} =    Cannot Update Container Error    ${attr}
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
     Should Contain    ${error}    error    cr
+    Should Contain    ${error}    CREATOR cannot be updated
 
 3.41 Using AE's M attribute to create
     [Documentation]    use AE attribtue to create Container then expect error
     ${attr} =    Set Variable    "api":"ODL","aei":"ODL"
-    ${error} =    Cannot Update Container Error    ${attr}
-    Should Contain    ${error}    CONTENT(pc)
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
+    Should Contain    ${error}    error
+    Should Contain    ${error}    CONTENT(pc) attribute not recognized: aei
 
 3.42 Using ContentInstance's M attribute to create
     [Documentation]    use contentInstance attribtue to create Container then expect error
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
-    ${error} =    Cannot Update Container Error    ${attr}
-    Should Contain    ${error}    CONTENT(pc)
+    ${error} =    Cannot Update Container Error And Check Response Code    ${attr}
+    Should Contain    ${error}    error
+    Should Contain    ${error}    CONTENT(pc) attribute not recognized: con
     #==================================================
     #    Functional Attribute Test
     #==================================================
@@ -317,30 +329,30 @@ Delete the Container2-2.3
     # 10. childresource
     #-------------- 1.    lastModifiedTime    -----------
 
-4.11 if updated seccessfully, lastModifiedTime must be modified.
+4.11 if updated seccessfully, last modified time must be modified.
     [Documentation]    if updated seccessfully, lastModifiedTime must be modified.
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container1
-    ${lt1} =    LastModifiedTime    ${oldr}
+    ${lt1} =    last modified time    ${oldr}
     ${attr} =    Set Variable    "lbl":["aaa"]
     Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${lt2} =    LastModifiedTime    ${r}
+    ${lt2} =    last modified time    ${r}
     Should Not Be Equal    ${oldr.json()['m2m:cnt']['lt']}    ${lt2}
 
-4.12 childResources create , parent's lastmodifiedTime update
+4.12 childResources create , parent's last modified time update
     [Documentation]    childResources create , parent's lastmodifiedTime update
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container1
-    ${lt1} =    LastModifiedTime    ${oldr}
+    ${lt1} =    last modified time    ${oldr}
     Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102","rn":"conIn1"
     ${r} =    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
-    ${lt2} =    LastModifiedTime    ${r}
+    ${lt2} =    last modified time    ${r}
     Should Not Be Equal    ${oldr.json()['m2m:cnt']['lt']}    ${lt2}
     #-------------- 2 parentID ------------
 
@@ -405,13 +417,13 @@ Delete the test AE-4.2
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
-    ${oldr} =    Retrieve Resource    ${iserver}    ${container}
+    ${oldr} =    Retrieve Resource    ${iserver}    ${container[2:]}
     ${st} =    Set Variable    ${oldr.json()['m2m:cnt']['st']}
     Should Be Equal As Integers    0    ${st}
     # 4.32 stateTag (when update expirationTime)
     # 4.33 stateTag (when update accessControlPolicyIDs)
 
-4.34 stateTag (when update labels) + lastModifiedTime
+4.34 stateTag (when update labels) + last modified time
     [Documentation]    st and lt should be changed
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${oldst} =    Set Variable    ${oldr.json()['m2m:cnt']['st']}
@@ -427,7 +439,7 @@ Delete the test AE-4.2
     # 4.35 stateTag (when update announceTo)
     # 4.36 stateTag (when update announceAttribute)
 
-4.37 stateTag (when update MaxNrOfInstances) + lastModifiedTime
+4.37 stateTag (when update MaxNrOfInstances) + last modified time
     [Documentation]    st and lt should be changed
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${oldst} =    Set Variable    ${oldr.json()['m2m:cnt']['st']}
@@ -441,7 +453,7 @@ Delete the test AE-4.2
     Should Be Equal As Integers    ${oldst+1}    ${r.json()['m2m:cnt']['st']}
     Should Not Be Equal    ${oldr.json()['m2m:cnt']['lt']}    ${r.json()['m2m:cnt']['lt']}
 
-4.38 stateTag (when update MaxByteSize) + lastModifiedTime
+4.38 stateTag (when update MaxByteSize) + last modified time
     [Documentation]    st and lt should be changed
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${oldst} =    Set Variable    ${oldr.json()['m2m:cnt']['st']}
@@ -457,7 +469,7 @@ Delete the test AE-4.2
     # 4.39 stateTag (when update maxInstanceAge)
     # 4.310 stateTag (when update locationID)
 
-4.311 stateTag (when update ontologyRef) + lastModifiedTime
+4.311 stateTag (when update ontologyRef) + last modified time
     [Documentation]    st and lt should be changed
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${oldst} =    Set Variable    ${oldr.json()['m2m:cnt']['st']}
@@ -471,7 +483,7 @@ Delete the test AE-4.2
     Should Be Equal As Integers    ${oldst+1}    ${r.json()['m2m:cnt']['st']}
     Should Not Be Equal    ${oldr.json()['m2m:cnt']['lt']}    ${r.json()['m2m:cnt']['lt']}
 
-4.312 when create child container, stateTag will not increase + lastModifiedTime should change
+4.312 when create child container, stateTag will not increase + last modified time should change
     [Documentation]    when create child container, stateTag will not increase + lastModifiedTime should not change
     # CSE
     #    |--Contianer2
@@ -488,7 +500,7 @@ Delete the test AE-4.2
     Should Be Equal As Integers    ${oldst}    ${r.json()['m2m:cnt']['st']}
     Should Not Be Equal    ${oldr.json()['m2m:cnt']['lt']}    ${r.json()['m2m:cnt']['lt']}
 
-4.313 * when create child contentInsntance, state should increase + lastModifiedTime shold change
+4.313 * when create child contentInsntance, state should increase + last modified time shold change
     [Documentation]    when create child contentInsntance, state should increase + lastModifiedTime shold not change
     # CSE
     #    |--Contianer2
@@ -520,7 +532,7 @@ Delete the test AE-4.2
     Update Resource    ${iserver}    InCSE1/Container2/Container3    ${rt_container}    ${attr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     Should Be Equal As Integers    ${oldst}    ${r.json()['m2m:cnt']['st']}
-    ${lt2} =    LastModifiedTime    ${r}
+    ${lt2} =    last modified time    ${r}
     Should Be Equal    ${oldr.json()['m2m:cnt']['lt']}    ${lt2}
 
 Delete the Container2-4.3
@@ -533,7 +545,7 @@ Delete the Container2-4.3
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
-    ${oldr} =    Retrieve Resource    ${iserver}    ${container}
+    ${oldr} =    Retrieve Resource    ${iserver}    ${container[2:]}
     ${cni} =    Set Variable    ${oldr.json()['m2m:cnt']['cni']}
     Should Be Equal As Integers    0    ${cni}
 
@@ -572,7 +584,7 @@ Delete the Container2-4.4
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
-    ${oldr} =    Retrieve Resource    ${iserver}    ${container}
+    ${oldr} =    Retrieve Resource    ${iserver}    ${container[2:]}
     ${cbs} =    Set Variable    ${oldr.json()['m2m:cnt']['cbs']}
     Should Be Equal As Integers    0    ${cbs}
 
@@ -611,7 +623,7 @@ Delete the Container2-4.5
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
-    ${oldr} =    Retrieve Resource    ${iserver}    ${container}
+    ${oldr} =    Retrieve Resource    ${iserver}    ${container[2:]}
     ${mni} =    Set Variable    ${oldr.json()['m2m:cnt']['mni']}
     Should Be Equal As Integers    1    ${mni}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102CSS"
@@ -624,6 +636,7 @@ Delete the Container2-4.5
     ${rr} =    Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     Check Response and Retrieve Resource    ${rr}
     ${rr} =    Retrieve resource    ${iserver}    InCSE1/Container2
+    Log    ${rr.json()}
     ${chr} =    Set Variable    ${rr.json()['m2m:cnt']['ch']}
     ${cbs} =    Set Variable    ${rr.json()['m2m:cnt']['cbs']}
     Should Be Equal As Integers    ${rr.json()['m2m:cnt']['cni']}    1
@@ -664,7 +677,7 @@ Delete the Container2-4.6
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
-    ${oldr} =    Retrieve Resource    ${iserver}    ${container}
+    ${oldr} =    Retrieve Resource    ${iserver}    ${container[2:]}
     ${mbs} =    Set Variable    ${oldr.json()['m2m:cnt']['mbs']}
     Should Be Equal As Integers    5    ${mbs}
 
@@ -728,7 +741,7 @@ Check Response and Retrieve Resource
     ${con} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be True    199 < ${status_code} < 299
-    ${rr} =    Retrieve Resource    ${iserver}    ${con}
+    ${rr} =    Retrieve Resource    ${iserver}    ${con[2:]}
     ${text} =    Text    ${rr}
     [Return]    ${text}
 
@@ -748,7 +761,7 @@ Cannot Create Container Error
     Should Start with    ${error}    Cannot create this resource [400]
     [Return]    ${error}
 
-Cannot Update Container Error
+Cannot Update Container Error And Check Response Code
     [Arguments]    ${attr}
     [Documentation]    update Container Under InCSE1 and expect error
     ${error} =    Run Keyword And Expect Error    *    Update Resource    ${iserver}    InCSE1/Container1    ${rt_container}

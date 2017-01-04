@@ -161,7 +161,7 @@ class connect:
             # and until a proper defaulting initializer is in place
             # are hard-coded.
             'content-type': 'application/vnd.onem2m-res+json',
-            'X-M2M-Origin': '//localhost:10000',
+            'X-M2M-Origin': 'localhost:10000',
             'X-M2M-RI': '12345',
             'X-M2M-OT': 'NOW'
         }
