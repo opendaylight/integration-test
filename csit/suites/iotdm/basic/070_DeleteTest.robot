@@ -27,11 +27,11 @@ Set Suite Variable
     ${ae} =    Location    ${r}
     Response Is Correct    ${r}
     #------------- Delete -----------------------------
-    ${deleteRes} =    Delete Resource    ${iserver}    ${ae}
+    ${deleteRes} =    Delete Resource    ${iserver}    ${ae[2:]}
     ${status_code} =    Status Code    ${deleteRes}
     Should Be Equal As Integers    ${status_code}    200
     # Delete AE that does not exist/has been deleted should return error
-    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${ae}
+    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${ae[2:]}
     Should Start with    ${error}    Cannot delete this resource [404]
 
 4.12 Delete Container without child resource
@@ -41,11 +41,11 @@ Set Suite Variable
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     #------------- Delete -----------------------------
-    ${deleteRes} =    Delete Resource    ${iserver}    ${container}
+    ${deleteRes} =    Delete Resource    ${iserver}    ${container[2:]}
     ${status_code} =    Status Code    ${deleteRes}
     Should Be Equal As Integers    ${status_code}    200
     # Delete container that does not exist/has been deleted should return error
-    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${container}
+    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${container[2:]}
     Should Start with    ${error}    Cannot delete this resource [404]
 
 4.13 Delete contentInstance under InCSE1/AE/container/
@@ -55,19 +55,19 @@ Set Suite Variable
     ${ae} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con1"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${ae[2:]}    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr}
     ${conIn} =    Location    ${r}
     Response Is Correct    ${r}
     #------------- Delete -----------------------------
-    ${deleteRes} =    Delete Resource    ${iserver}    ${conIn}
+    ${deleteRes} =    Delete Resource    ${iserver}    ${conIn[2:]}
     ${status_code} =    Status Code    ${deleteRes}
     Should Be Equal As Integers    ${status_code}    200
     # Delete container that does not exist/has been deleted should return error
-    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${conIn}
+    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${conIn[2:]}
     Should Start with    ${error}    Cannot delete this resource [404]
 
 4.14 Delete contentInstance under InCSE1/Container/
@@ -77,15 +77,15 @@ Set Suite Variable
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr}
     ${conIn} =    Location    ${r}
     Response Is Correct    ${r}
     #------------- Delete -----------------------------
-    ${deleteRes} =    Delete Resource    ${iserver}    ${conIn}
+    ${deleteRes} =    Delete Resource    ${iserver}    ${conIn[2:]}
     ${status_code} =    Status Code    ${deleteRes}
     Should Be Equal As Integers    ${status_code}    200
     # Delete container that does not exist/has been deleted should return error
-    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${conIn}
+    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${conIn[2:]}
     Should Start with    ${error}    Cannot delete this resource [404]
 
 4.15 Delete contentIsntance under InCSE1/Container/container/
@@ -95,15 +95,15 @@ Set Suite Variable
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr}
     ${conIn} =    Location    ${r}
     Response Is Correct    ${r}
     #------------- Delete -----------------------------
-    ${deleteRes} =    Delete Resource    ${iserver}    ${conIn}
+    ${deleteRes} =    Delete Resource    ${iserver}    ${conIn[2:]}
     ${status_code} =    Status Code    ${deleteRes}
     Should Be Equal As Integers    ${status_code}    200
     # Delete container that does not exist/has been deleted should return error
-    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${conIn}
+    ${error} =    Run Keyword And Expect Error    *    Delete Resource    ${iserver}    ${conIn[2:]}
     Should Start with    ${error}    Cannot delete this resource [404]
     # ============== AE with child container ==================
 
@@ -125,15 +125,15 @@ Set Suite Variable
     ${ae} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${ae[2:]}    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con3"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${ae[2:]}    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con4"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${ae[2:]}    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     # ----------- Delete the parent AE --------------
@@ -160,11 +160,11 @@ Set Suite Variable
     ${ae} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${ae[2:]}    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101","rn":"conIn1"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr}
     ${name} =    Location    ${r}
     Response Is Correct    ${r}
     # ----------- Delete the parent AE --------------
@@ -185,17 +185,17 @@ Set Suite Variable
     ${ae} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${ae[2:]}    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr1} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101","rn":"conIn1"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr1}
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr1}
     Response Is Correct    ${r}
     ${attr2} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101","rn":"conIn2"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr2}
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr2}
     Response Is Correct    ${r}
     ${attr3} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101","rn":"conIn3"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr3}
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr3}
     Response Is Correct    ${r}
     # ----------- Delete the parent AE --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/AE1
@@ -217,26 +217,26 @@ Set Suite Variable
     ${ae} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con1"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${ae[2:]}    ${rt_container}    ${attr}
     ${container1} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${ae[2:]}    ${rt_container}    ${attr}
     ${container2} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con3"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${ae[2:]}    ${rt_container}    ${attr}
     ${container3} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container1}    ${rt_contentInstance}    ${attr},"rn":${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container1[2:]}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container2}    ${rt_contentInstance}    ${attr},"rn":${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container2[2:]}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr},"rn":${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container3[2:]}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     # ----------- Delete the parent AE --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/AE1
@@ -277,13 +277,13 @@ Set Suite Variable
     ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr},"rn":"ConTop1"
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_container}    ${attr},"rn":"Con1"
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_container}    ${attr},"rn":"Con1"
     ${container1} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_container}    ${attr},"rn":"Con2"
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_container}    ${attr},"rn":"Con2"
     ${container2} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_container}    ${attr},"rn":"Con3"
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_container}    ${attr},"rn":"Con3"
     ${container3} =    Location    ${r}
     Response Is Correct    ${r}
     # ----------- Delete the parent Container --------------
@@ -305,11 +305,11 @@ Set Suite Variable
     ${con} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
-    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${con[2:]}    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101","rn":"conIn1"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr}
     ${name} =    Location    ${r}
     Response Is Correct    ${r}
     # ----------- Delete the parent Container --------------
@@ -330,15 +330,15 @@ Set Suite Variable
     ${con} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
-    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    ${con[2:]}    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr},"rn":"conIn1"
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr},"rn":"conIn1"
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr},"rn":"conIn2"
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr},"rn":"conIn2"
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr},"rn":"conIn3"
+    ${r} =    Create Resource    ${iserver}    ${container[2:]}    ${rt_contentInstance}    ${attr},"rn":"conIn3"
     Response Is Correct    ${r}
     # ----------- Delete the parent Container --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/Con1
@@ -359,24 +359,24 @@ Set Suite Variable
     ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr},"rn":"Con1"
     ${con} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr},"rn":"Con2"
+    ${r} =    Create Resource    ${iserver}    ${con[2:]}    ${rt_container}    ${attr},"rn":"Con2"
     ${container1} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr},"rn":"Con3"
+    ${r} =    Create Resource    ${iserver}    ${con[2:]}    ${rt_container}    ${attr},"rn":"Con3"
     ${container2} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr},"rn":"Con4"
+    ${r} =    Create Resource    ${iserver}    ${con[2:]}    ${rt_container}    ${attr},"rn":"Con4"
     ${container3} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container1}    ${rt_contentInstance}    ${attr},"rn":${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container1[2:]}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container2}    ${rt_contentInstance}    ${attr},"rn":${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container2[2:]}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr},"rn":${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container3[2:]}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     # ----------- Delete the parent Container --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/Con1
