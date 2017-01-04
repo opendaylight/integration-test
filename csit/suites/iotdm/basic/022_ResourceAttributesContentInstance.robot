@@ -1,5 +1,7 @@
 *** Settings ***
+Documentation     Tests for Content Instance resource attributes
 Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Resource          ../../../libraries/SubStrings.robot
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
@@ -29,16 +31,15 @@ Set Suite Variable
 1.1 After Created, test whether all the mandatory attribtues are exist.
     [Documentation]    create 1 conIn test whether all the mandatory attribtues are exist
     ${attr} =    Set Variable    "rn":"Container1"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r}=    Create Resource With Command    ${iserver}    InCSE1    ${rt_container}    rcn=3    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${attr} =    Set Variable    "con":"102CSS","rn":"conIn1"
-    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
+    ${r} =    Create Resource With Command    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    rcn=3    ${attr}
     ${text} =    Text    ${r}
-    Should Contain    ${text}    "ri":    "rn":    "cs":
-    Should Contain    ${text}    "lt":    "pi":    "con":
-    Should Contain    ${text}    "ct":    "rty":4
+    Should Contain All Sub Strings    ${text}    "ri":    "rn":    "cs":    "lt":    "pi":
+    ...    "con":    "ct":    "ty":4
     Should Not Contain    S{text}    "lbl"    "creator"    "or"
 
 1.21 Missing content should return error
@@ -130,31 +131,31 @@ Delete the ContenInstance 2.33
     [Documentation]    Mulitiple labels should return error
     ${attr} =    Set Variable    "con": "1", "lbl":["label1"],"lbl":["label2"]
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    lbl
+    Should Contain All Sub Strings    ${error}    Duplicate    lbl
 
 3.12 Multiple creator should return error
     [Documentation]    Multiple creator should return error
     ${attr} =    Set Variable    "con": "1", "cr":null, "cr":null
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    cr
+    Should Contain All Sub Strings    ${error}    Duplicate    cr
 
 3.13 Multiple contentInfo should return error
     [Documentation]    Multiple contentInfo should return error
     ${attr} =    Set Variable    "con": "1", "cnf":"1","cnf":"2"
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    cnf
+    Should Contain All Sub Strings    ${error}    Duplicate    cnf
 
 3.14 Multiple ontologyRef should return error
     [Documentation]    Multiple ontologyRef should return error
     ${attr} =    Set Variable    "con": "1", "or":"http://cisco.com","or":"http://google.com"
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    or
+    Should Contain All Sub Strings    ${error}    Duplicate    or
 
 3.15 Mulptiple content should return error
     [Documentation]    Mulptiple content should return error
     ${attr} =    Set Variable    "con": "1", "con":"2313"
     ${error} =    Cannot Craete ContentInstance Error    ${attr}
-    Should Contain    ${error}    Duplicate    con
+    Should Contain All Sub Strings    ${error}    Duplicate    con
     #----------------All attributes cannot be updated----------
 
 3.21 resourceType cannot be updated.
@@ -183,13 +184,13 @@ Delete the ContenInstance 2.33
 
 3.25 cretionTime cannot be updated.
     [Documentation]    update createTime and expect error
-    ${attr} =    Set Variable    "ct": "343434T34322"
+    ${attr} =    Set Variable    "ct": "20201210T123434"
     ${error} =    Cannot Update ContentInstance Error    ${attr}
     Should Contain    ${error}    Not permitted to update content
 
-3.26 lastmodifiedTime cannot be updated.
+3.26 last modified time cannot be updated.
     [Documentation]    update lt then expect error
-    ${attr} =    Set Variable    "lt": "434343T23232"
+    ${attr} =    Set Variable    "lt": "20201210T123434"
     ${error} =    Cannot Update ContentInstance Error    ${attr}
     Should Contain    ${error}    Not permitted to update content
 

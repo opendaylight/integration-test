@@ -81,6 +81,10 @@ def find_key(response, key):
         raise ValueError("The resource is not recognized")
     return dic.get(key1[0], None).get(key, None)
 
+def childResource(response):
+    """Return child resources from the response."""
+    return find_key(response, "ch")
+
 
 def name(response):
     """Return the resource name in the response."""
@@ -90,6 +94,11 @@ def name(response):
 def lastModifiedTime(response):
     """Return the lastModifiedTime in the response."""
     return find_key(response, "lt")
+
+
+def stateTag(response):
+    """Return the state tag from the response."""
+    return find_key(response, "st")
 
 
 def resid(response):
@@ -110,6 +119,26 @@ def content(response):
 def restype(response):
     """Return the resource type the response."""
     return find_key(response, "rty")
+
+
+def currentNumberOfInstances(response):
+    """Return current number of instances from the response."""
+    return find_key(response, "cni")
+
+
+def currentByteSize(response):
+    """Return current byte size from the response."""
+    return find_key(response, "cbs")
+
+
+def maxNumberOfInstances(response):
+    """Return max number of instances from the response."""
+    return find_key(response, "mni")
+
+
+def maxByteSize(response):
+    """Return max byte size from the response."""
+    return find_key(response, "mbs")
 
 
 def status(response):
@@ -161,7 +190,7 @@ class connect:
             # and until a proper defaulting initializer is in place
             # are hard-coded.
             'content-type': 'application/vnd.onem2m-res+json',
-            'X-M2M-Origin': '//localhost:10000',
+            'X-M2M-Origin': 'iotdm-robot-tests',
             'X-M2M-RI': '12345',
             'X-M2M-OT': 'NOW'
         }
