@@ -1,5 +1,7 @@
 *** Settings ***
+Documentation     Tests for Node resource attributes
 Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Resource          ../../../libraries/SubStrings.robot
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
@@ -23,15 +25,15 @@ Set Suite Variable
     #==================================================
     # For Creation, there are no mandatory input attribute
 
-1.1 After Created, test whether all the mandatory attribtues are exist.
-    [Documentation]    After Created, test whether all the mandatory attribtues are exist.
+1.1 After Created, test whether all the mandatory attribtues exist.
+    [Documentation]    After Created, test whether all the mandatory attribtues exist.
     ${attr} =    Set Variable    "rn":"Container1"
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${r}=    Create Resource With Command    ${iserver}    InCSE1    ${rt_container}    rcn=3    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${text} =    Text    ${r}
-    Should Contain    ${text}    "ri":    "rn":    "cni"
-    Should Contain    ${text}    "lt":    "pi":    "st":
-    Should Contain    ${text}    "ct":    "rty":3    "cbs"
-    Should Not Contain    S{text}    "lbl"    "creator"    "or"
+    ${sc} =    Set Variable    "ri":    "rn":    "cni"    "lt":    "pi":
+    ...    "st":    "ct":    "ty":3    cbs"
+    Should Contain All Sub Strings    ${text}    ${sc}
+    Should Not Contain Any Sub Strings   ${text}    "lbl"    "creator"    "or"

@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation     Testing of request and response primitives parameters
 Suite Setup       Connect And Create The Tree
 Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
@@ -88,32 +89,50 @@ Create the tree
     Connect And Create The Tree
 
 1. createdBefore
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&crb=20160612T033748Z
+    # need to sleep at least one second becase we are checking if resource was created before resource time and if
+    # this test and test before was created in the same second then this test will fail.
+    Sleep    1
+    # time format is specified in TS0004 specification at http://onem2m.org/technical/published-documents page 35
+    # DateTime string using 'Basic Format' specified in ISO8601 [27]. Time zone shall be interpreted as UTC timezone.
+    ${cty} =    Get Time    year    UTC
+    ${ctm} =    Get Time    month    UTC
+    ${ctd} =    Get Time    day    UTC
+    ${cth} =    Get Time    hour    UTC
+    ${ctmin} =    Get Time    min    UTC
+    ${ctsec} =    Get Time    sec    UTC
+    Set Suite Variable    ${ts}    ${cty}${ctm}${ctd}T${cth}${ctmin}${ctsec}
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&crb=${ts}
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
 2. createdAfter
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&cra=20150612T033748Z
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&cra=20150612T033748
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
 3. modifiedSince
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&ms=20150612T033748Z
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&ms=20150612T033748
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
 4. unmodifiedSince
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&us=20160612T033748Z
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&us=${ts}
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
 5. stateTagSmaller
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/Container3    rcn=4&sts=3
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()['ch']}
     Should Be Equal As Integers    ${count}    5
 
 6. stateTagBigger
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/Container3    rcn=4&stb=1
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()['m2m:cnt']['ch']}
     Should Be Equal As Integers    ${count}    2
     # 7. expireBefore
@@ -121,27 +140,32 @@ Create the tree
 
 9. labels
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/Container3    rcn=4&sts=3&lbl=contentInstanceUnderContainerContainer
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()['ch']}
     Should Be Equal As Integers    ${count}    2
     # 2 labels test
 
 10. resourceType
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1    rcn=4&rty=3
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()['ch']}
     Should Be Equal As Integers    ${count}    3
 
 11. sizeAbove
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1    rcn=4&rty=3&sza=5
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()['ch']}
     Should Be Equal As Integers    ${count}    2
 
 12. sizeBelow
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1    rcn=4&rty=3&szb=5
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()['ch']}
     Should Be Equal As Integers    ${count}    1
 
 2.1 And Test - labels
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1    fu=1&rcn=4&sts=4&lbl=contentInstanceUnderContainerContainer&lbl=underCSE
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()}
     Should Be Equal As Integers    ${count}    6
 
