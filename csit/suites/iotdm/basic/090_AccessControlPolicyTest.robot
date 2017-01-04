@@ -23,7 +23,7 @@ Set Suite Variable
     # For Creation, there are no mandatory input attribute
 
 1.0 Test whether default ACP exist
-    Modify Headers Origin    ${iserver}    //iotsandbox.cisco.com:10000
+    Modify Headers Origin    ${iserver}    admin
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/_defaultACP
     ${text} =    Text    ${r}
     LOG    ${text}
