@@ -1,6 +1,8 @@
 *** Settings ***
+Documentation     Testing of request and response primitives parameters
 Suite Setup       Connect And Create The Tree
 Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Resource          ../../../libraries/SubStrings.robot
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
@@ -88,62 +90,118 @@ Create the tree
     Connect And Create The Tree
 
 1. createdBefore
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&crb=20160612T033748Z
-    ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
+    # need to sleep at least one second becase we are checking if resource was created before resource time and if
+    # this test and test before was created in the same second then this test will fail.
+    Sleep    1
+    # time format is specified in TS0004 specification at http://onem2m.org/technical/published-documents page 35
+    # DateTime string using 'Basic Format' specified in ISO8601 [27]. Time zone shall be interpreted as UTC timezone.
+    ${cty} =    Get Time    year    UTC
+    ${ctm} =    Get Time    month    UTC
+    ${ctd} =    Get Time    day    UTC
+    ${cth} =    Get Time    hour    UTC
+    ${ctmin} =    Get Time    min    UTC
+    ${ctsec} =    Get Time    sec    UTC
+    Set Suite Variable    ${ts}    ${cty}${ctm}${ctd}T${cth}${ctmin}${ctsec}
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&crb=${ts}
+    Log    ${r.text}
+    ${rs} =    Child Resource    ${r}
+    ${count} =    Get Length    ${rs}
     Should Be Equal As Integers    ${count}    2
+    ${rs} =    convert to string    ${rs}
+    Should Contain All Sub Strings    ${rs}    Container2    Container1
 
 2. createdAfter
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&cra=20150612T033748Z
-    ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&cra=20150612T033748
+    Log    ${r.text}
+    ${rs} =    Child Resource    ${r}
+    ${count} =    Get Length    ${rs}
     Should Be Equal As Integers    ${count}    2
+    ${rs} =    convert to string    ${rs}
+    Should Contain All Sub Strings    ${rs}    Container2    Container1
 
 3. modifiedSince
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&ms=20150612T033748Z
-    ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&ms=20150612T033748
+    Log    ${r.text}
+    ${rs} =    Child Resource    ${r}
+    ${count} =    Get Length    ${rs}
     Should Be Equal As Integers    ${count}    2
+    ${rs} =    convert to string    ${rs}
+    Should Contain All Sub Strings    ${rs}    Container2    Container1
 
 4. unmodifiedSince
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&us=20160612T033748Z
-    ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&us=${ts}
+    Log    ${r.text}
+    ${rs} =    Child Resource    ${r}
+    ${count} =    Get Length    ${rs}
     Should Be Equal As Integers    ${count}    2
+    ${rs} =    convert to string    ${rs}
+    Should Contain All Sub Strings    ${rs}    Container2    Container1
 
 5. stateTagSmaller
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/Container3    rcn=4&sts=3
-    ${count} =    Get Length    ${r.json()['ch']}
+    Log    ${r.text}
+    ${rs} =    child resource first    ${r}
+    ${count} =    Get Length    ${rs}
     Should Be Equal As Integers    ${count}    5
+    ${rs} =    convert to string    ${rs}
+    Should Contain All Sub Strings    ${rs}    Container7    Container8    Container9    conIn3    conIn4
 
 6. stateTagBigger
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/Container3    rcn=4&stb=1
-    ${count} =    Get Length    ${r.json()['m2m:cnt']['ch']}
+    Log    ${r.text}
+    ${rs} =    Child Resource    ${r}
+    ${count} =    Get Length    ${rs}
     Should Be Equal As Integers    ${count}    2
+    ${rs} =    convert to string    ${rs}
+    Should Contain All Sub Strings    ${rs}    conIn5    conIn4
     # 7. expireBefore
     # 8. expireAfter
 
 9. labels
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/Container3    rcn=4&sts=3&lbl=contentInstanceUnderContainerContainer
-    ${count} =    Get Length    ${r.json()['ch']}
+    Log    ${r.text}
+    ${rs} =    child resource first    ${r}
+    ${count} =    Get Length    ${rs}
     Should Be Equal As Integers    ${count}    2
+    ${rs} =    convert to string    ${rs}
+    Should Contain All Sub Strings    ${rs}    conIn3    conIn4
     # 2 labels test
 
 10. resourceType
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1    rcn=4&rty=3
-    ${count} =    Get Length    ${r.json()['ch']}
+    Log    ${r.text}
+    ${rs} =    child resource first    ${r}
+    ${count} =    Get Length    ${rs}
     Should Be Equal As Integers    ${count}    3
+    ${rs} =    convert to string    ${rs}
+    Should Contain All Sub Strings    ${rs}    Container3    Container4    Container5
 
 11. sizeAbove
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1    rcn=4&rty=3&sza=5
-    ${count} =    Get Length    ${r.json()['ch']}
+    Log    ${r.text}
+    ${rs} =    child resource first    ${r}
+    ${count} =    Get Length    ${rs}
     Should Be Equal As Integers    ${count}    2
+    ${rs} =    convert to string    ${rs}
+    Should Contain All Sub Strings    ${rs}    Container3    Container4
 
 12. sizeBelow
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1    rcn=4&rty=3&szb=5
-    ${count} =    Get Length    ${r.json()['ch']}
+    Log    ${r.text}
+    ${rs} =    child resource first    ${r}
+    ${count} =    Get Length    ${rs}
     Should Be Equal As Integers    ${count}    1
+    ${rs} =    convert to string    ${rs}
+    Should Contain All Sub Strings    ${rs}    Container5
 
 2.1 And Test - labels
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1    fu=1&rcn=4&sts=4&lbl=contentInstanceUnderContainerContainer&lbl=underCSE
+    Log    ${r.text}
     ${count} =    Get Length    ${r.json()}
+    ${rs} =    Convert To String    ${r.json()}
     Should Be Equal As Integers    ${count}    6
+    Should Contain All Sub Strings    ${rs}    Container3    Container4    Container5    conIn3    conIn4
+    ...    conIn5
 
 *** Keywords ***
 Connect And Create The Tree

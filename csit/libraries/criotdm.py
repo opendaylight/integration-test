@@ -82,9 +82,24 @@ def delete_resource_with_command(connection, resid, command):
     return connection.response
 
 
+def child_resource(response):
+    """Return child resource."""
+    return ciotdm.childResource(response)
+
+
+def child_resource_first(response):
+    """Return child resource on top of dictionary."""
+    return ciotdm.childResourceFirst(response)
+
+
 def resid(response):
     """Return resource ID."""
     return ciotdm.resid(response)
+
+
+def parent_id(response):
+    """Return parent ID."""
+    return ciotdm.parent(response)
 
 
 def name(response):
@@ -103,6 +118,37 @@ def text(response):
 def last_modified_time(response):
     """Return resource lastModifiedTime."""
     return ciotdm.lastModifiedTime(response)
+
+
+def state_tag(response):
+    """Return resource state tag."""
+    return ciotdm.stateTag(response)
+
+
+def current_number_of_instances(response):
+    """Return current number of instances."""
+    return ciotdm.currentNumberOfInstances(response)
+
+
+def current_byte_size(response):
+    """Return current byte size."""
+    return ciotdm.currentByteSize(response)
+
+
+def max_number_of_instances(response):
+    """Return max number of instances."""
+    return ciotdm.maxNumberOfInstances(response)
+
+
+def content(response):
+    """Return content child from response."""
+    return ciotdm.content(response)
+
+
+
+def max_byte_size(response):
+    """Return max byte size."""
+    return ciotdm.maxByteSize(response)
 
 
 def status_code(response):

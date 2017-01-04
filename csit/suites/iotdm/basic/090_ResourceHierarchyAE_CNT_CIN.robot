@@ -1,6 +1,7 @@
 *** Settings ***
-Documentation     Test for layers AE/CONTAINER/CONTENTINSTANCE
+Documentation     Test for hierarchy of resources: AE/CONTAINER/CONTENTINSTANCE
 Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Resource          ../../../libraries/SubStrings.robot
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
@@ -54,28 +55,25 @@ Set Suite Variable
     Response Is Correct    ${r}
     # Retrieve and test the lbl
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/ODL3
-    ${Json} =    Text    ${r}
-    Should Contain    ${Json}    "aaa"    "bbb"    "ccc"
-    Should Contain    ${r.json()['m2m:ae']['lbl']}    aaa    bbb    ccc
+    Should Contain All Sub Strings    ${r.text}    "aaa"    "bbb"    "ccc"
     #==================================================
     #    Container Test
     #==================================================
 
-2.11 Create Container under AE without name
+2.11 Create Container without name under AE
     [Documentation]    Create Container under AE without name
     ${attr} =    Set Variable    "cr":null,"mni":1,"mbs":15,"or":"http://hey/you"
     Connect And Create Resource    InCSE1/ODL3    ${rt_container}    ${attr}
 
-2.12 Create Container under AE with name
-    [Documentation]    Invalid Input for Container Under AE with name (Already exist)
+2.12 Create Container with name under AE
+    [Documentation]    Create Container Under AE with name containerUnderAE and retrieve it to check if it is created
     ${attr} =    Set Variable    "cr":null,"mni":1,"mbs":15,"or":"http://hey/you","rn":"containerUnderAE"
-    ${r} =    Create Resource    ${iserver}    InCSE1/ODL3    ${rt_container}    ${attr}
+    ${r} =    Create Resource    ${iserver}    /InCSE1/ODL3    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     Response Is Correct    ${r}
     # retrieve it
     ${result} =    Retrieve Resource    ${iserver}    ${container}
-    ${text} =    Text    ${result}
-    Should Contain    ${text}    containerUnderAE
+    Should Contain    ${result.text}    containerUnderAE
 
 2.13 Invalid Input for Container Under AE with name (Already exist)
     [Documentation]    Invalid Input for Container Under AE with name (Already exist)
@@ -90,9 +88,7 @@ Set Suite Variable
     Response Is Correct    ${r}
     # Retrieve and test the lbl
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/ODL3/containerUnderAE
-    ${Json} =    Text    ${r}
-    Should Contain    ${Json}    "aaa"    "bbb"    "ccc"
-    Should Contain    ${r.json()['m2m:cnt']['lbl']}    aaa    bbb    ccc
+    Should Contain All Sub Strings    ${r.text}    "aaa"    "bbb"    "ccc"
     #----------------------------------------------------------------------
 
 2.21 Create Container under InCSE1 without name
@@ -108,8 +104,7 @@ Set Suite Variable
     Response Is Correct    ${r}
     # retrieve it
     ${result} =    Retrieve Resource    ${iserver}    InCSE1/containerUnderCSE
-    ${text} =    Text    ${result}
-    Should Contain    ${text}    containerUnderCSE
+    Should Contain    ${result.text}    containerUnderCSE
 
 2.23 Invalid Input for Container Under CSE with name (Already exist)
     [Documentation]    Invalid Input for Container Under CSE with name (Already exist)
@@ -125,9 +120,7 @@ Set Suite Variable
     Response Is Correct    ${r}
     # Retrieve and test the lbl
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/containerUnderCSE
-    ${Json} =    Text    ${r}
-    Should Contain    ${Json}    "aaa"    "bbb"    "ccc"
-    Should Contain    ${r.json()['m2m:cnt']['lbl']}    aaa    bbb    ccc
+    Should Contain All Sub Strings    ${r.text}    "aaa"    "bbb"    "ccc"
     #----------------------------------------------------------------------
 
 2.31 Create Container under Container without name
@@ -144,8 +137,7 @@ Set Suite Variable
     Response Is Correct    ${r}
     # retrieve it
     ${result} =    Retrieve Resource    ${iserver}    ${container}
-    ${text} =    Text    ${result}
-    Should Contain    ${text}    containerUnderContainer
+    Should Contain    ${result.text}    containerUnderContainer
 
 2.33 Invalid Input for Container Under Container with name (Already exist)
     [Documentation]    Invalid Input for Container Under Container with name (Already exist)
@@ -161,9 +153,7 @@ Set Suite Variable
     Response Is Correct    ${r}
     # Retrieve and test the lbl
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/containerUnderCSE/containerUnderContainer
-    ${Json} =    Text    ${r}
-    Should Contain    ${Json}    "aaa"    "bbb"    "ccc"
-    Should Contain    ${r.json()['m2m:cnt']['lbl']}    aaa    bbb    ccc
+    Should Contain All Sub Strings    ${r.text}    "aaa"    "bbb"    "ccc"
 
 2.41 Invalid Input for AE under container with name(mess up layer)
     [Documentation]    Invalid Input for AE under container withoutname(mess up layer)
@@ -260,7 +250,11 @@ Set Suite Variable
 Delete the Container Under CSEBase
     [Documentation]    Delete the Container and AE Under CSEBase
     ${deleteRes} =    Delete Resource    ${iserver}    InCSE1/containerUnderCSE
+    ${status_code} =    Status Code    ${deleteRes}
+    Should Be Equal As Integers    ${status_code}    200
     ${deleteRes} =    Delete Resource    ${iserver}    InCSE1/ODL3
+    ${status_code} =    Status Code    ${deleteRes}
+    Should Be Equal As Integers    ${status_code}    200
 
 *** Keywords ***
 Connect And Create Resource
