@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_5f7d88b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-05T09:06:50Z",
+      "side": 1,
+      "message": "Oh, I was only opposing moving variables from ClusterManagement.robot to Variables.robot\nWhen I was thinking which text to highlight I have missed that this particular line also means Utils.robot stops depending on Variables.py in favor of Variables.robot (I agree it should stop).",
+      "parentUuid": "1a622d24_e424cdb0",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 35
+      },
+      "revId": "e4dd85b1f800002336d0e976d6ec81ec3646331a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_89e6d2b2",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 11
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "This is actually good advice, is it written anywhere?",
       "parentUuid": "1a622d24_89e6d2b2",
+      "range": {
+        "startLine": 485,
+        "startChar": 0,
+        "endLine": 485,
+        "endChar": 15
+      },
+      "revId": "e4dd85b1f800002336d0e976d6ec81ec3646331a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1facb034",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-05T09:06:50Z",
+      "side": 1,
+      "message": "Not yet. I would like TemplatedRequests to be more cluster friendly (e.g. accepting ${member_index} instead of ${session}) before I start documenting this new way of doing things.\n\nBut feel free to edit Guidelines yourself https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines",
+      "parentUuid": "1a622d24_2436c5e7",
       "range": {
         "startLine": 485,
         "startChar": 0,
