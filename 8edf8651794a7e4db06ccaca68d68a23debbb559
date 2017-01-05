@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_ff7d746f",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-01-05T04:54:07Z",
+      "side": 1,
+      "message": "This variable needed for my next patch. Here yes i am not used, so removing for now.",
+      "parentUuid": "1a622d24_29fe9e38",
+      "range": {
+        "startLine": 97,
+        "startChar": 25,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "8edf8651794a7e4db06ccaca68d68a23debbb559",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_89fd323d",
         "filename": "csit/variables/Variables.robot",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_df807848",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-01-05T04:54:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_89fd323d",
+      "range": {
+        "startLine": 98,
+        "startChar": 25,
+        "endLine": 98,
+        "endChar": 26
+      },
+      "revId": "8edf8651794a7e4db06ccaca68d68a23debbb559",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_69f89649",
         "filename": "csit/variables/Variables.robot",
         "patchSetId": 7
@@ -59,6 +107,30 @@
       "writtenOn": "2017-01-04T17:48:03Z",
       "side": 1,
       "message": "This would be better placed in VpnOperations.robot",
+      "range": {
+        "startLine": 99,
+        "startChar": 21,
+        "endLine": 99,
+        "endChar": 22
+      },
+      "revId": "8edf8651794a7e4db06ccaca68d68a23debbb559",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3f97ec91",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-01-05T04:54:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_69f89649",
       "range": {
         "startLine": 99,
         "startChar": 21,
