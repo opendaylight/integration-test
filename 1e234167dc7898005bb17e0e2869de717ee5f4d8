@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_03d0def4",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-05T13:02:45Z",
+      "side": 1,
+      "message": "Most suites define a separate keyword when there is more things to do in setup, but I do not have a clear preference (yet).",
+      "range": {
+        "startLine": 3,
+        "startChar": 26,
+        "endLine": 3,
+        "endChar": 38
+      },
+      "revId": "1e234167dc7898005bb17e0e2869de717ee5f4d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e39de20b",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-05T13:02:45Z",
+      "side": 1,
+      "message": "I have just contributed updated documentation [0].\nInitialization is required for this to work properly.\n\n[0] https://git.opendaylight.org/gerrit/#/c/50057/2/csit/libraries/SetupUtils.robot",
+      "range": {
+        "startLine": 8,
+        "startChar": 18,
+        "endLine": 8,
+        "endChar": 28
+      },
+      "revId": "1e234167dc7898005bb17e0e2869de717ee5f4d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_43a81677",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-05T13:02:45Z",
+      "side": 1,
+      "message": "Does Variables.robot work as well?",
+      "range": {
+        "startLine": 19,
+        "startChar": 37,
+        "endLine": 19,
+        "endChar": 49
+      },
+      "revId": "1e234167dc7898005bb17e0e2869de717ee5f4d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
