@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_29d0591e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2017-01-05T17:41:07Z",
+      "side": 1,
+      "message": "Better to move this to \"Check Vm Instances Have Ip Address\", and do so for all VMs only in case one of them got \"None\" IP.\n\nOtherwise, this will be printed several times for each VM, and it\u0027s quite wasteful - especially when everything is ok.",
+      "revId": "127cfb163f9ad9321dcd8ada9436f572391648e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_69c6d169",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2017-01-05T17:41:07Z",
+      "side": 1,
+      "message": "Better to move the sleep before \"Verify VMs Received DHCP Lease\"",
+      "revId": "127cfb163f9ad9321dcd8ada9436f572391648e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
