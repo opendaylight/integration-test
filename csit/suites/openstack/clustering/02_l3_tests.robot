@@ -148,24 +148,28 @@ Ping Vm Instance3 In l3_net_1 From l3_net_2
 Take Down ODL1 and ODL2
     [Documentation]    Kill the karaf in First and Second Controller
     ClusterManagement.Kill Members From List Or All    ${odl_1_and_2_down}
+    [Teardown]    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance1 In l3_net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_ip_list}=    Create List    @{NET2_L3_VM_IPS}    @{NET1_L3_VM_IPS}
     Log    ${dst_ip_list}
     OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET1_L3_VM_IPS}[0]    ${dst_ip_list}
+    [Teardown]    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance2 In l3_net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_ip_list}=    Create List    @{NET2_L3_VM_IPS}    @{NET1_L3_VM_IPS}
     Log    ${dst_ip_list}
     OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET1_L3_VM_IPS}[1]    ${dst_ip_list}
+    [Teardown]    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance3 In l3_net_1
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_ip_list}=    Create List    @{NET2_L3_VM_IPS}    @{NET1_L3_VM_IPS}
     Log    ${dst_ip_list}
     OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET1_L3_VM_IPS}[2]    ${dst_ip_list}
+    [Teardown]    Get OvsDebugInfo
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again
@@ -174,24 +178,28 @@ Bring Up ODL1 and ODL2
 Take Down ODL2 and ODL3
     [Documentation]    Kill the karaf in First and Second Controller
     ClusterManagement.Kill Members From List Or All    ${odl_2_and_3_down}
+    [Teardown]    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance1 In l3_net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_ip_list}=    Create List    @{NET2_L3_VM_IPS}    @{NET1_L3_VM_IPS}
     Log    ${dst_ip_list}
     OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET2_L3_VM_IPS}[0]    ${dst_ip_list}
+    [Teardown]    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance2 In l3_net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_ip_list}=    Create List    @{NET2_L3_VM_IPS}    @{NET1_L3_VM_IPS}
     Log    ${dst_ip_list}
     OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET2_L3_VM_IPS}[1]    ${dst_ip_list}
+    [Teardown]    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance3 In l3_net_2
     [Documentation]    ssh to the VM instance and test operations.
     ${dst_ip_list}=    Create List    @{NET2_L3_VM_IPS}    @{NET1_L3_VM_IPS}
     Log    ${dst_ip_list}
     OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET2_L3_VM_IPS}[2]    ${dst_ip_list}
+    [Teardown]    Get OvsDebugInfo
 
 Bring Up ODL2 and ODL3
     [Documentation]    Bring up ODL2 and ODL3 again.

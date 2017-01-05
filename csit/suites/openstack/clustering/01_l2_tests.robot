@@ -183,18 +183,22 @@ Bring Up ODL3
 Take Down ODL1 and ODL2
     [Documentation]    Kill the karaf in First and Second Controller
     ClusterManagement.Kill Members From List Or All    ${cluster_down_list}
+    [Teardown]    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance1 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[0]    ${NET_2_VM_IPS}
+    [Teardown]    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance2 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[1]    ${NET_2_VM_IPS}
+    [Teardown]    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance3 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
+    [Teardown]    Get OvsDebugInfo
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again.
