@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_297e9919",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-05T17:45:19Z",
+      "side": 1,
+      "message": "Replaced by a single keyword",
+      "parentUuid": "1a622d24_03d0def4",
+      "range": {
+        "startLine": 3,
+        "startChar": 26,
+        "endLine": 3,
+        "endChar": 38
+      },
+      "revId": "1e234167dc7898005bb17e0e2869de717ee5f4d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_e39de20b",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_097bdd28",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-05T17:45:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_e39de20b",
+      "range": {
+        "startLine": 8,
+        "startChar": 18,
+        "endLine": 8,
+        "endChar": 28
+      },
+      "revId": "1e234167dc7898005bb17e0e2869de717ee5f4d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_43a81677",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
         "patchSetId": 8
@@ -59,6 +107,30 @@
       "writtenOn": "2017-01-05T13:02:45Z",
       "side": 1,
       "message": "Does Variables.robot work as well?",
+      "range": {
+        "startLine": 19,
+        "startChar": 37,
+        "endLine": 19,
+        "endChar": 49
+      },
+      "revId": "1e234167dc7898005bb17e0e2869de717ee5f4d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_49715543",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-05T17:45:19Z",
+      "side": 1,
+      "message": "Yes it also works. Replaced with Variables.robot",
+      "parentUuid": "1a622d24_43a81677",
       "range": {
         "startLine": 19,
         "startChar": 37,
