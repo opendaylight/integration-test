@@ -1,6 +1,18 @@
 *** Settings ***
 Documentation     Simple resource with setup keywords which combine FailFast and Karaf logging.
 ...
+...               Copyright (c) 2015-2017 Cisco Systems, Inc. and others. All rights reserved.
+...
+...               This program and the accompanying materials are made available under the
+...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...
+...
+...               In order for most keywords to work properly, the initialization keyword
+...               Setup_Utils_For_Setup_And_Teardown has to be called, best in sute setup.
+...               This initialization also initializes dependend Resources,
+...               (most important KarafKeywords) whcih may initialize their dependecies as well.
+...
 ...               See FailFast.robot documentation for intricacies of that library.
 Resource          ${CURDIR}/FailFast.robot
 Resource          ${CURDIR}/KarafKeywords.robot
@@ -11,7 +23,8 @@ ${SetupUtils__Known_Bug_ID}    ${EMPTY}
 
 *** Keywords ***
 Setup_Utils_For_Setup_And_Teardown
-    [Documentation]    Prepare both FailFast and karaf logging, to be used in suite setup.
+    [Documentation]    Prepare both FailFast and Karaf logging, log that the caller suite has started.
+    ...    This keyword is to be used in suite setup, and without it the other keywords may not work properly.
     FailFast.Do_Not_Fail_Fast_From_Now_On
     KarafKeywords.Setup Karaf Keywords
     BuiltIn.Run Keyword And Ignore Error    KarafKeywords.Log_Test_Suite_Start_To_Controller_Karaf
