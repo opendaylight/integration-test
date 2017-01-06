@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_57bf2caa",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-06T07:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b7016007",
+      "range": {
+        "startLine": 75,
+        "startChar": 38,
+        "endLine": 75,
+        "endChar": 42
+      },
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_1712d456",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-06T01:06:03Z",
       "side": 1,
       "message": "the List Networks keyword already does this logging.  I notice you are doing lots of \"Log\" statements in your suite which is fine, but in some cases (like this) it\u0027s already done in the keyword so you can remove the extra log and have a more concise suite.",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 22
+      },
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b7dfa00c",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-06T07:10:48Z",
+      "side": 1,
+      "message": "Done. One more extra log statements removed",
+      "parentUuid": "1a622d24_1712d456",
       "range": {
         "startLine": 101,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_97e424e2",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-06T07:10:48Z",
+      "side": 1,
+      "message": "This suite will directly run after the basic_vpnservice.robot. In that suite we are creating the sg-vpnservice security group which is not deleted. The same security group can be used later for vpn related other test suites.\n\nIf I create here then multiple groups with same name and properties will be created.",
+      "parentUuid": "1a622d24_771b4873",
+      "range": {
+        "startLine": 114,
+        "startChar": 59,
+        "endLine": 114,
+        "endChar": 72
+      },
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b7284087",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
         "patchSetId": 9
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_f7e598dc",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-06T07:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b7284087",
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_972d4498",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
         "patchSetId": 9
@@ -99,6 +189,24 @@
       "writtenOn": "2017-01-06T01:06:03Z",
       "side": 1,
       "message": "same comment here as above about adding the net2 instances on this same line.",
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_37d39005",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-06T07:10:48Z",
+      "side": 1,
+      "message": "I want the IPs of Net1 and Net2 VMs to come in a seperate list to avoid confusion. Hence, I would prefer not to combine this.",
+      "parentUuid": "1a622d24_972d4498",
       "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_970b848d",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-06T07:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_f7075816",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d70cdc3d",
         "filename": "csit/variables/netvirt/Variables.robot",
         "patchSetId": 9
@@ -139,6 +271,30 @@
       "writtenOn": "2017-01-06T01:06:03Z",
       "side": 1,
       "message": "yeah, I\u0027m pretty sure you\u0027ll find these in other more common locations too.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_17f7748c",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-06T07:10:48Z",
+      "side": 1,
+      "message": "variables.robot uses northbound controller ip but I want to check the neutron functionality specifically...so using these instead.",
+      "parentUuid": "1a622d24_d70cdc3d",
       "range": {
         "startLine": 41,
         "startChar": 0,
