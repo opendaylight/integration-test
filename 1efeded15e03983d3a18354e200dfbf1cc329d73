@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_b7016007",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T01:06:03Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 75,
+        "startChar": 38,
+        "endLine": 75,
+        "endChar": 42
+      },
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1712d456",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T01:06:03Z",
+      "side": 1,
+      "message": "the List Networks keyword already does this logging.  I notice you are doing lots of \"Log\" statements in your suite which is fine, but in some cases (like this) it\u0027s already done in the keyword so you can remove the extra log and have a more concise suite.",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 22
+      },
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_771b4873",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T01:06:03Z",
+      "side": 1,
+      "message": "is this created somewhere?  I missed it, I think.",
+      "range": {
+        "startLine": 114,
+        "startChar": 59,
+        "endLine": 114,
+        "endChar": 72
+      },
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b7284087",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T01:06:03Z",
+      "side": 1,
+      "message": "just add four spaces and @{VM_INSTANCES_NET2} on this line and you can remove lines 126-127 below",
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_972d4498",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T01:06:03Z",
+      "side": 1,
+      "message": "same comment here as above about adding the net2 instances on this same line.",
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f7075816",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T01:06:03Z",
+      "side": 1,
+      "message": "these are already there in Variables.robot which you are also sourcing from your suite itself.  I\u0027m guessing their may\nbe other examples in this file as well.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d70cdc3d",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T01:06:03Z",
+      "side": 1,
+      "message": "yeah, I\u0027m pretty sure you\u0027ll find these in other more common locations too.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "1efeded15e03983d3a18354e200dfbf1cc329d73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
