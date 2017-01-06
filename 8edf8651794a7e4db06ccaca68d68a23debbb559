@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_b7eb2012",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T05:05:47Z",
+      "side": 1,
+      "message": "capitalize to keep form :)",
+      "range": {
+        "startLine": 237,
+        "startChar": 29,
+        "endLine": 237,
+        "endChar": 30
+      },
+      "revId": "8edf8651794a7e4db06ccaca68d68a23debbb559",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d7f69cf8",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T05:05:47Z",
+      "side": 1,
+      "message": "any reason you are not using the \"Delete Router\" keyword from the openstackoperations library?",
+      "range": {
+        "startLine": 254,
+        "startChar": 3,
+        "endLine": 257,
+        "endChar": 20
+      },
+      "revId": "8edf8651794a7e4db06ccaca68d68a23debbb559",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_29fe9e38",
         "filename": "csit/variables/Variables.robot",
         "patchSetId": 7
