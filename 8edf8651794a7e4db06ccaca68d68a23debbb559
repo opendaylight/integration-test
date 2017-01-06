@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_37e9d0e6",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-01-06T10:00:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b7eb2012",
+      "range": {
+        "startLine": 237,
+        "startChar": 29,
+        "endLine": 237,
+        "endChar": 30
+      },
+      "revId": "8edf8651794a7e4db06ccaca68d68a23debbb559",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d7f69cf8",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-06T05:05:47Z",
       "side": 1,
       "message": "any reason you are not using the \"Delete Router\" keyword from the openstackoperations library?",
+      "range": {
+        "startLine": 254,
+        "startChar": 3,
+        "endLine": 257,
+        "endChar": 20
+      },
+      "revId": "8edf8651794a7e4db06ccaca68d68a23debbb559",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_77efc8e9",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-01-06T10:00:06Z",
+      "side": 1,
+      "message": "Yes, because response code handling done as part of keyword which can\u0027t be used as it says TC failed. But the expected response code should be failed one.",
+      "parentUuid": "1a622d24_d7f69cf8",
       "range": {
         "startLine": 254,
         "startChar": 3,
