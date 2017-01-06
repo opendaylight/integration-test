@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_d77fbc64",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T05:05:47Z",
+      "side": 1,
+      "message": "I think if we are adding Variables.robot, it should be the time to remove Variables.py at the same time.  can you do that and make sure it\u0027s ok with a sandbox run. I suspect it\nwill be fine.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "4f67a1cc49972367c910fe0c8d698c34caa7e00f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1795b486",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T05:05:47Z",
+      "side": 1,
+      "message": "just a nit, but this is not really true. get subnet id\ndoesn\u0027t have to be involved with vm creation.",
+      "range": {
+        "startLine": 193,
+        "startChar": 71,
+        "endLine": 193,
+        "endChar": 102
+      },
+      "revId": "4f67a1cc49972367c910fe0c8d698c34caa7e00f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_778ea87a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T05:05:47Z",
+      "side": 1,
+      "message": "thanks for fixing this :)",
+      "range": {
+        "startLine": 215,
+        "startChar": 23,
+        "endLine": 215,
+        "endChar": 71
+      },
+      "revId": "4f67a1cc49972367c910fe0c8d698c34caa7e00f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_578bac67",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T05:05:47Z",
+      "side": 1,
+      "message": "again, can we now remove Variables.py?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 49
+      },
+      "revId": "4f67a1cc49972367c910fe0c8d698c34caa7e00f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
