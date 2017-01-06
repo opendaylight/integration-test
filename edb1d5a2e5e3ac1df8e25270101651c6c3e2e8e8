@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_17cdb485",
+        "filename": "csit/suites/sfc/SFC_Basic/090__sfc_service_functions_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T06:03:04Z",
+      "side": 1,
+      "message": "can you use Variables.robot instead?",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_77c6a869",
+        "filename": "csit/suites/sfc/SFC_Basic/090__sfc_service_functions_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T06:03:04Z",
+      "side": 1,
+      "message": "you didn\u0027t delete the SF above, so adding it again here in this test case is not really doing anything.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 28
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b7a320b1",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_forwarders_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T06:03:04Z",
+      "side": 1,
+      "message": "can you use Variables.robot?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_57c3ac56",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_forwarders_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T06:03:04Z",
+      "side": 1,
+      "message": "this URI and the other one below probably could be in a variables file to be shared with the other suites that need them.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 127
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f7a91891",
+        "filename": "csit/suites/sfc/SFC_Basic/110__sfc_rendered_service_paths_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T06:03:04Z",
+      "side": 1,
+      "message": "I think I saw these in another patch, but moved to Utils.robot?",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 24
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_97a8a48e",
+        "filename": "csit/suites/sfc/SFC_Basic/110__sfc_rendered_service_paths_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T06:03:04Z",
+      "side": 1,
+      "message": "same comment here about the URIs. we don\u0027t need to repeat them in each suite if they are common.",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 106
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
