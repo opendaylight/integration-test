@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_978f042a",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T06:11:49Z",
+      "side": 1,
+      "message": "can you add [Documentation] here, so that it makes sense when it\u0027s pulled and read in our lib docs here:\n\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/ClusterManagement.robot.html",
+      "revId": "d435fb464784ac3eb83aea5debb0ddcb5fc75472",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5771ec42",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T06:11:49Z",
+      "side": 1,
+      "message": "do you need a WUKS here? I would expect that a Post should work on the first try here, as everything should be healthy at this point.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 128
+      },
+      "revId": "d435fb464784ac3eb83aea5debb0ddcb5fc75472",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7774e835",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T06:11:49Z",
+      "side": 1,
+      "message": "so, instead of doing your own \"Wait For Cluster Ready\" could you just use \"wait_for_sync\u003dTrue\" and let the Start_Members_From_List_Or_All keyword do the work to know when the cluster is back and ready?",
+      "range": {
+        "startLine": 34,
+        "startChar": 5,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "d435fb464784ac3eb83aea5debb0ddcb5fc75472",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
