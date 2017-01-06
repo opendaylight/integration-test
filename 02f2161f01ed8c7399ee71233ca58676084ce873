@@ -205,6 +205,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_9796e43d",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-06T06:11:49Z",
+      "side": 1,
+      "message": "sorry, it was just a compliment.",
+      "parentUuid": "1a622d24_bc06aa1e",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 100
+      },
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_9caace6e",
         "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
         "patchSetId": 6
