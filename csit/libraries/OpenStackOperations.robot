@@ -9,7 +9,20 @@ Resource          ../variables/Variables.robot
 Source Password
     [Arguments]    ${force}=no    ${source_pwd}=yes
     [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
-    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
+    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc demo demo
+
+Set Loglevel for Debug
+    [Arguments]    ${ip}    ${module}    ${level}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
+    ...    ${log_ctrl_xml}=${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
+    ${cmd}    Set Variable    sudo sed -i "$ i log4j.logger.org.opendaylight.${module}= ${level}" ${log_ctrl_xml}
+    Log     ${cmd}
+    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
+
+Set Log Level in All ODL Nodes
+    [Arguments]    ${module}    ${level}
+    Run Keyword If    0 < ${NUM_ODL_SYSTEM}    Set Loglevel for Debug    ${ODL_SYSTEM_IP}    ${module}    ${level}
+    Run Keyword If    1 < ${NUM_ODL_SYSTEM}    Set Loglevel for Debug    ${ODL_SYSTEM_2_IP}    ${module}    ${level}
+    Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Set Loglevel for Debug    ${ODL_SYSTEM_3_IP}    ${module}    ${level}
 
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
@@ -350,6 +363,11 @@ Exit From Vm Console
     Run Keyword If    ${rcode}    Write Commands Until Prompt    exit
     Get OvsDebugInfo
 
+Exit From Vm Console2
+    [Documentation]    Check if the session has been able to login to the VM instance and exit the instance
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance    cirros
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    exit        ${OS_SYSTEM_PROMPT}
+
 Check Ping
     [Arguments]    ${ip_address}
     [Documentation]    Run Ping command on the IP available as argument
@@ -384,6 +402,7 @@ Test Operations From Vm Instance
     Switch Connection    ${devstack_conn_id}
     Log    ${src_ip}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    Write Commands Until Prompt     sudo rm -f /root/.ssh/known_hosts 
     ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip}    d:
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
@@ -397,8 +416,29 @@ Test Operations From Vm Instance
     \    ${string_empty}=    Run Keyword And Return Status    Should Be Empty    ${dest_ip}
     \    Run Keyword If    ${string_empty}    Continue For Loop
     \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
+    \    Test Ssh To VM And Test More    ${devstack_conn_id}    ${dest_ip}     ${dest_ips}
     Run Keyword If    ${rcode}    Check Metadata Access
     [Teardown]    Exit From Vm Console
+
+Test Ssh To VM And Test More
+    [Arguments]    ${conn_string}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)
+    Switch Connection    ${conn_string}
+    ${output}=    Write Commands Until Expected Prompt     ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip}    (y/n)
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    y    d:
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    ${password}     ${OS_SYSTEM_PROMPT}
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Check Metadata Access
+    : FOR    ${dest_ip}    IN    @{dest_ips}
+    \    Log    ${dest_ip}
+    \    ${string_empty}=    Run Keyword And Return Status    Should Be Empty    ${dest_ip}
+    \    Run Keyword If    ${string_empty}    Continue For Loop
+    \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
+    [Teardown]    Exit From Vm Console2
 
 Ping Other Instances
     [Arguments]    ${list_of_external_dst_ips}
