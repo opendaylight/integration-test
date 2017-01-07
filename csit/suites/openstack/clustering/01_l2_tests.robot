@@ -27,6 +27,10 @@ Variables         ../../../variables/Variables.py
 @{SUBNETS_RANGE}    70.0.0.0/24    80.0.0.0/24
 
 *** Test Cases ***
+Set Netvirt Loglevel
+    [Documentation]    Set LogLevel to TRACE
+    Set Log Level in All ODL Nodes     netvirt     DEBUG
+
 Create All Controller Sessions
     [Documentation]    Create sessions for all three contorllers.
     ClusterManagement.ClusterManagement Setup
