@@ -21,6 +21,10 @@ Resource          ../../../libraries/Utils.robot
 @{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24
 
 *** Test Cases ***
+Set Netvirt Loglevel
+    [Documentation]    Set LogLevel to TRACE
+    Set Log Level in All ODL Nodes     netvirt     DEBUG
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
