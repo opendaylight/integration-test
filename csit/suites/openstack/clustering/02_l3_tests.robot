@@ -28,6 +28,10 @@ Variables         ../../../variables/Variables.py
 @{odl_2_and_3_down}    ${2}    ${3}
 
 *** Test Cases ***
+Set Netvirt Loglevel
+    [Documentation]    Set LogLevel to TRACE
+    Set Log Level in All ODL Nodes     netvirt     DEBUG
+
 Create All Controller Sessions
     [Documentation]    Create sessions for all three contorllers.
     ClusterManagement.ClusterManagement Setup
