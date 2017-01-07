@@ -18,7 +18,7 @@ Resource          ../../../libraries/Utils.robot
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
 @{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
-@{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+@{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24
 
 *** Test Cases ***
 Set Netvirt Loglevel
