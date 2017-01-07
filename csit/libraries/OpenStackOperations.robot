@@ -11,6 +11,19 @@ Source Password
     [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
     Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
 
+Set Loglevel for Debug
+    [Arguments]    ${ip}    ${module}    ${level}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
+    ...    ${log_ctrl_xml}=${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
+    ${cmd}    Set Variable    sudo sed -i "$ i log4j.logger.org.opendaylight.${module}= ${level}" ${log_ctrl_xml}
+    Log     ${cmd}
+    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
+
+Set Log Level in All ODL Nodes
+    [Arguments]    ${module}    ${level}
+    Run Keyword If    0 < ${NUM_ODL_SYSTEM}    Set Loglevel for Debug    ${ODL_SYSTEM_IP}    ${module}    ${level}
+    Run Keyword If    1 < ${NUM_ODL_SYSTEM}    Set Loglevel for Debug    ${ODL_SYSTEM_2_IP}    ${module}    ${level}
+    Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Set Loglevel for Debug    ${ODL_SYSTEM_3_IP}    ${module}    ${level}
+
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
     ${devstack_conn_id}=    Get ControlNode Connection
