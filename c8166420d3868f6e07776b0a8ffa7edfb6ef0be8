@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_ccf0ce69",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-01-08T13:21:04Z",
+      "side": 1,
+      "message": "I intended to only install it once - in any case I probably won\u0027t commit this at all, once we get the new image in use nc is installed by default - thanks Jamo - https://git.opendaylight.org/gerrit/#/c/50081/",
+      "parentUuid": "1a622d24_3afee238",
+      "revId": "c8166420d3868f6e07776b0a8ffa7edfb6ef0be8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_7af85a49",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 20
@@ -30,6 +48,24 @@
       "writtenOn": "2017-01-04T13:11:59Z",
       "side": 1,
       "message": "could this be variadic? If so it should go at the end or maybe a comment added to say that the ARG should come is as a single string.",
+      "revId": "c8166420d3868f6e07776b0a8ffa7edfb6ef0be8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_acf59258",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-01-08T13:21:04Z",
+      "side": 1,
+      "message": "which arg are you referring to? the additional_args?\nI kind of copied this from other usages in OpenStackOperations.. I see it isn\u0027t always the last one but not 100% sure about this",
+      "parentUuid": "1a622d24_7af85a49",
       "revId": "c8166420d3868f6e07776b0a8ffa7edfb6ef0be8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
