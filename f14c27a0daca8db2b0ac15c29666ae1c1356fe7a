@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_cc2e0e43",
+        "filename": ".editorconfig",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6794
+      },
+      "writtenOn": "2017-01-08T08:05:24Z",
+      "side": 1,
+      "message": "Could change it to something like \"Note: Find the link...\". An example for dummies would be nice. Something like:\n\n# Link to the style guide\n[section]\nkey1 \u003d value1\nkey2 \u003d value2\n\nAnyway NBD.",
+      "revId": "f14c27a0daca8db2b0ac15c29666ae1c1356fe7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
