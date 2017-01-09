@@ -16,6 +16,52 @@
       "revId": "f14c27a0daca8db2b0ac15c29666ae1c1356fe7a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3153936c",
+        "filename": ".editorconfig",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-01-09T22:32:30Z",
+      "side": 1,
+      "message": "Let\u0027s go with 4, as discussed on this Gerrit. Can doc that we know we are differing from style guide, give summary of reasons why.",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "f14c27a0daca8db2b0ac15c29666ae1c1356fe7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_71498bb6",
+        "filename": ".editorconfig",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-01-09T22:32:30Z",
+      "side": 1,
+      "message": "I actually don\u0027t see anything in this guide about 2 vs 4 spaces",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 42
+      },
+      "revId": "f14c27a0daca8db2b0ac15c29666ae1c1356fe7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
