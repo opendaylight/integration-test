@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Robot keyword library (Resource) for handling the BGP speaker Python utilities.
 ...
-...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
+...               Copyright (c) 2015,2017 Cisco Systems, Inc. and others. All rights reserved.
 ...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -17,6 +17,9 @@ Documentation     Robot keyword library (Resource) for handling the BGP speaker 
 ...               Aside BGP Speaker utility, there is also BGP Manager starting utilities in parallel.
 ...               For purpose of dumping logs and killing, Manager behaves the same as Speaker.
 ...
+...               TODO: RemoteBash.robot contains logic which could be reused here.
+...
+...               TODO: Update the following TODOs, as SSHKeywords.robot was introduced.
 ...               TODO: The Utils.robot library has a "Run Command On Remote System" if we didn't
 ...               want to make the assumption that an SSH connection was already open.
 ...               alternative TODO: Explain that it is not worth to perform separate SSH logins.
