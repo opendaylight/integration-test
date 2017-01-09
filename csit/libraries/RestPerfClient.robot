@@ -1,15 +1,18 @@
 *** Settings ***
 Documentation     RestPerfClient handling singleton resource.
 ...
-...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
+...               Copyright (c) 2016,2017 Cisco Systems, Inc. and others. All rights reserved.
 ...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
+...
 ...               This singleton manages RestPerfClient invocation, tracks the log file
 ...               produced by the invocation, allows the test suite to easily search this
 ...               log file and collect it once done.
+...
+...               TODO: RemoteBash.robot contains logic which could be reused here.
 ...
 ...               TODO: Currently only one RestPerfClient invocation running at a time is
 ...               supported. Support for multiple concurrently running RestPerfClient
