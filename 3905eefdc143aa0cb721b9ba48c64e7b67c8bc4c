@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_d1605fa7",
+        "filename": "csit/libraries/YangCollection.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:15:16Z",
+      "side": 1,
+      "message": "ok, I made some comment elsewhere about deleting entire dirs instead. I think you could just add this gerrit comment in the todo to help those that may wonder the same down the line.",
+      "parentUuid": "1a622d24_45d3f103",
+      "revId": "3905eefdc143aa0cb721b9ba48c64e7b67c8bc4c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_9dc3a3ec",
         "filename": "csit/suites/yangtools/yang_system_test/yang_system_test.robot",
         "patchSetId": 37
