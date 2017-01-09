@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_71506bd4",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-09T19:18:03Z",
+      "side": 1,
+      "message": "\u0027n\u0027 is missing between \u0027w\u0027 and \u0027R\u0027.\n\nPerhaps \"nonexistent\" be a name better fitting what this test case assumes.",
+      "range": {
+        "startLine": 255,
+        "startChar": 72,
+        "endLine": 255,
+        "endChar": 84
+      },
+      "revId": "1370f26560bd306243b0a649dd070095483ad2ba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_7bb96a14",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
         "patchSetId": 1
@@ -36,6 +59,30 @@
       "writtenOn": "2017-01-09T17:16:07Z",
       "side": 1,
       "message": "This is an odd test case, by the way. It tries to delete the router with name \u0027unknowRouter\u0027, but expect to fail.\n\nIf the actual intent is to check that that router is not anymore, why not to be explicit about the intention? Meaning, invoke \u0027Get Routers\u0027 and \u0027Should not contain     unknowRouter\u0027\n\nBy the way, such behavior makes this testcase depend on others, actually making the whole Test Suite be the real Test Case.",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 152
+      },
+      "revId": "1370f26560bd306243b0a649dd070095483ad2ba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_51744f67",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-09T19:18:03Z",
+      "side": 1,
+      "message": "\u003e such behavior makes this testcase depend on others\n\nI think it only assumes \"unknowRouter\" has never existed, so the delete attempt should fail with one of the expected messages.\n\n\u003e making the whole Test Suite be the real Test Case\n\nThere was a discussion [0] about that, but it did not get far. Currently, some suites have isolated test cases, some have strictly ordered steps.\n\n[0] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Make_each_test_case_standalone",
+      "parentUuid": "1a622d24_d6d5f51c",
       "range": {
         "startLine": 252,
         "startChar": 0,
