@@ -248,13 +248,13 @@ Delete Router And Router Interfaces With L3VPN
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Not Contain    ${resp}    ${router_id}
 
-Delete Router With Unknown ID
-    [Documentation]    Delete router with unknown ID
+Delete Router With NonExistentRouter Name
+    [Documentation]    Delete router with nonexistentRouter name 
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output} =    Write Commands Until Prompt    neutron router-delete unknowRouter    30s
+    ${output} =    Write Commands Until Prompt    neutron router-delete nonExistentRouter    30s
     Close Connection
-    Should Contain    ${output}    Unable to find router with name or id
+    Should Match Regexp    ${output}    Unable to find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
 
 Associate L3VPN To Networks
     [Documentation]    Associates L3VPN to networks and verify
