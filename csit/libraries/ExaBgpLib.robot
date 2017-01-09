@@ -10,6 +10,8 @@ Documentation     Robot keyword library (Resource) for handling the ExaBgp tool.
 ...
 ...               This library assumes that a SSH connection exists (and is switched to)
 ...               to a Linux machine (usualy TOOLS_SYSTEM) where the ExaBgp should be run.
+...
+...               TODO: RemoteBash.robot contains logic which could be reused here.
 Library           SSHLibrary
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/Utils.robot
