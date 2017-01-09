@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_51e9efe4",
+        "filename": "csit/libraries/RemoteBash.robot",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-09T19:36:28Z",
+      "side": 1,
+      "message": "Not sure about the Trello card, I did not have time to check what is already there and what needs to be added.\n\nBut I added BuiltIn.Comment so that everyone looking at log.html would see there is a migration to perform:\nhttps://git.opendaylight.org/gerrit/#/c/49421/41/csit/libraries/Utils.robot",
+      "parentUuid": "1a622d24_514d6f3d",
+      "revId": "de4b741aae4cb033d9075d5ce7d8dbc0f5c8c96f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_915387e1",
         "filename": "csit/libraries/YangCollection.robot",
         "patchSetId": 41
@@ -30,6 +48,30 @@
       "writtenOn": "2017-01-09T19:15:16Z",
       "side": 1,
       "message": "any chance there are parent dirs that make sense to delete as a whole instead of each file one by one? I have no background here, just something that came to mind that would help readability if possible. just thinking out loud I guess.",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 100
+      },
+      "revId": "de4b741aae4cb033d9075d5ce7d8dbc0f5c8c96f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d1d5ff1c",
+        "filename": "csit/libraries/YangCollection.robot",
+        "patchSetId": 41
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-09T19:36:28Z",
+      "side": 1,
+      "message": "If an entire directory (tree) is to be deleted, it is already deleted in one line. See the lines which end with slash.\n\nBut frequently only a portion (anywhere between 1% and 90%) of files within a directory has to be removed, while the rest still can be tested.",
+      "parentUuid": "1a622d24_915387e1",
       "range": {
         "startLine": 46,
         "startChar": 4,
