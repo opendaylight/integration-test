@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_85c22932",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-09T12:41:01Z",
+      "side": 1,
+      "message": "Other *_To_Uri keyword have both ${content_type} and ${accept}, but Get does not have any content, so only ${accept} is present.\n\nOn the other hand, ${ACCEPT_EMPTY} is just an empty dictionary, so ${HEADERS_EMPTY} or ${DICT_EMPTY} or \u0026{EMPTY} could work.\nI just like when the constant name resembles the argument name.",
+      "parentUuid": "1a622d24_5df74b59",
+      "revId": "3905eefdc143aa0cb721b9ba48c64e7b67c8bc4c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_dda23b4a",
         "filename": "csit/libraries/YangCollection.robot",
         "patchSetId": 37
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_45d3f103",
+        "filename": "csit/libraries/YangCollection.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-09T12:41:01Z",
+      "side": 1,
+      "message": "Basically there are 3 reasons. Some yang modules are not syntactically correct. Some modules are present in multiple revisions that are not backward compatible. And finally some modules trigger known ODL bugs.\n\nPossibly, I will never document exact reasons for this file set, but I will document reasons when creating newer file set.",
+      "parentUuid": "1a622d24_dda23b4a",
+      "revId": "3905eefdc143aa0cb721b9ba48c64e7b67c8bc4c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_9dc3a3ec",
         "filename": "csit/suites/yangtools/yang_system_test/yang_system_test.robot",
         "patchSetId": 37
@@ -47,6 +83,24 @@
       "writtenOn": "2017-01-06T20:04:35Z",
       "side": 1,
       "message": "This is interesting, do you know SSH session idle timeout in this env? i remember typical value for TCP sessions is 300 sec (5 mins). Definitively this KW has value if we are holding for some remote response for more than the idle timeout so I would put it in SSHKeywords.",
+      "revId": "3905eefdc143aa0cb721b9ba48c64e7b67c8bc4c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_65442db7",
+        "filename": "csit/suites/yangtools/yang_system_test/yang_system_test.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-09T12:41:01Z",
+      "side": 1,
+      "message": "This is not about TCP being silent. This is about SSH server (linux/bash in this case) detecting the user is idle for a long time, so it decides to close the session (to avoid wasting resources).\n\nJudging by duration of [0], the timeout is 60 minutes in this case. And this [1] shows sending newlines helps.\n\n[0] https://logs.opendaylight.org/releng/jenkins092/netconf-csit-1node-periodic-scale-all-boron/339/archives/log.html.gz#s1-s3-t7\n[1] https://logs.opendaylight.org/releng/jenkins092/netconf-csit-1node-periodic-scale-all-boron/340/archives/log.html.gz#s1-s3-t7-k3-k15-k6-k1-k1",
+      "parentUuid": "1a622d24_9dc3a3ec",
       "revId": "3905eefdc143aa0cb721b9ba48c64e7b67c8bc4c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
