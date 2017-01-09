@@ -62,6 +62,30 @@
       "revId": "f14c27a0daca8db2b0ac15c29666ae1c1356fe7a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_71a50b46",
+        "filename": ".editorconfig",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-01-09T23:42:56Z",
+      "side": 1,
+      "message": "This is a spec doc. Not a Style Guide.",
+      "parentUuid": "1a622d24_71498bb6",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 42
+      },
+      "revId": "f14c27a0daca8db2b0ac15c29666ae1c1356fe7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
