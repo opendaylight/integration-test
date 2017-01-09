@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b196833d",
+        "filename": "csit/libraries/RemoteBash.robot",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:54:05Z",
+      "side": 1,
+      "message": "https://trello.com/c/fbrOeaUA/420-refactor-suites-to-use-remotebash-robot-library-and-subsequently-refactor-and-cleanup-utils-robot-to-no-longer-duplicate-the-rel",
+      "parentUuid": "1a622d24_51e9efe4",
+      "revId": "de4b741aae4cb033d9075d5ce7d8dbc0f5c8c96f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_915387e1",
         "filename": "csit/libraries/YangCollection.robot",
         "patchSetId": 41
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "If an entire directory (tree) is to be deleted, it is already deleted in one line. See the lines which end with slash.\n\nBut frequently only a portion (anywhere between 1% and 90%) of files within a directory has to be removed, while the rest still can be tested.",
       "parentUuid": "1a622d24_915387e1",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 100
+      },
+      "revId": "de4b741aae4cb033d9075d5ce7d8dbc0f5c8c96f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f19c7b5f",
+        "filename": "csit/libraries/YangCollection.robot",
+        "patchSetId": 41
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:54:05Z",
+      "side": 1,
+      "message": "got it.  I missed those lines with trailing slash",
+      "parentUuid": "1a622d24_d1d5ff1c",
       "range": {
         "startLine": 46,
         "startChar": 4,
