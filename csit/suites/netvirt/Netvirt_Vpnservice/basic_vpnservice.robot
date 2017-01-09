@@ -254,7 +254,7 @@ Delete Router With Unknown ID
     Switch Connection    ${devstack_conn_id}
     ${output} =    Write Commands Until Prompt    neutron router-delete unknowRouter    30s
     Close Connection
-    Should Contain    ${output}    Unable to find router with name or id
+    Should Match Regexp    ${output}    Unable to find router with name or id 'unknowRouter'||Unable to find router\\(s\\) with id\\(s\\) 'unknowRouter'
 
 Associate L3VPN To Networks
     [Documentation]    Associates L3VPN to networks and verify
