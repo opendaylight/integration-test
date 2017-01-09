@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_e215d349",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6362
+      },
+      "writtenOn": "2017-01-09T13:19:13Z",
+      "side": 1,
+      "message": "In my tests even having added SFC elements I got a failure posting the RSP creation, this is why I added this check.",
+      "parentUuid": "1a622d24_5771ec42",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 128
+      },
+      "revId": "d435fb464784ac3eb83aea5debb0ddcb5fc75472",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_7774e835",
         "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
         "patchSetId": 8
@@ -53,6 +77,30 @@
       "writtenOn": "2017-01-06T06:11:49Z",
       "side": 1,
       "message": "so, instead of doing your own \"Wait For Cluster Ready\" could you just use \"wait_for_sync\u003dTrue\" and let the Start_Members_From_List_Or_All keyword do the work to know when the cluster is back and ready?",
+      "range": {
+        "startLine": 34,
+        "startChar": 5,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "d435fb464784ac3eb83aea5debb0ddcb5fc75472",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8204df18",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6362
+      },
+      "writtenOn": "2017-01-09T13:19:13Z",
+      "side": 1,
+      "message": "In my tests wait_for_sync\u003dTrue did not work as expected, maybe this requires more investigation.",
+      "parentUuid": "1a622d24_7774e835",
       "range": {
         "startLine": 34,
         "startChar": 5,
