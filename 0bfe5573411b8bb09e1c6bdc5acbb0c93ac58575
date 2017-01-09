@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_311f130a",
+        "filename": "csit/libraries/GbpSxp.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "can you use Variables.robot please.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d1bcdfde",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "would it be cleaner to just add one more line here (line 482 above) and then remove the entire \"Json Parse From String\" keyword? or maybe you are also using it in other places?",
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b1c16356",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/010_ise-adapter.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "Variables.robot please.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f1b75bf3",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/020_ep_provider_register_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "Variables.robot",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_51d0cf1e",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/020_ep_provider_register_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "some of these are common/duplicated across your suites. better to put in a gbp/sxp variables file or even the variables section of the gbpsxp.robot lib?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 87
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_91c6e766",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/020_ep_provider_register_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "and set log levels",
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_71c34b57",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/020_ep_provider_register_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "please remove the sleep. the controller should be assumed to be up and ready to go when the suite is started.",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 15
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f1ae3b97",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "I never realized we could do this \"WITH NAME\" stuff. glad I learned it here :)",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b1a8438e",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": ".robot",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_11aad784",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "check which is duplicated/common and move to a shared location if possible.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 84
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_51972f48",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "why all caps?",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_919d4769",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "no sleep please, if we can avoid. you have a wuks in the above loop which should hopefully be doing the right polling to know if the env is good to go to avoid this sleep 5",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 14
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d18a1f1a",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T19:46:31Z",
+      "side": 1,
+      "message": "move this to variables.robot and remove from here. at some point we hope to totally remove this file. we have to refactor the older suites still using it though.",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 48
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
