@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_917547fc",
+        "filename": "csit/scripts/set_federation_rabbit.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T22:05:13Z",
+      "side": 1,
+      "message": "does this stuff take long? if so, we might be able to move it to the image itself so it will be there to start with.\n\nthis file:\nhttps://github.com/opendaylight/releng-builder/blob/master/packer/provision/java-builder.sh",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 67
+      },
+      "revId": "cd82b2920e682e0f21de08fb337e59bc2a738042",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_316c3335",
+        "filename": "csit/scripts/set_federation_rabbit.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-09T22:05:13Z",
+      "side": 1,
+      "message": "do we have an _3_ node somewhere?",
+      "range": {
+        "startLine": 35,
+        "startChar": 26,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "cd82b2920e682e0f21de08fb337e59bc2a738042",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
