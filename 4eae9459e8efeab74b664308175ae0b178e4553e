@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_64fb86c1",
+        "filename": "csit/suites/distribution/version.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-10T15:57:17Z",
+      "side": 1,
+      "message": "Ideally we would have a Resource for these two keywords. But I am not sure if that would be TemplatedRequests, NetconfKeywords, or a new one (or even ConfigViaRestconf).\nOr even an just argument to SetupUtils Suite Setup/Teardown keywords.\n\nGood enough for now.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "4eae9459e8efeab74b664308175ae0b178e4553e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
