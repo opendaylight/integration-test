@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b73960a6",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-10T19:59:17Z",
+      "side": 1,
+      "message": "we should be adding this tool in to the vm image itself.\n\nhttps://git.opendaylight.org/gerrit/#/c/50081/",
+      "parentUuid": "1a622d24_3afee238",
+      "revId": "c8166420d3868f6e07776b0a8ffa7edfb6ef0be8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_7af85a49",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 20
@@ -66,6 +84,23 @@
       "side": 1,
       "message": "which arg are you referring to? the additional_args?\nI kind of copied this from other usages in OpenStackOperations.. I see it isn\u0027t always the last one but not 100% sure about this",
       "parentUuid": "1a622d24_7af85a49",
+      "revId": "c8166420d3868f6e07776b0a8ffa7edfb6ef0be8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_37743067",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-10T19:59:17Z",
+      "side": 1,
+      "message": "just put 4 spaces here and add @{VM_INSTANCES_SNAT} and then you can delete lines 127 and 128",
       "revId": "c8166420d3868f6e07776b0a8ffa7edfb6ef0be8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
