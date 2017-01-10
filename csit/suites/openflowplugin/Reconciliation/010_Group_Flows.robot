@@ -3,7 +3,7 @@ Documentation     Test reconciliation of chained groups and flows after switch c
 Suite Setup       Initialization Phase
 Suite Teardown    Final Phase
 Library           RequestsLibrary
-Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/FlowLib.robot
@@ -93,12 +93,14 @@ Check Flows In Switch After Mininet Reconnects
 
 Restart Controller
     [Documentation]    Stop and Start controller.
-    ClusterManagement.Stop_Members_From_List_Or_All
+    # Try to stop contoller, if stop does not work or takes too long, kill controller.
+    ${result}=    BuiltIn.Run Keyword And Ignore Error    ClusterManagement.Stop_Members_From_List_Or_All
+    BuiltIn.Run Keyword If    '${result}' != 'PASS'    ClusterManagement.Kill_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All    wait_for_sync=False
 
 Check Linear Topology After Controller Restarts
     [Documentation]    Check Linear Topology.
-    BuiltIn.Wait Until Keyword Succeeds    120s    2s    FlowLib.Check Linear Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    300s    2s    FlowLib.Check Linear Topology    ${SWITCHES}
 
 Check Flows In Operational DS After Controller Restarts
     [Documentation]    Check Flows after mininet starts.
@@ -123,7 +125,7 @@ Check No Switches
 *** Keywords ***
 Initialization Phase
     [Documentation]    Create controller session and set variables.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    ClusterManagement.ClusterManagement_Setup
     # Still need to open controller HTTP session with name session because of old FlowLib.robot library dependency.
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     ${all_groups}=    BuiltIn.Evaluate    ${SWITCHES} * ${ITER} * 2
