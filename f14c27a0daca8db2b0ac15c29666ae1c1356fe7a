@@ -86,6 +86,54 @@
       "revId": "f14c27a0daca8db2b0ac15c29666ae1c1356fe7a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_310b932b",
+        "filename": ".editorconfig",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6900
+      },
+      "writtenOn": "2017-01-10T00:25:50Z",
+      "side": 1,
+      "message": "there\u0027s no preferred number of spaces to use in YAML. I do not remember why did I use 2. can change to 4 (as the use-case here is), will work as long as it remains same within the file.",
+      "parentUuid": "1a622d24_71498bb6",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 42
+      },
+      "revId": "f14c27a0daca8db2b0ac15c29666ae1c1356fe7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_91042719",
+        "filename": ".editorconfig",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6900
+      },
+      "writtenOn": "2017-01-10T00:25:50Z",
+      "side": 1,
+      "message": "we can change it to http://yamllint.readthedocs.io/en/latest/, although this also provides the same info.",
+      "parentUuid": "1a622d24_71a50b46",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 42
+      },
+      "revId": "f14c27a0daca8db2b0ac15c29666ae1c1356fe7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
