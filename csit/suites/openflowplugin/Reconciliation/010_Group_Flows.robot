@@ -3,7 +3,7 @@ Documentation     Test reconciliation of chained groups and flows after switch c
 Suite Setup       Initialization Phase
 Suite Teardown    Final Phase
 Library           RequestsLibrary
-Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/FlowLib.robot
@@ -123,7 +123,7 @@ Check No Switches
 *** Keywords ***
 Initialization Phase
     [Documentation]    Create controller session and set variables.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    ClusterManagement.ClusterManagement_Setup
     # Still need to open controller HTTP session with name session because of old FlowLib.robot library dependency.
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     ${all_groups}=    BuiltIn.Evaluate    ${SWITCHES} * ${ITER} * 2
