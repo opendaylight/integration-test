@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_5e9e1208",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-10T22:26:42Z",
+      "side": 1,
+      "message": "imho we should be fixing the root cause here, not skipping a reasonable step in our csit.\n\nhowever, nobody knows the root cause, I suspect.",
+      "parentUuid": "1a622d24_7ea5d3a0",
+      "range": {
+        "startLine": 9,
+        "startChar": 52,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "c0778e2d7813525714f3d7bd72ea737aa5bdc710",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_be53ebe0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-10T13:19:26Z",
       "side": 1,
       "message": "That is why we directly kill in most suites. :)\n\nIf \"able to stop in reasonable time\" is a requirement, we could create a suite (for distribution project) to test that.",
+      "range": {
+        "startLine": 12,
+        "startChar": 24,
+        "endLine": 12,
+        "endChar": 53
+      },
+      "revId": "c0778e2d7813525714f3d7bd72ea737aa5bdc710",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1ebf7a62",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-10T22:26:42Z",
+      "side": 1,
+      "message": "+1\n\nif we have a \"tool\" to ./stop the controller that we deliver in our distribution, it makes sense to have a test for it.\n\nI added this:\nhttps://trello.com/c/BOEzag3j/422-write-a-test-case-to-validate-the-stop-script-that-is-delivered-by-using-it-to-stop-a-controller-and-checking-that-it-stops-in-a",
+      "parentUuid": "1a622d24_be53ebe0",
       "range": {
         "startLine": 12,
         "startChar": 24,
