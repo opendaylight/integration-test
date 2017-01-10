@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_7ea5d3a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-10T13:19:26Z",
+      "side": 1,
+      "message": "Ideally we should fix KarafKeywords. But this suite has not been using karaf logging, so no objections to removing it.",
+      "range": {
+        "startLine": 9,
+        "startChar": 52,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "c0778e2d7813525714f3d7bd72ea737aa5bdc710",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_be53ebe0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-10T13:19:26Z",
+      "side": 1,
+      "message": "That is why we directly kill in most suites. :)\n\nIf \"able to stop in reasonable time\" is a requirement, we could create a suite (for distribution project) to test that.",
+      "range": {
+        "startLine": 12,
+        "startChar": 24,
+        "endLine": 12,
+        "endChar": 53
+      },
+      "revId": "c0778e2d7813525714f3d7bd72ea737aa5bdc710",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
