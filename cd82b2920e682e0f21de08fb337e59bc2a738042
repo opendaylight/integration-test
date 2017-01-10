@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_958ed2ce",
+        "filename": "csit/scripts/set_federation_rabbit.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6228
+      },
+      "writtenOn": "2017-01-10T08:16:25Z",
+      "side": 1,
+      "message": "it takes less than 1min:\n21:40:43 Install rabbit server ...\n21:41:20 Add federation user to rabbit server ...\n\nIm not sure we would like to move it to the image as we would like to install it only if the federation feature is enable and I guess there is no reason to install it for all other cases... what do you think?",
+      "parentUuid": "1a622d24_917547fc",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 67
+      },
+      "revId": "cd82b2920e682e0f21de08fb337e59bc2a738042",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_316c3335",
         "filename": "csit/scripts/set_federation_rabbit.sh",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-09T22:05:13Z",
       "side": 1,
       "message": "do we have an _3_ node somewhere?",
+      "range": {
+        "startLine": 35,
+        "startChar": 26,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "cd82b2920e682e0f21de08fb337e59bc2a738042",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b5a82e21",
+        "filename": "csit/scripts/set_federation_rabbit.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6228
+      },
+      "writtenOn": "2017-01-10T08:16:25Z",
+      "side": 1,
+      "message": "in netvirt-csit-3node this is the ha proxy ip",
+      "parentUuid": "1a622d24_316c3335",
       "range": {
         "startLine": 35,
         "startChar": 26,
