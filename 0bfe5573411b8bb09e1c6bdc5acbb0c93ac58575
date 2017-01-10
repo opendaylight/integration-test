@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_7ed31304",
+        "filename": "csit/libraries/GbpSxp.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_311f130a",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d1bcdfde",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 30
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_1e5e5f76",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Unfortunately I use both \n- for file input \n- and for response processing",
+      "parentUuid": "1a622d24_d1bcdfde",
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b1c16356",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/010_ise-adapter.robot",
         "patchSetId": 30
@@ -53,6 +95,30 @@
       "writtenOn": "2017-01-09T19:46:31Z",
       "side": 1,
       "message": "Variables.robot please.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bed92b24",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/010_ise-adapter.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b1c16356",
       "range": {
         "startLine": 10,
         "startChar": 0,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_9ed6efef",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/020_ep_provider_register_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_f1b75bf3",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_51d0cf1e",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/020_ep_provider_register_part.robot",
         "patchSetId": 30
@@ -99,6 +189,30 @@
       "writtenOn": "2017-01-09T19:46:31Z",
       "side": 1,
       "message": "some of these are common/duplicated across your suites. better to put in a gbp/sxp variables file or even the variables section of the gbpsxp.robot lib?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 87
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fe060385",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/020_ep_provider_register_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_51d0cf1e",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -128,6 +242,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_1e877fd8",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/020_ep_provider_register_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_91c6e766",
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_71c34b57",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/020_ep_provider_register_part.robot",
         "patchSetId": 30
@@ -139,6 +271,30 @@
       "writtenOn": "2017-01-09T19:46:31Z",
       "side": 1,
       "message": "please remove the sleep. the controller should be assumed to be up and ready to go when the suite is started.",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 15
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9e1b8fc9",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/020_ep_provider_register_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Right - but it seems that since this Monday some features are still starting and probably that\u0027s why we have ssh lib restart ocurrences even here.",
+      "parentUuid": "1a622d24_71c34b57",
       "range": {
         "startLine": 68,
         "startChar": 4,
@@ -197,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_de0b478c",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b1a8438e",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_11aad784",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
         "patchSetId": 30
@@ -208,6 +388,30 @@
       "writtenOn": "2017-01-09T19:46:31Z",
       "side": 1,
       "message": "check which is duplicated/common and move to a shared location if possible.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 84
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1e02df6e",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_11aad784",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -243,6 +447,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_7efaf375",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_51972f48",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_919d4769",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
         "patchSetId": 30
@@ -266,6 +494,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_5eda97e8",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Unfortunately this is for SFC. After netconf nodes are up and running robot checks operational DS/topology/nodes. But the same change is trigger for SFC which internally registers nodes after they got connected. I am afraid that currently there is no stable way on testing this (karaf log reading excluded).",
+      "parentUuid": "1a622d24_919d4769",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 14
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d18a1f1a",
         "filename": "csit/variables/Variables.py",
         "patchSetId": 30
@@ -277,6 +529,30 @@
       "writtenOn": "2017-01-09T19:46:31Z",
       "side": 1,
       "message": "move this to variables.robot and remove from here. at some point we hope to totally remove this file. we have to refactor the older suites still using it though.",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 48
+      },
+      "revId": "0bfe5573411b8bb09e1c6bdc5acbb0c93ac58575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5e6c5735",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-01-10T13:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_d18a1f1a",
       "range": {
         "startLine": 232,
         "startChar": 0,
