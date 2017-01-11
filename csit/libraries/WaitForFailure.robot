@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Robot keyword Resource for catching a later failure in temporarily passing repeated check.
 ...
-...               Copyright (c) 2015-2016 Cisco Systems, Inc. and others. All rights reserved.
+...               Copyright (c) 2015-2017 Cisco Systems, Inc. and others. All rights reserved.
 ...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -51,8 +51,15 @@ Confirm_Keyword_Fails_Within_Timeout
     # Arguments with default values interact badly with varargs, so using WUKS argument style.
     BuiltIn.Run_Keyword_And_Return    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${refresh}    Invert_Failure    @{cell_list}
 
+Verify_Keyword_Never_Passes_Within_Timeout
+    [Arguments]    ${timeout}    ${refresh}    @{cell_list}
+    [Documentation]    Some negative checks report false failure for a short time. This keyword verifies no pass does happen within timeout period.
+    BuiltIn.Run_Keyword_And_Return    Invert_Failure    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${refresh}    @{cell_list}
+
 Verify_Keyword_Does_Not_Fail_Within_Timeout
     [Arguments]    ${timeout}    ${refresh}    @{cell_list}
-    [Documentation]    Some checks report false success for a short time. This keyword verifies no failure does happen within timeout period.
+    [Documentation]    Some positive checks report false success for a short time. This keyword verifies no failure does happen within timeout period.
+    ...    This implementation needs more complicated logic than, Verify_Keyword_Never_Passes_Within_Timeout,
+    ...    so use that keyword in case you have a negative check handy.
     BuiltIn.Run_Keyword_And_Return    Invert_Failure    Confirm_Keyword_Fails_Within_Timeout    ${timeout}    ${refresh}    @{cell_list}
     # TODO: Remove the added comment text of time running out to restore last Keyword return value.
