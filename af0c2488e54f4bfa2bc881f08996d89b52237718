@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_a7e5960a",
+        "filename": "csit/suites/bgpcep/bgpfunct/060_bgp_functional_md5.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-11T17:28:23Z",
+      "side": 1,
+      "message": "7",
+      "range": {
+        "startLine": 4,
+        "startChar": 35,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "af0c2488e54f4bfa2bc881f08996d89b52237718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e7eb0eda",
+        "filename": "csit/suites/bgpcep/bgpfunct/060_bgp_functional_md5.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-11T17:28:23Z",
+      "side": 1,
+      "message": "tcpmd5?",
+      "range": {
+        "startLine": 10,
+        "startChar": 35,
+        "endLine": 10,
+        "endChar": 71
+      },
+      "revId": "af0c2488e54f4bfa2bc881f08996d89b52237718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_47064287",
+        "filename": "csit/suites/bgpcep/bgpfunct/060_bgp_functional_md5.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-11T17:28:23Z",
+      "side": 1,
+      "message": "I have created https://git.opendaylight.org/gerrit/50311 to make this shorter and less involved.",
+      "range": {
+        "startLine": 51,
+        "startChar": 157,
+        "endLine": 51,
+        "endChar": 182
+      },
+      "revId": "af0c2488e54f4bfa2bc881f08996d89b52237718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
