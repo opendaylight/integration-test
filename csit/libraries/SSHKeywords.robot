@@ -16,6 +16,7 @@ Documentation     Resource enhancing SSHLibrary with Keywords used in multiple s
 ...               TODO: Migrate Keywords related to handling SSH here.
 ...               That may include Utils.Flexible_SSH_Login, and similar.
 Library           SSHLibrary
+Resource          ${CURDIR}/Entropy.robot
 Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
@@ -26,6 +27,7 @@ ${SSHKeywords__current_venv_path}    /tmp/defaultvenv
 Open_Connection_To_ODL_System
     [Arguments]    ${ip_address}=${ODL_SYSTEM_IP}
     [Documentation]    Open a connection to the ODL system at ${ip_address} and return its identifier.
+    Entropy.Wait_For_Entropy
     ${odl_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
     Utils.Flexible_Controller_Login
     [Return]    ${odl_connection}
@@ -33,6 +35,7 @@ Open_Connection_To_ODL_System
 Open_Connection_To_Tools_System
     [Arguments]    ${ip_address}=${TOOLS_SYSTEM_IP}
     [Documentation]    Open a connection to the tools system at ${ip_address} and return its identifier.
+    Entropy.Wait_For_Entropy
     ${tools_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${TOOLS_SYSTEM_PROMPT}
     Utils.Flexible_Mininet_Login
     [Return]    ${tools_connection}
@@ -61,6 +64,7 @@ Restore_Current_Ssh_Connection_From_Index
     ...    running on localhost, port 22 but there is nothing easy that can be done about it.
     BuiltIn.Run Keyword And Return If    ${connection_index} is not None    SSHLibrary.Switch Connection    ${connection_index}
     # The background connection is still current, bury it.
+    Entropy.Wait_For_Entropy
     SSHLibrary.Open Connection    127.0.0.1
     SSHLibrary.Close Connection
 
