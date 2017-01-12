@@ -174,8 +174,6 @@ Delete And Recreate Extra Route
     Show Router    @{ROUTERS}[0]    -D
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[0]
     Should Contain    ${output}    64 bytes
-    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
-    Show Router    @{ROUTERS}[0]    -D
 
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
@@ -230,6 +228,9 @@ Delete Router And Router Interfaces With L3VPN
     Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${router_id}
+    #clear off extra-routes before deleting the subnets from router
+    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
+    Show Router    @{ROUTERS}[0]    -D
     #Delete Interface
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
     \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
