@@ -3,13 +3,26 @@ Documentation     Openstack library. This library is useful for tests to create 
 Library           SSHLibrary
 Resource          Netvirt.robot
 Resource          Utils.robot
-Resource          ../variables/Variables.robot
+Variables         ../variables/Variables.py
 
 *** Keywords ***
 Source Password
     [Arguments]    ${force}=no    ${source_pwd}=yes
     [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
     Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
+
+Set Loglevel for Debug
+    [Arguments]    ${ip}    ${module}    ${level}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
+    ...    ${log_ctrl_xml}=${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
+    ${cmd}    Set Variable    sudo sed -i "$ i log4j.logger.org.opendaylight.${module}= ${level}" ${log_ctrl_xml}
+    Log     ${cmd}
+    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
+
+Set Log Level in All ODL Nodes
+    [Arguments]    ${module}    ${level}
+    Run Keyword If    0 < ${NUM_ODL_SYSTEM}    Set Loglevel for Debug    ${ODL_SYSTEM_IP}    ${module}    ${level}
+    Run Keyword If    1 < ${NUM_ODL_SYSTEM}    Set Loglevel for Debug    ${ODL_SYSTEM_2_IP}    ${module}    ${level}
+    Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Set Loglevel for Debug    ${ODL_SYSTEM_3_IP}    ${module}    ${level}
 
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
@@ -187,17 +200,6 @@ Get Net Id
     Log    ${net_id}
     [Return]    ${net_id}
 
-Get Subnet Id
-    [Arguments]    ${subnet_name}    ${devstack_conn_id}
-    [Documentation]    Retrieve the subnet id for the given subnet name
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron subnet-list | grep "${subnet_name}" | awk '{print $2}'    30s
-    Log    ${output}
-    ${splitted_output}=    Split String    ${output}    ${EMPTY}
-    ${subnet_id}=    Get from List    ${splitted_output}    0
-    Log    ${subnet_id}
-    [Return]    ${subnet_id}
-
 Get Port Id
     [Arguments]    ${port_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
@@ -211,7 +213,7 @@ Get Port Id
 
 Get Router Id
     [Arguments]    ${router1}    ${devstack_conn_id}
-    [Documentation]    Retrieve the router id for the given router name
+    [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron router-list | grep "${router1}" | awk '{print $2}'    30s
     Log    ${output}
@@ -239,6 +241,7 @@ Create Vm Instance With Port On Compute Node
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
     ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} --availability-zone nova:${hostname_compute_node}    30s
     Log    ${output}
+    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
@@ -417,15 +420,6 @@ Create Router
     Close Connection
     Should Contain    ${output}    Created a new router
 
-List Router
-    [Documentation]    List Router and return output with neutron client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron router-list    30s
-    Close Connection
-    Log    ${output}
-    [Return]    ${output}
-
 Add Router Interface
     [Arguments]    ${router_name}    ${interface_name}
     ${devstack_conn_id}=    Get ControlNode Connection
@@ -433,16 +427,6 @@ Add Router Interface
     ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router_name} ${interface_name}
     Close Connection
     Should Contain    ${output}    Added interface
-
-Show Router Interface
-    [Arguments]    ${router_name}
-    [Documentation]    List Router interface associated with given Router and return output with neutron client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron router-port-list ${router_name} -f csv    30s
-    Close Connection
-    Log    ${output}
-    [Return]    ${output}
 
 Add Router Gateway
     [Arguments]    ${router_name}    ${network_name}
