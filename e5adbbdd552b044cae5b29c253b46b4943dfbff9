@@ -22,6 +22,30 @@
       "revId": "e5adbbdd552b044cae5b29c253b46b4943dfbff9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9cf1c503",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-01-12T16:41:28Z",
+      "side": 0,
+      "message": "Good question.  \n\nIdeally i would like to cleanup the routes here itself irrespective of this test failure, because the subsequent tests \u0027think\u0027 that the extra-route doesn\u0027t exist :)\n\nHowever, here Should Contain success only triggers the execution of the two steps.\n\nA router moved into an L3VPN will result in the L3VPN embracing all the elements connected to a router, including extra-routes.  So retaining the extra-route in the subsequent test-cases boosts the test coverage for extra-route on L3VPN trigger.\n\nAnd I clear the extra-route down below, because Openstack (not ODL) does not allow router interfaces to be removed if an extra-route is configured in the router using that router-interface.",
+      "parentUuid": "1a622d24_fcb3994a",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 38
+      },
+      "revId": "e5adbbdd552b044cae5b29c253b46b4943dfbff9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
