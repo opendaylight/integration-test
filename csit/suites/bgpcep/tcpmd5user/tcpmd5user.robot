@@ -19,7 +19,9 @@ Library           RequestsLibrary
 Library           SSHLibrary    prompt=]>
 Library           String
 Library           ${CURDIR}/../../../libraries/norm_json.py
+Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
+#Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
@@ -126,6 +128,7 @@ Set_It_Up
     [Documentation]    Create SSH session to Mininet machine, prepare HTTP client session to Controller.
     ...    Figure out latest pcc-mock version and download it from Nexus to Mininet.
     ...    Also, delete and create directories for json diff handling.
+    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """False"""    Install_Netconf_Connector
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
     ${current_connection}=    SSHLibrary.Get_Connection
     ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
@@ -153,8 +156,30 @@ Tear_It_Down
     ${diff}=    OperatingSystem.Run    diff -dur ${directory_for_expected_responses} ${directory_for_actual_responses}
     BuiltIn.Log    ${diff}
     PcepOperations.Teardown_Pcep_Operations
+    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """False"""    Uninstall_Netconf_Connector
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
+
+Install_Netconf_Connector
+    [Documentation]    Installs odl-netconf-connector-ssh feature. As this feature 
+    #KarafKeywords.Setup_Karaf_Keywords
+    #KarafKeywords.Install_a_Feature    odl-netconf-connector-ssh
+    ClusterManagement.ClusterManagement_Setup
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    ClusterManagement.Install_Feature_On_List_Or_All    odl-netconf-connector-ssh
+    BuiltIn.Log    ${results}
+    BuiltIn.Wait_Until_Keyword_Succeeds    300    3    Check_Netconf_Up_And_Running
+
+Check_Netconf_Up_And_Running
+    [Documentation]    Make a request to netconf connector's mounted pcep module and expect it is mounted.
+    ${ses}=    ClusterManagement.Resolve_Http_Session_For_Member    1
+    ${response}=    RequestsLibrary.Get_Request    ${ses}    restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-pcep-topology-provider-cfg:pcep-topology-provider
+    BuiltIn.Log    ${response.text}
+    BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
+
+Uninstall_Netconf_Connector
+    [Documentation]    Uninstalls odl-netconf-connector-ssh feature
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    ClusterManagement.Run_Karaf_Command_On_List_Or_All    feature:uninstall odl-netconf-connector-ssh
+    BuiltIn.Log    ${results}
 
 Read_And_Fail_If_Prompt_Is_Seen
     [Documentation]    Try to read SSH to see prompt, but expect to see no prompt within SSHLibrary's timeout.
