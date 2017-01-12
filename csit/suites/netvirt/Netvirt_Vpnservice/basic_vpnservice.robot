@@ -47,6 +47,7 @@ Create Neutron Networks
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
     Should Contain    ${NET_LIST}    ${NETWORKS[1]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/networks/    ${NETWORKS}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Create Neutron Subnets
     [Documentation]    Create two subnets for previously created networks
@@ -57,6 +58,7 @@ Create Neutron Subnets
     Should Contain    ${SUB_LIST}    ${SUBNETS[0]}
     Should Contain    ${SUB_LIST}    ${SUBNETS[1]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/subnets/    ${SUBNETS}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -67,6 +69,7 @@ Add Ssh Allow Rule
     Neutron Security Group Rule Create    sg-vpnservice    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    sg-vpnservice    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    sg-vpnservice    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
@@ -75,6 +78,7 @@ Create Neutron Ports
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=sg-vpnservice
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORT_LIST}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute node with port
@@ -93,6 +97,7 @@ Create Nova VMs
     ${VM_IP_NET20}    ${DHCP_IP2}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET20}
     Log    ${VM_IP_NET20}
     Set Suite Variable    ${VM_IP_NET20}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
@@ -100,6 +105,7 @@ Check ELAN Datapath Traffic Within The Networks
     Should Contain    ${output}    64 bytes
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[0]}    ping -c 3 ${VM_IP_NET20[1]}
     Should Contain    ${output}    64 bytes
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Create Routers
     [Documentation]    Create Router
@@ -109,6 +115,7 @@ Create Routers
     Should Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/routers/    ${router_list}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
@@ -119,6 +126,7 @@ Add Interfaces To Router
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
     \    ${subnet_id} =    Get Subnet Id    ${INTERFACE}    ${devstack_conn_id}
     \    Should Contain    ${interface_output}    ${subnet_id}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath test across the networks using router for L3.
@@ -134,6 +142,7 @@ Check L3_Datapath Traffic Across Networks With Router
     ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation
@@ -157,11 +166,13 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     Should Contain    ${output}    64 bytes
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[0]
     Should Contain    ${output}    64 bytes
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Delete Extra Route
     [Documentation]    Delete the extra routes
     Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
     Show Router    @{ROUTERS}[0]    -D
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Delete And Recreate Extra Route
     [Documentation]    Recreate multiple extra route and check data path before L3VPN creation
@@ -174,8 +185,10 @@ Delete And Recreate Extra Route
     Show Router    @{ROUTERS}[0]    -D
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[0]
     Should Contain    ${output}    64 bytes
-    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
-    Show Router    @{ROUTERS}[0]    -D
+    #clear off extra-routes before the next set of tests
+    [Teardown]    Run Keywords    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
+    ...    AND    Show Router    @{ROUTERS}[0]    -D
+    ...    AND    Get Test Teardown Debugs
 
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
@@ -186,6 +199,7 @@ Create L3VPN
     VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=${CREATE_RD[0]}    exportrt=${CREATE_EXPORT_RT[0]}    importrt=${CREATE_IMPORT_RT[0]}    tenantid=${tenant_id}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[0]}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Associate L3VPN To Routers
     [Documentation]    Associating router to L3VPN
@@ -194,6 +208,7 @@ Associate L3VPN To Routers
     Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${router_id}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Verify L3VPN Datapath With Router Association
     [Documentation]    Datapath test across the networks using L3VPN with router association.
@@ -213,6 +228,7 @@ Verify L3VPN Datapath With Router Association
     ${dst_ip_list} =    Create List    @{VM_IP_NET20}[1]    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    @{VM_IP_NET20}[0]    ${dst_ip_list}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Dissociate L3VPN From Routers
     [Documentation]    Dissociating router from L3VPN
@@ -221,6 +237,7 @@ Dissociate L3VPN From Routers
     Dissociate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Not Contain    ${resp}    ${router_id}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Delete Router And Router Interfaces With L3VPN
     [Documentation]    Delete Router and Interface to the subnets with L3VPN assciate
@@ -247,6 +264,7 @@ Delete Router And Router Interfaces With L3VPN
     # Verify Router Entry removed from L3VPN
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Not Contain    ${resp}    ${router_id}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
@@ -255,6 +273,7 @@ Delete Router With NonExistentRouter Name
     ${output} =    Write Commands Until Prompt    neutron router-delete nonExistentRouter    30s
     Close Connection
     Should Match Regexp    ${output}    Unable to find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Associate L3VPN To Networks
     [Documentation]    Associates L3VPN to networks and verify
@@ -267,6 +286,7 @@ Associate L3VPN To Networks
     Associate L3VPN To Network    networkid=${network2_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${network2_id}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Dissociate L3VPN From Networks
     [Documentation]    Dissociate L3VPN from networks
@@ -279,10 +299,12 @@ Dissociate L3VPN From Networks
     Dissociate L3VPN From Networks    networkid=${network2_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Not Contain    ${resp}    ${network2_id}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Delete L3VPN
     [Documentation]    Delete L3VPN
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Create Multiple L3VPN
     [Documentation]    Creates three L3VPNs and then verify the same
@@ -299,38 +321,45 @@ Create Multiple L3VPN
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[1]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[2]}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Delete Multiple L3VPN
     [Documentation]    Delete three L3VPNs created using Multiple L3VPN Test
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Check Datapath Traffic Across Networks With L3VPN
     [Documentation]    Datapath Test Across the networks with VPN.
     [Tags]    exclude
     Log    This test will be added in the next patch
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Delete Vm Instances
     [Documentation]    Delete Vm instances in the given Instance List
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     : FOR    ${VmInstance}    IN    @{VM_INSTANCES}
     \    Delete Vm Instance    ${VmInstance}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Delete Neutron Ports
     [Documentation]    Delete Neutron Ports in the given Port List.
     : FOR    ${Port}    IN    @{PORT_LIST}
     \    Delete Port    ${Port}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Delete Sub Networks
     [Documentation]    Delete Sub Nets in the given Subnet List.
     : FOR    ${Subnet}    IN    @{SUBNETS}
     \    Delete SubNet    ${Subnet}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Delete Networks
     [Documentation]    Delete Networks in the given Net List
     : FOR    ${Network}    IN    @{NETWORKS}
     \    Delete Network    ${Network}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Create ITM Tunnel
     [Documentation]    Checks that vxlan tunnels are created successfully. This testcase expects that the two DPNs are in the same network hence populates the gateway accordingly.
@@ -346,10 +375,12 @@ Create ITM Tunnel
     Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
     ${output} =    ITM Get Tunnels
     Log    ${output}
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 Delete ITM Tunnel
     [Documentation]    Delete tunnels with specific transport-zone.
     ITM Delete Tunnel    TZA
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 *** Keywords ***
 Basic Vpnservice Suite Setup
