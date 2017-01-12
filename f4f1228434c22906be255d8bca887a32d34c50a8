@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_f06622ba",
+        "filename": "csit/suites/netvirt/elanservice/basicElanService.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-12T09:06:52Z",
+      "side": 1,
+      "message": "This should go to OpenStackOperations.robot",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 20
+      },
+      "revId": "f4f1228434c22906be255d8bca887a32d34c50a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
