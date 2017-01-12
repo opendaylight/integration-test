@@ -7,7 +7,7 @@ Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_T
 ...               AND    Enable ODL Karaf Log
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Run Keyword If Test Failed    Get Test Teardown Debugs
+Test Teardown     Get Test Teardown Debugs
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
@@ -174,8 +174,10 @@ Delete And Recreate Extra Route
     Show Router    @{ROUTERS}[0]    -D
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[0]
     Should Contain    ${output}    64 bytes
-    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
-    Show Router    @{ROUTERS}[0]    -D
+    # clear off extra-routes before the next set of tests
+    [Teardown]    Run Keywords    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
+    ...    AND    Show Router    @{ROUTERS}[0]    -D
+    ...    AND    Get Test Teardown Debugs
 
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
