@@ -5,6 +5,7 @@ Documentation     Karaf library. This library is useful to deal with controller 
 Library           SSHLibrary
 Library           OperatingSystem
 Resource          ${CURDIR}/ClusterManagement.robot
+Resource          ${CURDIR}/Entropy.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 Variables         ${CURDIR}/../variables/Variables.py
 
@@ -31,6 +32,7 @@ Issue Command On Karaf Console
     [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${loglevel}=INFO
     [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${controller}
     ...    Note that this keyword will open&close new SSH connection, without switching back to previously current session.
+    Entropy.Wait_For_Entropy
     Open Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
     Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
     Write    ${cmd}
@@ -112,6 +114,7 @@ Open Controller Karaf Console On Background
     BuiltIn.Run Keyword If    '${status}'=='PASS'    BuiltIn.Run Keywords    SSHLibrary.Switch Connection    ${old_connection_index}
     ...    AND    SSHLibrary.Close Connection
     ${odl_ip}=    ClusterManagement.Resolve_IP_Address_For_Member    ${member_index}
+    Entropy.Wait_For_Entropy
     SSHLibrary.Open Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}
     ${karaf_connection_object}=    SSHLibrary.Get Connection
     Collections.Set To Dictionary    ${connection_index_dict}    ${member_index}    ${karaf_connection_object.index}
@@ -123,6 +126,7 @@ Open Controller Karaf Console With Timeout
     [Documentation]    Open new connection to karaf console for member index with specified timeout.
     BuiltIn.Log    ${member_index}
     ${odl_ip}=    ClusterManagement.Resolve_IP_Address_For_Member    ${member_index}
+    Entropy.Wait_For_Entropy
     SSHLibrary.Open Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}    timeout=${timeout}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
 
@@ -196,6 +200,7 @@ Wait For Karaf Log
     # however, the consumers of this keyword were breaking after that change.    Initial theory is that a previous
     # keyword used before this "Wait For Karaf Log" keyword was closing the karaf console connection, so the
     # "Flexible SSH Login" keyword from the patch above (45596) was failing.
+    Entropy.Wait_For_Entropy
     Log    Waiting for '${message}' in karaf log
     Open Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=${timeout}
     Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
