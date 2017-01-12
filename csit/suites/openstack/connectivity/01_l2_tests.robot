@@ -14,13 +14,18 @@ Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-@{NETWORKS_NAME}    l2_network_1    l2_network_2
-@{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
+@{NETWORKS_NAME}    l2_network_1    l2_network_2    l2_network_3
+@{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2    l2_subnet_2
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
 @{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
-@{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+@{NET_3_VM_INSTANCES}    MyFirstInstance_3    MySecondInstance_3    MyThirdInstance_3
+@{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24    45.0.0.0/24
 
 *** Test Cases ***
+Set Netvirt Loglevel
+    [Documentation]    Set LogLevel to TRACE
+    Set Log Level in All ODL Nodes     netvirt     DEBUG
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
@@ -33,6 +38,10 @@ Create Subnets For l2_network_1
 Create Subnets For l2_network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     Create SubNet    l2_network_2    l2_subnet_2    @{SUBNETS_RANGE}[1]
+
+Create Subnets For l2_network_3
+    [Documentation]    Create Sub Nets for the Networks with neutron request.
+    Create SubNet    l2_network_3    l2_subnet_3    @{SUBNETS_RANGE}[2]
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -51,6 +60,10 @@ Create Vm Instances For l2_network_1
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=csit
+
+Create Vm Instances For l2_network_3
+    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    Create Vm Instances    l2_network_3    ${NET_3_VM_INSTANCES}    sg=csit
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
@@ -100,37 +113,17 @@ Ping Vm Instance3 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET2_VM_IPS}[2]
 
-Connectivity Tests From Vm Instance1 In l2_network_1
-    [Documentation]    Login to the vm instance and test some operations
-    Test Operations From Vm Instance    l2_network_1    @{NET1_VM_IPS}[0]    ${NET1_VM_IPS}
+Ping Vm Instance1 In l2_network_3
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Ping Vm From DHCP Namespace    l2_network_3    45.0.0.3
 
-Connectivity Tests From Vm Instance2 In l2_network_1
-    [Documentation]    Login to the vm instance and test operations
-    Test Operations From Vm Instance    l2_network_1    @{NET1_VM_IPS}[1]    ${NET1_VM_IPS}
+Ping Vm Instance2 In l2_network_3
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Ping Vm From DHCP Namespace    l2_network_3    45.0.0.4
 
-Connectivity Tests From Vm Instance3 In l2_network_1
-    [Documentation]    Login to the vm instance and test operations
-    Test Operations From Vm Instance    l2_network_1    @{NET1_VM_IPS}[2]    ${NET1_VM_IPS}
-
-Connectivity Tests From Vm Instance1 In l2_network_2
-    [Documentation]    Login to the vm instance and test operations
-    Test Operations From Vm Instance    l2_network_2    @{NET2_VM_IPS}[0]    ${NET2_VM_IPS}
-
-Connectivity Tests From Vm Instance2 In l2_network_2
-    [Documentation]    Logging to the vm instance using generated key pair.
-    Test Operations From Vm Instance    l2_network_2    @{NET2_VM_IPS}[1]    ${NET2_VM_IPS}
-
-Connectivity Tests From Vm Instance3 In l2_network_2
-    [Documentation]    Login to the vm instance using generated key pair.
-    Test Operations From Vm Instance    l2_network_2    @{NET2_VM_IPS}[2]    ${NET2_VM_IPS}
-
-Delete A Vm Instance
-    [Documentation]    Delete Vm instances using instance names.
-    Delete Vm Instance    MyFirstInstance_1
-
-No Ping For Deleted Vm
-    [Documentation]    Check non reachability of deleted vm instances by pinging to them.
-    ${output}=    Ping From DHCP Should Not Succeed    l2_network_1    @{NET_1_VM_IPS}[0]
+Ping Vm Instance3 In l2_network_3
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Ping Vm From DHCP Namespace    l2_network_3    45.0.0.5
 
 Delete Vm Instances In l2_network_1
     [Documentation]    Delete Vm instances using instance names in l2_network_1.
