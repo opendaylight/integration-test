@@ -20,6 +20,7 @@ Library           SSHLibrary    prompt=]>
 Library           String
 Library           ${CURDIR}/../../../libraries/norm_json.py
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
@@ -31,6 +32,7 @@ Variables         ${CURDIR}/../../../variables/pcepuser/variables.py    ${TOOLS_
 ${directory_for_actual_responses}    ${TEMPDIR}${/}actual
 ${directory_for_expected_responses}    ${TEMPDIR}${/}expected
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/tcpmd5user/
+${CONNECTOR_FEATURE}    odl-netconf-connector-all
 
 *** Test Cases ***
 Topology_Precondition
@@ -126,6 +128,9 @@ Set_It_Up
     [Documentation]    Create SSH session to Mininet machine, prepare HTTP client session to Controller.
     ...    Figure out latest pcc-mock version and download it from Nexus to Mininet.
     ...    Also, delete and create directories for json diff handling.
+    KarafKeywords.Setup_Karaf_Keywords
+    TemplatedRequests.Create_Default_Session
+    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """False"""    Install_Netconf_Connector
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
     ${current_connection}=    SSHLibrary.Get_Connection
     ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
@@ -139,7 +144,6 @@ Set_It_Up
     # The previous suite may have been using the same directories.
     OperatingSystem.Create_Directory    ${directory_for_expected_responses}
     OperatingSystem.Create_Directory    ${directory_for_actual_responses}
-    TemplatedRequests.Create_Default_Session
     PcepOperations.Setup_Pcep_Operations
     FailFast.Do_Not_Fail_Fast_From_Now_On
 
@@ -153,8 +157,26 @@ Tear_It_Down
     ${diff}=    OperatingSystem.Run    diff -dur ${directory_for_expected_responses} ${directory_for_actual_responses}
     BuiltIn.Log    ${diff}
     PcepOperations.Teardown_Pcep_Operations
+    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """False"""    Uninstall_Netconf_Connector
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
+
+Install_Netconf_Connector
+    [Documentation]    Installs ${CONNECTOR_FEATURE} feature. As this feature
+    # During the netconf connector installation the karaf's ssh is restarted and connection to karaf console is droped. This is causing an error
+    # which is ignored, because the feature should be installed anyway.
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${CONNECTOR_FEATURE}
+    BuiltIn.Log    ${results}
+    BuiltIn.Wait_Until_Keyword_Succeeds    300    3    Check_Netconf_Up_And_Running
+
+Check_Netconf_Up_And_Running
+    [Documentation]    Make a request to netconf connector's mounted pcep module and expect it is mounted.
+    TemplatedRequests.Get_From_Uri    restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-pcep-topology-provider-cfg:pcep-topology-provider/pcep-topology
+
+Uninstall_Netconf_Connector
+    [Documentation]    Uninstalls odl-netconf-connector-ssh feature
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Uninstall_A_Feature    ${CONNECTOR_FEATURE}
+    BuiltIn.Log    ${results}
 
 Read_And_Fail_If_Prompt_Is_Seen
     [Documentation]    Try to read SSH to see prompt, but expect to see no prompt within SSHLibrary's timeout.
