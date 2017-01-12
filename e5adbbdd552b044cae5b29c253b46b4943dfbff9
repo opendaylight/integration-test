@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_fcb3994a",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-12T16:35:17Z",
+      "side": 0,
+      "message": "is this actually the right place to put the delete? I mean,\nit looks like the proper place to clean up so the next test\ncase to create the l3vpn can continue with a clean slate.\n\nbut if so, I don\u0027t understand why you are removing it here\nand moving it so far down?",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 38
+      },
+      "revId": "e5adbbdd552b044cae5b29c253b46b4943dfbff9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
