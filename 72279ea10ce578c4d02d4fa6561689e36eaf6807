@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_bb52cb64",
+        "filename": "csit/testplans/bgpcep-userfeatures.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-12T11:42:54Z",
+      "side": 1,
+      "message": "Is there a Trello card to get rid of numeric prefixes in suite names?\n\nThis is ok for now, as every suite in bgpfunct starts with a number. But you can see that the number only corresponds to when the suite was added, not at all to position in the job.",
+      "range": {
+        "startLine": 11,
+        "startChar": 45,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "72279ea10ce578c4d02d4fa6561689e36eaf6807",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
