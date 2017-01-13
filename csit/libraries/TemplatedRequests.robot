@@ -127,11 +127,14 @@ Create_Default_Session
 
 Get_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
+    ...    ${subset_at_level}=0
     [Documentation]    Add arguments sensible for JSON data, return Get_Templated response text.
     ...    Optionally, verification against JSON data (may be iterated) is called.
+    ...    Only subset of JSON data is verified if ${subset_at_level} is set to number of parent container levels of the
+    ...    tested subset.
     ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=data    mapping=${mapping}
-    ...    iterations=${iterations}    iter_start=${iter_start}
+    ...    iterations=${iterations}    iter_start=${iter_start}    subset_at_level=${subset_at_level}
     [Return]    ${response_text}
 
 Get_As_Xml_Templated
@@ -145,11 +148,15 @@ Get_As_Xml_Templated
 
 Put_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
+    ...    ${subset_at_level}=0
     [Documentation]    Add arguments sensible for JSON data, return Put_Templated response text.
     ...    Optionally, verification against response.json (no iteration) is called.
+    ...    Only subset of JSON data is verified if ${subset_at_level} is set to number of parent container levels of the
+    ...    tested subset.
     ${response_text} =    Put_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
     ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
+    ...    subset_at_level=${subset_at_level}
     [Return]    ${response_text}
 
 Put_As_Xml_Templated
@@ -164,12 +171,36 @@ Put_As_Xml_Templated
 
 Post_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
+    ...    ${subset_at_level}=0
     [Documentation]    Add arguments sensible for JSON data, return Post_Templated response text.
     ...    Optionally, verification against response.json (no iteration) is called.
+    ...    Only subset of JSON data is verified if ${subset_at_level} is set to number of parent container levels of the
+    ...    tested subset.
     ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
     ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
+    ...    subset_at_level=${subset_at_level}
     [Return]    ${response_text}
+
+Normalize_And_Check_Not_Included
+    [Arguments]    ${response}    ${folder}    ${base_name}    ${extension}    ${mapping}={}    ${endline}=${\n}
+    ...    ${iterations}=${EMPTY}    ${iter_start}=1
+    [Documentation]    Preprocess response JSON data and templated JSON data and verifices if the templated data
+    ...    are not contained in the response.
+    ${expected_raw} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
+    ...    iterations=${iterations}    iter_start=${iter_start}
+    ${expected_normalized} =    norm_json.normalize_json_text    ${expected_raw}    indent=${None}    add_new_line=${False}
+    ${actual_normalized} =    norm_json.normalize_json_text    ${response}    indent=${None}    add_new_line=${False}
+    BuiltIn.Should_Not_Contain    ${actual_normalized}    ${expected_normalized}
+
+Post_As_Json_Templated_Check_Not_Included
+    [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${iterations}=${EMPTY}    ${iter_start}=1
+    [Documentation]    Send JSON data template using POST method and verify that response does not include another
+    ...    JSON data template.
+    ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
+    ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
+    Normalize_And_Check_Not_Included    response=${response_text}    folder=${folder}    base_name=response    extension=json    mapping=${mapping}    endline=${\n}
+    ...    iterations=${iterations}    iter_start=${iter_start}
 
 Post_As_Xml_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
@@ -190,10 +221,15 @@ Delete_Templated
 
 Verify_Response_As_Json_Templated
     [Arguments]    ${response}    ${folder}    ${base_name}=response    ${mapping}={}    ${iterations}=${EMPTY}    ${iter_start}=1
-    [Documentation]    Resolve expected JSON data, should be equal to provided \${response}.
+    ...    ${subset_at_level}=0
+    [Documentation]    Resolve expected JSON data, should be equal to provided \${response} if ${subset_at_level}
+    ...    is lower than one and ${response} should contain expected data in container at the level set in
+    ...    ${subset_at_level} if set to value higher than zero.
     ...    JSON normalization is used, endlines enabled for readability.
-    Verify_Response_Templated    response=${response}    folder=${folder}    base_name=${base_name}    extension=json    mapping=${mapping}    normalize_json=True
-    ...    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
+    BuiltIn.Run_Keyword_If    ${subset_at_level} <= 0    Verify_Response_Templated    response=${response}    folder=${folder}    base_name=${base_name}    extension=json
+    ...    mapping=${mapping}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
+    ...    ELSE    Verify_Response_Data_Subset_Templated    response=${response}    folder=${folder}    base_name=${base_name}    extension=json
+    ...    mapping=${mapping}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}    container_level=${subset_at_level}
 
 Verify_Response_As_Xml_Templated
     [Arguments]    ${response}    ${folder}    ${base_name}=response    ${mapping}={}    ${iterations}=${EMPTY}    ${iter_start}=1
@@ -291,6 +327,19 @@ Verify_Response_Templated
     ...    iterations=${iterations}    iter_start=${iter_start}
     BuiltIn.Run_Keyword_If    ${normalize_json}    Normalize_Jsons_And_Compare    expected_raw=${expected_text}    actual_raw=${response}
     ...    ELSE    BuiltIn.Should_Be_Equal    ${expected_text}    ${response}
+
+Verify_Response_Data_Subset_Templated
+    [Arguments]    ${response}    ${folder}    ${base_name}    ${extension}    ${mapping}={}    ${normalize_json}=False
+    ...    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1    ${container_level}=0
+    [Documentation]    Resolve expected text from template, provided ${response} should contain expected data in
+    ...    container at the level set in ${container_level}.
+    ...    If \${normalize_json}, perform normalization before comparison.
+    ...    The ${container_level} is used with normalized JSON data only.
+    # TODO: Support for XML-aware comparison could be added, but there are issues with namespaces and similar.
+    ${expected_text} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
+    ...    iterations=${iterations}    iter_start=${iter_start}
+    BuiltIn.Run_Keyword_If    ${normalize_json}    Normalize_Jsons_And_Check_Subset    expected_raw=${expected_text}    actual_raw=${response}    container_level=${container_level}
+    ...    ELSE    BuiltIn.Should_Contain    ${response}    ${expected_text}
 
 Get_From_Uri
     [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False
@@ -401,6 +450,14 @@ Normalize_Jsons_And_Compare
     # Should_Be_Equal shall print nice diff-style line comparison.
     BuiltIn.Should_Be_Equal    ${expected_normalized}    ${actual_normalized}
     # TODO: Add garbage collection? Check whether the temporary data accumulates.
+
+Normalize_Jsons_And_Check_Subset
+    [Arguments]    ${expected_raw}    ${actual_raw}    ${container_level}
+    [Documentation]    Use norm_json to normalize both JSON arguments, call Should_Contain
+    ...    to check if the ${actual_raw} contains ${expected_raw} JSON data.
+    ${expected_normalized} =    norm_json.normalize_json_text    ${expected_raw}    add_new_line=${False}    start_indent=${container_level}
+    ${actual_normalized} =    norm_json.normalize_json_text    ${actual_raw}    add_new_line=${False}
+    BuiltIn.Should_Contain    ${actual_normalized}    ${expected_normalized}
 
 Normalize_Jsons_With_Bits_And_Compare
     [Arguments]    ${expected_raw}    ${actual_raw}    ${keys_with_bits}=${KEYS_WITH_BITS}
