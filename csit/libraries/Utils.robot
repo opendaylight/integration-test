@@ -336,6 +336,11 @@ Post Elements To URI From File
     ${resp}    RequestsLibrary.Post Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
+Post Elements To URI As JSON
+    [Arguments]    ${dest_uri}    ${data}
+    ${resp}    RequestsLibrary.Post Request    session    ${dest_uri}    data=${data}    headers=${headers}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
 Run Process With Logging And Status Check
     [Arguments]    @{proc_args}
     [Documentation]    Execute an OS command, log STDOUT and STDERR output and check exit code to be 0
