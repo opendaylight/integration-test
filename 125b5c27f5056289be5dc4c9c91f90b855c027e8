@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_69e508db",
+        "filename": "csit/libraries/SXP/FilteringResources.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-01-13T14:36:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_89706473",
+      "range": {
+        "startLine": 47,
+        "startChar": 9,
+        "endLine": 47,
+        "endChar": 16
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_497f6c66",
         "filename": "csit/libraries/SxpLib.robot",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-13T13:42:36Z",
       "side": 1,
       "message": "CompareStream.Run_Keyword_If_At_Least_Carbon",
+      "range": {
+        "startLine": 161,
+        "startChar": 15,
+        "endLine": 161,
+        "endChar": 78
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0996143f",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-01-13T14:36:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_497f6c66",
       "range": {
         "startLine": 161,
         "startChar": 15,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_6997c83a",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-01-13T14:36:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_a997208f",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 15
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_e98d987d",
         "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2017-01-13T13:42:36Z",
       "side": 1,
       "message": "This table is no longer needed.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 3
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_499c8c5d",
+        "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-01-13T14:36:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_e98d987d",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_a9a440a6",
+        "filename": "csit/suites/sxp/filtering/020_Outbound_Filtering.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-01-13T14:36:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_69f18800",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 3
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_096574b4",
         "filename": "csit/suites/sxp/filtering/100_Inbound_Filtering_Policy.robot",
         "patchSetId": 5
@@ -128,6 +248,30 @@
       "writtenOn": "2017-01-13T13:42:36Z",
       "side": 1,
       "message": "This is the same check as two lines earlier.\nIt is not clear whether the consequences of line 27 have propagated enough to affect the observed state.\n(Sandbox shows the data starts the same, but it is long and not Log-ed.)\n\nIf there is any change expected, check for specifics.\nIf \"no change\" is the expected result (without even a temporary deviation), perhaps WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout should be used instead of BuiltIn.Wait_Until_Keyword_Succeeds here.\nIf line 27 is expected to cause a deviation before stabilizing in line 28, we do not have anything better than WUKS.",
+      "range": {
+        "startLine": 28,
+        "startChar": 45,
+        "endLine": 28,
+        "endChar": 60
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_29df900e",
+        "filename": "csit/suites/sxp/filtering/100_Inbound_Filtering_Policy.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-01-13T14:36:31Z",
+      "side": 1,
+      "message": "\"Verify Keyword Does Not Fail Within Timeout\" is more suitable fot this check, will update and retest in sandbox ...",
+      "parentUuid": "1a622d24_096574b4",
       "range": {
         "startLine": 28,
         "startChar": 45,
