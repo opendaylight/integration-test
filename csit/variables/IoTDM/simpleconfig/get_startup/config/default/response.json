@@ -1,0 +1,14 @@
+{
+  "output": {
+    "onem2m-simple-config-list": [
+      {
+        "plugin-name": "Onem2mExample",
+        "plugin-instances": [
+          {
+            "instance-name": "default"
+          }
+        ]
+      }
+    ]
+  }
+}
