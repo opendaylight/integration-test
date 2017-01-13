@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_e4e13f2b",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T16:50:45Z",
+      "side": 1,
+      "message": "Oh, right, I forgot about consequences for variable assignment.\n\nIn this case, there are two possible solutions.\nOne is to prepare both Carbon and Boron data (Add_Filter_Xml uncoditionally, but assigned to unique variables) and then run something like\n    ${DATA}    CompareStream.Set_Variable_If_At_Least_Carbon    ${DATA_carbon}    ${DATA_boron}\n\nThe second solution is to perform even the unique variable assignment conditionally, only useful if Add_Filter_Xml takes long time.\n\nThird solution is to figure out how could CompareStream keywords support ELSE argument.",
+      "parentUuid": "1a622d24_69106859",
+      "range": {
+        "startLine": 161,
+        "startChar": 15,
+        "endLine": 161,
+        "endChar": 78
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_a997208f",
         "filename": "csit/libraries/SxpLib.robot",
         "patchSetId": 5
