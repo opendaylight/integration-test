@@ -11,9 +11,11 @@ Documentation     This test waits until cluster appears to be ready.
 ...               Intended use is at a start of testplan, so that suites can assume cluster works.
 ...
 ...               This suite expects car, people and car-people modules to have separate Shards.
-Suite Setup       ClusterManagement.ClusterManagement_Setup
+Suite Setup       Setup
+Test Setup        KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
 Default Tags      clustering    carpeople    critical
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 ${CLUSTER_BOOTUP_SYNC_TIMEOUT}    180s
@@ -25,6 +27,10 @@ Wait_For_Sync_And_Shards
     BuiltIn.Wait_Until_Keyword_Succeeds    ${CLUSTER_BOOTUP_SYNC_TIMEOUT}    10s    Check_Sync_And_Shards
 
 *** Keywords ***
+Setup
+    KarafKeywords.Setup_Karaf_Keywords
+    KarafKeywords.Log_Test_Suite_Start_To_Controller_Karaf
+
 Check_Sync_And_Shards
     ClusterManagement.Check_Cluster_Is_In_Sync
     ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config

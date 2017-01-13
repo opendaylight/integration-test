@@ -21,10 +21,12 @@ Documentation     Cluster suite for testing minimal and sum-minimal member popul
 ...               All data is deleted at the end of the suite.
 ...               This suite expects car module to have a separate Shard.
 Suite Setup       Setup
+Test Setup        KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
 Default Tags      clustering    carpeople    critical
 Library           Collections
 Resource          ${CURDIR}/../../../libraries/CarPeople.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
@@ -85,7 +87,8 @@ Delete_Cars_On_Leader
 *** Keywords ***
 Setup
     [Documentation]    Initialize resources, memorize shard leaders, pre-compute member lists.
-    ClusterManagement.ClusterManagement_Setup
+    KarafKeywords.Setup_Karaf_Keywords
+    KarafKeywords.Log_Test_Suite_Start_To_Controller_Karaf
     CarPeople.Set_Variables_For_Shard    shard_name=car
     Set_Additional_Variables
 

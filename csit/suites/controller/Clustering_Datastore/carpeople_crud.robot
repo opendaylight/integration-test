@@ -18,10 +18,12 @@ Documentation     Suite for performing basic car/people CRUD operations on leade
 ...               All data is deleted at the end of the suite.
 ...               This suite expects car, people and car-people modules to have separate Shards.
 Suite Setup       Setup
+Test Setup        KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
 Default Tags      clustering    carpeople    critical
 Library           Collections
 Resource          ${CURDIR}/../../../libraries/CarPeople.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
@@ -93,7 +95,8 @@ Delete_All_Cars_On_Leader
 *** Keywords ***
 Setup
     [Documentation]    Initialize resources, memorize shard leaders, compute item distribution.
-    ClusterManagement.ClusterManagement_Setup
+    KarafKeywords.Setup_Karaf_Keywords
+    KarafKeywords.Log_Test_Suite_Start_To_Controller_Karaf
     CarPeople.Set_Variables_For_Shard    shard_name=car
     CarPeople.Set_Variables_For_Shard    shard_name=people
     CarPeople.Set_Variables_For_Shard    shard_name=car-people
