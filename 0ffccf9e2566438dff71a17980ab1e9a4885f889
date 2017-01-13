@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_c9453c44",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T13:21:34Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#AVOID:_Comments_as_abstraction",
+      "range": {
+        "startLine": 177,
+        "startChar": 4,
+        "endLine": 177,
+        "endChar": 6
+      },
+      "revId": "0ffccf9e2566438dff71a17980ab1e9a4885f889",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
