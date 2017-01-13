@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+
+import unittest
+from distchanges.cmd import Changes
+
+CHANGE_ID = 'Ic96517f4a57fe547d42495274a74ec5aa32b7d9e'
+REMOTE_URL = 'ssh://git.opendaylight.org:29418'
+PROJECT = 'netvirt'
+PROJECT_NAMES = ['genius', 'mdsal', 'netvirt', 'neutron', 'openflowjava', 'openflowplugin', 'ovsdb', 'yangtools']
+BRANCH = 'master'
+LIMIT = 5
+QLIMIT = 50
+DISTRO_PATH = "/home/shague/data/images/official/distribution-karaf-0.6.0-20170109.201555-2968/distribution-karaf-0.6.0-SNAPSHOT"
+PROPERTIES_FILE = "/home/shague/data/images/official/distribution-karaf-0.6.0-20170109.201555-2968/distribution-karaf-0.6.0-SNAPSHOT/system/org/opendaylight/netvirt/aclservice-api/0.4.0-SNAPSHOT/aclservice-api-0.4.0-SNAPSHOT.jar"
+
+
+class TestChangesOld(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.json = {}
+        for project in 'netvirt', 'genius':
+            json = []
+            for line in open('changes.' + project + '.10.json.txt'):
+                if line.find('stats') == -1:
+                    json.append(line)
+            cls.json[project] = json
+
+    def setUp(self):
+        print("Starting test: %s" % self.id())
+
+    def test_get_sub_time(self):
+        self.assertEquals(1483974872, changes.get_subm_time(self.json['netvirt'][0]))
+
+    def test_get_sub_time_10(self):
+        for line in self.json['netvirt']:
+            self.assertNotEquals(0, changes.get_subm_time(line))
+
+    def test_get_sub_time_fail(self):
+        self.assertEquals(0, changes.get_subm_time('this is a bad json file'))
+
+    def test_get_gerrit(self):
+        gerrits = changes.get_gerrits(REMOTE_URL, 'netvirt', 'master', CHANGE_ID, 1)
+        for gerrit in gerrits:
+            print("gerrit: %s" % str(gerrit))
+
+    def test_get_gerrits(self):
+        for project in PROJECT_NAMES:
+            gerrits = changes.get_gerrits(REMOTE_URL, project, 'master', limit=10)
+            for gerrit in gerrits:
+                print("gerrit: %s %s" % (project, str(gerrit)))
+
+    def test_get_gitproperties_file(self):
+        pfile = changes.extract_gitproperties_file(PROPERTIES_FILE)
+        self.assertNotEqual(None, pfile)
+
+    def test_get_changeid_from_properties(self):
+        pfile = changes.extract_gitproperties_file(PROPERTIES_FILE)
+        self.assertNotEqual(None, pfile)
+        self.assertNotEqual(None, changes.get_changeid_from_properties(pfile))
+
+    def test_get_build_changeid(self):
+        self.assertNotEqual(None, changes.find_distro_changeid(DISTRO_PATH, 'netvirt'))
+
+    def test_run_cmd_master(self):
+        # project_names = PROJECT_NAMES
+        project_names = ['openflowplugin']
+        # project_names = ['netvirt']
+        changes = Changes(BRANCH, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL)
+        projects = changes.run_cmd()
+        changes.pretty_print_projects(projects)
+
+if __name__ == '__main__':
+    unittest.main()
