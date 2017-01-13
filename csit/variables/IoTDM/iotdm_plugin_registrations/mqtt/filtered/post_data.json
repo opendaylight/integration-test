@@ -1,0 +1,6 @@
+{
+  "input": {
+    "plugin-name": "mqtt",
+    "plugin-instance-name": "default"
+  }
+}
