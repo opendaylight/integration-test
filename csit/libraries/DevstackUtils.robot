@@ -12,7 +12,6 @@ Resource          OpenStackOperations.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
-${ODL_VERSION}    lithium-SR3
 ${OPENSTACK_BRANCH}    stable/liberty
 ${NETWORKING-ODL_BRANCH}    ${OPENSTACK_BRANCH}
 ${TEMPEST_REGEX}    tempest.api.network
