@@ -1,0 +1,7 @@
+{
+  "input": {
+    "protocol-name": "websocket",
+    "plugin-name": "ws",
+    "plugin-instance-name": "default"
+  }
+}
