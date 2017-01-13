@@ -26,3 +26,4 @@ report.html
 .vagrant
 .tox/
 *.egg-info/
+.*.marks

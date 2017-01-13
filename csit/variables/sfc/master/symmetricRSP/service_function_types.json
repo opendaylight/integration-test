@@ -1,0 +1,16 @@
+{
+  "service-function-types": {
+    "service-function-type": [
+      {
+        "type": "dpi-bidirectional",
+        "bidirectional": "true",
+        "nsh-aware": "true"
+      },
+      {
+        "type": "dpi-non-bidirectional",
+        "bidirectional": "false",
+        "nsh-aware": "true"
+      }
+    ]
+  }
+}
