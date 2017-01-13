@@ -1,0 +1,6 @@
+{
+  "input": {
+    "plugin-name": "http(s)-base",
+    "plugin-instance-name": "default"
+  }
+}

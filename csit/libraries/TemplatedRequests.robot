@@ -121,6 +121,7 @@ Variables         ${CURDIR}/../variables/Variables.py
 @{UNAUTHORIZED_STATUS_CODES}    ${401}    # List of integers, not strings. Used in Keystone Authentication when the user is not authorized to use the requested resource.
 @{KEYS_WITH_BITS}    op    # the default list with keys to be sorted when norm_json libray is used
 # TODO: Add option for delete to require 404.
+${jmespath_file}    jmespath.expr
 
 *** Keywords ***
 Create_Default_Session
@@ -129,13 +130,23 @@ Create_Default_Session
     ...    This Keyword is in this Resource only so that user do not need to call RequestsLibrary directly.
     RequestsLibrary.Create_Session    alias=default    url=${url}    auth=${auth}
 
+Get_As_Json_Templated_Subset
+    [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
+    [Documentation]    Reads jmespath expression from file ${jmespath_file} in folder ${folder} and calls
+    ...    Get_As_Json_Templated keyword with the jmespath from the file.
+    ${jmespath_expr} =    Read_Text_From_File    ${folder}    ${jmespath_file}
+    Get_As_Json_Templated    ${folder}    ${mapping}    ${session}    ${verify}    ${iterations}    ${iter_start}
+    ...    ${jmespath_expr}
+
 Get_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
+    ...    ${jmespath_expr}=${EMPTY}
     [Documentation]    Add arguments sensible for JSON data, return Get_Templated response text.
     ...    Optionally, verification against JSON data (may be iterated) is called.
+    ...    Only subset of JSON data is verified if ${jmespath_expr} is set.
     ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=data    mapping=${mapping}
-    ...    iterations=${iterations}    iter_start=${iter_start}
+    ...    iterations=${iterations}    iter_start=${iter_start}    jmespath_expr=${jmespath_expr}
     [Return]    ${response_text}
 
 Get_As_Xml_Templated
@@ -147,13 +158,24 @@ Get_As_Xml_Templated
     ...    iterations=${iterations}    iter_start=${iter_start}
     [Return]    ${response_text}
 
+Put_As_Json_Templated_Subset
+    [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
+    [Documentation]    Reads jmespath expression from file ${jmespath_file} in folder ${folder} and calls
+    ...    Put_As_Json_Templated keyword with the jmespath from the file.
+    ${jmespath_expr} =    Read_Text_From_File    ${folder}    ${jmespath_file}
+    Put_As_Json_Templated    ${folder}    ${mapping}    ${session}    ${verify}    ${iterations}    ${iter_start}
+    ...    ${jmespath_expr}
+
 Put_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
+    ...    ${jmespath_expr}=${EMPTY}
     [Documentation]    Add arguments sensible for JSON data, return Put_Templated response text.
     ...    Optionally, verification against response.json (no iteration) is called.
+    ...    Only subset of JSON data is verified if ${jmespath_expr} is set.
     ${response_text} =    Put_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
     ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
+    ...    jmespath_expr=${jmespath_expr}
     [Return]    ${response_text}
 
 Put_As_Xml_Templated
@@ -166,14 +188,62 @@ Put_As_Xml_Templated
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Xml_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
     [Return]    ${response_text}
 
+Post_As_Json_Templated_Subset
+    [Arguments]    ${folder}    ${req_file_base_name}=data    ${rsp_file_name}=response    ${mapping}={}    ${session}=default    ${verify}=False
+    ...    ${iterations}=${EMPTY}    ${iter_start}=1    ${expected_status_codes}=${NO_STATUS_CODES}
+    [Documentation]    Reads jmespath expression from file ${jmespath_file} in folder ${folder} and calls
+    ...    Post_As_Json_Templated keyword with the jmespath from the file.
+    ${jmespath_expr} =    Read_Text_From_File    ${folder}    ${jmespath_file}
+    Post_As_Json_Templated    ${folder}    ${req_file_base_name}    ${rsp_file_name}    ${mapping}    ${session}    ${verify}
+    ...    ${iterations}    ${iter_start}    ${jmespath_expr}    ${expected_status_codes}
+
 Post_As_Json_Templated
-    [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
+    [Arguments]    ${folder}    ${req_file_base_name}=data    ${rsp_file_name}=response    ${mapping}={}    ${session}=default    ${verify}=False
+    ...    ${iterations}=${EMPTY}    ${iter_start}=1    ${jmespath_expr}=${EMPTY}    ${expected_status_codes}=${NO_STATUS_CODES}
     [Documentation]    Add arguments sensible for JSON data, return Post_Templated response text.
     ...    Optionally, verification against response.json (no iteration) is called.
+    ...    Only subset of JSON data is verified if ${jmespath_expr} is set.
+    ...    Status code of response must be one of values of ${expected_status_codes} if specified.
+    ${response_text} =    Post_Templated    folder=${folder}    base_name=${req_file_base_name}    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
+    ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
+    ...    additional_allowed_status_codes=${expected_status_codes}    explicit_status_codes=${expected_status_codes}
+    BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=${rsp_file_name}    mapping=${mapping}
+    ...    jmespath_expr=${jmespath_expr}
+    [Return]    ${response_text}
+
+Normalize_And_Check_Not_Included
+    [Arguments]    ${response}    ${folder}    ${base_name}    ${extension}    ${mapping}={}    ${endline}=${\n}
+    ...    ${iterations}=${EMPTY}    ${iter_start}=1
+    [Documentation]    Preprocess response JSON data and templated JSON data and verifices if the templated data
+    ...    are not contained in the response.
+    ${expected_raw} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
+    ...    iterations=${iterations}    iter_start=${iter_start}
+    ${expected_normalized} =    norm_json.normalize_json_text    ${expected_raw}    indent=${None}    add_new_line=${False}
+    ${actual_normalized} =    norm_json.normalize_json_text    ${response}    indent=${None}    add_new_line=${False}
+    BuiltIn.Should_Not_Contain    ${actual_normalized}    ${expected_normalized}
+
+Normalize_And_Check_Not_Included_Subset
+    [Arguments]    ${response}    ${folder}
+    ${jmespath_expr} =    Read_Text_From_File    ${folder}    ${jmespath_file}
+    ${actual_normalized} =    norm_json.normalize_json_text    ${response}    indent=${None}    add_new_line=${False}    jmespath_expr=${jmespath_expr}
+    BuiltIn.Should_Be_True    ${actual_normalized} == ${None}
+
+Post_As_Json_Templated_Check_Not_Included
+    [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${iterations}=${EMPTY}    ${iter_start}=1
+    [Documentation]    Send JSON data template using POST method and verify that response does not include another
+    ...    JSON data template.
     ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
     ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
-    BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
-    [Return]    ${response_text}
+    Normalize_And_Check_Not_Included    response=${response_text}    folder=${folder}    base_name=response    extension=json    mapping=${mapping}    endline=${\n}
+    ...    iterations=${iterations}    iter_start=${iter_start}
+
+Post_As_Json_Templated_Check_Not_Included_Subset
+    [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${iterations}=${EMPTY}    ${iter_start}=1
+    [Documentation]    Send JSON data template using POST method and verify that response does not include another
+    ...    JSON data template.
+    ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
+    ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
+    Normalize_And_Check_Not_Included_Subset    response=${response_text}    folder=${folder}
 
 Post_As_Xml_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
@@ -196,10 +266,15 @@ Delete_Templated
 
 Verify_Response_As_Json_Templated
     [Arguments]    ${response}    ${folder}    ${base_name}=response    ${mapping}={}    ${iterations}=${EMPTY}    ${iter_start}=1
-    [Documentation]    Resolve expected JSON data, should be equal to provided \${response}.
+    ...    ${jmespath_expr}=${EMPTY}
+    [Documentation]    Resolve expected JSON data, should be equal to provided \${response} if ${jmespath_expr}
+    ...    is set to None and ${response} should contain expected data in container specified by the
+    ...    ${jmespath_expr} if set.
     ...    JSON normalization is used, endlines enabled for readability.
-    Verify_Response_Templated    response=${response}    folder=${folder}    base_name=${base_name}    extension=json    mapping=${mapping}    normalize_json=True
-    ...    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
+    BuiltIn.Run_Keyword_If    """${jmespath_expr}""" == """${EMPTY}"""    Verify_Response_Templated    response=${response}    folder=${folder}    base_name=${base_name}    extension=json
+    ...    mapping=${mapping}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
+    ...    ELSE    Verify_Response_Data_Subset_Templated    response=${response}    folder=${folder}    base_name=${base_name}    extension=json
+    ...    mapping=${mapping}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}    jmespath_expr=${jmespath_expr}
 
 Verify_Response_As_Xml_Templated
     [Arguments]    ${response}    ${folder}    ${base_name}=response    ${mapping}={}    ${iterations}=${EMPTY}    ${iter_start}=1
@@ -236,11 +311,12 @@ Put_As_Xml_To_Uri
     [Return]    ${response_text}
 
 Post_As_Json_To_Uri
-    [Arguments]    ${uri}    ${data}    ${session}=default
+    [Arguments]    ${uri}    ${data}    ${session}=default    ${expected_status_codes}=${NO_STATUS_CODES}
     [Documentation]    Specify JSON headers and return Post_To_Uri normalized response text.
     ...    Yang json content type is used as a workaround to RequestsLibrary json conversion eagerness.
+    ...    Response statuscode must be one of values from ${expected_status_codes} if specified.
     ${response_text} =    Post_To_Uri    uri=${uri}    data=${data}    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}    session=${session}
-    ...    normalize_json=True
+    ...    normalize_json=True    additional_allowed_status_codes=${expected_status_codes}    explicit_status_codes=${expected_status_codes}
     [Return]    ${response_text}
 
 Post_As_Xml_To_Uri
@@ -298,6 +374,18 @@ Verify_Response_Templated
     ...    iterations=${iterations}    iter_start=${iter_start}
     BuiltIn.Run_Keyword_If    ${normalize_json}    Normalize_Jsons_And_Compare    expected_raw=${expected_text}    actual_raw=${response}
     ...    ELSE    BuiltIn.Should_Be_Equal    ${expected_text}    ${response}
+
+Verify_Response_Data_Subset_Templated
+    [Arguments]    ${response}    ${folder}    ${base_name}    ${extension}    ${mapping}={}    ${normalize_json}=False
+    ...    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1    ${jmespath_expr}=${EMPTY}
+    [Documentation]    Resolve expected text from template, provided ${response} should match expected data in
+    ...    container specified by ${jmespath_expr}.
+    ...    If \${normalize_json}, perform normalization before comparison.
+    # TODO: Support for XML-aware comparison could be added, but there are issues with namespaces and similar.
+    ${expected_text} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
+    ...    iterations=${iterations}    iter_start=${iter_start}
+    BuiltIn.Run_Keyword_If    ${normalize_json}    Normalize_Jsons_And_Check_Subset    expected_raw=${expected_text}    actual_raw=${response}    jmespath_expr=${jmespath_expr}
+    ...    ELSE    BuiltIn.Should_Be_Equal    ${response}    ${expected_text}
 
 Get_From_Uri
     [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False
@@ -388,16 +476,22 @@ Resolve_Text_From_Template_Folder
     ...    ${epilog}
     [Return]    ${final_text}
 
-Resolve_Text_From_Template_File
-    [Arguments]    ${folder}    ${file_name}    ${mapping}={}
+Read_Text_From_File
+    [Arguments]    ${folder}    ${file_name}
     [Documentation]    Check if ${folder}.${ODL_STREAM}/${file_name} exists. If yes read and Log contents of file ${folder}.${ODL_STREAM}/${file_name},
-    ...    remove endline, perform safe substitution, return result.
-    ...    If no do it with the default ${folder}/${file_name}.
+    ...    remove endline, and return result. If no do it with the default ${folder}/${file_name}.
     ${file_path_stream}=    BuiltIn.Set Variable    ${folder}.${ODL_STREAM}${/}${file_name}
     ${file_stream_exists}=    BuiltIn.Run Keyword And Return Status    OperatingSystem.File Should Exist    ${file_path_stream}
     ${file_path}=    BuiltIn.Set Variable If    ${file_stream_exists}    ${file_path_stream}    ${folder}${/}${file_name}
-    ${template} =    OperatingSystem.Get_File    ${file_path}
-    BuiltIn.Log    ${template}
+    ${text} =    OperatingSystem.Get_File    ${file_path}
+    ${text} =    BuiltIn.Evaluate    '''${text}'''.rstrip()
+    BuiltIn.Log    ${text}
+    [Return]    ${text}
+
+Resolve_Text_From_Template_File
+    [Arguments]    ${folder}    ${file_name}    ${mapping}={}
+    [Documentation]    Read text from the file ${file_name} and perform safe substitution, return result.
+    ${template} =    Read_Text_From_File    ${folder}    ${file_name}
     ${final_text} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping})    modules=string
     # Final text is logged where used.
     [Return]    ${final_text}
@@ -410,6 +504,16 @@ Normalize_Jsons_And_Compare
     # Should_Be_Equal shall print nice diff-style line comparison.
     BuiltIn.Should_Be_Equal    ${expected_normalized}    ${actual_normalized}
     # TODO: Add garbage collection? Check whether the temporary data accumulates.
+
+Normalize_Jsons_And_Check_Subset
+    [Arguments]    ${expected_raw}    ${actual_raw}    ${jmespath_expr}
+    [Documentation]    Use norm_json to normalize both JSON arguments and
+    ...    use ${jmespath_expr} to extract subset of ${actual_raw}.
+    ...    Call Should_Be_Equal to check if the extracted subset of
+    ...    ${actual_raw} matches ${expected_raw} JSON data.
+    ${expected_normalized} =    norm_json.normalize_json_text    ${expected_raw}    add_new_line=${False}
+    ${actual_normalized} =    norm_json.normalize_json_text    ${actual_raw}    add_new_line=${False}    jmespath_expr=${jmespath_expr}
+    BuiltIn.Should_Be_Equal    ${actual_normalized}    ${expected_normalized}
 
 Normalize_Jsons_With_Bits_And_Compare
     [Arguments]    ${expected_raw}    ${actual_raw}    ${keys_with_bits}=${KEYS_WITH_BITS}

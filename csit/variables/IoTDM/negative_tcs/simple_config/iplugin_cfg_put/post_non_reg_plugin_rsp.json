@@ -1,0 +1,13 @@
+{
+    "errors":
+    {
+        "error":[
+            {
+                "error-type":"application",
+                "error-tag":"operation-failed",
+                "error-message":"No such plugin registered: pluginName: aaa, instanceId: default",
+                "error-info":"<severity>error</severity>"
+            }
+        ]
+    }
+}
