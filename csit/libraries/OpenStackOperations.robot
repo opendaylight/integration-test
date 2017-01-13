@@ -270,6 +270,7 @@ Verify VMs Received DHCP Lease
     \    Log    ${dhcp_ip_line}
     \    @{dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
     \    Log    ${dhcp_ip}
+    Should Not Contain     ${ip_list}      None    
     ${dhcp_length}    Get Length    ${dhcp_ip}
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    @{dhcp_ip}[0]
