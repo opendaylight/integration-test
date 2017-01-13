@@ -6,6 +6,7 @@
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
 import collections as _collections
+import jmespath
 try:
     import simplejson as _json
 except ImportError:  # Python2.7 calls it json.
@@ -103,15 +104,20 @@ def loads_sorted(text, strict=False):
     return object_decoded
 
 
-def dumps_indented(obj, indent=1):
+def dumps_indented(obj, indent=1, add_new_line=True):
     """
-    Wrapper for json.dumps with default indentation level. Adds newline.
+    Wrapper for json.dumps with default indentation level. Adds newline if
+    add_new_line argument is set to True.
 
     The main value is that BuiltIn.Evaluate cannot easily accept Python object
     as part of its argument.
     Also, allows to use something different from RequestsLibrary.To_Json
+
     """
     pretty_json = _json.dumps(obj, separators=(',', ': '), indent=indent)
+
+    if not add_new_line:
+        return pretty_json
     return pretty_json + '\n'  # to avoid diff "no newline" warning line
 
 
@@ -152,7 +158,7 @@ def sort_bits(obj, keys_with_bits=[]):
     return obj
 
 
-def normalize_json_text(text, strict=False, indent=1, keys_with_bits=[]):
+def normalize_json_text(text, strict=False, indent=1, keys_with_bits=[], add_new_line=True, jmespath_expr=None):
     """
     Attempt to return sorted indented JSON string.
 
@@ -160,7 +166,14 @@ def normalize_json_text(text, strict=False, indent=1, keys_with_bits=[]):
     If strict is true, raise the exception.
     If strict is not true, return original text with error message.
     If keys_with_bits is non-empty, run sort_bits on intermediate Python object.
+    If jmespath_expr is set the related subset of JSON data is used.
     """
+
+    if jmespath_expr:
+        json_obj = _json.loads(text)
+        subset = jmespath.search(jmespath_expr, json_obj)
+        text = _json.dumps(subset)
+
     try:
         object_decoded = loads_sorted(text)
     except ValueError as err:
@@ -170,5 +183,8 @@ def normalize_json_text(text, strict=False, indent=1, keys_with_bits=[]):
             return str(err) + '\n' + text
     if keys_with_bits:
         sort_bits(object_decoded, keys_with_bits)
-    pretty_json = dumps_indented(object_decoded, indent=indent)
+
+    pretty_json = dumps_indented(object_decoded, indent=indent, add_new_line=add_new_line)
+
     return pretty_json
+
