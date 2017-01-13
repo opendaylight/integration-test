@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_89706473",
+        "filename": "csit/libraries/SXP/FilteringResources.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T13:45:14Z",
+      "side": 1,
+      "message": "This value can be long, BuiltIn.Log would help in debugging (and reviewing).\n\nApplies to other Get_Bindings calls in this file as well.",
+      "range": {
+        "startLine": 47,
+        "startChar": 9,
+        "endLine": 47,
+        "endChar": 16
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_497f6c66",
         "filename": "csit/libraries/SxpLib.robot",
         "patchSetId": 5
