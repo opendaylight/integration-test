@@ -1,0 +1,300 @@
+#!/usr/bin/env python
+import argparse
+import gerritquery
+import os
+import re
+import sys
+import zipfile
+
+"""
+TODO:
+1. What about the time between when a merge is submitted and
+the patch is in the distribution? Should we look at the other
+events and see when the merge job finished?
+2. Use the git query option to request records in multiple queries
+rather than grabbing all 50 in one shot. Keep going until the requested
+number is found. Verify if this is better than just doing all 50 in one
+shot since multiple requests are ssh round trips per request.
+"""
+
+# This file started as an exact copy of git-review so including it"s copyright
+
+COPYRIGHT = """\
+Copyright (C) 2011-2012 OpenStack LLC.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied.
+
+See the License for the specific language governing permissions and
+limitations under the License."""
+
+
+class Changes:
+    VERBOSE = 0
+    PROJECT_NAMES = ["genius", "mdsal", "netvirt", "neutron", "openflowjava", "openflowplugin", "ovsdb", "yangtools"]
+    DISTRO_PATH = "/tmp/distribution-karaf"
+    REMOTE_URL = "ssh://git.opendaylight.org:29418"
+    BRANCH = "master"
+    LIMIT = 10
+    QUERY_LIMIT = 50
+
+    gerritquery = None
+    distro_path = DISTRO_PATH
+    project_names = PROJECT_NAMES
+    branch = BRANCH
+    limit = LIMIT
+    qlimit = QUERY_LIMIT
+    remote_url = REMOTE_URL
+    verbose = VERBOSE
+    projects = {}
+
+    def __init__(self, branch=BRANCH, distro_path=DISTRO_PATH,
+                 limit=LIMIT, qlimit=QUERY_LIMIT,
+                 project_names=PROJECT_NAMES, remote_url=REMOTE_URL,
+                 verbose=VERBOSE):
+        self.branch = branch
+        self.distro_path = distro_path
+        self.limit = limit
+        self.qlimit = qlimit
+        self.project_names = project_names
+        self.remote_url = remote_url
+        self.verbose = verbose
+        self.set_projects(project_names)
+
+    @staticmethod
+    def pretty_print_gerrits(project, gerrits):
+        print("")
+        if project:
+            print("%s" % project)
+        print("i  grantedOn  lastUpdatd chang subject")
+        print("-- ---------- ---------- ----- -----------------------------------------")
+        for i, gerrit in enumerate(gerrits):
+            print("%02d %d %d %s %s" % (i, gerrit["grantedOn"], gerrit["lastUpdated"],
+                                        gerrit["number"], gerrit["subject"]))
+
+    def pretty_print_includes(self, includes):
+        for project, gerrits in includes.items():
+            self.pretty_print_gerrits(project, gerrits)
+
+    def pretty_print_projects(self, projects):
+        for project_name, values in projects.items():
+            self.pretty_print_gerrits(project_name, values["includes"])
+
+    def set_projects(self, project_names=PROJECT_NAMES):
+        for project in project_names:
+            self.projects[project] = {"commit": [], "includes": []}
+
+    def get_includes(self, project, changeid=None, msg=None):
+        """
+        Get the gerrits that would be included before the change merge time.
+
+        :param str project: The project to search
+        :param str changeid: The Change-Id of the gerrit to use for the merge time
+        :param str msg: The commit message of the gerrit to use for the merge time
+        :return list: includes[0] is the gerrit requested, [1 to limit] are the gerrits found.
+        """
+        includes = self.gerritquery.get_gerrits(project, changeid, 1, msg)
+        if not includes:
+            print("Review %s in %s:%s was not found" % (changeid, project, self.gerritquery.branch))
+            return None
+
+        gerrits = self.gerritquery.get_gerrits(project, changeid=None, limit=self.qlimit, msg=msg)
+        for gerrit in gerrits:
+            # don"t include the same change in the list
+            if gerrit["id"] == changeid:
+                continue
+
+            # TODO: should the check be < or <=?
+            if gerrit["grantedOn"] <= includes[0]["grantedOn"]:
+                includes.append(gerrit)
+
+            # break out if we have the number requested
+            if len(includes) == self.limit + 1:
+                break
+
+        if len(includes) != self.limit + 1:
+            print("%s query limit was not large enough to capture %d gerrits" % (project, self.limit))
+
+        return includes
+
+    @staticmethod
+    def extract_gitproperties_file(fullpath):
+        """
+        Extract a git.properties from a jar archive.
+
+        :param str fullpath: Path to the jar
+        :return str: Containing git.properties or None if not found
+        """
+        if zipfile.is_zipfile(fullpath):
+            zf = zipfile.ZipFile(fullpath, "r")
+            try:
+                pfile = zf.open("META-INF/git.properties")
+                return pfile.read()
+            except KeyError:
+                pass
+        return None
+
+    def get_changeid_from_properties(self, project, pfile):
+        """
+        Parse the git.properties file to find a Change-Id.
+
+        There are a few different forms that we know of so far:
+        - I0123456789012345678901234567890123456789
+        - I01234567
+        - no Change-Id at all. There is a commit message and commit hash.
+        In this example the commit hash cannot be found because it was a merge
+        so you must use the message. Note spaces need to be replaced with +"s
+
+        :param str project: The project to search
+        :param str pfile: String containing the content of the git.properties file
+        :return str: The Change-Id or None if not found
+        """
+        # match a 40 or 8 char Change-Id hash. both start with I
+        regex = re.compile(r'\bI([a-f0-9]{40})\b|\bI([a-f0-9]{8})\b')
+        changeid = regex.search(pfile)
+        if changeid:
+            return changeid.group()
+
+        # Didn"t find a Change-Id so try to get a commit message
+        # match on "blah" but only keep the blah
+        regex_msg = re.compile(r'"([^"]*)"|^git.commit.message.short=(.*)$')
+        msg = regex_msg.search(pfile)
+        print("did not find Change-Id in %s, trying with commit-msg: %s" % (project, msg.group()))
+        if msg:
+            # TODO: add new query using this msg
+            gerrits = self.gerritquery.get_gerrits(project, None, 1, msg.group())
+            if gerrits:
+                return gerrits[0]["id"]
+        return None
+
+    def find_distro_changeid(self, project):
+        """
+        Find a distribution Change-Id by finding a project jar in
+        the distribution and parsing it's git.properties.
+
+        :param str project: The project to search
+        :return str: The Change-Id or None if not found
+        """
+        project_dir = os.path.join(self.distro_path, "system", "org", "opendaylight", project)
+        pfile = None
+        for root, dirs, files in os.walk(project_dir):
+            for file_ in files:
+                if file_.endswith(".jar"):
+                    fullpath = os.path.join(root, file_)
+                    pfile = self.extract_gitproperties_file(fullpath)
+                    if pfile:
+                        changeid = self.get_changeid_from_properties(project, pfile)
+                        if changeid:
+                            return changeid
+                        else:
+                            print("Could not find %s Change-Id in git.properties" % project)
+                            break  # all jars will have the same git.properties
+            if pfile is not None:
+                break  # all jars will have the same git.properties
+        return None
+
+    def init(self):
+        self.gerritquery = gerritquery.GerritQuery(self.remote_url, self.branch, self.qlimit, self.verbose)
+        self.set_projects(self.project_names)
+
+    def print_options(self):
+        print("Using these options: branch: %s, limit: %d, qlimit: %d"
+              % (self.branch, self.limit, self.qlimit))
+        print("remote_url: %s" % self.remote_url)
+        print("distro_path: %s" % self.distro_path)
+        print("projects: %s" % (", ".join(map(str, self.projects))))
+
+    def run_cmd(self):
+        """
+        Internal wrapper between main, options parser and internal code.
+
+        Get the gerrit for the given Change-Id and parse it.
+        Loop over all projects:
+            get qlimit gerrits and parse them
+            copy up to limit gerrits with a SUBM time (grantedOn) <= to the given change-id
+        """
+        # TODO: need method to validate the branch matches the distribution
+
+        self.init()
+        self.print_options()
+        for project in self.projects:
+            changeid = self.find_distro_changeid(project)
+            if changeid:
+                self.projects[project]["includes"] = self.get_includes(project, changeid)
+        return self.projects
+
+    def main(self):
+        parser = argparse.ArgumentParser(description=COPYRIGHT)
+
+        parser.add_argument("-b", "--branch", default=self.BRANCH,
+                            help="git branch for patch under test")
+        parser.add_argument("-d", "--distro-path", dest="distro_path", default=self.DISTRO_PATH,
+                            help="path to the expanded distribution, i.e. " + self.DISTRO_PATH)
+        parser.add_argument("-l", "--limit", dest="limit", type=int, default=self.LIMIT,
+                            help="number of gerrits to return")
+        parser.add_argument("-p", "--projects", dest="projects", default=self.PROJECT_NAMES,
+                            help="list of projects to include in output")
+        parser.add_argument("-q", "--query-limit", dest="qlimit", type=int, default=self.QUERY_LIMIT,
+                            help="number of gerrits to search")
+        parser.add_argument("-r", "--remote", dest="remote_url", default=self.REMOTE_URL,
+                            help="git remote url to use for gerrit")
+        parser.add_argument("-v", "--verbose", dest="verbose", action="count", default=0,
+                            help="Output more information about what's going on")
+
+        parser.add_argument("--license", dest="license", action="store_true",
+                            help="Print the license and exit")
+        parser.add_argument("-V", "--version", action="version",
+                            version="%s version %s" %
+                                    (os.path.split(sys.argv[0])[-1], 0.1))
+
+        options = parser.parse_args()
+
+        if options.license:
+            print(COPYRIGHT)
+            sys.exit(0)
+
+        self.branch = options.branch
+        self.distro_path = options.distro_path
+        self.limit = options.limit
+        self.project_names = options.projects
+        self.qlimit = options.qlimit
+        self.remote_url = options.remote_url
+        self.verbose = options.verbose
+
+        # TODO: add check to verify that the remote can be reached,
+        # though the first gerrit query will fail anyways
+
+        projects = self.run_cmd()
+        self.pretty_print_projects(projects)
+        sys.exit(0)
+
+
+def main():
+    changez = Changes()
+    try:
+        changez.main()
+    except Exception as e:
+        # If one does unguarded print(e) here, in certain locales the implicit
+        # str(e) blows up with familiar "UnicodeEncodeError ... ordinal not in
+        # range(128)". See rhbz#1058167.
+        try:
+            u = unicode(e)
+        except NameError:
+            # Python 3, we"re home free.
+            print(e)
+        else:
+            print(u.encode("utf-8"))
+            raise
+        sys.exit(getattr(e, "EXIT_CODE", -1))
+
+
+if __name__ == "__main__":
+    main()
