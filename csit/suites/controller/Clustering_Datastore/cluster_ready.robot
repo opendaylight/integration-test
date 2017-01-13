@@ -11,9 +11,11 @@ Documentation     This test waits until cluster appears to be ready.
 ...               Intended use is at a start of testplan, so that suites can assume cluster works.
 ...
 ...               This suite expects car, people and car-people modules to have separate Shards.
-Suite Setup       ClusterManagement.ClusterManagement_Setup
+Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Default Tags      clustering    carpeople    critical
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
 ${CLUSTER_BOOTUP_SYNC_TIMEOUT}    180s

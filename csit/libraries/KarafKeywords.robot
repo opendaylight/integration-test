@@ -166,8 +166,8 @@ Log Message To Controller Karaf
     ...    By default, failure while processing a node is silently ignored, unless ${tolerate_failure} is False.
     ${index_list} =    ClusterManagement.ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
-    \    ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Execute Controller Karaf Command With Retry On Background    log:log "ROBOT MESSAGE: ${message}"    member_index=${index}
-    \    BuiltIn.Run_Keyword_Unless    ${tolerate_failure} or "${status}" == "PASS"    BuiltIn.Fail    ${message}
+    \    ${status}    ${output}=    BuiltIn.Run Keyword And Ignore Error    Execute Controller Karaf Command With Retry On Background    log:log "ROBOT MESSAGE: ${message}"    member_index=${index}
+    \    BuiltIn.Run_Keyword_Unless    ${tolerate_failure} or "${status}" == "PASS"    BuiltIn.Fail    ${output}
 
 Log Test Suite Start To Controller Karaf
     [Arguments]    ${member_index_list}=${EMPTY}

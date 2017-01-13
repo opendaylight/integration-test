@@ -2,10 +2,12 @@
 Documentation     Suite for performing member isolation and rejoin, we do with entity-ownership leader.
 Suite Setup       Setup
 Suite Teardown    Teardown
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Default Tags      clustering    carpeople    critical
 Library           Collections
 Resource          ${CURDIR}/../../../libraries/CarPeople.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
@@ -41,7 +43,7 @@ Check All Shards After Rejoin
 *** Keywords ***
 Setup
     [Documentation]    Initialize resources, memorize car shard leader and followers.
-    ClusterManagement.ClusterManagement_Setup
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     CarPeople.Set_Variables_For_Shard    shard_name=entity-ownership    shard_type=operational
 
 Teardown
