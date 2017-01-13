@@ -1,0 +1,54 @@
+{
+  "output": {
+    "registered-db-api-client-plugins-table": [
+      {
+        "plugin-name": "Onem2mTsdrProvider",
+        "registered-db-api-client-plugin-instances": [
+          {
+            "plugin-instance-name": "default",
+            "db-api-client-plugin-data": {
+              "iotdm-common-plugin-data": {
+                "plugin-instance-name": "default",
+                "plugin-name": "Onem2mTsdrProvider",
+                "plugin-class": "org.opendaylight.iotdm.onem2m.tsdr.impl.Onem2mTsdrProvider"
+              },
+              "db-api-client-state": "STARTED"
+            }
+          }
+        ]
+      },
+      {
+        "plugin-name": "Onem2mSimpleAdapterProvider",
+        "registered-db-api-client-plugin-instances": [
+          {
+            "plugin-instance-name": "default",
+            "db-api-client-plugin-data": {
+              "iotdm-common-plugin-data": {
+                "plugin-instance-name": "default",
+                "plugin-name": "Onem2mSimpleAdapterProvider",
+                "plugin-class": "org.opendaylight.iotdm.onem2m.simpleadapter.impl.Onem2mSimpleAdapterProvider"
+              },
+              "db-api-client-state": "STARTED"
+            }
+          }
+        ]
+      },
+      {
+        "plugin-name": "Onem2mExample",
+        "registered-db-api-client-plugin-instances": [
+          {
+            "plugin-instance-name": "default",
+            "db-api-client-plugin-data": {
+              "iotdm-common-plugin-data": {
+                "plugin-instance-name": "default",
+                "plugin-name": "Onem2mExample",
+                "plugin-class": "org.opendaylight.iotdm.onem2mexample.impl.Onem2mExampleCustomProtocol"
+              },
+              "db-api-client-state": "STARTED"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
