@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_c4a403a8",
+        "filename": "csit/suites/bgpcep/bgpfunct/060_bgp_functional_md5.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-01-13T18:42:56Z",
+      "side": 1,
+      "message": "It is ok, because robot suite does not need to use rpc client towards exabgp. It appeared there by copyparting during the suite creation by mistake.",
+      "parentUuid": "1a622d24_a470e772",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 84
+      },
+      "revId": "72279ea10ce578c4d02d4fa6561689e36eaf6807",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_10891975",
         "filename": "csit/suites/bgpcep/bgpfunct/060_bgp_functional_md5.robot",
         "patchSetId": 14
