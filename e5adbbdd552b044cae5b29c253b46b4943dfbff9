@@ -70,6 +70,30 @@
       "revId": "e5adbbdd552b044cae5b29c253b46b4943dfbff9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_70db2d4f",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-01-13T03:28:17Z",
+      "side": 0,
+      "message": "i like this idea better.. fixing this right away..\n\nI would also like to introduce atleast flow dumps after each test case regardless of whether it succeeds or fails.  Is there an easy way to do that :) ?",
+      "parentUuid": "1a622d24_d02e818b",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 38
+      },
+      "revId": "e5adbbdd552b044cae5b29c253b46b4943dfbff9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
