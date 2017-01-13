@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_497f6c66",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T13:42:36Z",
+      "side": 1,
+      "message": "CompareStream.Run_Keyword_If_At_Least_Carbon",
+      "range": {
+        "startLine": 161,
+        "startChar": 15,
+        "endLine": 161,
+        "endChar": 78
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a997208f",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T13:42:36Z",
+      "side": 1,
+      "message": "${DATA}    CompareStream.Run_Keyword_If_At_Most_Boron",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 15
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e98d987d",
+        "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T13:42:36Z",
+      "side": 1,
+      "message": "This table is no longer needed.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 3
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_69f18800",
+        "filename": "csit/suites/sxp/filtering/020_Outbound_Filtering.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T13:42:36Z",
+      "side": 1,
+      "message": "This table is no longer needed.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 3
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_096574b4",
+        "filename": "csit/suites/sxp/filtering/100_Inbound_Filtering_Policy.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-13T13:42:36Z",
+      "side": 1,
+      "message": "This is the same check as two lines earlier.\nIt is not clear whether the consequences of line 27 have propagated enough to affect the observed state.\n(Sandbox shows the data starts the same, but it is long and not Log-ed.)\n\nIf there is any change expected, check for specifics.\nIf \"no change\" is the expected result (without even a temporary deviation), perhaps WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout should be used instead of BuiltIn.Wait_Until_Keyword_Succeeds here.\nIf line 27 is expected to cause a deviation before stabilizing in line 28, we do not have anything better than WUKS.",
+      "range": {
+        "startLine": 28,
+        "startChar": 45,
+        "endLine": 28,
+        "endChar": 60
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
