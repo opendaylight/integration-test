@@ -1,0 +1,246 @@
+{
+  "output": {
+    "onem2m-plugin-manager-plugins-table": [
+      {
+        "plugin-name": "Onem2mTsdrProvider",
+        "onem2m-plugin-manager-plugin-instances": [
+          {
+            "plugin-instance-name": "default",
+            "implemented-interfaces": [
+              {
+                "iotdm-interface": "IotdmPluginDbClient"
+              }
+            ],
+            "db-api-client-data": {
+              "db-api-client-state": "STARTED"
+            },
+            "iotdm-common-plugin-data": {
+              "plugin-instance-name": "default",
+              "plugin-name": "Onem2mTsdrProvider",
+              "plugin-class": "org.opendaylight.iotdm.onem2m.tsdr.impl.Onem2mTsdrProvider"
+            }
+          }
+        ]
+      },
+      {
+        "plugin-name": "http(s)-base",
+        "onem2m-plugin-manager-plugin-instances": [
+          {
+            "plugin-instance-name": "default",
+            "implemented-interfaces": [
+              {
+                "iotdm-interface": "IotdmPlugin"
+              },
+              {
+                "iotdm-interface": "IotdmPluginConfigurable"
+              }
+            ],
+            "plugin-configuration": {
+              "onem2m-protocol-http:notifier-plugin-config": {
+                "secure-connection": false
+              },
+              "onem2m-protocol-http:server-config": {
+                "server-port": 7777,
+                "server-security-level": "l0",
+                "secure-connection": false
+              },
+              "onem2m-protocol-http:router-plugin-config": {
+                "secure-connection": false
+              }
+            },
+            "iotdm-common-plugin-data": {
+              "plugin-instance-name": "default",
+              "plugin-name": "http(s)-base",
+              "plugin-class": "org.opendaylight.iotdm.onem2m.protocols.http.rx.Onem2mHttpBaseIotdmPlugin"
+            },
+            "iotdm-plugin-registrations": [
+              {
+                "registration-data": {
+                  "transport-protocol": "TCP",
+                  "registration-mode": "Exclusive",
+                  "port": 7777,
+                  "local-url": "*",
+                  "protocol": "http",
+                  "address": "0.0.0.0"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "plugin-name": "Onem2mExample",
+        "onem2m-plugin-manager-plugin-instances": [
+          {
+            "plugin-instance-name": "default",
+            "implemented-interfaces": [
+              {
+                "iotdm-interface": "IotdmPluginConfigurable"
+              },
+              {
+                "iotdm-interface": "IotdmPlugin"
+              },
+              {
+                "iotdm-interface": "IotdmPluginSimpleConfigClient"
+              },
+              {
+                "iotdm-interface": "IotdmPluginDbClient"
+              }
+            ],
+            "db-api-client-data": {
+              "db-api-client-state": "STARTED"
+            },
+            "plugin-configuration": {
+              "plugin-simple-config": {
+                "key-val-list": [
+                  {
+                    "cfg-key": "port",
+                    "cfg-val": "7779"
+                  }
+                ]
+              }
+            },
+            "iotdm-common-plugin-data": {
+              "plugin-instance-name": "default",
+              "plugin-name": "Onem2mExample",
+              "plugin-class": "org.opendaylight.iotdm.onem2mexample.impl.Onem2mExampleCustomProtocol"
+            },
+            "iotdm-plugin-registrations": [
+              {
+                "registration-data": {
+                  "transport-protocol": "TCP",
+                  "registration-mode": "Exclusive",
+                  "port": 7779,
+                  "local-url": "*",
+                  "protocol": "http",
+                  "address": "0.0.0.0"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "plugin-name": "Onem2mSimpleAdapterProvider",
+        "onem2m-plugin-manager-plugin-instances": [
+          {
+            "plugin-instance-name": "default",
+            "implemented-interfaces": [
+              {
+                "iotdm-interface": "IotdmPluginDbClient"
+              }
+            ],
+            "db-api-client-data": {
+              "db-api-client-state": "STARTED"
+            },
+            "iotdm-common-plugin-data": {
+              "plugin-instance-name": "default",
+              "plugin-name": "Onem2mSimpleAdapterProvider",
+              "plugin-class": "org.opendaylight.iotdm.onem2m.simpleadapter.impl.Onem2mSimpleAdapterProvider"
+            }
+          }
+        ]
+      },
+      {
+        "plugin-name": "coap(s)",
+        "onem2m-plugin-manager-plugin-instances": [
+          {
+            "plugin-instance-name": "default",
+            "implemented-interfaces": [
+              {
+                "iotdm-interface": "IotdmPlugin"
+              }
+            ],
+            "iotdm-common-plugin-data": {
+              "plugin-instance-name": "default",
+              "plugin-name": "coap(s)",
+              "plugin-class": "org.opendaylight.iotdm.onem2m.protocols.coap.rx.Onem2mCoapBaseIotdmPlugin"
+            },
+            "iotdm-plugin-registrations": [
+              {
+                "registration-data": {
+                  "transport-protocol": "UDP",
+                  "registration-mode": "Exclusive",
+                  "port": 5683,
+                  "local-url": "*",
+                  "protocol": "coap",
+                  "address": "0.0.0.0"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "plugin-name": "mqtt",
+        "onem2m-plugin-manager-plugin-instances": [
+          {
+            "plugin-instance-name": "default",
+            "implemented-interfaces": [
+              {
+                "iotdm-interface": "IotdmPlugin"
+              },
+              {
+                "iotdm-interface": "IotdmPluginConfigurable"
+              }
+            ],
+            "plugin-configuration": {
+              "onem2m-protocol-mqtt:mqtt-client-config": {
+                "mqtt-broker-port": 7778,
+                "security-level": "l0",
+                "mqtt-broker-ip": "127.0.0.1"
+              }
+            },
+            "iotdm-common-plugin-data": {
+              "plugin-instance-name": "default",
+              "plugin-name": "mqtt",
+              "plugin-class": "org.opendaylight.iotdm.onem2m.protocols.mqtt.rx.Onem2mMqttIotdmPlugin"
+            },
+            "iotdm-plugin-registrations": [
+              {
+                "registration-data": {
+                  "transport-protocol": "TCP",
+                  "registration-mode": "Exclusive",
+                  "port": 7778,
+                  "local-url": "*",
+                  "protocol": "mqtt",
+                  "address": "127.0.0.1"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "plugin-name": "ws",
+        "onem2m-plugin-manager-plugin-instances": [
+          {
+            "plugin-instance-name": "default",
+            "implemented-interfaces": [
+              {
+                "iotdm-interface": "IotdmPlugin"
+              }
+            ],
+            "iotdm-common-plugin-data": {
+              "plugin-instance-name": "default",
+              "plugin-name": "ws",
+              "plugin-class": "org.opendaylight.iotdm.onem2m.protocols.websocket.rx.Onem2mWebsocketIotdmPlugin"
+            },
+            "iotdm-plugin-registrations": [
+              {
+                "registration-data": {
+                  "transport-protocol": "TCP",
+                  "registration-mode": "Exclusive",
+                  "port": 8888,
+                  "local-url": "*",
+                  "protocol": "websocket",
+                  "address": "0.0.0.0"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
