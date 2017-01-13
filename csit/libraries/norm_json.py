@@ -102,15 +102,29 @@ def loads_sorted(text, strict=False):
     return object_decoded
 
 
-def dumps_indented(obj, indent=1):
+def dumps_indented(obj, indent=1, add_new_line=True, start_indent=0):
     """
-    Wrapper for json.dumps with default indentation level. Adds newline.
+    Wrapper for json.dumps with default indentation level. Adds newline if
+    add_new_line argument is set to True.
 
     The main value is that BuiltIn.Evaluate cannot easily accept Python object
     as part of its argument.
     Also, allows to use something different from RequestsLibrary.To_Json
+
+    Argument start_indent can be used to set constant indentation from the
+    begin of line.
     """
     pretty_json = _json.dumps(obj, separators=(',', ': '), indent=indent)
+
+    # move every single line to the left if start_indent set
+    if start_indent > 0:
+        moved_right = []
+        for line in pretty_json.split('\n'):
+            moved_right.append((start_indent * ' ') + line)
+        pretty_json = '\n'.join(moved_right)
+
+    if not add_new_line:
+        return pretty_json
     return pretty_json + '\n'  # to avoid diff "no newline" warning line
 
 
@@ -151,7 +165,7 @@ def sort_bits(obj, keys_with_bits=[]):
     return obj
 
 
-def normalize_json_text(text, strict=False, indent=1, keys_with_bits=[]):
+def normalize_json_text(text, strict=False, indent=1, keys_with_bits=[], add_new_line=True, start_indent=0):
     """
     Attempt to return sorted indented JSON string.
 
@@ -169,5 +183,6 @@ def normalize_json_text(text, strict=False, indent=1, keys_with_bits=[]):
             return str(err) + '\n' + text
     if keys_with_bits:
         sort_bits(object_decoded, keys_with_bits)
-    pretty_json = dumps_indented(object_decoded, indent=indent)
+
+    pretty_json = dumps_indented(object_decoded, indent=indent, add_new_line=add_new_line, start_indent=start_indent)
     return pretty_json
