@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_9066c9eb",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-13T01:04:13Z",
+      "side": 1,
+      "message": "why 10? although the reason for picking LOOP_COUNT to be NET1_VM_COUNT + NET2_VM_COUNT basically came from trial and error anyway.\n\nAre you creating a 50s poll at 5s intervals? If that\u0027s the case, put a comment next to the sleep below, because typically we don\u0027t allow sleeps.",
+      "range": {
+        "startLine": 113,
+        "startChar": 42,
+        "endLine": 113,
+        "endChar": 44
+      },
+      "revId": "f6352c00b448d6e3efb8918c21ebe8d6319d6fa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_50a8b1da",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-13T01:04:13Z",
+      "side": 1,
+      "message": "Instead of a new local keyword I think you can do it with builtin robot keywords\nin one line.\n\n${status}    ${message}\u003d    Run Keyword And Ignore Error    List Should Not Contain Value    ${VM_IPS}    None\nExit For Loop If    \u0027${status}\u0027 \u003d\u003d \u0027FAIL\u0027\n\n\nnote: you need to create a list containing all the VM_IPS\nnote: I did not test this, just wrote it here first, so maybe I have some small\n      syntax error, but hopefully not.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 55
+      },
+      "revId": "f6352c00b448d6e3efb8918c21ebe8d6319d6fa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_10a2b9fc",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-13T01:04:13Z",
+      "side": 1,
+      "message": "looks like you are duplicating this code in every suite. put stuff like this in a single lib when possible. but I think \nI know a more simple one line solution which I\u0027ll comment in the test case.",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 32
+      },
+      "revId": "f6352c00b448d6e3efb8918c21ebe8d6319d6fa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
