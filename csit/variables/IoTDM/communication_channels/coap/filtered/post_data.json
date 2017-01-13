@@ -1,0 +1,7 @@
+{
+  "input": {
+    "protocol-name": "coap",
+    "plugin-name": "coap(s)-base",
+    "plugin-instance-name": "default"
+  }
+}

@@ -1,0 +1,16 @@
+      {
+        "plugin-name": "Onem2mTsdrProvider",
+        "registered-db-api-client-plugin-instances": [
+          {
+            "plugin-instance-name": "default",
+            "db-api-client-plugin-data": {
+              "iotdm-common-plugin-data": {
+                "plugin-instance-name": "default",
+                "plugin-name": "Onem2mTsdrProvider",
+                "plugin-class": "org.opendaylight.iotdm.onem2m.tsdr.impl.Onem2mTsdrProvider"
+              },
+              "db-api-client-state": "STARTED"
+            }
+          }
+        ]
+      }
