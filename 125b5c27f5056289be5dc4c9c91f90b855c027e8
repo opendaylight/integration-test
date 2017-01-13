@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_69106859",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-01-13T15:54:56Z",
+      "side": 1,
+      "message": "This replacement causes that if stream does not match ${DATA} will be set to None and thus it wont work as originaly intended.",
+      "parentUuid": "1a622d24_497f6c66",
+      "range": {
+        "startLine": 161,
+        "startChar": 15,
+        "endLine": 161,
+        "endChar": 78
+      },
+      "revId": "125b5c27f5056289be5dc4c9c91f90b855c027e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_a997208f",
         "filename": "csit/libraries/SxpLib.robot",
         "patchSetId": 5
