@@ -46,6 +46,30 @@
       "revId": "e5adbbdd552b044cae5b29c253b46b4943dfbff9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d02e818b",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-13T00:09:05Z",
+      "side": 0,
+      "message": "ok, so we can force robot to run these steps even if there is a failure in the test case.  add this as the last line here:\n\n    [Teardown]    Run Keywords    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}\n    ...    AND    Show Router    @{ROUTERS}[0]    -D\n\n\nI suggest we do that no matter what, in case someone comes in here and adds a \ntest case in the middle somewhere and wants to assume a clean env.\n\nnext, if you think we have better test coverage with some extra routes for L3VPN to\nembrace, let\u0027s add some extra routes (purposely) in that relevant test case.\n\nthanks for the patch, Vivek. I can also do these things if you are stuck. just let\nme know, but for now you can work via this patch.",
+      "parentUuid": "1a622d24_9cf1c503",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 38
+      },
+      "revId": "e5adbbdd552b044cae5b29c253b46b4943dfbff9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
