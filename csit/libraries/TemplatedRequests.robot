@@ -133,6 +133,8 @@ Get_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
     [Documentation]    Add arguments sensible for JSON data, return Get_Templated response text.
     ...    Optionally, verification against JSON data (may be iterated) is called.
+    ...    Only subset of JSON data is verified and returned if JMES path is specified in
+    ...    file ${folder}${/}jmespath.expr.
     ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=data    mapping=${mapping}
     ...    iterations=${iterations}    iter_start=${iter_start}
@@ -151,6 +153,8 @@ Put_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
     [Documentation]    Add arguments sensible for JSON data, return Put_Templated response text.
     ...    Optionally, verification against response.json (no iteration) is called.
+    ...    Only subset of JSON data is verified and returned if JMES path is specified in
+    ...    file ${folder}${/}jmespath.expr.
     ${response_text} =    Put_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
     ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
@@ -167,12 +171,18 @@ Put_As_Xml_Templated
     [Return]    ${response_text}
 
 Post_As_Json_Templated
-    [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
+    [Arguments]    ${folder}    ${req_file_base_name}=data    ${rsp_file_name}=response    ${mapping}={}    ${session}=default    ${verify}=False
+    ...    ${iterations}=${EMPTY}    ${iter_start}=1    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}
     [Documentation]    Add arguments sensible for JSON data, return Post_Templated response text.
     ...    Optionally, verification against response.json (no iteration) is called.
-    ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
+    ...    Only subset of JSON data is verified and returned if JMES path is specified in
+    ...    file ${folder}${/}jmespath.expr.
+    ...    Response status code must be one of values from ${explicit_status_codes} if specified or one of set
+    ...    created from all positive HTTP status codes together with ${additional_allowed_status_codes}.
+    ${response_text} =    Post_Templated    folder=${folder}    base_name=${req_file_base_name}    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
     ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
-    BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
+    ...    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}
+    BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=${rsp_file_name}    mapping=${mapping}
     [Return]    ${response_text}
 
 Post_As_Xml_Templated
@@ -236,11 +246,13 @@ Put_As_Xml_To_Uri
     [Return]    ${response_text}
 
 Post_As_Json_To_Uri
-    [Arguments]    ${uri}    ${data}    ${session}=default
+    [Arguments]    ${uri}    ${data}    ${session}=default    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}
     [Documentation]    Specify JSON headers and return Post_To_Uri normalized response text.
     ...    Yang json content type is used as a workaround to RequestsLibrary json conversion eagerness.
+    ...    Response status code must be one of values from ${explicit_status_codes} if specified or one of set
+    ...    created from all positive HTTP status codes together with ${additional_allowed_status_codes}.
     ${response_text} =    Post_To_Uri    uri=${uri}    data=${data}    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}    session=${session}
-    ...    normalize_json=True
+    ...    normalize_json=True    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}
     [Return]    ${response_text}
 
 Post_As_Xml_To_Uri
@@ -258,11 +270,21 @@ Delete_From_Uri
     Check_Status_Code    ${response}    additional_allowed_status_codes=${additional_allowed_status_codes}
     [Return]    ${response.text}
 
+Resolve_Jmes_Path
+    [Arguments]    ${folder}
+    [Documentation]    Reads JMES path from file ${folder}${/}jmespath.exp r if the file exists and
+    ...    returns the JMES path. Empty string is returned otherwise.
+    ${read_jmes_file} =    BuiltIn.Run Keyword And Return Status    OperatingSystem.File Should Exist    ${folder}${/}jmespath.expr
+    ${jmes_expression} =    Run Keyword If    ${read_jmes_file} == ${true}    OperatingSystem.Get_File    ${folder}${/}jmespath.expr
+    ${expression} =    BuiltIn.Set Variable If    ${read_jmes_file} == ${true}    ${jmes_expression}    ${EMPTY}
+    [Return]    ${expression}
+
 Get_Templated
     [Arguments]    ${folder}    ${accept}    ${mapping}={}    ${session}=default    ${normalize_json}=False
     [Documentation]    Resolve URI from folder, call Get_From_Uri, return response text.
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
-    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${accept}    session=${session}    normalize_json=${normalize_json}
+    ${jmes_expression} =    Resolve_Jmes_Path    ${folder}
+    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${accept}    session=${session}    normalize_json=${normalize_json}    jmes_path=${jmes_expression}
     [Return]    ${response_text}
 
 Put_Templated
@@ -272,8 +294,9 @@ Put_Templated
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
     ${data} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
     ...    iterations=${iterations}    iter_start=${iter_start}
+    ${jmes_expression} =    Resolve_Jmes_Path    ${folder}
     ${response_text} =    Put_To_Uri    uri=${uri}    data=${data}    content_type=${content_type}    accept=${accept}    session=${session}
-    ...    normalize_json=${normalize_json}
+    ...    normalize_json=${normalize_json}    jmes_path=${jmes_expression}
     [Return]    ${response_text}
 
 Post_Templated
@@ -284,8 +307,9 @@ Post_Templated
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
     ${data} =    Resolve_Text_From_Template_Folder    folder=${folder}    name_prefix=post_    base_name=${base_name}    extension=${extension}    mapping=${mapping}
     ...    endline=${endline}    iterations=${iterations}    iter_start=${iter_start}
+    ${jmes_expression} =    Resolve_Jmes_Path    ${folder}
     ${response_text} =    Post_To_Uri    uri=${uri}    data=${data}    content_type=${content_type}    accept=${accept}    session=${session}
-    ...    normalize_json=${normalize_json}    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}
+    ...    jmes_path=${jmes_expression}    normalize_json=${normalize_json}    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}
     [Return]    ${response_text}
 
 Verify_Response_Templated
@@ -296,11 +320,12 @@ Verify_Response_Templated
     # TODO: Support for XML-aware comparison could be added, but there are issues with namespaces and similar.
     ${expected_text} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
     ...    iterations=${iterations}    iter_start=${iter_start}
+    BuiltIn.Run_Keyword_And_Return_If    """${expected_text}""" == """${EMPTY}"""    BuiltIn.Should_Be_Equal    ${EMPTY}    ${response}
     BuiltIn.Run_Keyword_If    ${normalize_json}    Normalize_Jsons_And_Compare    expected_raw=${expected_text}    actual_raw=${response}
     ...    ELSE    BuiltIn.Should_Be_Equal    ${expected_text}    ${response}
 
 Get_From_Uri
-    [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False
+    [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False    ${jmes_path}=${EMPTY}
     [Documentation]    GET data from given URI, check status code and return response text.
     ...    \${accept} is a Python object with headers to use.
     ...    If \${normalize_json}, normalize as JSON text before returning.
@@ -309,11 +334,12 @@ Get_From_Uri
     ${response} =    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}
     Check_Status_Code    ${response}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
-    ${text_normalized} =    norm_json.normalize_json_text    ${response.text}
+    ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}
     [Return]    ${text_normalized}
 
 Put_To_Uri
     [Arguments]    ${uri}    ${data}    ${content_type}    ${accept}    ${session}=default    ${normalize_json}=False
+    ...    ${jmes_path}=${EMPTY}
     [Documentation]    PUT data to given URI, check status code and return response text.
     ...    \${content_type} and \${accept} are mandatory Python objects with headers to use.
     ...    If \${normalize_json}, normalize text before returning.
@@ -325,12 +351,12 @@ Put_To_Uri
     ${response} =    RequestsLibrary.Put_Request    alias=${session}    uri=${uri}    data=${data}    headers=${headers}
     Check_Status_Code    ${response}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
-    ${text_normalized} =    norm_json.normalize_json_text    ${response.text}
+    ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}
     [Return]    ${text_normalized}
 
 Post_To_Uri
     [Arguments]    ${uri}    ${data}    ${content_type}    ${accept}    ${session}=default    ${normalize_json}=False
-    ...    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}
+    ...    ${jmes_path}=${EMPTY}    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}
     [Documentation]    POST data to given URI, check status code and return response text.
     ...    \${content_type} and \${accept} are mandatory Python objects with headers to use.
     ...    If \${normalize_json}, normalize text before returning.
@@ -342,7 +368,7 @@ Post_To_Uri
     ${response} =    RequestsLibrary.Post_Request    alias=${session}    uri=${uri}    data=${data}    headers=${headers}
     Check_Status_Code    ${response}    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
-    ${text_normalized} =    norm_json.normalize_json_text    ${response.text}
+    ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}
     [Return]    ${text_normalized}
 
 Check_Status_Code
