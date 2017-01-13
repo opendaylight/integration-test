@@ -22,6 +22,30 @@
       "revId": "0ffccf9e2566438dff71a17980ab1e9a4885f889",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c496c34b",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-13T18:14:23Z",
+      "side": 1,
+      "message": "good point. a good keyword here would be \"Delete Extra Routes\" which does the below Update Router and Show Router\ncommands. that uses robot\u0027s *readability* benefit and lets\nus remove the comments.",
+      "parentUuid": "1a622d24_c9453c44",
+      "range": {
+        "startLine": 177,
+        "startChar": 4,
+        "endLine": 177,
+        "endChar": 6
+      },
+      "revId": "0ffccf9e2566438dff71a17980ab1e9a4885f889",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
