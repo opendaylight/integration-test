@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_7a42e468",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-01-15T15:51:45Z",
+      "side": 1,
+      "message": "This still installs netcat since we didn\u0027t respin and load VMs into sandbox/releng with the nc installed.",
+      "revId": "beb12b4c47e283fd9533e5356aed3cf56f54e171",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3a4cec9d",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-01-15T15:51:45Z",
+      "side": 1,
+      "message": "Changed the order of creating instances and THEN adding ext-net to workaround a race bug - Koby will open it and fix.",
+      "revId": "beb12b4c47e283fd9533e5356aed3cf56f54e171",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
