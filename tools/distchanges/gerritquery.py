@@ -33,7 +33,7 @@ class GitReviewException(Exception):
 
 
 class CommandFailed(GitReviewException):
-
+    """do we need a docstring here for __doc__ to work below?"""
     def __init__(self, *args):
         Exception.__init__(self, *args)
         (self.rc, self.output, self.argv, self.envp) = args
@@ -42,14 +42,21 @@ class CommandFailed(GitReviewException):
             ("rc", self.rc),
             ("output", self.output)])
 
+        print("jamo debug: checking %(rc)d and %(argv)s and %(output)s" % self.quickmsg)
+        print("jamo debug: checking types %s and %s and %s" % (type(self.argv), type(self.rc), type(self.output)))
+
     def __str__(self):
-        return self.__doc__ + """
+        err_msg = "The following command failed with exit code %(rc)d %(argv)s %(output)s" % self.quickmsg
+        print("err_msg: %s" % err_msg)
+        print("checking self.__doc__: %s" % self.__doc__)
+        return self.__doc__ + err_msg
+    '''
 The following command failed with exit code %(rc)d
     "%(argv)s"
 -----------------------
 %(output)s
 -----------------------""" % self.quickmsg
-
+'''
 
 class GerritQuery:
     REMOTE_URL = 'ssh://git.opendaylight.org:29418'

@@ -38,8 +38,13 @@ limitations under the License."""
 
 
 class Changes:
+    # NETVIRT_PROJECTS, as taken from autorelease dependency info [0]
+    # TODO: it would be nice to fetch the dependency info on the fly in case it changes down the road
+    # [0] https://logs.opendaylight.org/releng/jenkins092/autorelease-release-carbon/127/archives/dependencies.log.gz
+    NETVIRT_PROJECTS = ["controller", "dlux", "dluxapps", "genius", "infrautils", "mdsal", "netconf", "neutron",
+                        "odlparent", "openflowplugin", "ovsdb", "sfc", "yangtools"]
+    PROJECT_NAMES = NETVIRT_PROJECTS
     VERBOSE = 0
-    PROJECT_NAMES = ["genius", "mdsal", "netvirt", "neutron", "openflowjava", "openflowplugin", "ovsdb", "yangtools"]
     DISTRO_PATH = "/tmp/distribution-karaf"
     REMOTE_URL = "ssh://git.opendaylight.org:29418"
     BRANCH = "master"
@@ -167,7 +172,6 @@ class Changes:
         # match on "blah" but only keep the blah
         regex_msg = re.compile(r'"([^"]*)"|^git.commit.message.short=(.*)$')
         msg = regex_msg.search(pfile)
-        print("did not find Change-Id in %s, trying with commit-msg: %s" % (project, msg.group()))
         if msg:
             # TODO: add new query using this msg
             gerrits = self.gerritquery.get_gerrits(project, None, 1, msg.group())
@@ -211,6 +215,8 @@ class Changes:
         print("remote_url: %s" % self.remote_url)
         print("distro_path: %s" % self.distro_path)
         print("projects: %s" % (", ".join(map(str, self.projects))))
+        print("gerrit 00 is the most recent patch from which the project was built followed by the next most"
+              " recently merged patches up to %s." % self.limit)
 
     def run_cmd(self):
         """
@@ -286,6 +292,7 @@ def main():
         # str(e) blows up with familiar "UnicodeEncodeError ... ordinal not in
         # range(128)". See rhbz#1058167.
         try:
+            print(e)
             u = unicode(e)
         except NameError:
             # Python 3, we"re home free.
