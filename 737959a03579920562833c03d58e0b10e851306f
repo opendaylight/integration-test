@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_1f975d49",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-16T15:35:56Z",
+      "side": 1,
+      "message": "I think it is easier to BuiltIn.Fail in this case.\n\nIf user calls *_Else keyword and it does not find the ELSE, user probably made an error.\nIn either way, document the behavior with respect to ELSE.",
+      "range": {
+        "startLine": 96,
+        "startChar": 47,
+        "endLine": 96,
+        "endChar": 51
+      },
+      "revId": "737959a03579920562833c03d58e0b10e851306f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
