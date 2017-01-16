@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_1538e3ed",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-16T09:29:35Z",
+      "side": 1,
+      "message": "According to functional programming principles, never use setters, define everything in the constructor.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 38
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_753957f1",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-16T09:29:35Z",
+      "side": 1,
+      "message": "Pythonic:\n\n        for i, gerrit in enumerate(gerrits):\n            print(\"%02d %d %d %s %s\" % (i, gerrit[\"grantedOn\"], gerrit[\"lastUpdated\"],\n                                        gerrit[\"number\"], gerrit[\"subject\"]))",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f52c47ae",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-16T09:29:35Z",
+      "side": 1,
+      "message": "This could properly be in the constructor itself.",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 67
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d5294b9c",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-16T09:29:35Z",
+      "side": 1,
+      "message": "This does the same job:\n\n  if not includes:",
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f994418c",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-16T09:29:35Z",
+      "side": 1,
+      "message": "In case of KeyError, this would fail as well, wouldn\u0027t it?",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 27
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_591bb572",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-16T09:29:35Z",
+      "side": 1,
+      "message": "Add that None is returned if not found",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 34
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b923e9a5",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-16T09:29:35Z",
+      "side": 1,
+      "message": "Pythonic:\n\n         project_dir \u003d os.path.join(self.distro_path, \"system\", \"org\", \"opendaylight\", project )",
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5960d5ce",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-16T09:29:35Z",
+      "side": 1,
+      "message": "According to this name init(), this is better placed as part of the constructor. This way, the object is consistent everytime, and does not depend on this method to be invoked previous to its correct usage.\n\nAlternatives:\n  - rename with set_projects\n  - lazy-initialization for a function get_projects() that ensures that the projects are initialized everytime they are needed.",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 46
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b97f6965",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-16T09:29:35Z",
+      "side": 1,
+      "message": "This could be better, as it prettyprints the names with commas or whatever:\n\n  \", \".join( map(str, self.project_names))",
+      "range": {
+        "startLine": 219,
+        "startChar": 32,
+        "endLine": 219,
+        "endChar": 55
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
