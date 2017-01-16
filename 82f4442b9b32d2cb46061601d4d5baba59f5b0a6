@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_9524f30d",
+        "filename": ".gitignore",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T09:53:43Z",
+      "side": 1,
+      "message": "I use jEdit for editing files, .*.marks is where jEdit stores bookmarks",
+      "parentUuid": "1a622d24_e4665fba",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 8
+      },
+      "revId": "82f4442b9b32d2cb46061601d4d5baba59f5b0a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_240cd7ec",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-13T17:36:49Z",
       "side": 1,
       "message": "I don\u0027t think this is needed. I think you should just be\nable to already use the existing \"Post Elements To Uri\"\nkeyword in this lib. There is really no difference between\nthat keyword and this, as far as I can tell.\n\nalso, this one has a small bug. The variable ${headers} is\nnot given as an argument, so if the caller didn\u0027t\naccidentally have ${headers} defined before calling this\nkeyword it would fail.",
+      "range": {
+        "startLine": 339,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 68
+      },
+      "revId": "82f4442b9b32d2cb46061601d4d5baba59f5b0a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1922dd51",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T09:53:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_240cd7ec",
       "range": {
         "startLine": 339,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_f970c173",
+        "filename": "csit/suites/sfc/SFC_Basic/130__sfc_symmetric_RSP.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T09:53:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_840debea",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "82f4442b9b32d2cb46061601d4d5baba59f5b0a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_a4f747d2",
         "filename": "csit/suites/sfc/SFC_Basic/130__sfc_symmetric_RSP.robot",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2017-01-13T17:36:49Z",
       "side": 1,
       "message": "normally people put this up with the Suite Setup/Teardown, but not a big deal. unless our robot.tidy tox tests don\u0027t\nlike it.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 40
+      },
+      "revId": "82f4442b9b32d2cb46061601d4d5baba59f5b0a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_992eed41",
+        "filename": "csit/suites/sfc/SFC_Basic/130__sfc_symmetric_RSP.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T09:53:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_a4f747d2",
       "range": {
         "startLine": 15,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_d924e561",
+        "filename": "csit/suites/sfc/SFC_Basic/130__sfc_symmetric_RSP.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T09:53:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_e4fdbfb2",
+      "range": {
+        "startLine": 22,
+        "startChar": 22,
+        "endLine": 22,
+        "endChar": 45
+      },
+      "revId": "82f4442b9b32d2cb46061601d4d5baba59f5b0a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_c421a34e",
         "filename": "csit/suites/sfc/SFC_Basic/130__sfc_symmetric_RSP.robot",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2017-01-13T17:36:49Z",
       "side": 1,
       "message": "no problem doing this here, but if you put these up in the\n*** Variables *** section (you\u0027d have to add one as it\u0027s not\nhere yet) then it\u0027s easier to override the values on the \nfly with some -v argument to pybot. I assume that would be\nrare anyway, so like I said, no big deal to have them here.\n\njust fyi.\n\nI would consider putting VERSION_DIR in the \n*** Variables *** section though. Then it would be very\neasy to run \"pybot -v VERSION_DIR:boron ...\" and not have\nto edit this file.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 113
+      },
+      "revId": "82f4442b9b32d2cb46061601d4d5baba59f5b0a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b9292939",
+        "filename": "csit/suites/sfc/SFC_Basic/130__sfc_symmetric_RSP.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T09:53:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_c421a34e",
       "range": {
         "startLine": 58,
         "startChar": 0,
