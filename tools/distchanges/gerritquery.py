@@ -42,6 +42,8 @@ class CommandFailed(GitReviewException):
             ("rc", self.rc),
             ("output", self.output)])
 
+        print("jamo debug: checking %(rc)d and %(argv)s and %(output)s" % self.quickmsg)
+
     def __str__(self):
         return self.__doc__ + """
 The following command failed with exit code %(rc)d
