@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_22d32205",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-16T19:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_1538e3ed",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 38
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_753957f1",
         "filename": "tools/distchanges/changes.py",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-16T09:29:35Z",
       "side": 1,
       "message": "Pythonic:\n\n        for i, gerrit in enumerate(gerrits):\n            print(\"%02d %d %d %s %s\" % (i, gerrit[\"grantedOn\"], gerrit[\"lastUpdated\"],\n                                        gerrit[\"number\"], gerrit[\"subject\"]))",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c2ea2eab",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-16T19:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_753957f1",
       "range": {
         "startLine": 83,
         "startChar": 0,
@@ -112,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_023ee627",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-16T19:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_d5294b9c",
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_f994418c",
         "filename": "tools/distchanges/changes.py",
         "patchSetId": 3
@@ -159,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_828036c1",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-16T19:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_5cc28334",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 27
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_591bb572",
         "filename": "tools/distchanges/changes.py",
         "patchSetId": 3
@@ -170,6 +260,30 @@
       "writtenOn": "2017-01-16T09:29:35Z",
       "side": 1,
       "message": "Add that None is returned if not found",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 34
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_42445eb6",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-16T19:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_591bb572",
       "range": {
         "startLine": 164,
         "startChar": 0,
@@ -199,6 +313,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_621ebabc",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-16T19:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b923e9a5",
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_5960d5ce",
         "filename": "tools/distchanges/changes.py",
         "patchSetId": 3
@@ -222,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_421bbec9",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-16T19:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_5960d5ce",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 46
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b97f6965",
         "filename": "tools/distchanges/changes.py",
         "patchSetId": 3
@@ -233,6 +389,30 @@
       "writtenOn": "2017-01-16T09:29:35Z",
       "side": 1,
       "message": "This could be better, as it prettyprints the names with commas or whatever:\n\n  \", \".join( map(str, self.project_names))",
+      "range": {
+        "startLine": 219,
+        "startChar": 32,
+        "endLine": 219,
+        "endChar": 55
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a27bb2f3",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-16T19:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b97f6965",
       "range": {
         "startLine": 219,
         "startChar": 32,
