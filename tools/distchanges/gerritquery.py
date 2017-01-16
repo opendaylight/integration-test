@@ -33,7 +33,7 @@ class GitReviewException(Exception):
 
 
 class CommandFailed(GitReviewException):
-
+    """Command Failure Analysis"""
     def __init__(self, *args):
         Exception.__init__(self, *args)
         (self.rc, self.output, self.argv, self.envp) = args
@@ -49,7 +49,6 @@ The following command failed with exit code %(rc)d
 -----------------------
 %(output)s
 -----------------------""" % self.quickmsg
-
 
 class GerritQuery:
     REMOTE_URL = 'ssh://git.opendaylight.org:29418'
