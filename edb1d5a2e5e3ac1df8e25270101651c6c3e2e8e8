@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_dfc845aa",
+        "filename": "csit/suites/sfc/SFC_Basic/090__sfc_service_functions_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T15:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_17cdb485",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_77c6a869",
         "filename": "csit/suites/sfc/SFC_Basic/090__sfc_service_functions_logical.robot",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-06T06:03:04Z",
       "side": 1,
       "message": "you didn\u0027t delete the SF above, so adding it again here in this test case is not really doing anything.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 28
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7fd7714b",
+        "filename": "csit/suites/sfc/SFC_Basic/090__sfc_service_functions_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T15:47:25Z",
+      "side": 1,
+      "message": "We have \"Remove All Elements If Exist  ${SERVICE_FUNCTIONS_URI}\" in Test Teardown, so all SFs are deleted.",
+      "parentUuid": "1a622d24_77c6a869",
       "range": {
         "startLine": 28,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_bf12a906",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_forwarders_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T15:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b7a320b1",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_57c3ac56",
         "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_forwarders_logical.robot",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2017-01-06T06:03:04Z",
       "side": 1,
       "message": "this URI and the other one below probably could be in a variables file to be shared with the other suites that need them.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 127
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7f0c91ed",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_forwarders_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T15:47:25Z",
+      "side": 1,
+      "message": "SERVICE_FORWARDERS_URI is defined in Variables.robot, we will take it from there, but SFF_SFFLOG_URI is test-specific, so it should be defined here.",
+      "parentUuid": "1a622d24_57c3ac56",
       "range": {
         "startLine": 75,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_ffcc218b",
+        "filename": "csit/suites/sfc/SFC_Basic/110__sfc_rendered_service_paths_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T15:47:25Z",
+      "side": 1,
+      "message": "As you said in other review, \"Post Elements To URI As JSON\" is the same as \"Post Elements To URI\" in Utils.robot, so we will change it.\n\"Get JSON Elements From URI\" is not used, so it will be deleted.",
+      "parentUuid": "1a622d24_f7a91891",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 24
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_97a8a48e",
         "filename": "csit/suites/sfc/SFC_Basic/110__sfc_rendered_service_paths_logical.robot",
         "patchSetId": 3
@@ -128,6 +248,30 @@
       "writtenOn": "2017-01-06T06:03:04Z",
       "side": 1,
       "message": "same comment here about the URIs. we don\u0027t need to repeat them in each suite if they are common.",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 106
+      },
+      "revId": "edb1d5a2e5e3ac1df8e25270101651c6c3e2e8e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7f8f712a",
+        "filename": "csit/suites/sfc/SFC_Basic/110__sfc_rendered_service_paths_logical.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6378
+      },
+      "writtenOn": "2017-01-16T15:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_97a8a48e",
       "range": {
         "startLine": 116,
         "startChar": 0,
