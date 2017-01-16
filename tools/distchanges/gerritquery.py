@@ -33,7 +33,7 @@ class GitReviewException(Exception):
 
 
 class CommandFailed(GitReviewException):
-
+    """Command Failure Analysis"""
     def __init__(self, *args):
         Exception.__init__(self, *args)
         (self.rc, self.output, self.argv, self.envp) = args
@@ -52,7 +52,7 @@ The following command failed with exit code %(rc)d
 
 
 class GerritQuery:
-    REMOTE_URL = 'ssh://git.opendaylight.org:29418'
+    REMOTE_URL = 'https://git.opendaylight.org/gerrit/integration/test'
     BRANCH = 'master'
     QUERY_LIMIT = 50
 
@@ -99,7 +99,7 @@ class GerritQuery:
                              env=newenv)
         (out, nothing) = p.communicate(stdin)
         out = out.decode('utf-8', 'replace')
-        return (p.returncode, out.strip())
+        return p.returncode, out.strip()
 
     def run_command(self, *argv, **kwargs):
         (rc, output) = self.run_command_status(*argv, **kwargs)
@@ -151,7 +151,7 @@ class GerritQuery:
         else:
             username = None
             port = None
-            (hostname, path) = self.remote_url_url.split(":", 1)
+            (hostname, path) = self.remote_url.split(":", 1)
             if "@" in hostname:
                 (username, hostname) = hostname.split("@", 1)
 
@@ -159,7 +159,7 @@ class GerritQuery:
         # name.
         project_name = re.sub(r"^/|(\.git$)", "", path)
 
-        return (hostname, username, port, project_name)
+        return hostname, username, port, project_name
 
     def gerrit_request(self, request):
         """
