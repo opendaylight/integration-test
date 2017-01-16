@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_9cb89bc9",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-16T13:19:21Z",
+      "side": 1,
+      "message": "This was separate because of the test class - I wasn\u0027t sure how to get args from a test so there is a cmd function after the args are passed that I could call from the test class.",
+      "parentUuid": "1a622d24_f52c47ae",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 67
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d5294b9c",
         "filename": "tools/distchanges/changes.py",
         "patchSetId": 3
@@ -99,6 +123,30 @@
       "writtenOn": "2017-01-16T09:29:35Z",
       "side": 1,
       "message": "In case of KeyError, this would fail as well, wouldn\u0027t it?",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 27
+      },
+      "revId": "ec90bc32cc160d87f1ca743fabcee7f66320fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5cc28334",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-16T13:19:21Z",
+      "side": 1,
+      "message": "KeyError is returned when the git.properties is not found which is possible. But yes, the logic is wrong. Need to see how this is working and rework it.",
+      "parentUuid": "1a622d24_f994418c",
       "range": {
         "startLine": 149,
         "startChar": 0,
