@@ -3,7 +3,9 @@ import argparse
 import gerritquery
 import os
 import re
+import shutil
 import sys
+import urllib3
 import zipfile
 
 """
@@ -43,9 +45,11 @@ class Changes:
     # [0] https://logs.opendaylight.org/releng/jenkins092/autorelease-release-carbon/127/archives/dependencies.log.gz
     NETVIRT_PROJECTS = ["controller", "dlux", "dluxapps", "genius", "infrautils", "mdsal", "netconf", "neutron",
                         "odlparent", "openflowplugin", "ovsdb", "sfc", "yangtools"]
-    PROJECT_NAMES = NETVIRT_PROJECTS
+    # PROJECT_NAMES = NETVIRT_PROJECTS
+    PROJECT_NAMES = ["controller"]
     VERBOSE = 0
     DISTRO_PATH = "/tmp/distribution-karaf"
+    DISTRO_URL = None
     REMOTE_URL = gerritquery.GerritQuery.REMOTE_URL
     BRANCH = "master"
     LIMIT = 10
@@ -53,6 +57,7 @@ class Changes:
 
     gerritquery = None
     distro_path = DISTRO_PATH
+    distro_url = DISTRO_URL
     project_names = PROJECT_NAMES
     branch = BRANCH
     limit = LIMIT
@@ -67,6 +72,7 @@ class Changes:
                  verbose=VERBOSE):
         self.branch = branch
         self.distro_path = distro_path
+        #self.distro_url = distro_url
         self.limit = limit
         self.qlimit = qlimit
         self.project_names = project_names
@@ -96,6 +102,42 @@ class Changes:
     def set_projects(self, project_names=PROJECT_NAMES):
         for project in project_names:
             self.projects[project] = {"commit": [], "includes": []}
+
+    def download_distro(self):
+        """
+        Download the distribution from self.distro_url and extract it to self.distro_path
+        """
+        if self.verbose >= 2:
+            print("attempting to download distribution from %s and extract to %s " %
+                  (self.distro_url, self.distro_path))
+
+        tmp_distro_zip = '/tmp/distro.zip'
+        tmp_unzipped_location = '/tmp/distro_unzipped'
+        downlader = urllib3.PoolManager()
+
+        # disabling warnings to prevent scaring the user with InsecureRequestWarning
+        urllib3.disable_warnings()
+
+        downloaded_distro = downlader.request('GET', self.distro_url)
+        with open(tmp_distro_zip, 'wb') as f:
+            f.write(downloaded_distro.data)
+
+        downloaded_distro.release_conn()
+
+        # after the .zip is extracted we want to rename it to be the distro_path which may have
+        # been given by the user
+        distro_zip = zipfile.ZipFile(tmp_distro_zip, 'r')
+        distro_zip.extractall(tmp_unzipped_location)
+        unzipped_distro_folder = os.listdir(tmp_unzipped_location)
+
+        # if the distro_path already exists, we wont overwrite it and just continue hoping what's
+        # there is relevant (and maybe already put there by this tool earlier)
+        try:
+            os.rename(tmp_unzipped_location + "/" + unzipped_distro_folder[0], self.distro_path)
+        except OSError as e:
+            print(e)
+            print("Unable to move extracted files from %s to %s. Using whatever bits are already there" %
+                  (tmp_unzipped_location, self.distro_path))
 
     def get_includes(self, project, changeid=None, msg=None):
         """
@@ -234,6 +276,10 @@ class Changes:
 
         self.init()
         self.print_options()
+
+        if self.distro_url is not None:
+            self.download_distro()
+
         for project in self.projects:
             changeid = self.find_distro_changeid(project)
             if changeid:
@@ -247,6 +293,8 @@ class Changes:
                             help="git branch for patch under test")
         parser.add_argument("-d", "--distro-path", dest="distro_path", default=self.DISTRO_PATH,
                             help="path to the expanded distribution, i.e. " + self.DISTRO_PATH)
+        parser.add_argument("-u", "--distro-url", dest="distro_url", default=self.DISTRO_URL,
+                            help="optional url to download a distribution " + str(self.DISTRO_URL))
         parser.add_argument("-l", "--limit", dest="limit", type=int, default=self.LIMIT,
                             help="number of gerrits to return")
         parser.add_argument("-p", "--projects", dest="projects", default=self.PROJECT_NAMES,
@@ -257,7 +305,6 @@ class Changes:
                             help="git remote url to use for gerrit")
         parser.add_argument("-v", "--verbose", dest="verbose", action="count", default=self.VERBOSE,
                             help="Output more information about what's going on")
-
         parser.add_argument("--license", dest="license", action="store_true",
                             help="Print the license and exit")
         parser.add_argument("-V", "--version", action="version",
@@ -272,6 +319,7 @@ class Changes:
 
         self.branch = options.branch
         self.distro_path = options.distro_path
+        self.distro_url = options.distro_url
         self.limit = options.limit
         self.project_names = options.projects
         self.qlimit = options.qlimit
