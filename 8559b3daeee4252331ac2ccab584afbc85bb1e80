@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_888a1519",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T09:31:45Z",
+      "side": 1,
+      "message": "Remove commented-out code.",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 5
+      },
+      "revId": "8559b3daeee4252331ac2ccab584afbc85bb1e80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e8a10995",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T09:31:45Z",
+      "side": 1,
+      "message": "Add a comment on which error is expected.",
+      "range": {
+        "startLine": 168,
+        "startChar": 53,
+        "endLine": 168,
+        "endChar": 69
+      },
+      "revId": "8559b3daeee4252331ac2ccab584afbc85bb1e80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e8c8e956",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T09:31:45Z",
+      "side": 1,
+      "message": "I think Install_Feature_On_List_Or_All would be better placed in KarafKeywords, but that is for another task.",
+      "range": {
+        "startLine": 168,
+        "startChar": 73,
+        "endLine": 168,
+        "endChar": 90
+      },
+      "revId": "8559b3daeee4252331ac2ccab584afbc85bb1e80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_68bdf9b6",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T09:31:45Z",
+      "side": 1,
+      "message": "Why are you installing netconf connector on each member, if you are only interacting with member-1?",
+      "range": {
+        "startLine": 174,
+        "startChar": 68,
+        "endLine": 174,
+        "endChar": 69
+      },
+      "revId": "8559b3daeee4252331ac2ccab584afbc85bb1e80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
