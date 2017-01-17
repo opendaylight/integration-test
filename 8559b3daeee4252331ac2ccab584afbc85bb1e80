@@ -91,6 +91,30 @@
       "revId": "8559b3daeee4252331ac2ccab584afbc85bb1e80",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a85d517b",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-01-17T09:49:50Z",
+      "side": 1,
+      "message": "This is one node suite and installation on \"all\" nodes looks good (only default parameters used) and the feature will be installed to the only node. Getting http session does not have such a \"nice\" way.",
+      "parentUuid": "1a622d24_68bdf9b6",
+      "range": {
+        "startLine": 174,
+        "startChar": 68,
+        "endLine": 174,
+        "endChar": 69
+      },
+      "revId": "8559b3daeee4252331ac2ccab584afbc85bb1e80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
