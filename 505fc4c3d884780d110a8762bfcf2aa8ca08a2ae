@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_f3c29a83",
+        "filename": "csit/suites/distribution/Karaf_Stop.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T11:00:27Z",
+      "side": 1,
+      "message": "One of the two verbs.",
+      "range": {
+        "startLine": 11,
+        "startChar": 25,
+        "endLine": 11,
+        "endChar": 35
+      },
+      "revId": "505fc4c3d884780d110a8762bfcf2aa8ca08a2ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_33b9b215",
+        "filename": "csit/suites/distribution/Karaf_Stop.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T11:00:27Z",
+      "side": 1,
+      "message": "run",
+      "range": {
+        "startLine": 13,
+        "startChar": 36,
+        "endLine": 13,
+        "endChar": 40
+      },
+      "revId": "505fc4c3d884780d110a8762bfcf2aa8ca08a2ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_733e8a8d",
+        "filename": "csit/suites/distribution/Karaf_Stop.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T11:00:27Z",
+      "side": 1,
+      "message": "try",
+      "range": {
+        "startLine": 14,
+        "startChar": 46,
+        "endLine": 14,
+        "endChar": 49
+      },
+      "revId": "505fc4c3d884780d110a8762bfcf2aa8ca08a2ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_13747666",
+        "filename": "csit/testplans/distribution-userfeatures.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-17T11:00:27Z",
+      "side": 1,
+      "message": "I see I was not strict enough before.\n\n\"for suite files names it is recommended to use snake_case\"\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Source_files",
+      "range": {
+        "startLine": 11,
+        "startChar": 42,
+        "endLine": 11,
+        "endChar": 64
+      },
+      "revId": "505fc4c3d884780d110a8762bfcf2aa8ca08a2ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
