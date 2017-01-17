@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_a5b3b7e7",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-17T18:29:09Z",
+      "side": 1,
+      "message": "why 00? and not just 0? Maybe say gerrit[0]?",
+      "revId": "90652da482c7cf41c13875fff106f1b9d1d2a401",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
