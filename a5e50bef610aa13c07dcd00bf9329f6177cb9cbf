@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_2ea82976",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-17T14:20:48Z",
+      "side": 0,
+      "message": "why remove this? We can move it to a lower log level, but this is a good log to keep in the short-term while debugging the tool. Recall there are quirks with how the git.properties metadata is written and this helps show what the tool ended up using. We could also push this to stderr or something else.\n\nWhat really should be done is the output for the changes is to go to a file.",
+      "revId": "a5e50bef610aa13c07dcd00bf9329f6177cb9cbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

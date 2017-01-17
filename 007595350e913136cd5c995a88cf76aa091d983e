@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_8e917d49",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-17T14:20:48Z",
+      "side": 1,
+      "message": "the projects can be passed in via the command args. use \"-p PROJECTS\". This here is just a default if the user did not pass the project list",
+      "revId": "007595350e913136cd5c995a88cf76aa091d983e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4ec2c534",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-17T14:20:48Z",
+      "side": 1,
+      "message": "keep at 5 and not 0? This is heavy debugging since every query is logged.",
+      "revId": "007595350e913136cd5c995a88cf76aa091d983e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8edfbd0c",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-17T14:20:48Z",
+      "side": 1,
+      "message": "this is good. likely should just keep the gerrit constants all over there. Even branch and the limit params. I wasn\u0027t sure since the cmd parser is here and needs the defaults.",
+      "revId": "007595350e913136cd5c995a88cf76aa091d983e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
