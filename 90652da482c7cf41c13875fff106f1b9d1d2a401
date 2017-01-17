@@ -16,6 +16,24 @@
       "revId": "90652da482c7cf41c13875fff106f1b9d1d2a401",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8514bba0",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-17T18:38:30Z",
+      "side": 1,
+      "message": "because this is how the output is shown on stdout. for example:\n\n09:58 $ python changes.py -d /tmp/distribution-karaf-0.6.0-SNAPSHOT/Using these options: branch: master, limit: 10, qlimit: 50\nremote_url: ssh://git.opendaylight.org:29418\ndistro_path: /tmp/distribution-karaf-0.6.0-SNAPSHOT/\nprojects: netconf, ovsdb, dlux, mdsal, dluxapps, yangtools, openflowplugin, genius, controller, infrautils, odlparent, sfc, neutron\ngerrit 00 is the most recent patch from which the project was built followed by the next most recently merged patches up to 10.\n\nnetconf\ni  grantedOn  lastUpdatd chang subject\n-- ---------- ---------- ----- -----------------------------------------\n00 1484152380 1484153927 48094 Close missing resources when netconf-topolgy goes down\n01 1484142794 1484144758 47906 Bug 5407 - Deprecate Netconf Loopback Mount Through Config Subsystem\n02 1484054130 1484057396 49748 Bug 7429 - Upgrade docgen in restconf to the latest draft of ietf-restconf\n\n\u003csnip\u003e",
+      "parentUuid": "1a622d24_a5b3b7e7",
+      "revId": "90652da482c7cf41c13875fff106f1b9d1d2a401",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
