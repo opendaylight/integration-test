@@ -73,7 +73,8 @@ class GerritQuery:
     @staticmethod
     def print_safe_encoding(string):
         if sys.stdout.encoding is None:
-            print(string)
+            # just print(string) could still throw a UnicodeEncodeError sometimes so casting string to unicode
+            print(unicode(string))
         else:
             print(string.encode(sys.stdout.encoding, 'replace'))
 
