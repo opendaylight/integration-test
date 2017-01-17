@@ -4,6 +4,7 @@ Library           RequestsLibrary
 Library           ./Sxp.py
 Resource          ./SxpLib.robot
 Resource          ./ClusterManagement.robot
+Resource          ./KarafKeywords.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
@@ -14,6 +15,8 @@ ${CLUSTER_NODE_ID}    2.2.2.2
 *** Keywords ***
 Setup SXP Cluster Session
     [Documentation]    Create sessions asociated with SXP cluster setup
+    : FOR    ${index}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    3x    0.2s    Open Controller Karaf Console On Background    member_index=${index}
     Setup SXP Session    ${DEVICE_SESSION}    ${TOOLS_SYSTEM_IP}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    Setup SXP Session    controller${i+1}    ${ODL_SYSTEM_${i+1}_IP}
