@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_c2a98991",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-17T16:01:47Z",
+      "side": 1,
+      "message": "I know, but the list you had seemed like tribal knowledge and I wanted to put it at something with a \"reason\" :)",
+      "parentUuid": "1a622d24_8e917d49",
+      "revId": "007595350e913136cd5c995a88cf76aa091d983e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_4ec2c534",
         "filename": "tools/distchanges/changes.py",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2017-01-17T14:20:48Z",
       "side": 1,
       "message": "keep at 5 and not 0? This is heavy debugging since every query is logged.",
+      "revId": "007595350e913136cd5c995a88cf76aa091d983e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_22c31d58",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-17T16:01:47Z",
+      "side": 1,
+      "message": "whoops. this is left over from when I was trying to figure out why changing verbose here was not working. it\u0027s what \nended up with the change on line 255 below. will fix",
+      "parentUuid": "1a622d24_4ec2c534",
       "revId": "007595350e913136cd5c995a88cf76aa091d983e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
