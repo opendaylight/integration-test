@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_650b5f8e",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-17T18:33:22Z",
+      "side": 1,
+      "message": "I copied this directly from the git-review upstream, so didn\u0027t think we should change it. I really just wanted to give credit back to them.",
+      "parentUuid": "1a622d24_4e1be572",
+      "range": {
+        "startLine": 23,
+        "startChar": 22,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "a5e50bef610aa13c07dcd00bf9329f6177cb9cbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_0e156d3f",
         "filename": "tools/distchanges/changes.py",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-17T13:09:08Z",
       "side": 1,
       "message": "+",
+      "range": {
+        "startLine": 296,
+        "startChar": 41,
+        "endLine": 296,
+        "endChar": 42
+      },
+      "revId": "a5e50bef610aa13c07dcd00bf9329f6177cb9cbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_05fa6b74",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-17T18:33:22Z",
+      "side": 1,
+      "message": "Same here, this was code taken directly from git-review.",
+      "parentUuid": "1a622d24_0e156d3f",
       "range": {
         "startLine": 296,
         "startChar": 41,
