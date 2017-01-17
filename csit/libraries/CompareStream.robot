@@ -5,6 +5,7 @@ Documentation     This Resource contains list of Keywords Set_Variable_If_At_Lea
 ...               for comparison ${ODL_STREAM} to the given ${lower_bound},
 ...               in order to replace ad-hoc conditional execution in suites.
 Library           Collections
+Library           String
 
 *** Variables ***
 &{Stream_dict}    hydrogen=${1}    stable-helium=${2}    stable-lithium=${3}    beryllium=${4}    boron=${5}    carbon=${6}    nitrogen=${7}
@@ -82,6 +83,18 @@ Set_Variable_If_At_Most_Carbon
     ...    return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    carbon    ${value_if_true}    ${value_if_false}
 
+CompareStream__Convert_Input
+    [Arguments]    @{arguments}
+    [Documentation]    Splits arguments into args and kwargs to be used in Run_Keyword_If_At_Least_Else and Run_Keyword_If_At_Most_Else.
+    ${args}    BuiltIn.Create_List
+    ${kwargs}    BuiltIn.Create_Dictionary
+    : FOR    ${arg}    IN    @{arguments}
+    \    ${splitted}    String.Split_String    ${arg}    separator==    max_split=1
+    \    ${len}    BuiltIn.Get_Length    ${splitted}
+    \    Run Keyword If    ${len}==1    Collections.Append_To_List    ${args}    @{splitted}[0]
+    \    ...    ELSE    Collections.Set_To_Dictionary    ${kwargs}    @{splitted}
+    BuiltIn.Return_From_Keyword    ${args}    ${kwargs}
+
 Run_Keyword_If_At_Least
     [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is at least ${lower_bound},
@@ -96,8 +109,10 @@ Run_Keyword_If_At_Least_Else
     BuiltIn.Run_Keyword_If    "${position}" == "-1"    BuiltIn.Fail    Missing else statement in defined expresion
     ${varargs_if}    Collections.Get_Slice_From_List    ${varargs}    0    ${position}
     ${varargs_else}    Collections.Get_Slice_From_List    ${varargs}    ${position+1}
-    ${resp}    BuiltIn.Run_Keyword_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    @{varargs_if}
-    ...    ELSE    @{varargs_else}
+    ${args_if}    ${kwargs_if}    CompareStream__Convert_Input    @{varargs_if}
+    ${args_else}    ${kwargs_else}    CompareStream__Convert_Input    @{varargs_else}
+    ${resp}    BuiltIn.Run_Keyword_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    @{args_if}    &{kwargs_if}
+    ...    ELSE    @{args_else}    &{kwargs_else}
     [Return]    ${resp}
 
 Run_Keyword_If_At_Most
@@ -114,8 +129,10 @@ Run_Keyword_If_At_Most_Else
     BuiltIn.Run_Keyword_If    "${position}" == "-1"    BuiltIn.Fail    Missing else statement in defined expresion
     ${varargs_if}    Collections.Get_Slice_From_List    ${varargs}    0    ${position}
     ${varargs_else}    Collections.Get_Slice_From_List    ${varargs}    ${position+1}
-    ${resp}    BuiltIn.Run_Keyword_If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[${upper_bound}]    @{varargs_if}
-    ...    ELSE    @{varargs_else}
+    ${args_if}    ${kwargs_if}    CompareStream__Convert_Input    @{varargs_if}
+    ${args_else}    ${kwargs_else}    CompareStream__Convert_Input    @{varargs_else}
+    ${resp}    BuiltIn.Run_Keyword_If    &{Stream_dict}[${ODL_STREAM}] >= &{Stream_dict}[${lower_bound}]    @{args_if}    &{kwargs_if}
+    ...    ELSE    @{args_else}    &{kwargs_else}
     [Return]    ${resp}
 
 Run_Keyword_If_More_Than
