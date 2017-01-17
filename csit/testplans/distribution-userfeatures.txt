@@ -8,4 +8,6 @@
 integration/test/csit/suites/distribution/size.robot
 integration/test/csit/suites/netconf/ready/netconfready.robot
 integration/test/csit/suites/distribution/version.robot
-integration/test/csit/suites/distribution/Karaf_Sequence_Install.robot
+integration/test/csit/suites/distribution/karaf_sequence_install.robot
+# Karaf_Stop.robot should be the last one. See comment inside.
+integration/test/csit/suites/distribution/karaf_stop.robot
