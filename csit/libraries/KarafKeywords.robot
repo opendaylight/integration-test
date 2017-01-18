@@ -2,7 +2,7 @@
 Documentation     Karaf library. This library is useful to deal with controller Karaf console for ssh sessions in cluster.
 ...               Running Setup Karaf Keywords is necessary. If SetupUtils initialization is called, this gets initialized as well.
 ...               If this gets initialized, ClusterManagement gets initialized as well.
-Library           SSHLibrary
+Library           SSHLibrary    loglevel=TRACE
 Library           OperatingSystem
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/SSHKeywords.robot
@@ -112,10 +112,10 @@ Open Controller Karaf Console On Background
     BuiltIn.Run Keyword If    '${status}'=='PASS'    BuiltIn.Run Keywords    SSHLibrary.Switch Connection    ${old_connection_index}
     ...    AND    SSHLibrary.Close Connection
     ${odl_ip}=    ClusterManagement.Resolve_IP_Address_For_Member    ${member_index}
-    SSHLibrary.Open Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}
+    SSHLibrary.Open Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}    timeout=10
     ${karaf_connection_object}=    SSHLibrary.Get Connection
     Collections.Set To Dictionary    ${connection_index_dict}    ${member_index}    ${karaf_connection_object.index}
-    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
+    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=
     [Teardown]    SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection_object.index}
 
 Open Controller Karaf Console With Timeout
