@@ -113,11 +113,11 @@ Set Suite Variable
 4.01 Plugin data of HTTP
     [Documentation]    Verifies all plugin data about HTTP provider module plugin
     ${payload} =    Set Variable    {"input": {"plugin-name": "http(s)-base"}}
-    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}:onem2m-plugin-manager-plugin-data    data=${payload}    headers=${headers}
-    Check Response Succesfull With Correct Data    ${resp}    default    http(s)-base    IotdmPlugin    TCP    Exclusive
+    ${response} =    RequestsLibrary.Post Request    session    ${PLUGIN_CONTEXT}:onem2m-plugin-manager-plugin-data    data=${payload}    headers=${headers}
+    Check Response Succesfull With Correct Data    ${response}    default    http(s)-base    IotdmPlugin    TCP    Exclusive
     ...    8282    "0.0.0.0"    "http"    Onem2mHttpBaseIotdmPlugin    *    "server-security-level":"l0"
     ...    "server-port":8282
-    Should Contain X Times    ${resp.content}    "secure-connection":false    3
+    Should Contain X Times    ${response.content}    "secure-connection":false    3
 
 4.02 Plugin data of CoAP
     [Documentation]    Verifies all plugin data about CoAP provider module plugin
@@ -283,6 +283,109 @@ Set Suite Variable
 8.00 Test default configuration for plugins
     [Documentation]    Tests usage of default configuration for IoTDM plugins
     TODO
+
+9.00 IoTDM SimpleConfig GET config
+    [Documentation]    Tests if Onem2mExample plugin doesn't contain any values
+    ${payload} =    Set Variable    {"input": {"plugin-name":"Onem2mExample", "instance-name":"default"}}
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-get    data=${payload}    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+    Should Not Contain    ${resp.content}    key-val-list    "cfg-key":"000000"    "cfg-val":"testVal"
+
+9.01 IoTDM SimpleConfig PUT config
+    [Documentation]    Adds some values to Onem2mExample plugin
+    ${payload} =    Set Variable    {"input": {"plugin-name":"Onem2mExample","instance-name":"default", "plugin-simple-config" : {"key-val-list" : [{"cfg-key":"000000","cfg-val":"testVal"}]}}}
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-put    data=${payload}    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+
+9.02 IoTDM SimpleConfig GET config
+    [Documentation]    Tests if Onem2mExample plugin contains added values
+    ${payload} =    Set Variable    {"input": {"plugin-name":"Onem2mExample", "instance-name":"default"}}
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-get    data=${payload}    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+    Should Contain    ${resp.content}    key-val-list    "cfg-key":"000000"    "cfg-val":"testVal"
+
+9.03 IoTDM SimpleConfig DELETE config
+    [Documentation]    Deletes previously added values from Onem2mExample plugin
+    ${payload} =    Set Variable    {"input": {"plugin-name":"Onem2mExample", "instance-name":"default"}}
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-del    data=${payload}    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+
+9.04 IoTDM SimpleConfig GET config
+    [Documentation]    Tests if Onem2mExample plugin doesn't contain any values
+    ${payload} =    Set Variable    {"input": {"plugin-name":"Onem2mExample", "instance-name":"default"}}
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-get    data=${payload}    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+    Should Not Contain    ${resp.content}    key-val-list    "cfg-key":"000000"    "cfg-val":"testVal"
+
+9.05 IoTDM SimpleConfig GET config startup
+    [Documentation]    Startups Onem2mExample plugin
+    ${payload} =    Set Variable    {"input": {"plugin-name":"Onem2mExample", "instance-name":"default"}}
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-get-startup    data=${payload}    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+
+9.06 IoTDM SimpleConfig GET RunningConfig
+    [Documentation]    Tests if startup was successful
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-get-running-config    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+    Should Contain    ${resp.content}    "instance-name":"default"
+
+9.10 IoTDM SimpleConfig key GET
+    [Documentation]    Tests if keyed Onem2mExample plugin doesn't contain any values
+    ${payload} =    Set Variable    {"input": {"plugin-name":"Onem2mExample", "instance-name":"default", "cfg-key":"testKey2"}}
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-key-get    data=${payload}    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+    Should Not Contain    ${resp.content}    "cfg-val": "testVal2"
+
+9.11 IoTDM SimpleConfig key PUT
+    [Documentation]    Adds some values to keyed Onem2mExample plugin with key
+    ${payload} =    Set Variable    {"input": {"plugin-name":"Onem2mExample", "instance-name":"default", "cfg-key":"testKey2", "cfg-val":"testVal2"}}
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-key-put    data=${payload}    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+
+9.12 IoTDM SimpleConfig key GET
+    [Documentation]    Tests if keyed Onem2mExample plugin contains some values
+    ${payload} =    Set Variable    {"input": {"plugin-name":"Onem2mExample", "instance-name":"default", "cfg-key":"testKey2"}}
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-key-get    data=${payload}    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+    Should Contain    ${resp.content}    "instance-name":"default"    "plugin-name":"Onem2mExample"    "cfg-key":"testKey2"    "cfg-val":"testVal2"
+
+9.13 IoTDM SimpleConfig Key GET startup
+    [Documentation]    Startups keyed Onem2mExample plugin
+    ${payload} =    Set Variable    {"input": {"plugin-name":"Onem2mExample", "instance-name":"default", "cfg-key":"testKey2"}}
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-key-get-startup    data=${payload}    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+
+9.14 IoTDM SimpleConfig GET RunningConfig
+    [Documentation]    Tests if startup was successful
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-get-running-config    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+    Should Contain    ${resp.content}    "instance-name":"default"    "cfg-key":"testKey2"    "cfg-val":"testVal2"
+
+9.15 IoTDM SimpleConfig key DELETE
+    [Documentation]    Deletes previously added values from keyed Onem2mExample plugin
+    ${payload} =    Set Variable    {"input": {"plugin-name":"Onem2mExample", "instance-name":"default", "cfg-key":"testKey2"}}
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-key-del    data=${payload}    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+
+9.20 IoTDM SimpleConfig GET StartupConfig
+    [Documentation]    Tests if StartupConfig include all modules
+    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CONTEXT}/onem2m-simple-config:iplugin-cfg-get-startup-config    headers=${headers}
+    ${status_code} =    Status Code    ${resp}
+    Should Be Equal As Integers    ${status_code}    200
+    Should Contain All Sub Strings   ${resp.content}    "coap(s)"    "ws"    "http(s)-base"    "mqtt"    "Onem2mExample"
 
 *** Keywords ***
 TODO
