@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_718afd1b",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T10:45:03Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "1a622d24_650b5f8e",
+      "range": {
+        "startLine": 23,
+        "startChar": 22,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "a5e50bef610aa13c07dcd00bf9329f6177cb9cbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_0e156d3f",
         "filename": "tools/distchanges/changes.py",
         "patchSetId": 4
