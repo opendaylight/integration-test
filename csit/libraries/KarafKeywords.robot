@@ -28,7 +28,7 @@ Verify Feature Is Installed
     [Return]    ${output}
 
 Issue Command On Karaf Console
-    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${loglevel}=INFO
+    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${loglevel}=TRACE
     [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${controller}
     ...    Note that this keyword will open&close new SSH connection, without switching back to previously current session.
     Open Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
@@ -40,7 +40,7 @@ Issue Command On Karaf Console
     [Return]    ${output}
 
 Safe_Issue_Command_On_Karaf_Console
-    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${loglevel}=INFO
+    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${loglevel}=TRACE
     [Documentation]    Run Issue_Command_On_Karaf_Console but restore previous connection afterwards.
     BuiltIn.Run_Keyword_And_Return    SSHKeywords.Run_Keyword_Preserve_Connection    Issue_Command_On_Karaf_Console    ${cmd}    ${controller}    ${karaf_port}    ${timeout}
     ...    ${loglevel}
@@ -100,7 +100,7 @@ Uninstall a Feature
     [Return]    ${output}
 
 Open Controller Karaf Console On Background
-    [Arguments]    ${member_index}=${1}
+    [Arguments]    ${member_index}=${1}    ${timeout}=2    ${loglevel}=TRACE
     [Documentation]    If there is a stored ssh connection index of connection to the controller's karaf console for ${member_index},
     ...    close the previous connection. In any case create a new connection
     ...    to karaf console for ${member_index}, set correct prompt set and login to karaf console.
@@ -112,10 +112,10 @@ Open Controller Karaf Console On Background
     BuiltIn.Run Keyword If    '${status}'=='PASS'    BuiltIn.Run Keywords    SSHLibrary.Switch Connection    ${old_connection_index}
     ...    AND    SSHLibrary.Close Connection
     ${odl_ip}=    ClusterManagement.Resolve_IP_Address_For_Member    ${member_index}
-    SSHLibrary.Open Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}
+    SSHLibrary.Open Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}    timeout=${timeout}
     ${karaf_connection_object}=    SSHLibrary.Get Connection
     Collections.Set To Dictionary    ${connection_index_dict}    ${member_index}    ${karaf_connection_object.index}
-    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
+    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
     [Teardown]    SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection_object.index}
 
 Open Controller Karaf Console With Timeout
