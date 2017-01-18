@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_c73fd3b2",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T14:09:44Z",
+      "side": 1,
+      "message": "3x    0.9s\nSame time spent waiting (1.8s), less busywork. (Not sure whether busywork is making results better or worse.)",
+      "range": {
+        "startLine": 21,
+        "startChar": 48,
+        "endLine": 21,
+        "endChar": 59
+      },
+      "revId": "e7f31f5cf75919f56553365787ba15b141a0101b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
