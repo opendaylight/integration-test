@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_b6812bc5",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T09:20:35Z",
+      "side": 1,
+      "message": "I have not noticed this when reviewing [0], but there is no change before this test case now, so it is redundant.\n\n[0] https://git.opendaylight.org/gerrit/#/c/43032/1/csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+      "range": {
+        "startLine": 56,
+        "startChar": 21,
+        "endLine": 56,
+        "endChar": 23
+      },
+      "revId": "4514af7abcef887429d9fcd01e495f02836edaeb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_161bbfca",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T09:20:35Z",
+      "side": 1,
+      "message": "Finish the sentence.",
+      "range": {
+        "startLine": 165,
+        "startChar": 62,
+        "endLine": 165,
+        "endChar": 77
+      },
+      "revId": "4514af7abcef887429d9fcd01e495f02836edaeb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d624a70e",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T09:20:35Z",
+      "side": 1,
+      "message": "Seems too long, but no big deal.",
+      "range": {
+        "startLine": 170,
+        "startChar": 43,
+        "endLine": 170,
+        "endChar": 46
+      },
+      "revId": "4514af7abcef887429d9fcd01e495f02836edaeb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
