@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_aca9dc91",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T12:24:45Z",
+      "side": 1,
+      "message": "Now the numbering does not match.\nBut I think it would be easier to use some TemplatedRequests keyword instead of Compare_Topology, and sounds like a work for another Change.",
+      "range": {
+        "startLine": 100,
+        "startChar": 107,
+        "endLine": 100,
+        "endChar": 108
+      },
+      "revId": "3adccdeb9c6ad8a023f86f94a80b8c5b0dd5e99b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
