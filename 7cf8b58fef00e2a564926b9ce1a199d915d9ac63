@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_8e4333ae",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-18T22:02:11Z",
+      "side": 1,
+      "message": "latest patch set does not use this. can you remove now?",
+      "range": {
+        "startLine": 680,
+        "startChar": 0,
+        "endLine": 685,
+        "endChar": 28
+      },
+      "revId": "7cf8b58fef00e2a564926b9ce1a199d915d9ac63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
