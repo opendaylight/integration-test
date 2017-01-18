@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b1a93592",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T10:43:53Z",
+      "side": 1,
+      "message": "I have pattern-matched this to https://git.opendaylight.org/gerrit/42963",
+      "parentUuid": "1a622d24_0528abe0",
+      "range": {
+        "startLine": 296,
+        "startChar": 41,
+        "endLine": 296,
+        "endChar": 42
+      },
+      "revId": "a5e50bef610aa13c07dcd00bf9329f6177cb9cbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_6e2d0195",
         "filename": "tools/distchanges/tests/test_changes_old.py.old",
         "patchSetId": 4
