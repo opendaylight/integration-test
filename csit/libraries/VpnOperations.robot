@@ -89,3 +89,24 @@ Verify Flows Are Present For L3VPN
     Log    ${l3vpn_table}
     : FOR    ${i}    IN    @{vm_ips}
     \    ${resp}=    Should Contain    ${l3vpn_table}    ${i}
+
+Verify Tunnel Status as UP
+    [Documentation]    Verify that the tunnels are UP
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
+    Log    ${output}
+    Should Contain    ${output}    ${STATE_UP}
+    Should Not Contain    ${output}    ${STATE_DOWN}
+
+Verify Tunnel Status as DOWN
+    [Documentation]    Verify that the tunnels are DOWN
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
+    Log    ${output}
+    Should Contain    ${output}    ${STATE_DOWN}
+
+Verify VXLAN interface
+    [Documentation]    Verify that the VXLAN interfaces are Enabled
+    ${output}=    Issue Command On Karaf Console    ${VXLAN_SHOW}
+    Log    ${output}
+    Should Contain    ${output}    ${STATE_UP}
+    Should Contain    ${output}    ${STATE_ENABLE}
+    Should Not Contain    ${output}    ${STATE_DISABLE}
