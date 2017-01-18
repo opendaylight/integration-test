@@ -110,7 +110,7 @@ Workflow Full Mesh Topology
     # Workflow starts
     Log to console    ${\n}
     Log To Console    Start a mininet full mesh ${switches} switches
-    ${status}    ${result}    Run Keyword And Ignore Error    MininetKeyword.Start Mininet Full Mesh    ${switches}    mininet_timeout=${mininet_timeout}
+    ${status}    ${result}    Run Keyword And Ignore Error    MininetKeywords.Start Mininet Full Mesh    ${switches}    mininet_timeout=${mininet_timeout}
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail starting mininet    ${topology_discover_time}
     ${start_time}=    DateTime.Get Current Date    result_format=timestamp
     Log To Console    Verify controller is OK
