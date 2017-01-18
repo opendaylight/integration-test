@@ -18,7 +18,7 @@ Setup Karaf Keywords
     ClusterManagement.ClusterManagement_Setup
     BuiltIn.Comment    First connections to Karaf console may fail, so WUKS is used. TODO: Track as a Bug.
     : FOR    ${index}    IN    @{ClusterManagement__member_index_list}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    3x    0.2s    Open Controller Karaf Console On Background    member_index=${index}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    10x    0.2s    Open Controller Karaf Console On Background    member_index=${index}
 
 Verify Feature Is Installed
     [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}
