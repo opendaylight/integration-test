@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_8edfb3d5",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-18T22:39:53Z",
+      "side": 1,
+      "message": "I know it\u0027s the style of these test cases/suites, but putting\nthese extra Log lines kind of clutters the code (imho).\n\nthe very next line, in good Robot fashion says \"Verify Tunnel Status as UP\" and that\u0027s very clear to me. having\nthe extra Log is not necessary.\n\njust my opinion. no problem if you like/need it.",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 61
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2ee81f7b",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-18T22:39:53Z",
+      "side": 1,
+      "message": "put above Should Be Equal line...",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 26
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0eeba378",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-18T22:39:53Z",
+      "side": 1,
+      "message": "does the tunnel status bounce when disabling the monitoring? if so, I can understand the WUKS here, but if not, then this\n30s polling not needed. It will only serve to slow down\nfailing runs when a real problem is there.",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 74
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6e05f744",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-18T22:39:53Z",
+      "side": 1,
+      "message": "move up one line",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0ea2834a",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-18T22:39:53Z",
+      "side": 1,
+      "message": "can you double check the right values for the 60s total polling at 10s intervals is what you want? I see in the \nsandbox, that these Check Tunnel Monitoring steps are \npassing immediately.\n\nif we leave the 60s polling and there is a time when the\nfeature(s) are broken in the controller this test case \nwill spin over 5m to fail. Maybe it can be dropped to just\na few seconds at 1s intervals?\n\njust thinking worse case scenario. and our netvirt CSIT is\nalready pretty long",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 88
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cecd2b33",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-18T22:39:53Z",
+      "side": 1,
+      "message": "move this up one line. if the \"Should Be Equal As Strings\" fails above, this line wont execute and that\u0027s precisely \nwhen we want to see the debug logs.",
+      "range": {
+        "startLine": 263,
+        "startChar": 4,
+        "endLine": 263,
+        "endChar": 26
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
