@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_477bc38b",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-18T14:15:56Z",
+      "side": 1,
+      "message": ", \"integration/distribution\",\nJust to see if it supports projects with a slash in their name.",
+      "range": {
+        "startLine": 46,
+        "startChar": 80,
+        "endLine": 46,
+        "endChar": 81
+      },
+      "revId": "6eb76f610e9d865bef2eeb1f3ecad2336ff3eedf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
