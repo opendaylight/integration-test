@@ -124,6 +124,12 @@ Run_Keyword_If_More_Than
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] > &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_Equals
+    [Arguments]    ${stream}    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare ${stream} to ${ODL_STREAM} and in case ${ODL_STREAM} equals ${stream},
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] == &{Stream_dict}[${stream}]    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_Less_Than
     [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is less than ${lower_bound},
