@@ -66,6 +66,110 @@ TC01 Verify That Default Tunnel Type Is Set To BFD
     Log    Verify Ping Between VMs on different Compute Nodes
     Wait Until Keyword Succeeds    30s    5s    Verify Ping
 
+TC02 Verify that Tunnel Monitoring can be disabled and monitor interval can be configured through REST
+    [Documentation]    Verify that Tunnel Monitoring can be disabled and monitor interval can be configured through REST
+    Log    Verifying ITM tunnel through REST
+    ${output} =    ITM Get Tunnels
+    Log    ${output}
+    Log    Verifying the tunnel state with show state command
+    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+    Log    Verifying the BFD based tunnel configuration is on
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
+    Log    ${output}
+    Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
+    Log    Disabling the tunnel monitoring from REST
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disable_tunnel_monitoring    session=session
+    Log    Verifying the tunnel monitoring after disable
+    ${resp}    RequestsLibrary.Get Request    session    ${TUNNEL_MONITOR_URL}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${BFD_ENABLED_FALSE}
+    Should Contain    ${resp.content}    ${BFD}
+    Log    Verifying the default tunnel monitoring is off
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
+    Log    ${output}
+    Should Contain    ${output}    ${TUNNEL_MONITOR_OFF}
+    Log    Verifying the tunnel state with show state command
+    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+    Log    Verifying the default monitoring interval i.e 1000ms via REST
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${TMI_1000}
+    Log    Changing the default tunnel monitoring interval after monitoring is disabled
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_interval    mapping={"int":"2000"}    session=session
+    Log    Verifying the default monitoring interval is changed to 2000ms
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${TMI_2000}
+
+TC03 Verify that the monitoring interval value boundaries with Monitoring Enabled
+    [Documentation]    Verify that the monitoring interval value boundaries with Monitoring Enabled
+    Log    Verifying ITM tunnel through REST
+    ${output} =    ITM Get Tunnels
+    Log    ${output}
+    Log    Verifying the tunnel state with show state command
+    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+    Log    Enabling the tunnel monitoring from REST
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/enable_tunnel_monitoring    session=session
+    Log    Verifying the tunnel monitoring is enabled
+    ${resp}    RequestsLibrary.Get Request    session    ${TUNNEL_MONITOR_URL}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${BFD_ENABLED_TRUE}
+    Should Contain    ${resp.content}    ${BFD}
+    Log    Verifying the tunnel status
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
+    Log    ${output}
+    Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
+    Log    Changing the tunnel monitoring interval to 1000ms
+    Log    Verifying the default monitoring interval i.e 1000ms
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_interval    mapping={"int":"1000"}    session=session
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${TMI_1000}
+    Log    Setting the tunnel monitoring interval to 30000ms
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_interval    mapping={"int":"30000"}    session=session
+    Log    Verifying the tunnel monitoring interval to 30000ms
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${TMI_30000}
+    Log    Verifying the tunnel monitoring interval to greater than 30000ms
+    ${resp}    RequestsLibrary.Put Request    session    ${MONITOR_INTERVAL_NEW}    data=${INTERVAL_31000}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_ERROR_CODE}
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Log    ${resp.content}
+    Should Not Contain    ${resp.content}    ${TMI_31000}
+    Should Contain    ${resp.content}    ${TMI_30000}
+    Log    Verifying the tunnel monitoring interval to 50ms
+    ${resp}    RequestsLibrary.Put Request    session    ${MONITOR_INTERVAL_NEW}    data=${INTERVAL_50}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_ERROR_CODE}
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Log    ${resp.content}
+    Should Not Contain    ${resp.content}    ${TMI_50}
+    Should Contain    ${resp.content}    ${TMI_30000}
+    Log    Verifying the tunnel monitoring interval to 0ms
+    ${resp}    RequestsLibrary.Put Request    session    ${MONITOR_INTERVAL_NEW}    data=${INTERVAL_0}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_ERROR_CODE}
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Log    ${resp.content}
+    Should Not Contain    ${resp.content}    ${TMI_0}
+    Should Contain    ${resp.content}    ${TMI_30000}
+    Log    Verifying the tunnel monitoring interval to a negative value
+    ${resp}    RequestsLibrary.Put Request    session    ${MONITOR_INTERVAL_NEW}    data=${INTERVAL_NEG}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_ERROR_CODE}
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Log    ${resp.content}
+    Should Not Contain    ${resp.content}    ${TMI_NEG}
+    Should Contain    ${resp.content}    ${TMI_30000
+
 *** Keywords ***
 Start Suite
     [Documentation]    Run before the suite execution
