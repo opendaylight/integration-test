@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_6e2977e5",
+        "filename": "csit/suites/sfc/SFC_Basic/090__sfc_service_functions_logical.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-18T22:11:06Z",
+      "side": 1,
+      "message": "this is already in sfc/Variables.robot",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 80
+      },
+      "revId": "050461ca08c8f645a4ce85b0e02106842b7da960",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ae1f0fb6",
+        "filename": "csit/suites/sfc/SFC_Basic/090__sfc_service_functions_logical.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-18T22:11:06Z",
+      "side": 1,
+      "message": "could reduce this to ${SERVICE_FUNCTIONS_URI}",
+      "range": {
+        "startLine": 18,
+        "startChar": 18,
+        "endLine": 18,
+        "endChar": 69
+      },
+      "revId": "050461ca08c8f645a4ce85b0e02106842b7da960",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8e1a13c4",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_forwarders_logical.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-18T22:11:06Z",
+      "side": 1,
+      "message": "could reduce this to ${SERVICE_FORWARDERS_URI}",
+      "range": {
+        "startLine": 18,
+        "startChar": 21,
+        "endLine": 18,
+        "endChar": 92
+      },
+      "revId": "050461ca08c8f645a4ce85b0e02106842b7da960",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
