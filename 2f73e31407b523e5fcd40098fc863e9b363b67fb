@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_56ced72e",
+        "filename": "csit/variables/netvirt/disable_tunnel_monitoring/data.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-01-18T09:27:58Z",
+      "side": 1,
+      "message": "Better to remove this space",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "2f73e31407b523e5fcd40098fc863e9b363b67fb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d6d947f4",
+        "filename": "csit/variables/netvirt/monitor_interval/data.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-01-18T09:27:58Z",
+      "side": 1,
+      "message": "JSON formated",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 1
+      },
+      "revId": "2f73e31407b523e5fcd40098fc863e9b363b67fb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
