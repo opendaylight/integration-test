@@ -464,6 +464,7 @@ Write Commands Until Expected Prompt
     [Arguments]    ${cmd}    ${prompt}    ${timeout}=30s
     [Documentation]    quick wrapper for Write and Read Until Prompt Keywords to make test cases more readable
     SSHLibrary.Set Client Configuration    timeout=${timeout}
+    SSHLibrary.Read
     SSHLibrary.Write    ${cmd}
     ${output}=    SSHLibrary.Read Until    ${prompt}
     [Return]    ${output}
