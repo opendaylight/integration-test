@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_91eb54db",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-19T05:34:55Z",
+      "side": 1,
+      "message": "I have removed some of the redundant log statements.",
+      "parentUuid": "1a622d24_8edfb3d5",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 61
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_2ee81f7b",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-18T22:39:53Z",
       "side": 1,
       "message": "put above Should Be Equal line...",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 26
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f1bd68d9",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-19T05:34:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_2ee81f7b",
       "range": {
         "startLine": 85,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_d1c02c52",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-19T05:34:55Z",
+      "side": 1,
+      "message": "Ideally the tunnel status should not fluctuate. But in case it does, the tunnels are expected to be up again within a few seconds. \nSo I am just reducing the max timeout to 10s. Now it should not cause much delay in case of failure.",
+      "parentUuid": "1a622d24_0eeba378",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 74
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_6e05f744",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2017-01-18T22:39:53Z",
       "side": 1,
       "message": "move up one line",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_31b400f1",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-19T05:34:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_6e05f744",
       "range": {
         "startLine": 97,
         "startChar": 4,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_71d15822",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-19T05:34:55Z",
+      "side": 1,
+      "message": "True that. It just takes a few seconds to get updated. So reducing the interval here too.",
+      "parentUuid": "1a622d24_0ea2834a",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 88
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_cecd2b33",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
         "patchSetId": 5
@@ -128,6 +248,30 @@
       "writtenOn": "2017-01-18T22:39:53Z",
       "side": 1,
       "message": "move this up one line. if the \"Should Be Equal As Strings\" fails above, this line wont execute and that\u0027s precisely \nwhen we want to see the debug logs.",
+      "range": {
+        "startLine": 263,
+        "startChar": 4,
+        "endLine": 263,
+        "endChar": 26
+      },
+      "revId": "5035f757b31e28615fb693e7d0e5343cab351600",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b1c77063",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-01-19T05:34:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_cecd2b33",
       "range": {
         "startLine": 263,
         "startChar": 4,
