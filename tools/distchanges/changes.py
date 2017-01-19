@@ -83,11 +83,11 @@ class Changes:
         print("")
         if project:
             print("%s" % project)
-        print("i  grantedOn  lastUpdatd chang subject")
-        print("-- ---------- ---------- ----- -----------------------------------------")
+        print("i  grantedOn  lastUpdatd chang url                                       subject")
+        print("-- ---------- ---------- ----- ----------------------------------------- -------")
         for i, gerrit in enumerate(gerrits):
-            print("%02d %d %d %s %s" % (i, gerrit["grantedOn"], gerrit["lastUpdated"],
-                                        gerrit["number"], gerrit["subject"]))
+            print("%02d %d %d %s %s %s" % (i, gerrit["grantedOn"], gerrit["lastUpdated"],
+                                           gerrit["number"], gerrit["url"], gerrit["subject"]))
 
     def pretty_print_includes(self, includes):
         for project, gerrits in includes.items():
@@ -216,7 +216,6 @@ class Changes:
             print("did not find Change-Id in %s, trying with commit-msg: %s" % (project, msg.group()))
 
         if msg:
-            # TODO: add new query using this msg
             gerrits = self.gerritquery.get_gerrits(project, None, 1, msg.group())
             if gerrits:
                 return gerrits[0]["id"]
@@ -248,8 +247,8 @@ class Changes:
                 break  # all jars will have the same git.properties
         return None
 
-    def init(self):
-        self.gerritquery = gerritquery.GerritQuery(self.remote_url, self.branch, self.qlimit, self.verbose)
+    def set_gerritquery(self):
+        self.gerritquery = gerritquery.get_gerrit_query(self.remote_url, self.branch, self.qlimit, self.verbose)
         self.set_projects(self.project_names)
 
     def print_options(self):
@@ -272,7 +271,7 @@ class Changes:
         """
         # TODO: need method to validate the branch matches the distribution
 
-        self.init()
+        self.set_gerritquery()
         self.print_options()
 
         if self.distro_url is not None:

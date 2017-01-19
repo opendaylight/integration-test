@@ -1,17 +1,20 @@
 """
 This module contains functions to manipulate gerrit queries.
 """
+
 import datetime
 import json
 import os
 import re
+import requests
 import shlex
 import subprocess
 import traceback
 import sys
+import urllib3
 
+# TODO: Need to test with python3
 
-# TODO: Haven't tested python 3
 if sys.version < '3':
     import urllib
     import urlparse
@@ -32,6 +35,21 @@ class GitReviewException(Exception):
     EXIT_CODE = 127
 
 
+class ChangeSetException(GitReviewException):
+
+    def __init__(self, e):
+        GitReviewException.__init__(self)
+        self.e = str(e)
+
+    def __str__(self):
+        return self.__doc__ % self.e
+
+
+class ReviewInformationNotFound(ChangeSetException):
+    "Could not fetch review information for change %s"
+    EXIT_CODE = 35
+
+
 class CommandFailed(GitReviewException):
     """Command Failure Analysis"""
     def __init__(self, *args):
@@ -49,6 +67,13 @@ The following command failed with exit code %(rc)d
 -----------------------
 %(output)s
 -----------------------""" % self.quickmsg
+
+
+def get_gerrit_query(remote_url, branch, query_limit, verbose):
+    if remote_url.startswith('http://') or remote_url.startswith('https://'):
+        return HttpGerritQuery(remote_url, branch, query_limit, verbose)
+    else:
+        return SshGerritQuery(remote_url, branch, query_limit, verbose)
 
 
 class GerritQuery:
@@ -117,6 +142,95 @@ class GerritQuery:
             raise klazz(rc, output, argv, env)
         return output
 
+    def get_gerrits(self, project, changeid=None, limit=1, msg=None):
+        """
+        Get a list of gerrits from gerrit query request.
+
+        Gerrit returns queries in order of lastUpdated so resort based on merge time.
+        Also because gerrit returns them in lastUpdated order, it means all gerrits
+        merged after the one we are using will be returned, so the query limit needs to be
+        high enough to capture those extra merges plus the limit requested.
+        TODO: possibly add the before query to set a start time for the query around the change
+
+        :param str project: The project to search
+        :param str or None changeid: A Change-Id to search
+        :param int limit: The number of items to return
+        :param str msg: A commit-msg to search
+        :return str: A gerrit query
+        """
+        query = self.make_gerrit_query(project, changeid, limit, msg)
+        gerrits = self.gerrit_request(query)
+        from operator import itemgetter
+        sorted_gerrits = sorted(gerrits, key=itemgetter('grantedOn'), reverse=True)
+        return sorted_gerrits
+
+    def make_gerrit_query(self, project, changeid, limit, msg):
+        pass
+
+    def gerrit_request(self, query):
+        pass
+
+
+class SshGerritQuery(GerritQuery):
+
+    def parse_gerrit(self, line, parse_exc=Exception):
+        """
+        Parse a single gerrit line and copy certain fields to a dictionary.
+
+        The merge time is found by looking for the Patch Set->Approval with
+        a SUBM type. Then use the grantedOn value.
+
+        :param str line: A single line from a previous gerrit query
+        :param parse_exc: The exception to except
+        :return dict: Pairs of gerrit items and their values
+        """
+        parsed = {}
+        try:
+            if line and line[0] == "{":
+                try:
+                    data = json.loads(line)
+                    parsed['id'] = data['id']
+                    parsed['subject'] = data['subject']
+                    parsed['url'] = data['url']
+                    parsed['number'] = data['number']
+                    parsed['lastUpdated'] = data['lastUpdated']
+                    if "patchSets" in data:
+                        patch_sets = data['patchSets']
+                        for patch_set in reversed(patch_sets):
+                            if "approvals" in patch_set:
+                                approvals = patch_set['approvals']
+                                for approval in approvals:
+                                    if 'type' in approval and approval['type'] == 'SUBM':
+                                        parsed['grantedOn'] = approval['grantedOn']
+                                        break
+                                if parsed['grantedOn']:
+                                    break
+                except Exception:
+                    if self.verbose:
+                        print("Failed to decode JSON: %s" % traceback.format_exc())
+                        self.print_safe_encoding(line)
+        except Exception as err:
+            print("Exception: %s" % traceback.format_exc())
+            raise parse_exc(err)
+        return parsed
+
+    def extract_lines_from_json(self, changes):
+        """
+        Extract a list of lines from the JSON gerrit query response.
+
+        Drop the stats line.
+
+        :param unicode changes: The full JSON gerrit query response
+        :return list: Lines of the JSON
+        """
+        lines = []
+        for line in changes.split("\n"):
+            if line.find('stats') == -1:
+                lines.append(line)
+        if self.verbose >= 2:
+            print("get_gerrit_lines: found %d lines" % len(lines))
+        return lines
+
     def parse_gerrit_ssh_params_from_git_url(self):
         """
         Parse a given Git "URL" into Gerrit parameters. Git "URLs" are either
@@ -167,7 +281,7 @@ class GerritQuery:
         Send a gerrit request and receive a response.
 
         :param str request: A gerrit query
-        :return unicode: The JSON response
+        :return list str: A list of gerrits
         """
         (hostname, username, port, project_name) = \
             self.parse_gerrit_ssh_params_from_git_url()
@@ -186,7 +300,12 @@ class GerritQuery:
             request)
         if self.verbose >= 3:
             self.print_safe_encoding(output)
-        return output
+
+        lines = self.extract_lines_from_json(output)
+        gerrits = []
+        for line in lines:
+            gerrits.append(self.parse_gerrit(line))
+        return gerrits
 
     def make_gerrit_query(self, project, changeid=None, limit=1, msg=None):
         """
@@ -207,87 +326,105 @@ class GerritQuery:
             query += " message:%s" % msg
         return query
 
-    def parse_gerrit(self, line, parse_exc=Exception):
+
+class HttpGerritQuery(GerritQuery):
+
+    @staticmethod
+    def utc_to_epoch(utc):
+        import calendar
+        utc = str(utc).split(".", 1)[0]
+        dtime = datetime.datetime.strptime(utc, "%Y-%m-%d %H:%M:%S")
+        epoch = calendar.timegm(dtime.timetuple())
+        return epoch
+
+    def parse_query(self, line, parse_exc=Exception):
         """
-        Parse a single gerrit line and copy certain fields to a dictionary.
+        Parse a single gerrit query and copy certain fields to a dictionary.
 
-        The merge time is found by looking for the Patch Set->Approval with
-        a SUBM type. Then use the grantedOn value.
+        The merge time is found by looking for the last revision and using
+        it's created time.
 
-        :param str line: A single line from a previous gerrit query
+        :param str line: A single response from a previous gerrit query
         :param parse_exc: The exception to except
         :return dict: Pairs of gerrit items and their values
         """
-        parsed = {}
+        gerrits = []
         try:
-            if line and line[0] == "{":
-                try:
-                    data = json.loads(line)
-                    parsed['id'] = data['id']
-                    parsed['number'] = data['number']
-                    parsed['subject'] = data['subject']
-                    parsed['url'] = data['url']
-                    parsed['lastUpdated'] = data['lastUpdated']
-                    if "patchSets" in data:
-                        patch_sets = data['patchSets']
-                        for patch_set in reversed(patch_sets):
-                            if "approvals" in patch_set:
-                                approvals = patch_set['approvals']
-                                for approval in approvals:
-                                    if 'type' in approval and approval['type'] == 'SUBM':
-                                        parsed['grantedOn'] = approval['grantedOn']
-                                        break
-                                if parsed['grantedOn']:
-                                    break
-                except Exception:
-                    if self.verbose:
-                        print("Failed to decode JSON: %s" % traceback.format_exc())
-                        self.print_safe_encoding(line)
+            try:
+                lines = json.loads(line)
+                for line in lines:
+                    parsed = {}
+                    parsed['id'] = line['change_id']
+                    parsed['subject'] = line['subject']
+                    parsed['number'] = str(line['_number'])
+                    parsed['lastUpdated'] = self.utc_to_epoch(line['updated'])
+                    parsed['url'] = "https://git.opendaylight.org/gerrit/" + parsed['number']
+                    for message in line["messages"]:
+                        if str(message['message']).find("Change has been successfully merged") != -1:
+                            parsed['grantedOn'] = self.utc_to_epoch(message['date'])
+                            break
+                    if parsed['grantedOn']:
+                        gerrits.append(parsed)
+
+            except Exception:
+                if self.verbose:
+                    print("Failed to decode JSON: %s" % traceback.format_exc())
+                    self.print_safe_encoding(line)
         except Exception as err:
             print("Exception: %s" % traceback.format_exc())
             raise parse_exc(err)
-        return parsed
+        return gerrits
 
-    def extract_lines_from_json(self, changes):
+    @staticmethod
+    def http_code_2_return_code(code):
+        """Tranform http status code to system return code."""
+        return (code - 301) % 255 + 1
+
+    def run_http_exc(self, klazz, url, **env):
+        """Run http GET request url, on failure raise klazz
+
+        klazz should be derived from CommandFailed
         """
-        Extract a list of lines from the JSON gerrit query response.
+        try:
+            res = requests.get(url, **env)
+        except klazz:
+            raise
+        except Exception as err:
+            raise klazz(255, str(err), ('GET', url), env)
+        if not 200 <= res.status_code < 300:
+            raise klazz(self. http_code_2_return_code(res.status_code),
+                        res.text, ('GET', url), env)
+        return res
 
-        Drop the stats line.
-
-        :param unicode changes: The full JSON gerrit query response
-        :return list: Lines of the JSON
-        """
-        lines = []
-        for line in changes.split("\n"):
-            if line.find('stats') == -1:
-                lines.append(line)
+    def gerrit_request(self, request):
+        urllib3.disable_warnings()
         if self.verbose >= 2:
-            print("get_gerrit_lines: found %d lines" % len(lines))
-        return lines
+            print("gerrit request %s" % (request))
+        output = self.run_http_exc(CommandFailed, request)
 
-    def get_gerrits(self, project, changeid=None, limit=1, msg=None):
+        if self.verbose >= 3:
+            self.print_safe_encoding(output.text)
+
+        gerrits = self.parse_query(output.text[4:])
+        return gerrits
+
+    def make_gerrit_query(self, project, changeid=None, limit=1, msg=None):
         """
-        Get a list of gerrits from gerrit query request.
-
-        Gerrit returns queries in order of lastUpdated so resort based on merge time.
-        Also because gerrit returns them in lastUpdated order, it means all gerrits
-        merged after the one we are using will be returned, so the query limit needs to be
-        high enough to capture those extra merges plus the limit requested.
-        TODO: possibly add the before query to set a start time for the query around the change
+        Make a gerrit query by combining the given options.
 
         :param str project: The project to search
-        :param str or None changeid: A Change-Id to search
+        :param str changeid: A Change-Id to search
         :param int limit: The number of items to return
         :param str msg: A commit-msg to search
         :return str: A gerrit query
         """
-        query = self.make_gerrit_query(project, changeid, limit, msg)
-        changes = self.gerrit_request(query)
-        lines = self.extract_lines_from_json(changes)
-        gerrits = []
-        for line in lines:
-            gerrits.append(self.parse_gerrit(line))
-
-        from operator import itemgetter
-        sorted_gerrits = sorted(gerrits, key=itemgetter('grantedOn'), reverse=True)
-        return sorted_gerrits
+        # https://git.opendaylight.org/gerrit/changes/?q=branch:master+project:netvirt+status:merged+change:I3250a8d1976c0b9e18b27960818525dcfb50f35f&n=1&o=CURRENT_REVISION
+        query = urljoin(self.remote_url, "/gerrit/changes/")
+        query += "?q=branch:%s+project:%s+status:merged" \
+                 % (self.branch, project)
+        if changeid:
+            query += "+change:%s" % changeid
+        if msg:
+            query += "+message:%s" % msg
+        query += "&n=%d&o=MESSAGES" % limit
+        return query
