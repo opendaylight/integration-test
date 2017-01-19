@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_40ca84a1",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-01-19T22:07:37Z",
+      "side": 1,
+      "message": "We have some logic like this in Int/Pack for RPM building, btw. Maybe doing more complex stuff than you need, but also maybe worth highlighting as a reference https://github.com/opendaylight/integration-packaging/blob/master/rpm/cache/cache.py#L31-L78",
+      "range": {
+        "startLine": 104,
+        "startChar": 8,
+        "endLine": 104,
+        "endChar": 23
+      },
+      "revId": "58dfa96b4c05f0054496a060b339fea50d0a31a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
