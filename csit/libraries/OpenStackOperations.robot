@@ -416,11 +416,11 @@ Test Netcat Operations From Vm Instance
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     Log    ${vm_ip}
-    ${output}=    Write Commands Until Prompt    ( ( echo "${server_data}" | sudo timeout 60 nc -w 1 -l ${additional_args} ${port} ) & )
+    ${output}=    Write Commands Until Prompt    ( ( echo "${server_data}" | sudo timeout 60 nc -l ${additional_args} ${port} ) & )
     Log    ${output}
     ${output}=    Write Commands Until Prompt    sudo netstat -nlap | grep ${port}
     Log    ${output}
-    ${nc_output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo echo "${client_data}" | nc -v -w 1 ${additional_args} ${dest_ip} ${port}
+    ${nc_output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${dest_ip} ${port}
     Log    ${nc_output}
     ${output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo route -n
     Log    ${output}
