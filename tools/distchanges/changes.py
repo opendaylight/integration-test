@@ -76,7 +76,6 @@ class Changes:
         self.project_names = project_names
         self.remote_url = remote_url
         self.verbose = verbose
-        self.set_projects(project_names)
 
     @staticmethod
     def pretty_print_gerrits(project, gerrits):
@@ -320,10 +319,11 @@ class Changes:
         self.distro_path = options.distro_path
         self.distro_url = options.distro_url
         self.limit = options.limit
-        self.project_names = options.projects
         self.qlimit = options.qlimit
         self.remote_url = options.remote_url
         self.verbose = options.verbose
+        if options.projects != self.PROJECT_NAMES:
+            self.project_names = options.projects.split(',')
 
         # TODO: add check to verify that the remote can be reached,
         # though the first gerrit query will fail anyways
