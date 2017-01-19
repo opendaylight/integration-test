@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_dfd6734e",
+        "filename": "csit/libraries/VtnCoKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-01-19T11:14:12Z",
+      "side": 1,
+      "message": "It will probably work, but it is out of the scope of this change (removing ODL_STREAM variable usage).\nAdditionally, it directly hits the functionality and i prefer the maintainers and users of this library to fix/update this according to their needs. Trello https://trello.com/c/fDiIUFMv/431-remove-hardcoded-versions-of-vtn-coordinator-in-libraries-vtncokeywords-robot was created for this.",
+      "parentUuid": "1a622d24_7475c662",
+      "range": {
+        "startLine": 62,
+        "startChar": 102,
+        "endLine": 62,
+        "endChar": 110
+      },
+      "revId": "19af14b220a8c418aff160a7271aa40339004ca3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_f408b6db",
         "filename": "csit/libraries/VtnCoKeywords.robot",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-19T09:24:58Z",
       "side": 1,
       "message": "Maybe if we had ${boron} and ${boron_snapshot}, this would be ${${ODL_STREAM}} and the previous comment would be ${${ODL_STREAM}_snapshot}.",
+      "range": {
+        "startLine": 67,
+        "startChar": 123,
+        "endLine": 67,
+        "endChar": 128
+      },
+      "revId": "19af14b220a8c418aff160a7271aa40339004ca3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7fc75f96",
+        "filename": "csit/libraries/VtnCoKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-01-19T11:14:12Z",
+      "side": 1,
+      "message": "See the reply above. Trello https://trello.com/c/fDiIUFMv/431-remove-hardcoded-versions-of-vtn-coordinator-in-libraries-vtncokeywords-robot created for this.",
+      "parentUuid": "1a622d24_f408b6db",
       "range": {
         "startLine": 67,
         "startChar": 123,
