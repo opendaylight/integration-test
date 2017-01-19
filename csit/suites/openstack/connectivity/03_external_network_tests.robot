@@ -1,13 +1,16 @@
 *** Settings ***
 Documentation     Test suite to check North-South connectivity in L3 using a router and an external network
-Suite Setup       Devstack Suite Setup    source_pwd=yes
+Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+...               AND    DevstackUtils.Devstack Suite Setup
 Suite Teardown    Close All Connections
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
