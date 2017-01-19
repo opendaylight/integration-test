@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_60706072",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-01-19T22:49:24Z",
+      "side": 0,
+      "message": "why remove the default?",
+      "revId": "58dfa96b4c05f0054496a060b339fea50d0a31a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
