@@ -16,6 +16,24 @@
       "revId": "58dfa96b4c05f0054496a060b339fea50d0a31a3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_209ca85c",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-20T00:59:30Z",
+      "side": 0,
+      "message": "because this happens before argparse, and having this here\nwas not letting -p arguments overwrite the projects list.\nit was just appending the new projects to the default \nprojects. not what I assumed we wanted.\n\nbut, this made me do more testing and the next patch set is \nmore robust I think.",
+      "parentUuid": "1a622d24_60706072",
+      "revId": "58dfa96b4c05f0054496a060b339fea50d0a31a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
