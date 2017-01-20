@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite measuring binding export and forwarding speed.
 Test Setup        Setup SXP Environment
-Test Teardown     Clean SXP Environment
+Test Teardown     Clean Custom SXP Environment
 Library           ../../../libraries/Sxp.py
 Resource          ../../../libraries/SxpLib.robot
 Library           Remote    http://${ODL_SYSTEM_IP}:8270/ExportTestLibrary    WITH NAME    ExportLibrary
@@ -167,7 +167,7 @@ Forwarding Export
     : FOR    ${num}    IN RANGE    0    ${samples}
     \    Setup Binding Export Topology    destination_domain=${destination_domain}
     \    ExportLibrary.Set Export Amount    ${check_amount}
-    \    ExportLibrary.Initiate Export    5.5.0.0/16    112
+    \    ExportLibrary.Initiate Export    132.5.0.0/16    112
     \    ${ELEMENT}    Wait Until Keyword Succeeds    360    1    Check Bindings Exported
     \    Append To List    ${ITEMS}    ${ELEMENT}
     \    Test Clean
@@ -188,7 +188,7 @@ Setup Filter
     [Arguments]    ${bits}    ${type}
     [Documentation]    Creates peer-group and its filter with specific matching.
     Add PeerGroup    GROUP    ${EMPTY}
-    ${entry}    Get Filter Entry    10    permit    pl=5.5.0.0/${bits}
+    ${entry}    Get Filter Entry    10    permit    pl=132.5.0.0/${bits}
     Add Filter    GROUP    ${type}    ${entry}
 
 Setup Domain Filter
@@ -196,7 +196,7 @@ Setup Domain Filter
     [Documentation]    Creates domain and its filter with specific matching.
     Add Domain    ${domain}
     ${domains}    Add Domains    ${domain}
-    ${entry}    Get Filter Entry    10    permit    pl=5.5.0.0/${bits}
+    ${entry}    Get Filter Entry    10    permit    pl=132.5.0.0/${bits}
     Add Domain Filter    ${DOMAIN_0}    ${domains}    ${entry}
 
 Test Clean
@@ -204,3 +204,8 @@ Test Clean
     Clean Connections
     Clean Connections    domain=${DOMAIN_1}
     Clean Peer Groups
+
+Clean Custom SXP Environment
+    [Documentation]    Cleans test resources
+    Test Clean
+    Clean SXP Environment
