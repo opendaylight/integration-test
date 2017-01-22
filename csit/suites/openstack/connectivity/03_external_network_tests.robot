@@ -39,6 +39,29 @@ Create Subnet For Private Network
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    @{NETWORKS_NAME}[0]    @{SUBNETS_NAME}[0]    @{SUBNETS_RANGE}[0]
 
+Create External Network And Subnet
+    Create Network    ${external_net_name} --router:external --provider:network_type=flat --provider:physical_network=${external_physical_network}
+    Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway}
+
+Create Router
+    [Documentation]    Create Router and Add Interface to the subnets.
+    OpenStackOperations.Create Router    router1
+
+Add Interfaces To Router
+    [Documentation]    Add Interfaces
+    : FOR    ${interface}    IN    @{SUBNETS_NAME}
+    \    OpenStackOperations.Add Router Interface    router1    ${interface}
+
+Add Router Gateway To Router
+    [Documentation]    Add Router Gateway
+    OpenStackOperations.Add Router Gateway    router1    ${external_net_name}
+
+Verify Created Routers
+    [Documentation]    Check created routers using northbound rest calls
+    ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
+    Log    ${data}
+    Should Contain    ${data}    router1
+
 Create Vm Instances
     [Documentation]    Create VM instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES_FLOATING}    sg=csit
@@ -69,29 +92,6 @@ Check Vm Instances Have Ip Address
     Set Suite Variable    ${SNAT_VM_IPS}
     [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES_FLOATING}    ${VM_INSTANCES_SNAT}
     ...    AND    Get Test Teardown Debugs
-
-Create External Network And Subnet
-    Create Network    ${external_net_name} --router:external --provider:network_type=flat --provider:physical_network=${external_physical_network}
-    Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway}
-
-Create Router
-    [Documentation]    Create Router and Add Interface to the subnets.
-    OpenStackOperations.Create Router    router1
-
-Add Interfaces To Router
-    [Documentation]    Add Interfaces
-    : FOR    ${interface}    IN    @{SUBNETS_NAME}
-    \    OpenStackOperations.Add Router Interface    router1    ${interface}
-
-Add Router Gateway To Router
-    [Documentation]    Add Router Gateway
-    OpenStackOperations.Add Router Gateway    router1    ${external_net_name}
-
-Verify Created Routers
-    [Documentation]    Check created routers using northbound rest calls
-    ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
-    Log    ${data}
-    Should Contain    ${data}    router1
 
 Create And Associate Floating IPs for VMs
     [Documentation]    Create and associate a floating IP for the VM
