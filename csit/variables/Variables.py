@@ -7,17 +7,20 @@ Edited: Many times by many people
 """
 
 # VM Environment defaults
-DEFAULT_LINUX_PROMPT = '>'
-DEFAULT_LINUX_PROMPT_STRICT = ']>'
+DEFAULT_LINUX_PROMPT = '$'
+DEFAULT_LINUX_PROMPT_STRICT = '$'
 DEFAULT_USER = 'jenkins'
 DEFAULT_TIMEOUT = '30s'
+DEVSTACK_SYSTEM_PASSWORD = 'mininet'
 
 # ODL system variables
-ODL_SYSTEM_IP = '127.0.0.1'  # Override if ODL is not running locally to pybot
+ODL_SYSTEM_IP = '192.168.122.171'  # Override if ODL is not running locally to pybot
 ODL_SYSTEM_IP_LIST = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
 ODL_SYSTEM_USER = DEFAULT_USER
 ODL_SYSTEM_PASSWORD = ''  # empty means use public key authentication
 ODL_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
+ODL_STREAM ='boron'
+BUNDLEFOLDER = '/home/mininet/ODL/distribution-karaf-0.6.0-SNAPSHOT'
 
 # "Tools" system variables (mininet etc).
 TOOLS_SYSTEM_IP = '127.0.0.1'  # Override if tools are not run locally to pybot
