@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_18d56d43",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-23T09:08:47Z",
+      "side": 1,
+      "message": "I think you will need some padding in this print.\nhttps://pyformat.info/#number_padding",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 95
+      },
+      "revId": "6093014bb2314123893ecf65a6887c25bd6b90a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b8c38189",
+        "filename": "tools/distchanges/gerritquery.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-23T09:08:47Z",
+      "side": 1,
+      "message": "I think it\u0027s better to have all imports at the beginning of the module.",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 39
+      },
+      "revId": "6093014bb2314123893ecf65a6887c25bd6b90a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d8bac509",
+        "filename": "tools/distchanges/gerritquery.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-23T09:08:47Z",
+      "side": 1,
+      "message": "Pythonic:\n\n  return [ self.parse_gerrit(line) \\\n           for line in self.extract_lines_from_json(output) ]\n\nor:\n\n  return map( self.parse_gerrit,\n              self.extract_lines_json(output) )",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 308,
+        "endChar": 22
+      },
+      "revId": "6093014bb2314123893ecf65a6887c25bd6b90a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_385e71ea",
+        "filename": "tools/distchanges/tests/test_changes.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-23T09:08:47Z",
+      "side": 1,
+      "message": "It looks like this function could be more readable inlining \u0027ismatch\u0027",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 27
+      },
+      "revId": "6093014bb2314123893ecf65a6887c25bd6b90a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
