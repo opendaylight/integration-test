@@ -46,7 +46,6 @@ ${TEMPLATE_FOLDER}    ${CURDIR}/templates
 ${RESTCONF_SUBSCRIBE_URI}    restconf/operations/sal-remote:create-data-change-event-subscription
 ${RESTCONF_SUBSCRIBE_DATA}    subscribe.xml
 ${RESTCONF_GET_SUBSCRIPTION_URI}    restconf/streams/stream/data-change-event-subscription/opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
-${RESTCONF_GET_SUBSCRIPTION_URI_LITHIUM}    restconf/streams/stream/opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
 ${RESTCONF_CONFIG_URI}    restconf/config
 ${RESTCONF_CONFIG_DATA}    config_data.xml
 ${RECEIVER_LOG_FILE}    wsreceiver.log
@@ -74,7 +73,7 @@ Create_Subscribtion
 Check_Subscribtion
     [Documentation]    Get & check subscribtion ...
     [Tags]    critical
-    ${resp} =    RequestsLibrary.Get_Request    restconf    ${restconf_subscription_stream_uri}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp} =    RequestsLibrary.Get_Request    restconf    ${RESTCONF_GET_SUBSCRIPTION_URI}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Be_Equal_As_Strings    ${resp.status_code}    200    Response    status code error
     ${location} =    Collections.Get_From_Dictionary    ${resp.headers}    location
@@ -152,8 +151,6 @@ Setup_Everything
     Should Contain    ${output_log}    websocket
     RequestsLibrary.Create Session    restconf    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     BuiltIn.Log    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
-    ${restconf_subscription_stream_uri} =    BuiltIn.Set_Variable_If    """"ODL_STREAM""" == "stable-lithium"    ${RESTCONF_GET_SUBSCRIPTION_URI_LITHIUM}    ${RESTCONF_GET_SUBSCRIPTION_URI}
-    BuiltIn.Set_Suite_Variable    \${restconf_subscription_stream_uri}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
 
 Teardown_Everything
