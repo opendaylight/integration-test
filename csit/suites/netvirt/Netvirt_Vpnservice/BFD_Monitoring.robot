@@ -6,6 +6,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Run Keyword If Test Failed    Get OvsDebugInfo
 Library           OperatingSystem
 Library           RequestsLibrary
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/VpnOperations.robot
@@ -194,7 +195,7 @@ Verify VXLAN interface
 Create Tunnel
     [Documentation]    Create tunnels betwee the 2 compute nodes and Openstack controller.
     Log    If ODL version is Boron or higher then ITM tunnel should be auto configured. If not then the suite should fail. For ODL version Beryllium or lower, ITM tunnel should be created.
-    Should Not Match Regexp    ${ODL_STREAM}    boron|carbon
+    CompareStream.Run_Keyword_If_At_Least_Boron    BuiltIn.Fail    Tunnel should be auto configured for ${ODL_STREAM}
     ${node_1_dpid}=    Get DPID    ${OS_COMPUTE_1_IP}
     ${node_2_dpid}=    Get DPID    ${OS_COMPUTE_2_IP}
     ${node_3_dpid}=    Get DPID    ${OS_CONTROL_NODE_IP}
