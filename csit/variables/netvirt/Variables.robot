@@ -2,16 +2,28 @@
 Documentation     Variables for Netvirt Test Suites
 
 *** Variables ***
-@{NETWORKS}       NET30    NET40
-@{SUBNETS}        SUBNET30    SUBNET40
-@{SUBNET_CIDR}    30.1.1.0/24    40.1.1.0/24
-@{PORT_LIST}      PORT1    PORT2    PORT3    PORT4
+@{NETWORKS}       NET50    NET60    NET70
+@{SUBNETS}        SUBNET50    SUBNET60    SUBNET70
+@{SUBNET_CIDR}    50.1.1.0/24    60.1.1.0/24    70.1.1.0/24
+@{PORT_LIST}      PORT1    PORT2    PORT3    PORT4    PORT5    PORT6
 @{VM_INSTANCES_NET1}    VM1    VM2
 @{VM_INSTANCES_NET2}    VM3    VM4
+@{VM_INSTANCES_NET3}    VM5    VM6
 @{ROUTERS}        ROUTER_1    ROUTER_2
+${CONFIG_API}     /restconf/config
+${OPERATIONAL_API}    /restconf/operational
 ${RESP_CODE}      200
 ${RESP_ERROR_CODE}    400
+${PING_REGEXP}    , 0% packet loss
+${NO_PING_REGEXP}    , 100% packet loss
 ${MAC_REGEX}      ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})
+# Values for L3VPN
+@{VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261111    4ae8cd92-48ca-49b5-94e1-b2921a261112    4ae8cd92-48ca-49b5-94e1-b2921a261113
+@{VPN_NAME}       vpn1    vpn2    vpn3
+${CREATE_RD}      ["2200:2"]
+${CREATE_RD1}      ["2200:3"]    
+${CREATE_EXPORT_RT}    ["2200:2","2200:3"]
+${CREATE_IMPORT_RT}    ["2200:2","2200:3"]
 # Values passed for BFD Tunnel monitoring
 ${TUNNEL_MONITOR_ON}    Tunnel Monitoring (for VXLAN tunnels): On
 ${TUNNEL_MONITOR_OFF}    Tunnel Monitoring (for VXLAN tunnels): Off
@@ -39,6 +51,7 @@ ${INTERVAL_31000}    {"tunnel-monitor-interval":{"interval":31000}}
 ${NETWORK_URL}    ${CONFIG_API}/neutron:neutron/networks/
 ${SUBNETWORK_URL}    ${CONFIG_API}/neutron:neutron/subnets/
 ${PORT_URL}       ${CONFIG_API}/neutron:neutron/ports/
+${FIB_ENTRIES_URL}    ${CONFIG_API}/odl-fib:fibEntries/
 ${TUNNEL_MONITOR_URL}    ${OPERATIONAL_API}/itm-config:tunnel-monitor-params/
 ${MONITOR_INTERVAL_URL}    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
 ${TUNNEL_TRANSPORTZONE}    ${CONFIG_API}/itm:transport-zones
