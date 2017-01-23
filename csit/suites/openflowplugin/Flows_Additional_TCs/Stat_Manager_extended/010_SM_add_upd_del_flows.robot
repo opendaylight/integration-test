@@ -7,11 +7,12 @@ Library           OperatingSystem
 Library           Collections
 Library           XML
 Library           SSHLibrary
-Resource          ../../../../libraries/FlowLib.robot
-Library           ../../../../libraries/XmlComparator.py
-Variables         ../../../../variables/Variables.py
+Resource          ${CURDIR}/../../../../libraries/CompareStream.robot
+Resource          ${CURDIR}/../../../../libraries/FlowLib.robot
+Library           ${CURDIR}/../../../../libraries/XmlComparator.py
+Variables         ${CURDIR}/../../../../variables/Variables.py
 Library           RequestsLibrary
-Library           ../../../../libraries/Common.py
+Library           ${CURDIR}/../../../../libraries/Common.py
 
 *** Variables ***
 ${flow_update_time}    3s
@@ -603,7 +604,7 @@ Test Is Flow 225 Deleted
 *** Keywords ***
 Initialization Phase
     [Documentation]    Initiate tcp connection with controller
-    ${check_id} =    Set Variable If    '${ODL_STREAM}' == 'stable/lithium' or '${ODL_STREAM}' == 'beryllium'    ${False}    ${True}
+    ${check_id} =    CompareStream.Set_Variable_If_At_Least_Boron    ${True}    ${False}
     Set Suite Variable    ${check_id}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     Write    dpctl dump-flows -O OpenFlow13
