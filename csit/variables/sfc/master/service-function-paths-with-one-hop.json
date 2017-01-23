@@ -1,0 +1,16 @@
+{
+  "service-function-paths": {
+    "service-function-path": [
+      {
+        "name": "SFC1-100",
+        "service-chain-name": "SFC1",
+         "service-path-hop": [
+                    {
+                        "hop-number": 0,
+                        "service-function-name": "firewall-104"
+                    }
+         ]
+      }
+    ]
+  }
+}
