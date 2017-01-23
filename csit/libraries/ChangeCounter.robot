@@ -11,6 +11,7 @@ Documentation     Robot keyword library (Resource) for common handling of data c
 ...               This resource creates a "default" session using TemplatedRequests.Create_Default_Session
 ...               which points to (an analogue of) http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
 Library           RequestsLibrary
+Resource          ${CURDIR}/CompareStream.robot
 Resource          ${CURDIR}/ScalarClosures.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
 Resource          ${CURDIR}/WaitUtils.robot
@@ -30,10 +31,11 @@ Get_Change_Count
     [Documentation]    GET data change request, assert status 200, return the value.
     ${response} =    RequestsLibrary.Get_Request    operational    data-change-counter:data-change-counter
     BuiltIn.Should_Be_Equal    ${response.status_code}    ${200}    Got status: ${response.status_code} and message: ${response.text}
-    # TODO: The following line can be insecure. Should we use regexp instead?
-    # TODO: beware of new releases (carbon ...) and mind if more counters are used
-    ${count} =    BuiltIn.Run Keyword If    "${ODL_STREAM}" in ["beryllium", "stable-lithium"]    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["count"]
-    ...    ELSE    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["counter"][0]["count"]
+    # CompareStream.Set_Variable_If_At_Least_Else cant be used direcly, becuase ${response.text}["data-change-counter"]["count"] would be
+    # evaluated before the stream comparison and it causes failures
+    ${at_least_boron}=    CompareStream.Set_Variable_If_At_Least_Boron    ${True}    ${False}
+    ${count} =    BuiltIn.Run Keyword If    ${at_least_boron}    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["counter"][0]["count"]
+    ...    ELSE    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["count"]
     [Return]    ${count}
 
 Reconfigure_Topology_Name
