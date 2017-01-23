@@ -476,3 +476,9 @@ Install Package On Ubuntu System
     Flexible Mininet Login    user=${user}    password=${password}
     Write    sudo apt-get install -y ${package_name}
     Read Until    ${prompt}
+
+Add Elements To URI From File And Check Validation Error
+    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
+    ${body}    OperatingSystem.Get File    ${data_file}
+    ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    Should Contain    ${DATA_VALIDATION_ERROR}    ${resp.status_code}
