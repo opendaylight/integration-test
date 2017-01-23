@@ -46,7 +46,6 @@ ${TEMPLATE_FOLDER}    ${CURDIR}/templates
 ${RESTCONF_SUBSCRIBE_URI}    restconf/operations/sal-remote:create-data-change-event-subscription
 ${RESTCONF_SUBSCRIBE_DATA}    subscribe.xml
 ${RESTCONF_GET_SUBSCRIPTION_URI}    restconf/streams/stream/data-change-event-subscription/opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
-${RESTCONF_GET_SUBSCRIPTION_URI_LITHIUM}    restconf/streams/stream/opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
 ${RESTCONF_CONFIG_URI}    restconf/config
 ${RESTCONF_CONFIG_DATA}    config_data.xml
 ${RECEIVER_LOG_FILE}    wsreceiver.log
@@ -152,8 +151,7 @@ Setup_Everything
     Should Contain    ${output_log}    websocket
     RequestsLibrary.Create Session    restconf    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     BuiltIn.Log    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
-    ${restconf_subscription_stream_uri} =    BuiltIn.Set_Variable_If    """"ODL_STREAM""" == "stable-lithium"    ${RESTCONF_GET_SUBSCRIPTION_URI_LITHIUM}    ${RESTCONF_GET_SUBSCRIPTION_URI}
-    BuiltIn.Set_Suite_Variable    \${restconf_subscription_stream_uri}
+    BuiltIn.Set_Suite_Variable    ${restconf_subscription_stream_uri}    ${RESTCONF_GET_SUBSCRIPTION_URI}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
 
 Teardown_Everything
