@@ -114,6 +114,7 @@ Variables         ${CURDIR}/../variables/Variables.py
 *** Variables ***
 # TODO: Make the following list more narrow when streams without Bug 2594 fix (up to beryllium) are no longer used.
 @{ALLOWED_STATUS_CODES}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE (if the resource should have been present).
+@{DATA_VALIDATION_ERROR}    ${500}
 @{ALLOWED_DELETE_STATUS_CODES}    ${200}    ${201}    ${204}    ${404}    # List of integers, not strings. Used by DELETE if the resource may be not present.
 @{KEYS_WITH_BITS}    op    # the default list with keys to be sorted when norm_json libray is used
 # TODO: Add option for delete to require 404.

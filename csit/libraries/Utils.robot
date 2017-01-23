@@ -330,6 +330,12 @@ Add Elements To URI And Verify
     ${resp}    RequestsLibrary.Get Request    ${session}    ${dest_uri}
     Should Not Be Equal    ${resp.status_code}    404
 
+Add Elements To URI From File And Check Validation Error
+    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
+    ${body}    OperatingSystem.Get File    ${data_file}
+    ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    Should Contain    ${DATA_VALIDATION_ERROR}    ${resp.status_code}
+
 Post Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     ${body}    OperatingSystem.Get File    ${data_file}

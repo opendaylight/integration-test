@@ -1,0 +1,24 @@
+{
+  "service-function-paths": {
+    "service-function-path": [
+      {
+        "name": "SFC1-100",
+        "service-chain-name": "SFC1",
+         "service-path-hop": [
+                    {
+                        "hop-number": 0,
+                        "service-function-name": "firewall-104"
+                    },
+                    {
+                        "hop-number": 1,
+                        "service-function-name": "napt44-103-2"
+                    },
+                    {
+                        "hop-number": 2,
+                        "service-function-name": "dpi-102-2"
+                    }
+         ]
+      }
+    ]
+  }
+}
