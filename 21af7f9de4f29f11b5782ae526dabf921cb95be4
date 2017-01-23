@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_61ecc0c8",
+        "filename": "csit/libraries/ChangeCounter.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-23T15:48:23Z",
+      "side": 1,
+      "message": "In most situations, stream is something like \"carbon\". Thi value is something like ${at_least_boron}.",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 13
+      },
+      "revId": "21af7f9de4f29f11b5782ae526dabf921cb95be4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e1d710ec",
+        "filename": "csit/libraries/ChangeCounter.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-23T15:48:23Z",
+      "side": 1,
+      "message": "If you trust CompareStream, you can write ${at_least_Boron} here.",
+      "range": {
+        "startLine": 37,
+        "startChar": 44,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "21af7f9de4f29f11b5782ae526dabf921cb95be4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
