@@ -69,6 +69,24 @@
       "revId": "8f8bff9c0dcb21fb711afc2983d8b6c4cb0300ec",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_efe1b69b",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-01-24T09:43:44Z",
+      "side": 1,
+      "message": "According to last comments received from integration/test committers, we have to avoid the usage of variables.py and instead use variables.robot. You can see and example of this in\nhttps://git.opendaylight.org/gerrit/#/c/48899/9",
+      "parentUuid": "fafc7978_8fb46af3",
+      "revId": "8f8bff9c0dcb21fb711afc2983d8b6c4cb0300ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
