@@ -5,7 +5,9 @@ import unittest
 from changes import Changes
 
 REMOTE_URL = 'ssh://git.opendaylight.org:29418'
-PROJECT_NAMES = ['genius', 'mdsal', 'netvirt', 'neutron', 'openflowjava', 'openflowplugin', 'ovsdb', 'yangtools']
+# PROJECT_NAMES = ['genius', 'mdsal', 'netvirt', 'neutron', 'openflowjava', 'openflowplugin', 'ovsdb', 'yangtools']
+PROJECT_NAMES = ['netconf', 'ovsdb', 'dlux', 'mdsal', 'dluxapps', 'netvirt', 'yangtools', 'openflowplugin', 'genius',
+                 'controller', 'infrautils', 'odlparent', 'sfc', 'neutron']
 DISTRO_PATH = "/tmp/distribution-karaf"
 BRANCH = 'master'
 LIMIT = 10
