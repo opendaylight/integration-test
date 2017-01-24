@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_7c174652",
+        "filename": "csit/suites/bier/basic/restconf_modules.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-24T07:01:17Z",
+      "side": 1,
+      "message": "please use .robot now, as we are eventually removing the .py version of this file.",
+      "range": {
+        "startLine": 6,
+        "startChar": 57,
+        "endLine": 6,
+        "endChar": 59
+      },
+      "revId": "2b0c0cc7e4ad4608a1545fa48ec05f2af3b02f47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bc088e2e",
+        "filename": "csit/suites/bier/basic/restconf_modules.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-24T07:01:17Z",
+      "side": 1,
+      "message": "just to be clear about this test case. This is a skeleton test case we have given to hopefully get people up and \nrunning with robot and the OpenDaylight infra. This is not\nanything worthy of a bier system test, but those can come \nlater :)",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 62
+      },
+      "revId": "2b0c0cc7e4ad4608a1545fa48ec05f2af3b02f47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1c06fa20",
+        "filename": "csit/testplans/bier-basic.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-24T07:01:17Z",
+      "side": 1,
+      "message": "bier",
+      "range": {
+        "startLine": 2,
+        "startChar": 29,
+        "endLine": 2,
+        "endChar": 38
+      },
+      "revId": "2b0c0cc7e4ad4608a1545fa48ec05f2af3b02f47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
