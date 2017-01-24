@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_7eb576cc",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-01-24T21:05:26Z",
+      "side": 1,
+      "message": "It\u0027s a little strange that there\u0027s this other path to format project_names, but I think it\u0027s refactoring outside the scope of this change",
+      "revId": "1211d3c599cbe0635771442dc4ad088b571f9c31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
