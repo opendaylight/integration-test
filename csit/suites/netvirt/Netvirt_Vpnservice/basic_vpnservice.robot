@@ -4,7 +4,6 @@ Documentation     Test suite to validate vpnservice functionality in an openstac
 ...               integration bridges and vxlan tunnels.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-...               AND    Enable ODL Karaf Log
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
@@ -87,11 +86,8 @@ Create Nova VMs
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
     Log    Check for routes
     Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate
-    ${VM_IP_NET10}    ${DHCP_IP1}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET10}
-    Log    ${VM_IP_NET10}
+    ${VM_IP_NET10}    ${VM_IP_NET20}    Wait Until Keyword Succeeds    30s    10s    Verify VMs received IP    ${VM_INSTANCES_NET10}    ${VM_INSTANCES_NET20}
     Set Suite Variable    ${VM_IP_NET10}
-    ${VM_IP_NET20}    ${DHCP_IP2}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET20}
-    Log    ${VM_IP_NET20}
     Set Suite Variable    ${VM_IP_NET20}
 
 Check ELAN Datapath Traffic Within The Networks
@@ -204,9 +200,9 @@ Verify L3VPN Datapath With Router Association
     Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/l3vpn:vpn-interfaces/    ${vm_instances}
     ${RD} =    Strip String    ${CREATE_RD[0]}    characters="[]
     Log    ${RD}
-    Wait Until Keyword Succeeds    60s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
-    Wait Until Keyword Succeeds    60s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
-    Wait Until Keyword Succeeds    60s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
     Log    Check datapath from network1 to network2
     ${dst_ip_list} =    Create List    @{VM_IP_NET10}[1]    @{VM_IP_NET20}
     Log    ${dst_ip_list}
@@ -360,6 +356,17 @@ Basic Vpnservice Suite Setup
 Basic Vpnservice Suite Teardown
     Delete All Sessions
 
+Verify VMs received IP
+    [Arguments]    ${VM_NET10}     ${VM_NET20}
+    [Documentation]    Verify VM Instance received IP
+    ${VM_IP_NET10}    ${DHCP_IP1}    Verify VMs Received DHCP Lease    @{VM_NET10}
+    Log    ${VM_IP_NET10}
+    ${VM_IP_NET20}    ${DHCP_IP2}    Verify VMs Received DHCP Lease    @{VM_NET20}
+    Log    ${VM_IP_NET20}
+    Should Not Contain    ${VM_IP_NET20}    None
+    Should Not Contain    ${VM_IP_NET10}    None
+    [Return]    ${VM_IP_NET10}    ${VM_IP_NET20}
+	
 Wait For Routes To Propogate
     ${devstack_conn_id} =    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
