@@ -414,6 +414,10 @@ Isolate_Member_From_List_Or_All
     \    ${destination} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
     \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -I OUTPUT -p all --source ${source} --destination ${destination} -j DROP
     \    BuiltIn.Run_Keyword_If    "${index}" != "${isolate_member_index}"    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
+    \    ${cmd}=    BuiltIn.Set_Variable    sudo id
+    \    Run_Bash_Command_On_Member    command=${cmd}
+    \    ${cmd}=    BuiltIn.Set_Variable    id
+    \    Run_Bash_Command_On_Member    command=${cmd}
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
     ${output} =    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
     BuiltIn.Log    ${output}
