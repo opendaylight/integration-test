@@ -95,7 +95,8 @@ class Changes:
 
     def pretty_print_projects(self, projects):
         for project_name, values in projects.items():
-            self.pretty_print_gerrits(project_name, values["includes"])
+            if values["includes"]:
+                self.pretty_print_gerrits(project_name, values["includes"])
 
     def set_projects(self, project_names=PROJECT_NAMES):
         for project in project_names:
