@@ -32,6 +32,7 @@ data_models = [
         'operational/elan:elan-forwarding-tables',
         'operational/elan:elan-interfaces',
         'operational/elan:elan-state',
+        'operational/entity-owners:entity-owners',
         'operational/ietf-interfaces:interfaces-state',
         'operational/itm-state:tunnels_state',
         'operational/l3nexthop:l3nexthop',
@@ -46,4 +47,5 @@ data_models = [
         'operational/odl-nat:external-ips-counter',
         'operational/odl-nat:floating-ip-info',
         'operational/odl-nat:intext-ip-map',
+        'operational/opendaylight-inventory:nodes',
 ]
