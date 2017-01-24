@@ -4,7 +4,6 @@ Documentation     Test suite to validate vpnservice functionality in an openstac
 ...               integration bridges and vxlan tunnels.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-...               AND    Enable ODL Karaf Log
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
@@ -369,9 +368,3 @@ Wait For Routes To Propogate
     ${net_id} =    Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
     ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
     Should Contain    ${output}    @{SUBNET_CIDR}[1]
-
-Enable ODL Karaf Log
-    [Documentation]    Uses log:set TRACE org.opendaylight.netvirt to enable log
-    Log    "Enabled ODL Karaf log for org.opendaylight.netvirt"
-    ${output}=    Issue Command On Karaf Console    log:set TRACE org.opendaylight.netvirt
-    Log    ${output}

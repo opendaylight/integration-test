@@ -72,27 +72,13 @@ Start Suite
     [Documentation]    Run before the suite execution
     DevstackUtils.Devstack Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    Enable ODL Karaf Log
     Presuite Cleanup
     Create Setup
 
 Stop Suite
     [Documentation]    Run after the tests execution
     Delete Setup
-    Disable ODL Karaf Log
     Close All Connections
-
-Enable ODL Karaf Log
-    [Documentation]    Uses log:set TRACE org.opendaylight.netvirt to enable log
-    Log    "Enabled ODL Karaf log for org.opendaylight.netvirt"
-    ${output}=    Issue Command On Karaf Console    log:set TRACE org.opendaylight.netvirt
-    Log    ${output}
-
-Disable ODL Karaf Log
-    [Documentation]    Uses log:set TRACE org.opendaylight.netvirt to enable log
-    Log    "Enabled ODL Karaf log for org.opendaylight.netvirt"
-    ${output}=    Issue Command On Karaf Console    log:set INFO org.opendaylight.netvirt
-    Log    ${output}
 
 Presuite Cleanup
     [Documentation]    Clean the already existing tunnels and tep interfaces
