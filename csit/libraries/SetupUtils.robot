@@ -41,6 +41,12 @@ Setup_Test_With_Logging_And_Without_Fast_Failing
     FailFast.Run_Even_When_Failing_Fast
     BuiltIn.Run Keyword And Ignore Error    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
 
+Setup_Logging_For_Debug_Purposes_On_List_Or_All
+    [Arguments]    ${log_level}    ${loggers_list}    ${member_index_list}=${EMPTY}
+    [Documentations]    Set the log level for given loggers on node nodes of the cluster
+    : FOR    ${logger}    IN    @{loggers_list}
+    \    ClusterManagement.Run_Karaf_Command_On_List_Or_All    log:set ${log_level} ${logger}    member_index_list=${member_index_list}
+
 Set_Known_Bug_Id
     [Arguments]    ${id}
     [Documentation]    Tell the Teardown keywords that any failure from now on is due to the specified known bug.
