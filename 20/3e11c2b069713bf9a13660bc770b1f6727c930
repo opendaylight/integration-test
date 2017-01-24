@@ -1,0 +1,9 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+1: David Suarez <david.suarez.fuentes@ericsson.com>
+Code-Review+1: Santiago Abascal <santiago.abascal@ericsson.com>
+Code-Review+2: Jamo Luhrsen <jluhrsen@redhat.com>
+Submitted-by: Jamo Luhrsen <jluhrsen@redhat.com>
+Submitted-at: Tue, 24 Jan 2017 06:27:07 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/50393
+Project: integration/test
+Branch: refs/heads/master
