@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_8f83cacb",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-24T09:26:35Z",
+      "side": 1,
+      "message": "${RESTCONF_GET_SUBSCRIPTION_URI}\n\nAnd you do not need line 154.",
+      "range": {
+        "startLine": 76,
+        "startChar": 60,
+        "endLine": 76,
+        "endChar": 95
+      },
+      "revId": "410f26a2928c37831a58e222ece8a29158b3f17c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
