@@ -240,6 +240,24 @@ Create Vm Instance With Port On Compute Node
     ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} --availability-zone nova:${hostname_compute_node}    30s
     Log    ${output}
 
+Migrate VM
+    [Arguments]    ${vm_name}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output_visors}=    Write Commands Until Prompt    nova hypervisor-list | grep "up" | awk '{print $4}' | grep -v ">"
+    Log    ${output_visors}
+    ${host_visor_line}=    Write Commands Until Prompt    nova show ${vm_name} | grep "OS-EXT-SRV-ATTR:host " | awk '{print $4}'
+    ${host_visor}=     Get Line     ${host_visor_line}    0
+    Log    ${host_visor}
+    @{visor}    Split To Lines    ${output_visors}
+    Log    ${visor}
+    : FOR    ${list_visor}    IN    @{visor}
+    \    ${rcode}=    Run Keyword And Return Status      Should Match     ${list_visor}     ${host_visor}
+    \    Continue For Loop If     ${rcode}==True
+    \    ${output}=    Write Commands Until Prompt     openstack server migrate ${vm_name} --live ${list_visor}      60s
+    Log    ${output}
+    Sleep     120s
+
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
@@ -541,6 +559,27 @@ Get DumpFlows And Ovsconfig
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ]>
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats br-int -OOpenFlow13    ]>
 
+Setup Passwordless ssh
+    [Arguments]    ${openstack_node_1_ip}      ${openstack_node_2_ip}
+    Log    ${openstack_node_1_ip}
+    Log    ${openstack_node_2_ip}
+    SSHLibrary.Open Connection    ${openstack_node_1_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Get_File      ${USER_HOME}/.ssh/id_rsa.pub      /tmp/id_rsa_1.pub
+    SSHLibrary.Open Connection    ${openstack_node_2_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Get_File      ${USER_HOME}/.ssh/id_rsa.pub      /tmp/id_rsa_2.pub
+    SSHLibrary.Open Connection    ${openstack_node_1_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Put_File       /tmp/id_rsa_2.pub      /tmp
+    Write Commands Until Expected Prompt    cat /tmp/id_rsa_2.pub >> ~/.ssh/authorized_keys      ]>
+    Write Commands Until Expected Prompt    chmod 600 ~/.ssh/authorized_keys      ]>
+    SSHLibrary.Open Connection    ${openstack_node_2_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Put_File       /tmp/id_rsa_1.pub      /tmp
+    Write Commands Until Expected Prompt    cat /tmp/id_rsa_1.pub >> ~/.ssh/authorized_keys      ]>
+    Write Commands Until Expected Prompt    chmod 600 ~/.ssh/authorized_keys      ]>
+    
 Get Karaf Log Type From Test Start
     [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
     ...    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
