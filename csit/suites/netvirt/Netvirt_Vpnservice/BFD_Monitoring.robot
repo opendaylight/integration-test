@@ -72,14 +72,12 @@ Start Suite
     [Documentation]    Run before the suite execution
     DevstackUtils.Devstack Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    Enable ODL Karaf Log
     Presuite Cleanup
     Create Setup
 
 Stop Suite
     [Documentation]    Run after the tests execution
     Delete Setup
-    Disable ODL Karaf Log
     Close All Connections
 
 Enable ODL Karaf Log
