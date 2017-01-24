@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_af47ae1c",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-01-24T09:06:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_8c411b0e",
+      "revId": "8f8bff9c0dcb21fb711afc2983d8b6c4cb0300ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_2ccc6f35",
         "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2017-01-23T17:28:14Z",
       "side": 1,
       "message": "Check Variables.robot file which include several definitions in order to avoid duplication. Also it\u0027s better to define these variables in Variable section",
+      "revId": "8f8bff9c0dcb21fb711afc2983d8b6c4cb0300ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_8fb46af3",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-01-24T09:06:48Z",
+      "side": 1,
+      "message": "Please note that Variables.robot contains variables related to the runtime environment, but not a single one related with testcase / testsuite specifics\n\nI\u0027m following exactly the same pattern here than all other robot files in SFC Basic: \n-Variables section is used for inclusion of external / generic / reusable variables files\n-Final section used for all testsuite-specific variables",
+      "parentUuid": "fafc7978_2ccc6f35",
       "revId": "8f8bff9c0dcb21fb711afc2983d8b6c4cb0300ec",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
