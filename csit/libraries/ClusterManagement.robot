@@ -405,14 +405,16 @@ Count_Running_Karafs_On_Member
     [Return]    ${count}
 
 Isolate_Member_From_List_Or_All
-    [Arguments]    ${isolate_member_index}    ${member_index_list}=${EMPTY}
+    [Arguments]    ${isolate_member_index}    ${member_index_list}=${EMPTY}    ${target_name}=DROP
     [Documentation]    If the list is empty, isolate member from all ODL instances. Otherwise, isolate member based on present indices.
-    ...    The KW will return a list of available members: \${updated index_list}=\${member_index_list}-\${isolate_member_index}
+    ...    Target named ${target_name} is used for iptables to affect the inter-node traffic.
+    ...    This keyword will return a list of available members: \${updated index_list}=\${member_index_list}-\${isolate_member_index}
+    # TODO: Make REJECT the default target name to avoid possible akka timeouts slowing down tests.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     ${source} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${isolate_member_index}
     : FOR    ${index}    IN    @{index_list}
     \    ${destination} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
-    \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -I OUTPUT -p all --source ${source} --destination ${destination} -j DROP
+    \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -I OUTPUT -p all --source ${source} --destination ${destination} -j ${target_name}
     \    BuiltIn.Run_Keyword_If    "${index}" != "${isolate_member_index}"    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
     ${output} =    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
