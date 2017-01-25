@@ -85,17 +85,19 @@ class Changes:
         print("i  grantedOn  lastUpdatd chang subject")
         print("-- ---------- ---------- ----- -----------------------------------------")
         for i, gerrit in enumerate(gerrits):
-            print("%02d %d %d %s %s" % (i, gerrit["grantedOn"], gerrit["lastUpdated"],
-                                        gerrit["number"], gerrit["subject"]))
-
-    def pretty_print_includes(self, includes):
-        for project, gerrits in includes.items():
-            self.pretty_print_gerrits(project, gerrits)
+            if isinstance(gerrit, dict):
+                print("%02d %010d %010d %5s %s"
+                      % (i,
+                         gerrit["grantedOn"] if "grantedOn" in gerrit else 0,
+                         gerrit["lastUpdated"] if "lastUpdated" in gerrit else 0,
+                         gerrit["number"] if "number" in gerrit else "00000",
+                         gerrit["subject"] if "subject" in gerrit else "none"))
 
     def pretty_print_projects(self, projects):
-        for project_name, values in projects.items():
-            if values["includes"]:
-                self.pretty_print_gerrits(project_name, values["includes"])
+        if isinstance(projects, dict):
+            for project_name, values in projects.items():
+                if "includes" in values:
+                    self.pretty_print_gerrits(project_name, values["includes"])
 
     def set_projects(self, project_names=PROJECT_NAMES):
         for project in project_names:
