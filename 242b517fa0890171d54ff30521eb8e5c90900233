@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_864a8c81",
+        "filename": "csit/libraries/ChangeCounter.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-25T12:48:24Z",
+      "side": 1,
+      "message": "because",
+      "range": {
+        "startLine": 34,
+        "startChar": 72,
+        "endLine": 34,
+        "endChar": 79
+      },
+      "revId": "242b517fa0890171d54ff30521eb8e5c90900233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e67398e5",
+        "filename": "csit/libraries/ChangeCounter.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-25T12:48:24Z",
+      "side": 1,
+      "message": "cannot",
+      "range": {
+        "startLine": 34,
+        "startChar": 50,
+        "endLine": 34,
+        "endChar": 54
+      },
+      "revId": "242b517fa0890171d54ff30521eb8e5c90900233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_894d7f75",
+        "filename": "csit/libraries/ChangeCounter.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-25T12:48:24Z",
+      "side": 1,
+      "message": "This is dangerously close to Robot syntax [0] of accessing a dictionary value. I think Robot does not find a key starting with a double quote, so it only substitutes ${response.text} and the rest is done by Evaluate. But making this less confusing is not the goal of this change.\n\n[0] http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#id500",
+      "range": {
+        "startLine": 37,
+        "startChar": 101,
+        "endLine": 37,
+        "endChar": 103
+      },
+      "revId": "242b517fa0890171d54ff30521eb8e5c90900233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
