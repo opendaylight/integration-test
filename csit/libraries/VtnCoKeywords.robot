@@ -15,7 +15,7 @@ Resource          ./MininetKeywords.robot
 *** variable ***
 ${vlan_topo}      --custom vlan_vtn_test.py --topo vlantopo
 ${nexus_path}     https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/vtn/distribution.vtn-coordinator
-${boron}          6.3.2-SNAPSHOT
+${boron}          6.3.3-SNAPSHOT
 ${carbon}         6.4.0-SNAPSHOT
 ${vtn_dist}       distribution.vtn-coordinator
 
@@ -65,7 +65,7 @@ Download VtnCo Distribution
     CompareStream.Run_Keyword_If_At_Least_Boron    SSHLibrary.Get_file    maven-metadata.xml
     ${time_stamp}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/timestamp
     ${build_number}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/buildNumber
-    CompareStream.Run_Keyword_If_Equals    boron    SSHLibrary.Execute Command    wget '${nexus_path}/${boron}/${vtn_dist}-6.3.2-${time_stamp}-${build_number}-bin.tar.bz2'
+    CompareStream.Run_Keyword_If_Equals    boron    SSHLibrary.Execute Command    wget '${nexus_path}/${boron}/${vtn_dist}-6.3.3-${time_stamp}-${build_number}-bin.tar.bz2'
     CompareStream.Run_Keyword_If_Equals    carbon    SSHLibrary.Execute Command    wget '${nexus_path}/${carbon}/${vtn_dist}-6.4.0-${time_stamp}-${build_number}-bin.tar.bz2'
     SSHLibrary.Execute Command    tar -C/ -jxvf ${vtn_dist}*-bin.tar.bz2
 
