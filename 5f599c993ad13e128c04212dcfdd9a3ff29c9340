@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_6fe93b1a",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-25T16:37:48Z",
+      "side": 1,
+      "message": "gerrit.get(\"grantedOn\", 0),\n                                                  gerrit.get(\"lastUpdated\", 0),\n                                                  gerrit.get(\"number\", \"00000\"),\n                                                  gerrit.get(\"subject\", \"none\") ))",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 104
+      },
+      "revId": "5f599c993ad13e128c04212dcfdd9a3ff29c9340",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ef67ebe8",
+        "filename": "tools/distchanges/tests/test_changes.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-25T16:37:48Z",
+      "side": 1,
+      "message": "Pythonic:\n\n        projects \u003d { project_name : {\"commit\": 1, \n                                     \"includes\": [{\u0027a\u0027: 1}]} \\\n                     for project_name in project_names }",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 69
+      },
+      "revId": "5f599c993ad13e128c04212dcfdd9a3ff29c9340",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_efaecbe6",
+        "filename": "tools/distchanges/tests/test_changes.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-25T16:37:48Z",
+      "side": 1,
+      "message": "Pythonic:\n\n        projects \u003d { project_name : {\"commit\": 1,\n                                     \"includes\": [{\"grantedOn\": 1, \"lastUpdated\": 11,\n                                                   \"number\": \"12345\", \"subject\": \"This is a test for \" + project_name},\n                                                  {\"grantedOn\": 2, \"lastUpdated\": 22,\n                                                   \"number\": \"56789\", \"subject\": \"This is a test for \" + project_name}]} \\\n                  for project_name in project_names }",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 111
+      },
+      "revId": "5f599c993ad13e128c04212dcfdd9a3ff29c9340",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
