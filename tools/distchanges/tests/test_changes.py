@@ -21,12 +21,12 @@ class TestChanges(unittest.TestCase):
 
     @staticmethod
     def run_cmd(branch, distro_patch, limit, qlimit, project_names, remote_url):
-        changes = Changes(branch, distro_patch, limit, qlimit, project_names, remote_url, 3)
+        changes = Changes(branch, distro_patch, limit, qlimit, project_names, remote_url, 0)
         projects = changes.run_cmd()
         changes.pretty_print_projects(projects)
 
     def test_run_cmd_single(self):
-        project_names = ['odlparent']
+        project_names = ['netvirt']
         self.run_cmd(BRANCH, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL)
 
     def test_run_cmd_multiple(self):
