@@ -25,6 +25,7 @@ data_models = [
         'config/odl-nat:floating-ip-info',
         'config/odl-nat:intext-ip-port-map',
         'config/odl-nat:napt-switches',
+        'config/odl-nat:router-id-name',
         'config/odl-nat:snatint-ip-port-map',
         'config/opendaylight-inventory:nodes',
         'operational/elan:elan-dpn-interfaces',
@@ -45,7 +46,4 @@ data_models = [
         'operational/odl-nat:external-ips-counter',
         'operational/odl-nat:floating-ip-info',
         'operational/odl-nat:intext-ip-map',
-        'operational/odl-nat:intext-ip-port-map',
-        'operational/odl-nat:router-id-name',
-        'operational/odl-nat:snatint-ip-port-map'
 ]
