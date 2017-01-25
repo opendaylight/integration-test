@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_e69f184f",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-01-25T11:58:10Z",
+      "side": 1,
+      "message": "Create VLAN Network (l2_network_1)",
+      "revId": "a2bba27d95fa0f31aeb1f5fefeb44972f103915e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_46ad4488",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-01-25T11:58:10Z",
+      "side": 1,
+      "message": "Create VXLAN Network (l2_network_2)",
+      "revId": "a2bba27d95fa0f31aeb1f5fefeb44972f103915e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_06a33c9f",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-01-25T11:58:10Z",
+      "side": 1,
+      "message": "remove sleep",
+      "revId": "a2bba27d95fa0f31aeb1f5fefeb44972f103915e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e6c6f848",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-01-25T11:58:10Z",
+      "side": 1,
+      "message": "I thought you wanted to only do the L2 first since L3 has issues?\nIn any case it seems there are some issues here, network1_vlan_id is not defined etc..\n\nWhat do we want to do here? 2 networks, one VLAN and one VXLAN?\nMaybe 3 networks? Keep the two VXLAN and also test VLAN-VXLAN with an additional net?",
+      "revId": "a2bba27d95fa0f31aeb1f5fefeb44972f103915e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6694c837",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 35
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-01-25T11:58:10Z",
+      "side": 1,
+      "message": "remove changes from this file",
+      "revId": "a2bba27d95fa0f31aeb1f5fefeb44972f103915e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
