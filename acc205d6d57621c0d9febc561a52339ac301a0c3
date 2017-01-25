@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_436c169d",
+        "filename": "csit/suites/controller/singleton_service/global_rpc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-25T11:13:14Z",
+      "side": 1,
+      "message": "I have not double-checked the following text, but this is my impression:\nI think this is correct, the filename is wrong.\n\nGlobal RPC registration has no additional data, routed RPC registration is bound to an instance identifier. This suite tests a service that does not need an input from user, but on registration it uses an identifier provided by Singleton service. The possible bugs discovered by this suite are related to the fact that the RPC is routed.",
+      "range": {
+        "startLine": 2,
+        "startChar": 54,
+        "endLine": 2,
+        "endChar": 60
+      },
+      "revId": "acc205d6d57621c0d9febc561a52339ac301a0c3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2369128c",
+        "filename": "csit/suites/controller/singleton_service/global_rpc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-25T11:13:14Z",
+      "side": 1,
+      "message": "7",
+      "range": {
+        "startLine": 4,
+        "startChar": 35,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "acc205d6d57621c0d9febc561a52339ac301a0c3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c3264668",
+        "filename": "csit/suites/controller/singleton_service/global_rpc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-25T11:13:14Z",
+      "side": 1,
+      "message": "Rejoin",
+      "range": {
+        "startLine": 73,
+        "startChar": 10,
+        "endLine": 73,
+        "endChar": 17
+      },
+      "revId": "acc205d6d57621c0d9febc561a52339ac301a0c3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a32b422f",
+        "filename": "csit/suites/controller/singleton_service/global_rpc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-25T11:13:14Z",
+      "side": 1,
+      "message": "Rejoin",
+      "range": {
+        "startLine": 78,
+        "startChar": 10,
+        "endLine": 78,
+        "endChar": 15
+      },
+      "revId": "acc205d6d57621c0d9febc561a52339ac301a0c3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_63d83a54",
+        "filename": "csit/suites/controller/singleton_service/global_rpc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-25T11:13:14Z",
+      "side": 1,
+      "message": "I am not sure these two one-line keywords are useful in any way. Inline to Setting table to save space.",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 9
+      },
+      "revId": "acc205d6d57621c0d9febc561a52339ac301a0c3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_06685cb9",
+        "filename": "csit/suites/controller/singleton_service/global_rpc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-25T11:13:14Z",
+      "side": 1,
+      "message": "Each call site computes the session from an index. Make this keyword accept index argument.",
+      "range": {
+        "startLine": 93,
+        "startChar": 19,
+        "endLine": 93,
+        "endChar": 29
+      },
+      "revId": "acc205d6d57621c0d9febc561a52339ac301a0c3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_869bacc8",
+        "filename": "csit/testplans/controller-clustering.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-25T11:13:14Z",
+      "side": 1,
+      "message": "I assume this is just to speed up Sandbox testing.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 1
+      },
+      "revId": "acc205d6d57621c0d9febc561a52339ac301a0c3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
