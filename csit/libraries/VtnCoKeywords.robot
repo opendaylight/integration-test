@@ -15,8 +15,6 @@ Resource          ./MininetKeywords.robot
 *** variable ***
 ${vlan_topo}      --custom vlan_vtn_test.py --topo vlantopo
 ${nexus_path}     https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/vtn/distribution.vtn-coordinator
-${boron}          6.3.2-SNAPSHOT
-${carbon}         6.4.0-SNAPSHOT
 ${vtn_dist}       distribution.vtn-coordinator
 
 *** Keywords ***
@@ -60,13 +58,22 @@ Start SuiteVtnCo
 
 Download VtnCo Distribution
     # TODO: https://trello.com/c/fDiIUFMv/431-remove-hardcoded-versions-of-vtn-coordinator-in-libraries-vtncokeywords-robot
-    CompareStream.Run_Keyword_If_Equals    boron    SSHLibrary.Execute Command    wget "${nexus_path}/${boron}/maven-metadata.xml"
-    CompareStream.Run_Keyword_If_Equals    carbon    SSHLibrary.Execute Command    wget "${nexus_path}/${carbon}/maven-metadata.xml"
+    SSHLibrary.Execute Command    wget "${nexus_path}/maven-metadata.xml"
     CompareStream.Run_Keyword_If_At_Least_Boron    SSHLibrary.Get_file    maven-metadata.xml
+    ${boron_version}=    XML.Get Element Text    maven-metadata.xml    xpath=.//versions/version[2]
+    ${boron_version_val}=    SSHLibrary.Execute Command    echo ${boron_version} | awk -F"-" '{print $1}'
+    ${carbon_version}=    XML.Get Element Text    maven-metadata.xml    xpath=.//versions/version[3]
+    ${carbon_version_val}=    SSHLibrary.Execute Command    echo ${carbon_version} | awk -F"-" '{print $1}'
+    SSHLibrary.Execute Command    sudo mv maven-metadata.xml old-maven-metadata.xml
+    CompareStream.Run_Keyword_If_Equals    boron    SSHLibrary.Execute Command    wget "${nexus_path}/${boron_version}/maven-metadata.xml"
+    CompareStream.Run_Keyword_If_Equals    carbon    SSHLibrary.Execute Command    wget "${nexus_path}/${carbon_version}/maven-metadata.xml"
+    CompareStream.Run_Keyword_If_At_Least_Boron    SSHLibrary.Get_file    maven-metadata.xml
+    SSHLibrary.Execute Command    cat maven-metadata.xml
+    ${value}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshotVersions/snapshotVersion/value
     ${time_stamp}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/timestamp
     ${build_number}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/buildNumber
-    CompareStream.Run_Keyword_If_Equals    boron    SSHLibrary.Execute Command    wget '${nexus_path}/${boron}/${vtn_dist}-6.3.2-${time_stamp}-${build_number}-bin.tar.bz2'
-    CompareStream.Run_Keyword_If_Equals    carbon    SSHLibrary.Execute Command    wget '${nexus_path}/${carbon}/${vtn_dist}-6.4.0-${time_stamp}-${build_number}-bin.tar.bz2'
+    CompareStream.Run_Keyword_If_Equals    boron    SSHLibrary.Execute Command    wget '${nexus_path}/${boron_version}/${vtn_dist}-${value}-bin.tar.bz2'
+    CompareStream.Run_Keyword_If_Equals    carbon    SSHLibrary.Execute Command    wget '${nexus_path}/${carbon_version}/${vtn_dist}-${value}-bin.tar.bz2'
     SSHLibrary.Execute Command    tar -C/ -jxvf ${vtn_dist}*-bin.tar.bz2
 
 Stop SuiteVtnCo
