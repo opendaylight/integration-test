@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 import sys
+import time
 import urllib3
 import zipfile
 
@@ -77,19 +78,23 @@ class Changes:
         self.remote_url = remote_url
         self.verbose = verbose
 
-    @staticmethod
-    def pretty_print_gerrits(project, gerrits):
+    def epoch_to_utc(self, epoch):
+        utc = time.gmtime(epoch)
+
+        return time.strftime("%Y-%m-%d %H:%M:%S", utc)
+
+    def pretty_print_gerrits(self, project, gerrits):
         print("")
         if project:
             print("%s" % project)
-        print("i  grantedOn  lastUpdatd chang subject")
-        print("-- ---------- ---------- ----- -----------------------------------------")
+        print("i  grantedOn           lastUpdatd          chang subject")
+        print("-- ------------------- ------------------- ----- -----------------------------------------")
         for i, gerrit in enumerate(gerrits):
             if isinstance(gerrit, dict):
-                print("%02d %010d %010d %5s %s"
+                print("%02d %19s %19s %5s %s"
                       % (i,
-                         gerrit["grantedOn"] if "grantedOn" in gerrit else 0,
-                         gerrit["lastUpdated"] if "lastUpdated" in gerrit else 0,
+                         self.epoch_to_utc(gerrit["grantedOn"]) if "grantedOn" in gerrit else 0,
+                         self.epoch_to_utc(gerrit["lastUpdated"]) if "lastUpdated" in gerrit else 0,
                          gerrit["number"] if "number" in gerrit else "00000",
                          gerrit["subject"] if "subject" in gerrit else "none"))
 
