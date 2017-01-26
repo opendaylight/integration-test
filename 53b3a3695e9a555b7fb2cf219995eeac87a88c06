@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_9d4db675",
+        "filename": "csit/suites/controller/singleton_service/routed_rpc_isolate.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-26T15:39:26Z",
+      "side": 1,
+      "message": "Looking at verification [0] I recommend to split this to two test cases, one for the new owner and one for the remaining successor.\n\n[0] https://logs.opendaylight.org/releng/jenkins092/controller-csit-verify-3node-clustering/211/archives/log.html.gz",
+      "range": {
+        "startLine": 57,
+        "startChar": 7,
+        "endLine": 57,
+        "endChar": 29
+      },
+      "revId": "53b3a3695e9a555b7fb2cf219995eeac87a88c06",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5d4b4e59",
+        "filename": "csit/suites/controller/singleton_service/routed_rpc_isolate.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-26T15:39:26Z",
+      "side": 1,
+      "message": "Also check the remaining successor.",
+      "range": {
+        "startLine": 78,
+        "startChar": 30,
+        "endLine": 78,
+        "endChar": 31
+      },
+      "revId": "53b3a3695e9a555b7fb2cf219995eeac87a88c06",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
