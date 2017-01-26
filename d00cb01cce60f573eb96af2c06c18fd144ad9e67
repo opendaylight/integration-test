@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_401a416f",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-26T18:07:36Z",
+      "side": 1,
+      "message": "Ouch. I think we need this merged soon.",
+      "range": {
+        "startLine": 418,
+        "startChar": 57,
+        "endLine": 418,
+        "endChar": 69
+      },
+      "revId": "d00cb01cce60f573eb96af2c06c18fd144ad9e67",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
