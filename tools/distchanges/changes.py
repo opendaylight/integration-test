@@ -189,7 +189,7 @@ class Changes:
             zf = zipfile.ZipFile(fullpath, "r")
             try:
                 pfile = zf.open("META-INF/git.properties")
-                return pfile.read()
+                return str(pfile.read())
             except KeyError:
                 pass
         return None
