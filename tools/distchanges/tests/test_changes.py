@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import unittest
-
+import distcompare
 from changes import Changes
 
 REMOTE_URL = 'ssh://git.opendaylight.org:29418'
@@ -52,6 +52,9 @@ class TestChanges(unittest.TestCase):
         project_names = PROJECT_NAMES
         changes = Changes(BRANCH, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL)
         print("utc: %s" % changes.epoch_to_utc(1483974872))
+
+    def test_distcompare(self):
+        distcompare.main()
 
 
 if __name__ == '__main__':
