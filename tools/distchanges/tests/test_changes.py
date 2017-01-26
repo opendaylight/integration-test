@@ -53,6 +53,10 @@ class TestChanges(unittest.TestCase):
         changes = Changes(BRANCH, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL)
         print("utc: %s" % changes.epoch_to_utc(1483974872))
 
+    def test_distcompare(self):
+        import distcompare
+        distcompare.main()
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -3,7 +3,6 @@ import argparse
 import gerritquery
 import os
 import re
-import shutil
 import sys
 import time
 import urllib3
@@ -77,6 +76,10 @@ class Changes:
         self.project_names = project_names
         self.remote_url = remote_url
         self.verbose = verbose
+        self.projects = {}
+
+    def get_projects(self):
+        return self.projects
 
     def epoch_to_utc(self, epoch):
         utc = time.gmtime(epoch)
@@ -288,6 +291,7 @@ class Changes:
         for project in self.projects:
             changeid = self.find_distro_changeid(project)
             if changeid:
+                self.projects[project]['commit'] = changeid
                 self.projects[project]["includes"] = self.get_includes(project, changeid)
         return self.projects
 
