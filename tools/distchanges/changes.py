@@ -204,14 +204,14 @@ class Changes:
         """
         # match a 40 or 8 char Change-Id hash. both start with I
         regex = re.compile(r'\bI([a-f0-9]{40})\b|\bI([a-f0-9]{8})\b')
-        changeid = regex.search(pfile)
+        changeid = regex.search(str(pfile))
         if changeid:
             return changeid.group()
 
         # Didn"t find a Change-Id so try to get a commit message
         # match on "blah" but only keep the blah
         regex_msg = re.compile(r'"([^"]*)"|^git.commit.message.short=(.*)$')
-        msg = regex_msg.search(pfile)
+        msg = regex_msg.search(str(pfile))
         if self.verbose >= 2:
             print("did not find Change-Id in %s, trying with commit-msg: %s" % (project, msg.group()))
 
