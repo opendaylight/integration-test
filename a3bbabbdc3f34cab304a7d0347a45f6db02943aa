@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_55c168e3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-26T08:52:35Z",
+      "side": 1,
+      "message": "Perhaps some code to wait until the migration completes is needed? Wait until VM status \u003d\u003d \"VERIFY-RESIZE\"",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 20
+      },
+      "revId": "a3bbabbdc3f34cab304a7d0347a45f6db02943aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f5afbc29",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-26T08:52:35Z",
+      "side": 1,
+      "message": "I think that what you intend to do can be better done with:\n\n    ssh-copy-id root@${OS_COMPUTE_1_IP}\n\nBesides, DEVSTACK_SYSTEM_PASSWORD is a particular deployment that I think should be avoided if possible.",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 570,
+        "endChar": 84
+      },
+      "revId": "a3bbabbdc3f34cab304a7d0347a45f6db02943aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_95175051",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-26T08:52:35Z",
+      "side": 1,
+      "message": "This is not a test case. Please, place it somewhere else.\nBesides, why do you actually need this? The ODL libraries are supposed to work rather well with deployments both with and without ssh keys installed. I think you shouldn\u0027t collapse to a particular deployment in your test cases.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 74
+      },
+      "revId": "a3bbabbdc3f34cab304a7d0347a45f6db02943aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
