@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_aad02e54",
+        "filename": "csit/suites/controller/singleton_service/routed_rpc_isolate.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-26T12:24:11Z",
+      "side": 1,
+      "message": "As stated in my retraction, currently I prefer \"singleton global\" here.",
+      "range": {
+        "startLine": 2,
+        "startChar": 54,
+        "endLine": 2,
+        "endChar": 60
+      },
+      "revId": "e98f51c13499d7e3e30ceec296c2ce696b79b64d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_eaca36a0",
+        "filename": "csit/suites/controller/singleton_service/routed_rpc_isolate.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-26T12:24:11Z",
+      "side": 1,
+      "message": "This combination of Get+Set is repeated, so it may be good idea to create a keyword such as Get_Owner_And_Set_Suite_Variables which would take variable names as arguments. But that may be too fancy, and current way is known and readable enough. So no recommendation either way (yet).",
+      "range": {
+        "startLine": 27,
+        "startChar": 12,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "e98f51c13499d7e3e30ceec296c2ce696b79b64d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2ac43e91",
+        "filename": "csit/suites/controller/singleton_service/routed_rpc_isolate.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-26T12:24:11Z",
+      "side": 1,
+      "message": "I am not sure about this one. I can imagine if a real RPC has side-effects (visible outside the owner member), Isolated owner might be coded to fail to not interfere with the expected new owner. I recommend Run_Keyword_And_Ignore_Error until we consult with developers what the intended response is.",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 11
+      },
+      "revId": "e98f51c13499d7e3e30ceec296c2ce696b79b64d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ea41960c",
+        "filename": "csit/suites/controller/singleton_service/routed_rpc_isolate.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-26T12:24:11Z",
+      "side": 1,
+      "message": "${EMPTY}\n\nIt is a Robot (as opposed to Python) constant.",
+      "range": {
+        "startLine": 82,
+        "startChar": 51,
+        "endLine": 82,
+        "endChar": 59
+      },
+      "revId": "e98f51c13499d7e3e30ceec296c2ce696b79b64d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2a4b9e2c",
+        "filename": "csit/suites/controller/singleton_service/routed_rpc_isolate.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-26T12:24:11Z",
+      "side": 1,
+      "message": "Occures 3 times. Separate keyword to make the calls shorter?",
+      "range": {
+        "startLine": 87,
+        "startChar": 34,
+        "endLine": 87,
+        "endChar": 145
+      },
+      "revId": "e98f51c13499d7e3e30ceec296c2ce696b79b64d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6a55a6c5",
+        "filename": "csit/testplans/controller-clustering.txt",
+        "patchSetId": 19
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-26T12:24:11Z",
+      "side": 1,
+      "message": "Remove hashmarks when ready.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "e98f51c13499d7e3e30ceec296c2ce696b79b64d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
