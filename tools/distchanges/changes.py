@@ -3,7 +3,6 @@ import argparse
 import gerritquery
 import os
 import re
-import shutil
 import sys
 import time
 import urllib3
@@ -40,7 +39,7 @@ See the License for the specific language governing permissions and
 limitations under the License."""
 
 
-class Changes:
+class Changes(object):
     # NETVIRT_PROJECTS, as taken from autorelease dependency info [0]
     # TODO: it would be nice to fetch the dependency info on the fly in case it changes down the road
     # [0] https://logs.opendaylight.org/releng/jenkins092/autorelease-release-carbon/127/archives/dependencies.log.gz
@@ -77,6 +76,7 @@ class Changes:
         self.project_names = project_names
         self.remote_url = remote_url
         self.verbose = verbose
+        self.projects = {}
 
     def epoch_to_utc(self, epoch):
         utc = time.gmtime(epoch)
@@ -189,7 +189,7 @@ class Changes:
             zf = zipfile.ZipFile(fullpath, "r")
             try:
                 pfile = zf.open("META-INF/git.properties")
-                return pfile.read()
+                return str(pfile.read())
             except KeyError:
                 pass
         return None
@@ -288,6 +288,7 @@ class Changes:
         for project in self.projects:
             changeid = self.find_distro_changeid(project)
             if changeid:
+                self.projects[project]['commit'] = changeid
                 self.projects[project]["includes"] = self.get_includes(project, changeid)
         return self.projects
 
