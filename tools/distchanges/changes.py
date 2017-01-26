@@ -204,7 +204,7 @@ class Changes:
         """
         # match a 40 or 8 char Change-Id hash. both start with I
         regex = re.compile(r'\bI([a-f0-9]{40})\b|\bI([a-f0-9]{8})\b')
-        changeid = regex.search(pfile)
+        changeid = regex.search(str(pfile))
         if changeid:
             return changeid.group()
 
