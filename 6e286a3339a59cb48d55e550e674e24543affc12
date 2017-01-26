@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_f5885cc8",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-26T08:24:25Z",
+      "side": 1,
+      "message": "maybe this is better:\n                         self.epoch_to_utc(gerrit.get(\"grantedOn\"], 0)),\n                         self.epoch_to_utc(gerrit.get(\"lastUpdated\", 0),\n                         gerrit.get(\"number\", \"00000\"),\n                         gerrit.get(\"subject\", \"none\")))",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 79
+      },
+      "revId": "6e286a3339a59cb48d55e550e674e24543affc12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
