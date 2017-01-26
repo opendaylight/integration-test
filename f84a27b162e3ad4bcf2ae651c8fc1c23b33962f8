@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_3bef72b2",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-01-26T23:35:17Z",
+      "side": 1,
+      "message": "Sam, I don\u0027t know why but I had to add this while working on\nthe distchange.py. Seems safe, but I don\u0027t really understand\nwhy it was breaking now, but worked before.",
+      "range": {
+        "startLine": 207,
+        "startChar": 32,
+        "endLine": 207,
+        "endChar": 42
+      },
+      "revId": "f84a27b162e3ad4bcf2ae651c8fc1c23b33962f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
