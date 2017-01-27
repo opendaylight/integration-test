@@ -140,6 +140,15 @@ Get_Raft_State_Of_Shard_At_Member
     ${raft_state} =    Collections.Get_From_Dictionary    ${value}    RaftState
     [Return]    ${raft_state}
 
+Verify_Shard_Leader_Elected
+    [Arguments]    ${shard_name}    ${shard_type}    ${new_elected}    ${old_leader}    ${member_index_list}=${EMPTY}
+    [Documentation]    Verify new leader was elected or remained the same. Bool paramter ${new_elected} indicates if
+    ...    new leader is elected or should remained the same as ${old_leader}
+    ${leader}    ${followers}=    Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${member_index_list}
+    BuiltIn.Run_Keyword_If    ${new_elected}    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${old_leader}    ${leader}
+    BuiltIn.Run_Keyword_Unless    ${new_elected}    BuiltIn.Should_Be_Equal_As_numbers    ${old_leader}    ${leader}
+    BuiltIn.Return_From_Keyword    ${leader}    ${followers}
+
 Verify_Owner_And_Successors_For_Device
     [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${candidate_list}=${EMPTY}    ${after_stop}=False
     [Documentation]    Returns the owner and successors for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.

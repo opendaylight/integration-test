@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Resource housing Keywords common to tests which interact with car/people models.
 ...
-...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
+...               Copyright (c) 2016-2017 Cisco Systems, Inc. and others. All rights reserved.
 ...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -60,3 +60,22 @@ Set_Variables_For_Shard
     BuiltIn.Set_Suite_Variable    \${${shard_name}_follower_sessions}    ${sessions}
     ${first_follower_session} =    Collections.Get_From_List    ${sessions}    0
     BuiltIn.Set_Suite_Variable    \${${shard_name}_first_follower_session}    ${first_follower_session}
+
+Set_Tmp_Variables_For_Shard_For_Nodes
+    [Arguments]    ${member_index_list}    ${shard_name}=car    ${shard_type}=config
+    [Documentation]    Get current leader and followers for given shard. Can be used for less nodes than full odl configuration.
+    ...    Variable names do not contain neither node nor shard names, so the variables are only suitable for temporary use, as indicated by Tmp in the keyword name.
+    ...    This keyword sets the following suite variables:
+    ...    ${new_leader_session} - http session for the leader node
+    ...    ${new_follower_sessions} - list of http sessions for the follower nodes
+    ...    ${new_first_follower_session} - http session for the first follower node
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${member_index_list}
+    ${leader_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${leader}
+    BuiltIn.Set_Suite_Variable    \${new_leader_session}    ${leader_session}
+    ${sessions} =    BuiltIn.Create_List
+    : FOR    ${follower_index}    IN    @{follower_list}
+    \    ${follower_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower_index}
+    \    Collections.Append_To_List    ${sessions}    ${follower_session}
+    BuiltIn.Set_Suite_Variable    \${new_follower_sessions}    ${sessions}
+    ${first_follower_session} =    Collections.Get_From_List    ${sessions}    0
+    BuiltIn.Set_Suite_Variable    \${new_first_follower_session}    ${first_follower_session}
