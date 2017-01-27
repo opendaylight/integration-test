@@ -8,3 +8,5 @@ integration/test/csit/suites/controller/Clustering_Datastore/buycar_failover.rob
 integration/test/csit/suites/controller/Clustering_Datastore/entity_isolate.robot
 integration/test/csit/suites/controller/singleton_service/global_rpc_kill.robot
 integration/test/csit/suites/controller/singleton_service/global_rpc_isolate.robot
+integration/test/csit/suites/controller/Clustering_Datastore/buycar_failover_isolation.robot
+integration/test/csit/suites/controller/Clustering_Datastore/car_failover_crud_isolation.robot
