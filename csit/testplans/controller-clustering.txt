@@ -6,3 +6,6 @@ integration/test/csit/suites/controller/Clustering_Datastore/car_persistence_rec
 integration/test/csit/suites/controller/Clustering_Datastore/car_outage_corners.robot
 integration/test/csit/suites/controller/Clustering_Datastore/buycar_failover.robot
 integration/test/csit/suites/controller/Clustering_Datastore/entity_isolate.robot
+integration/test/csit/suites/controller/Clustering_Datastore/buycar_failover_isolation.robot
+integration/test/csit/suites/controller/Clustering_Datastore/car_failover_crud_isolation.robot
+
