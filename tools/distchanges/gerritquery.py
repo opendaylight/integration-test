@@ -259,6 +259,9 @@ class GerritQuery:
         """
         lines = []
         for line in changes.split("\n"):
+            if line.find('"type":"error","message"') != -1:
+                print("there was a query error")
+                continue
             if line.find('stats') == -1:
                 lines.append(line)
         if self.verbose >= 2:
