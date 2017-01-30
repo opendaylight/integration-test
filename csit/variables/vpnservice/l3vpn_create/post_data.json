@@ -13,6 +13,7 @@
             "import-RT":
                $importrt
             ,
+	    "l3vni":"$l3vni",
             "tenant-id":"$tenantid"
             $router
          }
