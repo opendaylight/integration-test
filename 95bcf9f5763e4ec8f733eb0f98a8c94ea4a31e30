@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_08d0574f",
+        "filename": "csit/libraries/YangmanGUIVariables.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-30T13:22:17Z",
+      "side": 1,
+      "message": "csit/variables/YangmanGUIVraiables.robot would be a better path.",
+      "revId": "95bcf9f5763e4ec8f733eb0f98a8c94ea4a31e30",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_28f43bf1",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-30T13:22:17Z",
+      "side": 1,
+      "message": "Is this used?",
+      "range": {
+        "startLine": 6,
+        "startChar": 18,
+        "endLine": 6,
+        "endChar": 25
+      },
+      "revId": "95bcf9f5763e4ec8f733eb0f98a8c94ea4a31e30",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c8ee4f22",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-30T13:22:17Z",
+      "side": 1,
+      "message": "Is this used?",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "95bcf9f5763e4ec8f733eb0f98a8c94ea4a31e30",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e8d07355",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-30T13:22:17Z",
+      "side": 1,
+      "message": "List this Library in Settings table.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 20
+      },
+      "revId": "95bcf9f5763e4ec8f733eb0f98a8c94ea4a31e30",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_48937fa3",
+        "filename": "csit/libraries/YangmanLibrary.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-30T13:22:17Z",
+      "side": 1,
+      "message": "Does this differ from [0]?\n\n[0] http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Should%20Contain",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "95bcf9f5763e4ec8f733eb0f98a8c94ea4a31e30",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a8902b96",
+        "filename": "csit/libraries/YangmanLibrary.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-30T13:22:17Z",
+      "side": 1,
+      "message": "Wrong description.",
+      "range": {
+        "startLine": 8,
+        "startChar": 7,
+        "endLine": 8,
+        "endChar": 64
+      },
+      "revId": "95bcf9f5763e4ec8f733eb0f98a8c94ea4a31e30",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
