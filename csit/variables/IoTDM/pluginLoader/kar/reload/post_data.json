@@ -1,0 +1,6 @@
+{
+    "input": {
+		"karaf-feature-loader-name" : "KarafFeatureLoaderDefault",
+		"karaf-archive-name" : "${FEATURE}"
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "output": {
+    "running-config-list": [
+      {
+        "bundle-loader-instance-name": "BundleLoaderInstanceDefault"
+      }
+    ]
+  }
+}
