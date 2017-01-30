@@ -1,0 +1,11 @@
+{
+  "input": {
+    "karaf-feature-loader-name": "KarafFeatureLoaderDefault",
+    "karaf-archive-url": "file://${PWD}/${KAR}",
+    "features-to-install": [
+      {
+         "feature-name": "${FEATURE}"
+      }
+    ]
+  }
+}

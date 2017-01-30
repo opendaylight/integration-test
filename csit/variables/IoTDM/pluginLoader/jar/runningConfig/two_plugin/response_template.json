@@ -1,0 +1,57 @@
+{
+  "output": {
+    "running-config-list": [
+      {
+        "bundle-loader-instance-name": "BundleLoaderInstanceDefault",
+        "running-features": [
+          {
+            "feature-name": "NewFeature2",
+            "running-feature-bundles": [
+              {
+                "bundle-diagnostic-info": "",
+                "bundle-id": "${ID4}",
+                "bundle-name": "org.opendaylight.iotdm.itplugin2-api",
+                "bundle-state": "Active",
+                "bundle-version": "0.1.0.SNAPSHOT",
+                "iotdm-bundle-jar-location": "file://${PWD}/itplugin2-api-0.1.0-SNAPSHOT.jar",
+                "priority": 1
+              },
+              {
+                "bundle-diagnostic-info": "",
+                "bundle-id": "${ID3}",
+                "bundle-name": "org.opendaylight.iotdm.itplugin2-impl",
+                "bundle-state": "Active",
+                "bundle-version": "0.1.0.SNAPSHOT",
+                "iotdm-bundle-jar-location": "file://${PWD}/itplugin2-impl-0.1.0-SNAPSHOT.jar",
+                "priority": 10
+              }
+            ]
+          },
+          {
+            "feature-name": "NewFeature1",
+            "running-feature-bundles": [
+              {
+                "bundle-diagnostic-info": "",
+                "bundle-id": "${ID2}",
+                "bundle-name": "org.opendaylight.iotdm.itplugin1-api",
+                "bundle-state": "Active",
+                "bundle-version": "0.1.0.SNAPSHOT",
+                "iotdm-bundle-jar-location": "file://${PWD}/itplugin1-api-0.1.0-SNAPSHOT.jar",
+                "priority": 1
+              },
+              {
+                "bundle-diagnostic-info": "",
+                "bundle-id": "${ID1}",
+                "bundle-name": "org.opendaylight.iotdm.itplugin1-impl",
+                "bundle-state": "Active",
+                "bundle-version": "0.1.0.SNAPSHOT",
+                "iotdm-bundle-jar-location": "file://${PWD}/itplugin1-impl-0.1.0-SNAPSHOT.jar",
+                "priority": 10
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
