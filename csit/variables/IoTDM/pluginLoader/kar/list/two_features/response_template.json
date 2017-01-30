@@ -1,0 +1,91 @@
+{
+  "output": {
+    "karaf-feature-loaders": [
+      {
+        "karaf-feature-loader-name": "KarafFeatureLoaderDefault",
+        "karaf-archives": [
+          {
+            "karaf-archive-name": "itplugin2-features-0.1.0-SNAPSHOT",
+            "karaf-features": [
+              {
+                "feature-name": "odl-itplugin2",
+                "feature-version": "0.1.0-SNAPSHOT",
+                "feature-state": "installed",
+                "feature-dependencies": [
+                  {
+                    "dependency-name": "odl-itplugin2-api",
+                    "dependency-version": "0.1.0-SNAPSHOT"
+                  },
+                  {
+                    "dependency-name": "odl-mdsal-broker",
+                    "dependency-version": "1.5.0-SNAPSHOT"
+                  },
+                  {
+                    "dependency-name": "odl-onem2m-core",
+                    "dependency-version": "0.3.0-SNAPSHOT"
+                  }
+                ],
+                "feature-bundles": [
+                  {
+                    "bundle-name": "org.opendaylight.iotdm.itplugin2-impl",
+                    "bundle-version": "0.1.0.SNAPSHOT",
+                    "bundle-id": "${ID3}",
+                    "bundle-location": "mvn:org.opendaylight.iotdm/itplugin2-impl/0.1.0-SNAPSHOT",
+                    "bundle-state": "Active",
+                    "bundle-diagnostic-info": ""
+                  }
+                ],
+                "feature-id": "odl-itplugin2-0.1.0-SNAPSHOT",
+                "feature-description": "OpenDaylight :: itplugin2"
+              }
+            ],
+            "repository-name": "odl-itplugin2-0.1.0-SNAPSHOT",
+            "karaf-archive-url": "file://${PWD}/itplugin2-features-0.1.0-SNAPSHOT.kar",
+            "repository-url": "file:/home/miroslav/projects/iotdm/onem2mall/karaf/target/assembly/data/kar/itplugin2-features-0.1.0-SNAPSHOT/features.xml",
+            "repository-state": "added"
+          },
+          {
+            "karaf-archive-name": "itplugin1-features-0.1.0-SNAPSHOT",
+            "karaf-features": [
+              {
+                "feature-name": "odl-itplugin1",
+                "feature-version": "0.1.0-SNAPSHOT",
+                "feature-state": "installed",
+                "feature-dependencies": [
+                  {
+                    "dependency-name": "odl-mdsal-broker",
+                    "dependency-version": "1.5.0-SNAPSHOT"
+                  },
+                  {
+                    "dependency-name": "odl-itplugin1-api",
+                    "dependency-version": "0.1.0-SNAPSHOT"
+                  },
+                  {
+                    "dependency-name": "odl-onem2m-core",
+                    "dependency-version": "0.3.0-SNAPSHOT"
+                  }
+                ],
+                "feature-bundles": [
+                  {
+                    "bundle-name": "org.opendaylight.iotdm.itplugin1-impl",
+                    "bundle-version": "0.1.0.SNAPSHOT",
+                    "bundle-id": "${ID1}",
+                    "bundle-location": "mvn:org.opendaylight.iotdm/itplugin1-impl/0.1.0-SNAPSHOT",
+                    "bundle-state": "Active",
+                    "bundle-diagnostic-info": ""
+                  }
+                ],
+                "feature-id": "odl-itplugin1-0.1.0-SNAPSHOT",
+                "feature-description": "OpenDaylight :: itplugin1"
+              }
+            ],
+            "repository-name": "odl-itplugin1-0.1.0-SNAPSHOT",
+            "karaf-archive-url": "file://${PWD}/itplugin1-features-0.1.0-SNAPSHOT.kar",
+            "repository-url": "file:/home/miroslav/projects/iotdm/onem2mall/karaf/target/assembly/data/kar/itplugin1-features-0.1.0-SNAPSHOT/features.xml",
+            "repository-state": "added"
+          }
+        ]
+      }
+    ]
+  }
+}

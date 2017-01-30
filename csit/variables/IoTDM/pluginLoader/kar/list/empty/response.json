@@ -1,0 +1,9 @@
+{
+  "output": {
+    "karaf-feature-loaders": [
+      {
+        "karaf-feature-loader-name": "KarafFeatureLoaderDefault"
+      }
+    ]
+  }
+}
