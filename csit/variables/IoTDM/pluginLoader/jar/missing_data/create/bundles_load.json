@@ -1,0 +1,11 @@
+{
+  "input": {
+    "bundle-loader-instance-name": "BundleLoaderInstanceDefault",
+    "feature-name": "NewFeature1",
+    "bundles-to-load": [
+      {
+        "priority": 10
+      }
+    ]
+  }
+}

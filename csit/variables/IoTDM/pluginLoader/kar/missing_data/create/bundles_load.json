@@ -1,0 +1,6 @@
+{
+    "input": {
+        "karaf-feature-loader-name": "KarafFeatureLoaderDefault",
+        "karaf-archive-url": "file://${PWD}/itplugin2-features-0.1.0-SNAPSHOT.kar"
+    }
+}
