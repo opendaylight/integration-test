@@ -78,6 +78,31 @@ Delete and Verify VTEP -No Vlan
     Wait Until Keyword Succeeds    40    10    Verify Data Base after Delete    ${Dpn_id_1}    ${Dpn_id_2}    ${tunnel-1}
     ...    ${tunnel-2}
 
+Create and Verify VTEP IPv6 - No Vlan
+    [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs without VLAN and Gateway configured in Json.
+    ${Dpn_id_1}    Get Dpn Ids    ${conn_id_1}
+    ${Dpn_id_2}    Get Dpn Ids    ${conn_id_2}
+    Set Global Variable    ${Dpn_id_1}
+    Set Global Variable    ${Dpn_id_2}
+    ${vlan}=    Set Variable    0
+    ${gateway-ip}=    Set Variable    ::
+    ${TOOLS_SYSTEM_IP}    Set Variable    fd96:2a25:4ad3:3c7d:0:0:0:100
+    ${TOOLS_SYSTEM_2_IP}    Set Variable    fd96:2a25:4ad3:3c7d:0:0:0:200
+    Create Vteps IPv6    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
+    ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
+    Log    >>>>Network Topology Validation<<<<
+    Sleep 5s
+    ${resp}    Wait Until Keyword Succeeds    40    10    RequestsLibrary.Get Request    session    ${CONFIG_API}/network-topology:network-topology/
+	...    headers=${ACCEPT_XML}
+    Should Contain    ${resp.content}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
+
+Delete and Verify VTEP -No Vlan
+    [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
+    Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
+    Wait Until Keyword Succeeds    40    10    Verify Data Base after Delete    ${Dpn_id_1}    ${Dpn_id_2}    ${tunnel-1}
+    ...    ${tunnel-2}
+
 Create and Verify VTEP-Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs with VLAN and \ without Gateway configured in Json.
     ${vlan}=    Set Variable    100
@@ -199,8 +224,22 @@ Create Vteps
     [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     [Documentation]    This keyword creates VTEPs between ${TOOLS_SYSTEM_IP} and ${TOOLS_SYSTEM_2_IP}
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
-    ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
-    ${subnet}    Catenate    ${substr}0
+    ${subnet}    Catenate    fd96:2a25:4ad3:3c7d:0:0:0:0
+    Log    ${subnet}
+    Set Global Variable    ${subnet}
+    ${vlan}=    Set Variable    ${vlan}
+    ${gateway-ip}=    Set Variable    ${gateway-ip}
+    ${body}    set json    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}    ${subnet}
+    ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/itm:transport-zones/    data=${body}
+    Log    ${resp.content}
+    Log    ${resp.status_code}
+    should be equal as strings    ${resp.status_code}    204
+
+Create Vteps IPv6
+    [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    [Documentation]    This keyword creates VTEPs between ${TOOLS_SYSTEM_IP} and ${TOOLS_SYSTEM_2_IP}
+    ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
+    ${subnet}    Catenate    fd96:2a25:4ad3:3c7d:0:0:0:0
     Log    ${subnet}
     Set Global Variable    ${subnet}
     ${vlan}=    Set Variable    ${vlan}
