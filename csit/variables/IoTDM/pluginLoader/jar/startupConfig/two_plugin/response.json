@@ -1,0 +1,37 @@
+{
+  "output": {
+    "startup-config-list": [
+      {
+        "bundle-loader-instance-name": "BundleLoaderInstanceDefault",
+        "startup-features": [
+          {
+            "bundles-to-load": [
+              {
+                "iotdm-bundle-jar-location": "file://${WORKSPACE}onem2mplugins/iotdmitresources/resources/jar/onem2mitplugin2-api-0.1.0-SNAPSHOT.jar",
+                "priority": 1
+              },
+              {
+                "iotdm-bundle-jar-location": "file://${WORKSPACE}onem2mplugins/iotdmitresources/resources/jar/onem2mitplugin2-impl-0.1.0-SNAPSHOT.jar",
+                "priority": 10
+              }
+            ],
+            "feature-name": "NewFeature1"
+          },
+          {
+            "bundles-to-load": [
+              {
+                "iotdm-bundle-jar-location": "file://${WORKSPACE}onem2mplugins/iotdmitresources/resources/jar/onem2mitplugin1-api-0.1.0-SNAPSHOT.jar",
+                "priority": 1
+              },
+              {
+                "iotdm-bundle-jar-location": "file://${WORKSPACE}onem2mplugins/iotdmitresources/resources/jar/onem2mitplugin1-impl-0.1.0-SNAPSHOT.jar",
+                "priority": 10
+              }
+            ],
+            "feature-name": "NewFeature2"
+          }
+        ]
+      }
+    ]
+  }
+}
