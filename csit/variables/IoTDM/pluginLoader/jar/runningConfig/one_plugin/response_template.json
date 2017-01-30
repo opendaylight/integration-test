@@ -1,0 +1,34 @@
+{
+  "output": {
+    "running-config-list": [
+      {
+        "bundle-loader-instance-name": "BundleLoaderInstanceDefault",
+        "running-features": [
+          {
+            "feature-name": "NewFeature1",
+            "running-feature-bundles": [
+              {
+                "priority": 1,
+                "iotdm-bundle-jar-location": "file://${PWD}/itplugin1-api-0.1.0-SNAPSHOT.jar",
+                "bundle-state": "Active",
+                "bundle-diagnostic-info": "",
+                "bundle-name": "org.opendaylight.iotdm.itplugin1-api",
+                "bundle-version": "0.1.0.SNAPSHOT",
+                "bundle-id": "${ID2}"
+              },
+              {
+                "priority": 10,
+                "iotdm-bundle-jar-location": "file://${PWD}/itplugin1-impl-0.1.0-SNAPSHOT.jar",
+                "bundle-state": "Active",
+                "bundle-diagnostic-info": "",
+                "bundle-name": "org.opendaylight.iotdm.itplugin1-impl",
+                "bundle-version": "0.1.0.SNAPSHOT",
+                "bundle-id": "${ID1}"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
