@@ -1,0 +1,10 @@
+{
+    "input": {
+        "karaf-archive-url": "file://${PWD}/itplugin2-features-0.1.0-SNAPSHOT.kar",
+        "features-to-install": [
+            {
+                "feature-name": "odl-itplugin2"
+            }
+        ]
+    }
+}

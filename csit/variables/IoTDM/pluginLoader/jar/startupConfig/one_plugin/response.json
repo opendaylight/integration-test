@@ -1,0 +1,24 @@
+{
+  "output": {
+    "startup-config-list": [
+      {
+        "bundle-loader-instance-name": "BundleLoaderInstanceDefault",
+        "startup-features": [
+          {
+            "feature-name": "${FEATURE}",
+            "bundles-to-load": [
+              {
+                "priority": 1,
+                "iotdm-bundle-jar-location": "file://${PWD}/${FILENAMEAPI}"
+              },
+              {
+                "priority": 10,
+                "iotdm-bundle-jar-location": "file://${PWD}/${FILENAMEIMPL}"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

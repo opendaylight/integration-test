@@ -1,0 +1,16 @@
+{
+  "input": {
+    "bundle-loader-instance-name": "BundleLoaderInstanceDefault",
+    "feature-name": "NewFeature1",
+    "bundles-to-load": [
+      {
+        "priority": 10,
+        "iotdm-bundle-jar-location": "file://${PWD}/Fail"
+      },
+      {
+        "priority": 1,
+        "iotdm-bundle-jar-location": "file://${PWD}/Fail"
+      }
+    ]
+  }
+}
