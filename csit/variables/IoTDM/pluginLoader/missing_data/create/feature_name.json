@@ -1,0 +1,15 @@
+{
+  "input": {
+    "bundle-loader-instance-name": "BundleLoaderInstanceDefault",
+    "bundles-to-load": [
+      {
+        "priority": 10,
+        "iotdm-bundle-jar-location": "file://${WORKSPACE}onem2mplugins/resources/testPlugin/onem2mtest-impl-0.1.0-SNAPSHOT.jar"
+      },
+      {
+        "priority": 1,
+        "iotdm-bundle-jar-location": "file://${WORKSPACE}onem2mplugins/resources/testPlugin/onem2mtest-api-0.1.0-SNAPSHOT.jar"
+      }
+    ]
+  }
+}

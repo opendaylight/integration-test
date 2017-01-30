@@ -177,6 +177,10 @@ def kill_the_tree(host, cseid, username, password):
     connection.kill()
 
 
+def get_id(text):
+    return text.split('[')[1][:-1]
+
+
 def check_response(response, operation):
     """Check whether the connection is none."""
     if response is None:
