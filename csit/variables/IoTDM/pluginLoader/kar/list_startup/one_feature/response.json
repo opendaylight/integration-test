@@ -1,0 +1,22 @@
+{
+  "output": {
+    "startup-karaf-feature-loaders": [
+      {
+        "karaf-feature-loader-name": "KarafFeatureLoaderDefault",
+        "startup-karaf-archives": [
+          {
+            "karaf-archive-name": "itplugin1-features-0.1.0-SNAPSHOT",
+            "repository-name": "odl-itplugin1-0.1.0-SNAPSHOT",
+            "karaf-archive-url": "file://${PWD}/${KAR}",
+            "repository-url": "file:/home/miroslav/projects/iotdm/onem2mall/karaf/target/assembly/data/kar/itplugin1-features-0.1.0-SNAPSHOT/features.xml",
+            "startup-karaf-features": [
+              {
+                "feature-name": "${FEATURE}"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

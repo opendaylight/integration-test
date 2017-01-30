@@ -1,0 +1,33 @@
+{
+  "output": {
+    "startup-karaf-feature-loaders": [
+      {
+        "karaf-feature-loader-name": "KarafFeatureLoaderDefault",
+        "startup-karaf-archives": [
+          {
+            "karaf-archive-name": "itplugin1-features-0.1.0-SNAPSHOT",
+            "repository-name": "odl-itplugin1-0.1.0-SNAPSHOT",
+            "karaf-archive-url": "file://${PWD}/itplugin1-features-0.1.0-SNAPSHOT.kar",
+            "repository-url": "file:/home/miroslav/projects/iotdm/onem2mall/karaf/target/assembly/data/kar/itplugin1-features-0.1.0-SNAPSHOT/features.xml",
+            "startup-karaf-features": [
+              {
+                "feature-name": "odl-itplugin1"
+              }
+            ]
+          },
+          {
+            "karaf-archive-name": "itplugin2-features-0.1.0-SNAPSHOT",
+            "repository-name": "odl-itplugin2-0.1.0-SNAPSHOT",
+            "karaf-archive-url": "file://${PWD}/itplugin2-features-0.1.0-SNAPSHOT.kar",
+            "repository-url": "file:/home/miroslav/projects/iotdm/onem2mall/karaf/target/assembly/data/kar/itplugin2-features-0.1.0-SNAPSHOT/features.xml",
+            "startup-karaf-features": [
+              {
+                "feature-name": "odl-itplugin2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

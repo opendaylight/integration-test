@@ -1,0 +1,16 @@
+{
+  "input": {
+    "bundle-loader-instance-name": "BundleLoaderInstanceDefault",
+    "feature-name": "${FEATURE}",
+    "bundles-to-load": [
+      {
+        "priority": 10,
+        "iotdm-bundle-jar-location": "file://${PWD}/${FILENAMEIMPL}"
+      },
+      {
+        "priority": 1,
+        "iotdm-bundle-jar-location": "file://${PWD}/${FILENAMEAPI}"
+      }
+    ]
+  }
+}

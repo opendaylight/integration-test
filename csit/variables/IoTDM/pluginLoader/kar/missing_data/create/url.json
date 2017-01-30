@@ -1,0 +1,10 @@
+{
+    "input": {
+        "karaf-feature-loader-name": "KarafFeatureLoaderDefault",
+        "features-to-install": [
+            {
+                "feature-name": "odl-itplugin1"
+            }
+        ]
+    }
+}
