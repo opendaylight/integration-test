@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_e28ff221",
+        "filename": "tools/distchanges/gerritquery.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-01-30T08:38:51Z",
+      "side": 1,
+      "message": "Pythonic:\n\n            if \u0027\"type\":\"error\",\"message\"\u0027) in line:\n                print(\"there was a query error\")\n            elif \u0027stats\u0027 in line:\n                lines.append(line)",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 34
+      },
+      "revId": "b8e18a13ad81c49d6766908981183d0244217167",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
