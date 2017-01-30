@@ -1,0 +1,9 @@
+alb_COM   Link encap:UNSPEC  HWaddr FE-80-00-00-00-00-00-00-00-00-00-00-00-00-00-00
+          inet addr:13.1.1.70  P-t-P:13.1.1.70  Mask:255.255.255.255
+          inet6 addr: fe80::c089:9bff:fe54:105/64 Scope:Link
+          UP POINTOPOINT RUNNING NOARP  MTU:1452  Metric:1
+          RX packets:1098 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:876 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:136246 (133.0 Kb)  TX bytes:160170 (156.4 Kb)
+
