@@ -18,6 +18,7 @@ ODL_SYSTEM_IP_LIST = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
 ODL_SYSTEM_USER = DEFAULT_USER
 ODL_SYSTEM_PASSWORD = ''  # empty means use public key authentication
 ODL_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
+ODL_STREAM ='boron'
 
 # "Tools" system variables (mininet etc).
 TOOLS_SYSTEM_IP = '127.0.0.1'  # Override if tools are not run locally to pybot
