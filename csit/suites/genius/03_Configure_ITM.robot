@@ -24,7 +24,9 @@ Create and Verify VTEP -No Vlan
     Set Global Variable    ${Dpn_id_1}
     Set Global Variable    ${Dpn_id_2}
     ${vlan}=    Set Variable    0
-    ${gateway-ip}=    Set Variable    0.0.0.0
+    ${gateway-ip}=    Set Variable    ::/0
+    ${TOOLS_SYSTEM_IP}    Set Variable    fd96:2a25:4ad3:3c7d:0:0:0:1
+    ${TOOLS_SYSTEM_2_IP}    Set Variable    fd96:2a25:4ad3:3c7d:0:0:0:2
     Create Vteps    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
@@ -71,6 +73,22 @@ Create and Verify VTEP -No Vlan
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${lower-layer-if-1}    ${lower-layer-if-2}
     Log    ${resp.content}
+
+Create and Verify VTEP IPv6 - No Vlan
+    [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs without VLAN and Gateway configured in Json.
+    ${Dpn_id_1}    Get Dpn Ids    ${conn_id_1}
+    ${Dpn_id_2}    Get Dpn Ids    ${conn_id_2}
+    Set Global Variable    ${Dpn_id_1}
+    Set Global Variable    ${Dpn_id_2}
+    ${vlan}=    Set Variable    0
+    ${gateway-ip}=    Set Variable    0.0.0.0
+    Create Vteps    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
+    ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
+    Log    >>>>Network Topology Validation<<<<
+    ${resp}    Wait Until Keyword Succeeds    40    10    RequestsLibrary.Get Request    session    ${CONFIG_API}/network-topology:network-topology/
+	...    headers=${ACCEPT_XML}
+    Should Contain    ${resp.content}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
 
 Delete and Verify VTEP -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
@@ -137,7 +155,6 @@ Delete and Verify VTEP -Vlan
 Create VTEP - Vlan and Gateway
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs with VLAN and Gateway configured in Json.
     ${vlan}=    Set Variable    101
-    ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
     ${subnet}    Catenate    ${substr}0
     ${gateway-ip}    Catenate    ${substr}1
     Log    ${subnet}
@@ -199,7 +216,6 @@ Create Vteps
     [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     [Documentation]    This keyword creates VTEPs between ${TOOLS_SYSTEM_IP} and ${TOOLS_SYSTEM_2_IP}
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
-    ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
     ${subnet}    Catenate    ${substr}0
     Log    ${subnet}
     Set Global Variable    ${subnet}
