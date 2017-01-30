@@ -3,6 +3,7 @@ Documentation     Openstack library. This library is useful for tests to create 
 Library           SSHLibrary
 Resource          Netvirt.robot
 Resource          Utils.robot
+Resource          DevstackUtils.robot
 Resource          ../variables/Variables.robot
 
 *** Keywords ***

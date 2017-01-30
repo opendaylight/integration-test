@@ -18,7 +18,7 @@ ${TEMPEST_REGEX}    tempest.api.network
 ${ODL_BOOT_WAIT_URL}    restconf/operational/network-topology:network-topology/topology/netvirt:1
 ${default_devstack_prompt_timeout}    10s
 ${devstack_workspace}    ~/ds_workspace
-${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to override if desired
+${DEVSTACK_SYSTEM_PASSWORD}    mininet
 ${CLEAN_DEVSTACK_HOST}    False
 
 *** Keywords ***
