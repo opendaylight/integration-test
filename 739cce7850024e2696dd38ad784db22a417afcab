@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_29d8baee",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/010_ise-adapter.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-01-31T14:12:36Z",
+      "side": 1,
+      "message": "rename files https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#DON.27T:_Numeric_prefix",
+      "revId": "739cce7850024e2696dd38ad784db22a417afcab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_89e566aa",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/010_ise-adapter.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-01-31T14:12:36Z",
+      "side": 1,
+      "message": "is it possible to unify somehow  the code style?\nthis is applicable to all files\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines\n\nmissing libraries vs. used libraries\nGet Data From URI vs. os.Get file\n\nspaces vs. underscores\nNormalize_Jsons_And_Compare vs. Run keyword and ignore error\n\nfirst catital vs. camel case\nRun keyword and ignore error vs. Delete All Sessions",
+      "revId": "739cce7850024e2696dd38ad784db22a417afcab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
