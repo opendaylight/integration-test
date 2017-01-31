@@ -33,6 +33,116 @@
       "revId": "739cce7850024e2696dd38ad784db22a417afcab",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_846c2b9e",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/010_ise-adapter.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-31T14:49:46Z",
+      "side": 1,
+      "message": "I agree, Style inconsistency really decreases readability.\n\n\u003e https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines\n\n#Keyword_Naming",
+      "parentUuid": "fafc7978_89e566aa",
+      "revId": "739cce7850024e2696dd38ad784db22a417afcab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_04103b00",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/010_ise-adapter.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-31T14:49:46Z",
+      "side": 1,
+      "message": "Irrelevant, remove",
+      "range": {
+        "startLine": 27,
+        "startChar": 15,
+        "endLine": 27,
+        "endChar": 20
+      },
+      "revId": "739cce7850024e2696dd38ad784db22a417afcab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_44f9a3c7",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/010_ise-adapter.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-31T14:49:46Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#AVOID:_Comments_as_abstraction",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 6
+      },
+      "revId": "739cce7850024e2696dd38ad784db22a417afcab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a4316fa4",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-31T14:49:46Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Stay_away_from_using_a_Sleep",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 114,
+        "endChar": 9
+      },
+      "revId": "739cce7850024e2696dd38ad784db22a417afcab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_84f1cbcf",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-01-31T14:49:46Z",
+      "side": 1,
+      "message": "Format string for ISO8601 extended datetime format. TODO: Create a Resource for date/time formatting.\n\nUmm, scratch that. Just inline the value to line 86 of csit/libraries/GbpSxp.robot",
+      "range": {
+        "startLine": 81,
+        "startChar": 56,
+        "endLine": 81,
+        "endChar": 63
+      },
+      "revId": "739cce7850024e2696dd38ad784db22a417afcab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
