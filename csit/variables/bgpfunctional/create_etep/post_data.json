@@ -1,0 +1,3 @@
+{"input": 
+  {"tunnel-type": "odl-interface:tunnel-type-mpls-over-gre", 
+   "destination-ip": "$destIp"}}
