@@ -165,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_2b3b873b",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_isolate.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-01T17:39:34Z",
+      "side": 1,
+      "message": "Alright.",
+      "parentUuid": "fafc7978_4bb52bed",
+      "range": {
+        "startLine": 93,
+        "startChar": 40,
+        "endLine": 93,
+        "endChar": 43
+      },
+      "revId": "15a38292b59c255c7e7ae36f42118856467f1ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_50acbaa0",
         "filename": "csit/suites/controller/singleton_service/global_rpc_kill.robot",
         "patchSetId": 32
