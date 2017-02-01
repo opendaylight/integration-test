@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_ab52d7da",
+        "filename": "csit/libraries/SetupUtils.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-02-01T17:09:50Z",
+      "side": 1,
+      "message": "KarafKeywords has Set Bgpcep Log Levels",
+      "parentUuid": "fafc7978_7010de4e",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 13
+      },
+      "revId": "15a38292b59c255c7e7ae36f42118856467f1ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_7048de2d",
         "filename": "csit/suites/controller/singleton_service/global_rpc_isolate.robot",
         "patchSetId": 32
@@ -117,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_4bb52bed",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_isolate.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-02-01T17:09:50Z",
+      "side": 1,
+      "message": "There will be no lines savings as there is a need to find out which members to skip. I prefer to run the rpc again on already tested nodes.",
+      "parentUuid": "fafc7978_50103a01",
+      "range": {
+        "startLine": 93,
+        "startChar": 40,
+        "endLine": 93,
+        "endChar": 43
+      },
+      "revId": "15a38292b59c255c7e7ae36f42118856467f1ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_50acbaa0",
         "filename": "csit/suites/controller/singleton_service/global_rpc_kill.robot",
         "patchSetId": 32
@@ -151,6 +199,30 @@
       "writtenOn": "2017-02-01T15:46:54Z",
       "side": 1,
       "message": "Perhaps we can create\n    ClusterManagement.Get_Owner_And_Successors_For_Singleton\nso that call site only needs to specify important strings.",
+      "range": {
+        "startLine": 23,
+        "startChar": 32,
+        "endLine": 23,
+        "endChar": 34
+      },
+      "revId": "15a38292b59c255c7e7ae36f42118856467f1ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_8bf9d3ca",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_kill.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-02-01T17:09:50Z",
+      "side": 1,
+      "message": "Possibly, but it will be the same as the present kw if it will be based on stripping of some pre and post text as the present implementation.",
+      "parentUuid": "fafc7978_f09a0e13",
       "range": {
         "startLine": 23,
         "startChar": 32,
