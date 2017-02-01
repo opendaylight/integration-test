@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_8509c233",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-01T15:46:54Z",
+      "side": 1,
+      "message": "Is this debug still needed?",
+      "range": {
+        "startLine": 417,
+        "startChar": 44,
+        "endLine": 417,
+        "endChar": 51
+      },
+      "revId": "15a38292b59c255c7e7ae36f42118856467f1ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7010de4e",
+        "filename": "csit/libraries/SetupUtils.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-01T15:46:54Z",
+      "side": 1,
+      "message": "I have seen logging-related keywords elsewhere, not sure what the proper place is yet.",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 13
+      },
+      "revId": "15a38292b59c255c7e7ae36f42118856467f1ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7048de2d",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_isolate.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-01T15:46:54Z",
+      "side": 1,
+      "message": "Default tags in Settings tables would take less space.",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 10
+      },
+      "revId": "15a38292b59c255c7e7ae36f42118856467f1ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_305e56e7",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_isolate.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-01T15:46:54Z",
+      "side": 1,
+      "message": "If putting debug data into karaf.log (as opposed to BuiltIn.Log) is deemed useful, we can create shorted keyword name for that in KarafKeywords.",
+      "range": {
+        "startLine": 63,
+        "startChar": 18,
+        "endLine": 63,
+        "endChar": 86
+      },
+      "revId": "15a38292b59c255c7e7ae36f42118856467f1ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_50103a01",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_isolate.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-01T15:46:54Z",
+      "side": 1,
+      "message": "This is to simplify testing on 5node clusters and similar?\nWe have ClusterManagement.Run_Bash_Command_On_List_Or_All so maybe there is an easy way to enhance it to specify indexes to skip (without much coding at caller site).",
+      "range": {
+        "startLine": 93,
+        "startChar": 40,
+        "endLine": 93,
+        "endChar": 43
+      },
+      "revId": "15a38292b59c255c7e7ae36f42118856467f1ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_50acbaa0",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_kill.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-01T15:46:54Z",
+      "side": 1,
+      "message": "\u0027l\u0027 is before \u0027v\u0027",
+      "range": {
+        "startLine": 18,
+        "startChar": 37,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "15a38292b59c255c7e7ae36f42118856467f1ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f09a0e13",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_kill.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-01T15:46:54Z",
+      "side": 1,
+      "message": "Perhaps we can create\n    ClusterManagement.Get_Owner_And_Successors_For_Singleton\nso that call site only needs to specify important strings.",
+      "range": {
+        "startLine": 23,
+        "startChar": 32,
+        "endLine": 23,
+        "endChar": 34
+      },
+      "revId": "15a38292b59c255c7e7ae36f42118856467f1ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
