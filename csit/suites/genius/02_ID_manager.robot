@@ -53,7 +53,7 @@ Allocate IDs of size 3 from the pool
     ${body}    replace string    ${body}    5    3
     log    ${body}
     Post Elements To URI    ${OPERATIONS_API}/id-manager:allocateIdRange    ${body}
-    ${get_resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/    headers=${ACCEPT_XML}
+    ${get_resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/    
     Log    ${get_resp.content}
     Should Contain    ${get_resp.content}    17
     Should Be Equal As Strings    ${get_resp.status_code}    200
@@ -64,12 +64,12 @@ Release a block of IDs allocated using releaseIds RPC
     log    ${body}
     ${body}    replace string    ${body}    test-key    ${test_keys[2]}
     Post Elements To URI    ${OPERATIONS_API}/id-manager:releaseId    ${body}
-    ${get_resp2}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/    headers=${ACCEPT_XML}
+    ${get_resp2}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/    
     Log    ${get_resp2.content}
     Should Be Equal As Strings    ${get_resp2.status_code}    200
     ${child-pool-name}    Should Match Regexp    ${get_resp2.content}    ${pool-name}\.[0-9]+
     log    ${child-pool-name}
-    ${get_releasedIds}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${child-pool-name}/released-ids-holder/    headers=${ACCEPT_XML}
+    ${get_releasedIds}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${child-pool-name}/released-ids-holder/    
     log    ${get_releasedIds.content}
     Should Be Equal As Strings    ${get_releasedIds.status_code}    200
     @{released_ids}    re.findall    <id>[0-9]+    ${get_releasedIds.content}
@@ -81,12 +81,12 @@ Delete the ID Pool using deleteIdPool RPC
     ${body}    replace string    ${body}    poolname    ${pool-name}
     log    ${body}
     Post Elements To URI    ${OPERATIONS_API}/id-manager:deleteIdPool    ${body}
-    No Content From URI    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/    headers=${ACCEPT_XML}
+    No Content From URI    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/    
 
 *** Keywords ***
 get Id pool
     [Documentation]    This keyword checks the created ID pool by doing GET.
-    ${get_resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/    headers=${ACCEPT_XML}
+    ${get_resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/  
     Log    ${get_resp.content}
     Should Contain    ${get_resp.content}    14
     Should Be Equal As Strings    ${get_resp.status_code}    200
