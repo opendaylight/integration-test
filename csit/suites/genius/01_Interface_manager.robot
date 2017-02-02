@@ -32,7 +32,7 @@ Create l2vlan transparent interface
 Delete l2vlan transparent interface
     [Documentation]    This testcase deletes the l2vlan transparent interface created between 2 dpns.
     Remove All Elements At URI And Verify    ${CONFIG_API}/ietf-interfaces:interfaces/
-    No Content From URI    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces/    headers=${ACCEPT_XML}
+    No Content From URI    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces/
     Wait Until Keyword Succeeds    30    10    no table0 entry
 
 Create l2vlan trunk interface
@@ -109,7 +109,7 @@ Delete l2vlan trunk interface
 get operational interface
     [Arguments]    ${interface_name}
     [Documentation]    checks operational status of the interface.
-    ${get_oper_resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${interface_name}/    headers=${ACCEPT_XML}
+    ${get_oper_resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${interface_name}/
     log    ${get_oper_resp.content}
     log    ${get_oper_resp.status_code}
     Should Be Equal As Strings    ${get_oper_resp.status_code}    200

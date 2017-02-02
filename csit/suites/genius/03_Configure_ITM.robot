@@ -36,8 +36,8 @@ Create and Verify VTEP -No Vlan
     ...    ${type}
     Set Global Variable    ${tunnel-2}
     ${tunnel-type}=    Set Variable    type: vxlan
-    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/    headers=${ACCEPT_XML}
-    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/    headers=${ACCEPT_XML}
+    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
+    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
     Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
     Wait Until Keyword Succeeds    40    10    Ovs Verification 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
     ...    ${tunnel-1}    ${tunnel-type}
@@ -56,7 +56,7 @@ Create and Verify VTEP -No Vlan
     ${lower-layer-if-2}    Get from List    ${return}    2
     ${port-num-2}    Get From List    ${return}    3
     Log    >>>>>Verify Oper data base of Interface state<<<<<
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
@@ -67,7 +67,7 @@ Create and Verify VTEP -No Vlan
     Log    >>>>> Checking Entry in table 0 on OVS 2<<<<<
     ${check-4}    Wait Until Keyword Succeeds    40    10    Check Table0 Entry for 2 Dpn    ${conn_id_2}    ${Bridge-2}
     ...    ${port-num-2}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${lower-layer-if-1}    ${lower-layer-if-2}
     Log    ${resp.content}
@@ -96,8 +96,8 @@ Create and Verify VTEP-Vlan
     log    ${tunnel-4}
     Set Global Variable    ${tunnel-4}
     ${tunnel-type}=    Set Variable    type: vxlan
-    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/    headers=${ACCEPT_XML}
-    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/    headers=${ACCEPT_XML}
+    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
+    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
     Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
     Wait Until Keyword Succeeds    40    10    Ovs Verification 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
     ...    ${tunnel-3}    ${tunnel-type}
@@ -123,7 +123,7 @@ Create and Verify VTEP-Vlan
     Wait Until Keyword Succeeds    40    10    Check Table0 Entry for 2 Dpn    ${conn_id_1}    ${Bridge-1}    ${port-num-1}
     Log    >>>>> Checking Entry in table 0 on OVS \ 2<<<<<
     Wait Until Keyword Succeeds    40    10    Check Table0 Entry for 2 Dpn    ${conn_id_2}    ${Bridge-2}    ${port-num-2}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${lower-layer-if-2}    ${lower-layer-if-1}
@@ -154,8 +154,8 @@ Create VTEP - Vlan and Gateway
     log    ${tunnel-6}
     Set Global Variable    ${tunnel-6}
     ${tunnel-type}=    Set Variable    type: vxlan
-    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/    headers=${ACCEPT_XML}
-    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/    headers=${ACCEPT_XML}
+    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
+    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
     Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
     ${check-1}    Wait Until Keyword Succeeds    40    10    Ovs Verification 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}
     ...    ${TOOLS_SYSTEM_2_IP}    ${tunnel-5}    ${tunnel-type}
@@ -183,7 +183,7 @@ Create VTEP - Vlan and Gateway
     ${check-4}    Wait Until Keyword Succeeds    40    10    Check Table0 Entry for 2 Dpn    ${conn_id_2}    ${Bridge-2}
     ...    ${port-num-2}
     Log    ${check-4}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${lower-layer-if-2}    ${lower-layer-if-1}
     Log    ${resp.content}
@@ -227,15 +227,15 @@ Get Dpn Ids
 Get Tunnel
     [Arguments]    ${src}    ${dst}    ${type}
     [Documentation]    This Keyword Gets the Tunnel /Interface name which has been created between 2 DPNS by passing source , destination DPN Ids along with the type of tunnel which is configured.
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
     Log    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${src}    ${dst}    TUNNEL:
-    ${result}    re.sub    <.*?>    ,    ${resp.content}
-    Log    ${result}
-    @{resp_array}    Split String    ${result}    ,,
-    ${Tunnel}    Get From List    ${resp_array}    4
+    ${json}=    evaluate    json.loads('''${resp.content}''')    json
+    log to console    \nOriginal JSON:\n${json}
+    ${Tunnel}    Collections.Get From Dictionary    ${json["internal-tunnel"][0]}    tunnel-interface-name
+    Log To Console    ${Tunnel}
     Log    ${Tunnel}
     [Return]    ${Tunnel}
 
@@ -295,7 +295,7 @@ Validate interface state Delete
     [Arguments]    ${tunnel}
     [Documentation]    Check for the Tunnel / Interface absence in OPERATIONAL data base of IETF interface after ITM transport zone is deleted.
     Log    ${tunnel}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    404
     Should not contain    ${resp.content}    ${tunnel}
@@ -328,7 +328,7 @@ check-Tunnel-delete-on-ovs
 check interface status
     [Arguments]    ${tunnel}    ${dpid}
     [Documentation]    Verifies the operational state of the interface .
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
     Log    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -347,11 +347,11 @@ Verify Data Base after Delete
     [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${tunnel-1}    ${tunnel-2}
     [Documentation]    Verifies the config database after the Tunnel deletion is done.
     ${type}    set variable    odl-interface:tunnel-type-vxlan
-    No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_1}/${Dpn_id_2}/${type}/    headers=${ACCEPT_XML}
-    No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_2}/${Dpn_id_1}/${type}/    headers=${ACCEPT_XML}
-    No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/    headers=${ACCEPT_XML}
-    No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/    headers=${ACCEPT_XML}
-    ${resp_7}    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/    headers=${ACCEPT_XML}
+    No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_1}/${Dpn_id_2}/${type}/
+    No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_2}/${Dpn_id_1}/${type}/
+    No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
+    No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
+    ${resp_7}    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/
     Run Keyword if    '${resp_7.content}'=='404'    Response is 404
     Run Keyword if    '${resp_7.content}'=='200'    Response is 200
     ${resp_8}    Wait Until Keyword Succeeds    40    10    Get Network Topology without Tunnel    ${CONFIG_TOPO_API}    ${tunnel-1}
