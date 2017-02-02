@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_bcadfc8a",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 115
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2017-02-02T15:23:28Z",
+      "side": 1,
+      "message": "five spaces, tidytool wants to have 4...",
+      "range": {
+        "startLine": 209,
+        "startChar": 15,
+        "endLine": 209,
+        "endChar": 20
+      },
+      "revId": "164cd27a74ddd236e37cc260588a6cde83269577",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
