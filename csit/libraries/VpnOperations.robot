@@ -103,6 +103,14 @@ Verify Tunnel Status as DOWN
     Log    ${output}
     Should Contain    ${output}    ${STATE_DOWN}
 
+Verify Tunnel Status as UNKNOWN
+    [Documentation]    Verify that the tunnels are in Unknown state
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
+    Log    ${output}
+    Should Not Contain    ${output}    ${STATE_UP}
+    Should Not Contain    ${output}    ${STATE_DOWN}
+    Should Contain    ${output}    ${STATE_UNKNOWN}
+
 Verify VXLAN interface
     [Documentation]    Verify that the VXLAN interfaces are Enabled
     ${output}=    Issue Command On Karaf Console    ${VXLAN_SHOW}
