@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_7741ed38",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-02T16:51:31Z",
+      "side": 1,
+      "message": "this shouldn\u0027t bee needed. pfile is already a str.",
+      "revId": "aabd2ea531615dff03446b4e08435f950879cac7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f782fd50",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-02T16:51:31Z",
+      "side": 1,
+      "message": "use for distro in includes:",
+      "revId": "aabd2ea531615dff03446b4e08435f950879cac7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1747c120",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-02T16:51:31Z",
+      "side": 1,
+      "message": "all this stuff should just be passed into the Changes() constructor. Look at the TestChanges class where we do the same thing.",
+      "revId": "aabd2ea531615dff03446b4e08435f950879cac7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b7907596",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-02T16:51:31Z",
+      "side": 1,
+      "message": "could toss the variable and just build the path",
+      "revId": "aabd2ea531615dff03446b4e08435f950879cac7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f7d03d55",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-02T16:51:31Z",
+      "side": 1,
+      "message": "just add change_sets to the includes and then pull from there.",
+      "revId": "aabd2ea531615dff03446b4e08435f950879cac7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_57c1497f",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-02T16:51:31Z",
+      "side": 1,
+      "message": "this should work. I don\u0027t think anything is shared. There are a couple static functions but those shouldn\u0027t be a problem.",
+      "revId": "aabd2ea531615dff03446b4e08435f950879cac7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
