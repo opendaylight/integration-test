@@ -17,10 +17,6 @@ Resource          ../../../variables/netvirt/Variables.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${STATE_UP}       UP
-${STATE_DOWN}     DOWN
-${STATE_ENABLE}    ENABLED
-${STATE_DISABLE}    DISABLE
 ${BFD_ENABLED_FALSE}    false
 ${BFD_ENABLED_TRUE}    true
 ${PING_REGEXP}    , 0% packet loss
@@ -146,6 +142,75 @@ TC03 Verify that the monitoring interval value boundaries with Monitoring Enable
     ${resp}=    RequestsLibrary.Put Request    session    ${MONITOR_INTERVAL_NEW}    data=${INTERVAL_NEG}
     Should Be Equal As Strings    ${resp.status_code}    ${RESP_ERROR_CODE}
     Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring    ${TMI_30000}
+    Log    Restoring back to default moitor interval
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_interval    mapping={"int":"1000"}    session=session
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${TMI_1000}
+
+TC04 Verify that the tunnel monitoring protocol can be configured to LLDP
+    [Documentation]    Verify that the tunnel monitoring protocol can be configured to LLDP
+    ${output} =    ITM Get Tunnels
+    Log    ${output}
+    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+    Log    Changing the tunnel monitoring to LLDP from REST
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_lldp    session=session
+    Log    Verifying the tunnel monitoring protocol changed to lldp
+    ${resp}    RequestsLibrary.Get Request    session    ${TUNNEL_MONITOR_URL}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Should Contain    ${resp.content}    ${BFD_ENABLED_TRUE}
+    Should Contain    ${resp.content}    ${LLDP}
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
+    Log    ${output}
+    Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
+    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+    Log    Verifying the monitoring interval
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Should Contain    ${resp.content}    ${TMI_1000}
+    Log    Changing the tunnel monitoring interval
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_interval    mapping={"int":"20000"}    session=session
+    Log    Verifying the monitoring interval got changed
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Should Contain    ${resp.content}    ${TMI_20000}
+    Log    Changing the tunnel monitoring back to bfd and verify
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/enable_tunnel_monitoring    session=session
+    ${resp}    RequestsLibrary.Get Request    session    ${TUNNEL_MONITOR_URL}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Should Contain    ${resp.content}    ${BFD_ENABLED_TRUE}
+    Should Contain    ${resp.content}    ${BFD}
+
+TC05 Disconnect And Reconnect Compute Nodes
+    [Documentation]    Verify that when compute nodes are disconnected from controller tunnel goes to unknown state.
+    ${output} =    ITM Get Tunnels
+    Log    ${output}
+    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+    Log    Disconnect Compute Nodes
+    Disconnect Compute Nodes    ${OS_COMPUTE_1_IP}    ${ODL_SYSTEM_IP}
+    Disconnect Compute Nodes    ${OS_COMPUTE_2_IP}    ${ODL_SYSTEM_IP}
+    Disconnect Compute Nodes    ${OS_CONTROL_NODE_IP}    ${ODL_SYSTEM_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UNKNOWN
+    Log    Reconect Compute Nodes
+    Reconnect Compute Nodes    ${OS_COMPUTE_1_IP}    ${ODL_SYSTEM_IP}
+    Reconnect Compute Nodes    ${OS_COMPUTE_2_IP}    ${ODL_SYSTEM_IP}
+    Reconnect Compute Nodes    ${OS_CONTROL_NODE_IP}    ${ODL_SYSTEM_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+    Log    Verifying Tunnel Monitoring
+    ${resp}    RequestsLibrary.Get Request    session    ${TUNNEL_MONITOR_URL}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Should Contain    ${resp.content}    ${BFD_ENABLED_TRUE}
+    Should Contain    ${resp.content}    ${BFD}
+    Log    Verify Flows are present
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present    ${OS_COMPUTE_2_IP}
+    Log    Verify Ping Between VMs on different Compute Nodes
+    Wait Until Keyword Succeeds    30s    5s    Verify Ping
 
 *** Keywords ***
 Start Suite
@@ -267,6 +332,30 @@ Create Tunnel
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Log    ${output}
     Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+
+Disconnect Compute Nodes
+    [Arguments]    ${Compute_node_ip}    ${Controller_ip}
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    ${conn_id}=    SSHLibrary.Open Connection    ${Compute_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    Flexible SSH Login    ${DEFAULT_USER}    ${EMPTY}
+    ${cmd}=    BuiltIn.Set Variable    sudo ovs-vsctl set Controller br-int target="tcp\\:${Controller_ip}\\:6654"
+    ${cntlstdout}    Write Commands Until Prompt    ${cmd}
+    Log    ${cntlstdout}
+    ${output}=    Write Commands Until Prompt    sudo ovs-vsctl show
+    Log    ${output}
+    SSHLibrary.Close Connection
+
+Reconnect Compute Nodes
+    [Arguments]    ${Compute_node_ip}    ${Controller_ip}
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    ${conn_id}=    SSHLibrary.Open Connection    ${Compute_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    Flexible SSH Login    ${DEFAULT_USER}    ${EMPTY}
+    ${cmd}=    BuiltIn.Set Variable    sudo ovs-vsctl set Controller br-int target="tcp\\:${Controller_ip}\\:6653"
+    ${cntlstdout}    Write Commands Until Prompt    ${cmd}
+    Log    ${cntlstdout}
+    ${output}=    Write Commands Until Prompt    sudo ovs-vsctl show
+    Log    ${output}
+    SSHLibrary.Close Connection
 
 Delete Setup
     [Documentation]    Delete the created VMs, ports, subnet and networks
