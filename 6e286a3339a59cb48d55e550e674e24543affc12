@@ -46,6 +46,30 @@
       "revId": "6e286a3339a59cb48d55e550e674e24543affc12",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5c233005",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-02T15:46:23Z",
+      "side": 1,
+      "message": "The function \u0027get\u0027 is the alternative to the brackets [] in any dictionary. By using get(x, default), you specify the default value that will be used when the key x isn\u0027t in the dictionary.",
+      "parentUuid": "fafc7978_dc09e096",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 79
+      },
+      "revId": "6e286a3339a59cb48d55e550e674e24543affc12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
