@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_2dc5513c",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-03T13:45:06Z",
+      "side": 1,
+      "message": "This function does nothing. Better let the property be accessed directly.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "5cb31da55669ecd12a0be1cde8786ce952b3c653",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6dde3913",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-03T13:45:06Z",
+      "side": 1,
+      "message": "You don\u0027t need this variable as it\u0027s just:\n\n   len(patchset_diff)",
+      "range": {
+        "startLine": 60,
+        "startChar": 20,
+        "endLine": 60,
+        "endChar": 40
+      },
+      "revId": "5cb31da55669ecd12a0be1cde8786ce952b3c653",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4de1b5cf",
+        "filename": "tools/distchanges/tests/test_changes.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-03T13:45:06Z",
+      "side": 1,
+      "message": "Imports are better located at the top of the library.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "5cb31da55669ecd12a0be1cde8786ce952b3c653",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
