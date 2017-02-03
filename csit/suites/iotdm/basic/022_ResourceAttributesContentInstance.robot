@@ -1,32 +1,25 @@
 *** Settings ***
 Documentation     Tests for Content Instance resource attributes
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Suite Setup       Start    #==================================================    #    Container Mandatory Attribute Test    #==================================================    # mandatory attribute: content    # cse
+...               #    |    #    ---Container1    #    |    #
+...               # ----conIn1
+Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
 Resource          ../../../libraries/SubStrings.robot
 Library           ../../../libraries/criotdm.py
 Library           Collections
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${httphost}       ${ODL_SYSTEM_IP}
-${httpuser}       admin
-${httppass}       admin
 ${rt_ae}          2
 ${rt_container}    3
 ${rt_contentInstance}    4
 
 *** Test Cases ***
-Set Suite Variable
-    [Documentation]    set a suite variable ${iserver}
-    #==================================================
-    #    Container Mandatory Attribute Test
-    #==================================================
-    # mandatory attribute: content
-    # cse
-    #    |
-    #    ---Container1
-    #    |
-    #    ----conIn1
-    ${iserver} =    Connect To Iotdm    ${httphost}    ${httpuser}    ${httppass}    http
-    Set Suite Variable    ${iserver}
+TODO Refactor test suite and implement TCs
+    [Documentation]    Refactor this test suite and implement next TCs according to 000_ResourceAttributesNotes.txt03.
+    ...    Example of changes is in 024_ResourceAttributesAE.robot
+    [Tags]    not-implemented    exclude
+    TODO
 
 1.1 After Created, test whether all the mandatory attribtues are exist.
     [Documentation]    create 1 conIn test whether all the mandatory attribtues are exist
@@ -266,3 +259,11 @@ Latest Con Test
     Create Resource    ${iserver}    ${resourceURI}    ${rt_contentInstance}    ${attr}
     ${latestCon} =    Get Latest    ${resourceURI}
     Should Be Equal As Strings    ${random}    ${latestCon}
+
+Start
+    [Documentation]    Set up suite
+    ${iserver} =    Connect To Iotdm    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}    http
+    Set Suite Variable    ${iserver}
+
+TODO
+    Fail    "Not implemented"

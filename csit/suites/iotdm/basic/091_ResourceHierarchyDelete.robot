@@ -1,26 +1,17 @@
 *** Settings ***
 Documentation     Tests deleting resources from multiple places in resource tree
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Suite Setup       Start
+Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
 Library           Collections
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${httphost}       ${ODL_SYSTEM_IP}
-${httpuser}       admin
-${httppass}       admin
 ${rt_ae}          2
 ${rt_container}    3
 ${rt_contentInstance}    4
 
 *** Test Cases ***
-Set Suite Variable
-    [Documentation]    set a suite variable ${iserver}
-    #==================================================
-    #    Delete Test
-    #==================================================
-    ${iserver} =    Connect To Iotdm    ${httphost}    ${httpuser}    ${httppass}    http
-    Set Suite Variable    ${iserver}
-
 4.11 Delete AE without child resource
     [Documentation]    Create AE then delete it
     ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
@@ -414,3 +405,8 @@ Cannot Retrieve Error
     [Arguments]    ${uri}
     ${error} =    Run Keyword And Expect Error    *    Retrieve Resource    ${iserver}    ${uri}
     Should Start with    ${error}    Cannot retrieve this resource [404]
+
+Start
+    [Documentation]    Set up suite
+    ${iserver} =    Connect To Iotdm    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}    http
+    Set Suite Variable    ${iserver}
