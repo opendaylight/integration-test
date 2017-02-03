@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_7313bab8",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-02-03T20:16:59Z",
+      "side": 1,
+      "message": "Minor recommendation to make this a new-style class by subclassing object, but not a huge deal http://stackoverflow.com/questions/54867/what-is-the-difference-between-old-style-and-new-style-classes-in-python",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9339fe43",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-02-03T20:16:59Z",
+      "side": 1,
+      "message": "Don\u0027t need this",
+      "range": {
+        "startLine": 8,
+        "startChar": 3,
+        "endLine": 9,
+        "endChar": 12
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f3ca0a4e",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-02-03T20:16:59Z",
+      "side": 1,
+      "message": "I guess you don\u0027t want/need this line",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 28
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d3f3869d",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-02-03T20:16:59Z",
+      "side": 1,
+      "message": "FYI - If you have the autorelease repo, you can get all projects (via looking at submodules) with `git config --file .gitmodules --get-regexp path | awk \u0027{ print $2 }\u0027`",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 14
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_93b45ed2",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-02-03T20:16:59Z",
+      "side": 1,
+      "message": "Not the most descriptive fn name",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 15
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b3ffe266",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-02-03T20:16:59Z",
+      "side": 1,
+      "message": "I guess you\u0027re following Changes.run_cmd for fn name above, which I guess is good, but something like get_changes/find_changes/list_changes and change_diff/dist_changes/dist_diff/dist_change_diff might be better.",
+      "range": {
+        "startLine": 45,
+        "startChar": 35,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_93029e6d",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-02-03T20:16:59Z",
+      "side": 1,
+      "message": "I think you\u0027re not using this counter, so can just iterate over new_gerrits vs using enumerate",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 17
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f3f84a7e",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-02-03T20:16:59Z",
+      "side": 1,
+      "message": "I haven\u0027t seen this pattern before, typically just skip the main fn and have the calls in the conditional, but nbd",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 10
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b38402d5",
+        "filename": "tools/distchanges/tests/test_changes.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-02-03T20:16:59Z",
+      "side": 1,
+      "message": "I think the best practice for structuring Python unittest code is to use a different test class to test this different module/class/fns. If you remove main() via other suggestion, can have setUp create object and test fns call fns under test repeatedly.\n\nThis also assumes you have new and old distros in the assumed locations I guess, which would likely not be true in CSIT (maybe tox doesn\u0027t find/run these unittests?)",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
