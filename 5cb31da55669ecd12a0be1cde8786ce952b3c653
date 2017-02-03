@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_53edd624",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T18:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_2dc5513c",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "5cb31da55669ecd12a0be1cde8786ce952b3c653",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_6dde3913",
         "filename": "tools/distchanges/distcompare.py",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_d3d8a681",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T18:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_6dde3913",
+      "range": {
+        "startLine": 60,
+        "startChar": 20,
+        "endLine": 60,
+        "endChar": 40
+      },
+      "revId": "5cb31da55669ecd12a0be1cde8786ce952b3c653",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_4de1b5cf",
         "filename": "tools/distchanges/tests/test_changes.py",
         "patchSetId": 10
@@ -59,6 +107,30 @@
       "writtenOn": "2017-02-03T13:45:06Z",
       "side": 1,
       "message": "Imports are better located at the top of the library.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "5cb31da55669ecd12a0be1cde8786ce952b3c653",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_33e81210",
+        "filename": "tools/distchanges/tests/test_changes.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T18:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_4de1b5cf",
       "range": {
         "startLine": 57,
         "startChar": 0,
