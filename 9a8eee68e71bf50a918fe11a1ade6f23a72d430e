@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_be7de970",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T23:08:09Z",
+      "side": 1,
+      "message": "you should be able to do \"To Json\" too, like this:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OVSDB.robot#L83\n\nseems easier to read, but NBD. another patch if you like it.",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 69
+      },
+      "revId": "9a8eee68e71bf50a918fe11a1ade6f23a72d430e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
