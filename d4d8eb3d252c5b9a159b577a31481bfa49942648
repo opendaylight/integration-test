@@ -1,0 +1,284 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_3e3579da",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "or just ${karaf_ip} !\u003d ${EMPTY} and remove line 200",
+      "range": {
+        "startLine": 201,
+        "startChar": 30,
+        "endLine": 201,
+        "endChar": 46
+      },
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5e515d0d",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/000_pre_odl_setup.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "is this file\u0027s purpose a basic setup? if so, you can put it\nin __init__.robot and it will always execute first when pybot\nis called on the parent folder. this is instead of relying\non filenames (e.g. assumption that 000 runs first)",
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3e4c5970",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/000_pre_odl_setup.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "I missed where ODL_IP is assigned?",
+      "range": {
+        "startLine": 13,
+        "startChar": 21,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_be6fa9c4",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/010_identify_master.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "keywords and test cases need some [Documentation] please.\n\napplies in other files as well.",
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_fe6811bc",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/050_perform_failover.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "we have keyword(s) in ClusterManagement.robot that can do \nthis for you.\n\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/ClusterManagement.robot.html#Kill_Single_Member",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 63
+      },
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_de638ddb",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/070_verify_configuration.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "these are duplicated. best to put in a relevant library.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 33
+      },
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3e63b9dd",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/080_check_vpp.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "also duplicated I think?",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 45
+      },
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1e5eb512",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/090_perform_shutown.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "see clustermanagement library for hopefully useful keywords to do things like this.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 87
+      },
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7e9c21c1",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/110_verify_configuration.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "more duplication I think.",
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5e9f9db4",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/init_scripts/add-tap-port.sh",
+        "patchSetId": 118
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "this should be in robot.",
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bea6890e",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/init_scripts/configure-networking.sh",
+        "patchSetId": 118
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "also could be done in robot with sshlibrary calls.",
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9ea905e2",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/init_scripts/install-docker.sh",
+        "patchSetId": 118
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "which VM would run this? we can get docker installed and \nbaked in to that VM to start with and not have to waste\ntime in the test doing it. Even the docker pull, however\nif alagalah/odlpoc_ovs230 [ hi keith :) ] is chaging I guess\nwe\u0027d want to make sure and update every time the test is \nrun.",
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_feaf71e1",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/init_scripts/install-hc.sh",
+        "patchSetId": 118
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "same here. we can pre-build these things in to the CSIT VMs\nso it\u0027s not doing the work every time CSIT is run.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 61
+      },
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_deaa6dd1",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/init_scripts/register_vpp_node.sh",
+        "patchSetId": 118
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T22:50:24Z",
+      "side": 1,
+      "message": "looks like something to port to robot",
+      "revId": "d4d8eb3d252c5b9a159b577a31481bfa49942648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
