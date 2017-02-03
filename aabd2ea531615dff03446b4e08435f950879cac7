@@ -137,6 +137,42 @@
       "revId": "aabd2ea531615dff03446b4e08435f950879cac7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5303160d",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T18:08:08Z",
+      "side": 1,
+      "message": "Done\n\nthx Sam",
+      "parentUuid": "fafc7978_481d260f",
+      "revId": "aabd2ea531615dff03446b4e08435f950879cac7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1002240b",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T18:08:08Z",
+      "side": 1,
+      "message": "yeah, I noticed after my rebase that this problem is not\nhappening. Thanks for helping me understand, guys.\n\nDavid, you are right, I should have been trying to fix the\nconcurrency, not ban it. Needed to get this patch looked at\nfor the help :)",
+      "parentUuid": "fafc7978_0dc04d29",
+      "revId": "aabd2ea531615dff03446b4e08435f950879cac7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
