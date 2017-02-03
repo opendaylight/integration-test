@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_d36d469b",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T21:13:28Z",
+      "side": 1,
+      "message": "yeah. this bothers me still. \n\noh...  just figured something out. my IDE (intellij) is\nusing python3. that\u0027s where it breaks. if I run from cmdLine\nwith v3 it will break. but with 2.7 it\u0027s ok.\n\nshould we keep it like or not?",
+      "parentUuid": "fafc7978_335652d3",
+      "revId": "fffdae8334dce38282e8e6309449bc3478aaa7e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_5362f6ad",
         "filename": "tools/distchanges/distcompare.py",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2017-02-03T18:23:23Z",
       "side": 1,
       "message": "can just use new_projects here and that matches the old_projects pretty print call. Could also just scrap the {new,old}_projects vars and just use the changes.projects. Probably cleaner than adding the extra var.",
+      "revId": "fffdae8334dce38282e8e6309449bc3478aaa7e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_336db299",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T21:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_5362f6ad",
       "revId": "fffdae8334dce38282e8e6309449bc3478aaa7e8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
