@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_a8777201",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-03T09:42:42Z",
+      "side": 1,
+      "message": "This is just a manually implemented WUKS cycle, right? In that case you do not really need WUKS in lines 91 and 93 (perhaps increasing number of iterations here to compensate), and you should put the iterated block into a keyword whose name would explain what is being checked.",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "c75dbf809e46b58c6ccc045552f02d45ecccad5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c8659646",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-03T09:42:42Z",
+      "side": 1,
+      "message": "Also here, Do not emulate nested WUKSes, use single WUKS with a well-named keyword.",
+      "range": {
+        "startLine": 113,
+        "startChar": 6,
+        "endLine": 113,
+        "endChar": 9
+      },
+      "revId": "c75dbf809e46b58c6ccc045552f02d45ecccad5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_08603e31",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-03T09:42:42Z",
+      "side": 1,
+      "message": "And again.",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 9
+      },
+      "revId": "c75dbf809e46b58c6ccc045552f02d45ecccad5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_68546a54",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-03T09:42:42Z",
+      "side": 1,
+      "message": "again",
+      "range": {
+        "startLine": 63,
+        "startChar": 6,
+        "endLine": 63,
+        "endChar": 9
+      },
+      "revId": "c75dbf809e46b58c6ccc045552f02d45ecccad5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4851a661",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-03T09:42:42Z",
+      "side": 1,
+      "message": "again",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "c75dbf809e46b58c6ccc045552f02d45ecccad5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
