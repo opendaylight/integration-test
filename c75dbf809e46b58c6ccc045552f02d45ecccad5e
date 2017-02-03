@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_132b4e95",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T21:59:25Z",
+      "side": 1,
+      "message": "totally agree. this all needs a refactor. like I mentioned in my last patch comment we have a trello card now for it:\n\nhttps://trello.com/c/Q4igZbax/442-refactor-netvirt-csit-logic-around-checking-for-instance-dhcp-is-ok\n\nbut, netvirt CSIT is on the verge of being stable and this\nwas work towards that. Next we make it better.",
+      "parentUuid": "fafc7978_a8777201",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "c75dbf809e46b58c6ccc045552f02d45ecccad5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_c8659646",
         "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
         "patchSetId": 46
