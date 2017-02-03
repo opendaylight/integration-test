@@ -1,11 +1,11 @@
 *** Settings ***
 Documentation     Tests deleting resources from multiple places in resource tree
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
 *** Variables ***
-${httphost}       ${ODL_SYSTEM_IP}
+${httphost}       ${ODL_SYSTEM_1_IP}
 ${httpuser}       admin
 ${httppass}       admin
 ${rt_ae}          2
