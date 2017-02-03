@@ -119,6 +119,24 @@
       "revId": "aabd2ea531615dff03446b4e08435f950879cac7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0dc04d29",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-03T13:47:22Z",
+      "side": 1,
+      "message": "OK, another python greatness... projects is a class variable in Changes, so it was being shared between the two Changes instances - with the second overwritting whatever the first did. Simply adding the init of projects within the constructor \"hides\" the class one. So all is good in the latest patch I pushed.",
+      "parentUuid": "fafc7978_481d260f",
+      "revId": "aabd2ea531615dff03446b4e08435f950879cac7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
