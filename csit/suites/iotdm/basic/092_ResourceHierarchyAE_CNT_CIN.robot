@@ -1,12 +1,12 @@
 *** Settings ***
 Documentation     Test for hierarchy of resources: AE/CONTAINER/CONTENTINSTANCE
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
 Resource          ../../../libraries/SubStrings.robot
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
 *** Variables ***
-${httphost}       ${ODL_SYSTEM_IP}
+${httphost}       ${ODL_SYSTEM_1_IP}
 ${httpuser}       admin
 ${httppass}       admin
 ${rt_ae}          2

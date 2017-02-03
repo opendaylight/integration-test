@@ -1,12 +1,12 @@
 *** Settings ***
 Documentation     Tests for Node resource attributes
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
 Resource          ../../../libraries/SubStrings.robot
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
 *** Variables ***
-${httphost}       ${ODL_SYSTEM_IP}
+${httphost}       ${ODL_SYSTEM_1_IP}
 ${httpuser}       admin
 ${httppass}       admin
 ${rt_ae}          2
@@ -25,6 +25,12 @@ Set Suite Variable
     #==================================================
     # For Creation, there are no mandatory input attribute
 
+TODO Refactor test suite and implement TCs
+    [Documentation]    Refactor this test suite and implement next TCs according to 000_ResourceAttributesNotes.txt
+    ...    Example of changes is in 024_ResourceAttributesAE.robot
+    [Tags]    not-implemented
+    TODO
+
 1.1 After Created, test whether all the mandatory attribtues exist.
     [Documentation]    After Created, test whether all the mandatory attribtues exist.
     ${attr} =    Set Variable    "rn":"Container1"
@@ -36,3 +42,7 @@ Set Suite Variable
     Should Contain All Sub Strings    ${text}    "ri":    "rn":    "cni"    "lt":    "pi":
     ...    "st":    "ct":    "ty":3    cbs"
     Should Not Contain Any Sub Strings    ${text}    "lbl"    "creator"    "or"
+
+*** Keywords ***
+TODO
+    Fail    "Not implemented"
