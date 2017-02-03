@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_0d732d16",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_isolate.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-03T14:08:09Z",
+      "side": 1,
+      "message": "This is just a debug step, but currently this fails due to 404 and so the RPC call is skipped.\n\nMove this debug to a separate test case, so that we know what does the RPC return (and leave in karaf.log).",
+      "range": {
+        "startLine": 62,
+        "startChar": 34,
+        "endLine": 62,
+        "endChar": 46
+      },
+      "revId": "20528cbc6d95c3b32a3248394b6c8247040a666b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
