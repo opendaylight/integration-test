@@ -1,30 +1,31 @@
 *** Settings ***
 Documentation     Tests for Container resource attributes
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Suite Setup       IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
+Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
 Resource          ../../../libraries/SubStrings.robot
-Library           ../../../libraries/criotdm.py
+Library           ../../../libraries/IoTDM/criotdm.py
 Library           Collections
+Resource          ../../../variables/Variables.robot
+Resource          ../../../libraries/IoTDM/IoTDMKeywords.robot
 
 *** Variables ***
-${httphost}       ${ODL_SYSTEM_IP}
-${httpuser}       admin
-${httppass}       admin
 ${rt_ae}          2
 ${rt_container}    3
 ${rt_contentInstance}    4
 
 *** Test Cases ***
-Set Suite Variable
-    [Documentation]    set a suite variable ${iserver}
-    ${iserver} =    Connect To Iotdm    ${httphost}    ${httpuser}    ${httppass}    http
-    Set Suite Variable    ${iserver}
+TODO Refactor test suite and implement TCs
+    [Documentation]    Refactor this test suite and implement next TCs according to 000_ResourceAttributesNotes.txt03.
+    ...    Example of changes is in 024_ResourceAttributesAE.robot
+    [Tags]    not-implemented    exclude
+    TODO
+
+1.1 After Created, test whether all the mandatory attribtues are exist.
+    [Documentation]    After Created, test whether all the mandatory attribtues are exist.
     #==================================================
     #    Container Mandatory Attribute Test
     #==================================================
     # For Creation, there are no mandatory input attribute
-
-1.1 After Created, test whether all the mandatory attribtues are exist.
-    [Documentation]    After Created, test whether all the mandatory attribtues are exist.
     ${attr} =    Set Variable    "rn":"Container1"
     ${r}=    Create Resource With Command    ${iserver}    InCSE1    ${rt_container}    rcn=3    ${attr}
     ${container} =    Location    ${r}
@@ -34,14 +35,14 @@ Set Suite Variable
     Should Contain All Sub Strings    ${text}    "ri":    "rn":    "cni"    "lt":    "pi":
     ...    "st":    "ct":    "ty":3    "cbs"
     Should Not Contain Any Sub Strings    ${text}    "lbl"    "creator"    "or"
+
+2.11 maxNumberofInstance (mni) can be added when create
+    [Documentation]    maxNumberofInstance (mni) can be added when create
     #==================================================
     #    Container Optional Attribute Test (Allowed)
     #==================================================
     #    create--> delete
     #    update(create)--> update(modified)-->update (delete)
-
-2.11 maxNumberofInstance (mni) can be added when create
-    [Documentation]    maxNumberofInstance (mni) can be added when create
     ${attr} =    Set Variable    "mni":3,"rn":"Container2"
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${text} =    Check Response and Retrieve Resource    ${r}
@@ -786,3 +787,6 @@ Update Container Expect Cannot Update Error
     ${error} =    Run Keyword And Expect Error    Cannot update this resource [400]*    Update Resource    ${iserver}    InCSE1/Container1    ${rt_container}
     ...    ${attr}
     [Return]    ${error}
+
+TODO
+    Fail    "Not implemented"

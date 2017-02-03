@@ -1,27 +1,24 @@
 *** Settings ***
 Documentation     Tests for Application Entity (AE) resource attributes
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Suite Setup       IOTDM Basic Suite Setup    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
+Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
 Resource          ../../../libraries/SubStrings.robot
-Library           ../../../libraries/criotdm.py
+Library           ../../../libraries/IoTDM/criotdm.py
 Library           Collections
+Resource          ../../../variables/Variables.robot
+Resource          ../../../libraries/IoTDM/IoTDMKeywords.robot
 
 *** Variables ***
-${httphost}       ${ODL_SYSTEM_IP}
-${httpuser}       admin
-${httppass}       admin
 ${rt_ae}          2
 ${rt_container}    3
 ${rt_contentInstance}    4
 
 *** Test Cases ***
-Set Suite Variable
-    [Documentation]    set a suite variable ${iserver}
-    ${iserver} =    Connect To Iotdm    ${httphost}    ${httpuser}    ${httppass}    http
-    Set Suite Variable    ${iserver}
-    #==================================================
-    #    AE Mandatory Attribute Test
-    #==================================================
-    # For Creation, there are only 2 mandatory attribute: App-ID(api), AE-ID(aei)
+TODO Refactor test suite and implement TCs
+    [Documentation]    Refactor this test suite and implement next TCs according to 000_ResourceAttributesNotes.txt03.
+    ...    Example of changes is in 024_ResourceAttributesAE.robot
+    [Tags]    not-implemented    exclude
+    TODO
 
 1.11 If include AE-ID should return error
     [Documentation]    when create AE, AE-ID should not be included
@@ -282,3 +279,6 @@ Update AE Expect Cannot Update Error
     ${error} =    Run Keyword And Expect Error    Cannot update this resource [400]*    Update Resource    ${iserver}    InCSE1/AE1    ${rt_ae}
     ...    ${attr}
     [Return]    ${error}
+
+TODO
+    Fail    "Not implemented"
