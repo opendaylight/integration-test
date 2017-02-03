@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_335652d3",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-03T18:23:23Z",
+      "side": 1,
+      "message": "are still finding you need this? I did not need this at all. What is different in your setup? Phyton version? Also what distro link do you have - maybe it is doing something wonky.",
+      "revId": "fffdae8334dce38282e8e6309449bc3478aaa7e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5362f6ad",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-03T18:23:23Z",
+      "side": 1,
+      "message": "can just use new_projects here and that matches the old_projects pretty print call. Could also just scrap the {new,old}_projects vars and just use the changes.projects. Probably cleaner than adding the extra var.",
+      "revId": "fffdae8334dce38282e8e6309449bc3478aaa7e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
