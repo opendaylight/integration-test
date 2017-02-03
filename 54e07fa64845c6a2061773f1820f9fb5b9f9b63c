@@ -22,6 +22,30 @@
       "revId": "54e07fa64845c6a2061773f1820f9fb5b9f9b63c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7300da01",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T18:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_08bafedd",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 87
+      },
+      "revId": "54e07fa64845c6a2061773f1820f9fb5b9f9b63c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
