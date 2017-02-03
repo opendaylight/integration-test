@@ -1,27 +1,18 @@
 *** Settings ***
 Documentation     Test for hierarchy of resources: AE/CONTAINER/CONTENTINSTANCE
-Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
+Suite Setup       Start
+Suite Teardown    Kill The Tree    ${ODL_SYSTEM_1_IP}    InCSE1    admin    admin
 Resource          ../../../libraries/SubStrings.robot
 Library           ../../../libraries/criotdm.py
 Library           Collections
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${httphost}       ${ODL_SYSTEM_IP}
-${httpuser}       admin
-${httppass}       admin
 ${rt_ae}          2
 ${rt_container}    3
 ${rt_contentInstance}    4
 
 *** Test Cases ***
-Set Suite Variable
-    [Documentation]    set a suite variable ${iserver}
-    #==================================================
-    #    AE Test
-    #==================================================
-    ${iserver} =    Connect To Iotdm    ${httphost}    ${httpuser}    ${httppass}    http
-    Set Suite Variable    ${iserver}
-
 1.11 Valid Input for AE without name
     [Documentation]    Valid Input for AE without name
     ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
@@ -259,7 +250,7 @@ Delete the Container Under CSEBase
 *** Keywords ***
 Connect And Create Resource
     [Arguments]    ${targetURI}    ${resoutceType}    ${attr}
-    ${iserver} =    Connect To Iotdm    ${httphost}    ${httpuser}    ${httppass}    http
+    ${iserver} =    Connect To Iotdm    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}    http
     ${r} =    Create Resource    ${iserver}    ${targetURI}    ${resoutceType}    ${attr}
     ${container} =    Resid    ${r}
     ${status_code} =    Status Code    ${r}
@@ -273,3 +264,8 @@ Response Is Correct
     LOG    ${text}
     ${json} =    Json    ${r}
     LOG    ${json}
+
+Start
+    [Documentation]    Set up suite
+    ${iserver} =    Connect To Iotdm    ${ODL_SYSTEM_1_IP}    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}    http
+    Set Suite Variable    ${iserver}
