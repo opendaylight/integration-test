@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_08bafedd",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-03T08:41:58Z",
+      "side": 1,
+      "message": "You can drop num_difference variable and calculate at the end of the for loops:\n\n  num_differences \u003d len(patchset_diff)",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 87
+      },
+      "revId": "54e07fa64845c6a2061773f1820f9fb5b9f9b63c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
