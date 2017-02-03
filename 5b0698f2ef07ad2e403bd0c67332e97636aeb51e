@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_73645a22",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T21:13:28Z",
+      "side": 1,
+      "message": "Done\n\nand updated changes.py for this too.",
+      "parentUuid": "fafc7978_7313bab8",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_9339fe43",
         "filename": "tools/distchanges/distcompare.py",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2017-02-03T20:16:59Z",
       "side": 1,
       "message": "Don\u0027t need this",
+      "range": {
+        "startLine": 8,
+        "startChar": 3,
+        "endLine": 9,
+        "endChar": 12
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_33abf21e",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T21:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_9339fe43",
       "range": {
         "startLine": 8,
         "startChar": 3,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_d3ab861c",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T21:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_f3ca0a4e",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 28
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_d3f3869d",
         "filename": "tools/distchanges/distcompare.py",
         "patchSetId": 12
@@ -82,6 +154,30 @@
       "writtenOn": "2017-02-03T20:16:59Z",
       "side": 1,
       "message": "FYI - If you have the autorelease repo, you can get all projects (via looking at submodules) with `git config --file .gitmodules --get-regexp path | awk \u0027{ print $2 }\u0027`",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 14
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_53c036e0",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T21:13:28Z",
+      "side": 1,
+      "message": "that would be another way, yes. I did get the work done in the autorelease job to keep dependencies.log as an artifact, so in a later patch I can update this tool to go grab:\n\nhttps://jenkins.opendaylight.org/releng/view/autorelease/job/autorelease-release-carbon/lastSuccessfulBuild/artifact/dependencies.log\n\nand the above logic would parse it properly. but, later...",
+      "parentUuid": "fafc7978_d3f3869d",
       "range": {
         "startLine": 29,
         "startChar": 8,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_f3b04a8d",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T21:13:28Z",
+      "side": 1,
+      "message": "agreed. I can see what Sam thinks about that and possibly put a refactor patch to change it.",
+      "parentUuid": "fafc7978_b3ffe266",
+      "range": {
+        "startLine": 45,
+        "startChar": 35,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_93029e6d",
         "filename": "tools/distchanges/distcompare.py",
         "patchSetId": 12
@@ -151,6 +271,30 @@
       "writtenOn": "2017-02-03T20:16:59Z",
       "side": 1,
       "message": "I think you\u0027re not using this counter, so can just iterate over new_gerrits vs using enumerate",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 17
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b3b7e285",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T21:13:28Z",
+      "side": 1,
+      "message": "yah. I was using it before to count the number of changes but a recent update got rid of that in lieu of len(patchset_diff) on line 62 below",
+      "parentUuid": "fafc7978_93029e6d",
       "range": {
         "startLine": 57,
         "startChar": 16,
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_93ba9e6c",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T21:13:28Z",
+      "side": 1,
+      "message": "this is how it runs from \"python distcompare.py\" I guess.",
+      "parentUuid": "fafc7978_f3f84a7e",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 10
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_b38402d5",
         "filename": "tools/distchanges/tests/test_changes.py",
         "patchSetId": 12
@@ -197,6 +365,30 @@
       "writtenOn": "2017-02-03T20:16:59Z",
       "side": 1,
       "message": "I think the best practice for structuring Python unittest code is to use a different test class to test this different module/class/fns. If you remove main() via other suggestion, can have setUp create object and test fns call fns under test repeatedly.\n\nThis also assumes you have new and old distros in the assumed locations I guess, which would likely not be true in CSIT (maybe tox doesn\u0027t find/run these unittests?)",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_13a6ae53",
+        "filename": "tools/distchanges/tests/test_changes.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-03T21:13:28Z",
+      "side": 1,
+      "message": "yeah, these are less unittest in reality and more of just a way to see things work locally when working on the tool(s).",
+      "parentUuid": "fafc7978_b38402d5",
       "range": {
         "startLine": 56,
         "startChar": 0,
