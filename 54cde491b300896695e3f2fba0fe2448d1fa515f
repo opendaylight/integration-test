@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_9ef745f5",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-04T00:06:56Z",
+      "side": 1,
+      "message": "extra whitespace (causes tox to fail)",
+      "range": {
+        "startLine": 83,
+        "startChar": 17,
+        "endLine": 83,
+        "endChar": 19
+      },
+      "revId": "54cde491b300896695e3f2fba0fe2448d1fa515f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_feddb171",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-04T00:06:56Z",
+      "side": 1,
+      "message": "would you mind taking a look at the OVSDB.robot library?\n\ndocs:\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OVSDB.robot.html\n\ncode:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OVSDB.robot\n\nI have a feeling some of this stuff is done for you already.\nif it\u0027s close you can enhance the lib for others\u0027 benefit as well.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 89
+      },
+      "revId": "54cde491b300896695e3f2fba0fe2448d1fa515f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3ee8d90f",
+        "filename": "csit/suites/l2gw/Configure_verify_l2gateway.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-04T00:06:56Z",
+      "side": 1,
+      "message": "this isn\u0027t so descriptive.\n\nalso, looks like you pretty much want to do it after every \ntest case and probably no matter what. if so, you should put\n\"Test Teardown    DUMP\" in the *** Settings *** section. \n\nthat will ensure it runs every time even if the test case does not pass.\n\nbetter name than DUMP though :)",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 8
+      },
+      "revId": "54cde491b300896695e3f2fba0fe2448d1fa515f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1ee35534",
+        "filename": "csit/suites/l2gw/Configure_verify_l2gateway.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-04T00:06:56Z",
+      "side": 1,
+      "message": "don\u0027t need this",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 5
+      },
+      "revId": "54cde491b300896695e3f2fba0fe2448d1fa515f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7ed1c156",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-04T00:06:56Z",
+      "side": 1,
+      "message": "before merging, let\u0027s remove these",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "54cde491b300896695e3f2fba0fe2448d1fa515f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5ed4bd46",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-04T00:06:56Z",
+      "side": 1,
+      "message": "I see what you are doing here, and it works. but, I think it might be more useful for others if we follow the same patterns as other neutron things in our OpenStackOperations\nlibrary.\n\nlike \"Create Network\", etc.\n\nwhat do you think?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 59
+      },
+      "revId": "54cde491b300896695e3f2fba0fe2448d1fa515f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
