@@ -274,6 +274,15 @@ Verify VMs Received DHCP Lease
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    @{dhcp_ip}[0]
 
+Collect VM IP Addresses
+    [Arguments]    ${fail_on_none}    @{VM_INSTANCES}
+    [Documentation]    Check if vm received ip address, if not sleep 5s and try again.
+    ...    eventually prints console log of each vm that didn't received ip.
+    ${VM_IPS}    ${DHCP_IP}    Verify VMs Received DHCP Lease    @{VM_INSTANCES}
+    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${VM_IPS}    None
+    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${DHCP_IP}    None
+    [Return]    ${VM_IPS}    ${DHCP_IP}
+
 View Vm Console
     [Arguments]    ${vm_instance_names}
     [Documentation]    View Console log of the created vm instances using nova show.
