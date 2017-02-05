@@ -274,6 +274,20 @@ Verify VMs Received DHCP Lease
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    @{dhcp_ip}[0]
 
+Verify And Collect VM DHCP Addresses
+    [Arguments]    @{VM_INSTANCES}
+    [Documentation]    Check if vm received ip address, if not sleep 5s and try again.
+    ...    eventually prints console log of each vm.
+    : FOR    ${index}    IN RANGE    1    5
+    \    # creating 50s pool at 5s interval
+    \    ${VM_IPS}    ${DHCP_IP}    Verify VMs Received DHCP Lease    @{VM_INSTANCES}
+    \    ${status}    ${message}    Run Keyword And Ignore Error    List Should Not Contain Value    ${VM_IPS}    None
+    \    Exit For Loop If    '${status}' == 'PASS'
+    \    BuiltIn.Sleep    5s
+    : FOR    ${vm}    IN    @{VM_INSTANCES}
+    \    Write Commands Until Prompt    nova console-log ${vm}    30s
+    [Return]    ${VM_IPS}    ${DHCP_IP}
+
 View Vm Console
     [Arguments]    ${vm_instance_names}
     [Documentation]    View Console log of the created vm instances using nova show.
