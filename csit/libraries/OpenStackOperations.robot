@@ -249,7 +249,7 @@ Verify VM Is ACTIVE
     Log    ${output}
     Should Contain    ${output}    active
 
-Verify VMs Received DHCP Lease
+Collect VM IP Addresses
     [Arguments]    @{vm_list}
     [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "obtained" which
     ...    correlates to the instance receiving it's IP address via DHCP. Also retrieved is the ip of the nameserver
@@ -273,6 +273,8 @@ Verify VMs Received DHCP Lease
     \    Run Keyword If    ${dhcp_ip_length}<=0    Append To List    ${dhcp_ip}    None
     \    Log    ${dhcp_ip}
     ${dhcp_length}    Get Length    ${dhcp_ip}
+    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${VM_IPS}    None
+    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${DHCP_IP}    None
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    @{dhcp_ip}[0]
 

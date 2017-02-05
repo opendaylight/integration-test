@@ -52,21 +52,24 @@ Check Vm Instances Have Ip Address
     # for dhcp addresses
     : FOR    ${vm}    IN    @{VM_INSTANCES_FLOATING}    @{VM_INSTANCES_SNAT}
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
-    ${FLOATING_VM_COUNT}    Get Length    ${VM_INSTANCES_FLOATING}
-    ${SNAT_VM_COUNT}    Get Length    ${VM_INSTANCES_SNAT}
-    ${LOOP_COUNT}    Evaluate    ${FLOATING_VM_COUNT}+${SNAT_VM_COUNT}
-    : FOR    ${index}    IN RANGE    1    ${LOOP_COUNT}
-    \    ${FLOATING_VM_IPS}    ${FLOATING_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease
-    \    ...    @{VM_INSTANCES_FLOATING}
-    \    ${SNAT_VM_IPS}    ${SNAT_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease
-    \    ...    @{VM_INSTANCES_SNAT}
-    \    ${FLOATING_VM_LIST_LENGTH}=    Get Length    ${FLOATING_VM_IPS}
-    \    ${SNAT_VM_LIST_LENGTH}=    Get Length    ${SNAT_VM_IPS}
-    \    Exit For Loop If    ${FLOATING_VM_LIST_LENGTH}==${FLOATING_VM_COUNT} and ${SNAT_VM_LIST_LENGTH}==${SNAT_VM_COUNT}
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ...    true    @{VM_INSTANCES_FLOATING}
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ...    true    @{VM_INSTANCES_SNAT}
+    ${FLOATING_VM_IPS}    ${FLOATING_DHCP_IP}    Collect VM IP Addresses    false    @{VM_INSTANCES_FLOATING}
+    ${SNAT_VM_IPS}    ${SNAT_DHCP_IP}    Collect VM IP Addresses    false    @{VM_INSTANCES_SNAT}
+    ${VM_INSTANCES}=    Collections.Combine Lists    ${VM_INSTANCES_FLOATING}    ${VM_INSTANCES_SNAT}
+    ${VM_IPS}=    Collections.Combine Lists    ${FLOATING_VM_IPS}    ${SNAT_VM_IPS}
+    ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}
+    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+    \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
     Append To List    ${FLOATING_VM_IPS}    ${FLOATING_DHCP_IP}
     Set Suite Variable    ${FLOATING_VM_IPS}
     Append To List    ${SNAT_VM_IPS}    ${SNAT_DHCP_IP}
     Set Suite Variable    ${SNAT_VM_IPS}
+    Should Not Contain    ${FLOATING_VM_IPS}    None
+    Should Not Contain    ${SNAT_VM_IPS}    None
     [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES_FLOATING}    ${VM_INSTANCES_SNAT}
     ...    AND    Get Test Teardown Debugs
 
