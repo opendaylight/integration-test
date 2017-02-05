@@ -22,6 +22,23 @@
       "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d9fd673d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-02-05T18:49:16Z",
+      "side": 1,
+      "message": "Since this is pretty slow, there\u0027s probably no point in doing it unless one DHCP fails.. could you do this only if status is failed?",
+      "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
