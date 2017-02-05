@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_79ef1b88",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-05T18:20:43Z",
+      "side": 1,
+      "message": "I think to keep us in line with the Int/Test mantra of never having sleeps, we can remove this here then add WUKS to the \nconsumers of this new keyword. That means we can get rid of this loop too, and let the WUKS control the looping.",
+      "range": {
+        "startLine": 286,
+        "startChar": 9,
+        "endLine": 286,
+        "endChar": 28
+      },
+      "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
