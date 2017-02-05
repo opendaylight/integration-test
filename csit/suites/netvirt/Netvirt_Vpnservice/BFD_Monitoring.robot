@@ -268,10 +268,20 @@ Create Setup
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET2[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice1
 
 Verify VMs received IP
-    [Documentation]    Verify VM received IP
-    ${VM_IP_NET1}    ${DHCP_IP1}    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET1}
+    [Documentation]    Verify VMs received IP
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ...    true    @{VM_INSTANCES_NET1}
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ...    true    @{VM_INSTANCES_NET2}
+    ${VM_IP_NET1}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{VM_INSTANCES_NET1}
+    ${VM_IP_NET2}    ${NET2_DHCP_IP}    Collect VM IP Addresses    false    @{VM_INSTANCES_NET2}
+    ${VM_INSTANCES}=    Collections.Combine Lists    ${VM_INSTANCES_NET1}    ${VM_INSTANCES_NET2}
+    ${VM_IPS}=    Collections.Combine Lists    ${VM_IP_NET1}    ${VM_IP_NET2}
+    ${LOOP_COUNT}    Get Length    ${VM_INSTANCES_NET1}
+    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+    \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
     Log    ${VM_IP_NET1}
-    ${VM_IP_NET2}    ${DHCP_IP2}    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET2}
     Log    ${VM_IP_NET2}
     Should Not Contain    ${VM_IP_NET2}    None
     Should Not Contain    ${VM_IP_NET1}    None
