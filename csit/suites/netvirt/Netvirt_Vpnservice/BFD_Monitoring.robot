@@ -269,9 +269,15 @@ Create Setup
 
 Verify VMs received IP
     [Documentation]    Verify VM received IP
-    ${VM_IP_NET1}    ${DHCP_IP1}    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET1}
+    ${VM_IP_NET1}    ${DHCP_IP1}    Wait Until Keyword Succeeds    60s    5s    Verify And Collect VM DHCP Addresses    @{VM_INSTANCES_NET1}
+    ${VM_IP_NET2}    ${DHCP_IP2}    Wait Until Keyword Succeeds    60s    5s    Verify And Collect VM DHCP Addresses    @{VM_INSTANCES_NET2}
+    ${VM_INSTANCES}=    Collections.Combine Lists    ${VM_INSTANCES_NET1}    ${VM_INSTANCES_NET2}
+    ${VM_IPS}=    Collections.Combine Lists    ${VM_IP_NET1}    ${VM_IP_NET2}
+    ${LOOP_COUNT}    Get Length    ${VM_INSTANCES_NET1}
+    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+    \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
     Log    ${VM_IP_NET1}
-    ${VM_IP_NET2}    ${DHCP_IP2}    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET2}
     Log    ${VM_IP_NET2}
     Should Not Contain    ${VM_IP_NET2}    None
     Should Not Contain    ${VM_IP_NET1}    None
