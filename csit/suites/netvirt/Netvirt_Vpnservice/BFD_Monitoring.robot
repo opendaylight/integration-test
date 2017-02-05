@@ -202,9 +202,9 @@ Create Setup
 
 Verify VMs received IP
     [Documentation]    Verify VM received IP
-    ${VM_IP_NET1}    ${DHCP_IP1}    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET1}
+    ${VM_IP_NET1}    ${DHCP_IP1}    Verify And Collect VM DHCP Addresses    @{VM_INSTANCES_NET1}
+    ${VM_IP_NET2}    ${DHCP_IP2}    Verify And Collect VM DHCP Addresses    @{VM_INSTANCES_NET2}
     Log    ${VM_IP_NET1}
-    ${VM_IP_NET2}    ${DHCP_IP2}    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET2}
     Log    ${VM_IP_NET2}
     Should Not Contain    ${VM_IP_NET2}    None
     Should Not Contain    ${VM_IP_NET1}    None
