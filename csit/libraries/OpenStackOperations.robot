@@ -367,7 +367,7 @@ Execute Command on VM Instance
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${vm_ip}
-    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    d:
     Log    ${output}
     ${output} =    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
@@ -383,7 +383,7 @@ Test Operations From Vm Instance
     Switch Connection    ${devstack_conn_id}
     Log    ${src_ip}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
-    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip}    d:
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    d:
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
