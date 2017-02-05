@@ -39,6 +39,23 @@
       "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_19f88f48",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-02-05T18:51:09Z",
+      "side": 1,
+      "message": "could we move this logic that is still duplicated between suites, into the infra somehow?\ntest case would still need to fail if there is at least one DHCP failure",
+      "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
