@@ -60,16 +60,18 @@ Check Vm Instances Have Ip Address
     # for dhcp addresses
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
-    : FOR    ${index}    IN RANGE    1    5
-    \    # creating 50s pool at 5s interval
-    \    ${NET1_VM_IPS}    @{NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    \    ${NET2_VM_IPS}    @{NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
-    \    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}    ${NET1_DHCP_IP}    ${NET2_DHCP_IP}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    List Should Not Contain Value    ${VM_IPS}    None
-    \    Exit For Loop If    '${status}' == 'PASS'
-    \    BuiltIn.Sleep    5s
-    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    \    Write Commands Until Prompt    nova console-log ${vm}    30s
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ...    true    @{NET_1_VM_INSTANCES}
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ...    true    @{NET_2_VM_INSTANCES}
+    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
+    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
+    ${VM_INSTANCES}=    Collections.Combine Lists    ${NET_1_VM_INSTANCES}    ${NET_2_VM_INSTANCES}
+    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}
+    ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}
+    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
+    \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
     Append To List    ${NET1_VM_IPS}    @{NET1_DHCP_IP}[0]
     Set Suite Variable    ${NET1_VM_IPS}
     Append To List    ${NET2_VM_IPS}    @{NET2_DHCP_IP}[0]

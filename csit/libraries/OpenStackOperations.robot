@@ -250,8 +250,8 @@ Verify VM Is ACTIVE
     Log    ${output}
     Should Contain    ${output}    active
 
-Verify VMs Received DHCP Lease
-    [Arguments]    @{vm_list}
+Collect VM IP Addresses
+    [Arguments]    ${fail_on_none}    @{vm_list}
     [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "obtained" which
     ...    correlates to the instance receiving it's IP address via DHCP. Also retrieved is the ip of the nameserver
     ...    if available in the console-log output. The keyword will also return a list of the learned ips as it
@@ -259,7 +259,6 @@ Verify VMs Received DHCP Lease
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${ip_list}    Create List    @{EMPTY}
-    ${dhcp_ip}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
     \    ${vm_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "obtained"    30s
     \    Log    ${vm_ip_line}
@@ -269,13 +268,15 @@ Verify VMs Received DHCP Lease
     \    ...    ELSE    Append To List    ${ip_list}    None
     \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
     \    Log    ${dhcp_ip_line}
-    \    @{dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+    \    ${dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
     \    ${dhcp_ip_length}    Get Length    ${dhcp_ip}
     \    Run Keyword If    ${dhcp_ip_length}<=0    Append To List    ${dhcp_ip}    None
     \    Log    ${dhcp_ip}
     ${dhcp_length}    Get Length    ${dhcp_ip}
+    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${VM_IPS}    None
+    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${DHCP_IP}    None
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
-    [Return]    ${ip_list}    @{dhcp_ip}[0]
+    [Return]    ${ip_list}    ${dhcp_ip}
 
 View Vm Console
     [Arguments]    ${vm_instance_names}

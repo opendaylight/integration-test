@@ -155,7 +155,7 @@ Create SecurityGroup
 Verify VMs received IP
     [Arguments]    ${VM_INSTANCES}
     [Documentation]    Verify VM received IP
-    ${VM_IP}    ${DHCP_IP}    Verify VMs Received DHCP Lease    @{VM_INSTANCES}
+    ${VM_IP}    ${DHCP_IP}    Collect VM IP Addresses    @{VM_INSTANCES}
     Log    ${VM_IP}
     Should Not Contain    ${VM_IP}    None
     [Return]    ${VM_IP}
