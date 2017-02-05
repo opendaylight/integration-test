@@ -264,7 +264,7 @@ Verify VMs Received DHCP Lease
     \    Log    ${vm_ip_line}
     \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
     \    ${vm_ip_length}    Get Length    ${vm_ip}
-    \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
+    \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    None
     \    ...    ELSE    Append To List    ${ip_list}    None
     \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
     \    Log    ${dhcp_ip_line}
@@ -273,6 +273,13 @@ Verify VMs Received DHCP Lease
     ${dhcp_length}    Get Length    ${dhcp_ip}
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    @{dhcp_ip}[0]
+
+Verify And Collect VM DHCP Addresses
+    [Arguments]    @{VM_INSTANCES}
+    [Documentation]    Check if vm received ip address, if not sleep 5s and try again.
+    ...    eventually prints console log of each vm that didn't received ip.
+    ${VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{VM_INSTANCES}
+    [Return]    ${VM_IPS}    ${NET1_DHCP_IP}
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
