@@ -75,11 +75,11 @@ Create SubNet
     Should Contain    ${output}    Created a new subnet
 
 Create Port
-    [Arguments]    ${network_name}    ${port_name}    ${sg}=default
+    [Arguments]    ${network_name}    ${port_name}    ${sg}=default    ${additional_args}=${EMPTY}
     [Documentation]    Create Port with neutron request.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v port-create ${network_name} --name ${port_name} --security-group ${sg}    30s
+    ${output}=    Write Commands Until Prompt    neutron -v port-create ${network_name} --name ${port_name} --security-group ${sg} ${additional_args}    30s
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new port
