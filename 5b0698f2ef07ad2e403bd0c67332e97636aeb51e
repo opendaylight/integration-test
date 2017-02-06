@@ -260,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_d127fb62",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-06T11:41:22Z",
+      "side": 1,
+      "message": "This was copied from git-review. The name is because main calls the parser which then calls the command: git-review. In that context it makes sense.",
+      "parentUuid": "fafc7978_f3b04a8d",
+      "range": {
+        "startLine": 45,
+        "startChar": 35,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_93029e6d",
         "filename": "tools/distchanges/distcompare.py",
         "patchSetId": 12
@@ -354,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_f11b1f1a",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-06T11:41:22Z",
+      "side": 1,
+      "message": "Again, copied the pattern from git-review.",
+      "parentUuid": "fafc7978_93ba9e6c",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 10
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_b38402d5",
         "filename": "tools/distchanges/tests/test_changes.py",
         "patchSetId": 12
@@ -389,6 +437,30 @@
       "side": 1,
       "message": "yeah, these are less unittest in reality and more of just a way to see things work locally when working on the tool(s).",
       "parentUuid": "fafc7978_b38402d5",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_311647f2",
+        "filename": "tools/distchanges/tests/test_changes.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-06T11:41:22Z",
+      "side": 1,
+      "message": "yeah, just a verification code path - and in no way proper tests. I use this code extensively to verify the calls. If we really add test verification to any of the tools then we should rework this.",
+      "parentUuid": "fafc7978_13a6ae53",
       "range": {
         "startLine": 56,
         "startChar": 0,
