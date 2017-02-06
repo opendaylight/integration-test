@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_070dc13e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-06T22:00:44Z",
+      "side": 1,
+      "message": "well, if we are going to flatten this keyword and wrap it in a WUKS, then we\u0027ll need to have the caller worry about doing \n\"nova console-log\" when appropriate. Since we do expect that\nthis keyword would fail for some period of time.",
+      "parentUuid": "fafc7978_d9fd673d",
+      "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_19f88f48",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
         "patchSetId": 1
@@ -53,6 +71,24 @@
       "writtenOn": "2017-02-05T18:51:09Z",
       "side": 1,
       "message": "could we move this logic that is still duplicated between suites, into the infra somehow?\ntest case would still need to fail if there is at least one DHCP failure",
+      "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e707dd1b",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-06T22:00:44Z",
+      "side": 1,
+      "message": "this is about as good as we can get right? the actual variable names are different between the suites. or I might\nbe missing your point.",
+      "parentUuid": "fafc7978_19f88f48",
       "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
