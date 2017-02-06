@@ -59,8 +59,7 @@ Verify_New_Basic_Rpc_Test_Owner_Elected
 Rpc_On_Isolated_Node
     [Documentation]    Run rpc on isolated cluster node.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${old_brt_owner}
-    ${out} =    TemplatedRequests.Get_From_Uri    ${EOS_URL}    session=${session}
-    KarafKeywords.Log_Message_To_Controller_Karaf    EOS rest resp: ${out}
+    BuiltIn.Run_Keyword_And_Ignore_Error    Get_And_Log_EOS_Output_To_Karaf_Log    ${session}
     ${resp} =    RequestsLibrary.Post Request    ${session}    ${RPC_URL}    data=${EMPTY}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    ${RPC_STATUS_ISOLATED}
 
@@ -102,8 +101,7 @@ Run_Rpc
     [Documentation]    Run rpc and log the entity ownership service details to karaf log.
     ...    Logging the details was a developer's request during the implementation to improve debugging.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${node_idx}
-    ${out} =    TemplatedRequests.Get_From_Uri    ${EOS_URL}    session=${session}
-    KarafKeywords.Log_Message_To_Controller_Karaf    EOS rest resp: ${out}
+    Get_And_Log_EOS_Output_To_Karaf_Log    ${session}
     TemplatedRequests.Post_To_Uri    ${RPC_URL}    ${EMPTY}    ${EMPTY_DICT}    ${EMPTY_DICT}    session=${session}
 
 Verify_Owner_Elected
@@ -120,3 +118,9 @@ Get_Present_Brt_Owner_And_Successors
     BuiltIn.Run_Keyword_If    ${store}    BuiltIn.Set_Suite_Variable    ${brt_owner}    ${brt_owner}
     BuiltIn.Run_Keyword_If    ${store}    BuiltIn.Set_Suite_Variable    ${brt_successors}    ${brt_successors}
     BuiltIn.Return_From_Keyword    ${brt_owner}    ${brt_successors}
+
+Get_And_Log_EOS_Output_To_Karaf_Log
+    [Arguments]    ${session}
+    [Documentation]    Log the entity ownership service details to karaf.log
+    ${out} =    TemplatedRequests.Get_From_Uri    ${EOS_URL}    session=${session}
+    KarafKeywords.Log_Message_To_Controller_Karaf    EOS rest resp: ${out}
