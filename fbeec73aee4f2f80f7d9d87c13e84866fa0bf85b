@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_47dce912",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-06T19:31:54Z",
+      "side": 1,
+      "message": "don\u0027t need this 1 do we?",
+      "range": {
+        "startLine": 28,
+        "startChar": 49,
+        "endLine": 28,
+        "endChar": 50
+      },
+      "revId": "fbeec73aee4f2f80f7d9d87c13e84866fa0bf85b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_07f94180",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-06T19:31:54Z",
+      "side": 1,
+      "message": "good clear comment, so please keep that.\n\nthe extra ws at the end and 3 spaces before the ELSE is what\nis causing your tox failure.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 189
+      },
+      "revId": "fbeec73aee4f2f80f7d9d87c13e84866fa0bf85b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
