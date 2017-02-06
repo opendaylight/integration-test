@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_67780d90",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-06T16:43:39Z",
+      "side": 1,
+      "message": "is there a var from the job yaml\u0027s that might have this value?",
+      "revId": "50653c9f7ad424bd13ef82acbfa041b17ec5fa3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e7635ddb",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-02-06T16:43:39Z",
+      "side": 1,
+      "message": "network_3",
+      "range": {
+        "startLine": 178,
+        "startChar": 23,
+        "endLine": 178,
+        "endChar": 32
+      },
+      "revId": "50653c9f7ad424bd13ef82acbfa041b17ec5fa3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
