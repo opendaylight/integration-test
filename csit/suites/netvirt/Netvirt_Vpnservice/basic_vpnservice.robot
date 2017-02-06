@@ -69,10 +69,11 @@ Add Ssh Allow Rule
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
-    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice
+    ${allowed_address_pairs_args}=    Set Variable    --type=dict --list-true ip_address=${EXTRA_NW_SUBNET[0]} ip_address=${EXTRA_NW_SUBNET[1]}
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORT_LIST}
 
 Create Nova VMs
