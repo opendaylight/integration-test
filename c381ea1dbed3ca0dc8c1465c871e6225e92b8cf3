@@ -22,6 +22,30 @@
       "revId": "c381ea1dbed3ca0dc8c1465c871e6225e92b8cf3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_250d5d3f",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-02-07T08:57:35Z",
+      "side": 1,
+      "message": "Yes, I agree with you David. But if I put it in my start suite then all of my test cases are failing if this check fails. Some test case do not depend on this but still fails and so not able to check if the BFD protocol is working fine or not which is the main purpose of this. Just to avoid that I am putting this as a seperate test case.",
+      "parentUuid": "fafc7978_45e18199",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "c381ea1dbed3ca0dc8c1465c871e6225e92b8cf3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
