@@ -1,3 +1,4 @@
+import argparse
 from changes import Changes
 
 # assumes that the new/current and older distributions are unzipped in /tmp/distro_new and
@@ -5,6 +6,10 @@ from changes import Changes
 
 
 class DistCompare(object):
+
+    def __init__(self, remote_url):
+
+        self.remote_url = remote_url
 
     @staticmethod
     def get_project_names():
@@ -21,7 +26,6 @@ class DistCompare(object):
 
         return projects
         """
-
         # this hard coded list of projects was taken from a Carbon dependencies.log - late January 2017
         return ['eman', 'integration/distribution', 'snbi', 'mdsal', 'alto', 'sfc', 'sdninterfaceapp', 'topoprocessing',
                 'usc', 'ovsdb', 'lispflowmapping', 'groupbasedpolicy', 'usecplugin', 'snmp4sdn', 'capwap', 'aaa',
@@ -38,12 +42,14 @@ class DistCompare(object):
         extracted_distro_locations = {'new': '/tmp/distro_new', 'old': '/tmp/distro_old'}
 
         new_changes = Changes(branch, extracted_distro_locations['new'], num_to_display,
-                              query_limit, project_names)
+                              query_limit, project_names, self.remote_url)
+
         new_projects = new_changes.run_cmd()
         new_changes.pretty_print_projects(new_projects)
 
         old_changes = Changes(branch, extracted_distro_locations['old'], num_to_display,
-                              query_limit, project_names)
+                              query_limit, project_names, self.remote_url)
+
         old_projects = old_changes.run_cmd()
         old_changes.pretty_print_projects(old_projects)
 
@@ -60,7 +66,16 @@ class DistCompare(object):
 
 
 def main():
-    distc = DistCompare()
+
+    parser = argparse.ArgumentParser(description='Returns the list of patches found in the unzipped distribution at '
+                                                 '/tmp/distro_new that are not found in the distribution at '
+                                                 '/tmp/distro_old. This should result in a listing of what new changes '
+                                                 'were made between the two distributions.')
+    parser.add_argument("-r", "--remote", dest="remote_url", default=Changes.REMOTE_URL,
+                        help="git remote url to use for gerrit")
+    options = parser.parse_args()
+
+    distc = DistCompare(options.remote_url)
     distc.run_cmd()
 
 
