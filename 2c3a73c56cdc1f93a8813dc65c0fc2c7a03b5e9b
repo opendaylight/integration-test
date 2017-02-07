@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_5b820495",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_isolate.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-07T14:02:00Z",
+      "side": 1,
+      "message": "Another task: Wait until the rejoining member is listed as successor in all nodes.\nKaraf.log suggests the old owner has not finished rejoining by the time line 92 is executed.",
+      "range": {
+        "startLine": 78,
+        "startChar": 131,
+        "endLine": 78,
+        "endChar": 143
+      },
+      "revId": "2c3a73c56cdc1f93a8813dc65c0fc2c7a03b5e9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
