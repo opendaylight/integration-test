@@ -402,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_58a967de",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-02-07T17:32:47Z",
+      "side": 1,
+      "message": "It would still run that way if you removed the main fn and called those fns in this conditional, but nbd",
+      "parentUuid": "fafc7978_93ba9e6c",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 10
+      },
+      "revId": "5b0698f2ef07ad2e403bd0c67332e97636aeb51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_b38402d5",
         "filename": "tools/distchanges/tests/test_changes.py",
         "patchSetId": 12
