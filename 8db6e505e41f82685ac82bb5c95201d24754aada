@@ -92,6 +92,24 @@
       "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1b8a3cbf",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-02-07T13:42:55Z",
+      "side": 1,
+      "message": "Well first thing there\u0027s no need to Log it in each suite, can do it in the infrastructure.\n\nI think we might also be able to move the \"Should Not Contain None\" logic into the infrastructure, and instead receive another return value in the suite saying PASS or FAIL\n\nDoes that makes sense?",
+      "parentUuid": "fafc7978_e707dd1b",
+      "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
