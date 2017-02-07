@@ -27,6 +27,15 @@ ${PING_REGEXP}    , 0% packet loss
 ${VAR_BASE}       ${CURDIR}/../../../variables/netvirt
 
 *** Test Cases ***
+DHCP Check
+    [Documentation]    Verify if DHCP request was successful
+    : FOR    ${VM}    IN    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}
+    \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
+    : FOR    ${i}    IN RANGE    0    8
+    \    ${VM_IP_NET1}    ${VM_IP_NET2}    Verify VMs received IP
+    Set Suite Variable    ${VM_IP_NET2}
+    Set Suite Variable    ${VM_IP_NET1}
+
 TC00 Verify Tunnels Are Present
     [Documentation]    Verify if tunnels are present. If not then create new tunnel.
     ${output}=    ITM Get Tunnels
@@ -194,11 +203,6 @@ Create Setup
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET1[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET2[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET2[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
-    : FOR    ${VM}    IN    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}
-    \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
-    ${VM_IP_NET1}    ${VM_IP_NET2}    Wait Until Keyword Succeeds    180s    10s    Verify VMs received IP
-    Set Suite Variable    ${VM_IP_NET2}
-    Set Suite Variable    ${VM_IP_NET1}
 
 Verify VMs received IP
     [Documentation]    Verify VM received IP
