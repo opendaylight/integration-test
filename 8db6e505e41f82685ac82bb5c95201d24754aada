@@ -128,6 +128,24 @@
       "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b895f341",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-02-07T18:56:03Z",
+      "side": 1,
+      "message": "OpenStackOperations.robot, function Verify And Collect.. though now that I think about it, we would still want the second Verify And Collect to run if the first failed.. maybe it\u0027s not that easy, we can just leave as is",
+      "parentUuid": "fafc7978_56e659b5",
+      "revId": "8db6e505e41f82685ac82bb5c95201d24754aada",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
