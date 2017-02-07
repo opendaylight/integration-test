@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_05fe5938",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-07T08:34:31Z",
+      "side": 0,
+      "message": "If some test case failed because of this check, it\u0027s probably a failure in the software that needs to be solved, not a problem of your test case.",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 39
+      },
+      "revId": "70c4b87ec45e81a1d7105c9be2bfa11b85d180a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
