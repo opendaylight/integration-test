@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_f6ab0d1c",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-07T17:05:25Z",
+      "side": 1,
+      "message": "yes, please use .robot here. all the same vars should be\navailable. if not, you can modify Variables.robot to make\nit work.",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "85c89160854b3b28d0a7b6222af41efd040062c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d6136964",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-07T17:05:25Z",
+      "side": 1,
+      "message": "good idea to put this as [Teardown] to ensure that it will\nbe executed even if a step above fails.",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "85c89160854b3b28d0a7b6222af41efd040062c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_160df13e",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-07T17:05:25Z",
+      "side": 1,
+      "message": "you can put both of these in to a [Teardown] as well. Use the\nRun Keywords approach. here\u0027s an example:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/suites/openstack/connectivity/01_l2_tests.robot#L79-L80",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "85c89160854b3b28d0a7b6222af41efd040062c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f6078d1b",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-07T17:05:25Z",
+      "side": 1,
+      "message": "probably good to add your cleanup here too. maybe/hopefully more test cases will be added to this suite down the road.",
+      "revId": "85c89160854b3b28d0a7b6222af41efd040062c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
