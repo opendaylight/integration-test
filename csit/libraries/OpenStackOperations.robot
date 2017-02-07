@@ -718,3 +718,47 @@ Create Neutron Port With Additional Params
     Log    ${port_id}
     Close Connection
     [Return]    ${OUTPUT}    ${port_id}
+
+Get Ports MacAddr
+    [Arguments]    ${portName_list}
+    [Documentation]    Retrieve the port MacAddr for the given list of port name and return the MAC address list.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${MacAddr-list}    Create List
+    : FOR    ${portName}    IN    @{portName_list}
+    \    ${output} =    Write Commands Until Prompt    neutron port-list | grep "${portName}" | awk '{print $6}'    30s
+    \    Log    ${output}
+    \    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    \    ${macAddr}=    Get from List    ${splitted_output}    0
+    \    Log    ${macAddr}
+    \    Append To List    ${MacAddr-list}    ${macAddr}
+    [Return]    ${MacAddr-list}
+
+Delete SecurityGroup
+    [Arguments]    ${sg_name}
+    [Documentation]    Delete Security group
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-delete ${sg_name}    40s
+    Log    ${output}
+    Should Match Regexp    ${output}    Deleted security_group: ${sg_name}|Deleted security_group\\(s\\): ${sg_name}
+    Close Connection
+
+Create SecurityGroup
+    [Arguments]    ${sg_name}
+    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    Neutron Security Group Create    ${sg_name}
+    Neutron Security Group Rule Create    ${sg_name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    ${sg_name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    ${sg_name}    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    ${sg_name}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    ${sg_name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    ${sg_name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+
+Verify VMs received IP
+    [Arguments]    ${VM_INSTANCES}
+    [Documentation]    Verify VM received IP
+    ${VM_IP}    ${DHCP_IP}    Verify VMs Received DHCP Lease    @{VM_INSTANCES}
+    Log    ${VM_IP}
+    Should Not Contain    ${VM_IP}    None
+    [Return]    ${VM_IP}
