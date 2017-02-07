@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_78426b11",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-07T18:00:40Z",
+      "side": 1,
+      "message": "correct me if I\u0027m wrong, but I think the keyword \"Verify VMs Received DHCP Lease\" is not ever going to fail. it\u0027s just \ngoing to return a list of IPs where some of IPs might be\nNone, or even ${EMPTY}\n\nwhat that means is this WUKS doesn\u0027t work. the first\niteration would pass so no looping.\n\nassuming that is right, I think moving the WUKS up to the\nsuite level would work. That WUKS would wrap this \"Verify\nAnd Collect VM DHCP Addresses\" which does have a failure\ncondition (if None is in the list). That lets each suite\ncontrol the polling loop as well. It could be that at some\npoint, some suite needs to wait a lot longer or even knows\nit can poll much quicker.",
+      "range": {
+        "startLine": 281,
+        "startChar": 36,
+        "endLine": 281,
+        "endChar": 63
+      },
+      "revId": "ce3c05253bf95eb0807c01fddd35b8270eefc743",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
