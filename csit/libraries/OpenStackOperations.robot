@@ -714,3 +714,18 @@ Create Neutron Port With Additional Params
     Log    ${port_id}
     Close Connection
     [Return]    ${OUTPUT}    ${port_id}
+
+Get Ports MacAddr
+    [Arguments]    ${portName_list}    
+    [Documentation]    Retrieve the port MacAddr for the given list of port name and return the MAC address list. 
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${MacAddr-list}    Create List    
+    : FOR    ${portName}    IN    @{portName_list}
+    \    ${output} =    Write Commands Until Prompt    neutron port-list | grep "${portName}" | awk '{print $6}'    30s
+    \    Log      ${output}
+    \    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    \    ${macAddr}=    Get from List    ${splitted_output}    0
+    \    Log    ${macAddr}
+    \    Append To List    ${MacAddr-list}    ${macAddr}
+    [Return]    ${MacAddr-list}
