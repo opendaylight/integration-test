@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_be5e7b43",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-08T08:40:46Z",
+      "side": 1,
+      "message": "This is a common utility that should have a keyword in OpenStackOperations.robot. What do you think about refactoring it to that library?",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 19
+      },
+      "revId": "899a9c6871f54726591c9f26eace9baa11fac0b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7e45336f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-08T08:40:46Z",
+      "side": 1,
+      "message": "I think robotframework already logs the content of the output from the previous line, and this one wouldn\u0027t be needed.",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 20
+      },
+      "revId": "899a9c6871f54726591c9f26eace9baa11fac0b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_de7c1fb8",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-08T08:40:46Z",
+      "side": 1,
+      "message": "No sleeps!",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 18
+      },
+      "revId": "899a9c6871f54726591c9f26eace9baa11fac0b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_fe580358",
+        "filename": "csit/suites/openstack/connectivity/00_l2_tests.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-08T08:40:46Z",
+      "side": 1,
+      "message": "These are not separate test cases that could work separately, consider to define specific test cases with all the test phases correctly defined in them.",
+      "revId": "899a9c6871f54726591c9f26eace9baa11fac0b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
