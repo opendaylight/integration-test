@@ -164,6 +164,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_0c62fdac",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/mdsal_ha_scenario.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T13:27:54Z",
+      "side": 1,
+      "message": "Oh, so a keyword which needs shard name argument should go to ClusterManagement, and possibly a car-speciic wrapper to CarPeople.robot",
+      "parentUuid": "fafc7978_4c5b652e",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 21
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_a1e2dafe",
         "filename": "csit/suites/controller/ThreeNodes_Datastore/mdsal_ha_scenario.robot",
         "patchSetId": 17
@@ -199,6 +223,30 @@
       "side": 1,
       "message": "Set_Variables_For_Shard miss the member_index_list parameter and it causes problems if one node is isolated/stopped/kiled",
       "parentUuid": "fafc7978_a1e2dafe",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 34
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ac4bf129",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/mdsal_ha_scenario.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T13:27:54Z",
+      "side": 1,
+      "message": "Oh right, car_failover_crud.robot suite has a separate keyword Set_Variables_For_Less_Nodes. I think it is time to move that to CarPeople.robot",
+      "parentUuid": "fafc7978_2c4ee16f",
       "range": {
         "startLine": 136,
         "startChar": 0,
