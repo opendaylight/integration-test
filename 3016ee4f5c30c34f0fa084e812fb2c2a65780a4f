@@ -45,6 +45,30 @@
       "revId": "3016ee4f5c30c34f0fa084e812fb2c2a65780a4f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a702ea3b",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-08T17:39:23Z",
+      "side": 1,
+      "message": "I had tried something like this when working on the change,\nbut had trouble because I didn\u0027t want to always have to give\na value for remote_url.\n\nbut, the new patch set takes the default given by the \nChanges class in the parser.add_argument which works.\n\nanything inherently wrong with that?",
+      "parentUuid": "fafc7978_c1139e5a",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 41
+      },
+      "revId": "3016ee4f5c30c34f0fa084e812fb2c2a65780a4f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
