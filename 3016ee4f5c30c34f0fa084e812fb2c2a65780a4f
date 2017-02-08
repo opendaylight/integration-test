@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_a135badc",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-08T09:02:25Z",
+      "side": 1,
+      "message": "Use better OO patterns. Immutability is your friend here. So, better let remote_url be an optional initialization parameter, and don\u0027t mutate afterwards:\n\n\n          new_changes \u003d Changes(branch, extracted_distro_locations[\u0027new\u0027], num_to_display,\n                              query_limit, project_names, remote_url\u003dself.remote_url)",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "3016ee4f5c30c34f0fa084e812fb2c2a65780a4f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c1139e5a",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-08T09:02:25Z",
+      "side": 1,
+      "message": "remove_url is a class property. It shouldn\u0027t be touched by object functions.\n\nI think you intended to use it as an Object property instead. You should use proper OO patterns and let the constructor have this initializations of your object properties. For instance:\n\n    def __init__(self, remote_url):\n      self.remote_url\u003dremote_url\n\nand:\n\n    distc \u003d DistCompare(options.remote_url)",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 41
+      },
+      "revId": "3016ee4f5c30c34f0fa084e812fb2c2a65780a4f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
