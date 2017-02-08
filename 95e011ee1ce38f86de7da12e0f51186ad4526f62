@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_41bb2ee5",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/mdsal_ha_scenario.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T09:48:35Z",
+      "side": 1,
+      "message": "Use Utils.Get_Log_File_Name instead?",
+      "range": {
+        "startLine": 34,
+        "startChar": 18,
+        "endLine": 34,
+        "endChar": 34
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_011be61b",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/mdsal_ha_scenario.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T09:48:35Z",
+      "side": 1,
+      "message": "No, as this takes full time if a car is missing.\nInstead, wait first for tool to finish, then single check (or short WUKS) to verify number of cars added.",
+      "range": {
+        "startLine": 63,
+        "startChar": 57,
+        "endLine": 63,
+        "endChar": 74
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_41d4ce1f",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/mdsal_ha_scenario.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T09:48:35Z",
+      "side": 1,
+      "message": "There is RemoteBash.robot, add your improvements there (or add TODOs and Trello card to do that later).",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 10
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_21d70a25",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/mdsal_ha_scenario.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T09:48:35Z",
+      "side": 1,
+      "message": "RemoteBash.robot",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_81deb63d",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/mdsal_ha_scenario.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T09:48:35Z",
+      "side": 1,
+      "message": "Depending on log level, this can be huge. Maybe SSHLibrary.Get is enough?\n\nAlso, this could also fit into RemoteBash.robot ut it needs a Trello card as I have seen Store_File_To_Workspace in multiple suites now.",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 126,
+        "endChar": 15
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_61e112fe",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/mdsal_ha_scenario.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T09:48:35Z",
+      "side": 1,
+      "message": "Move to ClusterManagement.robot?",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 21
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a1e2dafe",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/mdsal_ha_scenario.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T09:48:35Z",
+      "side": 1,
+      "message": "CarPeople.Set_Variables_For_Shard?",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 34
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6113d20d",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T09:48:35Z",
+      "side": 1,
+      "message": "align",
+      "range": {
+        "startLine": 198,
+        "startChar": 15,
+        "endLine": 198,
+        "endChar": 16
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a1f49acf",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T09:48:35Z",
+      "side": 1,
+      "message": "align",
+      "range": {
+        "startLine": 273,
+        "startChar": 15,
+        "endLine": 273,
+        "endChar": 16
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_010486be",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-08T09:48:35Z",
+      "side": 1,
+      "message": "What about 99 from line 223?",
+      "range": {
+        "startLine": 594,
+        "startChar": 22,
+        "endLine": 594,
+        "endChar": 25
+      },
+      "revId": "95e011ee1ce38f86de7da12e0f51186ad4526f62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
