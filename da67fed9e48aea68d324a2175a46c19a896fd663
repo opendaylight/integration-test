@@ -16,6 +16,24 @@
       "revId": "da67fed9e48aea68d324a2175a46c19a896fd663",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_52ec9e8f",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-02-08T21:04:21Z",
+      "side": 1,
+      "message": "+1, would be nice",
+      "parentUuid": "fafc7978_3213dab9",
+      "revId": "da67fed9e48aea68d324a2175a46c19a896fd663",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
