@@ -45,6 +45,30 @@
       "revId": "45d7283ae262a170710c0213618b8d3bd8a90161",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_67ff6268",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-08T17:24:44Z",
+      "side": 1,
+      "message": "well, the code in lines 16-22 works, and that is my goal in \nthe end. to dynamically create this list and not use it as a\nconstant. I tried to give comments here to indicate my \nintention. I did the work recently to put the dependencies.log file as an artifact to the autorelease\njob, so I can probably get this working now. I\u0027ll try to take\nthat up soon.",
+      "parentUuid": "fafc7978_1e67c726",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 101
+      },
+      "revId": "45d7283ae262a170710c0213618b8d3bd8a90161",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
