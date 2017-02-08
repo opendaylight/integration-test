@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_9eabb71d",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-08T08:33:44Z",
+      "side": 1,
+      "message": "Remove comments.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 11
+      },
+      "revId": "45d7283ae262a170710c0213618b8d3bd8a90161",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1e67c726",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-08T08:33:44Z",
+      "side": 1,
+      "message": "As this is constant, you should drop this function, and just let a variable contain the list",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 101
+      },
+      "revId": "45d7283ae262a170710c0213618b8d3bd8a90161",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
