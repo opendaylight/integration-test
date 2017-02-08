@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_1ec067df",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-08T08:22:35Z",
+      "side": 1,
+      "message": "Consider also to add validations after the clean-up phase to also check that the system is back to normal. I suspect we have plenty of bugs of this kind that go unnoticed.",
+      "parentUuid": "fafc7978_d6136964",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "85c89160854b3b28d0a7b6222af41efd040062c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_160df13e",
         "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
         "patchSetId": 4
