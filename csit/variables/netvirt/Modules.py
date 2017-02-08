@@ -17,6 +17,7 @@ data_models = [
         'config/neutronvpn:subnetmaps',
         'config/neutronvpn:vpnMaps',
         'config/odl-fib:fibEntries',
+        'config/odl-interface-meta:interface-child-info',
         'config/odl-l3vpn:router-interfaces',
         'config/odl-l3vpn:vpn-id-to-vpn-instance',
         'config/odl-l3vpn:vpn-instance-to-vpn-id',
