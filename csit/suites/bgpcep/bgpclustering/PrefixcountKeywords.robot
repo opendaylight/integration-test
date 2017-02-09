@@ -16,6 +16,7 @@ Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/ShardStability.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
@@ -53,6 +54,7 @@ ${RIB_INSTANCE}    example-bgp-rib
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${BGP_PEER_NAME}    example-bgp-peer
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+@{SHARD_MONITOR_LIST}    default:config    default:operational    topology:config    topology:operational    inventory:config    inventory:operational
 
 *** Keywords ***
 Setup_Everything
@@ -78,6 +80,8 @@ Setup_Everything
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${bgp_filling_timeout*3.0/4}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
+    ${init_shard_details} =    ShardStability.Shards_Stability_Get_Details    ${SHARD_MONITOR_LIST}
+    BuiltIn.Set_Suite_Variable    ${init_shard_details}
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
