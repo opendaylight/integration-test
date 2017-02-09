@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_82e19100",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-09T09:08:07Z",
+      "side": 1,
+      "message": "TODO: Parse some file from autorelease run (make it configurable which one).",
+      "range": {
+        "startLine": 29,
+        "startChar": 15,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "06d15f4ae48b077bcbe4e4d33b173d89ed90aacf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e2e7bd10",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-09T09:08:07Z",
+      "side": 1,
+      "message": "TODO: Make locations configurable.",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 34
+      },
+      "revId": "06d15f4ae48b077bcbe4e4d33b173d89ed90aacf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
