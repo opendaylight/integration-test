@@ -34,6 +34,24 @@
       "revId": "da67fed9e48aea68d324a2175a46c19a896fd663",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e2a33d9c",
+        "filename": "tools/distchanges/distcompare.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-09T10:06:05Z",
+      "side": 1,
+      "message": "Consider also to start using \"argcomplete\" for autocompletion purposes in the bash console.\n\n    https://pypi.python.org/pypi/argcomplete\n\nAdding this line before the parse_args():\n  \n     argcomplete.autocomplete(parser)\n\nand including some line in the installation to issue the bash autocompletion:\n\n    eval \"$(register-python-argcomplete distcompare.py)\"",
+      "parentUuid": "fafc7978_52ec9e8f",
+      "revId": "da67fed9e48aea68d324a2175a46c19a896fd663",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
