@@ -16,6 +16,7 @@ Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/ShardStability.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
@@ -53,6 +54,7 @@ ${RIB_INSTANCE}    example-bgp-rib
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${BGP_PEER_NAME}    example-bgp-peer
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+@{SHARD_MONITOR_LIST}    default:config    default:operational    topology:config    topology:operational    inventory:config    inventory:operational
 
 *** Keywords ***
 Setup_Everything
@@ -78,9 +80,12 @@ Setup_Everything
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${bgp_filling_timeout*3.0/4}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
+    ${init_shard_details} =    ShardStability.Shards_Stability_Get_Details    ${SHARD_MONITOR_LIST}
+    BuiltIn.Set_Suite_Variable    ${init_shard_details}
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
+    # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
     # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
     RequestsLibrary.Delete_All_Sessions
@@ -89,18 +94,21 @@ Teardown_Everything
 Configure_Netconf_Device_And_Check_Mounted
     [Arguments]    ${mapping}
     [Documentation]    Configures netconf device
+    # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
     TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
     BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Start_Bgp_Peer
     [Arguments]    ${peerip}=${rib_owner_node_id}
     [Documentation]    Starts bgp peer and verifies that the peer runs.
+    # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
     BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${peerip} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
 
 Start_Bgp_Peer_And_Verify_Connected
     [Arguments]    ${connection_retries}=${1}    ${peerip}=${rib_owner_node_id}
     [Documentation]    Starts the peer and verifies its connection. The verification is done by checking the presence
     ...    of the peer in the bgp rib.
+    # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
     : FOR    ${idx}    IN RANGE    ${connection_retries}
     \    Start_Bgp_Peer    peerip=${peerip}
     \    ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
@@ -112,6 +120,7 @@ Start_Bgp_Peer_And_Verify_Connected
 Verify_Bgp_Peer_Connection
     [Arguments]    ${session}    ${peer_ip}    ${connected}=${True}
     [Documentation]    Checks peer presence in operational datastore
+    # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
     ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${peer_ip}
     BuiltIn.Log    ${rsp.content}
