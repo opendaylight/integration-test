@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_22e8a50f",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 42
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-02-09T08:28:49Z",
+      "side": 1,
+      "message": "PUBLIC_PHYSICAL_NETWORK according to https://git.opendaylight.org/gerrit/#/c/51557/",
+      "revId": "be3bbabe3fda4f6a0a469f85acacd5e35bd44e46",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
