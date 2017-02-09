@@ -15,6 +15,7 @@ Documentation     Robot keyword library (Resource) for common BGP actions concer
 ...               which points to (an analogue of) http://<ip-addr>:${RESTCONFPORT}/${OPERATIONAL_API}
 ...               or user has to provide a similar session.
 Library           RequestsLibrary
+Resource          ${CURDIR}/ShardStability.robot
 Resource          ${CURDIR}/WaitUtils.robot
 Resource          ${CURDIR}/ScalarClosures.robot
 
@@ -40,6 +41,16 @@ Get_Ipv4_Topology_Count
     ${prefix_count} =    Builtin.Evaluate    len(re.findall('"prefix":"', '''${topology}'''))    modules=re
     [Return]    ${prefix_count}
 
+Get_Ipv4_Topology_Count_With_Shards_Check
+    [Arguments]    ${shards_list}    ${details_exp}    ${session}=operational    ${topology}=example-ipv4-topology
+    [Documentation]    Get topology after the shards stability check passes. If not fail, return number of prefixes in the topology.
+    ${details_actual}=    ShardStability.Shards_Stability_Get_Details    ${shards_list}
+    ShardStability.Shards_Stability_Compare_Same    ${details_actual}    stateless_details=${details_exp}
+    ${topology} =    Get_Ipv4_Topology    session=${session}    topology=${topology}
+    # Triple quotes are precaution against formatted output.
+    ${prefix_count} =    Builtin.Evaluate    len(re.findall('"prefix":"', '''${topology}'''))    modules=re
+    [Return]    ${prefix_count}
+
 Check_Ipv4_Topology_Count
     [Arguments]    ${expected_count}    ${session}=operational    ${topology}=example-ipv4-topology
     [Documentation]    Check that the count of prefixes matches the expected count. Fails if it does not. In either case, collect garbage.
@@ -55,9 +66,12 @@ Check_Ipv4_Topology_Is_Empty
 
 Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable
     [Arguments]    ${timeout}=60s    ${period}=5s    ${repetitions}=1    ${excluded_count}=-1    ${session}=operational    ${topology}=example-ipv4-topology
-    [Documentation]    Each ${period} get prefix count. After ${repetitions} of stable different from ${excluded_count} within ${timeout}, Return validator output. Fail early on getter error.
+    ...    ${shards_list}=${EMPTY}    ${shards_details}=${EMPTY}
+    [Documentation]    Each ${period} get prefix count. When called with shard check, the check is done before the count is get. After ${repetitions} of stable different from ${excluded_count} within ${timeout}, Return validator output. Fail early on getter error.
     # This is very similar to ChangeCounter keyword, but attempt to extract common code would increase overall code size.
-    ${getter} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Get_Ipv4_Topology_Count    session=${session}    topology=${topology}
+    ${getter} =    BuiltIn.Run_Keyword_If    """${shards_list}"""=="""${EMPTY}"""    ScalarClosures.Closure_From_Keyword_And_Arguments    Get_Ipv4_Topology_Count    session=${session}    topology=${topology}
+    ...    ELSE    ScalarClosures.Closure_From_Keyword_And_Arguments    Get_Ipv4_Topology_Count_With_Shards_Check    ${shards_list}    ${shards_details}    session=${session}
+    ...    topology=${topology}
     ${validator} =    ScalarClosures.Closure_From_Keyword_And_Arguments    WaitUtils.Excluding_Stability_Safe_Stateful_Validator_As_Keyword    state_holder    data_holder    excluded_value=${excluded_count}
     ${result} =    WaitUtils.Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success    timeout=${timeout}    period=${period}    count=${repetitions}    getter=${getter}    safe_validator=${validator}
     ...    initial_state=${excluded_count}
