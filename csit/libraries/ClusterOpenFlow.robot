@@ -55,7 +55,7 @@ Check OpenFlow Network Operational Information For Sample Topology
     ${dictionary}    Create Dictionary    openflow:1=4    openflow:2=5    openflow:3=5
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_NODES_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
     ${dictionary}    Create Dictionary    openflow:1=21    openflow:2=19    openflow:3=19
-    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+    Wait Until Keyword Succeeds    10s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
 Check No OpenFlow Network Operational Information
     [Arguments]    ${controller_index_list}=${EMPTY}
