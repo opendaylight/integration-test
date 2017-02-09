@@ -4,7 +4,7 @@ Documentation     Test suite to validate vpnservice functionality in an openstac
 ...               integration bridges and vxlan tunnels.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-Suite Teardown    Close All Connections
+Suite Teardown    Basic Vpnservice Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
 Library           OperatingSystem
@@ -369,7 +369,8 @@ Basic Vpnservice Suite Setup
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Basic Vpnservice Suite Teardown
-    Delete All Sessions
+    Delete SecurityGroup    sg-vpnservice
+    Close All Connections
 
 Wait For Routes To Propogate
     ${devstack_conn_id} =    Get ControlNode Connection
@@ -380,3 +381,13 @@ Wait For Routes To Propogate
     ${net_id} =    Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
     ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
     Should Contain    ${output}    @{SUBNET_CIDR}[1]
+
+Delete SecurityGroup
+    [Arguments]    ${sg_name}
+    [Documentation]    Delete Security group
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-delete ${sg_name}    40s
+    Log    ${output}
+    Should Match Regexp    ${output}    Deleted security_group: ${sg_name}|Deleted security_group\\(s\\): ${sg_name}
+    Close Connection
