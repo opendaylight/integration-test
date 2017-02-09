@@ -36,6 +36,8 @@ Reconnect Extra Switches To Successors And Check OVS Connections
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    ${controller_opt}
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s3    ${controller_opt}
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    7
+    ${original_owner_2}    ${original_successor_list_2}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:2    1
+    ${original_owner_3}    ${original_successor_list_3}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:3    1
 
 Check Network Operational Information Before Stop
     [Documentation]    Check devices in operational inventory and topology in all cluster instances.
