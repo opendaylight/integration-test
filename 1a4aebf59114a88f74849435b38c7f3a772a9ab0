@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_8eac1aa2",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-09T22:59:37Z",
+      "side": 1,
+      "message": "this should probably go in our openstackoperations lib, and\n would probably fit nicely next to these:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OpenStackOperations.robot#L600-L612",
+      "range": {
+        "startLine": 301,
+        "startChar": 0,
+        "endLine": 309,
+        "endChar": 20
+      },
+      "revId": "1a4aebf59114a88f74849435b38c7f3a772a9ab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
