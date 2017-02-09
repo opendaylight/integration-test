@@ -47,13 +47,13 @@ ${CREATE_PATHPOLICY_TOPOLOGY_FILE}    topo-3sw-2host_multipath.py    # A shortha
 ${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_PATHPOLICY_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_VLAN_TOPOLOGY_FILE}    vlan_vtn_test.py    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_VLAN_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_VLAN_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${DEFAULT_LINUX_PROMPT}    >    # Generic *_SYSTEM prompt for SSHLibrary.Read_Unti_Prompt. Current value is there for historic reasons. FIXME: Add -v to releng/builder and change this value to more common "$" (without quotes, with backslash). TODO: Replace usage with the strict version.
-${DEFAULT_LINUX_PROMPT_STRICT}    ]>    # A more strict prompt substring, this only matches Bash prompt, not Mininet prompt.
+${DEFAULT_LINUX_PROMPT}    $    # Generic *_SYSTEM prompt for SSHLibrary.Read_Unti_Prompt. Current value is there for historic reasons. FIXME: Add -v to releng/builder and change this value to more common "$" (without quotes, with backslash). TODO: Replace usage with the strict version.
+${DEFAULT_LINUX_PROMPT_STRICT}    $    # A more strict prompt substring, this only matches Bash prompt, not Mininet prompt.
 ${DEFAULT_BGPCEP_LOG_LEVEL}    ${DEFAULT_ODL_LOG_LEVEL}    # Fallback Karaf log level specific to org.opendaylight.bgpcep.
 ${DEFAULT_ODL_LOG_LEVEL}    INFO    # Some suites allow to change overall Karaf log level, this is the default value to set or fall back.
 ${DEFAULT_PASSWORD}    ${EMPTY}    # Generic *_SYSTEM linux password. If empty, SSHLibrary.Login_With_Public_Key is attempted instead of SSHLibrary.Login. TODO: Rename to DEFAULT_LINUX_PASSWORD.
 ${DEFAULT_PROTOCOL_LOG_LEVEL}    ${DEFAULT_ODL_LOG_LEVEL}    # Fallback Karaf log level specific to org.opendaylight.protocol.
-${DEFAULT_USER}    jenkins    # Generic *_SYSTEM linux user name name. TODO: Rename to DEFUALT_LINUX_USER. FIXME: Add -v to releng/builder and change the value to something more common, e.g. "vagrant".
+${DEFAULT_USER}    mininet    # Generic *_SYSTEM linux user name name. TODO: Rename to DEFUALT_LINUX_USER. FIXME: Add -v to releng/builder and change the value to something more common, e.g. "vagrant".
 ${DEFAULT_TIMEOUT}    30s    # Generic *_SYSTEM SSH.Login timeout. Some systems are slow to authenticate.
 ${DELETE_DASHBOARDRECORD}    /restconf/operations/dashboardrule:delete-dashboard    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ELASTICPORT}    9200    # Port to use when interacting with ElasticSearch. FIXME: Hide into a specific Resource.
