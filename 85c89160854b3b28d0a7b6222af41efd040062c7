@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_a40e5d30",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-02-10T11:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_f6ab0d1c",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "85c89160854b3b28d0a7b6222af41efd040062c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_d6136964",
         "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
         "patchSetId": 4
@@ -72,6 +96,54 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_24d70d25",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-02-10T11:03:56Z",
+      "side": 1,
+      "message": "Adds more clutter than it helps IMO. If such verification was added and an error was found, what should be done? retry cleanup?",
+      "parentUuid": "fafc7978_1ec067df",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "85c89160854b3b28d0a7b6222af41efd040062c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a41bfd1a",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-02-10T11:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_d6136964",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "85c89160854b3b28d0a7b6222af41efd040062c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_160df13e",
         "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
         "patchSetId": 4
@@ -95,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_64e115fe",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-02-10T11:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_160df13e",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "85c89160854b3b28d0a7b6222af41efd040062c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_f6078d1b",
         "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
         "patchSetId": 4
@@ -106,6 +202,24 @@
       "writtenOn": "2017-02-07T17:05:25Z",
       "side": 1,
       "message": "probably good to add your cleanup here too. maybe/hopefully more test cases will be added to this suite down the road.",
+      "revId": "85c89160854b3b28d0a7b6222af41efd040062c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a4e2ddfe",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-02-10T11:03:56Z",
+      "side": 1,
+      "message": "Done (I added a common teardown for all tests)",
+      "parentUuid": "fafc7978_f6078d1b",
       "revId": "85c89160854b3b28d0a7b6222af41efd040062c7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
