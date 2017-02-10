@@ -10,11 +10,11 @@ import subprocess
 import traceback
 import sys
 
-
 # TODO: Haven't tested python 3
 if sys.version < '3':
     import urllib
     import urlparse
+
     urlencode = urllib.urlencode
     urljoin = urlparse.urljoin
     urlparse = urlparse.urlparse
@@ -22,6 +22,7 @@ if sys.version < '3':
 else:
     import urllib.parse
     import urllib.request
+
     urlencode = urllib.parse.urlencode
     urljoin = urllib.parse.urljoin
     urlparse = urllib.parse.urlparse
@@ -189,23 +190,29 @@ class GerritQuery:
             self.print_safe_encoding(output)
         return output
 
-    def make_gerrit_query(self, project, changeid=None, limit=1, msg=None):
+    def make_gerrit_query(self, project, changeid=None, limit=1, msg=None, status=None, comments=False):
         """
         Make a gerrit query by combining the given options.
 
         :param str project: The project to search
         :param str changeid: A Change-Id to search
         :param int limit: The number of items to return
-        :param str msg: A commit-msg to search
+        :param str msg or None: A commit-msg to search
+        :param str status or None: The gerrit status, i.e. merged
+        :param bool comments: If true include comments
         :return str: A gerrit query
         """
-        query = "gerrit query --format=json limit:%d status:merged --all-approvals " \
+        query = "gerrit query --format=json limit:%d " \
                 "project:%s branch:%s" \
                 % (limit, project, self.branch)
         if changeid:
             query += " change:%s" % changeid
         if msg:
             query += " message:%s" % msg
+        if status:
+            query += " status:%s --all-approvals" % status
+        if comments:
+            query += " --comments"
         return query
 
     def parse_gerrit(self, line, parse_exc=Exception):
@@ -229,6 +236,7 @@ class GerritQuery:
                     parsed['subject'] = data['subject']
                     parsed['url'] = data['url']
                     parsed['lastUpdated'] = data['lastUpdated']
+                    parsed['grantedOn'] = 0
                     if "patchSets" in data:
                         patch_sets = data['patchSets']
                         for patch_set in reversed(patch_sets):
@@ -238,7 +246,16 @@ class GerritQuery:
                                     if 'type' in approval and approval['type'] == 'SUBM':
                                         parsed['grantedOn'] = approval['grantedOn']
                                         break
-                                if parsed['grantedOn']:
+                                if parsed['grantedOn'] != 0:
+                                    break
+                    if "comments" in data:
+                        comments = data['comments']
+                        for comment in reversed(comments):
+                            if "message" in comment and "timestamp" in comment:
+                                message = comment['message']
+                                timestamp = comment['timestamp']
+                                if "Build Started" in message and "patch-test" in message:
+                                    parsed['grantedOn'] = timestamp
                                     break
                 except Exception:
                     if self.verbose:
@@ -269,7 +286,7 @@ class GerritQuery:
             print("get_gerrit_lines: found %d lines" % len(lines))
         return lines
 
-    def get_gerrits(self, project, changeid=None, limit=1, msg=None):
+    def get_gerrits(self, project, changeid=None, limit=1, msg=None, status=None, comments=False):
         """
         Get a list of gerrits from gerrit query request.
 
@@ -282,10 +299,12 @@ class GerritQuery:
         :param str project: The project to search
         :param str or None changeid: A Change-Id to search
         :param int limit: The number of items to return
-        :param str msg: A commit-msg to search
-        :return str: A gerrit query
+        :param str or None msg: A commit-msg to search
+        :param str or None status: The gerrit status, i.e. merged
+        :param bool comments: If true include comments
+        :return str: List of gerrits sorted by merge time
         """
-        query = self.make_gerrit_query(project, changeid, limit, msg)
+        query = self.make_gerrit_query(project, changeid, limit, msg, status, comments)
         changes = self.gerrit_request(query)
         lines = self.extract_lines_from_json(changes)
         gerrits = []
