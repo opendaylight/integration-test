@@ -22,6 +22,30 @@
       "revId": "7159e9e3aecb9696af474b4cc166dd2ce1b92de2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_842199a1",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-10T09:44:26Z",
+      "side": 1,
+      "message": "Good idea to have consistent naming scheme, but not sure about Should.\nLooking at BuiltIn keyword names [0], I think the main idea is that keyword starts with a verb. There are 7 exceptions. 2 of them (Fatal_Error, No_Operation) do not contain a verb, and Regexp_Escape has it in wrong position.\nOther 4 (Variable_Should_Exist, Variable_Should_Not_Exist, Keyword_Should_Exist and Length_Should_Be) are written like that just because of English grammar, for example Should_Name_Existing_Variable is less readable.\n\nBut in all those cases, the Should refer to a property of a given argument. So I would expect Tunnel_Status_Should_Be_Unknown to take ${output} argument.\n\nI have put my thoughts to the guidelines [1]. According to that, I would name this Check_Tunnel_Status_Is_Unknown.\n\n[0] http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Shortcuts\n[1] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Naming_scheme",
+      "parentUuid": "fafc7978_29c088df",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 31
+      },
+      "revId": "7159e9e3aecb9696af474b4cc166dd2ce1b92de2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
