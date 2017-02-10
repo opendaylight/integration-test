@@ -17,6 +17,7 @@ Check No Switches In Inventory
     [Arguments]    ${switches}
     [Documentation]    Check no switch is in inventory
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Not Contain    ${resp.content}    "openflow:${switch}"
@@ -25,6 +26,7 @@ Check No Switches In Topology
     [Arguments]    ${switches}
     [Documentation]    Check no switch is in topology
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Not Contain    ${resp.content}    openflow:${switch}
@@ -32,11 +34,8 @@ Check No Switches In Topology
 Check Switches In Inventory
     [Arguments]    ${switches}
     [Documentation]    Check all switches and stats in operational inventory
-    ${mac}=    String.Replace String Using Regexp    ${base_mac}    :    ${EMPTY}
-    ${mac}=    Evaluate    int(${mac}, 16)
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    ${dpid_decimal}=    Evaluate    ${mac} + ${switch}
-    \    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${dpid_decimal}
+    \    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch}
     \    Should Be Equal As Strings    ${resp.status_code}    200
     \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     \    Should Contain    ${resp.content}    flow-table-statistics
@@ -45,6 +44,7 @@ Check Switches In Topology
     [Arguments]    ${switches}
     [Documentation]    Check switches are in the topology.
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.content}    "node-id":"openflow:
     BuiltIn.Should Be Equal As Numbers    ${count}    ${switches}
@@ -53,6 +53,7 @@ Check Number Of Links
     [Arguments]    ${links}
     [Documentation]    Check number of links in the topolgy.
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.content}    "link-id":"openflow:
     Should Be Equal As Integers    ${count}    ${links}
@@ -61,6 +62,7 @@ Check Linear Topology
     [Arguments]    ${switches}
     [Documentation]    Check Linear topology.
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
@@ -83,6 +85,7 @@ Check Number Of Flows
     [Arguments]    ${flows}
     [Documentation]    Check number of flows in the inventory.
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.content}    "priority"
     Should Be Equal As Integers    ${count}    ${flows}
@@ -91,6 +94,7 @@ Check Number Of Groups
     [Arguments]    ${groups}
     [Documentation]    Check number of groups in the inventory.
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${group_count}=    Get Count    ${resp.content}    "group-type"
     ${count}=    CompareStream.Set_Variable_If_At Least_Boron    ${group_count}    ${group_count/2}
