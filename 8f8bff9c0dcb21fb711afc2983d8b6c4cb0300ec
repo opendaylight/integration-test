@@ -87,6 +87,24 @@
       "revId": "8f8bff9c0dcb21fb711afc2983d8b6c4cb0300ec",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_64b8f5e5",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-02-10T11:03:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_efe1b69b",
+      "revId": "8f8bff9c0dcb21fb711afc2983d8b6c4cb0300ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
