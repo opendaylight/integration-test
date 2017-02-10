@@ -5,7 +5,7 @@ import distcompare
 from changes import Changes
 
 REMOTE_URL = 'ssh://git.opendaylight.org:29418'
-NETVIRT_PROJECTS = ["netvirt", "controller", "dlux", "dluxapps", "genius", "infrautils", "mdsal", "netconf",
+NETVIRT_PROJECTS = ["controller", "dlux", "dluxapps", "genius", "infrautils", "mdsal", "netconf", "netvirt",
                     "neutron", "odlparent", "openflowplugin", "ovsdb", "sfc", "yangtools"]
 PROJECT_NAMES = NETVIRT_PROJECTS
 DISTRO_PATH = "/tmp/distribution-karaf"
@@ -20,18 +20,20 @@ class TestChanges(unittest.TestCase):
         print("Starting test: %s" % self.id())
 
     @staticmethod
-    def run_cmd(branch, distro_patch, limit, qlimit, project_names, remote_url):
-        changes = Changes(branch, distro_patch, limit, qlimit, project_names, remote_url, 0)
+    def run_cmd(branch, distro_patch, limit, qlimit, project_names, remote_url, loglevel=0):
+        changes = Changes(branch, distro_patch, limit, qlimit, project_names, remote_url, loglevel)
         projects = changes.run_cmd()
         changes.pretty_print_projects(projects)
 
     def test_run_cmd_single(self):
-        project_names = ['netvirt']
-        self.run_cmd(BRANCH, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL)
+        project_names = ['neutron']
+        branch = BRANCH
+        self.run_cmd(branch, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL, 1)
 
     def test_run_cmd_multiple(self):
         project_names = PROJECT_NAMES
-        self.run_cmd(BRANCH, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL)
+        branch = BRANCH
+        self.run_cmd(branch, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL, 1)
 
     def test_pretty_print(self):
         project_names = PROJECT_NAMES

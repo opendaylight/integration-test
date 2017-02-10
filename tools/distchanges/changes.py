@@ -39,6 +39,12 @@ See the License for the specific language governing permissions and
 limitations under the License."""
 
 
+class ChangeId(object):
+    def __init__(self, changeid, merged):
+        self.changeid = changeid
+        self.merged = merged
+
+
 class Changes(object):
     # NETVIRT_PROJECTS, as taken from autorelease dependency info [0]
     # TODO: it would be nice to fetch the dependency info on the fly in case it changes down the road
@@ -103,7 +109,7 @@ class Changes(object):
 
     def pretty_print_projects(self, projects):
         if isinstance(projects, dict):
-            for project_name, values in projects.items():
+            for project_name, values in sorted(projects.items()):
                 if "includes" in values:
                     self.pretty_print_gerrits(project_name, values["includes"])
 
@@ -147,21 +153,25 @@ class Changes(object):
             print("Unable to move extracted files from %s to %s. Using whatever bits are already there" %
                   (tmp_unzipped_location, self.distro_path))
 
-    def get_includes(self, project, changeid=None, msg=None):
+    def get_includes(self, project, changeid=None, msg=None, merged=True):
         """
         Get the gerrits that would be included before the change merge time.
 
         :param str project: The project to search
-        :param str changeid: The Change-Id of the gerrit to use for the merge time
-        :param str msg: The commit message of the gerrit to use for the merge time
+        :param str or None changeid: The Change-Id of the gerrit to use for the merge time
+        :param str or None msg: The commit message of the gerrit to use for the merge time
+        :param bool merged: The requested gerrit was merged
         :return list: includes[0] is the gerrit requested, [1 to limit] are the gerrits found.
         """
-        includes = self.gerritquery.get_gerrits(project, changeid, 1, msg)
+        if merged:
+            includes = self.gerritquery.get_gerrits(project, changeid, 1, msg, status="merged")
+        else:
+            includes = self.gerritquery.get_gerrits(project, changeid, 1, None, None, True)
         if not includes:
             print("Review %s in %s:%s was not found" % (changeid, project, self.gerritquery.branch))
             return None
 
-        gerrits = self.gerritquery.get_gerrits(project, changeid=None, limit=self.qlimit, msg=msg)
+        gerrits = self.gerritquery.get_gerrits(project, changeid=None, limit=self.qlimit, msg=msg, status="merged")
         for gerrit in gerrits:
             # don"t include the same change in the list
             if gerrit["id"] == changeid:
@@ -206,32 +216,44 @@ class Changes(object):
         - I01234567
         - no Change-Id at all. There is a commit message and commit hash.
         In this example the commit hash cannot be found because it was a merge
-        so you must use the message. Note spaces need to be replaced with +"s
+        so you must use the message. Note spaces need to be replaced with 's.
+        - a patch that has not been merged. For these we look at the gerrit comment
+        for when the patch-test job starts.
 
         :param str project: The project to search
         :param str pfile: String containing the content of the git.properties file
-        :return str: The Change-Id or None if not found
+        :return ChangeId: The Change-Id or None if not found
         """
         # match a 40 or 8 char Change-Id hash. both start with I
         regex = re.compile(r'\bI([a-f0-9]{40})\b|\bI([a-f0-9]{8})\b')
         changeid = regex.search(pfile)
         if changeid:
-            return changeid.group()
+            if self.verbose >= 1:
+                print("trying Change-Id as merged in %s" % (project))
+
+            gerrits = self.gerritquery.get_gerrits(project, changeid.group(), 1, None, status="merged")
+            if gerrits:
+                return ChangeId(changeid.group(), True)
+
+            # Maybe this is a patch that has not merged yet
+            if self.verbose >= 1:
+                print("did not find Change-Id as merged in %s, trying as unmerged" % project)
+
+            gerrits = self.gerritquery.get_gerrits(project, changeid.group(), 1, None, status=None, comments=True)
+            if gerrits:
+                return ChangeId(gerrits[0]["id"], False)
 
         # Didn't find a Change-Id so try to get a commit message
         # match on "blah" but only keep the blah
-        if self.verbose >= 2:
-            print("did not find Change-Id in %s, trying with commit-msg" % (project))
         regex_msg = re.compile(r'"([^"]*)"|^git.commit.message.short=(.*)$')
         msg = regex_msg.search(pfile)
         if msg:
-            if self.verbose >= 2:
+            if self.verbose >= 1:
                 print("did not find Change-Id in %s, trying with commit-msg: %s" % (project, msg.group()))
 
-                # TODO: add new query using this msg
             gerrits = self.gerritquery.get_gerrits(project, None, 1, msg.group())
             if gerrits:
-                return gerrits[0]["id"]
+                return ChangeId(gerrits[0]["id"], True)
 
         # Maybe one of the monster 'merge the world' gerrits
         regex_msg = re.compile(r'git.commit.message.full=(.*)')
@@ -242,13 +264,15 @@ class Changes(object):
             cli = next((i for i, line in enumerate(lines[:-1]) if '* changes\\:' in line), None)
             first_msg = lines[cli+1] if cli else None
         if first_msg:
+            if self.verbose >= 1:
+                print("did not find Change-Id or commit-msg in %s, trying with merge commit-msg: %s" % (project, first_msg))
             gerrits = self.gerritquery.get_gerrits(project, None, 1, first_msg)
             if gerrits:
-                return gerrits[0]["id"]
+                return ChangeId(gerrits[0]["id"], True)
 
         print("did not find Change-Id for %s" % project)
 
-        return None
+        return ChangeId(None, False)
 
     def find_distro_changeid(self, project):
         """
@@ -257,6 +281,7 @@ class Changes(object):
 
         :param str project: The project to search
         :return str: The Change-Id or None if not found
+        :return bool: If the gerrit was merged
         """
         project_dir = os.path.join(self.distro_path, "system", "org", "opendaylight", project)
         pfile = None
@@ -267,14 +292,16 @@ class Changes(object):
                     pfile = self.extract_gitproperties_file(fullpath)
                     if pfile:
                         changeid = self.get_changeid_from_properties(project, pfile)
-                        if changeid:
+                        if changeid.changeid:
                             return changeid
                         else:
                             print("Could not find %s Change-Id in git.properties" % project)
                             break  # all jars will have the same git.properties
             if pfile is not None:
                 break  # all jars will have the same git.properties
-        return None
+        if pfile is None:
+            print("Could not find a git.properties file for %s" % project)
+        return ChangeId(None, False)
 
     def init(self):
         self.gerritquery = gerritquery.GerritQuery(self.remote_url, self.branch, self.qlimit, self.verbose)
@@ -306,11 +333,13 @@ class Changes(object):
         if self.distro_url is not None:
             self.download_distro()
 
-        for project in self.projects:
+        for project in sorted(self.projects):
+            if self.verbose >= 1:
+                print("Processing %s" % project)
             changeid = self.find_distro_changeid(project)
-            if changeid:
-                self.projects[project]['commit'] = changeid
-                self.projects[project]["includes"] = self.get_includes(project, changeid)
+            if changeid.changeid:
+                self.projects[project]['commit'] = changeid.changeid
+                self.projects[project]["includes"] = self.get_includes(project, changeid.changeid, msg=None, merged=changeid.merged)
         return self.projects
 
     def main(self):
