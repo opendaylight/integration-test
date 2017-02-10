@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_c6772639",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_renderer_part.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-02-10T14:04:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_82afd193",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 104
+      },
+      "revId": "7094da907103aac5a57fbb5441db8ca94acefd19",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_e295fd40",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/ise-adapter.robot",
         "patchSetId": 40
@@ -36,6 +60,30 @@
       "writtenOn": "2017-02-09T09:19:17Z",
       "side": 1,
       "message": "This is effectively breakpoint for ride - very useful for debugging or presenting. Purpose shall be claimed either right after \"PAUSE\" (if possible) or as hash comment in line above.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 20
+      },
+      "revId": "7094da907103aac5a57fbb5441db8ca94acefd19",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6678fa2b",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ise-adapter.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 556
+      },
+      "writtenOn": "2017-02-10T14:04:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_e295fd40",
       "range": {
         "startLine": 27,
         "startChar": 4,
