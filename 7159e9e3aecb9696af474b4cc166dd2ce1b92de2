@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_29c088df",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-10T08:41:31Z",
+      "side": 1,
+      "message": "I think it would be a better practice if we name these functions which purpose is to verify things with the same convention the built-in functions are named.\n\nI mean, we could call this one something like \"Tunnel Status Should be UNKNOWN\". This way we all know that this function\u0027s purpose is to fail if the condition is not satisfied, the same way the other \"should\" functions do.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 31
+      },
+      "revId": "7159e9e3aecb9696af474b4cc166dd2ce1b92de2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
