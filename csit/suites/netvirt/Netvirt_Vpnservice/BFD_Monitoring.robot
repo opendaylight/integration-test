@@ -3,7 +3,7 @@ Documentation     Test suite for Tunnel Monitoring. More test cases to be added 
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Run Keyword If Test Failed    Get OvsDebugInfo
+Test Teardown     Get Test Teardown Debugs
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/CompareStream.robot
@@ -199,6 +199,8 @@ Create Setup
     ${VM_IP_NET1}    ${VM_IP_NET2}    Wait Until Keyword Succeeds    180s    10s    Verify VMs received IP
     Set Suite Variable    ${VM_IP_NET2}
     Set Suite Variable    ${VM_IP_NET1}
+    [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}
+    ...    AND    Get Test Teardown Debugs
 
 Verify VMs received IP
     [Documentation]    Verify VM received IP
