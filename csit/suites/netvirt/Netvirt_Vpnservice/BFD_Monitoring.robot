@@ -1,9 +1,10 @@
 *** Settings ***
 Documentation     Test suite for Tunnel Monitoring. More test cases to be added in subsequent patches.
-Suite Setup       Start Suite
+Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+...               AND    DevstackUtils.Devstack Suite Setup
 Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Run Keyword If Test Failed    Get OvsDebugInfo
+Test Teardown     Get Test Teardown Debugs
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/CompareStream.robot
@@ -27,6 +28,11 @@ ${PING_REGEXP}    , 0% packet loss
 ${VAR_BASE}       ${CURDIR}/../../../variables/netvirt
 
 *** Test Cases ***
+Prepare Environment
+    [Documentation]    Run before the suite execution
+    Presuite Cleanup
+    Create Setup
+
 TC00 Verify Tunnels Are Present
     [Documentation]    Verify if tunnels are present. If not then create new tunnel.
     ${output}=    ITM Get Tunnels
@@ -148,13 +154,6 @@ TC03 Verify that the monitoring interval value boundaries with Monitoring Enable
     Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring    ${TMI_30000}
 
 *** Keywords ***
-Start Suite
-    [Documentation]    Run before the suite execution
-    DevstackUtils.Devstack Suite Setup
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    Presuite Cleanup
-    Create Setup
-
 Stop Suite
     [Documentation]    Run after the tests execution
     Delete Setup
@@ -199,6 +198,8 @@ Create Setup
     ${VM_IP_NET1}    ${VM_IP_NET2}    Wait Until Keyword Succeeds    180s    10s    Verify VMs received IP
     Set Suite Variable    ${VM_IP_NET2}
     Set Suite Variable    ${VM_IP_NET1}
+    [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}
+    ...    AND    Get Test Teardown Debugs
 
 Verify VMs received IP
     [Documentation]    Verify VM received IP
