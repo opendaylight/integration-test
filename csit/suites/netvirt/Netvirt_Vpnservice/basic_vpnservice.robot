@@ -104,6 +104,8 @@ Create Nova VMs
     Set Suite Variable    ${VM_IP_NET20}
     Should Not Contain    ${VM_IP_NET10)    None
     Should Not Contain    ${VM_IP_NET20}    None
+    [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
+    ...    AND    Get Suite Teardown Debugs
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
