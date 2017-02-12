@@ -581,6 +581,10 @@ Get Test Teardown Debugs
     Get Model Dump    ${HA_PROXY_IP}
     Get Karaf Log Events From Test Start    ${test_name}
 
+Get Suite Teardown Debugs
+    Get OvsDebugInfo
+    Get Model Dump    ${HA_PROXY_IP}
+
 Show Debugs
     [Arguments]    @{vm_indices}
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
