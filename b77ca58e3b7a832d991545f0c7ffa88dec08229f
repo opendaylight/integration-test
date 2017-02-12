@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_dae6d9b3",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-12T23:49:44Z",
+      "side": 1,
+      "message": "this is a good example of where we just need a new local\nkeyword to do all the \"Suite Setup\" stuff. not a new\ntest case at the beginning.\n\nit would include these things as well as those other\ncalls we are doing in lines 2-3\n\nI know this is just a debug patch, but it seems like good stuff we\nshould keep anyway.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "b77ca58e3b7a832d991545f0c7ffa88dec08229f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
