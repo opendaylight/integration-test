@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_803dfebd",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-13T10:07:30Z",
+      "side": 1,
+      "message": "This is not a Test Case. Better move to Setup phase",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 16
+      },
+      "revId": "63a23ebceef9b949548a71e86d61907005d5ed39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
