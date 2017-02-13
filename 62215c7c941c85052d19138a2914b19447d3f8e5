@@ -22,6 +22,29 @@
       "revId": "62215c7c941c85052d19138a2914b19447d3f8e5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b5a68651",
+        "filename": "csit/testplans/netvirt-vpnservices-1node-openstack.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-02-13T09:28:35Z",
+      "side": 1,
+      "message": "After the patch https://git.opendaylight.org/gerrit/#/c/51694/ is merged,the following change is needed\nremove this file as well as add the entry in csit/testplans/netvirt-1node-openstack.txt",
+      "range": {
+        "startLine": 1,
+        "startChar": 12,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "62215c7c941c85052d19138a2914b19447d3f8e5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
