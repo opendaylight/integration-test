@@ -22,6 +22,30 @@
       "revId": "b77ca58e3b7a832d991545f0c7ffa88dec08229f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d577ca38",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-02-13T11:38:05Z",
+      "side": 1,
+      "message": "This is how it was originally, what bothered me is that \"Get Test Teardown Debugs\" doesn\u0027t work for suites (since it assumes TEST_NAME).. I reverted it a bit now\n\nWe should decide on a common approach for all tests though, the other suites do the setup in separate steps - I like this approach though since it counts as one test case for the entire setup",
+      "parentUuid": "fafc7978_dae6d9b3",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "b77ca58e3b7a832d991545f0c7ffa88dec08229f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
