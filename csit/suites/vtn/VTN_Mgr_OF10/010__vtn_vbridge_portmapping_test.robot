@@ -3,6 +3,7 @@ Documentation     Test suite for VTN Manager using OF10
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
+Resource          ../../../libraries/MininetKeywords.robot
 
 *** Test Cases ***
 Check if switch1 detected
@@ -80,7 +81,12 @@ Verify FlowMacAddress
 
 Remove Portmap for If1
     [Documentation]    Remove portmap for the interface If1
+    [Tags]    exclude
     Remove a portmap    Tenant1    vBridge1    if1
+
+Remove Interface for If1
+    [Documentation]    Remove portmap for the interface If1
+    Delete a interface    Tenant1    vBridge1    if1
 
 Verify RemovedFlowMacAddress
     [Documentation]    flows will be deleted after the port map is removed
