@@ -54,6 +54,7 @@ ${dlsrc_action}    mod_dl_src:00:00:00:00:00:11
 ${dlsrc_actions}    set_field:00:00:00:00:00:11->eth_src
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
+${cluster_session}
 
 *** Keywords ***
 Start SuiteVtnMa
@@ -100,7 +101,15 @@ Collect Debug Info
     ${result}    Read Until    mininet>
     Log    ${resp_odl_inventory.content}
     Log    ${resp_vtn_inventory.content}
+    Get Cluster Details
     Should Be Equal As Strings    ${resp_vtn_inventory.status_code}    200
+
+Get Cluster Details
+    [Documentation]    Find cluster details and check whcich is Leader and Follower
+    ${resp_entity_owners}    RequestsLibrary.Get Request    session    restconf/operational/entity-owners:entity-owners | python -m json.tool
+    Log    ${resp_entity_owners.content}
+    ${resp_cluster_jolokia}    RequestsLibrary.Get Request    session    jolokia/read/akka:type=Cluster | python -m json.tool
+    Log    ${resp_cluster_jolokia.content}
 
 Add a Topology wait
     [Arguments]    ${topo_wait}
@@ -136,6 +145,12 @@ Delete a Vtn
     [Arguments]    ${vtn_name}
     [Documentation]    Delete a vtn with specified parameters.
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn:remove-vtn    data={"input": {"tenant-name":${vtn_name}}}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Delete a interface
+    [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}
+    [Documentation]    Delete a vbridge interface.
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-vinterface:remove-vinterface    data={"input": {"tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "interface-name": ${interface_name}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a vlanmap
