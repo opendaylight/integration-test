@@ -1,0 +1,4 @@
+<input>
+  <seconds>$SECONDS</seconds>
+  <notifications-per-second>$NPS</notifications-per-second>
+</input>
