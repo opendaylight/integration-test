@@ -1,0 +1,5 @@
+<input>
+  <seconds>$SECONDS</seconds>
+  <transactions-per-second>$TPS</transactions-per-second>
+  <isolated-transactions>$ISOLATED_TRANSACTIONS</isolated-transactions>
+</input>
