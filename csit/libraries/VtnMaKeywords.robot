@@ -138,6 +138,12 @@ Delete a Vtn
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn:remove-vtn    data={"input": {"tenant-name":${vtn_name}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Delete a interface
+    [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}
+    [Documentation]    Delete a vbridge interface.
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-vinterface:remove-vinterface    data={"input": {"tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "interface-name": ${interface_name}}}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
 Add a vlanmap
     [Arguments]    ${vtn_name}    ${vbr_name}    ${vlan_id}
     [Documentation]    Create a vlanmap
