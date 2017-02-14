@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_74e37633",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-14T21:35:06Z",
+      "side": 1,
+      "message": "are these addresses special, or can be anything?",
+      "range": {
+        "startLine": 89,
+        "startChar": 42,
+        "endLine": 89,
+        "endChar": 72
+      },
+      "revId": "88b4057bb47ca275df0c1998cb9406fff4769076",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f4ce46b3",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-14T21:35:06Z",
+      "side": 1,
+      "message": "change to ${OPERATIONAL_TOPO_API} and you can remove line 111",
+      "range": {
+        "startLine": 113,
+        "startChar": 41,
+        "endLine": 113,
+        "endChar": 49
+      },
+      "revId": "88b4057bb47ca275df0c1998cb9406fff4769076",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_34c0ce7b",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-14T21:35:06Z",
+      "side": 1,
+      "message": "can use [0] or [1] I think to take advantage of the lib\n\n[0] http://opendaylight.readthedocs.io/en/latest/_static/integration/robot/Utils.robot.html#Post%20Log%20Check\n[1] http://opendaylight.readthedocs.io/en/latest/_static/integration/robot/Utils.robot.html#Post%20Elements%20To%20URI",
+      "range": {
+        "startLine": 265,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 60
+      },
+      "revId": "88b4057bb47ca275df0c1998cb9406fff4769076",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
