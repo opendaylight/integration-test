@@ -662,6 +662,16 @@ Neutron Security Group Update
     Close Connection
     [Return]    ${output}
 
+Delete SecurityGroup
+    [Arguments]    ${sg_name}
+    [Documentation]    Delete Security group
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-delete ${sg_name}    40s
+    Log    ${output}
+    Should Match Regexp    ${output}    Deleted security_group: ${sg_name}|Deleted security_group\\(s\\): ${sg_name}
+    Close Connection
+
 Neutron Security Group Rule Create
     [Arguments]    ${Security_group_name}    &{Kwargs}
     [Documentation]    Creates neutron security rule with neutron request with or without optional params, here security group name is mandatory args, rule with optional params can be created by passing the optional args values ex: direction=${INGRESS_EGRESS}, Then these optional params are catenated with mandatory args, example of usage: "Neutron Security Group Rule Create ${SGP_SSH} direction=${RULE_PARAMS[0]} ethertype=${RULE_PARAMS[1]} ..."
