@@ -3,6 +3,7 @@ Documentation     Test suite for VTN Manager using OF10
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
+Resource          ../../../libraries/MininetKeywords.robot
 
 *** Test Cases ***
 Check if switch1 detected
@@ -89,3 +90,4 @@ Verify RemovedFlowMacAddress
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
     Delete a vtn    Tenant1
+    Stop Mininet And Exit
