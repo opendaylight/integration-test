@@ -53,6 +53,8 @@ ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncService
 ${NODE_START_COMMAND}    ${KARAF_HOME}/bin/start
 ${NODE_STOP_COMMAND}    ${KARAF_HOME}/bin/stop
 ${NODE_KILL_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
+${NODE_FREEZE_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -STOP \" $1}' | sh
+${NODE_UNFREEZE_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -CONT \" $1}' | sh
 
 *** Keywords ***
 ClusterManagement_Setup
@@ -385,6 +387,26 @@ Start_Members_From_List_Or_All
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
     # TODO: Do we also want to check Shard Leaders here?
+
+Freeze_Single_Member
+    [Arguments]    ${member}
+    [Documentation]    Convenience keyword that stops the specified member of the cluster by freezing the jvm.
+    ${index_list} =    ClusterManagement__Build_List    ${member}
+    Freeze_Or_Unfreeze_Members_From_List_Or_All    ${NODE_FREEZE_COMMAND}    ${index_list}
+
+Unfreeze_Single_Member
+    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=60s
+    [Documentation]    Convenience keyword that "continues" the specified member of the cluster by unfreezing the jvm.
+    ${index_list} =    ClusterManagement__Build_List    ${member}
+    Freeze_Or_Unfreeze_Members_From_List_Or_All    ${NODE_UNFREEZE_COMMAND}    ${index_list}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync
+
+Freeze_Or_Unfreeze_Members_From_List_Or_All
+    [Arguments]    ${command}    ${member_index_list}=${EMPTY}
+    [Documentation]    If the list is empty, stops/runs all ODL instances. Otherwise stop/run members based on \${stop_index_list}
+    ...    For command parameter only ${NODE_FREEZE_COMMAND} and ${NODE_UNFREEZE_COMMAND} should be used
+    ${freeze_index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    Run_Bash_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
 
 Clean_Journals_And_Snapshots_On_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${karaf_home}=${KARAF_HOME}
