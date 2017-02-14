@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_728a69c0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-14T19:01:16Z",
+      "side": 1,
+      "message": "I might be missing some logic here, but I think we need a \nfailure condition somewhere. probably in this keyword.\n\nlike VM_IPS (and probably the DHCP) don\u0027t have None in them.\n\nthat would be what the WUKS on the test case level would \nneed in order to keep polling.\n\n...again, unless I missed something.",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 282,
+        "endChar": 44
+      },
+      "revId": "6973f5b463d9e57caabead8e62ab763b91d8d3b2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_52ac8535",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-14T19:01:16Z",
+      "side": 1,
+      "message": "so, I think this logic can be removed and we put the check\nfor None in the Verify And Collect VM DHCP Addresses.\n\notherwise the 60s polling is not really happening in lines\n205-206\n\nthen just for debug purposes you can add a custom [Teardown]\nto this test case that does the console-log output. you\ncan\u0027t put it as a normal test step because if a test step\nbefore it fails it would not execute. [Teardown] steps\n*always* execute.",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 132
+      },
+      "revId": "6973f5b463d9e57caabead8e62ab763b91d8d3b2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
