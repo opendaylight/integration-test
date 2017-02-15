@@ -376,6 +376,19 @@ Execute Command on VM Instance
     [Teardown]    Exit From Vm Console
     [Return]    ${output}
 
+Execute Command on VM Instance_1
+    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
+    ${devstack_conn_id} =    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id} =    Get Net Id    ${net_name}    ${devstack_conn_id}
+    Log    ${vm_ip}
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ping -c3 ${vm_ip}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode} =    Run Keyword And Return Status    Check If Console Is VmInstance
+    [Teardown]    Exit From Vm Console
+    [Return]    ${output}
+
 Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network.
