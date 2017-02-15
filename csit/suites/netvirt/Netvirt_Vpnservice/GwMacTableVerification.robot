@@ -57,7 +57,7 @@ Verify GWMAC Table for inter and intra network
     Validate GWMAC FLOW TABLE    ${FLOW_OUTPUT}    ${GROUP_OUTPUT}    ${GWMAC_ADDRS}
 
 Verify FLOWTABLE pipeline for inter and intra network
-    [Documentation]    Verify fib table, GWMAC table , ARP reponder table and dispatcher table
+    [Documentation]    Verify flow table -  GWMAC table , ARP reponder table and dispatcher table
     # Verify FIB and Flow TABLE
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
     Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
