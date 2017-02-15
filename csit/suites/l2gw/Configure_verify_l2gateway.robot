@@ -119,7 +119,7 @@ TC12 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
 
 *** Keywords ***
 Basic Suite Setup
-    [Documentation]    Basic Suite Setup required for the HWVTEP Test Suite
+    [Documentation]    Basic Suite Setup required for the HWVTEP Test suite.
     RequestsLibrary.Create Session    alias=session    url=http://${ODL_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${devstack_conn_id}=    SSHLibrary.Open Connection    ${OS_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     Log    ${devstack_conn_id}
@@ -145,6 +145,7 @@ Basic Suite Setup
     Set Suite Variable    ${port_ip_list}
 
 Basic Suite Teardown
+    [Documentation]    To execute the teardown steps for this suite.
     Switch Connection    ${devstack_conn_id}
     close connection
     Switch Connection    ${hwvtep_conn_id}
@@ -153,7 +154,7 @@ Basic Suite Teardown
     close connection
 
 Enable ODL DHCP Service
-    [Documentation]    Enable and Verify ODL DHCP service
+    [Documentation]    To enable and Verify ODL DHCP service.
     TemplatedRequests.Post_As_Json_Templated    folder=${CURDIR}/../../variables/vpnservice/enable_dhcp    mapping={}    session=session
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/dhcpservice-config:dhcpservice-config
     Log    ${resp.content}
