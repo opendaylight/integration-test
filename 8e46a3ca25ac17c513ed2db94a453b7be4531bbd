@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_1ad333d7",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-15T14:30:20Z",
+      "side": 1,
+      "message": "Both keyword name and documentation suggest Get is done before Check. Change the order either in implementation or in the descriptions.",
+      "range": {
+        "startLine": 47,
+        "startChar": 41,
+        "endLine": 47,
+        "endChar": 69
+      },
+      "revId": "8e46a3ca25ac17c513ed2db94a453b7be4531bbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5adc9be4",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-15T14:30:20Z",
+      "side": 1,
+      "message": "Mention optional shard check.",
+      "range": {
+        "startLine": 70,
+        "startChar": 54,
+        "endLine": 70,
+        "endChar": 55
+      },
+      "revId": "8e46a3ca25ac17c513ed2db94a453b7be4531bbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_faa3cf4c",
+        "filename": "csit/libraries/ShardStability.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-15T14:30:20Z",
+      "side": 1,
+      "message": "This is evaluated at import time, thus before line 27 sets a valid value.\n\nI suggest to rework this as a \"stateless\" library (without Init, and both this and Shards_Stability_Verify would ask for ${expected_detail}. Let suite use BuiltIn.Set_Suite_Variable to pass that between test cases.\n\nIf there really is a good motivation for hiding the expected details from the suite, you can use ${EMPTY} as the default value here, and BuiltIn.Set_Variable_If to access ${stored_details}.",
+      "range": {
+        "startLine": 49,
+        "startChar": 51,
+        "endLine": 49,
+        "endChar": 68
+      },
+      "revId": "8e46a3ca25ac17c513ed2db94a453b7be4531bbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_dd4b6585",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_pc_shm_1route.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-15T14:30:20Z",
+      "side": 1,
+      "message": "7?",
+      "range": {
+        "startLine": 4,
+        "startChar": 40,
+        "endLine": 4,
+        "endChar": 41
+      },
+      "revId": "8e46a3ca25ac17c513ed2db94a453b7be4531bbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c800c103",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_pc_shm_1route.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-15T14:30:20Z",
+      "side": 1,
+      "message": "Do you mean ${rib-owner-node-id}, or is there another id?",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "8e46a3ca25ac17c513ed2db94a453b7be4531bbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e824a5b0",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_pc_shm_1route.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-15T14:30:20Z",
+      "side": 1,
+      "message": "There is also topology operational shard. To prevent the performance to jump between different values (based on whether Leaders and owner are on the same member or not), you should add a \"leader placement suite\", but that can be added later.",
+      "range": {
+        "startLine": 14,
+        "startChar": 77,
+        "endLine": 15,
+        "endChar": 35
+      },
+      "revId": "8e46a3ca25ac17c513ed2db94a453b7be4531bbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_dd19a589",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_pc_shm_1route.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-15T14:30:20Z",
+      "side": 1,
+      "message": "This is reported as fixed.",
+      "range": {
+        "startLine": 16,
+        "startChar": 64,
+        "endLine": 16,
+        "endChar": 68
+      },
+      "revId": "8e46a3ca25ac17c513ed2db94a453b7be4531bbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6830b5e8",
+        "filename": "csit/suites/bgpcep/bgpclustering/PrefixcountKeywords.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-15T14:30:20Z",
+      "side": 1,
+      "message": "This and all of the following keywords are not specific to prefix counting. Add a TODO to find a better place for the keywords.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 19
+      },
+      "revId": "8e46a3ca25ac17c513ed2db94a453b7be4531bbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_08592936",
+        "filename": "csit/testplans/bgpcep-bgpclustering.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-15T14:30:20Z",
+      "side": 1,
+      "message": "We want the new suites to run on the default (replicated) cluster configuration.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 1
+      },
+      "revId": "8e46a3ca25ac17c513ed2db94a453b7be4531bbd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
