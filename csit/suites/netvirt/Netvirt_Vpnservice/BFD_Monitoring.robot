@@ -17,23 +17,26 @@ Resource          ../../../variables/netvirt/Variables.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${STATE_UP}       UP
-${STATE_DOWN}     DOWN
-${STATE_ENABLE}    ENABLED
-${STATE_DISABLE}    DISABLE
 ${BFD_ENABLED_FALSE}    false
 ${BFD_ENABLED_TRUE}    true
 ${PING_REGEXP}    , 0% packet loss
 ${VAR_BASE}       ${CURDIR}/../../../variables/netvirt
 
 *** Test Cases ***
-TC00 Verify Tunnels Are Present
+TC00 Verify Setup
     [Documentation]    Verify if tunnels are present. If not then create new tunnel.
+    : FOR    ${VM}    IN    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}
+    \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
+    ${VM_IP_NET1}    ${VM_IP_NET2}    Wait Until Keyword Succeeds    180s    10s    Verify VMs received IP
+    Set Suite Variable    ${VM_IP_NET2}
+    Set Suite Variable    ${VM_IP_NET1}
     ${output}=    ITM Get Tunnels
     Log    ${output}
     ${count}=    Get Count    ${output}    tunnel_port
     Log    ${count}
     Run Keyword If    ${count} == 0    Create Tunnel
+    [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}
+    ...    AND    Get Suite Teardown Debugs
 
 TC01 Verify That Default Tunnel Type Is Set To BFD
     [Documentation]    Verify that the default tunnel type is set to BFD if both the devices support BFD
@@ -79,12 +82,7 @@ TC02 Verify that Tunnel Monitoring can be disabled and monitor interval can be c
     Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
     Log    Disabling the tunnel monitoring from REST
     TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disable_tunnel_monitoring    session=session
-    Log    Verifying the tunnel monitoring after disable
-    ${resp}=    RequestsLibrary.Get Request    session    ${TUNNEL_MONITOR_URL}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
-    Should Contain    ${resp.content}    ${BFD_ENABLED_FALSE}
-    Should Contain    ${resp.content}    ${BFD}
+    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${BFD}
     Log    Verifying the default tunnel monitoring is off
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Log    ${output}
@@ -110,12 +108,7 @@ TC03 Verify that the monitoring interval value boundaries with Monitoring Enable
     Wait Until Keyword Succeeds    10s    5s    Verify Tunnel Status as UP
     Log    Enabling the tunnel monitoring from REST
     TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/enable_tunnel_monitoring    session=session
-    Log    Verifying the tunnel monitoring is enabled
-    ${resp}=    RequestsLibrary.Get Request    session    ${TUNNEL_MONITOR_URL}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
-    Should Contain    ${resp.content}    ${BFD_ENABLED_TRUE}
-    Should Contain    ${resp.content}    ${BFD}
+    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_TRUE}    ${BFD}
     Log    Verifying the tunnel status
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Log    ${output}
@@ -129,23 +122,95 @@ TC03 Verify that the monitoring interval value boundaries with Monitoring Enable
     Log    Setting the tunnel monitoring interval to 30000ms
     TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_interval    mapping={"int":"30000"}    session=session
     Log    Verifying the tunnel monitoring interval to 30000ms
-    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring    ${TMI_30000}
+    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring Interval    ${TMI_30000}
     Log    Verifying the tunnel monitoring interval to greater than 30000ms cannot be set
     ${resp}=    RequestsLibrary.Put Request    session    ${MONITOR_INTERVAL_NEW}    data=${INTERVAL_31000}
     Should Be Equal As Strings    ${resp.status_code}    ${RESP_ERROR_CODE}
-    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring    ${TMI_30000}
+    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring Interval    ${TMI_30000}
     Log    Verifying the tunnel monitoring interval to 50ms cannot be set
     ${resp}=    RequestsLibrary.Put Request    session    ${MONITOR_INTERVAL_NEW}    data=${INTERVAL_50}
     Should Be Equal As Strings    ${resp.status_code}    ${RESP_ERROR_CODE}
-    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring    ${TMI_30000}
+    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring Interval    ${TMI_30000}
     Log    Verifying the tunnel monitoring interval to 0ms cannot be set
     ${resp}=    RequestsLibrary.Put Request    session    ${MONITOR_INTERVAL_NEW}    data=${INTERVAL_0}
     Should Be Equal As Strings    ${resp.status_code}    ${RESP_ERROR_CODE}
-    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring    ${TMI_30000}
+    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring Interval    ${TMI_30000}
     Log    Verifying the tunnel monitoring interval to a negative value cannot be set
     ${resp}=    RequestsLibrary.Put Request    session    ${MONITOR_INTERVAL_NEW}    data=${INTERVAL_NEG}
     Should Be Equal As Strings    ${resp.status_code}    ${RESP_ERROR_CODE}
-    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring    ${TMI_30000}
+    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring Interval    ${TMI_30000}
+    Log    Restoring back to default moitor interval
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_interval    mapping={"int":"1000"}    session=session
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${TMI_1000}
+
+TC04 Verify that the tunnel monitoring protocol can be configured to LLDP
+    [Documentation]    Verify that the tunnel monitoring protocol can be configured to LLDP
+    ${output} =    ITM Get Tunnels
+    Log    ${output}
+    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+    Log    Disabling the tunnel monitoring from REST in order to change the protocol
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disable_tunnel_monitoring    session=session
+    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${BFD}
+    Log    Changing the tunnel monitoring to LLDP and verify
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disablemonitor_lldp    session=session
+    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${LLDP}
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
+    Log    ${output}
+    Should Contain    ${output}    ${TUNNEL_MONITOR_OFF}
+    Log    Enabling tunnel monitoring
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/enablemonitor_lldp    session=session
+    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_TRUE}    ${LLDP}
+    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    30s    5s    Verify Ping
+    Log    Verifying the monitoring interval
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Should Contain    ${resp.content}    ${TMI_1000}
+    Log    Changing the tunnel monitoring interval
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_interval    mapping={"int":"20000"}    session=session
+    Log    Verifying the monitoring interval got changed
+    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Should Contain    ${resp.content}    ${TMI_20000}
+    Log    Changing the tunnel monitoring back to bfd and verify
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disablemonitor_lldp    session=session
+    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${LLDP}
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disable_tunnel_monitoring    session=session
+    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${BFD}
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/enable_tunnel_monitoring    session=session
+    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_TRUE}    ${BFD}
+    Wait Until Keyword Succeeds    90s    5s    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    60s    5s    Verify Ping
+
+TC05 Disconnect And Reconnect Compute Nodes
+    [Documentation]    Verify that when compute nodes are disconnected from controller tunnel goes to unknown state.
+    ${output} =    ITM Get Tunnels
+    Log    ${output}
+    Wait Until Keyword Succeeds    90s    5s    Verify Tunnel Status as UP
+    Log    Disconnect Compute Nodes
+    Disconnect Compute Nodes    ${OS_COMPUTE_1_IP}    ${ODL_SYSTEM_IP}
+    Disconnect Compute Nodes    ${OS_COMPUTE_2_IP}    ${ODL_SYSTEM_IP}
+    Disconnect Compute Nodes    ${OS_CONTROL_NODE_IP}    ${ODL_SYSTEM_IP}
+    Wait Until Keyword Succeeds    120s    5s    Verify Tunnel Status as UNKNOWN
+    Wait Until Keyword Succeeds    60s    5s    Verify Ping
+    Log    Reconect Compute Nodes
+    Reconnect Compute Nodes    ${OS_COMPUTE_1_IP}    ${ODL_SYSTEM_IP}
+    Reconnect Compute Nodes    ${OS_COMPUTE_2_IP}    ${ODL_SYSTEM_IP}
+    Reconnect Compute Nodes    ${OS_CONTROL_NODE_IP}    ${ODL_SYSTEM_IP}
+    Wait Until Keyword Succeeds    120s    5s    Verify Tunnel Status as UP
+    Log    Verifying Tunnel Monitoring
+    ${resp}    RequestsLibrary.Get Request    session    ${TUNNEL_MONITOR_URL}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Should Contain    ${resp.content}    ${BFD_ENABLED_TRUE}
+    Should Contain    ${resp.content}    ${BFD}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present    ${OS_COMPUTE_2_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify Ping
 
 *** Keywords ***
 Start Suite
@@ -183,24 +248,24 @@ Create Setup
     Should Contain    ${SUB_LIST}    ${SUBNETS[0]}
     Should Contain    ${SUB_LIST}    ${SUBNETS[1]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
+    Neutron Security Group Create    sg-vpnservice1
+    Neutron Security Group Rule Create    sg-vpnservice1    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice1    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice1    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice1    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice1    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice1    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
     Log    Create four ports under previously created subnets
-    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=sg-vpnservice1
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=sg-vpnservice1
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=sg-vpnservice1
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice1
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${PORT_URL}    ${PORT_LIST}
     Log    Create VM Instances
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET1[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET1[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET2[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET2[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
-    : FOR    ${VM}    IN    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}
-    \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
-    ${VM_IP_NET1}    ${VM_IP_NET2}    Wait Until Keyword Succeeds    180s    10s    Verify VMs received IP
-    Set Suite Variable    ${VM_IP_NET2}
-    Set Suite Variable    ${VM_IP_NET1}
-    [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}
-    ...    AND    Get Suite Teardown Debugs
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET1[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice1
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET1[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice1
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET2[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice1
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET2[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice1
 
 Verify VMs received IP
     [Documentation]    Verify VM received IP
@@ -239,13 +304,46 @@ Verify Flows Are Present
     \    Log    ${line}
     \    ${resp}=    Should Match Regexp    ${line}    ${MAC_REGEX}
 
-Check Tunnel Monitoring
+Disconnect Compute Nodes
+    [Arguments]    ${Compute_node_ip}    ${Controller_ip}
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    ${conn_id}=    SSHLibrary.Open Connection    ${Compute_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    Flexible SSH Login    ${DEFAULT_USER}    ${EMPTY}
+    ${cmd}=    BuiltIn.Set Variable    sudo ovs-vsctl set Controller br-int target="tcp\\:${Controller_ip}\\:6654"
+    ${cntlstdout}    Write Commands Until Prompt    ${cmd}
+    Log    ${cntlstdout}
+    ${output}=    Write Commands Until Prompt    sudo ovs-vsctl show
+    Log    ${output}
+    SSHLibrary.Close Connection
+
+Reconnect Compute Nodes
+    [Arguments]    ${Compute_node_ip}    ${Controller_ip}
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    ${conn_id}=    SSHLibrary.Open Connection    ${Compute_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    Flexible SSH Login    ${DEFAULT_USER}    ${EMPTY}
+    ${cmd}=    BuiltIn.Set Variable    sudo ovs-vsctl set Controller br-int target="tcp\\:${Controller_ip}\\:6653"
+    ${cntlstdout}    Write Commands Until Prompt    ${cmd}
+    Log    ${cntlstdout}
+    ${output}=    Write Commands Until Prompt    sudo ovs-vsctl show
+    Log    ${output}
+    SSHLibrary.Close Connection
+
+Check Tunnel Monitoring Interval
     [Arguments]    ${TMI_INTERVAL}
     [Documentation]    Check the tunnel monitoring interval through REST
     ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
     Should Contain    ${resp.content}    ${TMI_INTERVAL}
+
+Verify Tunnel Monitoring
+    [Arguments]    ${BFD_STATUS}    ${PROTOCOL}
+    [Documentation]    Check the tunnel monitoring status
+    ${resp}=    RequestsLibrary.Get Request    session    ${TUNNEL_MONITOR_URL}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    Should Contain    ${resp.content}    ${BFD_STATUS}
+    Should Contain    ${resp.content}    ${PROTOCOL}
 
 Create Tunnel
     [Documentation]    Create tunnels betwee the 2 compute nodes and Openstack controller.
@@ -285,3 +383,4 @@ Delete Setup
     Log    Delete networks
     : FOR    ${Network}    IN    @{NETWORKS}
     \    Delete Network    ${Network}
+    Delete SecurityGroup    sg-vpnservice1
