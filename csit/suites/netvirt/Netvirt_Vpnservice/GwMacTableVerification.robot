@@ -24,11 +24,12 @@ Resource          ../../../variables/Variables.robot
 @{ROUTERS}        ROUTER_1    ROUTER_2
 ${DISPATCHER_TABLE}    17
 ${GWMAC_TABLE}    19
-${ARP_RESPONDER_TABLE}    81
+${ARP_RESPONSE_TABLE}    81
 ${L3_TABLE}       21
-${ARP_FLOWENTRY_REGEX}    arp,arp_op=\\d actions=CONTROLLER:65535,resubmit\\(,${DISPATCHER_TABLE}\\)
-${ARP_RESPONDER_FLOWENTRY_REGEX}    arp,arp_op=\\d actions=group:\\d+
-${ARP_RESPONDER_GROUP}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONDER_TABLE}\\)
+${ELAN_TABLE}     51
+${ARP_RESPONSE_REGEX}    arp,arp_op=2 actions=CONTROLLER:65535,resubmit\\(,${DISPATCHER_TABLE}\\)
+${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
+${ARP_REQUEST_GROUP}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
 ${SG_GWMAC}       sg-gwmac
 ${MAC_REGEX}      (([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2}))
 
@@ -57,7 +58,7 @@ Verify GWMAC Table for inter and intra network
     Validate GWMAC FLOW TABLE    ${FLOW_OUTPUT}    ${GROUP_OUTPUT}    ${GWMAC_ADDRS}
 
 Verify FLOWTABLE pipeline for inter and intra network
-    [Documentation]    Verify fib table, GWMAC table , ARP reponder table and dispatcher table
+    [Documentation]    Verify flow table -  GWMAC table , ARP reponder table and dispatcher table
     # Verify FIB and Flow TABLE
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
     Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
@@ -86,8 +87,8 @@ Suite TearDown for GWMAC
 Get PacketCount from Flow Table
     [Arguments]    ${cnIp}    ${dest_ip}    ${dest_mac}
     [Documentation]    Get the packet count from given table using the destination nw_dst=ip or dl_dst=mac
-    ${ELAN_REGEX} =    Set Variable    table=${tableId}, n_packets=\\d+,\\s.*,dl_dst=${dest_mac}
-    ${L3VPN_REGEX} =    Set Variable    table=${tableId}, n_packets=\\d+,\\s.*,dl_dst=${dest_ip}
+    ${ELAN_REGEX} =    Set Variable    table=${ELAN_TABLE}, n_packets=\\d+,\\s.*,dl_dst=${dest_mac}
+    ${L3VPN_REGEX} =    Set Variable    table=${L3_TABLE}, n_packets=\\d+,\\s.*,dl_dst=${dest_ip}
     ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     Log    ${flow_output}
     ${flowEntry} =    Get Regexp Matches    ${flowOutput}    ${ELAN_REGEX}
@@ -140,31 +141,31 @@ Validate GWMAC FLOW TABLE
     \    Should Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
     #verify Miss entry
     Should Contain    ${gwmac_table}    actions=resubmit(,17)
-    #arp responder
-    Should Match Regexp    ${gwmac_table}    ${ARP_FLOWENTRY_REGEX}
-    ${match} =    Should Match Regexp    ${gwmac_table}    ${ARP_RESPONDER_FLOWENTRY_REGEX}
+    #arp request and response
+    Should Match Regexp    ${gwmac_table}    ${ARP_RESPONSE_REGEX}
+    ${match} =    Should Match Regexp    ${gwmac_table}    ${ARP_REQUEST_REGEX}
     ${groupID} =    Split String    ${match}    separator=:
     Log    groupID
-    Verify ARP RESPONDER in groupTable    ${group_output}    ${groupID[1]}
+    Verify ARP REQUEST in groupTable    ${group_output}    ${groupID[1]}
     #Verify L3_TABLE - 21
     Should Contain    ${flow_output}    table=${L3_TABLE}
     ${l3_table} =    Get Lines Containing String    ${flow_output}    table=${L3_TABLE}
     Log    ${l3_table}
     : FOR    ${ip}    IN    @{VM_IP_NET10}    @{VM_IP_NET20}
     \    ${resp}=    Should Contain    ${l3_table}    ${ip}
-    #Verify ARP_RESPONDER_TABLE - 81
-    Should Contain    ${flow_output}    table=${ARP_RESPONDER_TABLE}
-    ${arpResponder_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_RESPONDER_TABLE}
+    #Verify ARP_RESPONSE_TABLE - 81
+    Should Contain    ${flow_output}    table=${ARP_RESPONSE_TABLE}
+    ${arpResponder_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_RESPONSE_TABLE}
     Log    ${arpResponder_table}
     Should Contain    ${arpResponder_table}    priority=0 actions=drop
 
-Verify ARP RESPONDER in groupTable
+Verify ARP REQUEST in groupTable
     [Arguments]    ${group_output}    ${Group-ID}
     [Documentation]    get flow dump for group ID
     Should Contain    ${group_output}    group_id=${Group-ID}
-    ${arp_group} =    Get Lines Containing String    ${group_output}    group_id==${Group-ID}
+    ${arp_group} =    Get Lines Containing String    ${group_output}    group_id=${Group-ID}
     Log    ${arp_group}
-    Should Contain    ${arp_group}    ${ARP_RESPONDER_GROUP}
+    Should Contain    ${arp_group}    ${ARP_REQUEST_GROUP}
 
 Validate GWMAC Entry From ODL
     [Arguments]    ${GWMAC_ADDRS}
