@@ -3,6 +3,7 @@ Documentation     Openstack library. This library is useful for tests to create 
 Library           SSHLibrary
 Resource          Utils.robot
 Resource          TemplatedRequests.robot
+Resource          KarafKeywords.robot
 Resource          ../variables/Variables.robot
 Library           Collections
 Library           String
@@ -14,6 +15,11 @@ Library           OperatingSystem
 &{L3VPN_CREATE_DEFAULT}    vpnid=4ae8cd92-48ca-49b5-94e1-b2921a261111    name=vpn1    rd=["2200:1"]    exportrt=["2200:1","8800:1"]    importrt=["2200:1","8800:1"]    tenantid=6c53df3a-3456-11e5-a151-feff819cdc9f
 ${VAR_BASE}       ${CURDIR}/../variables/vpnservice/
 ${ODL_FLOWTABLE_L3VPN}    21
+${STATE_UP}       UP
+${STATE_DOWN}     DOWN
+${STATE_UNKNOWN}    UNKNOWN
+${STATE_ENABLE}    ENABLED
+${STATE_DISABLE}    DISABLE
 
 *** Keywords ***
 VPN Create L3VPN
@@ -96,12 +102,23 @@ Verify Tunnel Status as UP
     Log    ${output}
     Should Contain    ${output}    ${STATE_UP}
     Should Not Contain    ${output}    ${STATE_DOWN}
+    Should Not Contain    ${output}    ${STATE_UNKNOWN}
 
 Verify Tunnel Status as DOWN
     [Documentation]    Verify that the tunnels are DOWN
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Log    ${output}
     Should Contain    ${output}    ${STATE_DOWN}
+    Should Not Contain    ${output}    ${STATE_UP}
+    Should Not Contain    ${output}    ${STATE_UNKNOWN}
+
+Verify Tunnel Status as UNKNOWN
+    [Documentation]    Verify that the tunnels are in Unknown state
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
+    Log    ${output}
+    Should Not Contain    ${output}    ${STATE_UP}
+    Should Not Contain    ${output}    ${STATE_DOWN}
+    Should Contain    ${output}    ${STATE_UNKNOWN}
 
 Verify VXLAN interface
     [Documentation]    Verify that the VXLAN interfaces are Enabled
