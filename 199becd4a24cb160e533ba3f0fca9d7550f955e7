@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_bdc021e1",
+        "filename": "csit/suites/controller/Clustering_Datastore/car_failover_crud_isolation.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-15T14:13:24Z",
+      "side": 1,
+      "message": "7",
+      "range": {
+        "startLine": 4,
+        "startChar": 35,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "199becd4a24cb160e533ba3f0fca9d7550f955e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7da6b954",
+        "filename": "csit/suites/controller/Clustering_Datastore/car_failover_crud_isolation.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-15T14:13:24Z",
+      "side": 1,
+      "message": "Move to CarPeople.robot and change the keyword name to reflect only \"car\" variables are set.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 28
+      },
+      "revId": "199becd4a24cb160e533ba3f0fca9d7550f955e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
