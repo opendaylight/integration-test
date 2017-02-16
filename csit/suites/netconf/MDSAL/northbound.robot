@@ -35,6 +35,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           RequestsLibrary
 Library           SSHLibrary
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
@@ -293,6 +294,22 @@ Commit_Remove_Not_Existing_Module
     [Documentation]    Attempt to commit and check the reply.
     Perform_Test    remove-not-existing-commit
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4455
+
+Test_Bug_7791
+    [Documentation]    If at least Boron, send (checking replies) series of netconf messages as described in
+    ...    https://bugs.opendaylight.org/show_bug.cgi?id=7791
+    CompareStream.Run_Keyword_If_At_Most_Beryllium    BuiltIn.Pass_Execution    VPP models were not present before Boron.
+    Perform_Test    bug7791-1
+    Perform_Test    bug7791-2
+    Perform_Test    bug7791-3
+    Perform_Test    bug7791-4
+    Perform_Test    bug7791-5
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    7791
+
+Cleanup_Bug_7791
+    [Documentation]    If at least Boron, remove the Bug_7791 testing element tree and check the reply.
+    CompareStream.Run_Keyword_If_At_Most_Beryllium    BuiltIn.Pass_Execution    VPP models were not present before Boron.
+    Perform_Test    bug7791-cleanup
 
 Close_Session
     [Documentation]    Close the session and check that it was closed properly.
