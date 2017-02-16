@@ -15,8 +15,7 @@ ${XmlsDir}        ${CURDIR}/../../../variables/xmls
 ${switch_idx}     1
 ${switch_name}    s${switch_idx}
 @{xml_files}      f1.xml    f2.xml    f3.xml    f5.xml    f7.xml    f8.xml    f9.xml
-...               f10.xml    f11.xml    f12.xml    f13.xml    f14.xml    f17.xml    f19.xml
-...               f24.xml
+...               f10.xml    f11.xml    f14.xml    f17.xml    f19.xml    f24.xml
 
 *** Test Cases ***
 Test Add Flows
@@ -77,18 +76,6 @@ Test Is Flow 10 Added
 Test Is Flow 11 Added
     [Documentation]    Checks if flow is configured and operational
     Init Flow Variables    f11.xml
-    Check Config Flow    ${True}
-    Check Operational Table    ${True}
-
-Test Is Flow 12 Added
-    [Documentation]    Checks if flow is configured and operational
-    Init Flow Variables    f12.xml
-    Check Config Flow    ${True}
-    Check Operational Table    ${True}
-
-Test Is Flow 13 Added
-    [Documentation]    Checks if flow is configured and operational
-    Init Flow Variables    f13.xml
     Check Config Flow    ${True}
     Check Operational Table    ${True}
 
@@ -174,18 +161,6 @@ Test Is Flow 10 Deleted
 Test Is Flow 11 Deleted
     [Documentation]    Checks if flow is not configured and operational
     Init Flow Variables    f11.xml
-    Check Config Flow    ${False}
-    Check Operational Table    ${False}
-
-Test Is Flow 12 Deleted
-    [Documentation]    Checks if flow is not configured and operational
-    Init Flow Variables    f12.xml
-    Check Config Flow    ${False}
-    Check Operational Table    ${False}
-
-Test Is Flow 13 Deleted
-    [Documentation]    Checks if flow is not configured and operational
-    Init Flow Variables    f13.xml
     Check Config Flow    ${False}
     Check Operational Table    ${False}
 
