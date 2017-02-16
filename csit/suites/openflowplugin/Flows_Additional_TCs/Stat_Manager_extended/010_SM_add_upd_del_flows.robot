@@ -20,14 +20,13 @@ ${XmlsDir}        ${CURDIR}/../../../../variables/xmls
 ${switch_idx}     1
 ${switch_name}    s${switch_idx}
 @{flowlist0}      f1.xml    f2.xml    f3.xml    f4.xml    f5.xml    f6.xml    f7.xml
-...               f8.xml    f9.xml    f10.xml    f11.xml    f12.xml    f13.xml    f14.xml
-...               f15.xml    f16.xml    f17.xml    f18.xml    f19.xml    f20.xml    f21.xml
-...               f22.xml    f23.xml    f24.xml    f25.xml    f31.xml    f36.xml    f38.xml
-...               f43.xml    f45.xml    f47.xml    f101.xml    f102.xml    f103.xml    f104.xml
-...               f105.xml    f106.xml    f107.xml    f108.xml    f109.xml    f110.xml    f113.xml
-...               f156.xml    f201.xml    f202.xml    f203.xml    f204.xml    f205.xml    f206.xml
-...               f209.xml    f214.xml    f218.xml    f219.xml    f220.xml    f221.xml    f222.xml
-...               f223.xml    f224.xml    f225.xml
+...               f8.xml    f9.xml    f10.xml    f11.xml    f14.xml    f15.xml    f16.xml
+...               f17.xml    f18.xml    f19.xml    f20.xml    f21.xml    f22.xml    f23.xml
+...               f24.xml    f25.xml    f31.xml    f36.xml    f38.xml    f43.xml    f45.xml
+...               f101.xml    f102.xml    f103.xml    f104.xml    f105.xml    f106.xml    f107.xml
+...               f108.xml    f109.xml    f110.xml    f113.xml    f156.xml    f201.xml    f202.xml
+...               f203.xml    f204.xml    f205.xml    f206.xml    f209.xml    f214.xml    f218.xml
+...               f219.xml    f220.xml    f221.xml    f222.xml    f223.xml    f224.xml    f225.xml
 
 *** Test Cases ***
 Test Add Flows Group 0
@@ -76,12 +75,6 @@ Test Is Flow 10 Added
 
 Test Is Flow 11 Added
     f11.xml    ${True}    ${True}    ${False}    ${check_id}
-
-Test Is Flow 12 Added
-    f12.xml    ${True}    ${True}    ${False}    ${check_id}
-
-Test Is Flow 13 Added
-    f13.xml    ${True}    ${True}    ${False}    ${check_id}
 
 Test Is Flow 14 Added
     f14.xml    ${True}    ${True}    ${False}    ${check_id}
@@ -133,9 +126,6 @@ Test Is Flow 43 Added
 
 Test Is Flow 45 Added
     f45.xml    ${True}    ${True}    ${False}    ${check_id}
-
-Test Is Flow 47 Added
-    f47.xml    ${True}    ${True}    ${False}    ${check_id}
 
 Test Is Flow 101 Added
     f101.xml    ${True}    ${True}    ${False}    ${check_id}
@@ -267,12 +257,6 @@ Test Is Flow 10 Updated
 Test Is Flow 11 Updated
     f11.xml    ${True}    ${True}    ${True}    ${check_id}
 
-Test Is Flow 12 Updated
-    f12.xml    ${True}    ${True}    ${True}    ${check_id}
-
-Test Is Flow 13 Updated
-    f13.xml    ${True}    ${True}    ${True}    ${check_id}
-
 Test Is Flow 14 Updated
     f14.xml    ${True}    ${True}    ${True}    ${check_id}
 
@@ -323,9 +307,6 @@ Test Is Flow 43 Updated
 
 Test Is Flow 45 Updated
     f45.xml    ${True}    ${True}    ${True}    ${check_id}
-
-Test Is Flow 47 Updated
-    f47.xml    ${True}    ${True}    ${True}    ${check_id}
 
 Test Is Flow 101 Updated
     f101.xml    ${True}    ${True}    ${True}    ${check_id}
@@ -457,12 +438,6 @@ Test Is Flow 10 Deleted
 Test Is Flow 11 Deleted
     f11.xml    ${False}    ${False}    ${True}
 
-Test Is Flow 12 Deleted
-    f12.xml    ${False}    ${False}    ${True}
-
-Test Is Flow 13 Deleted
-    f13.xml    ${False}    ${False}    ${True}
-
 Test Is Flow 14 Deleted
     f14.xml    ${False}    ${False}    ${True}
 
@@ -513,9 +488,6 @@ Test Is Flow 43 Deleted
 
 Test Is Flow 45 Deleted
     f45.xml    ${False}    ${False}    ${True}
-
-Test Is Flow 47 Deleted
-    f47.xml    ${False}    ${False}    ${True}
 
 Test Is Flow 101 Deleted
     f101.xml    ${False}    ${False}    ${True}
