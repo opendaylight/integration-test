@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_206999be",
+        "filename": "csit/libraries/CarPeople.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-17T10:38:35Z",
+      "side": 1,
+      "message": "This stands for \"neither node set nor shard name appear in created variable names\" but not sure whether is so it important for users to be included in Documentation.",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 7
+      },
+      "revId": "c91ba39c72b8e4e99b44b5179d1946b76ad6e310",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2042393e",
+        "filename": "csit/libraries/CarPeople.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-17T10:38:35Z",
+      "side": 1,
+      "message": "list of http sessions",
+      "range": {
+        "startLine": 69,
+        "startChar": 38,
+        "endLine": 69,
+        "endChar": 50
+      },
+      "revId": "c91ba39c72b8e4e99b44b5179d1946b76ad6e310",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_003d75bb",
+        "filename": "csit/libraries/CarPeople.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-17T10:38:35Z",
+      "side": 1,
+      "message": "node",
+      "range": {
+        "startLine": 70,
+        "startChar": 79,
+        "endLine": 70,
+        "endChar": 86
+      },
+      "revId": "c91ba39c72b8e4e99b44b5179d1946b76ad6e310",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
