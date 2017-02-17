@@ -35,6 +35,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           RequestsLibrary
 Library           SSHLibrary
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
@@ -267,6 +268,20 @@ Check_Multiple_Modules_Merge_Replace
     BuiltIn.Should_Not_Contain    ${reply}    <person-id>CUSTOLD2</person-id>
     BuiltIn.Should_Not_Contain    ${reply}    <id>CUSTBAD</id>
     BuiltIn.Should_Not_Contain    ${reply}    <id>test</id>
+
+Connector_Simplified_Pattern
+    [Documentation]    Several requests in a (simplified) pattern typical for requests from netconf-connector.
+    Perform_Test    none-replace
+    Perform_Test    commit-edit
+
+Test_Bug_7791
+    [Documentation]    Send (checking replies) series of netconf messages to trigger
+    ...    https://bugs.opendaylight.org/show_bug.cgi?id=7791
+    Perform_Test    bug7791-1
+    Perform_Test    commit-edit
+    Perform_Test    bug7791-2
+    Perform_Test    commit-edit
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    7791
 
 Remove_Test_Data
     [Documentation]    Remove the testing elements and all their subelements and check the reply.
