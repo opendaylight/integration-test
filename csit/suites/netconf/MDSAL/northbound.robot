@@ -35,6 +35,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           RequestsLibrary
 Library           SSHLibrary
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
@@ -275,6 +276,23 @@ Remove_Test_Data
 Commit_Test_Data_Removal
     [Documentation]    Commit the removal and check the reply.
     Perform_Test    merge-multiple-remove-commit
+
+Connector_Simplified_Pattern
+    [Documentation]    Several requests in a (simplified) pattern typical for requests from netconf-connector.
+    Perform_Test    none-replace
+    Perform_Test    commit-edit
+    Perform_Test    delete
+    Perform_Test    commit-edit
+
+Test_Bug_7791
+    [Documentation]    Send (checking replies) series of netconf messages to trigger
+    ...    https://bugs.opendaylight.org/show_bug.cgi?id=7791
+    Perform_Test    bug7791-1
+    Perform_Test    bug7791-2
+    Perform_Test    commit-edit
+    Perform_Test    delete
+    Perform_Test    commit-edit
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    7791
 
 Delete_Not_Existing_Element
     [Documentation]    Attempt to delete the elements again and check that it fails with the correct error.
