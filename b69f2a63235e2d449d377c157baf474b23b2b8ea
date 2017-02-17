@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_22c35e8a",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-17T13:16:36Z",
+      "side": 1,
+      "message": "This looks as standard constants to be defined in a common file.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 20
+      },
+      "revId": "b69f2a63235e2d449d377c157baf474b23b2b8ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
