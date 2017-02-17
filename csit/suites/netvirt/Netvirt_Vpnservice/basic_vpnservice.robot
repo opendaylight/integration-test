@@ -22,7 +22,8 @@ Resource          ../../../variables/netvirt/Variables.robot
 @{NETWORKS}       NET10    NET20
 @{SUBNETS}        SUBNET1    SUBNET2
 @{SUBNET_CIDR}    10.1.1.0/24    20.1.1.0/24
-@{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
+@{PORTS_CN1}      PORT11    PORT21
+@{PORTS_CN2}      PORT12    PORT22
 @{VM_INSTANCES_NET10}    VM11    VM21
 @{VM_INSTANCES_NET20}    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
@@ -41,6 +42,7 @@ ${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
 ${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
 ${MAC_REGEX}      (([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2}))
 ${IP_REGEX}       (([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])
+${NETWORKASS_GWMACTABLE_REGEX}    dl_dst=${MAC_REGEX} actions=goto_table:21
 
 *** Test Cases ***
 Create Neutron Networks
@@ -76,18 +78,24 @@ Add Ssh Allow Rule
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
     ${allowed_address_pairs_args}=    Set Variable    --allowed-address-pairs type=dict list=true ip_address=${EXTRA_NW_SUBNET[0]} ip_address=${EXTRA_NW_SUBNET[1]}
-    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
-    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[0]}    ${PORTS_CN1[0]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[0]}    ${PORTS_CN2[0]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[1]}    ${PORTS_CN1[1]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[1]}    ${PORTS_CN2[1]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
+    ${PORT_LIST} =    Create List    @{PORTS_CN1}    @{PORTS_CN2}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORT_LIST}
+    #Get Port MAC Address
+    ${PORTS_MACADDR_CN1} =    Get Ports MacAddr    ${PORTS_CN1}
+    Set Suite Variable    ${PORTS_MACADDR_CN1}
+    ${PORTS_MACADDR_CN2} =    Get Ports MacAddr    ${PORTS_CN2}
+    Set Suite Variable    ${PORTS_MACADDR_CN2}
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute node with port
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET10[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET10[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET20[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET20[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORTS_CN1[0]}    ${VM_INSTANCES_NET10[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORTS_CN2[0]}    ${VM_INSTANCES_NET10[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORTS_CN1[1]}    ${VM_INSTANCES_NET20[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORTS_CN2[1]}    ${VM_INSTANCES_NET20[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
@@ -162,6 +170,24 @@ Check L3_Datapath Traffic Across Networks With Router
     ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
+
+Verify FLOWTABLE Packet Count for inter and intra network
+    [Documentation]    Verify packet count before and after ping for L2 and L3 Datapath validation.
+    # Verify FIB and Flow TABLE
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
+    ${n_Elan_Pkts_1}    ${n_vpn_Pkts_1}    Get PacketCount from Flow Table    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10[1]}    ${PORTS_MACADDR_CN2[0]}
+    Log    Datapath test within same network
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ping -c 3 ${VM_IP_NET10[1]}
+    Should Contain    ${output}    64 bytes
+    ${n_Elan_Pkts_2}    ${n_vpn_Pkts_2}    Get PacketCount from Flow Table    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10[1]}    ${PORTS_MACADDR_CN2[0]}
+    Should Be True    ${n_Elan_Pkts_1} < ${n_Elan_Pkts_2}
+    Should Be True    ${n_vpn_Pkts_1} == ${n_vpn_Pkts_2}
+    Log    Datapath test with different network
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[0]}    ping -c 3 ${VM_IP_NET10[1]}
+    Should Contain    ${output}    64 bytes
+    ${n_Elan_Pkts_3}    ${n_vpn_Pkts_3}    Get PacketCount from Flow Table    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10[1]}    ${PORTS_MACADDR_CN2[0]}
+    Should Be True    ${n_vpn_Pkts_3} > ${n_vpn_Pkts_2}
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation
@@ -298,11 +324,109 @@ Associate L3VPN To Networks
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     Associate L3VPN To Network    networkid=${network1_id}    vpnid=${VPN_INSTANCE_ID[0]}
-    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
-    Should Contain    ${resp}    ${network1_id}
     Associate L3VPN To Network    networkid=${network2_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    Should Contain    ${resp}    ${network1_id}
     Should Contain    ${resp}    ${network2_id}
+
+Verify L3VPN datapath with Networks Association
+    [Documentation]    Datapath test across the networks using L3VPN with network association.
+    Log    Verify FIB and Flow
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/l3vpn:vpn-interfaces/    ${vm_instances}
+    ${RD} =    Strip String    ${CREATE_RD[0]}    characters="[]
+    Log    ${RD}
+    Wait Until Keyword Succeeds    60s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_1_IP}    n_entrys=2
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_2_IP}    n_entrys=2
+    Log    L3 Datapath test across the networks
+    #${dst_ip_list} =    Create List    ${VM_IP_NET10[1]}    @{VM_IP_NET20}
+    #Log    ${dst_ip_list}
+    #Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ${dst_ip_list}
+    #${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
+    #Log    ${dst_ip_list}
+    #Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ping -c 3 ${VM_IP_NET20[1]}
+    Should Contain    ${output}    64 bytes
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ping -c 3 ${VM_IP_NET10[0]}
+    Should Contain    ${output}    64 bytes
+
+
+Verify Datapath After OVS Restart
+    [Documentation]    Verify datapath after OVS restart
+    Log    Restarting OVS1 and OVS2
+    Restart OVSDB    ${OS_COMPUTE_1_IP}
+    Restart OVSDB    ${OS_COMPUTE_2_IP}
+    Log    Checking the OVS state and Flow table after restart
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
+    Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_1_IP}    n_entrys=2
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_2_IP}    n_entrys=2
+    Log    Verify Data path test
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ping -c 3 ${VM_IP_NET20[1]}
+    Should Contain    ${output}    64 bytes
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[1]}    ${VM_IP_NET20[1]}    ping -c 3 ${VM_IP_NET10[0]}
+    Should Contain    ${output}    64 bytes
+
+Verify Datapath After Reboot Nova VM Instance
+    [Documentation]    Verify datapath after reboot nova Vm instance.
+    Reboot Nova VM    ${VM_INSTANCES_NET20[0]}
+    Wait Until Keyword Succeeds    30s    10s    Verify VM Is ACTIVE    ${VM_INSTANCES_NET20[0]}
+    ${VM_IP_NET20}    ${DHCP_IP2}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET20}
+    Log    ${VM_IP_NET20}
+    Should Not Contain    ${VM_IP_NET20}    None
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_1_IP}    n_entrys=2
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_2_IP}    n_entrys=2
+    Log    Verify Data path test
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ping -c 3 ${VM_IP_NET20[1]}
+    Should Contain    ${output}    64 bytes
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[1]}    ${VM_IP_NET20[1]}    ping -c 3 ${VM_IP_NET10[0]}
+    Should Contain    ${output}    64 bytes
+
+Verify Datapath After Recreate VM Instance
+    [Documentation]    Verify datapath after recreating Vm instance
+    Log    Delete VM and verify flows updated
+    Delete Vm Instance    ${VM_INSTANCES_NET10[0]}
+    Wait Until Keyword Succeeds    60s    10s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_1_IP}    n_entrys=1
+    Remove RSA Key From KnowHosts    ${VM_IP_NET10[0]}
+    Log    ReCreate VM and verify flow updated
+    Create Vm Instance With Port On Compute Node    ${PORTS_CN1[0]}    ${VM_INSTANCES_NET10[0]}    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify VM Is ACTIVE    ${VM_INSTANCES_NET10[0]}
+    ${VM_IP_NET10}    Wait Until Keyword Succeeds    60s    10s    Verify VMs received IP    ${VM_INSTANCES_NET10}
+    Log    ${VM_IP_NET10}
+    Set Suite Variable    ${VM_IP_NET10}
+    Should Not Contain    ${VM_IP_NET10}    None
+    Wait Until Keyword Succeeds    60s    10s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_1_IP}    n_entrys=2
+    Log    Verify Data path test
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ping -c 3 ${VM_IP_NET20[1]}
+    Should Contain    ${output}    64 bytes
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[1]}    ${VM_IP_NET20[1]}    ping -c 3 ${VM_IP_NET10[0]}
+    Should Contain    ${output}    64 bytes
+
+Verify Datapath After Migrate VM Instance
+    [Documentation]    Verify datapath after migrate Vm instance
+    Log    Migrate VM instance and verify flows updated
+    Migrate NOVA VM Instance    ${VM_INSTANCES_NET20[0]}
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/l3vpn:vpn-interfaces/    ${vm_instances}
+    ${RD} =    Strip String    ${CREATE_RD[0]}    characters="[]
+    Log    ${RD}
+    Wait Until Keyword Succeeds    60s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
+    Wait Until Keyword Succeeds    60s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_2_IP}    n_entrys=3
+    Log    Verify Data path test
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ping -c 3 ${VM_IP_NET20[1]}
+    Should Contain    ${output}    64 bytes
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[1]}    ${VM_IP_NET20[1]}    ping -c 3 ${VM_IP_NET10[0]}
+    Should Contain    ${output}    64 bytes
 
 Dissociate L3VPN From Networks
     [Documentation]    Dissociate L3VPN from networks
@@ -310,11 +434,12 @@ Dissociate L3VPN From Networks
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=${VPN_INSTANCE_ID[0]}
-    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
-    Should Not Contain    ${resp}    ${network1_id}
     Dissociate L3VPN From Networks    networkid=${network2_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    Should Not Contain    ${resp}    ${network1_id}
     Should Not Contain    ${resp}    ${network2_id}
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_2_IP}
 
 Delete L3VPN
     [Documentation]    Delete L3VPN
@@ -355,7 +480,7 @@ Delete Vm Instances
 
 Delete Neutron Ports
     [Documentation]    Delete Neutron Ports in the given Port List.
-    : FOR    ${Port}    IN    @{PORT_LIST}
+    : FOR    ${Port}    IN    @{PORTS_CN1}    @{PORTS_CN2}
     \    Delete Port    ${Port}
 
 Delete Sub Networks
@@ -481,3 +606,84 @@ Verify GWMAC Flow Entry Removed From Flow Table
     #Verify GWMAC address present in table 19
     : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
     \    Should Not Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+
+Verify GWMAC Flow Entry for Network With L3VPN
+    [Arguments]    ${cnIp}    ${n_entrys}=0
+    [Documentation]    Verify the GWMAC Table present when network assciate with L3VPN.
+    ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${flow_output}
+    #Get GWMAC_TABLE - 19
+    Should Contain    ${flow_output}    table=${GWMAC_TABLE}
+    ${gwmac_table} =    Get Lines Containing String    ${flow_output}    table=${GWMAC_TABLE}
+    Log    ${gwmac_table}
+    ${match_list} =    Get Regexp Matches    ${gwmac_table}    ${NETWORKASS_GWMACTABLE_REGEX}
+    ${match_count} =    Get Length    ${match_list}
+    Should Be Equal As Integers    ${match_count}    ${n_entrys}
+
+Get PacketCount from Flow Table
+    [Arguments]    ${cnIp}    ${dest_ip}    ${dest_mac}
+    [Documentation]    Get the packet count from given table using the destination nw_dst=ip or dl_dst=mac
+    ${ELAN_REGEX} =    Set Variable    table=${ELAN_DMACTABLE}, n_packets=\\d+,\\s.*,dl_dst=${dest_mac}
+    ${L3VPN_REGEX} =    Set Variable    table=${L3_TABLE}, n_packets=\\d+,\\s.*,nw_dst=${dest_ip}
+    ${PACKET_COUNT_REGEX} =    Set Variable    n_packets=\\d+
+    ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${flow_output}
+    ${flowEntry} =    Get Regexp Matches    ${flowOutput}    ${ELAN_REGEX}
+    Log    ${flowEntry}
+    ${match} =    Get Regexp Matches    ${flowEntry[0]}    ${PACKET_COUNT_REGEX}
+    Log    ${match}
+    ${n_packets} =    Split String    ${match[0]}    separator==
+    ${n_packets_ELAN} =    Get from List    ${n_packets}    1
+    ${n_packets_ELAN} =    Convert To Integer    ${n_packets_ELAN}
+    Log    ${n_packets_ELAN}
+    ${flowEntry} =    Get Regexp Matches    ${flowOutput}    ${L3VPN_REGEX}
+    Log    ${flowEntry}
+    ${match} =    Get Regexp Matches    ${flowEntry[0]}    ${PACKET_COUNT_REGEX}
+    Log    ${match}
+    ${n_packets} =    Split String    ${match[0]}    separator==
+    ${n_packets_L3VPN}=    Get from List    ${n_packets}    1
+    ${n_packets_L3VPN} =    Convert To Integer    ${n_packets_L3VPN}
+    Log    ${n_packets_L3VPN}
+    [Return]    ${n_packets_ELAN}    ${n_packets_L3VPN}
+
+Reboot Nova VM
+    [Arguments]    ${vm_name}
+    [Documentation]    Reboot NOVA VM
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova reboot --poll ${vm_name}    30s
+    Log    ${output}
+    Wait Until Keyword Succeeds    35s    10s    Verify VM Is ACTIVE    ${vm_name}
+    Close Connection
+
+Remove RSA Key From KnowHosts
+    [Arguments]    ${vm_ip}
+    [Documentation]    Remove RSA
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo cat /root/.ssh/known_hosts    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"    30s
+    Log    ${output}
+    Close Connection
+
+Migrate NOVA VM Instance
+    [Documentation]    Migrate NOVA VM 
+    [Arguments]    ${vm_name}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova migrate --poll ${vm_name}     30s
+    Log    ${output}
+    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    ${vm_name}
+    Close Connection
+
+Verify VMs received IP
+    [Arguments]    ${VM_INSTANCES}
+    [Documentation]    Verify VM received IP
+    ${VM_IP}    ${DHCP_IP}    Verify VMs Received DHCP Lease    @{VM_INSTANCES}
+    Log    ${VM_IP}
+    Should Not Contain    ${VM_IP}    None
+    [Return]    ${VM_IP}
+
