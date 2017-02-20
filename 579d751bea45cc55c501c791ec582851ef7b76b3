@@ -234,6 +234,30 @@
       "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f1ebe275",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-02-20T10:29:48Z",
+      "side": 1,
+      "message": "As its specific to elan service, i would like to keep here.",
+      "parentUuid": "fafc7978_d6dfb40b",
+      "range": {
+        "startLine": 174,
+        "startChar": 42,
+        "endLine": 174,
+        "endChar": 56
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
