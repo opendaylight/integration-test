@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_89bfcaa9",
+        "filename": "csit/libraries/VtnCoKeywords.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-02-20T17:16:42Z",
+      "side": 1,
+      "message": "I guess thie nexus_path is a specific  one for VTN Coordiantor, Can we modify the variable name to indicate  the same. This is confusing.",
+      "revId": "5ac50d6b3c40e610f0b995f7249907e990c4581b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
