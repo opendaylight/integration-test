@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_361f200a",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-20T05:22:02Z",
+      "side": 1,
+      "message": "the ovsdb library has a keyword you might prefer to these\nsteps. It might be too heavy, but check it out in case:\n\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OVSDB.robot.html#Clean%20OVSDB%20Test%20Environment",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d6d5f41c",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-20T05:22:02Z",
+      "side": 1,
+      "message": "curious to why you are treating these like they are lists, but\nonly ever using them as single values.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b6daf049",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-20T05:22:02Z",
+      "side": 1,
+      "message": "do the keywords in OpenStackOperations.robot library not work\ninstead of rewriting similar things here?",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 24
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f6e0f8fb",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-20T05:22:02Z",
+      "side": 1,
+      "message": "this almost certainly should go in OpenstackOperations.robot",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 20
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_56e904e5",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-20T05:22:02Z",
+      "side": 1,
+      "message": "you want ${sg_name} here as well as the next several lines.",
+      "range": {
+        "startLine": 174,
+        "startChar": 42,
+        "endLine": 174,
+        "endChar": 56
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
