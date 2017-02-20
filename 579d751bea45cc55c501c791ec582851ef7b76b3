@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_16af7c7e",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-02-20T06:15:26Z",
+      "side": 1,
+      "message": "HI,The use case is not to clean the DB and its restart to verify config are not lost. However i have added new key word on OVSDB.robot as Restart OVS and using here.",
+      "parentUuid": "fafc7978_361f200a",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_d6d5f41c",
         "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2017-02-20T05:22:02Z",
       "side": 1,
       "message": "curious to why you are treating these like they are lists, but\nonly ever using them as single values.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_36c9e059",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-02-20T06:15:26Z",
+      "side": 1,
+      "message": "I need additional network and subnet on further test case, so i kept as list to avoid further change in test case.",
+      "parentUuid": "fafc7978_d6d5f41c",
       "range": {
         "startLine": 91,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_96c24c32",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-02-20T06:15:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_b6daf049",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 24
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_f6e0f8fb",
         "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
         "patchSetId": 8
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_76bfe8aa",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-02-20T06:15:26Z",
+      "side": 1,
+      "message": "Moved to OpenstackOperations.robot",
+      "parentUuid": "fafc7978_f6e0f8fb",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 20
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_56e904e5",
         "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
         "patchSetId": 8
@@ -105,6 +201,30 @@
       "writtenOn": "2017-02-20T05:22:02Z",
       "side": 1,
       "message": "you want ${sg_name} here as well as the next several lines.",
+      "range": {
+        "startLine": 174,
+        "startChar": 42,
+        "endLine": 174,
+        "endChar": 56
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d6dfb40b",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-02-20T06:15:26Z",
+      "side": 1,
+      "message": "Done and moved the keyword to OpenstackOperations.robot.",
+      "parentUuid": "fafc7978_56e904e5",
       "range": {
         "startLine": 174,
         "startChar": 42,
