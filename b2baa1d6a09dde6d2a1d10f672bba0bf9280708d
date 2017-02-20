@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_377b9a29",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/puts_during_isolation.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-20T14:55:40Z",
+      "side": 1,
+      "message": "I think there is a contribution with such keyword in CarPeople.robot",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 34
+      },
+      "revId": "b2baa1d6a09dde6d2a1d10f672bba0bf9280708d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_37cd5a86",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-20T14:55:40Z",
+      "side": 1,
+      "message": "Problems",
+      "range": {
+        "startLine": 598,
+        "startChar": 26,
+        "endLine": 598,
+        "endChar": 33
+      },
+      "revId": "b2baa1d6a09dde6d2a1d10f672bba0bf9280708d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
