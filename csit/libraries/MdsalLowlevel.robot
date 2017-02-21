@@ -11,6 +11,7 @@ Documentation     Keywords wrapping controller's odl-mdsal-lowlevel yang model r
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
+Library           XML
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
 
@@ -47,12 +48,15 @@ ${WRITE_TRANSACTIONS_DIR}    ${RPC_DIR}/write_transactions
 
 *** Keywords ***
 Get_Constant
-    [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke get-constant rpc.
+    [Arguments]    ${member_index}    ${explicit_status_codes}=${NO_STATUS_CODES}
+    [Documentation]    Invoke get-constant rpc on the requested member and return the registered constant. The ${explicit_status_codes} is a list
+    ...    of http status codes for which the rpc call is considered as passed and is used for calls with expected failures on odl's side, such as
+    ...    calling the rpc on isolated node etc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_CONSTANT_DIR}    session=${session}
-    BuiltIn.Fail    TODO: to format output data
-    BuiltIn.Return_From_Keyword    ${formatted_output}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_CONSTANT_DIR}    session=${session}    explicit_status_codes=${explicit_status_codes}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${constant} =    XML.Get_Element_Text    ${xml}    xpath=constant
+    BuiltIn.Return_From_Keyword    ${constant}
 
 Get_Contexted_Constant
     [Arguments]    ${member_index}    ${context}
@@ -74,17 +78,16 @@ Get_Singleton_Constant
 
 Register_Constant
     [Arguments]    ${member_index}    ${constant}
-    [Documentation]    TODO: more desctiptive comment than: Invoke register-constant rpc.
+    [Documentation]    Register the get-constant rpc on the requested node with given constant.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     &{mapping}    BuiltIn.Create_Dictionary    CONSTANT=${constant}
     TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_CONSTANT_DIR}    mapping=${mapping}    session=${session}
 
 Unregister_Constant
     [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke unregister-constant rpc.
+    [Documentation]    Unregister the get-constant rpc on the given node.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNREGISTER_CONSTANT_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_CONSTANT_DIR}    session=${session}
 
 Register_Singleton_Constant
     [Arguments]    ${member_index}    ${constant}
