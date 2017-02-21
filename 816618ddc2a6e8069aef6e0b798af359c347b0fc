@@ -140,6 +140,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_1dd5d4b8",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-02-21T14:12:54Z",
+      "side": 1,
+      "message": "All Post_To_Uri will be replaced with Post_As_Xml_Templated later and \u003cinput\u003e\u003c/input\u003e xml will be used.",
+      "parentUuid": "fafc7978_02ba8f6d",
+      "range": {
+        "startLine": 48,
+        "startChar": 69,
+        "endLine": 48,
+        "endChar": 77
+      },
+      "revId": "816618ddc2a6e8069aef6e0b798af359c347b0fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_3d1ff85c",
         "filename": "csit/libraries/MdsalLowlevel.robot",
         "patchSetId": 6
