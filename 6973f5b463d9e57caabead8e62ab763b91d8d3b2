@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_8ca51849",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-21T05:18:14Z",
+      "side": 1,
+      "message": "maybe it\u0027s more clear when looking at this bit.\n\n\"Verify And Collect VM DHCP Addresses\" is in a WUKS. But, the\nunderlying keyword and the keywords under that do not have\nfailure cases. So, the 60s/5s polling values don\u0027t do\nanything. This will run once and move on.\n\nyeah, the code below will check for None and fail, but the\nWUKS is there to poll the VMs to give them time to finally\nget the addresses. So, the check for None needs to happen\nsomewhere in this keyword.",
+      "range": {
+        "startLine": 205,
+        "startChar": 67,
+        "endLine": 205,
+        "endChar": 116
+      },
+      "revId": "6973f5b463d9e57caabead8e62ab763b91d8d3b2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_52ac8535",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
         "patchSetId": 8
