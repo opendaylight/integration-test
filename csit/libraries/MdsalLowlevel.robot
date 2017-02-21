@@ -49,16 +49,17 @@ ${WRITE_TRANSACTIONS_DIR}    ${RPC_DIR}/write_transactions
 Get_Constant
     [Arguments]    ${member_index}
     [Documentation]    TODO: more desctiptive comment than: Invoke get-constant rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_CONSTANT_DIR}    session=${session}
-    BuiltIn.Fail    TODO: to format output data
-    BuiltIn.Return_From_Keyword    ${formatted_output}
+    ${constant} =    BuiltIn.Evaluate    json.loads("""${text}""")["output"]["constant"]    modules=json
+    BuiltIn.Return_From_Keyword    ${constant}
+
 
 Get_Contexted_Constant
     [Arguments]    ${member_index}    ${context}
     [Documentation]    TODO: more desctiptive comment than: Invoke get-contexted-constant rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    CONTEXT=${context}
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    &{mapping}    Create Dictionary    CONTEXT=${context}
     ${test} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_CONTEXTED_CONSTANT_DIR}    mapping=${mapping}    session=${session}
     BuiltIn.Fail    TODO: to format output data or at least to check the format
     BuiltIn.Return_From_Keyword    ${formatted_output}
@@ -82,15 +83,15 @@ Register_Constant
 Unregister_Constant
     [Arguments]    ${member_index}
     [Documentation]    TODO: more desctiptive comment than: Invoke unregister-constant rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNREGISTER_CONSTANT_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    [Documentation]    Invoke unregister-constant rpc.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_CONSTANT_DIR}    session=${session}
 
 Register_Singleton_Constant
     [Arguments]    ${member_index}    ${constant}
     [Documentation]    TODO: more desctiptive comment than: Invoke register-singleton-constant rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    CONSTANT=${constant}
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    &{mapping}    Create Dictionary    CONSTANT=${constant}
     TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_SINGLETON_CONSTANT_DIR}    mapping=${mapping}    session=${session}
 
 Unregister_Singleton_Constant
