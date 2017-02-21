@@ -10,3 +10,5 @@ integration/test/csit/suites/controller/singleton_service/global_rpc_kill.robot
 integration/test/csit/suites/controller/singleton_service/global_rpc_isolate.robot
 integration/test/csit/suites/controller/Clustering_Datastore/buycar_failover_isolation.robot
 integration/test/csit/suites/controller/Clustering_Datastore/car_failover_crud_isolation.robot
+integration/test/csit/suites/controller/dom_rpc_broker/rpc_provider_precedence.robot
+integration/test/csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot
