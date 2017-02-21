@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_58a2ca99",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T14:48:12Z",
+      "side": 1,
+      "message": "Move to line 4.\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#License",
+      "range": {
+        "startLine": 9,
+        "startChar": 18,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "c5f5ba2f9e817278ed67935a7665bc8f525a76ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
