@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_82e03f97",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:32:44Z",
+      "side": 1,
+      "message": "TODO: Return these.\n\nCan be implemented later.",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 29
+      },
+      "revId": "c434216cff8071e703f7b4776675f97a03155f44",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5d675ce9",
+        "filename": "csit/suites/controller/Clustering_Datastore/buycar_failover_isolation.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:32:44Z",
+      "side": 1,
+      "message": "You have ClusterManagement.Verify_Shard_Leader_Elected so what do you need this for?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 21
+      },
+      "revId": "c434216cff8071e703f7b4776675f97a03155f44",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9d5d4418",
+        "filename": "csit/suites/controller/Clustering_Datastore/buycar_failover_isolation.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:32:44Z",
+      "side": 1,
+      "message": "If you like this has less arguments than ClusterManagement.Get_Leader_And_Followers_For_Shard, you can put this into CarPeople and to make it accessible from other suites as well.",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 37
+      },
+      "revId": "c434216cff8071e703f7b4776675f97a03155f44",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_dda22cfc",
+        "filename": "csit/suites/controller/Clustering_Datastore/car_failover_crud_isolation.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:32:44Z",
+      "side": 1,
+      "message": "Rejoin",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 5
+      },
+      "revId": "c434216cff8071e703f7b4776675f97a03155f44",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1da954df",
+        "filename": "csit/suites/controller/Clustering_Datastore/car_failover_crud_isolation.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:32:44Z",
+      "side": 1,
+      "message": "Rejoin",
+      "range": {
+        "startLine": 99,
+        "startChar": 23,
+        "endLine": 99,
+        "endChar": 28
+      },
+      "revId": "c434216cff8071e703f7b4776675f97a03155f44",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
