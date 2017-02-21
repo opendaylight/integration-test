@@ -175,11 +175,13 @@ Post_As_Json_Templated
 
 Post_As_Xml_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
+    ...    ${other_allowed_status_codes}=${NO_STATUS_CODES}    ${use_explicit_status_codes}=${NO_STATUS_CODES}
     [Documentation]    Add arguments sensible for XML data, return Post_Templated response text.
     ...    Optionally, verification against response.xml (no iteration) is called.
     # In case of iterations, we use endlines in data to send, as it should not matter and it is more readable.
     ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=xml    accept=${ACCEPT_XML}    content_type=${HEADERS_XML}
     ...    mapping=${mapping}    session=${session}    normalize_json=False    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
+    ...    other_allowed_status_codes=${other_allowed_status_codes}    use_explicit_status_codes=${use_explicit_status_codes}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Xml_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
     [Return]    ${response_text}
 
@@ -274,13 +276,14 @@ Put_Templated
 
 Post_Templated
     [Arguments]    ${folder}    ${base_name}    ${extension}    ${content_type}    ${accept}    ${mapping}={}
-    ...    ${session}=default    ${normalize_json}=False    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1
+    ...    ${session}=default    ${normalize_json}=False    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1    ${other_allowed_status_codes}=${NO_STATUS_CODES}
+    ...    ${use_explicit_status_codes}=${NO_STATUS_CODES}
     [Documentation]    Resolve URI and data from folder, call Post_To_Uri, return response text.
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
     ${data} =    Resolve_Text_From_Template_Folder    folder=${folder}    name_prefix=post_    base_name=${base_name}    extension=${extension}    mapping=${mapping}
     ...    endline=${endline}    iterations=${iterations}    iter_start=${iter_start}
     ${response_text} =    Post_To_Uri    uri=${uri}    data=${data}    content_type=${content_type}    accept=${accept}    session=${session}
-    ...    normalize_json=${normalize_json}
+    ...    normalize_json=${normalize_json}    other_allowed_status_codes=${other_allowed_status_codes}    use_explicit_status_codes=${use_explicit_status_codes}
     [Return]    ${response_text}
 
 Verify_Response_Templated
@@ -325,6 +328,7 @@ Put_To_Uri
 
 Post_To_Uri
     [Arguments]    ${uri}    ${data}    ${content_type}    ${accept}    ${session}=default    ${normalize_json}=False
+    ...    ${other_allowed_status_codes}=${NO_STATUS_CODES}    ${use_explicit_status_codes}=${NO_STATUS_CODES}
     [Documentation]    POST data to given URI, check status code and return response text.
     ...    \${content_type} and \${accept} are mandatory Python objects with headers to use.
     ...    If \${normalize_json}, normalize text before returning.
@@ -334,7 +338,7 @@ Post_To_Uri
     BuiltIn.Log    ${accept}
     ${headers} =    Join_Two_Headers    first=${content_type}    second=${accept}
     ${response} =    RequestsLibrary.Post_Request    alias=${session}    uri=${uri}    data=${data}    headers=${headers}
-    Check_Status_Code    ${response}
+    Check_Status_Code    ${response}    other_allowed_status_codes=${other_allowed_status_codes}    use_explicit_status_codes=${use_explicit_status_codes}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
     ${text_normalized} =    norm_json.normalize_json_text    ${response.text}
     [Return]    ${text_normalized}
