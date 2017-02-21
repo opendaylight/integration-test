@@ -11,6 +11,7 @@ Documentation     Keywords wrapping controller's odl-mdsal-lowlevel yang model r
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
+Library           XML
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
 
@@ -49,15 +50,17 @@ ${WRITE_TRANSACTIONS_DIR}    ${RPC_DIR}/write_transactions
 Get_Constant
     [Arguments]    ${member_index}
     [Documentation]    TODO: more desctiptive comment than: Invoke get-constant rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_CONSTANT_DIR}    session=${session}
-    BuiltIn.Fail    TODO: to format output data
-    BuiltIn.Return_From_Keyword    ${formatted_output}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${constant} =    XML.Get_Element_Text    ${xml}    xpath=constant
+    #${constant} =    BuiltIn.Evaluate    json.loads("""${text}""")["output"]["constant"]    modules=json
+    BuiltIn.Return_From_Keyword    ${constant}
 
 Get_Contexted_Constant
     [Arguments]    ${member_index}    ${context}
     [Documentation]    TODO: more desctiptive comment than: Invoke get-contexted-constant rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     &{mapping}    BuiltIn.Create_Dictionary    CONTEXT=${context}
     ${test} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_CONTEXTED_CONSTANT_DIR}    mapping=${mapping}    session=${session}
     BuiltIn.Fail    TODO: to format output data or at least to check the format
@@ -83,8 +86,7 @@ Unregister_Constant
     [Arguments]    ${member_index}
     [Documentation]    TODO: more desctiptive comment than: Invoke unregister-constant rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNREGISTER_CONSTANT_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_CONSTANT_DIR}    session=${session}
 
 Register_Singleton_Constant
     [Arguments]    ${member_index}    ${constant}
