@@ -46,7 +46,7 @@ Get_Constant
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${GET_CONSTANT_DIR}    base_name=location    extension=uri
     ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}    session=${session}
-    BuiltIn.Fail    TODO: to format output data
+    ${json_out}     Evaluate
     BuiltIn.Return_From_Keyword    ${formatted_output}
 
 Get_Contexted_Constant
