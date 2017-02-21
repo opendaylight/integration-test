@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fafc7978_a260e3cf",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-02-21T09:30:21Z",
+      "side": 1,
+      "message": "Functions should only do one thing. And taking into account that you need this same boolean from one more function below, why don\u0027t you let them simple, and just add a specific function to retrieve this value? Something like\n\n  is_gerrit_merged():\n\nAlternative: Create an class Gerrit or something like that, containing all relevant information, including whether it\u0027s merged or not.",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 46
+      },
+      "revId": "395dbc9016747d4ae529898467b7ca35ecbf57c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_1f34ac48",
         "filename": "tools/distchanges/changes.py",
         "patchSetId": 2
