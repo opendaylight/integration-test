@@ -670,6 +670,11 @@ ClusterManagement__Parse_Sync_Status
     ${sync_status} =    Collections.Get_From_Dictionary    dictionary=${value_object}    key=SyncStatus
     [Return]    ${sync_status}
 
+List_All_Indices
+    [Documentation]    Create a new list of all indices.
+    ${return_list_copy} =    ClusterManagement__Given_Or_Internal_Index_List
+    BuiltIn.Return_From_Keyword    ${return_list_copy}
+
 List_Indices_Minus_Member
     [Arguments]    ${member_index}    ${member_index_list}=${EMPTY}
     [Documentation]    Create a new list which contains indices from ${member_index_list} (or all) without ${member_index}.
