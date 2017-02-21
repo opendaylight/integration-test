@@ -14,6 +14,7 @@ Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
 @{NETWORKS}       ELAN1
@@ -21,9 +22,6 @@ Resource          ../../../variables/Variables.robot
 @{SUBNET_CIDR}    1.1.1.0/24
 @{ELAN1_PORT_LIST}    ELANPORT11    ELANPORT12
 @{VM_INSTANCES_ELAN1}    ELANVM11    ELANVM12
-${ELAN_SMACTABLE}    50
-${ELAN_DMACTABLE}    51
-${ELAN_UNKNOWNMACTABLE}    52
 ${PING_PASS}      , 0% packet loss
 
 *** Test Cases ***
