@@ -9,7 +9,7 @@ Documentation     Keywords wrapping controller's odl-mdsal-lowlevel yang model r
 Library           ${CURDIR}/TemplatedRequests.robot
 
 *** Variables ***
-${RPC_DIR}        ${CURDIR}/variables/mdsal/lowlevelrpc
+${RPC_DIR}        ${CURDIR}/../variables/mdsal/lowlevelrpc
 ${ADD_SHARD_REPLICA_DIR}    ${RPC_DIR}/add_shard_replica
 ${BECOME_MODULE_LEADER_DIR}    ${RPC_DIR}/become_module_leader
 ${BECOME_PREFIX_LEADER_DIR}    ${RPC_DIR}/become_prefix_leader
@@ -44,10 +44,10 @@ Get_Constant
     [Arguments]    ${member_index}
     [Documentation]    Invoke get-constant rpc.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    Resolve_Text_From_Template_Folder    folder=${GET_CONSTANT_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}    session=${session}
-    BuiltIn.Fail    TODO: to format output data
-    BuiltIn.Return_From_Keyword    ${formatted_output}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_CONSTANT_DIR}    session=${session}
+    ${constant} =    BuiltIn.Evaluate    json.loads("""${text}""")["output"]["constant"]    modules=json
+    BuiltIn.Return_From_Keyword    ${constant}
+
 
 Get_Contexted_Constant
     [Arguments]    ${member_index}    ${context}
@@ -78,8 +78,7 @@ Unregister_Constant
     [Arguments]    ${member_index}
     [Documentation]    Invoke unregister-constant rpc.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    Resolve_Text_From_Template_Folder    folder=${UNREGISTER_CONSTANT_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_CONSTANT_DIR}    session=${session}
 
 Register_Singleton_Constant
     [Arguments]    ${member_index}    ${constant}
