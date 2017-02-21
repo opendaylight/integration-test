@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_8cc35856",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-21T01:34:19Z",
+      "side": 1,
+      "message": "maybe you can add more details (or email link) to what\nactions are now considered invalid and need to be removed?\njust to answer someone\u0027s future question about what happened.",
+      "revId": "62f64c70817315d0eaa90f476aad5466ceb90427",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
