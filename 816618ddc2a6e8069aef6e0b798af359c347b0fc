@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_bd492862",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:23:31Z",
+      "side": 1,
+      "message": "Add a paragraph explaining this is currently just a skeleton, meaning most of the calls are not debugged at all, and that multiple changes will add suites while debugging used keywords.\nAlso add a paragraph explaining that it is better to merge the whole skeleton before any suite, to make it less likely suites will conflict on this library\u0027s content.",
+      "range": {
+        "startLine": 2,
+        "startChar": 83,
+        "endLine": 2,
+        "endChar": 84
+      },
+      "revId": "816618ddc2a6e8069aef6e0b798af359c347b0fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e2f02b69",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:23:31Z",
+      "side": 1,
+      "message": "/../",
+      "range": {
+        "startLine": 12,
+        "startChar": 27,
+        "endLine": 12,
+        "endChar": 28
+      },
+      "revId": "816618ddc2a6e8069aef6e0b798af359c347b0fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_dd06ac1c",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:23:31Z",
+      "side": 1,
+      "message": "I am not sure whether the variable names are more readable than the values, but that can be decided later.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 1
+      },
+      "revId": "816618ddc2a6e8069aef6e0b798af359c347b0fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3d089827",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:23:31Z",
+      "side": 1,
+      "message": "ClusterManagement.*",
+      "range": {
+        "startLine": 46,
+        "startChar": 20,
+        "endLine": 46,
+        "endChar": 21
+      },
+      "revId": "816618ddc2a6e8069aef6e0b798af359c347b0fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e2978bea",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:23:31Z",
+      "side": 1,
+      "message": "TemplatedRequests.*",
+      "range": {
+        "startLine": 47,
+        "startChar": 16,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "816618ddc2a6e8069aef6e0b798af359c347b0fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_02ba8f6d",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:23:31Z",
+      "side": 1,
+      "message": "Is this the correct way to invoke RPC with no input? If yes, create a specific keyword for such posts in TemplatedRequests. If no, use Post_As_Json_Templated.",
+      "range": {
+        "startLine": 48,
+        "startChar": 69,
+        "endLine": 48,
+        "endChar": 77
+      },
+      "revId": "816618ddc2a6e8069aef6e0b798af359c347b0fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3d1ff85c",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-21T11:23:31Z",
+      "side": 1,
+      "message": "Several keywords lack:\n\nBuiltIn.Fail    TODO: to format output data\nBuiltIn.Return_From_Keyword    ${formatted_output}",
+      "range": {
+        "startLine": 103,
+        "startChar": 147,
+        "endLine": 103,
+        "endChar": 148
+      },
+      "revId": "816618ddc2a6e8069aef6e0b798af359c347b0fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
