@@ -1,0 +1,3 @@
+<input xmlns="tag:opendaylight.org,2017:controller:yang:lowlevel:control" xmlns:odl-mdsal-lowlevel-common="tag:opendaylight.org,2017:controller:yang:lowlevel:common">
+  <context>/odl-mdsal-lowlevel-common:rpc-context[odl-mdsal-lowlevel-common:identifier='$CONTEXT']</context>
+</input>
