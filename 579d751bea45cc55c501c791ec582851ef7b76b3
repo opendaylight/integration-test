@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_ae8e0c77",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T01:05:27Z",
+      "side": 1,
+      "message": "got it",
+      "parentUuid": "fafc7978_36c9e059",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_b6daf049",
         "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
         "patchSetId": 8
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "fafc7978_b6daf049",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 24
+      },
+      "revId": "579d751bea45cc55c501c791ec582851ef7b76b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ae6a8c7e",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T01:05:27Z",
+      "side": 1,
+      "message": "I think what you did was just move this keyword to \nOpenStackOperations. You are not calling it anywhere\nthough.\n\nI think my original comment was in error. I\u0027ve looked\ncloser at OpenStackOperations and we don\u0027t have any keywords\nthat are actually \"verifying\" like what you are\ndoing here. I think you can put it back like this for now.\n\nI think our logic in that library for checking ips is\nugly right now. We need a refactor, but that can happen\nlater. sorry for the confusion",
+      "parentUuid": "fafc7978_96c24c32",
       "range": {
         "startLine": 117,
         "startChar": 0,
