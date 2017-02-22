@@ -749,3 +749,25 @@ Get Ports MacAddr
     \    Log    ${macAddr}
     \    Append To List    ${MacAddr-list}    ${macAddr}
     [Return]    ${MacAddr-list}
+
+Reboot Nova VM
+    [Arguments]    ${vm_name}
+    [Documentation]    Reboot NOVA VM
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova reboot --poll ${vm_name}    30s
+    Log    ${output}
+    Wait Until Keyword Succeeds    35s    10s    Verify VM Is ACTIVE    ${vm_name}
+    Close Connection
+
+Remove RSA Key From KnowHosts
+    [Arguments]    ${vm_ip}
+    [Documentation]    Remove RSA
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo cat /root/.ssh/known_hosts    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"    30s
+    Log    ${output}
