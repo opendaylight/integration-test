@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_f9bd7db8",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-22T15:02:06Z",
+      "side": 1,
+      "message": "Obligatory anti-pattern removal task link: https://trello.com/c/0Sy67AAp/342-int-test-improve-usage-of-openstackoperations-get-controlnode-connection",
+      "range": {
+        "startLine": 735,
+        "startChar": 28,
+        "endLine": 735,
+        "endChar": 54
+      },
+      "revId": "a0cb97ae76e59432d59af1f14518d1400cbbf95d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
