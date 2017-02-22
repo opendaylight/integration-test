@@ -57,6 +57,7 @@ Devstack Suite Setup
 Write Commands Until Prompt
     [Arguments]    ${cmd}    ${timeout}=${default_devstack_prompt_timeout}
     [Documentation]    quick wrapper for Write and Read Until Prompt Keywords to make test cases more readable
+    Log    ${cmd}
     SSHLibrary.Set Client Configuration    timeout=${timeout}
     SSHLibrary.Read
     SSHLibrary.Write    ${cmd}
