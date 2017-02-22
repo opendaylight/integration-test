@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_f0547200",
+        "filename": "csit/suites/sfc/SFC_Basic/061__sfc_service_paths_validation.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:40:09Z",
+      "side": 1,
+      "message": "this could be rewritten to use the variables defined in\nthe sfc Variables.robot file. something like this:\n\n${SERVICE_FUNCTIONS_PATH_URI}/SFC1-400\n\nI think it probably applies to many others in this section as\nwell. Might as well take advantage.",
+      "range": {
+        "startLine": 84,
+        "startChar": 61,
+        "endLine": 84,
+        "endChar": 153
+      },
+      "revId": "165236e9db73038d09fc7d2b80b0d6d7e0187cf3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
