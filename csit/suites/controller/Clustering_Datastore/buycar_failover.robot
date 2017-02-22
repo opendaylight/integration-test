@@ -19,6 +19,7 @@ Library           Collections
 Resource          ${CURDIR}/../../../libraries/CarPeople.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
@@ -36,6 +37,10 @@ Add_Cars_To_Leader_And_Verify
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${car_items}
 
+Enable_Debug
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    command=log:set DEBUG org.opendaylight.controller.remote.rpc    member_index=${people_first_follower_index}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    command=log:set DEBUG org.opendaylight.controller.remote.rpc    member_index=${car-people_leader_index}
+
 Add_People_To_First_Follower_And_Verify
     [Documentation]    Add all needed people to people first Follower, verify on each member.
     ${people_items} =    BuiltIn.Evaluate    ${CARPEOPLE_ITEMS} * 4
@@ -50,6 +55,10 @@ Buy_Cars_On_Leader_And_Verify
     ${total_iterations} =    BuiltIn.Evaluate    1 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}
+
+Disable_Debug
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    command=log:set INFO org.opendaylight.controller.remote.rpc    member_index=${people_first_follower_index}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    command=log:set INFO org.opendaylight.controller.remote.rpc    member_index=${car-people_leader_index}
 
 Buy_Cars_On_Follower_And_Verify
     [Documentation]    Buy some cars on the first follower member.
