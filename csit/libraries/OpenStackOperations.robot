@@ -743,13 +743,3 @@ Get Ports MacAddr
     \    Log    ${macAddr}
     \    Append To List    ${MacAddr-list}    ${macAddr}
     [Return]    ${MacAddr-list}
-
-Delete SecurityGroup
-    [Arguments]    ${sg_name}
-    [Documentation]    Delete Security group
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron security-group-delete ${sg_name}    40s
-    Log    ${output}
-    Should Match Regexp    ${output}    Deleted security_group: ${sg_name}|Deleted security_group\\(s\\): ${sg_name}
-    Close Connection
