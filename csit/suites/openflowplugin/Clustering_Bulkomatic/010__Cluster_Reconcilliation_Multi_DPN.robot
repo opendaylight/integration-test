@@ -10,10 +10,10 @@ Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${operation_timeout}    100s
-${flow_count_per_switch}    1000
-${switch_count}    3
-${flow_count_after_add}    3000
+${operation_timeout}    700s
+${flow_count_per_switch}    30000
+${switch_count}    5
+${flow_count_after_add}    150000
 ${flow_count_after_del}    0
 ${orig_json_config_add}    sal_add_bulk_flow_config.json
 ${orig_json_config_get}    sal_get_bulk_flow_config.json
