@@ -856,3 +856,25 @@ Create And Configure Security Group
     Neutron Security Group Rule Create    ${sg-name}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg-name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg-name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+
+Reboot Nova VM
+    [Arguments]    ${vm_name}
+    [Documentation]    Reboot NOVA VM
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova reboot --poll ${vm_name}    30s
+    Log    ${output}
+    Wait Until Keyword Succeeds    35s    10s    Verify VM Is ACTIVE    ${vm_name}
+    Close Connection
+
+Remove RSA Key From KnowHosts
+    [Arguments]    ${vm_ip}
+    [Documentation]    Remove RSA
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo cat /root/.ssh/known_hosts    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"    30s
+    Log    ${output}
