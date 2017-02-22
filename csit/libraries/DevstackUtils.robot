@@ -19,6 +19,8 @@ ${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to ov
 Run Tempest Tests
     [Arguments]    ${tempest_regex}    ${tempest_exclusion_regex}=""    ${tempest_conf}=""    ${tempest_directory}=/opt/stack/tempest    ${timeout}=600s
     [Documentation]    Execute the tempest tests.
+    Return From Keyword If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}
+    Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
@@ -55,6 +57,7 @@ Devstack Suite Setup
 Write Commands Until Prompt
     [Arguments]    ${cmd}    ${timeout}=${default_devstack_prompt_timeout}
     [Documentation]    quick wrapper for Write and Read Until Prompt Keywords to make test cases more readable
+    Log    ${cmd}
     SSHLibrary.Set Client Configuration    timeout=${timeout}
     SSHLibrary.Read
     SSHLibrary.Write    ${cmd}
