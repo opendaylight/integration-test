@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_2e117c5d",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:26:35Z",
+      "side": 1,
+      "message": "probably it\u0027s better to use the variable itself here, so if/when it ever needs to change then it\u0027s a one liner above\nin the Variables section only.",
+      "range": {
+        "startLine": 25,
+        "startChar": 20,
+        "endLine": 25,
+        "endChar": 34
+      },
+      "revId": "30dbf37673e8628b74f1e48e2eb7fa41b4c6433f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1002d609",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:26:35Z",
+      "side": 1,
+      "message": "would you mind changing this to Variables.robot?\n\nI know it\u0027s not your change, but I also know you\u0027ll be running\nthis in the sandbox and if there is trouble we\u0027ll catch it\nthere. Eventually we want to change this everywhere, so if\nI can get a few for free, it would be nice :)  I\u0027m not\nworried, it should be fine.",
+      "range": {
+        "startLine": 14,
+        "startChar": 37,
+        "endLine": 14,
+        "endChar": 49
+      },
+      "revId": "30dbf37673e8628b74f1e48e2eb7fa41b4c6433f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
