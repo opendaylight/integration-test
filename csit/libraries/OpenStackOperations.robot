@@ -744,12 +744,24 @@ Get Ports MacAddr
     \    Append To List    ${MacAddr-list}    ${macAddr}
     [Return]    ${MacAddr-list}
 
-Delete SecurityGroup
-    [Arguments]    ${sg_name}
-    [Documentation]    Delete Security group
+Reboot Nova VM
+    [Documentation]    Reboot NOVA VM
+    [Arguments]    ${vm_name}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron security-group-delete ${sg_name}    40s
+    ${output}=    Write Commands Until Prompt    nova reboot --poll ${vm_name}     30s
     Log    ${output}
-    Should Match Regexp    ${output}    Deleted security_group: ${sg_name}|Deleted security_group\\(s\\): ${sg_name}
+    Wait Until Keyword Succeeds    35s    10s    Verify VM Is ACTIVE    ${vm_name}
     Close Connection
+
+Remove RSA Key From KnowHosts
+    [Documentation]   Remove RSA
+    [Arguments]    ${vm_ip}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo cat /root/.ssh/known_hosts     30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}     30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"     30s
+    Log    ${output}
