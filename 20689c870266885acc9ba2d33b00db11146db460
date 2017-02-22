@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_2ee7bcad",
+        "filename": "csit/suites/iotdm/basic/000_IoTDMSecurityNoAuthTable.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": "This testplan, although not really in any robot form\nyet, feels like a perfect fit for the data driven \napproach. We have a few examples in ODL CSIT already,\nif you need a pointer.",
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6e04244a",
+        "filename": "csit/suites/iotdm/basic/000_ResourceAttributesNotes.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": "can you convert all the tabs to spaces please?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 1
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_8ef7c858",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": "if this is for restconf, you can use these vars instead:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.robot#L105-L106\n\nmaybe someday in the future, the defaults will change and\nyou\u0027ll get the update for free when someone fixes\nVariables.robot",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0ea3d84f",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": "so, I see the approach here is to mark a failure when the \ntest case is not done. Is that something the IOTDM project\nneeds? or can we just skip the tests. ideally, the integration\nteam pushes for 100% pass rates for existing test cases that\nrun. \n\nlike I noted elsewhere, you can use the \"exclude\" tag and\nthey will automatically get skipped.",
+      "range": {
+        "startLine": 1005,
+        "startChar": 0,
+        "endLine": 1006,
+        "endChar": 29
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6e8b84c3",
+        "filename": "csit/suites/iotdm/basic/020_ResourceAttributesCseBase.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": "please use Variables.robot",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4e8840c5",
+        "filename": "csit/suites/iotdm/basic/026_ResourceAttributesGroup.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": ".robot",
+      "range": {
+        "startLine": 8,
+        "startChar": 47,
+        "endLine": 8,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ae91ecf2",
+        "filename": "csit/suites/iotdm/basic/090_ResourceHierarchyAddressing.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": ".robot",
+      "range": {
+        "startLine": 8,
+        "startChar": 47,
+        "endLine": 8,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_8e8ea8ce",
+        "filename": "csit/suites/iotdm/basic/093_ResourceHierarchyChildResources.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": ".robot",
+      "range": {
+        "startLine": 9,
+        "startChar": 47,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_eebe5464",
+        "filename": "csit/suites/iotdm/basic/094_ResourceHierarchyPersistence.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": ".robot",
+      "range": {
+        "startLine": 16,
+        "startChar": 46,
+        "endLine": 16,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_cec390eb",
+        "filename": "csit/suites/iotdm/basic/102_ProceduresContent.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": ".robot",
+      "range": {
+        "startLine": 9,
+        "startChar": 47,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2eb5fc7d",
+        "filename": "csit/suites/iotdm/basic/103_ProceduresGroupMgmt.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": ".robot",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0ebab86d",
+        "filename": "csit/suites/iotdm/basic/104_ProceduresACP.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": ".robot",
+      "range": {
+        "startLine": 11,
+        "startChar": 46,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6eb26495",
+        "filename": "csit/suites/iotdm/basic/210_IoTDMSecurityNoAuth.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-22T06:00:50Z",
+      "side": 1,
+      "message": ".robot",
+      "range": {
+        "startLine": 8,
+        "startChar": 47,
+        "endLine": 8,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
