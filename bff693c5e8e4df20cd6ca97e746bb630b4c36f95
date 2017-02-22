@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_994d5141",
+        "filename": "csit/suites/controller/Clustering_Datastore/buycar_failover_isolation.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-22T13:39:10Z",
+      "side": 1,
+      "message": "CarPeople.*\nbut no big deal",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 5
+      },
+      "revId": "bff693c5e8e4df20cd6ca97e746bb630b4c36f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_196161a9",
+        "filename": "csit/testplans/controller-clustering.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-02-22T13:39:10Z",
+      "side": 1,
+      "message": "Do we want to run the suites also on earlier streams?",
+      "revId": "bff693c5e8e4df20cd6ca97e746bb630b4c36f95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
