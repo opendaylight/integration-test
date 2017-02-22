@@ -11,6 +11,7 @@ Documentation     Keywords wrapping controller's odl-mdsal-lowlevel yang model r
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
+Library           XML
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
 
@@ -51,17 +52,21 @@ Get_Constant
     [Documentation]    TODO: more desctiptive comment than: Invoke get-constant rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_CONSTANT_DIR}    session=${session}
-    BuiltIn.Fail    TODO: to format output data
-    BuiltIn.Return_From_Keyword    ${formatted_output}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${constant} =    XML.Get_Element_Text    ${xml}    xpath=constant
+    BuiltIn.Return_From_Keyword    ${constant}
 
 Get_Contexted_Constant
     [Arguments]    ${member_index}    ${context}
-    [Documentation]    TODO: more desctiptive comment than: Invoke get-contexted-constant rpc.
+    [Documentation]    Invoke get--contexted-constant rpc on the requested member and return the registered constant. The argument ${context} is only the string part
+    ...    of the whole instance identifier. The ${explicit_status_codes} is a list of http status codes for which the rpc call is considered as passed and is used for
+    ...    calls with expected failures on odl's side, such as calling the rpc on isolated node etc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     &{mapping}    BuiltIn.Create_Dictionary    CONTEXT=${context}
-    ${test} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_CONTEXTED_CONSTANT_DIR}    mapping=${mapping}    session=${session}
-    BuiltIn.Fail    TODO: to format output data or at least to check the format
-    BuiltIn.Return_From_Keyword    ${formatted_output}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_CONTEXTED_CONSTANT_DIR}    mapping=${mapping}    session=${session}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${constant} =    XML.Get_Element_Text    ${xml}    xpath=constant
+    BuiltIn.Return_From_Keyword    ${constant}
 
 Get_Singleton_Constant
     [Arguments]    ${member_index}
@@ -83,8 +88,7 @@ Unregister_Constant
     [Arguments]    ${member_index}
     [Documentation]    TODO: more desctiptive comment than: Invoke unregister-constant rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNREGISTER_CONSTANT_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_CONSTANT_DIR}    session=${session}
 
 Register_Singleton_Constant
     [Arguments]    ${member_index}    ${constant}
@@ -220,29 +224,28 @@ Unsubscribe_Ynl
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_YNL_DIR}    mapping=${mapping}    session=${session}
 
 Register_Bound_Constant
-    [Arguments]    ${member_index}
+    [Arguments]    ${member_index}    ${context}    ${constant}
     [Documentation]    TODO: more desctiptive comment than: Invoke register-bound-constant rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary
+    &{mapping}    BuiltIn.Create_Dictionary    CONTEXT=${context}    CONSTANT=${constant}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_BOUND_CONSTANT_DIR}    mapping=${mapping}    session=${session}
 
 Unregister_Bound_Constant
-    [Arguments]    ${member_index}
+    [Arguments]    ${member_index}    ${context}
     [Documentation]    TODO: more desctiptive comment than: Invoke unregister-bound-constant rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary
+    &{mapping}    BuiltIn.Create_Dictionary    CONTEXT=${context}
     TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_BOUND_CONSTANT_DIR}    mapping=${mapping}    session=${session}
 
 Register_Default_Constant
-    [Arguments]    ${member_index}
+    [Arguments]    ${member_index}    ${constant}
     [Documentation]    TODO: more desctiptive comment than: Invoke register-default-constant rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary
+    &{mapping}    BuiltIn.Create_Dictionary    CONSTANT=${constant}
     TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_DEFAULT_CONSTANT_DIR}    mapping=${mapping}    session=${session}
 
 Unregister_Default_Constant
     [Arguments]    ${member_index}
     [Documentation]    TODO: more desctiptive comment than: Invoke unregister-default-constant rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNREGISTER_DEFAULT_CONSTANT_DIR}    base_name=location    extension=uri
-    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_DEFAULT_CONSTANT_DIR}    session=${session}
