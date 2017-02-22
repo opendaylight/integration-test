@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_24ecf88e",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-02-22T21:47:43Z",
+      "side": 1,
+      "message": "I don\u0027t think  this file is part  of the Change.  Please remove this file from the patchset",
+      "revId": "4f89ea1cb4f68ff9f7c6a674cdc1001cf36b56e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_8404c44a",
+        "filename": "csit/testplans/netvirt-3node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-02-22T21:47:43Z",
+      "side": 1,
+      "message": "I don;lt think this file is part of the chage. Please remove from  chageset",
+      "revId": "4f89ea1cb4f68ff9f7c6a674cdc1001cf36b56e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
