@@ -127,7 +127,8 @@ Check Flows In Mininet
     ${output}=    MininetKeywords.Send Mininet Command    ${mininet_conn}    ${cmd}
     ${flows}=    String.Get RegExp Matches    ${output}    (?<=flow_count\=).*?(?=\r)
     ${total_flows}=    BuiltIn.Evaluate    sum(map(int, ${flows}))
-    Should Be Equal As Numbers    ${total_flows}    ${flow_count}
+    Should Be True    	${total_flows} >= ${flow_count}
+#    Should Be Equal As Numbers    ${total_flows}    ${flow_count}
 
 Verify Mininet Ping
     [Arguments]    ${host1}    ${host2}
