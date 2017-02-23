@@ -10,10 +10,10 @@ Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${operation_timeout}    100s
-${flow_count_per_switch}    1000
-${switch_count}    3
-${flow_count_after_add}    3000
+${operation_timeout}    700s
+${flow_count_per_switch}    500
+${switch_count}    5
+${flow_count_after_add}    2500
 ${flow_count_after_del}    0
 ${orig_json_config_add}    sal_add_bulk_flow_config.json
 ${orig_json_config_get}    sal_get_bulk_flow_config.json
@@ -50,7 +50,7 @@ Add Bulk Flow From Follower
 
 Get Bulk Flows and Verify In Cluster
     [Documentation]    Initiate get operation and check flow count across cluster nodes
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}    ${Inventory_Leader}
 
 Verify Flows In Switch Before Cluster Restart
     [Documentation]    Verify flows are installed in switch before cluster restart.
