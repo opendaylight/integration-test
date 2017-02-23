@@ -215,18 +215,36 @@ class Changes(object):
         if changeid:
             return changeid.group()
 
-        # Didn"t find a Change-Id so try to get a commit message
+        # Didn't find a Change-Id so try to get a commit message
         # match on "blah" but only keep the blah
+        if self.verbose >= 2:
+            print("did not find Change-Id in %s, trying with commit-msg" % (project))
         regex_msg = re.compile(r'"([^"]*)"|^git.commit.message.short=(.*)$')
         msg = regex_msg.search(pfile)
-        if self.verbose >= 2:
-            print("did not find Change-Id in %s, trying with commit-msg: %s" % (project, msg.group()))
-
         if msg:
-            # TODO: add new query using this msg
+            if self.verbose >= 2:
+                print("did not find Change-Id in %s, trying with commit-msg: %s" % (project, msg.group()))
+
+                # TODO: add new query using this msg
             gerrits = self.gerritquery.get_gerrits(project, None, 1, msg.group())
             if gerrits:
                 return gerrits[0]["id"]
+
+        # Maybe one of the monster 'merge the world' gerrits
+        regex_msg = re.compile(r'git.commit.message.full=(.*)')
+        msg = regex_msg.search(pfile)
+        first_msg = None
+        if msg:
+            lines = str(msg.group()).split("\\n")
+            cli = next((i for i, line in enumerate(lines[:-1]) if '* changes\\:' in line), None)
+            first_msg = lines[cli+1] if cli else None
+        if first_msg:
+            gerrits = self.gerritquery.get_gerrits(project, None, 1, first_msg)
+            if gerrits:
+                return gerrits[0]["id"]
+
+        print("did not find Change-Id for %s" % project)
+
         return None
 
     def find_distro_changeid(self, project):
