@@ -1,3 +1,4 @@
 # Place the suites in run order:
-integration/test/csit/suites/openflowplugin/Inventory_Scalability_OF13
-integration/test/csit/suites/integration/Create_JVM_Plots.robot
+integration/test/csit/suites/openflowplugin/Clustering_Bulkomatic/010__Cluster_Reconcilliation_Multi_DPN.robot
+#integration/test/csit/suites/openflowplugin/Inventory_Scalability_OF13
+#integration/test/csit/suites/integration/Create_JVM_Plots.robot
