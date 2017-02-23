@@ -19,6 +19,8 @@ Resource          ../../../libraries/Utils.robot
 @{NET_1_VM_INSTANCES}    l3_instance_net_1_1    l3_instance_net_1_2    l3_instance_net_1_3
 @{NET_2_VM_INSTANCES}    l3_instance_net_2_1    l3_instance_net_2_2    l3_instance_net_2_3
 @{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24
+@{NET1_L3_VM_IPS}     50.0.0.3     50.0.0.4      50.0.0.5     50.0.0.2      50.0.0.1
+@{NET2_L3_VM_IPS}     60.0.0.3     60.0.0.4      60.0.0.5     60.0.0.2      60.0.0.1
 
 *** Test Cases ***
 Create Networks
@@ -51,17 +53,17 @@ Check Vm Instances Have Ip Address
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
     : FOR    ${index}    IN RANGE    1    5
-    \    ${NET1_L3_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    \    ${NET2_L3_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    \    ${NET1_L3_VM_IPS_CHECK}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    \    ${NET2_L3_VM_IPS_CHECK}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
     \    ${VM_IPS}=    Collections.Combine Lists    ${NET1_L3_VM_IPS}    ${NET2_L3_VM_IPS}
     \    ${status}    ${message}    Run Keyword And Ignore Error    List Should Not Contain Value    ${VM_IPS}    None
     \    Exit For Loop If    '${status}' == 'PASS'
     \    BuiltIn.Sleep    5s
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Write Commands Until Prompt    nova console-log ${vm}    30s
-    Set Suite Variable    ${NET1_L3_VM_IPS}
+    Set Suite Variable    ${NET1_L3_VM_IPS_CHECK}
     Set Suite Variable    ${NET1_DHCP_IP}
-    Set Suite Variable    ${NET2_L3_VM_IPS}
+    Set Suite Variable    ${NET2_L3_VM_IPS_CHECK}
     Set Suite Variable    ${NET2_DHCP_IP}
     Should Not Contain    ${NET1_L3_VM_IPS}    None
     Should Not Contain    ${NET2_L3_VM_IPS}    None

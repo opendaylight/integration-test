@@ -19,6 +19,8 @@ Resource          ../../../libraries/Utils.robot
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
 @{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+@{NET1_VM_IPS}     30.0.0.3      30.0.0.4     30.0.0.5     30.0.0.2
+@{NET2_VM_IPS}     40.0.0.3      40.0.0.4     40.0.0.5     40.0.0.2
 
 *** Test Cases ***
 Create Networks
@@ -40,9 +42,6 @@ Add Ssh Allow Rule
     Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    csit    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
@@ -62,18 +61,18 @@ Check Vm Instances Have Ip Address
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
     : FOR    ${index}    IN RANGE    1    5
     \    # creating 50s pool at 5s interval
-    \    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    \    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    \    ${NET1_VM_IPS_CHECK}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    \    ${NET2_VM_IPS_CHECK}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
     \    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}
     \    ${status}    ${message}    Run Keyword And Ignore Error    List Should Not Contain Value    ${VM_IPS}    None
     \    Exit For Loop If    '${status}' == 'PASS'
     \    BuiltIn.Sleep    5s
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Write Commands Until Prompt    nova console-log ${vm}    30s
-    Append To List    ${NET1_VM_IPS}    ${NET1_DHCP_IP}
-    Set Suite Variable    ${NET1_VM_IPS}
-    Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
-    Set Suite Variable    ${NET2_VM_IPS}
+    Append To List    ${NET1_VM_IPS_CHECK}    ${NET1_DHCP_IP}
+    Set Suite Variable    ${NET1_VM_IPS_CHECK}
+    Append To List    ${NET2_VM_IPS_CHECK}    ${NET2_DHCP_IP}
+    Set Suite Variable    ${NET2_VM_IPS_CHECK}
     Should Not Contain    ${NET1_VM_IPS}    None
     Should Not Contain    ${NET2_VM_IPS}    None
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
