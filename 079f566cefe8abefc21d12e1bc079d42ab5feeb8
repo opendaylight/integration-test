@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_5f12a957",
+        "filename": "csit/libraries/BierResource.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-23T01:43:47Z",
+      "side": 1,
+      "message": "please add basic documentation to your keywords. these libraries are published and the docs are used there:\n\nexample:\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/MininetKeywords.robot.html",
+      "revId": "079f566cefe8abefc21d12e1bc079d42ab5feeb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9f189176",
+        "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-23T01:43:47Z",
+      "side": 1,
+      "message": "you aren\u0027t using Selenium here are you?",
+      "range": {
+        "startLine": 4,
+        "startChar": 18,
+        "endLine": 4,
+        "endChar": 34
+      },
+      "revId": "079f566cefe8abefc21d12e1bc079d42ab5feeb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bf1bd571",
+        "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-23T01:43:47Z",
+      "side": 1,
+      "message": "don\u0027t you need to use ../../../libraries/ for this?",
+      "range": {
+        "startLine": 9,
+        "startChar": 18,
+        "endLine": 9,
+        "endChar": 36
+      },
+      "revId": "079f566cefe8abefc21d12e1bc079d42ab5feeb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ff28bd87",
+        "filename": "csit/suites/bier/basic/__init__.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-23T01:43:47Z",
+      "side": 1,
+      "message": "are you using mininet? I couldn\u0027t tell from the suite.",
+      "revId": "079f566cefe8abefc21d12e1bc079d42ab5feeb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
