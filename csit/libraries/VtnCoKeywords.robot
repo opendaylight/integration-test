@@ -14,7 +14,7 @@ Resource          ./MininetKeywords.robot
 
 *** variable ***
 ${vlan_topo}      --custom vlan_vtn_test.py --topo vlantopo
-${vtn_coordinator_nexus_path}    https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/vtn/distribution.vtn-coordinator
+${vtn_coordinator_nexus_path}     https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/vtn/distribution.vtn-coordinator
 ${vtn_dist}       distribution.vtn-coordinator
 
 *** Keywords ***
@@ -42,8 +42,10 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
     SSHLibrary.Execute Command    sudo yum install -q -y https://download.postgresql.org/pub/repos/yum/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-3.noarch.rpm
     SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc
-    CompareStream.Run_Keyword_If_At_Least_Else    boron    Download VtnCo Distribution
-    ...    ELSE    SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/${vtn_dist}*-bin.tar.bz2
+    #CompareStream.Run_Keyword_If_At_Least_Else    boron    Download VtnCo Distribution
+    #...    ELSE    SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/${vtn_dist}*-bin.tar.bz2
+    SSHLibrary.Execute Command    wget https://nexus.opendaylight.org/content/repositories/autorelease-1739/org/opendaylight/vtn/distribution.vtn-coordinator/6.3.3-Boron-SR3/distribution.vtn-coordinator-6.3.3-Boron-SR3-bin.tar.bz2
+    SSHLibrary.Execute Command    tar -C/ -jxvf distribution.vtn-coordinator-6.3.3-Boron-SR3-bin.tar.bz2
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
     SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
     SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
