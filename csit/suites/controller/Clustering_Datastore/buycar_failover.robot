@@ -23,7 +23,7 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
-${CARPEOPLE_ITEMS}    ${100}
+${CARPEOPLE_ITEMS}    ${1}
 ${MEMBER_START_TIMEOUT}    300s
 @{SHARD_NAME_LIST}    car    people    car-people
 ${VAR_DIR}        ${CURDIR}/../../../variables/carpeople/crud
