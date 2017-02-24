@@ -42,6 +42,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 ${DEVICE_CHECK_TIMEOUT}    60s
 ${DEVICE_BOOT_TIMEOUT}    100s
 ${DEVICE_NAME}    netconf-test-device
+${MASTER_CONNECT_TIMEOUT}    15s
 
 *** Test Cases ***
 Start_Testtool
@@ -80,8 +81,11 @@ Kill_node1_Before_Create
 
 Create_Device_Data_With_node1_Down
     [Documentation]    Check that the create requests work when node 1 is down.
+    ...    As ODL may be in the process of connecting possible new master to the device,
+    ...    the action is retried few times.
+    ...    TODO: Check exact status before retry. Carbon reports 404 instead of the correct 503.
     [Tags]    critical
-    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    {'DEVICE_NAME': '${DEVICE_NAME}'}    session=node2
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${MASTER_CONNECT_TIMEOUT}   1s    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    {'DEVICE_NAME': '${DEVICE_NAME}'}    session=node2
 
 Check_New_Device_Data_Is_Visible_On_Nodes_Without_node1
     [Documentation]    Check that the new device data is propagated in the cluster even when node 1 is down.
@@ -106,8 +110,11 @@ Kill_node2_Before_Modify
 
 Modify_Device_Data_With_node2_Down
     [Documentation]    Check that the modification requests work when node 2 is down.
+    ...    As ODL may be in the process of connecting possible new master to the device,
+    ...    the action is retried few times.
+    ...    TODO: Check exact status before retry. Carbon reports 404 instead of the correct 503.
     [Tags]    critical
-    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    {'DEVICE_NAME': '${DEVICE_NAME}'}    session=node3
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${MASTER_CONNECT_TIMEOUT}   1s    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    {'DEVICE_NAME': '${DEVICE_NAME}'}    session=node3
     [Teardown]    Utils.Report_Failure_Due_To_Bug    5762
 
 Check_Modified_Device_Data_Is_Visible_On_Nodes_Without_node2
@@ -134,8 +141,11 @@ Kill_node3_Before_Delete
 
 Delete_Device_Data_With_node3_Down
     [Documentation]    Check that the data removal requests work when node 3 is down.
+    ...    As ODL may be in the process of connecting possible new master to the device,
+    ...    the action is retried few times.
+    ...    TODO: Check exact status before retry. Carbon reports 404 instead of the correct 503.
     [Tags]    critical
-    TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}datamod1    {'DEVICE_NAME': '${DEVICE_NAME}'}    session=node1
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${MASTER_CONNECT_TIMEOUT}   1s    TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}datamod1    {'DEVICE_NAME': '${DEVICE_NAME}'}    session=node1
     [Teardown]    Utils.Report_Failure_Due_To_Bug    5762
 
 Check_Device_Data_Removal_Is_Visible_On_Nodes_Without_node3
