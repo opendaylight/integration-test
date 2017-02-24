@@ -89,6 +89,9 @@ class Changes(object):
             print("%s" % project)
         print("i  grantedOn           lastUpdatd          chang subject")
         print("-- ------------------- ------------------- ----- -----------------------------------------")
+        if gerrits is None:
+            print("gerrit is under review")
+            return
         for i, gerrit in enumerate(gerrits):
             if isinstance(gerrit, dict):
                 print("%02d %19s %19s %5s %s"
