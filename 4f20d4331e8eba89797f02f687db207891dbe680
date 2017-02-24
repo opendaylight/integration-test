@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_30d38f61",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-24T06:00:01Z",
+      "side": 1,
+      "message": "This library looks like it relies heavily on the existence of\novs_conn_id hwvtep_conn_id and devstack_conn_id being available.\n\nat least maybe you can put that in the main Documentation\nsection.",
+      "revId": "4f20d4331e8eba89797f02f687db207891dbe680",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f053c7df",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-24T06:00:01Z",
+      "side": 1,
+      "message": "what about using the keyword:\n    OVSDB.Clean OVSDB Test Environment\n\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OVSDB.robot.html#Clean%20OVSDB%20Test%20Environment",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 63
+      },
+      "revId": "4f20d4331e8eba89797f02f687db207891dbe680",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_50457315",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-24T06:00:01Z",
+      "side": 1,
+      "message": "I understand this is the style of your suite, but I also\nthink we would all benefit to using the same methodologies\nso we can share. We have built up an OpenStackOperations\nlibrary that is doing these kind of neutron command line\nstuff. It would be better to enhance that library and\nuse it from there.\n\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OpenStackOperations.robot.html",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 104
+      },
+      "revId": "4f20d4331e8eba89797f02f687db207891dbe680",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_904a3b24",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-24T06:00:01Z",
+      "side": 1,
+      "message": "curious why you wanted to do this, and not just use the \noriginal names in your suites? just for brevity?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 36
+      },
+      "revId": "4f20d4331e8eba89797f02f687db207891dbe680",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_70c997ab",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-02-24T06:00:01Z",
+      "side": 1,
+      "message": "you are going to find these kinds of things already \ndefined. this is just one example and it exists in \nVariables.robot as ${PORT_URL}",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 45
+      },
+      "revId": "4f20d4331e8eba89797f02f687db207891dbe680",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
