@@ -43,6 +43,7 @@ Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     ${DEFAULT_TEARDOWN_KEYWORD}
 Default Tags      @{TAGS_CRITICAL}
+Library           Collections
 Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           String    # for Get_Regexp_Matches
@@ -83,6 +84,10 @@ Locate_Managers
     BuiltIn.Set_Suite_Variable    \${netconf_manager_owner_ip}
     ${netconf_manager_owner_http_session} =    Resolve_Http_Session_For_Member    ${netconf_manager_owner_index}
     BuiltIn.Set_Suite_Variable    \${netconf_manager_owner_http_session}
+    # TODO: Introduce and use ClusterManagement.Get_Owner_And_Successors_For_Type_And_Id
+    Collections.Remove_Values_From_List    ${candidates}    ${netconf_manager_owner_index}
+    ${successor} =    Collections.Get_From_List    ${candidates}    0
+    BuiltIn.Set_Suite_Variable    \${netconf_manager_first_successor_index}
 
 Start_Testtool
     [Documentation]    Deploy and start test tool on its separate SSH session.
@@ -117,6 +122,8 @@ Reboot_Manager_Owner
     # TODO: Introduce ClusterManagement.Clean_Journals_And_Snapshots_On_Single_Member
     ${owner_list} =    BuiltIn.Create_List    ${netconf_manager_owner_index}
     ClusterManagement.Clean_Journals_And_Snapshots_On_List_Or_All    ${owner_list}
+    # Node down is needed to avoid Bug 7840.
+    ClusterManagement.Tell_Live_Member_About_Single_Downed_Member    live_member_index=${netconf_manager_first_successor_index}    down_member_index=${netconf_manager_owner_index}
     ClusterManagement.Start_Single_Member    ${netconf_manager_owner_index}
     BuiltIn.Comment    FIXME: Replace sleep with WUKS when it becomes clear what to wait for.
     ${sleep_time} =    Get_Typical_Time    coefficient=3.0

@@ -66,6 +66,7 @@ Kill_Original_Odl
     # This is deliberately analoguous to killing the whole cluster.
     # (As opposed to killing just one member, but for 1 node it is the same.)
     ClusterManagement.Clean_Journals_And_Snapshots_On_List_Or_All
+    # Bug 7840: No need to down nodes, as no member lives and every member is wiped.
 
 Install_Older_Odl
     [Documentation]    Download .zip of older ODL, unpack, delete .zip, copy featuresBoot line.

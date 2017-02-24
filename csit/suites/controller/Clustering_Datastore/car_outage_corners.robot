@@ -43,11 +43,10 @@ ${CLUSTER_DIR}    ${CURDIR}/../../../variables/clustering
 Kill_Majority_Of_The_Followers
     [Documentation]    Kill half plus one car Follower members and set reviving followers down (otherwsise tipping followers cannot join cluster).
     ClusterManagement.Kill_Members_From_List_Or_All    member_index_list=${list_of_killing}    confirm=True
-    : FOR    ${index}    IN    @{list_of_reviving}
-    \    ${data}    OperatingSystem.Get File    ${CLUSTER_DIR}/member_down.json
-    \    ${member_ip} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
-    \    ${data}    String.Replace String    ${data}    {member_ip}    ${member_ip}
-    \    TemplatedRequests.Post_To_Uri    uri=jolokia    data=${data}    content_type=${HEADERS}    accept=${ACCEPT_EMPTY}    session=${car_leader_session}
+
+Down_Killed_Members
+    [Documentation]    Mark the killed members as down, needed to avoid Bug 7840.
+    ClusterManagement.Tell_Live_Member_About_Downed_Members    live_member_index=${car_leader_index}    down_member_index_list=${list_of_killing}
 
 Attempt_To_Add_Cars_To_Leader
     [Documentation]    Adding cars should fail, as majority of Followers are down.

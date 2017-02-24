@@ -206,6 +206,7 @@ def wait_for_controller_stopped(ip, username, password, karafHome):
         kill_controller(ip, username, password, karafHome)
 
 
+# Search ClusterManagement.robot for risks involved in cluster testing.
 def clean_journal(ip, username, password, karafHome):
     execute_ssh_command(ip, username, password, "rm -rf " + karafHome + "/journal")
 
