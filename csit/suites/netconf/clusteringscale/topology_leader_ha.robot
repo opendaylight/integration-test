@@ -94,6 +94,8 @@ Reboot_Topology_Leader
     # TODO: Introduce ClusterManagement.Clean_Journals_And_Snapshots_On_Single_Member
     ${owner_list} =    BuiltIn.Create_List    ${topology_config_leader_index}
     ClusterManagement.Clean_Journals_And_Snapshots_On_List_Or_All    ${owner_list}
+    # Node down is needed to avoid Bug 7840.
+    ClusterManagement.Tell_Live_Member_About_Single_Downed_Member    live_member_index=${topology_config_first_follower_index}    down_member_index=${topology_config_leader_index}
     ClusterManagement.Start_Single_Member    ${topology_config_leader_index}
     BuiltIn.Comment    FIXME: Replace sleep with WUKS when it becomes clear what to wait for.
     ${sleep_time} =    Get_Typical_Time    coefficient=3.0
