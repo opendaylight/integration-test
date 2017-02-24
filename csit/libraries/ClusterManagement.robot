@@ -38,6 +38,7 @@ Resource          ${CURDIR}/TemplatedRequests.robot    # for Get_As_Json_From_Ur
 Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
 
 *** Variables ***
+${DOWN_FOLDER}    ${CURDIR}/../variables/clustering/down
 ${ENTITY_OWNER_URI}    restconf/operational/entity-owners:entity-owners
 ${JAVA_HOME}      ${EMPTY}    # releng/builder scripts should provide correct value
 ${JOLOKIA_CONF_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
@@ -389,10 +390,32 @@ Start_Members_From_List_Or_All
 Clean_Journals_And_Snapshots_On_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${karaf_home}=${KARAF_HOME}
     [Documentation]    Delete journal and snapshots directories on every node listed (or all).
+    ...    BEWARE: This may lead to Bug 7840.
+    ...    Be sure to explicitly "down" the affected member, so peers do not rely on knowledge of its previous state.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     ${command} =    Set Variable    rm -rf "${karaf_home}/journal" "${karaf_home}/snapshots"
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    Run_Bash_Command_On_Member    command=${command}    member_index=${index}
+
+Tell_Live_Member_About_Downed_Members
+    [Arguments]    ${live_member_index}    ${down_member_index_list}
+    [Documentation]    Use jolokia to notify cluster (via one of living members) some unreachable members are down,
+    ...    This effectively reduces cluster size, and makes sure no assumptions about member persisted state
+    ...    are made if a downed member rejoins the cluster.
+    ${session} =    Resolve_Http_Session_For_Member    ${live_member_index}
+    # The following variables values may start depending on stream.
+    ${address_prefix} =    BuiltIn.Set_Variable    akka.tcp://opendaylight-cluster-data@
+    ${address_sufffix} =    BuiltIn.Set_Variable    :2550
+    : FOR    ${down_member_index}    IN    @{down_member_index_list}
+    \    ${down_member_ip} =    Resolve_Ip_Address_For_Member    ${down_member_index}
+    \    ${mapping} =    BuiltIn.Crate_Dictionary    ADDRESS=${address_prefix}${down_member_ip}${address_suffix}
+    \    TemplatedRequests.Post_As_Json_Templated    folder=${DOWN_FOLDER}    mapping=${mapping}    session=${session}
+
+Tell_Live_Member_About_Single_Downed_Member
+    [Arguments]    ${live_member_index}    ${down_member_index}
+    [Documentation]    Wrap call to Tell_Live_Member_About_Downed_Members, to avoid suites creating single item lists.
+    ${down_member_index_list} =    BuiltIn.Create_List    ${down_member_index}
+    Tell_Live_Member_About_Downed_Members    live_member_index=${live_member_index}    down_member_index_list=${down_member_index_list}
 
 Verify_Karaf_Is_Not_Running_On_Member
     [Arguments]    ${member_index}
@@ -524,6 +547,8 @@ Clean_Directories_On_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${directory_list}=${EMPTY}    ${karaf_home}=${KARAF_HOME}
     [Documentation]    Clear @{directory_list} or @{ODL_DEFAULT_DATA_PATHS} for members in given list or all. Return None.
     ...    This is intended to return Karaf (offline) to the state it was upon the first boot.
+    ...    BEWARE: This may lead to Bug 7840.
+    ...    Be sure to explicitly "down" the affected member, so peers do not rely on knowledge of its previous state.
     ${path_list} =    Builtin.Set Variable If    "${directory_list}" == "${EMPTY}"    ${ODL_DEFAULT_DATA_PATHS}    ${directory_list}
     Safe_With_Ssh_To_List_Or_All_Run_Keyword    ${member_index_list}    ClusterManagement__Clean_Directories    ${path_list}    ${karaf_home}
 
