@@ -655,3 +655,44 @@ Collect Data from SNMP Agent
     \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOperStatus | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOperStatus
     \    Append To List    ${SNMP_VALUES}    ${ifOperStatus}
     [Return]    ${SNMP_ENTRY}    ${SNMP_VALUES}
+
+Retrieve Value From Elasticsearch
+    [Arguments]    ${data_category}    ${metric_name}    ${node_id}     ${rk_node_id}
+    [Documentation]    Retrieve the last record of Elastic Search from index TSDR. Query is done by data category, metricname and node ID
+    Create Session    session    http://${ODL_SYSTEM_IP}:9200    auth=${AUTH}    headers=${HEADERS_QUERY}
+    ${els_query}=   create_query_string_search      ${data_category}    ${metric_name}    ${node_id}      ${rk_node_id}
+    ${els_JSON_request}=   build_elastic_search_JSON_request      ${els_query}
+    ${resp}=    RequestsLibrary.Post_Request    session    _search?pretty    data=${els_JSON_request}
+
+    Should Be Equal As Strings    ${resp.status_code}    200
+    @{convert}=    Parse Json    ${resp.content}
+    ${json}=    RequestsLibrary.To Json     ${resp.content}
+    ${result}=    extract_metric_value_search    ${json}
+    Delete All Sessions
+    [Return]    ${result}
+
+Check Available values from Elasticsearch
+    [Arguments]    ${data_category}     ${number_items}
+    [Documentation]    Check whether data were sent to Elastic Search. We retrieve all data by data category and then compare its count
+    Create Session    session    http://${ODL_SYSTEM_IP}:9200    auth=${AUTH}    headers=${HEADERS_QUERY}
+    ${els_query}=   create_query_string_count      ${data_category}
+    ${els_JSON_request}=   build_elastic_search_JSON_request      ${els_query}
+    ${resp}=    RequestsLibrary.Post_Request    session    _search?pretty    data=${els_JSON_request}
+
+    Should Be Equal As Strings    ${resp.status_code}    200
+    @{convert}=    Parse Json    ${resp.content}
+    ${json}=    RequestsLibrary.To Json     ${resp.content}
+    ${result}=    extract_metric_value_count    ${json}
+    Delete All Sessions
+    Log To Console      Elasticsearch: Check number of elements
+    ${test}=    Builtin.Set Variable If    ${result} > ${number_items}    true    false
+    Should Be Equal As Strings    ${test}    true
+
+Clear Elasticsearch Datastore
+    [Documentation]   Clear Elastic Search Datastore
+    Create Session    session    http://${ODL_SYSTEM_IP}:9200    auth=${AUTH}    headers=${HEADERS_QUERY}
+    ${resp}=    RequestsLibrary.Delete_Request    session    tsdr
+
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Delete All Sessions
+    [Return]    ${resp.status_code}
