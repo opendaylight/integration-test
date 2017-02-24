@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_f0ef47e7",
+        "filename": "csit/suites/iotdm/basic/000_IoTDMSecurityNoAuthTable.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "This table is just documentation for 210_IoTDMSecurityNoAuth.robot test suite which points to this file.\nI was also thinking about data driven approach, so I\u0027ve added nots into this file and the related test suite which suggests usage of data driven approach.",
+      "parentUuid": "fafc7978_2ee7bcad",
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_6e04244a",
         "filename": "csit/suites/iotdm/basic/000_ResourceAttributesNotes.txt",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2017-02-22T06:00:50Z",
       "side": 1,
       "message": "can you convert all the tabs to spaces please?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 1
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d0ecc3f5",
+        "filename": "csit/suites/iotdm/basic/000_ResourceAttributesNotes.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_6e04244a",
       "range": {
         "startLine": 51,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_b0a5bfa3",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "Thanks, done for all suites.",
+      "parentUuid": "fafc7978_8ef7c858",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_0ea3d84f",
         "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
         "patchSetId": 4
@@ -76,6 +142,30 @@
       "writtenOn": "2017-02-22T06:00:50Z",
       "side": 1,
       "message": "so, I see the approach here is to mark a failure when the \ntest case is not done. Is that something the IOTDM project\nneeds? or can we just skip the tests. ideally, the integration\nteam pushes for 100% pass rates for existing test cases that\nrun. \n\nlike I noted elsewhere, you can use the \"exclude\" tag and\nthey will automatically get skipped.",
+      "range": {
+        "startLine": 1005,
+        "startChar": 0,
+        "endLine": 1006,
+        "endChar": 29
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b0281fe3",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "OK, I have added \"exclude\" as a second tag. This way we will be able to distinguish TCs excluded due to not implemented from just excluded TCs.",
+      "parentUuid": "fafc7978_0ea3d84f",
       "range": {
         "startLine": 1005,
         "startChar": 0,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_90251b0b",
+        "filename": "csit/suites/iotdm/basic/020_ResourceAttributesCseBase.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_6e8b84c3",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_4e8840c5",
         "filename": "csit/suites/iotdm/basic/026_ResourceAttributesGroup.robot",
         "patchSetId": 4
@@ -122,6 +236,30 @@
       "writtenOn": "2017-02-22T06:00:50Z",
       "side": 1,
       "message": ".robot",
+      "range": {
+        "startLine": 8,
+        "startChar": 47,
+        "endLine": 8,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f01e27ba",
+        "filename": "csit/suites/iotdm/basic/026_ResourceAttributesGroup.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_4e8840c5",
       "range": {
         "startLine": 8,
         "startChar": 47,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_d01b23c8",
+        "filename": "csit/suites/iotdm/basic/090_ResourceHierarchyAddressing.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_ae91ecf2",
+      "range": {
+        "startLine": 8,
+        "startChar": 47,
+        "endLine": 8,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_8e8ea8ce",
         "filename": "csit/suites/iotdm/basic/093_ResourceHierarchyChildResources.robot",
         "patchSetId": 4
@@ -168,6 +330,30 @@
       "writtenOn": "2017-02-22T06:00:50Z",
       "side": 1,
       "message": ".robot",
+      "range": {
+        "startLine": 9,
+        "startChar": 47,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_307c2fec",
+        "filename": "csit/suites/iotdm/basic/093_ResourceHierarchyChildResources.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_8e8ea8ce",
       "range": {
         "startLine": 9,
         "startChar": 47,
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_10812bc4",
+        "filename": "csit/suites/iotdm/basic/094_ResourceHierarchyPersistence.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_eebe5464",
+      "range": {
+        "startLine": 16,
+        "startChar": 46,
+        "endLine": 16,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_cec390eb",
         "filename": "csit/suites/iotdm/basic/102_ProceduresContent.robot",
         "patchSetId": 4
@@ -214,6 +424,30 @@
       "writtenOn": "2017-02-22T06:00:50Z",
       "side": 1,
       "message": ".robot",
+      "range": {
+        "startLine": 9,
+        "startChar": 47,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_708237c9",
+        "filename": "csit/suites/iotdm/basic/102_ProceduresContent.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_cec390eb",
       "range": {
         "startLine": 9,
         "startChar": 47,
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_508733d7",
+        "filename": "csit/suites/iotdm/basic/103_ProceduresGroupMgmt.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_2eb5fc7d",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_0ebab86d",
         "filename": "csit/suites/iotdm/basic/104_ProceduresACP.robot",
         "patchSetId": 4
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_906cfb36",
+        "filename": "csit/suites/iotdm/basic/104_ProceduresACP.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_0ebab86d",
+      "range": {
+        "startLine": 11,
+        "startChar": 46,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_6eb26495",
         "filename": "csit/suites/iotdm/basic/210_IoTDMSecurityNoAuth.robot",
         "patchSetId": 4
@@ -283,6 +565,30 @@
       "writtenOn": "2017-02-22T06:00:50Z",
       "side": 1,
       "message": ".robot",
+      "range": {
+        "startLine": 8,
+        "startChar": 47,
+        "endLine": 8,
+        "endChar": 49
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_30638f43",
+        "filename": "csit/suites/iotdm/basic/210_IoTDMSecurityNoAuth.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-02-24T08:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_6eb26495",
       "range": {
         "startLine": 8,
         "startChar": 47,
