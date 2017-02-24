@@ -2,5 +2,5 @@
    "type": "EXEC",
    "mbean": "akka:type=Cluster",
    "operation": "down",
-   "arguments" : ["akka.tcp://opendaylight-cluster-data@{member_ip}:2550"]
+   "arguments" : ["$ADDRESS"]
 }
