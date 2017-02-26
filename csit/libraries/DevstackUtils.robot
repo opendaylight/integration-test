@@ -29,6 +29,7 @@ Run Tempest Tests
     Switch Connection    ${devstack_conn_id}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd ${tempest_directory}
+    Write Commands Until Prompt    git checkout 7bf3af64048ac153ee75cdbc0988164a2dc86c1e
     Write Commands Until Prompt    sudo testr list-tests | egrep ${tempest_regex} | egrep -v ${tempest_exclusion_regex} > tests_to_execute.txt
     ${tests_to_execute}=    Write Commands Until Prompt    sudo cat tests_to_execute.txt
     Log    ${tests_to_execute}
