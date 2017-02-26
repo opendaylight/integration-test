@@ -547,6 +547,7 @@ Get Karaf Log Type From Test Start
     ${cmd}    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file} | grep '${type}'
     ${output}    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
     Log    ${output}
+    Should Not Contain    ${output}    ERROR
 
 Get Karaf Log Types From Test Start
     [Arguments]    ${ip}    ${test_name}    ${types}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
