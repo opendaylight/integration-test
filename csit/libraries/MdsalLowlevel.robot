@@ -54,6 +54,7 @@ Get_Constant
     ...    calling the rpc on isolated node etc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_CONSTANT_DIR}    session=${session}    explicit_status_codes=${explicit_status_codes}
+    BuiltIn.Return_From_Keyword_If    """${explicit_status_codes}""" != """${NO_STATUS_CODES}"""
     ${xml} =    XML.Parse_Xml    ${text}
     ${constant} =    XML.Get_Element_Text    ${xml}    xpath=constant
     BuiltIn.Return_From_Keyword    ${constant}
@@ -68,13 +69,16 @@ Get_Contexted_Constant
     BuiltIn.Return_From_Keyword    ${formatted_output}
 
 Get_Singleton_Constant
-    [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke get-singleton-constant rpc.
+    [Arguments]    ${member_index}    ${explicit_status_codes}=${NO_STATUS_CODES}
+    [Documentation]    Invoke get-singleton-constant rpc on the requested member and return the registered constant. The ${explicit_status_codes} is a list
+    ...    of http status codes for which the rpc call is considered as passed and is used for calls with expected failures on odl's side, such as
+    ...    calling the rpc on isolated node etc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${GET_SINGLETON_CONSTANT_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
-    BuiltIn.Fail    TODO: to format output data
-    BuiltIn.Return_From_Keyword    ${formatted_output}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_SINGLETON_CONSTANT_DIR}    session=${session}    explicit_status_codes=${explicit_status_codes}
+    BuiltIn.Return_From_Keyword_If    """${explicit_status_codes}""" != """${NO_STATUS_CODES}"""
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${constant} =    XML.Get_Element_Text    ${xml}    xpath=constant
+    BuiltIn.Return_From_Keyword    ${constant}
 
 Register_Constant
     [Arguments]    ${member_index}    ${constant}
@@ -100,22 +104,22 @@ Unregister_Singleton_Constant
     [Arguments]    ${member_index}
     [Documentation]    TODO: more desctiptive comment than: Invoke unregister-singleton-constant rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNREGISTER_SINGLETON_CONSTANT_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_SINGLETON_CONSTANT_DIR}    session=${session}
 
 Register_Flapping_Singleton
     [Arguments]    ${member_index}
     [Documentation]    TODO: more desctiptive comment than: Invoke register-flapping-singleton rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${REGISTER_FLAPPING_SINGLETON_DIR}    base_name=location    extension=uri
-    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_FLAPPING_SINGLETON_DIR}    session=${session}
 
 Unregister_Flapping_Singleton
     [Arguments]    ${member_index}
     [Documentation]    TODO: more desctiptive comment than: Invoke unregister-flapping-singleton rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNREGISTER_FLAPPING_SINGLETON_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_FLAPPING_SINGLETON_DIR}    session=${session}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${count} =    XML.Get_Element_Text    ${xml}    xpath=flap-count
+    BuiltIn.Return_From_Keyword    ${count}
 
 Write_Transactions
     [Arguments]    ${member_index}    ${seconds}    ${trans_per_sec}    ${chained_trans}=${True}
