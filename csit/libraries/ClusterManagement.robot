@@ -261,6 +261,15 @@ Get_Owner_And_Candidates_For_Device
     BuiltIn.Run_Keyword_If    '${status}'=='FAIL'    BuiltIn.Fail    Could not parse owner and candidates for device ${device_name}
     [Return]    @{results}
 
+Verify_Singleton_Instance_Owner_Elected
+    [Arguments]    ${device_name}    ${device_type}    ${new_elected}    ${old_owner}    ${node_to_ask}
+    [Documentation]    Verify new owner was elected or remained the same. Bool paramter ${new_elected} indicates if
+    ...    new leader is elected or should remained the same as ${old_leader}
+    ${owner}    ${candidates} =    Get_Owner_And_Candidates_For_Device    ${device_name}    ${device_type}    ${node_to_ask}
+    BuiltIn.Run_Keyword_If    ${new_elected}    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${old_owner}    ${owner}
+    BuiltIn.Run_Keyword_Unless    ${new_elected}    BuiltIn.Should_Be_Equal_As_numbers    ${old_owner}    ${owner}
+    BuiltIn.Return_From_Keyword    ${owner}    ${candidates}
+
 Get_Owner_And_Candidates_For_Type_And_Id
     [Arguments]    ${type}    ${id}    ${member_index}    ${require_candidate_list}=${EMPTY}
     [Documentation]    Returns the owner and a list of candidates for entity specified by ${type} and ${id}
