@@ -11,6 +11,9 @@ integration/test/csit/suites/controller/singleton_service/global_rpc_freeze.robo
 integration/test/csit/suites/controller/singleton_service/global_rpc_isolate.robot
 integration/test/csit/suites/controller/Clustering_Datastore/buycar_failover_isolation.robot
 integration/test/csit/suites/controller/Clustering_Datastore/car_failover_crud_isolation.robot
+integration/test/csit/suites/controller/cluster_singleton/master_stability.robot
+integration/test/csit/suites/controller/cluster_singleton/partition_and_heal.robot
+integration/test/csit/suites/controller/cluster_singleton/chasing_the_leader.robot
 integration/test/csit/suites/controller/dom_rpc_broker/rpc_provider_precedence.robot
 integration/test/csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot
 integration/test/csit/suites/controller/dom_rpc_broker/action_provider_precedence.robot
