@@ -84,7 +84,7 @@ Disconnect Switchs Old Master
     OvsManager.Disconnect Switch From Controller And Verify Disconnected    ${switch_name}    ${old_master}
     BuiltIn.Set Test Variable    ${disc_cntl}    ${old_master}
     ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
-    ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${old_successors}
+    ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${old_successors}    after_stop=True
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
     BuiltIn.Set Test Variable    ${old_successors}
@@ -108,7 +108,7 @@ Disconnect Switchs Slave
     BuiltIn.Set Test Variable    ${disc_cntl}    ${old_slave}
     ${tmp_candidates}=    BuiltIn.Create List    @{ClusterManagement__member_index_list}
     Collections.Remove Values From List    ${tmp_candidates}    ${old_successor}
-    ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${tmp_candidates}
+    ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${tmp_candidates}    after_stop=True
     BuiltIn.Should Be Equal    ${owner}    ${old_owner}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
