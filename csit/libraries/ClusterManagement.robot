@@ -161,10 +161,8 @@ Verify_Owner_And_Successors_For_Device
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${candidate_list}
     ${owner}    ${successor_list} =    Get_Owner_And_Successors_For_Device    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
     Collections.List_Should_Contain_Value    ${index_list}    ${owner}    Owner ${owner} is not in candidate list ${index_list}
-    # In Beryllium or after stopping an instance, the removed instance does not show in the candidate list.
-    ${expected_candidate_list_origin} =    BuiltIn.Set_Variable_If    '${ODL_STREAM}' == 'beryllium' or ${after_stop}    ${index_list}    ${ClusterManagement__member_index_list}
     # We do not want to manipulate either origin list.
-    ${expected_successor_list} =    BuiltIn.Create_List    @{expected_candidate_list_origin}
+    ${expected_successor_list} =    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${expected_successor_list}    ${owner}
     Collections.Lists_Should_Be_Equal    ${expected_successor_list}    ${successor_list}    Successor list ${successor_list} is not the came as expected ${expected_successor_list}
     # User expects the returned successor list to be the provided candidate list minus the owner.
