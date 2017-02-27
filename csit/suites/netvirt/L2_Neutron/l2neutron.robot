@@ -28,8 +28,8 @@ Resource          ../../../variables/Variables.robot
 @{ROUTER_SUBNETS}        SUBNET1    SUBNET2
 
 *** Test Cases ***
-Create FT Config
-    [Documentation]    Creating basic config to test FT 96.4
+Create Neutron Networks
+    [Documentation]    Create six networks
     Create Network    ${NETWORKS[0]}
     Create Network    ${NETWORKS[1]}
     Create Network    ${NETWORKS[2]}
@@ -46,6 +46,8 @@ Create FT Config
     Should Contain    ${NET_LIST}    ${NETWORKS[5]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/networks/    ${NETWORKS}
 
+Create Neutron Subnets
+    [Documentation]    Create six subnets. One subnets per network
     Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNET_CIDR[0]}
     Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNET_CIDR[1]}
     Create SubNet    ${NETWORKS[2]}    ${SUBNETS[2]}    ${SUBNET_CIDR[2]}
@@ -62,54 +64,53 @@ Create FT Config
     Should Contain    ${SUB_LIST}    ${SUBNETS[5]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/subnets/    ${SUBNETS}
 
-    Create Port    ${NETWORKS[6]}    ${PORT_LIST[0]}
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[1]}
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}
-    Create Port    ${NETWORKS[2]}    ${PORT_LIST[4]}
-    Create Port    ${NETWORKS[2]}    ${PORT_LIST[5]}
-    Create Port    ${NETWORKS[3]}    ${PORT_LIST[6]}
-    Create Port    ${NETWORKS[3]}    ${PORT_LIST[7]}
-    Create Port    ${NETWORKS[4]}    ${PORT_LIST[8]}
-    Create Port    ${NETWORKS[4]}    ${PORT_LIST[9]}
-    Create Port    ${NETWORKS[5]}    ${PORT_LIST[10]}
-    Create Port    ${NETWORKS[5]}    ${PORT_LIST[11]}
-    Create Port    ${NETWORKS[6]}    ${PORT_LIST[12]}
+Add Ssh Allow Rule
+    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    Neutron Security Group Create    sg-vpnservice
+    Neutron Security Group Rule Create    sg-vpnservice    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+
+Create Neutron Ports
+    [Documentation]    Create thirteen ports under previously created subnets
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[2]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[4]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[2]}    ${PORT_LIST[5]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[2]}    ${PORT_LIST[6]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[3]}    ${PORT_LIST[7]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[3]}    ${PORT_LIST[8]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[4]}    ${PORT_LIST[9]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[4]}    ${PORT_LIST[10]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[5]}    ${PORT_LIST[11]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[5]}    ${PORT_LIST[12]}    sg=sg-vpnservice
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORT_LIST}
 
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_DPN2[0]}    ${OS_COMPUTE_1_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_DPN1[0]}    ${OS_COMPUTE_1_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_DPN1[1]}    ${OS_COMPUTE_1_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[4]}    ${VM_INSTANCES_DPN2[1]}    ${OS_COMPUTE_1_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[5]}    ${VM_INSTANCES_DPN1[2]}    ${OS_COMPUTE_1_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[6]}    ${VM_INSTANCES_DPN2[2]}    ${OS_COMPUTE_1_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[7]}    ${VM_INSTANCES_DPN2[3]}    ${OS_COMPUTE_2_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[8]}    ${VM_INSTANCES_DPN1[3]}    ${OS_COMPUTE_2_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[9]}    ${VM_INSTANCES_DPN1[4]}    ${OS_COMPUTE_2_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[10]}    ${VM_INSTANCES_DPN2[4]}    ${OS_COMPUTE_2_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[11]}    ${VM_INSTANCES_DPN1[5]}    ${OS_COMPUTE_2_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[12]}    ${VM_INSTANCES_DPN2[5]}    ${OS_COMPUTE_2_IP}
-
-
+Create Nova VMs
+    [Documentation]    Create Vm instances on compute node with port
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_DPN2[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_DPN1[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_DPN1[1]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[4]}    ${VM_INSTANCES_DPN2[1]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[5]}    ${VM_INSTANCES_DPN1[2]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[6]}    ${VM_INSTANCES_DPN2[2]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[7]}    ${VM_INSTANCES_DPN2[3]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[8]}    ${VM_INSTANCES_DPN1[3]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[9]}    ${VM_INSTANCES_DPN1[4]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[10]}    ${VM_INSTANCES_DPN2[4]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[11]}    ${VM_INSTANCES_DPN1[5]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[12]}    ${VM_INSTANCES_DPN2[5]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_DPN1}    @{VM_INSTANCES_DPN2}
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
 
-    Create Router    ${ROUTERS[0]}
-    ${router_output} =    List Router
-    Log    ${router_output}
-    Should Contain    ${router_output}    ${ROUTERS[0]}
-    ${router_list} =    Create List    ${ROUTERS[0]}
-    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/routers/    ${router_list}
-
-    ${devstack_conn_id} =    Get ControlNode Connection
-    : FOR    ${INTERFACE}    IN    @{ROUTER_SUBNETS}
-    \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
-    ${interface_output} =    Show Router Interface    ${ROUTERS[0]}
-    : FOR    ${INTERFACE}    IN    @{ROUTER_SUBNETS}
-    \    ${subnet_id} =    Get Subnet Id    ${INTERFACE}    ${devstack_conn_id}
-    \    Should Contain    ${interface_output}    ${subnet_id}
-
+Check ELAN Datapath Traffic Within The Networks
+    [Documentation]    Checks datapath within the same network with different vlans.
     ${output} =    Execute Command on VM Instance    ${NETWORKS}[0]    ${VM_INSTANCES_DPN1[0]}    ping -c 3 ${VM_INSTANCES_DPN2[0]}
     Should Contain    ${output}    64 bytes
     ${output} =    Execute Command on VM Instance    ${NETWORKS}[0]    ${VM_INSTANCES_DPN2[0]}    ping -c 3 ${VM_INSTANCES_DPN1[0]}
@@ -135,17 +136,42 @@ Create FT Config
     ${output} =    Execute Command on VM Instance    ${NETWORKS}[5]    ${VM_INSTANCES_DPN2[5]}    ping -c 3 ${VM_INSTANCES_DPN1[5]}
     Should Contain    ${output}    64 bytes
 
-Delete FT Config
-    [Documentation]    Delete all the FT config created
+Create Routers
+    [Documentation]    Create Router
+    Create Router    ${ROUTERS[0]}
+    ${router_output} =    List Router
+    Log    ${router_output}
+    Should Contain    ${router_output}    ${ROUTERS[0]}
+    ${router_list} =    Create List    ${ROUTERS[0]}
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/routers/    ${router_list}
+
+Add Interfaces To Router
+    [Documentation]    Add Interfaces to router
+    ${devstack_conn_id} =    Get ControlNode Connection
+    : FOR    ${INTERFACE}    IN    @{ROUTER_SUBNETS}
+    \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
+    ${interface_output} =    Show Router Interface    ${ROUTERS[0]}
+    : FOR    ${INTERFACE}    IN    @{ROUTER_SUBNETS}
+    \    ${subnet_id} =    Get Subnet Id    ${INTERFACE}    ${devstack_conn_id}
+    \    Should Contain    ${interface_output}    ${subnet_id}
+
+Delete Vm Instances
+    [Documentation]    Delete Vm instances in the given Instance List
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_DPN1}    @{VM_INSTANCES_DPN2}
     : FOR    ${VmInstance}    IN    @{VM_INSTANCES}
     \    Delete Vm Instance    ${VmInstance}
 
+Delete Neutron Ports
+    [Documentation]    Delete Neutron Ports in the given Port List.
     : FOR    ${Port}    IN    @{PORT_LIST}
     \    Delete Port    ${Port}
 
+Delete Sub Networks
+    [Documentation]    Delete Sub Nets in the given Subnet List.
     : FOR    ${Subnet}    IN    @{SUBNETS}
     \    Delete SubNet    ${Subnet}
 
+Delete Networks
+    [Documentation]    Delete Networks in the given Net List
     : FOR    ${Network}    IN    @{NETWORKS}
     \    Delete Network    ${Network}
