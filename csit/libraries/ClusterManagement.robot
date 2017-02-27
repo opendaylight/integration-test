@@ -261,6 +261,20 @@ Get_Owner_And_Candidates_For_Device
     BuiltIn.Run_Keyword_If    '${status}'=='FAIL'    BuiltIn.Fail    Could not parse owner and candidates for device ${device_name}
     [Return]    @{results}
 
+Check_Old_Owner_Stays_Elected_For_Device
+    [Arguments]    ${device_name}    ${device_type}    ${old_owner}    ${node_to_ask}
+    [Documentation]    Verify the owner remain the same as ${old_owner}
+    ${owner}    ${candidates} =    Get_Owner_And_Candidates_For_Device    ${device_name}    ${device_type}    ${node_to_ask}
+    BuiltIn.Should_Be_Equal_As_numbers    ${old_owner}    ${owner}
+    BuiltIn.Return_From_Keyword    ${owner}    ${candidates}
+
+Check_New_Owner_Got_Elected_For_Device
+    [Arguments]    ${device_name}    ${device_type}    ${old_owner}    ${node_to_ask}
+    [Documentation]    Verify new owner was elected comparing to ${old_owner}
+    ${owner}    ${candidates} =    Get_Owner_And_Candidates_For_Device    ${device_name}    ${device_type}    ${node_to_ask}
+    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${old_owner}    ${owner}
+    BuiltIn.Return_From_Keyword    ${owner}    ${candidates}
+
 Get_Owner_And_Candidates_For_Type_And_Id
     [Arguments]    ${type}    ${id}    ${member_index}    ${require_candidate_list}=${EMPTY}
     [Documentation]    Returns the owner and a list of candidates for entity specified by ${type} and ${id}
