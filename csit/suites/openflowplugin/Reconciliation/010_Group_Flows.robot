@@ -17,7 +17,7 @@ ${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
 
 *** Test Cases ***
 Enable Stale Flow Entry
-    [Documentation]    Check Flows after mininet starts.
+    [Documentation]    Enable stale flow entry feature.
     # Stale flows/groups feature is only available in Boron onwards.
     CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"true"}    session=session
 
