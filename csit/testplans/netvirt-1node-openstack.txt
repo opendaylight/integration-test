@@ -1,4 +1,2 @@
-integration/test/csit/suites/openstack/connectivity/
-integration/test/csit/suites/openstack/tempest/
-integration/test/csit/suites/openstack/NeutronSecurityGrp/
-integration/test/csit/suites/netvirt/Netvirt_Vpnservice/
+integration/test/csit/suites/netvirt/L2_Neutron
+#integration/test/csit/suites/netvirt/Netvirt_Vpnservice/
