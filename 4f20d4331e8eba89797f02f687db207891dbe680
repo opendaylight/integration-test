@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_3b6084a4",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2017-02-28T13:11:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_30d38f61",
+      "revId": "4f20d4331e8eba89797f02f687db207891dbe680",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_f053c7df",
         "filename": "csit/libraries/L2GatewayOperations.robot",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2017-02-24T06:00:01Z",
       "side": 1,
       "message": "what about using the keyword:\n    OVSDB.Clean OVSDB Test Environment\n\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OVSDB.robot.html#Clean%20OVSDB%20Test%20Environment",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 63
+      },
+      "revId": "4f20d4331e8eba89797f02f687db207891dbe680",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3bbc04dc",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2017-02-28T13:11:50Z",
+      "side": 1,
+      "message": "I have checked the keyword and see it does extra configuration clenups and mininet setup cleanup aswell. For this specific case I feel it might not be required, hence wish to leave it like so. Would you agree with this?\n\nAlso have a plan to move this to OVSDB library later when more operations are been added to l2gw suites.",
+      "parentUuid": "fafc7978_f053c7df",
       "range": {
         "startLine": 20,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_3bc9a426",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2017-02-28T13:11:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_50457315",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 104
+      },
+      "revId": "4f20d4331e8eba89797f02f687db207891dbe680",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_904a3b24",
         "filename": "csit/variables/l2gw/Variables.robot",
         "patchSetId": 2
@@ -76,6 +142,30 @@
       "writtenOn": "2017-02-24T06:00:01Z",
       "side": 1,
       "message": "curious why you wanted to do this, and not just use the \noriginal names in your suites? just for brevity?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 36
+      },
+      "revId": "4f20d4331e8eba89797f02f687db207891dbe680",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bbdc74e5",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2017-02-28T13:11:50Z",
+      "side": 1,
+      "message": "Hi Jamo, I did so for brevity, is it ok to keep it like this, as in the initial stages of the suite setup for easy understanding i preferred so. once the suite is enhanced later, i would change it.\nExpect your opinion on this.",
+      "parentUuid": "fafc7978_904a3b24",
       "range": {
         "startLine": 3,
         "startChar": 0,
