@@ -1,6 +1,6 @@
 {
-	"interface": [{
-		"name": "test",
-		"type": "other"
-	}]
+ "interface": [{
+  "name": "test",
+  "type": "other"
+ }]
 }
