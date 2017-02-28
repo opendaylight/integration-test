@@ -1,0 +1,1 @@
+ntegration/test/csit/suites/openstack/OdlSync
