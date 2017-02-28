@@ -743,3 +743,18 @@ Get Ports MacAddr
     \    Log    ${macAddr}
     \    Append To List    ${MacAddr-list}    ${macAddr}
     [Return]    ${MacAddr-list}
+
+Get ComputeNode Connection
+    [Arguments]    ${compute_ip}
+    ${compute_conn_id}=    SSHLibrary.Open Connection    ${compute_ip}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=30s
+    Source Password    force=yes
+    [Return]    ${compute_conn_id}
+
+Get OdlNode Connection
+    ${odl_conn_id}=    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=30s
+    Source Password    force=yes
+    [Return]    ${odl_conn_id}
