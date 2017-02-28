@@ -1,6 +1,7 @@
 data_models = [
         'config/elan:elan-instances',
         'config/elan:elan-interfaces',
+        'config/ietf-access-control-list:access-lists',
         'config/ietf-interfaces:interfaces',
         'config/interface-service-bindings:service-bindings',
         'config/itm-state:dpn-endpoints',
