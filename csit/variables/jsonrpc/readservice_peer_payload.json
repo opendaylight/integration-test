@@ -1,14 +1,14 @@
 {
-	"configured-endpoints": {
-		"name": "$endpoint",
-		"modules": ["$target_module"],
-		"data-config-endpoints": [{
-			"path": "{}",
-			"endpoint-uri": "zmq://$ctrl_ip:$port"
-		}],
-		"data-operational-endpoints": [{
-			"path": "{}",
-			"endpoint-uri": "zmq://$ctrl_ip:$port"
-		}]
-	}
+ "configured-endpoints": {
+  "name": "$endpoint",
+  "modules": ["$target_module"],
+  "data-config-endpoints": [{
+   "path": "{}",
+   "endpoint-uri": "zmq://$ctrl_ip:$port"
+  }],
+  "data-operational-endpoints": [{
+   "path": "{}",
+   "endpoint-uri": "zmq://$ctrl_ip:$port"
+  }]
+ }
 }
