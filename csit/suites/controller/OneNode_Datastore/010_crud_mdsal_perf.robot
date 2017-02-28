@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test for measuring execution time of MD-SAL DataStore operations.
 ...
-...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
+...               Copyright (c) 2015-2017 Cisco Systems, Inc. and others. All rights reserved.
 ...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -12,11 +12,11 @@ Documentation     Test for measuring execution time of MD-SAL DataStore operatio
 ...               operations on people, car and car-people DataStore test models.
 ...               (see the https://wiki.opendaylight.org/view/MD-SAL_Clustering_Test_Plan)
 ...
-...               Reported bugs:
-...               https://bugs.opendaylight.org/show_bug.cgi?id=4220
+...               TODO: Decide whether keyword names should contain spaces or underscores.
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
@@ -41,7 +41,9 @@ ${TOOL_OPTIONS}    ${EMPTY}
 Add Cars
     [Documentation]    Request to add ${ITEM_COUNT} cars (timeout in ${PROCEDURE_TIMEOUT}).
     Start Tool    ${addcarcmd}    ${TOOL_OPTIONS}
-    Wait Until Tool Finish    ${PROCEDURE_TIMEOUT}
+    ${output}=    Wait Until Tool Finish    ${PROCEDURE_TIMEOUT}
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Not Contain    ${output}    ERROR
 
 Verify Cars
     [Documentation]    Store logs and verify result
@@ -123,8 +125,8 @@ Start_Tool
 
 Wait_Until_Tool_Finish
     [Arguments]    ${timeout}
-    [Documentation]    Wait ${timeout} for the tool exit.
-    BuiltIn.Wait Until Keyword Succeeds    ${timeout}    1s    SSHLibrary.Read Until Prompt
+    [Documentation]    Wait ${timeout} for the tool exit, return the printed output.
+    BuiltIn.Run Keyword And Return    BuiltIn.Wait Until Keyword Succeeds    ${timeout}    1s    SSHLibrary.Read Until Prompt
 
 Purchase Is Completed
     [Arguments]    ${item_count}

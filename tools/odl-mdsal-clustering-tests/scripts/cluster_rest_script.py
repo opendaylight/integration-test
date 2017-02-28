@@ -208,7 +208,7 @@ def _request_sender(thread_id, preparing_function, auth, in_queue=None,
         req = preparing_function(odl_ip, port, item_list, auth)
         prep = req.prepare()
         try:
-            rsp = ses.send(prep, timeout=60)
+            rsp = ses.send(prep, timeout=600)
         except requests.exceptions.Timeout:
             counter[99] += 1
             logger.error("No response from %s", odl_ip)
