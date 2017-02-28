@@ -51,49 +51,11 @@ Verify Cars
     ${count}=    XML.Get Element Count    ${rsp.content}    xpath=car-entry
     Should Be Equal As Numbers    ${count}    ${ITEM_COUNT}
 
-Add People
-    [Documentation]    Request to add ${ITEM_COUNT} people (timeout in ${PROCEDURE_TIMEOUT}).
-    Start Tool    ${addpeoplecmd}    ${TOOL_OPTIONS}
-    Wait Until Tool Finish    ${PROCEDURE_TIMEOUT}
-
-Verify People
-    [Documentation]    Store logs and verify result
-    Stop Tool
-    Store File To Workspace    cluster_rest_script.log    cluster_rest_script_add_people.log
-    ${rsp}=    RequestsLibrary.Get Request    session    ${peopleurl}    headers=${ACCEPT_XML}
-    ${count}=    XML.Get Element Count    ${rsp.content}    xpath=person
-    Should Be Equal As Numbers    ${count}    ${ITEM_COUNT}
-
-Purchase Cars
-    [Documentation]    Request to purchase ${ITEM_COUNT} cars (timeout in ${PROCEDURE_TIMEOUT}).
-    Start Tool    ${purchasecmd}    ${TOOL_OPTIONS}
-    Wait Until Tool Finish    ${PROCEDURE_TIMEOUT}
-
-Verify Purchases
-    [Documentation]    Store logs and verify result
-    Stop Tool
-    Store File To Workspace    cluster_rest_script.log    cluster_rest_script_purchase_cars.log
-    Wait Until Keyword Succeeds    ${PROCEDURE_TIMEOUT}    1    Purchase Is Completed    ${ITEM_COUNT}
-
 Delete Cars
     [Documentation]    Remove cars from the datastore
     ${rsp}=    RequestsLibrary.Delete Request    session    ${carurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    session    ${carurl}
-    Should Be Equal As Numbers    404    ${rsp.status_code}
-
-Delete People
-    [Documentation]    Remove people from the datastore
-    ${rsp}=    RequestsLibrary.Delete Request    session    ${peopleurl}
-    Should Be Equal As Numbers    200    ${rsp.status_code}
-    ${rsp}=    RequestsLibrary.Get Request    session    ${peopleurl}
-    Should Be Equal As Numbers    404    ${rsp.status_code}
-
-Delete CarPeople
-    [Documentation]    Remove car-people entries from the datastore
-    ${rsp}=    RequestsLibrary.Delete Request    session    ${carpeopleurl}
-    Should Be Equal As Numbers    200    ${rsp.status_code}
-    ${rsp}=    RequestsLibrary.Get Request    session    ${carpeopleurl}
     Should Be Equal As Numbers    404    ${rsp.status_code}
 
 *** Keywords ***
