@@ -12,3 +12,6 @@ ${DEFAULT_ENDPOINT}    foo
 ${DEFAULT_PORT}    4444
 ${DEFAULT_PUT_MODULE}    ietf-interfaces
 ${FIRST_CONTROLLER_INDEX}    1
+${CENTOS_PIP}     sudo yum -y install python-pip
+${UB_PIP}         sudo apt-get install -y python-pip
+${READ_SERVICE_SCRIPT}    ${CURDIR}/odl-jsonrpc-test-read
