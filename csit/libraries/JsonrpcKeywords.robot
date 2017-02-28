@@ -11,13 +11,23 @@ Resource          Utils.robot
 *** Keywords ***
 Run Read Service Python Script
     [Documentation]    This keyword starts the read service on jsonrpc
+    ${pip_cmd1}    Builtin.Set Variable    sudo yum -y install python-pip
+    ${rc}    ${Op}    OperatingSystem.Run And Return Rc And Output    ${pip_cmd1}
+    Log    ${Op}
+    ${pip_cmd2}    Builtin.Set Variable    sudo pip install --upgrade pip
+    ${rc}    ${Op}    OperatingSystem.Run And Return Rc And Output    ${pip_cmd2}
+    Log    ${Op}
+    ${pip_cmd3}    Builtin.Set Variable    sudo pip install zmq pyzmq
+    ${rc}    ${Op}    OperatingSystem.Run And Return Rc And Output    ${pip_cmd3}
+    Log    ${Op}
+    Should Be Equal As Integers    ${rc}    0
     ${module}    OperatingSystem.Get File    ${INTERFACES_MODULE_JSON}
     ${data}    OperatingSystem.Get File    ${INTERFACES_DATA_JSON}
-    ${cmd}   Builtin.Set Variable    nohup sudo python ${CURDIR}/../variables/jsonrpc/odl-jsonrpc-test-read tcp://0.0.0.0:$${DEFAULT_PORT} 0 ${DEFAULT_ENDPOINT} '${module}' '${data}' &
+    ${cmd}    Builtin.Set Variable    nohup python ${CURDIR}/../variables/jsonrpc/odl-jsonrpc-test-read tcp://0.0.0.0:${DEFAULT_PORT} 'config' ${DEFAULT_ENDPOINT} '${module}' '${data}' &
     Log    ${cmd}
-    ${rc}    ${Op}   OperatingSystem.Run And Return Rc And Output   ${cmd}
+    ${rc}    ${Op}    OperatingSystem.Run And Return Rc And Output    ${cmd}
     Log    ${Op}
-    Should Be Equal As Integers	    ${rc}    0
+    Should Be Equal As Integers    ${rc}    0
 
 Mount Read Service Endpoint
     [Arguments]    ${controller_index}=${FIRST_CONTROLLER_INDEX}    ${file}=${READ_SERVICE_PEER_PAYLOAD}    ${endpoint}=${DEFAULT_ENDPOINT}    ${target_module}=${DEFAULT_PUT_MODULE}    ${port}=${DEFAULT_PORT}
@@ -25,7 +35,7 @@ Mount Read Service Endpoint
     #${ctrl_ip}    ClusterManagement.Resolve IP Address For Member    ${controller_index}
     ${JSON1}    OperatingSystem.Get File    ${file}
     ${JSON2}    Builtin.Replace Variables    ${JSON1}
-    Log     ${JSON2}
+    Log    ${JSON2}
     ${response_json}    ClusterManagement.Put_As_Json_To_Member    ${READ_SERVICE_PEER_PUT_URL}${endpoint}    ${JSON2}    ${controller_index}
     Builtin.Log    ${response_json}
 
