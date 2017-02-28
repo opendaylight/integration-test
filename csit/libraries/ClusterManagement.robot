@@ -140,6 +140,21 @@ Get_Raft_State_Of_Shard_At_Member
     ${raft_state} =    Collections.Get_From_Dictionary    ${value}    RaftState
     [Return]    ${raft_state}
 
+Get_Current_Term_Of_Shard_At_Member
+    [Arguments]    ${shard_name}    ${shard_type}    ${member_index}    ${verify_restconf}=False
+    [Documentation]    Send request to Jolokia on indexed member, return extracted Current Term Value.
+    ...    Optionally, check restconf works.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    # TODO: Does the used URI tend to generate large data which floods log.html?
+    BuiltIn.Run_Keyword_If    ${verify_restconf}    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False
+    ${type_class} =    Resolve_Shard_Type_Class    shard_type=${shard_type}
+    ${uri} =    BuiltIn.Set_Variable    ${JOLOKIA_READ_URI}:Category=Shards,name=member-${member_index}-shard-${shard_name}-${shard_type},type=${type_class}
+    ${data_text} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${uri}    session=${session}
+    ${data_object} =    RequestsLibrary.To_Json    ${data_text}
+    ${value} =    Collections.Get_From_Dictionary    ${data_object}    value
+    ${current_term}=    Collections.Get_From_Dictionary    ${value}    CurrentTerm
+    [Return]    ${current_term}
+
 Verify_Shard_Leader_Elected
     [Arguments]    ${shard_name}    ${shard_type}    ${new_elected}    ${old_leader}    ${member_index_list}=${EMPTY}
     [Documentation]    Verify new leader was elected or remained the same. Bool paramter ${new_elected} indicates if

@@ -1,4 +1,5 @@
 # Place the suites in run order:
-integration/test/csit/suites/vtn/VTN_Mgr_OF10
-integration/test/csit/suites/vtn/VTN_Mgr_OF13
+integration/test/csit/suites/openflowplugin/Robustness_OF18/010__Cluster_OF_18_Term_Verification_3Node_Cluster.robot
+#integration/test/csit/suites/vtn/VTN_Mgr_OF10
+#integration/test/csit/suites/vtn/VTN_Mgr_OF13
 
