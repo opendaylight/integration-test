@@ -44,7 +44,7 @@ Start Suite
     Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     ${output_2}    Execute Command    sudo ovs-vsctl show
     Log    ${output_2}
-    Create File    ${CURDIR}/rest.txt   "Some text"
+    Create File    ${CURDIR}/rest.txt    "Some text"
 
 Stop Suite
     Log    Stop the tests
