@@ -2,3 +2,4 @@
 integration/test/csit/scripts/set_sg_mode.sh
 integration/test/csit/scripts/set_federation_rabbit.sh
 integration/test/csit/scripts/set_log_counters.sh
+integration/test/csit/scripts/configure_logging_levels.sh log4j.logger.org.opendaylight.openflowjava.protocol.impl.util ERROR
