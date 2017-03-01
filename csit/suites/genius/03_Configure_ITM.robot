@@ -57,7 +57,8 @@ Create and Verify VTEP -No Vlan
     ${port-num-2}    Get From List    ${return}    3
     Log    >>>>>Verify Oper data base of Interface state<<<<<
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/
-    Log    ${resp.content}
+    ${respjson}    Format Rest Log    ${resp.content}
+    Log    ${respjson}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
     Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
@@ -68,9 +69,10 @@ Create and Verify VTEP -No Vlan
     ${check-4}    Wait Until Keyword Succeeds    40    10    Check Table0 Entry for 2 Dpn    ${conn_id_2}    ${Bridge-2}
     ...    ${port-num-2}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
+    ${respjson}    Format Rest Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${lower-layer-if-1}    ${lower-layer-if-2}
-    Log    ${resp.content}
+    Log    ${respjson}
 
 Delete and Verify VTEP -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
@@ -116,7 +118,8 @@ Create and Verify VTEP-Vlan
     ${port-num-2}    Get From List    ${return}    3
     Log    >>>>>Verify Oper data base of Interface state<<<<<
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/
-    Log    ${resp.content}
+    ${respjson}    Format Rest Log    ${resp.content}
+    Log    ${respjson}
     Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-3}
     Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-4}
     Log    >>>>> Checking Entry in table 0 on OVS 1<<<<<
@@ -124,7 +127,8 @@ Create and Verify VTEP-Vlan
     Log    >>>>> Checking Entry in table 0 on OVS \ 2<<<<<
     Wait Until Keyword Succeeds    40    10    Check Table0 Entry for 2 Dpn    ${conn_id_2}    ${Bridge-2}    ${port-num-2}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
-    Log    ${resp.content}
+    ${respjson}    Format Rest Log    ${resp.content}
+    Log    ${respjson}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${lower-layer-if-2}    ${lower-layer-if-1}
 
@@ -174,7 +178,8 @@ Create VTEP - Vlan and Gateway
     ${lower-layer-if-2}    Get from List    ${return}    2
     ${port-num-2}    Get From List    ${return}    3
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/
-    Log    ${resp.content}
+    ${respjson}    Format Rest Log    ${resp.content}
+    Log    ${respjson}
     Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-5}
     Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-6}
     ${check-3}    Wait Until Keyword Succeeds    40    10    Check Table0 Entry for 2 Dpn    ${conn_id_1}    ${Bridge-1}
@@ -184,6 +189,7 @@ Create VTEP - Vlan and Gateway
     ...    ${port-num-2}
     Log    ${check-4}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
+    ${respjson}    Format Rest Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${lower-layer-if-2}    ${lower-layer-if-1}
     Log    ${resp.content}
@@ -207,7 +213,8 @@ Create Vteps
     ${gateway-ip}=    Set Variable    ${gateway-ip}
     ${body}    set json    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}    ${subnet}
     ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/itm:transport-zones/    data=${body}
-    Log    ${resp.content}
+    ${respjson}    Format Rest Log    ${resp.content}
+    Log    ${respjson}
     Log    ${resp.status_code}
     should be equal as strings    ${resp.status_code}    204
 
@@ -228,8 +235,9 @@ Get Tunnel
     [Arguments]    ${src}    ${dst}    ${type}
     [Documentation]    This Keyword Gets the Tunnel /Interface name which has been created between 2 DPNS by passing source , destination DPN Ids along with the type of tunnel which is configured.
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
+    ${respjson}    Format Rest Log    ${resp.content}
+    Log    ${respjson}
     Log    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/
-    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${src}    ${dst}    TUNNEL:
     ${json}=    evaluate    json.loads('''${resp.content}''')    json
@@ -296,7 +304,8 @@ Validate interface state Delete
     [Documentation]    Check for the Tunnel / Interface absence in OPERATIONAL data base of IETF interface after ITM transport zone is deleted.
     Log    ${tunnel}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
-    Log    ${resp.content}
+    ${respjson}    Format Rest Log    ${resp.content}
+    Log    ${respjson}
     Should Be Equal As Strings    ${resp.status_code}    404
     Should not contain    ${resp.content}    ${tunnel}
 
@@ -329,8 +338,9 @@ check interface status
     [Arguments]    ${tunnel}    ${dpid}
     [Documentation]    Verifies the operational state of the interface .
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
+    ${respjson}    Format Rest Log    ${resp.content}
+    Log    ${respjson}
     Log    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
-    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should not contain    ${resp.content}    down
     Should Contain    ${resp.content}    ${tunnel}    up    up
@@ -366,3 +376,13 @@ Verify Data Base after Delete
     Wait Until Keyword Succeeds    40    10    Get Network Topology without Tunnel    ${url-2}    ${tunnel-1}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Validate interface state Delete    ${tunnel-1}
     Wait Until Keyword Succeeds    40    10    Validate interface state Delete    ${tunnel-2}
+
+Format Rest Log
+    [Arguments]    ${resp}
+    Remove File    ${CURDIR}/rest.txt
+    Create File    ${CURDIR}/rest.txt    ${resp}
+    ${output}    Run And Return Rc    cat ${CURDIR}/rest.txt | python -m json.tool >> ${CURDIR}/rest2.txt
+    ${output}    OperatingSystem.Get File    ${CURDIR}/rest2.txt
+    Log    ${output}
+    Remove File    ${CURDIR}/rest2.txt
+    [Return]    ${output}
