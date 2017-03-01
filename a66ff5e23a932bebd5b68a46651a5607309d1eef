@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_d39dd10b",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-01T16:40:41Z",
+      "side": 1,
+      "message": "I think using JSON data would take less space. Have you tried jsonpointer [0]?\n\n[0] https://pypi.python.org/pypi/jsonpointer",
+      "range": {
+        "startLine": 54,
+        "startChar": 43,
+        "endLine": 54,
+        "endChar": 46
+      },
+      "revId": "a66ff5e23a932bebd5b68a46651a5607309d1eef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_739ce50f",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-01T16:40:41Z",
+      "side": 1,
+      "message": "Is there \"output\" element as well?",
+      "range": {
+        "startLine": 56,
+        "startChar": 55,
+        "endLine": 56,
+        "endChar": 69
+      },
+      "revId": "a66ff5e23a932bebd5b68a46651a5607309d1eef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9314e9a0",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-01T16:40:41Z",
+      "side": 1,
+      "message": "finish the sentence.",
+      "range": {
+        "startLine": 57,
+        "startChar": 23,
+        "endLine": 57,
+        "endChar": 24
+      },
+      "revId": "a66ff5e23a932bebd5b68a46651a5607309d1eef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_531e01bc",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-01T16:40:41Z",
+      "side": 1,
+      "message": "This is strictly weaker than line 62. Are we sure members were notified about the rejoin (to allow some Bug to become visible)?\n\nPerhaps WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout would be more useful than a single check, given that we may want to move code from Invoke_Rpc_On_Each_Node into a keyword anyway.",
+      "range": {
+        "startLine": 76,
+        "startChar": 36,
+        "endLine": 76,
+        "endChar": 61
+      },
+      "revId": "a66ff5e23a932bebd5b68a46651a5607309d1eef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_136f592c",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_precedence.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-01T16:40:41Z",
+      "side": 1,
+      "message": "Prepare the lists in a Setup keyword (probably by removing the one index from the list of all indices).",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 9
+      },
+      "revId": "a66ff5e23a932bebd5b68a46651a5607309d1eef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
