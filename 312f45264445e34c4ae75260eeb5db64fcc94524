@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_f57a8075",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-01T06:52:52Z",
+      "side": 1,
+      "message": "to use robot syntax, instead of # here, use three dots \"...\" then four spaces. That will let robot see all the lines as \ntrue robot documentation. it will be parsed by our html\ntool to show up properly on readthedocs.\n\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/\n\nyou\u0027ll see examples everywhere in case my explanation was\nconfusing",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 83
+      },
+      "revId": "312f45264445e34c4ae75260eeb5db64fcc94524",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_75e5f036",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-01T06:52:52Z",
+      "side": 1,
+      "message": "are these comments relevant?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 43
+      },
+      "revId": "312f45264445e34c4ae75260eeb5db64fcc94524",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b5d2b859",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-01T06:52:52Z",
+      "side": 1,
+      "message": "seems this keyword is doing a lot more than closing DLUX, right? is this more of a total test env cleanup?",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 10
+      },
+      "revId": "312f45264445e34c4ae75260eeb5db64fcc94524",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f5c8c0a9",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-01T06:52:52Z",
+      "side": 1,
+      "message": "doesn\u0027t seem these comments belong here.",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 84
+      },
+      "revId": "312f45264445e34c4ae75260eeb5db64fcc94524",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d5449c1c",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-01T06:52:52Z",
+      "side": 1,
+      "message": "I\u0027m confused between \"Log In To DLUX\" and \"Login DLUX\" \nkeywords. what\u0027s their difference? need both?",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 14
+      },
+      "revId": "312f45264445e34c4ae75260eeb5db64fcc94524",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_953e948a",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-01T06:52:52Z",
+      "side": 1,
+      "message": "can we find a way to make these work without Sleep?\n\nI know it can be harder when dealing with GUI testing, but we request that sleeps are avoided whenever possible.",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 14
+      },
+      "revId": "312f45264445e34c4ae75260eeb5db64fcc94524",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9565f4b6",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-01T06:52:52Z",
+      "side": 1,
+      "message": "selenium itself has this kind of polling mechanism. it \nmight be better for some reason? just putting it out there:\n\nhttp://robotframework.org/Selenium2Library/Selenium2Library.html#Wait%20Until%20Page%20Contains%20Element",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 124
+      },
+      "revId": "312f45264445e34c4ae75260eeb5db64fcc94524",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d55bfcf3",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-01T06:52:52Z",
+      "side": 1,
+      "message": "can you please use Variables.robot\n\n.py is in the process of being deprecated we hope.",
+      "range": {
+        "startLine": 8,
+        "startChar": 18,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "312f45264445e34c4ae75260eeb5db64fcc94524",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_15710476",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-01T06:52:52Z",
+      "side": 1,
+      "message": "please add [Documentation] to all of these keywords",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 16
+      },
+      "revId": "312f45264445e34c4ae75260eeb5db64fcc94524",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
