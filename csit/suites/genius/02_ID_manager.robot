@@ -43,7 +43,8 @@ Neg_Allocate ids of size 10 from the same pool
     ${body}    Replace String    ${body}    test-key    ${test_keys[1]}
     log    ${body}
     ${resp}    RequestsLibrary.Post Request    session    ${OPERATIONS_API}/id-manager:allocateIdRange    data=${body}
-    Log    ${resp.content}
+    ${respjson}    Format Rest Log    ${resp.content}
+    log    ${respjson}
     should be equal as strings    ${resp.status_code}    500
 
 Allocate IDs of size 3 from the pool
@@ -54,7 +55,8 @@ Allocate IDs of size 3 from the pool
     log    ${body}
     Post Elements To URI    ${OPERATIONS_API}/id-manager:allocateIdRange    ${body}
     ${get_resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/
-    Log    ${get_resp.content}
+    ${respjson}    Format Rest Log    ${get_resp.content}
+    log    ${respjson}
     Should Contain    ${get_resp.content}    17
     Should Be Equal As Strings    ${get_resp.status_code}    200
 
@@ -65,12 +67,14 @@ Release a block of IDs allocated using releaseIds RPC
     ${body}    replace string    ${body}    test-key    ${test_keys[2]}
     Post Elements To URI    ${OPERATIONS_API}/id-manager:releaseId    ${body}
     ${get_resp2}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/
-    Log    ${get_resp2.content}
+    ${respjson}    Format Rest Log    ${get_resp2.content}
+    Log    ${respjson}
     Should Be Equal As Strings    ${get_resp2.status_code}    200
     ${child-pool-name}    Should Match Regexp    ${get_resp2.content}    ${pool-name}\.[0-9]+
     log    ${child-pool-name}
     ${get_releasedIds}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${child-pool-name}/released-ids-holder/
-    log    ${get_releasedIds.content}
+    ${respjson}    Format Rest Log    ${get_releasedIds.content}
+    log    ${respjson}
     Should Be Equal As Strings    ${get_releasedIds.status_code}    200
     @{released_ids}    re.findall    <id>[0-9]+    ${get_releasedIds.content}
     log    ${released_ids}
@@ -87,6 +91,17 @@ Delete the ID Pool using deleteIdPool RPC
 get Id pool
     [Documentation]    This keyword checks the created ID pool by doing GET.
     ${get_resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/
-    Log    ${get_resp.content}
+    ${respjson}    Format Rest Log    ${get_resp.content}
+    log    ${respjson}
     Should Contain    ${get_resp.content}    14
     Should Be Equal As Strings    ${get_resp.status_code}    200
+
+Format Rest Log
+    [Arguments]    ${resp}
+    Remove File    ${CURDIR}/rest.txt
+    Create File    ${CURDIR}/rest.txt    ${resp}
+    ${output}    Run And Return Rc    cat ${CURDIR}/rest.txt | python -m json.tool >> ${CURDIR}/rest2.txt
+    ${output}    OperatingSystem.Get File    ${CURDIR}/rest2.txt
+    Log    ${output}
+    Remove File    ${CURDIR}/rest2.txt
+    [Return]    ${output}

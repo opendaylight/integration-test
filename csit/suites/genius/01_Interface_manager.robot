@@ -52,7 +52,8 @@ Create l2vlan Trunk member interface
     Log    >>>> Getting file for posting json <<<<<<<
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/l2vlan_member.json
     ${post_resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/    data=${body}
-    Log    ${post_resp.content}
+    ${respjson}    Format Rest Log    ${post_resp.content}
+    Log    ${respjson}
     Log    ${post_resp.status_code}
     Should Be Equal As Strings    ${post_resp.status_code}    204
     Log    >>>> Get interface config <<<<<
@@ -72,7 +73,8 @@ Bind service on Interface
     log    ${body}
     ${service_mode}    Set Variable    interface-service-bindings:service-mode-ingress
     ${post_resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/interface-service-bindings:service-bindings/services-info/${interface_name}/${service_mode}/    data=${body}
-    log    ${post_resp.content}
+    ${respjson}    Format Rest Log    ${post_resp.content}
+    log    ${respjson}
     log    ${post_resp.status_code}
     Should Be Equal As Strings    ${post_resp.status_code}    204
     Log    >>>>> Verifying Binded interface <<<<<
@@ -110,7 +112,8 @@ get operational interface
     [Arguments]    ${interface_name}
     [Documentation]    checks operational status of the interface.
     ${get_oper_resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${interface_name}/
-    log    ${get_oper_resp.content}
+    ${respjson}    Format Rest Log    ${get_oper_resp.content}
+    log    ${respjson}
     log    ${get_oper_resp.status_code}
     Should Be Equal As Strings    ${get_oper_resp.status_code}    200
     Should not contain    ${get_oper_resp.content}    down
@@ -172,6 +175,17 @@ Create Interface
     log    "l2vlan-mode":"${interface_mode}"
     log    ${body}
     ${post_resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/    data=${body}
-    Log    ${post_resp.content}
+    ${respjson}    Format Rest Log    ${post_resp.content}
+    Log    ${respjson}
     Log    ${post_resp.status_code}
     Should Be Equal As Strings    ${post_resp.status_code}    204
+
+Format Rest Log
+    [Arguments]    ${resp}
+    Remove File    ${CURDIR}/rest.txt
+    Create File    ${CURDIR}/rest.txt    ${resp}
+    ${output}    Run And Return Rc    cat ${CURDIR}/rest.txt | python -m json.tool >> ${CURDIR}/rest2.txt
+    ${output}    OperatingSystem.Get File    ${CURDIR}/rest2.txt
+    Log    ${output}
+    Remove File    ${CURDIR}/rest2.txt
+    [Return]    ${output}

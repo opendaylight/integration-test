@@ -14,7 +14,7 @@ Resource          ../../libraries/KarafKeywords.robot
 
 *** Keywords ***
 Start Suite
-    [Documentation]    Test suit for vpn service using mininet OF13 and OVS 2.3.1
+    [Documentation]    Test suite for vpn service using mininet OF13 and OVS 2.3.1
     Log    Start the tests
     ${conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${conn_id_1}
@@ -44,6 +44,7 @@ Start Suite
     Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     ${output_2}    Execute Command    sudo ovs-vsctl show
     Log    ${output_2}
+    Create File    ${CURDIR}/rest.txt    "Some text just to create a file"
 
 Stop Suite
     Log    Stop the tests
