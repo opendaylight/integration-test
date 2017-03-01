@@ -50,7 +50,9 @@ Isolate_Original_Car_Leader
 
 Wait_For_New_Leader
     [Documentation]    Wait until new car Leader is elected.
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    CarPeople.Set_Tmp_Variables_For_Shard_For_Nodes    member_index_list=${car_follower_indices}    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${SHARD_NAME}    ${SHARD_TYPE}    ${True}
+    ...    ${car_leader_index}    member_index_list=${car_follower_indices}
+    CarPeople.Set_Tmp_Variables_For_Shard_For_Nodes    member_index_list=${car_follower_indices}    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}
 
 See_Original_Cars_On_New_Leader
     [Documentation]    GET cars from new Leader, should be the initial ones.

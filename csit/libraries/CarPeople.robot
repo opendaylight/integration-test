@@ -79,3 +79,4 @@ Set_Tmp_Variables_For_Shard_For_Nodes
     BuiltIn.Set_Suite_Variable    \${new_follower_sessions}    ${sessions}
     ${first_follower_session} =    Collections.Get_From_List    ${sessions}    0
     BuiltIn.Set_Suite_Variable    \${new_first_follower_session}    ${first_follower_session}
+    BuiltIn.Return_From_Keyword    ${leader}    ${follower_list}
