@@ -14,6 +14,6 @@ integration/test/csit/suites/openflowplugin/Switch_Qualification
 integration/test/csit/suites/openflowplugin/Flows_Additional_TCs/Stat_Manager_extended
 # BGPCEP functional tests:
 integration/test/csit/suites/bgpcep/pcepuser
-integration/test/csit/suites/bgpcep/bgpuser
+# TODO: Add a BGP suite when it works withot odl-netconf-connector*
 # NETCONF CRUD
 integration/test/csit/suites/netconf/CRUD/CRUD.robot
