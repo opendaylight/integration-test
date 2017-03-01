@@ -145,57 +145,53 @@ TC03 Verify that the monitoring interval value boundaries with Monitoring Enable
     Log    ${resp.content}
     Should Contain    ${resp.content}    ${TMI_1000}
 
-TC04 Verify that the tunnel monitoring protocol can be configured to LLDP
-    [Documentation]    Verify that the tunnel monitoring protocol can be configured to LLDP
-    ${output} =    ITM Get Tunnels
-    Log    ${output}
-    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
-    Log    Disabling the tunnel monitoring from REST in order to change the protocol
-    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disable_tunnel_monitoring    session=session
-    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${BFD}
-    Log    Changing the tunnel monitoring to LLDP and verify
-    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disablemonitor_lldp    session=session
-    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${LLDP}
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
-    Log    ${output}
-    Should Contain    ${output}    ${TUNNEL_MONITOR_OFF}
-    Log    Enabling tunnel monitoring
-    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/enablemonitor_lldp    session=session
-    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_TRUE}    ${LLDP}
-    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
-    Wait Until Keyword Succeeds    30s    5s    Verify Ping
-    Log    Verifying the monitoring interval
-    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
-    Should Contain    ${resp.content}    ${TMI_1000}
-    Log    Changing the tunnel monitoring interval
-    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_interval    mapping={"int":"20000"}    session=session
-    Log    Verifying the monitoring interval got changed
-    ${resp}    RequestsLibrary.Get Request    session    ${MONITOR_INTERVAL_URL}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
-    Should Contain    ${resp.content}    ${TMI_20000}
-    Log    Changing the tunnel monitoring back to bfd and verify
-    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disablemonitor_lldp    session=session
-    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${LLDP}
-    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disable_tunnel_monitoring    session=session
-    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${BFD}
-    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/enable_tunnel_monitoring    session=session
-    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_TRUE}    ${BFD}
-    Wait Until Keyword Succeeds    90s    5s    Verify Tunnel Status as UP
-    Wait Until Keyword Succeeds    60s    5s    Verify Ping
-
+#TC04 Verify that the tunnel monitoring protocol can be configured to LLDP
+#    [Documentation]    Verify that the tunnel monitoring protocol can be configured to LLDP
+#    ${output} =    ITM Get Tunnels
+#    Log    ${output}
+#    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+#    Log    Disabling the tunnel monitoring from REST in order to change the protocol
+#    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disable_tunnel_monitoring    session=session
+#    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${BFD}
+#    Log    Changing the tunnel monitoring to LLDP and verify
+#    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disablemonitor_lldp    session=session
+#    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${LLDP}
+#    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
+#    Log    ${output}
+#    Should Contain    ${output}    ${TUNNEL_MONITOR_OFF}
+#    Log    Enabling tunnel monitoring
+#    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/enablemonitor_lldp    session=session
+#    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_TRUE}    ${LLDP}
+#    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+#    Wait Until Keyword Succeeds    30s    5s    Verify Ping
+#    Log    Verifying the monitoring interval
+#    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring Interval    ${TMI_1000}
+#    Log    Changing the tunnel monitoring interval
+#    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_interval    mapping={"int":"20000"}    session=session
+#    Log    Verifying the monitoring interval got changed
+#    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring Interval    ${TMI_20000}
+#    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/monitor_interval    mapping={"int":"1000"}    session=session
+#    Wait Until Keyword Succeeds    10s    1s    Check Tunnel Monitoring Interval    ${TMI_1000}
+#    Log    Changing the tunnel monitoring back to bfd and verify
+#    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disablemonitor_lldp    session=session
+#    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${LLDP}
+#    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/disable_tunnel_monitoring    session=session
+#    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_FALSE}    ${BFD}
+#    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/enable_tunnel_monitoring    session=session
+#    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Monitoring    ${BFD_ENABLED_TRUE}    ${BFD}
+#    Wait Until Keyword Succeeds    600s    20s    Verify Tunnel Status as UP
+#    Wait Until Keyword Succeeds    60s    5s    Verify Ping
+#
 TC05 Disconnect And Reconnect Compute Nodes
     [Documentation]    Verify that when compute nodes are disconnected from controller tunnel goes to unknown state.
     ${output} =    ITM Get Tunnels
     Log    ${output}
-    Wait Until Keyword Succeeds    90s    5s    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    400s    20s    Verify Tunnel Status as UP
     Log    Disconnect Compute Nodes
     Disconnect Compute Nodes    ${OS_COMPUTE_1_IP}    ${ODL_SYSTEM_IP}
     Disconnect Compute Nodes    ${OS_COMPUTE_2_IP}    ${ODL_SYSTEM_IP}
     Disconnect Compute Nodes    ${OS_CONTROL_NODE_IP}    ${ODL_SYSTEM_IP}
-    Wait Until Keyword Succeeds    120s    5s    Verify Tunnel Status as UNKNOWN
+    Wait Until Keyword Succeeds    200s    10s    Verify Tunnel Status as UNKNOWN
     Wait Until Keyword Succeeds    60s    5s    Verify Ping
     Log    Reconect Compute Nodes
     Reconnect Compute Nodes    ${OS_COMPUTE_1_IP}    ${ODL_SYSTEM_IP}
