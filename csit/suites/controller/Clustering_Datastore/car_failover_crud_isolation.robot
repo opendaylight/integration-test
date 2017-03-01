@@ -50,7 +50,7 @@ Isolate_Original_Car_Leader
 
 Wait_For_New_Leader
     [Documentation]    Wait until new car Leader is elected.
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    CarPeople.Set_Tmp_Variables_For_Shard_For_Nodes    member_index_list=${car_follower_indices}    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    Verify_New_Car_Leader_Elected
 
 See_Original_Cars_On_New_Leader
     [Documentation]    GET cars from new Leader, should be the initial ones.
@@ -113,3 +113,8 @@ Setup
     [Documentation]    Initialize resources, memorize car shard leader and followers.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     CarPeople.Set_Variables_For_Shard    shard_name=car
+
+Verify_New_Car_Leader_Elected
+    [Documentation]    Verify if new leader is elected
+    ${leader}    ${followers} =    CarPeople.Set_Tmp_Variables_For_Shard_For_Nodes    member_index_list=${car_follower_indices}    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}
+    BuiltIn.Should_Not_Be_Equal    ${car_leader_index}    ${leader}
