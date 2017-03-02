@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_c0c32a36",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-03-02T12:57:19Z",
+      "side": 1,
+      "message": "I dont think that saving few lines in the whole file will that much improve library readability. There will be always the way text -\u003e xml/json -\u003e extracting value.\nAnd i prefer not to mix json and xml in the library and leave xml.",
+      "parentUuid": "fafc7978_d39dd10b",
+      "range": {
+        "startLine": 54,
+        "startChar": 43,
+        "endLine": 54,
+        "endChar": 46
+      },
+      "revId": "a66ff5e23a932bebd5b68a46651a5607309d1eef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_739ce50f",
         "filename": "csit/libraries/MdsalLowlevel.robot",
         "patchSetId": 24
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-01T16:40:41Z",
       "side": 1,
       "message": "Is there \"output\" element as well?",
+      "range": {
+        "startLine": 56,
+        "startChar": 55,
+        "endLine": 56,
+        "endChar": 69
+      },
+      "revId": "a66ff5e23a932bebd5b68a46651a5607309d1eef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_40829a00",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-03-02T12:57:19Z",
+      "side": 1,
+      "message": "Yes, but root\u003doutput so xpath should be specified like this to get the needed value",
+      "parentUuid": "fafc7978_739ce50f",
       "range": {
         "startLine": 56,
         "startChar": 55,
