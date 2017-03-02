@@ -112,6 +112,60 @@ List Nova VMs
     Log    ${output}
     [Return]    ${output}
 
+Create Floating IP
+    [Arguments]    ${external_net}
+    [Documentation]    Create Floating IP and returns ID
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron floatingip-create ${external_net} | grep "| id" | awk '{print $4}'
+    Log    ${output}
+    Should Contain     ${output}    Created a new floatingip
+    #${id}=    ${output} | grep "| id" | awk '{print $4}' 
+    #Log     ${id}
+    Close Connection
+    #[return]     ${id}
+    [return]     ${output}
+
+Associate Floating IP To Port
+    [Arguments]    ${floatin_ip_id}     ${port_id}
+    [Documentation]    Associate Floating IP To Port
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    neutron floatingip-associate ${floatin_ip_id} ${port_id}
+    Log    ${output}
+    Should Contain     ${output}    Associated floating IP
+    Close Connection
+  
+Get Floating IP Address
+    [Arguments]    ${floatin_ip_id}
+    [Documentation]    Get Floating IP
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    neutron floatingip-show ${floatin_ip_id} | grep "| floating_ip_address" | awk '{print $4}'
+    Log    ${output}
+    Close Connection
+    [return]     ${output}
+
+Delete Floating IP
+    [Arguments]    ${id}
+    [Documentation]    Delete Floating IP of the given ID
+     ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    neutron floatingip-delete ${id}
+    Log    ${output}
+    Should Contain     ${output}    Deleted floatingip
+    Close Connection
+
+Dissociate Floating IP
+    [Arguments]    ${floatin_ip_id}     ${port_id}
+    [Documentation]    Dissociate Floating IP
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    neutron floatingip-disassociate ${floatin_ip_id} ${port_id}
+    Log    ${output}
+    Should Contain     ${output}    Disassociated floating IP
+    Close Connection
+
 Create And Associate Floating IPs
     [Arguments]    ${external_net}    @{vm_list}
     [Documentation]    Create and associate floating IPs to VMs with nova request
@@ -473,12 +527,20 @@ Show Router Interface
     [Return]    ${output}
 
 Add Router Gateway
-    [Arguments]    ${router_name}    ${network_name}
+    [Arguments]    ${router_name}    ${network_name}     ${additional_args}=${EMPTY}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v router-gateway-set ${router_name} ${network_name}
+    ${output}=    Write Commands Until Prompt    neutron -v router-gateway-set ${router_name} ${network_name} ${additional_args}
     Close Connection
     Should Contain    ${output}    Set gateway
+
+Delete Router Gateway
+    [Arguments]    ${router_name}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v router-gateway-clear ${router_name}
+    Close Connection
+    Should Contain    ${output}    Removed gateway from router
 
 Remove Interface
     [Arguments]    ${router_name}    ${interface_name}
@@ -499,13 +561,14 @@ Update Router
     Should Contain    ${output}    Updated
 
 Show Router
-    [Arguments]    ${router_name}    ${options}
+    [Arguments]    ${router_name}    ${options}=${EMPTY}
     [Documentation]    Show information of a given router. Router name and optional fields should be sent as arguments.
     ${devstack_conn_id} =    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output} =    Write Commands Until Prompt    neutron router-show ${router_name} ${options}    30s
     Log    ${output}
     Close Connection
+    [Return]     ${output}
 
 Delete Router
     [Arguments]    ${router_name}
