@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_dd3797fd",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/puts_during_isolation.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T10:46:33Z",
+      "side": 1,
+      "message": "Insert 2\u003e\u00261 to tee also stderr.\nhttps://logs.opendaylight.org/sandbox/jenkins091/controller-csit-3node-rest-clust-cars-perf-only-carbon/2/archives/log.html.gz#s1-s2-k2-k1-k2",
+      "range": {
+        "startLine": 110,
+        "startChar": 60,
+        "endLine": 110,
+        "endChar": 61
+      },
+      "revId": "6f8aa780b39c070ce62d664f3f48759e64c51a59",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bd573325",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T10:46:33Z",
+      "side": 1,
+      "message": "Sandbox showed \"99\" which we probably want to retry.\nThere was also 401 (text not logged).\nAs this suite should focus on data consistency, I think it should retry on 401 (and 404). Human would retry.\nStrict checking of http codes should be done in restconf-focused suite.",
+      "range": {
+        "startLine": 590,
+        "startChar": 17,
+        "endLine": 590,
+        "endChar": 20
+      },
+      "revId": "6f8aa780b39c070ce62d664f3f48759e64c51a59",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9d7b4fbd",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T10:46:33Z",
+      "side": 1,
+      "message": "Sandbox showed 2 failures, but only 1 missing car. Possibly \"99\" eventually succeeded, but that was not detected because 15 seconds is too little.",
+      "range": {
+        "startLine": 594,
+        "startChar": 37,
+        "endLine": 594,
+        "endChar": 39
+      },
+      "revId": "6f8aa780b39c070ce62d664f3f48759e64c51a59",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3d6d0305",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T10:46:33Z",
+      "side": 1,
+      "message": "Problems",
+      "range": {
+        "startLine": 599,
+        "startChar": 29,
+        "endLine": 599,
+        "endChar": 36
+      },
+      "revId": "6f8aa780b39c070ce62d664f3f48759e64c51a59",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
