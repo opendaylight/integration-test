@@ -205,25 +205,32 @@ Unsubscribe_Ddtl
     ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
 
 Publish_Notifications
-    [Arguments]    ${member_index}    ${seconds}    ${notif_per_sec}
-    [Documentation]    TODO: more desctiptive comment than: Invoke publish-notifications rpc.
+    [Arguments]    ${member_index}    ${gid}    ${seconds}    ${notif_per_sec}
+    [Documentation]    Start publishing notifications by invoking publish-notifications rpc. This call is blocking
+    ...    and it returns when publishing is over. It suppose to take as long as ${seconds}.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SECONDS=${seconds}    NPS=${notif_per_sec}
+    &{mapping}    BuiltIn.Create_Dictionary    ID=${gid}    DURATION=${seconds}    RATE=${notif_per_sec}
     TemplatedRequests.Post_As_Xml_Templated    ${PUBLISH_NOTIFICATIONS_DIR}    mapping=${mapping}    session=${session}
 
 Subscribe_Ynl
-    [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke subscribe-ynl rpc.
+    [Arguments]    ${member_index}    ${gid}
+    [Documentation]    Subscribe listener for the notifications with identifier ${gid}.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary
+    &{mapping}    BuiltIn.Create_Dictionary    ID=${gid}
     TemplatedRequests.Post_As_Xml_Templated    ${SUBSCRIBE_YNL_DIR}    mapping=${mapping}    session=${session}
 
 Unsubscribe_Ynl
-    [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke unsubscribe-ynl rpc.
+    [Arguments]    ${member_index}    ${gid}
+    [Documentation]    Unsubscribe listener for the ${gid} identifier. Return statistics of the publishing process.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary
+    &{mapping}    BuiltIn.Create_Dictionary    ID=${gid}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_YNL_DIR}    mapping=${mapping}    session=${session}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${all_not} =    XML.Get_Element_Text    ${xml}    xpath=all-not
+    ${id_not} =    XML.Get_Element_Text    ${xml}    xpath=id-not
+    ${err_not} =    XML.Get_Element_Text    ${xml}    xpath=err-not
+    ${local_number} =    XML.Get_Element_Text    ${xml}    xpath=local-number
+    BuiltIn.Return_From_Keyword    ${all_not}    ${id_not}    ${err_not}    ${local_number}
 
 Register_Bound_Constant
     [Arguments]    ${member_index}    ${context}    ${constant}
