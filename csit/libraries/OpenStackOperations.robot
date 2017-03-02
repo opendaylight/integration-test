@@ -114,6 +114,73 @@ List Nova VMs
     Log    ${output}
     [Return]    ${output}
 
+Create Floating IP
+    [Arguments]    ${external_net}
+    [Documentation]    Create Floating IP and returns ID
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron floatingip-create ${external_net} | grep "| id" | awk '{print $4}'
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${id}=    Get from List    ${splitted_output}    0
+    Log    ${id}
+    Should Match Regexp    ${id}    [0-9,a-z]{8}\\-[0-9,a-z]{4}\\-[0-9,a-z]{4}\\-[0-9,a-z]{4}\\-[0-9,a-z]{12}
+    Close Connection
+    [Return]    ${id}
+
+Associate Floating IP To Port
+    [Arguments]    ${floatingip_id}    ${id}
+    [Documentation]    Associate Floating IP To Port
+    Log    ${floatingip_id}
+    Log    ${id}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron floatingip-associate ${floatingip_id} ${id}
+    Log    ${output}
+    Should Contain    ${output}    Associated floating IP
+    Close Connection
+
+Get Floating IP Address
+    [Arguments]    ${floatin_ip_id}
+    [Documentation]    Get Floating IP
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron floatingip-show ${floatin_ip_id} | grep "| floating_ip_address" | awk '{print $4}'
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${ip_add}=    Get from List    ${splitted_output}    0
+    Log    ${ip_add}
+    Should Match Regexp    ${ip_add}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+    Close Connection
+    [Return]    ${ip_add}
+
+Delete Floating IP
+    [Arguments]    ${id}
+    [Documentation]    Delete Floating IP of the given ID
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron floatingip-delete ${id}
+    Log    ${output}
+    Should Contain    ${output}    Deleted floatingip
+    Close Connection
+
+Dissociate Floating IP
+    [Arguments]    ${floatin_ip_id}    ${port_id}
+    [Documentation]    Dissociate Floating IP
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron floatingip-disassociate ${floatin_ip_id} ${port_id}
+    Log    ${output}
+    Should Contain    ${output}    Disassociated floating IP
+    Close Connection
+
+Verify Floating Ip Creation
+    [Arguments]    ${id}    ${net_id}    ${session}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${FLOATING_IP_URL}
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${net_id}
+    Should Contain    ${resp.content}    ${id}
+
 Create And Associate Floating IPs
     [Arguments]    ${external_net}    @{vm_list}
     [Documentation]    Create and associate floating IPs to VMs with nova request
@@ -498,12 +565,32 @@ Show Router Interface
     [Return]    ${output}
 
 Add Router Gateway
-    [Arguments]    ${router_name}    ${network_name}
+    [Arguments]    ${router_name}    ${network_name}    ${additional_args}=${EMPTY}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v router-gateway-set ${router_name} ${network_name}
+    ${output}=    Write Commands Until Prompt    neutron -v router-gateway-set ${router_name} ${network_name} ${additional_args}
     Close Connection
     Should Contain    ${output}    Set gateway
+
+Router Multi Gw Set
+    [Arguments]    ${router_name}    ${network_name}    ${subnet_list}     ${fix_ip_list}     ${additional_args}=${EMPTY}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable    neutron -v router-gateway-set ${router_name} ${network_name}
+    ${length}=    Get Length     ${subnet_list}
+    : For     ${i}    IN RANGE     0      ${length}
+    \      ${cmd}=    Catenate     ${cmd}     --fixed-ip subnet_id=@{subnet_list}[${i}],ip_address=${fix_ip_list[${i}]}
+    ${output}=    Write Commands Until Prompt     ${cmd}
+    Close Connection
+#    Should Contain    ${output}    Set gateway
+
+Delete Router Gateway
+    [Arguments]    ${router_name}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v router-gateway-clear ${router_name}
+    Close Connection
+    Should Contain    ${output}    Removed gateway from router
 
 Remove Interface
     [Arguments]    ${router_name}    ${interface_name}
@@ -524,13 +611,14 @@ Update Router
     Should Contain    ${output}    Updated
 
 Show Router
-    [Arguments]    ${router_name}    ${options}
+    [Arguments]    ${router_name}    ${options}=${EMPTY}
     [Documentation]    Show information of a given router. Router name and optional fields should be sent as arguments.
     ${devstack_conn_id} =    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output} =    Write Commands Until Prompt    neutron router-show ${router_name} ${options}    30s
     Log    ${output}
     Close Connection
+    [Return]    ${output}
 
 Delete Router
     [Arguments]    ${router_name}
