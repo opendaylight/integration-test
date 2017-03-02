@@ -60,6 +60,7 @@ Take Down ODL1
     [Documentation]    Kill the karaf in First Controller
     ${new_cluster_list} =    ClusterManagement.Kill Single Member    1
     Set Suite Variable    ${new_cluster_list}
+    [Teardown]    Get Test Teardown Debugs Allow Model Dump Failures
 
 Create Bridge Manually and Verify After Fail
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -93,6 +94,7 @@ Delete the Bridge Manually and Verify After Recover
 Take Down ODL2
     [Documentation]    Kill the karaf in Second Controller
     ClusterManagement.Kill Single Member    2
+    [Teardown]    Get Test Teardown Debugs Allow Model Dump Failures
 
 Create Vm Instances For l2_net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -167,6 +169,7 @@ Ping Vm Instance3 In l2_net_2
 Take Down ODL3
     [Documentation]    Kill the karaf in Third Controller
     ClusterManagement.Kill Single Member    3
+    [Teardown]    Get Test Teardown Debugs Allow Model Dump Failures
 
 Connectivity Tests From Vm Instance1 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -188,18 +191,22 @@ Bring Up ODL3
 Take Down ODL1 and ODL2
     [Documentation]    Kill the karaf in First and Second Controller
     ClusterManagement.Kill Members From List Or All    ${cluster_down_list}
+    [Teardown]    Get Test Teardown Debugs Allow Model Dump Failures
 
 Connectivity Tests From Vm Instance1 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[0]    ${NET_2_VM_IPS}
+    [Teardown]    Get Test Teardown Debugs Allow Model Dump Failures
 
 Connectivity Tests From Vm Instance2 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[1]    ${NET_2_VM_IPS}
+    [Teardown]    Get Test Teardown Debugs Allow Model Dump Failures
 
 Connectivity Tests From Vm Instance3 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
+    [Teardown]    Get Test Teardown Debugs Allow Model Dump Failures
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again.
