@@ -1,6 +1,4 @@
 <input xmlns="tag:opendaylight.org,2017:controller:yang:lowlevel:control">
   <id>$ID</id>
-  <seconds>$DURATION</seconds>
-  <notifications-per-second>$RATE</notifications-per-second>
 </input>
 
