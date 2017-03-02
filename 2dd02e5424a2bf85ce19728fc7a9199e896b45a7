@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_2e3e67da",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T16:31:24Z",
+      "side": 1,
+      "message": "This value is being overwritten, and the following logic only works because ${non_rpc_member_index} is iterated last.\nIt would be more readable to iterate only over @{INSTALLED_RPC_MEMEBER_IDX}, and handle ${non_rpc_member_index} after the FOR cycle.",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "2dd02e5424a2bf85ce19728fc7a9199e896b45a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ae525732",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T16:31:24Z",
+      "side": 1,
+      "message": "This is ${3}. If you want a nice variable name for that, define it in Variables table.",
+      "range": {
+        "startLine": 44,
+        "startChar": 61,
+        "endLine": 44,
+        "endChar": 69
+      },
+      "revId": "2dd02e5424a2bf85ce19728fc7a9199e896b45a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e9d6194e",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T16:31:24Z",
+      "side": 1,
+      "message": "Call a keyword which also prepares lists for later checks.",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "2dd02e5424a2bf85ce19728fc7a9199e896b45a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6994e98a",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T16:31:24Z",
+      "side": 1,
+      "message": "Use a list prepared in line 46.",
+      "range": {
+        "startLine": 61,
+        "startChar": 43,
+        "endLine": 61,
+        "endChar": 75
+      },
+      "revId": "2dd02e5424a2bf85ce19728fc7a9199e896b45a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4e12cb62",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T16:31:24Z",
+      "side": 1,
+      "message": "Ince again, it would be more readable to iterate only over @{INSTALLED_RPC_MEMEBER_IDX} and then check ${non_rpc_member_index}.",
+      "range": {
+        "startLine": 75,
+        "startChar": 31,
+        "endLine": 75,
+        "endChar": 44
+      },
+      "revId": "2dd02e5424a2bf85ce19728fc7a9199e896b45a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6e0a2f27",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T16:31:24Z",
+      "side": 1,
+      "message": "Add [Documentation] to these 3 keywords.",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 5
+      },
+      "revId": "2dd02e5424a2bf85ce19728fc7a9199e896b45a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2944a119",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T16:31:24Z",
+      "side": 1,
+      "message": "Create a keyword in TemplatedRequests for that, either Post_As_Json_Templated (or *Xml*) with additional argument to override the list of expected status codes, or a separate one. And make MdsalLowlevel.Get_Constant accept the additional argument.\n\nFor example, this implementation does not Log response text, and does not set Accept or Content-Type headers.",
+      "range": {
+        "startLine": 126,
+        "startChar": 21,
+        "endLine": 126,
+        "endChar": 49
+      },
+      "revId": "2dd02e5424a2bf85ce19728fc7a9199e896b45a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_29e021f9",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_precedence.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T16:31:24Z",
+      "side": 1,
+      "message": "Set a suite variable in Setup to save lines 31, 37, 54, 66 and 73.",
+      "range": {
+        "startLine": 31,
+        "startChar": 23,
+        "endLine": 31,
+        "endChar": 70
+      },
+      "revId": "2dd02e5424a2bf85ce19728fc7a9199e896b45a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a917f143",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_precedence.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T16:31:24Z",
+      "side": 1,
+      "message": "ClusterManagement__ suggests this is an internal keyword, and there probably is a nicer keyword to use for what user wants to do.\nIn this case the nice keyword is ClusterManagement.List_Indices_Minus_Member",
+      "range": {
+        "startLine": 82,
+        "startChar": 23,
+        "endLine": 82,
+        "endChar": 70
+      },
+      "revId": "2dd02e5424a2bf85ce19728fc7a9199e896b45a7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
