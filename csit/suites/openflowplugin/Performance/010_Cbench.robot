@@ -64,8 +64,7 @@ Run Cbench And Log Results
     ##down can catch this problem and log the results as zero.    However, we need to know which
     ##file to log to, so setting it as a suite variable here.
     Set Suite Variable    ${output_filename}
-    ${output}=    Run Keyword If    "${cbench_system}" == "localhost"    Run Process    ${cbench_executable}    -c    ${ODL_SYSTEM_IP}
-    ...    ${cbench_args}
+    ${output}=    Run Keyword If    "${cbench_system}" == "localhost"    Run    ${cbench_executable} -c ${ODL_SYSTEM_IP} ${cbench_args}
     ...    ELSE    Run Command On Remote System    ${cbench_system}    ${cbench_executable} -c ${ODL_SYSTEM_IP} ${cbench_args}    prompt_timeout=${test_timeout}
     Log    ${output}
     Should Contain    ${output}    RESULT
@@ -95,7 +94,7 @@ Cbench Suite Setup
     ##Setting the test timeout dynamically in case larger values on command line override default
     ${test_timeout}    Evaluate    (${loops} * ${duration_in_secs}) * 1.5
     Set Suite Variable    ${test_timeout}
-    Run Keyword If    "${cbench_system}" == "localhost"    File Should Exist    ${cbench_executable}
+    Run Keyword If    "${cbench_system}" == "localhost"    OperatingSystem.File Should Exist    ${cbench_executable}
     ...    ELSE    Verify File Exists On Remote System    ${cbench_system}    ${cbench_executable}
     Should Be True    ${loops} >= 2    If number of loops is less than 2, cbench will not run
     Verify Feature Is Installed    odl-openflowplugin-drop-test
