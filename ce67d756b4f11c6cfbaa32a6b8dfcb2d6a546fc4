@@ -22,6 +22,30 @@
       "revId": "ce67d756b4f11c6cfbaa32a6b8dfcb2d6a546fc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c9bd1504",
+        "filename": "csit/suites/openflowplugin/Performance/010_Cbench.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-02T16:22:00Z",
+      "side": 1,
+      "message": "this came to be, iirc, when I first wrote the suite I was\nrunning cbench locally and doing a \"Run\" or \"Run Process\"\nwas all I needed to make it work.\n\nThen when porting it to our CSIT environment, I realized\nwe had to run cbench on a remote system. So, I probably \njust added the check to get SSH working for the remote \nsystem and didn\u0027t test again locally.\n\nAs it stands now, this works both for localhost and remote\nsystem.\n\nnot that you aren\u0027t right that it would be easier to maintain\nby doing ssh to 127.0.0.1. I\u0027m not able to work on that\nat the moment though, and I need this to work on localhost\nnow for work I\u0027m trying to get done in opnfv/cperf",
+      "parentUuid": "fafc7978_e0c2aee7",
+      "range": {
+        "startLine": 67,
+        "startChar": 36,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "ce67d756b4f11c6cfbaa32a6b8dfcb2d6a546fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
