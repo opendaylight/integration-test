@@ -199,24 +199,24 @@ Unsubscribe_Ddtl
     ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
 
 Publish_Notifications
-    [Arguments]    ${member_index}    ${seconds}    ${notif_per_sec}
+    [Arguments]    ${member_index}    ${gid}    ${seconds}    ${notif_per_sec}
     [Documentation]    TODO: more desctiptive comment than: Invoke publish-notifications rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SECONDS=${seconds}    NPS=${notif_per_sec}
+    &{mapping}    BuiltIn.Create_Dictionary    ID=${gid}    DURATION=${seconds}    RATE=${notif_per_sec}
     TemplatedRequests.Post_As_Xml_Templated    ${PUBLISH_NOTIFICATIONS_DIR}    mapping=${mapping}    session=${session}
 
 Subscribe_Ynl
-    [Arguments]    ${member_index}
+    [Arguments]    ${member_index}    ${gid}
     [Documentation]    TODO: more desctiptive comment than: Invoke subscribe-ynl rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary
+    &{mapping}    BuiltIn.Create_Dictionary    ID=${gid}
     TemplatedRequests.Post_As_Xml_Templated    ${SUBSCRIBE_YNL_DIR}    mapping=${mapping}    session=${session}
 
 Unsubscribe_Ynl
-    [Arguments]    ${member_index}
+    [Arguments]    ${member_index}    ${gid}
     [Documentation]    TODO: more desctiptive comment than: Invoke unsubscribe-ynl rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary
+    &{mapping}    BuiltIn.Create_Dictionary    ID=${gid}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_YNL_DIR}    mapping=${mapping}    session=${session}
 
 Register_Bound_Constant
