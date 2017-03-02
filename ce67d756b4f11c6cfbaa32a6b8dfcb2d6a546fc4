@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_e0c2aee7",
+        "filename": "csit/suites/openflowplugin/Performance/010_Cbench.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T12:15:26Z",
+      "side": 1,
+      "message": "What is the point of this check? Most suites rely on SSH uncoditionally, and it is up to user to make SSH work for 127.0.0.1.\n\nIt is harder to keep two access mechanisms (SSHLibrary and OperatingSystem) debugged, this change is an example for that.",
+      "range": {
+        "startLine": 67,
+        "startChar": 36,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "ce67d756b4f11c6cfbaa32a6b8dfcb2d6a546fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
