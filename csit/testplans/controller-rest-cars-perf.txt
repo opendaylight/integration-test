@@ -6,3 +6,4 @@
 
 # Place the suites in run order:
 integration/test/csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot
+integration/test/csit/suites/controller/dom_notification_broker/noloss_rate_1node.robot
