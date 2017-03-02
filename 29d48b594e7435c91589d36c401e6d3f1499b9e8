@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_b83f4486",
+        "filename": "csit/suites/netvirt/L2_Neutron/l2neutron.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-03-02T05:39:05Z",
+      "side": 1,
+      "message": "You can use FOR loop for creation and verification of networks,subnet,port and VMs. This will reduce the number of lines drastically and make the code more readable.",
+      "revId": "29d48b594e7435c91589d36c401e6d3f1499b9e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
