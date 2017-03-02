@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_7d44ab49",
+        "filename": "csit/suites/genius/01_Interface_manager.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2017-03-02T09:23:06Z",
+      "side": 1,
+      "message": "Format Rest Log is already logging this, why log once again?",
+      "revId": "6cc8d8d3563725b94b628b1c7d464b525c726d25",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1d5abf29",
+        "filename": "csit/suites/genius/01_Interface_manager.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2017-03-02T09:23:06Z",
+      "side": 1,
+      "message": "Can\u0027t we have single Format Rest Log utility and use it for all scripts?",
+      "revId": "6cc8d8d3563725b94b628b1c7d464b525c726d25",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
