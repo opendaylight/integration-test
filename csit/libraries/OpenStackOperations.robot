@@ -112,6 +112,26 @@ List Nova VMs
     Log    ${output}
     [Return]    ${output}
 
+Create Floating IP
+    [Arguments]    ${external_net}
+    [Documentation]    Create Floating IP
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron floatingip-create ${external_net}
+    Log    ${output}
+    Should Contain     ${output}    Created a new floatingip
+    Close Connection
+
+Associate Floating IP To Port
+    [Arguments]    ${port_id}
+    [Documentation]    Associate Floating IP To Port
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    neutron floatingip-associate ${port_id}
+    Log    ${output}
+    Should Contain     ${output}    Associated floating IP
+    Close Connection
+
 Create And Associate Floating IPs
     [Arguments]    ${external_net}    @{vm_list}
     [Documentation]    Create and associate floating IPs to VMs with nova request
@@ -473,12 +493,20 @@ Show Router Interface
     [Return]    ${output}
 
 Add Router Gateway
-    [Arguments]    ${router_name}    ${network_name}
+    [Arguments]    ${router_name}    ${network_name}     ${additional_args}=${EMPTY}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v router-gateway-set ${router_name} ${network_name}
+    ${output}=    Write Commands Until Prompt    neutron -v router-gateway-set ${router_name} ${network_name} ${additional_args}
     Close Connection
     Should Contain    ${output}    Set gateway
+
+Delete Router Gateway
+    [Arguments]    ${router_name}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v router-gateway-clear ${router_name}
+    Close Connection
+    Should Contain    ${output}    Removed gateway from router
 
 Remove Interface
     [Arguments]    ${router_name}    ${interface_name}
@@ -499,13 +527,14 @@ Update Router
     Should Contain    ${output}    Updated
 
 Show Router
-    [Arguments]    ${router_name}    ${options}
+    [Arguments]    ${router_name}    ${options}=${EMPTY}
     [Documentation]    Show information of a given router. Router name and optional fields should be sent as arguments.
     ${devstack_conn_id} =    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output} =    Write Commands Until Prompt    neutron router-show ${router_name} ${options}    30s
     Log    ${output}
     Close Connection
+    [Return]     ${output}
 
 Delete Router
     [Arguments]    ${router_name}
