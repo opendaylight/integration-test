@@ -584,7 +584,9 @@ Get Test Teardown Debugs
 Get Test Teardown Debugs Allow Model Dump Failures
     [Arguments]    ${test_name}=${TEST_NAME}
     Get OvsDebugInfo
-    Run Keyword And Ignore Error    Get Model Dump    ${HA_PROXY_IP}
+    ## FIXME Remove comment once https://bugs.opendaylight.org/show_bug.cgi?id=7892 is resolved.
+    ## Currently getting restconf may take up to 20s per model after failures in the cluster, causing the job to timeout
+    # Run Keyword And Ignore Error    Get Model Dump    ${HA_PROXY_IP}
     Get Karaf Log Events From Test Start    ${test_name}
 
 Get Suite Teardown Debugs
