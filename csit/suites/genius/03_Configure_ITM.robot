@@ -234,10 +234,10 @@ Get Tunnel
     Should Contain    ${resp.content}    ${src}    ${dst}    TUNNEL:
     ${json}=    evaluate    json.loads('''${resp.content}''')    json
     log to console    \nOriginal JSON:\n${json}
-    ${Tunnel}    Collections.Get From Dictionary    ${json["internal-tunnel"][0]}    tunnel-interface-name
-    Log To Console    ${Tunnel}
-    Log    ${Tunnel}
-    [Return]    ${Tunnel}
+    ${Tunnels}    Collections.Get From Dictionary    ${json["internal-tunnel"][0]}    tunnel-interface-names
+    Log To Console    ${Tunnels}
+    Log    ${Tunnels}
+    [Return]    ${Tunnels[0]}
 
 Validate interface state
     [Arguments]    ${tunnel-1}    ${dpid-1}    ${tunnel-2}    ${dpid-2}
