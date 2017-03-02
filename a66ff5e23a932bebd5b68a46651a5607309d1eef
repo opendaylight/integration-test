@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_49a5a502",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T16:31:24Z",
+      "side": 1,
+      "message": "\u003e I prefer not to mix json and xml in the library and leave xml.\n\nI prefer not to mix json and xml in the library and use json only. :)\n\nBut that can be postponed: https://trello.com/c/RcE6EEpg/469-int-test-migrate-suites-to-use-json-instead-of-xml",
+      "parentUuid": "fafc7978_c0c32a36",
+      "range": {
+        "startLine": 54,
+        "startChar": 43,
+        "endLine": 54,
+        "endChar": 46
+      },
+      "revId": "a66ff5e23a932bebd5b68a46651a5607309d1eef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_739ce50f",
         "filename": "csit/libraries/MdsalLowlevel.robot",
         "patchSetId": 24
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Yes, but root\u003doutput so xpath should be specified like this to get the needed value",
       "parentUuid": "fafc7978_739ce50f",
+      "range": {
+        "startLine": 56,
+        "startChar": 55,
+        "endLine": 56,
+        "endChar": 69
+      },
+      "revId": "a66ff5e23a932bebd5b68a46651a5607309d1eef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_89b2ed49",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-02T16:31:24Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "fafc7978_40829a00",
       "range": {
         "startLine": 56,
         "startChar": 55,
