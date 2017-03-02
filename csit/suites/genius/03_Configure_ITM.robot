@@ -234,7 +234,7 @@ Get Tunnel
     Should Contain    ${resp.content}    ${src}    ${dst}    TUNNEL:
     ${json}=    evaluate    json.loads('''${resp.content}''')    json
     log to console    \nOriginal JSON:\n${json}
-    ${Tunnel}    Collections.Get From Dictionary    ${json["internal-tunnel"][0]}    tunnel-interface-name
+    ${Tunnel}    Collections.Get From Dictionary    ${json["internal-tunnel"][0]}    ${tunnel-interface-names[0]}
     Log To Console    ${Tunnel}
     Log    ${Tunnel}
     [Return]    ${Tunnel}
