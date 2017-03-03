@@ -1,0 +1,164 @@
+#!/usr/bin/env python
+
+# @author David Spence <dspence@brocade.com>
+
+# (C) 2017 Brocade Communications Systems, Inc.
+# 130 Holger Way, San Jose, CA 95134.
+# All rights reserved.
+#
+# Brocade, the B-wing symbol, Brocade Assurance, ADX, AnyIO, DCX, Fabric OS,
+# FastIron, HyperEdge, ICX, MLX, MyBrocade, NetIron, OpenScript, VCS, VDX, and
+# Vyatta are registered trademarks, and The Effortless Network and the On-Demand
+# Data Center are trademarks of Brocade Communications Systems, Inc., in the
+# United States and in other countries. Other brands and product names mentioned
+# may be trademarks of others.
+#
+# Use of the software files and documentation is subject to license terms.
+
+'''A CI test script for odl-jsonrpc.'''
+
+import logging
+from datetime import datetime
+
+import sys
+from argparse import ArgumentParser
+
+import json
+import zmq
+
+class StreamFormatter(logging.Formatter):
+    '''Provide a custom timestamp for logging.'''
+    def formatTime(self, record, datefmt=None):
+        '''Return record time as a UTC timestamp (RFC 3339 Section 5.6).'''
+        return datetime.utcfromtimestamp(record.created).isoformat('T') + 'Z'
+
+PARSE_ERROR_RESPONSE = json.dumps({
+    'jsonrpc': '2.0',
+    'error': {'code': -32700, 'message': 'Parse error'},
+    'id': None,
+})
+INVALID_REQUEST_RESPONSE = json.dumps({
+    'jsonrpc': '2.0',
+    'error': {'code': -32600, 'message': 'Invalid Request'},
+    'id': None,
+})
+
+class Service(object):
+    '''A service accepting JSON RPC Requests for the 'read' method.'''
+    def __init__(self, store, entity, path, value):
+        self._store = store
+        self._entity = entity
+        self._path = path
+        self._value = value
+        self._methods = {'read': self.read}
+    @staticmethod
+    def _parse_request(request):
+        '''If `request` passes the most basic checks for a JSON RPC Request,
+           then return its 'id', 'method' and 'params'.
+        '''
+        try:
+            version = request['jsonrpc']
+            id_ = request['id']
+            method = request['method']
+            params = request['params']
+        except KeyError:
+            raise ValueError()
+        if version != '2.0':
+            raise ValueError()
+        return (version, id_, method, params)
+    def read(self, store, entity, path):
+        '''The implementation of the `read` method for this test. If `store`,
+           `entity` and `path` do not match expected values, then return the
+           configured fixed value: otherwise raise :class:`ValueError`.
+        '''
+        if self._store != store or self._entity != entity or self._path != path:
+            raise ValueError('unexpected param values')
+        return self._value
+    def execute_json(self, string):
+        '''Execute an encoded JSON RPC Request from `string`. Return a 2-tuple
+           of (code, response), where code is process exit code and `response`
+           is an encoded JSON RPC Response. A zero exit code is returned if the
+           method implementation of this service was invoked successfully:
+           non-zero otherwise.
+        '''
+        try:
+            request = json.loads(string)
+        except ValueError:
+            return (1, PARSE_ERROR_RESPONSE)
+        try:
+            (version, id_, method, params) = self._parse_request(request)
+        except ValueError:
+            return (2, INVALID_REQUEST_RESPONSE)
+        response = {'jsonrpc': version, 'id': id_}
+        try:
+            ### assumes that params are supplied as a list for call by position
+            response['result'] = self._methods[method](*params) # pylint: disable=star-args
+        except KeyError:
+            response['error'] = {'code': -32601, 'message': 'Method not found'}
+            code = 3
+        except TypeError:
+            response['error'] = {'code': -32602, 'message': 'Invalid params'}
+            code = 4
+        except ValueError as exc:
+            response['error'] = {'code': -32603, 'message': 'Internal error'}
+            response['error']['data'] = str(exc)
+            code = 5
+        else:
+            code = 0
+        return (code, json.dumps(response))
+
+def init_logging(level):
+    '''Initialise the default logger at logging `level`.'''
+    logger = logging.getLogger()
+    logger.setLevel(level)
+    handler = logging.StreamHandler()
+    formatter = StreamFormatter(
+        fmt='%(asctime)s:%(levelname)s:%(name)s:%(message)s'
+    )
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
+def json_or_string(value):
+    '''If `value` is a JSON-encoded string, then return the decoded value:
+       otherwise return `value` as a string.
+    '''
+    try:
+        return json.loads(value)
+    except ValueError:
+        return str(value)
+
+def main():
+    '''Run a ZMQ REP socket on `uri` for accepting a single JSON RPC Request.
+
+       To successfully invoke the 'read' method, the Request 'params' must be
+       [`store`, `entity`, `path`] with the exact same values as were specified
+       in the command line args. On success, a JSON RPC Response with 'result'
+       `value` will be returned: otherwise, a JSON RPC Response with 'error'
+       will be returned.
+    '''
+    init_logging(logging.INFO)
+
+    aparser = ArgumentParser(description=main.__doc__)
+    aparser.add_argument('uri')
+    aparser.add_argument('store', type=json_or_string)
+    aparser.add_argument('entity', type=json_or_string)
+    aparser.add_argument('path', type=json_or_string)
+    aparser.add_argument('value', type=json_or_string)
+    args = aparser.parse_args()
+
+    service = Service(args.store, args.entity, args.path, args.value)
+
+    zock = zmq.Context().socket(zmq.REP) # pylint: disable=no-member
+    zock.bind(args.uri)
+    logging.info('ZMQ REP listening on %s', args.uri)
+    request = zock.recv()
+    logging.info('>%s', request)
+    (code, response) = service.execute_json(request)
+    logging.info('<%s', response)
+    zock.send(response)
+    logging.info('exiting with code %d', code)
+    zock.close()
+    sys.exit(code)
+
+if __name__ == '__main__':
+    main()

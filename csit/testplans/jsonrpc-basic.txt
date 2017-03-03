@@ -1,0 +1,1 @@
+test/csit/suites/jsonrpc/010-mdsal-jsonrpc-basic.txt
