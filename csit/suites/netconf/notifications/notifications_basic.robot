@@ -57,7 +57,7 @@ Clean_Config
     [Documentation]    Make sure config inventory is empty.
     [Tags]    critical
     BuiltIn.Log    ${CONFIG_NODES_API}
-    TemplatedRequests.Delete_From_Uri    uri=${CONFIG_NODES_API}    allow_404=True
+    TemplatedRequests.Delete_From_Uri    uri=${CONFIG_NODES_API}    additional_allowed_status_codes=${DELETED_STATUS_CODE}
     # TODO: Rework also other test cases to use TemplatedRequests.
 
 Create_Subscribtion
