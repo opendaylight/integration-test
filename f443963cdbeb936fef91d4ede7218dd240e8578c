@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_610cfd94",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-03T06:54:03Z",
+      "side": 1,
+      "message": "to avoid ducplication/confusion later can you check that none\nof the values to these variables are already defined in \nthe top level Variables.robot. if so, just use those and\nremove them here. if no cross-over then all good.",
+      "revId": "f443963cdbeb936fef91d4ede7218dd240e8578c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
