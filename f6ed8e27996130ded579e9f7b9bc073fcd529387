@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_7a494630",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_freeze.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T11:26:12Z",
+      "side": 1,
+      "message": "Should be also in the suite name, but too late for that, as we already have global_rpc_kill.robot",
+      "range": {
+        "startLine": 2,
+        "startChar": 61,
+        "endLine": 2,
+        "endChar": 70
+      },
+      "revId": "f6ed8e27996130ded579e9f7b9bc073fcd529387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_daf032cb",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_freeze.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T11:26:12Z",
+      "side": 1,
+      "message": "I like this.\nGood to know in each call Robot substitutes the actual (as opposed to the initial) value of this variable.",
+      "range": {
+        "startLine": 11,
+        "startChar": 99,
+        "endLine": 11,
+        "endChar": 114
+      },
+      "revId": "f6ed8e27996130ded579e9f7b9bc073fcd529387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_fa7a5686",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_freeze.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T11:26:12Z",
+      "side": 1,
+      "message": "@{EMPTY}",
+      "range": {
+        "startLine": 34,
+        "startChar": 14,
+        "endLine": 34,
+        "endChar": 24
+      },
+      "revId": "f6ed8e27996130ded579e9f7b9bc073fcd529387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_faa1b6f8",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_freeze.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T11:26:12Z",
+      "side": 1,
+      "message": "This is a debug information useful for many suites. Create a keyword in ClusterManagement for obtaining it.",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 10
+      },
+      "revId": "f6ed8e27996130ded579e9f7b9bc073fcd529387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bafd6eb3",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_freeze.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T11:26:12Z",
+      "side": 1,
+      "message": "This RPC is from a model different from \"lowlevel\", but it would be nice to have keywords for it in a resource, possibly in MdsalLowlevel directly.\n\nThat affects multiple suites, so TODO and Trello card would suffice.",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 33
+      },
+      "revId": "f6ed8e27996130ded579e9f7b9bc073fcd529387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9ae06a2a",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_freeze.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T11:26:12Z",
+      "side": 1,
+      "message": "More suites will be performing similar check, create ClusterManagement.Verify_Singleton_Instantiated with semantics similar to ClusterManagement.Verify_Shard_Leader_Elected",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 20
+      },
+      "revId": "f6ed8e27996130ded579e9f7b9bc073fcd529387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_fad6d64d",
+        "filename": "csit/suites/controller/singleton_service/global_rpc_freeze.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T11:26:12Z",
+      "side": 1,
+      "message": "When CarPeople have keywords such as Set_Variables_For_Shard and Set_Tmp_Variables_For_Shard_For_Nodes, you may want to create similar keywords for tracking (and setting variables for) specific singletons in MdsalLowlevel.",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 36
+      },
+      "revId": "f6ed8e27996130ded579e9f7b9bc073fcd529387",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
