@@ -1,3 +1,3 @@
 # Place the suites in run order:
-integration/test/csit/suites/aaa/authn
+integration/test/csit/suites/aaa/keystone
 

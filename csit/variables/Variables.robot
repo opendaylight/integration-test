@@ -28,6 +28,16 @@ ${ALERTFIELDCONTENTRULERECORD}    /restconf/config/alertrule:alertFieldContentRu
 ${ALERTFIELDVALUERULERECORD}    /restconf/config/alertrule:alertFieldValueRuleRecord    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 @{AUTH}           admin    admin    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
+<<<<<<< Updated upstream
+=======
+@{AUTH_SDN}           sdnadmin    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
+@{AUTH_SDN_DOMAIN}           sdnadmin@sdn    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
+@{AUTH_SDN_WRONG_DOM}           sdnadmin@wrong    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
+@{AUTH_INVALID}           invaliduser    invinvuser    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
+@{AUTH_CSC_SDN}           CSC_user    cscuser    # Authentication tuple for accessing Keystone API server
+@{AUTH_CSC_NO_ADMIN}           CSC_user_no_admin    cscusernoadmin    # Authentication tuple for accessing Keystone API server
+@{AUTH_ADMIN_SDN}           admin    secret    # Authentication tuple for accessing Keystone API server
+>>>>>>> Stashed changes
 ${AUTH_TOKEN_API}    /oauth2/token    # FIXME: Move to a separate AAA-related Resource and add description.
 ${BGP_TOOL_PORT}    17900    # Tool side of BGP communication listens on this port.
 ${BGPCEP_LOG_LEVEL}    ${DEFAULT_BGPCEP_LOG_LEVEL}    # Some suites temporarily override org.opendaylight.bgpcep Karaf log level to this value.
