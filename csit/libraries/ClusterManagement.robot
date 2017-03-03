@@ -52,9 +52,8 @@ ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
 ${NODE_START_COMMAND}    ${KARAF_HOME}/bin/start
 ${NODE_STOP_COMMAND}    ${KARAF_HOME}/bin/stop
-${NODE_KILL_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
-${NODE_FREEZE_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -STOP \" $1}' | sh
-${NODE_UNFREEZE_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -CONT \" $1}' | sh
+${NODE_KILL_COMMAND_PREFIX}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill
+${NODE_KILL_COMMAND_SUFFIX}    \" $1}' | sh
 
 *** Keywords ***
 ClusterManagement_Setup
@@ -362,7 +361,7 @@ Stop_Members_From_List_Or_All
     ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member_index_list}
     ${stop_index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${original_index_list}
-    Run_Bash_Command_On_List_Or_All    command=${NODE_STOP_COMMAND}    member_index_list=${member_index_list}
+    Signal_Members_From_List_Or_All    flag=-KILL    member_index_list=${member_index_list}
     ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${updated_index_list}    @{stop_index_list}
     BuiltIn.Return_From_Keyword_If    not ${confirm}    ${updated_index_list}
@@ -389,24 +388,30 @@ Start_Members_From_List_Or_All
     # TODO: Do we also want to check Shard Leaders here?
 
 Freeze_Single_Member
-    [Arguments]    ${member}
-    [Documentation]    Convenience keyword that stops the specified member of the cluster by freezing the jvm.
-    ${index_list} =    ClusterManagement__Build_List    ${member}
-    Freeze_Or_Unfreeze_Members_From_List_Or_All    ${NODE_FREEZE_COMMAND}    ${index_list}
+    [Arguments]    ${member_index}    ${live_member_index_list}=${EMPTY}
+    [Documentation]    Stop the specified member of the cluster by freezing the jvm.
+    ...    Return (an estimate of) the index list of members remaining alive.
+    ${freeze_list} =    ClusterManagement__Build_List    ${member_index}
+    ${live_list} =    List_Indices_Minus_Member    ${member}    ${live_member_index_list}
+    Signal_Members_From_List_Or_All    flag=-STOP    member_index_list=${freeze_list}
+    [Return]    ${live_list}
 
 Unfreeze_Single_Member
-    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=60s
-    [Documentation]    Convenience keyword that "continues" the specified member of the cluster by unfreezing the jvm.
-    ${index_list} =    ClusterManagement__Build_List    ${member}
-    Freeze_Or_Unfreeze_Members_From_List_Or_All    ${NODE_UNFREEZE_COMMAND}    ${index_list}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync
+    [Arguments]    ${member_index}    ${wait_for_sync}=True    ${timeout}=60s    ${live_member_index_list}=${EMPTY}
+    [Documentation]    Continue the specified (presumably stopped) member of the cluster by unfreezing the jvm.
+    ...    Return (an estimate of) the index list of members remaining alive.
+    ${unfreeze_list} =    ClusterManagement__Build_List    ${member_index}
+    ${live_list} =    List_Indices_Plus_Member    ${member}    ${live_member_index_list}
+    Signal_Members_From_List_Or_All    flag=-CONT    member_index_list=${unfreeze_list}
+    BuiltIn.Run_Keyword_If    ${wait_for_sync}    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Check_Cluster_Is_In_Sync
+    [Return]    ${live_list}
 
-Freeze_Or_Unfreeze_Members_From_List_Or_All
-    [Arguments]    ${command}    ${member_index_list}=${EMPTY}
-    [Documentation]    If the list is empty, stops/runs all ODL instances. Otherwise stop/run members based on \${stop_index_list}
-    ...    For command parameter only ${NODE_FREEZE_COMMAND} and ${NODE_UNFREEZE_COMMAND} should be used
-    ${freeze_index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
-    Run_Bash_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
+Signal_Members_From_List_Or_All
+    [Arguments]    ${flag}    ${member_index_list}=${EMPTY}
+    [Documentation]    If the list is empty, signal all ODL instances. Otherwise signal members based on \${member_index_list}
+    ...    The signal to send is specified by ${flag}.
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    Run_Bash_Command_On_List_Or_All    command=${NODE_KILL_COMMAND_PREFIX} ${flag} ${NODE_KILL_COMMAND_SUFFIX}    member_index_list=${index_list}
 
 Clean_Journals_And_Snapshots_On_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${karaf_home}=${KARAF_HOME}
@@ -674,7 +679,18 @@ List_Indices_Minus_Member
     [Arguments]    ${member_index}    ${member_index_list}=${EMPTY}
     [Documentation]    Create a new list which contains indices from ${member_index_list} (or all) without ${member_index}.
     ${index_list} =    ClusterManagement__Given_Or_Empty_List    ${member_index_list}
-    Collections.Remove Values From List    ${index_list}    ${member_index}
+    Collections.Remove_Values_From_List    ${index_list}    ${member_index}
+    [Return]    ${index_list}
+
+List_Indices_Plus_Member
+    [Arguments]    ${member_index}    ${member_index_list}=${EMPTY}
+    [Documentation]    Create a new list which contains indices from ${member_index_list} (or all) with ${member_index} added.
+    ...    Return sorted list without duplicates.
+    ...    TODO: Do we need a strict version, which would fail if the added member is already alive (or other duplicate)?
+    ${index_list} =    ClusterManagement__Given_Or_Empty_List    ${member_index_list}
+    Collections.Append_To_List    ${index_list}    ${member_index}
+    Collections.Sort_List    ${index_list}
+    Collections.Remove_Duplicates    ${index_list}
     [Return]    ${index_list}
 
 ClusterManagement__Given_Or_Internal_Index_List
