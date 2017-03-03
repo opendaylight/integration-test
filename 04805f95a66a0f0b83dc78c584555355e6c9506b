@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_557ff365",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T12:30:59Z",
+      "side": 1,
+      "message": "Any status related arguments here? I can imagine test which call unregistered RPC, so they want to pass on 501 and fail on 200. Or do you have separate change planned for that?",
+      "range": {
+        "startLine": 168,
+        "startChar": 130,
+        "endLine": 168,
+        "endChar": 131
+      },
+      "revId": "04805f95a66a0f0b83dc78c584555355e6c9506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_757cb772",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T12:30:59Z",
+      "side": 1,
+      "message": "What about explicit codes? I can imagine tests which want to pass on 404 and fail on 204.",
+      "range": {
+        "startLine": 250,
+        "startChar": 98,
+        "endLine": 250,
+        "endChar": 99
+      },
+      "revId": "04805f95a66a0f0b83dc78c584555355e6c9506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_157bab8c",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T12:30:59Z",
+      "side": 1,
+      "message": "explicit_status_codes",
+      "range": {
+        "startLine": 343,
+        "startChar": 88,
+        "endLine": 343,
+        "endChar": 113
+      },
+      "revId": "04805f95a66a0f0b83dc78c584555355e6c9506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_35786f8f",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T12:30:59Z",
+      "side": 1,
+      "message": "extra?",
+      "range": {
+        "startLine": 343,
+        "startChar": 36,
+        "endLine": 343,
+        "endChar": 41
+      },
+      "revId": "04805f95a66a0f0b83dc78c584555355e6c9506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_75a5d702",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T12:30:59Z",
+      "side": 1,
+      "message": "Run_Keyword_And_Return_If so that the next line is shorter.",
+      "range": {
+        "startLine": 348,
+        "startChar": 12,
+        "endLine": 348,
+        "endChar": 26
+      },
+      "revId": "04805f95a66a0f0b83dc78c584555355e6c9506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f54a6753",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T12:30:59Z",
+      "side": 1,
+      "message": "\"\"\"${use_explicit_status_codes}\"\"\" !\u003d \"\"\"${NO_STATUS_CODES}\"\"\"",
+      "range": {
+        "startLine": 348,
+        "startChar": 30,
+        "endLine": 348,
+        "endChar": 80
+      },
+      "revId": "04805f95a66a0f0b83dc78c584555355e6c9506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f5b8a72b",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-03T12:30:59Z",
+      "side": 1,
+      "message": "I do not see any upside of discouraging users calling this.",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 19
+      },
+      "revId": "04805f95a66a0f0b83dc78c584555355e6c9506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
