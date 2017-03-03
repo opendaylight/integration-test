@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_66836bcc",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-03T23:17:14Z",
+      "side": 1,
+      "message": "please use Variables.robot. we are hopefully removing .py sooner or later.",
+      "range": {
+        "startLine": 15,
+        "startChar": 37,
+        "endLine": 15,
+        "endChar": 49
+      },
+      "revId": "78762b7648fe15347b7afd603f93af4058952427",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_468627dc",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-03T23:17:14Z",
+      "side": 1,
+      "message": "I have a hunch you don\u0027t need all of these libs (e.g. sfc\nrelated libs)",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 61
+      },
+      "revId": "78762b7648fe15347b7afd603f93af4058952427",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_267de3e8",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-03T23:17:14Z",
+      "side": 1,
+      "message": "looks like some leftovers from a rebase?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "78762b7648fe15347b7afd603f93af4058952427",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_06809fbe",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-03T23:17:14Z",
+      "side": 1,
+      "message": "the verify job is complaining here I think. just use 4 spaces\nI guess. below lines as well.",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 22
+      },
+      "revId": "78762b7648fe15347b7afd603f93af4058952427",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
