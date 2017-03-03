@@ -117,6 +117,8 @@ Variables         ${CURDIR}/../variables/Variables.py
 @{DATA_VALIDATION_ERROR}    ${500}
 @{DELETED_STATUS_CODE}    ${404}    # List of integers, not strings. Used by DELETE if the resource may be not present.
 @{NO_STATUS_CODES}
+@{ALLOWED_DELETE_STATUS_CODES}    ${200}    ${201}    ${204}    ${404}    # List of integers, not strings. Used by DELETE if the resource may be not present.
+@{UNAUTHORIZED_STATUS_CODES}    ${401}    # List of integers, not strings. Used in Keystone Authentication when the user is not authorized to use the requested resource.
 @{KEYS_WITH_BITS}    op    # the default list with keys to be sorted when norm_json libray is used
 # TODO: Add option for delete to require 404.
 
