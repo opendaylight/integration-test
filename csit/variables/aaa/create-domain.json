@@ -1,0 +1,7 @@
+{
+    "domain": {
+        "description": "SDN Domain",
+        "enabled": true,
+        "name": "sdn"
+    }
+}

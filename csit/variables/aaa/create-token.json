@@ -1,0 +1,18 @@
+{
+    "auth": {
+        "identity": {
+            "methods": [
+                "password"
+            ],
+            "password": {
+                "user": {
+                    "domain": {
+                        "name": "Default"
+                    },
+                    "name": "CSC_user",
+                    "password": "cscuser"
+                }
+            }
+        }
+    }
+}

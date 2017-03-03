@@ -1,0 +1,9 @@
+{
+    "user": {
+        "name": "sdnadmin",
+        "description": "SDN administrator",
+        "domain_id": "832166ddaaaf4b0ba662659aa1818019",
+        "enabled": true,
+        "password": "sdnsdn"
+    }
+}
