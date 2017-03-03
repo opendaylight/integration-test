@@ -102,7 +102,7 @@ Create Nova VMs
     Set Suite Variable    ${VM_IP_NET10}
     Log    ${VM_IP_NET20}
     Set Suite Variable    ${VM_IP_NET20}
-    Should Not Contain    ${VM_IP_NET10)    None
+    Should Not Contain    ${VM_IP_NET10}    None
     Should Not Contain    ${VM_IP_NET20}    None
     [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     ...    AND    Get Suite Teardown Debugs
