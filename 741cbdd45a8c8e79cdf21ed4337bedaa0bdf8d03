@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_2667a327",
+        "filename": "csit/suites/iotdm/basic/020_ResourceAttributesCseBase.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-04T01:06:19Z",
+      "side": 1,
+      "message": "ok, so this is the perfect example. if this suite is\ngiven to pybot, we\u0027ll get an error on the command line.\n\njust fyi.",
+      "revId": "741cbdd45a8c8e79cdf21ed4337bedaa0bdf8d03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_066a5fed",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-04T01:06:19Z",
+      "side": 1,
+      "message": "not a fan of the generic name, but others use similar things like Start Suite which is almost as ambiguous.",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 23
+      },
+      "revId": "741cbdd45a8c8e79cdf21ed4337bedaa0bdf8d03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_666d2b04",
+        "filename": "csit/suites/iotdm/basic/022_ResourceAttributesContentInstance.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-04T01:06:19Z",
+      "side": 1,
+      "message": "I don\u0027t understand what\u0027s happening here?",
+      "range": {
+        "startLine": 3,
+        "startChar": 27,
+        "endLine": 5,
+        "endChar": 30
+      },
+      "revId": "741cbdd45a8c8e79cdf21ed4337bedaa0bdf8d03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e680fb8c",
+        "filename": "csit/suites/iotdm/basic/024_ResourceAttributesACP.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-04T01:06:19Z",
+      "side": 1,
+      "message": "so this is common among many suites right? it\u0027s really only two lines, but it could grow in the future. Probably a good\nidea to move to a lib resource.\n\nCall it IOTDM Basic Suite Setup or something like that.",
+      "range": {
+        "startLine": 367,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 36
+      },
+      "revId": "741cbdd45a8c8e79cdf21ed4337bedaa0bdf8d03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
