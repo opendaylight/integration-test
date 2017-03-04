@@ -178,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_c6a4d74c",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-04T01:06:19Z",
+      "side": 1,
+      "message": "this is fine, although TODO is now a noop right? no big deal to keep.\n\nI realize we might have a problem at some point though.\n\nif we only have exclude test cases in a test suite, like \nI would expect to be the case when a test plan is first\nwritten, it will give an ERROR from pybot if that suite\nis passed to it.\n\n[ ERROR ] Suite \u0027Blah\u0027 contains no tests without tag \u0027exclude\u0027.\n\nas long as that suite is not part of a testplan at that\npoint, upstream ODL CSIT wont be affected, so we can\ncross that bridge if we ever get there.",
+      "parentUuid": "fafc7978_b0281fe3",
+      "range": {
+        "startLine": 1005,
+        "startChar": 0,
+        "endLine": 1006,
+        "endChar": 29
+      },
+      "revId": "20689c870266885acc9ba2d33b00db11146db460",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_6e8b84c3",
         "filename": "csit/suites/iotdm/basic/020_ResourceAttributesCseBase.robot",
         "patchSetId": 4
