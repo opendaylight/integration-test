@@ -1,6 +1,7 @@
 netvirt_data_models = [
         'config/elan:elan-instances',
         'config/elan:elan-interfaces',
+        'config/federation-service-config:federation-config-data',
         'config/id-manager:id-pools',
         'config/ietf-access-control-list:access-lists',
         'config/ietf-interfaces:interfaces',
