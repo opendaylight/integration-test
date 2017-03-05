@@ -743,3 +743,67 @@ Get Ports MacAddr
     \    Log    ${macAddr}
     \    Append To List    ${MacAddr-list}    ${macAddr}
     [Return]    ${MacAddr-list}
+
+Create Networks
+    [Arguments]    ${site_id}
+    [Documentation]    Create Network with neutron request.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    Create Network    ${NetworkElement} --provider:network_type vxlan --provider:segmentation-id 1000    site_index=${site_id}
+
+Delete Networks
+    [Arguments]    ${site_id}
+    [Documentation]    Delete Networks with neutron request.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    Delete Network    ${NetworkElement}    site_index=${site_id}
+
+Delete Vm Instances
+    [Arguments]    ${site_id}
+    [Documentation]    Delete Vm instances using instance names in each site.
+    : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
+    \    Delete Vm Instance    ${VmElement}    site_index=${site_id}
+
+Get Network Id
+    [Arguments]    ${site_id}    ${net_name}
+    [Documentation]    Get network id.
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_id}
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron net-list | grep ${net_name} | awk '{print $2}'
+    @{cut}=    Split To Lines    ${output}    start=0    end=1
+    Log    ${cut}
+    ${output}=    Set Variable    @{cut}
+    [Return]    ${output}
+
+Get Network Subnet Id
+    [Arguments]    ${site_id}    ${subnet_name}
+    [Documentation]    Get network id.
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_id}
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron subnet-list | grep ${subnet_name} | awk '{print $2}'
+    @{cut}=    Split To Lines    ${output}    start=0    end=1
+    Log    ${cut}
+    ${output}=    Set Variable    @{cut}
+    [Return]    ${output}
+
+Run Rest Command For Connecting Networks
+    [Arguments]    ${netSiteA}    ${netSiteB}    ${subnetNetSiteA}    ${subnetNetSiteB}
+    [Documentation]    run the rest command that connects 2 networks.
+    ${data}=    Set Variable    {"input":{"federated-networks-in": [{"self-net-id": "${netSiteA}", "self-subnet-id": "${subnetNetSiteA}", "subnet-ip": "@{SUBNETS_RANGE}[0]", "site-network": [{"site-ip": "@{SUBNETS_RANGE}[0]", "site-net-id": "${netSiteB}", "site-subnet-id": "${subnetNetSiteB}"}]}]}}
+    ${resp}=    RequestsLibrary.Post Request    session    /operations/federation-plugin-rpc: updateFederatedNetworks    data=${data}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Connect Two Networks
+    [Arguments]    ${siteA_index}    ${siteB_index}
+    [Documentation]    connect networks between 2 sites.
+    ${netSiteA}=    Get Network Id    ${siteA_index}    @{NETWORKS_NAME}[0]
+    ${netSiteB}=    Get Network Id    ${siteB_index}    @{NETWORKS_NAME}[0]
+    ${subnetNetSiteA}=    Get Network Subnet Id    ${siteA_index}    @{SUBNETS_NAME}[0]
+    ${subnetNetSiteB}=    Get Network Subnet Id    ${siteB_index}    @{SUBNETS_NAME}[0]
+    Run Rest Command For Connecting Networks    ${netSiteA}    ${netSiteB}    ${subnetNetSiteA}    ${subnetNetSiteB}
+    Run Rest Command For Connecting Networks    ${netSiteB}    ${netSiteA}    ${subnetNetSiteB}    ${subnetNetSiteA}
+
+Run Rest Command For Disconnecting Networks
+    [Arguments]    ${netName}    ${subnetName}
+    [Documentation]    run the rest command that disconnects 2 networks.
+    ${data}=    Set Variable    {"input":{"federated-networks-in": [{"self-net-id": "${netName}", "self-subnet-id": "${subnetName}", "subnet-ip": "@{SUBNETS_RANGE}[0]", "site-network": [{"site-ip": "", "site-net-id": "", "site-subnet-id": ""}]}]}}
+    ${resp}=    RequestsLibrary.Post Request    session    /operations/federation-plugin-rpc: updateFederatedNetworks    data=${data}
+    Should Be Equal As Strings    ${resp.status_code}    200
