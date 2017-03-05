@@ -1,6 +1,8 @@
 data_models = [
         'config/elan:elan-instances',
         'config/elan:elan-interfaces',
+        'config/federation-service-config:federation-config-data',
+        'config/federation-service-config:federation-sites-config',
         'config/id-manager:id-pools',
         'config/ietf-access-control-list:access-lists',
         'config/ietf-interfaces:interfaces',
@@ -36,6 +38,7 @@ data_models = [
         'operational/elan:elan-forwarding-tables',
         'operational/elan:elan-interfaces',
         'operational/elan:elan-state',
+        'operational/federation-plugin-rpc:update-federated-networks',
         'operational/ietf-interfaces:interfaces-state',
         'operational/itm-state:tunnels_state',
         'operational/l3nexthop:l3nexthop',
