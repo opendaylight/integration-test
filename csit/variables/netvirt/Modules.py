@@ -1,6 +1,8 @@
 data_models = [
         'config/elan:elan-instances',
         'config/elan:elan-interfaces',
+        'config/federation-service-config:federation-config-data',
+        'config/federation-service-config:federation-sites-config',
         'config/id-manager:id-pools',
         'config/ietf-access-control-list:access-lists',
         'config/ietf-interfaces:interfaces',
@@ -50,4 +52,5 @@ data_models = [
         'operational/odl-nat:external-ips-counter',
         'operational/odl-nat:floating-ip-info',
         'operational/odl-nat:intext-ip-map',
+        'operations/federation-plugin-rpc:update-federated-networks',
 ]
