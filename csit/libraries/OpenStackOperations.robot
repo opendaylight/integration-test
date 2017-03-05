@@ -28,9 +28,9 @@ Get Tenant ID From Network
     [Return]    ${tenant_id}
 
 Create Network
-    [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
+    [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE    ${site_index}=${EMPTY}
     [Documentation]    Create Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v net-create ${network_name} ${additional_args}    neutron net-create ${network_name} ${additional_args} | grep -w id | awk '{print $4}'
     ${output}=    Write Commands Until Prompt    ${command}    30s
@@ -56,9 +56,9 @@ List Subnets
     [Return]    ${output}
 
 Delete Network
-    [Arguments]    ${network_name}
+    [Arguments]    ${network_name}    ${site_index}=${EMPTY}
     [Documentation]    Delete Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v net-delete ${network_name}    30s
     Close Connection
@@ -66,9 +66,9 @@ Delete Network
     Should Match Regexp    ${output}    Deleted network: ${network_name}|Deleted network\\(s\\): ${network_name}
 
 Create SubNet
-    [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${additional_args}=${EMPTY}
+    [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${additional_args}=${EMPTY}    ${site_index}=${EMPTY}
     [Documentation]    Create SubNet for the Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet} ${additional_args}    30s
     Close Connection
@@ -76,7 +76,7 @@ Create SubNet
     Should Contain    ${output}    Created a new subnet
 
 Create Port
-    [Arguments]    ${network_name}    ${port_name}    ${sg}=default    ${additional_args}=${EMPTY}
+    [Arguments]    ${network_name}    ${port_name}    ${sg}=default    ${additional_args}=${EMPTY
     [Documentation]    Create Port with neutron request.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
@@ -152,10 +152,10 @@ Verify No Dhcp Ips
     \    Should Not Contain    ${output}    ${DhcpIpElement}
 
 Delete SubNet
-    [Arguments]    ${subnet}
+    [Arguments]    ${subnet}    ${site_index}=${EMPTY}
     [Documentation]    Delete SubNet for the Network with neutron request.
     Log    ${subnet}
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v subnet-delete ${subnet}
     Close Connection
@@ -170,9 +170,9 @@ Verify No Gateway Ips
     \    Should Not Contain    ${output}    ${GatewayIpElement}
 
 Delete Vm Instance
-    [Arguments]    ${vm_name}
+    [Arguments]    ${vm_name}    ${site_index}=${EMPTY}
     [Documentation]    Delete Vm instances using instance names.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    nova force-delete ${vm_name}    40s
     Close Connection
@@ -222,9 +222,9 @@ Get Router Id
     [Return]    ${router_id}
 
 Create Vm Instances
-    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default    ${site_index}=${EMPTY}
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
@@ -242,9 +242,9 @@ Create Vm Instance With Port On Compute Node
     Log    ${output}
 
 Verify VM Is ACTIVE
-    [Arguments]    ${vm_name}
+    [Arguments]    ${vm_name}    ${site_index}=${EMPTY}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state    30s
     Log    ${output}
@@ -252,11 +252,16 @@ Verify VM Is ACTIVE
 
 Verify VMs Received DHCP Lease
     [Arguments]    @{vm_list}
+    [Documentation]    Call Verify Ip func that checks if vms received dhcp lease.
+    Run Keyword And Return    Verify Ip    ${EMPTY}    @{vm_list}
+
+Verify Ip
+    [Arguments]    ${site_index}    @{vm_list}
     [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "obtained" which
     ...    correlates to the instance receiving it's IP address via DHCP. Also retrieved is the ip of the nameserver
     ...    if available in the console-log output. The keyword will also return a list of the learned ips as it
     ...    finds them in the console log output, and will have "None" for Vms that no ip was found.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${ip_list}    Create List    @{EMPTY}
     ${dhcp_ip}    Create List    @{EMPTY}
@@ -287,12 +292,12 @@ View Vm Console
     \    Log    ${output}
 
 Ping Vm From DHCP Namespace
-    [Arguments]    ${net_name}    ${vm_ip}
+    [Arguments]    ${net_name}    ${vm_ip}    ${site_index}=${EMPTY}    ${net_id}=${EMPTY}
     [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${net_id}=    Run Keyword If    "${net_id}" == "${EMPTY}"    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Log    ${output}
@@ -300,12 +305,12 @@ Ping Vm From DHCP Namespace
     Should Contain    ${output}    64 bytes
 
 Ping From DHCP Should Not Succeed
-    [Arguments]    ${net_name}    ${vm_ip}
+    [Arguments]    ${net_name}    ${vm_ip}    ${site_index}=${EMPTY}    ${net_id}=${EMPTY}
     [Documentation]    Should Not Reach Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${net_id}=    Run Keyword If    "${net_id}" == "${EMPTY}"    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Close Connection
@@ -380,9 +385,9 @@ Execute Command on VM Instance
     [Return]    ${output}
 
 Test Operations From Vm Instance
-    [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)
+    [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)    ${site_index}=${EMPTY}
     [Documentation]    Login to the vm instance using ssh in the network.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     Log    ${src_ip}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
@@ -440,9 +445,9 @@ Ping Other Instances
     \    Check Ping    ${dest_ip}
 
 Create Router
-    [Arguments]    ${router_name}
+    [Arguments]    ${router_name}    ${site_index}=${EMPTY}
     [Documentation]    Create Router and Add Interface to the subnets.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}    30s
     Close Connection
@@ -458,8 +463,8 @@ List Router
     [Return]    ${output}
 
 Add Router Interface
-    [Arguments]    ${router_name}    ${interface_name}
-    ${devstack_conn_id}=    Get ControlNode Connection
+    [Arguments]    ${router_name}    ${interface_name}    ${site_index}=${EMPTY}
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router_name} ${interface_name}
     Close Connection
@@ -484,9 +489,9 @@ Add Router Gateway
     Should Contain    ${output}    Set gateway
 
 Remove Interface
-    [Arguments]    ${router_name}    ${interface_name}
+    [Arguments]    ${router_name}    ${interface_name}    ${site_index}=${EMPTY}
     [Documentation]    Remove Interface to the subnets.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v router-interface-delete ${router_name} ${interface_name}
     Close Connection
@@ -511,9 +516,9 @@ Show Router
     Close Connection
 
 Delete Router
-    [Arguments]    ${router_name}
+    [Arguments]    ${router_name}    ${site_index}=${EMPTY}
     [Documentation]    Delete Router and Interface to the subnets.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}    60s
     Close Connection
@@ -565,7 +570,10 @@ Get Karaf Log Events From Test Start
     Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_3_IP}    ${test_name}    ${log_types}
 
 Get ControlNode Connection
-    ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    [Arguments]    ${site_index}=${EMPTY}
+    ${control_node}=    Catenate    SEPARATOR=    OS_CONTROL_NODE_    ${site_index}    _IP
+    ${control_conn_id}=    Run Keyword If    "${site_index}" == "${EMPTY}"    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    ...    ELSE    SSHLibrary.Open Connection    ${${control_node}}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=30s
     Source Password    force=yes
@@ -641,10 +649,20 @@ Neutron Port Show
     Close Connection
     [Return]    ${output}
 
+Delete SecurityGroup
+    [Arguments]    ${sg_name}    ${site_index}=${EMPTY}
+    [Documentation]    Delete Security group
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-delete ${sg_name}    40s
+    Log    ${output}
+    Should Match Regexp    ${output}    Deleted security_group: ${sg_name}|Deleted security_group\\(s\\): ${sg_name}
+    Close Connection
+
 Neutron Security Group Create
-    [Arguments]    ${SecurityGroupName}    ${additional_args}=${EMPTY}
+    [Arguments]    ${SecurityGroupName}    ${additional_args}=${EMPTY}    ${site_index}=${EMPTY}
     [Documentation]    Create a security group with specified name ,description & protocol value according to security group template
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron security-group-create ${SecurityGroupName} ${additional_args}
     Log    ${cmd}
@@ -668,20 +686,10 @@ Neutron Security Group Update
     Close Connection
     [Return]    ${output}
 
-Delete SecurityGroup
-    [Arguments]    ${sg_name}
-    [Documentation]    Delete Security group
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron security-group-delete ${sg_name}    40s
-    Log    ${output}
-    Should Match Regexp    ${output}    Deleted security_group: ${sg_name}|Deleted security_group\\(s\\): ${sg_name}
-    Close Connection
-
 Neutron Security Group Rule Create
-    [Arguments]    ${Security_group_name}    &{Kwargs}
+    [Arguments]    ${Security_group_name}    ${site_index}=${EMPTY}    &{Kwargs}
     [Documentation]    Creates neutron security rule with neutron request with or without optional params, here security group name is mandatory args, rule with optional params can be created by passing the optional args values ex: direction=${INGRESS_EGRESS}, Then these optional params are catenated with mandatory args, example of usage: "Neutron Security Group Rule Create ${SGP_SSH} direction=${RULE_PARAMS[0]} ethertype=${RULE_PARAMS[1]} ..."
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_index}
     Switch Connection    ${devstack_conn_id}
     Run Keyword If    ${Kwargs}    Log    ${Kwargs}
     ${description}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    description    default=${None}
@@ -730,6 +738,46 @@ Create Neutron Port With Additional Params
     Log    ${port_id}
     Close Connection
     [Return]    ${OUTPUT}    ${port_id}
+
+Create Networks
+    [Arguments]    ${site_id}
+    [Documentation]    Create Network with neutron request.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    Create Network    ${NetworkElement} --provider:network_type vxlan --provider:segmentation-id 1000    site_index=${site_id}
+
+Delete Networks
+    [Arguments]    ${site_id}
+    [Documentation]    Delete Networks with neutron request.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    Delete Network    ${NetworkElement}    site_index=${site_id}
+
+Delete Vm Instances
+    [Arguments]    ${site_id}
+    [Documentation]    Delete Vm instances using instance names in each site.
+    : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
+    \    Delete Vm Instance    ${VmElement}    site_index=${site_id}
+
+Get Network Id
+    [Arguments]    ${site_id}    ${net_name}
+    [Documentation]    Get network id.
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_id}
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron net-list | grep ${net_name} | awk '{print $2}'
+    @{cut}=    Split To Lines    ${output}    start=0    end=1
+    Log    ${cut}
+    ${output}=    Set Variable    @{cut}
+    [Return]    ${output}
+
+Get Network Subnet Id
+    [Arguments]    ${site_id}    ${subnet_name}
+    [Documentation]    Get network id.
+    ${devstack_conn_id}=    Get ControlNode Connection    ${site_id}
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron subnet-list | grep ${subnet_name} | awk '{print $2}'
+    @{cut}=    Split To Lines    ${output}    start=0    end=1
+    Log    ${cut}
+    ${output}=    Set Variable    @{cut}
+    [Return]    ${output}
 
 Get Ports MacAddr
     [Arguments]    ${portName_list}
