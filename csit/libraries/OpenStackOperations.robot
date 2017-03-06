@@ -269,6 +269,9 @@ Verify VMs Received DHCP Lease
     \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
     \    Log    ${dhcp_ip_line}
     \    @{dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+    \    ${dhcp_ip_length}    Get Length    ${dhcp_ip}
+    \    ${dhcp_ip}=    Run Keyword If    ${dhcp_ip_length}>0    Log    ${dhcp_ip}
+    \    ...    ELSE    Set Variable    None
     \    Log    ${dhcp_ip}
     ${dhcp_length}    Get Length    ${dhcp_ip}
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
