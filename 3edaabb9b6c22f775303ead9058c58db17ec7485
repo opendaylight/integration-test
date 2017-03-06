@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_026d2404",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-03-06T13:47:24Z",
+      "side": 1,
+      "message": "I prefer to explicitly specify. In this case the suite will work on 5 node setup too.",
+      "parentUuid": "fafc7978_c2f15c6c",
+      "range": {
+        "startLine": 26,
+        "startChar": 37,
+        "endLine": 26,
+        "endChar": 49
+      },
+      "revId": "3edaabb9b6c22f775303ead9058c58db17ec7485",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_c215dc9c",
         "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
         "patchSetId": 40
@@ -128,6 +152,30 @@
       "writtenOn": "2017-03-06T13:13:39Z",
       "side": 1,
       "message": "If lines 43-48 were a keyword, this would verify that keyword does not fail within timeout.",
+      "range": {
+        "startLine": 78,
+        "startChar": 103,
+        "endLine": 78,
+        "endChar": 146
+      },
+      "revId": "3edaabb9b6c22f775303ead9058c58db17ec7485",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9d885972",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-03-06T13:47:24Z",
+      "side": 1,
+      "message": "Potential problems in calling rpc are expected on the node which just rejoined the cluster.  With this code there will be no iterations over working nodes again and again and failing node is \"seen\" more directly.",
+      "parentUuid": "fafc7978_e2d3c0d2",
       "range": {
         "startLine": 78,
         "startChar": 103,
