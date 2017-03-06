@@ -67,12 +67,12 @@ Create Neutron Subnets
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
     Neutron Security Group Create    ${SECURITY_GROUP}
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
@@ -105,7 +105,7 @@ Create Nova VMs
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES_NET10}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
     Log    ${VM_IP_NET10}
     Set Suite Variable    ${VM_IP_NET10}
     Log    ${VM_IP_NET20}
@@ -125,7 +125,7 @@ Check ELAN Datapath Traffic Within The Networks
 Create Routers
     [Documentation]    Create Router
     Create Router    ${ROUTERS[0]}
-    ${router_output} =    List Router
+    ${router_output} =    List Routers
     Log    ${router_output}
     Should Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
@@ -275,7 +275,7 @@ Delete Router And Router Interfaces With L3VPN
     \    Should Not Contain    ${interface_output}    ${subnet_id}
     # Delete Router and Interface to the subnets.
     Delete Router    ${ROUTERS[0]}
-    ${router_output} =    List Router
+    ${router_output} =    List Routers
     Log    ${router_output}
     Should Not Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
@@ -290,7 +290,8 @@ Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output} =    Write Commands Until Prompt    neutron router-delete nonExistentRouter    30s
+    ${output}=    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Write Commands Until Prompt    neutron -v router-delete nonExistentRouter    30s
+    ...    ELSE    Write Commands Until Prompt    openstack router delete nonExistentRouter    30s
     Close Connection
     Should Match Regexp    ${output}    Unable to find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
 
