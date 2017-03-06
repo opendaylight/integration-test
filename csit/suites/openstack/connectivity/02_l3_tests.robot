@@ -25,7 +25,8 @@ ${network1_vlan_id}    1236
 *** Test Cases ***
 Create VLAN Network (network_1)
     [Documentation]    Create Network with neutron request.
-    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provid
+    ...    ELSE    Create Network    @{NETWORKS_NAME}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${network_vlan_id}
 
 Create VXLAN Network (network_2)
     [Documentation]    Create Network with neutron request.
@@ -77,7 +78,7 @@ Check Vm Instances Have Ip Address
     \    Exit For Loop If    '${status}' == 'PASS'
     \    BuiltIn.Sleep    5s
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}    @{NET_3_VM_INSTANCES}
-    \    Write Commands Until Prompt    nova console-log ${vm}    30s
+    \    Write Commands Until Prompt    openstack console log show ${vm}    30s
     Set Suite Variable    ${NET1_L3_VM_IPS}
     Set Suite Variable    ${NET1_DHCP_IP}
     Set Suite Variable    ${NET2_L3_VM_IPS}
@@ -98,8 +99,8 @@ Create Routers
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
-    : FOR    ${interface}    IN    @{SUBNETS_NAME}
-    \    Add Router Interface    router_1    ${interface}
+    : FOR    ${subnet}    IN    @{SUBNETS_NAME}
+    \    Add Router Interface    router_1    ${subnet}
 
 Ping Vm Instance1 In network_2 From network_1(vxlan to vlan)
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.

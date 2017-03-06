@@ -23,7 +23,7 @@ ${external_gateway}    10.10.10.250
 ${external_subnet}    10.10.10.0/24
 ${external_net_name}    external-net
 ${external_subnet_name}    external-subnet
-${network1_vlan_id}    167
+${network_vlan_id}    167
 
 *** Test Cases ***
 Create All Controller Sessions
@@ -73,7 +73,8 @@ Check Vm Instances Have Ip Address
     ...    AND    Get Test Teardown Debugs
 
 Create External Network And Subnet
-    Create Network    ${external_net_name} --router:external --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Create Network    ${external_net_name}    --router:external --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network_vlan_id}
+    ...    ELSE    Create Network    ${external_net_name}    --external --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${network_vlan_id}
     Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway}
 
 Create Router
