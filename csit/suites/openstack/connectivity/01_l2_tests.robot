@@ -24,7 +24,8 @@ ${network1_vlan_id}    1235
 *** Test Cases ***
 Create VLAN Network @{NETWORKS_NAME}[0]
     [Documentation]    Create Network with neutron request.
-    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    ...    ELSE    Create Network    @{NETWORKS_NAME}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${network1_vlan_id}
 
 Create VXLAN Network @{NETWORKS_NAME}[1]
     [Documentation]    Create Network with neutron request.
@@ -75,7 +76,7 @@ Check Vm Instances Have Ip Address
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
     Append To List    ${NET1_VM_IPS}    @{NET1_DHCP_IP}[0]
     Set Suite Variable    ${NET1_VM_IPS}
     Append To List    ${NET2_VM_IPS}    @{NET2_DHCP_IP}[0]
