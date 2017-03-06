@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_42756c62",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2017-03-06T12:33:52Z",
+      "side": 1,
+      "message": "I am a bit concerned about this way of waiting for the server to restart. I am still investigating a better way to do this based on logs or other ways, but if you know of any already existing mechanism please let me know. I would appreciate very much your feedback on this one.",
+      "revId": "da6a51bbf79cee7b375acedfbbed99c0badbd8e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
