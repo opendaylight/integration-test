@@ -41,12 +41,12 @@ Create Subnets For l2_network_2
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
     Neutron Security Group Create    csit
-    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=ingress    protocol=icmp    remote_ip=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=egress    protocol=icmp    remote_ip=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip=0.0.0.0/0
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
@@ -73,7 +73,7 @@ Check Vm Instances Have Ip Address
     \    Exit For Loop If    '${status}' == 'PASS'
     \    BuiltIn.Sleep    5s
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    \    Write Commands Until Prompt    nova console-log ${vm}    30s
+    \    Write Commands Until Prompt    openstack console log show ${vm}    30s
     Append To List    ${NET1_VM_IPS}    @{NET1_DHCP_IP}[0]
     Set Suite Variable    ${NET1_VM_IPS}
     Append To List    ${NET2_VM_IPS}    @{NET2_DHCP_IP}[0]
