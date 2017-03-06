@@ -175,6 +175,7 @@ OS_SYSTEM_PROMPT = '$'
 PORT = '8080'
 RESTPORT = '8282'
 RESTCONFPORT = '8181'
+SECURE_RESTCONF_PORT = '8443'
 OVSDBPORT = '6640'
 CONTAINER = 'default'
 PREFIX = 'http://' + ODL_SYSTEM_IP + ':' + PORT  # TODO: determine where this is used; create a better named variable
