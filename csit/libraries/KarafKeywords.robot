@@ -202,3 +202,20 @@ Wait For Karaf Log
     Write    log:tail
     Read Until    ${message}
     Close Connection
+
+Restart Bundle
+    [Arguments]    ${bundle_id}
+    [Documentation]    Restarts bundle passed as argument. Note this operation is only for testing and not production environments
+    # TODO: prepare this for cluster environment and multiple controllers
+    Safe_Issue_Command_On_Karaf_Console    bundle:restart -f $(bundle:id ${bundle_id})
+
+Restart Karaf
+    [Documentation]    Restarts Karaf and polls log to detect when Karaf is up and running again
+    # TODO: prepare this for cluster environment and multiple controllers
+    Safe_Issue_Command_On_Karaf_Console    log:clear
+    Issue_Command_On_Karaf_Console    shutdown -r -f
+    Run Keyword And Return Status    Wait Until Keyword Succeeds    4x    60s    Wait For Karaf Log    Karaf started in
+
+Restart Jetty
+    [Documentation]    Restarts jetty bundle (to reload certificates or key/truststore information)
+    Restart Bundle    OPS4J Pax Web - Jetty
