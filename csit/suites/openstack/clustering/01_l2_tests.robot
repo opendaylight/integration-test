@@ -118,7 +118,7 @@ Check Vm Instances Have Ip Address
     \    Exit For Loop If    '${status}' == 'PASS'
     \    BuiltIn.Sleep    5s
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    \    Write Commands Until Prompt    nova console-log ${vm}    30s
+    \    Write Commands Until Prompt    openstack console log show ${vm}    30s
     Append To List    ${NET1_VM_IPS}    @{NET1_DHCP_IP}[0]
     Set Suite Variable    ${NET1_VM_IPS}
     Append To List    ${NET2_VM_IPS}    @{NET2_DHCP_IP}[0]

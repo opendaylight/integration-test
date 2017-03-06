@@ -103,7 +103,7 @@ Create Nova VMs
     \    Exit For Loop If    '${status}' == 'PASS'
     \    BuiltIn.Sleep    5s
     : FOR    ${vm}    IN    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
-    \    Write Commands Until Prompt    nova console-log ${vm}    30s
+    \    Write Commands Until Prompt    openstack console log show ${vm}    30s
     Log    ${VM_IP_NET10}
     Set Suite Variable    ${VM_IP_NET10}
     Log    ${VM_IP_NET20}
@@ -123,7 +123,7 @@ Check ELAN Datapath Traffic Within The Networks
 Create Routers
     [Documentation]    Create Router
     Create Router    ${ROUTERS[0]}
-    ${router_output} =    List Router
+    ${router_output} =    List Routers
     Log    ${router_output}
     Should Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
@@ -273,7 +273,7 @@ Delete Router And Router Interfaces With L3VPN
     \    Should Not Contain    ${interface_output}    ${subnet_id}
     # Delete Router and Interface to the subnets.
     Delete Router    ${ROUTERS[0]}
-    ${router_output} =    List Router
+    ${router_output} =    List Routers
     Log    ${router_output}
     Should Not Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
@@ -288,7 +288,8 @@ Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output} =    Write Commands Until Prompt    neutron router-delete nonExistentRouter    30s
+    ${output}=    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Write Commands Until Prompt    neutron -v router-delete nonExistentRouter    30s
+    ...    ELSE    Write Commands Until Prompt    openstack router delete nonExistentRouter    30s
     Close Connection
     Should Match Regexp    ${output}    Unable to find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
 
