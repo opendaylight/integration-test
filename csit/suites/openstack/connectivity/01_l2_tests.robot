@@ -24,7 +24,8 @@ ${network1_vlan_id}    1235
 *** Test Cases ***
 Create VLAN Network (l2_network_1)
     [Documentation]    Create Network with neutron request.
-    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    ...    ELSE    Create Network    @{NETWORKS_NAME}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${network1_vlan_id}
 
 Create VXLAN Network (l2_network_2)
     [Documentation]    Create Network with neutron request.
@@ -63,7 +64,7 @@ Check Vm Instances Have Ip Address
     # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
     # for dhcp addresses
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
+    \    Wait Until Keyword Succeeds    300s    5s    Verify VM Is ACTIVE    ${vm}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
     ...    true    @{NET_1_VM_INSTANCES}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
@@ -75,7 +76,7 @@ Check Vm Instances Have Ip Address
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
     Set Suite Variable    ${NET1_VM_IPS}
     Set Suite Variable    ${NET2_VM_IPS}
     Should Not Contain    ${NET1_VM_IPS}    None
