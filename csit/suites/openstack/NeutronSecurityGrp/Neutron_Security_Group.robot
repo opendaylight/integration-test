@@ -30,10 +30,7 @@ ${ADD_ARG_SSH}    --direction ingress --ethertype IPv4 --port_range_max 22 --por
 ${SECURITY_GROUPS}    --security-group
 @{SGP_SSH}        SSH1    SSH2    SSH3    SSH4    SSH5    SSH6    SSH7
 ...               SSH8    SSH9    SSH10
-${ADD_ARG_SSH5}    --direction ingress --ethertype IPv4 --port_range_max 20 --port_range_min 25 --protocol tcp
 @{ADD_PARAMS}     ingression    IPv4    20    25    tcp
-${ADD_ARG_SSH6}    --direction ingress --ethertype IPv4 --port_range_max 25 --port_range_min -1 --protocol tcp
-${ADD_ARG_SSH7}    --direction ingress --ethertype IPv4 --port_range_max -1 --port_range_min 20 --protocol tcp
 ${PORT_RANGE_ERROR}    For TCP/UDP protocols, port_range_min must be <= port_range_max
 ${INVALID_PORT_RANGE_MIN}    Invalid value for port
 
@@ -66,7 +63,8 @@ TC02_Create Security Rule with port_range_min > port_range_max
     Log    "Fetching the flows from DPN1 and DPN2"
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     Log    "Neutron Rule Creation With Port Range Min Grt Port Range Max and Validation"
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[1]}    ${ADD_ARG_SSH5}    ${PORT_RANGE_ERROR}
+    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[1]}    ${PORT_RANGE_ERROR}    direction=ingress    ethertype=IPv4    port_range_max=20    port_range_min=25
+    ...    protocol=tcp
 
 TC03_Create Security Rule with port_range_min = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_min = -1
@@ -76,7 +74,8 @@ TC03_Create Security Rule with port_range_min = -1
     Log    "Fetching the flows from DPN1 and DPN2"
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     Log    "Neutron Rule Creation With Port Range Min Grt Port Range Max and Validation"
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[2]}    ${ADD_ARG_SSH6}    ${INVALID_PORT_RANGE_MIN}
+    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[2]}    ${INVALID_PORT_RANGE_MIN}    direction=ingress    ethertype=IPv4    port_range_max=25    port_range_min=-1
+    ...    protocol=tcp
 
 TC04_Create Security Rule with port_range_max = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_max = -1
@@ -86,7 +85,8 @@ TC04_Create Security Rule with port_range_max = -1
     Log    "Fetching the flows from DPN1 and DPN2"
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     Log    "Neutron Rule Creation With Port Range Min Grt Port Range Max and Validation"
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
+    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[3]}    ${INVALID_PORT_RANGE_MIN}    direction=ingress    ethertype=IPv4    port_range_max=-1    port_range_min=20
+    ...    protocol=tcp
 
 *** Keywords ***
 Get Flows
@@ -186,11 +186,11 @@ Update Security Group Name and Verification
     Should Contain    ${resp.content}    ${VERIFY_NAME}
 
 Neutron Rule Creation With Invalid Parameters
-    [Arguments]    ${SecurityGroupName}    ${additional_args}    ${EXPECTED_ERROR}
+    [Arguments]    ${SecurityGroupName}    ${EXPECTED_ERROR}    &{additional_args}
     [Documentation]    Neutron Rule Creation With Null Protocol
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${cmd}=    Set Variable    neutron security-group-rule-create ${SecurityGroupName} ${additional_args}
+    ${cmd}    Neutron Security Group Rule Create    ${SecurityGroupName} &{additional_args}
     Log    ${cmd}
     ${OUTPUT}=    Write Commands Until Prompt    ${cmd}    30s
     Log    ${OUTPUT}
