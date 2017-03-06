@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fafc7978_4f3d942a",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-06T15:58:11Z",
+      "side": 1,
+      "message": "Mention ${context} contains only the string part of the whole instance identifier.",
+      "range": {
+        "startLine": 61,
+        "startChar": 29,
+        "endLine": 61,
+        "endChar": 53
+      },
+      "revId": "5ddc1e8373b464c89cc1dd8104c3a52dd9e56d69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_6f7fb815",
         "filename": "csit/suites/controller/dom_rpc_broker/action_provider_partition_and_heal.robot",
         "patchSetId": 17
@@ -13,6 +36,30 @@
       "writtenOn": "2017-03-06T15:43:09Z",
       "side": 1,
       "message": "This is not an instance identifier.\n\"/odl-mdsal-lowlevel-target:rpc-context[\u0027context\u0027]\" (without double quotes) is (I hope).",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 25
+      },
+      "revId": "5ddc1e8373b464c89cc1dd8104c3a52dd9e56d69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_cf1864d5",
+        "filename": "csit/suites/controller/dom_rpc_broker/action_provider_partition_and_heal.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-06T15:58:11Z",
+      "side": 1,
+      "message": "Disregard that, it is better to have the boilerplate in data files.",
+      "parentUuid": "fafc7978_6f7fb815",
       "range": {
         "startLine": 30,
         "startChar": 18,
