@@ -3,6 +3,7 @@ Documentation     Openstack library. This library is useful for tests to create 
 Library           SSHLibrary
 Resource          Netvirt.robot
 Resource          Utils.robot
+Resource          L2GatewayOperations.robot
 Resource          ../variables/Variables.robot
 
 *** Keywords ***
@@ -581,12 +582,6 @@ Get Test Teardown Debugs
     Get Model Dump    ${HA_PROXY_IP}
     Get Karaf Log Events From Test Start    ${test_name}
 
-Get Test Teardown Debugs Allow Model Dump Failures
-    [Arguments]    ${test_name}=${TEST_NAME}
-    Get OvsDebugInfo
-    Run Keyword And Ignore Error    Get Model Dump    ${HA_PROXY_IP}
-    Get Karaf Log Events From Test Start    ${test_name}
-
 Get Suite Teardown Debugs
     Get OvsDebugInfo
     Get Model Dump    ${HA_PROXY_IP}
@@ -742,10 +737,111 @@ Get Ports MacAddr
     Switch Connection    ${devstack_conn_id}
     ${MacAddr-list}    Create List
     : FOR    ${portName}    IN    @{portName_list}
-    \    ${output} =    Write Commands Until Prompt    neutron port-list | grep "${portName}" | awk '{print $6}'    30s
-    \    Log    ${output}
-    \    ${splitted_output}=    Split String    ${output}    ${EMPTY}
-    \    ${macAddr}=    Get from List    ${splitted_output}    0
-    \    Log    ${macAddr}
+    \    ${macAddr}=    OpenStackOperations.Get Port Mac    ${portName}    ${devstack_conn_id}
     \    Append To List    ${MacAddr-list}    ${macAddr}
     [Return]    ${MacAddr-list}
+
+Get Port Ip
+    [Arguments]    ${port_name}
+    [Documentation]    Keyword would return the IP of the ${port_name} received.
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $11}' | awk -F "\\"" '{print $2}'    30s
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${port_ip}=    Get from List    ${splitted_output}    0
+    Log    ${port_ip}
+    [Return]    ${port_ip}
+
+Get Port Mac
+    [Arguments]    ${port_name}    ${conn_id}=${devstack_conn_id}
+    [Documentation]    Keyword would return the MAC ID of the ${port_name} received.
+    Switch Connection    ${conn_id}
+    ${output}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $6}'    30s
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${port_mac}=    Get from List    ${splitted_output}    0
+    Log    ${port_mac}
+    [Return]    ${port_mac}
+
+Create L2Gateway
+    [Arguments]    ${bridge_name}    ${intf_name}    ${gw_name}
+    [Documentation]    Keyword to create an L2 Gateway ${gw_name} for bridge ${bridge_name} connected to interface ${intf_name} (Using Neutron CLI).
+    Switch Connection    ${devstack_conn_id}
+    ${l2gw_output}=    Write Commands Until Prompt    ${L2GW_CREATE} name=${bridge_name},interface_names=${intf_name} ${gw_name}    30s
+    Log    ${l2gw_output}
+    [Return]    ${l2gw_output}
+
+Create L2Gateway Connection
+    [Arguments]    ${gw_name}    ${net_name}
+    [Documentation]    Keyword would create a new L2 Gateway Connection for ${gw_name} to ${net_name} (Using Neutron CLI).
+    Switch Connection    ${devstack_conn_id}
+    ${l2gw_output}=    Write Commands Until Prompt    ${L2GW_CONN_CREATE} ${gw_name} ${net_name}    30s
+    Log    ${l2gw_output}
+    [Return]    ${l2gw_output}
+
+Get All L2Gateway
+    [Documentation]    Keyword to return all the L2 Gateways available (Using Neutron CLI).
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    ${L2GW_GET_YAML}    30s
+    [Return]    ${output}
+
+Get All L2Gateway Connection
+    [Documentation]    Keyword to return all the L2 Gateway connections available (Using Neutron CLI).
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    ${L2GW_GET_CONN_YAML}    30s
+    [Return]    ${output}
+
+Get L2Gateway
+    [Arguments]    ${gw_id}
+    [Documentation]    Keyword to check if the ${gw_id} is available in the L2 Gateway list (Using Neutron CLI).
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    ${L2GW_SHOW} ${gw_id}    30s
+    Log    ${output}
+    [Return]    ${output}
+
+Get L2gw Id
+    [Arguments]    ${l2gw_name}
+    [Documentation]    Keyword to retrieve the L2 Gateway ID for the ${l2gw_name} (Using Neutron CLI).
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    ${L2GW_GET} | grep "${l2gw_name}" | awk '{print $2}'    30s
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${l2gw_id}=    Get from List    ${splitted_output}    0
+    Log    ${l2gw_id}
+    [Return]    ${l2gw_id}
+
+Get L2gw Connection Id
+    [Arguments]    ${l2gw_name}
+    [Documentation]    Keyword to retrieve the L2 Gateway Connection ID for the ${l2gw_name} (Using Neutron CLI).
+    Switch Connection    ${devstack_conn_id}
+    ${l2gw_id}=    OpenStackOperations.Get L2gw Id    ${l2gw_name}
+    ${output}=    Write Commands Until Prompt    ${L2GW_GET_CONN} | grep "${l2gw_id}" | awk '{print $2}'    30s
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${l2gw_conn_id}=    Get from List    ${splitted_output}    0
+    Log    ${l2gw_conn_id}
+    [Return]    ${l2gw_conn_id}
+
+Neutron Port List Rest
+    [Documentation]    Keyword to get all ports details in Neutron (Using REST).
+    ${resp} =    RequestsLibrary.Get Request    session    ${PORT_URL}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    [Return]    ${resp.content}
+
+Get Neutron Port Rest
+    [Arguments]    ${port_id}
+    [Documentation]    Keyword to get the specific port details in Neutron (Using REST).
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    [Return]    ${resp.content}
+
+Update Port Rest
+    [Arguments]    ${port_id}    ${json_data}
+    [Documentation]    Keyword to update ${port_id} with json data received in ${json_data} (Using REST).
+    Log    ${json_data}
+    ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}    ${json_data}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    [Return]    ${resp.content}

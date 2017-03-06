@@ -1,0 +1,1 @@
+integration/test/csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot
