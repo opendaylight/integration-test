@@ -36,7 +36,8 @@ Resource          ../../../variables/netvirt/Variables.robot
 ${SECURITY_GROUP}    sg-vpnservice
 # Values passed for extra routes
 ${RT_OPTIONS}     --routes type=dict list=true
-${RT_CLEAR}       --routes action=clear
+${RT_CLEAR_OLD_CLI}    --routes action=clear
+${RT_CLEAR_NEW_CLI}    --no-route
 ${ARP_RESPONSE_REGEX}    arp,arp_op=2 actions=CONTROLLER:65535,resubmit\\(,${DISPATCHER_TABLE}\\)
 ${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
 ${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
@@ -67,12 +68,12 @@ Create Neutron Subnets
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
     Neutron Security Group Create    ${SECURITY_GROUP}
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create And Validate    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
@@ -105,7 +106,7 @@ Create Nova VMs
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES_NET10}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
     Log    ${VM_IP_NET10}
     Set Suite Variable    ${VM_IP_NET10}
     Log    ${VM_IP_NET20}
@@ -125,7 +126,7 @@ Check ELAN Datapath Traffic Within The Networks
 Create Routers
     [Documentation]    Create Router
     Create Router    ${ROUTERS[0]}
-    ${router_output} =    List Router
+    ${router_output} =    List Routers
     Log    ${router_output}
     Should Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
@@ -177,9 +178,12 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     ${CONFIG_EXTRA_ROUTE_IP2} =    Catenate    sudo ifconfig eth0:2 @{EXTRA_NW_IP}[1] netmask 255.255.255.0 up
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP2}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ifconfig
-    ${EXT_RT1} =    Set Variable    destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
-    ${EXT_RT2} =    Set Variable    destination=50.1.1.0/24,nexthop=${VM_IP_NET10[0]}
-    ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}    ${EXT_RT2}
+    ${EXT_RT1}=    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Set Variable    destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
+    ...    ELSE    Set Variable    --route destination=40.1.1.0/24,gateway=${VM_IP_NET10[0]}
+    ${EXT_RT2}=    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Set Variable    destination=50.1.1.0/24,nexthop=${VM_IP_NET10[0]}
+    ...    ELSE    Set Variable    --route destination=50.1.1.0/24,gateway=${VM_IP_NET10[0]}
+    ${cmd} =    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Catenate    ${RT_OPTIONS}    ${EXT_RT1}    ${EXT_RT2}
+    ...    ELSE    Catenate    ${EXT_RT1}    ${EXT_RT2}
     Update Router    @{ROUTERS}[0]    ${cmd}
     Show Router    @{ROUTERS}[0]    -D
     Log    "Verify FIB table"
@@ -194,7 +198,8 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
 
 Delete Extra Route
     [Documentation]    Delete the extra routes
-    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
+    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Update Router    @{ROUTERS}[0]    ${RT_CLEAR_OLD_CLI}
+    ...    ELSE    Update Router    @{ROUTERS}[0]    ${RT_CLEAR_NEW_CLI}
     Show Router    @{ROUTERS}[0]    -D
 
 Delete And Recreate Extra Route
@@ -203,15 +208,19 @@ Delete And Recreate Extra Route
     ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP1}
     ${EXT_RT1} =    Set Variable    destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
-    ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}
+    ${EXT_RT1}=    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Set Variable    destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
+    ...    ELSE    Set Variable    --route destination=40.1.1.0/24,gateway=${VM_IP_NET10[0]}
+    ${cmd} =    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Catenate    ${RT_OPTIONS}    ${EXT_RT1}
+    ...    ELSE    Catenate    ${EXT_RT1}
     Update Router    @{ROUTERS}[0]    ${cmd}
     Show Router    @{ROUTERS}[0]    -D
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[0]
     Should Contain    ${output}    64 bytes
     # clear off extra-routes before the next set of tests
-    [Teardown]    Run Keywords    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
-    ...    AND    Show Router    @{ROUTERS}[0]    -D
-    ...    AND    Get Test Teardown Debugs
+    Show Router    @{ROUTERS}[0]    -D
+    Get Test Teardown Debugs
+    [Teardown]    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Run Keyword    Update Router    @{ROUTERS}[0]    ${RT_CLEAR_OLD_CLI}
+    ...    ELSE    Run Keyword    Update Router    @{ROUTERS}[0]    ${RT_CLEAR_NEW_CLI}
 
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
@@ -279,7 +288,7 @@ Delete Router And Router Interfaces With L3VPN
     \    Should Not Contain    ${interface_output}    ${subnet_id}
     # Delete Router and Interface to the subnets.
     Delete Router    ${ROUTERS[0]}
-    ${router_output} =    List Router
+    ${router_output} =    List Routers
     Log    ${router_output}
     Should Not Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
@@ -294,7 +303,8 @@ Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output} =    Write Commands Until Prompt    neutron router-delete nonExistentRouter    30s
+    ${output}=    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Write Commands Until Prompt    neutron -v router-delete nonExistentRouter    30s
+    ...    ELSE    Write Commands Until Prompt    openstack router delete nonExistentRouter    30s
     Close Connection
     Should Match Regexp    ${output}    Unable to find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
 

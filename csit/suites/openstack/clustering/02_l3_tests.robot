@@ -84,7 +84,7 @@ Check Vm Instances Have Ip Address
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
     Set Suite Variable    ${NET1_L3_VM_IPS}
     Set Suite Variable    ${NET2_L3_VM_IPS}
     Set Suite Variable    ${NET1_DHCP_IP}
