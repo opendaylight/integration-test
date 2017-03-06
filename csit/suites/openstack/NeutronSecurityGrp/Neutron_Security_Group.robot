@@ -190,7 +190,7 @@ Neutron Rule Creation With Invalid Parameters
     [Documentation]    Neutron Rule Creation With Null Protocol
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${cmd}=    Set Variable    neutron security-group-rule-create ${SecurityGroupName} ${additional_args}
+    ${cmd}=    Set Variable    openstack security group rule create ${SecurityGroupName} ${additional_args}
     Log    ${cmd}
     ${OUTPUT}=    Write Commands Until Prompt    ${cmd}    30s
     Log    ${OUTPUT}
