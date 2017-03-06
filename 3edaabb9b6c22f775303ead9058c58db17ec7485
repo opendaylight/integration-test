@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_02dd2442",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-06T13:13:39Z",
+      "side": 1,
+      "message": "Mention status codes.",
+      "range": {
+        "startLine": 52,
+        "startChar": 105,
+        "endLine": 52,
+        "endChar": 106
+      },
+      "revId": "3edaabb9b6c22f775303ead9058c58db17ec7485",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_22702871",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-06T13:13:39Z",
+      "side": 1,
+      "message": "ClusterManagement.*\nAlso for line 62.",
+      "range": {
+        "startLine": 53,
+        "startChar": 20,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "3edaabb9b6c22f775303ead9058c58db17ec7485",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c2f15c6c",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-06T13:13:39Z",
+      "side": 1,
+      "message": "Do you need to specify these, or will they always be \"all minus the tested one\"?",
+      "range": {
+        "startLine": 26,
+        "startChar": 37,
+        "endLine": 26,
+        "endChar": 49
+      },
+      "revId": "3edaabb9b6c22f775303ead9058c58db17ec7485",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c215dc9c",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-06T13:13:39Z",
+      "side": 1,
+      "message": "${TESTED_MEMBER_WITHOUT_RPC_IDX}",
+      "range": {
+        "startLine": 40,
+        "startChar": 62,
+        "endLine": 40,
+        "endChar": 98
+      },
+      "revId": "3edaabb9b6c22f775303ead9058c58db17ec7485",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_02352445",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-06T13:13:39Z",
+      "side": 1,
+      "message": "Specify in suite Documentation whether this suite is for 3 nodes only, or if more (e.g. 5) members are supported. For 3 nodes, ${non_installed_rpc_member_idx_list} would only consist of ${TESTED_MEMBER_WITHOUT_RPC_IDX}, so the code can be simplified.",
+      "range": {
+        "startLine": 47,
+        "startChar": 35,
+        "endLine": 47,
+        "endChar": 83
+      },
+      "revId": "3edaabb9b6c22f775303ead9058c58db17ec7485",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e2d3c0d2",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-06T13:13:39Z",
+      "side": 1,
+      "message": "If lines 43-48 were a keyword, this would verify that keyword does not fail within timeout.",
+      "range": {
+        "startLine": 78,
+        "startChar": 103,
+        "endLine": 78,
+        "endChar": 146
+      },
+      "revId": "3edaabb9b6c22f775303ead9058c58db17ec7485",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

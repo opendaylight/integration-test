@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_e2eaa072",
+        "filename": "csit/testplans/controller-clustering.txt",
+        "patchSetId": 40
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-06T13:13:39Z",
+      "side": 0,
+      "message": "Why are you removing this suite?",
+      "range": {
+        "startLine": 10,
+        "startChar": 58,
+        "endLine": 10,
+        "endChar": 75
+      },
+      "revId": "a7ef470d121fe5db31a7d94597e49b235fd4db03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
