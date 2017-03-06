@@ -84,7 +84,8 @@ Log In To Tempest Executor And Setup Test Environment
     ${source_pwd}    Set Variable    yes
     Set Suite Variable    ${source_pwd}
     # Tempest tests need an existing external network in order to create routers.
-    Create Network    ${external_net_name} --router:external --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network_vlan_id}
+    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Create Network    ${external_net_name}    --router:external --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network_vlan_id}
+    ...    ELSE    Create Network    ${external_net_name}    --external --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${network_vlan_id}
     Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway}
     List Networks
     ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
