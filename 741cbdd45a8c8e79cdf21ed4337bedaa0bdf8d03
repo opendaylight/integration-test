@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_51fb8078",
+        "filename": "csit/suites/iotdm/basic/020_ResourceAttributesCseBase.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-06T08:02:50Z",
+      "side": 1,
+      "message": "I see, but I believe it will be implemented soon. Thank\u0027s for pointing me to that.",
+      "parentUuid": "fafc7978_2667a327",
+      "revId": "741cbdd45a8c8e79cdf21ed4337bedaa0bdf8d03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_066a5fed",
         "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
         "patchSetId": 9
@@ -30,6 +48,30 @@
       "writtenOn": "2017-03-04T01:06:19Z",
       "side": 1,
       "message": "not a fan of the generic name, but others use similar things like Start Suite which is almost as ambiguous.",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 23
+      },
+      "revId": "741cbdd45a8c8e79cdf21ed4337bedaa0bdf8d03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3c16934c",
+        "filename": "csit/suites/iotdm/basic/021_ResourceAttributesContainer.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-06T08:02:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_066a5fed",
       "range": {
         "startLine": 3,
         "startChar": 18,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_1c110f52",
+        "filename": "csit/suites/iotdm/basic/022_ResourceAttributesContentInstance.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-06T08:02:50Z",
+      "side": 1,
+      "message": "Seems as a mistake. I\u0027ve deleted it.",
+      "parentUuid": "fafc7978_666d2b04",
+      "range": {
+        "startLine": 3,
+        "startChar": 27,
+        "endLine": 5,
+        "endChar": 30
+      },
+      "revId": "741cbdd45a8c8e79cdf21ed4337bedaa0bdf8d03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_e680fb8c",
         "filename": "csit/suites/iotdm/basic/024_ResourceAttributesACP.robot",
         "patchSetId": 9
@@ -76,6 +142,30 @@
       "writtenOn": "2017-03-04T01:06:19Z",
       "side": 1,
       "message": "so this is common among many suites right? it\u0027s really only two lines, but it could grow in the future. Probably a good\nidea to move to a lib resource.\n\nCall it IOTDM Basic Suite Setup or something like that.",
+      "range": {
+        "startLine": 367,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 36
+      },
+      "revId": "741cbdd45a8c8e79cdf21ed4337bedaa0bdf8d03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_dc0b0722",
+        "filename": "csit/suites/iotdm/basic/024_ResourceAttributesACP.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-06T08:02:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_e680fb8c",
       "range": {
         "startLine": 367,
         "startChar": 0,
