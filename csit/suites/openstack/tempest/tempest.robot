@@ -35,9 +35,6 @@ tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_mtu_sized_frame
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_port_security_macspoofing_port
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
-
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_preserve_preexisting_port
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
