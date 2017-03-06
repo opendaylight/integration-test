@@ -24,7 +24,7 @@ ${CLIENT_PORT_IP}    10.0.0.5
 ${SERVER_PORT_IP}    10.0.0.6
 ${CLIENT_PORT_NAME}    client
 ${SERVER_PORT_NAME}    server
-${REMOTE_IP_PREFIX}    10.0.0.0/24
+${REMOTE_IP}      10.0.0.0/24
 ${SUBNET_IP_PREFIX}    10.0.0.0/24
 ${ROUTER_NAME}    router123
 ${TENANT_ID}      ${EMPTY}
@@ -86,6 +86,6 @@ To Uuid
 
 Clean Suite
     [Documentation]    Clears Openstack. This is also helpful when debugging tests locally.
-    ${output}    Write Commands Until Prompt    neutron net-delete net123
+    ${output}    Write Commands Until Prompt    openstack network delete net123
     Should Match Regexp    ${output}    Deleted|Removed
     Delete All Sessions
