@@ -578,7 +578,7 @@ Get OvsDebugInfo
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${TEST_NAME}
     Get OvsDebugInfo
-    Get Model Dump    ${HA_PROXY_IP}
+    Run Keyword And Ignore Error    Get Model Dump    ${HA_PROXY_IP}
     Get Karaf Log Events From Test Start    ${test_name}
 
 Get Test Teardown Debugs Allow Model Dump Failures
