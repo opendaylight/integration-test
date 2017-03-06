@@ -86,6 +86,6 @@ To Uuid
 
 Clean Suite
     [Documentation]    Clears Openstack. This is also helpful when debugging tests locally.
-    ${output}    Write Commands Until Prompt    neutron net-delete net123
+    ${output}    Write Commands Until Prompt    openstack network delete net123
     Should Match Regexp    ${output}    Deleted|Removed
     Delete All Sessions
