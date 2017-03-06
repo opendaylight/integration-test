@@ -65,6 +65,10 @@ tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.t
 tempest.scenario.test_server_basic_ops.TestServerBasicOps.test_server_basic_ops
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
+tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_port_security_macspoofing_port
+    [Tags]    skip_if_transparent
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
 *** Keywords ***
 Log In To Tempest Executor And Setup Test Environment
     [Documentation]    Initialize SetupUtils, open SSH connection to a devstack system and source the openstack
