@@ -76,7 +76,6 @@ Delete the Bridge Manually and Verify After Fail
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
     ClusterManagement.Start Single Member    1
-    [Teardown]    Get Test Teardown Debugs Allow Model Dump Failures
 
 Create Bridge Manually and Verify After Recover
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -132,7 +131,6 @@ Check Vm Instances Have Ip Address
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
     ClusterManagement.Start Single Member    2
-    [Teardown]    Get Test Teardown Debugs Allow Model Dump Failures
 
 Ping Vm Instance1 In l2_net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -183,7 +181,6 @@ Connectivity Tests From Vm Instance3 In l2_net_1
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
     ClusterManagement.Start Single Member    3
-    [Teardown]    Get Test Teardown Debugs Allow Model Dump Failures
 
 Take Down ODL1 and ODL2
     [Documentation]    Kill the karaf in First and Second Controller
@@ -204,7 +201,6 @@ Connectivity Tests From Vm Instance3 In l2_net_2
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again.
     ClusterManagement.Start Members From List Or All    ${cluster_down_list}
-    [Teardown]    Get Test Teardown Debugs Allow Model Dump Failures
 
 Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names.
