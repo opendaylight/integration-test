@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_724e7f3c",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-03-06T17:36:17Z",
+      "side": 1,
+      "message": "I do not think this is very clear for people wanting to change default command to kill/freeze/unfreeze distribution, if the goal is to avoid code duplication, i would suggest to define a generic sufix and prefix variables and keep ${NODE_KILL_COMMAND}, ${NODE_FREEZE_COMMAND}, ${NODE_UNFREEZE_COMMAND} variables using the new sufix and prefix.",
+      "revId": "97bfd0390b7981301a987a6b6ffe28e6369661f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
