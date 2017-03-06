@@ -71,7 +71,7 @@ Check Vm Instances Have Ip Address
     ...    AND    Get Test Teardown Debugs
 
 Create External Network And Subnet
-    Create Network    ${external_net_name} --router:external --provider:network_type=flat --provider:physical_network=${external_physical_network}
+    Create Network    ${external_net_name} --external --provider-network-type=flat --provider-physical-network=${external_physical_network}
     Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway}
 
 Create Router
