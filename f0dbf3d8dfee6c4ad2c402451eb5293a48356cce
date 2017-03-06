@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_1d6bc91e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-03-06T14:44:38Z",
+      "side": 1,
+      "message": "I cannot ensure the validity of the solution, but there is some bad smell about changing the type of the variable @{dhcp_ip} from a list to a string \"None\".\n\nA string has a length also, in this case len(\"None\")\u003d4",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 44
+      },
+      "revId": "f0dbf3d8dfee6c4ad2c402451eb5293a48356cce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
