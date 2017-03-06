@@ -27,13 +27,11 @@ ${ADD_ARG_SSH}    --direction ingress --ethertype IPv4 --port_range_max 22 --por
 @{IP_SUBNET}      20.2.1.0/24    20.2.2.0/24    20.2.3.0/24    20.2.4.0/24    20.2.5.0/24    20.2.6.0/24
 @{PORT}           port01    port02    port03    port04    port05    port06    port07
 ...               port08    port09    port10
-${SECURITY_GROUPS}    --security-group
 @{SGP_SSH}        SSH1    SSH2    SSH3    SSH4    SSH5    SSH6    SSH7
 ...               SSH8    SSH9    SSH10
-${ADD_ARG_SSH5}    --direction ingress --ethertype IPv4 --port_range_max 20 --port_range_min 25 --protocol tcp
-@{ADD_PARAMS}     ingression    IPv4    20    25    tcp
-${ADD_ARG_SSH6}    --direction ingress --ethertype IPv4 --port_range_max 25 --port_range_min -1 --protocol tcp
-${ADD_ARG_SSH7}    --direction ingress --ethertype IPv4 --port_range_max -1 --port_range_min 20 --protocol tcp
+@{ADD_PARAMS}     ingress    IPv4    20    25    tcp
+${NEW_CLI_ERROR_TC02_TC04}    Invalid range
+${NEW_CLI_ERROR_TC03}    expected one argument
 ${PORT_RANGE_ERROR}    For TCP/UDP protocols, port_range_min must be <= port_range_max
 ${INVALID_PORT_RANGE_MIN}    Invalid value for port
 
@@ -48,8 +46,7 @@ TC01_Update Security Group description and Name
     Log    "Fetching the flows from DPN1 and DPN2"
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     Log    "Creating neutron setup as network subnet port"
-    Neutron Setup Creation    ${NETWORK[0]}    ${SUBNET[0]}    ${IP_SUBNET[0]}    ${PORT[0]}    ${PORT[1]}    ${SECURITY_GROUPS}
-    ...    ${SGP_ID}
+    Neutron Setup Creation    ${NETWORK[0]}    ${SUBNET[0]}    ${IP_SUBNET[0]}    ${PORT[0]}    ${PORT[1]}    ${SGP_ID}
     Log    "Security group verification on Neutron port"
     Security group verification on Neutron port    ${PORT[0]}    ${SGP_ID}
     Security group verification on Neutron port    ${PORT[1]}    ${SGP_ID}
@@ -66,7 +63,10 @@ TC02_Create Security Rule with port_range_min > port_range_max
     Log    "Fetching the flows from DPN1 and DPN2"
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     Log    "Neutron Rule Creation With Port Range Min Grt Port Range Max and Validation"
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[1]}    ${ADD_ARG_SSH5}    ${PORT_RANGE_ERROR}
+    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[1]}    ${PORT_RANGE_ERROR}    direction=ingress    ethertype=IPv4
+    ...    port_range_max=20    port_range_min=25    protocol=tcp
+    ...    ELSE    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[1]}    ${NEW_CLI_ERROR_TC02_TC04}    direction=ingress    ethertype=IPv4
+    ...    port_range_max=20    port_range_min=25    protocol=tcp
 
 TC03_Create Security Rule with port_range_min = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_min = -1
@@ -76,7 +76,10 @@ TC03_Create Security Rule with port_range_min = -1
     Log    "Fetching the flows from DPN1 and DPN2"
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     Log    "Neutron Rule Creation With Port Range Min Grt Port Range Max and Validation"
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[2]}    ${ADD_ARG_SSH6}    ${INVALID_PORT_RANGE_MIN}
+    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[2]}    ${INVALID_PORT_RANGE_MIN}    direction=ingress    ethertype=IPv4
+    ...    port_range_max=25    port_range_min=-1    protocol=tcp
+    ...    ELSE    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[2]}    ${NEW_CLI_ERROR_TC03}    direction=ingress    ethertype=IPv4
+    ...    port_range_max=25    port_range_min=-1    protocol=tcp
 
 TC04_Create Security Rule with port_range_max = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_max = -1
@@ -86,7 +89,10 @@ TC04_Create Security Rule with port_range_max = -1
     Log    "Fetching the flows from DPN1 and DPN2"
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     Log    "Neutron Rule Creation With Port Range Min Grt Port Range Max and Validation"
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
+    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/mitaka'    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[3]}    ${INVALID_PORT_RANGE_MIN}    direction=ingress    ethertype=IPv4
+    ...    port_range_max=-1    port_range_min=20    protocol=tcp
+    ...    ELSE    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[3]}    ${NEW_CLI_ERROR_TC02_TC04}    direction=ingress    ethertype=IPv4
+    ...    port_range_max=-1    port_range_min=20    protocol=tcp
 
 *** Keywords ***
 Get Flows
@@ -123,7 +129,7 @@ Create Security Rule and Validate
     [Arguments]    ${SGP_SSH}    &{Kwargs}
     [Documentation]    Create Security Rule and Validate
     Log    "Creating the Rules for SSH groups"
-    ${OUTPUT}    ${RULE_ID}    Neutron Security Group Rule Create    ${SGP_SSH}
+    ${OUTPUT}    ${RULE_ID}    Neutron Security Group Rule Create And Validate    ${SGP_SSH}    &{Kwargs}
     Log    ${OUTPUT}
     Log    ${RULE_ID}
     Set Global Variable    ${RULE_ID}
@@ -134,8 +140,7 @@ Create Security Rule and Validate
     Should Contain    ${resp.content}    ${RULE_ID}
 
 Neutron Setup Creation
-    [Arguments]    ${NETWORK}    ${SUBNET}    ${IP_SUBNET}    ${PORT1}    ${PORT2}    ${SECURITY_GROUPS}
-    ...    ${SGP_ID}
+    [Arguments]    ${NETWORK}    ${SUBNET}    ${IP_SUBNET}    ${PORT1}    ${PORT2}    ${SGP_ID}
     [Documentation]    Neutron Setup Creation
     Log    "Creating networks"
     ${net_id}    Create Network    ${NETWORK}
@@ -145,11 +150,10 @@ Neutron Setup Creation
     ${subnet_id}    Create SubNet    ${NETWORK}    ${SUBNET}    ${IP_SUBNET}
     Log    ${subnet_id}
     Set Global Variable    ${subnet_id}
-    ${ADD_ARGMS}=    Set Variable    ${SECURITY_GROUPS} ${SGP_ID}
-    ${port_id}    Create Neutron Port With Additional Params    ${NETWORK}    ${PORT1}    ${ADD_ARGMS}
+    ${port_id}    Create Port    ${NETWORK}    ${PORT1}    ${SGP_ID}
     Log    ${port_id}
     Log    "Creating ports"
-    ${port_id}    Create Neutron Port With Additional Params    ${NETWORK}    ${PORT2}    ${ADD_ARGMS}
+    ${port_id}    Create Port    ${NETWORK}    ${PORT2}    ${SGP_ID}
     Log    ${port_id}
 
 Security group verification on Neutron port
@@ -186,14 +190,9 @@ Update Security Group Name and Verification
     Should Contain    ${resp.content}    ${VERIFY_NAME}
 
 Neutron Rule Creation With Invalid Parameters
-    [Arguments]    ${SecurityGroupName}    ${additional_args}    ${EXPECTED_ERROR}
+    [Arguments]    ${SecurityGroupName}    ${EXPECTED_ERROR}    &{Kwargs}
     [Documentation]    Neutron Rule Creation With Null Protocol
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${cmd}=    Set Variable    neutron security-group-rule-create ${SecurityGroupName} ${additional_args}
-    Log    ${cmd}
-    ${OUTPUT}=    Write Commands Until Prompt    ${cmd}    30s
-    Log    ${OUTPUT}
+    ${output}=    Neutron Security Group Rule Create    ${SecurityGroupName}    &{Kwargs}
+    Log    ${output}
     Should Contain    ${output}    ${EXPECTED_ERROR}
-    Close Connection
-    [Return]    ${OUTPUT}
+    [Return]    ${output}
