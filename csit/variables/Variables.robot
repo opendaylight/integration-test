@@ -47,6 +47,7 @@ ${CREATE_PATHPOLICY_TOPOLOGY_FILE}    topo-3sw-2host_multipath.py    # A shortha
 ${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_PATHPOLICY_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_VLAN_TOPOLOGY_FILE}    vlan_vtn_test.py    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_VLAN_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_VLAN_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
+${CUSTOMPROP}    /tmp/${BUNDLEFOLDER}/etc/custom.properties    # Full path of custom.properties file
 ${DEFAULT_LINUX_PROMPT}    >    # Generic *_SYSTEM prompt for SSHLibrary.Read_Unti_Prompt. Current value is there for historic reasons. FIXME: Add -v to releng/builder and change this value to more common "$" (without quotes, with backslash). TODO: Replace usage with the strict version.
 ${DEFAULT_LINUX_PROMPT_STRICT}    ]>    # A more strict prompt substring, this only matches Bash prompt, not Mininet prompt.
 ${DEFAULT_BGPCEP_LOG_LEVEL}    ${DEFAULT_ODL_LOG_LEVEL}    # Fallback Karaf log level specific to org.opendaylight.bgpcep.
@@ -84,6 +85,8 @@ ${KARAF_PROMPT}    opendaylight-user    # Simple and readable Karaf prompt subst
 ${KARAF_SHELL_PORT}    8101    # ODL provides SSH access to Karaf consoleon this port.
 ${KARAF_USER}     karaf    # User name to authenticate to Karaf SSH console.
 ${KEYFILE_PASS}    any    # Implementation detail related to SSHLibrary.Login_With_Public_Key. TODO: Hide in SSHKeywords.
+${KEYSTORE_PATH}    /tmp/${BUNDLEFOLDER}/configuration/ssl/.keystore    # Full path of keystore for TLS communication
+${KEYSTORE_RELATIVE_PATH}    configuration/ssl/.keystore    # Relative path of keystore for TLS communication
 ${LFM_RPC_API}    /restconf/operations/odl-mappingservice    # FIXME: Move to a separate LispFlowMapping-related Resource and add description.
 ${LFM_RPC_API_LI}    /restconf/operations/lfm-mapping-database    # FIXME: Move to a separate LispFlowMapping-related Resource and add description.
 ${LFM_SB_RPC_API}    /restconf/operations/odl-lisp-sb    # FIXME: Move to a separate LispFlowMapping-related Resource and add description.
@@ -133,6 +136,7 @@ ${PROTOCOL_LOG_LEVEL}    ${DEFAULT_PROTOCOL_LOG_LEVEL}    # Some suites temporar
 ${PWD}            ${ODL_RESTCONF_PASSWORD}    # Deprecated. FIXME: Eradicate.
 ${REGISTER_TENANT_URI}    /restconf/operations/nemo-intent:register-user    # FIXME: Move to a separate Nemo-related Resource and add description.
 ${RESTCONFPORT}    8181    # Primary port for ODL RESTCONF, although 8080 should also work.
+${RESTCONFPORT_TLS}    8443    # Port for ODL RESTCONF Secure (TLS) operations
 ${RESTPORT}       8282    # Deprecated. Restconf port used by AD-SAL services. FIXME: Eradicate.
 ${REVOKE_TOKEN_API}    /oauth2/revoke    # FIXME: Move to a separate AAA-related Resource and add description.
 ${SCOPE}          sdn    # Scope, used for some types of HTTP requests agains ODL RESTCONF. TODO: Migrate most suites to TemplatedRequests or AuthStandalone, then chose a more descriptive name.

@@ -236,6 +236,15 @@ Verify File Exists On Remote System
     SSHLibrary.File Should Exist    ${file}
     Close Connection
 
+Copy File To Remote System
+    [Arguments]    ${system}    ${source}    ${destination}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    ...    ${prompt_timeout}=5s
+    [Documentation]    Simplifies copy file operations to remote system
+    ${conn_id}=    Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Flexible SSH Login    ${user}    ${password}
+    SSHLibrary.Put File    ${source}    ${destination}
+    Close Connection
+
 Check Karaf Log File Does Not Have Messages
     [Arguments]    ${ip}    ${message}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
     [Documentation]    Fails if the provided ${message} is found in the karaf.log file. Uses grep to search. The
@@ -483,3 +492,4 @@ Install Package On Ubuntu System
     Flexible Mininet Login    user=${user}    password=${password}
     Write    sudo apt-get install -y ${package_name}
     Read Until    ${prompt}
+
