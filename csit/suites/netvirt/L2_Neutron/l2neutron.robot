@@ -164,6 +164,7 @@ Check ELAN Datapath Traffic Within The Networks
     ${output} =    Execute Command on VM Instance    ${NETWORKS}[5]    ${VM_IP_NET20[5]}    ping -c 3 ${VM_IP_NET10[5]}
     Should Contain    ${output}    64 bytes
 
+
 Create Routers
     [Documentation]    Create Router
     Create Router    ${ROUTERS[0]}
