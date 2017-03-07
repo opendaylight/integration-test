@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_3f52f734",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T22:39:42Z",
+      "side": 1,
+      "message": "is this not a variable defined somewhere?",
+      "range": {
+        "startLine": 662,
+        "startChar": 57,
+        "endLine": 662,
+        "endChar": 61
+      },
+      "revId": "94095d96bd6aa7fb1965d4f46fcb3ff0aa675c5c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9f34c3fc",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T22:39:42Z",
+      "side": 1,
+      "message": "var?",
+      "range": {
+        "startLine": 676,
+        "startChar": 57,
+        "endLine": 676,
+        "endChar": 61
+      },
+      "revId": "94095d96bd6aa7fb1965d4f46fcb3ff0aa675c5c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_df3acbe5",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T22:39:42Z",
+      "side": 1,
+      "message": "should be able to do this in one line:\n\n  Should Be True    ${result} \u003e ${number_items}",
+      "range": {
+        "startLine": 686,
+        "startChar": 0,
+        "endLine": 687,
+        "endChar": 49
+      },
+      "revId": "94095d96bd6aa7fb1965d4f46fcb3ff0aa675c5c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bf3d47df",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T22:39:42Z",
+      "side": 1,
+      "message": "var?",
+      "range": {
+        "startLine": 691,
+        "startChar": 57,
+        "endLine": 691,
+        "endChar": 61
+      },
+      "revId": "94095d96bd6aa7fb1965d4f46fcb3ff0aa675c5c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1f28d398",
+        "filename": "csit/suites/tsdr/Elasticsearch/030_FlowTableMetrics.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T22:39:42Z",
+      "side": 1,
+      "message": "please use Variables.robot",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 49
+      },
+      "revId": "94095d96bd6aa7fb1965d4f46fcb3ff0aa675c5c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ff222fb7",
+        "filename": "csit/suites/tsdr/Elasticsearch/030_FlowTableMetrics.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T22:39:42Z",
+      "side": 1,
+      "message": "this is fine, although it\u0027s not the standard way to get\nfeatures installed for CSIT. normally, projects are putting\ntheir features to install in their jjb job .yaml files.\n\njust fyi.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 113
+      },
+      "revId": "94095d96bd6aa7fb1965d4f46fcb3ff0aa675c5c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3f29579b",
+        "filename": "csit/suites/tsdr/Elasticsearch/030_FlowTableMetrics.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T22:39:42Z",
+      "side": 1,
+      "message": "these aren\u0027t really test cases. I suggest you move them to\nthe *** Keywords *** section of this file. Then your next\nvalid test case would call these two keywords as it\u0027s first\ntwo steps, followed by it\u0027s validation (should be equal as\nstrings) steps.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 36
+      },
+      "revId": "94095d96bd6aa7fb1965d4f46fcb3ff0aa675c5c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
