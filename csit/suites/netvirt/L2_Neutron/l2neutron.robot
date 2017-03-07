@@ -18,23 +18,21 @@ Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-@{NETWORKS}       NET10    NET20    NET30    NET40    NET50    NET60
-@{SUBNETS}        SUBNET1    SUBNET2    SUBNET3    SUBNET4    SUBNET5    SUBNET6
-@{SUBNET_CIDR}    10.1.1.0/24    20.1.1.0/24    30.1.1.0/24    40.1.1.0/24    50.1.1.0/24    60.1.1.0/24
-@{PORT_LIST}      PORT1    PORT2    PORT3    PORT4    PORT5    PORT6    PORT7
-...               PORT8    PORT9    PORT10    PORT11    PORT12    PORT13
-@{VM_INSTANCES_DPN1}    VM11    VM21    VM31    VM41    VM51    VM61
-@{VM_INSTANCES_DPN2}    VM12    VM22    VM32    VM42    VM52    VM62
+@{NETWORKS}       NET10    NET20    NET30
+@{SUBNETS}        SUBNET1    SUBNET2    SUBNET3
+@{SUBNET_CIDR}    10.1.1.0/24    20.1.1.0/24    30.1.1.0/24
+@{PORT_LIST}      PORT1    PORT2    PORT3    PORT4    PORT5    PORT6
+@{VM_INSTANCES_DPN1}    VM11    VM21    VM31
+@{VM_INSTANCES_DPN2}    VM12    VM22    VM32
 @{ROUTERS}        ROUTER_1
 @{ROUTER_SUBNETS}    SUBNET1    SUBNET2
 @{VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261111    4ae8cd92-48ca-49b5-94e1-b2921a261112    4ae8cd92-48ca-49b5-94e1-b2921a261113
-@{VPN_NAME}       vpn1    vpn2    vpn3
+@{VPN_NAME}       vpn1
 @{CREATE_RD}      ["2200:2"]    ["2300:2"]    ["2400:2"]
 @{CREATE_EXPORT_RT}    ["2200:2"]    ["2300:2"]    ["2400:2"]
 @{CREATE_IMPORT_RT}    ["2200:2"]    ["2300:2"]    ["2400:2"]
 ${EPH1_CFG}       sudo ifconfig eth0:1 10.1.1.110 netmask 255.255.255.0 up
-${EPH2_CFG}       sudo ifconfig eth0:1 50.1.1.110 netmask 255.255.255.0 up
-${EPH3_CFG}       sudo ifconfig eth0:1 40.1.1.110 netmask 255.255.255.0 up
+${EPH2_CFG}       sudo ifconfig eth0:1 20.1.1.110 netmask 255.255.255.0 up
 
 *** Test Cases ***
 Create Neutron Networks
@@ -42,17 +40,11 @@ Create Neutron Networks
     Create Network    ${NETWORKS[0]}
     Create Network    ${NETWORKS[1]}
     Create Network    ${NETWORKS[2]}
-    Create Network    ${NETWORKS[3]}
-    Create Network    ${NETWORKS[4]}
-    Create Network    ${NETWORKS[5]}
     ${NET_LIST}    List Networks
     Log    ${NET_LIST}
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
     Should Contain    ${NET_LIST}    ${NETWORKS[1]}
     Should Contain    ${NET_LIST}    ${NETWORKS[2]}
-    Should Contain    ${NET_LIST}    ${NETWORKS[3]}
-    Should Contain    ${NET_LIST}    ${NETWORKS[4]}
-    Should Contain    ${NET_LIST}    ${NETWORKS[5]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/networks/    ${NETWORKS}
 
 Create Neutron Subnets
@@ -60,17 +52,11 @@ Create Neutron Subnets
     Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNET_CIDR[0]}
     Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNET_CIDR[1]}
     Create SubNet    ${NETWORKS[2]}    ${SUBNETS[2]}    ${SUBNET_CIDR[2]}
-    Create SubNet    ${NETWORKS[3]}    ${SUBNETS[3]}    ${SUBNET_CIDR[3]}
-    Create SubNet    ${NETWORKS[4]}    ${SUBNETS[4]}    ${SUBNET_CIDR[4]}
-    Create SubNet    ${NETWORKS[5]}    ${SUBNETS[5]}    ${SUBNET_CIDR[5]}
     ${SUB_LIST}    List Subnets
     Log    ${SUB_LIST}
     Should Contain    ${SUB_LIST}    ${SUBNETS[0]}
     Should Contain    ${SUB_LIST}    ${SUBNETS[1]}
     Should Contain    ${SUB_LIST}    ${SUBNETS[2]}
-    Should Contain    ${SUB_LIST}    ${SUBNETS[3]}
-    Should Contain    ${SUB_LIST}    ${SUBNETS[4]}
-    Should Contain    ${SUB_LIST}    ${SUBNETS[5]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/subnets/    ${SUBNETS}
 
 Add Ssh Allow Rule
@@ -87,33 +73,20 @@ Create Neutron Ports
     [Documentation]    Create thirteen ports under previously created subnets
     Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=sg-vpnservice
     Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[0]}    ${PORT_LIST[2]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=sg-vpnservice
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[4]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[2]}    ${PORT_LIST[4]}    sg=sg-vpnservice
     Create Port    ${NETWORKS[2]}    ${PORT_LIST[5]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[2]}    ${PORT_LIST[6]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[3]}    ${PORT_LIST[7]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[3]}    ${PORT_LIST[8]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[4]}    ${PORT_LIST[9]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[4]}    ${PORT_LIST[10]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[5]}    ${PORT_LIST[11]}    sg=sg-vpnservice
-    Create Port    ${NETWORKS[5]}    ${PORT_LIST[12]}    sg=sg-vpnservice
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORT_LIST}
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute node with port
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_DPN1[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_DPN1[1]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[5]}    ${VM_INSTANCES_DPN1[2]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[8]}    ${VM_INSTANCES_DPN1[3]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[9]}    ${VM_INSTANCES_DPN1[4]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[11]}    ${VM_INSTANCES_DPN1[5]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_DPN2[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[4]}    ${VM_INSTANCES_DPN2[1]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[6]}    ${VM_INSTANCES_DPN2[2]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[7]}    ${VM_INSTANCES_DPN2[3]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[10]}    ${VM_INSTANCES_DPN2[4]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[12]}    ${VM_INSTANCES_DPN2[5]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_DPN1[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_DPN1[1]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[4]}    ${VM_INSTANCES_DPN1[2]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_DPN2[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_DPN2[1]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[5]}    ${VM_INSTANCES_DPN2[2]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_DPN1}    @{VM_INSTANCES_DPN2}
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Wait Until Keyword Succeeds    60s    5s    Verify VM Is ACTIVE    ${VM}
@@ -151,18 +124,6 @@ Check ELAN Datapath Traffic Within The Networks
     Should Contain    ${output}    64 bytes
     ${output} =    Execute Command on VM Instance    ${NETWORKS}[2]    ${VM_IP_NET20[2]}    ping -c 3 ${VM_IP_NET10[2]}
     Should Contain    ${output}    64 bytes
-    ${output} =    Execute Command on VM Instance    ${NETWORKS}[3]    ${VM_IP_NET10[3]}    ping -c 3 ${VM_IP_NET20[3]}
-    Should Contain    ${output}    64 bytes
-    ${output} =    Execute Command on VM Instance    ${NETWORKS}[3]    ${VM_IP_NET20[3]}    ping -c 3 ${VM_IP_NET10[3]}
-    Should Contain    ${output}    64 bytes
-    ${output} =    Execute Command on VM Instance    ${NETWORKS}[4]    ${VM_IP_NET10[4]}    ping -c 3 ${VM_IP_NET20[4]}
-    Should Contain    ${output}    64 bytes
-    ${output} =    Execute Command on VM Instance    ${NETWORKS}[4]    ${VM_IP_NET20[4]}    ping -c 3 ${VM_IP_NET10[4]}
-    Should Contain    ${output}    64 bytes
-    ${output} =    Execute Command on VM Instance    ${NETWORKS}[5]    ${VM_IP_NET10[5]}    ping -c 3 ${VM_IP_NET20[5]}
-    Should Contain    ${output}    64 bytes
-    ${output} =    Execute Command on VM Instance    ${NETWORKS}[5]    ${VM_IP_NET20[5]}    ping -c 3 ${VM_IP_NET10[5]}
-    Should Contain    ${output}    64 bytes
 
 Create Routers
     [Documentation]    Create Router
@@ -198,21 +159,15 @@ Check L3_Datapath Traffic Across Networks With Router
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
 
-Create Multiple L3VPN
-    [Documentation]    Creates three L3VPNs and then verify the same
+Create L3VPN
+    [Documentation]    Creates a L3VPN and then verify the same
     ${devstack_conn_id} =    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
     VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=${CREATE_RD[0]}    exportrt=${CREATE_EXPORT_RT[0]}    importrt=${CREATE_IMPORT_RT[0]}    tenantid=${tenant_id}
-    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[1]}    name=${VPN_NAME[1]}    rd=${CREATE_RD[1]}    exportrt=${CREATE_EXPORT_RT[1]}    importrt=${CREATE_IMPORT_RT[1]}    tenantid=${tenant_id}
-    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[2]}    name=${VPN_NAME[2]}    rd=${CREATE_RD[2]}    exportrt=${CREATE_EXPORT_RT[2]}    importrt=${CREATE_IMPORT_RT[2]}    tenantid=${tenant_id}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[0]}
-    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
-    Should Contain    ${resp}    ${VPN_INSTANCE_ID[1]}
-    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
-    Should Contain    ${resp}    ${VPN_INSTANCE_ID[2]}
 
 Associate L3VPN To Routers
     [Documentation]    Associating router to L3VPN
@@ -275,8 +230,7 @@ Create ITM Tunnel
 Configure Enterprise Network Host
     [Documentation]    Bring up EPhosts on DPN1 & DPN2
     ${output} =    Execute Command on VM Instance    ${NETWORKS}[0]    ${VM_IP_NET10[1]}    ${EPH1_CFG}
-    ${output} =    Execute Command on VM Instance    ${NETWORKS}[4]    ${VM_IP_NET10[4]}    ${EPH2_CFG}
-    ${output} =    Execute Command on VM Instance    ${NETWORKS}[3]    ${VM_IP_NET20[3]}    ${EPH3_CFG}
+    ${output} =    Execute Command on VM Instance    ${NETWORKS}[1]    ${VM_IP_NET20[1]}    ${EPH2_CFG}
 
 Delete ITM Tunnel
     [Documentation]    Delete tunnels with specific transport-zone.
