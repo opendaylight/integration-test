@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_03b7e3f5",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2017-03-07T08:28:39Z",
+      "side": 1,
+      "message": "Sure. Done!",
+      "parentUuid": "fafc7978_65987778",
+      "range": {
+        "startLine": 8,
+        "startChar": 37,
+        "endLine": 8,
+        "endChar": 49
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_e58bc71c",
         "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-07T00:08:16Z",
       "side": 1,
       "message": "I would tend toward putting these in Variables.robot, \nespecially if you think they would be used in other suites\ndown the road. no big deal for now to keep them here.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 72
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_43a1eb92",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2017-03-07T08:28:39Z",
+      "side": 1,
+      "message": "Sure. I have moved the generic ones, that is, I think the two first ones are specific to this suite thus I would leave them here. If it is not correct let me know and I will move all of them.",
+      "parentUuid": "fafc7978_e58bc71c",
       "range": {
         "startLine": 13,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_23b027dc",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2017-03-07T08:28:39Z",
+      "side": 1,
+      "message": "As you noticed below, this is part of pycurllibrary. I started using this lib because I needed client authentication based on certificates and I have not been able to find proper support for this in robotframework-requests library: It just supports server certificates, but I haven\u0027t found a way for client\u0027s. If you know of a way to do it please let me know since I would like to continue using \u0027requests\u0027 library for a more homogeneous code.",
+      "parentUuid": "fafc7978_05852b06",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_657fd715",
         "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2017-03-07T00:08:16Z",
       "side": 1,
       "message": "oh, is this stuff coming from the pycurllibrary I just now\nnoticed? if so, we need to check that this is installed\nin our robot vms.\n\nstill, I\u0027m wondering if the requestslibrary has some limitation here so you can\u0027t use it? I see it was used\nin the first test case.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 41
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_43c8cb54",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2017-03-07T08:28:39Z",
+      "side": 1,
+      "message": "Unfortunately pycurllibrary does not seem to be installed in the vms (I just run a quick sandbox and it fails due to this). I can submit a patch to fix it.",
+      "parentUuid": "fafc7978_657fd715",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_e3073f80",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2017-03-07T08:28:39Z",
+      "side": 1,
+      "message": "You are totally right :) At the moment this is not a test case. However please let me add some more explanation:\n\nThis case ends up restarting karaf and I have just set an sleep cmd to wait (I am still investigating a better way). My intention was to improve the mechanism to detect that the server has restarted properly and make that the pass/fail checkpoint, i.e., there is a chance that the server does not restart correctly, thus my intention was to test that the server restarted ok once changes in TLS config are done. \n\nWhat do you think? \n\n(I\u0027m happy to take this away and put it as part of other tests if you still think the case by itself is meaningless).",
+      "parentUuid": "fafc7978_457a9324",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 43
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_a5753f33",
         "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2017-03-07T00:08:16Z",
       "side": 1,
       "message": "a few tabs here to clean up.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 22
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a3f1b796",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2017-03-07T08:28:39Z",
+      "side": 1,
+      "message": "Done :)",
+      "parentUuid": "fafc7978_a5753f33",
       "range": {
         "startLine": 65,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_83ec73bc",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2017-03-07T08:28:39Z",
+      "side": 1,
+      "message": "Excellent!!! Done!",
+      "parentUuid": "fafc7978_8570fb40",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 73
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_a576df03",
         "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
         "patchSetId": 2
@@ -174,6 +342,30 @@
       "writtenOn": "2017-03-07T00:08:16Z",
       "side": 1,
       "message": "this probably should be a keyword in the karafkeywords\nlibrary so others can take advantage.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 13
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c3315b5b",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2017-03-07T08:28:39Z",
+      "side": 1,
+      "message": "Fully agree! Done!",
+      "parentUuid": "fafc7978_a576df03",
       "range": {
         "startLine": 78,
         "startChar": 0,
@@ -232,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_a34897cc",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2017-03-07T08:28:39Z",
+      "side": 1,
+      "message": "Fully agree. This is a very bad implementation. I am still figuring out some ways to make it better. Need to check the Karaf Log approach, but I am not sure if it will work as I restart the server several times and I guess the logs will be repeated. \nI think I could remove the logs just before restart to ensure that the desired string appears only once.",
+      "parentUuid": "fafc7978_85711b0e",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 16
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_e563c73f",
         "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
         "patchSetId": 2
@@ -243,6 +459,30 @@
       "writtenOn": "2017-03-07T00:08:16Z",
       "side": 1,
       "message": "I\u0027d rather see a generic keyword in karafkeywords called:\n\nRestart Bundle that takes a string. so you would then call\nit with the \"OPS4J Pax Web - Jetty\" string",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 97
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_8343d3ad",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2017-03-07T08:28:39Z",
+      "side": 1,
+      "message": "Excellent approach! Done!",
+      "parentUuid": "fafc7978_e563c73f",
       "range": {
         "startLine": 83,
         "startChar": 0,
