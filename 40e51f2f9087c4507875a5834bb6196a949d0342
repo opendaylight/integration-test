@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_ff86afb7",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T22:06:43Z",
+      "side": 1,
+      "message": "cool, let me know if you need help with that patch. obviously, it needs to be there for this to work once\nmerged. in the meantime you can modify your sandbox\njobs to do this install manually.",
+      "parentUuid": "fafc7978_43c8cb54",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 41
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_457a9324",
         "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
         "patchSetId": 2
