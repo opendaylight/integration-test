@@ -7,9 +7,9 @@ def get_active_controller_from_json(resp, service):
     """Gets index of active controller running specified service
 
     :param resp: JSON formatted response from EOS
-    :type resp: string
+    :type resp: str
     :param service: EOS Service to look for
-    :type service: string
+    :type service: str
     :return: Index of controller
     """
     entities = json.loads(resp)['entity-owners']['entity-type']
@@ -25,9 +25,9 @@ def mod(num, base):
     """Gets modulo of number
 
     :param num: Number to be used
-    :type num: string
+    :type num: str
     :param base: Base used
-    :type base: string
+    :type base: str
     :returns: Int representing modulo of specified numbers.
 
     """
@@ -79,7 +79,7 @@ def get_ip_from_number_and_ip(n, ip_address):
     :param n: Number to be converted
     :type n: int
     :param ip_address: Base address
-    :type ip_address: string
+    :type ip_address: str
     :returns: String containing Ipv4.
 
     """
@@ -91,9 +91,9 @@ def lower_version(ver1, ver2):
     """Generate xml containing SGT mach data
 
     :param ver1: Version of SXP protocol for compare
-    :type ver1: string
+    :type ver1: str
     :param ver2: Version of SXP protocol for compare
-    :type ver2: string
+    :type ver2: str
     :returns: String containing lower from those two specified versions.
 
     """
@@ -109,23 +109,23 @@ def get_filter_entry(seq, entry_type, sgt="", esgt="", acl="", eacl="", pl="", e
     """Generate xml containing FilterEntry data
 
     :param seq: Sequence of entry
-    :type seq: string
+    :type seq: str
     :param entry_type: Type of entry (permit/deny)
-    :type entry_type: string
+    :type entry_type: str
     :param sgt: SGT matches to be added to entry
-    :type sgt: string
+    :type sgt: str
     :param esgt: SGT ranges match to be added to entry
-    :type esgt: string
+    :type esgt: str
     :param acl: ACL matches to be added to entry
-    :type acl: string
+    :type acl: str
     :param eacl: EACL matches to be added to entry
-    :type eacl: string
+    :type eacl: str
     :param pl: PrefixList matches to be added to entry
-    :type pl: string
+    :type pl: str
     :param epl: ExtendedPrefixList matches to be added to entry
-    :type epl: string
+    :type epl: str
     :param ps: PeerSequence matches to be added to entry
-    :type ps: string
+    :type ps: str
     :returns: String containing xml data for request
 
     """
@@ -199,7 +199,7 @@ def add_sgt_matches_xml(sgt_entries):
     """Generate xml containing SGT mach data
 
     :param sgt_entries: SGT matches
-    :type sgt_entries: string
+    :type sgt_entries: str
     :returns: String containing xml data for request
 
     """
@@ -215,9 +215,9 @@ def add_sgt_range_xml(start, end):
     """Generate xml containing SGT RangeMach data
 
     :param start: Start range of SGT
-    :type start: string
+    :type start: str
     :param end: End range of SGT
-    :type end: string
+    :type end: str
     :returns: String containing xml data for request
 
     """
@@ -232,11 +232,11 @@ def add_acl_entry_default_xml(seq, entry_type, acl_entries):
     """Generate xml containing AccessList data
 
     :param seq: Sequence of PrefixList entry
-    :type seq: string
+    :type seq: str
     :param entry_type: Entry type (permit/deny)
-    :type entry_type: string
+    :type entry_type: str
     :param acl_entries: XML data containing AccessList entries
-    :type acl_entries: string
+    :type acl_entries: str
     :returns: String containing xml data for request
 
     """
@@ -254,9 +254,9 @@ def add_acl_entry_xml(ip, mask):
     """Generate xml containing AccessList data
 
     :param ip: Ipv4/6 address
-    :type ip: string
+    :type ip: str
     :param mask: Ipv4/6 wildcard mask
-    :type mask: string
+    :type mask: str
     :returns: String containing xml data for request
 
     """
@@ -272,13 +272,13 @@ def add_eacl_entry_xml(ip, mask, amask, wmask):
     """Generate xml containing ExtendedAccessList data
 
     :param ip: Ipv4/6 address
-    :type ip: string
+    :type ip: str
     :param mask: Ipv4/6 wildcard mask
-    :type mask: string
+    :type mask: str
     :param amask: Ipv4/6 address mask
-    :type amask: string
+    :type amask: str
     :param wmask: Ipv4/6 address wildcard mask
-    :type wmask: string
+    :type wmask: str
     :returns: String containing xml data for request
 
     """
@@ -298,11 +298,11 @@ def add_ps_entry_default_xml(seq, entry_type, ps_entries):
     """Generate xml containing PeerSequence data
 
     :param seq: Sequence of PrefixList entry
-    :type seq: string
+    :type seq: str
     :param entry_type: Entry type (permit/deny)
-    :type entry_type: string
+    :type entry_type: str
     :param ps_entries: XML data containing PeerSequence entries
-    :type ps_entries: string
+    :type ps_entries: str
     :returns: String containing xml data for request
 
     """
@@ -318,11 +318,11 @@ def add_pl_entry_default_xml(seq, entry_type, pl_entries):
     """Generate xml containing PrefixList data
 
     :param seq: Sequence of PrefixList entry
-    :type seq: string
+    :type seq: str
     :param entry_type: Entry type (permit/deny)
-    :type entry_type: string
+    :type entry_type: str
     :param pl_entries: XML data containing PrefixList entries
-    :type pl_entries: string
+    :type pl_entries: str
     :returns: String containing xml data for request
 
     """
@@ -338,7 +338,7 @@ def add_pl_entry_xml(prefix):
     """Generate xml containing PrefixList data
 
     :param prefix: Ipv4/6 prefix
-    :type prefix: string
+    :type prefix: str
     :returns: String containing xml data for request
 
     """
@@ -353,11 +353,11 @@ def add_epl_entry_xml(prefix, op, mask):
     """Generate xml containing Extended PrefixList data
 
     :param prefix: Ipv4/6 prefix
-    :type prefix: string
+    :type prefix: str
     :param op: PrefixList option (ge/le/eq)
-    :type op: string
+    :type op: str
     :param mask: Ipv4/6 Mask
-    :type mask: string
+    :type mask: str
     :returns: String containing xml data for request
 
     """
@@ -376,9 +376,9 @@ def add_ps_entry_xml(op, length):
     """Generate xml containing Extended PrefixList data
 
     :param op: PrefixList option (ge/le/eq)
-    :type op: string
+    :type op: str
     :param length: PeerSequence length
-    :type length: string
+    :type length: str
     :returns: String containing xml data for request
 
     """
@@ -393,7 +393,7 @@ def parse_peer_groups(groups_json):
     """Parse JSON string into Array of PeerGroups
 
     :param groups_json: JSON containing PeerGroups
-    :type groups_json: string
+    :type groups_json: str
     :returns: Array containing PeerGroups.
 
     """
@@ -409,7 +409,7 @@ def parse_connections(connections_json):
     """Parse JSON string into Array of Connections
 
     :param connections_json: JSON containing Connections
-    :type connections_json: string
+    :type connections_json: str
     :returns: Array containing Connections.
 
     """
@@ -425,17 +425,17 @@ def find_connection(connections_json, version, mode, ip, port, state):
     """Test if Connection with specified values is contained in JSON
 
     :param connections_json: JSON containing Connections
-    :type connections_json: string
+    :type connections_json: str
     :param version: Version of SXP protocol (version1/2/3/4)
-    :type version: string
+    :type version: str
     :param mode: Mode of SXP peer (speaker/listener/both)
-    :type mode: string
+    :type mode: str
     :param ip: Ipv4/6 address of remote peer
-    :type ip: string
+    :type ip: str
     :param port: Port on with remote peer listens
-    :type port: string
+    :type port: str
     :param state: State of connection (on/off/pendingOn/deleteHoldDown)
-    :type state: string
+    :type state: str
     :returns: True if Connection with specified params was found, otherwise False.
 
     """
@@ -453,7 +453,7 @@ def parse_bindings(bindings_json):
     """Parse JSON string into Array of Bindings
 
     :param bindings_json: JSON containing Bindings
-    :type bindings_json: string
+    :type bindings_json: str
     :returns: Array containing Bindings.
 
     """
@@ -469,11 +469,11 @@ def find_binding(bindings, sgt, prefix):
     """Test if Binding with specified values is contained in JSON
 
     :param bindings: JSON containing Bindings
-    :type bindings: string
+    :type bindings: str
     :param sgt: Source Group Tag
-    :type sgt: string
+    :type sgt: str
     :param prefix: Ipv4/6 prefix
-    :type prefix: string
+    :type prefix: str
     :returns: True if Binding with specified params was found, otherwise False.
 
     """
@@ -489,9 +489,9 @@ def parse_prefix_groups(prefix_groups_json, source_):
     """Parse JSON string into Array of PrefixGroups
 
     :param prefix_groups_json: JSON containing PrefixGroups
-    :type prefix_groups_json: string
+    :type prefix_groups_json: str
     :param source_: Source of PrefixGroups (sxp/local)
-    :type source_: string
+    :type source_: str
     :returns: Array containing PrefixGroups.
 
     """
@@ -510,15 +510,15 @@ def find_binding_legacy(prefix_groups_json, sgt, prefix, source_, action):
     """Test if Binding with specified values is contained in JSON
 
     :param prefix_groups_json: JSON containing Bindings and PrefixGroups
-    :type prefix_groups_json: string
+    :type prefix_groups_json: str
     :param sgt: Source Group Tag
-    :type sgt: string
+    :type sgt: str
     :param prefix: Ipv4/6 prefix
-    :type prefix: string
+    :type prefix: str
     :param source_: Source of binding (local/sxp)
-    :type source_: string
+    :type source_: str
     :param action: Action for binding (add/delete)
-    :type action: string
+    :type action: str
     :returns: True if Binding with specified params was found, otherwise False.
 
     """
@@ -535,13 +535,13 @@ def add_entry_xml(sgt, prefix, ip, domain_name):
     """Generate xml for Add Bindings request
 
     :param sgt: Source Group Tag
-    :type sgt: string
+    :type sgt: str
     :param prefix: Ipv4/6 prefix
-    :type prefix: string
+    :type prefix: str
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :param domain_name: Name of Domain
-    :type domain_name: string
+    :type domain_name: str
     :returns: String containing xml data for request
 
     """
@@ -555,23 +555,25 @@ def add_entry_xml(sgt, prefix, ip, domain_name):
     return data
 
 
-def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bindings_timeout=0):
+def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bindings_timeout=0, security_mode=''):
     """Generate xml for Add Connection request
 
     :param version: Version of SXP protocol (version1/2/3/4)
-    :type version: string
+    :type version: str
     :param mode: Mode of SXP peer (speaker/listener/both)
-    :type mode: string
+    :type mode: str
     :param ip: Ipv4/6 address of remote peer
-    :type ip: string
+    :type ip: str
     :param port: Port on with remote peer listens
-    :type port: string
+    :type port: str
     :param node: Ipv4 address of node
-    :type node: string
+    :type node: str
     :param password_: Password type (none/default)
-    :type password_: string
+    :type password_: str
     :param domain_name: Name of Domain
-    :type domain_name: string
+    :type domain_name: str
+    :param security_mode: Default/TSL security
+    :type security_mode: str
     :param bindings_timeout: Specifies DHD and Reconciliation timers
     :type bindings_timeout: int
     :returns: String containing xml data for request
@@ -588,6 +590,7 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bi
          <mode>$mode</mode>
          <version>$version</version>
          <description>Connection to ISR-G2</description>
+         $security_type
          <connection-timers>
             <hold-time-min-acceptable>45</hold-time-min-acceptable>
             <keep-alive-time>30</keep-alive-time>
@@ -600,7 +603,8 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bi
 ''')
     data = templ.substitute(
         {'ip': ip, 'port': port, 'mode': mode, 'version': version, 'node': node,
-         'password_': password_, 'domain': get_domain_name(domain_name), 'timeout': bindings_timeout})
+         'password_': password_, 'domain': get_domain_name(domain_name), 'timeout': bindings_timeout,
+         'security_type': '<security-type>' + security_mode + '</security-type>' if security_mode else ''})
     return data
 
 
@@ -608,13 +612,13 @@ def delete_connections_xml(address, port, node, domain_name):
     """Generate xml for Delete Connection request
 
     :param address: Ipv4/6 address of remote peer
-    :type address: string
+    :type address: str
     :param port: Port on with remote peer listens
-    :type port: string
+    :type port: str
     :param node: Ipv4 address of node
-    :type node: string
+    :type node: str
     :param domain_name: Name of Domain
-    :type domain_name: string
+    :type domain_name: str
     :returns: String containing xml data for request
 
     """
@@ -632,17 +636,17 @@ def update_binding_xml(sgt0, prefix0, sgt1, prefix1, ip, domain_name):
     """Generate xml for Update Binding request
 
     :param sgt0: Original Source Group Tag
-    :type sgt0: string
+    :type sgt0: str
     :param prefix0: Original Ipv4/6 prefix
-    :type prefix0: string
+    :type prefix0: str
     :param sgt1: New Source Group Tag
-    :type sgt1: string
+    :type sgt1: str
     :param prefix1: New Ipv4/6 prefix
-    :type prefix1: string
+    :type prefix1: str
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :param domain_name: Name of Domain
-    :type domain_name: string
+    :type domain_name: str
     :returns: String containing xml data for request
 
     """
@@ -668,13 +672,13 @@ def delete_binding_xml(sgt, prefix, ip, domain_name):
     """Generate xml for Delete Binding request
 
     :param sgt: Source Group Tag
-    :type sgt: string
+    :type sgt: str
     :param prefix: Ipv4/6 prefix
-    :type prefix: string
+    :type prefix: str
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :param domain_name: Name of Domain
-    :type domain_name: string
+    :type domain_name: str
     :returns: String containing xml data for request
 
     """
@@ -692,11 +696,11 @@ def add_peer_group_xml(name, peers, ip):
     """Generate xml for Add PeerGroups request
 
     :param name: Name of PeerGroup
-    :type name: string
+    :type name: str
     :param peers: XML formatted peers that will be added to group
-    :type peers: string
+    :type peers: str
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :returns: String containing xml data for request
 
     """
@@ -715,9 +719,9 @@ def delete_peer_group_xml(name, ip):
     """Generate xml for Delete PeerGroup request
 
     :param name: Name of PeerGroup
-    :type name: string
+    :type name: str
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :returns: String containing xml data for request
 
     """
@@ -733,7 +737,7 @@ def get_peer_groups_from_node_xml(ip):
     """Generate xml for Get PeerGroups request
 
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :returns: String containing xml data for request
 
     """
@@ -748,15 +752,15 @@ def add_filter_xml(group, filter_type, entries, ip, policy=None):
     """Generate xml for Add Filter request
 
     :param group: Name of group containing filter
-    :type group: string
+    :type group: str
     :param filter_type: Type of filter
-    :type filter_type: string
+    :type filter_type: str
     :param entries: XML formatted entries that will be added in filter
-    :type entries: string
+    :type entries: str
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :param policy: Policy of filter update mechanism
-    :type policy: string
+    :type policy: str
     :returns: String containing xml data for request
 
     """
@@ -781,15 +785,15 @@ def add_domain_filter_xml(domain, domains, entries, ip, filter_name=None):
     """Generate xml for Add Domain Filter request
 
     :param domain: Name of Domain containing filter
-    :type domain: string
+    :type domain: str
     :param domains: Domains on which filter will be applied
-    :type domains: string
+    :type domains: str
     :param entries: XML formatted entries that will be added in filter
-    :type entries: string
+    :type entries: str
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :param filter_name: Name of filter
-    :type filter_name: string
+    :type filter_name: str
     :returns: String containing xml data for request
 
     """
@@ -813,11 +817,11 @@ def delete_filter_xml(group, filter_type, ip):
     """Generate xml for Delete Filter request
 
     :param group: Name of group containing filter
-    :type group: string
+    :type group: str
     :param filter_type: Type of filter
-    :type filter_type: string
+    :type filter_type: str
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :returns: String containing xml data for request
 
     """
@@ -835,11 +839,11 @@ def delete_domain_filter_xml(domain, ip, filter_name=None):
     """Generate xml for Delete Filter request
 
     :param domain: Name of Domain containing filter
-    :type domain: string
+    :type domain: str
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :param filter_name: Name of filter
-    :type filter_name: string
+    :type filter_name: str
     :returns: String containing xml data for request
 
     """
@@ -859,9 +863,9 @@ def get_connections_from_node_xml(ip, domain_name):
     """Generate xml for Get Connections request
 
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :param domain_name: Name of Domain
-    :type domain_name: string
+    :type domain_name: str
     :returns: String containing xml data for request
 
     """
@@ -877,11 +881,11 @@ def get_bindings_from_node_xml(ip, binding_range, domain_name):
     """Generate xml for Get Bindings request
 
     :param binding_range: All or only Local bindings
-    :type binding_range: string
+    :type binding_range: str
     :param ip: Ipv4 address of node
-    :type ip: string
+    :type ip: str
     :param domain_name: Name of Domain
-    :type domain_name: string
+    :type domain_name: str
     :returns: String containing xml data for request
 
     """
@@ -894,26 +898,49 @@ def get_bindings_from_node_xml(ip, binding_range, domain_name):
     return data
 
 
-def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bindings_timeout=0):
+def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bindings_timeout=0, keystores=None):
     """Generate xml for Add Node request
 
     :param node_id: Ipv4 address formatted node id
-    :type node_id: string
+    :type node_id: str
     :param node_ip: Ipv4 address of node
-    :type node_ip: string
+    :type node_ip: strl
     :param port: Node port number
     :type port: int
     :param password: TCP-MD5 password
-    :type password: string
+    :type password: str
     :param version: Sxp device version
-    :type version: string
+    :type version: str
     :param expansion: Bindings expansion
     :type expansion: int
     :param bindings_timeout: Specifies DHD and Reconciliation timers
     :type bindings_timeout: int
+    :param keystores: SSL keystore and truststore specification
+    :type keystores: dict
     :returns: String containing xml data for request
 
     """
+    tls = ''
+    if keystores:
+        tls = Template('''
+        <tls>
+            <keystore>
+              <location>$keystore</location>
+              <type>JKS</type>
+              <path-type>PATH</path-type>
+              <password>$passwd</password>
+            </keystore>
+            <truststore>
+              <location>$truststore</location>
+              <type>JKS</type>
+              <path-type>PATH</path-type>
+              <password>$passwd</password>
+            </truststore>
+            <certificate-password>$passwd</certificate-password>
+        </tls>
+    ''').substitute(
+            {'keystore': keystores['keystore'], 'truststore': keystores['truststore'], 'passwd': keystores['password']})
+
     templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
     <node-id>$id</node-id>
     <timers>
@@ -928,6 +955,7 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bi
     </timers>
     <mapping-expanded>$expansion</mapping-expanded>
     <security>
+        $tls
         <password>$password</password>
     </security>
     <tcp-port>$port</tcp-port>
@@ -937,8 +965,8 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bi
     <master-database></master-database>
 </input>''')
     data = templ.substitute(
-        {'ip': node_id if not node_ip else node_ip, 'id': node_id, 'port': port, 'password': password,
-         'version': version, 'expansion': expansion, 'timeout': bindings_timeout})
+        {'ip': node_ip or node_ip, 'id': node_id, 'port': port, 'password': password,
+         'version': version, 'expansion': expansion, 'timeout': bindings_timeout, 'tls': tls})
     return data
 
 
@@ -946,7 +974,7 @@ def delete_node_xml(node_id):
     """Generate xml for Delete node request
 
     :param node_id: Ipv4 address formatted node id
-    :type node_id: string
+    :type node_id: str
     :returns: String containing xml data for request
 
     """
@@ -961,9 +989,9 @@ def add_domain_xml(node_id, name):
     """Generate xml for Add Domain request
 
     :param node_id: Id of node
-    :type node_id: string
+    :type node_id: str
     :param name: Name of Domain
-    :type name: string
+    :type name: str
     :returns: String containing xml data for request
 
     """
@@ -979,9 +1007,9 @@ def delete_domain_xml(node_id, name):
     """Generate xml for Remove Domain request
 
     :param node_id: Id of node
-    :type node_id: string
+    :type node_id: str
     :param name: Name of Domain
-    :type name: string
+    :type name: str
     :returns: String containing xml data for request
 
     """
@@ -992,7 +1020,7 @@ def get_domain_name(domain_name):
     """Generate xml for Get Bindings request
 
     :param domain_name: Name of Domain
-    :type domain_name: string
+    :type domain_name: str
     :returns: String containing xml data for request
 
     """
@@ -1006,13 +1034,13 @@ def add_bindings_xml(node_id, domain, sgt, prefixes):
     """Generate xml for Add Bindings request
 
     :param node_id: Id of node
-    :type node_id: string
+    :type node_id: str
     :param domain: Name of Domain
-    :type domain: string
+    :type domain: str
     :param sgt: Security group
     :type sgt: int
     :param prefixes: List of ip-prefixes
-    :type prefixes: string
+    :type prefixes: str
     :returns: String containing xml data for request
 
     """
@@ -1035,13 +1063,13 @@ def delete_bindings_xml(node_id, domain, sgt, prefixes):
     """Generate xml for Remove Bindings request
 
     :param node_id: Id of node
-    :type node_id: string
+    :type node_id: str
     :param domain: Name of Domain
-    :type domain: string
+    :type domain: str
     :param sgt: Security group
     :type sgt: int
     :param prefixes: List of ip-prefixes
-    :type prefixes: string
+    :type prefixes: str
     :returns: String containing xml data for request
 
     """
@@ -1052,9 +1080,9 @@ def prefix_range(start, end):
     """Generate and concatenate ip-prefixes
 
     :param start: Start index
-    :type start: string
+    :type start: str
     :param end: End index
-    :type end: string
+    :type end: str
     :returns: String containing concatenated ip-prefixes
 
     """
