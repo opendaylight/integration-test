@@ -2,8 +2,7 @@
 Documentation     Test suite to validate L2 Neutron functionality in an openstack integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
-...               AND    DevstackUtils.Devstack Suite Setup
+Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown    AND    DevstackUtils.Devstack Suite Setup
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
@@ -27,12 +26,13 @@ Resource          ../../../variables/Variables.robot
 @{ROUTERS}        ROUTER_1
 @{ROUTER_SUBNETS}    SUBNET1    SUBNET2
 @{VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261111    4ae8cd92-48ca-49b5-94e1-b2921a261112    4ae8cd92-48ca-49b5-94e1-b2921a261113
-@{VPN_NAME}       vpn1
+@{VPN_NAME}       vpn1    vpn2    vpn3
 @{CREATE_RD}      ["2200:2"]    ["2300:2"]    ["2400:2"]
 @{CREATE_EXPORT_RT}    ["2200:2"]    ["2300:2"]    ["2400:2"]
 @{CREATE_IMPORT_RT}    ["2200:2"]    ["2300:2"]    ["2400:2"]
 ${EPH1_CFG}       sudo ifconfig eth0:1 10.1.1.110 netmask 255.255.255.0 up
-${EPH2_CFG}       sudo ifconfig eth0:1 20.1.1.110 netmask 255.255.255.0 up
+${EPH2_CFG}       sudo ifconfig eth0:1 50.1.1.110 netmask 255.255.255.0 up
+${EPH3_CFG}       sudo ifconfig eth0:1 40.1.1.110 netmask 255.255.255.0 up
 
 *** Test Cases ***
 Create Neutron Networks
@@ -159,15 +159,21 @@ Check L3_Datapath Traffic Across Networks With Router
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
 
-Create L3VPN
-    [Documentation]    Creates a L3VPN and then verify the same
+Create Multiple L3VPN
+    [Documentation]    Creates three L3VPNs and then verify the same
     ${devstack_conn_id} =    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
     VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=${CREATE_RD[0]}    exportrt=${CREATE_EXPORT_RT[0]}    importrt=${CREATE_IMPORT_RT[0]}    tenantid=${tenant_id}
+    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[1]}    name=${VPN_NAME[1]}    rd=${CREATE_RD[1]}    exportrt=${CREATE_EXPORT_RT[1]}    importrt=${CREATE_IMPORT_RT[1]}    tenantid=${tenant_id}
+    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[2]}    name=${VPN_NAME[2]}    rd=${CREATE_RD[2]}    exportrt=${CREATE_EXPORT_RT[2]}    importrt=${CREATE_IMPORT_RT[2]}    tenantid=${tenant_id}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[0]}
+    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
+    Should Contain    ${resp}    ${VPN_INSTANCE_ID[1]}
+    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
+    Should Contain    ${resp}    ${VPN_INSTANCE_ID[2]}
 
 Associate L3VPN To Routers
     [Documentation]    Associating router to L3VPN
@@ -230,7 +236,8 @@ Create ITM Tunnel
 Configure Enterprise Network Host
     [Documentation]    Bring up EPhosts on DPN1 & DPN2
     ${output} =    Execute Command on VM Instance    ${NETWORKS}[0]    ${VM_IP_NET10[1]}    ${EPH1_CFG}
-    ${output} =    Execute Command on VM Instance    ${NETWORKS}[1]    ${VM_IP_NET20[1]}    ${EPH2_CFG}
+    ${output} =    Execute Command on VM Instance    ${NETWORKS}[4]    ${VM_IP_NET10[4]}    ${EPH2_CFG}
+    ${output} =    Execute Command on VM Instance    ${NETWORKS}[3]    ${VM_IP_NET20[3]}    ${EPH3_CFG}
 
 Delete ITM Tunnel
     [Documentation]    Delete tunnels with specific transport-zone.

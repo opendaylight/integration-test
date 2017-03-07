@@ -9,7 +9,7 @@ Edited: Many times by many people
 # VM Environment defaults
 DEFAULT_LINUX_PROMPT = '>'
 DEFAULT_LINUX_PROMPT_STRICT = ']>'
-DEFAULT_USER = 'jenkins'
+DEFAULT_USER = 'mininet'
 DEFAULT_TIMEOUT = '30s'
 
 # ODL system variables
