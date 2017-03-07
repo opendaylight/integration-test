@@ -22,6 +22,30 @@
       "revId": "52daf4c39d8049b1f3b55416ab26a3b8394ae301",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_48f74ad3",
+        "filename": "csit/suites/iotdm/basic/010_PrimitveParameters.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5876
+      },
+      "writtenOn": "2017-03-07T05:24:36Z",
+      "side": 1,
+      "message": "This is by intention because this suite extends the common setup KW with specific data tree setup.",
+      "parentUuid": "fafc7978_0529ab36",
+      "range": {
+        "startLine": 8,
+        "startChar": 18,
+        "endLine": 8,
+        "endChar": 29
+      },
+      "revId": "52daf4c39d8049b1f3b55416ab26a3b8394ae301",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
