@@ -22,6 +22,30 @@
       "revId": "29c3af19e2d227ae38a1f7d480c9ecb0a87c2d76",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5c48a9cb",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T18:09:04Z",
+      "side": 1,
+      "message": "good point. this allows me to do a little more cleanup\ntoo. see next PS",
+      "parentUuid": "fafc7978_3c70453f",
+      "range": {
+        "startLine": 584,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 50
+      },
+      "revId": "29c3af19e2d227ae38a1f7d480c9ecb0a87c2d76",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
