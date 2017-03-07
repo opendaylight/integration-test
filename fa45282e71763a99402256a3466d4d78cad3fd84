@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_de29348b",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-07T09:26:17Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/#/c/52166/17/csit/libraries/MdsalLowlevel.robot@61",
+      "range": {
+        "startLine": 228,
+        "startChar": 23,
+        "endLine": 228,
+        "endChar": 27
+      },
+      "revId": "fa45282e71763a99402256a3466d4d78cad3fd84",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1e20dc99",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-07T09:26:17Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/#/c/52166/17/csit/libraries/MdsalLowlevel.robot@61",
+      "range": {
+        "startLine": 235,
+        "startChar": 23,
+        "endLine": 235,
+        "endChar": 27
+      },
+      "revId": "fa45282e71763a99402256a3466d4d78cad3fd84",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
