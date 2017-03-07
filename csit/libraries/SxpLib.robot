@@ -30,9 +30,10 @@ Post To Controller
     Should Be True    ${content}
 
 Add Node
-    [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session    ${ip}=${EMPTY}
+    [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session
+    ...    ${ip}=${EMPTY}    ${ssl_stores}=${EMPTY}
     [Documentation]    Add node via RPC to ODL
-    ${DATA}    Add Node Xml    ${node}    ${port}    ${password}    ${version}    ${ip}
+    ${DATA}    Add Node Xml    ${node}    ${port}    ${password}    ${version}    ${ip}    keystores=${ssl_stores}
     Post To Controller    ${session}    add-node    ${DATA}
 
 Delete Node
@@ -43,10 +44,10 @@ Delete Node
 
 Add Connection
     [Arguments]    ${version}    ${mode}    ${ip}    ${port}    ${node}=127.0.0.1    ${password}=${EMPTY}
-    ...    ${session}=session    ${domain}=global
+    ...    ${session}=session    ${domain}=global    ${security_mode}=${EMPTY}
     [Documentation]    Add connection via RPC to node
     ${DATA}    Add Connection Xml    ${version}    ${mode}    ${ip}    ${port}    ${node}
-    ...    ${password}    ${domain}
+    ...    ${password}    ${domain}    security_mode=${security_mode}
     Post To Controller    ${session}    add-connection    ${DATA}
 
 Get Connections

@@ -555,7 +555,7 @@ def add_entry_xml(sgt, prefix, ip, domain_name):
     return data
 
 
-def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bindings_timeout=0):
+def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bindings_timeout=0, security_mode=''):
     """Generate xml for Add Connection request
 
     :param version: Version of SXP protocol (version1/2/3/4)
@@ -572,6 +572,8 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bi
     :type password_: string
     :param domain_name: Name of Domain
     :type domain_name: string
+    :param security_mode: Default/TSL security
+    :type security_mode: string
     :param bindings_timeout: Specifies DHD and Reconciliation timers
     :type bindings_timeout: int
     :returns: String containing xml data for request
@@ -588,6 +590,7 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bi
          <mode>$mode</mode>
          <version>$version</version>
          <description>Connection to ISR-G2</description>
+         $security_type
          <connection-timers>
             <hold-time-min-acceptable>45</hold-time-min-acceptable>
             <keep-alive-time>30</keep-alive-time>
@@ -600,7 +603,8 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bi
 ''')
     data = templ.substitute(
         {'ip': ip, 'port': port, 'mode': mode, 'version': version, 'node': node,
-         'password_': password_, 'domain': get_domain_name(domain_name), 'timeout': bindings_timeout})
+         'password_': password_, 'domain': get_domain_name(domain_name), 'timeout': bindings_timeout,
+         'security_type': '<security-type>' + security_mode + '</security-type>' if security_mode else ''})
     return data
 
 
@@ -894,13 +898,13 @@ def get_bindings_from_node_xml(ip, binding_range, domain_name):
     return data
 
 
-def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bindings_timeout=0):
+def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bindings_timeout=0, keystores=None):
     """Generate xml for Add Node request
 
     :param node_id: Ipv4 address formatted node id
     :type node_id: string
     :param node_ip: Ipv4 address of node
-    :type node_ip: string
+    :type node_ip: stringl
     :param port: Node port number
     :type port: int
     :param password: TCP-MD5 password
@@ -911,9 +915,32 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bi
     :type expansion: int
     :param bindings_timeout: Specifies DHD and Reconciliation timers
     :type bindings_timeout: int
+    :param keystores: SSL keystore and truststore specification
+    :type keystores: dict
     :returns: String containing xml data for request
 
     """
+    tls = ''
+    if keystores:
+        tls = Template('''
+        <tls>
+            <keystore>
+              <location>$keystore</location>
+              <type>JKS</type>
+              <path-type>PATH</path-type>
+              <password>$passwd</password>
+            </keystore>
+            <truststore>
+              <location>$truststore</location>
+              <type>JKS</type>
+              <path-type>PATH</path-type>
+              <password>$passwd</password>
+            </truststore>
+            <certificate-password>$passwd</certificate-password>
+        </tls>
+    ''').substitute(
+            {'keystore': keystores['keystore'], 'truststore': keystores['truststore'], 'passwd':keystores['password']})
+
     templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
     <node-id>$id</node-id>
     <timers>
@@ -928,6 +955,7 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bi
     </timers>
     <mapping-expanded>$expansion</mapping-expanded>
     <security>
+        $tls
         <password>$password</password>
     </security>
     <tcp-port>$port</tcp-port>
@@ -938,7 +966,7 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bi
 </input>''')
     data = templ.substitute(
         {'ip': node_id if not node_ip else node_ip, 'id': node_id, 'port': port, 'password': password,
-         'version': version, 'expansion': expansion, 'timeout': bindings_timeout})
+         'version': version, 'expansion': expansion, 'timeout': bindings_timeout, 'tls': tls})
     return data
 
 
