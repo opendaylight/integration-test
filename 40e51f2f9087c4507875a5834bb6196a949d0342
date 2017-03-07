@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_65987778",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "please use Variables.robot",
+      "range": {
+        "startLine": 8,
+        "startChar": 37,
+        "endLine": 8,
+        "endChar": 49
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e58bc71c",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "I would tend toward putting these in Variables.robot, \nespecially if you think they would be used in other suites\ndown the road. no big deal for now to keep them here.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 72
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_05852b06",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "where is this defined?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_657fd715",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "oh, is this stuff coming from the pycurllibrary I just now\nnoticed? if so, we need to check that this is installed\nin our robot vms.\n\nstill, I\u0027m wondering if the requestslibrary has some limitation here so you can\u0027t use it? I see it was used\nin the first test case.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 41
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_457a9324",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure this is not technically a test case, as\nthere is nothing here that could fail. you could move this\nlogic to the setup of your next test case instead.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 43
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a5753f33",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "a few tabs here to clean up.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 22
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_8570fb40",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "if you have the bandwidth you should turn these in to full\nrobot test cases, but don\u0027t implement them.\n\nmeaning, write the name of the test case. give [Documentation] describing what the test case should do.\nthen put a line:\n\n    [Tags]    exclude\n\n\nthat will make it clear to the next person that might pick\nthis up to work on adding these test cases. The Tag of\nexclude will mean it will be skipped when we run it \nupstream.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 73
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a576df03",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "this probably should be a keyword in the karafkeywords\nlibrary so others can take advantage.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 13
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_456bb31d",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "cool, I did not really know about this cli, especially the\n-r\n\n:)",
+      "range": {
+        "startLine": 80,
+        "startChar": 38,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_85711b0e",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "we do need to get this removed before we can merge. We ask\nthat tests don\u0027t use sleep:\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Stay_away_from_using_a_Sleep\n\nin karafkeywords there is a keyword Wait For Karaf Log. I\nwonder if there is some aaa log message that will come to\nlet you know that things are ready to move on?",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 16
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e563c73f",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "I\u0027d rather see a generic keyword in karafkeywords called:\n\nRestart Bundle that takes a string. so you would then call\nit with the \"OPS4J Pax Web - Jetty\" string",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 97
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c5668350",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T00:08:16Z",
+      "side": 1,
+      "message": "make sure to move this to Variables.robot",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 29
+      },
+      "revId": "40e51f2f9087c4507875a5834bb6196a949d0342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
