@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_1f29f3e5",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "please add relevant [Documentation] here. keep in mind\nit should hopefully end up being parsed out to html and will provide\nan easy summary for others to know what this lib does.",
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ff234f02",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "this might get you in trouble later. I wonder if it\u0027s not\ntoo much work to [Return]    ${token}    ${token_received}\nand let the caller of this keyword do with it what it wants?",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 56
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bfd387d3",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "no sleeps please. is there some output we can poll on to \nknow when we are ready to move on? maybe a message in the \nkeystone log file? I know it will be more code, but it\u0027s \npart of our guidelines to not allow sleeps.\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Stay_away_from_using_a_Sleep",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 15
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1fde13dd",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "what\u0027s this?",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 13
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ffd86ff0",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "use the ${RESTCONFPORT} variable from Variables.robot",
+      "range": {
+        "startLine": 101,
+        "startChar": 63,
+        "endLine": 101,
+        "endChar": 67
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3fdf97d7",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "use var here.",
+      "range": {
+        "startLine": 32,
+        "startChar": 57,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9ff1636d",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "just fyi, as I don\u0027t think most people realize. this \"session\" is just a name. I think most people just use it\nas a copy/paste relic. anyway, \u0027session\u0027 is fine to use\nas well.",
+      "range": {
+        "startLine": 32,
+        "startChar": 22,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_dfe76baa",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "since I see this repeated, you could put this in to a local\nkeyword to make fewer lines. or you could put all on one\nline like:\n\nLog    ${resp}\\n${resp.headers}\\n${resp.content}\n\nor keep just like this.\n\nyour call, just giving ideas.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5ffb7b46",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "use var",
+      "range": {
+        "startLine": 62,
+        "startChar": 57,
+        "endLine": 62,
+        "endChar": 61
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3ff6775d",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "use var",
+      "range": {
+        "startLine": 78,
+        "startChar": 57,
+        "endLine": 78,
+        "endChar": 61
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7f9bdf17",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "probably more robust to use this:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/ClusterManagement.robot#L350\n\nand https://github.com/opendaylight/integration-test/blob/master/csit/libraries/ClusterManagement.robot#L373 for the below start command.\n\nI think it will let you remove the sleeps as well, which is\nneeded.",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 70
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_df9e4b06",
+        "filename": "csit/suites/aaa/keystone/start_keystone.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:59:30Z",
+      "side": 1,
+      "message": "some extra whitespace in here to remove.",
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
