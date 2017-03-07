@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_7f18ffd2",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-07T21:38:29Z",
+      "side": 1,
+      "message": "you can get rid of this now. it\u0027s already merged and running\nagain.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 64
+      },
+      "revId": "241350e735f37f996c5373222e19b8f8a5e43e7c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
