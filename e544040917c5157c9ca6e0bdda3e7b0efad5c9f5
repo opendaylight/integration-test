@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_9614a54d",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T19:23:14Z",
+      "side": 1,
+      "message": "I missed this before. in robotframework, if some step in\na keyword or test case fails, the rest of that keyword/test\ncase will not execute. So, if one of the above checks fails,\nthis \"Delete All Sessions\" will not run.\n\nBest approach here is probably do move this line to \na [Teardown] section after [Return].  then it will be\nguaranteed to run.\n\nI\u0027ve been bitten by this exact issue before and when \nrunning a keyword like this in a loop (e.g. scale test)\nI saw tons of open connections to the point that my\nsystem ran out of fds and everything died.",
+      "range": {
+        "startLine": 670,
+        "startChar": 4,
+        "endLine": 670,
+        "endChar": 23
+      },
+      "revId": "e544040917c5157c9ca6e0bdda3e7b0efad5c9f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f60ed139",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T19:23:14Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 684,
+        "startChar": 4,
+        "endLine": 684,
+        "endChar": 23
+      },
+      "revId": "e544040917c5157c9ca6e0bdda3e7b0efad5c9f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d6090d32",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T19:23:14Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 693,
+        "startChar": 4,
+        "endLine": 693,
+        "endChar": 23
+      },
+      "revId": "e544040917c5157c9ca6e0bdda3e7b0efad5c9f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
