@@ -3,6 +3,8 @@ Documentation     Test suite to verify Restconf is OK.
 Suite Setup       RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    RequestsLibrary.Delete_All_Sessions
 Library           RequestsLibrary
+Library           SSHLibrary
+Resource	  ${CURDIR}/../../../libraries/SSHKeywords.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Test Cases ***
