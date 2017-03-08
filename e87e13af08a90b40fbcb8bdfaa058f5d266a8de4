@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_8bcda133",
+        "filename": "csit/libraries/Netvirt.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T11:01:26Z",
+      "side": 1,
+      "message": "I believe this timeout is only for establishing connection. It did not help when server is slow to respond when I last tried.",
+      "range": {
+        "startLine": 14,
+        "startChar": 125,
+        "endLine": 14,
+        "endChar": 134
+      },
+      "revId": "e87e13af08a90b40fbcb8bdfaa058f5d266a8de4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
