@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_2b0f5538",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T11:21:21Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#AVOID:_Comments_as_abstraction",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 23
+      },
+      "revId": "daaa023bcbf500cbd0d3f667ab059f780e7328b1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4b00d901",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T11:21:21Z",
+      "side": 1,
+      "message": "Obligatory anti-pattern removal task link:\nhttps://trello.com/c/0Sy67AAp/342-int-test-improve-usage-of-openstackoperations-get-controlnode-connection",
+      "range": {
+        "startLine": 420,
+        "startChar": 28,
+        "endLine": 420,
+        "endChar": 54
+      },
+      "revId": "daaa023bcbf500cbd0d3f667ab059f780e7328b1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
