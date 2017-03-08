@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_f641b1a9",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T18:33:23Z",
+      "side": 1,
+      "message": "ok, so now can we combine these two to just be \"Collect\nVM IP Addresses\". I think it should only mean changing \nthe KW name on 252 to be Collect VM IP Addresses -and-\nadding lines 284,285 between lines 275 and 276\n\nthen we\u0027ll only have one keyword to deal with.\n\nif you like that, just make sure nobody else is still \nrandomly using \"Verify VMs Received DHCP Lease\", although\nI suspect you caught them all already.\n\ndouble check the documentation too.",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 286,
+        "endChar": 39
+      },
+      "revId": "0fe4210f310674c0bf1bed0fd66da501c90c0df2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_361fb9b8",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T18:33:23Z",
+      "side": 1,
+      "message": "at first I didn\u0027t think you needed the loop, because you can\njust combine the lists and check if None is in it, but now\nI realize you need to iterate so you can get console-log.\n\ndon\u0027t forget to \"Fail Execution\" if ${status} \u003d\u003d FAIL so we \nget this test case to fail at the end.",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 132
+      },
+      "revId": "0fe4210f310674c0bf1bed0fd66da501c90c0df2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9685c5d0",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T18:33:23Z",
+      "side": 1,
+      "message": "we don\u0027t need this stuff anymore right?  I think some suites\nare doing this \"Set Suite Variable\" and others are not. \nSince others are getting away without it, I think we can try\nremoving from all suites. maybe...",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 48
+      },
+      "revId": "0fe4210f310674c0bf1bed0fd66da501c90c0df2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
