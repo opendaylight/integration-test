@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_d33c7f31",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T16:39:17Z",
+      "side": 1,
+      "message": "I would expect ${service_group} or other argument specific to singleton. Name and type are specific to entity ownership service, caller should not need to know how singleton notions are translated to EOS notions.\n\nAlternatively, rename keyword to Verify_Owner_Elected_For_Device.",
+      "range": {
+        "startLine": 265,
+        "startChar": 19,
+        "endLine": 265,
+        "endChar": 51
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d323df02",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T16:39:17Z",
+      "side": 1,
+      "message": "unless explicit status code is expected.\nApplies to line 73 too.",
+      "range": {
+        "startLine": 52,
+        "startChar": 105,
+        "endLine": 52,
+        "endChar": 106
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_537fefdf",
+        "filename": "csit/suites/controller/cluster_singleton/chasing_the_leader.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T16:39:17Z",
+      "side": 1,
+      "message": "!\u003d",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 45
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_13df27d7",
+        "filename": "csit/suites/controller/cluster_singleton/master_stability.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T16:39:17Z",
+      "side": 1,
+      "message": "Get_Owner_And_Candidates_For_Device does not do that already? Fix that.",
+      "range": {
+        "startLine": 44,
+        "startChar": 16,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b3b57b7f",
+        "filename": "csit/suites/controller/cluster_singleton/master_stability.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T16:39:17Z",
+      "side": 1,
+      "message": "This could return the modified candidate list (in other words, move line 52 to LowLevel, and make this optionally accept current candidate list as argument).",
+      "range": {
+        "startLine": 50,
+        "startChar": 18,
+        "endLine": 50,
+        "endChar": 47
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_93b83776",
+        "filename": "csit/suites/controller/cluster_singleton/master_stability.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T16:39:17Z",
+      "side": 1,
+      "message": "Similarly to line 50, this could return the updated list.",
+      "range": {
+        "startLine": 60,
+        "startChar": 18,
+        "endLine": 60,
+        "endChar": 45
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f304234b",
+        "filename": "csit/suites/controller/cluster_singleton/master_stability.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T16:39:17Z",
+      "side": 1,
+      "message": "You are adding ClusterManagement.Verify_Singleton_Instance_Owner_Elected in this change. Use that instead of this.\nYou may keep this keyword if you dislike repeating the same arguments in lines 56 and 66.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 34
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_13a44749",
+        "filename": "csit/suites/controller/cluster_singleton/partition_and_heal.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T16:39:17Z",
+      "side": 1,
+      "message": "and line 59.",
+      "range": {
+        "startLine": 52,
+        "startChar": 45,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_33a98b24",
+        "filename": "csit/suites/controller/cluster_singleton/partition_and_heal.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T16:39:17Z",
+      "side": 1,
+      "message": "I had a patch to make this return the updated list, not merged yet.",
+      "range": {
+        "startLine": 53,
+        "startChar": 22,
+        "endLine": 53,
+        "endChar": 53
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b343bb6a",
+        "filename": "csit/suites/controller/cluster_singleton/partition_and_heal.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T16:39:17Z",
+      "side": 1,
+      "message": "Maybe it would be easier to add arguments ${suite_variable_name_to_store_owner_to} and ${suite_variable_name_to_store_candidates_to} (or something shorter).",
+      "range": {
+        "startLine": 90,
+        "startChar": 53,
+        "endLine": 90,
+        "endChar": 88
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f360a302",
+        "filename": "csit/suites/controller/cluster_singleton/partition_and_heal.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T16:39:17Z",
+      "side": 1,
+      "message": "Move to LowLevel.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 24
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
