@@ -93,6 +93,30 @@
       "revId": "b09751561e868cc3f2f77a88244fed533248c3f1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_053880d1",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T05:28:42Z",
+      "side": 1,
+      "message": "oh, you\u0027re right. I read this wrong. sorry.",
+      "parentUuid": "fafc7978_0511a051",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 39
+      },
+      "revId": "b09751561e868cc3f2f77a88244fed533248c3f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
