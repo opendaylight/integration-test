@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_d6746dd0",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T19:11:37Z",
+      "side": 1,
+      "message": "if you did it above, you might as well do it here and below\ntoo :)",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 26
+      },
+      "revId": "bad6aea0f4d78c40552d9cd567d5ff1ba4f2b949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_167b95be",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T19:11:37Z",
+      "side": 1,
+      "message": "I think since you are not doing anything with ${result} you\ncan remove it.",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 79
+      },
+      "revId": "bad6aea0f4d78c40552d9cd567d5ff1ba4f2b949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b643a96a",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T19:11:37Z",
+      "side": 1,
+      "message": "this works. seems cleaner to me.\n\none caution. some features take longer to load than it does\nfor modules. I think AAA stuff loads early though, so maybe\nnot a problem here. If you find that to be an issue you\ncan do some WUKS polling on a karaf log message. I think we\neven have a karafkeyword that will \"wait for log message\"\nor something like that. then you can wait for something\nexplicit to know your features are ready to go after a \nrestart.",
+      "range": {
+        "startLine": 200,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 70
+      },
+      "revId": "bad6aea0f4d78c40552d9cd567d5ff1ba4f2b949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_96466579",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T19:11:37Z",
+      "side": 1,
+      "message": "use ${MODULES_API}",
+      "range": {
+        "startLine": 205,
+        "startChar": 60,
+        "endLine": 205,
+        "endChar": 77
+      },
+      "revId": "bad6aea0f4d78c40552d9cd567d5ff1ba4f2b949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f6609102",
+        "filename": "csit/suites/aaa/keystone/start_keystone.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T19:11:37Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 1
+      },
+      "revId": "bad6aea0f4d78c40552d9cd567d5ff1ba4f2b949",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
