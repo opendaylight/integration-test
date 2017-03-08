@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_76cae11b",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-08T18:35:42Z",
+      "side": 1,
+      "message": "looks like the tox failures are because it wants this on\ntwo lines. like this:\n\n${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses\n...    true    @{VM_INSTANCES_FLOATING}",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 162
+      },
+      "revId": "0fe4210f310674c0bf1bed0fd66da501c90c0df2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_361fb9b8",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
         "patchSetId": 11
