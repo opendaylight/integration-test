@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_10cf2057",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_1f29f3e5",
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_ff234f02",
         "filename": "csit/libraries/AAA/DockerKeystone.robot",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2017-03-07T21:59:30Z",
       "side": 1,
       "message": "this might get you in trouble later. I wonder if it\u0027s not\ntoo much work to [Return]    ${token}    ${token_received}\nand let the caller of this keyword do with it what it wants?",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 56
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_eb7b8d78",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_ff234f02",
       "range": {
         "startLine": 17,
         "startChar": 4,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_6be67d45",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Finally I removed the sleep. I think It\u0027s not necessary",
+      "parentUuid": "fafc7978_bfd387d3",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 15
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_1fde13dd",
         "filename": "csit/libraries/AAA/DockerKeystone.robot",
         "patchSetId": 4
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_cbf5e9ed",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_1fde13dd",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 13
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_ffd86ff0",
         "filename": "csit/libraries/AAA/DockerKeystone.robot",
         "patchSetId": 4
@@ -99,6 +189,30 @@
       "writtenOn": "2017-03-07T21:59:30Z",
       "side": 1,
       "message": "use the ${RESTCONFPORT} variable from Variables.robot",
+      "range": {
+        "startLine": 101,
+        "startChar": 63,
+        "endLine": 101,
+        "endChar": 67
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4bb8d910",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_ffd86ff0",
       "range": {
         "startLine": 101,
         "startChar": 63,
@@ -157,6 +271,54 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_2b4e353b",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_9ff1636d",
+      "range": {
+        "startLine": 32,
+        "startChar": 22,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0b49b130",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_3fdf97d7",
+      "range": {
+        "startLine": 32,
+        "startChar": 57,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_dfe76baa",
         "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
         "patchSetId": 4
@@ -168,6 +330,30 @@
       "writtenOn": "2017-03-07T21:59:30Z",
       "side": 1,
       "message": "since I see this repeated, you could put this in to a local\nkeyword to make fewer lines. or you could put all on one\nline like:\n\nLog    ${resp}\\n${resp.headers}\\n${resp.content}\n\nor keep just like this.\n\nyour call, just giving ideas.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_eb570dc8",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_dfe76baa",
       "range": {
         "startLine": 49,
         "startChar": 0,
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_6b54bdc9",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_5ffb7b46",
+      "range": {
+        "startLine": 62,
+        "startChar": 57,
+        "endLine": 62,
+        "endChar": 61
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_3ff6775d",
         "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
         "patchSetId": 4
@@ -214,6 +424,30 @@
       "writtenOn": "2017-03-07T21:59:30Z",
       "side": 1,
       "message": "use var",
+      "range": {
+        "startLine": 78,
+        "startChar": 57,
+        "endLine": 78,
+        "endChar": 61
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4b4f3934",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_3ff6775d",
       "range": {
         "startLine": 78,
         "startChar": 57,
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_e06567e1",
+        "filename": "csit/suites/aaa/keystone/010__keystone_authn.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Due to the controller is running just in one node, I had some difficulties executing Start_Single_Member with ${wait_for_sync}\u003dTrue; then I have decided to set ${wait_for_sync}\u003dFalse, eliminate the sleep and use the Wait Until Keyword Succeeds keyword",
+      "parentUuid": "fafc7978_7f9bdf17",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 70
+      },
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_df9e4b06",
         "filename": "csit/suites/aaa/keystone/start_keystone.sh",
         "patchSetId": 4
@@ -260,6 +518,24 @@
       "writtenOn": "2017-03-07T21:59:30Z",
       "side": 1,
       "message": "some extra whitespace in here to remove.",
+      "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_205c8f18",
+        "filename": "csit/suites/aaa/keystone/start_keystone.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-08T13:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_df9e4b06",
       "revId": "51b57dbd47dbb72c8fd67b8051e4e1393ab1f378",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
