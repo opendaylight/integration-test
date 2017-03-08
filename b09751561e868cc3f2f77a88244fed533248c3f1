@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_a5025407",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-08T05:11:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_1f7a93bc",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "b09751561e868cc3f2f77a88244fed533248c3f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_7fc2bfe9",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-07T22:22:34Z",
       "side": 1,
       "message": "this block should move above the : FOR loops. Those loops\nhave \"Should Contain\" keywords in them which means they\ncould fail. If they fail, then this block of code wont\nexecute. That\u0027s probably the time when we\u0027ll wish we had\nthe output to debug the failure.",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 39
+      },
+      "revId": "b09751561e868cc3f2f77a88244fed533248c3f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0511a051",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-08T05:11:06Z",
+      "side": 1,
+      "message": "Agree. But the GWMAC and GWIP available only when interface (subnet) added with router. So if validation fails for interface addition with router then we will not have any value for this variable.",
+      "parentUuid": "fafc7978_7fc2bfe9",
       "range": {
         "startLine": 145,
         "startChar": 0,
