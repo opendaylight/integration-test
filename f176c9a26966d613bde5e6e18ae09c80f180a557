@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_3057c459",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_precedence_longevity.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T09:20:23Z",
+      "side": 1,
+      "message": "I like this. But I have not looked at the existing longevity jobs yet, so I may change my mind.",
+      "range": {
+        "startLine": 31,
+        "startChar": 92,
+        "endLine": 31,
+        "endChar": 105
+      },
+      "revId": "f176c9a26966d613bde5e6e18ae09c80f180a557",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_302984e6",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_precedence_longevity.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T09:20:23Z",
+      "side": 1,
+      "message": "These steps are the same as in the functional (non-longevity) suite, right? Then create a Resource which defines the steps (and Documents which suite variables are used) and convert both suites to use keywords from that resource.",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 31
+      },
+      "revId": "f176c9a26966d613bde5e6e18ae09c80f180a557",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_701f8cb7",
+        "filename": "csit/testplans/controller-clustering.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-08T09:20:23Z",
+      "side": 1,
+      "message": "We need a separate testplan (and a new job template).",
+      "revId": "f176c9a26966d613bde5e6e18ae09c80f180a557",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
