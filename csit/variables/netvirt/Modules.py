@@ -24,6 +24,7 @@ data_models = [
         'config/odl-l3vpn:vpn-instance-to-vpn-id',
         'config/odl-nat:external-networks',
         'config/odl-nat:ext-routers',
+        'config/odl-nat:external-subnets',
         'config/odl-nat:floating-ip-info',
         'config/odl-nat:intext-ip-port-map',
         'config/odl-nat:napt-switches',

@@ -191,5 +191,5 @@ Config and Operational Topology Should Be Empty
     ...    topology data stores. Empty probably means that only ovsdb:1 is there.
     ${config_resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
     ${operational_resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Should Be Equal As Strings    ${config_resp.content}    {"network-topology":{"topology":[{"topology-id":"ovsdb:1"}]}}
-    Should Be Equal As Strings    ${operational_resp.content}    {"network-topology":{"topology":[{"topology-id":"ovsdb:1"}]}}
+    Should Contain    ${config_resp.content}    {"topology-id":"ovsdb:1"}
+    Should Contain    ${operational_resp.content}    {"topology-id":"ovsdb:1"}
