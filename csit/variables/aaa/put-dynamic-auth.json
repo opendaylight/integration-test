@@ -1,0 +1,31 @@
+{
+   "aaa:http-authorization": {
+     "aaa:policies": {
+       "aaa:policies": [
+         {
+           "aaa:resource": "/**",
+           "aaa:permissions": [
+             {
+               "aaa:role": "user",
+               "aaa:actions": [
+                 "get",
+                 "delete",
+                 "put",
+                 "post"
+               ]
+             },
+             {
+               "aaa:role": "admin",
+               "aaa:actions": [
+                 "get",
+                 "delete",
+                 "put",
+                 "post"
+               ]
+             }
+           ]
+         }
+       ]
+     }
+   }
+ }

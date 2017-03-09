@@ -6,6 +6,7 @@ Documentation     DockerKeystone library. This library is useful to deal with Op
 ...               - Start/Stop keystone node in SYSTEM TOOLS VM:
 ...               - Run Docker Keystone
 ...               - Destroy Docker Keystone
+...               - Check Keystone Log File For String
 ...
 ...               - Provision keystone node:
 ...               - Create Keystone session
@@ -87,7 +88,7 @@ Run Docker Keystone
     SSHLibrary.Execute Command    ./start_keystone.sh
     Wait Until Keyword Succeeds    10x    15    Check Keystone Log File For String    GET
     SSHLibrary.Execute Command    docker exec -t keystone bash -c "source openrc;openstack user create --password cscuser CSC_user;openstack user set --project admin CSC_user;openstack role add --project admin --user CSC_user admin;openstack role add --domain default --user CSC_user admin;openstack user list"
-    SSHLibrary.Execute Command    docker exec -t keystone bash -c "source openrc;openstack user create --password cscusernoadmin CSC_user_no_admin;openstack user set --project admin CSC_user_no_admin;openstack role add --project admin --user CSC_user_no_admin user;openstack user list"
+    SSHLibrary.Execute Command    docker exec -t keystone bash -c "source openrc;openstack user create --password cscusernoadmin CSC_user_no_admin;openstack user set --project admin CSC_user_no_admin;openstack role add --project admin --user CSC_user_no_admin user;openstack role add --domain default --user CSC_user_no_admin user"
     [Return]    ${output}
 
 Destroy Docker Keystone
@@ -128,6 +129,7 @@ Set Keystone Certificate into ODL
 
 Check Keystone Log File For String
     [Arguments]    ${string}
+    [Documentation]    Check provided log exists in /var/log/nginx-access.log
     ${status}    SSHLibrary.Execute Command    docker exec -t keystone bash -c "grep ${string} /var/log/nginx-access.log"
     Log    ${status}
     BuiltIn.Should Contain    ${status}    ${string}
