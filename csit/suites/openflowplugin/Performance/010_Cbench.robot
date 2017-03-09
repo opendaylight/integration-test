@@ -21,6 +21,7 @@ ${loops}          10
 ${num_of_unique_macs}    100
 ${start_delay}    5000
 ${test_delay}     0
+${of_port}    6633
 ${cbench_system}    ${TOOLS_SYSTEM_IP}
 ${cbench_executable}    /usr/local/bin/cbench
 ${throughput_results_file}    throughput.csv
@@ -33,7 +34,7 @@ Cbench Latency Test
     [Tags]    latency
     [Timeout]    ${test_timeout}
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
-    Run Cbench And Log Results    -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay}    ${latency_threshold}    ${latency_results_file}
+    Run Cbench And Log Results    -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay} -p ${of_port}    ${latency_threshold}    ${latency_results_file}
     # We have to give some time for the controller to recover. See bug 6176.
     Sleep    ${test_delay}
 
@@ -43,7 +44,7 @@ Cbench Throughput Test
     [Tags]    throughput
     [Timeout]    ${test_timeout}
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
-    Run Cbench And Log Results    -t -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay}    ${throughput_threshold}    ${throughput_results_file}
+    Run Cbench And Log Results    -t -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay} -p ${of_port}    ${throughput_threshold}    ${throughput_results_file}
     # We have to give some time for the controller to recover. See bug 6176.
     Sleep    ${test_delay}
 
@@ -52,7 +53,7 @@ Rerun Latency Test To Check Bug 6176
     [Tags]    latency
     [Timeout]    ${test_timeout}
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
-    Run Cbench And Log Results    -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay}    ${latency_threshold}    bug.csv
+    Run Cbench And Log Results    -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay} -p ${of_port}   ${latency_threshold}    bug.csv
     # We have to give some time for the controller to recover. See bug 6176.
     Sleep    ${test_delay}
     [Teardown]    Report_Failure_Due_To_Bug    6176
