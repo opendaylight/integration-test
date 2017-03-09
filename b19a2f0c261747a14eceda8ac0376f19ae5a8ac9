@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_07719a0b",
+        "filename": "csit/libraries/UtilLibrary.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-03-09T13:16:58Z",
+      "side": 1,
+      "message": "I think this is simpler, easier to read:\n\n\tdata \u003d { \u0027from\u0027 : \u00270\u0027,\n\t         \u0027size\u0027 : \u00271\u0027,\n\t\t \u0027sort\u0027 : [ { \u0027TimeStamp\u0027 : { \u0027order\u0027 : \u0027desc\u0027 } } ],\n\t\t \u0027query\u0027: { \u0027query_string\u0027: { \u0027query\u0027 : query_String} } \n\t}\n\nBesides, why do you build this request to be used somewhere else? It\u0027s better to build it exactly at the function that needs it, thus reducing complexity.",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 32
+      },
+      "revId": "b19a2f0c261747a14eceda8ac0376f19ae5a8ac9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
