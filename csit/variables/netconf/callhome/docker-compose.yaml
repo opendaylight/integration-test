@@ -1,0 +1,7 @@
+netopeer:
+  image: odlcallhome/netopeer
+  command: sh -c "echo -e 'y/n' | ssh-keygen -q -N '' -f /etc/ssh/ssh_host_rsa_key ; /usr/bin/netopeer-server -v 3"
+  environment:
+     - controller_ip=ODL_SYSTEM_IP
+  volumes:
+    - ./datastore-server.xml:/usr/etc/netopeer/cfgnetopeer/datastore-server.xml
