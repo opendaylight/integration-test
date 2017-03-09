@@ -11,9 +11,9 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${operation_timeout}    100s
-${flow_count_per_switch}    1000
-${switch_count}    3
-${flow_count_after_add}    3000
+${flow_count_per_switch}    10000
+${switch_count}    1
+${flow_count_after_add}    10000
 ${flow_count_after_del}    0
 ${orig_json_config_add}    sal_add_bulk_flow_config.json
 ${orig_json_config_get}    sal_get_bulk_flow_config.json
@@ -35,9 +35,13 @@ Get Inventory Follower Before Cluster Restart
     ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status
     ${Follower_Node_1}=    Get From List    ${Inventory_Followers}    0
     ${Follower_Node_2}=    Get From List    ${Inventory_Followers}    1
+    ${Inventory_Leader_List}=    Create List    ${inventory_leader}
+    ${Inventory_Follower_Node1_List}=    Create List    ${Follower_Node_1}
     Set Suite Variable    ${Follower_Node_1}
     Set Suite Variable    ${Follower_Node_2}
     Set Suite Variable    ${Inventory_Leader}
+    Set Suite Variable    ${Inventory_Leader_List}
+    Set Suite Variable    ${Inventory_Follower_Node1_List}
 
 Start Mininet Connect To Follower Node1
     [Documentation]    Start mininet with connection to Follower Node1.
@@ -50,7 +54,7 @@ Add Bulk Flow From Follower
 
 Get Bulk Flows and Verify In Cluster
     [Documentation]    Initiate get operation and check flow count across cluster nodes
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}    ${Inventory_Leader_List}
 
 Verify Flows In Switch Before Cluster Restart
     [Documentation]    Verify flows are installed in switch before cluster restart.
@@ -109,4 +113,4 @@ Delete All Flows From Follower Node1
 
 Verify No Flows In Cluster
     [Documentation]    Verify flow count is 0 across cluster nodes.
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del}
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del}    ${Inventory_Leader_List}

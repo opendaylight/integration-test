@@ -10,7 +10,7 @@ Edited: Many times by many people
 DEFAULT_LINUX_PROMPT = '>'
 DEFAULT_LINUX_PROMPT_STRICT = ']>'
 DEFAULT_USER = 'jenkins'
-DEFAULT_TIMEOUT = '30s'
+DEFAULT_TIMEOUT = '50s'
 
 # ODL system variables
 ODL_SYSTEM_IP = '127.0.0.1'  # Override if ODL is not running locally to pybot
