@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_589ee3b9",
+        "filename": "csit/suites/controller/cluster_singleton/chasing_the_leader.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-09T18:25:35Z",
+      "side": 1,
+      "message": "Oops. You are right, I was wrong.",
+      "parentUuid": "fafc7978_24e65c44",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 45
+      },
+      "revId": "7b0fb9f5b0062c66236d18578cb7e128bf59a4eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_13df27d7",
         "filename": "csit/suites/controller/cluster_singleton/master_stability.robot",
         "patchSetId": 32
