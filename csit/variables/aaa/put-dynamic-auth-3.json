@@ -1,0 +1,36 @@
+{
+   "aaa:http-authorization": {
+     "aaa:policies": {
+       "aaa:policies": [
+         {
+           "aaa:resource": "/restconf/operations/aaa-cert-rpc:getODLCertificate",
+           "aaa:permissions": [
+             {
+               "aaa:role": "user",
+               "aaa:actions": [
+                 "get",
+                 "delete",
+                 "put",
+                 "post"
+               ]
+             }
+           ]
+         },
+         {
+           "aaa:resource": "/restconf/operational/**",
+           "aaa:permissions": [
+             {
+               "aaa:role": "user",
+               "aaa:actions": [
+                 "get",
+                 "delete",
+                 "put",
+                 "post"
+               ]
+             }
+           ]
+         }
+       ]
+     }
+   }
+ }
