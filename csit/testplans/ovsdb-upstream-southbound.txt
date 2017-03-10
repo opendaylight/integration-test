@@ -1,0 +1,8 @@
+# Place the suites in run order:
+integration/test/csit/suites/ovsdb/Southbound_Domain/020__connection_manager.robot
+integration/test/csit/suites/ovsdb/Southbound_Domain/030__configure_exit_ovsdb_node.robot
+integration/test/csit/suites/ovsdb/Southbound_Domain/040__Vxlan_Extension_Test.robot
+# moving 010 to the end because bug 4756 will put plugin in a bad state and cause failures in 030
+integration/test/csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot
+integration/test/csit/suites/ovsdb/Southbound_Domain/030__configure_exit_ovsdb_node.robot
+integration/test/csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot
