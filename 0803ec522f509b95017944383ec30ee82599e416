@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_eb47fca0",
+        "filename": "csit/suites/controller/cluster_singleton/partition_and_heal_longevity.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-10T14:15:08Z",
+      "side": 1,
+      "message": "Is it worth to add new keyword to CsCommon (and one for line 50) to make lines shorter (here and in the functional suite)?",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 148
+      },
+      "revId": "0803ec522f509b95017944383ec30ee82599e416",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
