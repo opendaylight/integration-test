@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_f9c1994e",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-10T10:54:42Z",
+      "side": 1,
+      "message": "I never really liked this argument, but only now I have realized a better solution. Just split this keyword (4 code lines) into Check_Old_Owner_Stays_Elected_For_Device and Check_New_Owner_Got_Elected_For_Device (3 code lines each).\n\nIt is okay to just leave TODOs and create a Trello card if this argument is used in several keywords already.",
+      "range": {
+        "startLine": 265,
+        "startChar": 55,
+        "endLine": 265,
+        "endChar": 69
+      },
+      "revId": "abea64de74de3b1cd0a9714b5d4925573eef484e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_592f053f",
+        "filename": "csit/suites/controller/cluster_singleton/CsCommon.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-10T10:54:42Z",
+      "side": 1,
+      "message": "This is already written in the keyword name.\n\nI would expect something along \"Fail if the actual owner is different from ${owner_index} or if the actual candidate list is different from ${exp_candidates}.\".",
+      "range": {
+        "startLine": 57,
+        "startChar": 23,
+        "endLine": 57,
+        "endChar": 65
+      },
+      "revId": "abea64de74de3b1cd0a9714b5d4925573eef484e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f9fcf9b6",
+        "filename": "csit/suites/controller/cluster_singleton/CsCommon.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-10T10:54:42Z",
+      "side": 1,
+      "message": "Do not talk about implementation when you can describe the functionality without it.",
+      "range": {
+        "startLine": 57,
+        "startChar": 82,
+        "endLine": 57,
+        "endChar": 138
+      },
+      "revId": "abea64de74de3b1cd0a9714b5d4925573eef484e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b9e4310d",
+        "filename": "csit/suites/controller/cluster_singleton/master_stability.robot",
+        "patchSetId": 43
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-10T10:54:42Z",
+      "side": 1,
+      "message": "Re-register",
+      "range": {
+        "startLine": 47,
+        "startChar": 23,
+        "endLine": 47,
+        "endChar": 35
+      },
+      "revId": "abea64de74de3b1cd0a9714b5d4925573eef484e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
