@@ -22,6 +22,30 @@
       "revId": "b19a2f0c261747a14eceda8ac0376f19ae5a8ac9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b93711e2",
+        "filename": "csit/libraries/UtilLibrary.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 6871
+      },
+      "writtenOn": "2017-03-10T09:53:42Z",
+      "side": 1,
+      "message": "I changed the data. This function is used from two places. Look at the TsdrUtils.robot. It has sense to have extracted in one place.",
+      "parentUuid": "fafc7978_07719a0b",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 32
+      },
+      "revId": "b19a2f0c261747a14eceda8ac0376f19ae5a8ac9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
