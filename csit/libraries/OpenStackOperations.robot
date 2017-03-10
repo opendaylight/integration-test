@@ -745,3 +745,92 @@ Get Ports MacAddr
     \    Log    ${macAddr}
     \    Append To List    ${MacAddr-list}    ${macAddr}
     [Return]    ${MacAddr-list}
+
+Create BgpVpn
+    [Arguments]    ${vpn_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Create Bgp Vpn with neutron request.
+    ${devstack_conn_id}    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${command}    Set Variable    neutron bgpvpn-create --name ${vpn_name} ${additional_args}    30s
+    ${output}=    Write Commands Until Prompt    ${command}    30s
+    Should Contain    ${output}    Created a new bgpvpn
+    Close Connection
+
+Update BgpVpn
+    [Arguments]    ${vpn_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Update Bgp Vpn with neutron request.
+    ${devstack_conn_id}    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${command}    Set Variable    neutron bgpvpn-update ${vpn_name} ${additional_args}    30s
+    ${output}=    Write Commands Until Prompt    ${command}    30s
+    Should Contain    ${output}    Updated bgpvpn: ${vpn_name}
+    Close Connection
+
+Delete BgpVpn
+    [Arguments]    ${vpn_name}
+    [Documentation]    Delete Bgp Vpn with neutron request.
+    ${devstack_conn_id}    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-delete ${vpn_name}    30s
+    Should Contain    ${output}    Deleted bgpvpn: ${vpn_name}
+    Close Connection
+
+Bgpvpn Network Associate
+    [Arguments]    ${vpn_name}    ${network_name}
+    [Documentation]    Associate Network To Given VPN.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-net-assoc-create --network ${network_name} ${vpn_name}    30s
+    Should Contain    ${output}    Created a new network_association
+    Close Connection
+
+Get Bgpvpn Network Association Id
+    [Arguments]    ${vpn_name}    ${net_name}
+    [Documentation]    Return the association Id of Network and VPN.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${NetId}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-net-assoc-list ${vpn_name}|grep '${NetId}'|awk '{print $2}'    30s
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${AssociationId}=    Get from List    ${splitted_output}    0
+    Close Connection
+    [Return]    ${AssociationId}
+
+Bgpvpn Network Disassociate
+    [Arguments]    ${vpn_name}    ${association_id}
+    [Documentation]    Dissociate Network From Given VPN.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-net-assoc-delete ${association_id} ${vpn_name}    30s
+    Should Contain    ${output}    Deleted network_association: ${association_id}
+    Close Connection
+
+Bgpvpn Router Associate
+    [Arguments]    ${vpn_name}    ${router_name}
+    [Documentation]    Associate Router To Given VPN.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-router-assoc-create --router ${router_name} ${vpn_name}    30s
+    Should Contain    ${output}    Created a new router_association
+    Close Connection
+
+Get Bgpvpn Router Association Id
+    [Arguments]    ${vpn_name}    ${router_name}
+    [Documentation]    Return Association Id of Router and VPN.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${RouterId}=    Get Router Id    ${router_name}    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-router-assoc-list ${vpn_name}|grep '${RouterId}'|awk '{print $2}'    30s
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${AssociationId}=    Get from List    ${splitted_output}    0
+    Close Connection
+    [Return]    ${AssociationId}
+
+Bgpvpn Router Disassociate
+    [Arguments]    ${vpn_name}    ${association_id}
+    [Documentation]    Disassociate Router From Given VPN.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-router-assoc-delete ${association_id} ${vpn_name}    30s
+    Should Contain    ${output}    Deleted router_association: ${association_id}
+    Close Connection
