@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_fbe50339",
+        "filename": "csit/suites/controller/benchmark/dsbenchmark.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-13T17:32:56Z",
+      "side": 1,
+      "message": "reasonable since you have the TODO to get a WUKS here, but you should link this work in to the bug you are filing so \nwhen the bug is fixed it will hopefully remind someone to\ncome revert this sleep",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 29
+      },
+      "revId": "46bdfafeccd5ee2110f6bf98e6e5680887d13ae8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
