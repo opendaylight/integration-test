@@ -94,6 +94,7 @@ CompareStream__Convert_Input
     ${args}    BuiltIn.Create_List
     ${kwargs}    BuiltIn.Create_Dictionary
     : FOR    ${arg}    IN    @{arguments}
+    \    ${arg}     BuiltIn.Convert_To_String    ${arg}
     \    ${removed}    String.Remove_String    ${arg}    \n    ${Space}    \t
     \    ...    \r
     \    ${splitted}    BuiltIn.Run_Keyword_If    "${removed[0]}" == "<"    BuiltIn.Create List    ${arg}
