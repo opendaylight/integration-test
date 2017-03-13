@@ -68,7 +68,7 @@ ${tool_results2_name}    perf_per_ops.csv
 Measure_Both_Datastores_For_One_Node_Odl_Setup
     [Tags]    critical    singlenode_setup
     [Template]    Measuring_Template
-    leader    {CONFIG,OPERATIONAL}    both_lead_
+    leader    {CONFIG,OPERATIONAL}    both_lead_    60s
 
 Measure_Config_Leader
     [Tags]    critical    clustered_setup
@@ -116,8 +116,9 @@ Teardown_Everything
     SSHLibrary.Close_All_Connections
 
 Start_Benchmark_Tool
-    [Arguments]    ${tested_datastore}    ${tested_node_ip}
+    [Arguments]    ${tested_datastore}    ${tested_node_ip}    ${retry}=${EMPTY}
     [Documentation]    Start the benchmark tool. Check that it has been running at least for ${tool_startup_timeout} period.
+    ...    If the script exits early, retry once after \${retry} if specified.
     ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${tested_node_ip} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} --datastore ${tested_datastore} ${tool_args} &> ${tool_log_name}
     BuiltIn.Log    ${command}
     SSHKeywords.Virtual_Env_Activate_On_Current_Session
@@ -126,7 +127,16 @@ Start_Benchmark_Tool
     ...    1s
     BuiltIn.Log    ${status}
     BuiltIn.Log    ${message}
-    BuiltIn.Run Keyword If    '${status}' == 'PASS'    BuiltIn.Fail    Benchmark tool is not running
+    BuiltIn.Return From Keyword If    "${status}" != "PASS"
+    BuiltIn.Run Keyword If    """${retry}""" == ""    BuiltIn.Fail    Benchmark tool is not running.
+    BuiltIn.Comment    An ugly hack for Carbon -all- jobs being slow to finish booting. FIXME: Use WUKS and open a Bug.
+    BuiltIn.Sleep    ${retry}
+    ${output}=    SSHLibrary.Write    ${command}
+    ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Write Until Expected Output    ${EMPTY}    ${TOOLS_SYSTEM_PROMPT}    ${tool_startup_timeout}
+    ...    1s
+    BuiltIn.Log    ${status}
+    BuiltIn.Log    ${message}
+    BuiltIn.Run Keyword If    "${status}" == "PASS"    BuiltIn.Fail    Benchmark tool is not running.
 
 Wait_Until_Benchmark_Tool_Finish
     [Arguments]    ${timeout}
