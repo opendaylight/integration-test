@@ -1,5 +1,1 @@
-integration/test/csit/suites/openstack/connectivity/
-integration/test/csit/suites/openstack/tempest/
-integration/test/csit/suites/openstack/NeutronSecurityGrp/
-integration/test/csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot
-#integration/test/csit/suites/netvirt/ElanService/
+integration/test/csit/suites/netvirt/L2_Neutron
