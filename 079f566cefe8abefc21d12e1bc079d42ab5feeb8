@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_597894f8",
+        "filename": "csit/libraries/BierResource.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-03-14T11:40:37Z",
+      "side": 1,
+      "message": "Thanks for the comment and email,I have added the documentation,please check it again.",
+      "parentUuid": "fafc7978_5f12a957",
+      "revId": "079f566cefe8abefc21d12e1bc079d42ab5feeb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_9f189176",
         "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2017-02-23T01:43:47Z",
       "side": 1,
       "message": "you aren\u0027t using Selenium here are you?",
+      "range": {
+        "startLine": 4,
+        "startChar": 18,
+        "endLine": 4,
+        "endChar": 34
+      },
+      "revId": "079f566cefe8abefc21d12e1bc079d42ab5feeb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f9722810",
+        "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-03-14T11:40:37Z",
+      "side": 1,
+      "message": "I removed the Libraries wuich are not used and updated the file,please check it again. Thank you!",
+      "parentUuid": "fafc7978_9f189176",
       "range": {
         "startLine": 4,
         "startChar": 18,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_99595c91",
+        "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-03-14T11:40:37Z",
+      "side": 1,
+      "message": "I have fixed it.Thank you for the comment.",
+      "parentUuid": "fafc7978_bf1bd571",
+      "range": {
+        "startLine": 9,
+        "startChar": 18,
+        "endLine": 9,
+        "endChar": 36
+      },
+      "revId": "079f566cefe8abefc21d12e1bc079d42ab5feeb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_ff28bd87",
         "filename": "csit/suites/bier/basic/__init__.robot",
         "patchSetId": 2
@@ -76,6 +142,24 @@
       "writtenOn": "2017-02-23T01:43:47Z",
       "side": 1,
       "message": "are you using mininet? I couldn\u0027t tell from the suite.",
+      "revId": "079f566cefe8abefc21d12e1bc079d42ab5feeb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_59c6d417",
+        "filename": "csit/suites/bier/basic/__init__.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-03-14T11:40:37Z",
+      "side": 1,
+      "message": "We need to use the Mininet.We need to start the Mininet first and get the topology in the next robot suite.Please make sure our using of Mininet is right or not.Thank you very much.",
+      "parentUuid": "fafc7978_ff28bd87",
       "revId": "079f566cefe8abefc21d12e1bc079d42ab5feeb8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
