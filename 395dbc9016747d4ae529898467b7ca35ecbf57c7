@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_1276e106",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-03-14T21:40:15Z",
+      "side": 1,
+      "message": "Done - Added class to aggregate fields",
+      "parentUuid": "fafc7978_a260e3cf",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 46
+      },
+      "revId": "395dbc9016747d4ae529898467b7ca35ecbf57c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_1f34ac48",
         "filename": "tools/distchanges/changes.py",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-02-21T08:41:08Z",
       "side": 1,
       "message": "\u0027changeid\u0027 can be None, and this line fails. I think you want to move this line into the \"if changeid\" block above.",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 42
+      },
+      "revId": "395dbc9016747d4ae529898467b7ca35ecbf57c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f2723d10",
+        "filename": "tools/distchanges/changes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-03-14T21:40:15Z",
+      "side": 1,
+      "message": "Done. This also fixes the failure Jamo found in testing.",
+      "parentUuid": "fafc7978_1f34ac48",
       "range": {
         "startLine": 231,
         "startChar": 0,
