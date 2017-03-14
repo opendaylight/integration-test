@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_879e1406",
+        "filename": "csit/libraries/FederationUtils.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-03-14T10:16:16Z",
+      "side": 1,
+      "message": "You can probably refactor these functions into one that gets the site as a parameter, instead of duplicating them",
+      "revId": "2476e379268c17d383867e4f58fed5d9d9fe3e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_67a33050",
+        "filename": "csit/libraries/FederationUtils.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-03-14T10:16:16Z",
+      "side": 1,
+      "message": "what are these IDs? should they be parameters?",
+      "range": {
+        "startLine": 35,
+        "startChar": 175,
+        "endLine": 35,
+        "endChar": 211
+      },
+      "revId": "2476e379268c17d383867e4f58fed5d9d9fe3e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_87b57480",
+        "filename": "csit/suites/openstack/federation/01_l2_tests.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-03-14T10:16:16Z",
+      "side": 1,
+      "message": "This should be done as a releng/builder param for federation job",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 38
+      },
+      "revId": "2476e379268c17d383867e4f58fed5d9d9fe3e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c7ae5c2f",
+        "filename": "csit/suites/openstack/federation/01_l2_tests.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-03-14T10:16:16Z",
+      "side": 1,
+      "message": "Configure Federation For Sites A And B",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "revId": "2476e379268c17d383867e4f58fed5d9d9fe3e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
