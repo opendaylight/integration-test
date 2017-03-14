@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_a14fc8bd",
+        "filename": "csit/testplans/openflowplugin-bulkomatic-3Node-Cluster-daily.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-03-14T03:12:58Z",
+      "side": 1,
+      "message": "This file may not be needed as we already run the test suite in https://jenkins.opendaylight.org/releng/view/CSIT-3node/job/openflowplugin-csit-3node-periodic-bulkomatic-clustering-daily-only-boron/ and https://jenkins.opendaylight.org/releng/view/CSIT-3node/job/openflowplugin-csit-3node-periodic-bulkomatic-clustering-daily-only-carbon/",
+      "revId": "304f67d29c62047f88dda0a288b7eb713e9d8fdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
