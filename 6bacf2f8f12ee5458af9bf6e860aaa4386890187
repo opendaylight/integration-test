@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_4c9a93c6",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2017-03-14T06:28:05Z",
+      "side": 1,
+      "message": "Validate ping output for packet loss",
+      "revId": "6bacf2f8f12ee5458af9bf6e860aaa4386890187",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2c78ef8e",
+        "filename": "csit/suites/l2gw/Configure_verify_l2gateway.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2017-03-14T06:28:05Z",
+      "side": 1,
+      "message": "The validation for whether the ip is assigned is missing.The dhcp status variable is statically set. Please check this once.",
+      "revId": "6bacf2f8f12ee5458af9bf6e860aaa4386890187",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b0743b68",
+        "filename": "csit/suites/l2gw/__init__.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2017-03-14T06:28:05Z",
+      "side": 1,
+      "message": "Deleting bridge before killing processes.",
+      "revId": "6bacf2f8f12ee5458af9bf6e860aaa4386890187",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7059338d",
+        "filename": "csit/suites/l2gw/__init__.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2017-03-14T06:28:05Z",
+      "side": 1,
+      "message": "Add validation for port in physical port table",
+      "revId": "6bacf2f8f12ee5458af9bf6e860aaa4386890187",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
