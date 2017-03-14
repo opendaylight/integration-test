@@ -30,6 +30,7 @@ tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_be
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_hotplug_nic
+    # Failing due to default security rules behavior missing in Mitaka
     [Tags]    skip_if_stable/mitaka
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
@@ -70,7 +71,8 @@ tempest.scenario.test_server_basic_ops.TestServerBasicOps.test_server_basic_ops
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_port_security_macspoofing_port
-    [Tags]    skip_if_transparent
+    # Failing due to default security rules behavior missing in Mitaka
+    [Tags]    skip_if_stable/mitaka
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
 *** Keywords ***
