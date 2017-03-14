@@ -11,9 +11,9 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${operation_timeout}    100s
-${flow_count_per_switch}    1000
-${switch_count}    3
-${flow_count_after_add}    3000
+${flow_count_per_switch}    10000
+${switch_count}    1
+${flow_count_after_add}    10000
 ${flow_count_after_del}    0
 ${orig_json_config_add}    sal_add_bulk_flow_config.json
 ${orig_json_config_get}    sal_get_bulk_flow_config.json
@@ -30,14 +30,18 @@ Check Shards Status And Initialize Variables
     Set Suite Variable    ${temp_json_config_get}
     Set Suite Variable    ${temp_json_config_del}
 
-Get Inventory Follower Before Cluster Restart
+Get Inventory Follower and Leader Before Cluster Restart
     [Documentation]    Find a follower in the inventory config shard
     ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status
     ${Follower_Node_1}=    Get From List    ${Inventory_Followers}    0
     ${Follower_Node_2}=    Get From List    ${Inventory_Followers}    1
+    ${Inventory_Leader_List}=    Create List    ${inventory_leader}
+    ${Inventory_Follower_Node1_List}=    Create List    ${Follower_Node_1}
     Set Suite Variable    ${Follower_Node_1}
     Set Suite Variable    ${Follower_Node_2}
     Set Suite Variable    ${Inventory_Leader}
+    Set Suite Variable    ${Inventory_Leader_List}
+    Set Suite Variable    ${Inventory_Follower_Node1_List}
 
 Start Mininet Connect To Follower Node1
     [Documentation]    Start mininet with connection to Follower Node1.
@@ -45,12 +49,12 @@ Start Mininet Connect To Follower Node1
     Set Suite Variable    ${mininet_conn_id}
 
 Add Bulk Flow From Follower
-    [Documentation]    3000 Flows (1K per DPN) in 3 DPN added via Follower Node1 and verify it gets applied in all instances.
+    [Documentation]    ${flow_count_after_add} Flows ( ${flow_count_per_switch} per DPN) in ${switch_count} DPN added via Follower Node1 and verify it gets applied in all instances.
     BulkomaticKeywords.Add Bulk Flow In Node    ${temp_json_config_add}    ${Follower_Node_1}    ${operation_timeout}
 
-Get Bulk Flows and Verify In Cluster
+Get Bulk Flows and Verify In Inventory Leader
     [Documentation]    Initiate get operation and check flow count across cluster nodes
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}    ${Inventory_Leader_List}
 
 Verify Flows In Switch Before Cluster Restart
     [Documentation]    Verify flows are installed in switch before cluster restart.
@@ -67,7 +71,7 @@ Start Mininet Reconnect To Follower Node1
     Set Suite Variable    ${mininet_conn_id}
 
 Verify Flows In Switch Reconnected To Follower Node1
-    [Documentation]    Verify 1K flows per DPN installed in switch after it is reconnected to follower node1.
+    [Documentation]    Verify ${flow_count_per_switch} flows per DPN installed in switch after it is reconnected to follower node1.
     MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Stop Mininet Connected To Follower Node1
@@ -81,7 +85,7 @@ Start Mininet Connect To Follower Node2
     Set Suite Variable    ${mininet_conn_id}
 
 Verify Flows In Switch Connected To Follower Node2
-    [Documentation]    Verify 1K flows per DPN installed in switch after it is connected to follower node2.
+    [Documentation]    Verify ${flow_count_per_switch} flows per DPN installed in switch after it is connected to follower node2.
     MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Stop Mininet Connected To Follower Node2
@@ -95,7 +99,7 @@ Start Mininet Connect To Inventory Leader
     Set Suite Variable    ${mininet_conn_id}
 
 Verify Flows In Switch Connected To Leader
-    [Documentation]    Verify 1K flows per DPN installed in switch after it is connected to inventory leader.
+    [Documentation]    Verify ${flow_count_per_switch} flows per DPN installed in switch after it is connected to inventory leader.
     MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Stop Mininet Connected To Inventory Leader
@@ -104,9 +108,9 @@ Stop Mininet Connected To Inventory Leader
     Utils.Clean Mininet System
 
 Delete All Flows From Follower Node1
-    [Documentation]    3000 Flows deleted via Follower Node1 and verify it gets applied in all instances.
+    [Documentation]    ${flow_count_after_add} Flows deleted via Follower Node1 and verify it gets applied in all instances.
     BulkomaticKeywords.Delete Bulk Flow In Node    ${temp_json_config_del}    ${Follower_Node_1}    ${operation_timeout}
 
-Verify No Flows In Cluster
+Verify No Flows In Inventory Leader
     [Documentation]    Verify flow count is 0 across cluster nodes.
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del}
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del}    ${Inventory_Leader_List}
