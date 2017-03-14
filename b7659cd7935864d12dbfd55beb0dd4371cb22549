@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_ad569604",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-14T22:40:43Z",
+      "side": 1,
+      "message": "oh, tox doesn\u0027t like the comment above the [Tags] line. just put it below. same below.",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 70
+      },
+      "revId": "b7659cd7935864d12dbfd55beb0dd4371cb22549",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
