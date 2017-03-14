@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_ed709e75",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-14T23:15:37Z",
+      "side": 1,
+      "message": "missing a space here. it\u0027s why tox failed too.",
+      "revId": "1adadcf1942a92d8245253da46b7c697b44ba443",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
