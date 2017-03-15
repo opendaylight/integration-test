@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_08d7d0ee",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-15T11:08:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_ed709e75",
+      "revId": "1adadcf1942a92d8245253da46b7c697b44ba443",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_edf7fed2",
         "filename": "csit/libraries/AAA/DockerKeystone.robot",
         "patchSetId": 11
@@ -30,6 +48,30 @@
       "writtenOn": "2017-03-14T23:21:07Z",
       "side": 1,
       "message": "no sleeps please.\n\none way to do what you are trying here is to write keywords\nhere in this lib, like \"Check Keystone Log File For String\" and pass in \"GET\" as it\u0027s ${string} argument. The keywword\nwould fail if status\u003d\u003d0. Same idea for user create.\n\nthen in this \"Run Docker Keystone\" keyword, you would \ncall those new keywords with a \"Wait Until Keyword Succeeds\" with the appropriate time values for polling.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 28
+      },
+      "revId": "1adadcf1942a92d8245253da46b7c697b44ba443",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a334e54a",
+        "filename": "csit/libraries/AAA/DockerKeystone.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-03-15T11:08:28Z",
+      "side": 1,
+      "message": "Thanks for your comments. Changed according to them",
+      "parentUuid": "fafc7978_edf7fed2",
       "range": {
         "startLine": 89,
         "startChar": 0,
