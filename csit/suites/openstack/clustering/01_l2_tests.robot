@@ -111,17 +111,17 @@ Check Vm Instances Have Ip Address
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
     : FOR    ${index}    IN RANGE    1    5
-    \    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    \    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
-    \    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}
+    \    ${NET1_VM_IPS}    @{NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    \    ${NET2_VM_IPS}    @{NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    \    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}    ${NET1_DHCP_IP}    ${NET2_DHCP_IP}
     \    ${status}    ${message}    Run Keyword And Ignore Error    List Should Not Contain Value    ${VM_IPS}    None
     \    Exit For Loop If    '${status}' == 'PASS'
     \    BuiltIn.Sleep    5s
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Write Commands Until Prompt    nova console-log ${vm}    30s
-    Append To List    ${NET1_VM_IPS}    ${NET1_DHCP_IP}
+    Append To List    ${NET1_VM_IPS}    @{NET1_DHCP_IP}[0]
     Set Suite Variable    ${NET1_VM_IPS}
-    Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
+    Append To List    ${NET2_VM_IPS}    @{NET2_DHCP_IP}[0]
     Set Suite Variable    ${NET2_VM_IPS}
     Should Not Contain    ${NET1_VM_IPS}    None
     Should Not Contain    ${NET2_VM_IPS}    None
