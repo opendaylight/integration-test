@@ -16,6 +16,24 @@
       "revId": "d1845bdd87a6f7f38b04ba998cf897b61185949d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a9868311",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-15T19:25:26Z",
+      "side": 1,
+      "message": "I missed that at first too. line 73 and 75 above, shove the dhcp ips in this same var.",
+      "parentUuid": "fafc7978_89873f12",
+      "revId": "d1845bdd87a6f7f38b04ba998cf897b61185949d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
