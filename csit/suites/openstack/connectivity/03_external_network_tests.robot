@@ -67,6 +67,8 @@ Check Vm Instances Have Ip Address
     Set Suite Variable    ${FLOATING_VM_IPS}
     Append To List    ${SNAT_VM_IPS}    ${SNAT_DHCP_IP}
     Set Suite Variable    ${SNAT_VM_IPS}
+    Should Not Contain    ${FLOATING_VM_IPS}    None
+    Should Not Contain    ${SNAT_VM_IPS}    None
     [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES_FLOATING}    ${VM_INSTANCES_SNAT}
     ...    AND    Get Test Teardown Debugs
 

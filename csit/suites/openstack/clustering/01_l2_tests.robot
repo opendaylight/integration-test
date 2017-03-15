@@ -113,7 +113,7 @@ Check Vm Instances Have Ip Address
     : FOR    ${index}    IN RANGE    1    5
     \    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
     \    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
-    \    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}
+    \    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}    ${NET1_DHCP_IP}    ${NET2_DHCP_IP}
     \    ${status}    ${message}    Run Keyword And Ignore Error    List Should Not Contain Value    ${VM_IPS}    None
     \    Exit For Loop If    '${status}' == 'PASS'
     \    BuiltIn.Sleep    5s
