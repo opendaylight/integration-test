@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "fafc7978_8903bf75",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-03-15T19:40:21Z",
+      "side": 1,
+      "message": "The line seems to  have  a  problem The DHCP varaibles are not lists,  so  they  get combined differntly\n\t${VM_IPS} \u003d [u\u002730.0.0.7\u0027, u\u002730.0.0.13\u0027, u\u002730.0.0.9\u0027, u\u002740.0.0.8\u0027, u\u002740.0.0.3\u0027, u\u002740.0.0.11\u0027, u\u00273\u0027, u\u00270\u0027, u\u0027.\u0027, u\u00270\u0027, u\u0027.\u0027, u\u00270\u0027, u\u0027.\u0027, u\u00272\u0027, u\u00274\u0027, u\u00270\u0027, u\u0027.\u0027, u\u00270\u0027, u\u0027.\u0027, u\u00270\u0027, u\u0027.\u0027, u\u00272\u0027]\n\nMaybe there is a better way  to add them to  individual  lists and then combine",
+      "revId": "d1845bdd87a6f7f38b04ba998cf897b61185949d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_89873f12",
         "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
         "patchSetId": 4
