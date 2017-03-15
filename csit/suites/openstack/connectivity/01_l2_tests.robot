@@ -65,8 +65,10 @@ Check Vm Instances Have Ip Address
     \    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
     \    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
     \    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    List Should Not Contain Value    ${VM_IPS}    None
-    \    Exit For Loop If    '${status}' == 'PASS'
+    \    ${DHCP_IPS}=    Collections.Combine Lists    ${NET1_DHCP_IP}    ${NET2_DHCP_IP}
+    \    ${status1}    ${message1}    Run Keyword And Ignore Error    List Should Not Contain Value    ${VM_IPS}    None
+    \    ${status2}    ${message2}    Run Keyword And Ignore Error    List Should Not Contain Value    ${DHCP_IPS}    None
+    \    Exit For Loop If    '${status}' == 'PASS' and '${status1}' == 'PASS'
     \    BuiltIn.Sleep    5s
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Write Commands Until Prompt    nova console-log ${vm}    30s
