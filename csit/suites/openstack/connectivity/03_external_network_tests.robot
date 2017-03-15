@@ -56,17 +56,19 @@ Check Vm Instances Have Ip Address
     ${SNAT_VM_COUNT}    Get Length    ${VM_INSTANCES_SNAT}
     ${LOOP_COUNT}    Evaluate    ${FLOATING_VM_COUNT}+${SNAT_VM_COUNT}
     : FOR    ${index}    IN RANGE    1    ${LOOP_COUNT}
-    \    ${FLOATING_VM_IPS}    ${FLOATING_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease
+    \    ${FLOATING_VM_IPS}    @{FLOATING_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease
     \    ...    @{VM_INSTANCES_FLOATING}
-    \    ${SNAT_VM_IPS}    ${SNAT_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease
+    \    ${SNAT_VM_IPS}    @{SNAT_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease
     \    ...    @{VM_INSTANCES_SNAT}
     \    ${FLOATING_VM_LIST_LENGTH}=    Get Length    ${FLOATING_VM_IPS}
     \    ${SNAT_VM_LIST_LENGTH}=    Get Length    ${SNAT_VM_IPS}
     \    Exit For Loop If    ${FLOATING_VM_LIST_LENGTH}==${FLOATING_VM_COUNT} and ${SNAT_VM_LIST_LENGTH}==${SNAT_VM_COUNT}
-    Append To List    ${FLOATING_VM_IPS}    ${FLOATING_DHCP_IP}
+    Append To List    ${FLOATING_VM_IPS}    @{FLOATING_DHCP_IP}[0]
     Set Suite Variable    ${FLOATING_VM_IPS}
-    Append To List    ${SNAT_VM_IPS}    ${SNAT_DHCP_IP}
+    Append To List    ${SNAT_VM_IPS}    @{SNAT_DHCP_IP}[0]
     Set Suite Variable    ${SNAT_VM_IPS}
+    Should Not Contain    ${FLOATING_VM_IPS}    None
+    Should Not Contain    ${SNAT_VM_IPS}    None
     [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES_FLOATING}    ${VM_INSTANCES_SNAT}
     ...    AND    Get Test Teardown Debugs
 

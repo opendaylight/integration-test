@@ -51,9 +51,9 @@ Check Vm Instances Have Ip Address
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
     : FOR    ${index}    IN RANGE    1    5
-    \    ${NET1_L3_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    \    ${NET2_L3_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
-    \    ${VM_IPS}=    Collections.Combine Lists    ${NET1_L3_VM_IPS}    ${NET2_L3_VM_IPS}
+    \    ${NET1_L3_VM_IPS}    @{NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    \    ${NET2_L3_VM_IPS}    @{NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    \    ${VM_IPS}=    Collections.Combine Lists    ${NET1_L3_VM_IPS}    ${NET2_L3_VM_IPS}    ${NET1_DHCP_IP}    ${NET2_DHCP_IP}
     \    ${status}    ${message}    Run Keyword And Ignore Error    List Should Not Contain Value    ${VM_IPS}    None
     \    Exit For Loop If    '${status}' == 'PASS'
     \    BuiltIn.Sleep    5s
@@ -65,6 +65,8 @@ Check Vm Instances Have Ip Address
     Set Suite Variable    ${NET2_DHCP_IP}
     Should Not Contain    ${NET1_L3_VM_IPS}    None
     Should Not Contain    ${NET2_L3_VM_IPS}    None
+    Should Not Contain    ${NET1_DHCP_IP}    None
+    Should Not Contain    ${NET2_DHCP_IP}    None
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get Test Teardown Debugs
 
