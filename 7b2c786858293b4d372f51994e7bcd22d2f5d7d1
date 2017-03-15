@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_80dc341a",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-15T13:44:07Z",
+      "side": 1,
+      "message": "Update Documentation for these three keywords.",
+      "range": {
+        "startLine": 209,
+        "startChar": 23,
+        "endLine": 209,
+        "endChar": 28
+      },
+      "revId": "7b2c786858293b4d372f51994e7bcd22d2f5d7d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a0eb38af",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-15T13:44:07Z",
+      "side": 1,
+      "message": "parallel publish-notifications RPCs",
+      "range": {
+        "startLine": 2,
+        "startChar": 29,
+        "endLine": 2,
+        "endChar": 90
+      },
+      "revId": "7b2c786858293b4d372f51994e7bcd22d2f5d7d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_40da4c18",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-15T13:44:07Z",
+      "side": 1,
+      "message": "rpcs",
+      "range": {
+        "startLine": 11,
+        "startChar": 35,
+        "endLine": 11,
+        "endChar": 38
+      },
+      "revId": "7b2c786858293b4d372f51994e7bcd22d2f5d7d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_60083092",
+        "filename": "csit/suites/controller/dom_notification_broker/DnbCommons.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-15T13:44:07Z",
+      "side": 1,
+      "message": "Now when I think about it, csit/libraries/controller/ may be a better place than csit/suites/controller/.",
+      "revId": "7b2c786858293b4d372f51994e7bcd22d2f5d7d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a002186d",
+        "filename": "csit/suites/controller/dom_notification_broker/noloss_rate_longevity_1node.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-15T13:44:07Z",
+      "side": 1,
+      "message": "Mention longevity.",
+      "range": {
+        "startLine": 2,
+        "startChar": 49,
+        "endLine": 2,
+        "endChar": 61
+      },
+      "revId": "7b2c786858293b4d372f51994e7bcd22d2f5d7d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e0f3809d",
+        "filename": "csit/suites/controller/dom_notification_broker/noloss_rate_longevity_1node.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-15T13:44:07Z",
+      "side": 1,
+      "message": "Maybe it would be safer to aim for 23 hours, and 24 hours will be a hard limit on job duration.",
+      "range": {
+        "startLine": 26,
+        "startChar": 11,
+        "endLine": 26,
+        "endChar": 13
+      },
+      "revId": "7b2c786858293b4d372f51994e7bcd22d2f5d7d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
