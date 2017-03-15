@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_297d73b2",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-15T20:52:55Z",
+      "side": 1,
+      "message": "yeah, not good. PS6 should fix this hopefully",
+      "parentUuid": "fafc7978_8903bf75",
+      "revId": "d1845bdd87a6f7f38b04ba998cf897b61185949d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_89873f12",
         "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
         "patchSetId": 4
