@@ -258,7 +258,7 @@ TODO Refactor test suite and implement TCs
     ${CSEID} =    Resid    ${oldr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/AE1
     ${pi} =    Parent Id    ${r}
-    Should Be Equal    /InCSE1/${CSEID}    ${pi}
+    Should Be Equal    ${CSEID}    ${pi}
     #==================================================
     #    Finish
     #==================================================

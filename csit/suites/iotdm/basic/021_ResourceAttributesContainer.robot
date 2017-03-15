@@ -347,7 +347,7 @@ Delete the Container2-2.3
     ${CSEID} =    Resid    ${oldr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container1
     ${pi} =    Parent Id    ${r}
-    Should Be Equal    /InCSE1/${CSEID}    ${pi}
+    Should Be Equal    ${CSEID}    ${pi}
 
 4.22 Check parentID(cse-container-container)
     [Documentation]    parentID should be correct
@@ -361,7 +361,7 @@ Delete the Container2-2.3
     ${CSEID} =    Resid    ${oldr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container1/Container2
     ${pi} =    Parent Id    ${r}
-    Should Be Equal    /InCSE1/${CSEID}    ${pi}
+    Should Be Equal    ${CSEID}    ${pi}
 
 4.23 Check parentID(cse-AE-container)
     [Documentation]    parentID should be correct
@@ -377,7 +377,7 @@ Delete the Container2-2.3
     ${CSEID} =    Resid    ${oldr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/AE1/Container2
     ${pi} =    Parent Id    ${r}
-    Should Be Equal    /InCSE1/${CSEID}    ${pi}
+    Should Be Equal    ${CSEID}    ${pi}
 
 4.24 Check parentID(cse-AE-container-container)
     [Documentation]    parentID should be correct
@@ -392,7 +392,7 @@ Delete the Container2-2.3
     ${CSEID} =    Resid    ${oldr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/AE1/Container2/Container3
     ${pi} =    Parent Id    ${r}
-    Should Be Equal    /InCSE1/${CSEID}    ${pi}
+    Should Be Equal    ${CSEID}    ${pi}
 
 Delete the test AE-4.2
     ${deleteRes} =    Delete Resource    ${iserver}    InCSE1/AE1
@@ -555,7 +555,7 @@ Delete the Container2-4.3
 
 4.41 when container create, cni should be 0
     [Documentation]    when container create, cni should be 0
-    ${attr} =    Set Variable    "rn":"Container2"
+    ${attr} =    Set Variable    "rn":"Container2", "mni": 5
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
@@ -597,7 +597,7 @@ Delete the Container2-4.4
 
 4.51 when container create, cbs should be 0
     [Documentation]    when container create, cbs should be 0
-    ${attr} =    Set Variable    "rn":"Container2"
+    ${attr} =    Set Variable    "rn":"Container2", "mni": 5
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
@@ -694,7 +694,7 @@ Delete the Container2-4.6
 
 4.71 if maxByteSize = 5 , can create contentInstance with contentSize 5
     [Documentation]    if maxByteSize = 5 , can create contentInstance with contentSize 5
-    ${attr} =    Set Variable    "mbs":5,"rn":"Container2"
+    ${attr} =    Set Variable    "mbs":5,"rn":"Container2", "mni": 5
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
@@ -727,11 +727,12 @@ Delete the Container2-4.6
     ${childNumber} =    Get Length    ${chr}
     Should Be Equal As Integers    ${childNumber}    4
 
-4.74 if alread have 20, then set mbs to 5，will delete contentInstance until mbs less than 5.
-    [Documentation]    what if alread have 20, then set mbs to 5, will delete contentInstance until mbs less than 5.
+4.74 if already have 20, then set mbs to 5，will delete contentInstance until mbs less than 5.
+    [Documentation]    what if already have 20, then set mbs to 5, will delete contentInstance until mbs less than 5.
     ${attr} =    Set Variable    "mbs":5
     ${r}=    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
     ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
+    Log    ${rr.text}
     ${chr} =    Child Resource    ${rr}
     ${cbs} =    Current Byte Size    ${rr}
     ${cni} =    Current Number Of Instances    ${rr}

@@ -22,7 +22,7 @@ TODO Refactor test suite and implement TCs
 
 1.1 After Created, test whether all the mandatory attribtues are exist.
     [Documentation]    create 1 conIn test whether all the mandatory attribtues are exist
-    ${attr} =    Set Variable    "rn":"Container1"
+    ${attr} =    Set Variable    "rn":"Container1", "mni": 5
     ${r}=    Create Resource With Command    ${iserver}    InCSE1    ${rt_container}    rcn=3    ${attr}
     ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
