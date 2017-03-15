@@ -110,7 +110,8 @@ get operational interface
     [Arguments]    ${interface_name}
     [Documentation]    checks operational status of the interface.
     ${get_oper_resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${interface_name}/
-    log    ${get_oper_resp.content}
+    ${respjson}    RequestsLibrary.To Json    ${get_oper_resp.content}    pretty_print=True
+    log    ${respjson}
     log    ${get_oper_resp.status_code}
     Should Be Equal As Strings    ${get_oper_resp.status_code}    200
     Should not contain    ${get_oper_resp.content}    down
