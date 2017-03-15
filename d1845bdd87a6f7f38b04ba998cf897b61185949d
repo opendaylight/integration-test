@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_89873f12",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-03-15T19:24:10Z",
+      "side": 1,
+      "message": "is there a reason we don\u0027t do the Should Not Contain NET{1,2}_DHCP_IP None?",
+      "revId": "d1845bdd87a6f7f38b04ba998cf897b61185949d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
