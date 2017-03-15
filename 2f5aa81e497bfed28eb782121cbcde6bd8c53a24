@@ -22,6 +22,30 @@
       "revId": "2f5aa81e497bfed28eb782121cbcde6bd8c53a24",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9ac79844",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 6307
+      },
+      "writtenOn": "2017-03-15T22:08:47Z",
+      "side": 1,
+      "message": "Hi, \nDon\u0027t worry, it\u0027s for running \u0026 debugging in our downstream jenkins :)",
+      "parentUuid": "fafc7978_96a14548",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 12
+      },
+      "revId": "2f5aa81e497bfed28eb782121cbcde6bd8c53a24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
