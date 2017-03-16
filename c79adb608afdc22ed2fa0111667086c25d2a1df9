@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_34acaa8c",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T01:13:48Z",
+      "side": 1,
+      "message": "you should give a new patch that moves this Log above the\ncheck in line 80. if that check fails, this Log would\nnot execute. that\u0027s precisely when you want to see the Log\n(when things are broken)",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "c79adb608afdc22ed2fa0111667086c25d2a1df9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_14a9a67b",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T01:13:48Z",
+      "side": 1,
+      "message": "is there nothing to validate for table 52?",
+      "revId": "c79adb608afdc22ed2fa0111667086c25d2a1df9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_74b592cf",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T01:13:48Z",
+      "side": 1,
+      "message": "this could use a better name. this is really just opening up\neverything for TCP, UDP and ICMP right? The keyword name\ncould somehow be indicative of that.",
+      "range": {
+        "startLine": 851,
+        "startChar": 0,
+        "endLine": 851,
+        "endChar": 35
+      },
+      "revId": "c79adb608afdc22ed2fa0111667086c25d2a1df9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_54ba0ec1",
+        "filename": "csit/suites/l2gw/__init__.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T01:13:48Z",
+      "side": 1,
+      "message": "capitalize both words for style",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "revId": "c79adb608afdc22ed2fa0111667086c25d2a1df9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b4affa7c",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T01:13:48Z",
+      "side": 1,
+      "message": "unless it really provides a lot of benefit, I\u0027d prefer this\nextra level of variable assignment not to be here. just use\nOS_CONTROL_NODE_IP instead of OS_IP in the suites. Not a big\ndeal, just helps keep things semi-consistent.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 36
+      },
+      "revId": "c79adb608afdc22ed2fa0111667086c25d2a1df9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
