@@ -22,6 +22,30 @@
       "revId": "61ae7003d4938f2ed5eec87bdfb8fbbf4bd8a206",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_40ed21ef",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-16T18:34:35Z",
+      "side": 1,
+      "message": "I forgot I do not have to guess, as csit-verify [1] runs on boron stream.\n\n[1] https://logs.opendaylight.org/releng/jenkins092/genius-csit-verify-1node-genius/45/archives/log.html.gz#s1-s3-t1-k10-k1-k8",
+      "parentUuid": "fafc7978_e025355d",
+      "range": {
+        "startLine": 286,
+        "startChar": 107,
+        "endLine": 286,
+        "endChar": 108
+      },
+      "revId": "61ae7003d4938f2ed5eec87bdfb8fbbf4bd8a206",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
