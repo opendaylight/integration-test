@@ -8,6 +8,7 @@ Library           RequestsLibrary
 Variables         ../../variables/Variables.py
 Library           Collections
 Resource          ../../libraries/Utils.robot
+Resource          ../../libraries/CompareStream.robot
 Library           re
 
 *** Variables ***
@@ -283,10 +284,12 @@ Get Tunnel
     Should Contain    ${resp.content}    ${src}    ${dst}    TUNNEL:
     ${json}=    evaluate    json.loads('''${resp.content}''')    json
     log to console    \nOriginal JSON:\n${json}
-    ${Tunnels}    Collections.Get From Dictionary    ${json["internal-tunnel"][0]}    tunnel-interface-names
+    ${expected_tunnel_interface_name} =    Set_Variable_If_At_Least_Carbon    tunnel-interface-names    tunnel-interface-name
+    ${Tunnels}    Collections.Get From Dictionary    ${json["internal-tunnel"][0]}    ${expected_tunnel_interface_name}
     Log To Console    ${Tunnels}
     Log    ${Tunnels}
-    [Return]    ${Tunnels[0]}
+    ${tunnel_interface} =    Set_Variable_If_At_Least_Carbon    ${Tunnels[0]}    ${Tunnels}
+    [Return]    ${tunnel_interface}
 
 Validate interface state
     [Arguments]    ${tunnel-1}    ${dpid-1}    ${tunnel-2}    ${dpid-2}
