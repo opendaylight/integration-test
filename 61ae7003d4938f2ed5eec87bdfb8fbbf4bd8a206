@@ -70,6 +70,30 @@
       "revId": "61ae7003d4938f2ed5eec87bdfb8fbbf4bd8a206",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_200bbd2c",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T21:10:35Z",
+      "side": 1,
+      "message": "first problem is we (well I) have become immune to looking\nat the UNSTABLE results of our csit verify job. I need to\nget back to doing that.\n\nsecondly, Tali, you can try something like this:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/ClusterManagement.robot#L167\n\nODL_STREAM is available when these jobs run, so you can do\nconditional stuff with it.\n\nother projects that have had lots of changes between \nreleases make entire variable folders based on release\nto handle it. SFC might be a good example:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/suites/sfc/SFC_Basic/010__sfc_service_functions.robot#L118\n\nmaybe not the best example, but you can see how the ODL\nversion could dictate where to get your vars.\n\nfor this specific case, it seems like it could be limited\nto this one API. if so, I think you can just \"Get From\nDictionary\" based on the ODL_STREAM. then one more step\nto take the first item from the list (if Carbon) and\nreturn it.",
+      "parentUuid": "fafc7978_8008a992",
+      "range": {
+        "startLine": 286,
+        "startChar": 107,
+        "endLine": 286,
+        "endChar": 108
+      },
+      "revId": "61ae7003d4938f2ed5eec87bdfb8fbbf4bd8a206",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
