@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_8f729fab",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T05:40:45Z",
+      "side": 1,
+      "message": "I saw 167 as the id everywhere else. is 1235 right?\n\nassuming it\u0027s supposed to be 167, I think this needs to be\nparamaterized and used in the jjb and here as a variable.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 27
+      },
+      "revId": "1b3d3f8f486408955fa8272150b1bfb4ebedda92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6f73fbb4",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T05:40:45Z",
+      "side": 1,
+      "message": "warning: this patch may go in soon:\n\nhttps://git.opendaylight.org/gerrit/#/c/53317/\n\nif so, it might cause a merge conflict but should be easy\nenough to fix.",
+      "revId": "1b3d3f8f486408955fa8272150b1bfb4ebedda92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
