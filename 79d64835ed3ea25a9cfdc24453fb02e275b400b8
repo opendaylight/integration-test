@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_4ac0a22a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-16T14:34:30Z",
+      "side": 1,
+      "message": "This overwrites the list (defined in line 261) in each iteration. I guess we want to store this value into a temporary variable and append that to @{dhcp_ip}?",
+      "range": {
+        "startLine": 271,
+        "startChar": 9,
+        "endLine": 271,
+        "endChar": 19
+      },
+      "revId": "79d64835ed3ea25a9cfdc24453fb02e275b400b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4a9b8272",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-16T14:34:30Z",
+      "side": 1,
+      "message": "Is this an argument or test/suite/global variable? Document.",
+      "range": {
+        "startLine": 276,
+        "startChar": 23,
+        "endLine": 276,
+        "endChar": 38
+      },
+      "revId": "79d64835ed3ea25a9cfdc24453fb02e275b400b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ca865213",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-16T14:34:30Z",
+      "side": 1,
+      "message": "Why do we return only the first IP?",
+      "range": {
+        "startLine": 279,
+        "startChar": 40,
+        "endLine": 279,
+        "endChar": 43
+      },
+      "revId": "79d64835ed3ea25a9cfdc24453fb02e275b400b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
