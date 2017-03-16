@@ -110,8 +110,9 @@ Single_Locate_Owner_Attempt
     ...    For the first member listed: Get the actual owner, check candidates, store owner to suite variable.
     ...    (If the list has less then one item, this Keyword will fail.)
     ...    For other nodes: Get actual owner, check candidates, compare to the first listed member results.
+    ...    TODO: Move to an appropriate Resource.
     BuiltIn.Comment    FIXME: Work with sorted candidte list instead of candidate list length.
-    ${index_list} =    ClusterManagement.ClusterManagement__Given_Or_Internal_Index_List    ${member_index_list}
+    ${index_list} =    ClusterManagement.List_Indices_Or_All    ${member_index_list}
     ${require_candidate_list} =    BuiltIn.Create_List    @{index_list}
     ${first_index_listed} =    Collections.Remove_From_List    ${index_list}    ${0}
     # Now ${index_list} contains only the rest of indices.

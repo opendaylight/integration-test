@@ -31,7 +31,7 @@ Start Mininet Single Controller
 Start Mininet Multiple Controllers
     [Arguments]    ${mininet}    ${controller_index_list}=${EMPTY}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start Mininet with custom topology and connect to list of controllers in ${controller_index_list} or all if no list is provided.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${controller_index_list}
+    ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${timeout}
