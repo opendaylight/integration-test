@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_148fe6cd",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T04:39:28Z",
+      "side": 1,
+      "message": "it",
+      "range": {
+        "startLine": 214,
+        "startChar": 16,
+        "endLine": 214,
+        "endChar": 18
+      },
+      "revId": "c7e4d9cd3e5cd4dfae1ba28fb57dab78a1241b3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_94bab66c",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T04:39:28Z",
+      "side": 1,
+      "message": "is this keyword needed? can\u0027t you just use \"Wait For Karaf Log\" above, passing in two arguments which would be \"Karaf started in\" and then timeout\u003d25\n\nseems almost identical to that keyword, and that keyword is cluster ready too.",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 34
+      },
+      "revId": "c7e4d9cd3e5cd4dfae1ba28fb57dab78a1241b3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_34a94a25",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T04:39:28Z",
+      "side": 1,
+      "message": "I can\u0027t remember how this works, but this retry timeout\nis shorter than the timeouts that would happen inside the\nkeyword it\u0027s calling. if you are going to have a karaf\nlog timeout of 25s, I think this value should be more than\nthat.",
+      "range": {
+        "startLine": 226,
+        "startChar": 76,
+        "endLine": 226,
+        "endChar": 77
+      },
+      "revId": "c7e4d9cd3e5cd4dfae1ba28fb57dab78a1241b3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b4437a6b",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T04:39:28Z",
+      "side": 1,
+      "message": "${RESTCONF_TLS} ?",
+      "range": {
+        "startLine": 32,
+        "startChar": 56,
+        "endLine": 32,
+        "endChar": 60
+      },
+      "revId": "c7e4d9cd3e5cd4dfae1ba28fb57dab78a1241b3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7462b217",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T04:39:28Z",
+      "side": 1,
+      "message": "move this line above the \"Should Contain\" line. In the case\nthat \"Should Contain\" failed, this Delete All Sessions would\nget skipped. even better might be to put \"Delete All Sessions\" in the [Teardown] section of this test case just\nto be absolutely sure it will run.",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 23
+      },
+      "revId": "c7e4d9cd3e5cd4dfae1ba28fb57dab78a1241b3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7449128e",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T04:39:28Z",
+      "side": 1,
+      "message": "I have a hunch that some of these keywords below will\nbe needed/useful for future AAA CSIT. Keep it in mind\nthat it might be better to put them in AAAKeywords.robot\nor even some (like the ones to generate self-signed certs)\nin Utils.robot\n\nProbably ok to not worry about it for now, but down the\nroad.",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 12
+      },
+      "revId": "c7e4d9cd3e5cd4dfae1ba28fb57dab78a1241b3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_34802a8b",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T04:39:28Z",
+      "side": 1,
+      "message": "although this is adding three aditional lines to the\nsuite, because you could just call \"Restart Bundle ...\" \neverywhere you are calling \"Restart Jetty\", it\u0027s much \nmore clear to me to read \"Restart Jetty\" in all those\nplaces. so +1 from me.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 43
+      },
+      "revId": "c7e4d9cd3e5cd4dfae1ba28fb57dab78a1241b3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
