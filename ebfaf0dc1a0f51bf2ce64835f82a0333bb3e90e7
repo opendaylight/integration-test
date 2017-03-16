@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_551688a8",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-16T11:15:38Z",
+      "side": 1,
+      "message": "This might be too strict for longevity jobs, but that can be fixed later.",
+      "range": {
+        "startLine": 33,
+        "startChar": 90,
+        "endLine": 33,
+        "endChar": 93
+      },
+      "revId": "ebfaf0dc1a0f51bf2ce64835f82a0333bb3e90e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_35766407",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-16T11:15:38Z",
+      "side": 1,
+      "message": "Not sure if exc (from line 35) will get printed, but that can be fixed when an exception happens.",
+      "range": {
+        "startLine": 53,
+        "startChar": 15,
+        "endLine": 53,
+        "endChar": 19
+      },
+      "revId": "ebfaf0dc1a0f51bf2ce64835f82a0333bb3e90e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
