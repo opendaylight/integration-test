@@ -2,7 +2,7 @@
 import ciotdm
 
 
-def connect_to_iotdm(host, user, password, prot):
+def connect_to_iotdm(host, user, password, prot="http"):
     """According to protocol, connect to iotdm."""
     return ciotdm.connect(host, base="InCSE1", auth=(
         user, password), protocol=prot)
