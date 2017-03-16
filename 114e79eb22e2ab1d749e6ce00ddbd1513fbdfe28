@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_eafd1670",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-03-16T14:43:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_477d3bb1",
+      "range": {
+        "startLine": 904,
+        "startChar": 0,
+        "endLine": 920,
+        "endChar": 52
+      },
+      "revId": "114e79eb22e2ab1d749e6ce00ddbd1513fbdfe28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_874e0395",
         "filename": "csit/libraries/Sxp.py",
         "patchSetId": 16
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-16T13:24:50Z",
       "side": 1,
       "message": "Better:\n\n  \u0027ip\u0027: node_ip or node_id",
+      "range": {
+        "startLine": 968,
+        "startChar": 15,
+        "endLine": 968,
+        "endChar": 50
+      },
+      "revId": "114e79eb22e2ab1d749e6ce00ddbd1513fbdfe28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4a1c22c2",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-03-16T14:43:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_874e0395",
       "range": {
         "startLine": 968,
         "startChar": 15,
