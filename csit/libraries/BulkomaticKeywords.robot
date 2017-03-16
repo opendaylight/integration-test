@@ -77,7 +77,7 @@ Delete Bulk Flow In Node
 Get Bulk Flow And Verify Count In Cluster
     [Arguments]    ${json_body_get}    ${timeout}    ${flow_count}    ${controller_index_list}=${EMPTY}
     [Documentation]    Get Bulk Flow and Verify Flow Count in ${controller_index_list} matches ${flow_count}.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${controller_index_list}
+    ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    Get Bulk Flow    ${json_body_get}    ${index}
     : FOR    ${index}    IN    @{index_list}
