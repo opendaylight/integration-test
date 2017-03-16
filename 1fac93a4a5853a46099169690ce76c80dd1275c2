@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_ba3a43e5",
+        "filename": "csit/suites/sxp/basic/040_SSL_Passwords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-03-16T14:36:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_dad627c3",
+      "range": {
+        "startLine": 129,
+        "startChar": 23,
+        "endLine": 129,
+        "endChar": 51
+      },
+      "revId": "1fac93a4a5853a46099169690ce76c80dd1275c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_dafd873d",
         "filename": "csit/suites/sxp/basic/040_SSL_Passwords.robot",
         "patchSetId": 14
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-16T09:29:37Z",
       "side": 1,
       "message": "Is this used at all?",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 24
+      },
+      "revId": "1fac93a4a5853a46099169690ce76c80dd1275c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9a3f7fd6",
+        "filename": "csit/suites/sxp/basic/040_SSL_Passwords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-03-16T14:36:07Z",
+      "side": 1,
+      "message": "At line 124",
+      "parentUuid": "fafc7978_dafd873d",
       "range": {
         "startLine": 139,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_da20e7b2",
+        "filename": "csit/suites/sxp/basic/040_SSL_Passwords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-03-16T14:36:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_3ae493ab",
+      "range": {
+        "startLine": 141,
+        "startChar": 23,
+        "endLine": 141,
+        "endChar": 51
+      },
+      "revId": "1fac93a4a5853a46099169690ce76c80dd1275c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_7aed7b8e",
         "filename": "csit/suites/sxp/basic/040_SSL_Passwords.robot",
         "patchSetId": 14
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_fa232bbc",
+        "filename": "csit/suites/sxp/basic/040_SSL_Passwords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-03-16T14:36:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_7aed7b8e",
+      "range": {
+        "startLine": 146,
+        "startChar": 10,
+        "endLine": 146,
+        "endChar": 11
+      },
+      "revId": "1fac93a4a5853a46099169690ce76c80dd1275c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_5a67d725",
         "filename": "csit/suites/sxp/scripts/generate_and_deploy_keys.sh",
         "patchSetId": 14
@@ -105,6 +201,30 @@
       "writtenOn": "2017-03-16T09:29:37Z",
       "side": 1,
       "message": "This is part of Java installation? Not every Robot system is guaranteed to have Java installed. It would be better to run these commands directly on ODL system.",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "1fac93a4a5853a46099169690ce76c80dd1275c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f5cfbc55",
+        "filename": "csit/suites/sxp/scripts/generate_and_deploy_keys.sh",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-03-16T14:36:07Z",
+      "side": 1,
+      "message": "machine on ${ODL_SYSTEM_IP} does not provide keytool by default",
+      "parentUuid": "fafc7978_5a67d725",
       "range": {
         "startLine": 15,
         "startChar": 4,
