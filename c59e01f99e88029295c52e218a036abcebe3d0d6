@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_6a576627",
+        "filename": "csit/suites/sxp/basic/040_SSL_Passwords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-16T14:59:21Z",
+      "side": 1,
+      "message": "SSHKeywords.Open_Connection_To_ODL_System",
+      "range": {
+        "startLine": 131,
+        "startChar": 5,
+        "endLine": 132,
+        "endChar": 86
+      },
+      "revId": "c59e01f99e88029295c52e218a036abcebe3d0d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
