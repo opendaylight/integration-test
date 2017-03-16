@@ -46,6 +46,10 @@ parser.add_argument("--plot", type=str, default='none',
                     help="keywords filter for results to be drawn in plot (special keywords: all, none).")
 parser.add_argument("--units", choices=["miliseconds", "microseconds"], default="microseconds",
                     help="units of test duration values provided by dsbenchmark controller feature")
+parser.add_argument("--outfile-struct", dest="outfilestruct", default="perf_per_struct.csv",
+                    help="units of test duration values provided by dsbenchmark controller feature")
+parser.add_argument("--outfile-ops", dest="outfileops", default="perf_per_ops.csv",
+                    help="units of test duration values provided by dsbenchmark controller feature")
 args = parser.parse_args()
 
 
@@ -303,8 +307,8 @@ if __name__ == "__main__":
                             store_result(PLOT2, tx_type, oper, fmt, datastore, TOTAL_ELEMENTS / elem, 1, wtx,
                                          'EXEC', avg_exec_time / TIME_DIV)
 
-        write_results_to_file(PLOT1, 'perf_per_struct.csv', PLOT_FILTER)
-        write_results_to_file(PLOT2, 'perf_per_ops.csv', PLOT_FILTER)
+        write_results_to_file(PLOT1, args.outfilestruct, PLOT_FILTER)
+        write_results_to_file(PLOT2, args.outfileops, PLOT_FILTER)
 
         end_time = time.time()
         print "End time: %f " % end_time
