@@ -137,7 +137,7 @@ Check OVS OpenFlow Connections
 Add Multiple Managers to OVS
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}    ${controller_index_list}=${EMPTY}    ${ovs_mgr_port}=6640
     [Documentation]    Connect OVS to the list of controllers in the ${controller_index_list} or all if no list is provided.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${controller_index_list}
+    ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${tools_system}
     ${ovs_opt}=    Set Variable

@@ -71,7 +71,7 @@ ClusterManagement_Setup
 Check_Cluster_Is_In_Sync
     [Arguments]    ${member_index_list}=${EMPTY}
     [Documentation]    Fail if no-sync is detected on a member from list (or any).
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    ${status} =    Get_Sync_Status_Of_Member    member_index=${index}
     \    BuiltIn.Continue_For_Loop_If    'True' == '${status}'
@@ -114,7 +114,7 @@ Get_State_Info_For_Shard
     ...    If \${validate}, Fail if raft state is not Leader or Follower (for example on Candidate).
     ...    The biggest difference from Get_Leader_And_Followers_For_Shard
     ...    is that no check on number of Leaders is performed.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     Collections.Sort_List    ${index_list}    # to guarantee return values are also sorted lists
     # TODO: Support alternative capitalization of 'config'?
     ${ds_type} =    BuiltIn.Set_Variable_If    '${shard_type}' != 'config'    operational    config
@@ -160,7 +160,7 @@ Verify_Owner_And_Successors_For_Device
     ...    ${candidate_list} minus owner is returned as ${successor list}.
     ...    Users can still use Get_Owner_And_Successors_For_Device if they are interested in downed candidates,
     ...    or for testing heterogeneous clusters.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${candidate_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${candidate_list}
     ${owner}    ${successor_list} =    Get_Owner_And_Successors_For_Device    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
     Collections.List_Should_Contain_Value    ${index_list}    ${owner}    Owner ${owner} is not in candidate list ${index_list}
     # In Beryllium or after stopping an instance, the removed instance does not show in the candidate list.
@@ -335,8 +335,8 @@ Kill_Members_From_List_Or_All
     [Documentation]    If the list is empty, kill all ODL instances. Otherwise, kill members based on \${kill_index_list}
     ...    If \${confirm} is True, sleep 1 second and verify killed instances are not there anymore.
     ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member_index_list}
-    ${kill_index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${original_index_list}
+    ${kill_index_list} =    List_Indices_Or_All    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${original_index_list}
     Run_Bash_Command_On_List_Or_All    command=${NODE_KILL_COMMAND}    member_index_list=${member_index_list}
     ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${updated_index_list}    @{kill_index_list}
@@ -360,8 +360,8 @@ Stop_Members_From_List_Or_All
     [Documentation]    If the list is empty, stops all ODL instances. Otherwise stop members based on \${stop_index_list}
     ...    If \${confirm} is True, verify stopped instances are not there anymore.
     ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member_index_list}
-    ${stop_index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${original_index_list}
+    ${stop_index_list} =    List_Indices_Or_All    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${original_index_list}
     Run_Bash_Command_On_List_Or_All    command=${NODE_STOP_COMMAND}    member_index_list=${member_index_list}
     ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${updated_index_list}    @{stop_index_list}
@@ -405,13 +405,13 @@ Freeze_Or_Unfreeze_Members_From_List_Or_All
     [Arguments]    ${command}    ${member_index_list}=${EMPTY}
     [Documentation]    If the list is empty, stops/runs all ODL instances. Otherwise stop/run members based on \${stop_index_list}
     ...    For command parameter only ${NODE_FREEZE_COMMAND} and ${NODE_UNFREEZE_COMMAND} should be used
-    ${freeze_index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${freeze_index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     Run_Bash_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
 
 Clean_Journals_And_Snapshots_On_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${karaf_home}=${KARAF_HOME}
     [Documentation]    Delete journal and snapshots directories on every node listed (or all).
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${command} =    Set Variable    rm -rf "${karaf_home}/journal" "${karaf_home}/snapshots"
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    Run_Bash_Command_On_Member    command=${command}    member_index=${index}
@@ -439,7 +439,7 @@ Isolate_Member_From_List_Or_All
     [Arguments]    ${isolate_member_index}    ${member_index_list}=${EMPTY}
     [Documentation]    If the list is empty, isolate member from all ODL instances. Otherwise, isolate member based on present indices.
     ...    The KW will return a list of available members: \${updated index_list}=\${member_index_list}-\${isolate_member_index}
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${source} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${isolate_member_index}
     : FOR    ${index}    IN    @{index_list}
     \    ${destination} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
@@ -455,7 +455,7 @@ Isolate_Member_From_List_Or_All
 Rejoin_Member_From_List_Or_All
     [Arguments]    ${rejoin_member_index}    ${member_index_list}=${EMPTY}
     [Documentation]    If the list is empty, rejoin member from all ODL instances. Otherwise, rejoin member based on present indices.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${source} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${rejoin_member_index}
     : FOR    ${index}    IN    @{index_list}
     \    ${destination} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
@@ -474,7 +474,7 @@ Flush_Iptables_From_List_Or_All
 Run_Bash_Command_On_List_Or_All
     [Arguments]    ${command}    ${member_index_list}=${EMPTY}
     [Documentation]    Cycle through indices (or all), run command on each.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    Run_Bash_Command_On_Member    command=${command}    member_index=${index}
 
@@ -489,7 +489,7 @@ Run_Bash_Command_On_Member
 Run_Karaf_Command_On_List_Or_All
     [Arguments]    ${command}    ${member_index_list}=${EMPTY}    ${timeout}=10s
     [Documentation]    Cycle through indices (or all), run karaf command on each.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${index}
     \    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    ${command}    ${member_ip}    timeout=${timeout}
@@ -505,7 +505,7 @@ Run_Karaf_Command_On_Member
 Install_Feature_On_List_Or_All
     [Arguments]    ${feature_name}    ${member_index_list}=${EMPTY}    ${timeout}=60s
     [Documentation]    Attempt installation on each member from list (or all). Then look for failures.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${status_list} =    BuiltIn.Create_List
     : FOR    ${index}    IN    @{index_list}
     \    ${status}    ${text} =    BuiltIn.Run_Keyword_And_Ignore_Error    Install_Feature_On_Member    feature_name=${feature_name}    member_index=${index}
@@ -530,7 +530,7 @@ With_Ssh_To_List_Or_All_Run_Keyword
     ...    Beware that in order to avoid "got positional argument after named arguments", first two arguments in the call should not be named.
     BuiltIn.Comment    This keyword is experimental and there is high risk of being replaced by another approach.
     # TODO: For_Index_From_List_Or_All_Run_Keyword applied to With_Ssh_To_Member_Run_Keyword?
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${member_index}    IN    @{index_list}
     \    ${member_ip} =    Resolve_IP_Address_For_Member    ${member_index}
     \    SSHKeywords.Open_Connection_To_Odl_System    ip_address=${member_ip}
@@ -606,7 +606,7 @@ Check_Json_Member_List_Or_All
     [Arguments]    ${uri}    ${expected_data}    ${member_index_list}=${EMPTY}
     [Documentation]    Send a GET with the supplied uri to all or some members defined in ${member_index_list}.
     ...    Then check received data is = ${expected data}.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    ${data} =    Get_From_Member    uri=${uri}    member_index=${index}
     \    TemplatedRequests.Normalize_Jsons_And_Compare    ${expected_data}    ${data}
@@ -615,7 +615,7 @@ Check_Item_Occurrence_Member_List_Or_All
     [Arguments]    ${uri}    ${dictionary}    ${member_index_list}=${EMPTY}
     [Documentation]    Send a GET with the supplied uri to all or some members defined in ${member_index_list}.
     ...    Then check received for occurrences of items expressed in a dictionary ${dictionary}.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    ${data} =    Get_From_Member    uri=${uri}    member_index=${index}
     \    Utils.Check Item Occurrence    ${data}    ${dictionary}
@@ -624,7 +624,7 @@ Check_No_Content_Member_List_Or_All
     [Arguments]    ${uri}    ${member_index_list}=${EMPTY}
     [Documentation]    Send a GET with the supplied uri to all or some members defined in ${member_index_list}.
     ...    Then check there is no content.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    ${session} =    Resolve_Http_Session_For_Member    member_index=${index}
     \    Utils.No_Content_From_URI    ${session}    ${uri}
@@ -672,34 +672,24 @@ ClusterManagement__Parse_Sync_Status
 
 List_All_Indices
     [Documentation]    Create a new list of all indices.
-    ${return_list_copy} =    ClusterManagement__Given_Or_Internal_Index_List
-    BuiltIn.Return_From_Keyword    ${return_list_copy}
+    BuiltIn.Return_Keyword_And_Return    List_Indices_Or_All
 
-List_Indices_Minus_Member
-    [Arguments]    ${member_index}    ${member_index_list}=${EMPTY}
-    [Documentation]    Create a new list which contains indices from ${member_index_list} (or all) without ${member_index}.
-    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    ${member_index_list}
-    Collections.Remove Values From List    ${index_list}    ${member_index}
-    [Return]    ${index_list}
-
-ClusterManagement__Given_Or_Internal_Index_List
+List_Indices_Or_All
     [Arguments]    ${given_list}=${EMPTY}
     [Documentation]    Utility to allow \${EMPTY} as default argument value, as the internal list is computed at runtime.
-    ...    This keyword always return a (shallow) copy of given or default list,
+    ...    This keyword always returns a (shallow) copy of given or default list,
     ...    so operations with the returned list should not affect other lists.
     ...    Also note that this keyword does not consider empty list to be \${EMPTY}.
-    ...    TODO: This keyword is frequently used for obtaining copy of ${ClusterManagement__member_index_list}. Give this keyword public name.
     ${return_list_reference} =    BuiltIn.Set_Variable_If    """${given_list}""" != ""    ${given_list}    ${ClusterManagement__member_index_list}
     ${return_list_copy} =    BuiltIn.Create_List    @{return_list_reference}
     [Return]    ${return_list_copy}
 
-ClusterManagement__Given_Or_Empty_List
-    [Arguments]    ${given_list}=${EMPTY}
-    [Documentation]    Utility to allow \${EMPTY} as default argument value, as an empty list is computed at runtime.
-    ${empty_list} =    BuiltIn.Create_List
-    ${given_length} =    BuiltIn.Get_Length    ${given_list}
-    ${return_list} =    BuiltIn.Set_Variable_If    ${given_length} > 0    ${given_list}    ${empty_list}
-    [Return]    ${return_list}
+List_Indices_Minus_Member
+    [Arguments]    ${member_index}    ${member_index_list}=${EMPTY}
+    [Documentation]    Create a new list which contains indices from ${member_index_list} (or all) without ${member_index}.
+    ${index_list} =    List_Indices_Or_All    ${member_index_list}
+    Collections.Remove Values From List    ${index_list}    ${member_index}
+    [Return]    ${index_list}
 
 ClusterManagement__Compute_Derived_Variables
     [Arguments]    ${int_of_members}

@@ -129,7 +129,7 @@ Open Controller Karaf Console With Timeout
 Configure Timeout For Karaf Console
     [Arguments]    ${timeout}    ${member_index_list}=${EMPTY}
     [Documentation]    Configure a different timeout for each Karaf console.
-    ${index_list} =    ClusterManagement.ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    ClusterManagement.List Indices Or All    given_list=${member_index_list}
     ${current_connection_object}=    SSHLibrary.Get Connection
     : FOR    ${member_index}    IN    @{index_list}    # usually: 1, 2, 3
     \    ${karaf_connection_index}=    Collections.Get From Dictionary    ${connection_index_dict}    ${member_index}
@@ -164,7 +164,7 @@ Log Message To Controller Karaf
     [Arguments]    ${message}    ${member_index_list}=${EMPTY}    ${tolerate_failure}=True
     [Documentation]    Make sure this resource is initialized. Send a message into the controller's karaf log file on every node listed (or all).
     ...    By default, failure while processing a node is silently ignored, unless ${tolerate_failure} is False.
-    ${index_list} =    ClusterManagement.ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    ClusterManagement.List Indices Or All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    ${status}    ${output}=    BuiltIn.Run Keyword And Ignore Error    Execute Controller Karaf Command With Retry On Background    log:log "ROBOT MESSAGE: ${message}"    member_index=${index}
     \    BuiltIn.Run_Keyword_Unless    ${tolerate_failure} or "${status}" == "PASS"    BuiltIn.Fail    ${output}
@@ -183,7 +183,7 @@ Set Bgpcep Log Levels
     [Arguments]    ${bgpcep_level}=${DEFAULT_BGPCEP_LOG_LEVEL}    ${protocol_level}=${DEFAULT_PROTOCOL_LOG_LEVEL}    ${member_index_list}=${EMPTY}
     [Documentation]    Assuming OCKCOB was used, set logging level on bgpcep and protocol loggers without affecting current SSH session.
     # FIXME: Move to appropriate Resource
-    ${index_list} =    ClusterManagement.ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    ClusterManagement.List Indices Or All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    Execute Controller Karaf Command On Background    log:set ${bgpcep_level} org.opendaylight.bgpcep    member_index=${index}
     \    Execute Controller Karaf Command On Background    log:set ${protocol_level} org.opendaylight.protocol    member_index=${index}
