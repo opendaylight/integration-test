@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_e025355d",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-16T18:33:05Z",
+      "side": 1,
+      "message": "Let me guess: This will break Boron CSIT tests starting from here [0].\n\n[0] https://logs.opendaylight.org/releng/jenkins092/genius-csit-1node-genius-only-boron/337/archives/log.html.gz#s1-s3-t1-k10-k2-k8",
+      "range": {
+        "startLine": 286,
+        "startChar": 107,
+        "endLine": 286,
+        "endChar": 108
+      },
+      "revId": "61ae7003d4938f2ed5eec87bdfb8fbbf4bd8a206",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
