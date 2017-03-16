@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_2f0293b4",
+        "filename": "csit/suites/genius/02_ID_manager.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T06:41:30Z",
+      "side": 1,
+      "message": "i don\u0027t think the 2 in respjson2 is needed (same with the\nget_resp2 above. not a showstopper, but removing it keeps\nthings less distracting.",
+      "range": {
+        "startLine": 69,
+        "startChar": 6,
+        "endLine": 69,
+        "endChar": 15
+      },
+      "revId": "a8a56feeb7af07016f480e6d7b73c60f4edf87e5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2f6bb386",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T06:41:30Z",
+      "side": 1,
+      "message": "you aren\u0027t logging this?",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "a8a56feeb7af07016f480e6d7b73c60f4edf87e5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6f049bc6",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-16T06:41:30Z",
+      "side": 1,
+      "message": "move all the log calls above the \"Should ...\" checks because\nif those fail the log wont be called. just move it right\nbelow the To Json call.\n\napplies elsewhere.",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 22
+      },
+      "revId": "a8a56feeb7af07016f480e6d7b73c60f4edf87e5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
