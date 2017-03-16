@@ -283,10 +283,12 @@ Get Tunnel
     Should Contain    ${resp.content}    ${src}    ${dst}    TUNNEL:
     ${json}=    evaluate    json.loads('''${resp.content}''')    json
     log to console    \nOriginal JSON:\n${json}
-    ${Tunnels}    Collections.Get From Dictionary    ${json["internal-tunnel"][0]}    tunnel-interface-names
-    Log To Console    ${Tunnels}
-    Log    ${Tunnels}
-    [Return]    ${Tunnels[0]}
+     ${expected_tunnel_interface_name} =    BuiltIn.Set_Variable_If    '${ODL_STREAM}' == 'boron'    tunnel-interface-name    tunnel-interface-names
+     ${Tunnels}    Collections.Get From Dictionary    ${json["internal-tunnel"][0]}    ${expected_tunnel_interface_name}
+     Log To Console    ${Tunnels}
+     Log    ${Tunnels}
+     ${tunnel_interface} =    BuiltIn.Set_Variable_If    '${ODL_STREAM}' == 'boron'    ${Tunnels}    ${Tunnels[0]}
+     [Return]    ${tunnel_interface}
 
 Validate interface state
     [Arguments]    ${tunnel-1}    ${dpid-1}    ${tunnel-2}    ${dpid-2}
