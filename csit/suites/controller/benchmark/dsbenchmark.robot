@@ -57,7 +57,6 @@ ${TIMEOUT}        3h
 ${FILTER}         EXEC
 ${UNITS}          microseconds
 ${tool}           dsbenchmark.py
-${tool_args}      ${EMPTY}
 ${tool_startup_timeout}    10s
 ${tool_log_name}    dsbenchmark.log
 ${tool_output_name}    test.csv
@@ -70,25 +69,165 @@ Measure_Both_Datastores_For_One_Node_Odl_Setup
     [Template]    Measuring_Template
     leader    {CONFIG,OPERATIONAL}    both_lead_    60s
 
-Measure_Config_Leader
+Measure_Leader_Config_Txchain_Put
     [Tags]    critical    clustered_setup
     [Template]    Measuring_Template
-    leader    CONFIG    conf_lead_
+    leader    CONFIG    conf_lead_txchain_put_    tx_type=TX-CHAINING    op_type=PUT
 
-Measure_Operational_Leader
+Measure_Leader_Config_Txchain_Read
     [Tags]    critical    clustered_setup
     [Template]    Measuring_Template
-    leader    OPERATIONAL    op_lead_
+    leader    CONFIG    conf_lead_txchain_read_    tx_type=TX-CHAINING    op_type=READ
 
-Measure_Config_Follwer
+Measure_Leader_Config_Txchain_Merge
     [Tags]    critical    clustered_setup
     [Template]    Measuring_Template
-    follower    CONFIG    conf_fol_
+    leader    CONFIG    conf_lead_txchain_merge_    tx_type=TX-CHAINING    op_type=MERGE
 
-Measure_Operational_Follower
+Measure_Leader_Config_Txchain_Delete
     [Tags]    critical    clustered_setup
     [Template]    Measuring_Template
-    follower    OPERATIONAL    op_fol_
+    leader    CONFIG    conf_lead_txchain_del_    tx_type=TX-CHAINING    op_type=DELETE
+
+Measure_Leader_Config_Simpletx_Put
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    CONFIG    conf_lead_simpletx_put_    tx_type=SIMPLE-TX    op_type=PUT
+
+Measure_Leader_Config_Simpletx_Read
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    CONFIG    conf_lead_simpletx_read_    tx_type=SIMPLE-TX    op_type=READ
+
+Measure_Leader_Config_Simpletx_Merge
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    CONFIG    conf_lead_simpletx_merge_    tx_type=SIMPLE-TX    op_type=MERGE
+
+Measure_Leader_Config_Simpletx_Delete
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    CONFIG    conf_lead_simpletx_del_    tx_type=SIMPLE-TX    op_type=DELETE
+
+Measure_Leader_Operational_Txchain_Put
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    OPERATIONAL    op_lead_txchain_put_    tx_type=TX-CHAINING    op_type=PUT
+
+Measure_Leader_Operational_Txchain_Read
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    OPERATIONAL    op_lead_txchain_read_    tx_type=TX-CHAINING    op_type=READ
+
+Measure_Leader_Operational_Txchain_Merge
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    OPERATIONAL    op_lead_txchain_merge_    tx_type=TX-CHAINING    op_type=MERGE
+
+Measure_Leader_Operational_Txchain_Delete
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    OPERATIONAL    op_lead_txchain_del_    tx_type=TX-CHAINING    op_type=DELETE
+
+Measure_Leader_Operational_Simpletx_Put
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    OPERATIONAL    op_lead_simpletx_put_    tx_type=SIMPLE-TX    op_type=PUT
+
+Measure_Leader_Operational_Simpletx_Read
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    OPERATIONAL    op_lead_simpletx_read_    tx_type=SIMPLE-TX    op_type=READ
+
+Measure_Leader_Operational_Simpletx_Merge
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    OPERATIONAL    op_lead_simpletx_merge_    tx_type=SIMPLE-TX    op_type=MERGE
+
+Measure_Leader_Operational_Simpletx_Delete
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    OPERATIONAL    op_lead_simpletx_del_    tx_type=SIMPLE-TX    op_type=DELETE
+
+Measure_Follower_Config_Txchain_Put
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    CONFIG    conf_fol_txchain_put_    tx_type=TX-CHAINING    op_type=PUT
+
+Measure_Follower_Config_Txchain_Read
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    CONFIG    conf_fol_txchain_read_    tx_type=TX-CHAINING    op_type=READ
+
+Measure_Follower_Config_Txchain_Merge
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    CONFIG    conf_fol_txchain_merge_    tx_type=TX-CHAINING    op_type=MERGE
+
+Measure_Follower_Config_Txchain_Delete
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    CONFIG    conf_fol_txchain_del_    tx_type=TX-CHAINING    op_type=DELETE
+
+Measure_Follower_Config_Simpletx_Put
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    CONFIG    conf_fol_simpletx_put_    tx_type=SIMPLE-TX    op_type=PUT
+
+Measure_Follower_Config_Simpletx_Read
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    CONFIG    conf_fol_simpletx_read_    tx_type=SIMPLE-TX    op_type=READ
+
+Measure_Follower_Config_Simpletx_Merge
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    CONFIG    conf_fol_simpletx_merge_    tx_type=SIMPLE-TX    op_type=MERGE
+
+Measure_Follower_Config_Simpletx_Delete
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    CONFIG    conf_fol_simpletx_del_    tx_type=SIMPLE-TX    op_type=DELETE
+
+Measure_Follower_Operational_Txchain_Put
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    OPERATIONAL    op_fol_txchain_put_    tx_type=TX-CHAINING    op_type=PUT
+
+Measure_Follower_Operational_Txchain_Read
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    OPERATIONAL    op_fol_txchain_read_    tx_type=TX-CHAINING    op_type=READ
+
+Measure_Follower_Operational_Txchain_Merge
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    OPERATIONAL    op_fol_txchain_merge_    tx_type=TX-CHAINING    op_type=MERGE
+
+Measure_Follower_Operational_Txchain_Delete
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    OPERATIONAL    op_fol_txchain_del_    tx_type=TX-CHAINING    op_type=DELETE
+
+Measure_Follower_Operational_Simpletx_Put
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    OPERATIONAL    op_fol_simpletx_put_    tx_type=SIMPLE-TX    op_type=PUT
+
+Measure_Follower_Operational_Simpletx_Read
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    OPERATIONAL    op_fol_simpletx_read_    tx_type=SIMPLE-TX    op_type=READ
+
+Measure_Follower_Operational_Simpletx_Merge
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    OPERATIONAL    op_fol_simpletx_merge_    tx_type=SIMPLE-TX    op_type=MERGE
+
+Measure_Follower_Operational_Simpletx_Delete
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    OPERATIONAL    op_fol_simpletx_del_    tx_type=SIMPLE-TX    op_type=DELETE
 
 Merge_Csvs_Together
     [Documentation]    Merge created csvs into given file necause plot plugin cannot have more
@@ -116,10 +255,11 @@ Teardown_Everything
     SSHLibrary.Close_All_Connections
 
 Start_Benchmark_Tool
-    [Arguments]    ${tested_datastore}    ${tested_node_ip}    ${retry}=${EMPTY}
+    [Arguments]    ${tested_datastore}    ${tested_node_ip}    ${warmups}    ${runs}    ${total_ops}    ${inner_ops}
+    ...    ${tx_type}    ${ops_per_tx}    ${op_type}    ${retry}=${EMPTY}
     [Documentation]    Start the benchmark tool. Check that it has been running at least for ${tool_startup_timeout} period.
     ...    If the script exits early, retry once after \${retry} if specified.
-    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${tested_node_ip} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} --datastore ${tested_datastore} ${tool_args} &> ${tool_log_name}
+    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${tested_node_ip} --port ${RESTCONFPORT} --warmup ${warmups} --runs ${runs} --total ${total_ops} --inner ${inner_ops} --txtype ${tx_type} --ops ${ops_per_tx} --optype ${op_type} --plot ${FILTER} --units ${UNITS} --datastore ${tested_datastore} &> ${tool_log_name}
     BuiltIn.Log    ${command}
     SSHKeywords.Virtual_Env_Activate_On_Current_Session
     ${output}=    SSHLibrary.Write    ${command}
@@ -190,17 +330,21 @@ Set_Node_Ip_For_Benchmark
     BuiltIn.Return From Keyword    ${ODL_SYSTEM_@{followers}[0]_IP}
 
 Measuring_Template
-    [Arguments]    ${state}    ${tested_ds}    ${file_prefix}    ${retry}=${EMPTY}
+    [Arguments]    ${state}    ${tested_ds}    ${file_prefix}    ${retry}=${EMPTY}    ${warmups}=${WARMUPS}    ${runs}=${RUNS}
+    ...    ${total_ops}=${TOTAL_OPS}    ${inner_ops}=${INNER_OPS}    ${tx_type}=${TX_TYPE}    ${ops_per_tx}=${OPS_PER_TX}    ${op_type}=${OP_TYPE}
     [Documentation]    Keywork which will cover a whole banchmark.
     ...    If ${file_prefix} is ${Empty} we have 1 node odl.
     ${odl_node_ip}=    Set_Node_Ip_For_Benchmark    ${state}    ${tested_ds}    ${file_prefix}
-    Start_Benchmark_Tool    ${tested_ds}    ${odl_node_ip}    ${retry}
+    Start_Benchmark_Tool    ${tested_ds}    ${odl_node_ip}    ${warmups}    ${runs}    ${total_ops}    ${inner_ops}
+    ...    ${tx_type}    ${ops_per_tx}    ${op_type}    retry=${retry}
     Wait_Until_Benchmark_Tool_Finish    ${TIMEOUT}
     SSHLibrary.File Should Exist    ${tool_results1_name}
     SSHLibrary.File Should Exist    ${tool_results2_name}
     Check Results
     Store_File_To_Robot    ${tool_results1_name}    ${file_prefix}
     Store_File_To_Robot    ${tool_results2_name}    ${file_prefix}
+    ${odl_node_ip_after}=    Set_Node_Ip_For_Benchmark    ${state}    ${tested_ds}    ${file_prefix}
+    BuiltIn.Should_Be_Equal    ${odl_node_ip}    ${odl_node_ip_after}    Leader changed from ${odl_node_ip} to ${odl_node_ip_after} during the benchmark.
     [Teardown]    Stop_Measurement_And_Save_Logs
 
 Stop_Measurement_And_Save_Logs
