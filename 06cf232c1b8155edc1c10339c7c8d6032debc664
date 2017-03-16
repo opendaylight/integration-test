@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_2a5d5e49",
+        "filename": "csit/suites/sxp/keystores/csit-keystore-1",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-16T14:59:21Z",
+      "side": 1,
+      "message": "Do not store binary files to git, especially security-related ones.",
+      "revId": "06cf232c1b8155edc1c10339c7c8d6032debc664",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
