@@ -40,6 +40,7 @@ TC04 Create Vms On Compute Node
     Should Contain    ${vm_ip[0]}    ${port_ip_list[0]}
 
 TC05 Create L2Gateway And Connection And Verify
+    Create Itm Tunnel Between Hwvtep and Ovs    ${OVS_IP}
     ${output}=    L2GatewayOperations.Create Verify L2Gateway    ${HWVTEP_BRIDGE}    ${NS_PORT1}    ${L2GW_NAME1}
     Log    ${output}
     ${output}=    L2GatewayOperations.Create Verify L2Gateway Connection    ${L2GW_NAME1}    ${NET_1}
@@ -56,7 +57,7 @@ TC05 Create L2Gateway And Connection And Verify
     Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${UCAST_MACS_REMOTE_TABLE}    ${port_mac_list[0]}
 
 TC06 Dhcp Ip Allocation For Hwvtep Tap Port
-    Wait Until Keyword Succeeds    30s    10s    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS1}    ${NS_TAP1}    ${port_ip_list[1]}
+    Wait Until Keyword Succeeds    180s    10s    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS1}    ${NS_TAP1}    ${port_ip_list[1]}
 
 TC07 Verify Ping From Compute Node Vm To Hwvtep
     ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[0]}
@@ -70,13 +71,25 @@ TC07 Verify Ping From Compute Node Vm To Hwvtep
 TC08 Ping Verification From Namespace Tap To Ovs Vm
     Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Extra Timeout    ${HWVTEP_NS1}    ${port_mac_list[1]}    ${port_ip_list[0]}
 
-TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
+TC99a Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME1}
+
+TC99b Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     L2GatewayOperations.Delete L2Gateway    ${L2GW_NAME1}
+
+TC99c Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     OpenStackOperations.Delete Vm Instance    ${OVS_VM1_NAME}
+
+TC99d Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     OpenStackOperations.Delete Port    ${OVS_PORT_1}
+
+TC99e Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     OpenStackOperations.Delete Port    ${HWVTEP_PORT_1}
+
+TC99f Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     OpenStackOperations.Delete SubNet    ${SUBNET_1}
+
+TC99g Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     OpenStackOperations.Delete Network    ${NET_1}
 
 *** Keywords ***
