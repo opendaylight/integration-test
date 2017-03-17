@@ -1229,7 +1229,6 @@ class IPv4Address(_BaseV4, _BaseIP):
     """Represent and manipulate single IPv4 Addresses."""
 
     def __init__(self, address):
-
         """
         Args:
             address: A string or integer representing the IP

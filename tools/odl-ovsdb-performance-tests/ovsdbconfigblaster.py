@@ -92,7 +92,6 @@ class OvsdbConfigBlaster (object):
         return ovsdb_url
 
     def add_vswitch_to_dict(self, vswitch_ip, vswitch_remote_ip, vswitch_ovsdb_port, vswitch_name):
-
         """ Add details of an Open vSwitch instance to self.vswitch_dict
         Args:
             :param vswitch_ip: The ip of Open vSwitch to use

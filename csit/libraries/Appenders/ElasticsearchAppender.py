@@ -39,8 +39,8 @@ mpl.use('Agg')
 
 
 class MBeanNotFoundError(Exception):
-        def __init__(self, message, errors):
-            super(MBeanNotFoundError, self).__init__(message)
+    def __init__(self, message, errors):
+        super(MBeanNotFoundError, self).__init__(message)
 
 
 class BaseAppender(object):
@@ -173,8 +173,8 @@ class ElasticsearchAppender(BaseAppender):
 
     def _get_index(self, connection, need_all=False):
         indices = sorted([i for i in
-                         connection.indices.get_mapping().keys()
-                         if i.startswith('karaf')])
+                          connection.indices.get_mapping().keys()
+                          if i.startswith('karaf')])
         if need_all:
             return indices
         else:

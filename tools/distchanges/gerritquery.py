@@ -34,6 +34,7 @@ class GitReviewException(Exception):
 
 class CommandFailed(GitReviewException):
     """Command Failure Analysis"""
+
     def __init__(self, *args):
         Exception.__init__(self, *args)
         (self.rc, self.output, self.argv, self.envp) = args

@@ -734,10 +734,10 @@ if __name__ == "__main__":
 
     if (args.action not in _handler_matrix or
             args.itemtype not in _handler_matrix[args.action]):
-            msg = "Unsupported combination of action: " + str(args.action)
-            msg += " and item: " + str(args.itemtype)
-            logger.error(msg)
-            raise NotImplementedError(msg)
+        msg = "Unsupported combination of action: " + str(args.action)
+        msg += " and item: " + str(args.itemtype)
+        logger.error(msg)
+        raise NotImplementedError(msg)
 
     # TODO: need to filter out situations when we cannot use more items
     # in one rest request (rpc or delete?)
