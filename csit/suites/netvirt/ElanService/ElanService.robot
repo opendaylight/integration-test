@@ -68,6 +68,7 @@ Elan SuiteSetup
     [Documentation]    Elan suite setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     DevstackUtils.Devstack Suite Setup
+    Enable ODL Karaf Log
     SingleElan SuiteSetup
 
 Elan SuiteTeardown
@@ -159,3 +160,12 @@ Verify VMs received IP
     Log    ${VM_IP}
     Should Not Contain    ${VM_IP}    None
     [Return]    ${VM_IP}
+
+Enable ODL Karaf Log
+    [Documentation]    Uses log:set TRACE org.opendaylight.netvirt to enable log
+    Log    "Enabled ODL Karaf log for org.opendaylight.netvirt"
+    ${output}=    Issue Command On Karaf Console    log:set DEBUG org.opendaylight.netvirt.elan
+    Log    ${output}
+    ${output}=    Issue Command On Karaf Console    log:set DEBUG  org.opendaylight.genius.interfacemanager
+    Log    ${output}
+
