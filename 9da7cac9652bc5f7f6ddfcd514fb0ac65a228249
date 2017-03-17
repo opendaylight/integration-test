@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_16d083f6",
+        "filename": "csit/suites/netvirt/L2_Neutron/l2neutron.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-17T06:21:22Z",
+      "side": 1,
+      "message": "As i told earlier , pls do ping on same network as per your test plan.",
+      "range": {
+        "startLine": 59,
+        "startChar": 53,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "9da7cac9652bc5f7f6ddfcd514fb0ac65a228249",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b6b417d2",
+        "filename": "csit/suites/netvirt/L2_Neutron/l2neutron.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-17T06:21:22Z",
+      "side": 1,
+      "message": "Add more delay ..instead of 3s to 10s",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 35
+      },
+      "revId": "9da7cac9652bc5f7f6ddfcd514fb0ac65a228249",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
