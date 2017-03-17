@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_aceb26af",
+        "filename": "tools/distchanges/tests/resources/git.properties.revert",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5867
+      },
+      "writtenOn": "2017-03-17T10:55:37Z",
+      "side": 1,
+      "message": "this is curious, did you real mean to include this?",
+      "revId": "b5193adf2980beb13b0a299a16c91f4dbb3c2f2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
