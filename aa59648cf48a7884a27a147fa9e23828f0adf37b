@@ -22,6 +22,30 @@
       "revId": "aa59648cf48a7884a27a147fa9e23828f0adf37b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_779bc672",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-03-17T21:21:05Z",
+      "side": 1,
+      "message": "Hi Vratko,\n\n It returns the VM IP address and the gateway IP address as parsed from  the console-log",
+      "parentUuid": "fafc7978_4ad702ee",
+      "range": {
+        "startLine": 114,
+        "startChar": 46,
+        "endLine": 114,
+        "endChar": 76
+      },
+      "revId": "aa59648cf48a7884a27a147fa9e23828f0adf37b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
