@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_37d77ec1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-17T22:25:59Z",
+      "side": 1,
+      "message": "This is a good point.\n\nMor, can we treat this as a string to get a single ip address\nthe whole way?\n\nAs for overwriting it, yeah, it\u0027s temporary in this loop\nas it\u0027s probably not available on the first try(s) or maybe\never. Point taken about line 261. that initialization is\nnot necessary.",
+      "parentUuid": "fafc7978_4ac0a22a",
+      "range": {
+        "startLine": 271,
+        "startChar": 9,
+        "endLine": 271,
+        "endChar": 19
+      },
+      "revId": "79d64835ed3ea25a9cfdc24453fb02e275b400b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_4a9b8272",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 12
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_77e1069a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-17T22:25:59Z",
+      "side": 1,
+      "message": "this is an argument. I think it was missed in the [Arguments]\nline above",
+      "parentUuid": "fafc7978_4a9b8272",
+      "range": {
+        "startLine": 276,
+        "startChar": 23,
+        "endLine": 276,
+        "endChar": 38
+      },
+      "revId": "79d64835ed3ea25a9cfdc24453fb02e275b400b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_ca865213",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 12
@@ -59,6 +107,30 @@
       "writtenOn": "2017-03-16T14:34:30Z",
       "side": 1,
       "message": "Why do we return only the first IP?",
+      "range": {
+        "startLine": 279,
+        "startChar": 40,
+        "endLine": 279,
+        "endChar": 43
+      },
+      "revId": "79d64835ed3ea25a9cfdc24453fb02e275b400b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_57da02ea",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-17T22:25:59Z",
+      "side": 1,
+      "message": "because it\u0027s a list, we only expect/need one, and we want\nto return a string. but this is from existing code. hopefully\nthis refactor can make it a string and reduce the \ndistractions",
+      "parentUuid": "fafc7978_ca865213",
       "range": {
         "startLine": 279,
         "startChar": 40,
