@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for verification of HWVTEP usecases
 Suite Setup       BuiltIn.Run Keywords    Basic Suite Setup
+...               AND    Enable ODL Karaf Log
 Suite Teardown    Basic Suite Teardown
 Test Teardown     Get L2gw Debug Info
 Resource          ../../libraries/L2GatewayOperations.robot
@@ -20,6 +21,7 @@ TC02 Create First Set Of Network Subnet And Ports
     OpenStackOperations.Create And Configure Security Group    ${SECURITY_GROUP_L2GW}
     OpenStackOperations.Create Port    ${NET_1}    ${OVS_PORT_1}    sg=${SECURITY_GROUP_L2GW}
     OpenStackOperations.Create Port    ${NET_1}    ${HWVTEP_PORT_1}    sg=${SECURITY_GROUP_L2GW}
+    OpenStackOperations.Create Port    ${NET_1}    ${OVS2_PORT_1}    sg=${SECURITY_GROUP_L2GW}
     ${port_mac}=    Get Port Mac    ${OVS_PORT_1}    #port_mac[0]
     ${port_ip}=    Get Port Ip    ${OVS_PORT_1}    #port_ip[0]
     Append To List    ${port_mac_list}    ${port_mac}
@@ -28,16 +30,32 @@ TC02 Create First Set Of Network Subnet And Ports
     ${port_ip}=    Get Port Ip    ${HWVTEP_PORT_1}    #port_ip[1]
     Append To List    ${port_mac_list}    ${port_mac}
     Append To List    ${port_ip_list}    ${port_ip}
+    ${port_mac}=    Get Port Mac    ${OVS2_PORT_1}    #port_mac[2]
+    ${port_ip}=    Get Port Ip    ${OVS2_PORT_1}    #port_ip[2]
+    Append To List    ${port_mac_list}    ${port_mac}
+    Append To List    ${port_ip_list}    ${port_ip}
 
 TC03 Update Port For Hwvtep And Attach Port To Namespace
     L2GatewayOperations.Update Port For Hwvtep    ${HWVTEP_PORT_1}
     Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Attach Port To Hwvtep Namespace    ${port_mac_list[1]}    ${HWVTEP_NS1}    ${NS_TAP1}
 
-TC04 Create Vms On Compute Node
+TC04_A Create Vms On Compute Node
     OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS_PORT_1}    ${OVS_VM1_NAME}    ${OVS_IP}
     ${vm_ip}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS_VM1_NAME}
     Log    ${vm_ip}
     Should Contain    ${vm_ip[0]}    ${port_ip_list[0]}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS2_PORT_1}    ${OVS2_VM1_NAME}    ${OVS2_IP}
+    ${vm_ip}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS2_VM1_NAME}
+    Log    ${vm_ip}
+    Should Contain    ${vm_ip[0]}    ${port_ip_list[2]}
+
+TC04_B Verify Ping Between Compute Node Vms
+    ${output1}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[0]}
+    ...    ping -c 3 ${port_ip_list[2]}
+    ${output2}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[2]}
+    ...    ping -c 3 ${port_ip_list[0]}
+    Should Not Contain    ${output1}    ${PACKET_LOSS}
+    Should Not Contain    ${output2}    ${PACKET_LOSS}
 
 TC05 Create L2Gateway And Connection And Verify
     ${output}=    L2GatewayOperations.Create Verify L2Gateway    ${HWVTEP_BRIDGE}    ${NS_PORT1}    ${L2GW_NAME1}
@@ -70,13 +88,117 @@ TC07 Verify Ping From Compute Node Vm To Hwvtep
 TC08 Ping Verification From Namespace Tap To Ovs Vm
     Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Extra Timeout    ${HWVTEP_NS1}    ${port_mac_list[1]}    ${port_ip_list[0]}
 
-TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
+TC09 Create Second Set Of Network Subnet And Ports
+    OpenStackOperations.Create Network    ${NET_2}    ${NET_ADDT_ARG}${NET_2_SEGID}
+    ${output}=    OpenStackOperations.List Networks
+    Should Contain    ${output}    ${NET_2}
+    OpenStackOperations.Create SubNet    ${NET_2}    ${SUBNET_2}    ${SUBNET_RANGE2}    ${SUBNET_ADDT_ARG}
+    ${output}=    OpenStackOperations.List Subnets
+    Should Contain    ${output}    ${SUBNET_2}
+    OpenStackOperations.Create Port    ${NET_2}    ${OVS_PORT_2}    sg=${SECURITY_GROUP_L2GW}
+    OpenStackOperations.Create Port    ${NET_2}    ${HWVTEP_PORT_2}    sg=${SECURITY_GROUP_L2GW}
+    OpenStackOperations.Create Port    ${NET_2}    ${OVS2_PORT_2}    sg=${SECURITY_GROUP_L2GW}
+    ${port_mac}=    Get Port Mac    ${OVS_PORT_2}    #port_mac[3]
+    ${port_ip}=    Get Port Ip    ${OVS_PORT_2}    #port_ip[3]
+    Append To List    ${port_mac_list}    ${port_mac}
+    Append To List    ${port_ip_list}    ${port_ip}
+    ${port_mac}=    Get Port Mac    ${HWVTEP_PORT_2}    #port_mac[4]
+    ${port_ip}=    Get Port Ip    ${HWVTEP_PORT_2}    #port_ip[4]
+    Append To List    ${port_mac_list}    ${port_mac}
+    Append To List    ${port_ip_list}    ${port_ip}
+    ${port_mac}=    Get Port Mac    ${OVS2_PORT_2}    #port_mac[5]
+    ${port_ip}=    Get Port Ip    ${OVS2_PORT_2}    #port_ip[5]
+    Append To List    ${port_mac_list}    ${port_mac}
+    Append To List    ${port_ip_list}    ${port_ip}
+
+TC10 Update Port For Hwvtep And Attach Port To Namespace
+    L2GatewayOperations.Update Port For Hwvtep    ${HWVTEP_PORT_2}
+    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Attach Port To Hwvtep Namespace    ${port_mac_list[4]}    ${HWVTEP_NS2}    ${NS_TAP2}
+
+TC11 Create Second Set Vms On Compute Node
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS_PORT_2}    ${OVS_VM2_NAME}    ${OVS_IP}
+    ${vm_ip}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS_VM2_NAME}
+    Log    ${vm_ip}
+    Should Contain    ${vm_ip[0]}    ${port_ip_list[3]}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS2_PORT_2}    ${OVS2_VM2_NAME}    ${OVS2_IP}
+    ${vm_ip}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS2_VM2_NAME}
+    Log    ${vm_ip}
+    Should Contain    ${vm_ip[0]}    ${port_ip_list[5]}
+
+TC12 Verify Ping Between Compute Node Vms
+    ${output1}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_2}    ${port_ip_list[3]}
+    ...    ping -c 3 ${port_ip_list[5]}
+    ${output2}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_2}    ${port_ip_list[5]}
+    ...    ping -c 3 ${port_ip_list[3]}
+    Should Not Contain    ${output1}    ${PACKET_LOSS}
+    Should Not Contain    ${output2}    ${PACKET_LOSS}
+
+TC13 Create Second L2Gateway And Connection And Verify
+    #    Create Itm Tunnel Between Hwvtep and Ovs    ${OVS_IP}
+    ${output}=    L2GatewayOperations.Create Verify L2Gateway    ${HWVTEP_BRIDGE}    ${NS_PORT2}    ${L2GW_NAME2}
+    Log    ${output}
+    ${output}=    L2GatewayOperations.Create Verify L2Gateway Connection    ${L2GW_NAME2}    ${NET_2}
+    Log    ${output}
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${TUNNEL_TABLE}    enable="true"
+    ${list}=    Create List    ${OVS_IP}    ${HWVTEP_IP}
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${PHYSICAL_LOCATOR_TABLE}    @{list}
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${UCAST_MACS_REMOTE_TABLE}    ${port_mac_list[3]}
+
+TC14 Dhcp Ip Allocation For Hwvtep Tap Port
+    Run Keyword And Ignore Error    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS2}    ${NS_TAP2}    ${port_ip_list[4]}
+    Run Keyword And Ignore Error    Namespace Dhclient Verify    ${HWVTEP_NS2}    ${NS_TAP2}    ${port_ip_list[4]}
+
+TC15 Verify Ping From Compute Node Vm To Hwvtep
+    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_2}    ${port_ip_list[3]}
+    ...    ping -c 3 ${port_ip_list[4]}
+    Log    ${output}
+    Should Not Contain    ${output}    ${PACKET_LOSS}
+    ${src_mac_list}=    Create List    ${port_mac_list[3]}
+    ${dst_mac_list}=    Create List    ${port_mac_list[4]}
+    Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Elan Flow Entries    ${OVS_IP}    ${src_mac_list}    ${dst_mac_list}
+
+TC16 Ping Verification From Namespace Tap To Ovs Vm
+    Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Extra Timeout    ${HWVTEP_NS2}    ${port_mac_list[4]}    ${port_ip_list[3]}
+
+TC17 Ping Between Networks
+    Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Not Working    ${HWVTEP_NS2}    ${port_mac_list[4]}    ${port_ip_list[0]}
+
+TC Cleanup L2Gateway Connection
     L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME1}
+    L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME2}
+
+TC Cleanup L2Gateway
     L2GatewayOperations.Delete L2Gateway    ${L2GW_NAME1}
+    L2GatewayOperations.Delete L2Gateway    ${L2GW_NAME2}
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Not In Vtep List    ${TUNNEL_TABLE}    enable="true"
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Not In Vtep List    ${LOGICAL_SWITCH_TABLE}    ${NET_1_SEGID}
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Not In Vtep List    ${LOGICAL_SWITCH_TABLE}    ${NET_2_SEGID}
+    Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Not Working    ${HWVTEP_NS1}    ${port_mac_list[1]}    ${port_ip_list[0]}
+
+TC Delete Vm Instances
     OpenStackOperations.Delete Vm Instance    ${OVS_VM1_NAME}
+    OpenStackOperations.Delete Vm Instance    ${OVS2_VM1_NAME}
+
+TC Delete Ovs Port
     OpenStackOperations.Delete Port    ${OVS_PORT_1}
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Not In Vtep List    ${UCAST_MACS_REMOTE_TABLE}    ${port_mac_list[0]}
+
+TC Verify Ping1
+    Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Not Working    ${HWVTEP_NS1}    ${port_mac_list[1]}    ${port_ip_list[0]}
+
+TC Delete Hwvtep Port
     OpenStackOperations.Delete Port    ${HWVTEP_PORT_1}
+
+TC Verify Ping2
+    Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Not Working    ${HWVTEP_NS1}    ${port_mac_list[1]}    ${port_ip_list[0]}
+
+TC Delete Second Ovs Port
+    OpenStackOperations.Delete Port    ${OVS2_PORT_1}
+
+TC Delete Subnet
     OpenStackOperations.Delete SubNet    ${SUBNET_1}
+
+TC Delete Network
     OpenStackOperations.Delete Network    ${NET_1}
 
 *** Keywords ***
@@ -113,3 +235,11 @@ Basic Suite Teardown
     close connection
     Switch Connection    ${ovs_conn_id}
     close connection
+
+Enable ODL Karaf Log
+    [Documentation]    Uses log:set TRACE org.opendaylight.netvirt to enable log
+    Log    "Enabled ODL Karaf log for org.opendaylight.netvirt and org.opendaylight.genius.itm"
+    ${output}=    Issue Command On Karaf Console    log:set TRACE org.opendaylight.netvirt
+    Log    ${output}
+    ${output}=    Issue Command On Karaf Console    log:set TRACE org.opendaylight.genius.itm
+    Log    ${output}

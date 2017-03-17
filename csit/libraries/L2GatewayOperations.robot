@@ -132,12 +132,13 @@ Namespace Dhclient Verify
     [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}
     [Documentation]    Keyword to run dhclient for the tap port ${ns_tap} and verify if it has got assigned with ${ns_port_ip}.
     Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} dhclient ${ns_tap}
-    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}    ${ns_port_ip}
+    Wait Until Keyword Succeeds    180s    2s    Verify Strings In Command Output    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}    ${ns_port_ip}
 
 Namespace Static Ip Assign
     [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}
     [Documentation]    Keyword to assign IP address to TAP port manually
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF} ${ns_tap} ${ns_port_ip}/24 UP
+    Start Command In Hwvtep    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF} ${ns_tap} ${ns_port_ip}/24 UP
+    Wait Until Keyword Succeeds    180s    2s    Verify Strings In Command Output    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}    ${ns_port_ip}
     Log    ${output}
 
 Verify Strings In Command Output
@@ -165,6 +166,15 @@ Verify Ping In Namespace Extra Timeout
     Should Not Contain    ${output}    ${PACKET_LOSS}
     Wait Until Keyword Succeeds    30s    2s    Verify Mcas Local Table While Ping    ${ns_port_mac}
 
+Verify Ping In Namespace Not Working
+    [Arguments]    ${ns_name}    ${ns_port_mac}    ${vm_ip}
+    [Documentation]    Keyword to ping the IP ${vm_ip} from ${ns_name} and verify MCAS Local Table contains ${ns_port_mac}.
+    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
+    Log    ${output}
+    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ping -c3 ${vm_ip}    30s
+    Log    ${output}
+    Should Contain    ${output}    ${PACKET_LOSS}
+
 Verify Mcas Local Table While Ping
     [Arguments]    ${mac}
     [Documentation]    Keyword to check if ${mac} is available under UCAST_MACS_LOCALE_TABLE of HWVTEP dump table.
@@ -185,11 +195,23 @@ Get L2gw Debug Info
     Exec Command    ${devstack_conn_id}    cat /etc/neutron/l2gw_plugin.ini
     Exec Command    ${devstack_conn_id}    ps -ef | grep neutron-server
     OpenStackOperations.Get Test Teardown Debugs
+    ${output}=    Issue Command On Karaf Console    l2gw:show-cache --cache L2GW
+    Log    ${output}
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:external-tunnel-list/
+    Log    ${resp.content}
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/
+    Log    ${resp.content}
+    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/
+    Log    ${resp.content}
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:transport-zones/
     Log    ${resp.content}
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/network-topology:network-topology/topology/hwvtep:1
     Log    ${resp.content}
     ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/network-topology:network-topology/topology/hwvtep:1
+    Log    ${resp.content}
+    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/network-topology:network-topology/
+    Log    ${resp.content}
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/network-topology:network-topology/
     Log    ${resp.content}
 
 Start Command In Hwvtep
@@ -209,6 +231,13 @@ Verify Vtep List
     ${output}=    Exec Command    ${hwvtep_conn_id}    ${VTEP LIST} ${table_name}
     : FOR    ${item}    IN    @{list}
     \    Should Contain    ${output}    ${item}
+
+Verify Not In Vtep List
+    [Arguments]    ${table_name}    @{list}
+    [Documentation]    Keyword to run vtep-ctl list for the table ${table_name} and verify the list @{list} contents exists in output.
+    ${output}=    Exec Command    ${hwvtep_conn_id}    ${VTEP LIST} ${table_name}
+    : FOR    ${item}    IN    @{list}
+    \    Should Not Contain    ${output}    ${item}
 
 Get Vtep List
     [Arguments]    ${table_name}
