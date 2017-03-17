@@ -94,6 +94,30 @@
       "revId": "61ae7003d4938f2ed5eec87bdfb8fbbf4bd8a206",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bb488288",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5802
+      },
+      "writtenOn": "2017-03-17T02:59:13Z",
+      "side": 1,
+      "message": "trying to fix this issue in https://git.opendaylight.org/gerrit/#/c/53440",
+      "parentUuid": "fafc7978_200bbd2c",
+      "range": {
+        "startLine": 286,
+        "startChar": 107,
+        "endLine": 286,
+        "endChar": 108
+      },
+      "revId": "61ae7003d4938f2ed5eec87bdfb8fbbf4bd8a206",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
