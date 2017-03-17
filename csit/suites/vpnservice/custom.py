@@ -17,6 +17,7 @@ from mininet.topo import Topo
 
 class Switch1(Topo):
     """Single switch s1 connected to n=2 hosts."""
+
     def __init__(self):
         Topo.__init__(self)
         switch = self.addSwitch('s1')
@@ -28,6 +29,7 @@ class Switch1(Topo):
 
 class Switch2(Topo):
     """Single switch s2 connected to n=2 hosts."""
+
     def __init__(self):
         Topo.__init__(self)
         switch = self.addSwitch('s2')

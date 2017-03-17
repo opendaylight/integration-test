@@ -233,6 +233,7 @@ class TopoUrlGenerator(TestUrlGenerator):
     Class to generate test URLs from the topology shard.
     :return: List of generated Resources
     """
+
     def __init__(self, host, port, auth):
         TestUrlGenerator.__init__(self, host, port, auth)
         self.resource_string = 'restconf/operational/network-topology:network-topology/topology/flow:1'

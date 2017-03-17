@@ -35,6 +35,7 @@ class HostTopo(Topo):
         :param host_suffix: specified else default is 1. For example: if equals to 3 (s3,h3)
         :param hosts_per_switch: Number of hosts be connected to the switch. Default is 1.
     """
+
     def __init__(self, host_suffix=1, hosts_per_switch=1, **opts):
         Topo.__init__(self, **opts)
         switch = self.addSwitch('s%s' % host_suffix)

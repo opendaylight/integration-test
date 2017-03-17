@@ -16,7 +16,6 @@ class DistCompare(object):
         # TODO: when autorelease starts publishing the dependencies.log artifact, this function (or the consumer
         # of this tool) can take the latest dependencies.log from jenkins lastSuccessfulArtifacts and put it
         # in /tmp/ For now the functionality to read the projects from that file are commented.
-
         """
         projects = []
         with open("/tmp/dependencies.log") as dep_file:

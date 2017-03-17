@@ -106,6 +106,7 @@ class FlowConfigBlaster(object):
         FlowConfigBlaster Statistics: a class that stores and further processes
         statistics collected by Blaster worker threads during their execution.
         """
+
         def __init__(self):
             self.ok_rqst_rate = Counter(0.0)
             self.total_rqst_rate = Counter(0.0)
