@@ -187,6 +187,12 @@ Get L2gw Debug Info
     OpenStackOperations.Get Test Teardown Debugs
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:external-tunnel-list/
     Log    ${resp.content}
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/
+    Log    ${resp.content}
+    ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces/
+    Log    ${resp.content}
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:transport-zones/
+    Log    ${resp.content}
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/network-topology:network-topology/topology/hwvtep:1
     Log    ${resp.content}
     ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/network-topology:network-topology/topology/hwvtep:1
