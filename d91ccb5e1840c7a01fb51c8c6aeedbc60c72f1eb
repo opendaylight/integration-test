@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_0c25120a",
+        "filename": "csit/suites/sxp/basic/040_SSL_Passwords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-17T11:06:49Z",
+      "side": 1,
+      "message": "Cool. NexusKeyword could use this improvement.",
+      "range": {
+        "startLine": 134,
+        "startChar": 61,
+        "endLine": 134,
+        "endChar": 139
+      },
+      "revId": "d91ccb5e1840c7a01fb51c8c6aeedbc60c72f1eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
