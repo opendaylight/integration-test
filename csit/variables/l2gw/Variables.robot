@@ -4,6 +4,7 @@ ${OS_IP}          ${OS_CONTROL_NODE_IP}
 ${OVS_IP}         ${OS_COMPUTE_1_IP}
 ${HWVTEP_IP}      ${TOOLS_SYSTEM_1_IP}
 ${ODL_IP}         ${ODL_SYSTEM_1_IP}
+${OVS2_IP}        ${OS_COMPUTE_2_IP}
 ${OS_PASSWORD}    ${EMPTY}
 ${HWVTEP_BRIDGE}    br-ovs
 ${DEVSTACK_DEPLOY_PATH}    /home/stack/devstack
@@ -23,6 +24,7 @@ ${NS_TAP1}        TAP1
 ${NS_TAP2}        TAP2
 ${OVS_BRIDGE}     br-int
 ${OVS_PORT_1}     OVSPORT1
+${OVS2_PORT_1}    OVSPORTx
 ${OVS_PORT_2}     OVSPORT2
 ${OVS_VM1_NAME}    VM1
 ${OVS_VM2_NAME}    VM2

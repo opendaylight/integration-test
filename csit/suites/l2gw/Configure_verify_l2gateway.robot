@@ -20,12 +20,17 @@ TC02 Create First Set Of Network Subnet And Ports
     OpenStackOperations.Create And Configure Security Group    ${SECURITY_GROUP_L2GW}
     OpenStackOperations.Create Port    ${NET_1}    ${OVS_PORT_1}    sg=${SECURITY_GROUP_L2GW}
     OpenStackOperations.Create Port    ${NET_1}    ${HWVTEP_PORT_1}    sg=${SECURITY_GROUP_L2GW}
+    OpenStackOperations.Create Port    ${NET_1}    ${OVS2_PORT_1}    sg=${SECURITY_GROUP_L2GW}
     ${port_mac}=    Get Port Mac    ${OVS_PORT_1}    #port_mac[0]
     ${port_ip}=    Get Port Ip    ${OVS_PORT_1}    #port_ip[0]
     Append To List    ${port_mac_list}    ${port_mac}
     Append To List    ${port_ip_list}    ${port_ip}
     ${port_mac}=    Get Port Mac    ${HWVTEP_PORT_1}    #port_mac[1]
     ${port_ip}=    Get Port Ip    ${HWVTEP_PORT_1}    #port_ip[1]
+    Append To List    ${port_mac_list}    ${port_mac}
+    Append To List    ${port_ip_list}    ${port_ip}
+    ${port_mac}=    Get Port Mac    ${OVS2_PORT_1}    #port_mac[2]
+    ${port_ip}=    Get Port Ip    ${OVS2_PORT_1}    #port_ip[2]
     Append To List    ${port_mac_list}    ${port_mac}
     Append To List    ${port_ip_list}    ${port_ip}
 
@@ -38,6 +43,16 @@ TC04 Create Vms On Compute Node
     ${vm_ip}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS_VM1_NAME}
     Log    ${vm_ip}
     Should Contain    ${vm_ip[0]}    ${port_ip_list[0]}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS2_PORT_1}    ${OVS2_VM1_NAME}    ${OVS2_IP}
+    ${vm_ip}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS2_VM1_NAME}
+    Log    ${vm_ip}
+    Should Contain    ${vm_ip[0]}    ${port_ip_list[2]}
+
+TC04_B Verify Ping Between Compute Node Vms
+    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[0]}
+    ...    ping -c 3 ${port_ip_list[2]}
+    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[2]}
+    ...    ping -c 3 ${port_ip_list[0]}
 
 TC05 Create L2Gateway And Connection And Verify
     ${output}=    L2GatewayOperations.Create Verify L2Gateway    ${HWVTEP_BRIDGE}    ${NS_PORT1}    ${L2GW_NAME1}
