@@ -93,6 +93,14 @@ Create Configure Namespace
     Write Commands Until Prompt    sudo ${IPLINK_SET} ${ns_port_name} up    30s
     ${stdout}=    Write Commands Until Prompt    ${NETNS_EXEC} ${ns_name} ${IFCONF}    30s
     Log    ${stdout}
+    Write Commands Until Prompt    ${NETNS_ADD} ${HWVTEP_NS2}    30s
+    Write Commands Until Prompt    ${IP_LINK_ADD} ${NS_TAP2} type veth peer name ${NS_PORT2}    30s
+    Write Commands Until Prompt    ${CREATE_OVS_PORT} ${HWVTEP_BRIDGE} ${NS_PORT2}    30s
+    Write Commands Until Prompt    ${IP_LINK_SET} ${NS_TAP2} netns ${HWVTEP_NS2}    30s
+    Write Commands Until Prompt    ${NETNS_EXEC} ${HWVTEP_NS2} ${IPLINK_SET} ${NS_TAP2} up    30s
+    Write Commands Until Prompt    sudo ${IPLINK_SET} ${NS_PORT2} up    30s
+    ${stdout}=    Write Commands Until Prompt    ${NETNS_EXEC} ${HWVTEP_NS2} ${IFCONF}    30s
+    Log    ${stdout}
 
 Hwvtep Validation
     [Documentation]    Initial validation of the Hwvtep Configuration to confirm Phyisical_Switch table entries
