@@ -1,0 +1,14 @@
+[GitCommit]
+bears = GitCommitBear
+ignore_length_regex = Signed-off-by,
+    Also-by,
+    Co-authored-by,
+    http://,
+    https://
+
+[PEP8]
+bears = PEP8Bear
+files = **/*.py
+ignore = .*/**
+max_line_length = 120
+pydocstyle_ignore = D203, D213, D301
