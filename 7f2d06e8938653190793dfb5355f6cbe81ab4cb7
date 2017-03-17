@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_ce9adfc4",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-03-17T12:10:51Z",
+      "side": 1,
+      "message": "This is also possible (and useful for some IDEs)\n\n  :rtype: str",
+      "revId": "7f2d06e8938653190793dfb5355f6cbe81ab4cb7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
