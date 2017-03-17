@@ -22,6 +22,30 @@
       "revId": "0a53ac2c7609c3cff8f6839a81d46cbeebe9c921",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b7d40e48",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-03-17T20:03:20Z",
+      "side": 1,
+      "message": "I think it\u0027s because GitCommitBear doesn\u0027t accept files so it\u0027s unique from other bears that usually require a file list to check.\n\nA list of available bears is here:\n\nhttps://github.com/coala/bear-docs/blob/master/README.rst\n\nPerhaps integration/test should add another linter for linting python files or something. The pep8 and flake ones are both good ones to add, then you can also remove the pep8 and flake8 configurations below as coala will take over this responsibility.\n\nThen you won\u0027t need to pass --files anymore.",
+      "parentUuid": "fafc7978_77e3c633",
+      "range": {
+        "startLine": 14,
+        "startChar": 27,
+        "endLine": 14,
+        "endChar": 37
+      },
+      "revId": "0a53ac2c7609c3cff8f6839a81d46cbeebe9c921",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
