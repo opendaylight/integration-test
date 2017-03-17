@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_0e7ce771",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5802
+      },
+      "writtenOn": "2017-03-17T12:49:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_9178fdf9",
+      "range": {
+        "startLine": 286,
+        "startChar": 4,
+        "endLine": 286,
+        "endChar": 5
+      },
+      "revId": "d4c844eeb63481da2518527f425b1118b57f22af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_31731117",
         "filename": "csit/suites/genius/03_Configure_ITM.robot",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_2e928b9f",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5802
+      },
+      "writtenOn": "2017-03-17T12:49:07Z",
+      "side": 1,
+      "message": "We are planning to enhance this suite for multiple tunnel support. Would it be ok if this refactoring would be done in a subsequent patch as part of this enhancement? the purpose of this patch is only to resolve the boron csit regression",
+      "parentUuid": "fafc7978_31731117",
+      "range": {
+        "startLine": 287,
+        "startChar": 54,
+        "endLine": 287,
+        "endChar": 83
+      },
+      "revId": "d4c844eeb63481da2518527f425b1118b57f22af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_717d99e7",
         "filename": "csit/suites/genius/03_Configure_ITM.robot",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2017-03-17T09:30:54Z",
       "side": 1,
       "message": "CompareStream.Set_Variable_If_At_Least_Carbon (with arguments swapped).",
+      "range": {
+        "startLine": 290,
+        "startChar": 30,
+        "endLine": 290,
+        "endChar": 83
+      },
+      "revId": "d4c844eeb63481da2518527f425b1118b57f22af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ee808348",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5802
+      },
+      "writtenOn": "2017-03-17T12:49:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_717d99e7",
       "range": {
         "startLine": 290,
         "startChar": 30,
