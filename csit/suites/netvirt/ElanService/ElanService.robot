@@ -12,6 +12,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
+Resource          ../../../libraries/Tcpdump.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
@@ -32,28 +33,32 @@ Verify Datapath for Single ELAN with Multiple DPN
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${VM_MACAddr_ELAN1}
     Log    Verify Datapath Test
+    Start Tcpdumping    system=${OS_COMPUTE_1_IP}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_ELAN1[0]}    ping -c 3 ${VM_IP_ELAN1[1]}
     Should Contain    ${output}    ${PING_PASS}
+    Stop Tcpdumping And Download
+    Start Packet Capture    ${OS_COMPUTE_2_IP}    tcpdumpCN2
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_ELAN1[1]}    ping -c 3 ${VM_IP_ELAN1[0]}
     Should Contain    ${output}    ${PING_PASS}
+    Stop Packet Capture and Log Trace     ${OS_COMPUTE_2_IP}    tcpdumpCN2
 
-Verify Datapath After OVS Restart
-    [Documentation]    Verify datapath after OVS restart
-    Log    Restarting OVS1 and OVS2
-    Restart OVSDB    ${OS_COMPUTE_1_IP}
-    Restart OVSDB    ${OS_COMPUTE_2_IP}
-    Log    Checking the OVS state and Flow table after restart
-    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
-    ${SRCMAC_CN1} =    Create List    ${VM_MACAddr_ELAN1[0]}
-    ${SRCMAC_CN2} =    Create List    ${VM_MACAddr_ELAN1[1]}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${VM_MACAddr_ELAN1}
-    Log    Verify Data path test
-    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM_IP_ELAN1[0]}    ping -c 3 ${VM_IP_ELAN1[1]}
-    Should Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM_IP_ELAN1[1]}    ping -c 3 ${VM_IP_ELAN1[0]}
-    Should Contain    ${output}    ${PING_PASS}
+#Verify Datapath After OVS Restart
+#    [Documentation]    Verify datapath after OVS restart
+#    Log    Restarting OVS1 and OVS2
+#    Restart OVSDB    ${OS_COMPUTE_1_IP}
+#    Restart OVSDB    ${OS_COMPUTE_2_IP}
+#    Log    Checking the OVS state and Flow table after restart
+#    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
+#    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
+#    ${SRCMAC_CN1} =    Create List    ${VM_MACAddr_ELAN1[0]}
+#    ${SRCMAC_CN2} =    Create List    ${VM_MACAddr_ELAN1[1]}
+#    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
+#    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${VM_MACAddr_ELAN1}
+#    Log    Verify Data path test
+#    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM_IP_ELAN1[0]}    ping -c 3 ${VM_IP_ELAN1[1]}
+#    Should Contain    ${output}    ${PING_PASS}
+#    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM_IP_ELAN1[1]}    ping -c 3 ${VM_IP_ELAN1[0]}
+#    Should Contain    ${output}    ${PING_PASS}
 
 Delete All ELAN1 VM And Verify Flow Table Updated
     [Documentation]    Verify Flow table after all VM instance deleted
@@ -68,6 +73,7 @@ Elan SuiteSetup
     [Documentation]    Elan suite setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     DevstackUtils.Devstack Suite Setup
+    Enable ODL Karaf Log
     SingleElan SuiteSetup
 
 Elan SuiteTeardown
@@ -159,3 +165,24 @@ Verify VMs received IP
     Log    ${VM_IP}
     Should Not Contain    ${VM_IP}    None
     [Return]    ${VM_IP}
+
+Enable ODL Karaf Log
+    [Documentation]    Uses log:set TRACE org.opendaylight.netvirt to enable log
+    Log    "Enabled ODL Karaf log for org.opendaylight.netvirt"
+    ${output}=    Issue Command On Karaf Console    log:set DEBUG org.opendaylight.netvirt.elan
+    Log    ${output}
+    ${output}=    Issue Command On Karaf Console    log:set DEBUG org.opendaylight.genius.interfacemanager
+    Log    ${output}
+
+Start Packet Capture
+    [Arguments]    ${system_ip}    ${filename}    ${network_adapter}=eth0
+    [Documentation]    start packet capture and write to a file
+    Run Command On Remote System    ${system_ip}    sudo /usr/sbin/tcpdump -vvv -ni ${network_adapter} -w /tmp/${filename}.pcap &
+
+Stop Packet Capture and Log Trace
+    [Arguments]    ${system_ip}    ${filename}
+    [Documentation]    stop tcpdump process and log the contents of the trace file
+    Run Command On Remote System    ${system_ip}    sudo ps -elf | grep tcpdump
+    Run Command On Remote System    ${system_ip}    sudo kill `pgrep tcpdump`
+    ${output}=    Run Command On Remote System    ${system_ip}    sudo /usr/sbin/tcpdump -nr /tmp/${filename}.pcap
+    Log    ${output}
