@@ -50,4 +50,7 @@ def publish_notifications(host, grprefix, duration, rate, nrpairs=1):
 
     for i in range(nrpairs):
         resp = resqueue.get()
+        print resp
+        print type(resp)
+        print resp.__dict__
         assert resp.status_code == 200
