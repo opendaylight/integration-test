@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_31c0312a",
+        "filename": "csit/suites/sxp/basic/040_SSL_Passwords.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-03-17T09:17:00Z",
+      "side": 1,
+      "message": "${JAVA_HOME} is in the end used from current machine and by coincidence it is the same path on other machine as well.\n\n${ODL_SYSTEM_JAVA_HOME}    SSHLibrary.Execute_Command    java -XshowSettings:properties -version 2\u003e\u00261 | grep java.home | sed \u0027s/.*\u003d //\u0027 will resolve JAVA_HOME on remote machine.\n\nhttps://logs.opendaylight.org/sandbox/jenkins091/sxp-csit-1node-basic-only-carbon/26/archives/log.html.gz",
+      "parentUuid": "fafc7978_4019a178",
+      "range": {
+        "startLine": 134,
+        "startChar": 61,
+        "endLine": 134,
+        "endChar": 73
+      },
+      "revId": "b362f57ef4831ecf97fbbc7da03aaa80cadc37b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_8051c910",
         "filename": "csit/suites/sxp/scripts/generate_and_deploy_keys.sh",
         "patchSetId": 20
