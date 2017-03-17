@@ -46,6 +46,30 @@
       "revId": "0a53ac2c7609c3cff8f6839a81d46cbeebe9c921",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_17419a0b",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-17T20:18:57Z",
+      "side": 1,
+      "message": "ouch, when I add the PEP8Bear locally, it\u0027s complaining about\na ton of our .py files. Makes me wonder if our existing pep8\nis not working or just more lenient.\n\nbut, yeah, adding another bear with files is the reason.",
+      "parentUuid": "fafc7978_b7d40e48",
+      "range": {
+        "startLine": 14,
+        "startChar": 27,
+        "endLine": 14,
+        "endChar": 37
+      },
+      "revId": "0a53ac2c7609c3cff8f6839a81d46cbeebe9c921",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
