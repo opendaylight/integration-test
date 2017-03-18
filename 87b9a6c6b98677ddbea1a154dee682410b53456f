@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_c2d46e49",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-03-18T02:03:11Z",
+      "side": 1,
+      "message": "Any reason for not using SSHKeywords.Open_Connection_To_ODL_System?",
+      "revId": "87b9a6c6b98677ddbea1a154dee682410b53456f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_22ca9aa1",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-03-18T02:03:11Z",
+      "side": 1,
+      "message": "I guess you mean ${ubuntu_system} instead of ${centos_system}",
+      "revId": "87b9a6c6b98677ddbea1a154dee682410b53456f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_02cf96b1",
+        "filename": "csit/libraries/JsonrpcKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-03-18T02:03:11Z",
+      "side": 1,
+      "message": "This opens an SSH session to ${host} but I do not see where this connection is closed (same KW, other TC or suite teardown).",
+      "revId": "87b9a6c6b98677ddbea1a154dee682410b53456f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_82e38632",
+        "filename": "csit/suites/jsonrpc/010-mdsal-jsonrpc-basic.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-03-18T02:03:11Z",
+      "side": 1,
+      "message": "change file extension to .robot",
+      "revId": "87b9a6c6b98677ddbea1a154dee682410b53456f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
