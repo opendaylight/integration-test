@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_87110a06",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 6335
+      },
+      "writtenOn": "2017-03-19T13:12:31Z",
+      "side": 1,
+      "message": "yes the loop there is for the console-log, and it will fail at the end(if needed) because of the check on lines 284-285",
+      "parentUuid": "fafc7978_361fb9b8",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 132
+      },
+      "revId": "0fe4210f310674c0bf1bed0fd66da501c90c0df2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_9685c5d0",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
         "patchSetId": 11
