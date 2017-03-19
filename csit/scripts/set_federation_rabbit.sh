@@ -26,18 +26,23 @@ cat > ${WORKSPACE}/set_federation_rabbit.sh <<EOF
 
 EOF
 
+    NUM_ODLS_PER_SITE=$((NUM_ODL_SYSTEM / NUM_OPENSTACK_SITES))
     echo "Copying config files to ODL Controller folder"
-    for i in `seq 1 ${NUM_ODL_SYSTEM}`
+    for i in `seq 1 ${NUM_OPENSTACK_SITES}`
     do
-        CONTROLLERIP=ODL_SYSTEM_${i}_IP
-        ODL_SITE_IP=${ODL_SYSTEM_1_IP}
-        if [ ${NUM_ODL_SYSTEM} -gt 1 ]; then
-            HA_PROXY_IP=OPENSTACK_COMPUTE_NODE_${NUM_OPENSTACK_SYSTEM}_IP
-            ODL_SITE_IP=${!HA_PROXY_IP}
-        fi
-        echo "Setting rabbit client site ip to ${ODL_MGR_IP} on ${!CONTROLLERIP}"
-        scp ${WORKSPACE}/set_federation_rabbit.sh ${!CONTROLLERIP}:/tmp/
-        ssh ${!CONTROLLERIP} 'bash /tmp/set_federation_rabbit.sh' ${!CONTROLLERIP} ${ODL_SITE_IP}
+        for j in `seq 1 ${NUM_ODLS_PER_SITE}`
+        do
+            CONTROLLERIP=ODL_SYSTEM_$(((i - 1) * NUM_ODLS_PER_SITE + j))_IP
+            if [ ${NUM_ODLS_PER_SITE} -gt 1 ]; then
+                HA_PROXY_IP=OPENSTACK_HAPROXY_${i}_IP
+                ODL_SITE_IP=${!HA_PROXY_IP}
+            else
+                FIRST_ODL_IN_SITE=ODL_SYSTEM_$(((i - 1) * NUM_ODLS_PER_SITE + 1))_IP
+                ODL_SITE_IP=${!FIRST_ODL_IN_SITE} # Should this really be the first IP in the site?
+            fi
+            echo "Setting rabbit client site ip to ${ODL_SITE_IP} on ${!CONTROLLERIP}"
+            scp ${WORKSPACE}/set_federation_rabbit.sh ${!CONTROLLERIP}:/tmp/
+            ssh ${!CONTROLLERIP} 'bash /tmp/set_federation_rabbit.sh' ${!CONTROLLERIP} ${ODL_SITE_IP}
+        done
     done
-
 fi
