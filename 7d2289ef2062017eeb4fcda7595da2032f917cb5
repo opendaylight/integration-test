@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_15506f5d",
+        "filename": "csit/variables/netvirt/Modules.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-03-20T08:56:09Z",
+      "side": 1,
+      "message": "nit: this file is sorted by abc, please put this line in the correct spot before ietf",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "7d2289ef2062017eeb4fcda7595da2032f917cb5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
