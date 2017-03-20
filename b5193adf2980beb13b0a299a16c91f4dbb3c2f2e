@@ -16,6 +16,24 @@
       "revId": "b5193adf2980beb13b0a299a16c91f4dbb3c2f2e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0e785c2a",
+        "filename": "tools/distchanges/tests/resources/git.properties.revert",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-03-20T14:37:18Z",
+      "side": 1,
+      "message": "yes, these are example git.properties. This gerrit is for unmerged patches, which in this case the revert patch was not merged yet so it applies.",
+      "parentUuid": "fafc7978_aceb26af",
+      "revId": "b5193adf2980beb13b0a299a16c91f4dbb3c2f2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
