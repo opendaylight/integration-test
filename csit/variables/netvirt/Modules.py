@@ -31,6 +31,7 @@ data_models = [
         'config/odl-nat:router-id-name',
         'config/odl-nat:snatint-ip-port-map',
         'config/opendaylight-inventory:nodes',
+        'config/id-manager:id-pools',
         'operational/elan:elan-dpn-interfaces',
         'operational/elan:elan-forwarding-tables',
         'operational/elan:elan-interfaces',
