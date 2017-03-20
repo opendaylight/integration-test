@@ -22,6 +22,30 @@
       "revId": "e1f198b16b6159140d4374e1ed3248091fcc61c2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ae1150b1",
+        "filename": ".coafile",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-03-20T15:15:07Z",
+      "side": 1,
+      "message": "I just tested. If we make each rule on their own lines we can use # as a comment string at the end of the line to describe what rule is being disabled.\n\nIf I recall these 3 rules were ignored due to PEP8Bear supporting conflicting rules. (or at least one of them...)",
+      "parentUuid": "fafc7978_380bea2c",
+      "range": {
+        "startLine": 14,
+        "startChar": 32,
+        "endLine": 14,
+        "endChar": 36
+      },
+      "revId": "e1f198b16b6159140d4374e1ed3248091fcc61c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
