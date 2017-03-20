@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_380bea2c",
+        "filename": ".coafile",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-20T11:35:22Z",
+      "side": 1,
+      "message": "Is there a way to document why we are ignoring these?",
+      "range": {
+        "startLine": 14,
+        "startChar": 32,
+        "endLine": 14,
+        "endChar": 36
+      },
+      "revId": "e1f198b16b6159140d4374e1ed3248091fcc61c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
