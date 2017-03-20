@@ -27,10 +27,16 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${CONFIG_SESSION}    config-session
-${BGP_BMP_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic
+${BGP_BMP_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/filled
+${BGP_BMP_FEAT_DIR}    ${CURDIR}/../../../variables/bgpfunctional/empty_structure
 ${BMP_LOG_FILE}    bmpmock.log
 
 *** Test Cases ***
+Verify BMP Feature
+    [Documentation]    Verifies if feature is up
+    &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait_Until_Keyword_Succeeds    6x    10s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_FEAT_DIR}    mapping=${mapping}    session=${CONFIG_SESSION}
+    ...    verify=True
 Start_Bmp_Mock
     [Documentation]    Starts bmp-mock on tools vm
     ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --local_address ${TOOLS_SYSTEM_IP} --remote_address ${ODL_SYSTEM_IP}:12345 --routers_count 1 --peers_count 1 --log_level DEBUG 2>&1 | tee ${BMP_LOG_FILE}
