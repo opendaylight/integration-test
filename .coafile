@@ -11,4 +11,7 @@ bears = PEP8Bear
 files = **/*.py
 ignore = .*/**
 max_line_length = 120
-pydocstyle_ignore = D203, D213, D301
+# pydocstyle error codes: http://pep257.readthedocs.io/en/latest/error_codes.html
+pydocstyle_ignore = D203 # 1 blank line required before class docstring
+pydocstyle_ignore = D213 # Multi-line docstring summary should start at the second line
+pydocstyle_ignore = D301 # Use r”“” if any backslashes in a docstring
