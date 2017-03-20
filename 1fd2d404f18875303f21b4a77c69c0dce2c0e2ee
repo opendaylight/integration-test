@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_493ede2a",
+        "filename": ".coafile",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-20T17:59:03Z",
+      "side": 1,
+      "message": "one thing I\u0027m not sure, is if these are even doing anything.\nthis was successful for me locally, but I also tried \ncommenting out these ignore lines and running tox again but\nno failures came. I even purposely broke a .py file that\nshould have caused failures, but that didn\u0027t make any\nfailures either. I know this config is used, because as soon\nas you remove the max_line_length you\u0027ll get tox failures.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 69
+      },
+      "revId": "1fd2d404f18875303f21b4a77c69c0dce2c0e2ee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
