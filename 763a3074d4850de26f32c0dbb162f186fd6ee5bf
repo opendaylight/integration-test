@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_c42ab3e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-20T21:56:38Z",
+      "side": 1,
+      "message": "new verify checks are now more strict about\ncommit messages:\n\none email about it:\nhttps://lists.opendaylight.org/pipermail/integration-dev/2017-March/009278.html\n\nin short, you just need to change \"refactoring\" to \"refactor\", but it wouldn\u0027t hurt to add a body with a little\nmore meat to it.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "763a3074d4850de26f32c0dbb162f186fd6ee5bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a42faff5",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-20T21:56:38Z",
+      "side": 1,
+      "message": "VMs",
+      "range": {
+        "startLine": 271,
+        "startChar": 30,
+        "endLine": 271,
+        "endChar": 32
+      },
+      "revId": "763a3074d4850de26f32c0dbb162f186fd6ee5bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
