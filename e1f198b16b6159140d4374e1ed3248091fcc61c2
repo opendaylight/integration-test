@@ -46,6 +46,30 @@
       "revId": "e1f198b16b6159140d4374e1ed3248091fcc61c2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_89f1e697",
+        "filename": ".coafile",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-20T17:56:46Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/#/c/53577/",
+      "parentUuid": "fafc7978_ae1150b1",
+      "range": {
+        "startLine": 14,
+        "startChar": 32,
+        "endLine": 14,
+        "endChar": 36
+      },
+      "revId": "e1f198b16b6159140d4374e1ed3248091fcc61c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
