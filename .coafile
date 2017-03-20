@@ -11,4 +11,3 @@ bears = PEP8Bear
 files = **/*.py
 ignore = .*/**
 max_line_length = 120
-pydocstyle_ignore = D203, D213, D301
