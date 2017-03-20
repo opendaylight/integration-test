@@ -878,6 +878,7 @@ Create And Configure Security Group
     Neutron Security Group Rule Create    ${sg-name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg-name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
 
+<<<<<<< HEAD
 Create SFC Flow Classifier
     [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${dest_port}    ${neutron_src_port}
     [Documentation]    Create a flow classifier for SFC
@@ -994,7 +995,7 @@ Delete SFC Port Chain
     Close Connection
     Should Contain    ${output}    Deleted port_chain
     [Return]    ${output}
-
+=======
 Reboot Nova VM
     [Arguments]    ${vm_name}
     [Documentation]    Reboot NOVA VM
@@ -1017,3 +1018,4 @@ Remove RSA Key From KnowHosts
     ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"    30s
     Log    ${output}
     Close Connection
+>>>>>>> GWMAC Table validation for NetworkAssoc with L3VPN
