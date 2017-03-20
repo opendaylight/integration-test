@@ -1,4 +1,5 @@
 # Place the scripts in run order:
 integration/test/csit/scripts/set_sg_mode.sh
+integration/test/csit/scripts/set_dhcp_mode.sh
 integration/test/csit/scripts/set_federation_rabbit.sh
 integration/test/csit/scripts/set_log_counters.sh
