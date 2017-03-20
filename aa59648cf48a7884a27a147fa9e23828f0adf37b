@@ -70,6 +70,30 @@
       "revId": "aa59648cf48a7884a27a147fa9e23828f0adf37b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6b6bda85",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-20T12:13:57Z",
+      "side": 1,
+      "message": "My confusions was mainly on why NET1_DHCP_IP is list variable now.\n\nLooking at it some more, now I see that the return values were added in https://git.opendaylight.org/gerrit/48289 and documentation was added in https://git.opendaylight.org/gerrit/49055\n\nI see no reason why the keyword only returns one DHCP IP when it can detect multiple, but that can be changed later.\n\nAnyway, currently I believe the return values should be stored like this:\n    \\    @{net1_vm_ips}    ${net1_dhcp_ip} \u003d    ...",
+      "parentUuid": "fafc7978_d778b2fa",
+      "range": {
+        "startLine": 114,
+        "startChar": 46,
+        "endLine": 114,
+        "endChar": 76
+      },
+      "revId": "aa59648cf48a7884a27a147fa9e23828f0adf37b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
