@@ -42,6 +42,7 @@ ${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
 ${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
 ${MAC_REGEX}      (([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2}))
 ${IP_REGEX}       (([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])
+${NETWORKASS_GWMACTABLE_REGEX}    dl_dst=${MAC_REGEX} actions=goto_table:21
 ${UPDATE_NETWORK}    UpdateNetwork
 ${UPDATE_SUBNET}    UpdateSubnet
 ${UPDATE_PORT}    UpdatePort
@@ -318,11 +319,76 @@ Associate L3VPN To Networks
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     Associate L3VPN To Network    networkid=${network1_id}    vpnid=${VPN_INSTANCE_ID[0]}
-    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
-    Should Contain    ${resp}    ${network1_id}
     Associate L3VPN To Network    networkid=${network2_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    Should Contain    ${resp}    ${network1_id}
     Should Contain    ${resp}    ${network2_id}
+
+Verify L3VPN datapath with Networks Association
+    [Documentation]    Datapath test across the networks using L3VPN with network association.
+    Log    Verify FIB and Flow
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/l3vpn:vpn-interfaces/    ${vm_instances}
+    ${RD} =    Strip String    ${CREATE_RD[0]}    characters="[]
+    Log    ${RD}
+    Wait Until Keyword Succeeds    60s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_1_IP}    n_entrys=2
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_2_IP}    n_entrys=2
+    Log    Verify data path
+    ${dst_ip_list} =    Create List    ${VM_IP_NET10[1]}    @{VM_IP_NET20}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ${dst_ip_list}
+    ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
+    [Teardown]    Test Teardown For Failure    7893
+
+Verify Datapath After Reboot Nova VM Instance
+    [Documentation]    Verify datapath after reboot nova Vm instance.
+    Reboot Nova VM    ${VM_INSTANCES_NET20[0]}
+    Wait Until Keyword Succeeds    30s    10s    Verify VM Is ACTIVE    ${VM_INSTANCES_NET20[0]}
+    ${VM_IP_NET20}    ${DHCP_IP2}    Wait Until Keyword Succeeds    30s    10s    Collect VM IP Addresses    true
+    ...    @{VM_INSTANCES_NET20}
+    Log    ${VM_IP_NET20}
+    Should Not Contain    ${VM_IP_NET20}    None
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_1_IP}    n_entrys=2
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_2_IP}    n_entrys=2
+    Log    Verify Data path
+    ${dst_ip_list} =    Create List    ${VM_IP_NET10[1]}    @{VM_IP_NET20}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ${dst_ip_list}
+    ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
+    [Teardown]    Test Teardown For Failure    7893
+
+Verify Datapath After Recreate VM Instance
+    [Documentation]    Verify datapath after recreating Vm instance
+    Log    Delete VM and verify flows updated
+    Delete Vm Instance    ${VM_INSTANCES_NET10[0]}
+    Wait Until Keyword Succeeds    60s    10s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_1_IP}    n_entrys=1
+    Remove RSA Key From KnowHosts    ${VM_IP_NET10[0]}
+    Log    ReCreate VM and verify flow updated
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET10[0]}    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify VM Is ACTIVE    ${VM_INSTANCES_NET10[0]}
+    ${VM_IP_NET10}    ${DHCP_IP1}    Wait Until Keyword Succeeds    60s    10s    Collect VM IP Addresses    true
+    ...    @{VM_INSTANCES_NET10}
+    Log    ${VM_IP_NET10}
+    Set Suite Variable    ${VM_IP_NET10}
+    Wait Until Keyword Succeeds    60s    10s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_1_IP}    n_entrys=2
+    Log    Verify Data path
+    ${dst_ip_list} =    Create List    ${VM_IP_NET10[1]}    @{VM_IP_NET20}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ${dst_ip_list}
+    ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
+    [Teardown]    Test Teardown For Failure    7893
 
 Dissociate L3VPN From Networks
     [Documentation]    Dissociate L3VPN from networks
@@ -330,11 +396,12 @@ Dissociate L3VPN From Networks
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=${VPN_INSTANCE_ID[0]}
-    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
-    Should Not Contain    ${resp}    ${network1_id}
     Dissociate L3VPN From Networks    networkid=${network2_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    Should Not Contain    ${resp}    ${network1_id}
     Should Not Contain    ${resp}    ${network2_id}
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry for Network With L3VPN    ${OS_COMPUTE_2_IP}
 
 Delete L3VPN
     [Documentation]    Delete L3VPN
@@ -361,11 +428,6 @@ Delete Multiple L3VPN
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
-
-Check Datapath Traffic Across Networks With L3VPN
-    [Documentation]    Datapath Test Across the networks with VPN.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
 
 Delete Vm Instances
     [Documentation]    Delete Vm instances in the given Instance List
@@ -490,3 +552,21 @@ Verify GWMAC Flow Entry Removed From Flow Table
     #Verify GWMAC address present in table 19
     : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
     \    Should Not Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+
+Verify GWMAC Flow Entry for Network With L3VPN
+    [Arguments]    ${cnIp}    ${n_entrys}=0
+    [Documentation]    Verify the GWMAC Table present when network assciate with L3VPN.
+    ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${flow_output}
+    Should Contain    ${flow_output}    table=${GWMAC_TABLE}
+    ${gwmac_table} =    Get Lines Containing String    ${flow_output}    table=${GWMAC_TABLE}
+    Log    ${gwmac_table}
+    ${match_list} =    Get Regexp Matches    ${gwmac_table}    ${NETWORKASS_GWMACTABLE_REGEX}
+    ${match_count} =    Get Length    ${match_list}
+    Should Be Equal As Integers    ${match_count}    ${n_entrys}
+
+Test Teardown For Failure
+    [Arguments]    ${bug_id}
+    [Documentation]    Test teardown with reason for failure.
+    Get Test Teardown Debugs
+    Report_Failure_Due_To_Bug    ${bug_id}
