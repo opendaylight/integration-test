@@ -1,5 +1,6 @@
-<input>
-  <seconds>$SECONDS</seconds>
-  <transactions-per-second>$TPS</transactions-per-second>
-  <chained-transactions>$CHAINED_TRANSACTIONS</chained-transactions>
+<input xmlns="tag:opendaylight.org,2017:controller:yang:lowlevel:control">
+  <id>$ID</id>
+  <seconds>$DURATION</seconds>
+  <transactions-per-second>$RATE</transactions-per-second>
+  <chained-transactions>$CHAINED_FLAG</chained-transactions>
 </input>
