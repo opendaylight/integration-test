@@ -35,6 +35,7 @@ tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_hotplug_nic
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_mtu_sized_frames
+    [Tags]    skip_if_stable/mitaka    skip_if_stable/newton
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops
