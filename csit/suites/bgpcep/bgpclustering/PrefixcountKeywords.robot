@@ -53,6 +53,9 @@ ${RIB_INSTANCE}    example-bgp-rib
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${BGP_PEER_NAME}    example-bgp-peer
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+${TEST_LOG_LEVEL}    debug
+@{TEST_LOG_COMPONENTS}    org.opendaylight.controller.cluster.datastore
+
 
 *** Keywords ***
 Setup_Everything
@@ -78,6 +81,8 @@ Setup_Everything
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${bgp_filling_timeout*3.0/4}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
+    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
+
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
