@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_9f95958a",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-21T11:43:05Z",
+      "side": 1,
+      "message": "Now that Bug numbers are visible in test case names, maintaining the copied list here is not that helpful.\n\nPerhaps it would be better to describe the setup instead, so that the reader can compare this to other suites.",
+      "range": {
+        "startLine": 3,
+        "startChar": 66,
+        "endLine": 3,
+        "endChar": 70
+      },
+      "revId": "74069702bc9b6d50bff72dbd45a64f0fcf9c3b72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_df8f1d74",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-21T11:43:05Z",
+      "side": 1,
+      "message": "Is there an explanation for this order of test cases? \nIf the order does not matter, sorting by bug number would be helpful.",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 8
+      },
+      "revId": "74069702bc9b6d50bff72dbd45a64f0fcf9c3b72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
