@@ -22,6 +22,30 @@
       "revId": "1fd2d404f18875303f21b4a77c69c0dce2c0e2ee",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_22a1eca9",
+        "filename": ".coafile",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-03-21T14:06:50Z",
+      "side": 1,
+      "message": "Actually you\u0027re right. These are pydoc specific lines but the pydoc bear isn\u0027t enabled. We\u0027d have to add the pydoc bear if we want this to do anything.",
+      "parentUuid": "fafc7978_493ede2a",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 69
+      },
+      "revId": "1fd2d404f18875303f21b4a77c69c0dce2c0e2ee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
