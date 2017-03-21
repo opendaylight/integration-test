@@ -121,10 +121,10 @@ Unregister_Flapping_Singleton
     ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
 
 Write_Transactions
-    [Arguments]    ${member_index}    ${seconds}    ${trans_per_sec}    ${chained_trans}=${True}
+    [Arguments]    ${member_index}    ${identifier}    ${seconds}    ${trans_per_sec}    ${chained_trans}=${True}
     [Documentation]    TODO: more desctiptive comment than: Invoke write-transactions rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SECONDS=${seconds}    TPS=${trans_per_sec}    CHAINED_TRANSACTIONS=${chained_trans}
+    &{mapping}    BuiltIn.Create_Dictionary    ID=${identifier}    DURATION=${seconds}    RATE=${trans_per_sec}    CHAINED_FLAG=${chained_trans}
     TemplatedRequests.Post_As_Xml_Templated    ${WRITE_TRANSACTIONS_DIR}    mapping=${mapping}    session=${session}
 
 Produce_Transactions
@@ -178,17 +178,15 @@ Is_Client_Aborted
 
 Subscribe_Dtcl
     [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke subscribe-dtcl rpc.
+    [Documentation]    Subscribe a listener for data changes. Invoke subscribe-dtcl rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${SUBSCRIBE_DTCL_DIR}    base_name=location    extension=uri
-    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${SUBSCRIBE_DTCL_DIR}    session=${session}
 
 Unsubscribe_Dtcl
     [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke unsubscribe-dtcl rpc.
+    [Documentation]    Unsubscribe a listener from the data changes. Invoke unsubscribe-dtcl rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNSUBSCRIBE_DTCL_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DTCL_DIR}    session=${session}
 
 Subscribe_Ddtl
     [Arguments]    ${member_index}
