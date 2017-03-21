@@ -657,6 +657,15 @@ Resolve_IP_Address_For_Member
     ${ip_address} =    Collections.Get From Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_index}
     [Return]    ${ip_address}
 
+Resolve_IP_Address_For_Members
+    [Arguments]    ${member_index_list}
+    [Documentation]    Return a list of IP address of given indexes.
+    ${member_ip_list} =    BuiltIn.Create_List
+    : FOR    ${index}    IN    @{member_index_list}
+    \    ${ip_address} =    Collections.Get From Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${index}
+    \    Collections.Append_To_List    ${member_ip_list}    ${ip_address}
+    [Return]    ${member_ip_list}
+
 Resolve_Http_Session_For_Member
     [Arguments]    ${member_index}
     [Documentation]    Return RequestsLibrary session alias pointing to node of given index.
