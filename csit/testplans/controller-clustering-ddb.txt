@@ -1,0 +1,3 @@
+# Place the suites in run order:
+#integration/test/csit/suites/controller/Clustering_Datastore/cluster_ready.robot
+integration/test/csit/suites/controller/dom_data_broker/listener_isolation.robot
