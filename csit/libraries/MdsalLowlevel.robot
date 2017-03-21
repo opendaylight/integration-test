@@ -1,11 +1,6 @@
 *** Settings ***
 Documentation     Keywords wrapping controller's odl-mdsal-lowlevel yang model rpcs.
 ...
-...               This is just an initial skeleton implementation, calls are debugged. Multiple
-...               changes will follow as suites will be implemented.
-...               This suite should be preferably merged before any suite to avoid conflicting
-...               situations while suites will be implementing.
-...
 ...               Copyright (c) 2017 Cisco Systems, Inc. and others. All rights reserved.
 ...
 ...               This program and the accompanying materials are made available under the
@@ -16,36 +11,31 @@ Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
 
 *** Variables ***
-${RPC_DIR}        ${CURDIR}/../variables/mdsal/lowlevelrpc
-${ADD_SHARD_REPLICA_DIR}    ${RPC_DIR}/add_shard_replica
-${BECOME_MODULE_LEADER_DIR}    ${RPC_DIR}/become_module_leader
-${BECOME_PREFIX_LEADER_DIR}    ${RPC_DIR}/become_prefix_leader
-${CHECK_PUBLISH_NOTIFICATIONS_DIR}    ${RPC_DIR}/check_publish_notifications
-${DECONFIGURE_ID_INTS_SHARD_DIR}    ${RPC_DIR}/deconfigure_id_ints_shard
-${GET_CONSTANT_DIR}    ${RPC_DIR}/get_constant
-${GET_CONTEXTED_CONSTANT_DIR}    ${RPC_DIR}/get_contexted_constant
-${GET_SINGLETON_CONSTANT_DIR}    ${RPC_DIR}/get_singleton_constant
-${IS_CLIENT_ABORTED_DIR}    ${RPC_DIR}/is_client_aborted
-${PRODUCE_TRANSACTIONS_DIR}    ${RPC_DIR}/produce_transactions
-${REGISTER_BOUND_CONSTANT_DIR}    ${RPC_DIR}/register_bound_constant
-${REGISTER_CONSTANT_DIR}    ${RPC_DIR}/register_constant
-${REGISTER_DEFAULT_CONSTANT_DIR}    ${RPC_DIR}/register_default_constant
-${REGISTER_FLAPPING_SINGLETON_DIR}    ${RPC_DIR}/register_flapping_singleton
-${REGISTER_SINGLETON_CONSTANT_DIR}    ${RPC_DIR}/register_singleton_constant
-${REMOVE_SHARD_REPLICA_DIR}    ${RPC_DIR}/remove_shard_replica
-${START_PUBLISH_NOTIFICATIONS_DIR}    ${RPC_DIR}/start_publish_notifications
-${SUBSCRIBE_DDTL_DIR}    ${RPC_DIR}/subscribe_ddtl
-${SUBSCRIBE_DTCL_DIR}    ${RPC_DIR}/subscribe_dtcl
-${SUBSCRIBE_YNL_DIR}    ${RPC_DIR}/subscribe_ynl
-${UNREGISTER_BOUND_CONSTANT_DIR}    ${RPC_DIR}/unregister_bound_constant
-${UNREGISTER_CONSTANT_DIR}    ${RPC_DIR}/unregister_constant
-${UNREGISTER_DEFAULT_CONSTANT_DIR}    ${RPC_DIR}/unregister_default_constant
-${UNREGISTER_FLAPPING_SINGLETON_DIR}    ${RPC_DIR}/unregister_flapping_singleton
-${UNREGISTER_SINGLETON_CONSTANT_DIR}    ${RPC_DIR}/unregister_singleton_constant
-${UNSUBSCRIBE_DDTL_DIR}    ${RPC_DIR}/unsubscribe_ddtl
-${UNSUBSCRIBE_DTCL_DIR}    ${RPC_DIR}/unsubscribe_dtcl
-${UNSUBSCRIBE_YNL_DIR}    ${RPC_DIR}/unsubscribe_ynl
-${WRITE_TRANSACTIONS_DIR}    ${RPC_DIR}/write_transactions
+${LOWLEVEL_RPC_DIR}    ${CURDIR}/../variables/mdsal/lowlevelrpc
+${BECOME_PREFIX_LEADER_DIR}    ${LOWLEVEL_RPC_DIR}/become_prefix_leader
+${CHECK_PUBLISH_NOTIFICATIONS_DIR}    ${LOWLEVEL_RPC_DIR}/check_publish_notifications
+${CREATE_PREFIX_SHARD_DIR}    ${LOWLEVEL_RPC_DIR}/create_prefix_shard
+${GET_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/get_constant
+${GET_CONTEXTED_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/get_contexted_constant
+${GET_SINGLETON_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/get_singleton_constant
+${PRODUCE_TRANSACTIONS_DIR}    ${LOWLEVEL_RPC_DIR}/produce_transactions
+${REGISTER_BOUND_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/register_bound_constant
+${REGISTER_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/register_constant
+${REGISTER_FLAPPING_SINGLETON_DIR}    ${LOWLEVEL_RPC_DIR}/register_flapping_singleton
+${REGISTER_SINGLETON_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/register_singleton_constant
+${REMOVE_PREFIX_SHARD_DIR}    ${LOWLEVEL_RPC_DIR}/remove_prefix_shard
+${START_PUBLISH_NOTIFICATIONS_DIR}    ${LOWLEVEL_RPC_DIR}/start_publish_notifications
+${SUBSCRIBE_DDTL_DIR}    ${LOWLEVEL_RPC_DIR}/subscribe_ddtl
+${SUBSCRIBE_DTCL_DIR}    ${LOWLEVEL_RPC_DIR}/subscribe_dtcl
+${SUBSCRIBE_YNL_DIR}    ${LOWLEVEL_RPC_DIR}/subscribe_ynl
+${UNREGISTER_BOUND_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/unregister_bound_constant
+${UNREGISTER_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/unregister_constant
+${UNREGISTER_FLAPPING_SINGLETON_DIR}    ${LOWLEVEL_RPC_DIR}/unregister_flapping_singleton
+${UNREGISTER_SINGLETON_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/unregister_singleton_constant
+${UNSUBSCRIBE_DDTL_DIR}    ${LOWLEVEL_RPC_DIR}/unsubscribe_ddtl
+${UNSUBSCRIBE_DTCL_DIR}    ${LOWLEVEL_RPC_DIR}/unsubscribe_dtcl
+${UNSUBSCRIBE_YNL_DIR}    ${LOWLEVEL_RPC_DIR}/unsubscribe_ynl
+${WRITE_TRANSACTIONS_DIR}    ${LOWLEVEL_RPC_DIR}/write_transactions
 
 *** Keywords ***
 Get_Constant
@@ -99,26 +89,27 @@ Unregister_Constant
 
 Register_Singleton_Constant
     [Arguments]    ${member_index}    ${constant}
-    [Documentation]    TODO: more desctiptive comment than: Invoke register-singleton-constant rpc.
+    [Documentation]    Register singleton application on given node by invoking register-singleton-constant rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     &{mapping}    BuiltIn.Create_Dictionary    CONSTANT=${constant}
     TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_SINGLETON_CONSTANT_DIR}    mapping=${mapping}    session=${session}
 
 Unregister_Singleton_Constant
     [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke unregister-singleton-constant rpc.
+    [Documentation]    Unregister singleton application on given node by invoking unregister-singleton-constant rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_SINGLETON_CONSTANT_DIR}    session=${session}
 
 Register_Flapping_Singleton
     [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke register-flapping-singleton rpc.
+    [Documentation]    Activate flapping application on given node by invoking register-flapping-singleton rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_FLAPPING_SINGLETON_DIR}    session=${session}
 
 Unregister_Flapping_Singleton
     [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke unregister-flapping-singleton rpc.
+    [Documentation]    Deactivate flapping singleton application by invoking unregister-flapping-singleton rpc.
+    ...    Return the successful re-registrations count.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_FLAPPING_SINGLETON_DIR}    session=${session}
     ${xml} =    XML.Parse_Xml    ${text}
@@ -126,85 +117,65 @@ Unregister_Flapping_Singleton
     BuiltIn.Return_From_Keyword    ${count}
 
 Write_Transactions
-    [Arguments]    ${member_index}    ${seconds}    ${trans_per_sec}    ${chained_trans}=${True}
-    [Documentation]    TODO: more desctiptive comment than: Invoke write-transactions rpc.
+    [Arguments]    ${member_index}    ${identifier}    ${seconds}    ${trans_per_sec}    ${chained_trans}=${True}
+    [Documentation]    Create transactions with given rate for given time for module-based shards.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SECONDS=${seconds}    TPS=${trans_per_sec}    CHAINED_TRANSACTIONS=${chained_trans}
+    &{mapping}    BuiltIn.Create_Dictionary    ID=${identifier}    DURATION=${seconds}    RATE=${trans_per_sec}    CHAINED_FLAG=${chained_trans}
     TemplatedRequests.Post_As_Xml_Templated    ${WRITE_TRANSACTIONS_DIR}    mapping=${mapping}    session=${session}
 
 Produce_Transactions
     [Arguments]    ${member_index}    ${seconds}    ${trans_per_sec}    ${isolated_trans}=${True}
-    [Documentation]    TODO: more desctiptive comment than: Invoke produce-transactions rpc.
+    [Documentation]    Create transactions with given rate for given time for prefix-based shards.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     &{mapping}    BuiltIn.Create_Dictionary    SECONDS=${seconds}    TPS=${trans_per_sec}    ISOLATED_TRANSACTIONS=${chained_trans}
     TemplatedRequests.Post_As_Xml_Templated    ${PRODUCE_TRANSACTIONS_DIR}    mapping=${mapping}    session=${session}
 
+Create_Prefix_Shard
+    [Arguments]    ${member_index}    ${prefix}    ${replicas}
+    [Documentation]    Create prefix based shard.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${replicas_str}    BuiltIn.Set_Variable    ${EMPTY}
+    : FOR    ${replica}    IN    @{replicas}
+    \    ${replicas_str}    BuiltIn.Set_Variable    ${replicas_str}<replica>${replica}</replica>
+    &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}    REPLICAS=${replicas_str}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${CREATE_PREFIX_SHARD_DIR}    mapping=${mapping}    session=${session}
+
+Remove_Prefix_Shard
+    [Arguments]    ${member_index}    ${prefix}
+    [Documentation]    Remove prefix based shard.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${REMOVE_PREFIX_SHARD_DIR}    mapping=${mapping}    session=${session}
+
 Become_Prefix_Leader
-    [Arguments]    ${member_index}    ${shard_name}
-    [Documentation]    TODO: more desctiptive comment than: Invoke become-prefix-leader rpc.
+    [Arguments]    ${member_index}    ${prefix}
+    [Documentation]    Given node ask to become a shard leader.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}
+    &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${BECOME_PREFIX_LEADER_DIR}    mapping=${mapping}    session=${session}
-
-Become_Module_Leader
-    [Arguments]    ${member_index}    ${shard_name}
-    [Documentation]    TODO: more desctiptive comment than: Invoke become-module-leader rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}
-    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${BECOME_MODULE_LEADER_DIR}    mapping=${mapping}    session=${session}
-
-Remove_Shard_Replica
-    [Arguments]    ${member_index}    ${shard_name}
-    [Documentation]    TODO: more desctiptive comment than: Invoke remove-shard-replica rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}
-    TemplatedRequests.Post_As_Xml_Templated    ${REMOVE_SHARD_REPLICA_DIR}    mapping=${mapping}    session=${session}
-
-Add_Shard_Replica
-    [Arguments]    ${member_index}    ${shard_name}
-    [Documentation]    TODO: more desctiptive comment than: Invoke add-shard-replica rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}
-    TemplatedRequests.Post_As_Xml_Templated    ${ADD_SHARD_REPLICA_DIR}    mapping=${mapping}    session=${session}
-
-Deconfigure_Id_Ints_Shard
-    [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke deconfigure-id-ints-shard rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${DECONFIGURE_ID_INTS_SHARD_DIR}    base_name=location    extension=uri
-    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
-
-Is_Client_Aborted
-    [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke is-client-aborted rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${IS_CLIENT_ABORTED_SHARD_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
 
 Subscribe_Dtcl
     [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke subscribe-dtcl rpc.
+    [Documentation]    Subscribe a listener for data changes. Invoke subscribe-dtcl rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${SUBSCRIBE_DTCL_DIR}    base_name=location    extension=uri
-    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${SUBSCRIBE_DTCL_DIR}    session=${session}
 
 Unsubscribe_Dtcl
     [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke unsubscribe-dtcl rpc.
+    [Documentation]    Unsubscribe a listener from the data changes. Invoke unsubscribe-dtcl rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNSUBSCRIBE_DTCL_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DTCL_DIR}    session=${session}
 
 Subscribe_Ddtl
     [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke subscribe-ddtl rpc.
+    [Documentation]    Subscribe DOMDataTreeListener to listen for the data changes.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${SUBSCRIBE_DDTL_DIR}    base_name=location    extension=uri
     TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
 
 Unsubscribe_Ddtl
     [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke unsubscribe-ddtl rpc.
+    [Documentation]    Unsubscribe DOMDataTreeListener from listening to the data changes.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNSUBSCRIBE_DDTL_DIR}    base_name=location    extension=uri
     ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
@@ -268,16 +239,3 @@ Unregister_Bound_Constant
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     &{mapping}    BuiltIn.Create_Dictionary    CONTEXT=${context}
     TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_BOUND_CONSTANT_DIR}    mapping=${mapping}    session=${session}
-
-Register_Default_Constant
-    [Arguments]    ${member_index}    ${constant}
-    [Documentation]    TODO: more desctiptive comment than: Invoke register-default-constant rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    CONSTANT=${constant}
-    TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_DEFAULT_CONSTANT_DIR}    mapping=${mapping}    session=${session}
-
-Unregister_Default_Constant
-    [Arguments]    ${member_index}
-    [Documentation]    TODO: more desctiptive comment than: Invoke unregister-default-constant rpc.
-    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    TemplatedRequests.Post_As_Xml_Templated    ${REGISTER_DEFAULT_CONSTANT_DIR}    session=${session}
