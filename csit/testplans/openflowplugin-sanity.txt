@@ -1,0 +1,5 @@
+# Place the suites in run order:
+integration/test/csit/suites/openflowplugin/MD_SAL_NSF_OF10
+integration/test/csit/suites/openflowplugin/MD_SAL_NSF_OF13
+integration/test/csit/suites/openflowplugin/Flows_Additional_TCs/Stat_Manager_extended
+integration/test/csit/suites/openflowplugin/Reconciliation
