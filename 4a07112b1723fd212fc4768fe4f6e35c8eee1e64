@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_23a44b56",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T12:25:55Z",
+      "side": 1,
+      "message": "500 is internal server error. If ODL returns that, it is a Bug.",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 23
+      },
+      "revId": "4a07112b1723fd212fc4768fe4f6e35c8eee1e64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_838897c7",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T12:25:55Z",
+      "side": 1,
+      "message": "Tolerate both 500 and 400 for now, and add a TODO to expect only 400 when a Bug causing 500 is fixed.",
+      "range": {
+        "startLine": 337,
+        "startChar": 22,
+        "endLine": 337,
+        "endChar": 46
+      },
+      "revId": "4a07112b1723fd212fc4768fe4f6e35c8eee1e64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
