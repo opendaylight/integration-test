@@ -22,6 +22,52 @@
       "revId": "8cb9be37bba876e8f366530b032439edf3ffb6f5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5cf4d086",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-22T20:39:28Z",
+      "side": 1,
+      "message": "this test case will run on all openstack branches and all\ntempest.api.network but NOT the two in the exclusion regex\nbecause those will will fail when it runs on mitaka",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "8cb9be37bba876e8f366530b032439edf3ffb6f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bcf17c97",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-22T20:39:28Z",
+      "side": 1,
+      "message": "these are those two that are skipped above because of the\nregex. These are explicitly called now, but will be \nskipped_if_stable/mitaka. For newton they should run.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 16
+      },
+      "revId": "8cb9be37bba876e8f366530b032439edf3ffb6f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
