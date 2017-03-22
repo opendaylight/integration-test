@@ -17,7 +17,7 @@ ${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to ov
 
 *** Keywords ***
 Run Tempest Tests
-    [Arguments]    ${tempest_regex}    ${tempest_exclusion_regex}=""    ${tempest_conf}=""    ${tempest_directory}=/opt/stack/tempest    ${timeout}=600s
+    [Arguments]    ${tempest_regex}    ${tempest_exclusion_regex}=""    ${tempest_directory}=/opt/stack/tempest    ${timeout}=600s
     [Documentation]    Execute the tempest tests.
     Return From Keyword If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}
     Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
@@ -25,10 +25,10 @@ Run Tempest Tests
     Switch Connection    ${devstack_conn_id}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd ${tempest_directory}
-    # From Ocata and moving forward, we can replace 'ostestr' with 'tempest run'
-    # Note: If black-regex cancels out the entire regex (white-regex), all tests are run
-    # --black-regex ${tempest_exclusion_regex} is removed for now since it only seems to work from newton
-    ${results}=    Write Commands Until Prompt    ostestr --regex ${tempest_regex}    timeout=${timeout}
+    # TODO: From Ocata and moving forward, we can replace 'ostestr' with 'tempest run'
+    # Note: --black-regex ${tempest_exclusion_regex} only seems to work from newton
+    ${cmd}=    Set Variable If    "${OPENSTACK_BRANCH}"=="stable/mitaka"    ostestr --regex ${tempest_regex}    ostestr --regex ${tempest_regex} --black-regex ${tempest_exclusion_regex}
+    ${results}=    Write Commands Until Prompt    ${cmd}    timeout=${timeout}
     Log    ${results}
     # Save stdout to file
     Create File    tempest_output_${tempest_regex}.log    data=${results}
