@@ -4,11 +4,11 @@ Documentation     Library to deal with mdsal data models. Initially, as a common
 Library           RequestsLibrary
 
 *** Variables ***
-@{data_models}    ${EMPTY}
+@{internal_data_models}    ${EMPTY}
 
 *** Keywords ***
 Get Model Dump
-    [Arguments]    ${controller_ip}    ${data_models}=@{data_models}
+    [Arguments]    ${controller_ip}    ${data_models}=@{internal_data_models}
     [Documentation]    Will output a list of mdsal models using ${data_models} list
     # while feature request in bug 7892 is not done, we will quickly timeout and not retry the model dump get
     # request. This is because when it's done in a failed cluster state, it could take 20s for the reesponse to
