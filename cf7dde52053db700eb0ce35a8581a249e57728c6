@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_1c0ec834",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T17:20:48Z",
+      "side": 1,
+      "message": "${network_adapter}",
+      "range": {
+        "startLine": 10,
+        "startChar": 70,
+        "endLine": 10,
+        "endChar": 87
+      },
+      "revId": "cf7dde52053db700eb0ce35a8581a249e57728c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_dc03a00b",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T17:20:48Z",
+      "side": 1,
+      "message": "${filename} or ${file_name}",
+      "range": {
+        "startLine": 10,
+        "startChar": 35,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "cf7dde52053db700eb0ce35a8581a249e57728c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
