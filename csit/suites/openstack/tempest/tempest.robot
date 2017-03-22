@@ -28,66 +28,7 @@ tempest.api.network
     # explicitly in their own test cases which will skip_if_stable/mitaka is the openstack branch
     ${TEST_NAME}    ${exclusion_regex}
 
-tempest.api.network.test_routers_negative.RoutersNegativeIpV6Test
-    [Tags]    skip_if_stable/mitaka
-    # OpenStack patch to fix this was merged in newton+ and will not be back-ported to mitaka
-    # https://review.openstack.org/#/c/219215
-    ${TEST_NAME}
-
-tempest.api.network.test_routers_negative.RoutersNegativeTest
-    [Tags]    skip_if_stable/mitaka
-    # OpenStack patch to fix this was merged in newton+ and will not be back-ported to mitaka
-    # https://review.openstack.org/#/c/219215
-    ${TEST_NAME}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
-    ${TEST_NAME}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_hotplug_nic
-    [Tags]    skip_if_stable/mitaka
-    # Failing due to default security rules behavior missing in Mitaka
-    ${TEST_NAME}
-
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_mtu_sized_frames
-    [Tags]    skip_if_stable/mitaka    skip_if_stable/newton
-    ${TEST_NAME}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops
-    ${TEST_NAME}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_preserve_preexisting_port
-    ${TEST_NAME}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_router_rescheduling
-    ${TEST_NAME}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_subnet_details
-    ${TEST_NAME}
-
-tempest.scenario.test_aggregates_basic_ops.TestAggregatesBasicOps.test_aggregate_basic_ops
-    ${TEST_NAME}
-
-tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_pause_unpause
-    ${TEST_NAME}
-
-tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_stop_start
-    ${TEST_NAME}
-
-tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_reboot
-    ${TEST_NAME}
-
-tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_rebuild
-    ${TEST_NAME}
-
-tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_suspend_resume
-    ${TEST_NAME}
-
-tempest.scenario.test_server_basic_ops.TestServerBasicOps.test_server_basic_ops
-    ${TEST_NAME}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_port_security_macspoofing_port
-    [Tags]    skip_if_transparent    skip_if_stable/mitaka
-    # Failing due to default security rules behavior missing in Mitaka, and also in all transparent runs
     ${TEST_NAME}
 
 *** Keywords ***
