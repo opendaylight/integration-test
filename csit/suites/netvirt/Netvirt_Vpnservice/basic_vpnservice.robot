@@ -147,6 +147,9 @@ Add Interfaces To Router
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath test across the networks using router for L3.
     Log    Verification of FIB Entries and Flow
+    Start Tcpdumping    ${OS_COMPUTE_1_IP}    fileName=tcpDumpCN1
+    Start Tcpdumping    ${OS_COMPUTE_2_IP}    fileName=tcpDumpCN2
+    Start Tcpdumping    ${OS_CONTROL_NODE_IP}    fileName=tcpDumpOS
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
     Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10}
@@ -162,6 +165,9 @@ Check L3_Datapath Traffic Across Networks With Router
     ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
+    Stop Tcpdumping    ${OS_COMPUTE_1_IP}    fileName=tcpDumpCN1
+    Stop Tcpdumping    ${OS_COMPUTE_2_IP}    fileName=tcpDumpCN2
+    Stop Tcpdumping    ${OS_CONTROL_NODE_IP}    fileName=tcpDumpOS
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation
