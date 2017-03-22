@@ -1,0 +1,395 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_517cbc72",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "That is the aim of the suites. The aim of this resource is to groups reusable blocks of commands into keywords.",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_31cf78b2",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "Describe what the possible values are. This is either an empty list or a scalar constant (line 110), right?",
+      "range": {
+        "startLine": 34,
+        "startChar": 34,
+        "endLine": 34,
+        "endChar": 54
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_83dc1776",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "This block will be reused in Rejoin_Node (and Unfreeze), so moving it to a keyword makes sense.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 5
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b151a8da",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "Also Sort?",
+      "range": {
+        "startLine": 42,
+        "startChar": 34,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e309a3de",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "Resource tracks which node is registered (and responsive), so it does not need this argument.",
+      "range": {
+        "startLine": 78,
+        "startChar": 19,
+        "endLine": 78,
+        "endChar": 32
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_430fcfe1",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "Resource tracks which node is registered (and responsive), so it does not need this argument.",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_633653e9",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "You have a single expected value as an argument, that value can be local only to one member.",
+      "range": {
+        "startLine": 91,
+        "startChar": 67,
+        "endLine": 91,
+        "endChar": 72
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_43a50f03",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "Or perhaps you want to compare ${CONSTANT_PREFIX}${cindex} instead?",
+      "range": {
+        "startLine": 94,
+        "startChar": 47,
+        "endLine": 94,
+        "endChar": 62
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a3e31b32",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "Add [Documentation].",
+      "range": {
+        "startLine": 106,
+        "startChar": 14,
+        "endLine": 106,
+        "endChar": 15
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e3d40349",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "Maybe it would be better to fail instead.",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 34
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_63c0137d",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "You could maintain a suite variable with list of responsive members.",
+      "range": {
+        "startLine": 110,
+        "startChar": 90,
+        "endLine": 110,
+        "endChar": 91
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e386c364",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "Do you also want Kill, Start, Freeze and Unfreeze?",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 6
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_03d02752",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "Add [Documentation].",
+      "range": {
+        "startLine": 113,
+        "startChar": 14,
+        "endLine": 113,
+        "endChar": 15
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0382e751",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "in",
+      "range": {
+        "startLine": 115,
+        "startChar": 55,
+        "endLine": 115,
+        "endChar": 61
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_033787b1",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "This resource tracks registrations, so it can provide one keyword to do both (37+38) checks.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 14
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c3bd7f04",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "RdbCommons could track this as a suite variable.",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 17
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_235d6bea",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-22T11:27:08Z",
+      "side": 1,
+      "message": "If the combined check (from line 37 comment) is here, you do not need line 69 and the check is stronger.",
+      "range": {
+        "startLine": 70,
+        "startChar": 79,
+        "endLine": 70,
+        "endChar": 89
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
