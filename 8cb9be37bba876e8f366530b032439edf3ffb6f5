@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_1c81a84a",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-03-22T17:46:45Z",
+      "side": 1,
+      "message": "I don\u0027t know why this worked for you in sandbox. You\u0027re using tempest_exclusion_regex to skip these tests, but we\u0027re not using the parameter in stable/mitaka, which is where you want to exclude it.\n\nNo idea why this worked - maybe the tests were removed/modified? Did they actually skip in sandbox or pass?",
+      "range": {
+        "startLine": 30,
+        "startChar": 76,
+        "endLine": 30,
+        "endChar": 108
+      },
+      "revId": "8cb9be37bba876e8f366530b032439edf3ffb6f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
