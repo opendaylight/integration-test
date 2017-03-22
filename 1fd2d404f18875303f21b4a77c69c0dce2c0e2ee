@@ -46,6 +46,30 @@
       "revId": "1fd2d404f18875303f21b4a77c69c0dce2c0e2ee",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4bca4ba2",
+        "filename": ".coafile",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-22T00:54:28Z",
+      "side": 1,
+      "message": "yeah, new PS just removes these things to avoid confusion.\n\ndocstyle would be fine to have, but we have a lot of work to\ndo to get existing things fixed before enabling it.",
+      "parentUuid": "fafc7978_22a1eca9",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 69
+      },
+      "revId": "1fd2d404f18875303f21b4a77c69c0dce2c0e2ee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
