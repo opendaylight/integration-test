@@ -2,8 +2,7 @@
 Documentation     Test suite to validate vpnservice functionality in an openstack integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
-...               AND    DevstackUtils.Devstack Suite Setup
+Suite Setup       Basic Vpnservice Suite Setup
 Suite Teardown    Basic Vpnservice Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
@@ -15,6 +14,7 @@ Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/VpnOperations.robot
 Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/Tcpdump.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
@@ -149,6 +149,9 @@ Add Interfaces To Router
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath test across the networks using router for L3.
     Log    Verification of FIB Entries and Flow
+    ${cn1_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_1_IP}    file_Name=tcpDumpCN1
+    ${cn2_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_2_IP}    file_Name=tcpDumpCN2
+    ${os_conn_id} =    Start Packet Capture on Node    ${OS_CONTROL_NODE_IP}    file_Name=tcpDumpOS
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
     Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10}
@@ -164,6 +167,7 @@ Check L3_Datapath Traffic Across Networks With Router
     ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
+    [Teardown]    Test Teardown With Tcpdump Stop     ${cn1_conn_id}     ${cn2_conn_id}     ${os_conn_id}
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation
@@ -391,11 +395,19 @@ Delete ITM Tunnel
 
 *** Keywords ***
 Basic Vpnservice Suite Setup
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    DevstackUtils.Devstack Suite Setup
 
 Basic Vpnservice Suite Teardown
     Delete SecurityGroup    ${SECURITY_GROUP}
     Close All Connections
+
+Test Teardown With Tcpdump Stop
+    [Arguments]     ${cn1_conn_id}     ${cn2_conn_id}    ${os_conn_id}
+    Stop Packet Capture on Node    ${cn1_conn_id}
+    Stop Packet Capture on Node    ${cn2_conn_id}
+    Stop Packet Capture on Node    ${os_conn_id}
+    Get Test Teardown Debugs
 
 Wait For Routes To Propogate
     ${devstack_conn_id} =    Get ControlNode Connection
