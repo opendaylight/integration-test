@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_b1d7e8ec",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 35
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-03-22T10:05:06Z",
+      "side": 1,
+      "message": "The name of the type is \u0027str\u0027, not \u0027string\u0027",
+      "range": {
+        "startLine": 1109,
+        "startChar": 22,
+        "endLine": 1109,
+        "endChar": 28
+      },
+      "revId": "e159a7c01ada092318ed67e0e659cfdd103f14a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_112b54ec",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 35
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-03-22T10:05:06Z",
+      "side": 1,
+      "message": "This is perhaps better:\n\n  old_routes.replace(\"\u003c/sxp-cluster-route\u003e\", \"$routes\u003c/sxp-cluster-route\u003e\")",
+      "range": {
+        "startLine": 1135,
+        "startChar": 25,
+        "endLine": 1135,
+        "endChar": 109
+      },
+      "revId": "e159a7c01ada092318ed67e0e659cfdd103f14a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
