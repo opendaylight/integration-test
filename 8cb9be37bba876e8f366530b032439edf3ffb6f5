@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_3c358c46",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-22T20:51:35Z",
+      "side": 1,
+      "message": "ok, I see my error.\n\nthis, when in mitaka, will not use the regex so it wont skip\nthose tests manually.\n\nhmmm, but what we are seeing now is tempest skipping them\nitself and the reason was there to start with (no new tempest\npatch explains it that I can find):\n\nhere\u0027s the patch that gave us this test a week ago and\nwhere it\u0027s doing the skip:\nhttps://github.com/openstack/tempest/commit/24f5751aa6daf177514817ba706b90b59aaf6b04#diff-bcb453981bf5c8d9d5e6390a6ffc625aR88\n\nhmmm...",
+      "parentUuid": "fafc7978_5cf4d086",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "8cb9be37bba876e8f366530b032439edf3ffb6f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_bcf17c97",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 7
