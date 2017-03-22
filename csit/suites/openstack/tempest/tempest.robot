@@ -14,7 +14,7 @@ Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${exclusion_regex}    'metering|test_l3_agent_scheduler.L3AgentSchedulerTestJSON|test_extensions.ExtensionsTestJSON.test_list_show_extensions|test_routers_dvr.RoutersTestDVR.test_centralized_router_update_to_dvr'
+${exclusion_regex}    'metering|test_l3_agent_scheduler.L3AgentSchedulerTestJSON|test_extensions.ExtensionsTestJSON.test_list_show_extensions|test_routers_dvr.RoutersTestDVR.test_centralized_router_update_to_dvr|test_routers_negative.RoutersNegativeIpV6Test|test_routers_negative.RoutersNegativeTest'
 ${tempest_config_file}    /opt/stack/tempest/etc/tempest.conf
 ${external_net_name}    external-net
 ${external_subnet_name}    external-subnet
@@ -24,6 +24,18 @@ ${network_vlan_id}    167
 
 *** Test Cases ***
 tempest.api.network
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.api.network.test_routers_negative.RoutersNegativeIpV6Test
+    [Tags]    skip_if_stable/mitaka
+    # OpenStack patch to fix this was merged in newton+ and will not be back-ported to mitaka
+    # https://review.openstack.org/#/c/219215
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.api.network.test_routers_negative.RoutersNegativeTest
+    [Tags]    skip_if_stable/mitaka
+    # OpenStack patch to fix this was merged in newton+ and will not be back-ported to mitaka
+    # https://review.openstack.org/#/c/219215
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
