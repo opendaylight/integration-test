@@ -672,7 +672,7 @@ ClusterManagement__Parse_Sync_Status
 
 List_All_Indices
     [Documentation]    Create a new list of all indices.
-    BuiltIn.Return_Keyword_And_Return    List_Indices_Or_All
+    BuiltIn.Run_Keyword_And_Return    List_Indices_Or_All
 
 List_Indices_Or_All
     [Arguments]    ${given_list}=${EMPTY}
