@@ -14,8 +14,7 @@ Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${exclusion_regex}    'metering|test_l3_agent_scheduler.L3AgentSchedulerTestJSON|test_extensions.ExtensionsTestJSON.test_list_show_extensions|test_routers_dvr.RoutersTestDVR.test_centralized_router_update_to_dvr'
-${tempest_config_file}    /opt/stack/tempest/etc/tempest.conf
+${exclusion_regex}    ${EMPTY}
 ${external_net_name}    external-net
 ${external_subnet_name}    external-subnet
 ${external_gateway}    10.10.10.250
@@ -24,56 +23,70 @@ ${network_vlan_id}    167
 
 *** Test Cases ***
 tempest.api.network
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    # mitaka release and earlier would fail on the RoutersNegative* tests, so skipping here and running
+    # explicitly in their own test cases which will skip_if_stable/mitaka is the openstack branch
+    ${TEST_NAME}    'test_routers_negative.RoutersNegativeIpV6Test|test_routers_negative.RoutersNegativeTest'
+
+tempest.api.network.test_routers_negative.RoutersNegativeIpV6Test
+    [Tags]    skip_if_stable/mitaka
+    # OpenStack patch to fix this was merged in newton+ and will not be back-ported to mitaka
+    # https://review.openstack.org/#/c/219215
+    ${TEST_NAME}    ${exclusion_regex}
+
+tempest.api.network.test_routers_negative.RoutersNegativeTest
+    [Tags]    skip_if_stable/mitaka
+    # OpenStack patch to fix this was merged in newton+ and will not be back-ported to mitaka
+    # https://review.openstack.org/#/c/219215
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_hotplug_nic
     [Tags]    skip_if_stable/mitaka
     # Failing due to default security rules behavior missing in Mitaka
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_mtu_sized_frames
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_preserve_preexisting_port
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_router_rescheduling
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_subnet_details
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_aggregates_basic_ops.TestAggregatesBasicOps.test_aggregate_basic_ops
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_pause_unpause
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_stop_start
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_reboot
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_rebuild
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_suspend_resume
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_server_basic_ops.TestServerBasicOps.test_server_basic_ops
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_port_security_macspoofing_port
     [Tags]    skip_if_transparent    skip_if_stable/mitaka
     # Failing due to default security rules behavior missing in Mitaka, and also in all transparent runs
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${exclusion_regex}
 
 *** Keywords ***
 Log In To Tempest Executor And Setup Test Environment
@@ -98,9 +111,9 @@ Tempest Conf Add External Network
     [Arguments]    ${external_network_id}
     [Documentation]    Tempest will be run with a config file - this function will add the
     ...    given external network ID to the configuration file.
-    Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    network    public_network_id    ${external_network_id}
-    Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    debug    False
-    Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    log_level    INFO
+    Modify Config In File On Existing SSH Connection    set    network    public_network_id    ${external_network_id}
+    Modify Config In File On Existing SSH Connection    set    DEFAULT    debug    False
+    Modify Config In File On Existing SSH Connection    set    DEFAULT    log_level    INFO
     Write Commands Until Prompt    sudo cat ${tempest_config_file}
     Write Commands Until Prompt    sudo chmod 777 ${tempest_config_file}
 
