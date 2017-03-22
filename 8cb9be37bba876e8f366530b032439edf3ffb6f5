@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_fc2ae4e5",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-22T20:46:27Z",
+      "side": 1,
+      "message": "if it\u0027s stable/mitaka then we are not using the exclusion_regex. that --black-regex is not an option\neither when we are in stable/mitaka\n\nif not stable/mitaka, then we use the other ostestr command\non this line which is using the --black-regex",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 108
+      },
+      "revId": "8cb9be37bba876e8f366530b032439edf3ffb6f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_5cf4d086",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 7
