@@ -22,6 +22,30 @@
       "revId": "5e02227c1db5c58292cafc178bb053c440280eb5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5c3690e8",
+        "filename": "tools/distchanges/tests/test_changes.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-22T17:15:47Z",
+      "side": 1,
+      "message": "I gave it a 10m look, and this will take a little work.\n\nthe problem is that this list of projects is expected to\nbe both the name of the folder to look in for jars in the\nextracted distro, as well as the name of the gerrit repo to\nquery.\n\nin our case, the folder is integration, but the repo is\nintegration/distribution.\n\nif we just use integration we get a list of patches returned\nfrom our old integration repo (now read-only). if we use\nintegration/distribution it does not find the right folder\nto get a jar to crack open.\n\nSam, we need a trello board for this tool :)",
+      "parentUuid": "fafc7978_6622e102",
+      "range": {
+        "startLine": 8,
+        "startChar": 19,
+        "endLine": 8,
+        "endChar": 20
+      },
+      "revId": "5e02227c1db5c58292cafc178bb053c440280eb5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
