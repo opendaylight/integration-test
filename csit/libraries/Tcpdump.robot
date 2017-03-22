@@ -9,6 +9,7 @@ ${dumpalias}      tcpdump
 ${dumppcap}       dump.pcap
 ${dumppcappath}    /tmp/${dumppcap}
 ${dumpcmd}        sudo tcpdump -s 0 -w ${dumppcappath}
+${dump_default_Name}    tcpDump
 
 *** Keywords ***
 Start Tcpdumping
@@ -36,3 +37,17 @@ Stop Tcpdumping And Download
     SSHLibrary.Close Connection
     Run Keyword If    ${oldcon}==${None}    Return From Keyword
     SSHLibrary.Switch Connection    ${oldcon}
+
+Start Packet Capture On Node
+    [Arguments]    ${node_ip}    ${file_Name}=${dump_default_Name}    ${network_Adapter}=eth0
+    [Documentation]    Connects to the remote machine and starts tcpdump
+    ${output} =    Run Command On Remote System    ${node_ip}    sudo /usr/sbin/tcpdump -vvv -ni ${networkAdapter} -w /tmp/${fileName}.pcap &
+    Log    ${output}
+
+Stop Packet Capture on Node
+    [Arguments]    ${node_ip}
+    [Documentation]    Stops catching packets with tcpdump and move pcap file to archives done as part of releng.
+    ${output} =    Run Command On Remote System    ${node_ip}    sudo ps -elf | grep tcpdump
+    Log    ${output}
+    ${output} =    Run Command On Remote System    ${node_ip}    sudo pkill -f tcpdump
+    Log    ${output}
