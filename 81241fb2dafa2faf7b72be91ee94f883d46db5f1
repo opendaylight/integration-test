@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_eb2a1f7d",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-22T00:14:31Z",
+      "side": 1,
+      "message": "to me, this feels like it belongs in KarafKeywords.robot",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 498,
+        "endChar": 43
+      },
+      "revId": "81241fb2dafa2faf7b72be91ee94f883d46db5f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ab3017e9",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-22T00:14:31Z",
+      "side": 1,
+      "message": "these work, but they were confusing to me until I saw\nyour sandbox job and realized they were from the\npycurl lib.\n\ncan you do two things please:\n\n1) document at the top of this suite that this is using\nthe pycurl lib and why that needed to be used instead of\nthe standard robot requests library. Hopefully this is just\na one-off case where we had to do it.\n\n2) explicitly use the prefix before all keywords that\ncome from it. I think it should look like this:\n  PycURLLibrary.Log Response\n\nthings like the \"Perform\" keyword are a little more cryptic\nthan I\u0027m used, and probably for others that will come \nacross this suite. Hopefully these two things will help\nothers understand in the future when they ask.",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 16
+      },
+      "revId": "81241fb2dafa2faf7b72be91ee94f883d46db5f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
