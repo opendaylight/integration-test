@@ -104,10 +104,11 @@ Deploy_Artifact
     ${version}    ${location} =    NexusKeywords__Detect_Version_To_Pull    ${component}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
+    # TODO: Review SSHKeywords for current best keywords to call.
     ${metadata} =    SSHKeywords.Execute_Command_Should_Pass    curl -L ${url}/maven-metadata.xml
-    ${namepart} =    SSHKeywords.Execute_Command_Should_Pass    echo "${metadata}" | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1    stderr_must_be_empty=${True}
+    ${status}    ${namepart} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHKeywords.Execute_Command_Should_Pass    echo "${metadata}" | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1    stderr_must_be_empty=${True}
     ${length} =    BuiltIn.Get_Length    ${namepart}
-    ${namepart} =    BuiltIn.Set_Variable_If    ${length} == 0    ${version}    ${namepart}
+    ${namepart} =    BuiltIn.Set_Variable_If    "${status}" != "PASS" or ${length} == 0    ${version}    ${namepart}
     ${filename} =    BuiltIn.Set_Variable    ${name_prefix}${namepart}${name_suffix}
     BuiltIn.Log    ${filename}
     ${url} =    BuiltIn.Set_Variable    ${url}/${filename}
