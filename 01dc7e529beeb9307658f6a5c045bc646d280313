@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_4a023b0a",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T14:00:11Z",
+      "side": 1,
+      "message": "_\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Variable_naming",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 7
+      },
+      "revId": "01dc7e529beeb9307658f6a5c045bc646d280313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_eac32f88",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T14:00:11Z",
+      "side": 1,
+      "message": "${PLEASE_SIGN_IN_PANEL} or at least ${PLEASESIGNIN_PANEL}.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "01dc7e529beeb9307658f6a5c045bc646d280313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_8a0c233d",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T14:00:11Z",
+      "side": 1,
+      "message": "What is this comment for?",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 5
+      },
+      "revId": "01dc7e529beeb9307658f6a5c045bc646d280313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_aa20079c",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T14:00:11Z",
+      "side": 1,
+      "message": "Why is this a backtick, instead of single quote?",
+      "range": {
+        "startLine": 116,
+        "startChar": 58,
+        "endLine": 116,
+        "endChar": 59
+      },
+      "revId": "01dc7e529beeb9307658f6a5c045bc646d280313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_aa7c8773",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T14:00:11Z",
+      "side": 1,
+      "message": "I find this non-alphabetic part more confusing than helpful.",
+      "range": {
+        "startLine": 323,
+        "startChar": 32,
+        "endLine": 323,
+        "endChar": 35
+      },
+      "revId": "01dc7e529beeb9307658f6a5c045bc646d280313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_ea404f37",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T14:00:11Z",
+      "side": 1,
+      "message": "I did not know slashes are even allowed in variable names. Why not just ${prefix_part}?",
+      "range": {
+        "startLine": 324,
+        "startChar": 38,
+        "endLine": 324,
+        "endChar": 59
+      },
+      "revId": "01dc7e529beeb9307658f6a5c045bc646d280313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6a9bbfc9",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T14:00:11Z",
+      "side": 1,
+      "message": "Is this any different from:\n    BuiltIn.Set_Variable    \u003c${id/ref/prefix_part}:${index/key}\u003e",
+      "range": {
+        "startLine": 327,
+        "startChar": 20,
+        "endLine": 328,
+        "endChar": 12
+      },
+      "revId": "01dc7e529beeb9307658f6a5c045bc646d280313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4ad35b5f",
+        "filename": "csit/variables/YangmanGUIVariables.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T14:00:11Z",
+      "side": 1,
+      "message": "This is less readable and not much shorter.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 4
+      },
+      "revId": "01dc7e529beeb9307658f6a5c045bc646d280313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0ae2f32e",
+        "filename": "csit/variables/YangmanGUIVariables.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-23T14:00:11Z",
+      "side": 1,
+      "message": "${YANGMAN_LOGO}\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#User_configurable_variables",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 15
+      },
+      "revId": "01dc7e529beeb9307658f6a5c045bc646d280313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
