@@ -347,7 +347,7 @@ Delete the Container2-2.3
     ${CSEID} =    Resid    ${oldr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container1
     ${pi} =    Parent Id    ${r}
-    Should Be Equal    ${CSEID}    ${pi}
+    Should Be Equal    /InCSE1/${CSEID}    ${pi}
 
 4.22 Check parentID(cse-container-container)
     [Documentation]    parentID should be correct
@@ -361,7 +361,7 @@ Delete the Container2-2.3
     ${CSEID} =    Resid    ${oldr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container1/Container2
     ${pi} =    Parent Id    ${r}
-    Should Be Equal    ${CSEID}    ${pi}
+    Should Be Equal    /InCSE1/${CSEID}    ${pi}
 
 4.23 Check parentID(cse-AE-container)
     [Documentation]    parentID should be correct
@@ -377,7 +377,7 @@ Delete the Container2-2.3
     ${CSEID} =    Resid    ${oldr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/AE1/Container2
     ${pi} =    Parent Id    ${r}
-    Should Be Equal    ${CSEID}    ${pi}
+    Should Be Equal    /InCSE1/${CSEID}    ${pi}
 
 4.24 Check parentID(cse-AE-container-container)
     [Documentation]    parentID should be correct
@@ -392,7 +392,7 @@ Delete the Container2-2.3
     ${CSEID} =    Resid    ${oldr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/AE1/Container2/Container3
     ${pi} =    Parent Id    ${r}
-    Should Be Equal    ${CSEID}    ${pi}
+    Should Be Equal    /InCSE1/${CSEID}    ${pi}
 
 Delete the test AE-4.2
     ${deleteRes} =    Delete Resource    ${iserver}    InCSE1/AE1
