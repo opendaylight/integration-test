@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_7c5d5448",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-23T00:04:19Z",
+      "side": 1,
+      "message": "removed bug links\n\nthe setup is very simple and exists in this suite. not worth\nexplaining it when it can be read in aprox 6 pretty easy\nrobot lines.",
+      "parentUuid": "fafc7978_9f95958a",
+      "range": {
+        "startLine": 3,
+        "startChar": 66,
+        "endLine": 3,
+        "endChar": 70
+      },
+      "revId": "74069702bc9b6d50bff72dbd45a64f0fcf9c3b72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_df8f1d74",
         "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-21T11:43:05Z",
       "side": 1,
       "message": "Is there an explanation for this order of test cases? \nIf the order does not matter, sorting by bug number would be helpful.",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 8
+      },
+      "revId": "74069702bc9b6d50bff72dbd45a64f0fcf9c3b72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_dc3560f8",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-23T00:04:19Z",
+      "side": 1,
+      "message": "some of these bugs need some order and it should be \ncalled out somewhat in the [Documentation]. This one\nfor example needs to run last as I remember it really\ncould hose the environment ruining the value of further\ntest cases.",
+      "parentUuid": "fafc7978_df8f1d74",
       "range": {
         "startLine": 163,
         "startChar": 0,
