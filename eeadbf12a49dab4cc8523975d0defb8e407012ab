@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_2dca74a1",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-03-23T10:22:16Z",
+      "side": 0,
+      "message": "This is the reason for the change, why was this removed?",
+      "range": {
+        "startLine": 101,
+        "startChar": 56,
+        "endLine": 101,
+        "endChar": 78
+      },
+      "revId": "eeadbf12a49dab4cc8523975d0defb8e407012ab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
