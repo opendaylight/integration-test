@@ -14,6 +14,7 @@ ${SAMPLES}        1
 *** Test Cases ***
 Isolation of SXP service follower Test Listener Part
     [Documentation]    Test SXP binding propagation only if Controller with SCS is isolated
+    Check Shards Status
     Setup Custom SXP Cluster    listener    ${CLUSTER_NODE_ID}    controller1
     : FOR    ${i}    IN RANGE    0    ${SAMPLES}
     \    ${controller_index}    Get Active Controller
@@ -21,6 +22,7 @@ Isolation of SXP service follower Test Listener Part
 
 Isolation of SXP service follower Test Speaker Part
     [Documentation]    Test SXP binding propagation only if Controller with SCS is isolated
+    Check Shards Status
     Setup Custom SXP Cluster    speaker
     : FOR    ${i}    IN RANGE    0    ${SAMPLES}
     \    ${controller_index}    Get Active Controller
@@ -28,6 +30,7 @@ Isolation of SXP service follower Test Speaker Part
 
 Isolation of SXP noservice follower Test Listener Part
     [Documentation]    Test SXP binding propagation only if Controller without SCS are isolated
+    Check Shards Status
     Setup Custom SXP Cluster    listener    ${CLUSTER_NODE_ID}    controller1
     : FOR    ${i}    IN RANGE    0    ${SAMPLES}
     \    ${controller_index}    Get Inactive Controller
@@ -35,6 +38,7 @@ Isolation of SXP noservice follower Test Listener Part
 
 Isolation of SXP noservice follower Test Speaker Part
     [Documentation]    Test SXP binding propagation only if Controller without SCS are isolated
+    Check Shards Status
     Setup Custom SXP Cluster    speaker
     : FOR    ${i}    IN RANGE    0    ${SAMPLES}
     \    ${controller_index}    Get Inactive Controller
