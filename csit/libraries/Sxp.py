@@ -1096,3 +1096,47 @@ def prefix_range(start, end):
         if index < end:
             prefixes += ','
     return prefixes
+
+
+def route_definition_xml(virtual_ip, net_mask, interface):
+    """Generate xml for Add Bindings request
+
+    :param interface: Network interface name
+    :type interface: str
+    :param net_mask: NetMask of virtual ip
+    :type net_mask: str
+    :param virtual_ip: Virtual ip
+    :type virtual_ip: str
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''
+    <routing-definition>
+        <ip-address>$vip</ip-address>
+        <interface>$interface</interface>
+        <netmask>$mask</netmask>
+    </routing-definition>
+    ''')
+    data = templ.substitute({'mask': net_mask, 'vip': virtual_ip, 'interface': interface})
+    return data
+
+
+def route_definitions_xml(routes, old_routes=None):
+    """Generate xml for Add Bindings request
+
+    :param routes: XML formatted data containing RouteDefinitions
+    :type routes: str
+    :param old_routes: Routes add to request that needs to persist
+    :type old_routes: str
+    :returns: String containing xml data for request
+
+    """
+    if old_routes and "</sxp-cluster-route>" in old_routes:
+        templ = Template(old_routes.replace("</sxp-cluster-route>", "$routes</sxp-cluster-route>"))
+    else:
+        templ = Template('''<sxp-cluster-route xmlns="urn:opendaylight:sxp:cluster:route">
+    $routes
+</sxp-cluster-route>
+    ''')
+    data = templ.substitute({'routes': routes})
+    return data
