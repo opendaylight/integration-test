@@ -15,12 +15,14 @@ ${SAMPLES}        1
 *** Test Cases ***
 Isolation of RCP service Test
     [Documentation]    Test SXP RPC functionality only if Controller with SCS is isolated
+    Check Shards Status
     : FOR    ${i}    IN RANGE    0    ${SAMPLES}
     \    ${controller_index}    Get Active Controller
     \    Isolate SXP Controller    ${controller_index}
 
 Isolation of RPC noservice Test
     [Documentation]    Test SXP RPC functionality only if Controller without SCS are isolated
+    Check Shards Status
     : FOR    ${i}    IN RANGE    0    ${SAMPLES}
     \    ${controller_index}    Get Inactive Controller
     \    Isolate SXP Controller    ${controller_index}
