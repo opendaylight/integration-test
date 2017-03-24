@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_a40f9687",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:46:44Z",
+      "side": 1,
+      "message": "Add TCP dumping to basic_vpnservice suite",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "fa8439af51fab91b42a8efac3d41855cb89dbaf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_24a8c676",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:46:44Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Examples",
+      "range": {
+        "startLine": 12,
+        "startChar": 14,
+        "endLine": 12,
+        "endChar": 16
+      },
+      "revId": "fa8439af51fab91b42a8efac3d41855cb89dbaf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_44498acf",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:46:44Z",
+      "side": 1,
+      "message": "On\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Capitalization",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 23
+      },
+      "revId": "fa8439af51fab91b42a8efac3d41855cb89dbaf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_043f8226",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:46:44Z",
+      "side": 1,
+      "message": "Hint at how this differ from Start_Tcpdumping.",
+      "range": {
+        "startLine": 43,
+        "startChar": 71,
+        "endLine": 43,
+        "endChar": 72
+      },
+      "revId": "fa8439af51fab91b42a8efac3d41855cb89dbaf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e4f23e9a",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:46:44Z",
+      "side": 1,
+      "message": "Where is this done?",
+      "range": {
+        "startLine": 49,
+        "startChar": 59,
+        "endLine": 49,
+        "endChar": 67
+      },
+      "revId": "fa8439af51fab91b42a8efac3d41855cb89dbaf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
