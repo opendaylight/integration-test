@@ -24,16 +24,16 @@ ${SSHKeywords__current_venv_path}    /tmp/defaultvenv
 
 *** Keywords ***
 Open_Connection_To_ODL_System
-    [Arguments]    ${ip_address}=${ODL_SYSTEM_IP}
+    [Arguments]    ${ip_address}=${ODL_SYSTEM_IP}    ${timeout}=10s
     [Documentation]    Open a connection to the ODL system at ${ip_address} and return its identifier.
-    ${odl_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
+    ${odl_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${ODL_SYSTEM_PROMPT}    timeout=${timeout}
     Utils.Flexible_Controller_Login
     [Return]    ${odl_connection}
 
 Open_Connection_To_Tools_System
-    [Arguments]    ${ip_address}=${TOOLS_SYSTEM_IP}
+    [Arguments]    ${ip_address}=${TOOLS_SYSTEM_IP}    ${timeout}=10s
     [Documentation]    Open a connection to the tools system at ${ip_address} and return its identifier.
-    ${tools_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${TOOLS_SYSTEM_PROMPT}
+    ${tools_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${timeout}
     Utils.Flexible_Mininet_Login
     [Return]    ${tools_connection}
 
