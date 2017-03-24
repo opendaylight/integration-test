@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_11db43ee",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T17:38:40Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Soft_timeouts",
+      "range": {
+        "startLine": 217,
+        "startChar": 68,
+        "endLine": 217,
+        "endChar": 70
+      },
+      "revId": "8b655340e9e566619652ca3102df78c158f1d306",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f1d5dfb7",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T17:38:40Z",
+      "side": 1,
+      "message": "SSHKeywords.robot seem to be a better place to host this.\n\nIf you move it there consider creating a version which uses currently active SSH session. And wrap this SSH-opening keyword to call that, and restore the previously active connection.",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 26
+      },
+      "revId": "8b655340e9e566619652ca3102df78c158f1d306",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_91ee138a",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T17:38:40Z",
+      "side": 1,
+      "message": "Add a TODO to investigate the possibility to incorporate this into TemplatedRequests.",
+      "range": {
+        "startLine": 4,
+        "startChar": 108,
+        "endLine": 4,
+        "endChar": 109
+      },
+      "revId": "8b655340e9e566619652ca3102df78c158f1d306",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
