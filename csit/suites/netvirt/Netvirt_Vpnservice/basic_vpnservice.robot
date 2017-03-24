@@ -41,6 +41,9 @@ ${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
 ${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
 ${MAC_REGEX}      (([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2}))
 ${IP_REGEX}       (([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])
+${UPDATE_NETWORK}    UpdateNetwork
+${UPDATE_SUBNET}    UpdateSubnet
+${UPDATE_PORT}    UpdatePort
 
 *** Test Cases ***
 Create Neutron Networks
@@ -52,6 +55,9 @@ Create Neutron Networks
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
     Should Contain    ${NET_LIST}    ${NETWORKS[1]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/networks/    ${NETWORKS}
+    Update Network    ${NETWORKS[0]}    additional_args=--description ${UPDATE_NETWORK}
+    ${output} =    Show Network    ${NETWORKS[0]}
+    Should Contain    ${output}    ${UPDATE_NETWORK}
 
 Create Neutron Subnets
     [Documentation]    Create two subnets for previously created networks
@@ -62,6 +68,9 @@ Create Neutron Subnets
     Should Contain    ${SUB_LIST}    ${SUBNETS[0]}
     Should Contain    ${SUB_LIST}    ${SUBNETS[1]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/subnets/    ${SUBNETS}
+    Update SubNet    ${SUBNETS[0]}    additional_args=--description ${UPDATE_SUBNET}
+    ${output} =    Show SubNet    ${SUBNETS[0]}
+    Should Contain    ${output}    ${UPDATE_SUBNET}
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -81,6 +90,11 @@ Create Neutron Ports
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORT_LIST}
+    ${PORTS_MACADDR} =    Get Ports MacAddr    ${PORT_LIST}
+    Set Suite Variable    ${PORTS_MACADDR}
+    Update Port    ${PORT_LIST[0]}    additional_args=--description ${UPDATE_PORT}
+    ${output} =    Show Port    ${PORT_LIST[0]}
+    Should Contain    ${output}    ${UPDATE_PORT}
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute node with port
@@ -150,8 +164,8 @@ Check L3_Datapath Traffic Across Networks With Router
     Log    Verification of FIB Entries and Flow
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
     Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET20}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
     #Verify GWMAC Table
     Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
     Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
@@ -159,7 +173,7 @@ Check L3_Datapath Traffic Across Networks With Router
     Log    L3 Datapath test across the networks using router
     ${dst_ip_list} =    Create List    ${VM_IP_NET10[1]}    @{VM_IP_NET20}
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[1]}    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ${dst_ip_list}
     ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
@@ -248,6 +262,24 @@ Verify L3VPN Datapath With Router Association
     ${dst_ip_list} =    Create List    @{VM_IP_NET20}[1]    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    @{VM_IP_NET20}[0]    ${dst_ip_list}
+
+Verify FLOWTABLE Packet Count for inter and intra network
+    [Documentation]    Verify packet count before and after ping for L2 and L3 Datapath validation.
+    # Verify FIB and Flow TABLE
+    ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
+    ${n_Elan_Pkts_1}    ${n_vpn_Pkts_1}    Get PacketCount from Flow Table    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10[1]}    ${PORTS_MACADDR_CN2[0]}
+    Log    Datapath test within same network
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ping -c 3 ${VM_IP_NET10[1]}
+    Should Contain    ${output}    64 bytes
+    ${n_Elan_Pkts_2}    ${n_vpn_Pkts_2}    Get PacketCount from Flow Table    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10[1]}    ${PORTS_MACADDR[1]}
+    Should Be True    ${n_Elan_Pkts_1} < ${n_Elan_Pkts_2}
+    Should Be True    ${n_vpn_Pkts_1} == ${n_vpn_Pkts_2}
+    Log    Datapath test with different network
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[0]}    ping -c 3 ${VM_IP_NET10[1]}
+    Should Contain    ${output}    64 bytes
+    ${n_Elan_Pkts_3}    ${n_vpn_Pkts_3}    Get PacketCount from Flow Table    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10[1]}    ${PORTS_MACADDR[1]}
+    Should Be True    ${n_vpn_Pkts_3} > ${n_vpn_Pkts_2}
 
 Dissociate L3VPN From Routers
     [Documentation]    Dissociating router from L3VPN
@@ -482,3 +514,29 @@ Verify GWMAC Flow Entry Removed From Flow Table
     #Verify GWMAC address present in table 19
     : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
     \    Should Not Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+
+Get PacketCount from Flow Table
+    [Arguments]    ${cnIp}    ${dest_ip}    ${dest_mac}
+    [Documentation]    Get the packet count from given table using the destination nw_dst=ip or dl_dst=mac
+    ${ELAN_REGEX} =    Set Variable    table=${ELAN_DMACTABLE}, n_packets=\\d+,\\s.*,dl_dst=${dest_mac}
+    ${L3VPN_REGEX} =    Set Variable    table=${L3_TABLE}, n_packets=\\d+,\\s.*,nw_dst=${dest_ip}
+    ${PACKET_COUNT_REGEX} =    Set Variable    n_packets=\\d+
+    ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${flow_output}
+    ${flowEntry} =    Get Regexp Matches    ${flowOutput}    ${ELAN_REGEX}
+    Log    ${flowEntry}
+    ${match} =    Get Regexp Matches    ${flowEntry[0]}    ${PACKET_COUNT_REGEX}
+    Log    ${match}
+    ${n_packets} =    Split String    ${match[0]}    separator==
+    ${n_packets_ELAN} =    Get from List    ${n_packets}    1
+    ${n_packets_ELAN} =    Convert To Integer    ${n_packets_ELAN}
+    Log    ${n_packets_ELAN}
+    ${flowEntry} =    Get Regexp Matches    ${flowOutput}    ${L3VPN_REGEX}
+    Log    ${flowEntry}
+    ${match} =    Get Regexp Matches    ${flowEntry[0]}    ${PACKET_COUNT_REGEX}
+    Log    ${match}
+    ${n_packets} =    Split String    ${match[0]}    separator==
+    ${n_packets_L3VPN}=    Get from List    ${n_packets}    1
+    ${n_packets_L3VPN} =    Convert To Integer    ${n_packets_L3VPN}
+    Log    ${n_packets_L3VPN}
+    [Return]    ${n_packets_ELAN}    ${n_packets_L3VPN}
