@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_d976073f",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 46
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "Add description.",
+      "range": {
+        "startLine": 1129,
+        "startChar": 21,
+        "endLine": 1129,
+        "endChar": 22
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_8426d2b8",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "Do you have a specific reason for using caps here?\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Variable_naming",
+      "range": {
+        "startLine": 95,
+        "startChar": 6,
+        "endLine": 95,
+        "endChar": 11
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e434fee0",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "Do.",
+      "range": {
+        "startLine": 149,
+        "startChar": 23,
+        "endLine": 149,
+        "endChar": 27
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4434eadd",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "Do.",
+      "range": {
+        "startLine": 167,
+        "startChar": 23,
+        "endLine": 167,
+        "endChar": 27
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_24fe06af",
+        "filename": "csit/suites/sxp/cluster-routing/010_Route_Switching.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "${virtual_ip} as this value varies between calls.",
+      "range": {
+        "startLine": 58,
+        "startChar": 19,
+        "endLine": 58,
+        "endChar": 32
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_84825250",
+        "filename": "csit/suites/sxp/cluster-routing/010_Route_Switching.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "This clean up one random member only. Why not cleaning up all members?",
+      "range": {
+        "startLine": 75,
+        "startChar": 59,
+        "endLine": 75,
+        "endChar": 70
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_04e78213",
+        "filename": "csit/suites/sxp/cluster-routing/010_Route_Switching.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "Caps are OK here, as the value never changes after setup.",
+      "range": {
+        "startLine": 81,
+        "startChar": 26,
+        "endLine": 81,
+        "endChar": 46
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_04ddc270",
+        "filename": "csit/suites/sxp/cluster-routing/010_Route_Switching.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "and un-isolate in line 108?",
+      "range": {
+        "startLine": 100,
+        "startChar": 118,
+        "endLine": 100,
+        "endChar": 119
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_24c3a658",
+        "filename": "csit/suites/sxp/cluster-routing/020_Sxp_Node_Switching.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "Documen how this differs from the previous test case.",
+      "range": {
+        "startLine": 37,
+        "startChar": 90,
+        "endLine": 37,
+        "endChar": 91
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c4abba87",
+        "filename": "csit/suites/sxp/cluster-routing/020_Sxp_Node_Switching.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "Does line 84 work with this value?",
+      "range": {
+        "startLine": 81,
+        "startChar": 41,
+        "endLine": 81,
+        "endChar": 49
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2471e644",
+        "filename": "csit/suites/sxp/cluster-routing/020_Sxp_Node_Switching.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "Make this configurable perhaps?",
+      "range": {
+        "startLine": 83,
+        "startChar": 38,
+        "endLine": 83,
+        "endChar": 40
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_449fca5f",
+        "filename": "csit/suites/sxp/cluster-routing/020_Sxp_Node_Switching.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "then revert isolation (and check connection again).",
+      "range": {
+        "startLine": 88,
+        "startChar": 100,
+        "endLine": 88,
+        "endChar": 129
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_84889223",
+        "filename": "csit/suites/sxp/cluster-routing/020_Sxp_Node_Switching.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T11:28:17Z",
+      "side": 1,
+      "message": "See comment for line 88.",
+      "range": {
+        "startLine": 106,
+        "startChar": 127,
+        "endLine": 106,
+        "endChar": 128
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
