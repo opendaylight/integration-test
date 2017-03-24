@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_546c999c",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-24T20:04:03Z",
+      "side": 1,
+      "message": "I piggybacked this request on this patch:\nhttps://git.opendaylight.org/gerrit/#/c/53812/\n\nI did it there because I didn\u0027t want a refactor from this\ncomment to affect that work which uses this Copy File \nkeyword. Now, I realized that doing it that way means\nthe tls suite merged in this patch would need a refactor.\n\nso, I put a patch for that:\nhttps://git.opendaylight.org/gerrit/#/c/53813/\n\nso once 53812 is merged we will merge 53813\n\nHowever, this does not address Vratko\u0027s comments about\nmaking a better version which wraps the ssh-opening keyword.\nif that is desired we can put another refactor patch\nlater.",
+      "parentUuid": "fafc7978_f1d5dfb7",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 26
+      },
+      "revId": "8b655340e9e566619652ca3102df78c158f1d306",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_91ee138a",
         "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
         "patchSetId": 15
