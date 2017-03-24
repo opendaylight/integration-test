@@ -449,6 +449,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_5f50370a",
+        "filename": "csit/suites/sxp/cluster-routing/020_Sxp_Node_Switching.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-03-24T12:33:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_2453a63a",
+      "range": {
+        "startLine": 37,
+        "startChar": 90,
+        "endLine": 37,
+        "endChar": 91
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_c4abba87",
         "filename": "csit/suites/sxp/cluster-routing/020_Sxp_Node_Switching.robot",
         "patchSetId": 46
@@ -555,6 +579,30 @@
       "side": 1,
       "message": "I was thinking about Variable table, so it can be accessed here and in line 137.",
       "parentUuid": "fafc7978_2449e6b7",
+      "range": {
+        "startLine": 83,
+        "startChar": 38,
+        "endLine": 83,
+        "endChar": 40
+      },
+      "revId": "26c5d56fea4c3d4d3c28fc0a8ce296b511ad79b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_df3b87c6",
+        "filename": "csit/suites/sxp/cluster-routing/020_Sxp_Node_Switching.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-03-24T12:33:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_641bee80",
       "range": {
         "startLine": 83,
         "startChar": 38,
