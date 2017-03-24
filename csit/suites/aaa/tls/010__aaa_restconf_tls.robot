@@ -12,6 +12,7 @@ Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/SSHKeywordsKeywords.robot
 
 *** Variables ***
 ${RESTCONF_MONITORING_URI}    /restconf/operational/ietf-restconf-monitoring:restconf-state
