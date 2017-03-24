@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_0713015d",
+        "filename": "csit/libraries/BierResource.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-24T22:58:33Z",
+      "side": 1,
+      "message": "this library needs a top [Documentation] block too.\n\nit needs to give the reader a good idea of the purpose of\nthis library.",
+      "revId": "9027ff347e6dbf1c38af4316701548811fddaa9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_471d0966",
+        "filename": "csit/libraries/BierResource.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-24T22:58:33Z",
+      "side": 1,
+      "message": "to stay with normal code style can you convert to\ncapitalization for each word in a keyword.\n\nso To Json here. It was done above, but not really below.",
+      "range": {
+        "startLine": 78,
+        "startChar": 15,
+        "endLine": 78,
+        "endChar": 22
+      },
+      "revId": "9027ff347e6dbf1c38af4316701548811fddaa9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2718c574",
+        "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-24T22:58:33Z",
+      "side": 1,
+      "message": "top level documentation please",
+      "revId": "9027ff347e6dbf1c38af4316701548811fddaa9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_073ae1cc",
+        "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-24T22:58:33Z",
+      "side": 1,
+      "message": "also in this file if you can keep consitent with the \nCapitalization Of Keywords",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 22
+      },
+      "revId": "9027ff347e6dbf1c38af4316701548811fddaa9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
