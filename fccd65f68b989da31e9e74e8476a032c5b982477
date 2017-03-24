@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_7f2c1b4b",
+        "filename": "csit/suites/sxp/cluster-routing/010_Route_Switching.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T13:01:27Z",
+      "side": 1,
+      "message": "This is implemented just like a Restconf call, but it makes changes to network configuration of Linux (or Docker, I suppose) box active controller runs on?",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 35
+      },
+      "revId": "fccd65f68b989da31e9e74e8476a032c5b982477",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5fa4b7b8",
+        "filename": "csit/suites/sxp/cluster-routing/010_Route_Switching.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-24T13:01:27Z",
+      "side": 1,
+      "message": "And this verifies the previously inactive IP address now routes to controller_index (randomly chosen at line 24), presumably via a new interface, like \"eth0:0\"?\n\nCan I assume controller_index can send replies appearing to come from that virtual IP?\n\nMy concern is that the cloud provider creating ODL VMs is not notified about new IP addresses being used, and it can deploy VMs (for other jobs) thus creating an IP conflict, which would be hard to debug.\n\nEither consult releng/builder if there is IP range that is safe to use (and how to register and unregister IPs to use in this test); or setup a private network (for example single docker VM with 3 conainers for ODL) so that nobody can create conflict there. Either way, document carefully risks and limitations in suite Documentation.",
+      "range": {
+        "startLine": 30,
+        "startChar": 57,
+        "endLine": 30,
+        "endChar": 73
+      },
+      "revId": "fccd65f68b989da31e9e74e8476a032c5b982477",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
