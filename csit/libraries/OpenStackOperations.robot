@@ -38,6 +38,26 @@ Create Network
     Log    ${output}
     [Return]    ${output}
 
+Update Network
+    [Arguments]    ${network_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Update Network with neutron request.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v net-update ${network_name} ${additional_args}    30s
+    Log    ${output}
+    Close Connection
+    [Return]    ${output}
+
+Show Network
+    [Arguments]    ${network_name}
+    [Documentation]    Show Network with neutron request.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v net-show ${network_name}    30s
+    Log    ${output}
+    Close Connection
+    [Return]    ${output}
+
 List Networks
     [Documentation]    List networks and return output with neutron client.
     ${devstack_conn_id}=    Get ControlNode Connection
@@ -76,6 +96,26 @@ Create SubNet
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
 
+Update SubNet
+    [Arguments]    ${subnet_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Update subnet with neutron request.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-update ${subnet_name} ${additional_args}    30s
+    Log    ${output}
+    Close Connection
+    [Return]    ${output}
+
+Show SubNet
+    [Arguments]    ${subnet_name}
+    [Documentation]    Show subnet with neutron request.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-show ${subnet_name}    30s
+    Log    ${output}
+    Close Connection
+    [Return]    ${output}
+
 Create Port
     [Arguments]    ${network_name}    ${port_name}    ${sg}=default    ${additional_args}=${EMPTY}
     [Documentation]    Create Port with neutron request.
@@ -85,6 +125,26 @@ Create Port
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new port
+
+Update Port
+    [Arguments]    ${port_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Update port with neutron request.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v port-update ${port_name} ${additional_args}    30s
+    Log    ${output}
+    Close Connection
+    [Return]    ${output}
+
+Show Port
+    [Arguments]    ${port_name}
+    [Documentation]    Show port with neutron request.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v port-show ${port_name}    30s
+    Log    ${output}
+    Close Connection
+    [Return]    ${output}
 
 Delete Port
     [Arguments]    ${port_name}

@@ -42,6 +42,9 @@ ${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
 ${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
 ${MAC_REGEX}      (([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2}))
 ${IP_REGEX}       (([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])
+${UPDATE_NETWORK}    UpdateNetwork
+${UPDATE_SUBNET}    UpdateSubnet
+${UPDATE_PORT}    UpdatePort
 
 *** Test Cases ***
 Create Neutron Networks
@@ -53,6 +56,9 @@ Create Neutron Networks
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
     Should Contain    ${NET_LIST}    ${NETWORKS[1]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/networks/    ${NETWORKS}
+    Update Network    ${NETWORKS[0]}    additional_args=--description ${UPDATE_NETWORK}
+    ${output} =    Show Network    ${NETWORKS[0]}
+    Should Contain    ${output}    ${UPDATE_NETWORK}
 
 Create Neutron Subnets
     [Documentation]    Create two subnets for previously created networks
@@ -63,6 +69,9 @@ Create Neutron Subnets
     Should Contain    ${SUB_LIST}    ${SUBNETS[0]}
     Should Contain    ${SUB_LIST}    ${SUBNETS[1]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/subnets/    ${SUBNETS}
+    Update SubNet    ${SUBNETS[0]}    additional_args=--description ${UPDATE_SUBNET}
+    ${output} =    Show SubNet    ${SUBNETS[0]}
+    Should Contain    ${output}    ${UPDATE_SUBNET}
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -82,6 +91,11 @@ Create Neutron Ports
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORT_LIST}
+    ${PORTS_MACADDR} =    Get Ports MacAddr    ${PORT_LIST}
+    Set Suite Variable    ${PORTS_MACADDR}
+    Update Port    ${PORT_LIST[0]}    additional_args=--description ${UPDATE_PORT}
+    ${output} =    Show Port    ${PORT_LIST[0]}
+    Should Contain    ${output}    ${UPDATE_PORT}
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute node with port
@@ -154,8 +168,8 @@ Check L3_Datapath Traffic Across Networks With Router
     ${os_conn_id} =    Start Packet Capture on Node    ${OS_CONTROL_NODE_IP}    file_Name=tcpDumpOS
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
     Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET20}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
     #Verify GWMAC Table
     Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
     Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
@@ -163,7 +177,7 @@ Check L3_Datapath Traffic Across Networks With Router
     Log    L3 Datapath test across the networks using router
     ${dst_ip_list} =    Create List    ${VM_IP_NET10[1]}    @{VM_IP_NET20}
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[1]}    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ${dst_ip_list}
     ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
