@@ -190,3 +190,12 @@ Virtual_Env_Deactivate_On_Current_Session
     SSHLibrary.Write    deactivate
     ${output}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Run_Keyword_If    ${log_output}==${True}    BuiltIn.Log    ${output}
+
+Copy File To Remote System
+    [Arguments]    ${system}    ${source}    ${destination}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${TOOLS_SYSTEM_PROMPT}
+    ...    ${prompt_timeout}=5s
+    [Documentation]    Simplifies copy file operations to remote system
+    ${conn_id}=    Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Flexible SSH Login    ${user}    ${password}
+    SSHLibrary.Put File    ${source}    ${destination}
+    Close Connection

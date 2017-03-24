@@ -14,7 +14,9 @@ Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${exclusion_regex}    'metering|test_l3_agent_scheduler.L3AgentSchedulerTestJSON|test_extensions.ExtensionsTestJSON.test_list_show_extensions|test_routers_dvr.RoutersTestDVR.test_centralized_router_update_to_dvr'
+${blacklist_file}    /tmp/blacklist.txt
+@{stable/mitaka_exclusion_regexes}    test_routers_negative.RoutersNegativeIpV6Test.test_router_set_gateway_used_ip_returns_409    test_routers_negative.RoutersNegativeTest.test_router_set_gateway_used_ip_returns_409
+@{stable/newton_exclusion_regexes}    ${EMPTY}
 ${tempest_config_file}    /opt/stack/tempest/etc/tempest.conf
 ${external_net_name}    external-net
 ${external_subnet_name}    external-subnet
@@ -24,61 +26,63 @@ ${network_vlan_id}    167
 
 *** Test Cases ***
 tempest.api.network
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_hotplug_nic
     [Tags]    skip_if_stable/mitaka
     # Failing due to default security rules behavior missing in Mitaka
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_mtu_sized_frames
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_preserve_preexisting_port
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_router_rescheduling
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_subnet_details
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_aggregates_basic_ops.TestAggregatesBasicOps.test_aggregate_basic_ops
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_pause_unpause
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_stop_start
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_reboot
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_rebuild
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_suspend_resume
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_server_basic_ops.TestServerBasicOps.test_server_basic_ops
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_port_security_macspoofing_port
     [Tags]    skip_if_transparent    skip_if_stable/mitaka
     # Failing due to default security rules behavior missing in Mitaka, and also in all transparent runs
-    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 *** Keywords ***
 Log In To Tempest Executor And Setup Test Environment
     [Documentation]    Initialize SetupUtils, open SSH connection to a devstack system and source the openstack
-    ...    credentials needed to run the tempest tests
+    ...    credentials needed to run the tempest tests. The (sometimes empty) tempest blacklist file will be created
+    ...    and pushed to the tempest executor.
+    Create Blacklist File
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     # source_pwd is expected to exist in the below Create Network, Create Subnet keywords.    Might be a bug.
     ${source_pwd}    Set Variable    yes
@@ -116,3 +120,13 @@ Clean Up After Running Tempest
     Delete Network    ${external_net_name}
     List Networks
     Close All Connections
+
+Create Blacklist File
+    [Documentation]    For each exclusion regex in the required @{${OPENSTACK_BRANCH}_exclusion_regexes} list a new
+    ...    line will be created in the required ${blacklist_file} location. This file is pushed to the OS_CONTROL_NODE
+    ...    which is assumed to be the tempest executor.
+    Create File    ${blacklist_file}
+    : FOR    ${exclusion}    IN    @{${OPENSTACK_BRANCH}_exclusion_regexes}
+    \    Append To File    ${blacklist_file}    ${exclusion}\n
+    Log File    ${blacklist_file}
+    SSHKeywords.Copy File To Remote System    ${OS_CONTROL_NODE_IP}    ${blacklist_file}    ${blacklist_file}
