@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_aae0fcfa",
+        "filename": "csit/libraries/BierResource.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-03-25T08:34:11Z",
+      "side": 1,
+      "message": "Thank you for the reminding and I have added that.",
+      "parentUuid": "fafc7978_0713015d",
+      "revId": "9027ff347e6dbf1c38af4316701548811fddaa9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_471d0966",
         "filename": "csit/libraries/BierResource.robot",
         "patchSetId": 6
@@ -30,6 +48,30 @@
       "writtenOn": "2017-03-24T22:58:33Z",
       "side": 1,
       "message": "to stay with normal code style can you convert to\ncapitalization for each word in a keyword.\n\nso To Json here. It was done above, but not really below.",
+      "range": {
+        "startLine": 78,
+        "startChar": 15,
+        "endLine": 78,
+        "endChar": 22
+      },
+      "revId": "9027ff347e6dbf1c38af4316701548811fddaa9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4af190cc",
+        "filename": "csit/libraries/BierResource.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-03-25T08:34:11Z",
+      "side": 1,
+      "message": "I have converted to capital stype.",
+      "parentUuid": "fafc7978_471d0966",
       "range": {
         "startLine": 78,
         "startChar": 15,
