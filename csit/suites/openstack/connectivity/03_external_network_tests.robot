@@ -64,12 +64,12 @@ Check Vm Instances Have Ip Address
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
     \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
-    Append To List    ${FLOATING_VM_IPS}    @{FLOATING_DHCP_IP}[0]
     Set Suite Variable    ${FLOATING_VM_IPS}
-    Append To List    ${SNAT_VM_IPS}    @{SNAT_DHCP_IP}[0]
     Set Suite Variable    ${SNAT_VM_IPS}
     Should Not Contain    ${FLOATING_VM_IPS}    None
     Should Not Contain    ${SNAT_VM_IPS}    None
+    Should Not Contain    @{FLOATING_DHCP_IP}[0]    None
+    Should Not Contain    @{SNAT_DHCP_IP}[0]    None
     [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES_FLOATING}    ${VM_INSTANCES_SNAT}
     ...    AND    Get Test Teardown Debugs
 
