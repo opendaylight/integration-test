@@ -28,7 +28,6 @@ ${external_subnet_allocation_pool}    start=10.10.10.2,end=10.10.10.249
 ${external_internet_addr}    10.9.9.9
 ${external_net_name}    external-net
 ${external_subnet_name}    external-subnet
-${network1_vlan_id}    167
 
 *** Test Cases ***
 Create All Controller Sessions
@@ -79,7 +78,7 @@ Check Vm Instances Have Ip Address
     ...    AND    Get Test Teardown Debugs
 
 Create External Network And Subnet
-    Create Network    ${external_net_name} --router:external --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    Create Network    ${external_net_name} --router:external --provider:network_type=flat --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK}
     Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway} --allocation-pool ${external_subnet_allocation_pool}
 
 Create Router
