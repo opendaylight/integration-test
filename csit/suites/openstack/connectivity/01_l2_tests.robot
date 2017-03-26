@@ -68,20 +68,20 @@ Check Vm Instances Have Ip Address
     ...    true    @{NET_1_VM_INSTANCES}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
     ...    true    @{NET_2_VM_INSTANCES}
-    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
     ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
+    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
     ${VM_INSTANCES}=    Collections.Combine Lists    ${NET_1_VM_INSTANCES}    ${NET_2_VM_INSTANCES}
     ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
     \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
-    Append To List    ${NET1_VM_IPS}    @{NET1_DHCP_IP}[0]
     Set Suite Variable    ${NET1_VM_IPS}
-    Append To List    ${NET2_VM_IPS}    @{NET2_DHCP_IP}[0]
     Set Suite Variable    ${NET2_VM_IPS}
     Should Not Contain    ${NET1_VM_IPS}    None
     Should Not Contain    ${NET2_VM_IPS}    None
+    Should Not Contain    ${NET1_DHCP_IP}    None
+    Should Not Contain    ${NET2_DHCP_IP}    None
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get Test Teardown Debugs
 
