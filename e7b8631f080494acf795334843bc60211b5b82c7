@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_1b207c48",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-03-26T17:13:31Z",
+      "side": 1,
+      "message": "Maybe black-regex also works if you upgrade?\nNot really important in any case",
+      "revId": "e7b8631f080494acf795334843bc60211b5b82c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
