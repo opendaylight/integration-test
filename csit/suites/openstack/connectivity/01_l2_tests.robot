@@ -22,11 +22,11 @@ Resource          ../../../libraries/Utils.robot
 ${network1_vlan_id}    1235
 
 *** Test Cases ***
-Create VLAN Network @{NETWORKS_NAME}[0]
+Create VLAN Network (l2_network_1)
     [Documentation]    Create Network with neutron request.
     Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
 
-Create VXLAN Network @{NETWORKS_NAME}[1]
+Create VXLAN Network (l2_network_2)
     [Documentation]    Create Network with neutron request.
     Create Network    @{NETWORKS_NAME}[1]
 
