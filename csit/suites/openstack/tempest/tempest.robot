@@ -26,7 +26,6 @@ ${external_subnet_name}    external-subnet
 ${external_gateway}    10.10.10.250
 ${external_subnet_allocation_pool}    start=10.10.10.2,end=10.10.10.249
 ${external_subnet}    10.10.10.0/24
-${network_vlan_id}    167
 
 *** Test Cases ***
 tempest.api.network
@@ -92,11 +91,7 @@ Log In To Tempest Executor And Setup Test Environment
     ${source_pwd}    Set Variable    yes
     Set Suite Variable    ${source_pwd}
     # Tempest tests need an existing external network in order to create routers.
-    : FOR    ${feature_name}    IN    @{legacy_feature_list}
-    \    ${feature_check_status}=    Run Keyword And Return Status    Verify Feature Is Installed    ${feature_name}
-    \    Exit For Loop If    '${feature_check_status}' == 'True'
-    Run Keyword If    '${feature_check_status}' == 'True'    Create Network    ${external_net_name}    --router:external --provider:network_type=flat --provider:physical_network=${external_physical_network}
-    ...    ELSE    Create Network    ${external_net_name}    --router:external --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network_vlan_id}
+    Create Network    ${external_net_name}    --router:external --provider:network_type=flat --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK}
     Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway} --allocation-pool ${external_subnet_allocation_pool}
     List Networks
     ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
