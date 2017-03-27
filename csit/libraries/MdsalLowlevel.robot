@@ -20,19 +20,20 @@ ${RPC_DIR}        ${CURDIR}/../variables/mdsal/lowlevelrpc
 ${ADD_SHARD_REPLICA_DIR}    ${RPC_DIR}/add_shard_replica
 ${BECOME_MODULE_LEADER_DIR}    ${RPC_DIR}/become_module_leader
 ${BECOME_PREFIX_LEADER_DIR}    ${RPC_DIR}/become_prefix_leader
+${CHECK_PUBLISH_NOTIFICATIONS_DIR}    ${RPC_DIR}/check_publish_notifications
 ${DECONFIGURE_ID_INTS_SHARD_DIR}    ${RPC_DIR}/deconfigure_id_ints_shard
 ${GET_CONSTANT_DIR}    ${RPC_DIR}/get_constant
 ${GET_CONTEXTED_CONSTANT_DIR}    ${RPC_DIR}/get_contexted_constant
 ${GET_SINGLETON_CONSTANT_DIR}    ${RPC_DIR}/get_singleton_constant
 ${IS_CLIENT_ABORTED_DIR}    ${RPC_DIR}/is_client_aborted
 ${PRODUCE_TRANSACTIONS_DIR}    ${RPC_DIR}/produce_transactions
-${PUBLISH_NOTIFICATIONS_DIR}    ${RPC_DIR}/publish_notifications
 ${REGISTER_BOUND_CONSTANT_DIR}    ${RPC_DIR}/register_bound_constant
 ${REGISTER_CONSTANT_DIR}    ${RPC_DIR}/register_constant
 ${REGISTER_DEFAULT_CONSTANT_DIR}    ${RPC_DIR}/register_default_constant
 ${REGISTER_FLAPPING_SINGLETON_DIR}    ${RPC_DIR}/register_flapping_singleton
 ${REGISTER_SINGLETON_CONSTANT_DIR}    ${RPC_DIR}/register_singleton_constant
 ${REMOVE_SHARD_REPLICA_DIR}    ${RPC_DIR}/remove_shard_replica
+${START_PUBLISH_NOTIFICATIONS_DIR}    ${RPC_DIR}/start_publish_notifications
 ${SUBSCRIBE_DDTL_DIR}    ${RPC_DIR}/subscribe_ddtl
 ${SUBSCRIBE_DTCL_DIR}    ${RPC_DIR}/subscribe_dtcl
 ${SUBSCRIBE_YNL_DIR}    ${RPC_DIR}/subscribe_ynl
@@ -204,13 +205,29 @@ Unsubscribe_Ddtl
     ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNSUBSCRIBE_DDTL_DIR}    base_name=location    extension=uri
     ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
 
-Publish_Notifications
+Start_Publish_Notifications
     [Arguments]    ${member_index}    ${gid}    ${seconds}    ${notif_per_sec}
+    [Documentation]    Start publishing notifications by invoking publish-notifications rpc.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    &{mapping}    BuiltIn.Create_Dictionary    ID=${gid}    DURATION=${seconds}    RATE=${notif_per_sec}
+    TemplatedRequests.Post_As_Xml_Templated    ${START_PUBLISH_NOTIFICATIONS_DIR}    mapping=${mapping}    session=${session}
+
+Check_Publish_Notifications
+    [Arguments]    ${member_index}    ${gid}
     [Documentation]    Start publishing notifications by invoking publish-notifications rpc. This call is blocking
     ...    and it returns when publishing is over. It suppose to take as long as ${seconds}.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    ID=${gid}    DURATION=${seconds}    RATE=${notif_per_sec}
-    TemplatedRequests.Post_As_Xml_Templated    ${PUBLISH_NOTIFICATIONS_DIR}    mapping=${mapping}    session=${session}
+    &{mapping}    BuiltIn.Create_Dictionary    ID=${gid}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${CHECK_PUBLISH_NOTIFICATIONS_DIR}    mapping=${mapping}    session=${session}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${active} =    XML.Get_Element_Text    ${xml}    xpath=active
+    ${status}    ${publish_count}=    BuiltIn.Run_Keyword_And_Ignore_Error    XML.Get_Element_Text    ${xml}    xpath=publish-count
+    BuiltIn.Run_Keyword_If    """${status}""" == """FAIL""" and """${publish_count}""" != """No element matching 'publish-count' found."""    BuiltIn.Fail    ${publish_count}
+    ${publish_count}    BuiltIn.Set_Variable_If    """${status}""" == """FAIL"""     ${EMPTY}    ${publish_count}
+    ${status}    ${last_error}=    BuiltIn.Run_Keyword_And_Ignore_Error    XML.Get_Element_Text    ${xml}    xpath=last-error
+    BuiltIn.Run_Keyword_If    """${status}""" == """FAIL""" and """${last_error}""" != """No element matching 'last-error' found."""    BuiltIn.Fail    ${last_error}
+    ${last_error}    BuiltIn.Set_Variable_If    """${status}""" == """FAIL"""     ${EMPTY}    ${last_error}
+    BuiltIn.Return_From_Keyword    ${active}    ${publish_count}    ${last_error}
 
 Subscribe_Ynl
     [Arguments]    ${member_index}    ${gid}
