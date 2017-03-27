@@ -2,6 +2,7 @@
 Documentation     Test suite for Securing RESTCONF communication.
 ...               Note this suite requires PycURLLibrary to handle client certificates. While Requests library is able
 ...               to handle server certificates well, it lacks capabilities to deal with client certificates.
+...               TODO: Investigate the possibility to incorporate this into TemplatedRequests
 Suite Setup       Init Suite
 Suite Teardown    Cleanup Suite
 Library           OperatingSystem
