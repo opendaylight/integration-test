@@ -27,7 +27,8 @@ Dom_Notification_Broker_Test_Templ
     \    ${count} =    BuiltIn.Evaluate    ${count}+1
     \    MdsalLowlevel.Subscribe_Ynl    ${DNB_TESTED_MEMBER_INDEX}    ${DNB_PUBLISHER_LISTENER_PREFIX}${count}
     ${count} =    BuiltIn.Convert_To_Integer    ${count}
-    MdsalLowlevelPy.Publish_Notifications    ${ODL_SYSTEM_${DNB_TESTED_MEMBER_INDEX}_IP}    ${DNB_PUBLISHER_LISTENER_PREFIX}    ${test_duration_in_seconds}    ${DNB_PUBLISHER_SUBSCRIBER_PAIR_RATE}    nrpairs=${count}
+    MdsalLowlevelPy.Start_Publish_Notifications    ${ODL_SYSTEM_${DNB_TESTED_MEMBER_INDEX}_IP}    ${DNB_PUBLISHER_LISTENER_PREFIX}    ${test_duration_in_seconds}    ${DNB_PUBLISHER_SUBSCRIBER_PAIR_RATE}    nrpairs=${count}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${test_duration_in_seconds}    15s    Check_Notifications_Finished    ${count}
     ${sum_local_number}    BuiltIn.Set_Variable    ${0}
     ${low_limit_pair_rate} =    BuiltIn.Evaluate    0.9*${DNB_PUBLISHER_SUBSCRIBER_PAIR_RATE}
     ${high_limit_pair_rate} =    BuiltIn.Evaluate    1.1*${DNB_PUBLISHER_SUBSCRIBER_PAIR_RATE}
@@ -46,3 +47,11 @@ Dom_Notification_Broker_Test_Templ
     ${high_limit_final_rate} =    BuiltIn.Evaluate    1.1*${total_notification_rate}
     BuiltIn.Should_Be_True    ${final_rate} > ${low_limit_final_rate}
     BuiltIn.Should_Be_True    ${final_rate} < ${high_limit_final_rate}
+
+Check_Notifications_Finished
+    [Arguments]    ${nr_pairs}
+    : FOR    ${index}    IN RANGE    1    ${count}+1
+    \    ${active}    ${publ_count}    ${last_error}    MdsalLowlevel.Check_Publish_Notifications    ${index}
+    \    BuiltIn.Should_Be_Equal    ${False} == ${active}
+    \    BuiltIn.Should_Be_Equal    ${Empty} == ${last_error}
+

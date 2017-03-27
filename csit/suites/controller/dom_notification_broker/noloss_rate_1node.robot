@@ -23,7 +23,7 @@ Resource          ${CURDIR}/../../../libraries/MdsalLowlevel.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
-${TC_DURATION_IN_SECONDS}    ${300}
+${TC_DURATION_IN_SECONDS}    ${30}
 
 *** Test Cases ***
 Notifications_rate_5k
