@@ -24,7 +24,7 @@ ${network1_vlan_id}    1235
 *** Test Cases ***
 Create VLAN Network (l2_network_1)
     [Documentation]    Create Network with neutron request.
-    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    Run Keyword If    '${CONTROLLERFEATURES}' != 'odl-vtn-manager-neutron' or '${CONTROLLERFEATURES}' != 'odl-ovsdb-openstack'   Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
 
 Create VXLAN Network (l2_network_2)
     [Documentation]    Create Network with neutron request.
