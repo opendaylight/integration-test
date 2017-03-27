@@ -16,6 +16,23 @@
       "revId": "e7b8631f080494acf795334843bc60211b5b82c7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0cbdddd7",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-03-27T18:46:37Z",
+      "side": 1,
+      "message": "${prompt}\u003d${TOOLS_SYSTEM_PROMPT} if we want to default on the tools VM.",
+      "revId": "e7b8631f080494acf795334843bc60211b5b82c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
