@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_a71f8a08",
+        "filename": "csit/testplans/openflowplugin-scalability.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-03-27T22:53:58Z",
+      "side": 1,
+      "message": "You cannot remove an exisiting test, right?",
+      "revId": "9a077c1a975cce225db5caebc74b61eaaff16f80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_47297e36",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-03-27T22:53:58Z",
+      "side": 1,
+      "message": "I do not think this is right, we should not change default timeout because scalability test needs more, instead I suggest to set the timeout argument of the MininetKeywords.Start Mininet Single Controller KW.",
+      "revId": "9a077c1a975cce225db5caebc74b61eaaff16f80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
