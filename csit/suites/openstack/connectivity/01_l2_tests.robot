@@ -12,6 +12,7 @@ Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
@@ -24,7 +25,10 @@ ${network1_vlan_id}    1235
 *** Test Cases ***
 Create VLAN Network (l2_network_1)
     [Documentation]    Create Network with neutron request.
-    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    ${feature_check_1}=    Verify Feature Is Installed    odl-vtn-manager-neutron
+    ${feature_check_2}=    Verify Feature Is Installed    odl-ovsdb-openstack
+    Run Keyword If    ${feature_check_1} == 'False' or ${feature_check_2} == 'False'    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    ...    ELSE    Create Network    @{NETWORKS_NAME}[0]
 
 Create VXLAN Network (l2_network_2)
     [Documentation]    Create Network with neutron request.
