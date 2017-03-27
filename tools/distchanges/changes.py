@@ -255,6 +255,14 @@ class Changes(object):
             if gerrits:
                 return ChangeId(gerrits[0]["id"], True)
 
+            msg_no_spaces = msg.group().replace(" ", "+")
+            if self.verbose >= 1:
+                print("did not find Change-Id in %s, trying with commit-msg (no spaces): %s" % (project, msg_no_spaces))
+
+            gerrits = self.gerritquery.get_gerrits(project, None, 1, msg_no_spaces)
+            if gerrits:
+                return ChangeId(gerrits[0]["id"], True)
+
         # Maybe one of the monster 'merge the world' gerrits
         regex_msg = re.compile(r'git.commit.message.full=(.*)')
         msg = regex_msg.search(pfile)
