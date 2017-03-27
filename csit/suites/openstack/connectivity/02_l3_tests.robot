@@ -21,11 +21,18 @@ Resource          ../../../libraries/Utils.robot
 @{NET_3_VM_INSTANCES}    l3_instance_net_3_1    l3_instance_net_3_2    l3_instance_net_3_3
 @{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24    70.0.0.0/24
 ${network1_vlan_id}    1236
+@{legacy_feature_list}    odl-vtn-manager-neutron    odl-ovsdb-openstack
 
 *** Test Cases ***
 Create VLAN Network (network_1)
     [Documentation]    Create Network with neutron request.
-    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
+    # in the case that the controller under test is using legacy netvirt features, vlan segmentation is not supported,
+    # and we cannot create a vlan network. If those features are installed we will instead stick with vxlan.
+    : FOR    ${feature_name}    IN    @{legacy_feature_list}
+    \    ${feature_check_status}=    Run Keyword And Return Status    Verify Feature Is Installed    ${feature_name}
+    \    Exit For Loop If    '${feature_check_status}' == 'True'
+    Run Keyword If    '${feature_check_status}' == 'True'    Create Network    @{NETWORKS_NAME}[0]
+    ...    ELSE    Create Network    @{NETWORKS_NAME}[0]    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
 
 Create VXLAN Network (network_2)
     [Documentation]    Create Network with neutron request.
