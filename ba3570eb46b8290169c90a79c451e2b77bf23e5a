@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_9b674951",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-27T11:52:28Z",
+      "side": 1,
+      "message": "This is a required argument of boolean (as opposed to VM-id) type.",
+      "range": {
+        "startLine": 254,
+        "startChar": 19,
+        "endLine": 254,
+        "endChar": 34
+      },
+      "revId": "ba3570eb46b8290169c90a79c451e2b77bf23e5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1b7cf9ea",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-27T11:52:28Z",
+      "side": 1,
+      "message": "Aside of this list value, there is always a second value returned; either an empty string, or a list containing single IP address of a nameserver.\nOptionally, this keyword fails if a VM without an assigned IP address is found. This keyword unconditionally fails if multiple nameserver IP addresses are detected.\n\n(Personally, I would choose a different implementation for what this keyword should do, but either way Documentation should describe what the keyword returns and when.)",
+      "range": {
+        "startLine": 258,
+        "startChar": 98,
+        "endLine": 258,
+        "endChar": 99
+      },
+      "revId": "ba3570eb46b8290169c90a79c451e2b77bf23e5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7b8385cc",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-27T11:52:28Z",
+      "side": 1,
+      "message": "nameserver",
+      "range": {
+        "startLine": 269,
+        "startChar": 11,
+        "endLine": 269,
+        "endChar": 15
+      },
+      "revId": "ba3570eb46b8290169c90a79c451e2b77bf23e5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_fb765505",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-27T11:52:28Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/#/c/51442/20/csit/libraries/OpenStackOperations.robot@254",
+      "range": {
+        "startLine": 158,
+        "startChar": 57,
+        "endLine": 158,
+        "endChar": 58
+      },
+      "revId": "ba3570eb46b8290169c90a79c451e2b77bf23e5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_db71d10d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-27T11:52:28Z",
+      "side": 1,
+      "message": "ElanService.robot contains a keyword of the same name (but different implementation). Change one of the names and document what the difference is.",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 22
+      },
+      "revId": "ba3570eb46b8290169c90a79c451e2b77bf23e5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3bc73d14",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-27T11:52:28Z",
+      "side": 1,
+      "message": "TODO: BFD_Monitoring.robot contains the same block, de-duplicate.",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 5
+      },
+      "revId": "ba3570eb46b8290169c90a79c451e2b77bf23e5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1bca391a",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-27T11:52:28Z",
+      "side": 1,
+      "message": "TODO: BFD_Monitoring.robot contains the same block, de-duplicate.",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 5
+      },
+      "revId": "ba3570eb46b8290169c90a79c451e2b77bf23e5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5bd4c1bc",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-27T11:52:28Z",
+      "side": 1,
+      "message": "TODO: BFD_Monitoring.robot contains the same block, de-duplicate.",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 5
+      },
+      "revId": "ba3570eb46b8290169c90a79c451e2b77bf23e5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bbda0de7",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-27T11:52:28Z",
+      "side": 1,
+      "message": "TODO: BFD_Monitoring.robot contains the same block, de-duplicate.",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 5
+      },
+      "revId": "ba3570eb46b8290169c90a79c451e2b77bf23e5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_fbe495ad",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-27T11:52:28Z",
+      "side": 1,
+      "message": "TODO: BFD_Monitoring.robot contains similar block, parametrize and de-duplicate.",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "ba3570eb46b8290169c90a79c451e2b77bf23e5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_dbdf11d5",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-27T11:52:28Z",
+      "side": 1,
+      "message": "TODO: BFD_Monitoring.robot contains the same block, de-duplicate.",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 5
+      },
+      "revId": "ba3570eb46b8290169c90a79c451e2b77bf23e5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
