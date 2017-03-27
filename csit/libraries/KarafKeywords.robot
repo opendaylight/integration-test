@@ -214,7 +214,7 @@ Restart Karaf
     # TODO: prepare this for cluster environment and multiple controllers
     Safe_Issue_Command_On_Karaf_Console    log:clear
     Issue_Command_On_Karaf_Console    shutdown -r -f
-    Run Keyword And Return Status    Wait Until Keyword Succeeds    4x    60s    Wait For Karaf Log    Karaf started in
+    Run Keyword And Return Status    Wait Until Keyword Succeeds    240s    60s    Wait For Karaf Log    Karaf started in
 
 Restart Jetty
     [Documentation]    Restarts jetty bundle (to reload certificates or key/truststore information)
