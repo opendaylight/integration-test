@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_53bc9d6c",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-28T21:40:10Z",
+      "side": 1,
+      "message": "I think the keyword \"Ping Vm From DHCP Namespace\" would work here instead (and below). a little cleaner and more bang for\nyour buck.",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 43
+      },
+      "revId": "00d6aff040ece7d9747ae63b310d30ec483705e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_33bf5962",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-28T21:40:10Z",
+      "side": 1,
+      "message": "I suggest uncommenting these and letting it fail. then you\ncan add our robot bugzilla hook thing.\n\nexample:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/suites/openflowplugin/Bug_Validation/2429.robot#L39",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 48
+      },
+      "revId": "00d6aff040ece7d9747ae63b310d30ec483705e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_93b60589",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-28T21:40:10Z",
+      "side": 1,
+      "message": "i\u0027d remove this",
+      "range": {
+        "startLine": 565,
+        "startChar": 0,
+        "endLine": 565,
+        "endChar": 25
+      },
+      "revId": "00d6aff040ece7d9747ae63b310d30ec483705e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_73b9e178",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-28T21:40:10Z",
+      "side": 1,
+      "message": "how about putting these up in the Variables section and they\ncan be used elsewhere whenever needed.",
+      "range": {
+        "startLine": 576,
+        "startChar": 0,
+        "endLine": 578,
+        "endChar": 61
+      },
+      "revId": "00d6aff040ece7d9747ae63b310d30ec483705e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d3afed29",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-28T21:40:10Z",
+      "side": 1,
+      "message": "can you use the OpenStackOperations library for this \nfunctionality please. This kind of code is getting\ncleaned up.",
+      "range": {
+        "startLine": 599,
+        "startChar": 0,
+        "endLine": 605,
+        "endChar": 24
+      },
+      "revId": "00d6aff040ece7d9747ae63b310d30ec483705e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
