@@ -17,6 +17,11 @@ Documentation     Suite for testing performance of Java binding v1 using binding
 ...               Known Bugs: 6125, 6135, 6141, 2323, 6150, 2360, 138, 6172, 6180, 6183, 5772, 6189.
 ...
 ...               The suite performs installation of Maven, optionally with building patched artifacts.
+...
+...               FIXME: This suite does not work when run with URL from Autorelease.
+...               The thing is, mdsal-parent is not part of .zip distribution.
+...               The fix would need to override the usual maven settings,
+...               as Autorelease artifacts have non-snapshot versions, but they are not released yet.
 Suite Setup       Setup_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     Teardown_Test
@@ -56,7 +61,7 @@ Prepare_Yang_Files_To_Test
 
 Run_Maven
     [Documentation]    Create pom file with correct version and run maven with some performance switches.
-    ${final_pom} =    TemplatedRequests.Resolve_Text_From_Template_File    folder=${CURDIR}/../../../variables/mdsal/binding_v1/    file_name=binding_template.xml    mapping={"BINDING_PARENT_VERSION":"${binding_parent_version}"}
+    ${final_pom} =    TemplatedRequests.Resolve_Text_From_Template_File    folder=${CURDIR}/../../../variables/mdsal/binding_v1    file_name=binding_template.xml    mapping={"BINDING_PARENT_VERSION":"${binding_parent_version}"}
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    echo '${final_pom}' > '${POM_FILENAME}'
     NexusKeywords.Run_Maven    pom_file=${POM_FILENAME}    log_file=${MAVEN_OUTPUT_FILENAME}
     # TODO: Figure out patters to identify various known Bug symptoms.
