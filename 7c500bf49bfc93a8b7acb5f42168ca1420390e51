@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_582b1ceb",
+        "filename": "csit/scripts/set_dhcp_mode.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-28T17:02:52Z",
+      "side": 1,
+      "message": "do the bash trick where this will be assigned to the parameter variable that is coming OR if it doesn\u0027t exist\nit will be *false*\n\nthat would let this patch go in now, and would effectively\nbe a noop, while you work on the other patch(es) to add\nthe job and parameter",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 21
+      },
+      "revId": "7c500bf49bfc93a8b7acb5f42168ca1420390e51",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
