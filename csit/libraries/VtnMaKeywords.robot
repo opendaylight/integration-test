@@ -10,6 +10,7 @@ Resource          ./Utils.robot
 Resource          ./KarafKeywords.robot
 Resource          ./MininetKeywords.robot
 Resource          ./TemplatedRequests.robot
+Resource          ./ClusterManagement.robot
 
 *** Variables ***
 ${vlan_topo_10}    --custom vlan_vtn_test.py --topo vlantopo
@@ -65,10 +66,12 @@ Start SuiteVtnMa
     SSHLibrary.Execute Command    sudo sed -i "$ i log4j.logger.org.opendaylight.vtn = TRACE" ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
-    Start Mininet
+    ClusterManagement Setup
+    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${ClusterManagement__member_index_list}    ${start}
 
 Start SuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite
+    ClusterManagement Setup
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
 
 Stop SuiteVtnMa
@@ -156,12 +159,12 @@ Verify Data Flows
 Start PathSuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite and Mininet
     Start SuiteVtnMaTest
-    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo_13}    ${custom}
+    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}     ${ClusterManagement__member_index_list}      ${pathpolicy_topo_13}    ${custom}
 
 Start PathSuiteVtnMaTestOF10
     [Documentation]    Start VTN Manager Test Suite and Mininet in Open Flow 10 Specification
     Start SuiteVtnMaTest
-    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo_10}    ${custom}
+    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}      ${ClusterManagement__member_index_list}      ${pathpolicy_topo_10}    ${custom}
 
 Stop PathSuiteVtnMaTest
     [Documentation]    Cleanup/Shutdown work at the completion of all tests.
@@ -253,8 +256,8 @@ Start vlan_topo
     [Arguments]    ${OF}
     [Documentation]    Create custom topology for vlan functionality
     Install Package On Ubuntu System    vlan
-    Run Keyword If    '${OF}' == 'OF13'    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo_13}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
-    ...    ELSE IF    '${OF}' == 'OF10'    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo_10}
+    Run Keyword If    '${OF}' == 'OF13'    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}     ${ClusterManagement__member_index_list}      ${vlan_topo_13}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    ...    ELSE IF    '${OF}' == 'OF10'    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}     ${ClusterManagement__member_index_list}      ${vlan_topo_10}
     ...    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
 
 Get flow
