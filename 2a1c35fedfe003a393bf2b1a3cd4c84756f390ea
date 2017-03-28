@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_cd710f0e",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-03-28T09:09:15Z",
+      "side": 1,
+      "message": "I think you can add both the features as a list, then iterate the list and if any feature Check returns True exit the loop. If that is done, we can simply add more features if required to the list later.",
+      "revId": "2a1c35fedfe003a393bf2b1a3cd4c84756f390ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
