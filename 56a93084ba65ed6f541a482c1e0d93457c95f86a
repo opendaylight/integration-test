@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_3f8ba21f",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-28T10:51:45Z",
+      "side": 1,
+      "message": "This does not seem to be used in this (and the following) keyword at all.",
+      "range": {
+        "startLine": 133,
+        "startChar": 56,
+        "endLine": 133,
+        "endChar": 73
+      },
+      "revId": "56a93084ba65ed6f541a482c1e0d93457c95f86a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_df3ed628",
+        "filename": "csit/suites/sxp/cluster-routing/010_Route_Switching.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-28T10:51:45Z",
+      "side": 1,
+      "message": "Is this just a way to wait for some controller to become active, or should be some relation between ${controller_index} and ${active_controller}?",
+      "range": {
+        "startLine": 23,
+        "startChar": 31,
+        "endLine": 23,
+        "endChar": 34
+      },
+      "revId": "56a93084ba65ed6f541a482c1e0d93457c95f86a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
