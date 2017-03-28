@@ -384,14 +384,14 @@ Create ITM Tunnel
     ${gateway} =    Get Default Gateway    ${OS_COMPUTE_1_IP}
     ITM Create Tunnel    tunneltype=vxlan    vlanid=0    prefix=${subnet}    gateway=${gateway}    ipaddress1=${OS_COMPUTE_1_IP}    dpnid1=${node_1_dpid}
     ...    portname1=${node_1_adapter}    ipaddress2=${OS_COMPUTE_2_IP}    dpnid2=${node_2_dpid}    portname2=${node_2_adapter}
-    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}
-    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
     ${output} =    ITM Get Tunnels
     Log    ${output}
 
 Delete ITM Tunnel
     [Documentation]    Delete tunnels with specific transport-zone.
     ITM Delete Tunnel    TZA
+    ${output} =    ITM Get Tunnels
+    Log    ${output}
 
 *** Keywords ***
 Basic Vpnservice Suite Setup
