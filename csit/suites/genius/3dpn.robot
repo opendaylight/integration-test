@@ -21,86 +21,61 @@ ${ONE}            1
 ${TWO}            2
 
 *** Test Cases ***
-
 Configure and verify OF tunnels on all 3 DPNs
     [Documentation]    This testcase creates OF tunnels - ITM tunnel between 3 DPNs configured in Json.
     ${POSITIVE_VAL}=    Set Variable    1
     Set Global Variable    ${POSITIVE_VAL}
-
-#    ${Dpn_id_1}    Get Dpn Ids    ${conn_id_1}
-#    ${Dpn_id_2}    Get Dpn Ids    ${conn_id_2}
-#    ${Dpn_id_3}    Get Dpn Ids    ${conn_id_3}
-
-    # Below hardcoded DPN IDs is for testing environment.
-    # Remove while commiting to CSIT
-    ${Dpn_id_1}=    Set Variable    147921062962241
-    ${Dpn_id_2}=    Set Variable    165441087718732
-    ${Dpn_id_3}=    Set Variable    15717157043017
-
+    ${Dpn_id_1}    Get Dpn Ids    ${conn_id_1}
+    ${Dpn_id_2}    Get Dpn Ids    ${conn_id_2}
+    ${Dpn_id_3}    Get Dpn Ids    ${conn_id_3}
     Set Global Variable    ${Dpn_id_1}
     Set Global Variable    ${Dpn_id_2}
     Set Global Variable    ${Dpn_id_3}
-
     ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
-
     ${file_name}=    Set Variable    vtep_three_dpns_with_of_tunnel.json
-
     Log    ${file_name}
-    Create Vteps    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${file_name}    3
+    Create Vteps    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${file_name}
+    ...    3
     Sleep    5
-
     Display OVS Show    ${conn_id_1}
     Sleep    2
     Display OVS Show    ${conn_id_2}
     Sleep    2
     Display OVS Show    ${conn_id_3}
     Sleep    2
-
     ${ovs_of_tunnel_1}    Get Tunnel From OVS Show    ${conn_id_1}    BR1
     Log    ${ovs_of_tunnel_1}
     Should Contain    ${ovs_of_tunnel_1}    ${TUN}
-
     ${ovs_of_tunnel_2}    Get Tunnel From OVS Show    ${conn_id_2}    BR2
     Log    ${ovs_of_tunnel_2}
     Should Contain    ${ovs_of_tunnel_2}    ${TUN}
-
     ${ovs_of_tunnel_3}    Get Tunnel From OVS Show    ${conn_id_3}    BR3
     Log    ${ovs_of_tunnel_3}
     Should Contain    ${ovs_of_tunnel_3}    ${TUN}
-
     ${count}    Get Count    ${ovs_of_tunnel_1}    ${TUN}
     ${count}=    Convert To String    ${count}
     Should Be Equal    ${count}    ${ONE}
-
     ${count}    Get Count    ${ovs_of_tunnel_2}    ${TUN}
     ${count}=    Convert To String    ${count}
     Should Be Equal    ${count}    ${ONE}
-
     ${count}    Get Count    ${ovs_of_tunnel_3}    ${TUN}
     ${count}=    Convert To String    ${count}
     Should Be Equal    ${count}    ${ONE}
-
     SLEEP    5
-
     Wait Until Keyword Succeeds    40    10    Get ITM for 3 DPNs    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${Dpn_id_3}    ${TOOLS_SYSTEM_3_IP}
-	
     ${type}    set variable    odl-interface:tunnel-type-vxlan
-
     Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
     ${tunnel-type}=    Set Variable    type: vxlan
-    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_1}    ${TOOLS_SYSTEM_IP} 
-    ...    ${ovs_of_tunnel_1}    ${tunnel-type}
-
+    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${ovs_of_tunnel_1}
+    ...    ${tunnel-type}
     Log    >>>>OVS Validation in Switch 2 for Tunnel Created<<<<<
-    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}
-    ...    ${ovs_of_tunnel_2}    ${tunnel-type}
-
+    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${ovs_of_tunnel_2}
+    ...    ${tunnel-type}
     Log    >>>>OVS Validation in Switch 3 for Tunnel Created<<<<<
-    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_3}    ${TOOLS_SYSTEM_3_IP}
-    ...    ${ovs_of_tunnel_3}    ${tunnel-type}
-
+    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_3}    ${TOOLS_SYSTEM_3_IP}    ${ovs_of_tunnel_3}
+    ...    ${tunnel-type}
     Log    >>>> Getting Network Topology Operational <<<<<<
     ${url-2}=    Set Variable    ${OPERATIONAL_API}/network-topology:network-topology/
     ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
@@ -118,83 +93,64 @@ Configure and verify OF tunnels on two of 3 DPNs
     [Documentation]    This testcase creates OF tunnels - ITM tunnel between 3 DPNs configured in Json.
     ${POSITIVE_VAL}=    Set Variable    1
     Set Global Variable    ${POSITIVE_VAL}
-
     ${Dpn_id_1}    Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Get Dpn Ids    ${conn_id_2}
     ${Dpn_id_3}    Get Dpn Ids    ${conn_id_3}
-
     # Below hardcoded DPN IDs is for testing environment.
     # Remove while commiting to CSIT
-
     Set Global Variable    ${Dpn_id_1}
     Set Global Variable    ${Dpn_id_2}
     Set Global Variable    ${Dpn_id_3}
-
     ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
-
     ${file_name}=    Set Variable    vtep_three_dpns_with_mix_match.json
-
     Log    ${file_name}
-    Create Vteps    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${file_name}    3
+    Create Vteps    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${file_name}
+    ...    3
     Sleep    5
-
     Display OVS Show    ${conn_id_1}
     Sleep    2
     Display OVS Show    ${conn_id_2}
     Sleep    2
     Display OVS Show    ${conn_id_3}
     Sleep    2
-
     ${ovs_of_tunnel_1}    Get Tunnel From OVS Show    ${conn_id_1}    BR1
     Log    ${ovs_of_tunnel_1}
     Should Contain    ${ovs_of_tunnel_1}    ${TUN}
-
     ${ovs_of_tunnel_2}    Get Tunnel From OVS Show    ${conn_id_2}    BR2
     Log    ${ovs_of_tunnel_2}
     Should Contain    ${ovs_of_tunnel_2}    ${TUN}
-
     ${ovs_of_tunnel_3}    Get Tunnel From OVS Show    ${conn_id_3}    BR3
     Log    ${ovs_of_tunnel_3}
     Should Contain    ${ovs_of_tunnel_3}    ${TUN}
-
     ${count}    Get Count    ${ovs_of_tunnel_1}    ${TUN}
     ${count}=    Convert To String    ${count}
     Should Be Equal    ${count}    ${ONE}
-
     ${count}    Get Count    ${ovs_of_tunnel_2}    ${TUN}
     ${count}=    Convert To String    ${count}
     Should Be Equal    ${count}    ${ONE}
-
     ${count}    Get Count    ${ovs_of_tunnel_3}    ${TUN}
     ${count}=    Convert To String    ${count}
     Should Be Equal    ${count}    ${TWO}
-
     SLEEP    5
-
     Wait Until Keyword Succeeds    40    10    Get ITM for 3 DPNs    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${Dpn_id_3}    ${TOOLS_SYSTEM_3_IP}
     ${type}    set variable    odl-interface:tunnel-type-vxlan
-
     Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
     ${tunnel-type}=    Set Variable    type: vxlan
-    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_1}    ${TOOLS_SYSTEM_IP} 
-    ...    ${ovs_of_tunnel_1}    ${tunnel-type}
-
+    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${ovs_of_tunnel_1}
+    ...    ${tunnel-type}
     Log    >>>>OVS Validation in Switch 2 for Tunnel Created<<<<<
-    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}
-    ...    ${ovs_of_tunnel_2}    ${tunnel-type}
-
+    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${ovs_of_tunnel_2}
+    ...    ${tunnel-type}
     Log    >>>>OVS Validation in Switch 3 for Tunnel Created<<<<<
-    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_3}    ${TOOLS_SYSTEM_3_IP}
-    ...    ${ovs_of_tunnel_3}    ${tunnel-type}
-
+    Wait Until Keyword Succeeds    40    10    Ovs Verification For OF Tunnels    ${conn_id_3}    ${TOOLS_SYSTEM_3_IP}    ${ovs_of_tunnel_3}
+    ...    ${tunnel-type}
     Log    >>>> Getting Network Topology Operational <<<<<<
     ${url-2}=    Set Variable    ${OPERATIONAL_API}/network-topology:network-topology/
     ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
     ...    ${ovs_of_tunnel_1}    ${ovs_of_tunnel_2}    ${url-2}
-
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/    
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
 
@@ -206,39 +162,36 @@ Delete and verify OF tunnels on two of 3 DPNs
     Display OVS Show    ${conn_id_2}
     Display OVS Show    ${conn_id_3}
 
-
 *** Keywords ***
 Create Vteps
-    [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${file_name}    ${No_Of_Dpns}
+    [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${file_name}
+    ...    ${No_Of_Dpns}
     [Documentation]    This keyword creates VTEPs between ${TOOLS_SYSTEM_IP} and ${TOOLS_SYSTEM_2_IP}
     ${TWO_DPNs}    Set Variable    2
     ${THREE_DPNs}    Set Variable    3
-    
     #${file}    Catenate    SEPARATOR=/    ${genius_config_dir}    ${file_name}
-    Log     ${genius_config_dir}
+    Log    ${genius_config_dir}
     ${file_dir}    Catenate    ${genius_config_dir}/
     Log    ${file_dir}
     ${file}    Catenate    SEPARATOR=    ${file_dir}    ${file_name}
     Log    ${file}
-
     #${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
     #${body}    OperatingSystem.Get File    ${genius_config_dir}/vtep_three_dpns_with_of_tunnel.json
     ${body}    OperatingSystem.Get File    ${file}
     Log    ${body}
-
     ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
     ${subnet}    Catenate    ${substr}0
     Log    ${subnet}
     Set Global Variable    ${subnet}
     ${vlan}=    Set Variable    ${vlan}
     ${gateway-ip}=    Set Variable    ${gateway-ip}
-
-    ${body}    Run Keyword If    ${No_Of_Dpns} == ${TWO_DPNs}    set json    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${subnet}    ${file_name}
-    ...    ELSE IF    ${No_Of_Dpns} == ${THREE_DPNs}    set json for 3 Dpns    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${subnet}    ${file_name}
-
+    ${body}    Run Keyword If    ${No_Of_Dpns} == ${TWO_DPNs}    set json    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}
+    ...    ${vlan}    ${gateway-ip}    ${subnet}    ${file_name}    ELSE IF    ${No_Of_Dpns} == ${THREE_DPNs}
+    ...    set json for 3 Dpns    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}
+    ...    ${subnet}    ${file_name}
     Log    ${body}
-
-    #${body}    set json    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${subnet}
+    #${body}    set json    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}
+    ...    #${subnet}
     ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/itm:transport-zones/    data=${body}
     Log    ${resp.content}
     Log    ${resp.status_code}
@@ -264,7 +217,7 @@ Get Tunnel
     [Arguments]    ${src}    ${dst}    ${type}
     [Documentation]    This Keyword Gets the Tunnel /Interface name which has been created between 2 DPNS by passing source , destination DPN Ids along with the type of tunnel which is configured.
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/    headers=${ACCEPT_XML}
-    #${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/    
+    #${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
     Log    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -318,7 +271,6 @@ Ovs Verification For OF Tunnels
     Should Contain    ${check}    ${tunnel-type}
     [Return]    ${check}
 
-
 Get ITM
     [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}
     ...    ${TOOLS_SYSTEM_2_IP}
@@ -334,11 +286,10 @@ Get ITM for 3 DPNs
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
     Log    ${itm_created[0]},${subnet}, ${vlan}, ${Dpn_id_1},${TOOLS_SYSTEM_IP}, ${Dpn_id_2}, ${TOOLS_SYSTEM_2_IP}
     @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${Bridge-1}-eth1
-    ...    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${Bridge-2}-eth1    ${TOOLS_SYSTEM_2_IP}    ${Dpn_id_3}    
-    ...    ${Bridge-3}-eth1    ${TOOLS_SYSTEM_3_IP}
-	
+    ...    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${Bridge-2}-eth1    ${TOOLS_SYSTEM_2_IP}    ${Dpn_id_3}    ${Bridge-3}-eth1
+    ...    ${TOOLS_SYSTEM_3_IP}
     Check For Elements At URI    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
-	
+
 Get Network Topology with Tunnel
     [Arguments]    ${Bridge-1}    ${Bridge-2}    ${tunnel-1}    ${tunnel-2}    ${url}
     [Documentation]    Returns the Network topology with Tunnel info in it.
@@ -356,13 +307,14 @@ Validate interface state Delete
     [Documentation]    Check for the Tunnel / Interface absence in OPERATIONAL data base of IETF interface after ITM transport zone is deleted.
     Log    ${tunnel}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/    headers=${ACCEPT_XML}
-    #${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/    
+    #${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    404
     Should not contain    ${resp.content}    ${tunnel}
 
 set json
-    [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${subnet}    ${file}
+    [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${subnet}
+    ...    ${file}
     [Documentation]    Sets Json for 2 dpns with the values passed for it.
     #${body}    OperatingSystem.Get File    ${genius_config_dir}/vtep_two_dpns_with_of_tunnel.json
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/${file}
@@ -377,7 +329,8 @@ set json
     [Return]    ${body}    # returns complete json that has been updated
 
 set json for 3 dpns
-    [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${subnet}    ${file}
+    [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${subnet}
+    ...    ${file}
     [Documentation]    Sets Json for 3 dpns with the values passed for it.
     #${body}    OperatingSystem.Get File    ${genius_config_dir}/vtep_three_dpns_with_of_tunnel.json
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/${file}
@@ -408,7 +361,7 @@ check interface status
     [Arguments]    ${tunnel}    ${dpid}
     [Documentation]    Verifies the operational state of the interface .
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/    headers=${ACCEPT_XML}
-    #${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/    
+    #${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
     Log    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -432,13 +385,11 @@ Verify Data Base after Delete
     No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/    headers=${ACCEPT_XML}
     No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/    headers=${ACCEPT_XML}
     ${resp_7}    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/    headers=${ACCEPT_XML}
-
-    #No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_1}/${Dpn_id_2}/${type}/    
-    #No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_2}/${Dpn_id_1}/${type}/    
-    #No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/    
-    #No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/   
-    #${resp_7}    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/    
-
+    #No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_1}/${Dpn_id_2}/${type}/
+    #No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_2}/${Dpn_id_1}/${type}/
+    #No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
+    #No Content From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
+    #${resp_7}    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/
     Run Keyword if    '${resp_7.content}'=='404'    Response is 404
     Run Keyword if    '${resp_7.content}'=='200'    Response is 200
     ${resp_8}    Wait Until Keyword Succeeds    40    10    Get Network Topology without Tunnel    ${CONFIG_TOPO_API}    ${tunnel-1}
@@ -454,18 +405,17 @@ Verify Data Base after Delete
     Wait Until Keyword Succeeds    40    10    Validate interface state Delete    ${tunnel-1}
     Wait Until Keyword Succeeds    40    10    Validate interface state Delete    ${tunnel-2}
 
-
 Display OVS Show
     [Arguments]    ${connection_id}
     [Documentation]    This keyword gets the DPN id of the switch after configuring bridges on it.It returns the captured DPN id.
     Switch connection    ${connection_id}
-    ${cmd}    set Variable    sudo ovs-vsctl show 
+    ${cmd}    set Variable    sudo ovs-vsctl show
     ${Bridgename1}    Execute command    ${cmd}
     log    ${Bridgename1}
 
 Get Tunnel From OVS Show
     [Arguments]    ${connection_id}    ${bridge}
-    [Documentation]    This keyword gets the tunnel id from ovs switch and return it. 
+    [Documentation]    This keyword gets the tunnel id from ovs switch and return it.
     Switch connection    ${connection_id}
     ${cmd}    set Variable    sudo ovs-vsctl list-ports
     ${cmd1}=    Catenate    ${cmd}    ${bridge}
@@ -476,5 +426,3 @@ Get Tunnel From OVS Show
 Return Failure
     [Documentation]    This keyword will set global variable to failure i.e., 0.
     ${POSITIVE_VALUE}    0
-
-    
