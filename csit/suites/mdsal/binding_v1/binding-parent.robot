@@ -56,9 +56,9 @@ Prepare_Yang_Files_To_Test
 
 Run_Maven
     [Documentation]    Create pom file with correct version and run maven with some performance switches.
-    ${final_pom} =    TemplatedRequests.Resolve_Text_From_Template_File    folder=${CURDIR}/../../../variables/mdsal/binding_v1/    file_name=binding_template.xml    mapping={"BINDING_PARENT_VERSION":"${binding_parent_version}"}
+    ${final_pom} =    TemplatedRequests.Resolve_Text_From_Template_File    folder=${CURDIR}/../../../variables/mdsal/binding_v1    file_name=binding_template.xml    mapping={"BINDING_PARENT_VERSION":"${binding_parent_version}"}
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    echo '${final_pom}' > '${POM_FILENAME}'
-    NexusKeywords.Run_Maven    pom_file=${POM_FILENAME}    log_file=${MAVEN_OUTPUT_FILENAME}
+    NexusKeywords.Run_Maven    pom_file=${POM_FILENAME}    log_file=${MAVEN_OUTPUT_FILENAME}    local_repo=${WORKSPACE}${/}${BUNDLEFOLDER}/system
     # TODO: Figure out patters to identify various known Bug symptoms.
 
 Collect_Filest_To_Archive

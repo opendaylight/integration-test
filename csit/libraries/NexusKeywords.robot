@@ -248,8 +248,8 @@ Install_Maven
     Run_Maven    pom_file=${WORKSPACE}/patch_tester/pom.xml
 
 Run_Maven
-    [Arguments]    ${pom_file}=pom.xml    ${log_file}=${MAVEN_DEFAULT_OUTPUT_FILENAME}
+    [Arguments]    ${pom_file}=pom.xml    ${log_file}=${MAVEN_DEFAULT_OUTPUT_FILENAME}    ${local_repo}=${MAVEN_REPOSITORY_PATH}
     [Documentation]    Determine arguments to use and call mvn command against given pom file.
-    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    mkdir -p '${MAVEN_REPOSITORY_PATH}'
-    ${maven_repository_options} =    BuiltIn.Set_Variable    -Dmaven.repo.local=${MAVEN_REPOSITORY_PATH} -Dorg.ops4j.pax.url.mvn.localRepository=${MAVEN_REPOSITORY_PATH}
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    mkdir -p '${local_repo}'
+    ${maven_repository_options} =    BuiltIn.Set_Variable    -Dmaven.repo.local=${local_repo} -Dorg.ops4j.pax.url.mvn.localRepository=${local_repo}
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    ${maven_bash_command} clean install dependency:tree -V -B -DoutputFile=dependency_tree.log -s './settings.xml' -f '${pom_file}' ${MAVEN_OPTIONS} ${maven_repository_options} > '${log_file}'
