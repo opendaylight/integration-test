@@ -374,25 +374,6 @@ Delete Networks
     : FOR    ${Network}    IN    @{NETWORKS}
     \    Delete Network    ${Network}
 
-Create ITM Tunnel
-    [Documentation]    Checks that vxlan tunnels are created successfully. This testcase expects that the two DPNs are in the same network hence populates the gateway accordingly.
-    ${node_1_dpid} =    Get DPID    ${OS_COMPUTE_1_IP}
-    ${node_2_dpid} =    Get DPID    ${OS_COMPUTE_2_IP}
-    ${node_1_adapter} =    Get Ethernet Adapter    ${OS_COMPUTE_1_IP}
-    ${node_2_adapter} =    Get Ethernet Adapter    ${OS_COMPUTE_2_IP}
-    ${subnet} =    Get Subnet    ${OS_COMPUTE_1_IP}
-    ${gateway} =    Get Default Gateway    ${OS_COMPUTE_1_IP}
-    ITM Create Tunnel    tunneltype=vxlan    vlanid=0    prefix=${subnet}    gateway=${gateway}    ipaddress1=${OS_COMPUTE_1_IP}    dpnid1=${node_1_dpid}
-    ...    portname1=${node_1_adapter}    ipaddress2=${OS_COMPUTE_2_IP}    dpnid2=${node_2_dpid}    portname2=${node_2_adapter}
-    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}
-    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
-    ${output} =    ITM Get Tunnels
-    Log    ${output}
-
-Delete ITM Tunnel
-    [Documentation]    Delete tunnels with specific transport-zone.
-    ITM Delete Tunnel    TZA
-
 *** Keywords ***
 Basic Vpnservice Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
