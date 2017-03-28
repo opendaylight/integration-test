@@ -369,6 +369,10 @@ Delete Networks
     : FOR    ${Network}    IN    @{NETWORKS}
     \    Delete Network    ${Network}
 
+Remove Allow Ssh Rule
+    [Documentation]    Remove security group created earlier
+    Delete SecurityGroup    ${SECURITY_GROUP}
+
 Create ITM Tunnel
     [Documentation]    Checks that vxlan tunnels are created successfully. This testcase expects that the two DPNs are in the same network hence populates the gateway accordingly.
     ${node_1_dpid} =    Get DPID    ${OS_COMPUTE_1_IP}
