@@ -17,6 +17,7 @@ Documentation     Resource enhancing SSHLibrary with Keywords used in multiple s
 ...               That may include Utils.Flexible_SSH_Login, and similar.
 Library           SSHLibrary
 Resource          ${CURDIR}/Utils.robot
+Resource          ../variables/Variables.robot
 
 *** Variables ***
 ${SSHKeywords__current_remote_working_directory}    .
@@ -191,11 +192,30 @@ Virtual_Env_Deactivate_On_Current_Session
     ${output}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Run_Keyword_If    ${log_output}==${True}    BuiltIn.Log    ${output}
 
-Copy File To Remote System
-    [Arguments]    ${system}    ${source}    ${destination}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${TOOLS_SYSTEM_PROMPT}
+Unsafe_Copy_File_To_Remote_System
+    [Arguments]    ${system}    ${source}    ${destination}=./    ${user}=${DEFAULT_USER}    ${password}=${DEFAULT_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
     ...    ${prompt_timeout}=5s
-    [Documentation]    Simplifies copy file operations to remote system
-    ${conn_id}=    Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Flexible SSH Login    ${user}    ${password}
-    SSHLibrary.Put File    ${source}    ${destination}
-    Close Connection
+    [Documentation]    Copy the ${source} file to the ${destination} file on the remote ${system}. The keyword opens and closes a single
+    ...    ssh connection and does not rely on any existing ssh connection that may be open.
+    SSHLibrary.Open_Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Utils.Flexible_SSH_Login    ${user}    ${password}
+    SSHLibrary.Put_File    ${source}    ${destination}
+    SSHLibrary.Close Connection
+
+Copy_File_To_Remote_System
+    [Arguments]    ${system}    ${source}    ${destination}=./    ${user}=${DEFAULT_USER}    ${password}=${DEFAULT_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    ...    ${prompt_timeout}=5s
+    [Documentation]    Copy the ${source} file to the ${destination} file on the remote ${system}. Any pre-existing active
+    ...    ssh connection will be retained.
+    SSHKeywords.Run_Keyword_Preserve_Connection    SSHKeywords.Unsafe_Copy_File_To_Remote_System    ${system}    ${source}    ${destination}    ${user}    ${password}
+    ...    ${prompt}    ${prompt_timeout}
+
+Copy_File_To_Odl_System
+    [Arguments]    ${system}    ${source}    ${destination}=./
+    [Documentation]    Wrapper keyword to make it easier to copy a file to an ODL specific system
+    SSHKeywords.Copy_File_To_Remote_System    ${system}    ${source}    ${destination}    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    ${ODL_SYSTEM_PROMPT}
+
+Copy_File_To_Tools_System
+    [Arguments]    ${system}    ${source}    ${destination}=./
+    [Documentation]    Wrapper keyword to make it easier to copy a file to an Tools specific system
+    SSHKeywords.Copy_File_To_Remote_System    ${system}    ${source}    ${destination}    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}    ${TOOLS_SYSTEM_PROMPT}
