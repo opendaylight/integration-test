@@ -22,6 +22,30 @@
       "revId": "7c500bf49bfc93a8b7acb5f42168ca1420390e51",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2e66ce29",
+        "filename": "csit/scripts/set_dhcp_mode.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-03-29T08:27:10Z",
+      "side": 1,
+      "message": "good idea. fixed.",
+      "parentUuid": "fafc7978_582b1ceb",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 21
+      },
+      "revId": "7c500bf49bfc93a8b7acb5f42168ca1420390e51",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
