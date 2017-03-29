@@ -108,6 +108,22 @@ Check Flow Stats Are Available
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.content}    priority    ${flows}
 
+Check Number Of Hosts
+    [Arguments]    ${hosts}
+    [Documentation]    Check number of hosts in inventory
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Log    Check number of hosts in inventory is ${hosts}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${count}=    Get Count    ${resp.content}    "node-id":"host:
+    Should Be Equal As Integers    ${count}    ${hosts}
+
+Check No Hosts
+    [Documentation]    Check if all hosts are deleted from inventory
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Log    Checking no hosts are present in operational database
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Not Contain    ${resp.content}    "node-id":"host:
+
 Create Inventory Flow
     [Documentation]    Calls FlowLib.Make_Inventory_Flow function and initializes and sanitizes
     ...    the basic flow elements that can be given to flow:inventory
