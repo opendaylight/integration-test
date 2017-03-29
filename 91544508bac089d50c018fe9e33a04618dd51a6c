@@ -22,6 +22,30 @@
       "revId": "91544508bac089d50c018fe9e33a04618dd51a6c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2f7245ad",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-29T19:14:18Z",
+      "side": 1,
+      "message": "I had the same concern, but it seems it\u0027s ok.\n\nfrom a carbon job [0], you can see both GERRIT_BRANCH and DISTROBRANCH\nare master in the console log. snippet here:\n\n\n22:56:28 [lispflowmapping-csit-1node-msmr-all-carbon] $ /w/tools/hudson.tasks.Maven_MavenInstallation/apache-maven-3.3.9/bin/mvn -f .archives/deploy-archives.xml -s /tmp/settings3360866303424769767.xml -gs /tmp/global-settings401707029576619020.xml -DGERRIT_BRANCH\u003dmaster -DPROJECT\u003dintegration/test -DTESTPLAN\u003dlispflowmapping-msmr.txt -DJDKVERSION\u003dopenjdk8 \"-DARCHIVE_ARTIFACTS\u003d **/target/surefire-reports/*-output.txt **/hs_err_*.log **/target/feature/feature.xml **/*.hprof\" -DBUNDLEURL\u003dlast -DPATCHREFSPEC\u003dmaster -DGERRIT_PROJECT\u003dintegration/test -DSTACK_NAME\u003d$JOB_NAME-$BUILD_NUMBER -DCONTROLLERSCOPE\u003dall -DCONTROLLERFEATURES\u003dodl-lispflowmapping-msmr -DTESTOPTIONS\u003d -DGERRIT_REFSPEC\u003drefs/heads/master -DDISTROBRANCH\u003dmaster -DDISTROSTREAM\u003dcarbon -DSTREAMTESTPLAN\u003dlispflowmapping-msmr-carbon.txt clean deploy -V -B -q -Dmaven.repo.local\u003d/tmp/r\n\nthen, the same job but of the boron flavor [1] has DISTROBRANCH and GERRIT_BRANCH\nas stable/boron.\n\n\n22:56:00 [lispflowmapping-csit-1node-msmr-all-boron] $ /w/tools/hudson.tasks.Maven_MavenInstallation/apache-maven-3.3.9/bin/mvn -f .archives/deploy-archives.xml -s /tmp/settings5846964384427876262.xml -gs /tmp/global-settings7160233571313384697.xml -DGERRIT_BRANCH\u003dstable/boron -DPROJECT\u003dintegration/test -DTESTPLAN\u003dlispflowmapping-msmr.txt -DJDKVERSION\u003dopenjdk8 \"-DARCHIVE_ARTIFACTS\u003d **/target/surefire-reports/*-output.txt **/hs_err_*.log **/target/feature/feature.xml **/*.hprof\" -DBUNDLEURL\u003dlast -DPATCHREFSPEC\u003dmaster -DGERRIT_PROJECT\u003dintegration/test -DSTACK_NAME\u003d$JOB_NAME-$BUILD_NUMBER -DCONTROLLERSCOPE\u003dall -DCONTROLLERFEATURES\u003dodl-lispflowmapping-msmr -DTESTOPTIONS\u003d -DGERRIT_REFSPEC\u003drefs/heads/stable/boron -DDISTROBRANCH\u003dstable/boron -DDISTROSTREAM\u003dboron -DSTREAMTESTPLAN\u003dlispflowmapping-msmr-boron.txt clean deploy -V -B -q -Dmaven.repo.local\u003d/tmp/r\n\n\n[0] https://jenkins.opendaylight.org/releng/job/lispflowmapping-csit-1node-msmr-all-carbon/262/console\n[1] https://jenkins.opendaylight.org/releng/job/lispflowmapping-csit-1node-msmr-all-boron/648/console",
+      "parentUuid": "fafc7978_a4d77d4e",
+      "range": {
+        "startLine": 11,
+        "startChar": 105,
+        "endLine": 11,
+        "endChar": 121
+      },
+      "revId": "91544508bac089d50c018fe9e33a04618dd51a6c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
