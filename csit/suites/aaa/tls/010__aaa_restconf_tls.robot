@@ -176,7 +176,7 @@ Generate Client Self-Signed Certificate
     # limitation in pycurl library that does not support key pem files with passphrase in automatic mode (it asks for it)
     Run    openssl req -x509 -newkey rsa:4096 -nodes -keyout ${USER_HOME}/clientkey.pem -out ${USER_HOME}/clientcert.pem -days 365 -subj "/C=ES/ST=Madrid/L=Madrid/O=OpenDayLight/OU=AAA/CN=MiguelAngelMunoz/emailAddress=myemail@unknown.com"
     # Import client's cert as trusted
-    Copy File To Remote System    ${ODL_SYSTEM_IP}    ${USER_HOME}/clientcert.pem    .
+    Copy File To Remote System    ${ODL_SYSTEM_IP}    ${USER_HOME}/clientcert.pem    .    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${JAVA_HOME}/bin/keytool -import -trustcacerts -file clientcert.pem -keystore ${KEYSTORE_PATH} -storepass 123456 -noprompt
     Log Certificates in Keystore
     Restart Jetty
