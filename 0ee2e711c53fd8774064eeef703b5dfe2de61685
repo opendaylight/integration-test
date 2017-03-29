@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_24026d09",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T11:47:42Z",
+      "side": 1,
+      "message": "Update.",
+      "range": {
+        "startLine": 217,
+        "startChar": 18,
+        "endLine": 217,
+        "endChar": 19
+      },
+      "revId": "0ee2e711c53fd8774064eeef703b5dfe2de61685",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_c4128157",
+        "filename": "csit/libraries/controller/DnbCommons.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T11:47:42Z",
+      "side": 1,
+      "message": "It would be better to fail early if this is non-empty, for example by using WaitUtils.",
+      "range": {
+        "startLine": 56,
+        "startChar": 49,
+        "endLine": 56,
+        "endChar": 62
+      },
+      "revId": "0ee2e711c53fd8774064eeef703b5dfe2de61685",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
