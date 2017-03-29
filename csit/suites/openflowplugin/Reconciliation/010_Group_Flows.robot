@@ -11,8 +11,8 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${SWITCHES}       ${10}
-${ITER}           ${100}
+${SWITCHES}       10
+${ITER}           100
 ${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
 
 *** Test Cases ***
@@ -128,6 +128,8 @@ Initialization Phase
     ClusterManagement.ClusterManagement_Setup
     # Still need to open controller HTTP session with name session because of old FlowLib.robot library dependency.
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
+    ${SWITCHES}    Convert To Integer    ${SWITCHES}
+    ${ITER}    Convert To Integer    ${ITER}
     ${all_groups}=    BuiltIn.Evaluate    ${SWITCHES} * ${ITER} * 2
     ${less_groups}=    BuiltIn.Evaluate    ${all_groups} - ${SWITCHES} * 2
     # Stale flows/groups feature enabled in Boron onwards.
