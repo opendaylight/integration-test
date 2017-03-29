@@ -10,6 +10,10 @@
                     {
                         "hop-number": 0,
                         "service-function-name": "dpi-1"
+                    },
+                    {
+                        "hop-number": 1,
+                        "service-function-name": "firewall-1"
                     }
                 ]
             },
@@ -22,6 +26,10 @@
                     {
                         "hop-number": 0,
                         "service-function-name": "dpi-2"
+                    },
+                    {
+                        "hop-number": 1,
+                        "service-function-name": "firewall-1"
                     }
                 ]
             },
@@ -29,12 +37,16 @@
                 "name": "SFP3",
                 "service-chain-name": "SFC1",
                 "starting-index": 255,
-                "symmetric": "false",
                 "context-metadata": "NSH1",
+                "symmetric": "false",
                 "service-path-hop": [
                     {
                         "hop-number": 0,
-                        "service-function-name": "dpi-2"
+                        "service-function-name": "dpi-1"
+                    },
+                    {
+                        "hop-number": 1,
+                        "service-function-name": "firewall-1"
                     }
                 ]
             }
