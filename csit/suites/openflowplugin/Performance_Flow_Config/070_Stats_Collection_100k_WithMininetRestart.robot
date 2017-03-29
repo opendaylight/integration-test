@@ -13,9 +13,9 @@ Library           ../../../libraries/ScaleClient.py
 Resource          ../../../libraries/WaitForFailure.robot
 
 *** Variables ***
-${swnr}           63
+${swnr}           32
 ${flnr}           100000
-${fpr}            25
+${fpr}            200
 ${nrthreads}      5
 ${swspread}       linear
 ${tabspread}      first
@@ -26,8 +26,8 @@ ${getr_cmd}       sh ./get-total-reported.sh
 ${iperiod}        1s
 ${imonitor}       600s
 ${ichange}        450s
-${outfile}        flows_setup_time.csv
-${setupfile}      flows_install_rate.csv
+${ratefile}       stats_rate.csv
+${timefile}       stats_time.csv
 ${setuptime}      0
 ${inittime}       0
 ${restarttime}    0
@@ -118,11 +118,12 @@ Stop Switches
 
 Delete Http Session And Store Plot Data
     Delete All Sessions
-    Append To File    ${outfile}    InitCollectionTime,AfterMininetRestartCollectionTime\n
-    Append To File    ${outfile}    ${inittime},${restarttime}\n
-    ${rate}=    Evaluate    (${flnr}/${setuptime})
-    Append To File    ${setupfile}    FlowsSetupRate,FlowsSetupTime\n
-    Append To File    ${setupfile}    ${rate},${setuptime}\n
+    ${initrate}=    Evaluate    (${flnr}/${inittime})
+    ${restartrate}=    Evaluate    (${flnr}/${restarttime})
+    Append To File    ${ratefile}    Initial,AfterMininetRestart\n
+    Append To File    ${ratefile}    ${initrate},${restartrate}\n
+    Append To File    ${timefile}    Initial,AfterMininetRestart\n
+    Append To File    ${timefile}    ${inittime},${restarttime}\n
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
