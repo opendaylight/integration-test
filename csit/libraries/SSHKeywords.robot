@@ -191,11 +191,14 @@ Virtual_Env_Deactivate_On_Current_Session
     ${output}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Run_Keyword_If    ${log_output}==${True}    BuiltIn.Log    ${output}
 
-Copy File To Remote System
-    [Arguments]    ${system}    ${source}    ${destination}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${TOOLS_SYSTEM_PROMPT}
+Copy_File_To_Remote_System
+    [Arguments]    ${source}    ${destination}=./    ${system}=${TOOLS_SYSTE_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${TOOLS_SYSTEM_PROMPT}
     ...    ${prompt_timeout}=5s
-    [Documentation]    Simplifies copy file operations to remote system
-    ${conn_id}=    Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Flexible SSH Login    ${user}    ${password}
+    [Documentation]    Copies the ${source} file to the ${destination} file on the remote ${system}. The keyword opens and closes a single
+    ...    ssh connection and does not rely on any existing ssh connection that may be open.
+    # TODO: if a need arises for some reason (e.g. performance for faster execution of this keyword back to back
+    # the Run_Keyword_Preserve_Connection resource could be used to use the same open ssh connection
+    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Utils.Flexible SSH Login    ${user}    ${password}
     SSHLibrary.Put File    ${source}    ${destination}
     Close Connection
