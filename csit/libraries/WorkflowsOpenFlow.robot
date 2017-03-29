@@ -49,10 +49,10 @@ Workflow Linear Topology
     ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    2s    FlowLib.Check Switches In Inventory
     ...    ${switches}
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail checking switch    ${topology_discover_time}
-    Log To Console    Checking Linear Topology
-    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches}    2s    FlowLib.Check Linear Topology
-    ...    ${switches}
-    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail checking topology    ${topology_discover_time}
+    # Log To Console    Checking Linear Topology
+    # ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches}    2s    FlowLib.Check Linear Topology
+    # ...    ${switches}
+    # Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail checking topology    ${topology_discover_time}
     ${end_time}=    DateTime.Get Current Date    result_format=timestamp
     ${topology_discover_time}=    DateTime.Subtract Date From Date    ${end_time}    ${start_time}
     Log To Console    Topology Discovery Time = ${topology_discover_time} seconds
