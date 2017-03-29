@@ -7,116 +7,63 @@ Library           Collections
 Library           SwitchClasses/BaseSwitch.py
 Resource          Utils.robot
 Resource          FlowLib.robot
+Resource          MininetKeywords.robot
 Variables         ../variables/Variables.py
 
 *** Keywords ***
-Find Max Hosts
-    [Arguments]    ${begin}    ${stop}    ${step}    ${sustain_time}=0
-    [Documentation]    Will find out max hosts starting from ${begin} till reaching ${stop} and in steps defined by ${step}.
-    ...    The network is hold for ${sustain_time} seconds after everything is checked successful.
-    ${max-hosts}    Set Variable    ${0}
-    ${stop}    Convert to Integer    ${stop}
-    ${step}    Convert to Integer    ${step}
-    : FOR    ${hosts}    IN RANGE    ${begin}    ${stop+1}    ${step}
-    \    Log To Console    Starting mininet with one switch and ${hosts} hosts
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet With One Switch And ${hosts} hosts
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Log To Console    Checking ${switches} switches
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    30s
-    \    ...    FlowLib.Check Switches In Inventory    ${1}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Log To Console    Ping all hosts
-    \    @{host_list}=    Get Mininet Hosts
-    \    ${status}=    Ping All Hosts    @{host_list}
-    \    Exit For Loop If    ${status} != ${0}
-    \    Log To Console    Verify controller is OK
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Log To Console    Check number of hosts in inventory is ${hosts}
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    30s
-    \    ...    Check Number Of Hosts    ${hosts}
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Log To Console    Sleep for ${sustain_time} seconds
-    \    Sleep    ${sustain_time}
-    \    Log To Console    Stopping Mininet
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Log To Console    Checking No Switches
-    \    ${status}    ${result}    Run Keyword And Ignore Error    FlowLib.Check No Switches In Inventory
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Log To Console    Checking no hosts are present in operational database
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Check No Hosts
-    \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${max-hosts}    Convert To String    ${hosts}
-    [Return]    ${max-hosts}
+Workflow Single Switch Multiple Hosts
+    [Arguments]    ${hosts}    ${sustain_time}=0
+    [Documentation]    Workflow to bring a Linear topology of ${switches} switches, push flows, hold for ${sustain_time} seconds, delete flows and stop topology.
+    ...    This KW returns workflow state (PASS/FAIL), error message and topology discover time.
+    # Define required variables
+    ${error_message}=    Set Variable    Test has completed
+    ${host_discover_time}=    Set Variable    ${0}
+    # Workflow starts
+    Log to console    ${\n}
+    Log To Console    Starting mininet with one switch and ${hosts} hosts
+    ${status}    ${result}    Run Keyword And Ignore Error    MininetKeywords.Start Mininet Multiple Hosts    ${hosts}
+    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail starting mininet    ${host_discover_time}
+    Log To Console    Check 1 switch
+    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${hosts}    2s    FlowLib.Check Switches In Inventory
+    ...    ${1}
+    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail checking switch    ${host_discover_time}
+    Log To Console    Ping all hosts
+    @{host_list}=    MininetKeywords.Get Mininet Hosts
+    ${start_time}=    DateTime.Get Current Date    result_format=timestamp
+    ${status}=    MininetKeywords.Ping All Hosts    @{host_list}
+    Return From Keyword If    ${status} != ${0}    ${status}    Ping test fails    ${host_discover_time}
+    Log To Console    Verify controller is OK
+    ${status}    ${result}    Run Keyword And Ignore Error    Utils.Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
+    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller is dead    ${host_discover_time}
+    ${status}    ${result}    Run Keyword And Ignore Error    Utils.Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
+    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller has NPE    ${host_discover_time}
+    Log To Console    Check number of hosts in topology is ${hosts}
+    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${hosts}    2s    FlowLib.Check Number Of Hosts
+    ...    ${hosts}
+    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail checking hosts    ${host_discover_time}
+    ${end_time}=    DateTime.Get Current Date    result_format=timestamp
+    ${host_discover_time}=    DateTime.Subtract Date From Date    ${end_time}    ${start_time}
+    Log To Console    Host Discovery Time = ${host_discover_time} seconds
+    Log To Console    Sleep for ${sustain_time} seconds
+    Sleep    ${sustain_time}
+    Log To Console    Stopping Mininet
+    ${status}    ${result}    Run Keyword And Ignore Error    MininetKeywords.Stop Mininet And Exit
+    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail stopping mininet    ${host_discover_time}
+    Log To Console    Checking No Switches
+    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    5s    1s    FlowLib.Check No Switches In Inventory
+    ...    ${1}
+    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail checking no switch    ${host_discover_time}
+    Log To Console    Checking no hosts are present in operational database
+    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${hosts}    2s    FlowLib.Check No Hosts
+    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Hosts are present    ${host_discover_time}
+    ${max-hosts}    Convert To String    ${hosts}
+    [Return]    PASS    ${error_message}    ${host_discover_time}
 
-Get Mininet Hosts
-    [Documentation]    Get all the hosts from mininet
-    ${host_list}=    Create List
-    Write    nodes
-    ${out}=    Read Until    mininet>
-    @{words}=    Split String    ${out}    ${SPACE}
-    : FOR    ${item}    IN    @{words}
-    \    ${h}=    Get Lines Matching Regexp    ${item.rstrip()}    .*h[0-9]*s.
-    \    Run Keyword If    '${h}' != '${EMPTY}'    Append To List    ${host_list}    ${h}
-    [Return]    ${host_list}
+Workflow Setup
+    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Wait Until Keyword Succeeds    3x    1s    KarafKeywords.Issue Command On Karaf Console    log:set ERROR
 
-Ping All Hosts
-    [Arguments]    @{host_list}
-    [Documentation]    Do one round of ping from one host to all other hosts in mininet
-    ${source}=    Get From List    ${host_list}    ${0}
-    : FOR    ${h}    IN    @{host_list}
-    \    ${status}=    Ping Two Hosts    ${source}    ${h}    1
-    \    Exit For Loop If    ${status}!=${0}
-    [Return]    ${status}
-
-Start Mininet With One Switch And ${hosts} hosts
-    [Documentation]    Start mininet with one switch and ${hosts} hosts
-    Log    Starting mininet with one switch and ${hosts} hosts
-    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${hosts*3}
-    Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,1,${hosts} --switch ovsk,protocols=OpenFlow13
-    Read Until    mininet>
-
-Check Number Of Hosts
-    [Arguments]    ${hosts}
-    [Documentation]    Check number of hosts in inventory
-    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log    Check number of hosts in inventory is ${hosts}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    ${count}=    Get Count    ${resp.content}    "node-id":"host:
-    Should Be Equal As Integers    ${count}    ${hosts}
-
-Ping Two Hosts
-    [Arguments]    ${host1}    ${host2}    ${pingcount}=2    ${connection_index}=${EMPTY}    ${connection_alias}=${EMPTY}
-    [Documentation]    Ping between mininet hosts. Must be used only after a mininet session is in place.Returns non zero value if there is 100% packet loss.
-    Run Keyword If    '${connection_index}'    !=    '${EMPTY}'    Switch Connection    ${connection_index}
-    Run Keyword If    '${connection_alias}'    !=    '${EMPTY}'    Switch Connection    ${connection_alias}
-    Write    ${host1} ping -c ${pingcount} ${host2}
-    ${out}=    Read Until    mininet>
-    ${ret}=    Get Lines Matching Regexp    ${out}    .*100% packet loss.*
-    ${len}=    Get Length    ${ret}
-    [Return]    ${len}
-
-Check No Hosts
-    [Documentation]    Check if all hosts are deleted from inventory
-    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log    Checking no hosts are present in operational database
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Not Contain    ${resp.content}    "node-id":"host:
-
-Stop Mininet Simulation
-    [Documentation]    Stop mininet
-    Switch Connection    ${mininet_conn_id}
-    Read
-    Write    exit
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Close Connection
-
-Scalability Suite Teardown
-    Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
-    Delete All Sessions
-    Clean Mininet System
+Workflow Teardown
+    [Documentation]    Cleanup when workflow is interrupt
+    Utils.Clean Mininet System
+    RequestsLibrary.Delete All Sessions
