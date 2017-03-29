@@ -8,7 +8,7 @@ Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
-Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
