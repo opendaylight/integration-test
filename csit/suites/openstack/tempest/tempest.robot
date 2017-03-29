@@ -19,6 +19,9 @@ Resource          ../../../variables/netvirt/Variables.robot
 tempest.api.network
     ${TEST_NAME}    debug=False    timeout=900s
 
+tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_update_instance_port_admin_state
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
+
 tempest.scenario.test_aggregates_basic_ops.TestAggregatesBasicOps.test_aggregate_basic_ops
     ${TEST_NAME}    debug=True
 
