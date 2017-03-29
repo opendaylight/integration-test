@@ -11,8 +11,8 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${SWITCHES}       ${10}
-${ITER}           ${100}
+${SWITCHES}       10
+${ITER}           100
 ${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
 
 *** Test Cases ***
@@ -23,17 +23,17 @@ Enable Stale Flow Entry
 
 Add Group 1 In Every Switch
     [Documentation]    Add ${ITER} groups of type 1 in every switch.
-    : FOR    ${switch}    IN RANGE    1    ${SWITCHES+1}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=session    iterations=${ITER}
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
 
 Add Group 2 In Every Switch
     [Documentation]    Add ${ITER} groups of type 2 in every switch.
-    : FOR    ${switch}    IN RANGE    1    ${SWITCHES+1}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=session    iterations=${ITER}
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
 
 Add Flow to Group 2 In Every Switch
     [Documentation]    Add ${ITER} flows to group type 2 in every switch.
-    : FOR    ${switch}    IN RANGE    1    ${SWITCHES+1}
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=session    iterations=${ITER}
 
 Start Mininet Linear
@@ -66,7 +66,7 @@ Check No Switches After Disconnect
 
 Remove Flows And Groups While Mininet Is Disconnected
     [Documentation]    Remove some groups and flows while network is down.
-    : FOR    ${switch}    IN RANGE    1    ${SWITCHES+1}
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
@@ -128,14 +128,18 @@ Initialization Phase
     ClusterManagement.ClusterManagement_Setup
     # Still need to open controller HTTP session with name session because of old FlowLib.robot library dependency.
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
-    ${all_groups}=    BuiltIn.Evaluate    ${SWITCHES} * ${ITER} * 2
-    ${less_groups}=    BuiltIn.Evaluate    ${all_groups} - ${SWITCHES} * 2
+    ${switches}    Convert To Integer    ${SWITCHES}
+    ${iter}    Convert To Integer    ${ITER}
+    ${all_groups}=    BuiltIn.Evaluate    ${switches} * ${iter} * 2
+    ${less_groups}=    BuiltIn.Evaluate    ${all_groups} - ${switches} * 2
     # Stale flows/groups feature enabled in Boron onwards.
     ${less_groups}=    CompareStream.Set Variable If At Least Boron    ${less_groups}    ${all_groups}
-    ${all_flows}=    BuiltIn.Evaluate    ${SWITCHES} * ${ITER+1}
-    ${less_flows}=    BuiltIn.Evaluate    ${all_flows} - ${SWITCHES}
+    ${all_flows}=    BuiltIn.Evaluate    ${switches} * ${iter+1}
+    ${less_flows}=    BuiltIn.Evaluate    ${all_flows} - ${switches}
     # Stale flows/groups feature enabled in Boron onwards.
     ${less_flows}=    CompareStream.Set Variable If At Least Boron    ${less_flows}    ${all_flows}
+    BuiltIn.Set Suite Variable    ${switches}
+    BuiltIn.Set Suite Variable    ${iter}
     BuiltIn.Set Suite Variable    ${all_groups}
     BuiltIn.Set Suite Variable    ${less_groups}
     BuiltIn.Set Suite Variable    ${all_flows}
