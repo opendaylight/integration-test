@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_4404d17d",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T13:31:10Z",
+      "side": 1,
+      "message": "Underscores please.",
+      "range": {
+        "startLine": 194,
+        "startChar": 4,
+        "endLine": 194,
+        "endChar": 5
+      },
+      "revId": "9f3c006279ca73a063f923e64a0c74aebf809a9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6401156a",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T13:31:10Z",
+      "side": 1,
+      "message": "${system}\u003d${TOOLS_SYSTEM_IP}\n\nWhich would imply ${source} has to be the first argument.",
+      "range": {
+        "startLine": 195,
+        "startChar": 19,
+        "endLine": 195,
+        "endChar": 28
+      },
+      "revId": "9f3c006279ca73a063f923e64a0c74aebf809a9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_84feb969",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T13:31:10Z",
+      "side": 1,
+      "message": "${destination}\u003d./",
+      "range": {
+        "startLine": 195,
+        "startChar": 45,
+        "endLine": 195,
+        "endChar": 59
+      },
+      "revId": "9f3c006279ca73a063f923e64a0c74aebf809a9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_447971fb",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T13:31:10Z",
+      "side": 1,
+      "message": "Copy file\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Content",
+      "range": {
+        "startLine": 197,
+        "startChar": 23,
+        "endLine": 197,
+        "endChar": 54
+      },
+      "revId": "9f3c006279ca73a063f923e64a0c74aebf809a9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_247c2deb",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T13:31:10Z",
+      "side": 1,
+      "message": "Prefix library name please.",
+      "range": {
+        "startLine": 198,
+        "startChar": 19,
+        "endLine": 198,
+        "endChar": 20
+      },
+      "revId": "9f3c006279ca73a063f923e64a0c74aebf809a9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_04776903",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T13:31:10Z",
+      "side": 1,
+      "message": "Not used.",
+      "range": {
+        "startLine": 198,
+        "startChar": 4,
+        "endLine": 198,
+        "endChar": 15
+      },
+      "revId": "9f3c006279ca73a063f923e64a0c74aebf809a9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a4677d50",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T13:31:10Z",
+      "side": 1,
+      "message": "This Resource has Run_Keyword_Preserve_Connection, callers might appreciate that (at any case Document whether this keyword affects current active SSH session).",
+      "range": {
+        "startLine": 201,
+        "startChar": 19,
+        "endLine": 201,
+        "endChar": 20
+      },
+      "revId": "9f3c006279ca73a063f923e64a0c74aebf809a9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
