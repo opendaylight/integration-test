@@ -137,4 +137,4 @@ Create Blacklist File
     : FOR    ${exclusion}    IN    @{${OPENSTACK_BRANCH}_exclusion_regexes}
     \    Append To File    ${blacklist_file}    ${exclusion}\n
     Log File    ${blacklist_file}
-    SSHKeywords.Copy File To Remote System    ${OS_CONTROL_NODE_IP}    ${blacklist_file}    ${blacklist_file}
+    SSHKeywords.Copy File To Remote System    ${blacklist_file}    ${blacklist_file}    ${OS_CONTROL_NODE_IP}
