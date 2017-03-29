@@ -7,7 +7,7 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           HttpLibrary.HTTP
-Variables         ../../../variables/Variables.py
+Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 
