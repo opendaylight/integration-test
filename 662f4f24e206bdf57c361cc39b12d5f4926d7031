@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_0e2f8aa2",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-03-29T08:30:48Z",
+      "side": 1,
+      "message": "security group differ with basic vpnservice.\nthis is good idea, since it avoids conflicts between both testing.\n+1",
+      "range": {
+        "startLine": 34,
+        "startChar": 29,
+        "endLine": 34,
+        "endChar": 39
+      },
+      "revId": "662f4f24e206bdf57c361cc39b12d5f4926d7031",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
