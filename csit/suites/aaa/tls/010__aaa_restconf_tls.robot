@@ -176,7 +176,7 @@ Generate Client Self-Signed Certificate
     # limitation in pycurl library that does not support key pem files with passphrase in automatic mode (it asks for it)
     Run    openssl req -x509 -newkey rsa:4096 -nodes -keyout ${USER_HOME}/clientkey.pem -out ${USER_HOME}/clientcert.pem -days 365 -subj "/C=ES/ST=Madrid/L=Madrid/O=OpenDayLight/OU=AAA/CN=MiguelAngelMunoz/emailAddress=myemail@unknown.com"
     # Import client's cert as trusted
-    Copy File To Remote System    ${ODL_SYSTEM_IP}    ${USER_HOME}/clientcert.pem    .
+    Copy File To Odl System    ${ODL_SYSTEM_IP}    ${USER_HOME}/clientcert.pem
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${JAVA_HOME}/bin/keytool -import -trustcacerts -file clientcert.pem -keystore ${KEYSTORE_PATH} -storepass 123456 -noprompt
     Log Certificates in Keystore
     Restart Jetty
@@ -194,7 +194,7 @@ Generate Server CA Signed Certificate
     Run    openssl x509 -req -in ${USER_HOME}/server.csr -CA ${USER_HOME}/rootCA.pem -CAkey ${USER_HOME}/rootCA.key -CAcreateserial -out ${USER_HOME}/server.crt -days 500 -sha256
     # Convert to pkcs12 (including public and private key together)
     Run    openssl pkcs12 -export -in ${USER_HOME}/server.crt -inkey ${USER_HOME}/server.key -out ${USER_HOME}/server.p12 -name odl -passin pass:myPass -passout pass:myPass
-    Copy File To Remote System    ${ODL_SYSTEM_IP}    ${USER_HOME}/server.p12    .
+    Copy File To Odl System    ${ODL_SYSTEM_IP}    ${USER_HOME}/server.p12
     # Import Certifcate into keystore
     ${KEYSTORE_DIR}=    Split Path    ${KEYSTORE_PATH}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    mkdir -p ${KEYSTORE_DIR[0]}
@@ -213,7 +213,7 @@ Generate Client CA Signed Certificate
     Run    openssl req -new -key ${USER_HOME}/client_ca_signed-key.pem -out ${USER_HOME}/client_ca_signed.csr -subj "/C=ES/ST=Madrid/L=Madrid/O=OpenDayLight/OU=RestClient/CN=RestClient/emailAddress=unknown@unknownclient.com"
     #Sign CSR
     Run    openssl x509 -req -in ${USER_HOME}/client_ca_signed.csr -CA ${USER_HOME}/rootCA_for_clients-cert.pem -CAkey ${USER_HOME}/rootCA_for_clients-key.pem -CAcreateserial -out ${USER_HOME}/client_ca_signed-cert.pem -days 500 -sha256
-    Copy File To Remote System    ${ODL_SYSTEM_IP}    ${USER_HOME}/rootCA_for_clients-cert.pem    .
+    Copy File To Odl System    ${ODL_SYSTEM_IP}    ${USER_HOME}/rootCA_for_clients-cert.pem
     # Import RootCA Certifcate into keystore
     ${KEYSTORE_DIR}=    Split Path    ${KEYSTORE_PATH}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    mkdir -p ${KEYSTORE_DIR[0]}
