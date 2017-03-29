@@ -6,7 +6,7 @@ Library           RequestsLibrary
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
-Variables         ../../../variables/Variables.py
+Variables         ../../../variables/Variables.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
