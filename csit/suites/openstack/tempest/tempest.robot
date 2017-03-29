@@ -61,6 +61,9 @@ tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_router_reschedu
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_subnet_details
     ${TEST_NAME}    debug=True
 
+tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_update_instance_port_admin_state
+    ${TEST_NAME}    debug=True
+
 tempest.scenario.test_network_v6.TestGettingAddress.test_dhcp6_stateless_from_os
     ${TEST_NAME}    debug=True
 
