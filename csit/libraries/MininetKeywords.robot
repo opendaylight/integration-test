@@ -58,6 +58,12 @@ Start Mininet Multiple Controllers
     SSHLibrary.Read Until    mininet>
     [Return]    ${mininet_conn_id}
 
+Start Mininet Multiple Hosts
+    [Arguments]    ${hosts}    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${mininet_timeout}=${DEFAULT_TIMEOUT}
+    [Documentation]    Start mininet 1 switch with ${hosts} hosts attached.
+    Log    Start Mininet Linear
+    MininetKeywords.StartMininet Single Controller    options=--topo single,${hosts} --switch ovsk,protocols=OpenFlow13    timeout=${mininet_timeout}
+
 Start Mininet Linear
     [Arguments]    ${switches}    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${mininet_timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start mininet linear topology with ${switches} nodes.
@@ -142,3 +148,32 @@ Verify Mininet No Ping
     Write    ${host1} ping -w 3 ${host2}
     ${result}=    Read Until    mininet>
     Should Contain    ${result}    100% packet loss
+
+Ping All Hosts
+    [Arguments]    @{host_list}
+    [Documentation]    Do one round of ping from one host to all other hosts in mininet
+    ${source}=    Get From List    ${host_list}    ${0}
+    : FOR    ${h}    IN    @{host_list}
+    \    ${status}=    Ping Two Hosts    ${source}    ${h}    1
+    \    Exit For Loop If    ${status}!=${0}
+    [Return]    ${status}
+
+Ping Two Hosts
+    [Arguments]    ${host1}    ${host2}    ${pingcount}=2
+    [Documentation]    Ping between mininet hosts. Must be used only after a mininet session is in place.Returns non zero value if there is 100% packet loss.
+    Write    ${host1} ping -c ${pingcount} ${host2}
+    ${out}=    Read Until    mininet>
+    ${ret}=    Get Lines Matching Regexp    ${out}    .*100% packet loss.*
+    ${len}=    Get Length    ${ret}
+    [Return]    ${len}
+
+Get Mininet Hosts
+    [Documentation]    Get all the hosts from mininet
+    ${host_list}=    Create List
+    Write    nodes
+    ${out}=    Read Until    mininet>
+    @{words}=    Split String    ${out}    ${SPACE}
+    : FOR    ${item}    IN    @{words}
+    \    ${h}=    Get Lines Matching Regexp    ${item}    h[0-9]*
+    \    Run Keyword If    '${h}' != '${EMPTY}'    Append To List    ${host_list}    ${h}
+    [Return]    ${host_list}
