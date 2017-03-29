@@ -18,6 +18,7 @@ ${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
 *** Test Cases ***
 Enable Stale Flow Entry
     [Documentation]    Enable stale flow entry feature.
+    [Tags]    exclude
     # Stale flows/groups feature is only available in Boron onwards.
     CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"true"}    session=session
 
@@ -66,6 +67,7 @@ Check No Switches After Disconnect
 
 Remove Flows And Groups While Mininet Is Disconnected
     [Documentation]    Remove some groups and flows while network is down.
+    [Tags]    exclude
     : FOR    ${switch}    IN RANGE    1    ${SWITCHES+1}
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
@@ -81,15 +83,15 @@ Check Linear Topology After Mininet Reconnects
 
 Check Flows In Operational DS After Mininet Reconnects
     [Documentation]    Check Flows after mininet starts.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${less_flows}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${all_flows}
 
 Check Groups In Operational DS After Mininet Reconnects
     [Documentation]    Check Flows after mininet starts.
-    FlowLib.Check Number Of Groups    ${less_groups}
+    FlowLib.Check Number Of Groups    ${all_groups}
 
 Check Flows In Switch After Mininet Reconnects
     [Documentation]    Check Flows after mininet starts.
-    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
 
 Restart Controller
     [Documentation]    Stop and Start controller.
@@ -104,15 +106,15 @@ Check Linear Topology After Controller Restarts
 
 Check Flows In Operational DS After Controller Restarts
     [Documentation]    Check Flows after mininet starts.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${less_flows}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${all_flows}
 
 Check Groups In Operational DS After Controller Restarts
     [Documentation]    Check Flows after mininet starts.
-    FlowLib.Check Number Of Groups    ${less_groups}
+    FlowLib.Check Number Of Groups    ${all_groups}
 
 Check Flows In Switch After Controller Restarts
     [Documentation]    Check Flows after mininet starts.
-    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
 
 Stop Mininet
     [Documentation]    Stop Mininet.
