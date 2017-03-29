@@ -98,7 +98,7 @@ SingleElan SuiteSetup
     : FOR    ${VM}    IN    @{VM_INSTANCES_ELAN1}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
     Log    Get IP address for ELAN1
-    ${VM_IP_ELAN1}    Wait Until Keyword Succeeds    30s    10s    Verify VMs received IP    ${VM_INSTANCES_ELAN1}
+    ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Wait Until Keyword Succeeds    30s    10s    Collect VM IP Addresses    true    @{VM_INSTANCES_ELAN1}
     Log    ${VM_IP_ELAN1}
     Set Suite Variable    ${VM_IP_ELAN1}
     Log    Get MACAddr for ELAN1
@@ -151,11 +151,3 @@ Create SecurityGroup
     Neutron Security Group Rule Create    ${sg_name}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg_name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg_name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-
-Verify VMs received IP
-    [Arguments]    ${VM_INSTANCES}
-    [Documentation]    Verify VM received IP
-    ${VM_IP}    ${DHCP_IP}    Collect VM IP Addresses    @{VM_INSTANCES}
-    Log    ${VM_IP}
-    Should Not Contain    ${VM_IP}    None
-    [Return]    ${VM_IP}
