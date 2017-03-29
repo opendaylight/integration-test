@@ -45,6 +45,30 @@
       "revId": "0ee2e711c53fd8774064eeef703b5dfe2de61685",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_292a452c",
+        "filename": "csit/libraries/controller/DnbCommons.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-29T15:48:27Z",
+      "side": 1,
+      "message": "\u003e fail early\n\nIn the context of WUKS in line 31.",
+      "parentUuid": "fafc7978_c4128157",
+      "range": {
+        "startLine": 56,
+        "startChar": 49,
+        "endLine": 56,
+        "endChar": 62
+      },
+      "revId": "0ee2e711c53fd8774064eeef703b5dfe2de61685",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
