@@ -51,6 +51,9 @@ tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_router_reschedu
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_subnet_details
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
+tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_update_instance_port_admin_state
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
 tempest.scenario.test_aggregates_basic_ops.TestAggregatesBasicOps.test_aggregate_basic_ops
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
