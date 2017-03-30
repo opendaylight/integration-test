@@ -85,6 +85,20 @@ WaitUtils__Is_Deadline_Reachable
     ${time_minimal} =    BuiltIn.Evaluate    int(${sleeps_left}) * ${period_in_seconds}
     BuiltIn.Run_Keyword_If    ${time_minimal} >= ${time_deadline}    BuiltIn.Fail    Not possible to succeed within the deadline. ${message}
 
+Wait_For_Getter_Failure_Or_Stateless_Validator_Pass
+    [Arguments]    ${timeout}=60s    ${period}=1s    ${getter}=${ScalarClosures__fail}    ${stateless_validator}=${ScalarClosures__identity}
+    [Documentation]    Repeatedly run getter and plug its output to validator. If both pass, return validator message.
+    ...    If getter fails, fail. If validator fails, repeat in WUKS fashion (fail when timeout is exceeded).
+    ${timeout_in_seconds}    ${period_in_seconds}    ${date_deadline} =    WaitUtils__Check_Sanity_And_Compute_Derived_Times    timeout=${timeout}    period=${period}
+    ${iterations} =    BuiltIn.Evaluate    ${timeout_in_seconds} / ${period_in_seconds}
+    : FOR    ${i}    IN RANGE    ${iterations}
+    \    ${data} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_As_Is    ${getter}
+    \    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_After_Replacing_First_Argument    ${validator}    ${data}
+    \    BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"    ${message}
+    \    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    message=Last validator message: ${message}
+    \    BuiltIn.Sleep    ${period_in_seconds} s
+    BuiltIn.Fail    Logic error, we should have returned before.
+
 Stateless_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
     [Arguments]    ${date_deadline}=0    ${period_in_seconds}=1    ${count}=1    ${assertor}=${ScalarClosures__fail}
     [Documentation]    Pass only if ${assertor} passes ${count} times in a row with ${period_in_seconds} between attempts; less standard arguments.
