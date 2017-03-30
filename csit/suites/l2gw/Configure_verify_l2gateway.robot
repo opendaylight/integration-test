@@ -56,7 +56,7 @@ TC05 Create L2Gateway And Connection And Verify
     Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${UCAST_MACS_REMOTE_TABLE}    ${port_mac_list[0]}
 
 TC06 Dhcp Ip Allocation For Hwvtep Tap Port
-    Wait Until Keyword Succeeds    30s    10s    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS1}    ${NS_TAP1}    ${port_ip_list[1]}
+    Wait Until Keyword Succeeds    180s    10s    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS1}    ${NS_TAP1}    ${port_ip_list[1]}
 
 TC07 Verify Ping From Compute Node Vm To Hwvtep
     ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[0]}
