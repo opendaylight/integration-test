@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_4635ebd9",
+        "filename": "csit/libraries/WaitUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-30T18:07:46Z",
+      "side": 1,
+      "message": "Patch set 6 has lines 11-14 now. (Probably not enough.)",
+      "parentUuid": "fafc7978_b0aa1117",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 51
+      },
+      "revId": "bfe206e6917f75234a6ad3433a9d85ddf4fc5c22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_50d645c4",
         "filename": "csit/libraries/WaitUtils.robot",
         "patchSetId": 5
