@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_55e91a7f",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-30T10:02:10Z",
+      "side": 1,
+      "message": "Missing M.",
+      "range": {
+        "startLine": 195,
+        "startChar": 75,
+        "endLine": 195,
+        "endChar": 77
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_20bb72e6",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-30T10:02:10Z",
+      "side": 1,
+      "message": "Copy\n\nGuidelines [1] suggest imperative mood.\n\n[1] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#.5BDocumentation.5D",
+      "range": {
+        "startLine": 197,
+        "startChar": 23,
+        "endLine": 197,
+        "endChar": 29
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_556e3a02",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-30T10:02:10Z",
+      "side": 1,
+      "message": "but any previously active connection will become inactive (while still open on background).",
+      "range": {
+        "startLine": 198,
+        "startChar": 91,
+        "endLine": 198,
+        "endChar": 92
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b5f7a658",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-30T10:02:10Z",
+      "side": 1,
+      "message": "That is not what Run_Keyword_Preserve_Connection does. It allows the inner keyword to switch away from the initial active connection, but then makes sure that connection is switched back to, after the inner keyword returns or fails.\n\nFrom the point of implementation, Run_Keyword_Restore_Connection would be a better name, but keyword names should describe what happens from the caller point of view [0] (so Run_Keyword_Preserve_Connection is the correct name here).\n\nRun_Keyword_Using_Preserved_Connection (perhaps not with Preserved, but with Stored, Prepared, Background or similar) would be the performance enhancing keyword you are commenting on, but that keyword is not implemented in SSHLibrary yet. KarafKeywords has something like that, but that uses one connection per member (as Java application, not Linux shell).\n\n[0] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Content_2",
+      "range": {
+        "startLine": 200,
+        "startChar": 65,
+        "endLine": 200,
+        "endChar": 100
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_159672f0",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-30T10:02:10Z",
+      "side": 1,
+      "message": "More underscores please.",
+      "range": {
+        "startLine": 201,
+        "startChar": 19,
+        "endLine": 201,
+        "endChar": 20
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_a0e76211",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-30T10:02:10Z",
+      "side": 1,
+      "message": "More library prefixes please.",
+      "range": {
+        "startLine": 204,
+        "startChar": 4,
+        "endLine": 204,
+        "endChar": 5
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e0adea89",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-30T10:02:10Z",
+      "side": 1,
+      "message": "system\u003d${ODL_SYSTEM_IP}\n\nBut that assumes you have a good reason to use TOOLS related credentials on ODL system.\n\nPerhaps there should be both Copy_File_To_Tools_System and Copy_File_To_Odl_System in SSHKeywords, similarly to two Open_Connection_To_*_System keywords.",
+      "range": {
+        "startLine": 131,
+        "startChar": 65,
+        "endLine": 131,
+        "endChar": 86
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
