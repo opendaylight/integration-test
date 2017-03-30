@@ -91,11 +91,13 @@ Deploy_From_Url
 Deploy_Artifact
     [Arguments]    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}=-executable.jar    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
     [Documentation]    Deploy the specified artifact from Nexus to the cwd of the machine to which the active SSHLibrary connection points.
+    ...    ${component} is a name part of an artifact present in system/ of ODl installation with the same version as ${artifact} should have.
     ...    Must have ${BUNDLE_URL} variable set to the URL from which the
     ...    tested ODL distribution was downloaded and this place must be
     ...    inside a repository created by a standard distribution
     ...    construction job. If this is detected to ne be the case, fallback URL is used.
     ...    If ${explicit_url} is non-empty, Deploy_From_Utrl is called instead.
+    ...    TODO: Allow deploying to a specific directory, we have SSHKeywords.Execute_Command_At_Cwd_Should_Pass now.
     BuiltIn.Run_Keyword_And_Return_If    """${explicit_url}""" != ""    Deploy_From_Url    ${explicit_url}
     ${urlbase} =    String.Fetch_From_Left    ${BUNDLE_URL}    /org/opendaylight
     # If the BUNDLE_URL points somewhere else (perhaps *patch-test* job in Jenkins),
