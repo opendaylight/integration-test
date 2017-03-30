@@ -45,6 +45,30 @@
       "revId": "bfe206e6917f75234a6ad3433a9d85ddf4fc5c22",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_062483ad",
+        "filename": "csit/libraries/WaitUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-30T18:05:58Z",
+      "side": 1,
+      "message": "This is defined right here. It being assigned to, it gets the second of the three values returned from the part after equals.",
+      "parentUuid": "fafc7978_50d645c4",
+      "range": {
+        "startLine": 94,
+        "startChar": 31,
+        "endLine": 94,
+        "endChar": 48
+      },
+      "revId": "bfe206e6917f75234a6ad3433a9d85ddf4fc5c22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
