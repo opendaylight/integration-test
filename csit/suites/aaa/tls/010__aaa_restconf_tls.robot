@@ -36,9 +36,8 @@ TLS on Restconf without Server Cert
     Run Keyword And Expect Error    error: (7, 'Failed *${RESTCONFPORT_TLS}* Connection refused')    PycURLLibrary.Perform
     PycURLLibrary.Log Response
 
-Activate TLS and Generate Server Certificate
-    [Documentation]    Generates a server certificate, self-signed and activates ODL secure configuration.
-    Generate Server Self-Signed Certificate
+Activate TLS
+    [Documentation]    Activates TLS configuration in ODL and restarts Karaf
     Enable TLS in ODL
     # Check ODL was restarted properly
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
@@ -48,6 +47,10 @@ Activate TLS and Generate Server Certificate
 
 TLS on Restconf with Server Cert (Self-signed) (insecure)
     [Documentation]    Tests HTTPS request. Server certificate is self-signed, thus communication is insecure
+    Clean Up Certificates In Server
+    Generate Server Self-Signed Certificate
+    #TLS Request
+    Insecure Ssl
     PycURLLibrary.Set Url    ${RESTCONF_MONITORING_URL}
     PycURLLibrary.Add Header    "Content-Type:application/json"
     PycURLLibrary.Add Header    Authorization:Basic YWRtaW46YWRtaW4=
@@ -58,10 +61,23 @@ TLS on Restconf with Server Cert (Self-signed) (insecure)
     ${resp}    PycURLLibrary.Response
     Should Contain    ${resp}    "restconf-state":{"capabilities":{"capability":["urn:ietf:params:restconf:capability:depth
 
-Activate Client Authentication and Generate Client Certificate
-    [Documentation]    Generates a client certificate and imports it into ODL truststore.
-    ...    Changes ODL config to require client authentication
-    Generate Client Self-Signed Certificate
+TLS on Restconf with Server Cert (CA signed)
+    [Documentation]    Tests HTTPS request with ODL TLS config by using CA signed certificates
+    Clean Up Certificates In Server
+    Generate Server CA Signed Certificate
+    #TLS Request
+    PycURLLibrary.Set Url    ${RESTCONF_MONITORING_URL}
+    PycURLLibrary.Add Header    "Content-Type:application/json"
+    PycURLLibrary.Add Header    Authorization:Basic YWRtaW46YWRtaW4=
+    PycURLLibrary.Request Method    GET
+    PycURLLibrary.Perform
+    PycURLLibrary.Log Response
+    PycURLLibrary.Response Status Should Contain    200
+    ${resp}    PycURLLibrary.Response
+    Should Contain    ${resp}    "restconf-state":{"capabilities":{"capability":["urn:ietf:params:restconf:capability:depth
+
+Activate Client Authentication
+    [Documentation]    Activates client authentication in odl by means of certificates.
     Enable Client TLS Authentication in ODL
     # Check ODL was restarted properly
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
@@ -71,6 +87,10 @@ Activate Client Authentication and Generate Client Certificate
 
 TLS on Restconf with Server & Client Certs (Self-signed)
     [Documentation]    Test HTTPS request with ODL TLS config and client authentication by using certificate
+    Clean Up Certificates In Server
+    Generate Server Self-Signed Certificate
+    Generate Client Self-Signed Certificate
+    #TLS Request
     PycURLLibrary.Set Url    ${RESTCONF_MONITORING_URL}
     PycURLLibrary.Add Header    "Content-Type:application/json"
     PycURLLibrary.Add Header    Authorization:Basic YWRtaW46YWRtaW4=
@@ -130,6 +150,27 @@ Generate Client Self-Signed Certificate
     # Import client's cert as trusted
     Copy File To Remote System    ${ODL_SYSTEM_IP}    ${USER_HOME}/clientcert.pem    .
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${JAVA_HOME}/bin/keytool -import -trustcacerts -file clientcert.pem -keystore ${KEYSTORE_PATH} -storepass 123456 -noprompt
+    Log Certificates in Keystore
+    Restart Jetty
+
+Generate Server CA Signed Certificate
+    [Documentation]    Generates a server certificate and signs it with own root CA
+    #Generates Root CA key and certificate (note this has to be self-signed)
+    Log Certificates in Keystore
+    Run    openssl genrsa -out ${USER_HOME}/rootCA.key 2048
+    Run    openssl req -x509 -new -nodes -key ${USER_HOME}/rootCA.key -sha256 -days 1024 -out ${USER_HOME}/rootCA.pem -subj "/C=ES/ST=Madrid/L=Madrid/O=FakeCA/OU=FakeCA_ODL/CN=www.fakeca.com/emailAddress=unknown@fakeca.com"
+    #Generate server CSR
+    Run    openssl genrsa -out ${USER_HOME}/server.key 2048
+    Run    openssl req -new -key ${USER_HOME}/server.key -out ${USER_HOME}/server.csr -subj "/C=ES/ST=Madrid/L=Madrid/O=OpenDayLight/OU=AAA/CN=${ODL_SYSTEM_IP}/emailAddress=unknown@unknown.com"
+    #Sign CSR
+    Run    openssl x509 -req -in ${USER_HOME}/server.csr -CA ${USER_HOME}/rootCA.pem -CAkey ${USER_HOME}/rootCA.key -CAcreateserial -out ${USER_HOME}/server.crt -days 500 -sha256
+    # Convert to pkcs12 (including public and private key together)
+    Run    openssl pkcs12 -export -in ${USER_HOME}/server.crt -inkey ${USER_HOME}/server.key -out ${USER_HOME}/server.p12 -name odl -passin pass:myPass -passout pass:myPass
+    Copy File To Remote System    ${ODL_SYSTEM_IP}    ${USER_HOME}/server.p12    .
+    # Import Certifcate into keystore
+    ${KEYSTORE_DIR}=    Split Path    ${KEYSTORE_PATH}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    mkdir -p ${KEYSTORE_DIR[0]}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    ${JAVA_HOME}/bin/keytool -importkeystore -deststorepass 123456 -destkeypass myPass -destkeystore ${KEYSTORE_PATH} -srckeystore ${USER_HOME}/server.p12 -srcstoretype PKCS12 -srcstorepass myPass -alias odl
     Log Certificates in Keystore
     Restart Jetty
 
