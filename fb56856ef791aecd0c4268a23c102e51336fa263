@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_b572060f",
+        "filename": "csit/libraries/MdsalLowlevel.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-30T12:02:41Z",
+      "side": 1,
+      "message": "publishing",
+      "range": {
+        "startLine": 217,
+        "startChar": 104,
+        "endLine": 217,
+        "endChar": 113
+      },
+      "revId": "fb56856ef791aecd0c4268a23c102e51336fa263",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
