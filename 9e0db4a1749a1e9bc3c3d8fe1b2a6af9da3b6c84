@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_806dfe9b",
+        "filename": "csit/testplans/netvirt-2site-1node-openstack.txt",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-03-30T09:25:36Z",
+      "side": 1,
+      "message": "Can you add the same file for netvirt-2site-3node-openstack.txt here and in configplan? I\u0027m going to add that job too.",
+      "revId": "9e0db4a1749a1e9bc3c3d8fe1b2a6af9da3b6c84",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
