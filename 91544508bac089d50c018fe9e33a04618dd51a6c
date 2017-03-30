@@ -46,6 +46,30 @@
       "revId": "91544508bac089d50c018fe9e33a04618dd51a6c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_35d576b9",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-30T08:21:53Z",
+      "side": 1,
+      "message": "\u003e but it seems it\u0027s ok\n\nIt is ok for the ordinary (non-verify) csit jobs. It is not ok for csit-verify jobs. It is better to fix this before someone creates such a job and starts wondering why the tests are failing.",
+      "parentUuid": "fafc7978_2f7245ad",
+      "range": {
+        "startLine": 11,
+        "startChar": 105,
+        "endLine": 11,
+        "endChar": 121
+      },
+      "revId": "91544508bac089d50c018fe9e33a04618dd51a6c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
