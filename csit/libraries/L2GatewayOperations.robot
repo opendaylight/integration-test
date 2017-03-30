@@ -76,9 +76,9 @@ Delete L2Gateway
     [Arguments]    ${gw_name}
     [Documentation]    Keyword to delete the L2 Gateway ${gw_name} received in argument.
     ${output}=    Exec Command    ${devstack_conn_id}    ${L2GW_DELETE} ${gw_name}
+    Log    ${output}
     @{list_to_check}=    Create List    ${gw_name}
     Utils.Check For Elements Not At URI    ${L2GW_LIST_REST_URL}    ${list_to_check}    session
-    Log    ${output}
 
 Create Verify L2Gateway Connection
     [Arguments]    ${gw_name}    ${net_name}
@@ -173,7 +173,7 @@ Verify Mcas Local Table While Ping
 Verify Nova VM IP
     [Arguments]    ${vm_name}
     [Documentation]    Keyword to verify if the VM has received IP, and to vefiry it is not null.
-    ${vm_ip}    ${dhcp_ip}    Verify VMs Received DHCP Lease    ${vm_name}
+    ${vm_ip}    ${dhcp_ip}    Collect VM IP Addresses    false    ${vm_name}
     Log    ${vm_ip}
     Should Not Contain    ${vm_ip}    None
     [Return]    ${vm_ip}
