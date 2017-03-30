@@ -28,7 +28,9 @@ Cleanup The Export Files
     [Documentation]    Verify if the export directory exists and delete the files if needed
     ${host_index}    Builtin.Convert To Integer    ${host_index}
     Builtin.Run Keyword And Ignore Error    ClusterManagement.Delete_And_Check_Member_List_Or_All    ${TOPOLOGY_URL}    ${host_index}
-    ${output1}    ClusterManagement.Run Bash Command On Member    sudo rm -rf ${WORKSPACE}/${BUNDLEFOLDER}/daexim;clear    ${host_index}
+    ${output1}    Builtin.Run Keyword and IgnoreError    ClusterManagement.Run Bash Command On Member    sudo rm -rf ${WORKSPACE}/${BUNDLEFOLDER}/daexim;clear    ${host_index}
+    # Executing the deletion without sudo prevents "sudo: no tty present and no askpass program specified" errors
+    ${output2}    Builtin.Run Keyword and IgnoreError    ClusterManagement.Run Bash Command On Member    rm -rf ${WORKSPACE}/${BUNDLEFOLDER}/daexim;clear    ${host_index}
     ${output}    ClusterManagement.Run Bash Command On Member    ls -lart ${WORKSPACE}/${BUNDLEFOLDER}    ${host_index}
     Builtin.Log    ${output}
     Builtin.Should Not Match Regexp    ${output}    daexim
