@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_2006d2ce",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-30T09:27:43Z",
+      "side": 1,
+      "message": "Space..to follow std in all.",
+      "range": {
+        "startLine": 157,
+        "startChar": 18,
+        "endLine": 157,
+        "endChar": 20
+      },
+      "revId": "de7615f43ae1e34b35339666bd3e62d8edb61bab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e0e7aa3e",
+        "filename": "csit/suites/openflowplugin/ROBUSTNESS_OF18/010__Cluster_Current_Term_Verification_3Node_Cluster.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-30T09:27:43Z",
+      "side": 1,
+      "message": "Please use Variable.robot",
+      "range": {
+        "startLine": 10,
+        "startChar": 37,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "de7615f43ae1e34b35339666bd3e62d8edb61bab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_e055eac6",
+        "filename": "csit/suites/openflowplugin/ROBUSTNESS_OF18/010__Cluster_Current_Term_Verification_3Node_Cluster.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-30T09:27:43Z",
+      "side": 1,
+      "message": "Please make single test case, as create and verify should be single testcase.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 170
+      },
+      "revId": "de7615f43ae1e34b35339666bd3e62d8edb61bab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6059fafd",
+        "filename": "csit/suites/openflowplugin/ROBUSTNESS_OF18/010__Cluster_Current_Term_Verification_3Node_Cluster.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-30T09:27:43Z",
+      "side": 1,
+      "message": "Delete and verify also should be in same testcase.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 170
+      },
+      "revId": "de7615f43ae1e34b35339666bd3e62d8edb61bab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6010da01",
+        "filename": "csit/testplans/openflowplugin-clustering.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-30T09:27:43Z",
+      "side": 1,
+      "message": "Hope its test patch, will be un-comment later.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 11
+      },
+      "revId": "de7615f43ae1e34b35339666bd3e62d8edb61bab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_4013160d",
+        "filename": "csit/testplans/openflowplugin-scalability.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-30T09:27:43Z",
+      "side": 1,
+      "message": "Hope its test patch, will be un-comment later.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "de7615f43ae1e34b35339666bd3e62d8edb61bab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
