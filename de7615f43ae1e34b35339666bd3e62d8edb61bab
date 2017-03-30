@@ -117,6 +117,29 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_bbecb7f4",
+        "filename": "csit/testplans/openflowplugin-clustering.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-03-30T11:50:03Z",
+      "side": 1,
+      "message": "This should not be disabled",
+      "range": {
+        "startLine": 4,
+        "startChar": 1,
+        "endLine": 4,
+        "endChar": 12
+      },
+      "revId": "de7615f43ae1e34b35339666bd3e62d8edb61bab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_4013160d",
         "filename": "csit/testplans/openflowplugin-scalability.txt",
         "patchSetId": 5
@@ -133,6 +156,29 @@
         "startChar": 0,
         "endLine": 3,
         "endChar": 1
+      },
+      "revId": "de7615f43ae1e34b35339666bd3e62d8edb61bab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1bbb43e6",
+        "filename": "csit/testplans/openflowplugin-scalability.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-03-30T11:50:03Z",
+      "side": 1,
+      "message": "This should not be disabled",
+      "range": {
+        "startLine": 4,
+        "startChar": 13,
+        "endLine": 4,
+        "endChar": 17
       },
       "revId": "de7615f43ae1e34b35339666bd3e62d8edb61bab",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
