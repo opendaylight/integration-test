@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_da2ff99f",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-30T05:22:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_af7c75b6",
+      "range": {
+        "startLine": 517,
+        "startChar": 4,
+        "endLine": 517,
+        "endChar": 15
+      },
+      "revId": "36aa1af0476dcbe5a9133adcb2fa73e7df9a2aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_6f728de4",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-29T21:59:06Z",
       "side": 1,
       "message": "I think I saw another patch doing this same thing. This would\nbe better up in the variables section. it could then be\nreused in other places of this suite.",
+      "range": {
+        "startLine": 520,
+        "startChar": 0,
+        "endLine": 522,
+        "endChar": 61
+      },
+      "revId": "36aa1af0476dcbe5a9133adcb2fa73e7df9a2aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_da06d91f",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-03-30T05:22:04Z",
+      "side": 1,
+      "message": "Moved ${PACKET_COUNT_REGEX} to variable section, but other two need dest_ip and dest_mac which will be run time value. On other patch i will use the this keyword.",
+      "parentUuid": "fafc7978_6f728de4",
       "range": {
         "startLine": 520,
         "startChar": 0,
