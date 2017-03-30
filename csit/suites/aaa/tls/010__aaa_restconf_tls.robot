@@ -13,7 +13,7 @@ Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/SSHKeywordsKeywords.robot
+Resource          ../../../libraries/SSHKeywords.robot
 
 *** Variables ***
 ${RESTCONF_MONITORING_URI}    /restconf/operational/ietf-restconf-monitoring:restconf-state
@@ -144,6 +144,11 @@ Disable TLS in ODL
 
 Enable TLS in ODL
     [Documentation]    Add new secure configuration in custom.properties
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sed -i '/org.osgi.service.http.secure.enabled=/d' ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sed -i '/org.ops4j.pax.web.ssl.keystore=/d' ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sed -i '/org.ops4j.pax.web.ssl.password=/d' ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sed -i '/org.ops4j.pax.web.ssl.keypassword=/d' ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sed -i '/org.ops4j.pax.web.ssl.clientauthneeded=/d' ${CUSTOMPROP}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    echo "org.osgi.service.http.secure.enabled=true">> ${CUSTOMPROP}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    echo "org.ops4j.pax.web.ssl.keystore=${KEYSTORE_RELATIVE_PATH}">> ${CUSTOMPROP}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    echo "org.ops4j.pax.web.ssl.password=myPass">> ${CUSTOMPROP}
@@ -152,6 +157,15 @@ Enable TLS in ODL
 
 Enable Client TLS Authentication in ODL
     [Documentation]    Add custom.properties configuration to enable client auth
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sed -i '/org.osgi.service.http.secure.enabled=/d' ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sed -i '/org.ops4j.pax.web.ssl.keystore=/d' ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sed -i '/org.ops4j.pax.web.ssl.password=/d' ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sed -i '/org.ops4j.pax.web.ssl.keypassword=/d' ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sed -i '/org.ops4j.pax.web.ssl.clientauthneeded=/d' ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    echo "org.osgi.service.http.secure.enabled=true">> ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    echo "org.ops4j.pax.web.ssl.keystore=${KEYSTORE_RELATIVE_PATH}">> ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    echo "org.ops4j.pax.web.ssl.password=myPass">> ${CUSTOMPROP}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    echo "org.ops4j.pax.web.ssl.keypassword=123456">> ${CUSTOMPROP}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    echo "org.ops4j.pax.web.ssl.clientauthneeded=true">> ${CUSTOMPROP}
     Restart Karaf
 
