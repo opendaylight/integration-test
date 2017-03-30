@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_b0aa1117",
+        "filename": "csit/libraries/WaitUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-30T15:45:44Z",
+      "side": 1,
+      "message": "I know these are powerful, but to me the keywords are\nsomewhat cryptic sounding. I really have no idea what\nthis keyword is going to do for me (so I find myself\nshying away).\n\nNot to expose myself here, but this library needs a \nlaymans translation.\n\nSo as an example, could I use this keyword to poll on\n/restconf/modules and pass only when status_code is 200.\nis that the point?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 51
+      },
+      "revId": "bfe206e6917f75234a6ad3433a9d85ddf4fc5c22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_50d645c4",
+        "filename": "csit/libraries/WaitUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-30T15:45:44Z",
+      "side": 1,
+      "message": "where does this get defined?",
+      "range": {
+        "startLine": 94,
+        "startChar": 31,
+        "endLine": 94,
+        "endChar": 48
+      },
+      "revId": "bfe206e6917f75234a6ad3433a9d85ddf4fc5c22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
