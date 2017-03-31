@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_5a5e5b46",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-31T20:10:09Z",
+      "side": 1,
+      "message": "add that if any one ping is unsuccessful the keyword\nwill stop. important to know, in case you have 100 hosts\nand the first ping fails you wont know if any other \npings were successful. it\u0027s fine, but let the doc say it\ntoo.",
+      "range": {
+        "startLine": 154,
+        "startChar": 23,
+        "endLine": 154,
+        "endChar": 87
+      },
+      "revId": "bc65944770e83b571bdf214d1344ebc47caf9f8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3a59d75b",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-31T20:10:09Z",
+      "side": 1,
+      "message": "space",
+      "revId": "bc65944770e83b571bdf214d1344ebc47caf9f8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
