@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# TODO: Add more tests here using all the tests/resources/* and automate those tests in a verify job
+
 import unittest
 import distcompare
 from changes import Changes
