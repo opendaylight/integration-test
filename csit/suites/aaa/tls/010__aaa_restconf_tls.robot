@@ -13,7 +13,7 @@ Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/SSHKeywordsKeywords.robot
+Resource          ../../../libraries/SSHKeywords.robot
 
 *** Variables ***
 ${RESTCONF_MONITORING_URI}    /restconf/operational/ietf-restconf-monitoring:restconf-state
@@ -105,7 +105,21 @@ TLS on Restconf with Server & Client Certs (Self-signed)
 
 TLS on Restconf with Server & Client Certs (CA signed)
     [Documentation]    Tests HTTPS request with ODL TLS config and client authentication by using CA signed certificates
-    [Tags]    exclude
+    Clean Up Certificates In Server
+    Generate Server CA Signed Certificate
+    Generate Client CA Signed Certificate
+    #TLS Request
+    PycURLLibrary.Set Url    ${RESTCONF_MONITORING_URL}
+    PycURLLibrary.Add Header    "Content-Type:application/json"
+    PycURLLibrary.Add Header    Authorization:Basic YWRtaW46YWRtaW4=
+    PycURLLibrary.Client Certificate File    ${USER_HOME}/client_ca_signed-cert.pem
+    PycURLLibrary.Private Key File    ${USER_HOME}/client_ca_signed-key.pem
+    PycURLLibrary.Request Method    GET
+    PycURLLibrary.Perform
+    PycURLLibrary.Log Response
+    PycURLLibrary.Response Status Should Contain    200
+    ${resp}    PycURLLibrary.Response
+    Should Contain    ${resp}    "restconf-state":{"capabilities":{"capability":["urn:ietf:params:restconf:capability:depth
 
 Restconf HTTPS/TLS Jolokia with server and client certificates CA signed
     [Documentation]    Tests HTTPS request with ODL TLS config and client authentication by using CA signed certificates for Jolokia
@@ -173,6 +187,26 @@ Generate Server CA Signed Certificate
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${JAVA_HOME}/bin/keytool -importkeystore -deststorepass 123456 -destkeypass myPass -destkeystore ${KEYSTORE_PATH} -srckeystore ${USER_HOME}/server.p12 -srcstoretype PKCS12 -srcstorepass myPass -alias odl
     Log Certificates in Keystore
     Restart Jetty
+
+Generate Client CA Signed Certificate
+    [Documentation]    Generates a client certificate and signs it with own root CA
+    #Generates Root CA key and certificate (note this has to be self-signed)
+    Log Certificates in Keystore
+    Run    openssl genrsa -out ${USER_HOME}/rootCA_for_clients-key.pem 2048
+    Run    openssl req -x509 -new -nodes -key ${USER_HOME}/rootCA_for_clients-key.pem -sha256 -days 1024 -out ${USER_HOME}/rootCA_for_clients-cert.pem -subj "/C=ES/ST=Madrid/L=Madrid/O=FakeCA_ForClient/OU=FakeCA_ForClient/CN=www.fakecaforclients.com/emailAddress=unknown@fakecaforclients.com"
+    #Generate client CSR
+    Run    openssl genrsa -out ${USER_HOME}/client_ca_signed-key.pem 2048
+    Run    openssl req -new -key ${USER_HOME}/client_ca_signed-key.pem -out ${USER_HOME}/client_ca_signed.csr -subj "/C=ES/ST=Madrid/L=Madrid/O=OpenDayLight/OU=RestClient/CN=RestClient/emailAddress=unknown@unknownclient.com"
+    #Sign CSR
+    Run    openssl x509 -req -in ${USER_HOME}/client_ca_signed.csr -CA ${USER_HOME}/rootCA_for_clients-cert.pem -CAkey ${USER_HOME}/rootCA_for_clients-key.pem -CAcreateserial -out ${USER_HOME}/client_ca_signed-cert.pem -days 500 -sha256
+    Copy File To Remote System    ${ODL_SYSTEM_IP}    ${USER_HOME}/rootCA_for_clients-cert.pem    .
+    # Import RootCA Certifcate into keystore
+    ${KEYSTORE_DIR}=    Split Path    ${KEYSTORE_PATH}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    mkdir -p ${KEYSTORE_DIR[0]}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    ${JAVA_HOME}/bin/keytool -import -trustcacerts -file rootCA_for_clients-cert.pem -keystore ${KEYSTORE_PATH} -storepass 123456 -noprompt
+    Log Certificates in Keystore
+    Restart Jetty
+
 
 Disable TLS in ODL
     [Documentation]    Remove TLS configuration in custom.properties
