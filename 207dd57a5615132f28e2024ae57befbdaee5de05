@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_5ab01b8b",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-31T20:03:36Z",
+      "side": 1,
+      "message": "whoops.",
+      "parentUuid": "fafc7978_55e91a7f",
+      "range": {
+        "startLine": 195,
+        "startChar": 75,
+        "endLine": 195,
+        "endChar": 77
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_20bb72e6",
         "filename": "csit/libraries/SSHKeywords.robot",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-30T10:02:10Z",
       "side": 1,
       "message": "Copy\n\nGuidelines [1] suggest imperative mood.\n\n[1] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#.5BDocumentation.5D",
+      "range": {
+        "startLine": 197,
+        "startChar": 23,
+        "endLine": 197,
+        "endChar": 29
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7a7cffb5",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-31T20:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_20bb72e6",
       "range": {
         "startLine": 197,
         "startChar": 23,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_1a6e9301",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-31T20:03:36Z",
+      "side": 1,
+      "message": "so, say I have a suite that opens one connection\nand does some work but does not close the connection because\nit will do more work later.\n\nnow I call this keyword as is.\n\nback to my suite that original connection is no longer \nactive? I would have to know it\u0027s connection id and then\nswitch to it?",
+      "parentUuid": "fafc7978_556e3a02",
+      "range": {
+        "startLine": 198,
+        "startChar": 91,
+        "endLine": 198,
+        "endChar": 92
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_b5f7a658",
         "filename": "csit/libraries/SSHKeywords.robot",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2017-03-30T10:02:10Z",
       "side": 1,
       "message": "That is not what Run_Keyword_Preserve_Connection does. It allows the inner keyword to switch away from the initial active connection, but then makes sure that connection is switched back to, after the inner keyword returns or fails.\n\nFrom the point of implementation, Run_Keyword_Restore_Connection would be a better name, but keyword names should describe what happens from the caller point of view [0] (so Run_Keyword_Preserve_Connection is the correct name here).\n\nRun_Keyword_Using_Preserved_Connection (perhaps not with Preserved, but with Stored, Prepared, Background or similar) would be the performance enhancing keyword you are commenting on, but that keyword is not implemented in SSHLibrary yet. KarafKeywords has something like that, but that uses one connection per member (as Java application, not Linux shell).\n\n[0] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Content_2",
+      "range": {
+        "startLine": 200,
+        "startChar": 65,
+        "endLine": 200,
+        "endChar": 100
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5a777bd4",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-31T20:03:36Z",
+      "side": 1,
+      "message": "so the suggestion here is that this keyword really only does\nthe Put File and ask all callers of this keyword to wrap\nit in Run_Keyword_Preserve_Connection?",
+      "parentUuid": "fafc7978_b5f7a658",
       "range": {
         "startLine": 200,
         "startChar": 65,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_3a7277e3",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-31T20:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_159672f0",
+      "range": {
+        "startLine": 201,
+        "startChar": 19,
+        "endLine": 201,
+        "endChar": 20
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_a0e76211",
         "filename": "csit/libraries/SSHKeywords.robot",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2017-03-30T10:02:10Z",
       "side": 1,
       "message": "More library prefixes please.",
+      "range": {
+        "startLine": 204,
+        "startChar": 4,
+        "endLine": 204,
+        "endChar": 5
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_9a81e391",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-31T20:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_a0e76211",
       "range": {
         "startLine": 204,
         "startChar": 4,
