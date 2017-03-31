@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_b4779e9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-31T11:20:09Z",
+      "side": 1,
+      "message": "Alas, currently I think it is worth it, just to avoid editing multiple suites if version_from has to be changed to support next release.",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "7857b3396de296f3f9165b1109fff93fd1096759",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
