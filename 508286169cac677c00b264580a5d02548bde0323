@@ -57,6 +57,24 @@
       "revId": "508286169cac677c00b264580a5d02548bde0323",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_14e82ab3",
+        "filename": "tools/distchanges/tests/resources/git.properties.spaces",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-31T12:16:25Z",
+      "side": 1,
+      "message": "So we just need to add:\n  # TODO: Turn resources/ into proper test cases.\n  # TODO: Run these tests as part of appropriate int/test verify job.\nto tools/distchanges/tests/test_changes.py?",
+      "parentUuid": "fafc7978_504f65be",
+      "revId": "508286169cac677c00b264580a5d02548bde0323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
