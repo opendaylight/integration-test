@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_1a585331",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-03-31T16:12:16Z",
+      "side": 1,
+      "message": "Remind me to make sure Test Coding Guidelines require every Suite Variable to be described in [Documentation] of corresponding Suite (or Resource).",
+      "range": {
+        "startLine": 103,
+        "startChar": 26,
+        "endLine": 103,
+        "endChar": 40
+      },
+      "revId": "cf807e07842a56870fe0fdb1aaeda280e36b53b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
