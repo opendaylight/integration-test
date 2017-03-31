@@ -33,7 +33,8 @@ Resource          ../../../variables/netvirt/Variables.robot
 @{CREATE_IMPORT_RT}    ["2200:2"]    ["2300:2"]    ["2400:2"]
 @{EXTRA_NW_IP}    40.1.1.2    50.1.1.2
 @{EXTRA_NW_SUBNET}    40.1.1.0/24    50.1.1.0/24
-${SECURITY_GROUP}    sg-vpnservice
+${BROADCAST_IP}    10.1.1.255
+${VM_INT}         eth0
 # Values passed for extra routes
 ${RT_OPTIONS}     --routes type=dict list=true
 ${RT_CLEAR}       --routes action=clear
@@ -66,29 +67,29 @@ Create Neutron Subnets
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
-    Neutron Security Group Create    ${SECURITY_GROUP}
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Create    sg-vpnservice
+    Neutron Security Group Rule Create    sg-vpnservice    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
     ${allowed_address_pairs_args}=    Set Variable    --allowed-address-pairs type=dict list=true ip_address=${EXTRA_NW_SUBNET[0]} ip_address=${EXTRA_NW_SUBNET[1]}
-    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice    additional_args=${allowed_address_pairs_args}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORT_LIST}
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute node with port
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET10[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET10[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET20[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET20[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET10[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET10[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET20[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET20[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
@@ -250,6 +251,14 @@ Verify L3VPN Datapath With Router Association
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    @{VM_IP_NET20}[0]    ${dst_ip_list}
 
+Broadcast testing with ELAN service
+    [Documentation]    Generate broadcast&Unicast traffic from VM1 & Verify
+    Log    Verify broadcast traffic
+    ${RX_Packets_CPN1_1}    Get RXPacketCount from Ifconfig    ${NETWORKS}[0]    ${VM_IP_NET10[1]}    ${VM_INT}
+    ${output} =    Execute Command on VM Instance    ${NETWORKS}[0]    ${VM_IP_NET10[0]}    ping -c 3 ${BROADCAST_IP}
+    ${RX_Packets_CPN1_2}    Get RXPacketCount from Ifconfig    ${NETWORKS}[0]    ${VM_IP_NET10[1]}    ${VM_INT}
+    Should Be True    ${RX_Packets_CPN1_2} > ${RX_Packets_CPN1_1}
+
 Dissociate L3VPN From Routers
     [Documentation]    Dissociating router from L3VPN
     ${devstack_conn_id}=    Get ControlNode Connection
@@ -394,7 +403,7 @@ Basic Vpnservice Suite Setup
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Basic Vpnservice Suite Teardown
-    Delete SecurityGroup    ${SECURITY_GROUP}
+    Delete SecurityGroup    sg-vpnservice
     Close All Connections
 
 Wait For Routes To Propogate
@@ -483,3 +492,16 @@ Verify GWMAC Flow Entry Removed From Flow Table
     #Verify GWMAC address present in table 19
     : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
     \    Should Not Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+
+Get RXPacketCount from Ifconfig
+    [Arguments]    ${network}    ${cpn_ip}    ${vm_int}
+    [Documentation]    Get the packet count from given table using the interface
+    ${PING_RESPONSE_REGEX} =    Set Variable    RX packets:\\d+
+    ${cmd_output}=    Execute Command on VM Instance    ${network}    ${cpn_ip}    sudo ifconfig ${vm_int}
+    Log    ${cmd_output}
+    ${match_output} =    Get Regexp Matches    ${cmd_output}    ${PING_RESPONSE_REGEX}
+    Log    ${match_output}
+    ${rx_packet_info} =    Split String    ${match_output[0]}    separator=:
+    ${rx_packets} =    Get from List    ${rx_packet_info}    1
+    Log    ${rx_packets}
+    [Return]    ${rx_packets}
