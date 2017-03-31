@@ -13,6 +13,7 @@ Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
@@ -21,7 +22,6 @@ Resource          ../../../libraries/KarafKeywords.robot
 @{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 ${network1_vlan_id}    1235
-@{legacy_feature_list}    odl-vtn-manager-neutron    odl-ovsdb-openstack
 
 *** Test Cases ***
 Create VLAN Network (l2_network_1)
