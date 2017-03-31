@@ -1,5 +1,7 @@
 *** Settings ***
 Documentation     Test suite for Inventory Scalability
+Suite Setup       Start Suite
+Suite Teardown    Stop Suite
 Library           SSHLibrary
 Variables         ../../variables/Variables.py
 Resource          ../../libraries/Utils.robot
