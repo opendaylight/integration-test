@@ -75,6 +75,24 @@
       "revId": "508286169cac677c00b264580a5d02548bde0323",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_3ad6f7c3",
+        "filename": "tools/distchanges/tests/resources/git.properties.spaces",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-31T19:27:11Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/54197",
+      "parentUuid": "fafc7978_14e82ab3",
+      "revId": "508286169cac677c00b264580a5d02548bde0323",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
