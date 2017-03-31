@@ -14,6 +14,7 @@ Documentation     Nexus repository access keywords, and supporting Java and Mave
 ...               Currently, Java version detection is incorporated so that Java tools can be run reliably.
 ...               Also, suport for installing and running Maven is added, as that needs the Java detection.
 ...               TODO: Move Java detection and Maven to a separate Resource, or rename this Resource.
+Library           Collections
 Library           OperatingSystem
 Library           SSHLibrary
 Library           String
@@ -21,6 +22,7 @@ Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
+&{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    yangtools=yang-data-impl    carpeople=clustering-it-model
 ${JDKVERSION}     None
 ${JAVA_7_HOME_CENTOS}    /usr/lib/jvm/java-1.7.0
 ${JAVA_7_HOME_UBUNTU}    /usr/lib/jvm/java-7-openjdk-amd64
@@ -53,9 +55,11 @@ Initialize_Artifact_Deployment_And_Usage
 NexusKeywords__Get_Items_To_Look_At
     [Arguments]    ${component}
     [Documentation]    Get a list of items that might contain the version number that we are looking for.
-    BuiltIn.Return_From_Keyword_If    '${component}' == 'bgpcep'    pcep-impl
-    BuiltIn.Return_From_Keyword_If    '${component}' == 'yangtools'    yang-data-impl
-    [Return]    ${component}-impl
+    ...
+    ...    &{COMPONENT_MAPPING} is the centralized place to maintain the mapping
+    ...    from a stream independent component nickname to the list of artifact names to search for.
+    Collections.Dictionary_Should_Contain_Key    ${COMPONENT_MAPPING}    ${component}    Component not supported by NexusKeywords version detection: ${component}
+    BuiltIn.Run_Keyword_And_Return    Collections.Get_From_Dictionary    ${COMPONENT_MAPPING}    ${component}
 
 NexusKeywords__Detect_Version_To_Pull
     [Arguments]    ${component}
@@ -75,7 +79,7 @@ NexusKeywords__Detect_Version_To_Pull
     SSHLibrary.Close_Connection
     SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection.index}
     BuiltIn.Log    ${version}
-    BuiltIn.Run_Keyword_If    ${result}!=0    BuiltIn.Fail    Component "${component}" not found, cannot locate test tool
+    BuiltIn.Run_Keyword_If    ${result}!=0    BuiltIn.Fail    Component "${component}": searching for "${itemlist}" found no version, cannot locate test tool.
     ${version}    ${location} =    String.Split_String    ${version}    max_split=1
     [Return]    ${version}    ${location}
 
@@ -89,13 +93,15 @@ Deploy_From_Url
     [Return]    ${filename}
 
 Deploy_Artifact
-    [Arguments]    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}=-executable.jar    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
+    [Arguments]    ${component}    ${artifact}    ${name_prefix}=${artifact}-    ${name_suffix}=-executable.jar    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
     [Documentation]    Deploy the specified artifact from Nexus to the cwd of the machine to which the active SSHLibrary connection points.
+    ...    ${component} is a name part of an artifact present in system/ of ODl installation with the same version as ${artifact} should have.
     ...    Must have ${BUNDLE_URL} variable set to the URL from which the
     ...    tested ODL distribution was downloaded and this place must be
     ...    inside a repository created by a standard distribution
     ...    construction job. If this is detected to ne be the case, fallback URL is used.
     ...    If ${explicit_url} is non-empty, Deploy_From_Utrl is called instead.
+    ...    TODO: Allow deploying to a specific directory, we have SSHKeywords.Execute_Command_At_Cwd_Should_Pass now.
     BuiltIn.Run_Keyword_And_Return_If    """${explicit_url}""" != ""    Deploy_From_Url    ${explicit_url}
     ${urlbase} =    String.Fetch_From_Left    ${BUNDLE_URL}    /org/opendaylight
     # If the BUNDLE_URL points somewhere else (perhaps *patch-test* job in Jenkins),
