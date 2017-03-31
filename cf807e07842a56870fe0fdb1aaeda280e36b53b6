@@ -22,6 +22,30 @@
       "revId": "cf807e07842a56870fe0fdb1aaeda280e36b53b6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_7a44ffb6",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-03-31T18:03:41Z",
+      "side": 1,
+      "message": "yeah, I dislike any suite variables that don\u0027t come from the *** Variables *** section, but they are prevalent in our\nproject as a whole.",
+      "parentUuid": "fafc7978_1a585331",
+      "range": {
+        "startLine": 103,
+        "startChar": 26,
+        "endLine": 103,
+        "endChar": 40
+      },
+      "revId": "cf807e07842a56870fe0fdb1aaeda280e36b53b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
