@@ -67,6 +67,23 @@
       "revId": "692d9b95de2cbfd1f5d26562227098718ee055ec",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_bc55cac7",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2017-03-31T06:23:04Z",
+      "side": 1,
+      "message": "is this added only for BFD test suite? I meant this in general for all genius test suites",
+      "revId": "692d9b95de2cbfd1f5d26562227098718ee055ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
