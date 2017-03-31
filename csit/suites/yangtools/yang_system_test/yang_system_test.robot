@@ -48,7 +48,7 @@ Deploy_And_Start_Yang_System_Test_Utility
     ...    or constructed from Jenkins-shaped ${BUNDLE_URL}, or downloaded from Nexus based on ODL version.
     ${status}    ${multipatch_url} =    BuiltIn.Run_Keyword_And_Ignore_Error    Construct_Multipatch_Url
     ${url} =    Builtin.Set_Variable_If    "${status}" == "PASS"    ${multipatch_url}    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
-    ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=yang-system-test    suffix=jar-with-dependencies    tool_options=-p ${p_option_value}    explicit_url=${url}
+    ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    artifact=yang-system-test    version_from=yang-data-impl    suffix=jar-with-dependencies    tool_options=-p ${p_option_value}    explicit_url=${url}
     BuiltIn.Set_Suite_Variable    \${logfile}
 
 Wait_Until_Utility_Finishes

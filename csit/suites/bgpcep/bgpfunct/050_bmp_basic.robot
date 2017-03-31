@@ -65,7 +65,7 @@ Set_It_Up
     ...    Figure out latest pcc-mock version and download it from Nexus to ToolsVm.
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
-    ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    bgp-bmp-mock
+    ${name}=    NexusKeywords.Deploy_Test_Tool    artifact=pcep-pcc-mock    version_from=pcep-impl
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
 
 Tear_It_Down

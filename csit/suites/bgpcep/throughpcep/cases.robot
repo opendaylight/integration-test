@@ -118,7 +118,7 @@ Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/AuthStandalone.py
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot    # for Deploy_Artifact
+Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot    # for Deploy_Test_Tool
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot    # for Require_* and Assure_*
 Resource          ${CURDIR}/../../../libraries/Utils.robot    # for Flexible_SSH_Login
 
@@ -170,7 +170,7 @@ Download_Pcc_Mock
     SSHLibrary.Set_Client_Configuration    timeout=10s
     SSHLibrary.Set_Client_Configuration    prompt=${PCCMOCKVM_PROMPT}
     Utils.Flexible_SSH_Login    ${PCCMOCKVM_USER}    ${PCCMOCKVM_PASSWORD}    delay=4s
-    ${file_name} =    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
+    ${file_name} =    NexusKeywords.Deploy_Test_Tool    artifact=pcep-pcc-mock    version_from=pcep-impl
     BuiltIn.Set_Suite_Variable    ${mock_location}    ${file_name}
 
 Put_Updater

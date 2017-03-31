@@ -14,6 +14,8 @@ Documentation     Nexus repository access keywords, and supporting Java and Mave
 ...               Currently, Java version detection is incorporated so that Java tools can be run reliably.
 ...               Also, suport for installing and running Maven is added, as that needs the Java detection.
 ...               TODO: Move Java detection and Maven to a separate Resource, or rename this Resource.
+...
+...               TODO: Is "See inner keywords for semantics of the rest of arguments." acceptable?
 Library           OperatingSystem
 Library           SSHLibrary
 Library           String
@@ -50,32 +52,30 @@ Initialize_Artifact_Deployment_And_Usage
     BuiltIn.Return_From_Keyword_If    not (${tools_system_connect})    # the argument may be a convoluted Python expression
     SSHKeywords.Open_Connection_To_Tools_System
 
-NexusKeywords__Get_Items_To_Look_At
-    [Arguments]    ${component}
-    [Documentation]    Get a list of items that might contain the version number that we are looking for.
-    BuiltIn.Return_From_Keyword_If    '${component}' == 'bgpcep'    pcep-impl
-    BuiltIn.Return_From_Keyword_If    '${component}' == 'yangtools'    yang-data-impl
-    [Return]    ${component}-impl
-
 NexusKeywords__Detect_Version_To_Pull
-    [Arguments]    ${component}
+    [Arguments]    ${version_from}
     [Documentation]    Determine the exact Nexus directory to be used as a source for a particular test tool
+    ...
     ...    Figure out what version of the tool needs to be pulled out of the
     ...    Nexus by looking at the version directory of the subsystem from
-    ...    which the tool is being pulled. This code is REALLY UGLY but there
+    ...    which the tool is being pulled.
+    ...    \${version_from} is a string containing space-delimited list of dir names to look for
+    ...    in system/ of ODL_SYSTEM installation.
+    ...    Return the name of the first subdirectory of first match is returned as the version found.
+    ...
+    ...    This code is REALLY UGLY but there
     ...    is no way around it until the bug
     ...    https://bugs.opendaylight.org/show_bug.cgi?id=5206 gets fixed.
     ...    I also don't want to depend on maven-metadata-local.xml and other
     ...    bits and pieces of ODL distribution which are not required for ODL
     ...    to function properly.
-    ${itemlist} =    NexusKeywords__Get_Items_To_Look_At    ${component}
     ${current_ssh_connection} =    SSHLibrary.Get Connection
     SSHKeywords.Open_Connection_To_ODL_System
-    ${version}    ${result} =    SSHLibrary.Execute_Command    sh search.sh ${WORKSPACE}/${BUNDLEFOLDER}/system ${itemlist}    return_rc=True
+    ${version}    ${result} =    SSHLibrary.Execute_Command    sh search.sh ${WORKSPACE}/${BUNDLEFOLDER}/system ${version_from}    return_rc=True
     SSHLibrary.Close_Connection
     SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection.index}
     BuiltIn.Log    ${version}
-    BuiltIn.Run_Keyword_If    ${result}!=0    BuiltIn.Fail    Component "${component}" not found, cannot locate test tool
+    BuiltIn.Run_Keyword_If    ${result}!=0    BuiltIn.Fail    Component "${version_from}" not found, cannot locate test tool
     ${version}    ${location} =    String.Split_String    ${version}    max_split=1
     [Return]    ${version}    ${location}
 
@@ -89,19 +89,20 @@ Deploy_From_Url
     [Return]    ${filename}
 
 Deploy_Artifact
-    [Arguments]    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}=-executable.jar    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
+    [Arguments]    ${artifact}    ${version_from}    ${name_prefix}    ${name_suffix}=-executable.jar    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
     [Documentation]    Deploy the specified artifact from Nexus to the cwd of the machine to which the active SSHLibrary connection points.
     ...    Must have ${BUNDLE_URL} variable set to the URL from which the
     ...    tested ODL distribution was downloaded and this place must be
     ...    inside a repository created by a standard distribution
     ...    construction job. If this is detected to ne be the case, fallback URL is used.
     ...    If ${explicit_url} is non-empty, Deploy_From_Utrl is called instead.
+    ...    See inner keywords for semantics of the rest of arguments.
     BuiltIn.Run_Keyword_And_Return_If    """${explicit_url}""" != ""    Deploy_From_Url    ${explicit_url}
     ${urlbase} =    String.Fetch_From_Left    ${BUNDLE_URL}    /org/opendaylight
     # If the BUNDLE_URL points somewhere else (perhaps *patch-test* job in Jenkins),
     # ${urlbase} is the whole ${BUNDLE_URL}, in which case we use the ${fallback_url}
     ${urlbase} =    BuiltIn.Set_Variable_If    '${urlbase}' != '${BUNDLE_URL}'    ${urlbase}    ${fallback_url}
-    ${version}    ${location} =    NexusKeywords__Detect_Version_To_Pull    ${component}
+    ${version}    ${location} =    NexusKeywords__Detect_Version_To_Pull    ${version_from}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
     # TODO: Review SSHKeywords for current best keywords to call.
@@ -114,11 +115,11 @@ Deploy_Artifact
     ${url} =    BuiltIn.Set_Variable    ${url}/${filename}
     ${response}    ${result} =    SSHLibrary.Execute_Command    wget -q -N '${url}' 2>&1    return_rc=True
     BuiltIn.Log    ${response}
-    BuiltIn.Run_Keyword_If    ${result} != 0    BuiltIn.Fail    Artifact "${artifact}" in component "${component}" could not be downloaded from ${url}
+    BuiltIn.Run_Keyword_If    ${result} != 0    BuiltIn.Fail    Artifact "${artifact}" in version_from "${version_from}" could not be downloaded from ${url}
     [Return]    ${filename}
 
 Deploy_Test_Tool
-    [Arguments]    ${component}    ${artifact}    ${suffix}=executable    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
+    [Arguments]    ${artifact}    ${version_from}    ${suffix}=executable    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
     [Documentation]    Deploy a test tool.
     ...    The test tools have naming convention of the form
     ...    "<repository_url>/some/dir/somewhere/<tool-name>/<tool-name>-<version-tag>-${suffix}.jar"
@@ -127,21 +128,22 @@ Deploy_Test_Tool
     ...    keyword calculates ${name_prefix} and ${name_suffix} for
     ...    "Deploy_Artifact" and then calls "Deploy_Artifact" to do the real
     ...    work of deploying the artifact.
+    ...    See inner keywords for semantics of the rest of arguments.
     ${name_prefix} =    BuiltIn.Set_Variable    ${artifact}-
     ${name_suffix} =    BuiltIn.Set_Variable_If    "${suffix}" != ""    -${suffix}.jar    .jar
-    ${filename} =    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}    ${fallback_url}
+    ${filename} =    Deploy_Artifact    ${artifact}    ${version_from}    ${name_prefix}    ${name_suffix}    ${fallback_url}
     ...    ${explicit_url}
     [Return]    ${filename}
 
 Install_And_Start_Java_Artifact
-    [Arguments]    ${component}    ${artifact}    ${suffix}=executable    ${tool_options}=${EMPTY}    ${java_options}=${EMPTY}    ${openjdk}=${JDKVERSION}
+    [Arguments]    ${artifact}    ${version_from}    ${suffix}=executable    ${tool_options}=${EMPTY}    ${java_options}=${EMPTY}    ${openjdk}=${JDKVERSION}
     ...    ${fallback_url}=${NEXUS_FALLBACK_URL}    ${explicit_url}=${EMPTY}
     [Documentation]    Deploy the artifact, assign name for log file, figure out java command, write the command to active SSH connection and return the log name.
     ...    This keyword does not examine whether the artifact was started successfully or whether is still running upon return.
-    # TODO: Unify this keyword with what NexusKeywords.Install_And_Start_Testtool does.
+    ...    See inner keywords for semantics of the rest of arguments.
     ${default_java_options} =    Default_Java_Options    ${openjdk}
     ${actual_java_options} =    BuiltIn.Set_Variable_If    """${java_options}""" != ""    ${java_options}    ${default_java_options}
-    ${filename} =    Deploy_Test_Tool    ${component}    ${artifact}    ${suffix}    ${fallback_url}    ${explicit_url}
+    ${filename} =    Deploy_Test_Tool    ${version_from}    ${artifact}    ${suffix}    ${fallback_url}    ${explicit_url}
     ${command} =    Compose_Full_Java_Command    ${actual_java_options} -jar ${filename} ${tool_options}
     ${logfile} =    Utils.Get_Log_File_Name    ${artifact}
     SSHLibrary.Write    ${command} >${logfile} 2>&1
