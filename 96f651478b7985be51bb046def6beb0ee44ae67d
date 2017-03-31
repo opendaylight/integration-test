@@ -232,6 +232,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_327d816f",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-03-31T10:48:06Z",
+      "side": 1,
+      "message": "No. Isolation of node with rpc(in registered_indices) should cause only possible constant update.\nIsolation of the node without rpc wont update any variables.",
+      "parentUuid": "fafc7978_e3d40349",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 34
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_63c0137d",
         "filename": "csit/libraries/controller/DrbCommons.robot",
         "patchSetId": 4
@@ -255,6 +279,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_9246ed4d",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-03-31T10:48:06Z",
+      "side": 1,
+      "message": "In isolation scenario all members are \"responsive\".",
+      "parentUuid": "fafc7978_63c0137d",
+      "range": {
+        "startLine": 110,
+        "startChar": 90,
+        "endLine": 110,
+        "endChar": 91
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_e386c364",
         "filename": "csit/libraries/controller/DrbCommons.robot",
         "patchSetId": 4
@@ -266,6 +314,30 @@
       "writtenOn": "2017-03-22T11:27:08Z",
       "side": 1,
       "message": "Do you also want Kill, Start, Freeze and Unfreeze?",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 6
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f24db973",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-03-31T10:48:06Z",
+      "side": 1,
+      "message": "Not yet, not in the testplan.",
+      "parentUuid": "fafc7978_e386c364",
       "range": {
         "startLine": 112,
         "startChar": 0,
@@ -312,6 +384,30 @@
       "writtenOn": "2017-03-22T11:27:08Z",
       "side": 1,
       "message": "in",
+      "range": {
+        "startLine": 115,
+        "startChar": 55,
+        "endLine": 115,
+        "endChar": 61
+      },
+      "revId": "96f651478b7985be51bb046def6beb0ee44ae67d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b234d1de",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-03-31T10:48:06Z",
+      "side": 1,
+      "message": "Why? Possible_Constant should be updated only if the rejoined noded has rpc regitered.",
+      "parentUuid": "fafc7978_0382e751",
       "range": {
         "startLine": 115,
         "startChar": 55,
