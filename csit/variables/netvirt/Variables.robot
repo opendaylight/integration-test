@@ -2,6 +2,7 @@
 Documentation     Variables for Netvirt Test Suites
 
 *** Variables ***
+@{legacy_feature_list}    odl-vtn-manager-neutron    odl-ovsdb-openstack
 @{NETWORKS}       NET30    NET40
 @{SUBNETS}        SUBNET30    SUBNET40
 @{SUBNET_CIDR}    30.1.1.0/24    40.1.1.0/24
