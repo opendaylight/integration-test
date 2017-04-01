@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_9de71d40",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-04-01T00:49:21Z",
+      "side": 1,
+      "message": "seems weird to have lowercase when all the others are uppercase. I realize it is just moving the same name field which is good.",
+      "revId": "e90376ea046093e521236ec7e31386508c0a214d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
