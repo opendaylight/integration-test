@@ -17,3 +17,15 @@ Get Model Dump
     \    Log    ${resp.status_code}
     \    ${pretty_output}=    To Json    ${resp.content}    pretty_print=True
     \    Log    ${pretty_output}
+
+Verify No Ingress Dispatcher Non-Default Flow Entries
+    [Arguments]    ${ovs_ip}
+    [Documentation]    Verify the ingress dispatcher table has no non-default flows after neutron was cleaned up
+    ${flow_output}=    Run Command On Remote System    ${ovs_ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int table=${DISPATCHER_TABLE} | grep -v "priority=0"
+    Log    ${flow_output}
+    Should Not Contain    ${flow_output}    table=${DISPATCHER_TABLE}
+
+Verify Flows Cleanup All Switches
+    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_CONTROL_NODE_IP}
+    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_COMPUTE_1_IP}
+    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_COMPUTE_2_IP}
