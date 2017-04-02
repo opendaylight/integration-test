@@ -235,3 +235,7 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    OpenStackOperations.Delete Network    ${NetworkElement}
+
+Verify Flows Cleanup
+    [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
+    Verify Flows Are Cleaned Up On All OpenStack Nodes
