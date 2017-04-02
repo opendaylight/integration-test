@@ -9,6 +9,7 @@ Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/DevstackUtils.robot
+Resource          ../../../libraries/Netvirt.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
@@ -173,3 +174,7 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
+
+Verify Flows Cleanup
+    [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
+    Verify Flows Are Cleaned Up On All OpenStack Nodes
