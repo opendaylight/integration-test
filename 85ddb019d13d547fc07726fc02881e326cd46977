@@ -16,6 +16,24 @@
       "revId": "85ddb019d13d547fc07726fc02881e326cd46977",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d402920a",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-04-02T13:39:08Z",
+      "side": 1,
+      "message": "Yes I think we can rename Verify Flows Cleanup to Verify Cleanup - and then slowly add much more testing into here (model delete etc.)",
+      "parentUuid": "da01753e_d42bb292",
+      "revId": "85ddb019d13d547fc07726fc02881e326cd46977",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
