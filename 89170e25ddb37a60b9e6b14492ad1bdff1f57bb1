@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_577344b1",
+        "filename": "csit/variables/netvirt/Modules.py",
+        "patchSetId": 40
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-04-02T14:00:55Z",
+      "side": 1,
+      "message": "I hope these work fine even when there is no federation - need to verify on a sandbox run without federation.\nMaybe we should somehow put these aside somehow if there are going to be a lot of them. not sure.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 66
+      },
+      "revId": "89170e25ddb37a60b9e6b14492ad1bdff1f57bb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_776e48cb",
+        "filename": "csit/variables/netvirt/Modules.py",
+        "patchSetId": 40
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-04-02T14:00:55Z",
+      "side": 1,
+      "message": "operational?",
+      "range": {
+        "startLine": 55,
+        "startChar": 9,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "89170e25ddb37a60b9e6b14492ad1bdff1f57bb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
