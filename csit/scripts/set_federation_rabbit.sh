@@ -35,11 +35,11 @@ EOF
     for i in `seq 1 ${NUM_OPENSTACK_SITES}`
     do
         FIRST_ODL_IN_SITE=ODL_SYSTEM_$(((i - 1) * NUM_ODLS_PER_SITE + 1))_IP
-        RABBIT_SERVER_IP=ODL_SYSTEM_${!FIRST_ODL_IN_SITE} # We install Rabbit on the first ODL in each site
+        RABBIT_SERVER_IP=${!FIRST_ODL_IN_SITE} # We install Rabbit on the first ODL in each site
         CONTROLLERIP=ODL_SYSTEM_$(((i - 1) * NUM_ODLS_PER_SITE + j))_IP
 
-        scp ${WORKSPACE}/install_federation_rabbit.sh ${!RABBIT_SERVER_IP}:/tmp/
-        ssh ${!RABBIT_SERVER_IP} 'bash /tmp/install_federation_rabbit.sh'
+        scp ${WORKSPACE}/install_federation_rabbit.sh ${RABBIT_SERVER_IP}:/tmp/
+        ssh ${RABBIT_SERVER_IP} 'bash /tmp/install_federation_rabbit.sh'
 
         for j in `seq 1 ${NUM_ODLS_PER_SITE}`
         do
@@ -48,12 +48,12 @@ EOF
                 HA_PROXY_IP=OPENSTACK_HAPROXY_${i}_IP
                 SITE_IP=${!HA_PROXY_IP}
             else
-                SITE_IP=${!FIRST_ODL_IN_SITE} # Should this really be the first IP in the site?
+                SITE_IP=${RABBIT_SERVER_IP}
             fi
-            echo "Setting rabbit client site ip to ${SITE_IP} on ${!RABBIT_SERVER_IP}"
+            echo "Setting rabbit client site ip to ${SITE_IP} on ${RABBIT_SERVER_IP}"
 
             scp ${WORKSPACE}/configure_federation_rabbit.sh ${!ODL_IP}:/tmp/
-            ssh ${!ODL_IP} 'bash /tmp/configure_federation_rabbit.sh' ${!RABBIT_SERVER_IP} ${SITE_IP}
+            ssh ${!ODL_IP} 'bash /tmp/configure_federation_rabbit.sh' ${RABBIT_SERVER_IP} ${SITE_IP}
         done
     done
 fi
