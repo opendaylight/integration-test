@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "da01753e_379b20cb",
+        "filename": "csit/suites/openstack/federation/01_l2_tests.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-04-02T14:05:12Z",
+      "side": 1,
+      "message": "Refactor to use your new WUKS Collect VM Ip logic?",
+      "range": {
+        "startLine": 66,
+        "startChar": 1,
+        "endLine": 72,
+        "endChar": 45
+      },
+      "revId": "89170e25ddb37a60b9e6b14492ad1bdff1f57bb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_f76198d4",
+        "filename": "csit/suites/openstack/federation/01_l2_tests.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-04-02T14:05:12Z",
+      "side": 1,
+      "message": "See my commit on master - don\u0027t append DHCP IP into the list of VM_IPs, but add a Should Not Contain DHCP_IP None",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 69
+      },
+      "revId": "89170e25ddb37a60b9e6b14492ad1bdff1f57bb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d75e1412",
+        "filename": "csit/suites/openstack/federation/01_l2_tests.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-04-02T14:05:12Z",
+      "side": 1,
+      "message": "maybe add some function for this instead of duplicating Get Length and count+1 everywhere?",
+      "range": {
+        "startLine": 152,
+        "startChar": 38,
+        "endLine": 152,
+        "endChar": 48
+      },
+      "revId": "89170e25ddb37a60b9e6b14492ad1bdff1f57bb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_577344b1",
         "filename": "csit/variables/netvirt/Modules.py",
         "patchSetId": 40
