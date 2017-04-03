@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_b9486ecd",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-03T12:48:41Z",
+      "side": 1,
+      "message": "The name of the type is \u0027str\u0027, not \u0027string\u0027",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "43f6f0e7e4fb4eebd982b2af00b5089024bad733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d91612a7",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-03T12:48:41Z",
+      "side": 1,
+      "message": "duration is already an int, according to the function description",
+      "range": {
+        "startLine": 78,
+        "startChar": 81,
+        "endLine": 78,
+        "endChar": 89
+      },
+      "revId": "43f6f0e7e4fb4eebd982b2af00b5089024bad733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_59222202",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-03T12:48:41Z",
+      "side": 1,
+      "message": "This is probably a typo, and \u0027range\u0027 is not needed",
+      "revId": "43f6f0e7e4fb4eebd982b2af00b5089024bad733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
