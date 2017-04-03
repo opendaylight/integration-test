@@ -1,9 +1,8 @@
 *** Settings ***
-Documentation     Test suite to validate vpnservice functionality in an openstack integrated environment.
+Documentation     Test suite to validate vpnservice functionality in openstack integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
-...               AND    DevstackUtils.Devstack Suite Setup
+Suite Setup       Basic Vpnservice Suite Setup
 Suite Teardown    Basic Vpnservice Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
@@ -15,6 +14,7 @@ Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/VpnOperations.robot
 Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/BgpOperations.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
@@ -42,6 +42,12 @@ ${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
 ${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
 ${MAC_REGEX}      (([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2}))
 ${IP_REGEX}       (([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])
+${BGP_PROMPT}     \    #
+${DCGW_PROMPT}    \>
+${LOOPBACK_IP}    5.5.5.2
+${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
+${AS_ID}          500
+${DCGW_RD}        2200:2
 
 *** Test Cases ***
 Create Neutron Networks
@@ -164,50 +170,51 @@ Check L3_Datapath Traffic Across Networks With Router
     ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
-
-Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
-    [Documentation]    Add multiple extra routes and check data path before L3VPN creation
-    Log    "Adding extra one route to VM"
-    ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP1}
-    ${CONFIG_EXTRA_ROUTE_IP2} =    Catenate    sudo ifconfig eth0:2 @{EXTRA_NW_IP}[1] netmask 255.255.255.0 up
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP2}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ifconfig
-    ${EXT_RT1} =    Set Variable    destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
-    ${EXT_RT2} =    Set Variable    destination=50.1.1.0/24,nexthop=${VM_IP_NET10[0]}
-    ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}    ${EXT_RT2}
-    Update Router    @{ROUTERS}[0]    ${cmd}
-    Show Router    @{ROUTERS}[0]    -D
-    Log    "Verify FIB table"
-    ${vm_instances} =    Create List    @{EXTRA_NW_SUBNET}
-    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[1]
-    Should Contain    ${output}    64 bytes
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[1]}    ping -c 3 @{EXTRA_NW_IP}[1]
-    Should Contain    ${output}    64 bytes
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[0]
-    Should Contain    ${output}    64 bytes
-
-Delete Extra Route
-    [Documentation]    Delete the extra routes
-    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
-    Show Router    @{ROUTERS}[0]    -D
-
-Delete And Recreate Extra Route
-    [Documentation]    Recreate multiple extra route and check data path before L3VPN creation
-    Log    "Adding extra route to VM"
-    ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP1}
-    ${EXT_RT1} =    Set Variable    destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
-    ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}
-    Update Router    @{ROUTERS}[0]    ${cmd}
-    Show Router    @{ROUTERS}[0]    -D
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[0]
-    Should Contain    ${output}    64 bytes
-    # clear off extra-routes before the next set of tests
-    [Teardown]    Run Keywords    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
-    ...    AND    Show Router    @{ROUTERS}[0]    -D
-    ...    AND    Get Test Teardown Debugs
+    #Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
+    #    [Documentation]    Add multiple extra routes and check data path before L3VPN creation
+    #    Log    "Adding extra one route to VM"
+    #    ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
+    #    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP1}
+    #    ${CONFIG_EXTRA_ROUTE_IP2} =    Catenate    sudo ifconfig eth0:2 @{EXTRA_NW_IP}[1] netmask 255.255.255.0 up
+    #    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP2}
+    #    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ifconfig
+    #    ${EXT_RT1} =    Set Variable    destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
+    #    ${EXT_RT2} =    Set Variable    destination=50.1.1.0/24,nexthop=${VM_IP_NET10[0]}
+    #    ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}    ${EXT_RT2}
+    #    Update Router    @{ROUTERS}[0]    ${cmd}
+    #    Show Router    @{ROUTERS}[0]    -D
+    #    Log    "Verify FIB table"
+    #    ${vm_instances} =    Create List    @{EXTRA_NW_SUBNET}
+    #    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
+    #    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[1]
+    #    Should Contain    ${output}    64 bytes
+    #    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[1]}    ping -c 3 @{EXTRA_NW_IP}[1]
+    #    Should Contain    ${output}    64 bytes
+    #    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[0]
+    #    Should Contain    ${output}    64 bytes
+    #
+    #Delete Extra Route
+    #    [Documentation]    Delete the extra routes
+    #    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
+    #    Show Router    @{ROUTERS}[0]    -D
+    #
+    #Delete And Recreate Extra Route
+    #    [Documentation]    Recreate multiple extra route and check data path before L3VPN creation
+    #    Log    "Adding extra route to VM"
+    #    ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
+    #    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP1}
+    #    ${EXT_RT1} =    Set Variable    destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
+    #    ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}
+    #    Update Router    @{ROUTERS}[0]    ${cmd}
+    #    Show Router    @{ROUTERS}[0]    -D
+    #    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[0]
+    #    Should Contain    ${output}    64 bytes
+    #    # clear off extra-routes before the next set of tests
+    #    [Teardown]    Run Keywords    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
+    #    ...
+    ...    # AND    Show Router    @{ROUTERS}[0]    -D
+    #    ...
+    ...    # AND    Get Test Teardown Debugs
 
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
@@ -226,6 +233,52 @@ Associate L3VPN To Routers
     Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${router_id}
+
+Create BGP Config On ODL
+    [Documentation]    Create BGP Config on ODL
+    Create BGP Configuration On ODL    localas=${AS_ID}    routerid=${ODL_SYSTEM_IP}
+    AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${DCGW_SYSTEM_IP}
+    ${output} =    Get BGP Configuration On ODL    session
+    Log    ${output}
+    Should Contain    ${output}    ${DCGW_SYSTEM_IP}
+    ${output}=    Issue Command On Karaf Console    display-bgp-config
+    Log    ${output}
+
+Create BGP Config On DCGW
+    [Documentation]    Configure BGP Config on DCGW
+    Create BGP and Add Neighbor On quagga    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${VPN_NAME[0]}    ${DCGW_RD}
+    ...    ${LOOPBACK_IP}
+    Add Loopback Interface On Quagga    ${DCGW_SYSTEM_IP}    lo    ${LOOPBACK_IP}
+    ${output} =    Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    show running-config
+    Log    ${output}
+    ${output} =    Wait Until Keyword Succeeds    60s    10s    Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}
+    Log    ${output}
+    ${output1} =    Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    show ip bgp vrf ${DCGW_RD}
+    Log    ${output1}
+    Should Contain    ${output1}    ${LOOPBACK_IP}
+
+Create External Tunnel Endpoint
+    [Documentation]    Create and verify external tunnel endpoint between ODL and GWIP
+    Create external tunnel endpoint Configuration    destIp=${DCGW_SYSTEM_IP}
+    ${output} =    Get External Tunnel Endpoint Configuration    ${DCGW_SYSTEM_IP}
+    Should Contain    ${output}    ${DCGW_SYSTEM_IP}
+
+Verify Ping From VMInstance To DCGW
+    [Documentation]    Verify Ping from vminstance to dcgw
+    ${output1} =    Get Quagga configuration On ODL    ${ODL_SYSTEM_IP}    ${DCGW_RD}
+    Log    ${output1}
+    ${fib_values} =    Create List    ${LOOPBACK_IP}    @{VM_IP_NET10}    @{VM_IP_NET20}
+    ${RD} =    Strip String    ${CREATE_RD[0]}    characters="[]
+    Log    ${RD}
+    Wait Until Keyword Succeeds    60s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${fib_values}
+    Wait Until Keyword Succeeds    60s    5s    Verify Routes On Quagga    ${DCGW_SYSTEM_IP}    ${DCGW_RD}    ${fib_values}
+    Log    L3 Datapath test across the networks using router
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 ${LOOPBACK_IP}
+    Should Contain    ${output}    64 bytes
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[1]}    ping -c 3 ${LOOPBACK_IP}
+    Should Contain    ${output}    64 bytes
+    [Teardown]    Run Keywords    Report_Failure_Due_To_Bug    7607
+    ...    AND    Get Test Teardown Debugs
 
 Verify L3VPN Datapath With Router Association
     [Documentation]    Datapath test across the networks using L3VPN with router association.
@@ -249,6 +302,21 @@ Verify L3VPN Datapath With Router Association
     ${dst_ip_list} =    Create List    @{VM_IP_NET20}[1]    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    @{VM_IP_NET20}[0]    ${dst_ip_list}
+
+Delete External Tunnel Endpoint
+    [Documentation]    Delete external tunnel endpoint
+    Delete external tunnel endpoint Configuration    destIp=${DCGW_SYSTEM_IP}
+    Get External Tunnel Endpoint Configuration    ${DCGW_SYSTEM_IP}
+
+Delete BGP Config On ODL
+    [Documentation]    Delete BGP Configuration on ODL
+    Delete BGP Configuration On ODL    session
+    ${output} =    Get BGP Configuration On ODL    session
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    sudo cp /opt/quagga/var/log/quagga/zrpcd.init.log /tmp/
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    sudo ls -la /tmp/
+    Log    ${output}
 
 Dissociate L3VPN From Routers
     [Documentation]    Dissociating router from L3VPN
@@ -391,7 +459,13 @@ Delete ITM Tunnel
 
 *** Keywords ***
 Basic Vpnservice Suite Setup
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    DevstackUtils.Devstack Suite Setup
+    ${dcgw_conn_id} =    Get Quagga Conection On DCGW    ${DCGW_SYSTEM_IP}
+    Log    ${dcgw_conn_id}
+    Set Global Variable    ${dcgw_conn_id}
+    Start Quagga Processes on ODL    ${ODL_SYSTEM_IP}
+    Start Quagga Processes On DCGW    ${DCGW_SYSTEM_IP}
 
 Basic Vpnservice Suite Teardown
     Delete SecurityGroup    ${SECURITY_GROUP}
