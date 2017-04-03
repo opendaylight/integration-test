@@ -11,7 +11,7 @@ Contents:
 
 External resources:
 
-* `Creating System Tests <https://wiki.opendaylight.org/view/CrossProject:Integration_Group:System_Test:Step_by_Step_Guide>`_.
+* `System Test Guide <http://docs.opendaylight.org/en/stable-boron/submodules/integration/test/docs/system-test-guide.html>`_.
 * `Infrastructure Guide <http://docs.opendaylight.org/en/latest/submodules/releng/builder/docs/jenkins.html>`_.
 * `Running System Tests <https://wiki.opendaylight.org/view/Integration/Test/Running_System_Tests>`_.
 * `Test Code Guidelines <https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines>`_.
