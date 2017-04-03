@@ -22,3 +22,5 @@ do
         ssh ${!CONTROLLERIP} 'bash /tmp/set_log_counters.sh'
 
 done
+
+rm ${WORKSPACE}/set_log_counters.sh
