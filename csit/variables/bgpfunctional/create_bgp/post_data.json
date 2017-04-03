@@ -1,0 +1,7 @@
+{
+   "as-id":{
+              "local-as":$localas,
+              "router-id":"$routerid"
+    }
+}
+
