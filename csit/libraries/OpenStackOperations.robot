@@ -421,7 +421,7 @@ Test Operations From Vm Instance
     \    ${string_empty}=    Run Keyword And Return Status    Should Be Empty    ${dest_ip}
     \    Run Keyword If    ${string_empty}    Continue For Loop
     \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}    ttl=${ttl}
-    Run Keyword If    ${rcode}    Check Metadata Access
+    Run Keyword If    ${rcode} and "${ODL_DHCP_SERVICE_ENABLED}" == "false"    Check Metadata Access
     [Teardown]    Exit From Vm Console
 
 Install Netcat On Controller
