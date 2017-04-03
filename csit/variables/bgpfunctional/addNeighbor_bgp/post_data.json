@@ -1,0 +1,12 @@
+{
+    "neighbors":[
+      {
+         "address":"$neighborAddr",
+         "remote-as":$remoteas,
+         "update-source": {
+               "source-ip":"$mip",
+               "peer-ip":"$neighborAddr"
+          }
+      }
+   ]
+}
