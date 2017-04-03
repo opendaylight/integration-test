@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_faa69852",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-04-03T17:05:58Z",
+      "side": 1,
+      "message": "ditto comment here.. please see next file.",
+      "revId": "5162b2107e9443f4abc3e6e94bf67adbc6a60db1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1aaa7c19",
+        "filename": "csit/testplans/netvirt-3node-openstack.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-04-03T17:05:58Z",
+      "side": 1,
+      "message": "is there a reason why ElanService was moved before basic_vpnservice in this revert?",
+      "revId": "5162b2107e9443f4abc3e6e94bf67adbc6a60db1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
