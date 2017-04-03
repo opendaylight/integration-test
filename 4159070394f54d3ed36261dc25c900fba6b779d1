@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_06906894",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-04-03T12:39:03Z",
+      "side": 1,
+      "message": "Using of such keywords is e.g. here:\nsuites/controller/dom_rpc_broker/rpc_provider_precedence.robot:    DrbCommons.Verify_Constant_On_Registered_Nodes    ${all_indices}\nsuites/controller/dom_rpc_broker/rpc_provider_precedence.robot:    DrbCommons.Verify_Constant_On_Unregistered_Node    ${UNREGISTERED_RPC_NODE}\n\nIn my opinion, counting a list to iterate over provides less information. Having the \"what list\" argument in the suite provides more information when reading the suite.\n\nI prefer to leave the present implementation.",
+      "parentUuid": "fafc7978_74f7f659",
+      "range": {
+        "startLine": 91,
+        "startChar": 31,
+        "endLine": 91,
+        "endChar": 44
+      },
+      "revId": "4159070394f54d3ed36261dc25c900fba6b779d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_94fc1a40",
         "filename": "csit/libraries/controller/DrbCommons.robot",
         "patchSetId": 9
