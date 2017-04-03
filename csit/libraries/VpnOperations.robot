@@ -91,7 +91,7 @@ Verify Flows Are Present For L3VPN
     ${flow_output}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     Log    ${flow_output}
     Should Contain    ${flow_output}    table=${ODL_FLOWTABLE_L3VPN}
-    ${l3vpn_table} =    Get Lines Containing String    ${flow_output}    table=${ODL_FLOWTABLE_L3VPN}
+    ${l3vpn_table} =    Get Lines Containing String    ${flow_output}    table=${ODL_FLOWTABLE_L3VPN},
     Log    ${l3vpn_table}
     : FOR    ${i}    IN    @{vm_ips}
     \    ${resp}=    Should Contain    ${l3vpn_table}    ${i}
