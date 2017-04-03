@@ -1,7 +1,5 @@
 *** Settings ***
 Documentation     Test suite to validate vpnservice functionality in an openstack integrated environment.
-...               The assumption of this suite is that the environment is already configured with the proper
-...               integration bridges and vxlan tunnels.
 Suite Setup       Basic Vpnservice Suite Setup
 Suite Teardown    Basic Vpnservice Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -15,6 +13,7 @@ Resource          ../../../libraries/VpnOperations.robot
 Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Tcpdump.robot
+Resource          ../../../libraries/BgpOperations.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
@@ -42,6 +41,10 @@ ${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
 ${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
 ${MAC_REGEX}      (([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2}))
 ${IP_REGEX}       (([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])
+${LOOPBACK_IP}    5.5.5.2
+${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
+${AS_ID}          500
+${DCGW_RD}        2200:2
 
 *** Test Cases ***
 Create Neutron Networks
@@ -231,6 +234,49 @@ Associate L3VPN To Routers
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${router_id}
 
+Create BGP Config On ODL
+    [Documentation]    Create BGP Config on ODL
+    Create BGP Configuration On ODL VIA HA_PROXY    localas=${AS_ID}    routerid=${HA_PROXY_IP}
+    AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${DCGW_SYSTEM_IP}
+    ${output} =    Get BGP Configuration On ODL    ha_proxy_session
+    Log    ${output}
+    Should Contain    ${output}    ${DCGW_SYSTEM_IP}
+
+Create BGP Config On DCGW
+    [Documentation]    Configure BGP Config on DCGW
+    Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${HA_PROXY_IP}    ${VPN_NAME[0]}    ${DCGW_RD}
+    ...    ${LOOPBACK_IP}
+    Add Loopback Interface On DCGW    ${DCGW_SYSTEM_IP}    lo    ${LOOPBACK_IP}
+    ${output} =    Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    show running-config
+    Log    ${output}
+    ${output} =    Wait Until Keyword Succeeds    60s    10s    Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_IP}    ${HA_PROXY_IP}
+    Log    ${output}
+    ${output1} =    Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    show ip bgp vrf ${DCGW_RD}
+    Log    ${output1}
+    Should Contain    ${output1}    ${LOOPBACK_IP}
+    [Teardown]    ThreeNode Failure
+
+Create External Tunnel Endpoint
+    [Documentation]    Create and verify external tunnel endpoint between ODL and GWIP
+    Create External Tunnel Endpoint Configuration    destIp=${DCGW_SYSTEM_IP}
+    ${output} =    Get External Tunnel Endpoint Configuration    ${DCGW_SYSTEM_IP}
+    Should Contain    ${output}    ${DCGW_SYSTEM_IP}
+
+Verify Ping From VMInstance To DCGW
+    [Documentation]    Verify Ping from VM instance to dcgw loopback IP
+    ${fib_values} =    Create List    ${LOOPBACK_IP}    @{VM_IP_NET10}    @{VM_IP_NET20}
+    Wait Until Keyword Succeeds    60s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${DCGW_RD}/    ${fib_values}
+    Wait Until Keyword Succeeds    60s    5s    Verify Routes On Quagga    ${DCGW_SYSTEM_IP}    ${DCGW_RD}    ${fib_values}
+    Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${fib_values}
+    Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${fib_values}
+    Log    L3 Datapath test across the networks using router
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 ${LOOPBACK_IP}
+    Should Contain    ${output}    64 bytes
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[1]}    ping -c 3 ${LOOPBACK_IP}
+    Should Contain    ${output}    64 bytes
+    [Teardown]    Run Keywords    Report_Failure_Due_To_Bug    7607
+    ...    AND    Get Test Teardown Debugs
+
 Verify L3VPN Datapath With Router Association
     [Documentation]    Datapath test across the networks using L3VPN with router association.
     Log    Verify VPN interfaces, FIB entries and Flow table
@@ -253,6 +299,22 @@ Verify L3VPN Datapath With Router Association
     ${dst_ip_list} =    Create List    @{VM_IP_NET20}[1]    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    @{VM_IP_NET20}[0]    ${dst_ip_list}
+
+Delete External Tunnel Endpoint
+    [Documentation]    Delete external tunnel endpoint
+    Delete External Tunnel Endpoint Configuration    destIp=${DCGW_SYSTEM_IP}
+    Get External Tunnel Endpoint Configuration    ${DCGW_SYSTEM_IP}
+
+Delete BGP Config On ODL
+    [Documentation]    Delete BGP Configuration on ODL
+    Delete BGP Configuration On ODL    ha_proxy_session
+    ${output} =    Get BGP Configuration On ODL    ha_proxy_session
+    Log    ${output}
+    : FOR    ${idx}    IN RANGE    1    ${NUM_ODL_SYSTEM}+1
+    \    ${output}=    Run Command On Remote System    ${ODL_SYSTEM_${idx}_IP}    sudo cp /opt/quagga/var/log/quagga/zrpcd.init.log /tmp/
+    \    Log    ${output}
+    \    ${output}=    Run Command On Remote System    ${ODL_SYSTEM_${idx}_IP}    sudo ls -la /tmp/
+    \    Log    ${output}
 
 Dissociate L3VPN From Routers
     [Documentation]    Dissociating router from L3VPN
@@ -397,6 +459,11 @@ Delete ITM Tunnel
 Basic Vpnservice Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     DevstackUtils.Devstack Suite Setup
+    Create Session    ha_proxy_session    http://${HA_PROXY_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    : FOR    ${idx}    IN RANGE    1    ${NUM_ODL_SYSTEM}+1
+    \    Start Quagga Processes On ODL    ${ODL_SYSTEM_${idx}_IP}
+    : FOR    ${idx}    IN RANGE    1    ${NUM_TOOLS_SYSTEM}+1
+    \    Start Quagga Processes On DCGW    ${TOOLS_SYSTEM_${idx}_IP}
 
 Basic Vpnservice Suite Teardown
     Delete SecurityGroup    ${SECURITY_GROUP}
@@ -407,6 +474,14 @@ Test Teardown With Tcpdump Stop
     Stop Packet Capture on Node    ${cn1_conn_id}
     Stop Packet Capture on Node    ${cn2_conn_id}
     Stop Packet Capture on Node    ${os_conn_id}
+    Get Test Teardown Debugs
+
+ThreeNode Failure
+    : FOR    ${idx}    IN RANGE    1    ${NUM_ODL_SYSTEM}+1
+    \    ${output}=    Run Command On Remote System    ${ODL_SYSTEM_${idx}_IP}    netstat -nap
+    \    Log    ${output}
+    \    ${output}=    Run Command On Remote System    ${ODL_SYSTEM_${idx}_IP}    netstat -nap | grep 179 
+    \    Log    ${output}
     Get Test Teardown Debugs
 
 Wait For Routes To Propogate
