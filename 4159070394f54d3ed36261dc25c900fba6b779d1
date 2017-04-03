@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_145b0a88",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:42:15Z",
+      "side": 1,
+      "message": "\\$\nNo big deal though.",
+      "range": {
+        "startLine": 36,
+        "startChar": 34,
+        "endLine": 36,
+        "endChar": 35
+      },
+      "revId": "4159070394f54d3ed36261dc25c900fba6b779d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_74f7f659",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:42:15Z",
+      "side": 1,
+      "message": "Compute this from ${registered_indices} and ${active_indices}.",
+      "range": {
+        "startLine": 91,
+        "startChar": 31,
+        "endLine": 91,
+        "endChar": 44
+      },
+      "revId": "4159070394f54d3ed36261dc25c900fba6b779d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_94fc1a40",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:42:15Z",
+      "side": 1,
+      "message": "Compute this from ${nonregistered_indices} and ${active_indices}.",
+      "range": {
+        "startLine": 97,
+        "startChar": 31,
+        "endLine": 97,
+        "endChar": 44
+      },
+      "revId": "4159070394f54d3ed36261dc25c900fba6b779d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d49502e5",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:42:15Z",
+      "side": 1,
+      "message": "Do we even need the previous two keywords when we have this?",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 31
+      },
+      "revId": "4159070394f54d3ed36261dc25c900fba6b779d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f4a2c649",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:42:15Z",
+      "side": 1,
+      "message": "is the same and expected",
+      "range": {
+        "startLine": 108,
+        "startChar": 52,
+        "endLine": 108,
+        "endChar": 81
+      },
+      "revId": "4159070394f54d3ed36261dc25c900fba6b779d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_b4cafe17",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:42:15Z",
+      "side": 1,
+      "message": "Isolate",
+      "range": {
+        "startLine": 124,
+        "startChar": 23,
+        "endLine": 124,
+        "endChar": 31
+      },
+      "revId": "4159070394f54d3ed36261dc25c900fba6b779d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_f4d486be",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:42:15Z",
+      "side": 1,
+      "message": "Describe this in suite Documentation.",
+      "range": {
+        "startLine": 129,
+        "startChar": 34,
+        "endLine": 129,
+        "endChar": 54
+      },
+      "revId": "4159070394f54d3ed36261dc25c900fba6b779d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_34d60ec4",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:42:15Z",
+      "side": 1,
+      "message": "Index",
+      "range": {
+        "startLine": 147,
+        "startChar": 21,
+        "endLine": 147,
+        "endChar": 27
+      },
+      "revId": "4159070394f54d3ed36261dc25c900fba6b779d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_74e09696",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:42:15Z",
+      "side": 1,
+      "message": "Index",
+      "range": {
+        "startLine": 156,
+        "startChar": 23,
+        "endLine": 156,
+        "endChar": 29
+      },
+      "revId": "4159070394f54d3ed36261dc25c900fba6b779d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_5402b23e",
+        "filename": "csit/libraries/controller/DrbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-03T10:42:15Z",
+      "side": 1,
+      "message": "Not that useful.",
+      "range": {
+        "startLine": 165,
+        "startChar": 33,
+        "endLine": 165,
+        "endChar": 41
+      },
+      "revId": "4159070394f54d3ed36261dc25c900fba6b779d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
