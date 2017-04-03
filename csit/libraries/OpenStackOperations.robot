@@ -384,6 +384,7 @@ Ping Vm From DHCP Namespace
 Ping From DHCP Should Not Succeed
     [Arguments]    ${net_name}    ${vm_ip}
     [Documentation]    Should Not Reach Vm Instance with the net id of the Netowrk.
+    Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
     Log    ${vm_ip}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
@@ -436,9 +437,15 @@ Exit From Vm Console
 
 Check Ping
     [Arguments]    ${ip_address}    ${ttl}=64
-    [Documentation]    Run Ping command on the IP available as argument
+    [Documentation]    Run Ping command to the IP given as argument, executing 3 times and expecting to see "64 bytes"
     ${output}=    Write Commands Until Expected Prompt    ping -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    64 bytes
+
+Check No Ping
+    [Arguments]    ${ip_address}    ${ttl}=64
+    [Documentation]    Run Ping command to the IP given as argument, executing 3 times and expecting NOT to see "64 bytes"
+    ${output}=    Write Commands Until Expected Prompt    ping -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    Should Not Contain    ${output}    64 bytes
 
 Check Metadata Access
     [Documentation]    Try curl on the Metadataurl and check if it is okay
@@ -463,6 +470,7 @@ Execute Command on VM Instance
 
 Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)    ${ttl}=64
+    ...    ${ping_should_succeed}=True    ${check_metadata}=True
     [Documentation]    Login to the vm instance using ssh in the network.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
@@ -474,14 +482,15 @@ Test Operations From Vm Instance
     Log    ${output}
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
-    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route -n    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
     : FOR    ${dest_ip}    IN    @{dest_ips}
     \    Log    ${dest_ip}
     \    ${string_empty}=    Run Keyword And Return Status    Should Be Empty    ${dest_ip}
     \    Run Keyword If    ${string_empty}    Continue For Loop
-    \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}    ttl=${ttl}
-    Run Keyword If    ${rcode}    Check Metadata Access
+    \    Run Keyword If    ${rcode} and "${ping_should_succeed}" == "True"    Check Ping    ${dest_ip}    ttl=${ttl}
+    \    ...    ELSE    Check No Ping    ${dest_ip}    ttl=${ttl}
+    Run Keyword If    ${rcode} and "${check_metadata}" == "True"    Check Metadata Access
     [Teardown]    Exit From Vm Console
 
 Test Netcat Operations From Vm Instance
@@ -790,6 +799,25 @@ Neutron Security Group Rule Create
     Close Connection
     [Return]    ${output}    ${rule_id}
 
+Security Group Create Without Default Security Rules
+    [Arguments]    ${sg_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Create Neutron Security Group with no default rules, using specified name and optional arguments.
+    Neutron Security Group Create    ${sg_name}    ${additional_args}
+    Delete All Security Group Rules    ${sg_name}
+
+Delete All Security Group Rules
+    [Arguments]    ${sg_name}
+    [Documentation]    Delete all security rules from a specified security group
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${sg_rules_output}=    Write Commands Until Prompt    openstack security group rule list ${sg_name} -cID -fvalue
+    Log    ${sg_rules_output}
+    @{sg_rules}=    Split String    ${sg_rules_output}    \n
+    : FOR    ${rule}    IN    @{sg_rules}
+    \    ${output}=    Write Commands Until Prompt    openstack security group rule delete ${rule}
+    \    Log    ${output}
+    Close Connection
+
 Create Neutron Port With Additional Params
     [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
     [Documentation]    Create Port With given additional parameters
@@ -923,6 +951,7 @@ Update Port Rest
 
 Create And Configure Security Group
     [Arguments]    ${sg-name}
+    [Documentation]    Create Security Group with given name, and default allow rules for TCP/UDP/ICMP protocols.
     Neutron Security Group Create    ${sg-name}
     Neutron Security Group Rule Create    ${sg-name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg-name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
@@ -930,6 +959,15 @@ Create And Configure Security Group
     Neutron Security Group Rule Create    ${sg-name}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg-name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg-name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+
+Add Security Group To VM
+    [Arguments]    ${vm}    ${sg}
+    [Documentation]    Add the security group provided to the given VM.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    openstack server add security group ${vm} ${sg}
+    Log    ${output}
+    Close Connection
 
 Create SFC Flow Classifier
     [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${dest_port}    ${neutron_src_port}
@@ -1068,5 +1106,3 @@ Remove RSA Key From KnowHosts
     ${output}=    Write Commands Until Prompt    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}    30s
     Log    ${output}
     ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"    30s
-    Log    ${output}
-    Close Connection
