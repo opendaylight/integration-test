@@ -360,6 +360,12 @@ Check Ping
     ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    64 bytes
 
+Check No Ping
+    [Arguments]    ${ip_address}
+    [Documentation]    Run Ping command on the IP available as argument
+    ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    Should Not Contain    ${output}    64 bytes
+
 Check Metadata Access
     [Documentation]    Try curl on the Metadataurl and check if it is okay
     ${output}=    Write Commands Until Expected Prompt    curl -i http://169.254.169.254    ${OS_SYSTEM_PROMPT}
@@ -402,6 +408,28 @@ Test Operations From Vm Instance
     \    Run Keyword If    ${string_empty}    Continue For Loop
     \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
     Run Keyword If    ${rcode}    Check Metadata Access
+    [Teardown]    Exit From Vm Console
+
+Test No Ping From Vm Instance
+    [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Login to the vm instance using ssh in the network.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    Log    ${src_ip}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    d:
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
+    : FOR    ${dest_ip}    IN    @{dest_ips}
+    \    Log    ${dest_ip}
+    \    ${string_empty}=    Run Keyword And Return Status    Should Be Empty    ${dest_ip}
+    \    Run Keyword If    ${string_empty}    Continue For Loop
+    \    Run Keyword If    ${rcode}    Check No Ping    ${dest_ip}
     [Teardown]    Exit From Vm Console
 
 Install Netcat On Controller
