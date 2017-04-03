@@ -42,6 +42,7 @@ ${CLUSTER_DIR}    ${CURDIR}/../../../variables/clustering
 *** Test Cases ***
 Kill_Majority_Of_The_Followers
     [Documentation]    Kill half plus one car Follower members and set reviving followers down (otherwsise tipping followers cannot join cluster).
+    ...    Mark most of killed members as explicitly down, to allow the surviving leader make progress.
     ClusterManagement.Kill_Members_From_List_Or_All    member_index_list=${list_of_killing}    confirm=True
     : FOR    ${index}    IN    @{list_of_reviving}
     \    ${data}    OperatingSystem.Get File    ${CLUSTER_DIR}/member_down.json
@@ -56,9 +57,8 @@ Attempt_To_Add_Cars_To_Leader
     # TODO: Is there a specific status and mesage to require in this scenario?
     BuiltIn.Should_Contain    ${message}    '50
 
-Clean_And_Start_Tipping_Follower
+Start_Tipping_Follower
     [Documentation]    Start one Follower member without persisted data.
-    ClusterManagement.Clean_Journals_And_Snapshots_On_List_Or_All    member_index_list=${list_of_tipping}
     ClusterManagement.Start_Members_From_List_Or_All    member_index_list=${list_of_tipping}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config    member_index_list=${list_of_majority}
 
@@ -71,7 +71,7 @@ See_Cars_On_Existing_Members
     : FOR    ${session}    IN    @{list_of_majority}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${MAJORITY_START_I}
 
-Clean_And_Start_Other_Followers
+Start_Other_Followers
     [Documentation]    Start other followers without persisted data.
     ClusterManagement.Start_Members_From_List_Or_All    member_index_list=${list_of_reviving}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config
