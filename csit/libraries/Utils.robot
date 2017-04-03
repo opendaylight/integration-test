@@ -483,3 +483,13 @@ Install Package On Ubuntu System
     Flexible Mininet Login    user=${user}    password=${password}
     Write    sudo apt-get install -y ${package_name}
     Read Until    ${prompt}
+
+Get System Connection ID
+    [Arguments]    ${system_ip}    ${user}=${DEFAULT_USER}    ${password}=${DEFAULT_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
+    [Documentation]    Get system connection ID
+    ${conn_id}=    SSHLibrary.Open Connection    ${system_ip}    prompt=${prompt}
+    Log    ${conn_id}
+    Utils.Flexible SSH Login    ${user}    ${password}
+    SSHLibrary.Set Client Configuration    timeout=${prompt_timeout}
+    [Return]    ${conn_id}
+
