@@ -27,6 +27,16 @@ Get Tenant ID From Network
     ${tenant_id}=    Utils.Extract Value From Content    ${resp}    /network/0/tenant-id    strip
     [Return]    ${tenant_id}
 
+VM Creation Quota Update
+    [Documentation]    Update VM Creation Quota to 20
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    openstack project list    30s
+    ${split_output}=    Split String    ${output}
+    ${index} =      Get Index From List    ${split_output}    admin
+    ${output}=    Write Commands Until Prompt    nova quota-update --instances 20 ${split_output[${index-2}]}    30s
+    Log    ${output}
+
 Create Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
     [Documentation]    Create Network with neutron request.
@@ -259,6 +269,18 @@ Create Vm Instance With Port On Compute Node
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
     ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} --availability-zone nova:${hostname_compute_node}    30s
     Log    ${output}
+
+Nova Migrate 
+    [Arguments]    ${vm_name}
+    [Documentation]    Migrate the specified VM from one CSS to another on polling
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name}    30s
+    ${output}=    Write Commands Until Prompt    nova migrate --poll ${vm_name}    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    nova resize-confirm ${vm_name}    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name}    30s
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
