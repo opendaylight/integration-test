@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_7d49028b",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-04-04T04:31:44Z",
+      "side": 1,
+      "message": "Yes, VPNservice suite has tunnel delete test case which may cause the issue in ELAN ping failure (inconsistent). As tunnel TC planned to move Genius, i have moved ELAN first and then VPNservice. Also ELAN is the basic service which make sense to have before VPNservice suite.",
+      "parentUuid": "da01753e_faa69852",
+      "revId": "5162b2107e9443f4abc3e6e94bf67adbc6a60db1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_1aaa7c19",
         "filename": "csit/testplans/netvirt-3node-openstack.txt",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-03T17:05:58Z",
       "side": 1,
       "message": "is there a reason why ElanService was moved before basic_vpnservice in this revert?",
+      "revId": "5162b2107e9443f4abc3e6e94bf67adbc6a60db1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_9d44a675",
+        "filename": "csit/testplans/netvirt-3node-openstack.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-04-04T04:31:44Z",
+      "side": 1,
+      "message": "Yes, VPNservice suite has tunnel delete test case which may cause the issue in ELAN ping failure (inconsistent). As tunnel TC planned to move Genius, i have moved ELAN first and then VPNservice. Also ELAN is the basic service which make sense to have before VPNservice suite.",
+      "parentUuid": "da01753e_1aaa7c19",
       "revId": "5162b2107e9443f4abc3e6e94bf67adbc6a60db1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
