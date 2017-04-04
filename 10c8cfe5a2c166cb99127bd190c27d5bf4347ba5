@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_8e0e2a33",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp-mounting/connections.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7184
+      },
+      "writtenOn": "2017-04-04T12:30:16Z",
+      "side": 1,
+      "message": "change a path to this file so the name of the directory will be \"clustering-vpp_mounting",
+      "range": {
+        "startLine": 1,
+        "startChar": 13,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "10c8cfe5a2c166cb99127bd190c27d5bf4347ba5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ce0f922d",
+        "filename": "csit/testplans/groupbasedpolicy-clustering-vpp-mounting.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7184
+      },
+      "writtenOn": "2017-04-04T12:30:16Z",
+      "side": 1,
+      "message": "rename any occurence of vpp-mounting to vpp_mounting ( even file names and directories)",
+      "revId": "10c8cfe5a2c166cb99127bd190c27d5bf4347ba5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
