@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_0474dbfb",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-04T22:58:59Z",
+      "side": 1,
+      "message": "switch connections and cluster are restarted",
+      "revId": "31d055b3984ade5c500f39831494aab45d54242b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_24775f04",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-04T22:58:59Z",
+      "side": 1,
+      "message": "Convert integer variables to scalar, see https://git.opendaylight.org/gerrit/#/c/54010/7/csit/suites/openflowplugin/Reconciliation/010_Group_Flows.robot",
+      "revId": "31d055b3984ade5c500f39831494aab45d54242b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c4693327",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-04T22:58:59Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "31d055b3984ade5c500f39831494aab45d54242b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8488cbe8",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-04T22:58:59Z",
+      "side": 1,
+      "message": "Remove this TC for now as you do not need it.",
+      "revId": "31d055b3984ade5c500f39831494aab45d54242b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e46c3739",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-04T22:58:59Z",
+      "side": 1,
+      "message": "Remove this TC for now as you do not need it.",
+      "revId": "31d055b3984ade5c500f39831494aab45d54242b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a4834fcb",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-04T22:58:59Z",
+      "side": 1,
+      "message": "I do not think you are using this, please remove.",
+      "revId": "31d055b3984ade5c500f39831494aab45d54242b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_64604736",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-04T22:58:59Z",
+      "side": 1,
+      "message": "remove this line if you are not using it.",
+      "revId": "31d055b3984ade5c500f39831494aab45d54242b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_447ee3e5",
+        "filename": "csit/testplans/openflowplugin-clustering.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-04T22:58:59Z",
+      "side": 1,
+      "message": "For the final patch I am going to need all these lines uncommented.",
+      "revId": "31d055b3984ade5c500f39831494aab45d54242b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
