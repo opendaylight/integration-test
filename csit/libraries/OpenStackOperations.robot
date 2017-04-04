@@ -231,6 +231,25 @@ Create Vm Instances
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-groups ${sg}    30s
     \    Log    ${output}
 
+Create Vm Instance With Port
+    [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg}    30s
+    Log    ${output}
+
+Create Vm Instance With Ports
+    [Arguments]    ${port_name}    ${port2_name}    ${vm_instance_name}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
+    ${port2_id}=    Get Port Id    ${port2_name}    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-groups ${sg}    30s
+    Log    ${output}
+
 Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
@@ -858,3 +877,120 @@ Create And Configure Security Group
     Neutron Security Group Rule Create    ${sg-name}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg-name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg-name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+
+Create SFC Flow Classifiers
+    [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${dest_port}    ${neutron_src_port}
+    [Documentation]    Create a flow classifier for SFC
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron flow-classifier-create --ethertype IPv4 --source-ip-prefix ${src_ip}/32 --destination-ip-prefix ${dest_ip}/32 --protocol ${protocol} --destination-port ${dest_port}:${dest_port} --logical-source-port ${neutron_src_port} ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new flow_classifier
+    [Return]    ${output}
+
+Delete SFC Flow Classifiers
+    [Arguments]    ${name}
+    [Documentation]    Delete a SFC flow classifier
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron flow-classifier-delete ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Deleted flow_classifier
+    [Return]    ${output}
+
+Create SFC Port Pair
+    [Arguments]    ${name}    ${port_in}    ${port_out}
+    [Documentation]    Creates a neutron port pair for SFC
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron port-pair-create --ingress=${port_in} --egress=${port_out} ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new port_pair
+    [Return]    ${output}
+
+Delete SFC Port Pair
+    [Arguments]    ${name}
+    [Documentation]    Delete a SFC port pair
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron port-pair-delete ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Deleted port_pair
+    [Return]    ${output}
+
+Create SFC Port Pair Group
+    [Arguments]    ${name}    ${port_pair}
+    [Documentation]    Creates a port pair group with a single port pair for SFC
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron port-pair-group-create --port-pair ${port_pair} ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new port_pair_group
+    [Return]    ${output}
+
+Create SFC Port Pair Group With Two Pairs
+    [Arguments]    ${name}    ${port_pair1}    ${port_pair2}
+    [Documentation]    Creates a port pair group with two port pairs for SFC
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron port-pair-group-create --port-pair ${port_pair1} --port-pair ${port_pair2} ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new port_pair_group
+    [Return]    ${output}
+
+Delete SFC Port Pair Group
+    [Arguments]    ${name}
+    [Documentation]    Delete a SFC port pair group
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron port-pair-group-delete ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Deleted port_pair_group
+    [Return]    ${output}
+
+Create SFC Port Chain
+    [Arguments]    ${name}    ${pg1}    ${pg2}    ${fc}
+    [Documentation]    Creates a port pair chain with two port groups and a singel classifier.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron port-chain-create --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc} ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new port_chain
+    [Return]    ${output}
+
+Delete SFC Port Chain
+    [Arguments]    ${name}
+    [Documentation]    Delete a SFC port chain
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron port-chain-delete ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Deleted port_chain
+    [Return]    ${output}
