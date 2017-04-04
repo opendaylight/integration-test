@@ -13,11 +13,13 @@ Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/SSHKeywordsKeywords.robot
+Resource          ../../../libraries/SSHKeywords.robot
 
 *** Variables ***
 ${RESTCONF_MONITORING_URI}    /restconf/operational/ietf-restconf-monitoring:restconf-state
 ${RESTCONF_MONITORING_URL}    https://${ODL_SYSTEM_IP}:${RESTCONFPORT_TLS}${RESTCONF_MONITORING_URI}
+${RESTCONF_MONITORING_URI_JOLOKIA}    /jolokia/read/org.opendaylight.controller:Category=Shards,name=member-1-shard-inventory-config,type=DistributedConfigDatastore
+${RESTCONF_MONITORING_URL_JOLOKIA}    https://${ODL_SYSTEM_IP}:${RESTCONFPORT_TLS}${RESTCONF_MONITORING_URI_JOLOKIA}
 
 *** Test Cases ***
 Basic Unsecure Restconf Request
@@ -109,7 +111,22 @@ TLS on Restconf with Server & Client Certs (CA signed)
 
 Restconf HTTPS/TLS Jolokia with server and client certificates CA signed
     [Documentation]    Tests HTTPS request with ODL TLS config and client authentication by using CA signed certificates for Jolokia
-    [Tags]    exclude
+    Safe_Issue_Command_On_Karaf_Console    bundle:install -s mvn:org.jolokia/jolokia-osgi
+    Clean Up Certificates In Server
+    Generate Server CA Signed Certificate
+    Generate Client CA Signed Certificate
+    #TLS Request
+    PycURLLibrary.Set Url    ${RESTCONF_MONITORING_URL_JOLOKIA}
+    PycURLLibrary.Add Header    "Content-Type:application/json"
+    PycURLLibrary.Add Header    Authorization:Basic YWRtaW46YWRtaW4=
+    PycURLLibrary.Client Certificate File    ${USER_HOME}/client_ca_signed-cert.pem
+    PycURLLibrary.Private Key File    ${USER_HOME}/client_ca_signed-key.pem
+    PycURLLibrary.Request Method    GET
+    PycURLLibrary.Perform
+    PycURLLibrary.Log Response
+    PycURLLibrary.Response Status Should Contain    200
+    ${resp}    PycURLLibrary.Response
+    Should Contain    ${resp}    "request":{"mbean":"org.opendaylight.controller:Category=Shards,name=member-1-shard-inventory-config
 
 *** Keywords ***
 Log Certificates in Keystore
