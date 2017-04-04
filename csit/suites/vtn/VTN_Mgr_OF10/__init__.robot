@@ -7,3 +7,4 @@ Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
 ${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,2
+${start_cluster}          --topo tree,2 --switch ovsk,protocols=OpenFlow10
