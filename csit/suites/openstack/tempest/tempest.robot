@@ -23,6 +23,7 @@ ${external_physical_network}    physnet1
 ${external_net_name}    external-net
 ${external_subnet_name}    external-subnet
 ${external_gateway}    10.10.10.250
+${external_subnet_allocation_pool}    start=10.10.10.2,end=10.10.10.249
 ${external_subnet}    10.10.10.0/24
 ${network_vlan_id}    167
 
@@ -95,7 +96,7 @@ Log In To Tempest Executor And Setup Test Environment
     \    Exit For Loop If    '${feature_check_status}' == 'True'
     Run Keyword If    '${feature_check_status}' == 'True'    Create Network    ${external_net_name}    --router:external --provider:network_type=flat --provider:physical_network=${external_physical_network}
     ...    ELSE    Create Network    ${external_net_name}    --router:external --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network_vlan_id}
-    Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway}
+    Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway} --allocation-pool ${external_subnet_allocation_pool}
     List Networks
     ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Flexible SSH Login    ${OS_USER}
