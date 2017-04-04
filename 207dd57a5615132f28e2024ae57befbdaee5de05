@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_49a0bcf4",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-04T15:25:49Z",
+      "side": 1,
+      "message": "Yes.\n\nAlways assume the caller is relying on an unrelated active connection, therefore any Open/Close/Switch this keyword does is an important side-effect that needs to be documented.",
+      "parentUuid": "fafc7978_1a6e9301",
+      "range": {
+        "startLine": 198,
+        "startChar": 91,
+        "endLine": 198,
+        "endChar": 92
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_b5f7a658",
         "filename": "csit/libraries/SSHKeywords.robot",
         "patchSetId": 1
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "so the suggestion here is that this keyword really only does\nthe Put File and ask all callers of this keyword to wrap\nit in Run_Keyword_Preserve_Connection?",
       "parentUuid": "fafc7978_b5f7a658",
+      "range": {
+        "startLine": 200,
+        "startChar": 65,
+        "endLine": 200,
+        "endChar": 100
+      },
+      "revId": "207dd57a5615132f28e2024ae57befbdaee5de05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4979dc92",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-04T15:25:49Z",
+      "side": 1,
+      "message": "That would be the second best solution.\n\nThe first best solution would be to do the wrapping here, possibly using internal keyword such as SSHKeywords__Unsafe_Copy_File_To_Remote_System.",
+      "parentUuid": "fafc7978_5a777bd4",
       "range": {
         "startLine": 200,
         "startChar": 65,
