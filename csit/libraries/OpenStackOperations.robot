@@ -315,12 +315,12 @@ Ping From DHCP Should Not Succeed
     Should Not Contain    ${output}    64 bytes
 
 Ping Vm From Control Node
-    [Arguments]    ${vm_floating_ip}
+    [Arguments]    ${vm_floating_ip}    ${additional_args}=${EMPTY}
     [Documentation]    Ping VM floating IP from control node
     Log    ${vm_floating_ip}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    ping -c 3 ${vm_floating_ip}    20s
+    ${output}=    Write Commands Until Prompt    ping ${additional_args} -c 3 ${vm_floating_ip}    20s
     Log    ${output}
     Close Connection
     Should Contain    ${output}    64 bytes
@@ -355,9 +355,9 @@ Exit From Vm Console
     Run Keyword If    ${rcode}    Write Commands Until Prompt    exit
 
 Check Ping
-    [Arguments]    ${ip_address}
+    [Arguments]    ${ip_address}    ${ttl}=64
     [Documentation]    Run Ping command on the IP available as argument
-    ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    ${output}=    Write Commands Until Expected Prompt    ping -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    64 bytes
 
 Check Metadata Access
@@ -382,7 +382,7 @@ Execute Command on VM Instance
     [Return]    ${output}
 
 Test Operations From Vm Instance
-    [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)
+    [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)    ${ttl}=64
     [Documentation]    Login to the vm instance using ssh in the network.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
@@ -400,7 +400,7 @@ Test Operations From Vm Instance
     \    Log    ${dest_ip}
     \    ${string_empty}=    Run Keyword And Return Status    Should Be Empty    ${dest_ip}
     \    Run Keyword If    ${string_empty}    Continue For Loop
-    \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
+    \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}    ttl=${ttl}
     Run Keyword If    ${rcode}    Check Metadata Access
     [Teardown]    Exit From Vm Console
 
