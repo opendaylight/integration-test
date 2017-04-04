@@ -4,6 +4,9 @@ Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
+*** Variables ***
+${start_cluster}          --topo tree,2 --switch ovsk,protocols=OpenFlow13
+
 *** Test Cases ***
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
