@@ -10,12 +10,14 @@ Resource          ./Utils.robot
 Resource          ./KarafKeywords.robot
 Resource          ./MininetKeywords.robot
 Resource          ./TemplatedRequests.robot
+Resource          ./ClusterManagement.robot
 
 *** Variables ***
 ${vlan_topo_10}    --custom vlan_vtn_test.py --topo vlantopo
 ${vlan_topo_13}    --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${VERSION_VTN}    controller/nb/v2/vtn/version
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
+${ENTITY_OWNERS}    restconf/operational/entity-owners:entity-owners
 ${DUMPFLOWS_OF10}    dpctl dump-flows -OOpenFlow10
 ${DUMPFLOWS_OF13}    dpctl dump-flows -OOpenFlow13
 ${FF_DUMPFLOWS_OF10}    sh ovs-ofctl dump-flows -OOpenFlow10 s3
@@ -65,7 +67,9 @@ Start SuiteVtnMa
     SSHLibrary.Execute Command    sudo sed -i "$ i log4j.logger.org.opendaylight.vtn = TRACE" ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
-    Start Mininet
+    Run Keyword If    ${NUM_ODL_SYSTEM}==1       Start Mininet
+    Run Keyword If    ${NUM_ODL_SYSTEM}>1       ClusterManagement Setup
+    Run Keyword If    ${NUM_ODL_SYSTEM}>1       MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${ClusterManagement__member_index_list}    ${start_cluster}
 
 Start SuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite
@@ -94,12 +98,14 @@ Collect Debug Info
     [Documentation]    Check if Switch is detected.
     ${resp_odl_inventory}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
     ${resp_vtn_inventory}=    RequestsLibrary.Get Request    session    ${VTN_INVENTORY_NODE_API}
+    ${resp_owners}=    RequestsLibrary.Get Request    session    ${ENTITY_OWNERS}
     write    ${DUMPFLOWS_OF10}
     ${result}    Read Until    mininet>
     write    ${DUMPFLOWS_OF13}
     ${result}    Read Until    mininet>
     Log    ${resp_odl_inventory.content}
     Log    ${resp_vtn_inventory.content}
+    Log    ${resp_owners.content}
     Should Be Equal As Strings    ${resp_vtn_inventory.status_code}    200
 
 Add a Topology wait
@@ -156,12 +162,14 @@ Verify Data Flows
 Start PathSuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite and Mininet
     Start SuiteVtnMaTest
-    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo_13}    ${custom}
+    Run Keyword If    ${NUM_ODL_SYSTEM}==1       MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo_13}    ${custom}
+    Run Keyword If    ${NUM_ODL_SYSTEM}>1        MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}     ${ClusterManagement__member_index_list}      ${pathpolicy_topo_13}    ${custom}
 
 Start PathSuiteVtnMaTestOF10
     [Documentation]    Start VTN Manager Test Suite and Mininet in Open Flow 10 Specification
     Start SuiteVtnMaTest
-    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo_10}    ${custom}
+    Run Keyword If    ${NUM_ODL_SYSTEM}==1       MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo_10}    ${custom}
+    Run Keyword If    ${NUM_ODL_SYSTEM}>1        MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${ClusterManagement__member_index_list}     ${pathpolicy_topo_10}    ${custom}
 
 Stop PathSuiteVtnMaTest
     [Documentation]    Cleanup/Shutdown work at the completion of all tests.
@@ -249,13 +257,22 @@ Mininet Ping Should Not Succeed
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
 
+Start vlan_topo_OF10
+    [Arguments]    ${NUM_ODL_SYSTEM}
+    Run Keyword If    ${NUM_ODL_SYSTEM}==1    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo_10}     ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    Run Keyword If    ${NUM_ODL_SYSTEM}>1    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${ClusterManagement__member_index_list}     ${vlan_topo_10}      ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+
+Start vlan_topo_OF13
+    [Arguments]    ${NUM_ODL_SYSTEM}
+    Run Keyword If    ${NUM_ODL_SYSTEM}==1    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo_13}     ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    Run Keyword If    ${NUM_ODL_SYSTEM}>1    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${ClusterManagement__member_index_list}     ${vlan_topo_13}      ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+
 Start vlan_topo
     [Arguments]    ${OF}
     [Documentation]    Create custom topology for vlan functionality
     Install Package On Ubuntu System    vlan
-    Run Keyword If    '${OF}' == 'OF13'    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo_13}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
-    ...    ELSE IF    '${OF}' == 'OF10'    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo_10}
-    ...    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    Run Keyword If    '${OF}' == 'OF13'    Start vlan_topo_OF13
+    ...    ELSE IF    '${OF}' == 'OF10'    Start vlan_topo_OF10
 
 Get flow
     [Arguments]    ${vtn_name}
