@@ -1,12 +1,14 @@
 *** Settings ***
 Documentation     Test suite for VTN Manager using OF13
-Suite Setup       Start SuiteVtnMaTest
+Suite Setup       Start SuiteVtnMaVlanTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
 ${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.5/32"},"index":"1"}]
 ${flowfiltervlanpcp}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"1","vtn-set-vlan-pcp-action":{"vlan-pcp":"6"}}],"index":"1"}]
+${start_cluster}      --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
+${vlan_topo_file}     vlan_vtn_test.py
 
 *** Test Cases ***
 Start topology

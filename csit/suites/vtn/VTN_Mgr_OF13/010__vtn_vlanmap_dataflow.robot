@@ -1,8 +1,12 @@
 *** Settings ***
 Documentation     Test suite for VTN Manager Data Flows using OF13
-Suite Setup       Start SuiteVtnMaTest
+Suite Setup       Start SuiteVtnMaVlanTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
+
+*** Variables ***
+${start_cluster}      --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
+${vlan_topo_file}     vlan_vtn_test.py
 
 *** Test Cases ***
 Start topology
