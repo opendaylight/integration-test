@@ -260,6 +260,18 @@ Create Vm Instance With Port On Compute Node
     ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} --availability-zone nova:${hostname_compute_node}    30s
     Log    ${output}
 
+Nova Migrate 
+    [Arguments]    ${vm_name}
+    [Documentation]    Migrate the specified VM from one CSS to another on polling
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name}    30s
+    ${output}=    Write Commands Until Prompt    nova migrate --poll ${vm_name}    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    nova resize-confirm ${vm_name}    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name}    30s
+
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
