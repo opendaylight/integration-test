@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_a93b28ea",
+        "filename": "csit/suites/integration/basic/restconf_modules.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-04-04T17:38:46Z",
+      "side": 1,
+      "message": "I guess you didn\u0027t mean this to be in this change?",
+      "range": {
+        "startLine": 6,
+        "startChar": 57,
+        "endLine": 6,
+        "endChar": 62
+      },
+      "revId": "af08f871793d0e2a729a4748ce1ba1a7a064e57a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
