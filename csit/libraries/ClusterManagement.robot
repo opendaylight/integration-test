@@ -544,6 +544,7 @@ With_Ssh_To_List_Or_All_Run_Keyword
     ...    Beware that in order to avoid "got positional argument after named arguments", first two arguments in the call should not be named.
     BuiltIn.Comment    This keyword is experimental and there is high risk of being replaced by another approach.
     # TODO: For_Index_From_List_Or_All_Run_Keyword applied to With_Ssh_To_Member_Run_Keyword?
+    # TODO: Imagine another keyword, using ScalarClosures and adding member index as first argument for each call. Worth it?
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${member_index}    IN    @{index_list}
     \    ${member_ip} =    Resolve_IP_Address_For_Member    ${member_index}
