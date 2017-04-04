@@ -6,6 +6,7 @@ Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
 ${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.3/32"},"index":"1"}]
+${start_cluster}          --topo tree,2 --switch ovsk,protocols=OpenFlow13
 
 *** Test Cases ***
 Add a flowcondition in restconfig

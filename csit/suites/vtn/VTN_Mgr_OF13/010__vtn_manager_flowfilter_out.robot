@@ -12,6 +12,7 @@ ${flowfilterIcmpCodedata}    "output": "true", "vtn-flow-filter": [{"condition":
 ${flowfilterTpsrcTpdstdata}    "output": "true", "vtn-flow-filter": [{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-port-src-action": {"port": "5"}},{"order": "2","vtn-set-port-dst-action": {"port": "10"}}],"index": "1"}]
 ${flowfilterDscpdata}    "output": "true", "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-inet-dscp-action": {"dscp":"32"}}],"index":"1"}]
 ${flowfiltervlanpcp}    "output": "true", "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"3","vtn-set-icmp-code-action":{"code":"1"}},{"order":"4","vtn-set-vlan-pcp-action":{"vlan-pcp":"3"}}],"index":"1"}]
+${start_cluster}          --topo tree,2 --switch ovsk,protocols=OpenFlow13
 
 *** Test Cases ***
 Check if switch1 detected
