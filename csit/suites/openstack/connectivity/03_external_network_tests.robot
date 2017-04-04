@@ -19,8 +19,12 @@ Resource          ../../../libraries/Utils.robot
 @{VM_INSTANCES_FLOATING}    VmInstanceFloating1    VmInstanceFloating2
 @{VM_INSTANCES_SNAT}    VmInstanceSnat3    VmInstanceSnat4
 @{SUBNETS_RANGE}    90.0.0.0/24
+# Parameter values below are based on releng/builder - changing them requires updates in releng/builder as well
 ${external_gateway}    10.10.10.250
+${external_pnf}    10.10.10.253
 ${external_subnet}    10.10.10.0/24
+${external_subnet_allocation_pool}    start=10.10.10.2,end=10.10.10.249
+${external_internet_addr}    10.9.9.9
 ${external_net_name}    external-net
 ${external_subnet_name}    external-subnet
 ${network1_vlan_id}    167
@@ -75,7 +79,7 @@ Check Vm Instances Have Ip Address
 
 Create External Network And Subnet
     Create Network    ${external_net_name} --router:external --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network1_vlan_id}
-    Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway}
+    Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway} --allocation-pool ${external_subnet_allocation_pool}
 
 Create Router
     [Documentation]    Create Router and Add Interface to the subnets.
@@ -105,15 +109,21 @@ Create And Associate Floating IPs for VMs
 
 Ping External Gateway From Control Node
     [Documentation]    Check reachability of external gateway by pinging it from the control node.
-    OpenStackOperations.Ping Vm From Control Node    ${external_gateway}
+    OpenStackOperations.Ping Vm From Control Node    ${external_gateway}    additional_args=-I ${external_internet_addr}
 
 Ping Vm Instance1 Floating IP From Control Node
     [Documentation]    Check reachability of VM instance through floating IP by pinging them.
-    OpenStackOperations.Ping Vm From Control Node    @{VM_FLOATING_IPS}[0]
+    OpenStackOperations.Ping Vm From Control Node    @{VM_FLOATING_IPS}[0]    additional_args=-I ${external_internet_addr}
 
 Ping Vm Instance2 Floating IP From Control Node
     [Documentation]    Check reachability of VM instance through floating IP by pinging them.
-    OpenStackOperations.Ping Vm From Control Node    @{VM_FLOATING_IPS}[1]
+    OpenStackOperations.Ping Vm From Control Node    @{VM_FLOATING_IPS}[1]    additional_args=-I ${external_internet_addr}
+
+Ping External Network PNF from Vm Instance 1
+    [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
+    Pass Execution If    "${ODL_STREAM}" == "boron"    PNF subnet route support is not available in boron or earlier
+    ${dst_ip}=    Create List    ${external_pnf}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{FLOATING_VM_IPS}[0]    ${dst_ip}    ttl=1
 
 Prepare SNAT - Install Netcat On Controller
     Install Netcat On Controller
