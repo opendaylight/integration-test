@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_733ad337",
+        "filename": "csit/libraries/controller/CsCommon.robot",
+        "patchSetId": 50
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-04T11:35:51Z",
+      "side": 1,
+      "message": "from",
+      "range": {
+        "startLine": 88,
+        "startChar": 67,
+        "endLine": 88,
+        "endChar": 71
+      },
+      "revId": "7af1c9177d67d71183c6e1e3c9aea8e5b66b0154",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d33e1f29",
+        "filename": "csit/libraries/controller/CsCommon.robot",
+        "patchSetId": 50
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-04T11:35:51Z",
+      "side": 1,
+      "message": "should",
+      "range": {
+        "startLine": 94,
+        "startChar": 62,
+        "endLine": 94,
+        "endChar": 67
+      },
+      "revId": "7af1c9177d67d71183c6e1e3c9aea8e5b66b0154",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d353bf6a",
+        "filename": "csit/variables/mdsal/lowlevelrpc/get_singleton_constant/post_data.xml",
+        "patchSetId": 50
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-04T11:35:51Z",
+      "side": 1,
+      "message": "In the light of Bug 8004 I would probably expect this to be an empty file. Does it work that way?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "7af1c9177d67d71183c6e1e3c9aea8e5b66b0154",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_134ee7c1",
+        "filename": "csit/variables/mdsal/lowlevelrpc/register_flapping_singleton/post_data.xml",
+        "patchSetId": 50
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-04T11:35:51Z",
+      "side": 1,
+      "message": "I would definitely expect this to be an empty file, as described in Bug 8004.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "7af1c9177d67d71183c6e1e3c9aea8e5b66b0154",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_73d653c7",
+        "filename": "csit/variables/mdsal/lowlevelrpc/unregister_flapping_singleton/post_data.xml",
+        "patchSetId": 50
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-04T11:35:51Z",
+      "side": 1,
+      "message": "I would definitely expect this to be an empty file, as described in Bug 8004.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "7af1c9177d67d71183c6e1e3c9aea8e5b66b0154",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_b3d71bbf",
+        "filename": "csit/variables/mdsal/lowlevelrpc/unregister_singleton_constant/post_data.xml",
+        "patchSetId": 50
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-04T11:35:51Z",
+      "side": 1,
+      "message": "I would definitely expect this to be an empty file, as described in Bug 8004.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "7af1c9177d67d71183c6e1e3c9aea8e5b66b0154",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
