@@ -115,6 +115,10 @@ Ping Vm Instance2 Floating IP From Control Node
     [Documentation]    Check reachability of VM instance through floating IP by pinging them.
     OpenStackOperations.Ping Vm From Control Node    @{VM_FLOATING_IPS}[1]
 
+Ping PNF from Vm Instance 1
+    [Documentation]    Check reachability of PNF from VM instance
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{FLOATING_VM_IPS}[0]    [u'10.10.10.253']    ttl=1
+
 Prepare SNAT - Install Netcat On Controller
     Install Netcat On Controller
 
