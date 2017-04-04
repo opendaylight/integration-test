@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     netconf clustered CRUD test suite.
+Documentation     Simplified netconf clustered CRUD test suite in Bug 8086 setup.
 ...
 ...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
 ...
@@ -35,17 +35,12 @@ Documentation     netconf clustered CRUD test suite.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Library           Collections
 Library           RequestsLibrary
-Library           OperatingSystem
-Library           String
-Library           SSHLibrary    timeout=10s
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
+Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 
 *** Variables ***
 ${NODE_CONFIGURER}    node1
@@ -57,6 +52,7 @@ ${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
 ${empty_data}     <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
 ${original_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Content</l></cont></data>
 ${modified_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Modified Content</l></cont></data>
+${SCHEMA_DIRECTORY}    /tmp/schema
 
 *** Test Cases ***
 Start_Testtool
@@ -71,8 +67,7 @@ Check_Device_Is_Not_Mounted_At_Beginning
 Configure_Device_On_Netconf
     [Documentation]    Make request to configure a testtool device on Netconf connector
     [Tags]    critical
-    NetconfKeywords.Configure_Device_In_Netconf    ${DEVICE_NAME}    device_type=configure-via-topology    session=${NODE_CONFIGURER}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    5089
+    NetconfKeywords.Configure_Device_In_Netconf    ${DEVICE_NAME}    device_type=bug8086    session=${NODE_CONFIGURER}    schema_directory=${SCHEMA_DIRECTORY}
 
 Check_Configurer_Has_Netconf_Connector_For_Device
     [Documentation]    Get the list of mounts and search for our device there. Fail if not found.
@@ -124,43 +119,35 @@ Modify_Device_Data
     [Documentation]    Send a request to change the sample test data and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
     TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}    session=${NODE_SETTER}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Device_Data_Is_Modified
     [Documentation]    Get the device data and make sure it contains the modified content.
     Check_Config_Data    ${NODE_SETTER}    ${modified_data}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Modified_Device_Data_Is_Visible_On_Checker
     [Documentation]    Check that the modified device data make their way into the checker node.
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CHECKER}    ${modified_data}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Modified_Device_Data_Is_Visible_On_Configurer
     [Documentation]    Check that the modified device data make their way into the configurer node.
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CONFIGURER}    ${modified_data}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Delete_Device_Data
     [Documentation]    Send a request to delete the sample test data on the device and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
     TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}    session=${NODE_SETTER}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Device_Data_Is_Deleted
     [Documentation]    Get the device data and make sure it is empty again.
     Check_Config_Data    ${NODE_SETTER}    ${empty_data}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Device_Data_Deletion_Is_Visible_On_Checker
     [Documentation]    Check that the device data deletion makes its way into the checker node.
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CHECKER}    ${empty_data}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Device_Data_Deletion_Is_Visible_On_Configurer
     [Documentation]    Check that the device data deletion makes its way into the checker node.
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CONFIGURER}    ${empty_data}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Deconfigure_Device_In_Netconf
     [Documentation]    Make request to deconfigure the device on Netconf connector.
@@ -189,13 +176,15 @@ Check_Device_Deconfigured_On_Setter
 
 *** Keywords ***
 Setup_Everything
-    [Documentation]    Initialize SetupUtils, setup everything needed for the test cases.
+    [Documentation]    Initialize resources, sreate sessions, on each ODL machine create a directory and copy the car model there.
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords    create_session_for_templated_requests=False
     RequestsLibrary.Create_Session    node1    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
     RequestsLibrary.Create_Session    node2    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
     RequestsLibrary.Create_Session    node3    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
+    ${index_list} =    ClusterManagement.List_All_Indices
+    ClusterManagement.Safe_With_Ssh_To_List_Or_All_Run_Keyword    ${index_list}    Populate_Schema_Directory_Over_Active_Connection
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
@@ -204,12 +193,21 @@ Teardown_Everything
 
 Check_Device_Instance_Count
     [Arguments]    ${expected}    ${session}
+    [Documentation]    Count device instances over ${session} and check the count is ${expected}.
     ${count}    NetconfKeywords.Count_Netconf_Connectors_For_Device    ${DEVICE_NAME}    session=${session}
     Builtin.Should_Be_Equal_As_Strings    ${count}    ${expected}
 
 Check_Config_Data
     [Arguments]    ${node}    ${expected}    ${contains}=False
+    [Documentation]    Get device data from ${node}. Match against ${expected}, strictness given by ${contains}.
     ${url}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount
     ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=${node}
     BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
+
+Populate_Schema_Directory_Over_Active_Connection
+    [Documentation]    Create ${SCHEMA_DIRECTORY}, unpack car.yang there from temporarily downloaded sources jar.
+    ...    TODO: Make this configurable and move to NexusKeywords.
+    ${filename} =    NexusKeywords.Deploy_Artifact    component=carpeople    artifact=clustering-it-model    name_suffix=-sources.jar
+    ${dir} =    BuiltIn.Set_Variable    '${SCHEMA_DIRECTORY}'
+    SSHKeywords.Execute_Command_Should_Pass    mkdir -p '${SCHEMA_DIRECTORY}' && unzip -j '${filename}' META-INF/yang/car.yang -d '${SCHEMA_DIRECTORY}/' && rm '${filename}'
