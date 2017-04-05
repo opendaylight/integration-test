@@ -70,6 +70,30 @@
       "revId": "be2bd44567165c4d20ad23c249fc5aa5bcb87d26",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_5fc7ce12",
+        "filename": "csit/libraries/BierResource.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-04-05T10:09:15Z",
+      "side": 1,
+      "message": "Thank you for the advice.I encounted a problem when I try to fix it.I put the URI and data templates files into a folder, used the keyword Post_As_Json_Templated you advised, but an error reported by robot\ncause could not find variable ${ODL_STREAM}. I looked into the TemplateRequests.robot file find it does not be declared in Variables area\nand wonder how it jumped out at keyword Resolve_Text_From_Template_File with no assignment.\nSo I fixed it with another methord. Please check it in \nhttps://git.opendaylight.org/gerrit/#/c/54346/.\nPlease check TC1_Query Single Topology for example.Thank you.",
+      "parentUuid": "fafc7978_049f6960",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 47
+      },
+      "revId": "be2bd44567165c4d20ad23c249fc5aa5bcb87d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
