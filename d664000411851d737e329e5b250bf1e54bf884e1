@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_882bb9ea",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-05T21:25:38Z",
+      "side": 1,
+      "message": "can you move this to the ClusterManagement.robot lib\nthat you are already importing here. It will probably need\na more meaningful/specific name, but then it can available\nto others. Other vars are building up there anyway so seems\nlike the right place:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/ClusterManagement.robot#L43-L45",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 164
+      },
+      "revId": "d664000411851d737e329e5b250bf1e54bf884e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_68301557",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-05T21:25:38Z",
+      "side": 1,
+      "message": "so, just the pre-packaged odl-jolokia feature is not enough?",
+      "range": {
+        "startLine": 128,
+        "startChar": 4,
+        "endLine": 128,
+        "endChar": 89
+      },
+      "revId": "d664000411851d737e329e5b250bf1e54bf884e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
