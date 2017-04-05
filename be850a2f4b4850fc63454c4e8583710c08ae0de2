@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_8231da0d",
+        "filename": "csit/suites/openstack/connectivity/04_security_group_tests.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-04-05T13:49:15Z",
+      "side": 1,
+      "message": "Jamo I could use your robot skills here.\nWhen we create a security group, two rules are added to it by default by openstack. What I want to do is remove them, but I couldn\u0027t find an openstack API for that.\n\nSo I need the bash-equivalent of this:\n\nopenstack security group create test-sg\nfor I in $(openstack security group rule list test-sg -c ID -f value); do\n    openstack security group rule delete $I\ndone",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 103
+      },
+      "revId": "be850a2f4b4850fc63454c4e8583710c08ae0de2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
