@@ -216,7 +216,7 @@ ${rt_contentInstance}    4
 4.11 Delete AE without child resource
     [Documentation]    Delete AE without child resource
     ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
-    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr},"rn":"AeName"
     ${ae} =    Location    ${r}
     Response Is Correct    ${r}
     ${deleteRes} =    Delete Resource    ${iserver}    ${ae}
