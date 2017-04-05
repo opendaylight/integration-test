@@ -70,7 +70,7 @@ Check Vm Instances Have Ip Address
     Should Not Contain    ${SNAT_VM_IPS}    None
     Should Not Contain    @{FLOATING_DHCP_IP}[0]    None
     Should Not Contain    @{SNAT_DHCP_IP}[0]    None
-    [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES_FLOATING}    ${VM_INSTANCES_SNAT}
+    [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_FLOATING}    @{VM_INSTANCES_SNAT}
     ...    AND    Get Test Teardown Debugs
 
 Create External Network And Subnet
@@ -100,7 +100,7 @@ Create And Associate Floating IPs for VMs
     [Documentation]    Create and associate a floating IP for the VM
     ${VM_FLOATING_IPS}    OpenStackOperations.Create And Associate Floating IPs    ${external_net_name}    @{VM_INSTANCES_FLOATING}
     Set Suite Variable    ${VM_FLOATING_IPS}
-    [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES_FLOATING}
+    [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_FLOATING}
     ...    AND    Get Test Teardown Debugs
 
 Ping External Gateway From Control Node
