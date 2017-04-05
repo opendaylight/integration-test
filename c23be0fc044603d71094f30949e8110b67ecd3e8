@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_c5092c2e",
+        "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-05T13:51:42Z",
+      "side": 1,
+      "message": "I still believe Post_As_Json_Templated should work.\nSee https://git.opendaylight.org/gerrit/#/c/52135/10/csit/libraries/BierResource.robot@23",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 5
+      },
+      "revId": "c23be0fc044603d71094f30949e8110b67ecd3e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_85ff2401",
+        "filename": "csit/variables/bier/query_single_topology_request/data.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-05T13:51:42Z",
+      "side": 1,
+      "message": "No tabs and consistent indentation please.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "c23be0fc044603d71094f30949e8110b67ecd3e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
