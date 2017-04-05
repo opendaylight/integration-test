@@ -51,6 +51,24 @@
       "revId": "4d4452f8eb22b84b68e4547af6b533cedb389123",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1f7ee5ae",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-04-05T11:10:32Z",
+      "side": 1,
+      "message": "To verify the specific path, its added.",
+      "parentUuid": "da01753e_3f776904",
+      "revId": "4d4452f8eb22b84b68e4547af6b533cedb389123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
