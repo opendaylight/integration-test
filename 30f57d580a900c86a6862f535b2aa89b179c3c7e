@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_82d0ba54",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-05T12:19:58Z",
+      "side": 1,
+      "message": "Underscores also on the right hand side please.",
+      "range": {
+        "startLine": 53,
+        "startChar": 33,
+        "endLine": 53,
+        "endChar": 34
+      },
+      "revId": "30f57d580a900c86a6862f535b2aa89b179c3c7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_22bbce0f",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-05T12:19:58Z",
+      "side": 1,
+      "message": "Is this used for anything?",
+      "range": {
+        "startLine": 4,
+        "startChar": 18,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "30f57d580a900c86a6862f535b2aa89b179c3c7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e2c0a67e",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-05T12:19:58Z",
+      "side": 1,
+      "message": "Are these used just in lines 40 and 42 of 502__yangman.robot?\nWhy not just hardcode GET, PUT, POST and DELETE here an there?",
+      "range": {
+        "startLine": 25,
+        "startChar": 39,
+        "endLine": 25,
+        "endChar": 139
+      },
+      "revId": "30f57d580a900c86a6862f535b2aa89b179c3c7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_22b62e3e",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-05T12:19:58Z",
+      "side": 1,
+      "message": "Capital K please.",
+      "range": {
+        "startLine": 353,
+        "startChar": 16,
+        "endLine": 353,
+        "endChar": 17
+      },
+      "revId": "30f57d580a900c86a6862f535b2aa89b179c3c7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c27c8275",
+        "filename": "csit/suites/dluxapps/yangman/502__yangman.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-05T12:19:58Z",
+      "side": 1,
+      "message": "YangmanKeywords.Verify Sent Data CM Is Not Displayed\n\nLines 350-360 of YangmanKeywords.robot already contain two keywords differing just on the argument to pass to Selenium2Library keyword.\n\nMaking that four keywords would improve readability of this suite.",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 71
+      },
+      "revId": "30f57d580a900c86a6862f535b2aa89b179c3c7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_82e9da1c",
+        "filename": "csit/variables/YangmanGUIVariables.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-05T12:19:58Z",
+      "side": 1,
+      "message": "Remove after implementing https://git.opendaylight.org/gerrit/#/c/50141/24/csit/suites/dluxapps/yangman/502__yangman.robot@47",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "30f57d580a900c86a6862f535b2aa89b179c3c7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
