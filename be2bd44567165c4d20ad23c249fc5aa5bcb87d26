@@ -94,6 +94,30 @@
       "revId": "be2bd44567165c4d20ad23c249fc5aa5bcb87d26",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e208a62f",
+        "filename": "csit/libraries/BierResource.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-05T13:49:55Z",
+      "side": 1,
+      "message": "First of all, BIER has bier-csit-verify-1node-basic job, but it is failing, because Int/Test runs -csit-verify- jobs on Boron, but BIER was added only in Carbon. You will need to override the branch to test as Iotdm project did in [1].\n\n\u003e ${ODL_STREAM}\n\nThis is one of many variables set by Releng/Builder scripts [2]. \n\n[1] https://git.opendaylight.org/gerrit/#/c/50937/2/jjb/iotdm/iotdm-csit-basic.yaml\n[2] https://github.com/opendaylight/releng-builder/blob/master/jjb/integration/include-raw-integration-deploy-controller-run-test.sh#L274-L284",
+      "parentUuid": "da01753e_5fc7ce12",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 47
+      },
+      "revId": "be2bd44567165c4d20ad23c249fc5aa5bcb87d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
