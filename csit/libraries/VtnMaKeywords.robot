@@ -10,12 +10,14 @@ Resource          ./Utils.robot
 Resource          ./KarafKeywords.robot
 Resource          ./MininetKeywords.robot
 Resource          ./TemplatedRequests.robot
+Resource          ./vtn.robot
 
 *** Variables ***
 ${vlan_topo_10}    --custom vlan_vtn_test.py --topo vlantopo
 ${vlan_topo_13}    --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${VERSION_VTN}    controller/nb/v2/vtn/version
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
+${ENTITY_OWNERS}    restconf/operational/entity-owners:entity-owners
 ${DUMPFLOWS_OF10}    dpctl dump-flows -OOpenFlow10
 ${DUMPFLOWS_OF13}    dpctl dump-flows -OOpenFlow13
 ${FF_DUMPFLOWS_OF10}    sh ovs-ofctl dump-flows -OOpenFlow10 s3
@@ -92,15 +94,11 @@ Fetch vtn switch inventory
 
 Collect Debug Info
     [Documentation]    Check if Switch is detected.
-    ${resp_odl_inventory}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
-    ${resp_vtn_inventory}=    RequestsLibrary.Get Request    session    ${VTN_INVENTORY_NODE_API}
     write    ${DUMPFLOWS_OF10}
     ${result}    Read Until    mininet>
     write    ${DUMPFLOWS_OF13}
     ${result}    Read Until    mininet>
-    Log    ${resp_odl_inventory.content}
-    Log    ${resp_vtn_inventory.content}
-    Should Be Equal As Strings    ${resp_vtn_inventory.status_code}    200
+    Get Model Dump    ${ODL_SYSTEM_IP}
 
 Add a Topology wait
     [Arguments]    ${topo_wait}
