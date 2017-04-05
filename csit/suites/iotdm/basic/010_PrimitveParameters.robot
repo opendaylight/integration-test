@@ -79,7 +79,7 @@ ${rt_contentInstance}    4
     : FOR    ${rcn}    IN    \    1    2    3
     ...    0
     \    ${r} =    Create Resource With Command    ${iserver}    InCSE1    ${rt_ae}    rcn=${rcn}
-    \    ...    ${attr}
+    \    ...    ${attr},"rn":"AeName${rcn}"
 
 1.10.2 REQ: Create: With Result Content parameter - illegal
     [Documentation]    NEGATIVE: Tests Create REQ with Result Content parameter set to illegal values.
