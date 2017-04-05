@@ -89,12 +89,12 @@ Log In To Tempest Executor And Setup Test Environment
     # source_pwd is expected to exist in the below Create Network, Create Subnet keywords.    Might be a bug.
     ${source_pwd}    Set Variable    yes
     Set Suite Variable    ${source_pwd}
-    # Tempest tests need an existing external network in order to create routers.
+    # Tempest tests need an existing external network in order to create routers.`
     : FOR    ${feature_name}    IN    @{legacy_feature_list}
     \    ${feature_check_status}=    Run Keyword And Return Status    Verify Feature Is Installed    ${feature_name}
     \    Exit For Loop If    '${feature_check_status}' == 'True'
-    Run Keyword If    '${feature_check_status}' == 'True'    Create Network    ${external_net_name} --router:external --provider:network_type=flat --provider:physical_network=${external_physical_network}
-    ...    ELSE    Create Network    ${external_net_name}    --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network_vlan_id}
+    Run Keyword If    '${feature_check_status}' == 'True'    Create Network    ${external_net_name}    --router:external --provider:network_type=flat --provider:physical_network=${external_physical_network}
+    ...    ELSE    Create Network    ${external_net_name}    --router:external --provider:network_type=vlan --provider:physical_network=${PUBLIC_PHYSICAL_NETWORK} --provider:segmentation_id=${network_vlan_id}
     Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway}
     List Networks
     ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
