@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_f9f7b98a",
+        "filename": "csit/suites/openstack/connectivity/04_security_group_tests.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 4269
+      },
+      "writtenOn": "2017-04-06T11:10:46Z",
+      "side": 1,
+      "message": "Ok got it.:-)",
+      "parentUuid": "da01753e_b98251fe",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 103
+      },
+      "revId": "be850a2f4b4850fc63454c4e8583710c08ae0de2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_990e6d33",
         "filename": "csit/suites/openstack/connectivity/04_security_group_tests.robot",
         "patchSetId": 13
@@ -102,6 +126,24 @@
       "side": 1,
       "message": "Actually it doesn\u0027t.. since there is no ingress allow at this point.\nSo packet will egress instance1 due to default rule, but won\u0027t ingress instance2.\nIn any case we should remove the default rules to test everything properly :)",
       "parentUuid": "da01753e_990e6d33",
+      "revId": "be850a2f4b4850fc63454c4e8583710c08ae0de2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_b9fed169",
+        "filename": "csit/suites/openstack/connectivity/04_security_group_tests.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 4269
+      },
+      "writtenOn": "2017-04-06T11:10:46Z",
+      "side": 1,
+      "message": "OK I thought it was the deafult SG associated with port, but this seems to be the default rules in a new SG. This looks good.",
+      "parentUuid": "da01753e_3976613f",
       "revId": "be850a2f4b4850fc63454c4e8583710c08ae0de2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
