@@ -24,6 +24,7 @@ Documentation     Resource consisting purely of variable definitions useful for 
 &{ACCEPT_EMPTY}    # Empty accept header. ODL should send JSON data in this case. TODO: Hide into more specific Resource if possible.
 &{ACCEPT_JSON}    Accept=application/json    # Header for accpeting JSON data. TODO: Hide into more specific Resource if possible.
 &{ACCEPT_XML}     Accept=application/xml    # Header for accepting XML data. TODO: Hide into more specific Resource if possible.
+${AAA_TLS_CONFIG}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/opendaylight/datastore/initial/config/aaa-cert-config.xml    # Full path of AAA cert config file
 ${ALERTFIELDCONTENTRULERECORD}    /restconf/config/alertrule:alertFieldContentRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTFIELDVALUERULERECORD}    /restconf/config/alertrule:alertFieldValueRuleRecord    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
@@ -93,7 +94,7 @@ ${KARAF_PROMPT}    opendaylight-user    # Simple and readable Karaf prompt subst
 ${KARAF_SHELL_PORT}    8101    # ODL provides SSH access to Karaf consoleon this port.
 ${KARAF_USER}     karaf    # User name to authenticate to Karaf SSH console.
 ${KEYFILE_PASS}    any    # Implementation detail related to SSHLibrary.Login_With_Public_Key. TODO: Hide in SSHKeywords.
-${KEYSTORE_PATH}    /tmp/${BUNDLEFOLDER}/configuration/ssl/.keystore    # Full path of keystore for TLS communication
+${KEYSTORE_PATH}    ${WORKSPACE}/${BUNDLEFOLDER}/configuration/ssl/ctl.jks    # Full path of keystore for TLS communication
 ${KEYSTORE_RELATIVE_PATH}    configuration/ssl/.keystore    # Relative path of keystore for TLS communication
 ${LFM_RPC_API}    /restconf/operations/odl-mappingservice    # FIXME: Move to a separate LispFlowMapping-related Resource and add description.
 ${LFM_RPC_API_LI}    /restconf/operations/lfm-mapping-database    # FIXME: Move to a separate LispFlowMapping-related Resource and add description.
@@ -132,6 +133,7 @@ ${OPERATIONAL_TOPO_API}    /restconf/operational/network-topology:network-topolo
 ${OS_SYSTEM_PROMPT}    \$    # Prompt substring specific to OpenStack systems.
 ${OSREST}         /v2.0/networks    # FIXME: Move to a separate Neutron-related Resource and add description.
 ${OVSDBPORT}      6640    # Port number ODL uses for OVSDB protocol communication. TODO: Move to OVSDB-specific Resource.
+${OVSDB_TLS_CONFIG}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.ovsdb.library.cfg    # Full path of ovsdb config file
 ${PASSWORD}       ${DEFAULT_PASSWORD}    # Deprecated. FIXME: Eradicate.
 ${PORTMAP_CREATE}    portmap.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${PORT}           8080    # Deprecated. Generic HTTP port. FIXME: Eradicate.
@@ -172,6 +174,7 @@ ${TOPO_TREE_DEPTH}    3    # Part of Mininet configuration? FIXME: Find who uses
 ${TOPO_TREE_FANOUT}    2    # Part of Mininet configuration? FIXME: Find who uses this and eliminate, or at least add a good description.
 ${TOPO_TREE_LEVEL}    2    # Part of Mininet configuration? FIXME: Find who uses this and eliminate, or at least add a good description.
 ${TOPOLOGY_URL}    network-topology:network-topology/topology    # FIXME: Move to a separate Resource and add description.
+${TRUSTSTORE_PATH}    ${WORKSPACE}/${BUNDLEFOLDER}/configuration/ssl/truststore.jks    # Full path of truststore for TLS communication
 ${USER}           ${ODL_RESTCONF_USER}    # Deprecated. FIXME: Eradicate.
 ${VBRIFS}         interfaces    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VBRIFS_CREATE}    interfaces.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
