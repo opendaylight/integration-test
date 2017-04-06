@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_aef32509",
+        "filename": "csit/suites/openstack/connectivity/04_security_group_tests.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6238
+      },
+      "writtenOn": "2017-04-06T09:06:55Z",
+      "side": 1,
+      "message": "two not four",
+      "range": {
+        "startLine": 40,
+        "startChar": 30,
+        "endLine": 40,
+        "endChar": 34
+      },
+      "revId": "01f6b6c39718edd231f968b941e5e802ee6a16b2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_0ebb510f",
+        "filename": "csit/suites/openstack/connectivity/04_security_group_tests.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6238
+      },
+      "writtenOn": "2017-04-06T09:06:55Z",
+      "side": 1,
+      "message": "Will the test pass with stateless?\nIf I remember right stateless handles only tcp and allows all other traffic.",
+      "revId": "01f6b6c39718edd231f968b941e5e802ee6a16b2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
