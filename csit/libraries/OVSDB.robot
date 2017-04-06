@@ -87,6 +87,13 @@ Verify Ovs-vsctl Output
     Run Keyword If    "${should_match}"=="False"    Should Not Contain    ${output}    ${expected_output}
     [Return]    ${output}
 
+Verify OVS Not Reports Connected
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl show" to check that string "is_connected" is not contained in that command output
+    ${output}=    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl show
+    Should Not Contain    ${output}    is_connected
+    [Return]    ${output}
+
 Get OVSDB UUID
     [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_http_session}=session
     [Documentation]    Queries the topology in the operational datastore and searches for the node that has
