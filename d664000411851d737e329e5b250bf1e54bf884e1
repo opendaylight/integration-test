@@ -45,6 +45,30 @@
       "revId": "d664000411851d737e329e5b250bf1e54bf884e1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ebd19ace",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-06T20:00:36Z",
+      "side": 1,
+      "message": "still curious on this one?",
+      "parentUuid": "da01753e_68301557",
+      "range": {
+        "startLine": 128,
+        "startChar": 4,
+        "endLine": 128,
+        "endChar": 89
+      },
+      "revId": "d664000411851d737e329e5b250bf1e54bf884e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
