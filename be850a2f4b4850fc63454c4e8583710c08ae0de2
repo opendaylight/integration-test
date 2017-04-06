@@ -22,6 +22,47 @@
       "revId": "be850a2f4b4850fc63454c4e8583710c08ae0de2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_59040515",
+        "filename": "csit/suites/openstack/connectivity/04_security_group_tests.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 4269
+      },
+      "writtenOn": "2017-04-06T10:10:03Z",
+      "side": 1,
+      "message": "Alon,\n\nDoesn\u0027t this one help?\n\nneutron port-update  \u003cport-uuid\u003e --no-security-groups",
+      "parentUuid": "da01753e_8231da0d",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 103
+      },
+      "revId": "be850a2f4b4850fc63454c4e8583710c08ae0de2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_990e6d33",
+        "filename": "csit/suites/openstack/connectivity/04_security_group_tests.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 4269
+      },
+      "writtenOn": "2017-04-06T10:10:03Z",
+      "side": 1,
+      "message": "This will require default SG to be removed.",
+      "revId": "be850a2f4b4850fc63454c4e8583710c08ae0de2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
