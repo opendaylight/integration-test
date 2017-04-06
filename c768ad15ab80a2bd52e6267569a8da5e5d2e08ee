@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "da01753e_0bffbe35",
+        "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-06T20:06:48Z",
+      "side": 1,
+      "message": "need a space here between : and FOR",
+      "revId": "c768ad15ab80a2bd52e6267569a8da5e5d2e08ee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_3434a8dd",
         "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
         "patchSetId": 1
