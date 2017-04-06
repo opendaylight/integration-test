@@ -6,6 +6,7 @@ Library           SSHLibrary
 Library           OperatingSystem
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/SSHKeywords.robot
+Resource          ${CURDIR}/Utils.robot
 Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***
@@ -215,6 +216,26 @@ Restart Karaf
     Safe_Issue_Command_On_Karaf_Console    log:clear
     Issue_Command_On_Karaf_Console    shutdown -r -f
     Run Keyword And Return Status    Wait Until Keyword Succeeds    240s    60s    Wait For Karaf Log    Karaf started in
+
+Start Karaf
+    [Documentation]    Starts Karaf and polls log to detect when Karaf is up and running
+    # TODO: prepare this for cluster environment and multiple controllers
+    ${console} =    Run Command On Remote System    ${ODL_SYSTEM_IP}    /usr/bin/env JAVA_HOME=${JAVA_HOME} ${WORKSPACE}/${BUNDLEFOLDER}/bin/start clean -Djavax.net.debug=ssl,handshake
+    log    ${console}
+    Run Keyword And Return Status    Wait Until Keyword Succeeds    240s    60s    Wait For Karaf Log    Karaf started in
+
+Stop Karaf
+    [Documentation]    Stops Karaf and checks Karaf is not running any more
+    # TODO: prepare this for cluster environment and multiple controllers
+    Run Keyword And Ignore Error    Safe_Issue_Command_On_Karaf_Console    log:clear
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    /usr/bin/env JAVA_HOME=${JAVA_HOME} ${WORKSPACE}/${BUNDLEFOLDER}/bin/stop
+    Wait Until Keyword Succeeds    240s    60s    Karaf Status Not Running
+
+Karaf Status Not Running
+    [Documentation]    Checks Karaf status is Not Running
+    ${status} =    Run Command On Remote System    ${ODL_SYSTEM_IP}    /usr/bin/env JAVA_HOME=${JAVA_HOME} ${WORKSPACE}/${BUNDLEFOLDER}/bin/status
+    Should Contain    ${status}    Not Running
+    [Return]    ${status}
 
 Restart Jetty
     [Documentation]    Restarts jetty bundle (to reload certificates or key/truststore information)
