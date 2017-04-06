@@ -71,6 +71,23 @@
     },
     {
       "key": {
+        "uuid": "da01753e_945c7427",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-04-06T12:28:22Z",
+      "side": 1,
+      "message": "it should be On instead of on, right?",
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_99f82de7",
         "filename": "csit/libraries/BgpOperations.robot",
         "patchSetId": 12
@@ -111,6 +128,125 @@
         "endLine": 26,
         "endChar": 84
       },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_344b085b",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-04-06T12:28:22Z",
+      "side": 1,
+      "message": "As bgpd and zebra processes are not running on ODL, it is redundant to check these processes here",
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1448845a",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-04-06T12:28:22Z",
+      "side": 1,
+      "message": "Again capital C- Configuration",
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_54796c92",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-04-06T12:28:22Z",
+      "side": 1,
+      "message": "telnet session instead of telnet system",
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_145fe40f",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-04-06T12:28:22Z",
+      "side": 1,
+      "message": "And instead of and. Also imo Create BGP needs to be replaced with something else like Assign Id And Add Neighbor To DCGW",
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3462e8d8",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-04-06T12:28:22Z",
+      "side": 1,
+      "message": "This is not a general keyword to execute command. Documentation should include Assign router-id and add bgp neighbor.",
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_f4950089",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-04-06T12:28:22Z",
+      "side": 1,
+      "message": "Add Loopback Interface On DCGW should be better i believe",
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_34b9482f",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-04-06T12:28:22Z",
+      "side": 1,
+      "message": "Again the same comment.",
       "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
