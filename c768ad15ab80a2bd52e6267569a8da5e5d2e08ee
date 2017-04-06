@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_3434a8dd",
+        "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-06T12:16:17Z",
+      "side": 1,
+      "message": "Have you looked at TemplatedRequests.Put_As_Json_Templated with ${verify}\u003dTrue?\nIt normalizes json strings, so that order of elements in the list does not matter.",
+      "range": {
+        "startLine": 343,
+        "startChar": 16,
+        "endLine": 343,
+        "endChar": 63
+      },
+      "revId": "c768ad15ab80a2bd52e6267569a8da5e5d2e08ee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
