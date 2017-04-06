@@ -2,30 +2,47 @@
 #Configurable Variables
 ${OS_IP}          ${OS_CONTROL_NODE_IP}
 ${OVS_IP}         ${OS_COMPUTE_1_IP}
+${OVS2_IP}        ${OS_COMPUTE_2_IP}
 ${HWVTEP_IP}      ${TOOLS_SYSTEM_1_IP}
+${HWVTEP2_IP}     ${TOOLS_SYSTEM_2_IP}
 ${ODL_IP}         ${ODL_SYSTEM_1_IP}
 ${OS_PASSWORD}    ${EMPTY}
 ${HWVTEP_BRIDGE}    br-ovs
+${HWVTEP2_BRIDGE}    br-ovs2
 ${DEVSTACK_DEPLOY_PATH}    /home/stack/devstack
 ${HWVTEP_NS1}     NS1
 ${HWVTEP_NS2}     NS2
+${HWVTEP2_NS1}    NS3
+${HWVTEP2_NS2}    NS4
 ${HWVTEP_PORT_1}    HWVPORT1
 ${HWVTEP_PORT_2}    HWVPORT2
+${HWVTEP2_PORT_1}    HWVPORT3
+${HWVTEP2_PORT_2}    HWVPORT4
 ${L2GW_NAME1}     GW1
 ${L2GW_NAME2}     GW2
+${L2GW_NAME3}     GW3
+${L2GW_NAME4}     GW4
 ${NET_1_SEGID}    1063
 ${NET_1}          NETHWV1
 ${NET_2_SEGID}    1064
 ${NET_2}          NETHWV2
 ${NS_PORT1}       PORT1
 ${NS_PORT2}       PORT2
+${NS2_PORT1}      PORT3
+${NS2_PORT2}      PORT4
 ${NS_TAP1}        TAP1
-${NS_TAP2}        TAP2
+${NS2_TAP1}       TAP2
+${NS3_TAP1}       TAP3
+${NS4_TAP1}       TAP4
 ${OVS_BRIDGE}     br-int
 ${OVS_PORT_1}     OVSPORT1
 ${OVS_PORT_2}     OVSPORT2
+${OVS2_PORT_1}    OVSPORT3
+${OVS2_PORT_2}    OVSPORT4
 ${OVS_VM1_NAME}    VM1
 ${OVS_VM2_NAME}    VM2
+${OVS2_VM1_NAME}    VM3
+${OVS_VM2_NAME}    VM4
 ${SECURITY_GROUP_L2GW}    sg-l2gateway
 ${SUBNET_1}       HWV-SUB1
 ${SUBNET_2}       HWV-SUB2
@@ -87,10 +104,10 @@ ${OVSDB_NETWORK_TOPOLOGY}    /restconf/operational/network-topology:network-topo
 ${REM_OVSDB}      sudo rm /etc/openvswitch/ovs.db
 ${REM_VTEPDB}     sudo rm /etc/openvswitch/vtep.db
 ${SET_FAIL_MODE}    sudo ovs-vsctl set-fail-mode
-${SET_VTEP_PS}    sudo vtep-ctl set ${PHYSICAL_SWITCH_TABLE} ${HWVTEP_BRIDGE} tunnel_ips=
+${SET_VTEP_PS}    sudo vtep-ctl set ${PHYSICAL_SWITCH_TABLE}
 ${SLEEP1S}        sleep 1
 ${START_OVSDB_SERVER}    sudo ovsdb-server --pidfile --detach --log-file --remote punix:/var/run/openvswitch/db.sock --remote=db:hardware_vtep,Global,managers /etc/openvswitch/ovs.db /etc/openvswitch/vtep.db
-${START_OVSVTEP}    sudo /usr/share/openvswitch/scripts/ovs-vtep --log-file=/var/log/openvswitch/ovs-vtep.log --pidfile=/var/run/openvswitch/ovs-vtep.pid --detach ${HWVTEP_BRIDGE}
+${START_OVSVTEP}    sudo /usr/share/openvswitch/scripts/ovs-vtep --log-file=/var/log/openvswitch/ovs-vtep.log --pidfile=/var/run/openvswitch/ovs-vtep.pid --detach
 ${STR_VIF_REPLACE}    "neutron-binding:vif-type":"ovs"
 ${STR_VIF_TYPE}    "neutron-binding:vif-type":"unbound"
 ${STR_VNIC_REPLACE}    "neutron-binding:vnic-type":"direct"
