@@ -19,7 +19,8 @@ Start Suite
     Hwvtep Cleanup
     Namespace Cleanup
     Hwvtep Initiate
-    Namespace Intiate
+    Namespace1 Intiate
+    Namespace2 Intiate
     Wait Until Keyword Succeeds    30s    1s    Hwvtep Validation
 
 Stop Suite
@@ -73,7 +74,7 @@ Hwvtep Initiate
     ${stdout}=    Write Commands Until Prompt    ${GREP_OVS}    30s
     Log    ${stdout}
 
-Namespace Intiate
+Namespace1 Intiate
     [Documentation]    Create and configure the namespace, bridges and ports.
     Switch Connection    ${hwvtep_conn_id}
     Write Commands Until Prompt    ${NETNS_ADD} ${HWVTEP_NS1}    30s
@@ -85,6 +86,18 @@ Namespace Intiate
     ${stdout}=    Write Commands Until Prompt    ${NETNS_EXEC} ${HWVTEP_NS1} ${IFCONF}    30s
     Log    ${stdout}
 
+Namespace2 Intiate
+    [Documentation]    Create and configure the namespace, bridges and ports.
+    Switch Connection    ${hwvtep_conn_id}
+    Write Commands Until Prompt    ${NETNS_ADD} ${HWVTEP_NS2}    30s
+    Write Commands Until Prompt    ${IP_LINK_ADD} ${NS2_TAP1} type veth peer name ${NS_PORT2}    30s
+    Write Commands Until Prompt    ${CREATE_OVS_PORT} ${HWVTEP_BRIDGE} ${NS_PORT2}    30s
+    Write Commands Until Prompt    ${IP_LINK_SET} ${NS2_TAP1} netns ${HWVTEP_NS2}    30s
+    Write Commands Until Prompt    ${NETNS_EXEC} ${HWVTEP_NS2} ${IPLINK_SET} ${NS2_TAP1} up    30s
+    Write Commands Until Prompt    sudo ${IPLINK_SET} ${NS_PORT2} up    30s
+    ${stdout}=    Write Commands Until Prompt    ${NETNS_EXEC} ${HWVTEP_NS2} ${IFCONF}    30s
+    Log    ${stdout}
+
 Hwvtep Validation
     [Documentation]    Initial validation of the Hwvtep Configuration to confirm Phyisical_Switch table entries
     Switch Connection    ${hwvtep_conn_id}
@@ -93,6 +106,7 @@ Hwvtep Validation
     Should Contain    ${stdout}    ${HWVTEP_IP}
     ${stdout}=    Write Commands Until Prompt    ${VTEP LIST} ${PHYSICAL_PORT_TABLE}    30s
     Should Contain    ${stdout}    ${NS_PORT1}
+    Should Contain    ${stdout}    ${NS_PORT2}
 
 Create And Set Hwvtep Connection Id
     [Documentation]    To create Hwvtep connection id for the suite
