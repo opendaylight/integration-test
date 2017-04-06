@@ -223,10 +223,10 @@ Init Suite
     ${TOOLS_SYSTEM_NAME}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    hostname -f    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
     Run Docker Keystone
     Configure AAA In Controller    ${TOOLS_SYSTEM_NAME}
-    Restart Controller
-    Provision Keystone
     Set Suite Variable    ${PUT_KEYSTONE_CERT_FILE}    ${CURDIR}/../../../variables/aaa/put-keystone-cert.json
     Set Keystone Certificate into ODL    ${PUT_KEYSTONE_CERT_FILE}    ${TOOLS_SYSTEM_NAME}
+    Restart Controller
+    Provision Keystone
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
 
