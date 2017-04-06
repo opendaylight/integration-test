@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_ce64a9e7",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-06T08:44:44Z",
+      "side": 1,
+      "message": "Is this used?",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "ab3c43165d01711f87844bc1658f2bb9dc3598d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_0e5fd10f",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-06T08:44:44Z",
+      "side": 1,
+      "message": "Is this used?",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "ab3c43165d01711f87844bc1658f2bb9dc3598d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ceab09d5",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-06T08:44:44Z",
+      "side": 1,
+      "message": "Commit message suggests this is the main browser now.",
+      "range": {
+        "startLine": 81,
+        "startChar": 28,
+        "endLine": 81,
+        "endChar": 36
+      },
+      "revId": "ab3c43165d01711f87844bc1658f2bb9dc3598d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_6ee93d1a",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-06T08:44:44Z",
+      "side": 1,
+      "message": "BuiltIn.Set Variable    ${MODULE_ID_LABEL}${index}",
+      "range": {
+        "startLine": 113,
+        "startChar": 24,
+        "endLine": 113,
+        "endChar": 88
+      },
+      "revId": "ab3c43165d01711f87844bc1658f2bb9dc3598d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_0e3191ec",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-06T08:44:44Z",
+      "side": 1,
+      "message": "Compose\n\nCatenate suggests two arguments to get catenated.",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 8
+      },
+      "revId": "ab3c43165d01711f87844bc1658f2bb9dc3598d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4e527914",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-06T08:44:44Z",
+      "side": 1,
+      "message": "I see no quotes in the implementation.",
+      "range": {
+        "startLine": 217,
+        "startChar": 95,
+        "endLine": 217,
+        "endChar": 97
+      },
+      "revId": "ab3c43165d01711f87844bc1658f2bb9dc3598d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_6e4dbd72",
+        "filename": "csit/libraries/YangmanKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-06T08:44:44Z",
+      "side": 1,
+      "message": "BuiltIn.Return From Keyword    ${BRANCH_ID_LABEL}${index}",
+      "range": {
+        "startLine": 218,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 85
+      },
+      "revId": "ab3c43165d01711f87844bc1658f2bb9dc3598d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
