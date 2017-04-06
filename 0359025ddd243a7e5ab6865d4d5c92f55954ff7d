@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_3934a1dd",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2017-04-06T10:51:56Z",
+      "side": 1,
+      "message": "If you are ok, please consider making this a generic keyword (may be somewhere like Utils.robot) which accepts IP and other arguments (PROMPT, USER, PASSWORD and TIMEOUT can be defined to default). Then we could use it in many suites. This is a suggestion. :)",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8e49018e",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2017-04-06T10:51:56Z",
+      "side": 1,
+      "message": "Global defined variables are ALL CAPS, local variables are to be all small.",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 31
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_b909b12e",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2017-04-06T10:51:56Z",
+      "side": 1,
+      "message": "You could use DEFAULT_PASSWORD (Variable.robot) than hardcoding.",
+      "range": {
+        "startLine": 16,
+        "startChar": 51,
+        "endLine": 16,
+        "endChar": 59
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_99f82de7",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2017-04-06T10:51:56Z",
+      "side": 1,
+      "message": "As you said, bgpd is not started here, right?",
+      "range": {
+        "startLine": 22,
+        "startChar": 43,
+        "endLine": 22,
+        "endChar": 48
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_195f1d10",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2017-04-06T10:51:56Z",
+      "side": 1,
+      "message": "If you give a next patch, please use ${DEFAULT_LINUX_PROMPT_STRICT}",
+      "range": {
+        "startLine": 26,
+        "startChar": 82,
+        "endLine": 26,
+        "endChar": 84
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
