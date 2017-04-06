@@ -71,6 +71,13 @@ Verify OVS Reports Connected
     Should Contain    ${output}    is_connected
     [Return]    ${output}
 
+Verify OVS Not Reports Connected
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl show" to check for string "is_connected"
+    ${output}=    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl show
+    Should Not Contain    ${output}    is_connected
+    [Return]    ${output}
+
 Get OVSDB UUID
     [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_http_session}=session
     [Documentation]    Queries the topology in the operational datastore and searches for the node that has
