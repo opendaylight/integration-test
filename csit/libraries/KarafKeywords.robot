@@ -6,6 +6,7 @@ Library           SSHLibrary
 Library           OperatingSystem
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/SSHKeywords.robot
+Resource          ${CURDIR}/Utils.robot
 Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***
@@ -199,7 +200,7 @@ Wait_For_Karaf_Log
     # "Flexible SSH Login" keyword from the patch above (45596) was failing.
     BuiltIn.Log    Waiting for '${message}' in karaf log
     SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=${timeout}
-    BuiltIn.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
+    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
     SSHLibrary.Write    log:tail
     SSHLibrary.Read_Until    ${message}
     SSHLibrary.Close_Connection
@@ -217,7 +218,26 @@ Restart_Karaf
     Issue_Command_On_Karaf_Console    shutdown -r -f
     BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Wait_Until_Keyword_Succeeds    240s    60s    Wait_For_Karaf_Log    Karaf started in
 
-Restart_Jetty
+Start Karaf
+    [Documentation]    Starts Karaf and polls log to detect when Karaf is up and running
+    # TODO: prepare this for cluster environment and multiple controllers
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    /usr/bin/env JAVA_HOME=${JAVA_HOME} ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
+    Run Keyword And Return Status    Wait Until Keyword Succeeds    240s    60s    Wait For Karaf Log    Karaf started in
+
+Stop Karaf
+    [Documentation]    Stops Karaf and checks Karaf is not running any more
+    # TODO: prepare this for cluster environment and multiple controllers
+    Run Keyword And Ignore Error    Safe_Issue_Command_On_Karaf_Console    log:clear
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    /usr/bin/env JAVA_HOME=${JAVA_HOME} ${WORKSPACE}/${BUNDLEFOLDER}/bin/stop
+    Wait Until Keyword Succeeds    240s    60s    Karaf Status Not Running
+
+Karaf Status Not Running
+    [Documentation]    Checks Karaf status is Not Running
+    ${status} =    Run Command On Remote System    ${ODL_SYSTEM_IP}    /usr/bin/env JAVA_HOME=${JAVA_HOME} ${WORKSPACE}/${BUNDLEFOLDER}/bin/status
+    Should Contain    ${status}    Not Running
+    [Return]    ${status}
+
+Restart Jetty
     [Documentation]    Restarts jetty bundle (to reload certificates or key/truststore information)
     Safe_Issue_Command_On_Karaf_Console    log:clear
     Restart_Bundle    OPS4J Pax Web - Jetty
