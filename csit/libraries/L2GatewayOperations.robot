@@ -17,21 +17,22 @@ ${L2GW_VAR_BASE}    ${CURDIR}/../variables/l2gw
 
 *** Keywords ***
 Add Ovs Bridge Manager Controller And Verify
-    [Documentation]    Keyword to set OVS manager and controller to ${ODL_IP} for the OVS IP connected in ${ovs_conn_id} and verify the entries in OVSDB NETWORK TOPOLOGY and NETSTAT results.
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_RESTART}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_DEL_MGR}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_DEL_CTRLR} ${OVS_BRIDGE}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${DEL_OVS_BRIDGE} ${OVS_BRIDGE}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_SHOW}
+    [Arguments]    ${conn_id}=${ovs_conn_id}
+    [Documentation]    Keyword to set OVS manager and controller to ${ODL_IP} for the OVS IP connected in ${conn_id} and verify the entries in OVSDB NETWORK TOPOLOGY and NETSTAT results.
+    ${output}=    Exec Command    ${conn_id}    ${OVS_RESTART}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_DEL_MGR}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_DEL_CTRLR} ${OVS_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${DEL_OVS_BRIDGE} ${OVS_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SHOW}
     Should Not Contain    ${output}    Manager
     Should Not Contain    ${output}    Controller
-    ${output}=    Exec Command    ${ovs_conn_id}    ${CREATE_OVS_BRIDGE} ${OVS_BRIDGE}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${SET_FAIL_MODE} ${OVS_BRIDGE} secure
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_SET_MGR}:${ODL_IP}:${OVSDBPORT}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_SET_CTRLR} ${OVS_BRIDGE} tcp:${ODL_IP}:${ODL_OF_PORT}
-    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${ovs_conn_id}    ${OVS_SHOW}    Manager "tcp:${ODL_IP}:${OVSDBPORT}"
+    ${output}=    Exec Command    ${conn_id}    ${CREATE_OVS_BRIDGE} ${OVS_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${SET_FAIL_MODE} ${OVS_BRIDGE} secure
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SET_MGR}:${ODL_IP}:${OVSDBPORT}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SET_CTRLR} ${OVS_BRIDGE} tcp:${ODL_IP}:${ODL_OF_PORT}
+    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${conn_id}    ${OVS_SHOW}    Manager "tcp:${ODL_IP}:${OVSDBPORT}"
     ...    Controller "tcp:${ODL_IP}:${ODL_OF_PORT}"
-    ${output}=    Exec Command    ${ovs_conn_id}    ${NETSTAT}
+    ${output}=    Exec Command    ${conn_id}    ${NETSTAT}
     Wait Until Keyword Succeeds    30s    2s    Validate Regexp In String    ${output}    ${NETSTAT_OVSDB_REGEX}
     Wait Until Keyword Succeeds    30s    2s    Validate Regexp In String    ${output}    ${NETSTAT_OF_REGEX}
     @{list_to_check}=    Create List    bridge/${OVS_BRIDGE}    bridge/${HWVTEP_BRIDGE}
@@ -48,14 +49,14 @@ Create Itm Tunnel Between Hwvtep and Ovs
     Log    ${output}
 
 Add Vtep Manager And Verify
-    [Arguments]    ${odl_ip}
+    [Arguments]    ${conn_id}=${hwvtep_conn_id}    ${odl_ip}
     [Documentation]    Keyword to add vtep manager for HWVTEP connected in ${hwvtep_conn_id} as ${odl_ip} received in argument and verify the entries in NETSTAT and HWVTEP NETWORK TOPOLOGY.
     ${set_manager_command}=    Set Variable    ${VTEP_ADD_MGR}:${odl_ip}:${OVSDBPORT}
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${set_manager_command}
+    ${output}=    Exec Command    ${conn_id}    ${set_manager_command}
     Log    ${output}
     @{list_to_verify}=    Create List    ${odl_ip}    state=ACTIVE
     Wait Until Keyword Succeeds    60s    2s    Verify Vtep List    ${MANAGER_TABLE}    @{list_to_verify}
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETSTAT}
+    ${output}=    Exec Command    ${conn_id}    ${NETSTAT}
     Should Contain    ${output}    ${OVSDBPORT}
     @{list_to_check}=    Create List    ${odl_ip}
     Utils.Check For Elements At URI    ${HWVTEP_NETWORK_TOPOLOGY}    ${list_to_check}    session
