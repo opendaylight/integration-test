@@ -17,21 +17,22 @@ ${L2GW_VAR_BASE}    ${CURDIR}/../variables/l2gw
 
 *** Keywords ***
 Add Ovs Bridge Manager Controller And Verify
-    [Documentation]    Keyword to set OVS manager and controller to ${ODL_IP} for the OVS IP connected in ${ovs_conn_id} and verify the entries in OVSDB NETWORK TOPOLOGY and NETSTAT results.
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_RESTART}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_DEL_MGR}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_DEL_CTRLR} ${OVS_BRIDGE}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${DEL_OVS_BRIDGE} ${OVS_BRIDGE}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_SHOW}
+    [Arguments]    ${conn_id}=${ovs_conn_id}
+    [Documentation]    Keyword to set OVS manager and controller to ${ODL_IP} for the OVS IP connected in ${conn_id} and verify the entries in OVSDB NETWORK TOPOLOGY and NETSTAT results.
+    ${output}=    Exec Command    ${conn_id}    ${OVS_RESTART}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_DEL_MGR}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_DEL_CTRLR} ${OVS_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${DEL_OVS_BRIDGE} ${OVS_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SHOW}
     Should Not Contain    ${output}    Manager
     Should Not Contain    ${output}    Controller
-    ${output}=    Exec Command    ${ovs_conn_id}    ${CREATE_OVS_BRIDGE} ${OVS_BRIDGE}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${SET_FAIL_MODE} ${OVS_BRIDGE} secure
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_SET_MGR}:${ODL_IP}:${OVSDBPORT}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_SET_CTRLR} ${OVS_BRIDGE} tcp:${ODL_IP}:${ODL_OF_PORT}
-    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${ovs_conn_id}    ${OVS_SHOW}    Manager "tcp:${ODL_IP}:${OVSDBPORT}"
+    ${output}=    Exec Command    ${conn_id}    ${CREATE_OVS_BRIDGE} ${OVS_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${SET_FAIL_MODE} ${OVS_BRIDGE} secure
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SET_MGR}:${ODL_IP}:${OVSDBPORT}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SET_CTRLR} ${OVS_BRIDGE} tcp:${ODL_IP}:${ODL_OF_PORT}
+    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${conn_id}    ${OVS_SHOW}    Manager "tcp:${ODL_IP}:${OVSDBPORT}"
     ...    Controller "tcp:${ODL_IP}:${ODL_OF_PORT}"
-    ${output}=    Exec Command    ${ovs_conn_id}    ${NETSTAT}
+    ${output}=    Exec Command    ${conn_id}    ${NETSTAT}
     Wait Until Keyword Succeeds    30s    2s    Validate Regexp In String    ${output}    ${NETSTAT_OVSDB_REGEX}
     Wait Until Keyword Succeeds    30s    2s    Validate Regexp In String    ${output}    ${NETSTAT_OF_REGEX}
     @{list_to_check}=    Create List    bridge/${OVS_BRIDGE}    bridge/${HWVTEP_BRIDGE}
@@ -48,14 +49,14 @@ Create Itm Tunnel Between Hwvtep and Ovs
     Log    ${output}
 
 Add Vtep Manager And Verify
-    [Arguments]    ${odl_ip}
+    [Arguments]    ${odl_ip}    ${conn_id}=${hwvtep_conn_id}
     [Documentation]    Keyword to add vtep manager for HWVTEP connected in ${hwvtep_conn_id} as ${odl_ip} received in argument and verify the entries in NETSTAT and HWVTEP NETWORK TOPOLOGY.
     ${set_manager_command}=    Set Variable    ${VTEP_ADD_MGR}:${odl_ip}:${OVSDBPORT}
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${set_manager_command}
+    ${output}=    Exec Command    ${conn_id}    ${set_manager_command}
     Log    ${output}
     @{list_to_verify}=    Create List    ${odl_ip}    state=ACTIVE
     Wait Until Keyword Succeeds    60s    2s    Verify Vtep List    ${MANAGER_TABLE}    @{list_to_verify}
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETSTAT}
+    ${output}=    Exec Command    ${conn_id}    ${NETSTAT}
     Should Contain    ${output}    ${OVSDBPORT}
     @{list_to_check}=    Create List    ${odl_ip}
     Utils.Check For Elements At URI    ${HWVTEP_NETWORK_TOPOLOGY}    ${list_to_check}    session
@@ -129,10 +130,10 @@ Attach Port To Hwvtep Namespace
     Should Contain    ${output}    ${port_mac}
 
 Namespace Dhclient Verify
-    [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}
+    [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}    ${conn_id}=${hwvtep_conn_id}    ${hwvtep_ip}=${HWVTEP_IP}
     [Documentation]    Keyword to run dhclient for the tap port ${ns_tap} and verify if it has got assigned with ${ns_port_ip}.
-    Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} dhclient ${ns_tap}
-    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}    ${ns_port_ip}
+    Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} dhclient ${ns_tap}    ${hwvtep_ip}
+    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}    ${ns_port_ip}
 
 Namespace Static Ip Assign
     [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}
@@ -148,27 +149,27 @@ Verify Strings In Command Output
     \    Should Contain    ${output}    ${item}
 
 Verify Ping In Namespace Background
-    [Arguments]    ${ns_name}    ${ns_port_mac}    ${vm_ip}
+    [Arguments]    ${ns_name}    ${ns_port_mac}    ${vm_ip}    ${conn_id}=${hwvtep_conn_id}    ${hwvtep_ip}=${HWVTEP_IP}
     [Documentation]    Keyword to ping the IP ${vm_ip} from ${ns_name} and verify MCAS Local Table contains ${ns_port_mac}.
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
+    ${output}=    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
     Log    ${output}
-    Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} ping ${vm_ip}
-    Wait Until Keyword Succeeds    30s    2s    Verify Mcas Local Table While Ping    ${ns_port_mac}
+    Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} ping ${vm_ip}    ${hwvtep_ip}
+    Wait Until Keyword Succeeds    30s    2s    Verify Mcas Local Table While Ping    ${ns_port_mac}    ${conn_id}
 
 Verify Ping In Namespace Extra Timeout
-    [Arguments]    ${ns_name}    ${ns_port_mac}    ${vm_ip}
+    [Arguments]    ${ns_name}    ${ns_port_mac}    ${vm_ip}    ${conn_id}=${hwvtep_conn_id}    ${hwvtep_ip}=${HWVTEP_IP}
     [Documentation]    Keyword to ping the IP ${vm_ip} from ${ns_name} and verify MCAS Local Table contains ${ns_port_mac}.
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
+    ${output}=    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
     Log    ${output}
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ping -c3 ${vm_ip}    30s
+    ${output}=    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ping -c3 ${vm_ip}    30s
     Log    ${output}
     Should Not Contain    ${output}    ${PACKET_LOSS}
-    Wait Until Keyword Succeeds    30s    2s    Verify Mcas Local Table While Ping    ${ns_port_mac}
+    Wait Until Keyword Succeeds    30s    2s    Verify Mcas Local Table While Ping    ${ns_port_mac}    ${conn_id}
 
 Verify Mcas Local Table While Ping
-    [Arguments]    ${mac}
+    [Arguments]    ${mac}    ${conn_id}
     [Documentation]    Keyword to check if ${mac} is available under UCAST_MACS_LOCALE_TABLE of HWVTEP dump table.
-    Verify Vtep List    ${UCAST_MACS_LOCALE_TABLE}    ${mac}
+    Verify Vtep List    ${conn_id}    ${UCAST_MACS_LOCALE_TABLE}    ${mac}
 
 Verify Nova VM IP
     [Arguments]    ${vm_name}
@@ -193,9 +194,9 @@ Get L2gw Debug Info
     Log    ${resp.content}
 
 Start Command In Hwvtep
-    [Arguments]    ${command}
+    [Arguments]    ${command}    ${hwvtep_ip}
     [Documentation]    Keyword to execute Start Command in HWVTEP IP.
-    ${conn_id}=    SSHLibrary.Open Connection    ${HWVTEP_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    ${conn_id}=    SSHLibrary.Open Connection    ${hwvtep_ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Log    ${conn_id}
     Flexible SSH Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
     Start Command    ${command}
@@ -204,9 +205,9 @@ Start Command In Hwvtep
     close connection
 
 Verify Vtep List
-    [Arguments]    ${table_name}    @{list}
+    [Arguments]    ${conn_id}    ${table_name}    @{list}
     [Documentation]    Keyword to run vtep-ctl list for the table ${table_name} and verify the list @{list} contents exists in output.
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${VTEP LIST} ${table_name}
+    ${output}=    Exec Command    ${conn_id}    ${VTEP LIST} ${table_name}
     : FOR    ${item}    IN    @{list}
     \    Should Contain    ${output}    ${item}
 
