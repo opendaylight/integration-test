@@ -111,6 +111,29 @@
     },
     {
       "key": {
+        "uuid": "da01753e_21caa34f",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "The document part can be improved by using \"sentences\" instead of \"phrases\" . This applies to all comment",
+      "range": {
+        "startLine": 22,
+        "startChar": 23,
+        "endLine": 22,
+        "endChar": 77
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_195f1d10",
         "filename": "csit/libraries/BgpOperations.robot",
         "patchSetId": 12
@@ -247,6 +270,167 @@
       "writtenOn": "2017-04-06T12:28:22Z",
       "side": 1,
       "message": "Again the same comment.",
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_41c1a72d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "Is it good idea to use camel case \"Create External Tunnel Endpoint Configuration\"",
+      "range": {
+        "startLine": 257,
+        "startChar": 4,
+        "endLine": 257,
+        "endChar": 49
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a1ddf316",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "These documentation can be improved using proper \"sentences\" and sentence-cases",
+      "range": {
+        "startLine": 262,
+        "startChar": 4,
+        "endLine": 262,
+        "endChar": 58
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c103d771",
+        "filename": "csit/testplans/netvirt-1node-l2gw-openstack.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "Changes are needed in the final",
+      "range": {
+        "startLine": 2,
+        "startChar": 1,
+        "endLine": 2,
+        "endChar": 12
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_21f8e37b",
+        "filename": "csit/variables/bgpfunctional/addNeighbor_bgp/location.uri",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "This extra line has to be removed if this is not needed",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 0
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_61f2eb9b",
+        "filename": "csit/variables/bgpfunctional/create_bgp/location.uri",
+        "patchSetId": 12
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "Remove the extra line",
+      "range": {
+        "startLine": 1,
+        "startChar": 25,
+        "endLine": 1,
+        "endChar": 26
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a12b33ea",
+        "filename": "csit/variables/bgpfunctional/create_etep/post_data.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "Format this JSON",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 32
+      },
+      "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e1353b47",
+        "filename": "csit/variables/bgpfunctional/delete_etep/post_data.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "Format this JSON",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 32
+      },
       "revId": "0359025ddd243a7e5ab6865d4d5c92f55954ff7d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
