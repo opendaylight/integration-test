@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_d2b447f4",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal_longevity.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-04-07T11:37:48Z",
+      "side": 1,
+      "message": "This WUKS has a historical reason. After the node isolation it used to fail on the first attempt, but passed on the 2nd or 3rd. I agree that it should pass on the first attempt.\nLet\u0027s leave it as it is and when the bug is fixed then remove wuks from both (functional and longevity).",
+      "parentUuid": "da01753e_372ca5ab",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 39
+      },
+      "revId": "1b62a81719e4650ed180d066b2b89d4d015a027d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_d7e8b97e",
         "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal_longevity.robot",
         "patchSetId": 5
