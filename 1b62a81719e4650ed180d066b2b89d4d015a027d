@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_37e2e59f",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal_longevity.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-07T10:18:15Z",
+      "side": 1,
+      "message": "CODES or CODE_LIST\n\nCan be updated later, as the non-longevity suite has the same variable name.",
+      "range": {
+        "startLine": 25,
+        "startChar": 25,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "1b62a81719e4650ed180d066b2b89d4d015a027d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1789a1ca",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal_longevity.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-07T10:18:15Z",
+      "side": 1,
+      "message": "This is only accessed from this keyword (and not from its child keywords) so the scope from line 41 is sufficient.",
+      "range": {
+        "startLine": 42,
+        "startChar": 34,
+        "endLine": 42,
+        "endChar": 49
+      },
+      "revId": "1b62a81719e4650ed180d066b2b89d4d015a027d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_372ca5ab",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal_longevity.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-07T10:18:15Z",
+      "side": 1,
+      "message": "I do not see a possibility for Verify to fail few times and then pass. On the contrary, I expect the first Verify to pass (if the member has not detected it is isolated yet) and then perhaps start failing.\nWaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout should be used then.\n\nBut perhaps Sandbox shows Verify really fails few times (Bug 8062 or similar) and then passes? If that is the case, add a comment.\n\nOh, now I see rpc_provider_partition_and_heal.robot already uses WUKS here. Never mind, WUKS is OK for describing Bug 8062 for now.",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 39
+      },
+      "revId": "1b62a81719e4650ed180d066b2b89d4d015a027d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d7e8b97e",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal_longevity.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-07T10:18:15Z",
+      "side": 1,
+      "message": "Scenario",
+      "range": {
+        "startLine": 54,
+        "startChar": 11,
+        "endLine": 54,
+        "endChar": 20
+      },
+      "revId": "1b62a81719e4650ed180d066b2b89d4d015a027d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_57fcc93e",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal_longevity.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-07T10:18:15Z",
+      "side": 1,
+      "message": "This is created by DrbCommons.DrbCommons_Init\nlist what this keyword creates.",
+      "range": {
+        "startLine": 55,
+        "startChar": 30,
+        "endLine": 55,
+        "endChar": 51
+      },
+      "revId": "1b62a81719e4650ed180d066b2b89d4d015a027d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
