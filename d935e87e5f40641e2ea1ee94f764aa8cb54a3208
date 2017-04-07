@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "da01753e_8d061d1f",
+        "filename": "docs/system-test-guide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-07T19:23:07Z",
+      "side": 1,
+      "message": "Better Test Changes, these include Robot test + test plan.",
+      "revId": "d935e87e5f40641e2ea1ee94f764aa8cb54a3208",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_4d3f1526",
         "filename": "docs/system-test-guide.rst",
         "patchSetId": 2
@@ -13,6 +30,30 @@
       "writtenOn": "2017-04-07T17:57:14Z",
       "side": 1,
       "message": "I\u0027m not sure if this is right or not, but not sure how to\ntest it.",
+      "range": {
+        "startLine": 166,
+        "startChar": 2,
+        "endLine": 166,
+        "endChar": 34
+      },
+      "revId": "d935e87e5f40641e2ea1ee94f764aa8cb54a3208",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_0d134d67",
+        "filename": "docs/system-test-guide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-07T19:23:07Z",
+      "side": 1,
+      "message": "I just copied the format from here: https://git.opendaylight.org/gerrit/gitweb?p\u003dreleng/builder.git;a\u003dblob;f\u003ddocs/jenkins.rst (line 371).",
+      "parentUuid": "da01753e_4d3f1526",
       "range": {
         "startLine": 166,
         "startChar": 2,
