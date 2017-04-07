@@ -100,8 +100,8 @@ configplans folder::
 
   vim test/csit/scriptplans/$project-$functionality.txt
 
-Save and push changes
-^^^^^^^^^^^^^^^^^^^^^
+Save and push Test changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Add the changes and push them in the integration/test repo::
 
   git add -A
@@ -162,8 +162,8 @@ Explanation:
 * jobs: replace 1node by 3node if your test is develop for 3node cluster.
 * project: set your your project name here (e.g. openflowplugin).
 * functionality: set the functionality you want to test (e.g. flow-services).
-  Note this has also to match the robot test plan name you defined in earlier
-  `section <Create a test plan_>`_ (e.g. openflowplugin-flow-services.txt)
+  Note this has also to match the robot test plan name you defined in the earlier
+  section `<Create a test plan_>`_ (e.g. openflowplugin-flow-services.txt)
 * stream: list the project branches you are going to generate system test. Only
   last branch if the project is new.
 * install: this specifies controller installation, 'only' means only features in
@@ -384,8 +384,8 @@ Note this will run a self-made debug script with sudo access in a VM of your
 choice. In the example above you debug on the tools VM (TOOLS_SYSTEM_IP),
 use ODL_SYSTEM_IP to debug in controller VM.
 
-Save and push changes
-^^^^^^^^^^^^^^^^^^^^^
+Save and push JJB changes
+^^^^^^^^^^^^^^^^^^^^^^^^^
 Once you are happy with your system test, save the changes and push them in the
 releng builder repo::
 
