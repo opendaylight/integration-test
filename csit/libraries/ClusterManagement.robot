@@ -68,6 +68,11 @@ ClusterManagement_Setup
     ${int_of_members} =    BuiltIn.Set_Variable_If    '${status}' != 'PASS'    ${1}    ${possibly_int_of_members}
     ClusterManagement__Compute_Derived_Variables    int_of_members=${int_of_members}
 
+Wait_For_Cluster_In_Sync
+    [Arguments]    ${timeout}=60s    ${delay}=1s    ${member_index_list}=${EMPTY}
+    [Documentation]    WUKS with Check_Cluster_Is_In_Sync.
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${delay}    Check_Cluster_Is_In_Sync    ${member_index_list}
+
 Check_Cluster_Is_In_Sync
     [Arguments]    ${member_index_list}=${EMPTY}
     [Documentation]    Fail if no-sync is detected on a member from list (or any).
@@ -399,7 +404,7 @@ Start_Members_From_List_Or_All
     ${command} =    BuiltIn.Set_Variable_If    "${export_java_home}"    export JAVA_HOME="${export_java_home}"; ${base_command}    ${base_command}
     Run_Bash_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
+    Wait_For_Cluster_In_Sync    ${timeout}    10s    member_index_list=${member_index_list}
     # TODO: Do we also want to check Shard Leaders here?
 
 Freeze_Single_Member
@@ -413,7 +418,8 @@ Unfreeze_Single_Member
     [Documentation]    Convenience keyword that "continues" the specified member of the cluster by unfreezing the jvm.
     ${index_list} =    ClusterManagement__Build_List    ${member}
     Freeze_Or_Unfreeze_Members_From_List_Or_All    ${NODE_UNFREEZE_COMMAND}    ${index_list}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync
+    BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
+    Wait_For_Cluster_In_Sync    ${timeout}    10s
 
 Freeze_Or_Unfreeze_Members_From_List_Or_All
     [Arguments]    ${command}    ${member_index_list}=${EMPTY}
