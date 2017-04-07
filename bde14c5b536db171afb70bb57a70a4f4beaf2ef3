@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_213f4327",
+        "filename": "csit/variables/bgpfunctional/addNeighbor_bgp/location.uri",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "Extra line can be removed",
+      "range": {
+        "startLine": 1,
+        "startChar": 25,
+        "endLine": 1,
+        "endChar": 26
+      },
+      "revId": "bde14c5b536db171afb70bb57a70a4f4beaf2ef3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_61494bd0",
+        "filename": "csit/variables/bgpfunctional/create_bgp/location.uri",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "Extra line can be removed",
+      "range": {
+        "startLine": 1,
+        "startChar": 25,
+        "endLine": 1,
+        "endChar": 26
+      },
+      "revId": "bde14c5b536db171afb70bb57a70a4f4beaf2ef3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4146c7c0",
+        "filename": "csit/variables/bgpfunctional/create_bgp/post_data.json",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "Extra line can be removed",
+      "range": {
+        "startLine": 6,
+        "startChar": 1,
+        "endLine": 6,
+        "endChar": 1
+      },
+      "revId": "bde14c5b536db171afb70bb57a70a4f4beaf2ef3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a11213b2",
+        "filename": "csit/variables/bgpfunctional/create_etep/location.uri",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "Extra line can be removed",
+      "range": {
+        "startLine": 1,
+        "startChar": 57,
+        "endLine": 1,
+        "endChar": 58
+      },
+      "revId": "bde14c5b536db171afb70bb57a70a4f4beaf2ef3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a17973fe",
+        "filename": "csit/variables/bgpfunctional/create_etep/post_data.json",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "This has to be formated and Extra line can be removed",
+      "range": {
+        "startLine": 1,
+        "startChar": 9,
+        "endLine": 1,
+        "endChar": 10
+      },
+      "revId": "bde14c5b536db171afb70bb57a70a4f4beaf2ef3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e1837bca",
+        "filename": "csit/variables/bgpfunctional/delete_etep/location.uri",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "Extra line can be removed",
+      "range": {
+        "startLine": 1,
+        "startChar": 60,
+        "endLine": 1,
+        "endChar": 61
+      },
+      "revId": "bde14c5b536db171afb70bb57a70a4f4beaf2ef3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_61778b03",
+        "filename": "csit/variables/bgpfunctional/delete_etep/post_data.json",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-07T05:51:25Z",
+      "side": 1,
+      "message": "Format and remove extra lines and unwanted spaces",
+      "range": {
+        "startLine": 3,
+        "startChar": 29,
+        "endLine": 3,
+        "endChar": 32
+      },
+      "revId": "bde14c5b536db171afb70bb57a70a4f4beaf2ef3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
