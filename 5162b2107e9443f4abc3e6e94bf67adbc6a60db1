@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_214bc32c",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-04-07T04:13:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_fe783a2d",
+      "range": {
+        "startLine": 163,
+        "startChar": 13,
+        "endLine": 163,
+        "endChar": 21
+      },
+      "revId": "5162b2107e9443f4abc3e6e94bf67adbc6a60db1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_de99f66f",
         "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-06T23:41:18Z",
       "side": 1,
       "message": "Testsuite",
+      "range": {
+        "startLine": 195,
+        "startChar": 13,
+        "endLine": 195,
+        "endChar": 21
+      },
+      "revId": "5162b2107e9443f4abc3e6e94bf67adbc6a60db1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_01483f2c",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-04-07T04:13:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_de99f66f",
       "range": {
         "startLine": 195,
         "startChar": 13,
@@ -113,6 +161,24 @@
       "side": 1,
       "message": "do we have a plan to get to the bottom of this problem? if\nI understand correctly we have some leftovers from the \nbasic_vpnservice suite that we need to resolve. Could be\nsome test code needs to do better cleanup, or could be that\nwe have a bug on the odl side. let\u0027s take this opportunity to\nto get to the bottom of it.\n\ncan we get a bug filed with instructions for reproduction?\nlike (go swap these two lines in the testplan and run \ncsit a few times until you hit it?)",
       "parentUuid": "da01753e_53318f0a",
+      "revId": "5162b2107e9443f4abc3e6e94bf67adbc6a60db1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_415247de",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2017-04-07T04:13:14Z",
+      "side": 1,
+      "message": "i Will do multiple run and update you the details.",
+      "parentUuid": "da01753e_7ebbaac4",
       "revId": "5162b2107e9443f4abc3e6e94bf67adbc6a60db1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
