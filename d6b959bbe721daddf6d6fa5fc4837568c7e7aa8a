@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_7e9a8a15",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-07T00:46:02Z",
+      "side": 1,
+      "message": "I think a better, more readable approach would be like what\nnetvirt is doing.\n\nthe maintain a list of modules (alphabetical order and\nwithout all the noise of the \"Log\" and \"RequestsLibrary\"\nstuff. here it is:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/netvirt/Modules.py\n\nand then the keyword that loops over those:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Netvirt.robot\n\nthis has proven useful and quick to add/subtrack new modules\nto dump",
+      "revId": "d6b959bbe721daddf6d6fa5fc4837568c7e7aa8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_de9f3602",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-07T00:46:02Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Stay_away_from_using_a_Sleep\n\nplease do not use sleeps in CSIT. the best option is to\nunderstand the reason you are sleeping (usually because\nit takes a bit for some resource to be created/updated/deleted) and then poll on that expectation.\n\nwe have a lot of different libs/keywords/methods for \ndoing this if you need examples.",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 14
+      },
+      "revId": "d6b959bbe721daddf6d6fa5fc4837568c7e7aa8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_bea4f257",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-07T00:46:02Z",
+      "side": 1,
+      "message": "oh wait. you are doing it here. why do you need sleeps?",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 74
+      },
+      "revId": "d6b959bbe721daddf6d6fa5fc4837568c7e7aa8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_fe85daad",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-07T00:46:02Z",
+      "side": 1,
+      "message": "what\u0027s changing in this block of code and the very similar\nblocks of code in the next two test cases? seems to me it\ncould easily be extracted to a local keyword so make \nthings easier to read and maintain",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 57
+      },
+      "revId": "d6b959bbe721daddf6d6fa5fc4837568c7e7aa8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
