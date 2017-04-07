@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_107d266f",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-07T20:04:48Z",
+      "side": 1,
+      "message": "better to use this instead, I think:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/KarafKeywords.robot#L78-L84",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 78
+      },
+      "revId": "4b9ee66137cc5f04fe6237da4fd4214daa85c84c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
