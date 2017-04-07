@@ -45,6 +45,7 @@ data_models = [
         'operational/odl-l3vpn:learnt-vpn-vip-to-port-data',
         'operational/odl-l3vpn:neutron-router-dpns',
         'operational/odl-l3vpn:prefix-to-interface',
+        'operational/odl-l3vpn:subnet-op-data',
         'operational/odl-l3vpn:vpn-instance-op-data',
         'operational/odl-l3vpn:vpn-to-extraroute',
         'operational/odl-nat:external-ips-counter',
