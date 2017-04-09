@@ -119,6 +119,12 @@ Ping Vm Instance2 Floating IP From Control Node
     [Documentation]    Check reachability of VM instance through floating IP by pinging them.
     OpenStackOperations.Ping Vm From Control Node    @{VM_FLOATING_IPS}[1]    additional_args=-I ${external_internet_addr}
 
+Ping Vm Instance2 Floating IP From Vm Instance1 With Floating IP (Hairpinning)
+    [Documentation]    Check reachability of VM instance floating IP from another VM instance with FIP (with ttl=1 to make sure no router hops)
+    Pass Execution If    "${ODL_STREAM}" == "boron"    Hairpinning support is not available in boron or earlier
+    ${dst_ip}=    Create List    @{VM_FLOATING_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{FLOATING_VM_IPS}[0]    ${dst_ip}    ttl=1
+
 Ping External Network PNF from Vm Instance 1
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
     Pass Execution If    "${ODL_STREAM}" == "boron"    PNF subnet route support is not available in boron or earlier
