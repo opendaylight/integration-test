@@ -119,6 +119,12 @@ Ping Vm Instance2 Floating IP From Control Node
     [Documentation]    Check reachability of VM instance through floating IP by pinging them.
     OpenStackOperations.Ping Vm From Control Node    @{VM_FLOATING_IPS}[1]    additional_args=-I ${external_internet_addr}
 
+Ping Vm Instance2 Floating IP from Vm Instance1 with Floating IP (Hairpinning) 
+    [Documentation]    Check reachability of VM instance floating IP from another VM instance with FIP (with ttl=1 to make sure no router hops)
+    Pass Execution If    "${ODL_STREAM}" == "boron"    Hairpinning support is not available in boron or earlier
+    ${dst_ip}=    Create List    @{VM_FLOATING_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{FLOATING_VM_IPS}[0]    ${dst_ip}    ttl=1
+
 Ping External Network PNF from Vm Instance 1
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
     Pass Execution If    "${ODL_STREAM}" == "boron"    PNF subnet route support is not available in boron or earlier
@@ -143,6 +149,12 @@ SNAT - TCP connection to External Gateway From SNAT VM Instance2
 SNAT - UDP connection to External Gateway From SNAT VM Instance2
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
     Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${external_gateway}    -u
+
+Ping Vm Instance2 Floating IP from SNAT VM Instance1 (Hairpinning) 
+    [Documentation]    Check reachability of VM instance floating IP from another VM instance with SNAT (with ttl=1 to make sure no router hops)
+    Pass Execution If    "${ODL_STREAM}" == "boron"    Hairpinning support is not available in boron or earlier
+    ${dst_ip}=    Create List    @{VM_FLOATING_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${dst_ip}    ttl=1
 
 Delete Vm Instances
     [Documentation]    Delete Vm instances using instance names.
