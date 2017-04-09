@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_a1032ab7",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 6248
+      },
+      "writtenOn": "2017-04-09T11:36:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_2110da00",
+      "range": {
+        "startLine": 122,
+        "startChar": 30,
+        "endLine": 122,
+        "endChar": 52
+      },
+      "revId": "edb4acef2348e48cd85d9f0a162eccb479c006bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_0115d6f0",
         "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-09T10:25:05Z",
       "side": 1,
       "message": "same nit",
+      "range": {
+        "startLine": 153,
+        "startChar": 36,
+        "endLine": 153,
+        "endChar": 41
+      },
+      "revId": "edb4acef2348e48cd85d9f0a162eccb479c006bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8100a6ab",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6248
+      },
+      "writtenOn": "2017-04-09T11:36:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_0115d6f0",
       "range": {
         "startLine": 153,
         "startChar": 36,
