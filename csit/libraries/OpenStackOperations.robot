@@ -995,3 +995,54 @@ Delete SFC Port Chain
     Close Connection
     Should Contain    ${output}    Deleted port_chain
     [Return]    ${output}
+
+Create LBaaS Load Balancer
+    [Arguments]    ${name}    ${subnet}
+    [Documentation]    Create a lbaas-loadblanacer
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-loadbalancer-create --name ${name} ${subnet}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new loadbalancer # FIXME guess
+    [Return]    ${output}
+
+Delete LBaaS Load Balancer
+    [Arguments]    ${name}
+    [Documentation]    Delete a lbaas-loadbalancer
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron neutron lbaas-loadbalancer-delete ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Deleted loadbalancer # FIXME guess
+    [Return]    ${output}
+
+Create LBaaS Listener
+    [Arguments]    ${name}    ${lb_name}    ${protocol}    ${port}
+    [Documentation]    Create a lbaas-listener
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-listener-create --name ${name} --loadbalancer ${lb_name} --protocol ${protocol} --protocol-port ${port}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new listener # FIXME guess
+    [Return]    ${output}
+
+Delete LBaaS Listener
+    [Arguments]    ${name}
+    [Documentation]    Delete a lbaas-listener
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-listener-delete ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Deleted listener # FIXME guess
