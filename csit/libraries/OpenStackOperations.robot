@@ -858,3 +858,133 @@ Create And Configure Security Group
     Neutron Security Group Rule Create    ${sg-name}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg-name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    ${sg-name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+
+Create LBaaS Load Balancer
+    [Arguments]    ${name}    ${subnet}
+    [Documentation]    Create a lbaas-loadblanacer
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-loadbalancer-create --name ${name} ${subnet}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new loadbalancer # FIXME guess
+    [Return]    ${output}
+
+Delete LBaaS Load Balancer
+    [Arguments]    ${name}
+    [Documentation]    Delete a lbaas-loadbalancer
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron neutron lbaas-loadbalancer-delete ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Deleted loadbalancer # FIXME guess
+    [Return]    ${output}
+
+Create LBaaS Listener
+    [Arguments]    ${name}    ${lb_name}    ${protocol}    ${port}
+    [Documentation]    Create a lbaas-listener
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-listener-create --name ${name} --loadbalancer ${lb_name} --protocol ${protocol} --protocol-port ${port}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new listener # FIXME guess
+    [Return]    ${output}
+
+Delete LBaaS Listener
+    [Arguments]    ${name}
+    [Documentation]    Delete a lbaas-listener
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-listener-delete ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Deleted listener # FIXME guess
+    [Return]    ${output}
+
+Create LBaaS Pool
+    [Arguments]    ${name}    ${listener}    ${protocol}    ${lb_algorithm}=ROUND_ROBIN
+    [Documentation]    Create a lbaas-pool
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-pool-create --name ${name} --listener ${listener} --protocol ${protocol} --lb-algorithm ${lb_algorithm}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new pool # FIXME guess
+    [Return]    ${output}
+
+Delete LBaaS Pool
+    [Arguments]    ${name}
+    [Documentation]    Delete a lbaas-pool
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-pool-delete ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Deleted pool # FIXME guess
+    [Return]    ${output}
+
+Create LBaaS Member
+    [Arguments]    ${name}    ${pool_name}    ${subnet}    ${address}    ${protocol_port}
+    [Documentation]    Create a lbaas-member in the specified pool
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-member-create --subnet ${subnet} --address ${address} --protocol-port ${protocol_port} --name ${name} ${pool_name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new member # FIXME guess
+    [Return]    ${output}
+
+Delete LBaaS Pool
+    [Arguments]    ${name}    ${pool_name}
+    [Documentation]    Delete a lbaas-pool
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-member-delete ${name} ${pool_name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Deleted member # FIXME guess
+    [Return]    ${output}
+
+Create LBaaS Health Monitor
+    [Arguments]    ${name}   ${pool_name}    ${type}    ${delay}    ${max_retries}    ${timeout}
+    [Documentation]    Create a health monitor for the specified pool
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-healthmonitor-create --name ${name} --pool ${pool_name} --type ${type} --delay ${delay} --max-retries ${max_retries} --timeout ${timeout}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new healthmonitor # FIXME guess
+    [Return]    ${output}
+
+Delete LBaaS Health Monitor
+    [Arguments]    ${name}
+    [Documentation]    Delete a healthmonitor
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron lbaas-healthmonitor-delete ${name}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Deleted healthmonitor # FIXME guess
+    [Return]    ${output}
