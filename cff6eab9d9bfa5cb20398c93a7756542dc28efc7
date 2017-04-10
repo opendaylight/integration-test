@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_afff8c00",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T21:12:07Z",
+      "side": 1,
+      "message": "you only want odl-jolokia here. it\u0027s the exact name of the \nfeature to be used with karaf\u0027s feature:install",
+      "range": {
+        "startLine": 265,
+        "startChar": 25,
+        "endLine": 265,
+        "endChar": 44
+      },
+      "revId": "cff6eab9d9bfa5cb20398c93a7756542dc28efc7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
