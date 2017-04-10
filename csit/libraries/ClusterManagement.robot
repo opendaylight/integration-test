@@ -122,9 +122,9 @@ Get_State_Info_For_Shard
     ${follower_list} =    BuiltIn.Create_List
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    ${raft_state} =    Get_Raft_State_Of_Shard_At_Member    shard_name=${shard_name}    shard_type=${ds_type}    member_index=${index}    verify_restconf=${verify_restconf}
-    \    BuiltIn.Run_Keyword_If    'Follower' == '${raft_state}'    Collections.Append_To_List    ${follower_list}    ${index}
-    \    ...    ELSE IF    'Leader' == '${raft_state}'    Collections.Append_To_List    ${leader_list}    ${index}
-    \    ...    ELSE IF    ${validate}    BuiltIn.Fail    Unrecognized Raft state: ${raft_state}
+    \    BuiltIn.Run_Keyword_If    'Follower' == '${raft_state[0]}'    Collections.Append_To_List    ${follower_list}    ${index}
+    \    ...    ELSE IF    'Leader' == '${raft_state[0]}'    Collections.Append_To_List    ${leader_list}    ${index}
+    \    ...    ELSE IF    ${validate}    BuiltIn.Fail    Unrecognized Raft state: ${raft_state[0]}
     [Return]    ${leader_list}    ${follower_list}
 
 Get_Raft_State_Of_Shard_At_Member
@@ -140,7 +140,10 @@ Get_Raft_State_Of_Shard_At_Member
     ${data_object} =    RequestsLibrary.To_Json    ${data_text}
     ${value} =    Collections.Get_From_Dictionary    ${data_object}    value
     ${raft_state} =    Collections.Get_From_Dictionary    ${value}    RaftState
-    [Return]    ${raft_state}
+    ${current_term}=    Collections.Get_From_Dictionary    ${value}    CurrentTerm
+    ${LastIndex}=    Collections.Get_From_Dictionary    ${value}    LastIndex
+    ${LastApplied}=    Collections.Get_From_Dictionary    ${value}    LastApplied
+    [Return]    ${raft_state}    ${current_term}    ${data_object}    ${LastIndex}    ${LastApplied}
 
 Verify_Shard_Leader_Elected
     [Arguments]    ${shard_name}    ${shard_type}    ${new_elected}    ${old_leader}    ${member_index_list}=${EMPTY}
