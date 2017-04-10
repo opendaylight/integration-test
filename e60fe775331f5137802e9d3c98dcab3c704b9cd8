@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_2f139c5d",
+        "filename": "csit/suites/sfc/SFC_Basic/060__sfc_service_paths.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T21:18:14Z",
+      "side": 1,
+      "message": "please use .robot",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "e60fe775331f5137802e9d3c98dcab3c704b9cd8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
