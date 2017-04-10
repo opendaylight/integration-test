@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_8fee0821",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T22:34:35Z",
+      "side": 1,
+      "message": "maybe it would be better if we have just\none \"Create Vm Instance With Port(s)\" where ${port_names} is\nthe list argument. In the keyword you can iterate over the\nlist, like this:\n\n    ${cmd}    Set Variable    ${EMPTY}\n    : FOR    ${p}    IN    @{port_ids}\n    \\    ${cmd}    Catenate    ${cmd}    --nic port-id:${p}\n\nI\u0027m merging this now, but a new patch can be given for this\nif you agree.",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 20
+      },
+      "revId": "4cb45bffd8fd08bb8f7a20643024943ac5d4681e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
