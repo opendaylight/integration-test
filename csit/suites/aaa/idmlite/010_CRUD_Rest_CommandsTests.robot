@@ -17,12 +17,12 @@ Library           DateTime
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/AAAJsonUtils.py
 Resource          ../../../libraries/Utils.robot
-Variables         ../../../variables/Variables.py
+Resource         ../../../variables/Variables.robot
 Resource          ../../../libraries/AAAKeywords.robot
 
 *** Variables ***
 # port is fixed in Jetty configuration, as well
-${URI}            http://${ODL_SYSTEM_IP}:8282
+${URI}            http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
 # create lists for Domains, Roles and Users - that can be cleaned up upon Teardown
 @{cleanup_domain_list}
 @{cleanup_role_list}
