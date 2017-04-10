@@ -12,8 +12,8 @@ Documentation     Cluster Singleton testing: Common Keywords
 ...
 ...               Creates and uses the following suite variables:
 ...               Created by Cluster_Singleton_Init:
-...               ${all_indices}
-...               ${exp_candidates}
+...               ${cs_all_indices}
+...               ${cs_exp_candidates}
 ...               Created by Get_And_Save_Present_CsOwner_And_CsCandidates:
 ...               ${cs_owner}
 ...               ${cs_candidates}
@@ -32,31 +32,31 @@ ${CS_CONSTANT_PREFIX}    constant-
 
 *** Keywords ***
 Cluster_Singleton_Init
-    [Documentation]    Resouce initial keyword. Creates {exp_candidates} and {all_indices} suite variables which are
+    [Documentation]    Resouce initial keyword. Creates {cs_exp_candidates} and {cs_all_indices} suite variables which are
     ...    used in other keywords.
-    ${exp_candidates} =    BuiltIn.Create_List
-    BuiltIn.Set_Suite_Variable    ${exp_candidates}
-    ${all_indices} =    ClusterManagement.List_All_Indices
-    BuiltIn.Set_Suite_Variable    ${all_indices}
+    ${cs_exp_candidates} =    BuiltIn.Create_List
+    BuiltIn.Set_Suite_Variable    ${cs_exp_candidates}
+    ${cs_all_indices} =    ClusterManagement.List_All_Indices
+    BuiltIn.Set_Suite_Variable    ${cs_all_indices}
 
 Register_Singleton_And_Update_Expected_Candidates
     [Arguments]    ${member_index}    ${constant}
-    [Documentation]    Register the singleton candidate and add it to the list of ${exp_candidates}.
+    [Documentation]    Register the singleton candidate and add it to the list of ${cs_exp_candidates}.
     MdsalLowlevel.Register_Singleton_Constant    ${member_index}    ${constant}
-    Collections.Append_To_List    ${exp_candidates}    ${member_index}
-    Collections.Sort_List    ${exp_candidates}
+    Collections.Append_To_List    ${cs_exp_candidates}    ${member_index}
+    Collections.Sort_List    ${cs_exp_candidates}
 
 Unregister_Singleton_And_Update_Expected_Candidates
     [Arguments]    ${member_index}
-    [Documentation]    Unregister the singleton candidate. Also remove it from the list of ${exp_candidates}.
+    [Documentation]    Unregister the singleton candidate. Also remove it from the list of ${cs_exp_candidates}.
     MdsalLowlevel.Unregister_Singleton_Constant    ${member_index}
-    Collections.Remove_Values_From_List    ${exp_candidates}    ${member_index}
+    Collections.Remove_Values_From_List    ${cs_exp_candidates}    ${member_index}
 
 Verify_Owner_And_Candidates_Stable
     [Arguments]    ${owner_index}
-    [Documentation]    Fail if the actual owner is different from ${owner_index} or if the actual candidate list is different from ${exp_candidates}.
+    [Documentation]    Fail if the actual owner is different from ${owner_index} or if the actual candidate list is different from ${cs_exp_candidates}.
     ${actual_owner}    ${actual_candidates}    ClusterManagement.Check_Old_Owner_Stays_Elected_For_Device    ${CS_DEVICE_NAME}    ${CS_DEVICE_TYPE}    ${owner_index}    ${owner_index}
-    Collections.Lists_Should_Be_Equal    ${exp_candidates}    ${actual_candidates}
+    Collections.Lists_Should_Be_Equal    ${cs_exp_candidates}    ${actual_candidates}
 
 Monitor_Owner_And_Candidates_Stability
     [Arguments]    ${monitoring_duration}    ${owner_index}
@@ -84,21 +84,21 @@ Get_And_Save_Present_CsOwner_And_CsCandidates
     BuiltIn.Return_From_Keyword    ${cs_owner}    ${cs_candidates}
 
 Verify_Singleton_Constant_On_Node
-    [Arguments]    ${node_to_ask}    ${exp_constant}
+    [Arguments]    ${node_to_ask}    ${cs_exp_constant}
     [Documentation]    Verify that the expected constant is return from the given node.
     ${constant} =    MdsalLowlevel.Get_Singleton_Constant    ${node_to_ask}
-    BuiltIn.Should_Be_Equal    ${exp_constant}    ${constant}
+    BuiltIn.Should_Be_Equal    ${cs_exp_constant}    ${constant}
 
 Verify_Singleton_Constant_On_Nodes
-    [Arguments]    ${index_list}    ${exp_constant}
+    [Arguments]    ${index_list}    ${cs_exp_constant}
     [Documentation]    Iterate over all cluster nodes and all should return expected constant.
     : FOR    ${index}    IN    @{index_list}
-    \    Verify_Singleton_Constant_On_Node    ${index}    ${exp_constant}
+    \    Verify_Singleton_Constant_On_Node    ${index}    ${cs_exp_constant}
 
 Verify_Singleton_Constant_During_Isolation
     [Documentation]    Iterate over all cluster nodes. Isolated node should return http status code ${CS_STATUS_ISOLATED}. All non-isolated nodes should
     ...    return correct constant.
-    : FOR    ${index}    IN    @{all_indices}
+    : FOR    ${index}    IN    @{cs_all_indices}
     \    BuiltIn.Run_Keyword_If    "${index}" == "${cs_isolated_index}"    MdsalLowlevel.Get_Singleton_Constant    ${index}    explicit_status_codes=${CS_STATUS_ISOLATED}
     \    BuiltIn.Run_Keyword_Unless    "${index}" == "${cs_isolated_index}"    Verify_Singleton_Constant_On_Node    ${index}    ${CS_CONSTANT_PREFIX}${cs_owner}
 
@@ -107,7 +107,7 @@ Isolate_Owner_And_Verify_Isolated
     ...    for isolated node to respond correctly when isolated.
     ClusterManagement.Isolate_Member_From_List_Or_All    ${cs_owner}
     BuiltIn.Set_Suite_Variable    ${cs_isolated_index}    ${cs_owner}
-    ${non_isolated_list} =    ClusterManagement.List_Indices_Minus_Member    ${cs_isolated_index}    member_index_list=${all_indices}
+    ${non_isolated_list} =    ClusterManagement.List_Indices_Minus_Member    ${cs_isolated_index}    member_index_list=${cs_all_indices}
     ${node_to_ask} =    Collections.Get_From_list    ${non_isolated_list}    0
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Check_New_Owner_Got_Elected_For_Device    ${CS_DEVICE_NAME}    ${CS_DEVICE_TYPE}    ${cs_isolated_index}
     ...    ${node_to_ask}
