@@ -1,13 +1,13 @@
 {
 "input" :
   {
-   "sal-bulk-flow:create-parents" : "true",
+   "sal-bulk-flow:create-parents" : "false",
    "sal-bulk-flow:is-add" : "true",
    "sal-bulk-flow:dpn-count" : "1",
-   "sal-bulk-flow:flows-per-dpn" : "1000",
+   "sal-bulk-flow:flows-per-dpn" : "1",
    "sal-bulk-flow:batch-size" : "1",
    "sal-bulk-flow:seq" : "true",
-   "sal-bulk-flow:tx-chain" : "true",
+   "sal-bulk-flow:tx-chain" : "false",
    "sal-bulk-flow:sleep-for" : "0",
    "sal-bulk-flow:sleep-after" : "1",
    "sal-bulk-flow:start-table-id" : "0",
