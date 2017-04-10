@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_3c8641ba",
+        "filename": "csit/variables/bgpfunctional/create_bgp/post_data.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2017-04-10T05:22:19Z",
+      "side": 1,
+      "message": "This space can be removed in the later check-in",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "91b7e048487c9ed303be83a749153f7bd97c4104",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
