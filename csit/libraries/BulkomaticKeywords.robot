@@ -8,6 +8,7 @@ Variables         ../variables/Variables.py
 *** Variables ***
 ${ADD_BULK_CONFIG_NODES_API}    /restconf/operations/sal-bulk-flow:flow-test
 ${GET_BULK_CONFIG_NODES_API}    /restconf/operations/sal-bulk-flow:read-flow-test
+${ADD_TABLE_NODEs_API}    /restconf/operations/sal-bulk-flow:table-test
 ${jolokia_write_op_status}    /jolokia/read/org.opendaylight.openflowplugin.applications.bulk.o.matic:type=FlowCounter/WriteOpStatus
 ${jolokia_read_op_status}    /jolokia/read/org.opendaylight.openflowplugin.applications.bulk.o.matic:type=FlowCounter/ReadOpStatus
 ${jolokia_flow_count_status}    /jolokia/read/org.opendaylight.openflowplugin.applications.bulk.o.matic:type=FlowCounter/FlowCount
@@ -38,6 +39,11 @@ Add Bulk Flow
     [Documentation]    Add Bulk Flow in member ${controller_index} according to \${json_body_add}.
     ${resp}    ClusterManagement.Post As Json To Member    ${ADD_BULK_CONFIG_NODES_API}    ${json_body_add}    ${controller_index}
 
+Add Table Flow
+    [Arguments]    ${json_body_add}    ${controller_index}
+    [Documentation]    Add Table in member ${controller_index} according to \${json_body_add}.
+    ${resp}    ClusterManagement.Post As Json To Member    ${ADD_TABLE_NODEs_API}    ${json_body_add}    ${controller_index}
+
 Delete Bulk Flow
     [Arguments]    ${json_body_del}    ${controller_index}
     [Documentation]    Delete Bulk Flow in member ${controller_index} according to \${json_body_del}.
@@ -66,6 +72,12 @@ Add Bulk Flow In Node
     [Arguments]    ${json_body_add}    ${controller_index}    ${timeout}
     [Documentation]    Add Bulk Flow in member ${controller_index} and wait until operation is completed.
     Add Bulk Flow    ${json_body_add}    ${controller_index}
+    Wait Until Write Finishes    ${controller_index}    ${timeout}
+
+Add Table In Node
+    [Arguments]    ${json_body_add}    ${controller_index}    ${timeout}
+    [Documentation]    Add Table Flow in member ${controller_index} and wait until operation is completed.
+    Add Table Flow    ${json_body_add}    ${controller_index}
     Wait Until Write Finishes    ${controller_index}    ${timeout}
 
 Delete Bulk Flow In Node
