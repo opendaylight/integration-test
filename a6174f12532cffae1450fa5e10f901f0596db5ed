@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_ef8354ca",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "can you put a TODO at the top of this file that lets our future self get reminded that we can remove all the legacy\ncli commands once we stop testing on mitaka.",
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4f1d40bd",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 12,
+        "startChar": 60,
+        "endLine": 12,
+        "endChar": 69
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_6f776403",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "what about the mitaka case? I see it below too...  are there\nsome openstack cli\u0027s that work on mitaka?",
+      "range": {
+        "startLine": 282,
+        "startChar": 58,
+        "endLine": 282,
+        "endChar": 90
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4f7420fd",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "same concern I raised in the subnet delete keyword",
+      "range": {
+        "startLine": 523,
+        "startChar": 4,
+        "endLine": 523,
+        "endChar": 73
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8f656847",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "same concern as subnet delete keyword",
+      "range": {
+        "startLine": 553,
+        "startChar": 4,
+        "endLine": 553,
+        "endChar": 56
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_af602c36",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "do the logging before the check",
+      "range": {
+        "startLine": 554,
+        "startChar": 4,
+        "endLine": 554,
+        "endChar": 20
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ef5a3482",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "works in mitaka?",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 633,
+        "endChar": 96
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_cf5f7071",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/02__neutron-mapper_test.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "can you replace this with the keyword that does it in \nOpenStackOperations.robot?",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 55
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_2f543c53",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "works for mitaka?",
+      "range": {
+        "startLine": 109,
+        "startChar": 83,
+        "endLine": 109,
+        "endChar": 109
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_6f4e44c3",
+        "filename": "csit/suites/openstack/NeutronSecurityGrp/Neutron_Security_Group.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "I wouldn\u0027t worry about including the TC## in the var names.\nthen it makes it clunky to use these anywhere else if the\nneed arises.\n\nmaybe just INVALID_RANGE_ERR and INVALID_ARG_ERR ?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 46
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_afc78c11",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "mitaka?",
+      "range": {
+        "startLine": 124,
+        "startChar": 83,
+        "endLine": 124,
+        "endChar": 109
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8fcc4837",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "mitaka?",
+      "range": {
+        "startLine": 87,
+        "startChar": 83,
+        "endLine": 87,
+        "endChar": 92
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_efd194ce",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "isn\u0027t this a relic from my debugging session?",
+      "range": {
+        "startLine": 75,
+        "startChar": 40,
+        "endLine": 75,
+        "endChar": 44
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_cfd650c5",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "mitaka?",
+      "range": {
+        "startLine": 87,
+        "startChar": 83,
+        "endLine": 87,
+        "endChar": 92
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_2fdb9cee",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 117
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-10T23:55:31Z",
+      "side": 1,
+      "message": "mitaka?",
+      "range": {
+        "startLine": 92,
+        "startChar": 83,
+        "endLine": 92,
+        "endChar": 92
+      },
+      "revId": "a6174f12532cffae1450fa5e10f901f0596db5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
