@@ -139,8 +139,18 @@ Get_Raft_State_Of_Shard_At_Member
     ${data_text} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${uri}    session=${session}
     ${data_object} =    RequestsLibrary.To_Json    ${data_text}
     ${value} =    Collections.Get_From_Dictionary    ${data_object}    value
+    ${value_data_object} =    Collections.Get_From_Dictionary    ${data_object}    value
+    Set Suite Variable    ${Value_data_object}
     ${raft_state} =    Collections.Get_From_Dictionary    ${value}    RaftState
     [Return]    ${raft_state}
+
+Get_Raft_Property_From_Shard_Member
+    [Arguments]    ${shard_name}    ${shard_type}    ${member_index}    ${raft_property}    ${verify_restconf}=False
+    [Documentation]    Send request to Jolokia on indexed member, return extracted Raft status.
+    ...    Optionally, check restconf works.
+    ${Raft_State}    ClusterManagement.Get_Raft_State_Of_Shard_At_Member    ${shard_name}    ${shard_type}    ${Inventory_Leader}
+    ${raft_property_from_shard} =    Collections.Get_From_Dictionary    ${value_data_object}    ${raft_property}
+    [Return]    ${raft_property_from_shard}
 
 Verify_Shard_Leader_Elected
     [Arguments]    ${shard_name}    ${shard_type}    ${new_elected}    ${old_leader}    ${member_index_list}=${EMPTY}
