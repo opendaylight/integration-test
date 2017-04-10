@@ -1,0 +1,9 @@
+{
+  "input" :
+    {
+      "sal-bulk-flow:operation" : "add",
+      "sal-bulk-flow:dpn-count" : "2",
+      "sal-bulk-flow:start-table-id" : "0",
+      "sal-bulk-flow:end-table-id" : "9"
+    }
+}
