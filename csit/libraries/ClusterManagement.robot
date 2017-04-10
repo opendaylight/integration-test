@@ -140,7 +140,7 @@ Get_Raft_State_Of_Shard_At_Member
     ${data_object} =    RequestsLibrary.To_Json    ${data_text}
     ${value} =    Collections.Get_From_Dictionary    ${data_object}    value
     ${raft_state} =    Collections.Get_From_Dictionary    ${value}    RaftState
-    [Return]    ${raft_state}
+    [Return]    ${raft_state} 
 
 Verify_Shard_Leader_Elected
     [Arguments]    ${shard_name}    ${shard_type}    ${new_elected}    ${old_leader}    ${member_index_list}=${EMPTY}
