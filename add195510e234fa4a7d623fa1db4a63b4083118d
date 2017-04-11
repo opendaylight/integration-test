@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_c403ce0d",
+        "filename": "csit/libraries/IoTDM/iotdm_sanity_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T20:16:11Z",
+      "side": 1,
+      "message": "this bug is marked fixed now. need to change anything here?",
+      "range": {
+        "startLine": 53,
+        "startChar": 44,
+        "endLine": 53,
+        "endChar": 94
+      },
+      "revId": "add195510e234fa4a7d623fa1db4a63b4083118d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
