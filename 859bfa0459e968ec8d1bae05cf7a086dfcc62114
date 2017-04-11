@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_649ae264",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T19:09:15Z",
+      "side": 1,
+      "message": "I think this is almost an exact copy of the Netvirt.robot\nlibrary right? can you just use that, and get rid of this\naltogether?",
+      "revId": "859bfa0459e968ec8d1bae05cf7a086dfcc62114",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c4462ebf",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T19:09:15Z",
+      "side": 1,
+      "message": "to me the constant logging is very distracting to the \nactual test code. robot framework is pretty verbose in\nit\u0027s logs already. I think you can probably remove most\nof it. When running for debugging purposes you can run\npybot with -L TRACE to get extra info.",
+      "revId": "859bfa0459e968ec8d1bae05cf7a086dfcc62114",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_449fde52",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T19:09:15Z",
+      "side": 1,
+      "message": "please use only Variables.roobot",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 46
+      },
+      "revId": "859bfa0459e968ec8d1bae05cf7a086dfcc62114",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_84f54685",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T19:09:15Z",
+      "side": 1,
+      "message": "use ${ODL_OF_PORT} from Variables.robot",
+      "range": {
+        "startLine": 127,
+        "startChar": 78,
+        "endLine": 127,
+        "endChar": 82
+      },
+      "revId": "859bfa0459e968ec8d1bae05cf7a086dfcc62114",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e4f25299",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T19:09:15Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 129,
+        "startChar": 78,
+        "endLine": 129,
+        "endChar": 82
+      },
+      "revId": "859bfa0459e968ec8d1bae05cf7a086dfcc62114",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a4268a14",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T19:09:15Z",
+      "side": 1,
+      "message": "don\u0027t think you are using this, so no need to catch it.",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 11
+      },
+      "revId": "859bfa0459e968ec8d1bae05cf7a086dfcc62114",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e42092f9",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T19:09:15Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 153,
+        "startChar": 6,
+        "endLine": 153,
+        "endChar": 10
+      },
+      "revId": "859bfa0459e968ec8d1bae05cf7a086dfcc62114",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_6484a2d4",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T19:09:15Z",
+      "side": 1,
+      "message": "this is a duplication of the keyword in 03_Configure_ITM.robot.  So, move this keyword to a genius\nshared library and have both suites import that library.\n\n.\n.\n.\n\nalso seems to apply to other keywords here too, like set json (please rename that to Set Json) and Get Dpn Ids. maybe more?",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 60
+      },
+      "revId": "859bfa0459e968ec8d1bae05cf7a086dfcc62114",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_44899eea",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T19:09:15Z",
+      "side": 1,
+      "message": "no sleep please",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 214,
+        "endChar": 14
+      },
+      "revId": "859bfa0459e968ec8d1bae05cf7a086dfcc62114",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
