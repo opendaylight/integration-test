@@ -1,0 +1,47 @@
+{
+    "output":
+    {
+        "channel":
+        [
+            {
+                "name": "channel-1",
+                "src-ip": "3.3.3.3",
+                "sub-domain-id": 1,
+                "ingress-node": "2",
+                "egress-node":
+                [
+                    {
+                        "node-id": "1"
+                    },
+                    {
+                        "node-id": "3"
+                    }
+                ],
+                "source-wildcard": 24,
+                "dst-group": "226.1.1.1",
+                "domain-id": 1,
+                "group-wildcard": 30
+            },
+            {
+                "name": "channel-2",
+                "src-ip": "4.4.4.4",
+                "sub-domain-id": 2,
+                "ingress-node": "1",
+                "egress-node":
+                [
+                    {
+                        "node-id": "2"
+                    },
+                    {
+                        "node-id": "3"
+                    }
+                ],
+                "source-wildcard": 24,
+                "dst-group": "227.1.1.1",
+                "domain-id": 1,
+                "group-wildcard": 30
+            }
+        ]
+    }
+}
+

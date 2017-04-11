@@ -1,0 +1,27 @@
+{
+    "output":
+    {
+        "channel":
+        [
+            {
+                "name": "channel-1",
+                "src-ip": "3.3.3.3",
+                "sub-domain-id": 1,
+                "source-wildcard": 24,
+                "dst-group": "226.1.1.1",
+                "domain-id": 1,
+                "group-wildcard": 30
+            },
+            {
+                "name": "channel-2",
+                "src-ip": "4.4.4.4",
+                "sub-domain-id": 2,
+                "source-wildcard": 24,
+                "dst-group": "227.1.1.1",
+                "domain-id": 1,
+                "group-wildcard": 30
+            }
+        ]
+    }
+}
+

@@ -1,0 +1,10 @@
+{
+    "input": {
+        "topology-id": "flow:1",
+        "channel-name":
+        [
+            "channel-1",
+            "channel-2"
+        ]
+    }
+}
