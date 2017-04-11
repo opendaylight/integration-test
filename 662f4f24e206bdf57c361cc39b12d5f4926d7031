@@ -22,6 +22,98 @@
       "revId": "662f4f24e206bdf57c361cc39b12d5f4926d7031",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8fa39f9d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T23:30:20Z",
+      "side": 1,
+      "message": "this is now \"Collect VM IP Addresses\"\n\nthere has been a little refactor around this keyword and it\u0027s\nfunctionality. Just check the existing suites that are \nrunning to get an example.",
+      "range": {
+        "startLine": 101,
+        "startChar": 87,
+        "endLine": 101,
+        "endChar": 117
+      },
+      "revId": "662f4f24e206bdf57c361cc39b12d5f4926d7031",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_6fa0fb90",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T23:30:20Z",
+      "side": 1,
+      "message": "no s",
+      "range": {
+        "startLine": 127,
+        "startChar": 13,
+        "endLine": 127,
+        "endChar": 14
+      },
+      "revId": "662f4f24e206bdf57c361cc39b12d5f4926d7031",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_afaae36d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T23:30:20Z",
+      "side": 1,
+      "message": "don\u0027t forget to add some docs for your keywords here.",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 394,
+        "endChar": 16
+      },
+      "revId": "662f4f24e206bdf57c361cc39b12d5f4926d7031",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_cfada78a",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T23:30:20Z",
+      "side": 1,
+      "message": "if this is all you are doing, you can just add this create\nsession inline above in the *** Settings *** section",
+      "range": {
+        "startLine": 395,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 110
+      },
+      "revId": "662f4f24e206bdf57c361cc39b12d5f4926d7031",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
