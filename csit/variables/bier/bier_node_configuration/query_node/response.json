@@ -1,0 +1,105 @@
+{
+        "output":
+        {
+            "node":
+            [
+                {
+                    "node-id": "2",
+                    "bier-node-params":
+                    {
+                    },
+                    "latitude": 0,
+                    "router-id": "2",
+                    "name": "2",
+                    "longitude": 0,
+                    "bier-termination-point":
+                    [
+                        {
+                            "tp-id": "2:1"
+                        },
+                        {
+                            "tp-id": "2:2"
+                        },
+                        {
+                            "tp-id": "2:3"
+                        },
+                        {
+                            "tp-id": "2:LOCAL"
+                        }
+                    ]
+                },
+                {
+                    "node-id": "1",
+                    "bier-node-params":
+                    {
+                    },
+                    "latitude": 0,
+                    "router-id": "1",
+                    "name": "1",
+                    "longitude": 0,
+                    "bier-termination-point":
+                    [
+                        {
+                            "tp-id": "1:1"
+                        },
+                        {
+                            "tp-id": "1:2"
+                        },
+                        {
+                            "tp-id": "1:LOCAL"
+                        }
+                    ]
+                },
+                {
+                    "node-id": "4",
+                    "bier-node-params":
+                    {
+                    },
+                    "latitude": 0,
+                    "router-id": "4",
+                    "name": "4",
+                    "longitude": 0,
+                    "bier-termination-point":
+                    [
+                        {
+                            "tp-id": "4:1"
+                        },
+                        {
+                            "tp-id": "4:2"
+                        },
+                        {
+                            "tp-id": "4:3"
+                        },
+                        {
+                            "tp-id": "4:LOCAL"
+                        }
+                    ]
+                },
+                {
+                    "node-id": "3",
+                    "bier-node-params":
+                    {
+                    },
+                    "latitude": 0,
+                    "router-id": "3",
+                    "name": "3",
+                    "longitude": 0,
+                    "bier-termination-point":
+                    [
+                        {
+                            "tp-id": "3:LOCAL"
+                        },
+                        {
+                            "tp-id": "3:1"
+                        },
+                        {
+                            "tp-id": "3:2"
+                        },
+                        {
+                            "tp-id": "3:3"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
