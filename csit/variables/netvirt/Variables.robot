@@ -47,6 +47,7 @@ ${TUNNEL_INTERFACES}    ${CONFIG_API}/ietf-interfaces:interfaces/
 ${DISPATCHER_TABLE}    17
 ${GWMAC_TABLE}    19
 ${ARP_RESPONSE_TABLE}    81
+${IPV6_TABLE}     45
 ${L3_TABLE}       21
 ${ELAN_SMACTABLE}    50
 ${ELAN_DMACTABLE}    51
