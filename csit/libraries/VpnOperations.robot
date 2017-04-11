@@ -127,3 +127,10 @@ Verify VXLAN interface
     Should Contain    ${output}    ${STATE_UP}
     Should Contain    ${output}    ${STATE_ENABLE}
     Should Not Contain    ${output}    ${STATE_DISABLE}
+
+Get Fib Entries
+    [Arguments]    ${session}
+    [Documentation]    Get Fib table entries from ODL session
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${FIB_ENTRIES_URL}
+    Log    ${resp.content}
+    [Return]    ${resp.content}
