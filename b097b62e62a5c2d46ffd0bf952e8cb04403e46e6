@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_ca375eaf",
+        "filename": "csit/suites/aaa/idmlite/010_CRUD_Rest_CommandsTests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-11T01:31:46Z",
+      "side": 1,
+      "message": "Change this to Resource",
+      "revId": "b097b62e62a5c2d46ffd0bf952e8cb04403e46e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
