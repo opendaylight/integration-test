@@ -1,0 +1,69 @@
+{
+    input: 
+    {
+			    topology-id: "flow:1",
+			    node-id: $NODEID,
+			    domain:
+			    [{
+			      domain-id: 1,
+			      bier-global:
+			      {
+			       encapsulation-type: "ietf-bier:bier-encapsulation-mpls",
+			       bitstringlength: $DOMAINBSL,
+			       bfr-id: $DOMAINBFRID,
+			       ipv4-bfr-prefix: "10.41.41.41/22",
+			       ipv6-bfr-prefix: "fe80::7009:fe25:8170:36af/64",
+			       sub-domain:
+			       [{
+			        sub-domain-id: 1,
+			        igp-type: $IGPTYPE,
+			        mt-id: $MTID,
+			        bfr-id: $SUBDOMAINBFRID,
+			        bitstringlength: 64-bit,
+			        af:
+			        {
+			         ipv4:
+			         [{
+			           bitstringlength: 256,
+			           bier-mpls-label-base: 1,
+			           bier-mpls-label-range-size: $MPLSLABELRANGESIZE
+			          },
+			          {
+			           bitstringlength: 64,
+			           bier-mpls-label-base: 17,
+			           bier-mpls-label-range-size: $MPLSLABELRANGESIZE
+			          }],
+			         ipv6:
+			         [{
+			           bitstringlength: 64,
+			           bier-mpls-label-base: 5,
+			           bier-mpls-label-range-size: 4
+			          }]
+			        }
+			       },
+			       {
+			        sub-domain-id: 2,
+			        igp-type: OSPF,
+			        mt-id: 0,
+			        bfr-id: $SUBDOMAINBFRID,
+			        bitstringlength: 64-bit,
+			        af:
+			        {
+			         ipv4:
+			         [{
+			           bitstringlength: 256,
+			           bier-mpls-label-base: 9,
+			           bier-mpls-label-range-size: 4
+			          }],
+			         ipv6:
+			         [{
+			           bitstringlength: 64,
+			           bier-mpls-label-base: 13,
+			           bier-mpls-label-range-size: 4
+			          }]
+			        }
+			       }]
+			      }
+			     }] 
+		}
+}
