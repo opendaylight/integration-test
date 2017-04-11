@@ -359,6 +359,26 @@ Collect VM IP Addresses
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    ${dhcp_ip}
 
+Collect VM IPv6 SLAAC Addresses
+    [Arguments]    ${fail_on_none}    ${prefix}    @{vm_list}
+    [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "inet6" which
+    ...    correlates to the instance generated IPv6 address, based on the ${prefix} received from ODL (SLAAC mode).
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${ip_list}    Create List    @{EMPTY}
+    : FOR    ${vm}    IN    @{vm_list}
+    \    Log    ${vm}
+    \    ${vm_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "inet6"    30s
+    \    Log    ${vm_ip_line}
+    \    @{vm_ip_list}    Get Regexp Matches    ${vm_ip_line}    ${prefix}
+    \    ${vm_ip_length}    Get Length    ${vm_ip_list}
+    \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip_list}[0]
+    \    ...    ELSE    Append To List    ${ip_list}    None
+    \    Log    ${ip_list}
+    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${ip_list}    None
+    Log    ${ip_list}
+    [Return]    ${ip_list}
+
 View Vm Console
     [Arguments]    ${vm_instance_names}
     [Documentation]    View Console log of the created vm instances using nova show.
@@ -475,6 +495,7 @@ Test Operations From Vm Instance
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route -A inet6    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
     : FOR    ${dest_ip}    IN    @{dest_ips}
     \    Log    ${dest_ip}
