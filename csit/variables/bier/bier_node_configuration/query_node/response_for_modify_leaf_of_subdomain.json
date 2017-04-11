@@ -1,0 +1,401 @@
+{
+        "output":
+        {
+            "node":
+            [
+                {
+                    "node-id": "2",
+                    "bier-node-params":
+                    {
+                        "domain":
+                        [
+                            {
+                                "domain-id": 1,
+                                "bier-global":
+                                {
+                                    "ipv6-bfr-prefix": "fe80::7009:fe25:8170:36af/64",
+                                    "ipv4-bfr-prefix": "10.41.41.41/22",
+                                    "sub-domain":
+                                    [
+                                        {
+                                            "sub-domain-id": 1,
+                                            "igp-type": "OSPF",
+                                            "af":
+                                            {
+                                                "ipv6":
+                                                [
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 5,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ],
+                                                "ipv4":
+                                                [
+                                                    {
+                                                        "bitstringlength": 256,
+                                                        "bier-mpls-label-base": 1,
+                                                        "bier-mpls-label-range-size": 4
+                                                    },
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 17,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ]
+                                            },
+                                            "mt-id": 1,
+                                            "bfr-id": 2,
+                                            "bitstringlength": "64-bit"
+                                        },
+                                        {
+                                            "sub-domain-id": 2,
+                                            "igp-type": "OSPF",
+                                            "af":
+                                            {
+                                                "ipv6":
+                                                [
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 13,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ],
+                                                "ipv4":
+                                                [
+                                                    {
+                                                        "bitstringlength": 256,
+                                                        "bier-mpls-label-base": 9,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ]
+                                            },
+                                            "mt-id": 0,
+                                            "bfr-id": 2,
+                                            "bitstringlength": "64-bit"
+                                        }
+                                    ],
+                                    "encapsulation-type": "ietf-bier:bier-encapsulation-mpls",
+                                    "bitstringlength": "128-bit",
+                                    "bfr-id": 6
+                                }
+                            }
+                        ]
+                    },
+                    "latitude": 0,
+                    "router-id": "2",
+                    "name": "2",
+                    "longitude": 0,
+		    "bier-termination-point":
+                    [
+                        {
+                            "tp-id": "2:1"
+                        },
+                        {
+                            "tp-id": "2:2"
+                        },
+                        {
+                            "tp-id": "2:3"
+                        },
+                        {
+                            "tp-id": "2:LOCAL"
+                        }
+                    ]
+                },
+                {
+                    "node-id": "1",
+                    "bier-node-params":
+                    {
+                        "domain":
+                        [
+                            {
+                                "domain-id": 1,
+                                "bier-global":
+                                {
+                                    "ipv6-bfr-prefix": "fe80::7009:fe25:8170:36af/64",
+                                    "ipv4-bfr-prefix": "10.41.41.41/22",
+                                    "sub-domain":
+                                    [
+                                        {
+                                            "sub-domain-id": 1,
+                                            "igp-type": "OSPF",
+                                            "af":
+                                            {
+                                                "ipv6":
+                                                [
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 5,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ],
+                                                "ipv4":
+                                                [
+                                                    {
+                                                        "bitstringlength": 256,
+                                                        "bier-mpls-label-base": 1,
+                                                        "bier-mpls-label-range-size": 4
+                                                    },
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 17,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ]
+                                            },
+                                            "mt-id": 1,
+                                            "bfr-id": 1,
+                                            "bitstringlength": "64-bit"
+                                        },
+                                        {
+                                            "sub-domain-id": 2,
+                                            "igp-type": "OSPF",
+                                            "af":
+                                            {
+                                                "ipv6":
+                                                [
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 13,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ],
+                                                "ipv4":
+                                                [
+                                                    {
+                                                        "bitstringlength": 256,
+                                                        "bier-mpls-label-base": 9,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ]
+                                            },
+                                            "mt-id": 0,
+                                            "bfr-id": 1,
+                                            "bitstringlength": "64-bit"
+                                        }
+                                    ],
+                                    "encapsulation-type": "ietf-bier:bier-encapsulation-mpls",
+                                    "bitstringlength": "128-bit",
+                                    "bfr-id": 5
+                                }
+                            }
+                        ]
+                    },
+                    "latitude": 0,
+                    "router-id": "1",
+                    "name": "1",
+                    "longitude": 0,
+		    "bier-termination-point":
+                    [
+                        {
+                            "tp-id": "1:1"
+                        },
+                        {
+                            "tp-id": "1:2"
+                        },
+                        {
+                            "tp-id": "1:LOCAL"
+                        }
+                    ]
+                },
+                {
+                    "node-id": "4",
+                    "bier-node-params":
+                    {
+                        "domain":
+                        [
+                            {
+                                "domain-id": 1,
+                                "bier-global":
+                                {
+                                    "ipv6-bfr-prefix": "fe80::7009:fe25:8170:36af/64",
+                                    "ipv4-bfr-prefix": "10.41.41.41/22",
+                                    "sub-domain":
+                                    [
+                                        {
+                                            "sub-domain-id": 1,
+                                            "igp-type": "OSPF",
+                                            "af":
+                                            {
+                                                "ipv6":
+                                                [
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 5,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ],
+                                                "ipv4":
+                                                [
+                                                    {
+                                                        "bitstringlength": 256,
+                                                        "bier-mpls-label-base": 1,
+                                                        "bier-mpls-label-range-size": 4
+                                                    },
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 17,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ]
+                                            },
+                                            "mt-id": 1,
+                                            "bfr-id": 4,
+                                            "bitstringlength": "64-bit"
+                                        },
+                                        {
+                                            "sub-domain-id": 2,
+                                            "igp-type": "OSPF",
+                                            "af":
+                                            {
+                                                "ipv6":
+                                                [
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 13,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ],
+                                                "ipv4":
+                                                [
+                                                    {
+                                                        "bitstringlength": 256,
+                                                        "bier-mpls-label-base": 9,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ]
+                                            },
+                                            "mt-id": 0,
+                                            "bfr-id": 4,
+                                            "bitstringlength": "64-bit"
+                                        }
+                                    ],
+                                    "encapsulation-type": "ietf-bier:bier-encapsulation-mpls",
+                                    "bitstringlength": "128-bit",
+                                    "bfr-id": 8
+                                }
+                            }
+                        ]
+                    },
+                    "latitude": 0,
+                    "router-id": "4",
+                    "name": "4",
+                    "longitude": 0,
+                    "bier-termination-point":
+                    [
+                        {
+                            "tp-id": "4:1"
+                        },
+                        {
+                            "tp-id": "4:2"
+                        },
+                        {
+                            "tp-id": "4:3"
+                        },
+                        {
+                            "tp-id": "4:LOCAL"
+                        }
+                    ]
+                },
+                {
+                    "node-id": "3",
+                    "bier-node-params":
+                    {
+                        "domain":
+                        [
+                            {
+                                "domain-id": 1,
+                                "bier-global":
+                                {
+                                    "ipv6-bfr-prefix": "fe80::7009:fe25:8170:36af/64",
+                                    "ipv4-bfr-prefix": "10.41.41.41/22",
+                                    "sub-domain":
+                                    [
+                                        {
+                                            "sub-domain-id": 1,
+                                            "igp-type": "OSPF",
+                                            "af":
+                                            {
+                                                "ipv6":
+                                                [
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 5,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ],
+                                                "ipv4":
+                                                [
+                                                    {
+                                                        "bitstringlength": 256,
+                                                        "bier-mpls-label-base": 1,
+                                                        "bier-mpls-label-range-size": 4
+                                                    },
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 17,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ]
+                                            },
+                                            "mt-id": 1,
+                                            "bfr-id": 3,
+                                            "bitstringlength": "64-bit"
+                                        },
+                                        {
+                                            "sub-domain-id": 2,
+                                            "igp-type": "OSPF",
+                                            "af":
+                                            {
+                                                "ipv6":
+                                                [
+                                                    {
+                                                        "bitstringlength": 64,
+                                                        "bier-mpls-label-base": 13,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ],
+                                                "ipv4":
+                                                [
+                                                    {
+                                                        "bitstringlength": 256,
+                                                        "bier-mpls-label-base": 9,
+                                                        "bier-mpls-label-range-size": 4
+                                                    }
+                                                ]
+                                            },
+                                            "mt-id": 0,
+                                            "bfr-id": 3,
+                                            "bitstringlength": "64-bit"
+                                        }
+                                    ],
+                                    "encapsulation-type": "ietf-bier:bier-encapsulation-mpls",
+                                    "bitstringlength": "128-bit",
+                                    "bfr-id": 7
+                                }
+                            }
+                        ]
+                    },
+                    "latitude": 0,
+                    "router-id": "3",
+                    "name": "3",
+                    "longitude": 0,
+                    "bier-termination-point":
+                    [
+                        {
+                            "tp-id": "3:LOCAL"
+                        },
+                        {
+                            "tp-id": "3:1"
+                        },
+                        {
+                            "tp-id": "3:2"
+                        },
+                        {
+                            "tp-id": "3:3"
+                        }
+                    ]
+                }
+            ]
+        }
+}
