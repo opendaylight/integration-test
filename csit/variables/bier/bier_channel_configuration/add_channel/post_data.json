@@ -1,0 +1,12 @@
+{
+    "input": {
+        "topology-id": "flow:1",
+        "name": $CHANNELNAME,
+        "src-ip": $SRCIP,
+        "dst-group": $DSTGROUP,
+        "domain-id": "1",
+        "sub-domain-id": $SUBDOMAINID,
+        "source-wildcard": "24",
+        "group-wildcard": "30"
+    }
+}

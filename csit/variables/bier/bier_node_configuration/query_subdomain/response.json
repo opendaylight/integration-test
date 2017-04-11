@@ -1,0 +1,21 @@
+{
+    "output":
+    {
+        "subdomain":
+        [
+            {
+                 "sub-domain-id": 1
+            },
+            {
+                 "sub-domain-id": 2
+            },
+            {
+                 "sub-domain-id": 3
+            },
+            {
+                 "sub-domain-id": 4
+            }
+        ]
+    }
+}
+
