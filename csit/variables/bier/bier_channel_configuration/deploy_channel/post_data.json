@@ -1,0 +1,14 @@
+{
+    "input": {
+        "topology-id": "flow:1",
+        "channel-name": $CHANNELNAME,
+        "ingress-node": $INGRESSNODE,
+        "egress-node":
+        [{
+            "node-id": $EGRESSNODE1
+         },
+         {
+            "node-id": $EGRESSNODE2
+         }]
+    }
+}

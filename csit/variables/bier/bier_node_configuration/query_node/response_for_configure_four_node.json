@@ -1,0 +1,243 @@
+{
+ "output": {
+  "node": [
+   {
+    "bier-node-params": {
+     "domain": [
+      {
+       "bier-global": {
+        "bfr-id": 1,
+        "bitstringlength": "64-bit",
+        "encapsulation-type": "ietf-bier:bier-encapsulation-mpls",
+        "ipv4-bfr-prefix": "10.41.41.41/22",
+        "ipv6-bfr-prefix": "fe80::7009:fe25:8170:36af/64",
+        "sub-domain": [
+         {
+          "af": {
+           "ipv4": [
+            {
+             "bier-mpls-label-base": 1,
+             "bier-mpls-label-range-size": 4,
+             "bitstringlength": 256
+            }
+           ],
+           "ipv6": [
+            {
+             "bier-mpls-label-base": 5,
+             "bier-mpls-label-range-size": 4,
+             "bitstringlength": 64
+            }
+           ]
+          },
+          "bfr-id": 1,
+          "bitstringlength": "64-bit",
+          "igp-type": "ISIS",
+          "mt-id": 0,
+          "sub-domain-id": 1
+         }
+        ]
+       },
+       "domain-id": 1
+      }
+     ]
+    },
+    "bier-termination-point": [
+     {
+      "tp-id": "1:1"
+     },
+     {
+      "tp-id": "1:2"
+     },
+     {
+      "tp-id": "1:LOCAL"
+     }
+    ],
+    "latitude": 0,
+    "longitude": 0,
+    "name": "1",
+    "node-id": "1",
+    "router-id": "1"
+   },
+   {
+    "bier-node-params": {
+     "domain": [
+      {
+       "bier-global": {
+        "bfr-id": 2,
+        "bitstringlength": "64-bit",
+        "encapsulation-type": "ietf-bier:bier-encapsulation-mpls",
+        "ipv4-bfr-prefix": "10.41.41.41/22",
+        "ipv6-bfr-prefix": "fe80::7009:fe25:8170:36af/64",
+        "sub-domain": [
+         {
+          "af": {
+           "ipv4": [
+            {
+             "bier-mpls-label-base": 1,
+             "bier-mpls-label-range-size": 4,
+             "bitstringlength": 256
+            }
+           ],
+           "ipv6": [
+            {
+             "bier-mpls-label-base": 5,
+             "bier-mpls-label-range-size": 4,
+             "bitstringlength": 64
+            }
+           ]
+          },
+          "bfr-id": 2,
+          "bitstringlength": "64-bit",
+          "igp-type": "ISIS",
+          "mt-id": 0,
+          "sub-domain-id": 1
+         }
+        ]
+       },
+       "domain-id": 1
+      }
+     ]
+    },
+    "bier-termination-point": [
+     {
+      "tp-id": "2:1"
+     },
+     {
+      "tp-id": "2:2"
+     },
+     {
+      "tp-id": "2:3"
+     },
+     {
+      "tp-id": "2:LOCAL"
+     }
+    ],
+    "latitude": 0,
+    "longitude": 0,
+    "name": "2",
+    "node-id": "2",
+    "router-id": "2"
+   },
+   {
+    "bier-node-params": {
+     "domain": [
+      {
+       "bier-global": {
+        "bfr-id": 3,
+        "bitstringlength": "64-bit",
+        "encapsulation-type": "ietf-bier:bier-encapsulation-mpls",
+        "ipv4-bfr-prefix": "10.41.41.41/22",
+        "ipv6-bfr-prefix": "fe80::7009:fe25:8170:36af/64",
+        "sub-domain": [
+         {
+          "af": {
+           "ipv4": [
+            {
+             "bier-mpls-label-base": 1,
+             "bier-mpls-label-range-size": 4,
+             "bitstringlength": 256
+            }
+           ],
+           "ipv6": [
+            {
+             "bier-mpls-label-base": 5,
+             "bier-mpls-label-range-size": 4,
+             "bitstringlength": 64
+            }
+           ]
+          },
+          "bfr-id": 3,
+          "bitstringlength": "64-bit",
+          "igp-type": "ISIS",
+          "mt-id": 0,
+          "sub-domain-id": 1
+         }
+        ]
+       },
+       "domain-id": 1
+      }
+     ]
+    },
+    "bier-termination-point": [
+     {
+      "tp-id": "3:1"
+     },
+     {
+      "tp-id": "3:2"
+     },
+     {
+      "tp-id": "3:3"
+     },
+     {
+      "tp-id": "3:LOCAL"
+     }
+    ],
+    "latitude": 0,
+    "longitude": 0,
+    "name": "3",
+    "node-id": "3",
+    "router-id": "3"
+   },
+   {
+    "bier-node-params": {
+     "domain": [
+      {
+       "bier-global": {
+        "bfr-id": 4,
+        "bitstringlength": "64-bit",
+        "encapsulation-type": "ietf-bier:bier-encapsulation-mpls",
+        "ipv4-bfr-prefix": "10.41.41.41/22",
+        "ipv6-bfr-prefix": "fe80::7009:fe25:8170:36af/64",
+        "sub-domain": [
+         {
+          "af": {
+           "ipv4": [
+            {
+             "bier-mpls-label-base": 1,
+             "bier-mpls-label-range-size": 4,
+             "bitstringlength": 256
+            }
+           ],
+           "ipv6": [
+            {
+             "bier-mpls-label-base": 5,
+             "bier-mpls-label-range-size": 4,
+             "bitstringlength": 64
+            }
+           ]
+          },
+          "bfr-id": 4,
+          "bitstringlength": "64-bit",
+          "igp-type": "ISIS",
+          "mt-id": 0,
+          "sub-domain-id": 1
+         }
+        ]
+       },
+       "domain-id": 1
+      }
+     ]
+    },
+    "bier-termination-point": [
+     {
+      "tp-id": "4:1"
+     },
+     {
+      "tp-id": "4:2"
+     },
+     {
+      "tp-id": "4:3"
+     },
+     {
+      "tp-id": "4:LOCAL"
+     }
+    ],
+    "latitude": 0,
+    "longitude": 0,
+    "name": "4",
+    "node-id": "4",
+    "router-id": "4"
+   }
+  ]
+ }
+}

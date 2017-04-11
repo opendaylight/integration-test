@@ -1,0 +1,7 @@
+{
+    input: 
+    {
+			    topology-id: "flow:1",
+			    node:["1","2","3","4"]
+		}
+}
