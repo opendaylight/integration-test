@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_ef2b4b80",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T20:35:21Z",
+      "side": 1,
+      "message": "the extra logging lines are distracting. do you need any/all\nof them? note, when running pybot with -L TRACE you\u0027ll \nlikely get all of this info (and more), so if the extra Logs\nare there just for debugging, I think you should remove \nthem.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 20
+      },
+      "revId": "02eb4bb572d57a1978e9e00b25b644f6cc11bef9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4f21b79e",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T20:35:21Z",
+      "side": 1,
+      "message": "you are not returning anything here, so this is just a debug\nkeyword to \"Show\" the quagga config.",
+      "range": {
+        "startLine": 59,
+        "startChar": 23,
+        "endLine": 59,
+        "endChar": 26
+      },
+      "revId": "02eb4bb572d57a1978e9e00b25b644f6cc11bef9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ef522b12",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T20:35:21Z",
+      "side": 1,
+      "message": "this would normally need to be moved to the more appropriate\nSSHKeywords.robot library, but that library probably already\nhas what you need in \"Open_Connection_To_ODL_System\" or \n\"Open_Connection_To_Tools_System\"",
+      "range": {
+        "startLine": 487,
+        "startChar": 0,
+        "endLine": 494,
+        "endChar": 26
+      },
+      "revId": "02eb4bb572d57a1978e9e00b25b644f6cc11bef9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_af48235c",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-11T20:35:21Z",
+      "side": 1,
+      "message": "just to be clear, the basic_vpnservice suite is moving from\nit\u0027s current job?",
+      "revId": "02eb4bb572d57a1978e9e00b25b644f6cc11bef9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
