@@ -1,0 +1,9 @@
+{
+    input: 
+    {
+			    topology-id: "flow:1",
+			    domain-id: 1,
+			    sub-domain-id: $SUBDOMAINID,
+			    node-id: 4
+		}
+}

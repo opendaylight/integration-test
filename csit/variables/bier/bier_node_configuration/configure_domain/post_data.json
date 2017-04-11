@@ -1,0 +1,7 @@
+{
+    input: 
+    {
+			    topology-id: "flow:1",
+			    domain: [1]
+		}
+}
