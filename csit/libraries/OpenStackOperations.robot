@@ -181,7 +181,7 @@ Get Net Id
     [Arguments]    ${network_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | awk '{print $2}'    30s
+    ${output}=    Write Commands Until Prompt    openstack network list | grep "${network_name}" | awk '{print $2}'    30s
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
@@ -228,7 +228,7 @@ Create Vm Instances
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-groups ${sg}    30s
+    \    ${output}=    Write Commands Until Prompt    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg}    30s
     \    Log    ${output}
 
 Create Vm Instance With Port
