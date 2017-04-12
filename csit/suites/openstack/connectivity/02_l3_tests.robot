@@ -113,42 +113,6 @@ Add Interfaces To Router
     : FOR    ${interface}    IN    @{SUBNETS_NAME}
     \    Add Router Interface    router_1    ${interface}
 
-Ping Vm Instance1 In network_2 From network_1(vxlan to vlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_1    @{NET2_L3_VM_IPS}[0]
-
-Ping Vm Instance2 In network_2 From network_1(vxlan to vlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_1    @{NET2_L3_VM_IPS}[1]
-
-Ping Vm Instance3 In network_2 From network_1(vxlan to vlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_1    @{NET2_L3_VM_IPS}[2]
-
-Ping Vm Instance1 In network_1 From network_2(vlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET1_L3_VM_IPS}[0]
-
-Ping Vm Instance2 In network_1 From network_2(vlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET1_L3_VM_IPS}[1]
-
-Ping Vm Instance3 In network_1 From network_2(vlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET1_L3_VM_IPS}[2]
-
-Ping Vm Instance1 In network_3 From network_2(vxlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET3_L3_VM_IPS}[0]
-
-Ping Vm Instance2 In network_3 From network_2(vxlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET3_L3_VM_IPS}[1]
-
-Ping Vm Instance3 In network_3 From network_2(vxlan to vxlan)
-    [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET3_L3_VM_IPS}[2]
-
 Connectivity Tests From Vm Instance1 In network_1
     [Documentation]    Login to the VM instance and test operations
     ${dst_list}=    Create List    @{NET1_L3_VM_IPS}    @{NET2_L3_VM_IPS}
