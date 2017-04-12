@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Cluster Singleton testing: Partition And Heal
+Documentation     Cluster Singleton testing: Partition And Heal longevity suite
 ...
 ...               Copyright (c) 2017 Cisco Systems, Inc. and others. All rights reserved.
 ...
@@ -26,41 +26,16 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
 *** Variables ***
+${DURATION_24_HOURS_IN_SECONDS}    86400
 ${STABILITY_TIMEOUT_ISOLATED}    120s
 ${STABILITY_TIMEOUT_REJOINED}    60s
 @{STATUS_ISOLATED}    ${501}
 
 *** Test Cases ***
-Register_Singleton_Constant_On_Each_Node
-    [Documentation]    Register a candidate application on each node.
+CS_Pertition_And_Heal
+    [Documentation]    24h lasting suite for isolating the cluster singleton leader repeatedly.
     CsCommon.Register_Singleton_Constant_On_Nodes    ${cs_all_indices}
-
-Verify_Singleton_Constant_On_Each_Node
-    [Documentation]    Store the owner and candidates of the application and initially verify that all
-    ...    odl nodes are used.
-    ${owner}    ${candidates}=    CsCommon.Get_And_Save_Present_CsOwner_And_CsCandidates    1
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${owner}
-
-Isolate_Owner_Node
-    [Documentation]    Isolate the cluster node which is the owner. Wait until the new owner is elected and store
-    ...    new values of owner and candidates.
-    CsCommon.Isolate_Owner_And_Verify_Isolated
-
-Monitor_Stability_While_Isolated
-    [Documentation]    Monitor the stability of the singleton application and fail the the owner is changed during the monitoring.
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${STABILITY_TIMEOUT_ISOLATED}    3s    CsCommon.Verify_Singleton_Constant_During_Isolation
-
-Rejoin_Isolated_node
-    [Documentation]    Rejoin isolated node.
-    [Tags]    @{NO_TAGS}
-    CsCommon.Rejoin_Node_And_Verify_Rejoined
-
-Verify_Stability_After_Rejoin
-    [Documentation]    Verify that the rejoining of the isolated node does not change the singleton owner.
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${STABILITY_TIMEOUT_REJOINED}    3s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${cs_owner}
-
-Unregister_Singleton_Constant_On_Each_Node
-    [Documentation]    Unregister the application on every node.
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_24_HOURS_IN_SECONDS}    3s    Test_Scenario
     CsCommon.Unregister_Singleton_Constant_On_Nodes    ${cs_all_indices}
 
 *** Keywords ***
@@ -68,3 +43,14 @@ Setup_Keyword
     [Documentation]    Suite setup.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     CsCommon.Cluster_Singleton_Init
+
+Test_Scenario
+    [Documentation]    Isolate the cluster node which is the owner, wait until the new owner is elected, then rejoin isolated node.
+    ...    Monitor the stability of the singleton application and fail the the owner is changed during the monitoring. Monitoring
+    ...    is done after the node isolation and after the node rejoin.
+    ${owner}    ${candidates}=    CsCommon.Get_And_Save_Present_CsOwner_And_CsCandidates    1
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${owner}
+    CsCommon.Isolate_Owner_And_Verify_Isolated
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${STABILITY_TIMEOUT_ISOLATED}    3s    CsCommon.Verify_Singleton_Constant_During_Isolation
+    CsCommon.Rejoin_Node_And_Verify_Rejoined
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${STABILITY_TIMEOUT_REJOINED}    3s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${cs_owner}
