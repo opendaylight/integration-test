@@ -12,6 +12,7 @@ Open dlux and login and verify yangman submenu has been loaded
     GUIKeywords.Open Or Launch DLUX Page And Log In To DLUX
 
 Verify yangman submenu elements
+    GUIKeywords.Navigate To URL    ${YANGMAN_SUBMENU_URL}
     YangmanKeywords.Verify Yangman Home Page Elements
     Verify Operations Presence In Operation Select Menu
     YangmanKeywords.Exit Opened Application Dialog
