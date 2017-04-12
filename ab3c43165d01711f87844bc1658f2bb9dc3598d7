@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_a276883c",
+        "filename": "csit/libraries/GUIKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5487
+      },
+      "writtenOn": "2017-04-12T09:39:42Z",
+      "side": 1,
+      "message": "This is imported because it contains Report_Failure_Due_To_Bug keyword and thus I included it in this resource file of dluxapps yangman suites.",
+      "parentUuid": "da01753e_0e5fd10f",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "ab3c43165d01711f87844bc1658f2bb9dc3598d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_ceab09d5",
         "filename": "csit/libraries/GUIKeywords.robot",
         "patchSetId": 25
