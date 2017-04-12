@@ -11,7 +11,7 @@ Variables         ../variables/netvirt/Modules.py
 Source Password
     [Arguments]    ${force}=no    ${source_pwd}=yes
     [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
-    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
+    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc demo demo
 
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
@@ -33,7 +33,7 @@ Create Network
     [Documentation]    Create Network with neutron request.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v net-create ${network_name} ${additional_args}    neutron net-create ${network_name} ${additional_args} | grep -w id | awk '{print $4}'
+    ${command}    Set Variable If    "${verbose}" == "TRUE"    openstack network create -v ${network_name} ${additional_args}    openstack network create ${network_name} ${additional_args}
     ${output}=    Write Commands Until Prompt    ${command}    30s
     Log    ${output}
     [Return]    ${output}
@@ -71,7 +71,7 @@ Create SubNet
     [Documentation]    Create SubNet for the Network with neutron request.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet} ${additional_args}    30s
+    ${output}=    Write Commands Until Prompt    openstack subnet create --network ${network_name} --subnet-range ${range_ip} ${additional_args} ${subnet}    30s
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
@@ -182,7 +182,7 @@ Get Net Id
     [Arguments]    ${network_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | awk '{print $2}'    30s
+    ${output}=    Write Commands Until Prompt    openstack network list | grep "${network_name}" | awk '{print $2}'    30s
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
@@ -229,7 +229,7 @@ Create Vm Instances
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-groups ${sg}    30s
+    \    ${output}=    Write Commands Until Prompt    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg}    30s
     \    Log    ${output}
 
 Create Vm Instance With Port
