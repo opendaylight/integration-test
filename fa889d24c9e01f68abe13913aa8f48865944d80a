@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_dd09dc96",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-12T21:58:46Z",
+      "side": 1,
+      "message": "how about these Logs? just for debug? if so, you can remove and make it cleaner.",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 20
+      },
+      "revId": "fa889d24c9e01f68abe13913aa8f48865944d80a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3dff4869",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-12T21:58:46Z",
+      "side": 1,
+      "message": "comma added on purpose, I assume.",
+      "range": {
+        "startLine": 94,
+        "startChar": 101,
+        "endLine": 94,
+        "endChar": 102
+      },
+      "revId": "fa889d24c9e01f68abe13913aa8f48865944d80a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_7df8b07c",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-12T21:58:46Z",
+      "side": 1,
+      "message": "more logging/debugging you *could* remove",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 20
+      },
+      "revId": "fa889d24c9e01f68abe13913aa8f48865944d80a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
