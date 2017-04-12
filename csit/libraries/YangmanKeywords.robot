@@ -58,6 +58,59 @@ Expand Operation Select Menu And Select Operation
     Expand Operation Select Menu
     Select Operation And Verify Operation Has Been Selected    ${operation_id}    ${selected_operation_name}
 
+Send Request
+    [Documentation]    Clicks Send request button and waits until progression bar disappears.
+    Selenium2Library.Click Element    ${SEND_BUTTON}
+    Selenium2Library.Wait Until Page Contains Element    ${HEADER_LINEAR_PROGRESSION_BAR_HIDDEN}
+
+Verify Request Status Code Matches Desired Code
+    [Arguments]    ${desired_code_regexp}
+    [Documentation]    Verifies that execution status code matches regexp provided as an argument.
+    ${request_status}=    BuiltIn.Wait Until Keyword Succeeds    30 s    5 s    Selenium2Library.Get Text    ${STATUS_VALUE}
+    BuiltIn.Should Match Regexp    ${request_status}    ${desired_code_regexp}
+
+Verify Request Execution Time Is Present
+    [Documentation]    Verifies that execution time value is present.
+    ${time_value}=    BuiltIn.Wait Until Keyword Succeeds    30 s    5 s    Selenium2Library.Get Text    ${TIME_VALUE}
+    BuiltIn.Should Contain    ${time_value}    ${MILLISECONDS_LABEL}
+
+Verify Request Execution Time Is Threedots
+    [Documentation]    Verifies that execution time value is threedots.
+    ${time_value}=    BuiltIn.Wait Until Keyword Succeeds    30 s    5 s    Selenium2Library.Get Text    ${TIME_VALUE}
+    BuiltIn.Should Contain    ${time_value}    ${THREE_DOTS_DEFAULT_STATUS_AND_TIME}
+
+Send Request And Verify Request Status Code Matches Desired Code
+    [Arguments]    ${desired_code_regexp}
+    [Documentation]    Sends request and verifies that execution status code matches regexp provided as an argument.
+    Send Request
+    Verify Request Status Code Matches Desired Code    ${desired_code_regexp}
+    Verify Request Execution Time Is Present
+
+Execute Chosen Operation From Form
+    [Arguments]    ${operation_id}    ${selected_operation_name}    ${selected_true_false}
+    [Documentation]    Selects operation, selects or unselects fill form with received data after execution checkbox.
+    Expand Operation Select Menu And Select Operation    ${operation_id}    ${selected_operation_name}
+    Select Fill Form With Received Data After Execution Checkbox    ${selected_true_false}
+    Send Request
+
+Execute Chosen Operation From Form And Check Status Code
+    [Arguments]    ${operation_id}    ${selected_operation_name}    ${selected_true_false}    ${desired_code_regexp}
+    [Documentation]    Selects operation, selects or unselects fill form with received data after execution checkbox and
+    ...    verifies that execution status matches regexp provided as an argument.
+    Expand Operation Select Menu And Select Operation    ${operation_id}    ${selected_operation_name}
+    Select Fill Form With Received Data After Execution Checkbox    ${selected_true_false}
+    Send Request
+    BuiltIn.Run Keyword If    "${desired_code_regexp}"=="${THREE_DOTS_DEFAULT_STATUS_AND_TIME}"    BuiltIn.Run Keywords    Verify Request Status Code Matches Desired Code    ${THREE_DOTS_DEFAULT_STATUS_AND_TIME}
+    ...    AND    Verify Request Execution Time Is Threedots
+    BuiltIn.Run Keyword If    "${desired_code_regexp}"!="${THREE_DOTS_DEFAULT_STATUS_AND_TIME}"    BuiltIn.Run Keywords    Verify Request Status Code Matches Desired Code    ${desired_code_regexp}
+    ...    AND    Verify Request Execution Time Is Present
+
+Return Labelled Api Path Input
+    [Arguments]    ${branch_label_without_curly_braces_part}
+    [Documentation]    Returns Xpath of labelled API path input field.
+    ${labelled_api_path_input}=    BuiltIn.Set Variable    ${API_PATH}//span[contains(text(), "/${branch_label_without_curly_braces_part}")]//parent::md-input-container//following-sibling::md-input-container[last()]/input
+    [Return]    ${labelled_api_path_input}
+
 Verify Yangman Home Page Elements
     [Documentation]    Verifies presence of Yangman home page elements.
     Selenium2Library.Wait Until Page Contains Element    ${YANGMAN_LOGO}
@@ -174,15 +227,36 @@ Return Indexed Module From Module Name
     ${module_list_item_indexed}=    Return Module List Indexed Module    ${module_id_index}
     [Return]    ${module_list_item_indexed}
 
+Return Module List Item Collapsed Indexed
+    [Arguments]    ${index}
+    [Documentation]    Returns Xpath of collapsed indexed module.
+    ${indexed_module}=    Return Module List Indexed Module    ${index}
+    ${module_list_item_collapsed_indexed}=    BuiltIn.Set Variable    ${indexed_module}//following-sibling::md-list[@aria-hidden="true"]
+    [Return]    ${module_list_item_collapsed_indexed}
+
+Return Module List Item Expanded Indexed
+    [Arguments]    ${index}
+    [Documentation]    Returns Xpath of expanded indexed module.
+    ${indexed_module}=    Return Module List Indexed Module    ${index}
+    ${module_list_item_expanded_indexed}=    BuiltIn.Set Variable    ${indexed_module}//following-sibling::md-list[@aria-hidden="false"]
+    [Return]    ${module_list_item_expanded_indexed}
+
+Return Indexed Module Expander Icon
+    [Arguments]    ${index}
+    [Documentation]    Returns xpath of indexed module expander icon.
+    ${indexed_module}=    Return Module List Indexed Module    ${index}
+    ${indexed_module_expander_icon}=    BuiltIn.Set Variable    ${indexed_module}/md-icon
+    [Return]    ${indexed_module_expander_icon}
+
 Expand Module
     [Arguments]    ${module_name}    ${module_id_index}
     [Documentation]    Clicks module list item in modules tab to expand the item and display its operations/ operational/ config items.
     ...    Arguments are either module name, or module id index, that is a number, or ${EMPTY}, if the option is not used.
     ${module_list_item_indexed}=    BuiltIn.Run Keyword If    "${module_name}"!= "${EMPTY}"    Return Indexed Module From Module Name    ${module_name}
     ${module_list_item_indexed}=    BuiltIn.Run Keyword If    "${module_id_index}"!= "${EMPTY}"    Return Module List Indexed Module    ${module_id_index}
-    Selenium2Library.Click Element    ${module_list_item_indexed}
-    ${module_list_item_collapsed_indexed}=    BuiltIn.Set Variable    ${module_list_item_indexed}//following-sibling::md-list[@aria-hidden="true"]
-    Selenium2Library.Page Should Not Contain Element    ${module_list_item_collapsed_indexed}
+    ${module_list_item_expanded_indexed}=    BuiltIn.Set Variable    ${module_list_item_indexed}//following-sibling::md-list[@aria-hidden="false"]
+    GUIKeywords.Mouse Down And Mouse Up Click Element    ${module_list_item_indexed}
+    Selenium2Library.Wait Until Page Contains Element    ${module_list_item_expanded_indexed}
 
 Expand Module And Click Module Operational Item
     [Arguments]    ${module_name}    ${module_id_index}
@@ -283,6 +357,13 @@ Return Branch Label Without Curly Braces Part
     ${branch_label_without_curly_braces_part}=    String.Fetch From Left    ${branch_label}    ${SPACE}
     [Return]    ${branch_label_without_curly_braces_part}
 
+Return Branch Label Curly Braces Part Without Braces
+    [Arguments]    ${branch_label}
+    [Documentation]    Returns string - curly braces part of label of indexed branch in module detail without curly braces.
+    ${branch_label_curly_braces_part}=    String.Fetch From Right    ${branch_label}    ${SPACE}
+    ${branch_label_curly_braces_part}=    String.Strip String    ${branch_label_curly_braces_part}    characters={}
+    [Return]    ${branch_label_curly_braces_part}
+
 Return Labelled Branch Toggle Button
     [Arguments]    ${labelled_branch_xpath}
     [Documentation]    Returns xpath of toggle button of labelled branch in module detail.
@@ -302,6 +383,13 @@ Click Module Detail Branch Indexed
     [Documentation]    Click indexed branch in module detail.
     Selenium2Library.Page Should Contain Element    ${module_detail_branch_indexed}
     GUIKeywords.Mouse Down And Mouse Up Click Element    ${module_detail_branch_indexed}
+
+Return And Click Module Detail Branch Indexed
+    [Arguments]    ${branch_label}
+    [Documentation]    Returns and click Click indexed branch in module detail.
+    ${branch_id}=    Return Module Detail Branch ID From Branch Label    ${branch_label}
+    ${module_detail_branch_indexed}=    Return Module Detail Branch Indexed    ${branch_id}
+    Click Module Detail Branch Indexed    ${module_detail_branch_indexed}
 
 Verify Module Detail Branch Is List Branch
     [Arguments]    ${module_detail_branch_indexed}
@@ -329,11 +417,24 @@ Return Form List Item With Index Or Key
     ${list_item_with_index_or_key}=    BuiltIn.Set Variable If    "${branch_label_curly_braces_part}"=="${EMPTY}"    ${FORM_TOP_ELEMENT_LIST_ITEM_LABEL}[contains(text(), "${branch_label_without_curly_braces_part}") and contains(text(), "[${index_or_key}]")]    ${FORM_TOP_ELEMENT_LIST_ITEM_LABEL}[contains(text(), "${branch_label_without_curly_braces_part}") and contains(text(), "${key_part}")]
     [Return]    ${list_item_with_index_or_key}
 
+Click Form List Item With Index Or Key
+    [Arguments]    ${branch_label}    ${id/ref/prefix_part}    ${index/key}
+    [Documentation]    Clicks form list item with given index or key is visible.
+    ${list_item_with_index_or_key}=    Return Form List Item With Index Or Key    ${branch_label}    ${id/ref/prefix_part}    ${index/key}
+    Selenium2Library.Click Element    ${list_item_with_index_or_key}
+
 Verify List Item With Index Or Key Is Visible
     [Arguments]    ${branch_label}    ${branch_label_curly_braces_part}    ${index_or_key}
     [Documentation]    Verifies that form list item with given index or key is visible.
     ${list_item_with_index_or_key}=    Return Form List Item With Index Or Key    ${branch_label}    ${branch_label_curly_braces_part}    ${index_or_key}
     Selenium2Library.Wait Until Element Is Visible    ${list_item_with_index_or_key}
+
+Load And Expand Network Topology In Form
+    [Documentation]    Loads and expands network-topology top element container.
+    Select Form View
+    YangmanKeywords.Return And Click Module Detail Branch Indexed    ${Network_Topology_Branch_Label}
+    Selenium2Library.Page Should Contain Element    ${FORM_TOP_ELEMENT_CONTAINER}
+    Selenium2Library.Click Element    ${FORM_TOP_ELEMENT_POINTER}
 
 Load Topology Topology Id Node In Form
     [Documentation]    Expands network-topology branch in testing module detail and clicks topology {topology-id} branch to load topology list node in form.
@@ -343,6 +444,75 @@ Load Topology Topology Id Node In Form
     BuiltIn.Run Keyword If    "${status}"=="False"    Return Branch Toggle Button From Branch Label And Click    ${NETWORK_TOPOLOGY_LABEL}
     YangmanKeywords.Return Branch Toggle Button From Branch Label And Click    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
     Verify List Item With Index Or Key Is Visible    ${TOPOLOGY_TOPOLOGY_ID_LABEL}    ${EMPTY}    0
+
+Load Node Node Id Node In Form
+    [Documentation]    Expands network-topology branch in testing module detail and clicks topology {topology-id} branch to load topology list node in form.
+    Select Form View
+    ${node_node_id_branch}=    Return Module Detail Labelled Branch Xpath    ${NODE_NODE_ID_LABEL}
+    ${node_branch_is_visible}=    BuiltIn.Run Keyword And Return Status    Selenium2Library.Element Should Be Visible    ${node_node_id_branch}
+    BuiltIn.Run Keyword If    "${node_branch_is_visible}"=="False"    Run Keywords    Load Topology Topology Id Node In Form
+    ...    AND    Return Branch Toggle Button From Branch Label And Click    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
+    YangmanKeywords.Return And Click Module Detail Branch Indexed    ${NODE_NODE_ID_LABEL}
+    Verify List Item With Index Or Key Is Visible    ${NODE_NODE_ID_LABEL}    ${EMPTY}    0
+
+Return Labelled Element Yangmenu
+    [Arguments]    ${label}
+    [Documentation]    Returns xpath of labelled element yangmenu in form.
+    ${form_top_element_labelled}=    Return Form Top Element Labelled    ${label}
+    ${form_labelled_element_yangmenu}=    BuiltIn.Set Variable    ${form_top_element_labelled}//following::yang-form-menu
+    [Return]    ${form_labelled_element_yangmenu}
+
+Return And Click Labelled Element Yangmenu
+    [Arguments]    ${label}
+    [Documentation]    Returns xpath of labelled element yangmenu in form and clicks the yangmenu.
+    ${form_labelled_element_yangmenu}=    Return Labelled Element Yangmenu    ${label}
+    Selenium2Library.Element Should Be Visible    ${form_labelled_element_yangmenu}
+    GUIKeywords.Mouse Down And Mouse Up Click Element    ${form_labelled_element_yangmenu}
+
+Return Labelled Element Show Previous Item Arrow
+    [Arguments]    ${label}
+    [Documentation]    Returns xpath of labelled element show previous list item icon in form.
+    ${form_top_element_labelled}=    Return Form Top Element Labelled    ${label}
+    ${labelled_show_previous_item_arrow}=    BuiltIn.Set Variable    ${form_top_element_labelled}//following::md-prev-button[@aria-label="Previous Page"]
+    [Return]    ${labelled_show_previous_item_arrow}
+
+Return Labelled Element Show Next Item Arrow
+    [Arguments]    ${label}
+    [Documentation]    Returns xpath of labelled element show next list item icon.
+    ${form_top_element_labelled}=    Return Form Top Element Labelled    ${label}
+    ${labelled_show_next_item_arrow}=    BuiltIn.Set Variable    ${form_top_element_labelled}//following::md-next-button[@aria-label="Next Page"]
+    [Return]    ${labelled_show_next_item_arrow}
+
+Return Labelled Form Input Field
+    [Arguments]    ${branch_label_curly_braces_part}
+    [Documentation]    Returns xpath of labelled form input field.
+    ${labelled_input_field}=    BuiltIn.Set Variable    ${FORM_CONTENT}//span[contains(@class, "ng-binding ng-scope") and contains(text(), "${branch_label_curly_braces_part}")]//following::input
+    [Return]    ${labelled_input_field}
+
+Return Labelled Form Select
+    [Arguments]    ${branch_label_curly_braces_part}
+    [Documentation]    Returns labelled form input field.
+    ${labelled_select}=    BuiltIn.Set Variable    ${FORM_CONTENT}//span[contains(@class, "ng-binding ng-scope") and contains(text(), "${branch_label_curly_braces_part}")]//following::md-select
+    [Return]    ${labelled_select}
+
+Input Text To Labelled Form Input Field
+    [Arguments]    ${branch_label_curly_braces_part}    ${text}
+    [Documentation]    Returns labelled form input field and inputs the text provided as an argument into it.
+    ${labelled_input_field}=    Return Labelled Form Input Field    ${branch_label_curly_braces_part}
+    Selenium2Library.Input Text    ${labelled_input_field}    ${text}
+
+Verify Form Contains Error Message
+    [Arguments]    ${error_message}
+    [Documentation]    Verifies that the form contains error message that is provided as an argument.
+    ${form_error_message}=    BuiltIn.Set Variable    //p[contains(@id, "form-error-message") and contains (text(), "${error_message}")]
+    Selenium2Library.Page Should Contain Element    ${form_error_message}
+
+Verify No Data Are Displayed In Code Mirror Code
+    [Arguments]    ${code_mirror_code}
+    [Documentation]    Verifies that there are no data displayed in either sent or received data code mirror.
+    ...    Value for ${code_mirror_code} is either ${SENT_DATA_CODE_MIRROR_CODE} or ${RECEIVED_DATA_CODE_MIRROR_CODE}.
+    ${number_of_lines_in_code_mirror}=    Selenium2Library.Get Matching Xpath Count    ${code_mirror_code}/div
+    BuiltIn.Should Be Equal    ${number_of_lines_in_code_mirror}    1
 
 Verify Sent Data CM Is Displayed
     [Documentation]    Verifies that sent data code mirror is displayed.
