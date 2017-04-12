@@ -118,3 +118,21 @@ Rejoin_Node_And_Verify_Rejoined
     [Documentation]    Rejoin isolated node.
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${cs_isolated_index}
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Singleton_Constant_On_Node    ${cs_isolated_index}    ${CS_CONSTANT_PREFIX}${cs_owner}
+
+Register_Flapping_Singleton_On_Nodes
+    [Arguments]    ${index_list}
+    [Documentation]    Register a candidate application on each node which starts the test.
+    : FOR    ${index}    IN    @{index_list}
+    \    MdsalLowlevel.Register_Flapping_Singleton    ${index}
+
+Unregister_Flapping_Singleton_On_Nodes_And_Validate_Results
+    [Arguments]    ${index_list}    ${rate_limit_to_pass}    ${test_duration}
+    [Documentation]    Unregister the testing service and check recevied statistics.
+    ${movements_count} =    BuiltIn.Set_Variable    ${0}
+    : FOR    ${index}    IN    @{index_list}
+    \    ${count} =    MdsalLowlevel.Unregister_Flapping_Singleton    ${index}
+    \    BuiltIn.Run_Keyword_If    ${count} < 0    BuiltIn.Fail    No failure should have occured during the ${test_duration} timeout.
+    \    ${movements_count} =    BuiltIn.Evaluate    ${movements_count}+${count}
+    ${seconds} =    DateTime.Convert_Time    ${test_duration}
+    ${rate} =    BuiltIn.Evaluate    ${movements_count}/${seconds}
+    BuiltIn.Run_Keyword_If    ${rate} < ${rate_limit_to_pass}    BuiltIn.Fail    Acceptance rate ${rate_limit_to_pass} not reached, actual rate is ${rate}.
