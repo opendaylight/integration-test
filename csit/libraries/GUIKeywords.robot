@@ -9,7 +9,7 @@ Resource          ../variables/Variables.robot
 Resource          Utils.robot
 
 *** Variables ***
-${BROWSER}        chrome
+${BROWSER}        phantomjs
 ${BASE_URL}       http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/index.html
 ${LOGIN_URL}      ${BASE_URL}#/login
 ${XVFB_PORT}      99
