@@ -69,6 +69,24 @@
       "revId": "4d4452f8eb22b84b68e4547af6b533cedb389123",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ca5595c7",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-04-12T05:26:01Z",
+      "side": 1,
+      "message": "Thanks for the responses.   Can we please try to use ovs-appctl ofproto/trace option which is mor refined way to determine the patch. That is more refined. Is there  any specific reason that we cannot use appctl?",
+      "parentUuid": "da01753e_1f7ee5ae",
+      "revId": "4d4452f8eb22b84b68e4547af6b533cedb389123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
