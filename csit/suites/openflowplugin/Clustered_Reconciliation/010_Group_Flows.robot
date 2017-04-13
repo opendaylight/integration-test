@@ -67,14 +67,12 @@ Check No Switches After Disconnect
     [Documentation]    Check no switches in topology.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check No Switches In Topology    ${SWITCHES}
 
-
 Remove Flows And Groups While Mininet Is Disconnected
     [Documentation]    Remove some groups and flows while network is down.
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
-
 
 Reconnect Mininet To Cluster
     [Documentation]    Reconnect mininet to cluster by removing Iptables drop rules that were used to disconnect
@@ -95,7 +93,6 @@ Check Groups In Operational DS After Mininet Reconnects
 Check Flows In Switch After Mininet Reconnects
     [Documentation]    Check Flows after mininet starts.
     MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
-
 
 Restart Cluster
     [Documentation]    Stop and Start cluster.
@@ -152,7 +149,6 @@ Initialization Phase
     BuiltIn.Set Suite Variable    ${less_flows}
     BuiltIn.Set Suite Variable    ${no_flows}    ${SWITCHES}
 
-
 Final Phase
     [Documentation]    Delete all sessions.
     ${command} =    BuiltIn.Set Variable    sudo iptables -v -F
@@ -160,7 +156,6 @@ Final Phase
     CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"false"}    session=session
     BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
     RequestsLibrary.Delete All Sessions
-
 
 Disconnect Cluster Mininet
     [Arguments]    ${action}=break    ${member_index_list}=${EMPTY}
