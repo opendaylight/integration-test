@@ -409,7 +409,7 @@ IdMLight Suite Setup
     # add new domain name to the cleanup list for later cleanup
     Append To List    ${cleanup_domain_list}    ${newdomain}
     # now create the test user
-    ${userdata}=    Set Variable    {"description":"User-of-the-Force","name":"${testuser}","enabled":"true"}
+    ${userdata}=    Set Variable    {"description":"User-of-the-Force","name":"${testuser}","enabled":"true","domainid":"${testdomain}"}
     ${newuser}=    Post New User    ${testuser}    ${userdata}
     Log    ${newuser}
     # add new user name to the cleanup list for later cleanup
