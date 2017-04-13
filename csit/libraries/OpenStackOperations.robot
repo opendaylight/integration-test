@@ -1,10 +1,11 @@
 *** Settings ***
 Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           SSHLibrary
-Resource          Netvirt.robot
+Resource          DataModels.robot
 Resource          Utils.robot
 Resource          L2GatewayOperations.robot
 Resource          ../variables/Variables.robot
+Variables         ../variables/netvirt/Modules.py
 
 *** Keywords ***
 Source Password
@@ -601,12 +602,12 @@ Get OvsDebugInfo
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${TEST_NAME}
     Get OvsDebugInfo
-    Run Keyword And Ignore Error    Get Model Dump    ${HA_PROXY_IP}
+    Run Keyword And Ignore Error    Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     Get Karaf Log Events From Test Start    ${test_name}
 
 Get Suite Teardown Debugs
     Get OvsDebugInfo
-    Get Model Dump    ${HA_PROXY_IP}
+    Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
 
 Show Debugs
     [Arguments]    @{vm_indices}

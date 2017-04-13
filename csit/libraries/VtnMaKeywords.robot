@@ -6,11 +6,12 @@ Library           Collections
 Library           json
 Library           RequestsLibrary
 Variables         ../variables/Variables.py
+Variables         ../variables/vtn/Modules.py
 Resource          ./Utils.robot
 Resource          ./KarafKeywords.robot
 Resource          ./MininetKeywords.robot
 Resource          ./TemplatedRequests.robot
-Resource          ./vtn.robot
+Resource          DataModels.robot
 
 *** Variables ***
 ${vlan_topo_10}    --custom vlan_vtn_test.py --topo vlantopo
@@ -98,7 +99,7 @@ Collect Debug Info
     ${result}    Read Until    mininet>
     write    ${DUMPFLOWS_OF13}
     ${result}    Read Until    mininet>
-    Get Model Dump    ${ODL_SYSTEM_IP}
+    Get Model Dump    ${ODL_SYSTEM_IP}    ${vtn_data_models}
 
 Add a Topology wait
     [Arguments]    ${topo_wait}

@@ -1,4 +1,4 @@
-data_models = [
+netvirt_data_models = [
         'config/elan:elan-instances',
         'config/elan:elan-interfaces',
         'config/id-manager:id-pools',
