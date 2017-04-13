@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_0c168ff1",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-13T15:31:44Z",
+      "side": 1,
+      "message": "DEFAULT_LINUX for a generic keyword,\nand maybe create an ODL specific keyword so that caller does not have to override all the values.",
+      "range": {
+        "startLine": 195,
+        "startChar": 95,
+        "endLine": 195,
+        "endChar": 107
+      },
+      "revId": "fcb9a7d7797381948401b034755b7e6648b42434",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8c2a7f2a",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-13T15:31:44Z",
+      "side": 1,
+      "message": "TOOLS SYSTEM values for USER, PASSWORD and PROMPT are still used.",
+      "range": {
+        "startLine": 179,
+        "startChar": 85,
+        "endLine": 179,
+        "endChar": 86
+      },
+      "revId": "fcb9a7d7797381948401b034755b7e6648b42434",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
