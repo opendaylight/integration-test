@@ -22,20 +22,9 @@ Enable Stale Flow Entry
     # Stale flows/groups feature is only available in Boron onwards.
     CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"true"}    session=session
 
-Add Group 1 In Every Switch
-    [Documentation]    Add ${ITER} groups of type 1 in every switch.
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
-
-Add Group 2 In Every Switch
-    [Documentation]    Add ${ITER} groups of type 2 in every switch.
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
-
-Add Flow to Group 2 In Every Switch
-    [Documentation]    Add ${ITER} flows to group type 2 in every switch.
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=session    iterations=${ITER}
+Add Groups And Flows
+    [Documentation]    Add ${ITER} groups 1&2 and flows in every switch.
+    Add Groups And Flows    ${ITER}
 
 Start Mininet Multiple Connections
     [Documentation]    Start mininet linear with connection to all cluster instances.
@@ -59,39 +48,91 @@ Check Flows In Switch
     [Documentation]    Check Flows after mininet starts.
     MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
 
+Check Entity Owner Status And Find Owner and Successor Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
+    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    BuiltIn.Set Suite Variable    ${original_owner}
+
+Disconnect Mininet From Owner
+    [Documentation]    Disconnect mininet from the owner
+    ${owner_list}    BuiltIn.Create List    ${original_owner}
+    Disconnect Cluster Mininet    break    ${owner_list}
+    BuiltIn.Set Suite Variable    ${owner_list}
+
+Check Linear Topology After Disconnect
+    [Documentation]    Check Linear Topology After Disconnecting mininet from owner.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
+
+Remove Flows And Groups After Mininet Is Disconnected
+    [Documentation]    Remove 1 group 1&2 and 1 flow in every switch after mininet is disconnected.
+    Remove Single Group And Flow
+
+Check Flows In Operational DS After Mininet Is Disconnected
+    [Documentation]    Check Flows in Operational DS after mininet is disconnected.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${less_flows}
+
+Check Groups In Operational DS After Mininet Is Disconnected
+    [Documentation]    Check Groups in Operational DS  after mininet is disconnected.
+    FlowLib.Check Number Of Groups    ${less_groups}
+
+Check Flows In Switch After Mininet Is Disconnected
+    [Documentation]    Check Flows in switch after mininet is disconnected
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
+
+Reconnect Mininet To Owner
+    [Documentation]    Reconnect mininet to switch 1 owner.
+    Disconnect Cluster Mininet    restore    ${owner_list}
+
+Check Linear Topology After Reconnect
+    [Documentation]    Check Linear Topology After Reconnect.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
+
+Add Flows And Groups After Reconnect
+    [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
+    Add Single Group And Flow
+
+Check Flows After Reconnect In Operational DS
+    [Documentation]    Check Flows in Operational DS after mininet is reconnected.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${all_flows}
+
+Check Groups After Reconnect In Operational DS
+    [Documentation]    Check Groups in Operational DS after mininet is reconnected.
+    FlowLib.Check Number Of Groups    ${all_groups}
+
+Check Flows After Reconnect In Switch
+    [Documentation]    Check Flows in switch after mininet is reconnected.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
+
 Disconnect Mininet From Cluster
     [Documentation]    Disconnect Mininet from Cluster.
     Disconnect Cluster Mininet
 
 Check No Switches After Disconnect
-    [Documentation]    Check no switches in topology.
+    [Documentation]    Check no switches in topology after disconnecting mininet from cluster.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check No Switches In Topology    ${SWITCHES}
 
 Remove Flows And Groups While Mininet Is Disconnected
-    [Documentation]    Remove some groups and flows while network is down.
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
+    [Documentation]    Remove a group and flow while mininet Is Disconnected from cluster.
+    Remove Single Group And Flow
 
 Reconnect Mininet To Cluster
     [Documentation]    Reconnect mininet to cluster by removing Iptables drop rules that were used to disconnect
     Disconnect Cluster Mininet    restore
 
 Check Linear Topology After Mininet Reconnects
-    [Documentation]    Check Linear Topology.
+    [Documentation]    Check Linear Topology after reconnect.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
 
 Check Flows In Operational DS After Mininet Reconnects
-    [Documentation]    Check Flows after mininet starts.
+    [Documentation]     Check Flows in Operational DS after mininet is reconnected.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${less_flows}
 
 Check Groups In Operational DS After Mininet Reconnects
-    [Documentation]    Check Flows after mininet starts.
+    [Documentation]     Check Groups in Operational DS after mininet is reconnected to cluster.
     FlowLib.Check Number Of Groups    ${less_groups}
 
 Check Flows In Switch After Mininet Reconnects
-    [Documentation]    Check Flows after mininet starts.
+    [Documentation]     Check Flows in switch after mininet is reconnected to cluster.
     MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
 
 Restart Cluster
@@ -102,19 +143,19 @@ Restart Cluster
     ClusterManagement.Start_Members_From_List_Or_All    wait_for_sync=False
 
 Check Linear Topology After Controller Restarts
-    [Documentation]    Check Linear Topology.
+    [Documentation]    Check Linear Topology after controller restarts.
     BuiltIn.Wait Until Keyword Succeeds    300s    2s    FlowLib.Check Linear Topology    ${SWITCHES}
 
 Check Flows In Operational DS After Controller Restarts
-    [Documentation]    Check Flows after mininet starts.
+    [Documentation]    Check Flows in Operational DS after controller is restarted.
     BuiltIn.Wait Until Keyword Succeeds    300s    2s    FlowLib.Check Number Of Flows    ${less_flows}
 
 Check Groups In Operational DS After Controller Restarts
-    [Documentation]    Check Flows after mininet starts.
+    [Documentation]    Check Groups in Operational DS after controller is restarted.
     FlowLib.Check Number Of Groups    ${less_groups}
 
 Check Flows In Switch After Controller Restarts
-    [Documentation]    Check Flows after mininet starts.
+    [Documentation]    Check Flows in switch after controller is restarted..
     MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
 
 Stop Mininet
@@ -169,3 +210,22 @@ Disconnect Cluster Mininet
     \    ${command} =    BuiltIn.Set Variable    sudo /sbin/iptables -L -n
     \    ${output} =    Utils.Run Command On Controller    cmd=${command}
     \    BuiltIn.Log    ${output}
+
+Add Groups And Flows
+    [Arguments]    ${iter}=1
+    [Documentation]    Add ${ITER} groups type 1 & 2 and flows in every switch.
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+
+Add Single Group And Flow
+    [Documentation]    Add 1 group 1&2 and 1 flow in every switch.
+    Add Groups And Flows    1
+
+Remove Single Group And Flow
+    [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
