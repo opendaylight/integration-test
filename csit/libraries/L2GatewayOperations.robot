@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     L2Gateway Operations Library. This library has useful keywords for various actions on Hwvtep and Ovs connectivity. Most of the keywords expects that ovs_conn_id, hwvtep_conn_id and devstack_conn_id are available.
+Documentation     L2Gateway Operations Library. This library has useful keywords for various actions on Hwvtep and Ovs connectivity. Most of the keywords expects that ovs_conn_id,ovs2_conn_id, hwvtep_conn_id, hwvtep2_conn_id and devstack_conn_id are available.
 Library           SSHLibrary
 Library           Collections
 Library           RequestsLibrary
@@ -17,30 +17,31 @@ ${L2GW_VAR_BASE}    ${CURDIR}/../variables/l2gw
 
 *** Keywords ***
 Add Ovs Bridge Manager Controller And Verify
-    [Documentation]    Keyword to set OVS manager and controller to ${ODL_IP} for the OVS IP connected in ${ovs_conn_id} and verify the entries in OVSDB NETWORK TOPOLOGY and NETSTAT results.
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_RESTART}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_DEL_MGR}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_DEL_CTRLR} ${OVS_BRIDGE}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${DEL_OVS_BRIDGE} ${OVS_BRIDGE}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_SHOW}
+    [Arguments]    ${conn_id}=${ovs_conn_id}    ${hwvtep_bridge}=${HWVTEP_BRIDGE}
+    [Documentation]    Keyword to set OVS manager and controller to ${ODL_IP} for the OVS IP connected in ${conn_id} and verify the entries in OVSDB NETWORK TOPOLOGY and NETSTAT results.
+    ${output}=    Exec Command    ${conn_id}    ${OVS_RESTART}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_DEL_MGR}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_DEL_CTRLR} ${OVS_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${DEL_OVS_BRIDGE} ${OVS_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SHOW}
     Should Not Contain    ${output}    Manager
     Should Not Contain    ${output}    Controller
-    ${output}=    Exec Command    ${ovs_conn_id}    ${CREATE_OVS_BRIDGE} ${OVS_BRIDGE}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${SET_FAIL_MODE} ${OVS_BRIDGE} secure
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_SET_MGR}:${ODL_IP}:${OVSDBPORT}
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_SET_CTRLR} ${OVS_BRIDGE} tcp:${ODL_IP}:${ODL_OF_PORT}
-    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${ovs_conn_id}    ${OVS_SHOW}    Manager "tcp:${ODL_IP}:${OVSDBPORT}"
+    ${output}=    Exec Command    ${conn_id}    ${CREATE_OVS_BRIDGE} ${OVS_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${SET_FAIL_MODE} ${OVS_BRIDGE} secure
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SET_MGR}:${ODL_IP}:${OVSDBPORT}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SET_CTRLR} ${OVS_BRIDGE} tcp:${ODL_IP}:${ODL_OF_PORT}
+    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${conn_id}    ${OVS_SHOW}    Manager "tcp:${ODL_IP}:${OVSDBPORT}"
     ...    Controller "tcp:${ODL_IP}:${ODL_OF_PORT}"
-    ${output}=    Exec Command    ${ovs_conn_id}    ${NETSTAT}
+    ${output}=    Exec Command    ${conn_id}    ${NETSTAT}
     Wait Until Keyword Succeeds    30s    2s    Validate Regexp In String    ${output}    ${NETSTAT_OVSDB_REGEX}
     Wait Until Keyword Succeeds    30s    2s    Validate Regexp In String    ${output}    ${NETSTAT_OF_REGEX}
-    @{list_to_check}=    Create List    bridge/${OVS_BRIDGE}    bridge/${HWVTEP_BRIDGE}
+    @{list_to_check}=    Create List    bridge/${OVS_BRIDGE}    bridge/${hwvtep_bridge}
     Wait Until Keyword Succeeds    30s    2s    Check For Elements At URI    ${OVSDB_NETWORK_TOPOLOGY}    ${list_to_check}    session
 
 Create Itm Tunnel Between Hwvtep and Ovs
-    [Arguments]    ${ovs_ip}
-    [Documentation]    Keyword to create ITM Tunnel Between HWVTEP and OVS connection in ${ovs_conn_id}.
-    ${dpn_id}=    Get Dpnid Decimal    ${ovs_conn_id}
+    [Arguments]    ${ovs_id}    ${ovs_ip}
+    [Documentation]    Keyword to create ITM Tunnel Between HWVTEP and OVS connection in ${ovs_id}.
+    ${dpn_id}=    Get Dpnid Decimal    ${ovs_id}
     ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${ovs_ip}    .    2
     ${prefix} =    Set Variable    ${first_two_octets}.0.0/24
     TemplatedRequests.Post_As_Json_Templated    folder=${L2GW_VAR_BASE}/itm_create    mapping={"dpnid":"${dpn_id}","ip":"${ovs_ip}","prefix":"${prefix}"}    session=session
@@ -48,14 +49,14 @@ Create Itm Tunnel Between Hwvtep and Ovs
     Log    ${output}
 
 Add Vtep Manager And Verify
-    [Arguments]    ${odl_ip}
-    [Documentation]    Keyword to add vtep manager for HWVTEP connected in ${hwvtep_conn_id} as ${odl_ip} received in argument and verify the entries in NETSTAT and HWVTEP NETWORK TOPOLOGY.
+    [Arguments]    ${odl_ip}    ${conn_id}=${hwvtep_conn_id}
+    [Documentation]    Keyword to add vtep manager for HWVTEP connected in ${conn_id} as ${odl_ip} received in argument and verify the entries in NETSTAT and HWVTEP NETWORK TOPOLOGY.
     ${set_manager_command}=    Set Variable    ${VTEP_ADD_MGR}:${odl_ip}:${OVSDBPORT}
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${set_manager_command}
+    ${output}=    Exec Command    ${conn_id}    ${set_manager_command}
     Log    ${output}
     @{list_to_verify}=    Create List    ${odl_ip}    state=ACTIVE
-    Wait Until Keyword Succeeds    60s    2s    Verify Vtep List    ${MANAGER_TABLE}    @{list_to_verify}
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETSTAT}
+    Wait Until Keyword Succeeds    60s    2s    Verify Vtep List    ${conn_id}    ${MANAGER_TABLE}    @{list_to_verify}
+    ${output}=    Exec Command    ${conn_id}    ${NETSTAT}
     Should Contain    ${output}    ${OVSDBPORT}
     @{list_to_check}=    Create List    ${odl_ip}
     Utils.Check For Elements At URI    ${HWVTEP_NETWORK_TOPOLOGY}    ${list_to_check}    session
@@ -122,23 +123,17 @@ Update Port For Hwvtep
     [Return]    ${return}
 
 Attach Port To Hwvtep Namespace
-    [Arguments]    ${port_mac}    ${ns_name}    ${tap_name}
+    [Arguments]    ${port_mac}    ${ns_name}    ${tap_name}    ${conn_id}=${hwvtep_conn_id}
     [Documentation]    Keyword to assign the ${port_mac} to the tap port ${tap_name} in namespace ${ns_name}
-    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF} ${tap_name} ${HW_ETHER} ${port_mac}
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
+    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF} ${tap_name} ${HW_ETHER} ${port_mac}
+    ${output}=    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
     Should Contain    ${output}    ${port_mac}
 
 Namespace Dhclient Verify
-    [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}
+    [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}    ${conn_id}=${hwvtep_conn_id}    ${hwvtep_ip}=${HWVTEP_IP}
     [Documentation]    Keyword to run dhclient for the tap port ${ns_tap} and verify if it has got assigned with ${ns_port_ip}.
-    Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} dhclient ${ns_tap}
-    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}    ${ns_port_ip}
-
-Namespace Static Ip Assign
-    [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}
-    [Documentation]    Keyword to assign IP address to TAP port manually
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF} ${ns_tap} ${ns_port_ip}/24 UP
-    Log    ${output}
+    Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} dhclient ${ns_tap}    ${hwvtep_ip}
+    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}    ${ns_port_ip}
 
 Verify Strings In Command Output
     [Arguments]    ${conn_id}    ${command}    @{string_list}
@@ -147,28 +142,20 @@ Verify Strings In Command Output
     : FOR    ${item}    IN    @{string_list}
     \    Should Contain    ${output}    ${item}
 
-Verify Ping In Namespace Background
-    [Arguments]    ${ns_name}    ${ns_port_mac}    ${vm_ip}
-    [Documentation]    Keyword to ping the IP ${vm_ip} from ${ns_name} and verify MCAS Local Table contains ${ns_port_mac}.
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
-    Log    ${output}
-    Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} ping ${vm_ip}
-    Wait Until Keyword Succeeds    30s    2s    Verify Mcas Local Table While Ping    ${ns_port_mac}
-
 Verify Ping In Namespace Extra Timeout
-    [Arguments]    ${ns_name}    ${ns_port_mac}    ${vm_ip}
+    [Arguments]    ${ns_name}    ${ns_port_mac}    ${vm_ip}    ${conn_id}=${hwvtep_conn_id}    ${hwvtep_ip}=${HWVTEP_IP}
     [Documentation]    Keyword to ping the IP ${vm_ip} from ${ns_name} and verify MCAS Local Table contains ${ns_port_mac}.
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
+    ${output}=    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
     Log    ${output}
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${NETNS_EXEC} ${ns_name} ping -c3 ${vm_ip}    30s
+    ${output}=    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ping -c3 ${vm_ip}    30s
     Log    ${output}
     Should Not Contain    ${output}    ${PACKET_LOSS}
-    Wait Until Keyword Succeeds    30s    2s    Verify Mcas Local Table While Ping    ${ns_port_mac}
+    Wait Until Keyword Succeeds    30s    2s    Verify Mcas Local Table While Ping    ${ns_port_mac}    ${conn_id}
 
 Verify Mcas Local Table While Ping
-    [Arguments]    ${mac}
+    [Arguments]    ${mac}    ${conn_id}
     [Documentation]    Keyword to check if ${mac} is available under UCAST_MACS_LOCALE_TABLE of HWVTEP dump table.
-    Verify Vtep List    ${UCAST_MACS_LOCALE_TABLE}    ${mac}
+    Verify Vtep List    ${conn_id}    ${UCAST_MACS_LOCALE_TABLE}    ${mac}
 
 Verify Nova VM IP
     [Arguments]    ${vm_name}
@@ -181,6 +168,7 @@ Verify Nova VM IP
 Get L2gw Debug Info
     [Documentation]    Keyword to collect the general debug information required for HWVTEP Test Suite.
     Exec Command    ${hwvtep_conn_id}    ${OVSDB_CLIENT_DUMP}
+    Exec Command    ${hwvtep2_conn_id}    ${OVSDB_CLIENT_DUMP}
     Exec Command    ${devstack_conn_id}    cat /etc/neutron/neutron.conf
     Exec Command    ${devstack_conn_id}    cat /etc/neutron/l2gw_plugin.ini
     Exec Command    ${devstack_conn_id}    ps -ef | grep neutron-server
@@ -193,9 +181,9 @@ Get L2gw Debug Info
     Log    ${resp.content}
 
 Start Command In Hwvtep
-    [Arguments]    ${command}
+    [Arguments]    ${command}    ${hwvtep_ip}
     [Documentation]    Keyword to execute Start Command in HWVTEP IP.
-    ${conn_id}=    SSHLibrary.Open Connection    ${HWVTEP_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    ${conn_id}=    SSHLibrary.Open Connection    ${hwvtep_ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Log    ${conn_id}
     Flexible SSH Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
     Start Command    ${command}
@@ -204,16 +192,16 @@ Start Command In Hwvtep
     close connection
 
 Verify Vtep List
-    [Arguments]    ${table_name}    @{list}
+    [Arguments]    ${conn_id}    ${table_name}    @{list}
     [Documentation]    Keyword to run vtep-ctl list for the table ${table_name} and verify the list @{list} contents exists in output.
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${VTEP LIST} ${table_name}
+    ${output}=    Exec Command    ${conn_id}    ${VTEP LIST} ${table_name}
     : FOR    ${item}    IN    @{list}
     \    Should Contain    ${output}    ${item}
 
 Get Vtep List
-    [Arguments]    ${table_name}
+    [Arguments]    ${table_name}    ${conn_id}=${hwvtep_conn_id}
     [Documentation]    Keyword to return the contents of vtep-ctl list for table ${table_name}.
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${VTEP LIST} ${table_name}
+    ${output}=    Exec Command    ${conn_id}    ${VTEP LIST} ${table_name}
     [Return]    ${output}
 
 Get Dpnid Decimal
@@ -227,9 +215,9 @@ Get Dpnid Decimal
     [Return]    ${dpn_id}
 
 Verify Ovs Tunnel
-    [Arguments]    ${hwvtep_ip}    ${ovs_ip}    ${seg_id}=${NET_1_SEGID}
+    [Arguments]    ${hwvtep_ip}    ${ovs_ip}    ${seg_id}=${NET_1_SEGID}    ${conn_id}=${hwvtep_conn_id}
     [Documentation]    Keyword to verify that the OVS tunnel entries are configured for OVS and HWVTEP.
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${OVS_SHOW}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SHOW}
     Log    ${output}
     Should Contain    ${output}    key="${seg_id}", remote_ip="${ovs_ip}"
     ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_SHOW}
@@ -237,9 +225,9 @@ Verify Ovs Tunnel
     Should Contain    ${output}    key=flow, local_ip="${ovs_ip}", remote_ip="${hwvtep_ip}"
 
 Get Vtep Field Values From Table
-    [Arguments]    ${table_name}    ${column_name}
+    [Arguments]    ${table_name}    ${column_name}    ${conn_id}=${hwvtep_conn_id}
     [Documentation]    Keyword to return specific field value received in ${column_name} from the vtep-ctl list for ${table_name}.
-    ${output}=    Exec Command    ${hwvtep_conn_id}    ${VTEP_LIST_COLUMN}${column_name} list ${table_name} | awk '{print $3}'
+    ${output}=    Exec Command    ${conn_id}    ${VTEP_LIST_COLUMN}${column_name} list ${table_name} | awk '{print $3}'
     Log    ${output}
     @{keys}=    Split String    ${output}
     Log    ${keys}
