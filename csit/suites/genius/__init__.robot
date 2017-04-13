@@ -44,6 +44,18 @@ Start Suite
     Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     ${output_2}    Execute Command    sudo ovs-vsctl show
     Log    ${output_2}
+    Log    >>>>>Switch 3 configuration <<<<<
+    ${conn_id_3}=    Open Connection    ${TOOLS_SYSTEM_3_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Set Global Variable    ${conn_id_3}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Log    ${conn_id_3}
+    Execute Command    sudo ovs-vsctl add-br BR3
+    Execute Command    sudo ovs-vsctl set bridge BR3 protocols=OpenFlow13
+    Execute Command    sudo ovs-vsctl set-controller BR3 tcp:${ODL_SYSTEM_IP}:6633
+    Execute Command    sudo ifconfig BR3 up
+    Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    ${output_3}    Execute Command    sudo ovs-vsctl show
+    Log    ${output_3}
 
 Stop Suite
     Log    Stop the tests
@@ -56,6 +68,12 @@ Stop Suite
     Switch Connection    ${conn_id_2}
     Log    ${conn_id_2}
     Execute Command    sudo ovs-vsctl del-br BR2
+    Execute Command    sudo ovs-vsctl del-manager
+    Write    exit
+    close connection
+    Switch Connection    ${conn_id_3}
+    Log    ${conn_id_3}
+    Execute Command    sudo ovs-vsctl del-br BR3
     Execute Command    sudo ovs-vsctl del-manager
     Write    exit
     close connection
