@@ -38,7 +38,7 @@ Test Post New Domain
     ${domaindesc}=    Set Variable    "testdomain other"
     ${domainstatus}=    Set Variable    "true"
     # Have to escape the quotes, need quotes to make the POST work properly
-    ${data}=    Set Variable    {"description":${domaindesc},"domainid":"7","name":\"${domainName}\","enabled":${domainstatus}}
+    ${data}=    Set Variable    {"description":${domaindesc},"name":\"${domainName}\","enabled":${domainstatus}}
     Log    ${data}
     # now post it
     ${domain}=    Post New Domain    ${domainName}    ${data}
@@ -400,18 +400,17 @@ IdMLight Suite Setup
     ${testdomain}=    Create Random Name    Alderaan
     ${testuser}=    Create Random Name    Leia
     ${testrole}=    Create Random Name    Force-User
+    ${testemail}=    Set Variable    sdn@opendaylight.org
     # now create the domain, role and userid
     # create the test domain
     Create Session    httpbin    ${URI}    auth=${AUTH}    headers=${HEADERS}
-    ${domaindata}=    Set Variable    {"description":"planetary domain","domainid":"7","name":"${testdomain}","enabled":"true"}
+    ${domaindata}=    Set Variable    {"description":"planetary domain","name":"${testdomain}","enabled":"true"}
     ${newdomain}=    Post New Domain    ${testdomain}    ${domaindata}
-    Log    ${newdomain}
     # add new domain name to the cleanup list for later cleanup
     Append To List    ${cleanup_domain_list}    ${newdomain}
     # now create the test user
-    ${userdata}=    Set Variable    {"description":"User-of-the-Force","name":"${testuser}","enabled":"true"}
+    ${userdata}=    Set Variable    {"description":"User-of-the-Force","name":"${testuser}","enabled":"true","domainid":"${testdomain}", "email":"${testemail}"}
     ${newuser}=    Post New User    ${testuser}    ${userdata}
-    Log    ${newuser}
     # add new user name to the cleanup list for later cleanup
     Append To List    ${cleanup_user_list}    ${newuser}
     # now create the test role
@@ -419,7 +418,6 @@ IdMLight Suite Setup
     ${newrole}=    Post New Role    ${roledata}
     # add new role name to the cleanup list for later cleanup
     Append To List    ${cleanup_role_list}    ${newrole}
-    #
     # return the three item names to the caller of setup
     [Return]    ${newdomain}    ${newuser}    ${newrole}
 
