@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_dd46f320",
+        "filename": "csit/suites/tsdr/Elasticsearch/030_FlowTableMetrics.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-13T22:47:34Z",
+      "side": 1,
+      "message": "these lines don\u0027t help very much expect for debugging locally, imho",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 107
+      },
+      "revId": "ee8861c1b8dedee9f8c585fb866fa1cd1f0d9fa4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
