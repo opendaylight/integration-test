@@ -33,6 +33,8 @@ Resource          ../../../variables/netvirt/Variables.robot
 @{CREATE_IMPORT_RT}    ["2200:2"]    ["2300:2"]    ["2400:2"]
 @{EXTRA_NW_IP}    40.1.1.2    50.1.1.2
 @{EXTRA_NW_SUBNET}    40.1.1.0/24    50.1.1.0/24
+${BROADCAST_IP}    10.1.1.255
+${VM_INT}         eth0
 ${SECURITY_GROUP}    sg-vpnservice
 # Values passed for extra routes
 ${RT_OPTIONS}     --routes type=dict list=true
@@ -253,6 +255,14 @@ Verify L3VPN Datapath With Router Association
     ${dst_ip_list} =    Create List    @{VM_IP_NET20}[1]    @{VM_IP_NET10}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    @{VM_IP_NET20}[0]    ${dst_ip_list}
+
+Broadcast traffic testing with ELAN service
+    [Documentation]    Generate broadcast&Unicast traffic from VM1 & Verify
+    Log    Verify broadcast traffic
+    ${RX_Packets_CPN1_1}    Get RXPacketCount from Ifconfig    ${NETWORKS}[0]    ${VM_IP_NET10[1]}    ${VM_INT}
+    ${output} =    Execute Command on VM Instance    ${NETWORKS}[0]    ${VM_IP_NET10[0]}    ping -c 3 ${BROADCAST_IP}
+    ${RX_Packets_CPN1_2}    Get RXPacketCount from Ifconfig    ${NETWORKS}[0]    ${VM_IP_NET10[1]}    ${VM_INT}
+    Should Be True    ${RX_Packets_CPN1_2} > ${RX_Packets_CPN1_1}
 
 Dissociate L3VPN From Routers
     [Documentation]    Dissociating router from L3VPN
@@ -495,3 +505,16 @@ Verify GWMAC Flow Entry Removed From Flow Table
     #Verify GWMAC address present in table 19
     : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
     \    Should Not Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+
+Get RXPacketCount from Ifconfig
+    [Arguments]    ${network}    ${cpn_ip}    ${vm_int}
+    [Documentation]    Get the packet count from given table using the interface
+    ${PING_RESPONSE_REGEX} =    Set Variable    RX packets:\\d+
+    ${cmd_output}=    Execute Command on VM Instance    ${network}    ${cpn_ip}    sudo ifconfig ${vm_int}
+    Log    ${cmd_output}
+    ${match_output} =    Get Regexp Matches    ${cmd_output}    ${PING_RESPONSE_REGEX}
+    Log    ${match_output}
+    ${rx_packet_info} =    Split String    ${match_output[0]}    separator=:
+    ${rx_packets} =    Get from List    ${rx_packet_info}    1
+    Log    ${rx_packets}
+    [Return]    ${rx_packets}
