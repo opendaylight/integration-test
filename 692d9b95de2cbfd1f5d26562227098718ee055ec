@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_9cd606f0",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6923
+      },
+      "writtenOn": "2017-04-13T05:57:37Z",
+      "side": 1,
+      "message": "is needed for verifying ITM tunnel status i.e., defination like \"Verify Tunnel Status as UP\", \"Verify Tunnel Status as UNKNOWN\", etc",
+      "parentUuid": "fafc7978_9c8ba667",
+      "revId": "692d9b95de2cbfd1f5d26562227098718ee055ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_5cd81e7f",
         "filename": "csit/suites/genius/04_BFD_monitoring.robot",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2017-03-31T06:04:29Z",
       "side": 1,
       "message": "if these many wait and retries are not there, is the TC failing?",
+      "revId": "692d9b95de2cbfd1f5d26562227098718ee055ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_1c87b6d8",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6923
+      },
+      "writtenOn": "2017-04-13T05:57:37Z",
+      "side": 1,
+      "message": "This duration will allow controller to bringup tunnel between OVS switches. If controller fails to bring ITM tunnel during this then TC fails. Not trying multiple times. Ideally it should get created first time only. otherwise there is a bug.",
+      "parentUuid": "fafc7978_5cd81e7f",
       "revId": "692d9b95de2cbfd1f5d26562227098718ee055ec",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_f7bacbdf",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6923
+      },
+      "writtenOn": "2017-04-13T05:57:37Z",
+      "side": 1,
+      "message": "Is it necessary to check on switch also? In below code I am verifying BFD monitoring interval both on Operational and datastore. \nPlease provide me the command where I can get BFD monitoring interval",
+      "parentUuid": "fafc7978_fce9121b",
+      "revId": "692d9b95de2cbfd1f5d26562227098718ee055ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_dcec0e2c",
         "filename": "csit/suites/genius/04_BFD_monitoring.robot",
         "patchSetId": 8
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_b71a0315",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 6923
+      },
+      "writtenOn": "2017-04-13T05:57:37Z",
+      "side": 1,
+      "message": "I will add this verification",
+      "parentUuid": "fafc7978_dcec0e2c",
+      "revId": "692d9b95de2cbfd1f5d26562227098718ee055ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_bc55cac7",
         "filename": "csit/suites/genius/04_BFD_monitoring.robot",
         "patchSetId": 8
@@ -81,6 +153,24 @@
       "writtenOn": "2017-03-31T06:23:04Z",
       "side": 1,
       "message": "is this added only for BFD test suite? I meant this in general for all genius test suites",
+      "revId": "692d9b95de2cbfd1f5d26562227098718ee055ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_97153fe7",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 6923
+      },
+      "writtenOn": "2017-04-13T05:57:37Z",
+      "side": 1,
+      "message": "Yes, we can add this DS collection fucntion to other genius scripts.",
+      "parentUuid": "fafc7978_bc55cac7",
       "revId": "692d9b95de2cbfd1f5d26562227098718ee055ec",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
