@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_c9aab9d1",
+        "filename": "csit/libraries/DataModels.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-04-13T12:44:12Z",
+      "side": 1,
+      "message": "can we just use ${datamodels}\u003d@{EMPTY}?",
+      "revId": "f5e9430b8fac20c90eb40781021de61a662bfd64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_49ffea34",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-04-13T12:44:12Z",
+      "side": 1,
+      "message": "I am fine to merge it also, but just to clarify\nIs it not better to use data_models\u003d${netvirt_data_models}?",
+      "revId": "f5e9430b8fac20c90eb40781021de61a662bfd64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
