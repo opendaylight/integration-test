@@ -6,8 +6,8 @@ Documentation     Basic tests for BIER information configuration and verificatio
 ...               Test suite performs basic BIER information configuration and verification test cases for
 ...               topology domain, subdomain, node and channel as follows:
 ...
-...               Test Case 1: Query the topology and check its existence
-...               Expected result: Exist a topology which topologyId is flow:1
+...               Test Case 1: Query the topology, node and check its existence
+...               Expected result: Exist a topology which topologyId is flow:1 and seven nodes inside it
 ...
 ...               Test Case 2: Configure domain with add and delete operation
 ...               Expected result: The Configure result with corresponding operation verified as expected
@@ -33,7 +33,7 @@ Resource          ../../../variables/Variables.robot
 ${TOPOLOGY_ID}    flow:1
 @{DOMAIN_ID}      1
 @{SUBDOMAIN_ID_LIST}    1    2    3    4
-@{NOID_ID_LIST}    1    2    3    4
+@{NOID_ID_LIST}    1    2    3    4    5    6    7
 @{BSL_OF_IPV4_AND_IPV6}    64    128    256
 @{IGP_TYPE_LIST}    ISIS    OSPF
 @{MT_ID_LIST}     0    1    2    3    4    5
@@ -46,6 +46,7 @@ ${BIER_QUERYALLTOPOLOGYID_URI}    /restconf/operations/bier-topology-api
 *** Test Cases ***
 TC1_Query All Topology ID
     [Documentation]    Query all bier topology ID
+    Sleep    20s
     ${resp}    Send_Request_To_Query_Topology_Id    bier-topology-api    load-topology
     BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
     ${root}    To Json    ${resp.content}
@@ -64,6 +65,23 @@ TC1_Query Single Topology
     ${out_put}    Get From Dictionary    ${root}    output
     ${topology_id}    Get From Dictionary    ${out_put}    topology-id
     BuiltIn.Should_Be_Equal    ${topology_id}    flow:1
+
+TC1_Query Node
+    [Documentation]    Query nodes which assigned by RestAPI
+    ${input}    Create Dictionary    topology-id    ${TOPOLOGY_ID}    node    ${NOID_ID_LIST}
+    ${resp}    Send_Request_Operation_Besides_QueryTopology_Id    bier-topology-api    query-node    ${input}
+    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
+    ${root}    To Json    ${resp.content}
+    ${out_put}    Get From Dictionary    ${root}    output
+    ${node_list}    Get From Dictionary    ${out_put}    node
+    ${node_num}    Get Length    ${node_list}
+    BuiltIn.Should_Be_Equal    ${node_num}    ${7}
+    @{node_id_list}    Create List    1    2    3    4    5
+    ...    6    7
+    : FOR    ${i}    IN RANGE    7
+    \    ${node}    Get From List    ${node_list}    ${i}
+    \    ${node_id}    Get From Dictionary    ${node}    node-id
+    \    List Should Contain Value    ${node_id_list}    ${node_id}
 
 TC2_Configure Domain
     [Documentation]    Configure a bier domain in the topology
@@ -352,7 +370,7 @@ TC5_Add Channel
     List Should Contain Value    ${channel_list}    ${name1}
     ${channel_name2}    Get From List    ${channel_name_list}    1
     ${name2}    Get From Dictionary    ${channel_name2}    name
-    Should Contain    ${channel_list}    ${name2}
+    List Should Contain Value    ${channel_list}    ${name2}
 
 TC5_Modify Channel
     [Documentation]    Modify {src_ip} and {dst_group} value of channel-1
