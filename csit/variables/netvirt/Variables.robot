@@ -3,16 +3,26 @@ Documentation     Variables for Netvirt Test Suites
 
 *** Variables ***
 @{legacy_feature_list}    odl-vtn-manager-neutron    odl-ovsdb-openstack
-@{NETWORKS}       NET30    NET40
-@{SUBNETS}        SUBNET30    SUBNET40
-@{SUBNET_CIDR}    30.1.1.0/24    40.1.1.0/24
-@{PORT_LIST}      PORT1    PORT2    PORT3    PORT4
+@{NETWORKS}       NETWORK1    NETWORK2    NETWORK3
+@{SUBNETS}        SUBNET1    SUBNET2    SUBNET3
+@{SUBNET_CIDR}    10.10.10.0/24    10.20.20.0/24    10.30.30.0/24
+@{PORT_LIST}      PORT1    PORT2    PORT3    PORT4    PORT5    PORT6
 @{VM_INSTANCES_NET1}    VM1    VM2
 @{VM_INSTANCES_NET2}    VM3    VM4
-@{ROUTERS}        ROUTER_1    ROUTER_2
+@{VM_INSTANCES_NET3}    VM5    VM6
+${ROUTERS}        ROUTER_1
 ${RESP_CODE}      200
 ${RESP_ERROR_CODE}    400
 ${MAC_REGEX}      ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})
+${PING_REGEXP}    , 0% packet loss
+${NO_PING_REGEXP}    , 100% packet loss
+# Values passed for ARP_Learning
+@{EXTRA_NW_IP}    10.10.10.110    10.20.20.110
+${FIB_ENTRY_2}    10.10.10.110
+${FIB_ENTRY_4}    10.20.20.110
+${RPING_MIP_IP}    sudo arping -I eth0:1 -c 5 -b -s 10.10.10.110 10.10.10.110
+${RPING_MIP_IP_2}    sudo arping -I eth0:1 -c 5 -b -s 10.20.20.110 10.20.20.110
+${RPING_EXP_STR}    broadcast
 # Values passed for BFD Tunnel monitoring
 ${TUNNEL_MONITOR_ON}    Tunnel Monitoring (for VXLAN tunnels): On
 ${TUNNEL_MONITOR_OFF}    Tunnel Monitoring (for VXLAN tunnels): Off
@@ -44,6 +54,7 @@ ${TUNNEL_MONITOR_URL}    ${OPERATIONAL_API}/itm-config:tunnel-monitor-params/
 ${MONITOR_INTERVAL_URL}    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
 ${TUNNEL_TRANSPORTZONE}    ${CONFIG_API}/itm:transport-zones
 ${TUNNEL_INTERFACES}    ${CONFIG_API}/ietf-interfaces:interfaces/
+${LEARNT_VIP}     ${OPERATIONAL_API}/odl-l3vpn:learnt-vpn-vip-to-port-data/
 ${DISPATCHER_TABLE}    17
 ${GWMAC_TABLE}    19
 ${ARP_RESPONSE_TABLE}    81
