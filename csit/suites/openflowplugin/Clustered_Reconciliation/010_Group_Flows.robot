@@ -36,6 +36,9 @@ Add Flow to Group 2 In Every Switch
     [Documentation]    Add ${ITER} flows to group type 2 in every switch.
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=session    iterations=${ITER}
+Add Groups And Flows
+    [Documentation]    Add ${ITER} groups 1&2 and flows in every switch.
+    Add Groups And Flows    ${ITER}
 
 Start Mininet Multiple Connections
     [Documentation]    Start mininet linear with connection to all cluster instances.
@@ -59,6 +62,62 @@ Check Flows In Switch
     [Documentation]    Check Flows after mininet starts.
     MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
 
+Check Entity Owner Status And Find Owner and Successor Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
+    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    BuiltIn.Set Suite Variable    ${original_owner}
+
+Disconnect Mininet From Owner
+    [Documentation]    Disconnect Owner from Cluster
+    ${owner_list}    BuiltIn.Create List    ${original_owner}
+    Disconnect Cluster Mininet    break    ${owner_list}
+    BuiltIn.Set Suite Variable    ${owner_list}
+
+Check Linear Topology After Disconnect
+    [Documentation]    Check Linear Topology After Reconnect.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
+
+Remove Flows And Groups After Mininet Is Disconnected
+    [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
+    Remove Single Group And Flow
+
+Check Flows In Operational DS After Mininet Is Disconnected
+    [Documentation]    Check Flows after mininet starts.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${less_flows}
+
+Check Groups In Operational DS After Mininet Is Disconnected
+    [Documentation]    Check Flows after mininet starts.
+    FlowLib.Check Number Of Groups    ${less_groups}
+
+Check Flows In Switch After Mininet Is Disconnected
+    [Documentation]    Check Flows after mininet starts.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
+
+Reconnect Mininet To Owner
+    [Documentation]    Reconnect mininet to switch 1 owner.
+    Disconnect Cluster Mininet    restore    ${owner_list}
+
+Check Linear Topology After Reconnect
+    [Documentation]    Check Linear Topology After Reconnect.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
+
+Add Flows And Groups After Reconnect
+    [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
+    Add Single Group And Flow
+
+Check Flows After Reconnect In Operational DS
+    [Documentation]    Check Groups after mininet starts.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${all_flows}
+
+Check Groups After Reconnect In Operational DS
+    [Documentation]    Check Flows after mininet starts.
+    FlowLib.Check Number Of Groups    ${all_groups}
+
+Check Flows After Reconnect In Switch
+    [Documentation]    Check Flows after mininet starts.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
+
+>>>>>>> Add tests to Clustered Reconciliation
 Disconnect Mininet From Cluster
     [Documentation]    Disconnect Mininet from Cluster.
     Disconnect Cluster Mininet
@@ -73,6 +132,7 @@ Remove Flows And Groups While Mininet Is Disconnected
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
+    Remove Single Group And Flow
 
 Reconnect Mininet To Cluster
     [Documentation]    Reconnect mininet to cluster by removing Iptables drop rules that were used to disconnect
@@ -169,3 +229,22 @@ Disconnect Cluster Mininet
     \    ${command} =    BuiltIn.Set Variable    sudo /sbin/iptables -L -n
     \    ${output} =    Utils.Run Command On Controller    cmd=${command}
     \    BuiltIn.Log    ${output}
+
+Add Groups And Flows
+    [Arguments]    ${iter}=1
+    [Documentation]    Add ${ITER} groups type 1 & 2 and flows in every switch.
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+
+Add Single Group And Flow
+    [Documentation]    Add 1 group 1&2 and 1 flow in every switch.
+    Add Groups And Flows    1
+
+Remove Single Group And Flow
+    [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
