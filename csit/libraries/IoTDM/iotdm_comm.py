@@ -326,7 +326,7 @@ def verify_number_of_auto_replies_to_notification_from_subscription(subscription
                                                                           allias, communication)
     if replies != count:
         raise AssertionError(("Unexpected number of auto replies to notification from subscription {}, " +
-                             "auto replies: {}, expected: {}").format(subscription_resource_id, count, replies))
+                              "auto replies: {}, expected: {}").format(subscription_resource_id, count, replies))
 
 
 # Primitive getters uses JSON pointer object or string

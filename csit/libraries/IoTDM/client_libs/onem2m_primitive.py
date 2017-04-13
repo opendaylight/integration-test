@@ -260,6 +260,7 @@ OneM2M = OneM2MPrimitiveDefinitions()
 
 class OneM2MEncodeDecodeData(object):
     """Utility class which allows to define encoding/decoding dictionaries"""
+
     def __init__(self, data_type):
         if not data_type:
             raise Exception("No data type string specified")
@@ -432,6 +433,7 @@ class OneM2MPrimitiveBuilderException(Exception):
 
 class OneM2MPrimitiveBuilder(IoTDataBuilder, OneM2MPrimitive):
     """Abstract class describes OneM2M primitive object builder"""
+
     def set_parameters(self, parameters):
         raise NotImplementedError()
 
@@ -462,11 +464,13 @@ class OneM2MPrimitiveBuilder(IoTDataBuilder, OneM2MPrimitive):
 
 class OneM2MPrimitiveEncoder(IoTDataEncoder):
     """IoT Data Encoder specialization for OneM2M primitives"""
+
     def encode(self, onem2m_primitive):
         raise NotImplementedError()
 
 
 class OneM2MPrimitiveDecoder(IoTDataDecoder):
     """IoT Data Decoder specialization for OneM2M primitives"""
+
     def decode(self, protocol_message):
         raise NotImplementedError()

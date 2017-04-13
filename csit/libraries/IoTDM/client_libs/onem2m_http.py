@@ -148,6 +148,7 @@ onem2m_to_http_result_codes = {
 
 class OneM2MHttpTx(IoTTx):
     """Implementation of HTTP OneM2M Tx channel"""
+
     def __init__(self, encoder, decoder):
         super(OneM2MHttpTx, self).__init__(encoder, decoder)
         self.session = None
@@ -179,6 +180,7 @@ class OneM2MHttpTx(IoTTx):
 
 class OneM2MHttpRx(IoTRx):
     """Implementation of HTTP OneM2M Rx channel"""
+
     def __init__(self, decoder, encoder, port, interface=""):
         super(OneM2MHttpRx, self).__init__(decoder, encoder)
         self.interface = interface
@@ -588,5 +590,6 @@ class OneM2MHttpJsonPrimitive(OneM2MJsonPrimitive):
 
 class OneM2MHttpJsonPrimitiveBuilder(OneM2MJsonPrimitiveBuilder):
     """Builder class specialized for OneM2MHttpJsonPrimitive objects"""
+
     def build(self):
         return OneM2MHttpJsonPrimitive(self.parameters, self.content, self.protocol, self.proto_params)

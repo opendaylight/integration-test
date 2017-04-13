@@ -14,6 +14,7 @@
 
 class IoTCommunication(object):
     """Aggregates Rx and Tx channel for sending and receiving IoTData."""
+
     def __init__(self, tx, rx):
         pass
 
@@ -23,6 +24,7 @@ class IotComm(object):
     Implements communication concepts of starting and stopping communication.
     Only methods _start() and _stop() should be implemented by child classes.
     """
+
     def __init__(self):
         self._started = False
 
@@ -63,6 +65,7 @@ class IoTTx(IotComm):
     Uses protocol specific encoder to encode IoTData and protocol specific
     decoder to decode result.
     """
+
     def __init__(self, encoder, decoder):
         self.encoder = encoder
         self.decoder = decoder
@@ -83,6 +86,7 @@ class IoTRx(IotComm):
     IoTData and protocol specific encoder is used to encode result of
     handling.
     """
+
     def __init__(self, decoder, encoder):
         self.encoder = encoder
         self.decoder = decoder
