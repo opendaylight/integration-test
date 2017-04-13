@@ -230,4 +230,3 @@ Remove Single Group And Flow
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
     \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
 
-
