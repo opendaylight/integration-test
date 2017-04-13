@@ -28,8 +28,6 @@ ${URI}            http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
 @{cleanup_role_list}
 @{cleanup_user_list}
 @{cleanup_grant_list}
-# will modify value in Setup and use throughout the code
-${HEADERS}        ${EMPTY}
 
 *** Test Cases ***
 Test Post New Domain
@@ -397,19 +395,14 @@ Test Grant Role To Domain And User
 IdMLight Suite Setup
     Log    Suite Setup
     # create a domain, role and user for testing.
-    ${HEADERS}=    Create Dictionary    Content-Type=application/json
-    Log    ${HEADERS}
     Set Global Variable    ${HEADERS}
     # create a name to use in each case
     ${testdomain}=    Create Random Name    Alderaan
-    Log    ${testdomain}
     ${testuser}=    Create Random Name    Leia
-    Log    ${testuser}
     ${testrole}=    Create Random Name    Force-User
-    Log    ${testrole}
     # now create the domain, role and userid
     # create the test domain
-    Create Session    httpbin    ${URI}
+    Create Session    httpbin    ${URI}    auth=${AUTH}    headers=${HEADERS}
     ${domaindata}=    Set Variable    {"description":"planetary domain","domainid":"7","name":"${testdomain}","enabled":"true"}
     ${newdomain}=    Post New Domain    ${testdomain}    ${domaindata}
     Log    ${newdomain}
