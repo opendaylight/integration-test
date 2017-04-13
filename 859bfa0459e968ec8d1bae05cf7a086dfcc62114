@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_73b0e18b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-13T06:33:17Z",
+      "side": 1,
+      "message": "ok, I see where you are coming from. still, we should\ntake this chance to make things better for everyone.\n\nthis \"Get Model Dump\" is now being used by three different\nprojects, but the code is the same. The only thing different\nis the models to dump.\n\nI just put this patch:\n\nhttps://git.opendaylight.org/gerrit/54934\n\nthe problem with this now, is that we need to make sure\nit\u0027s ok in the sandbox before we can get it +2 and merged.\nbut once it\u0027s working, you can refactor this patch to\nuse it.\n\nthoughts?",
+      "parentUuid": "da01753e_f5f31e71",
+      "revId": "859bfa0459e968ec8d1bae05cf7a086dfcc62114",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_c4462ebf",
         "filename": "csit/suites/genius/04_BFD_monitoring.robot",
         "patchSetId": 18
