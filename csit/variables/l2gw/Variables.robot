@@ -19,8 +19,10 @@ ${NET_2_SEGID}    1064
 ${NET_2}          NETHWV2
 ${NS_PORT1}       PORT1
 ${NS_PORT2}       PORT2
+${NS2_PORT1}      PORT3
+${NS2_PORT2}      PORT4
 ${NS_TAP1}        TAP1
-${NS_TAP2}        TAP2
+${NS2_TAP1}       TAP2
 ${OVS_BRIDGE}     br-int
 ${OVS_PORT_1}     OVSPORT1
 ${OVS_PORT_2}     OVSPORT2
@@ -87,10 +89,10 @@ ${OVSDB_NETWORK_TOPOLOGY}    /restconf/operational/network-topology:network-topo
 ${REM_OVSDB}      sudo rm /etc/openvswitch/ovs.db
 ${REM_VTEPDB}     sudo rm /etc/openvswitch/vtep.db
 ${SET_FAIL_MODE}    sudo ovs-vsctl set-fail-mode
-${SET_VTEP_PS}    sudo vtep-ctl set ${PHYSICAL_SWITCH_TABLE} ${HWVTEP_BRIDGE} tunnel_ips=
+${SET_VTEP_PS}    sudo vtep-ctl set ${PHYSICAL_SWITCH_TABLE}
 ${SLEEP1S}        sleep 1
 ${START_OVSDB_SERVER}    sudo ovsdb-server --pidfile --detach --log-file --remote punix:/var/run/openvswitch/db.sock --remote=db:hardware_vtep,Global,managers /etc/openvswitch/ovs.db /etc/openvswitch/vtep.db
-${START_OVSVTEP}    sudo /usr/share/openvswitch/scripts/ovs-vtep --log-file=/var/log/openvswitch/ovs-vtep.log --pidfile=/var/run/openvswitch/ovs-vtep.pid --detach ${HWVTEP_BRIDGE}
+${START_OVSVTEP}    sudo /usr/share/openvswitch/scripts/ovs-vtep --log-file=/var/log/openvswitch/ovs-vtep.log --pidfile=/var/run/openvswitch/ovs-vtep.pid --detach
 ${STR_VIF_REPLACE}    "neutron-binding:vif-type":"ovs"
 ${STR_VIF_TYPE}    "neutron-binding:vif-type":"unbound"
 ${STR_VNIC_REPLACE}    "neutron-binding:vnic-type":"direct"
@@ -117,3 +119,4 @@ ${UCAST_MACS_REMOTE_TABLE}    Ucast_Macs_Remote
 ${VLAN_BINDING_REGEX}    vlan_bindings+\\s+:\\s+[{]0[=]
 ${NETSTAT_OVSDB_REGEX}    ${ODL_SYSTEM_IP}:${OVSDBPORT}\\s+ESTABLISHED\\s
 ${NETSTAT_OF_REGEX}    ${ODL_SYSTEM_IP}:${ODL_OF_PORT}\\s+ESTABLISHED\\s
+
