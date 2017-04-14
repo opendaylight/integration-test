@@ -15,24 +15,26 @@ Resource          ../../variables/l2gw/Variables.robot
 *** Keywords ***
 Start Suite
     [Documentation]    Suite Setup to configure HWVTEP Emulator for L2 Gateway Testcase Verification.
-    Create And Set Hwvtep Connection Id
-    Hwvtep Cleanup
+    ${hwvtep_conn_id}=    Create And Set Hwvtep Connection Id    ${HWVTEP_IP}
+    Set Suite Variable    ${hwvtep_conn_id}
+    Hwvtep Cleanup    ${hwvtep_conn_id}    ${HWVTEP_BRIDGE}
     Namespace Cleanup
-    Hwvtep Initiate
-    Namespace Intiate
+    Hwvtep Initiate    ${hwvtep_conn_id}    ${HWVTEP_IP}    ${HWVTEP_BRIDGE}
+    Namespace Intiate Hwvtep1
     Wait Until Keyword Succeeds    30s    1s    Hwvtep Validation
 
 Stop Suite
     [Documentation]    Stop Suite to cleanup Hwvtep configuration
-    Hwvtep Cleanup
+    Hwvtep Cleanup    ${hwvtep_conn_id}    ${HWVTEP_BRIDGE}
     Namespace Cleanup
     Switch Connection    ${hwvtep_conn_id}
-    close connection
+    Close Connection
 
 Hwvtep Cleanup
+    [Arguments]    ${conn_id}    ${hwvtep_bridge}
     [Documentation]    Cleanup any existing VTEP, VSWITCHD or OVSDB processes.
-    Switch Connection    ${hwvtep_conn_id}
-    Write Commands Until Prompt    ${DEL_OVS_BRIDGE} ${HWVTEP_BRIDGE}    30s
+    Switch Connection    ${conn_id}
+    Write Commands Until Prompt    ${DEL_OVS_BRIDGE} ${hwvtep_bridge}    30s
     Write Commands Until Prompt    ${KILL_VTEP_PROC}    30s
     Write Commands Until Prompt    ${KILL_VSWITCHD_PROC}    30s
     Write Commands Until Prompt    ${KILL_OVSDB_PROC}    30s
@@ -51,12 +53,14 @@ Namespace Cleanup
     ${stdout}=    Write Commands Until Prompt    ${NETNS}    30s
     Log    ${stdout}
     Write Commands Until Prompt    ${NETNS_DEL} ${HWVTEP_NS1}    30s
+    Write Commands Until Prompt    ${NETNS_DEL} ${HWVTEP_NS2}    30s
     ${stdout}=    Write Commands Until Prompt    ${IP_LINK}    30s
     Log    ${stdout}
 
 Hwvtep Initiate
+    [Arguments]    ${conn_id}    ${hwvtep_ip}    ${hwvtep_bridge}
     [Documentation]    Configure the Hwvtep Emulation
-    Switch Connection    ${hwvtep_conn_id}
+    Switch Connection    ${conn_id}
     Write Commands Until Prompt    ${CREATE_OVSDB}    30s
     Write Commands Until Prompt    ${CREATE VTEP}    30s
     Write Commands Until Prompt    ${START_OVSDB_SERVER}    30s
@@ -64,16 +68,16 @@ Hwvtep Initiate
     Log    ${stdout}
     Write Commands Until Prompt    ${INIT_VSCTL}    30s
     Write Commands Until Prompt    ${DETACH_VSWITCHD}    30s
-    Write Commands Until Prompt    ${CREATE_OVS_BRIDGE} ${HWVTEP_BRIDGE}    30s
+    Write Commands Until Prompt    ${CREATE_OVS_BRIDGE} ${hwvtep_bridge}    30s
     ${stdout}=    Write Commands Until Prompt    ${OVS_SHOW}    30s
     Log    ${stdout}
-    Write Commands Until Prompt    ${ADD_VTEP_PS} ${HWVTEP_BRIDGE}    30s
-    Write Commands Until Prompt    ${SET_VTEP_PS}${HWVTEP_IP}    30s
-    Write Commands Until Prompt    ${START_OVSVTEP}    30s
+    Write Commands Until Prompt    ${ADD_VTEP_PS} ${hwvtep_bridge}    30s
+    Write Commands Until Prompt    ${SET_VTEP_PS} ${hwvtep_bridge} tunnel_ips=${hwvtep_ip}    30s
+    Write Commands Until Prompt    ${START_OVSVTEP} ${hwvtep_bridge}    30s
     ${stdout}=    Write Commands Until Prompt    ${GREP_OVS}    30s
     Log    ${stdout}
 
-Namespace Intiate
+Namespace Intiate Hwvtep1
     [Documentation]    Create and configure the namespace, bridges and ports.
     Switch Connection    ${hwvtep_conn_id}
     Write Commands Until Prompt    ${NETNS_ADD} ${HWVTEP_NS1}    30s
@@ -84,6 +88,14 @@ Namespace Intiate
     Write Commands Until Prompt    sudo ${IPLINK_SET} ${NS_PORT1} up    30s
     ${stdout}=    Write Commands Until Prompt    ${NETNS_EXEC} ${HWVTEP_NS1} ${IFCONF}    30s
     Log    ${stdout}
+    Write Commands Until Prompt    ${NETNS_ADD} ${HWVTEP_NS2}    30s
+    Write Commands Until Prompt    ${IP_LINK_ADD} ${NS2_TAP1} type veth peer name ${NS_PORT2}    30s
+    Write Commands Until Prompt    ${CREATE_OVS_PORT} ${HWVTEP_BRIDGE} ${NS_PORT2}    30s
+    Write Commands Until Prompt    ${IP_LINK_SET} ${NS2_TAP1} netns ${HWVTEP_NS2}    30s
+    Write Commands Until Prompt    ${NETNS_EXEC} ${HWVTEP_NS2} ${IPLINK_SET} ${NS2_TAP1} up    30s
+    Write Commands Until Prompt    sudo ${IPLINK_SET} ${NS_PORT2} up    30s
+    ${stdout}=    Write Commands Until Prompt    ${NETNS_EXEC} ${HWVTEP_NS2} ${IFCONF}    30s
+    Log    ${stdout}
 
 Hwvtep Validation
     [Documentation]    Initial validation of the Hwvtep Configuration to confirm Phyisical_Switch table entries
@@ -93,10 +105,12 @@ Hwvtep Validation
     Should Contain    ${stdout}    ${HWVTEP_IP}
     ${stdout}=    Write Commands Until Prompt    ${VTEP LIST} ${PHYSICAL_PORT_TABLE}    30s
     Should Contain    ${stdout}    ${NS_PORT1}
+    Should Contain    ${stdout}    ${NS_PORT2}
 
 Create And Set Hwvtep Connection Id
-    [Documentation]    To create Hwvtep connection id for the suite
-    ${hwvtep_conn_id}=    SSHLibrary.Open Connection    ${HWVTEP_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
-    Set Suite Variable    ${hwvtep_conn_id}
-    Log    ${hwvtep_conn_id}
+    [Arguments]    ${hwvtep_ip}
+    [Documentation]    To create connection and return connection id for hwvtep_ip received
+    ${conn_id}=    SSHLibrary.Open Connection    ${hwvtep_ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Log    ${conn_id}
     Flexible SSH Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    [Return]    ${conn_id}
