@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_3d773f3c",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-14T00:23:58Z",
+      "side": 1,
+      "message": "This is obsolete, use Resource ../variables/Variables.robot",
+      "revId": "f16a520f6083370db86e0fed3d317181a2028e15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3dc57f3c",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-14T00:23:58Z",
+      "side": 1,
+      "message": "Why you need this WUKS here if you have the same in the test calling this KW?",
+      "revId": "f16a520f6083370db86e0fed3d317181a2028e15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_bdb16fe3",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-14T00:23:58Z",
+      "side": 1,
+      "message": "We already have this KW in Utils.Check For Elements At URI",
+      "revId": "f16a520f6083370db86e0fed3d317181a2028e15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3dae1f86",
+        "filename": "csit/suites/netconf/callhome/callhome.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-14T00:23:58Z",
+      "side": 1,
+      "message": "Same you are doing above or in the CallHome library, name the library you are using for every KW, for example: NetconfCallHome.Check Device Status",
+      "revId": "f16a520f6083370db86e0fed3d317181a2028e15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1dd7dbee",
+        "filename": "csit/suites/netconf/callhome/callhome.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-14T00:23:58Z",
+      "side": 1,
+      "message": "I think you can remove this if you are not using suite KWs.",
+      "revId": "f16a520f6083370db86e0fed3d317181a2028e15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_9d390b44",
+        "filename": "csit/variables/netconf/callhome/credentials_set.sh",
+        "patchSetId": 31
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-14T00:23:58Z",
+      "side": 1,
+      "message": "Why you need this script for just sending a REST request to controller? cannot do the same using robot?",
+      "revId": "f16a520f6083370db86e0fed3d317181a2028e15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_bdffaf66",
+        "filename": "csit/variables/netconf/callhome/credentials_set.sh",
+        "patchSetId": 31
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-14T00:23:58Z",
+      "side": 1,
+      "message": "I do not think this is the right license for ODL, please check with CallHome devs.",
+      "revId": "f16a520f6083370db86e0fed3d317181a2028e15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_fd3f7723",
+        "filename": "csit/variables/netconf/callhome/whitelist_add.sh",
+        "patchSetId": 31
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-14T00:23:58Z",
+      "side": 1,
+      "message": "Same comment here, why you need this script if you can do the same with robot?",
+      "revId": "f16a520f6083370db86e0fed3d317181a2028e15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1d451bb3",
+        "filename": "csit/variables/netconf/callhome/whitelist_add.sh",
+        "patchSetId": 31
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-14T00:23:58Z",
+      "side": 1,
+      "message": "Wrong license afaik.",
+      "revId": "f16a520f6083370db86e0fed3d317181a2028e15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
