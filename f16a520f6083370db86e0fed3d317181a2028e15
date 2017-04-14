@@ -121,6 +121,23 @@
     },
     {
       "key": {
+        "uuid": "da01753e_b8833d03",
+        "filename": "csit/variables/netconf/callhome/docker-compose.yaml",
+        "patchSetId": 31
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-14T06:52:33Z",
+      "side": 1,
+      "message": "Controller needs to be provisoned with netopeer hostname and public key and this is kind of hidden here.\n\nThe way this is done with docker compose is:\n\n- Create public key.\n- Execute script to send REST to provision netopeer hostname + public key + credentials in controller.\n- Start netopeer.\n\nThe way I would do to make this more clear and readable:\n\n- Use Robot to send REST to provision netopeer hostname + public key + credentials in controller.\n- Execute script in docker compose to set hostname and copy private/public key pair.\n- Start netopeer",
+      "revId": "f16a520f6083370db86e0fed3d317181a2028e15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_fd3f7723",
         "filename": "csit/variables/netconf/callhome/whitelist_add.sh",
         "patchSetId": 31
