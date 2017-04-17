@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_21b0b142",
+        "filename": "csit/libraries/NetconfCallHome.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-17T22:22:51Z",
+      "side": 1,
+      "message": "Missing library: Utils.Check For Elements At URI.",
+      "revId": "9242f68aa8d7c9c636695884c078ac167c1b93a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_81ed1d28",
+        "filename": "csit/suites/netconf/callhome/callhome.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-17T22:22:51Z",
+      "side": 1,
+      "message": "You know you can break this long line down by adding ... at the beginning of the next line? also clarify call home server \u003d controller.",
+      "revId": "9242f68aa8d7c9c636695884c078ac167c1b93a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_41b5f52f",
+        "filename": "csit/suites/netconf/callhome/callhome.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-17T22:22:51Z",
+      "side": 1,
+      "message": "You miss the library here too: Utils.Check For Elements At URI. this also happens later in the file.",
+      "revId": "9242f68aa8d7c9c636695884c078ac167c1b93a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a1830155",
+        "filename": "csit/variables/netconf/callhome/credentials_set.sh",
+        "patchSetId": 35
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-17T22:22:51Z",
+      "side": 1,
+      "message": "To improve readibility, can you add extra line after 80 characters are reached?",
+      "revId": "9242f68aa8d7c9c636695884c078ac167c1b93a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_0192cd9e",
+        "filename": "csit/variables/netconf/callhome/docker-compose.yaml",
+        "patchSetId": 35
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-17T22:22:51Z",
+      "side": 1,
+      "message": "for clarity, can you enumerate the steps below?",
+      "revId": "9242f68aa8d7c9c636695884c078ac167c1b93a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c180c548",
+        "filename": "csit/variables/netconf/callhome/docker-compose.yaml",
+        "patchSetId": 35
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-17T22:22:51Z",
+      "side": 1,
+      "message": "Create new line after 80 chars please.",
+      "revId": "9242f68aa8d7c9c636695884c078ac167c1b93a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e17d0970",
+        "filename": "csit/variables/netconf/callhome/whitelist_add.sh",
+        "patchSetId": 35
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-17T22:22:51Z",
+      "side": 1,
+      "message": "Can you also create new line after 80 char reached.",
+      "revId": "9242f68aa8d7c9c636695884c078ac167c1b93a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
