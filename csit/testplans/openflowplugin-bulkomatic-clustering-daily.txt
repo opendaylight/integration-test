@@ -1,2 +1,4 @@
 # Place the suites in run order:
-integration/test/csit/suites/openflowplugin/Clustering_Bulkomatic/
+#integration/test/csit/suites/openflowplugin/Clustering_Bulkomatic/
+#integration/test/csit/suites/openflowplugin/Clustering_Bulkomatic/040__Cluster_HA_Follower_Down_During_100K_Flow.robot
+integration/test/csit/suites/openflowplugin/Clustering_Bulkomatic/050__Cluster_HA_Leader_Down_During_100K_Flow.robot
