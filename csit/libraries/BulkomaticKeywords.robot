@@ -11,6 +11,8 @@ ${GET_BULK_CONFIG_NODES_API}    /restconf/operations/sal-bulk-flow:read-flow-tes
 ${jolokia_write_op_status}    /jolokia/read/org.opendaylight.openflowplugin.applications.bulk.o.matic:type=FlowCounter/WriteOpStatus
 ${jolokia_read_op_status}    /jolokia/read/org.opendaylight.openflowplugin.applications.bulk.o.matic:type=FlowCounter/ReadOpStatus
 ${jolokia_flow_count_status}    /jolokia/read/org.opendaylight.openflowplugin.applications.bulk.o.matic:type=FlowCounter/FlowCount
+${jolokia_success_count_status}    /jolokia/read/org.opendaylight.openflowplugin.applications.bulk.o.matic:type=FlowStats/SuccessCount
+${jolokia_failure_count_status}    /jolokia/read/org.opendaylight.openflowplugin.applications.bulk.o.matic:type=FlowStats/FailureCount
 
 *** Keywords ***
 Operation Status Check
@@ -129,3 +131,25 @@ Set DPN And Flow Count In Json Del
     ${json_body_del}    Replace String Using Regexp    ${json_body_del}    ${get_string}    ${put_string}
     Log    ${json_body_del}
     [Return]    ${json_body_del}
+
+Get Bulk Flow Count Status
+    [Arguments]    ${controller_index}    ${jolokia_flow_count_status}
+    [Documentation]    Get Flow count in member ${controller_index}. New Flow Count is available after Get Bulk Flow operation.
+    ${data}=    ClusterManagement.Get From Member    ${jolokia_flow_count_status}    ${controller_index}
+    [Return]    ${data}
+
+Verify Success Failure Count
+    [Arguments]    ${flow_count}    ${controller_index}
+    [Documentation]    Verify Flow Count in member ${controller_index} matches ${flow_count}.
+    ${data}=    Get Bulk Flow Count Status    ${controller_index}    ${jolokia_success_count_status}
+    ${json}=    To Json    ${data}
+    ${success_count}=    Get From Dictionary    ${json}    value
+    BuiltIn.Log to console    ${\n}
+    BuiltIn.Log to console    The success_count is ${success_count}
+    ${data}=    Get Bulk Flow Count Status    ${controller_index}    ${jolokia_failure_count_status}
+    ${json}=    To Json    ${data}
+    ${failure_count}=    Get From Dictionary    ${json}    value
+    BuiltIn.Log to console    ${\n}
+    BuiltIn.Log to console    The failure_count is ${failure_count}
+    ${total_flow_count}=    BuiltIn.Evaluate    ${success_count} + ${failure_count}
+    Should Be Equal As Strings    ${total_flow_count}    ${flow_count}
