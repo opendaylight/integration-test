@@ -1,0 +1,4 @@
+[
+{"op":"add","path":"/difference","value":"yes this is the difference"},
+{"op":"remove","path":"/difference"}
+]
