@@ -67,6 +67,7 @@ ${DELETE_DASHBOARDRECORD}    /restconf/operations/dashboardrule:delete-dashboard
 ${ELASTICPORT}    9200    # Port to use when interacting with ElasticSearch. FIXME: Hide into a specific Resource.
 ${ENABLE_GLOBAL_TEST_DEADLINES}    True    # Some suites need this to avoid getting stuck. FIXME: Move to the Resource which uses this.
 ${ESCAPE_CHARACTER}    \x1b    # A more readable alias to the special escape character.
+${FIB_ENTRIES_URL}    ${CONFIG_API}/odl-fib:fibEntries/
 ${FLOWFILTERENTRIES_CREATE}    flowfilterentries.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${FLOWFILTERS}    flowfilters/in    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${FLOWFILTERS_CREATE}    flowfilters.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
