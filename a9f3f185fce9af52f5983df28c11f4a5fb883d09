@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_217d511d",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-18T01:55:06Z",
+      "side": 1,
+      "message": "This is too much of code duplication if we compare with previous KW. I would suggest to create new KW called Get_Raft_Property_From_Shard_Member and you pass the property (Raft State, Current Term, Last Index, etc...) as argument. After that you can easily create KWs like Get_Raft_State_Of_Shard_At_Member, Get_Current_Term_Of_Shard_At_Member, etc.. by reusing the new KW.",
+      "revId": "a9f3f185fce9af52f5983df28c11f4a5fb883d09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
