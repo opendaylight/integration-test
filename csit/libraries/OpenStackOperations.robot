@@ -424,14 +424,6 @@ Test Operations From Vm Instance
     Run Keyword If    ${rcode}    Check Metadata Access
     [Teardown]    Exit From Vm Console
 
-Install Netcat On Controller
-    [Documentation]    Installs Netcat on the controller - this probably shouldn't be here
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    sudo yum install -y nc
-    Log    ${output}
-    Close Connection
-
 Test Netcat Operations From Vm Instance
     [Arguments]    ${net_name}    ${vm_ip}    ${dest_ip}    ${additional_args}=${EMPTY}    ${port}=12345    ${user}=cirros
     ...    ${password}=cubswin:)

@@ -131,9 +131,6 @@ Ping External Network PNF from Vm Instance 1
     ${dst_ip}=    Create List    ${external_pnf}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{FLOATING_VM_IPS}[0]    ${dst_ip}    ttl=1
 
-Prepare SNAT - Install Netcat On Controller
-    Install Netcat On Controller
-
 SNAT - TCP connection to External Gateway From SNAT VM Instance1
     [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
     Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${external_gateway}
