@@ -98,7 +98,7 @@ Create Port Chain
 
 Start Web Server On Destination VM
     [Documentation]    Start a simple web server on the destination VM
-    Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[4]    while true; do echo -e "HTTP/1.0 200 OK\r\n\r\nWelcome to $(hostname)" | sudo nc -l -p 80 ; done&
+    Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[4]    while true; do echo -e "HTTP/1.0 200 OK\r\nContent-Length: 21\r\n\r\nWelcome to web-server" | sudo nc -l -p 80 ; done &
 
 Add Static Routing On Service Function VMs
     [Documentation]    Enable eth1 and add static routing between the ports on the SF VMs
@@ -131,6 +131,11 @@ Delete All SFC Objects
     Delete SFC Port Pair    PP2
     Delete SFC Port Pair    PP3
     Delete SFC Flow Classifier    FC_http
+
+Delete Neutron Ports
+    [Documentation]    Delete neutron ports that were used for SFC VMs
+    : FOR    ${port}    IN    @{PORTS}
+    \    Delete Port    ${port}
 
 Delete Sub Networks In network_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
