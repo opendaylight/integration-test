@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_a1b96a30",
+        "filename": "csit/libraries/Netvirt.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-04-18T14:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_f35d0ceb",
+      "revId": "2b8f086a2fdaf3c7757c4de0f110e617c5988d8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_73691c8b",
         "filename": "csit/libraries/Netvirt.robot",
         "patchSetId": 4
@@ -47,6 +65,30 @@
       "writtenOn": "2017-04-08T01:09:04Z",
       "side": 1,
       "message": "Can we get a more easily understood name? Took me to read the\ncode to understand that we are making sure some flows don\u0027t\nexist on a specific set of nodes.\n\nmaybe \"Verify Flows Are Cleaned Up On OpenStack Nodes\"\n\nanyway, further enhancements could be to give an argment list\nwith the nodes you want to check.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "2b8f086a2fdaf3c7757c4de0f110e617c5988d8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_41935ea3",
+        "filename": "csit/libraries/Netvirt.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-04-18T14:06:02Z",
+      "side": 1,
+      "message": "Fixed, didn\u0027t do the enhancement at this point.",
+      "parentUuid": "da01753e_9303e0b7",
       "range": {
         "startLine": 28,
         "startChar": 0,
