@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_e6907697",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "RIDE",
+      "range": {
+        "startLine": 42,
+        "startChar": 56,
+        "endLine": 42,
+        "endChar": 60
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8646ca1f",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "trailing white space.",
+      "range": {
+        "startLine": 10,
+        "startChar": 52,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e65516c7",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 11,
+        "startChar": 49,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c650d2d6",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 13,
+        "startChar": 48,
+        "endLine": 13,
+        "endChar": 49
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_265f1ee7",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 24,
+        "startChar": 79,
+        "endLine": 24,
+        "endChar": 80
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_0662daac",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 4
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_665926fe",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 4
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a672ee79",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 68,
+        "startChar": 34,
+        "endLine": 68,
+        "endChar": 35
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_866d2a9c",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 91,
+        "startChar": 48,
+        "endLine": 91,
+        "endChar": 52
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c66732b6",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 114,
+        "startChar": 87,
+        "endLine": 114,
+        "endChar": 88
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_2606fece",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 8
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_06093add",
+        "filename": "csit/libraries/jsonpathl.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "trailing white space",
+      "range": {
+        "startLine": 20,
+        "startChar": 33,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_66100602",
+        "filename": "csit/libraries/jsonpathl.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 21,
+        "startChar": 1,
+        "endLine": 21,
+        "endChar": 2
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4613420d",
+        "filename": "csit/libraries/jsonpathl.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 30,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 2
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a6f94eca",
+        "filename": "csit/libraries/jsonpathl.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5861
+      },
+      "writtenOn": "2017-04-19T07:06:40Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 33,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 2
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
