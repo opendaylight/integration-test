@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "da01753e_e6f23699",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "You don\u0027t need this logs. Robot automatically logs assignment instructions, meaning that the lines above are logged and you can inspect them already to see the value of these variables.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 70
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_66364654",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "If these verifications failed, the error message is quite uninformative, espcially for anybody not familiar with the actual code. You can complete them with additional messages, explicitly stating the problem to the final user. E.g.\n\n  Should Be Equal    0    ${resultConfig}    Operational datastore should be equal after restore\n\nalso notice that quotes are not normally needed (at least for the 0) since literals are always strings by default",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 52
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_8646ca1f",
         "filename": "csit/libraries/JsonDiffTool.py",
         "patchSetId": 1
@@ -140,6 +186,46 @@
     },
     {
       "key": {
+        "uuid": "da01753e_46a3424f",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "This function is doing 2 things (change the path format, and including the path into a \u0027remove op\u0027 pattern), contrary to the usual pattern to make functions only do one thing at a time. What about doing a function for the first purpose at least?",
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e6fcf640",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "matchedpath \u003d matchedpath.rtrim(\u0027/\u0027)",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 64
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_665926fe",
         "filename": "csit/libraries/JsonDiffTool.py",
         "patchSetId": 1
@@ -209,6 +295,40 @@
     },
     {
       "key": {
+        "uuid": "da01753e_86ab6a1d",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "You can specify the return type.\n\n  :rtype:  str",
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_46ba226f",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "In this case, it is returned as a json.loads, but the last line in the function is returning as string. The function states the original document to be returned, so this line here seems the wrong one.",
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_c66732b6",
         "filename": "csit/libraries/JsonDiffTool.py",
         "patchSetId": 1
@@ -255,6 +375,121 @@
     },
     {
       "key": {
+        "uuid": "da01753e_66e92680",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "You are not closing the files. Good practice:\n\n  with open(args.initialFile) as f:\n    jsonInitial \u003d file.read(f)\n\nautomatically closes the resource in the \u0027with\u0027 clause.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 47
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_06cbfa1e",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "Not needed. Python automatically concatenates literal strings",
+      "range": {
+        "startLine": 157,
+        "startChar": 12,
+        "endLine": 157,
+        "endChar": 13
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e64eb6c0",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "Not needed. Just add \n\n  required\u003dTrue \n\nto those options",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 16
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_465ea277",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "Simpler:\n\n  args.printDifferences \u003d getattr(args, \u0027printDifferences\u0027, False)\n  if args.printDifferences:\n    logging.info(\u0027(will print differences)\u0027)\n\nbut, since action\u003d\u0027store_true\u0027, I think that the first line is not needed either.",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 37
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_668486d4",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "Remove semicolons ;",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 18
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_06093add",
         "filename": "csit/libraries/jsonpathl.py",
         "patchSetId": 1
@@ -269,6 +504,29 @@
       "range": {
         "startLine": 20,
         "startChar": 33,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_46ece28f",
+        "filename": "csit/libraries/jsonpathl.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-19T08:16:09Z",
+      "side": 1,
+      "message": "What about this licence? Is it allowed to provide this file as is?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
         "endLine": 20,
         "endChar": 34
       },
