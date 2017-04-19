@@ -396,6 +396,8 @@ Delete ITM Tunnel
 *** Keywords ***
 Basic Vpnservice Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All TRACE org.opendaylight.openflowplugin.impl.services
+    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All TRACE org.opendaylight.openflowjava.protocol.impl.core.connnection
     DevstackUtils.Devstack Suite Setup
 
 Basic Vpnservice Suite Teardown
