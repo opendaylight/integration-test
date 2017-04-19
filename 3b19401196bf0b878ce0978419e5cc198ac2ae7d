@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_ccfe31ae",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-04-19T11:34:51Z",
+      "side": 1,
+      "message": "The problem with using $(hostname) is that the content-length changes. The cirros curl client seems to depend on content-length existing otherwise this hangs, I can improve this later.",
+      "parentUuid": "da01753e_8c3549dd",
+      "revId": "3b19401196bf0b878ce0978419e5cc198ac2ae7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_ac680dbb",
         "filename": "csit/variables/netvirt/Modules.py",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-19T11:16:31Z",
       "side": 1,
       "message": "should add rendered-service-path, acl",
+      "revId": "3b19401196bf0b878ce0978419e5cc198ac2ae7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8cbf09fc",
+        "filename": "csit/variables/netvirt/Modules.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2017-04-19T11:34:51Z",
+      "side": 1,
+      "message": "added operational/rendered-service-path:rendered-service-path, not adding acls (we have ietf-access-control-list:access-lists\u0027)",
+      "parentUuid": "da01753e_ac680dbb",
       "revId": "3b19401196bf0b878ce0978419e5cc198ac2ae7d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
