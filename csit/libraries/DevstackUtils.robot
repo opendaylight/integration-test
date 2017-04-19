@@ -46,6 +46,17 @@ Run Tempest Tests
     Should Contain    ${results}    Failed: 0
     # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
 
+Run Rally Task
+    [Arguments]    ${rally_task}    ${rally_directory}=/opt/stack/rally    ${timeout}=3600s
+    [Documentation]    Execute the rally tasks
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    Write Commands Until Prompt    cd ${rally_directory}
+    ${results}=    Write Commands Until Prompt    rally task start ${rally_task}    timeout=${timeout}
+    Log    ${results}
+    ${rally_task_short}=    Fetch From Right    ${rally_task}    /
+    Create File    rally_${rally_task_short}_output.log    data=${results}
+
 Devstack Suite Setup
     [Arguments]    ${source_pwd}=no    ${odl_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Login to the Openstack Control Node to run tempest suite
