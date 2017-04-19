@@ -223,3 +223,15 @@ Restart Jetty
     Wait For Karaf Log    Instantiated the Application class org.opendaylight.restconf.RestconfApplication
     Wait For Karaf Log    Instantiated the Application class org.opendaylight.netconf.sal.rest.impl.RestconfApplication
     Wait For Karaf Log    Instantiated the Application class org.opendaylight.aaa.idm.IdmLightApplication
+
+Config_Admin_Property_Set
+    [Arguments]    ${pid}    ${property}    ${value}    ${member_index_list}=${EMPTY}
+    [Documentation]    Uses osgi/karaf's config admin to set properties.
+    ${cmd_set} =    BuiltIn.Set_Variable    config:edit ${pid}; config:property-set ${property} ${value}; config:update
+    ${cmd_list} =     BuiltIn.Set_Variable    config:edit ${pid}; config:property-list; config:cancel
+    ${index_list} =    ClusterManagement.List_Indices_Or_All    given_list=${member_index_list}
+    : FOR    ${index}    IN    @{index_list}
+    \    ${status}    ${output}=    BuiltIn.Run_Keyword_And_Ignore_Error    Execute_Controller_Karaf_Command_With_Retry_On_Background    ${cmd_set}    member_index=${index}
+    \    BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    BuiltIn.Fail    ${output}
+    \    ${status}    ${output}=    BuiltIn.Run_Keyword_And_Ignore_Error    Execute_Controller_Karaf_Command_With_Retry_On_Background    ${cmd_list}    member_index=${index}
+
