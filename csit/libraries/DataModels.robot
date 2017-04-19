@@ -2,7 +2,7 @@
 Documentation     Library to deal with mdsal data models. Initially, as a common place to show and
 ...               debug a list of data models.
 Library           RequestsLibrary
-Variables         ../variables/netvirt/Variables.py
+Resource         ../variables/netvirt/Variables.robot
 
 *** Variables ***
 @{data_models}    ${EMPTY}
