@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_253a6a36",
+        "filename": "csit/libraries/DataModels.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-19T23:52:18Z",
+      "side": 0,
+      "message": "we don\u0027t need this here. it should be sourced from the suites \nthat need it. Other projects are doing the same, so we keep\nthis file clean/generic.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 51
+      },
+      "revId": "2a65d9a0f0c7733c870263a6955c776aed504cb3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
