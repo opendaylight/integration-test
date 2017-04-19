@@ -18,6 +18,7 @@ Resource          ../../../variables/netvirt/Variables.robot
 ${blacklist_file}    /tmp/blacklist.txt
 @{stable/mitaka_exclusion_regexes}    test_routers_negative.RoutersNegativeIpV6Test.test_router_set_gateway_used_ip_returns_409    test_routers_negative.RoutersNegativeTest.test_router_set_gateway_used_ip_returns_409
 @{stable/newton_exclusion_regexes}    ${EMPTY}
+@{stable/ocata_exclusion_regexes}    ${EMPTY}
 ${tempest_config_file}    /opt/stack/tempest/etc/tempest.conf
 ${external_physical_network}    physnet1
 ${external_net_name}    external-net
