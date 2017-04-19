@@ -2,7 +2,6 @@
 Documentation     Library to deal with mdsal data models. Initially, as a common place to show and
 ...               debug a list of data models.
 Library           RequestsLibrary
-Variables         ../variables/netvirt/Variables.py
 
 *** Variables ***
 @{data_models}    ${EMPTY}
