@@ -28,7 +28,7 @@ Resource          ../../../libraries/SetupUtils.robot
 ${ITEM_COUNT}     ${10000}
 ${ITEM_BATCH}     ${10000}
 ${PROCEDURE_TIMEOUT}    11m
-${addcarcmd}      python cluster_rest_script.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} add --itemtype car --itemcount ${ITEM_COUNT} --ipr ${ITEM_BATCH}
+${addcarcmd}      python cluster_rest_script.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} add --itemtype car --itemcount ${ITEM_COUNT} --threads 5
 ${addpeoplecmd}    python cluster_rest_script.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} add-rpc --itemtype people --itemcount ${ITEM_COUNT} --threads 5
 ${purchasecmd}    python cluster_rest_script.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} add-rpc --itemtype car-people --itemcount ${ITEM_COUNT} --threads 5
 ${carurl}         /restconf/config/car:cars
