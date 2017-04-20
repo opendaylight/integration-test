@@ -39,8 +39,8 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${HOLDTIME}       180
 ${BGP_PEER_LOG_LEVEL}    debug
-${CONTROLLER_LOG_LEVEL}    INFO
-${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
+${ODL_LOG_LEVEL}    INFO
+${ODL_BGP_LOG_LEVEL}    DEFAULT
 ${iBGP_PEER1_IP}    127.0.0.1
 ${eBGP_PEER1_IP}    127.0.0.3
 ${eBGP_PEER2_IP}    127.0.0.4
@@ -211,9 +211,9 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
     TemplatedRequests.Create_Default_Session
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
 
 Teardown_Everything
     [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
