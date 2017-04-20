@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_19622f3e",
+        "filename": "csit/suites/controller/cluster_singleton/chasing_the_leader.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T10:47:18Z",
+      "side": 1,
+      "message": "This line already had the correct prefix.",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "466592f6808db3a691e86776e6220e467b03534c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_b9e1639c",
+        "filename": "csit/suites/controller/cluster_singleton/chasing_the_leader_longevity.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T10:47:18Z",
+      "side": 1,
+      "message": "Is this the only difference from the non-longevity suite? Job definition can override the value, so separate suite file is not needed.",
+      "range": {
+        "startLine": 23,
+        "startChar": 20,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "466592f6808db3a691e86776e6220e467b03534c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_f9f2cb6d",
+        "filename": "csit/suites/controller/cluster_singleton/partition_and_heal_longevity.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T10:47:18Z",
+      "side": 1,
+      "message": "In seconds please.\nAlso, is this needed in every iteration, or just before line 38?",
+      "range": {
+        "startLine": 52,
+        "startChar": 43,
+        "endLine": 52,
+        "endChar": 45
+      },
+      "revId": "466592f6808db3a691e86776e6220e467b03534c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_59eaf775",
+        "filename": "csit/testplans/controller-cs-chasing-leader-longevity.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T10:47:18Z",
+      "side": 1,
+      "message": "chasing_the_leader",
+      "range": {
+        "startLine": 8,
+        "startChar": 58,
+        "endLine": 8,
+        "endChar": 86
+      },
+      "revId": "466592f6808db3a691e86776e6220e467b03534c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
