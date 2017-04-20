@@ -393,6 +393,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_b9c0432b",
+        "filename": "csit/suites/controller/dom_data_broker/clean_leader_shutdown.robot",
+        "patchSetId": 70
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T10:23:05Z",
+      "side": 1,
+      "message": "Seem like it does not, and this is the correct position.",
+      "parentUuid": "da01753e_d9aaa2d3",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 12
+      },
+      "revId": "6c441434cc5434a25fade62c7aa72745372ef80e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_39964e95",
         "filename": "csit/suites/controller/dom_data_broker/clean_leader_shutdown.robot",
         "patchSetId": 70
