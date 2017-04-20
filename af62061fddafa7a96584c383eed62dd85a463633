@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_7f919b51",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T13:43:33Z",
+      "side": 1,
+      "message": "Also sort this table.",
+      "range": {
+        "startLine": 128,
+        "startChar": 20,
+        "endLine": 128,
+        "endChar": 32
+      },
+      "revId": "af62061fddafa7a96584c383eed62dd85a463633",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ffa58bb5",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T13:43:33Z",
+      "side": 1,
+      "message": "See the second part of https://git.opendaylight.org/gerrit/#/c/55725/1/csit/suites/bgpcep/throughpcep/cases.robot@116\nI think it only applies to lines 135-137.",
+      "range": {
+        "startLine": 135,
+        "startChar": 2,
+        "endLine": 135,
+        "endChar": 14
+      },
+      "revId": "af62061fddafa7a96584c383eed62dd85a463633",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3fb0b3f3",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T13:43:33Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/#/c/55725/1/csit/variables/Variables.py@118\nwas referring to every variable name in this file edited in this Change.",
+      "range": {
+        "startLine": 192,
+        "startChar": 4,
+        "endLine": 192,
+        "endChar": 10
+      },
+      "revId": "af62061fddafa7a96584c383eed62dd85a463633",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
