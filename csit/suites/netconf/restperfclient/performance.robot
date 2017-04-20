@@ -62,7 +62,7 @@ Create_Device_Data
 Run_Restperfclient
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the netconf connector of the device.
     ${url}=    BuiltIn.Set_Variable    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount/car:cars
-    RestPerfClient.Invoke_Restperfclient    ${TESTTOOL_DEVICE_TIMEOUT}    ${url}    async=true
+    RestPerfClient.Invoke_Restperfclient    ${TESTTOOL_DEVICE_TIMEOUT}    ${url}    async=false
 
 Check_For_Failed_Requests
     [Documentation]    Make sure there are no failed requests in the restperfclient log.
