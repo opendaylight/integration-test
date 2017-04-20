@@ -49,14 +49,14 @@ Documentation     PCEP performance suite, uses restconf with configurable authen
 ...               In case of failed test case, other tests are skipped (unless
 ...               this is overriden by [Setup]) to finish test run sooner.
 ...
-...               Variables and test case names refer to Controller and Mininet,
-...               those are assumed to be separate remote VMs, one to host ODL,
+...               Variables and test case names refer to Controller(ODL_SYSTEM) and Mininet
+...               (TOOLS_SYSTEM), those are assumed to be separate remote VMs, one to host ODL,
 ...               other to host tools.
 ...               In case updater and pcc-mock are desired to run
-...               from separate machines, their parameters use Mininet
+...               from separate machines, their parameters use Mininet(TOOLS_SYSTEM)
 ...               values as default.
 ...               If both updater VM and pcc-mock VM parameters are specified,
-...               Mininet parameters may be skipped.
+...               Mininet(TOOLS_SYSTEM) parameters may be skipped.
 ...
 ...               Some launch scripts put restrictions on how pybot options
 ...               can be specified, so there are utility variables to help with
@@ -76,39 +76,39 @@ Documentation     PCEP performance suite, uses restconf with configurable authen
 ...               Variables to override (only if needed) in pybot command:
 ...               (Look into Variables table to see the default values.)
 ...
-...               CONTROLLER: Numeric IP address of VM where ODL runs.
-...               CONTROLLER_USER: Username for ssh login to ODL VM.
-...               CONTROLLER_PASSWORD: Ssh password, empty means public keys are used instead.
-...               CONTROLLER_PROMPT: Substring to identify Linux prompt on ODL VM.
-...               CONTROLLER_WORKSPACE: Path to where files can be written on ODL VM.
+...               ODL_SYSTEM: Numeric IP address of VM where ODL runs.
+...               ODL_SYSTEM_USER: Username for ssh login to ODL VM.
+...               ODL_SYSTEM_PASSWORD: Ssh password, empty means public keys are used instead.
+...               ODL_SYSTEM_PROMPT: Substring to identify Linux prompt on ODL VM.
+...               ODL_SYSTEM_WORKSPACE: Path to where files can be written on ODL VM.
 ...               FIRST_PCC_IP: Set in case bind address is different from public pcc-mock VM address.
 ...               LOG_NAME: Filename (without path) to save pcc-mock output into.
 ...               LOG_PATH: Override if not the same as pccmock VM workspace.
 ...               LSPS: Number of LSPs per PCC to simulate and test.
 ...               TOOLS_SYSTEM_IP: Numeric IP address of VM to run pcc-mock and updater from by default.
 ...               TOOLS_SYSTEM_PASSWORD: Linux password to go with the username (empty means keys).
-...               TOOLS_SYSTEM_PROMPT: Substring to identify Linux prompt on Mininet VM.
-...               TOOLS_SYSTEM_USER: Linux username to SSH to on Mininet VM.
-...               MININET_WORKSPACE: Path to where files may be created on Mininet VM.
+...               TOOLS_SYSTEM_PROMPT: Substring to identify Linux prompt on TOOLS_SYSTEM VM.
+...               TOOLS_SYSTEM_USER: Linux username to SSH to on TOOLS_SYSTEM VM.
+...               TOOLS_SYSTEM_WORKSPACE: Path to where files may be created on TOOLS_SYSTEM VM.
 ...               MOCK_FILE: Filename to use for mock-pcc executable instead of the timestamped one.
 ...               PCCDOWNLOAD_HOSTHEADER: Download server may check checks this header before showing content.
 ...               PCCDOWNLOAD_URLBASE: URL to pcep-pcc-mock folder in Nexus (use numberic IP if DNS has problems).
-...               PCCMOCK_COLOCATED: If True, set PCCMOCKVM* to mirror CONTROLLER*
-...               PCCMOCKVM_IP: Override MININET for pcc-mock usage.
-...               PCCMOCKVM_*: Override corresponding MININET_* for pcc-mock usage.
+...               PCCMOCK_COLOCATED: If True, set PCCMOCKVM* to mirror ODL_SYSTEM*
+...               PCCMOCKVM_IP: Override TOOLS_SYSTEM for pcc-mock usage.
+...               PCCMOCKVM_*: Override corresponding TOOLS_SYSTEM_* for pcc-mock usage.
 ...               PCCS: Number of PCCs to simulate and test.
 ...               PCEP_READY_VERIFY_TIMEOUT: Grace period for pcep-topology to appear. Lower if ODL is ready.
 ...               RESTCONF_*: USER, PASSWORD and SCOPE to authenticate with, REUSE session.
 ...               (Note: If SCOPE is not empty, token-based authentication is used.)
-...               UPDATER_COLOCATED: If True, overrides UPDATERVM_* parameters to point at Controller
-...               (The purpose is to provide an option without ability to unpack CONTROLLER value.)
-...               UPDATER_ODLADDRESS: Override if public CONTROLLER address is not best fit.
+...               UPDATER_COLOCATED: If True, overrides UPDATERVM_* parameters to point at ODL_SYSTEM
+...               (The purpose is to provide an option without ability to unpack ODL_SYSTEM value.)
+...               UPDATER_ODLADDRESS: Override if public ODL_SYSTEM address is not best fit.
 ...               UPDATER_REFRESH: Main updater thread may sleep this long. Balance precision with overhead.
 ...               UPDATER_TIMEOUT: If updater stops itself if running more than this time.
 ...               (Set this limit according to your performance target.)
 ...               UPDATERVM_ENABLE_TCP_RW_REUSE: Set to false if changing Linux configuration is not desired.
-...               UPDATERVM_IP: Override MININET for updater.py usage.
-...               UPDATERVM_*: Override corresponding MININET_* for updater.py usage.
+...               UPDATERVM_IP: Override TOOLS_SYSTEM for updater.py usage.
+...               UPDATERVM_*: Override corresponding TOOLS_SYSTEM_* for updater.py usage.
 Suite Setup       FailFast.Do_Not_Fail_Fast_From_Now_On
 Suite Teardown    Disconnect
 Test Setup        FailFast.Fail_This_Fast_On_Previous_Error
@@ -126,15 +126,15 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot    # for Flexible_SSH
 # This table acts as an exhaustive list of variables users can modify on pybot invocation.
 # It also contains commented-out lines for variables defined elswhere.
 # Keep this list in alphabetical order.
-${CONTROLLER_WORKSPACE}    /tmp
+${ODL_SYSTEM_WORKSPACE}    /tmp
 ${FIRST_PCC_IP}    ${PCCMOCKVM_IP}
 # ${LOG_FILE} is reserved for location of pybot-created log.html
 ${LOG_NAME}       throughpcep.log
 ${LOG_PATH}       ${PCCMOCKVM_WORKSPACE}
 ${LSPS}           65535
-${MININET}        127.0.0.1
-${MININET_USER}    mininet
-${MININET_WORKSPACE}    /tmp
+${TOOLS_SYSTEM}        127.0.0.1
+${TOOLS_SYSTEM_USER}    mininet
+${TOOLS_SYSTEM_WORKSPACE}    /tmp
 ${PCCDOWNLOAD_HOSTHEADER}    nexus.opendaylight.org
 ${PCCDOWNLOAD_URLBASE}    http://${PCCDOWNLOAD_HOSTHEADER}/content/repositories/opendaylight.snapshot/org/opendaylight/bgpcep/pcep-pcc-mock/
 ${PCCMOCK_COLOCATED}    False
@@ -142,7 +142,7 @@ ${PCCMOCKVM_IP}    ${TOOLS_SYSTEM_IP}
 ${PCCMOCKVM_PASSWORD}    ${TOOLS_SYSTEM_PASSWORD}
 ${PCCMOCKVM_PROMPT}    ${TOOLS_SYSTEM_PROMPT}
 ${PCCMOCKVM_USER}    ${TOOLS_SYSTEM_USER}
-${PCCMOCKVM_WORKSPACE}    ${MININET_WORKSPACE}
+${PCCMOCKVM_WORKSPACE}    ${TOOLS_SYSTEM_WORKSPACE}
 ${PCCS}           1
 ${PCEP_READY_VERIFY_TIMEOUT}    300s
 # Yes, the default timeout is 5 minutes, as this suite might be started eagerly just after ODL starts booting up.
@@ -158,8 +158,8 @@ ${UPDATERVM_ENABLE_TCP_RW_REUSE}    True
 ${UPDATERVM_IP}    ${TOOLS_SYSTEM_IP}
 ${UPDATERVM_PASSWORD}    ${TOOLS_SYSTEM_PASSWORD}
 ${UPDATERVM_PROMPT}    ${TOOLS_SYSTEM_PROMPT}
-${UPDATERVM_USER}    ${MININET_USER}
-${UPDATERVM_WORKSPACE}    ${MININET_WORKSPACE}
+${UPDATERVM_USER}    ${TOOLS_SYSTEM_USER}
+${UPDATERVM_WORKSPACE}    ${TOOLS_SYSTEM_WORKSPACE}
 
 *** TestCases ***
 Download_Pcc_Mock
@@ -371,20 +371,20 @@ Restore_Tcp_Rw_Reuse
     BuiltIn.Should_Be_Equal    ${rc}    ${0}
 
 *** Keywords ***
-Pccmock_From_Controller
-    [Documentation]    Copy Controller values to Pccmock VM variables.
+Pccmock_From_Odl_system
+    [Documentation]    Copy Odl_system values to Pccmock VM variables.
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_IP}    ${ODL_SYSTEM_IP}
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_PASSWORD}    ${ODL_SYSTEM_PASSWORD}
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_PROMPT}    ${ODL_SYSTEM_PROMPT}
-    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_WORKSPACE}    ${CONTROLLER_WORKSPACE}
-    BuiltIn.Set_Suite_Variable    ${LOG_PATH}    ${CONTROLLER_WORKSPACE}
+    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_WORKSPACE}    ${ODL_SYSTEM_WORKSPACE}
+    BuiltIn.Set_Suite_Variable    ${LOG_PATH}    ${ODL_SYSTEM_WORKSPACE}
 
-Updater_From_Controller
-    [Documentation]    Copy Controller values to Uprater VM variables.
+Updater_From_Odl_system
+    [Documentation]    Copy Odl_system values to Uprater VM variables.
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_IP}    ${ODL_SYSTEM_IP}
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_PASSWORD}    ${ODL_SYSTEM_PASSWORD}
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_PROMPT}    ${ODL_SYSTEM_PROMPT}
-    BuiltIn.Set_Suite_Variable    ${UPDATERVM_WORKSPACE}    ${CONTROLLER_WORKSPACE}
+    BuiltIn.Set_Suite_Variable    ${UPDATERVM_WORKSPACE}    ${ODL_SYSTEM_WORKSPACE}
 
 Disconnect
     [Documentation]    Explicitly close all SSH connections.
