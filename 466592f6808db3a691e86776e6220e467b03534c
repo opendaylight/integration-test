@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_740f022f",
+        "filename": "csit/suites/controller/cluster_singleton/chasing_the_leader_longevity.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-04-20T11:07:33Z",
+      "side": 1,
+      "message": "True. But the present api does not allow a periodic checking of the testing process and all information to decide if pass or fail are received at the end. Once api allow checking during the test process, it may be better to have a separate robot file for longevity test, as this functionality will be added and may not be necessary in functional test.",
+      "parentUuid": "da01753e_b9e1639c",
+      "range": {
+        "startLine": 23,
+        "startChar": 20,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "466592f6808db3a691e86776e6220e467b03534c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_f9f2cb6d",
         "filename": "csit/suites/controller/cluster_singleton/partition_and_heal_longevity.robot",
         "patchSetId": 12
