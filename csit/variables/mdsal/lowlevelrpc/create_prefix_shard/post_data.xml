@@ -1,4 +1,4 @@
-<input xmlns="tag:opendaylight.org,2017:controller:yang:lowlevel:control">
-  <prefix>$PREFIX</prefix>
+<input xmlns="tag:opendaylight.org,2017:controller:yang:lowlevel:control" xmlns:odl-mdsal-lowlevel-target="tag:opendaylight.org,2017:controller:yang:lowlevel:target">
+  <prefix>/odl-mdsal-lowlevel-target:id-ints</prefix>
   $REPLICAS
 </input>
