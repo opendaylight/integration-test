@@ -58,8 +58,8 @@ ${CHECK_PERIOD_APP_PEER_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${REPETITIONS_APP_PEER_PREFIX_COUNT}    1
 ${BGP_PEER_LOG_LEVEL}    info
 ${BGP_APP_PEER_LOG_LEVEL}    info
-${CONTROLLER_LOG_LEVEL}    INFO
-${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
+${ODL_LOG_LEVEL}    INFO
+${ODL_BGP_LOG_LEVEL}    DEFAULT
 ${BGP_PEER_COMMAND}    python play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL}
 ${BGP_PEER_OPTIONS}    &>bgp_peer.log
 ${BGP_APP_PEER_ID}    10.0.0.10
@@ -212,9 +212,9 @@ Setup_Everything
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${bgp_filling_timeout*3.0/4}
     ${result} =    BuiltIn.Evaluate    str(int(${COUNT_APP_PEER_PREFIX_COUNT}) - int(${PREFILL}))
     Builtin.Set_Suite_Variable    ${remaining_prefixes}    ${result}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
     ${script_uri_opt}=    CompareStream.Set_Variable_If_At_Most_Boron    ${Empty}    --uri config/bgp-rib:application-rib/${BGP_APP_PEER_ID}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
     BuiltIn.Set_Suite_Variable    ${script_uri_opt}
 
