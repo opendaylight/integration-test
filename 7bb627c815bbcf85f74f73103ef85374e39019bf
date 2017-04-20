@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_5400fe66",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T12:19:03Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP\nOther names are fine.",
+      "range": {
+        "startLine": 79,
+        "startChar": 18,
+        "endLine": 79,
+        "endChar": 28
+      },
+      "revId": "7bb627c815bbcf85f74f73103ef85374e39019bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_14915647",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T12:19:03Z",
+      "side": 1,
+      "message": "Please sort alphabetically.",
+      "range": {
+        "startLine": 84,
+        "startChar": 18,
+        "endLine": 84,
+        "endChar": 30
+      },
+      "revId": "7bb627c815bbcf85f74f73103ef85374e39019bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_94a426a7",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T12:19:03Z",
+      "side": 1,
+      "message": "Change to Variables.robot and remove variables present there from Variables table here (for example line 135).",
+      "range": {
+        "startLine": 116,
+        "startChar": 47,
+        "endLine": 116,
+        "endChar": 59
+      },
+      "revId": "7bb627c815bbcf85f74f73103ef85374e39019bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_54b2bee6",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T12:19:03Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Capitalization",
+      "range": {
+        "startLine": 374,
+        "startChar": 17,
+        "endLine": 374,
+        "endChar": 18
+      },
+      "revId": "7bb627c815bbcf85f74f73103ef85374e39019bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_34ec5ac7",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T12:19:03Z",
+      "side": 1,
+      "message": "Do not change variable names here unless you are sure no suite within int/test relies on the previous name.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 10
+      },
+      "revId": "7bb627c815bbcf85f74f73103ef85374e39019bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
