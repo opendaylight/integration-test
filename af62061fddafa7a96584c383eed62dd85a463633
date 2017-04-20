@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da01753e_bf72e346",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T13:46:16Z",
+      "side": 1,
+      "message": "Not sure if this is descriptive enough.\nhttps://wiki.opendaylight.org/view/BestPractices/Commit_Messages",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "af62061fddafa7a96584c383eed62dd85a463633",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_7f919b51",
         "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
         "patchSetId": 2
