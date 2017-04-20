@@ -16,6 +16,24 @@
       "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_94dc26e6",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-04-20T12:43:24Z",
+      "side": 1,
+      "message": "unless wrong ( Valentina off for a few days)\nI think the IPv6 address configured on VM is retrieved from DHCP neutron. \nThe test here expects more a GUA than a LLA address.\n\nFirst answer would then be no : testing LLA is ouf of scope Sf this test.\n\nSecond answer would be: maybe you want to do interDC testing within the same network, and using LLA ?",
+      "parentUuid": "da01753e_f41652a6",
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
