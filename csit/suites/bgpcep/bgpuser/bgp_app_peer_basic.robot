@@ -76,8 +76,8 @@ ${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${HOLDTIME}       180
 ${BGP_PEER_LOG_LEVEL}    debug
 ${BGP_APP_PEER_LOG_LEVEL}    debug
-${CONTROLLER_LOG_LEVEL}    INFO
-${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
+${ODL_LOG_LEVEL}    INFO
+${ODL_BGP_LOG_LEVEL}    DEFAULT
 ${BGP_PEER_COMMAND}    python play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL}
 ${BGP_PEER_OPTIONS}    ${EMPTY}
 ${BGP_APP_PEER_ID}    ${ODL_SYSTEM_IP}
@@ -327,9 +327,9 @@ Setup_Everything
     OperatingSystem.Create_Directory    ${ACTUAL_RESPONSES_FOLDER}
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
     ${scritp_uri_opt}=    CompareStream.Set_Variable_If_At_Most_Boron    ${Empty}    --uri config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
     BuiltIn.Set_Suite_Variable    ${scritp_uri_opt}
 
