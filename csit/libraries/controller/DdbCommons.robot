@@ -26,6 +26,7 @@ ${SIMPLE_TX}      ${False}
 ${CHAINED_TX}     ${True}
 ${HARD_TIMEOUT}    ${60}
 @{TRANSACTION_FAILED}    ${500}
+${SHARD_PREFIX}     tested-shard
 
 *** Keywords ***
 Explicit_Leader_Movement_Test_Templ
@@ -173,3 +174,17 @@ Remote_Listener_Test_Templ
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}
     [Teardown]    MdsalLowlevel.Unsubscribe_Dtcl    ${listener_node_dst}
+
+Create_Prefix_Based_Shard
+    [Arguments]    ${prefix}=${SHARD_PREFIX}
+    [Documentation]    Create prefix based shard with replicas on all nodes
+    ${all_indices} =    ClusterManagement.List_All_Indices
+    ${node_to_trigger} =    Collections.Get_From_List    ${follower_list}    ${0}
+    MdsalLowlevel.Create_Prefix_Shard      ${node_to_trigger}    ${prefix}    ${all_indices}
+
+Remove_Prefix_Based_Shard
+    [Arguments]    ${prefix}=${SHARD_PREFIX}
+    [Documentation]    Remove prefix based shard with all replicas
+    ${all_indices} =    ClusterManagement.List_All_Indices
+    ${node_to_trigger} =    Collections.Get_From_List    ${follower_list}    ${0}
+    MdsalLowlevel.Remove_Prefix_Shard    ${node_to_trigger}    ${prefix}
