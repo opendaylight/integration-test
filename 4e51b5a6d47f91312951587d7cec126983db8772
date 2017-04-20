@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_f40932de",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_mounting/001_register_vpp_nodes.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-20T11:41:05Z",
+      "side": 1,
+      "message": "Call KarafKeywords.Setup_Karaf_Keywords (or even better SetupUtils.Setup_Utils_For_Setup_And_Teardown) from Suite Setup, and this line will work without this.",
+      "range": {
+        "startLine": 18,
+        "startChar": 57,
+        "endLine": 18,
+        "endChar": 86
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
