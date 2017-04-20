@@ -189,13 +189,13 @@ HEADERS_XML = {'Content-Type': 'application/xml'}
 ACCEPT_XML = {'Accept': 'application/xml'}
 ACCEPT_JSON = {'Accept': 'application/json'}
 ACCEPT_EMPTY = {}  # Json should be default, but no-output RPC cannot have Accept header.
-ODL_CONTROLLER_SESSION = None
+ODL_SYSTEM_SESSION = None
 TOPO_TREE_LEVEL = 2
 TOPO_TREE_DEPTH = 3
 TOPO_TREE_FANOUT = 2
 KEYFILE_PASS = 'any'
 SSH_KEY = 'id_rsa'
-CONTROLLER_STOP_TIMEOUT = 120  # Max number of seconds test will wait for a controller to stop
+ODL_SYSTEM_STOP_TIMEOUT = 120  # Max number of seconds test will wait for a controller to stop
 TOPOLOGY_URL = 'network-topology:network-topology/topology'
 SEND_ACCEPT_XML_HEADERS = {'Content-Type': 'application/xml', 'Accept': 'application/xml'}
 
@@ -204,10 +204,10 @@ ENABLE_GLOBAL_TEST_DEADLINES = True
 
 # Deprecated old variables, to be removed once all tests that need them are
 # updated to use the new names.
-CONTROLLER = ODL_SYSTEM_IP
-CONTROLLERS = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
-CONTROLLER_PASSWORD = ODL_SYSTEM_PASSWORD
-CONTROLLER_PROMPT = ODL_SYSTEM_PROMPT
+ODL_SYSTEM = ODL_SYSTEM_IP
+ODL_SYSTEMS = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
+ODL_SYSTEM_PASSWORD = ODL_SYSTEM_PASSWORD
+ODL_SYSTEM_PROMPT = ODL_SYSTEM_PROMPT
 
 # Centinel Variables
 SET_CONFIGURATION_URI = '/restconf/operations/configuration:set-centinel-configurations'
