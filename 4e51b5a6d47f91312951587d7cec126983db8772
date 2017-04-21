@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "da01753e_c2ab871b",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/keywords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "Take a look at TemplatedRequests.robot\nSpecifically Pst_As_Json_Templated keyword.",
+      "range": {
+        "startLine": 28,
+        "startChar": 25,
+        "endLine": 28,
+        "endChar": 48
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c2826793",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/keywords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Calling_Imported_Keywords",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 29
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_423dd7dd",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/keywords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "Is there a way to detect master using restconf?\nFor example using some Get_Owner_* keyword from ClusterManagement?",
+      "range": {
+        "startLine": 44,
+        "startChar": 56,
+        "endLine": 44,
+        "endChar": 67
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_9d30c2e9",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/keywords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "Do not use global variables. Make each suite detect their own (possibly by having a Resource each suite initializes).",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3d2276a4",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/keywords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Resource-private_variables",
+      "range": {
+        "startLine": 57,
+        "startChar": 26,
+        "endLine": 57,
+        "endChar": 47
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_bd4ca671",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vars.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "\"These variables have global scope, but it is recommended to treat them as suite variables and immutable (see below). Never change those values during test execution.\"\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Suite_variables",
+      "range": {
+        "startLine": 14,
+        "startChar": 24,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_f40932de",
         "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_mounting/001_register_vpp_nodes.robot",
         "patchSetId": 22
@@ -42,6 +180,260 @@
         "startChar": 57,
         "endLine": 18,
         "endChar": 86
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_22a41356",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_mounting/001_register_vpp_nodes.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "I do not understand. ClusterKeywords initialization stores ${ODL_SYSTEM_1_IP} as the IP address for member_index\u003d${1}. Does not it work for you?",
+      "parentUuid": "da01753e_221413f4",
+      "range": {
+        "startLine": 18,
+        "startChar": 57,
+        "endLine": 18,
+        "endChar": 86
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_fdd10e58",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_mounting/001_register_vpp_nodes.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "Oh. Do not do this. ${ODL_SYSTEM_IP} is an alias for ${ODL_SYSTEM_1_IP} for single node tests.",
+      "range": {
+        "startLine": 23,
+        "startChar": 26,
+        "endLine": 23,
+        "endChar": 42
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_7dc51e8d",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_mounting/001_register_vpp_nodes.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "Specify target system explicitly.",
+      "range": {
+        "startLine": 24,
+        "startChar": 34,
+        "endLine": 24,
+        "endChar": 38
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3d439615",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_mounting/001_register_vpp_nodes.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "This can be moved into Register_Node.",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 22
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_7d4cfe42",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_mounting/001_register_vpp_nodes.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "Is there a Restconf way to check readiness?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_5d477a1d",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_mounting/001_register_vpp_nodes.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "Why are you clearing log on the same member (as in line 39)?",
+      "range": {
+        "startLine": 43,
+        "startChar": 34,
+        "endLine": 43,
+        "endChar": 38
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_9d51e2da",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_node_setup.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "${vpp_node}\n\nCaps usually mean the value is constant within a suite.",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 30
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_bd6dc69a",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_node_setup.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "SSHKeywords.Execute_Command_Should_Pass is better.",
+      "range": {
+        "startLine": 13,
+        "startChar": 14,
+        "endLine": 13,
+        "endChar": 40
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1d14d2f3",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_node_setup.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "Is this even needed when we have line 22?",
+      "range": {
+        "startLine": 21,
+        "startChar": 52,
+        "endLine": 21,
+        "endChar": 77
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3d11d605",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_node_setup.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Soft_timeouts",
+      "range": {
+        "startLine": 22,
+        "startChar": 35,
+        "endLine": 22,
+        "endChar": 38
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_fd062ecd",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_node_setup.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-21T12:08:43Z",
+      "side": 1,
+      "message": "Once again, is there a restconf way?",
+      "range": {
+        "startLine": 29,
+        "startChar": 44,
+        "endLine": 29,
+        "endChar": 48
       },
       "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
