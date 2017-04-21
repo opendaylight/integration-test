@@ -114,9 +114,7 @@ Reboot_Manager_Owner
     ...    After cluster sync, sleep additional time to ensure manager processes requests with the rebooted member fully rejoined.
     [Tags]    @{TAGS_NONCRITICAL}    # To avoid long WUKS list expanded in log.html
     ClusterManagement.Kill_Single_Member    ${netconf_manager_owner_index}
-    # TODO: Introduce ClusterManagement.Clean_Journals_And_Snapshots_On_Single_Member
     ${owner_list} =    BuiltIn.Create_List    ${netconf_manager_owner_index}
-    ClusterManagement.Clean_Journals_And_Snapshots_On_List_Or_All    ${owner_list}
     ClusterManagement.Start_Single_Member    ${netconf_manager_owner_index}
     BuiltIn.Comment    FIXME: Replace sleep with WUKS when it becomes clear what to wait for.
     ${sleep_time} =    Get_Typical_Time    coefficient=3.0
