@@ -22,6 +22,30 @@
       "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_221413f4",
+        "filename": "csit/suites/groupbasedpolicy/clustering-vpp_mounting/vpp_mounting/001_register_vpp_nodes.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 4674
+      },
+      "writtenOn": "2017-04-21T10:19:30Z",
+      "side": 1,
+      "message": "this test is missing step where is performed identification of node with active GBP instance and karaf_ip has to change according to that",
+      "parentUuid": "da01753e_f40932de",
+      "range": {
+        "startLine": 18,
+        "startChar": 57,
+        "endLine": 18,
+        "endChar": 86
+      },
+      "revId": "4e51b5a6d47f91312951587d7cec126983db8772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
