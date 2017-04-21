@@ -3,6 +3,7 @@ integration/test/csit/suites/controller/Clustering_Datastore/cluster_ready.robot
 integration/test/csit/suites/controller/Clustering_Datastore/carpeople_crud.robot
 integration/test/csit/suites/controller/Clustering_Datastore/car_failover_crud.robot
 integration/test/csit/suites/controller/Clustering_Datastore/car_persistence_recovery.robot
+integration/test/csit/suites/controller/Clustering_Datastore/car_outage_corners.robot
 integration/test/csit/suites/controller/Clustering_Datastore/buycar_failover.robot
 integration/test/csit/suites/controller/Clustering_Datastore/entity_isolate.robot
 integration/test/csit/suites/controller/singleton_service/global_rpc_kill.robot
@@ -18,5 +19,3 @@ integration/test/csit/suites/controller/dom_rpc_broker/rpc_provider_partition_an
 integration/test/csit/suites/controller/dom_rpc_broker/action_provider_precedence.robot
 integration/test/csit/suites/controller/dom_rpc_broker/action_provider_partition_and_heal.robot
 integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_false.robot
-integration/test/csit/suites/controller/Clustering_Datastore/car_outage_corners.robot
