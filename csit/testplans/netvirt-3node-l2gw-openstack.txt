@@ -1,1 +1,0 @@
-integration/test/csit/suites/l2gw/
