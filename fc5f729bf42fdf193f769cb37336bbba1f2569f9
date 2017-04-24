@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_cdd1ef58",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-04-24T13:08:41Z",
+      "side": 1,
+      "message": "It\u0027s recommended to use CURDIR variable. \nResource          ${CURDIR}/../variables/backuprestore/BackupRestoreVariables.robot\n____________________________\n${CURDIR} -\u003eAn absolute path to the directory where the test data file is located. This variable is case-sensitive.",
+      "revId": "fc5f729bf42fdf193f769cb37336bbba1f2569f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
