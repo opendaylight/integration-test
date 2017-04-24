@@ -51,8 +51,6 @@ Sanity Test Create AE Container Subscription
     Sanity Test Create AE
     Create Resource Container    ${defAeUri}    Container1
     Create Resource Subscription    ${defAeUri}/Container1    ${notification_uri}    notifEventType=${OneM2M.net_create_of_direct_child_resource}    notifContentType=${OneM2M.nct_resource_id}
-    Wait Until Keyword Succeeds    3x    100ms    Verify Number Of Auto Replies On Subscription Create    ${1}
-    Remove Notification Auto Reply On Subscription Create
 
 Sanity Test Create Content Instance And Handle Notification
     [Documentation]    Create contentInstance resource what should trigger notification. Receive the notification
