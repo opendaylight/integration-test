@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_dcb7e7d6",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T08:06:06Z",
+      "side": 1,
+      "message": "Still not sorted alphabetically.",
+      "range": {
+        "startLine": 80,
+        "startChar": 18,
+        "endLine": 80,
+        "endChar": 21
+      },
+      "revId": "53851f1f689051714c5d5dbb0ae119704b852830",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1cb20fe6",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T08:06:06Z",
+      "side": 1,
+      "message": "Also sort this.",
+      "range": {
+        "startLine": 88,
+        "startChar": 18,
+        "endLine": 88,
+        "endChar": 23
+      },
+      "revId": "53851f1f689051714c5d5dbb0ae119704b852830",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
