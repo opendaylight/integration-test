@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_ed5cb3ef",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-04-24T13:08:41Z",
+      "side": 1,
+      "message": "It\u0027s recommended to use CURDIR variable. \nResource          ${CURDIR}/../variables/backuprestore/BackupRestoreVariables.robot\n____________________________\n${CURDIR} -\u003eAn absolute path to the directory where the test data file is located. This variable is case-sensitive.",
+      "revId": "9a18766496476bd35d34953fd95ce3e1bbd75aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a79f6cb3",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-04-24T13:08:41Z",
+      "side": 1,
+      "message": "Better Variables.robot than Variables.py",
+      "revId": "9a18766496476bd35d34953fd95ce3e1bbd75aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_67b58430",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-04-24T13:08:41Z",
+      "side": 1,
+      "message": "For specifying paths is recommendable to use CURDIR variable. Example:\nResource          ${CURDIR}/../../variables/Variables.robot",
+      "revId": "9a18766496476bd35d34953fd95ce3e1bbd75aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_47de806e",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6327
+      },
+      "writtenOn": "2017-04-24T13:08:41Z",
+      "side": 1,
+      "message": "\"y\" ??? Should be removed?",
+      "revId": "9a18766496476bd35d34953fd95ce3e1bbd75aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
