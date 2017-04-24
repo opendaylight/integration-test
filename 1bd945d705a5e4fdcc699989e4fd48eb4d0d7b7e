@@ -2,6 +2,230 @@
   "comments": [
     {
       "key": {
+        "uuid": "da01753e_3f6ee02f",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "add \u0027S\u0027",
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1f695c25",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "what\u0027s the point of having three lists all with the same\nelements?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_9f642c4a",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "this is available in variables/netvirt/Variables.robot so no\nneed to add it here.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 58
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_df5eb475",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "please put this in the netvirt variables.robot",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 67
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1f503c5d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "use ${NETWORK_URL}",
+      "range": {
+        "startLine": 56,
+        "startChar": 76,
+        "endLine": 56,
+        "endChar": 115
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_5f4ac4ac",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "add ${ROUTER_URL} to netvirt/Variables.robot and use that.",
+      "range": {
+        "startLine": 76,
+        "startChar": 76,
+        "endLine": 76,
+        "endChar": 114
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_bfef7086",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "maybe specify that this is adding v6 \"allow all\"",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 18
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_9ff26c6d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "${PORT_URL}",
+      "range": {
+        "startLine": 114,
+        "startChar": 76,
+        "endLine": 114,
+        "endChar": 112
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_7ffd083a",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "please go through and double check that we need any/all\nof the \"Log\" commands. For the most part, the robot \ncode should be saying the same thing. This is a great\nexample. You are saying \"Log    Check For Routes\", but \nthe next line is actual code saying \"Wait For Routes\nTo Propogate\" which is even more clear. The Log lines\ntend to make things noisier, imho",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_5ff80449",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "I think in a different patch I have commented that we \nprobably don\u0027t need a seperate keyword for collecting\nv6 addresses.",
+      "range": {
+        "startLine": 135,
+        "startChar": 23,
+        "endLine": 135,
+        "endChar": 54
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_f41652a6",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -49,6 +273,144 @@
       "side": 1,
       "message": "Reg: \"I think the IPv6 address configured on VM is retrieved from DHCP neutron.\" - I don\u0027t have the complete picture of how these robot tests are executed, but in the general use-case of Netvirt, the IPv6 address would be configured based on the RA from ipv6service.\n\nAgree with your point that we are validating GUA. The LLA is  auto-configured by the Operating System. My thoughts behind validating LLA is to verify that ELAN pipeline is supporting LLA connectivity as well. \nIts fine, its not a mandatory thing. So you can ignore my comment.",
       "parentUuid": "da01753e_94dc26e6",
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_bf9650ee",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "not needed.",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 23
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_9f99cc21",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 23
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ffa0d844",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "not needed. same as below",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 33
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1f85dcac",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "I think from here on is test cleanup, correct?\n\nif so, you should create a single local keyword to handle\nthis as a \"Suite Teardown\" so that it happens at the end of\nthe suite and any kind of failures in these steps does\nnot prevent other steps from executing.\n\nactually, there is a suite teardown keyword already.\njust add these things there.",
+      "range": {
+        "startLine": 357,
+        "startChar": 0,
+        "endLine": 357,
+        "endChar": 21
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ffb73884",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "this can probably go in netvirt/Variables.robot too. there\nare probably others I have missed.",
+      "range": {
+        "startLine": 441,
+        "startChar": 59,
+        "endLine": 441,
+        "endChar": 113
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1facbc34",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-24T23:44:05Z",
+      "side": 1,
+      "message": "dont need these extra comments. line 465 is pretty clear",
+      "range": {
+        "startLine": 464,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 33
+      },
       "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
