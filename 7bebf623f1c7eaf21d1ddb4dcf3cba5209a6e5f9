@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_bc7dc3e9",
+        "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T08:42:09Z",
+      "side": 1,
+      "message": ".robot is recommended.\n\nI think it would be better to just remove lines 8-12 and let implementers decide what to depend on.",
+      "range": {
+        "startLine": 12,
+        "startChar": 46,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "7bebf623f1c7eaf21d1ddb4dcf3cba5209a6e5f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_9cab9f1c",
+        "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T08:42:09Z",
+      "side": 1,
+      "message": "Guide [0] relies on PEP 257, which requires the phrase to end in a period.\n\n[0] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Formatting\n[1] https://www.python.org/dev/peps/pep-0257",
+      "range": {
+        "startLine": 16,
+        "startChar": 72,
+        "endLine": 16,
+        "endChar": 73
+      },
+      "revId": "7bebf623f1c7eaf21d1ddb4dcf3cba5209a6e5f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_bcc023e1",
+        "filename": "csit/suites/iotdm/basic/201_IoTDMInfraPluginLoaders.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T08:42:09Z",
+      "side": 1,
+      "message": "Quotes are not needed.",
+      "range": {
+        "startLine": 212,
+        "startChar": 12,
+        "endLine": 212,
+        "endChar": 29
+      },
+      "revId": "7bebf623f1c7eaf21d1ddb4dcf3cba5209a6e5f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
