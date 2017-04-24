@@ -50,8 +50,6 @@ Sanity Test Create AE Container Subscription
     ...    Verify response of create requests.
     Sanity Test Create AE
     Create Resource Container    ${defAeUri}    Container1
-    # Setup automatic responses due to BUG: https://bugs.opendaylight.org/show_bug.cgi?id=7971
-    Add Notification Auto Reply On Subscription Create
     Create Resource Subscription    ${defAeUri}/Container1    ${notification_uri}    notifEventType=${OneM2M.net_create_of_direct_child_resource}    notifContentType=${OneM2M.nct_resource_id}
     Wait Until Keyword Succeeds    3x    100ms    Verify Number Of Auto Replies On Subscription Create    ${1}
     Remove Notification Auto Reply On Subscription Create
