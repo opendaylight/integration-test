@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_48968d4d",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T15:07:10Z",
+      "side": 1,
+      "message": "There are plenty of examples of resource referencing using relative paths. E.g. executing \"grep -e \u0027Resource.* \\.\u0027 * |wc -l returns 29 results",
+      "parentUuid": "da01753e_ed5cb3ef",
+      "revId": "9a18766496476bd35d34953fd95ce3e1bbd75aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_a79f6cb3",
         "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-04-24T13:08:41Z",
       "side": 1,
       "message": "Better Variables.robot than Variables.py",
+      "revId": "9a18766496476bd35d34953fd95ce3e1bbd75aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_88aeb583",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T15:07:10Z",
+      "side": 1,
+      "message": "I didn\u0027t created this file; it is an existing file defining lots of generic ODL variables",
+      "parentUuid": "da01753e_a79f6cb3",
       "revId": "9a18766496476bd35d34953fd95ce3e1bbd75aa9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_68a9d17a",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T15:07:10Z",
+      "side": 1,
+      "message": "Same as before",
+      "parentUuid": "da01753e_67b58430",
+      "revId": "9a18766496476bd35d34953fd95ce3e1bbd75aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_47de806e",
         "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2017-04-24T13:08:41Z",
       "side": 1,
       "message": "\"y\" ??? Should be removed?",
+      "revId": "9a18766496476bd35d34953fd95ce3e1bbd75aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c8b71dd7",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T15:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_47de806e",
       "revId": "9a18766496476bd35d34953fd95ce3e1bbd75aa9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
