@@ -50,7 +50,7 @@ Start_Testtool
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
     # Start test tool
     SSHLibrary.Switch_Connection    ${testtool}
-    NetconfKeywords.Install_And_Start_Testtool    device-count=1    debug=false    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    mdsal=false
+    NetconfKeywords.Install_And_Start_Testtool    device-count=1    debug=true    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    mdsal=true
 
 Configure_Device_On_Netconf
     [Documentation]    Configure the testtool device on Netconf connector, using node 1.
