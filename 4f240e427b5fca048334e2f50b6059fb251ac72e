@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "da01753e_0246267c",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 75
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-04-24T12:33:45Z",
+      "side": 1,
+      "message": "chained_flag",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "4f240e427b5fca048334e2f50b6059fb251ac72e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_078598cf",
         "filename": "csit/libraries/MdsalLowlevelPy.py",
         "patchSetId": 75
