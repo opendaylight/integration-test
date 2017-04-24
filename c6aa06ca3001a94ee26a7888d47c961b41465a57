@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_a793ec4d",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T12:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_e6f23699",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 70
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_66364654",
         "filename": "csit/libraries/BackupRestoreKeywords.robot",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2017-04-19T08:16:09Z",
       "side": 1,
       "message": "If these verifications failed, the error message is quite uninformative, espcially for anybody not familiar with the actual code. You can complete them with additional messages, explicitly stating the problem to the final user. E.g.\n\n  Should Be Equal    0    ${resultConfig}    Operational datastore should be equal after restore\n\nalso notice that quotes are not normally needed (at least for the 0) since literals are always strings by default",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 52
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_87aea883",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T12:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_66364654",
       "range": {
         "startLine": 68,
         "startChar": 0,
@@ -203,6 +251,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_e7eb34ae",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T12:50:02Z",
+      "side": 1,
+      "message": "No no no it\u0027s a single responsibility. There\u0027s not such thing as \"different formats\", this is translating from a jsonpath path (http://goessner.net/articles/JsonPath/) to a jsonpatch (RFC6902) patch which can be used to remove the element pointed by the input path. It\u0027s a single logical purpose",
+      "parentUuid": "da01753e_46a3424f",
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_e6fcf640",
         "filename": "csit/libraries/JsonDiffTool.py",
         "patchSetId": 1
@@ -214,6 +280,30 @@
       "writtenOn": "2017-04-19T08:16:09Z",
       "side": 1,
       "message": "matchedpath \u003d matchedpath.rtrim(\u0027/\u0027)",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 64
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_27cd3c5e",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T12:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_e6fcf640",
       "range": {
         "startLine": 51,
         "startChar": 0,
@@ -329,6 +419,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_674584b2",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T12:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_46ba226f",
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_c66732b6",
         "filename": "csit/libraries/JsonDiffTool.py",
         "patchSetId": 1
@@ -421,6 +529,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_070e388d",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T12:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_06cbfa1e",
+      "range": {
+        "startLine": 157,
+        "startChar": 12,
+        "endLine": 157,
+        "endChar": 13
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_e64eb6c0",
         "filename": "csit/libraries/JsonDiffTool.py",
         "patchSetId": 1
@@ -432,6 +564,30 @@
       "writtenOn": "2017-04-19T08:16:09Z",
       "side": 1,
       "message": "Not needed. Just add \n\n  required\u003dTrue \n\nto those options",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 16
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_225a4a50",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T12:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_e64eb6c0",
       "range": {
         "startLine": 171,
         "startChar": 0,
@@ -467,6 +623,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_cd00cf03",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T12:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_465ea277",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 37
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_668486d4",
         "filename": "csit/libraries/JsonDiffTool.py",
         "patchSetId": 1
@@ -478,6 +658,30 @@
       "writtenOn": "2017-04-19T08:16:09Z",
       "side": 1,
       "message": "Remove semicolons ;",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 18
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ad03cb0b",
+        "filename": "csit/libraries/JsonDiffTool.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T12:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_668486d4",
       "range": {
         "startLine": 188,
         "startChar": 0,
@@ -524,6 +728,30 @@
       "writtenOn": "2017-04-19T08:16:09Z",
       "side": 1,
       "message": "What about this licence? Is it allowed to provide this file as is?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "c6aa06ca3001a94ee26a7888d47c961b41465a57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4d3b3fd1",
+        "filename": "csit/libraries/jsonpathl.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-04-24T12:50:02Z",
+      "side": 1,
+      "message": "https://en.wikipedia.org/wiki/MIT_License",
+      "parentUuid": "da01753e_46ece28f",
       "range": {
         "startLine": 20,
         "startChar": 0,
