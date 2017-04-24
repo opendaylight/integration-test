@@ -22,7 +22,7 @@ Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
-&{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    yangtools=yang-data-impl    carpeople=clustering-it-model
+&{COMPONENT_MAPPING}    netconf=netconf-impl    bgpcep=pcep-impl    carpeople=clustering-it-model    yangtools=yang-data-impl    bindingv1=mdsal-binding-generator-impl
 ${JDKVERSION}     None
 ${JAVA_7_HOME_CENTOS}    /usr/lib/jvm/java-1.7.0
 ${JAVA_7_HOME_UBUNTU}    /usr/lib/jvm/java-7-openjdk-amd64
