@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_674aa4ad",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 75
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T10:27:07Z",
+      "side": 1,
+      "message": "I do not really like this, but the Robot part is more readable with this, so no big deal.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "4f240e427b5fca048334e2f50b6059fb251ac72e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_47f9607f",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 75
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T10:27:07Z",
+      "side": 1,
+      "message": "\"duration\" !\u003d \"rate\"\n\"publishing notification\" !\u003d \"write transactions\"",
+      "range": {
+        "startLine": 23,
+        "startChar": 17,
+        "endLine": 23,
+        "endChar": 49
+      },
+      "revId": "4f240e427b5fca048334e2f50b6059fb251ac72e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_27f41c86",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 75
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T10:27:07Z",
+      "side": 1,
+      "message": "Move to line 23?",
+      "range": {
+        "startLine": 25,
+        "startChar": 25,
+        "endLine": 25,
+        "endChar": 47
+      },
+      "revId": "4f240e427b5fca048334e2f50b6059fb251ac72e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_078598cf",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 75
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T10:27:07Z",
+      "side": 1,
+      "message": "\"The docstring is a phrase ending in a period.\"\n\n[0] https://www.python.org/dev/peps/pep-0257",
+      "range": {
+        "startLine": 61,
+        "startChar": 58,
+        "endLine": 61,
+        "endChar": 59
+      },
+      "revId": "4f240e427b5fca048334e2f50b6059fb251ac72e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c77a70f0",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 75
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T10:27:07Z",
+      "side": 1,
+      "message": "Add a docstring.",
+      "range": {
+        "startLine": 75,
+        "startChar": 42,
+        "endLine": 75,
+        "endChar": 43
+      },
+      "revId": "4f240e427b5fca048334e2f50b6059fb251ac72e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_671c64c2",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 75
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T10:27:07Z",
+      "side": 1,
+      "message": "This does not seem to be needed when there is wait_for_write_transactions.",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 10
+      },
+      "revId": "4f240e427b5fca048334e2f50b6059fb251ac72e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_27853cad",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 75
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T10:27:07Z",
+      "side": 1,
+      "message": "So the idea is to merge this because most of the scenarios are good, and finish this in later changes?",
+      "range": {
+        "startLine": 151,
+        "startChar": 12,
+        "endLine": 151,
+        "endChar": 16
+      },
+      "revId": "4f240e427b5fca048334e2f50b6059fb251ac72e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e7a3344d",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 75
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-24T10:27:07Z",
+      "side": 1,
+      "message": "It would be nice for this to reflect the new keyword name. Maybe you can mention there is a test plan document with \"isolation\" meaning something different than usual.",
+      "range": {
+        "startLine": 162,
+        "startChar": 43,
+        "endLine": 162,
+        "endChar": 52
+      },
+      "revId": "4f240e427b5fca048334e2f50b6059fb251ac72e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
