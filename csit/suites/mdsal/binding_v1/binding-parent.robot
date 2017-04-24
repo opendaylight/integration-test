@@ -46,9 +46,9 @@ Kill_Odl
 
 Detect_Config_Version
     [Documentation]    Examine ODL installation to figure out which version of binding-parent should be used.
-    ...    Parent poms are not present in Karaf installation, and NexusKeywords assumes we want an artifact ending with -impl,
-    ...    so mdsal-binding-generator is given as a component version of which we are interested in.
-    ${version}    ${location} =    NexusKeywords.NexusKeywords__Detect_Version_To_Pull    component=mdsal-binding-generator
+    ...    Parent poms are not present in Karaf installation, so NexusKeywords search for a component
+    ...    associated with bindingv1 nickname.
+    ${version}    ${location} =    NexusKeywords.NexusKeywords__Detect_Version_To_Pull    component=bindingv1
     BuiltIn.Set_Suite_Variable    \${binding_parent_version}    ${version}
 
 Install_Maven
