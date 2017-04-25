@@ -38,6 +38,11 @@ Add Ovs Bridge Manager Controller And Verify
     @{list_to_check}=    Create List    bridge/${OVS_BRIDGE}    bridge/${hwvtep_bridge}
     Wait Until Keyword Succeeds    30s    2s    Check For Elements At URI    ${OVSDB_NETWORK_TOPOLOGY}    ${list_to_check}    session
 
+Delete Manager And Controller
+    [Arguments]    ${conn_id}
+    Exec Command    ${conn_id}    ${OVS_DEL_CTRLR} ${OVS_BRIDGE}
+    Exec Command    ${conn_id}    ${DEL_OVS_BRIDGE} ${OVS_BRIDGE}
+
 Create Itm Tunnel Between Hwvtep and Ovs
     [Arguments]    ${ovs_id}    ${ovs_ip}
     [Documentation]    Keyword to create ITM Tunnel Between HWVTEP and OVS connection in ${ovs_id}.
@@ -133,6 +138,12 @@ Namespace Dhclient Verify
     [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}    ${conn_id}=${hwvtep_conn_id}    ${hwvtep_ip}=${HWVTEP_IP}
     [Documentation]    Keyword to run dhclient for the tap port ${ns_tap} and verify if it has got assigned with ${ns_port_ip}.
     Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} dhclient ${ns_tap}    ${hwvtep_ip}
+    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}    ${ns_port_ip}
+
+Namespace Static Ip Assign
+    [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}    ${conn_id}=${hwvtep_conn_id}    ${hwvtep_ip}=${HWVTEP_IP}
+    [Documentation]    Keyword to assign IP address to TAP port statically
+    Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} ${IFCONF} ${ns_tap} ${ns_port_ip}/24 UP    ${hwvtep_ip}
     Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}    ${ns_port_ip}
 
 Verify Strings In Command Output
