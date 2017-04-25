@@ -301,7 +301,8 @@ Collect VM IP Addresses
     ...    finds them in the console log output, and will have "None" for Vms that no ip was found.
     ${ip_list}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
-    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
+#   \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
+    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm}
     \    Log    ${vm_ip_line}
     \    Log    ${rc}
     \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
