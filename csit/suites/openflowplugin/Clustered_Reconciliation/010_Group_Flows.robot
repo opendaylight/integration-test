@@ -7,7 +7,6 @@ Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/ClusterOpenFlow.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/MininetKeywords.robot
-Resource          ../../../libraries/FlowLib.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/Variables.robot
 
@@ -34,18 +33,18 @@ Start Mininet Multiple Connections
 
 Check Linear Topology
     [Documentation]    Check Linear Topology.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
 
 Check Flows In Operational DS
     [Documentation]    Check Groups after mininet starts.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${all_flows}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${all_flows}
 
 Check Groups In Operational DS
     [Documentation]    Check Flows after mininet starts.
-    FlowLib.Check Number Of Groups    ${all_groups}
+    Check Number Of Groups    ${all_groups}
 
 Check Flows In Switch
-    [Documentation]    Check Flows after mininet starts.
+    [Documentation]    Check Flows in switch after mininet starts.
     MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
 
 Check Entity Owner Status And Find Owner and Successor Before Fail
@@ -61,7 +60,7 @@ Disconnect Mininet From Owner
 
 Check Linear Topology After Disconnect
     [Documentation]    Check Linear Topology After Disconnecting mininet from owner.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
 
 Remove Flows And Groups After Mininet Is Disconnected
     [Documentation]    Remove 1 group 1&2 and 1 flow in every switch after mininet is disconnected.
@@ -69,11 +68,11 @@ Remove Flows And Groups After Mininet Is Disconnected
 
 Check Flows In Operational DS After Mininet Is Disconnected
     [Documentation]    Check Flows in Operational DS after mininet is disconnected.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${less_flows}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${less_flows}
 
 Check Groups In Operational DS After Mininet Is Disconnected
     [Documentation]    Check Groups in Operational DS after mininet is disconnected.
-    FlowLib.Check Number Of Groups    ${less_groups}
+    Check Number Of Groups    ${less_groups}
 
 Check Flows In Switch After Mininet Is Disconnected
     [Documentation]    Check Flows in switch after mininet is disconnected
@@ -85,7 +84,7 @@ Reconnect Mininet To Owner
 
 Check Linear Topology After Reconnect
     [Documentation]    Check Linear Topology After Reconnect.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
 
 Add Flows And Groups After Reconnect
     [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
@@ -93,11 +92,11 @@ Add Flows And Groups After Reconnect
 
 Check Flows After Reconnect In Operational DS
     [Documentation]    Check Flows in Operational DS after mininet is reconnected.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${all_flows}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${all_flows}
 
 Check Groups After Reconnect In Operational DS
     [Documentation]    Check Groups in Operational DS after mininet is reconnected.
-    FlowLib.Check Number Of Groups    ${all_groups}
+    Check Number Of Groups    ${all_groups}
 
 Check Flows After Reconnect In Switch
     [Documentation]    Check Flows in switch after mininet is reconnected.
@@ -109,7 +108,7 @@ Disconnect Mininet From Cluster
 
 Check No Switches After Disconnect
     [Documentation]    Check no switches in topology after disconnecting mininet from cluster.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check No Switches In Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check No Switches In Topology    ${SWITCHES}
 
 Remove Flows And Groups While Mininet Is Disconnected
     [Documentation]    Remove a group and flow while mininet Is Disconnected from cluster.
@@ -121,18 +120,87 @@ Reconnect Mininet To Cluster
 
 Check Linear Topology After Mininet Reconnects
     [Documentation]    Check Linear Topology after reconnect.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
 
 Check Flows In Operational DS After Mininet Reconnects
     [Documentation]    Check Flows in Operational DS after mininet is reconnected.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Number Of Flows    ${less_flows}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${less_flows}
 
 Check Groups In Operational DS After Mininet Reconnects
     [Documentation]    Check Groups in Operational DS after mininet is reconnected to cluster.
-    FlowLib.Check Number Of Groups    ${less_groups}
+    Check Number Of Groups    ${less_groups}
 
 Check Flows In Switch After Mininet Reconnects
     [Documentation]    Check Flows in switch after mininet is reconnected to cluster.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
+
+Check Entity Owner Status And Find Owner and Successor Before Stop
+    [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
+    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${original_successor}=    Collections.Get From List    ${original_successor_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_successor_list}
+    BuiltIn.Set Suite Variable    ${original_successor}
+
+Stop Owner Instance
+    [Documentation]    Stop Owner Instance and verify it is shutdown
+    ClusterManagement.Stop Single Member    ${original_owner}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}    ${original_successor_list}
+
+Check Shards Status After Stop
+    [Documentation]    Check Status for all shards in OpenFlow application.
+    ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${new_cluster_list}
+
+Check Entity Owner Status And Find Owner and Successor After Stop
+    [Documentation]    Check Entity Owner Status and identify owner and successor.
+    ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_successor}    ${new_cluster_list}    after_stop=True
+    ${new_successor}=    Collections.Get From List    ${new_successor_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_successor}
+    BuiltIn.Set Suite Variable    ${new_successor_list}
+
+Check Linear Topology After Owner Stop
+    [Documentation]    Check Linear Topology.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}    ${new_owner}
+
+Add Configuration In Owner and Verify After Fail
+    [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
+    Add Single Group And Flow    ${new_owner}
+
+Check Flows In Operational DS After Owner Is Stopped
+    [Documentation]    Check Flows in Operational DS after Owner is Stopped.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${all_flows}    ${new_owner}
+
+Check Groups In Operational DS After Owner Is Stopped
+    [Documentation]    Check Groups in Operational DS after Owner is Stopped.
+    Check Number Of Groups    ${all_groups}    ${new_owner}
+
+Check Flows In Switch After Owner Is Stopped
+    [Documentation]    Check Flows in switch after Owner is Stopped
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
+
+Start Old Owner Instance
+    [Documentation]    Start old Owner Instance and verify it is up
+    ClusterManagement.Start Single Member    ${original_owner}
+
+Check Linear Topology After Owner Restart
+    [Documentation]    Check Linear Topology.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
+
+Add Configuration In Owner and Verify After Owner Restart
+    [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
+    Remove Single Group And Flow    ${new_owner}
+
+Check Flows After Owner Restart In Operational DS
+    [Documentation]    Check Flows in Operational DS after owner is restarted.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${less_flows}
+
+Check Groups After Owner Restart In Operational DS
+    [Documentation]    Check Groups in Operational DS after owner is restarted.
+    Check Number Of Groups    ${less_groups}
+
+Check Flows In Switch After Owner Is Restarted
+    [Documentation]    Check Flows in switch after Owner is restarted
     MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
 
 Restart Cluster
@@ -144,15 +212,15 @@ Restart Cluster
 
 Check Linear Topology After Controller Restarts
     [Documentation]    Check Linear Topology after controller restarts.
-    BuiltIn.Wait Until Keyword Succeeds    300s    2s    FlowLib.Check Linear Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    300s    2s    Check Linear Topology    ${SWITCHES}
 
 Check Flows In Operational DS After Controller Restarts
     [Documentation]    Check Flows in Operational DS after controller is restarted.
-    BuiltIn.Wait Until Keyword Succeeds    300s    2s    FlowLib.Check Number Of Flows    ${less_flows}
+    BuiltIn.Wait Until Keyword Succeeds    300s    2s    Check Number Of Flows    ${less_flows}
 
 Check Groups In Operational DS After Controller Restarts
     [Documentation]    Check Groups in Operational DS after controller is restarted.
-    FlowLib.Check Number Of Groups    ${less_groups}
+    Check Number Of Groups    ${less_groups}
 
 Check Flows In Switch After Controller Restarts
     [Documentation]    Check Flows in switch after controller is restarted..
@@ -164,13 +232,12 @@ Stop Mininet
 
 Check No Switches
     [Documentation]    Check no switches in topology.
-    BuiltIn.Wait Until Keyword Succeeds    5s    1s    FlowLib.Check No Switches In Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    Check No Switches In Topology    ${SWITCHES}
 
 *** Keywords ***
 Initialization Phase
     [Documentation]    Create controller session and set variables.
     ClusterManagement.ClusterManagement_Setup
-    # Still need to open controller HTTP session with name session because of old FlowLib.robot library dependency.
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     ${switches}    Convert To Integer    ${SWITCHES}
     ${iter}    Convert To Integer    ${ITER}
@@ -212,20 +279,83 @@ Disconnect Cluster Mininet
     \    BuiltIn.Log    ${output}
 
 Add Groups And Flows
-    [Arguments]    ${iter}=1
+    [Arguments]    ${iter}=1    ${member_index}=1
     [Documentation]    Add ${ITER} groups type 1 & 2 and flows in every switch.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
-    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=session    iterations=${iter}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-1    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-group-2    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
+    \    TemplatedRequests.Post As Json Templated    folder=${VAR_DIR}/add-flow    mapping={"SWITCH":"${switch}"}    session=${session}    iterations=${iter}
 
 Add Single Group And Flow
+    [Arguments]    ${member_index}=1
     [Documentation]    Add 1 group 1&2 and 1 flow in every switch.
-    Add Groups And Flows    1
+    Add Groups And Flows    1    ${member_index}
 
 Remove Single Group And Flow
+    [Arguments]    ${member_index}=1
     [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
+    \    RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
+    \    RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
+    \    RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
+
+Check Linear Topology
+    [Arguments]    ${switches}    ${member_index}=1
+    [Documentation]    Check Linear topology.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
+    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
+    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
+    \    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
+    \    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
+    \    ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3
+
+Check No Switches In Inventory
+    [Arguments]    ${switches}    ${member_index}=1
+    [Documentation]    Check no switch is in inventory
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Not Contain    ${resp.content}    "openflow:${switch}"
+
+Check Number Of Flows
+    [Arguments]    ${flows}    ${member_index}=1
+    [Documentation]    Check number of flows in the inventory.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${count}=    Get Count    ${resp.content}    "priority"
+    Should Be Equal As Integers    ${count}    ${flows}
+
+Check Number Of Groups
+    [Arguments]    ${groups}    ${member_index}=1
+    [Documentation]    Check number of groups in the inventory.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${group_count}=    Get Count    ${resp.content}    "group-type"
+    ${count}=    CompareStream.Set_Variable_If_At Least_Boron    ${group_count}    ${group_count/2}
+    Should Be Equal As Integers    ${count}    ${groups}
+
+Check No Switches In Topology
+    [Arguments]    ${switches}    ${member_index}=1
+    [Documentation]    Check no switch is in topology
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Not Contain    ${resp.content}    openflow:${switch}
