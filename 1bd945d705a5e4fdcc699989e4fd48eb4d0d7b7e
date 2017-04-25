@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_52d75bed",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-04-25T06:11:02Z",
+      "side": 1,
+      "message": "Hello Jamo,\nquick response.\nValentina will detail more when she comes back from PTO.\n\n- The test is an adaptation for vpnservice.robot\nAnd the same point is visible too.\n\n- VPN creation relies on those values. Each entry of the matrix stands for an attribute of a VPN.\nPotentially, it is possible to create VPN with various combinations.\n\nUsually, typical VPN has as attributes RD \u003d RTimport \u003d RTexport. The purpose is standard test case.\nSo I guess we can optimise this.",
+      "parentUuid": "da01753e_1f695c25",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_9f642c4a",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -214,6 +238,30 @@
       "writtenOn": "2017-04-24T23:44:05Z",
       "side": 1,
       "message": "I think in a different patch I have commented that we \nprobably don\u0027t need a seperate keyword for collecting\nv6 addresses.",
+      "range": {
+        "startLine": 135,
+        "startChar": 23,
+        "endLine": 135,
+        "endChar": 54
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_b205e77b",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-04-25T06:11:02Z",
+      "side": 1,
+      "message": "If you have some example to illustrate to us so that we can pick it up the way it should be.\nthanks.",
+      "parentUuid": "da01753e_5ff80449",
       "range": {
         "startLine": 135,
         "startChar": 23,
