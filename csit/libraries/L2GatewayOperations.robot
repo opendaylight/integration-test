@@ -135,6 +135,12 @@ Namespace Dhclient Verify
     Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} dhclient ${ns_tap}    ${hwvtep_ip}
     Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}    ${ns_port_ip}
 
+Namespace Static Ip Assign
+    [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}    ${conn_id}=${hwvtep_conn_id}    ${hwvtep_ip}=${HWVTEP_IP}
+    [Documentation]    Keyword to assign IP address to TAP port statically
+    Start Command In Hwvtep    ${NETNS_EXEC} ${ns_name} ${IFCONF} ${ns_tap} ${ns_port_ip}/24 UP    ${hwvtep_ip}
+    Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}    ${ns_port_ip}
+
 Verify Strings In Command Output
     [Arguments]    ${conn_id}    ${command}    @{string_list}
     [Documentation]    Keyword to run the ${command} in ${conn_id} and verify if the output contains the list @{string_list}.
