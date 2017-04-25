@@ -1,12 +1,15 @@
 *** Settings ***
 Documentation     Test Suite for verification of HWVTEP usecases
 Suite Setup       BuiltIn.Run Keywords    Basic Suite Setup
+...               AND    Enable ODL DHCP Service
 Suite Teardown    Basic Suite Teardown
 Test Teardown     Get L2gw Debug Info
 Resource          ../../libraries/L2GatewayOperations.robot
 
 *** Test Cases ***
 TC01 Configure Hwvtep Manager OVS Manager Controller And Verify
+    Delete Manager And Controller    ${devstack_conn_id}
+    Delete Manager And Controller    ${ovs2_conn_id}
     L2GatewayOperations.Add Vtep Manager And Verify    ${ODL_IP}
     L2GatewayOperations.Add Ovs Bridge Manager Controller And Verify
 
@@ -56,7 +59,9 @@ TC05 Create L2Gateway And Connection And Verify
     Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${hwvtep_conn_id}    ${UCAST_MACS_REMOTE_TABLE}    ${port_mac_list[0]}
 
 TC06 Dhcp Ip Allocation For Hwvtep Tap Port
-    Wait Until Keyword Succeeds    180s    10s    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS1}    ${NS_TAP1}    ${port_ip_list[1]}
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    180s    10s    L2GatewayOperations.Namespace Dhclient Verify
+    ...    ${HWVTEP_NS1}    ${NS_TAP1}    ${port_ip_list[1]}
+    Run Keyword If    '${status}' == 'FAIL'    L2GatewayOperations.Namespace Static Ip Assign    ${HWVTEP_NS1}    ${NS_TAP1}    ${port_ip_list[1]}
 
 TC07 Verify Ping From Compute Node Vm To Hwvtep
     ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[0]}
@@ -103,7 +108,9 @@ TC10 Update And Attach Second Port To Hwvtep Create L2gw Connection
     Validate Regexp In String    ${phy_port_out}    ${VLAN_BINDING_REGEX}    2
 
 TC11 Dhcp Ip Allocation And Ping Validation Within Second Network
-    Wait Until Keyword Succeeds    180s    10s    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS2}    ${NS2_TAP1}    ${port_ip_list[3]}
+    ${status}    ${message}    Wait Until Keyword Succeeds    180s    10s    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS2}
+    ...    ${NS2_TAP1}    ${port_ip_list[3]}
+    Run Keyword If    '${status}' == 'FAIL'    L2GatewayOperations.Namespace Static Ip Assign    ${HWVTEP_NS2}    ${NS2_TAP1}    ${port_ip_list[3]}
     ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_2}    ${port_ip_list[2]}
     ...    ping -c 3 ${port_ip_list[3]}
     Log    ${output}
@@ -119,8 +126,72 @@ TC12 Ping Between Vm In Second Network To Namespace In First Network
     Log    ${output}
     Should Contain    ${output}    ${PACKET_LOSS}
 
-TC13 Ping Between Namespace In Second Network To Vm In First Network
-    Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping Fails In Namespace    ${HWVTEP_NS2}    ${port_mac_list[3]}    ${port_ip_list[0]}
+TC14 Delete L2GW For Second Network Verify Ping
+    L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME2}
+    L2GatewayOperations.Delete L2Gateway    ${L2GW_NAME2}
+    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_2}    ${port_ip_list[2]}
+    ...    ping -c 3 ${port_ip_list[3]}
+    Log    ${output}
+    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[0]}
+    ...    ping -c 3 ${port_ip_list[1]}
+    Log    ${output}
+
+TC15 Delete Port For First Network Ovs And Verify
+    OpenStackOperations.Delete Port    ${OVS_PORT_1}
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance
+    ...    ${NET_1}    ${port_ip_list[0]}    ping -c 3 ${port_ip_list[1]}
+    Log    ${status}
+    Log    ${message}
+
+TC16 Delete Port For First Network Hwvtep And Verify
+    OpenStackOperations.Delete Port    ${HWVTEP_PORT_1}
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Extra Timeout
+    ...    ${HWVTEP_NS1}    ${port_mac_list[1]}    ${port_ip_list[0]}
+    Log    ${status}
+    Log    ${message}
+
+TC17 Readd Port For First Network And Verify
+    OpenStackOperations.Delete Vm Instance    ${OVS_VM1_NAME}
+    OpenStackOperations.Create Port    ${NET_1}    ${OVS_PORT_1}    sg=${SECURITY_GROUP_L2GW}
+    OpenStackOperations.Create Port    ${NET_1}    ${HWVTEP_PORT_1}    sg=${SECURITY_GROUP_L2GW}
+    ${port_mac}=    Get Port Mac    ${OVS_PORT_1}    #port_mac[4]
+    ${port_ip}=    Get Port Ip    ${OVS_PORT_1}    #port_ip[4]
+    Append To List    ${port_mac_list}    ${port_mac}
+    Append To List    ${port_ip_list}    ${port_ip}
+    ${port_mac}=    Get Port Mac    ${HWVTEP_PORT_1}    #port_mac[5]
+    ${port_ip}=    Get Port Ip    ${HWVTEP_PORT_1}    #port_ip[5]
+    Append To List    ${port_mac_list}    ${port_mac}
+    Append To List    ${port_ip_list}    ${port_ip}
+    L2GatewayOperations.Update Port For Hwvtep    ${HWVTEP_PORT_1}
+    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Attach Port To Hwvtep Namespace    ${port_mac_list[5]}    ${HWVTEP_NS1}    ${NS_TAP1}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS_PORT_1}    ${OVS_VM1_NAME}    ${OVS_IP}
+    ${vm_ip}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS_VM1_NAME}
+    Log    ${vm_ip}
+    Should Contain    ${vm_ip[0]}    ${port_ip_list[4]}
+    ${status}    ${message}    Wait Until Keyword Succeeds    180s    10s    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS1}
+    ...    ${NS_TAP1}    ${port_ip_list[5]}
+    Run Keyword If    '${status}' == 'FAIL'    L2GatewayOperations.Namespace Static Ip Assign    ${HWVTEP_NS1}    ${NS_TAP1}    ${port_ip_list[5]}
+    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[4]}
+    ...    ping -c 3 ${port_ip_list[5]}
+    Log    ${output}
+
+TC18 Readd L2gw For Second Network
+    ${output}=    L2GatewayOperations.Create Verify L2Gateway    ${HWVTEP_BRIDGE}    ${NS_PORT2}    ${L2GW_NAME2}
+    Log    ${output}
+    ${output}=    L2GatewayOperations.Create Verify L2Gateway Connection    ${L2GW_NAME2}    ${NET_2}
+    Log    ${output}
+    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_2}    ${port_ip_list[2]}
+    ...    ping -c 3 ${port_ip_list[3]}
+    Log    ${output}
+
+TC19 Delete Both L2Gw And Connection For Networks
+    L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME2}
+    L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME1}
+    L2GatewayOperations.Delete L2Gateway    ${L2GW_NAME2}
+    L2GatewayOperations.Delete L2Gateway    ${L2GW_NAME1}
+
+TC20 Delete Manger And Verify
+    ${output}=    Exec Command    ${hwvtep_conn_id}    sudo vtep-ctl del-manager
 
 TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME1}
@@ -160,6 +231,10 @@ Basic Suite Setup
     Log    ${ovs_conn_id}
     Set Suite Variable    ${ovs_conn_id}
     Wait Until Keyword Succeeds    30s    5s    Flexible SSH Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    ${ovs2_conn_id}=    SSHLibrary.Open Connection    ${OS_COMPUTE_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    Log    ${ovs2_conn_id}
+    Set Suite Variable    ${ovs2_conn_id}
+    Wait Until Keyword Succeeds    30s    5s    Flexible SSH Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
     ${port_mac_list}=    Create List
     Set Suite Variable    ${port_mac_list}
     ${port_ip_list}=    Create List
@@ -172,3 +247,11 @@ Basic Suite Teardown
     close connection
     Switch Connection    ${ovs_conn_id}
     close connection
+
+Enable ODL DHCP Service
+    [Documentation]    Enable and Verify ODL DHCP service
+    TemplatedRequests.Post_As_Json_Templated    folder=${CURDIR}/../../../variables/vpnservice/enable_dhcp    mapping={}    session=session
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/dhcpservice-config:dhcpservice-config
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    "controller-dhcp-enabled":true
