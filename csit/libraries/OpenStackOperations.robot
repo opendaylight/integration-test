@@ -164,6 +164,14 @@ Create And Associate Floating IPs
     \    Should Not Be True    ${rc}
     [Return]    ${ip_list}
 
+Get VMs IPAddress
+    [Documentation]    Get the VMs IP Address from existing Nova List
+    [Arguments]    ${vm}
+    ${ip}    Write Commands Until Expected Prompt    openstack server show ${vm} | grep ${addresses} | awk '{print$4}'    $    30s
+    ${vms_ip}    Should Match Regexp    ${ip}    [0-9]\.+
+    log    ${vms_ip}
+    [Return]    ${vms_ip} 
+
 Verify Gateway Ips
     [Documentation]    Verifies the Gateway Ips with dump flow.
     ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
@@ -301,7 +309,8 @@ Collect VM IP Addresses
     ...    finds them in the console log output, and will have "None" for Vms that no ip was found.
     ${ip_list}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
-    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
+#   \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
+    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm}
     \    Log    ${vm_ip_line}
     \    Log    ${rc}
     \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
