@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_a438fcef",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T08:52:47Z",
+      "side": 1,
+      "message": "details?",
+      "range": {
+        "startLine": 48,
+        "startChar": 83,
+        "endLine": 48,
+        "endChar": 89
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e77166a9",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T08:52:47Z",
+      "side": 1,
+      "message": "list",
+      "range": {
+        "startLine": 70,
+        "startChar": 79,
+        "endLine": 70,
+        "endChar": 84
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_2767eeea",
+        "filename": "csit/libraries/ShardStability.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T08:52:47Z",
+      "side": 1,
+      "message": "Add a TODO to investigate whether pure stateless library would be easier or harder to use.",
+      "range": {
+        "startLine": 10,
+        "startChar": 28,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a7a2befa",
+        "filename": "csit/testplans/bgpcep-bgpclustering.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T08:52:47Z",
+      "side": 1,
+      "message": "Suites could explain what do these acronyms mean.",
+      "range": {
+        "startLine": 8,
+        "startChar": 61,
+        "endLine": 8,
+        "endChar": 67
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
