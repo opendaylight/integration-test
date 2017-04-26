@@ -68,6 +68,30 @@
       "revId": "2b03880442d94680d95946d2c082c4af62f5cb56",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c72ee242",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-04-26T09:16:59Z",
+      "side": 1,
+      "message": "This is a test case with only one producer. Returned value should be the list with one item only.",
+      "parentUuid": "da01753e_ebde563e",
+      "range": {
+        "startLine": 44,
+        "startChar": 55,
+        "endLine": 44,
+        "endChar": 58
+      },
+      "revId": "2b03880442d94680d95946d2c082c4af62f5cb56",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
