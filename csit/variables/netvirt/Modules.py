@@ -50,6 +50,7 @@ netvirt_data_models = [
         'operational/itm-state:tunnels_state',
         'operational/l3nexthop:l3nexthop',
         'operational/l3vpn:vpn-interfaces',
+        'operational/neutron:neutron/neutron:ports',
         'operational/network-topology:network-topology/topology/ovsdb:1',
         'operational/odl-fib:label-route-map',
         'operational/odl-l3vpn:learnt-vpn-vip-to-port-data',
