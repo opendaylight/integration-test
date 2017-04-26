@@ -71,6 +71,259 @@
     },
     {
       "key": {
+        "uuid": "da01753e_c7bc22df",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_100kroutes.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T09:56:13Z",
+      "side": 1,
+      "message": ".robot is recommended.",
+      "range": {
+        "startLine": 20,
+        "startChar": 56,
+        "endLine": 20,
+        "endChar": 59
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_07b3ca0a",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_100kroutes.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T09:56:13Z",
+      "side": 1,
+      "message": "By the way, is this documented somewhere?",
+      "range": {
+        "startLine": 38,
+        "startChar": 49,
+        "endLine": 38,
+        "endChar": 63
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_27cd2e86",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_100kroutes.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T09:56:13Z",
+      "side": 1,
+      "message": "TODO: Use ClusterManagement.Resolve_Http_Session_For_Member",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 34
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_27940e42",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_100kroutes.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T09:56:13Z",
+      "side": 1,
+      "message": "TODO: Create a keyword for this line, accepting member_index and using ClusterManagement.Resolve_Http_Session_For_Member",
+      "range": {
+        "startLine": 48,
+        "startChar": 150,
+        "endLine": 48,
+        "endChar": 152
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a7bd9eb9",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_100kroutes.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T09:56:13Z",
+      "side": 1,
+      "message": "TODO: Single test case with FOR over members. That would make this suite support 5node clusters and similar.\nRelevant for other numbered test cases as well.",
+      "range": {
+        "startLine": 50,
+        "startChar": 44,
+        "endLine": 50,
+        "endChar": 46
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_679a966f",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_100kroutes.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T09:56:13Z",
+      "side": 1,
+      "message": "TODO: Analyse which keyword should fail fast and which not.",
+      "range": {
+        "startLine": 64,
+        "startChar": 54,
+        "endLine": 64,
+        "endChar": 61
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a78f5e29",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_100kroutes.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T09:56:13Z",
+      "side": 1,
+      "message": "The same TODO. Why do we want to not start failing fast if this fails?",
+      "range": {
+        "startLine": 68,
+        "startChar": 66,
+        "endLine": 68,
+        "endChar": 67
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_07810afb",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_100kroutes.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T09:56:13Z",
+      "side": 1,
+      "message": "TODO: Is this still needed?",
+      "range": {
+        "startLine": 72,
+        "startChar": 82,
+        "endLine": 72,
+        "endChar": 86
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_27a24e99",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_100kroutes.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T09:56:13Z",
+      "side": 1,
+      "message": "TODO: Keyword with member_index.",
+      "range": {
+        "startLine": 76,
+        "startChar": 204,
+        "endLine": 76,
+        "endChar": 206
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e7b326e7",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_100kroutes.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T09:56:13Z",
+      "side": 1,
+      "message": "TODO: Keyword or FOR.",
+      "range": {
+        "startLine": 115,
+        "startChar": 211,
+        "endLine": 115,
+        "endChar": 213
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a70bde8c",
+        "filename": "csit/testplans/bgpcep-bgpclustering-boron.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T09:56:13Z",
+      "side": 1,
+      "message": "TODO: Review these suites, perhaps Carbon+ suites can be changed to handle Boron after some tweaking?",
+      "range": {
+        "startLine": 9,
+        "startChar": 76,
+        "endLine": 9,
+        "endChar": 77
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_a7a2befa",
         "filename": "csit/testplans/bgpcep-bgpclustering.txt",
         "patchSetId": 10
