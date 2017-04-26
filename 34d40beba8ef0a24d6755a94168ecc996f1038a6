@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_0a562f06",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T11:01:06Z",
+      "side": 1,
+      "message": "Odl\n\nAt least according to [0]. But other keywords in this file already use ODL, so no big deal.\n\n[0] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Capitalization",
+      "range": {
+        "startLine": 213,
+        "startChar": 13,
+        "endLine": 213,
+        "endChar": 16
+      },
+      "revId": "34d40beba8ef0a24d6755a94168ecc996f1038a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_aa5443ff",
+        "filename": "csit/suites/aaa/tls/010__aaa_restconf_tls.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T11:01:06Z",
+      "side": 1,
+      "message": "If this is better than ./\nthen make it the default value in SSHKeywords.",
+      "range": {
+        "startLine": 179,
+        "startChar": 82,
+        "endLine": 179,
+        "endChar": 83
+      },
+      "revId": "34d40beba8ef0a24d6755a94168ecc996f1038a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
