@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_619a866f",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T00:10:17Z",
+      "side": 1,
+      "message": "missing test case docs. it\u0027s missing in all test cases I think (even pre-existing ones). maybe you can push a new\npatch to get that cleaned up.",
+      "revId": "8f104e86cec08b6814c36957127cbab048ad1156",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c18a521a",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T00:10:17Z",
+      "side": 1,
+      "message": "is this just basic suite cleanup? if so, it should be\nin a \"Suite Teardown\" section, not a testcase. when it\u0027s\nin a teardown all the steps will be executed even if\none has trouble/fails. When it\u0027s in a test case like this\nif the first step failed, the others would be skipped.",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 50
+      },
+      "revId": "8f104e86cec08b6814c36957127cbab048ad1156",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
