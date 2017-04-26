@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_ca2d4700",
+        "filename": "csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_false.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-26T12:29:23Z",
+      "side": 1,
+      "message": "Where is this defined?",
+      "range": {
+        "startLine": 34,
+        "startChar": 123,
+        "endLine": 34,
+        "endChar": 136
+      },
+      "revId": "bb848fc2d7e36bbd6d73f19459708193762d8ab9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
