@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_6153a639",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/02_bgp_vpnservice.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T06:00:27Z",
+      "side": 1,
+      "message": "what\u0027s the purpose of this line? I don\u0027t see the log file\nbeing used anywhere. maybe I missed it.",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 111
+      },
+      "revId": "ee1da94dde95c55eb8c37e2c685d2669ffe3f312",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e1479675",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/02_bgp_vpnservice.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T06:00:27Z",
+      "side": 1,
+      "message": "got a better name for what this keyword does?",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 15
+      },
+      "revId": "ee1da94dde95c55eb8c37e2c685d2669ffe3f312",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_417942c7",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/02_bgp_vpnservice.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T06:00:27Z",
+      "side": 1,
+      "message": "${NETWORK_URL}  from netvirt/Variables.robot",
+      "range": {
+        "startLine": 115,
+        "startChar": 76,
+        "endLine": 115,
+        "endChar": 115
+      },
+      "revId": "ee1da94dde95c55eb8c37e2c685d2669ffe3f312",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_2176bed7",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/02_bgp_vpnservice.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T06:00:27Z",
+      "side": 1,
+      "message": "${SUBNETWORK_URL}",
+      "range": {
+        "startLine": 119,
+        "startChar": 76,
+        "endLine": 119,
+        "endChar": 114
+      },
+      "revId": "ee1da94dde95c55eb8c37e2c685d2669ffe3f312",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_617c46b6",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/02_bgp_vpnservice.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T06:00:27Z",
+      "side": 1,
+      "message": "${PORT_URL}",
+      "range": {
+        "startLine": 122,
+        "startChar": 76,
+        "endLine": 122,
+        "endChar": 111
+      },
+      "revId": "ee1da94dde95c55eb8c37e2c685d2669ffe3f312",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_81568a28",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/02_bgp_vpnservice.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T06:00:27Z",
+      "side": 1,
+      "message": "better name, or maybe just move all of this up to the\ncalling BGP VPNService Suite teardown",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 18
+      },
+      "revId": "ee1da94dde95c55eb8c37e2c685d2669ffe3f312",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
