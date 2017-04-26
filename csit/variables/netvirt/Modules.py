@@ -51,6 +51,7 @@ netvirt_data_models = [
         'operational/l3nexthop:l3nexthop',
         'operational/l3vpn:vpn-interfaces',
         'operational/network-topology:network-topology/topology/ovsdb:1',
+        'operational/neutron:neutron/neutron:ports',
         'operational/odl-fib:label-route-map',
         'operational/odl-l3vpn:learnt-vpn-vip-to-port-data',
         'operational/odl-l3vpn:neutron-router-dpns',
