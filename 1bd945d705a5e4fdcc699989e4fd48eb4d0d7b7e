@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_56974248",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T22:34:40Z",
+      "side": 1,
+      "message": "sounds good. We\u0027ll wait to let Valentina take a further look now :)",
+      "parentUuid": "da01753e_52d75bed",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_9f642c4a",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -262,6 +286,30 @@
       "side": 1,
       "message": "If you have some example to illustrate to us so that we can pick it up the way it should be.\nthanks.",
       "parentUuid": "da01753e_5ff80449",
+      "range": {
+        "startLine": 135,
+        "startChar": 23,
+        "endLine": 135,
+        "endChar": 54
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d6a332b0",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T22:34:40Z",
+      "side": 1,
+      "message": "here is where I commented on this before:\n\nhttps://git.opendaylight.org/gerrit/#/c/54801/5/csit/libraries/OpenStackOperations.robot@461",
+      "parentUuid": "da01753e_b205e77b",
       "range": {
         "startLine": 135,
         "startChar": 23,
