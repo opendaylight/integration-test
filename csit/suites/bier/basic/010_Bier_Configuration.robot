@@ -28,6 +28,7 @@ Library           Collections
 Library           XML
 Resource          ../../../libraries/BierResource.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${TOPOLOGY_ID}    flow:1
@@ -42,6 +43,7 @@ ${ENCAPSULATION_TYPE}    ietf-bier:bier-encapsulation-mpls
 ${IPV4_BFR_PREFIX}    10.41.41.41/22
 ${IPV6_BFR_PREFIX}    fe80::7009:fe25:8170:36af/64
 ${BIER_QUERYALLTOPOLOGYID_URI}    /restconf/operations/bier-topology-api
+${BIER_VAR_FOLDER}    ${CURDIR}/../../variables/bier
 
 *** Test Cases ***
 TC1_Query All Topology ID
@@ -57,13 +59,12 @@ TC1_Query All Topology ID
 
 TC1_Query Single Topology
     [Documentation]    Query the topology which assigned by RestAPI
-    ${input}    Create Dictionary    topology-id    ${TOPOLOGY_ID}
-    ${resp}    Send_Request_Operation_Besides_QueryTopology_Id    bier-topology-api    query-topology    ${input}
-    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
-    ${root}    To Json    ${resp.content}
-    ${out_put}    Get From Dictionary    ${root}    output
-    ${topology_id}    Get From Dictionary    ${out_put}    topology-id
-    BuiltIn.Should_Be_Equal    ${topology_id}    flow:1
+    ${uri}    Get File    ${BIER_VAR_FOLDER}/query_single_topology_request/location.uri
+    ${body}    Get File    ${BIER_VAR_FOLDER}/query_single_topology_request/data.json
+    ${resp}    TemplatedRequests.Post_As_Json_To_Uri    ${uri}    ${body}    session
+    BuiltIn.Log    ${resp}
+    ${expected_resp}    Get File    ${BIER_VAR_FOLDER}/all_response/query_single_topology_response.json
+    Normalize_Jsons_And_Compare    ${expected_resp}    ${resp}
 
 TC2_Configure Domain
     [Documentation]    Configure a bier domain in the topology
@@ -107,12 +108,13 @@ TC3_Query Subdomain
     ${root}    To Json    ${resp.content}
     ${out_put}    Get From Dictionary    ${root}    output
     ${subdomain_list}    Get From Dictionary    ${out_put}    subdomain
+    ${subdomain_num}    Get Length    ${subdomain_list}
     ${fixed_value}    Set Variable    ${4}
-    : FOR    ${i}    IN    3    2    1    0
+    : FOR    ${i}    IN RANGE    4
     \    ${subdomain_id}    Get From List    ${subdomain_list}    ${i}
     \    ${value}    Get From Dictionary    ${subdomain_id}    sub-domain-id
-    \    ${sub_value}    Evaluate    ${4}-${i}
-    \    BuiltIn.Should_Be_Equal    ${value}    ${sub_value}
+    \    ${subdomain}    Convert To String    ${value}
+    \    Should Contain    ${SUBDOMAIN_ID_LIST}    ${subdomain}
 
 TC3_Delete Subdomain
     [Documentation]    Delete a bier subdomain in one domain
@@ -343,12 +345,15 @@ TC5_Add Channel
     ${root}    To Json    ${resp3.content}
     ${out_put}    Get From Dictionary    ${root}    output
     ${channel_name_list}    Get From Dictionary    ${out_put}    channel-name
+    ${channel_num}    Get Length    ${channel_name_list}
+    BuiltIn.Should_Be_Equal    ${channel_num}    ${2}
     ${channel_name1}    Get From List    ${channel_name_list}    0
     ${name1}    Get From Dictionary    ${channel_name1}    name
-    BuiltIn.Should_Be_Equal    ${name1}    channel-1
+    @{channel_list}    Create List    channel-1    channel-2
+    List Should Contain Value    ${channel_list}    ${name1}
     ${channel_name2}    Get From List    ${channel_name_list}    1
     ${name2}    Get From Dictionary    ${channel_name2}    name
-    BuiltIn.Should_Be_Equal    ${name2}    channel-2
+    Should Contain    ${channel_list}    ${name2}
 
 TC5_Modify Channel
     [Documentation]    Modify {src_ip} and {dst_group} value of channel-1
