@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_56faa275",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T22:50:49Z",
+      "side": 1,
+      "message": "nice additions :)",
+      "range": {
+        "startLine": 749,
+        "startChar": 0,
+        "endLine": 769,
+        "endChar": 20
+      },
+      "revId": "0a873e2f6c3d7592a74ba7d835a157f6afea9048",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_76ed26b7",
+        "filename": "csit/suites/openstack/connectivity/04_security_group_tests.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-26T22:50:49Z",
+      "side": 1,
+      "message": "instead of putting this in every test case, we can use\nForce Tags in *** Settings ***",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 33
+      },
+      "revId": "0a873e2f6c3d7592a74ba7d835a157f6afea9048",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
