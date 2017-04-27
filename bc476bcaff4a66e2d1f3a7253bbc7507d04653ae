@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_2d8228c8",
+        "filename": "csit/testplans/netvirt-3node-openstack.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-27T08:19:50Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#DON.27T:_Numeric_prefix",
+      "range": {
+        "startLine": 4,
+        "startChar": 56,
+        "endLine": 4,
+        "endChar": 59
+      },
+      "revId": "bc476bcaff4a66e2d1f3a7253bbc7507d04653ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
