@@ -13,7 +13,7 @@ integration/test/csit/suites/controller/dom_data_broker/explicit_leader_movement
 integration/test/csit/suites/controller/dom_data_broker/leader_isolation.robot
 integration/test/csit/suites/controller/dom_data_broker/client_isolation.robot
 integration/test/csit/suites/controller/dom_data_broker/remote_listener.robot
-ntegration/test/csit/suites/controller/singleton_service/global_rpc_kill.robot
+integration/test/csit/suites/controller/singleton_service/global_rpc_kill.robot
 integration/test/csit/suites/controller/singleton_service/global_rpc_freeze.robot
 integration/test/csit/suites/controller/singleton_service/global_rpc_isolate.robot
 integration/test/csit/suites/controller/Clustering_Datastore/carpeople_crud.robot
