@@ -27,8 +27,10 @@ Resource          ../../../variables/netvirt/Variables.robot
 @{VPN_INSTANCE_IDS}    4ae8cd92-48ca-49b5-94e1-b2921a261111    4ae8cd92-48ca-49b5-94e1-b2921a261112
 @{RD_LIST}        ["2200:2"]    ["2300:2"]
 @{VPN_NAMES}      vpn101    vpn102
-${LOOPBACK_IP}    5.5.5.2
-${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
+${LOOPBACK_1_IP}    5.5.5.2
+${LOOPBACK_2_IP}    6.6.6.2
+${DCGW_SYSTEM_1_IP}    ${TOOLS_SYSTEM_1_IP}
+${DCGW_SYSTEM_2_IP}    ${TOOLS_SYSTEM_2_IP}
 ${AS_ID}          500
 ${DCGW_RD}        2200:2
 ${SG_NAME}        sg_bgp_vpnservice
@@ -37,59 +39,109 @@ ${SG_NAME}        sg_bgp_vpnservice
 Create BGP Config On ODL
     [Documentation]    Create BGP Config on ODL
     Create BGP Configuration On ODL    localas=${AS_ID}    routerid=${ODL_SYSTEM_IP}
-    AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${DCGW_SYSTEM_IP}
+    AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${DCGW_SYSTEM_1_IP}
     ${output} =    Get BGP Configuration On ODL    session
     Log    ${output}
-    Should Contain    ${output}    ${DCGW_SYSTEM_IP}
+    Should Contain    ${output}    ${DCGW_SYSTEM_1_IP}
 
 Create BGP Config On DCGW
     [Documentation]    Configure BGP Config on DCGW
-    Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${VPN_NAMES[0]}    ${DCGW_RD}
-    ...    ${LOOPBACK_IP}
-    Add Loopback Interface On DCGW    ${DCGW_SYSTEM_IP}    lo    ${LOOPBACK_IP}
-    ${output} =    Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    show running-config
+    Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_1_IP}    ${AS_ID}    ${DCGW_SYSTEM_1_IP}    ${ODL_SYSTEM_IP}    ${VPN_NAMES[0]}    ${DCGW_RD}
+    ...    ${LOOPBACK_1_IP}
+    Add Loopback Interface On DCGW    ${DCGW_SYSTEM_1_IP}    lo    ${LOOPBACK_1_IP}
+    ${output} =    Execute Show Command On Quagga    ${DCGW_SYSTEM_1_IP}    show running-config
     Log    ${output}
     Should Contain    ${output}    ${ODL_SYSTEM_IP}
 
 Verify BGP Neighbor Status
     [Documentation]    Verify BGP status established
-    ${output} =    Wait Until Keyword Succeeds    60s    10s    Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}
+    ${output} =    Wait Until Keyword Succeeds    60s    10s    Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_1_IP}    ${ODL_SYSTEM_IP}
     Log    ${output}
-    ${output1} =    Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    show ip bgp vrf ${DCGW_RD}
+    ${output1} =    Execute Show Command On Quagga    ${DCGW_SYSTEM_1_IP}    show ip bgp vrf ${DCGW_RD}
     Log    ${output1}
-    Should Contain    ${output1}    ${LOOPBACK_IP}
+    Should Contain    ${output1}    ${LOOPBACK_1_IP}
+
+Add Additional Neighbor to ODL
+    [Documentation]    Add additional neighbor to ODL and verify neighbor status.
+    AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${DCGW_SYSTEM_2_IP}
+    ${output} =    Get BGP Configuration On ODL    session
+    Log    ${output}
+    Should Contain    ${output}    ${DCGW_SYSTEM_2_IP}
+    Log    Create BGP Configuration On DCGW2
+    Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_2_IP}    ${AS_ID}    ${DCGW_SYSTEM_2_IP}    ${ODL_SYSTEM_IP}    ${VPN_NAMES[0]}    ${DCGW_RD}
+    ...    ${LOOPBACK_2_IP}
+    Add Loopback Interface On DCGW    ${DCGW_SYSTEM_2_IP}    lo    ${LOOPBACK_2_IP}
+    ${output} =    Execute Show Command On Quagga    ${DCGW_SYSTEM_2_IP}    show running-config
+    Log    ${output}
+    Should Contain    ${output}    ${ODL_SYSTEM_IP}
+    ${output} =    Wait Until Keyword Succeeds    60s    10s    Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_2_IP}    ${ODL_SYSTEM_IP}
+    Log    ${output}
+    ${output1} =    Execute Show Command On Quagga    ${DCGW_SYSTEM_2_IP}    show ip bgp vrf ${DCGW_RD}
+    Log    ${output1}
+    Should Contain    ${output1}    ${LOOPBACK_2_IP}
 
 Create External Tunnel Endpoint
     [Documentation]    Create and verify external tunnel endpoint between ODL and GWIP
-    Create External Tunnel Endpoint Configuration    destIp=${DCGW_SYSTEM_IP}
-    ${output} =    Get External Tunnel Endpoint Configuration    ${DCGW_SYSTEM_IP}
-    Should Contain    ${output}    ${DCGW_SYSTEM_IP}
+    Create External Tunnel Endpoint Configuration    destIp=${DCGW_SYSTEM_1_IP}
+    ${output} =    Get External Tunnel Endpoint Configuration    ${DCGW_SYSTEM_1_IP}
+    Should Contain    ${output}    ${DCGW_SYSTEM_1_IP}
+    Create External Tunnel Endpoint Configuration    destIp=${DCGW_SYSTEM_2_IP}
+    ${output} =    Get External Tunnel Endpoint Configuration    ${DCGW_SYSTEM_2_IP}
+    Should Contain    ${output}    ${DCGW_SYSTEM_2_IP}
 
 Verify Routes Exchange Between ODL And DCGW
     [Documentation]    Verify routes exchange between ODL and DCGW
-    ${fib_values} =    Create List    ${LOOPBACK_IP}    @{VM_IPS}
+    ${fib_values} =    Create List    ${LOOPBACK_1_IP}    ${LOOPBACK_2_IP}    @{VM_IPS}
     Wait Until Keyword Succeeds    60s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${DCGW_RD}/    ${fib_values}
-    Wait Until Keyword Succeeds    60s    5s    Verify Routes On Quagga    ${DCGW_SYSTEM_IP}    ${DCGW_RD}    ${fib_values}
+    Wait Until Keyword Succeeds    60s    5s    Verify Routes On Quagga    ${DCGW_SYSTEM_1_IP}    ${DCGW_RD}    ${fib_values}
+    Wait Until Keyword Succeeds    60s    5s    Verify Routes On Quagga    ${DCGW_SYSTEM_2_IP}    ${DCGW_RD}    ${fib_values}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${fib_values}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${fib_values}
     [Teardown]    Run Keywords    Report_Failure_Due_To_Bug    7607
     ...    AND    Get Test Teardown Debugs
 
+Verify Datapath After OVS restart
+    [Documentation]    Verify datapath after OVS restart
+    Log    Restarting OVS1 and OVS2
+    Restart OVSDB    ${OS_COMPUTE_1_IP}
+    Restart OVSDB    ${OS_COMPUTE_2_IP}
+    Log    Checking the OVS state and Flow table after restart
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
+    Wait Until Keyword Succeeds    60s    10s    Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_1_IP}    ${ODL_SYSTEM_IP}
+    Wait Until Keyword Succeeds    60s    10s    Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_2_IP}    ${ODL_SYSTEM_IP}
+
+Delete one BGP Neighbor Config From ODL
+    [Documentation]    Delete BGP Neighbor Configuration on ODL
+    DeleteNeighbor from BGP Configuration On ODL    session    ${DCGW_SYSTEM_2_IP}
+    ${output} =    Get BGP Configuration On ODL    session
+    Log    ${output}
+    Should Not Contain    ${output}    ${DCGW_SYSTEM_2_IP}
+    Should Contain    ${output}    ${DCGW_SYSTEM_1_IP}
+
 Delete External Tunnel Endpoint
     [Documentation]    Delete external tunnel endpoint
-    Delete External Tunnel Endpoint Configuration    destIp=${DCGW_SYSTEM_IP}
-    ${output} =    Get External Tunnel Endpoint Configuration    ${DCGW_SYSTEM_IP}
-    Should Not Contain    ${output}    ${DCGW_SYSTEM_IP}
+    Delete External Tunnel Endpoint Configuration    destIp=${DCGW_SYSTEM_1_IP}
+    ${output} =    Get External Tunnel Endpoint Configuration    ${DCGW_SYSTEM_1_IP}
+    Should Not Contain    ${output}    ${DCGW_SYSTEM_1_IP}
+    Delete External Tunnel Endpoint Configuration    destIp=${DCGW_SYSTEM_2_IP}
+    ${output} =    Get External Tunnel Endpoint Configuration    ${DCGW_SYSTEM_2_IP}
+    Should Not Contain    ${output}    ${DCGW_SYSTEM_2_IP}
 
 Delete BGP Config On ODL
     [Documentation]    Delete BGP Configuration on ODL
     Delete BGP Configuration On ODL    session
     ${output} =    Get BGP Configuration On ODL    session
     Log    ${output}
-    Should Not Contain    ${output}    ${DCGW_SYSTEM_IP}
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    sudo cp /opt/quagga/var/log/quagga/zrpcd.init.log /tmp/
+    Should Not Contain    ${output}    ${DCGW_SYSTEM_1_IP}
+    Run Command On Remote System    ${ODL_SYSTEM_1_IP}    sudo cp /opt/quagga/var/log/quagga/zrpcd.init.log /tmp/
 
 Delete BGP Config On DCGW
     [Documentation]    Delete BGP Configuration on DCGW
-    ${output} =    Delete BGP Config On Quagga    ${DCGW_SYSTEM_IP}    ${AS_ID}
+    ${output} =    Delete BGP Config On Quagga    ${DCGW_SYSTEM_1_IP}    ${AS_ID}
+    Log    ${output}
+    Should Not Contain    ${output}    ${ODL_SYSTEM_IP}
+    ${output} =    Delete BGP Config On Quagga    ${DCGW_SYSTEM_2_IP}    ${AS_ID}
     Log    ${output}
     Should Not Contain    ${output}    ${ODL_SYSTEM_IP}
 
@@ -99,7 +151,8 @@ BGP Vpnservice Suite Setup
     DevstackUtils.Devstack Suite Setup
     Create And Configure Security Group    ${SG_NAME}
     Start Quagga Processes On ODL    ${ODL_SYSTEM_IP}
-    Start Quagga Processes On DCGW    ${DCGW_SYSTEM_IP}
+    Start Quagga Processes On DCGW    ${DCGW_SYSTEM_1_IP}
+    Start Quagga Processes On DCGW    ${DCGW_SYSTEM_2_IP}
     Create Basic Configuartion for BGP VPNservice Suite
 
 BGP Vpnservice Suite Teardown
