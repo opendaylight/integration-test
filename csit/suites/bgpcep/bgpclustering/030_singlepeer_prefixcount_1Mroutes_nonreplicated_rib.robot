@@ -39,7 +39,7 @@ Get Example Bgp Rib Owner
     ${rib_owner}    ${rib_candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    1
     BuiltIn.Set_Suite_Variable    ${rib_owner}    ${rib_owner}
     BuiltIn.Set_Suite_Variable    ${rib_owner_node_id}    ${ODL_SYSTEM_${rib_owner}_IP}
-    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_${rib_owner}_IP}:${RESTCONFPORT}    auth=${AUTH}
+    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_${rib_owner}_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=10    max_retries=0
 
 Get Topology Operational Leader
     [Documentation]    Gets the operational topology shard leader

@@ -41,7 +41,7 @@ Get Default Operational Shard Leader
     ${dos_leader}    ${dos_followers}=    ClusterManagement.Get_Leader_And_Followers_For_Shard
     BuiltIn.Set_Suite_Variable    ${dos_leader}    ${dos_leader}
     BuiltIn.Set_Suite_Variable    ${default_oper_shard_leader_node_ip}    ${ODL_SYSTEM_${dos_leader}_IP}
-    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_${dos_leader}_IP}:${RESTCONFPORT}    auth=${AUTH}
+    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_${dos_leader}_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=10    max_retries=0
 
 Check_For_Empty_Ipv4_Topology_Before_Talking_1
     [Documentation]    Wait for ${EXAMPLE_IPV4_TOPOLOGY_PREF}${dos_leader} to come up and empty. Give large timeout for case when BGP boots slower than restconf.
