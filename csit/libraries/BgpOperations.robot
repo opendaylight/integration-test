@@ -152,6 +152,14 @@ AddNeighbor To BGP Configuration On ODL
     [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
     TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE_BGP}/addNeighbor_bgp    mapping=${Kwargs}    session=session
 
+DeleteNeighbor from BGP Configuration On ODL
+    [Arguments]    ${odl_session}    ${neighbor_ip}
+    [Documentation]    Delete BGP Neighbor
+    ${resp} =    RequestsLibrary.Delete Request    ${odl_session}    ${CONFIG_API}/ebgp:bgp/neighbors/${neighbor_ip}/
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    [Return]    ${resp.content}
+
 Get BGP Configuration On ODL
     [Arguments]    ${odl_session}
     [Documentation]    Get bgp configuration
