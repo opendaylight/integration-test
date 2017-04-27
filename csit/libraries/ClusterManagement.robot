@@ -58,7 +58,9 @@ ${NODE_UNFREEZE_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk 
 
 *** Keywords ***
 ClusterManagement_Setup
+    [Arguments]    ${http_timeout}=1    ${http_retries}=0
     [Documentation]    Detect repeated call, or detect number of members and initialize derived suite variables.
+    ...    Http sessions are created with parameters to not waste time when ODL is no accepting connections properly.
     # Avoid multiple initialization by several downstream libraries.
     ${already_done} =    BuiltIn.Get_Variable_Value    \${ClusterManagement__has_setup_run}    False
     BuiltIn.Return_From_Keyword_If    ${already_done}
@@ -66,7 +68,7 @@ ClusterManagement_Setup
     ${cluster_size} =    BuiltIn.Get_Variable_Value    \${NUM_ODL_SYSTEM}    1
     ${status}    ${possibly_int_of_members} =    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Convert_To_Integer    ${cluster_size}
     ${int_of_members} =    BuiltIn.Set_Variable_If    '${status}' != 'PASS'    ${1}    ${possibly_int_of_members}
-    ClusterManagement__Compute_Derived_Variables    int_of_members=${int_of_members}
+    ClusterManagement__Compute_Derived_Variables    int_of_members=${int_of_members}    http_timeout=${http_timeout}    http_retries=${http_retries}
 
 Check_Cluster_Is_In_Sync
     [Arguments]    ${member_index_list}=${EMPTY}
@@ -718,19 +720,20 @@ List_Indices_Minus_Member
     [Return]    ${index_list}
 
 ClusterManagement__Compute_Derived_Variables
-    [Arguments]    ${int_of_members}
+    [Arguments]    ${int_of_members}    ${http_timeout}=1    ${http_retries}=0
     [Documentation]    Construct index list, session list and IP mapping, publish them as suite variables.
     @{member_index_list} =    BuiltIn.Create_List
     @{session_list} =    BuiltIn.Create_List
     &{index_to_ip_mapping} =    BuiltIn.Create_Dictionary
     : FOR    ${index}    IN RANGE    1    ${int_of_members+1}
-    \    ClusterManagement__Include_Member_Index    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}
+    \    ClusterManagement__Include_Member_Index    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}    http_timeout=${http_timeout}
+    \    ...    http_retries=${http_retries}
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__member_index_list}    ${member_index_list}
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__index_to_ip_mapping}    ${index_to_ip_mapping}
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__session_list}    ${session_list}
 
 ClusterManagement__Include_Member_Index
-    [Arguments]    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}
+    [Arguments]    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}    ${http_timeout}=1    ${http_retries}=0
     [Documentation]    Add a corresponding item based on index into the last three arguments.
     ...    Create the Http session whose alias is added to list.
     Collections.Append_To_List    ${member_index_list}    ${index}
@@ -739,7 +742,7 @@ ClusterManagement__Include_Member_Index
     Collections.Set_To_Dictionary    ${index_to_ip_mapping}    ${index}    ${member_ip}
     # Http session, with ${AUTH}, without headers.
     ${session_alias} =    Resolve_Http_Session_For_Member    member_index=${index}
-    RequestsLibrary.Create_Session    ${session_alias}    http://${member_ip}:${RESTCONFPORT}    auth=${AUTH}    max_retries=0
+    RequestsLibrary.Create_Session    ${session_alias}    http://${member_ip}:${RESTCONFPORT}    auth=${AUTH}    timeout=${http_timeout}    max_retries=${http_retries}
     Collections.Append_To_List    ${session_list}    ${session_alias}
 
 Sync_Status_Should_Be_False
