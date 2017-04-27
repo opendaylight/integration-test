@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_54945542",
+        "filename": "csit/testplans/bgpcep-bgpclustering.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-27T18:08:33Z",
+      "side": 1,
+      "message": "TODO: Remove numbering when unifying with pre-carbon suites.",
+      "range": {
+        "startLine": 9,
+        "startChar": 50,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "1a3f30cfb918197243cb1dbfdbe95ecd19323e96",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
