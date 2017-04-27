@@ -12,7 +12,7 @@ Documentation     BGP performance of ingesting from 1 iBGP peer, data change cou
 ...               Test suite checks changes of the the example-ipv4-topology on all nodes.
 ...               RIB is not examined.
 ...
-...               singlepeer_pc_shm_100kroutes:
+...               singlepeer_pc_shm_300kroutes:
 ...               pc - prefix counting
 ...               shm - shard monitoring (during the process of prefix advertizing)
 Suite Setup       PrefixcountKeywords.Setup_Everything
@@ -35,7 +35,7 @@ Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/PrefixcountKeywords.robot
 
 *** Variables ***
-${COUNT}          100000
+${COUNT}          300000
 
 *** Test Cases ***
 Get Example Bgp Rib Owner

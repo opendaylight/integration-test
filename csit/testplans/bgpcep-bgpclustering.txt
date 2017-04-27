@@ -5,5 +5,8 @@
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
 # Place the suites in run order:
+integration/test/csit/suites/bgpcep/bgpclustering/singlepeer_prefixcount_300kroutes.robot
+integration/test/csit/suites/bgpcep/bgpclustering/030_singlepeer_prefixcount_1Mroutes.robot
 integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
+integration/test/csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_300kroutes.robot
 integration/test/csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_1Mroutes.robot
