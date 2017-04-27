@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_230eb9e5",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-27T11:41:16Z",
+      "side": 1,
+      "message": "Over the lunch I have recalled that this (here and in line 219) could have a default value (so ${source} would have to come first), but no big deal.",
+      "range": {
+        "startLine": 214,
+        "startChar": 19,
+        "endLine": 214,
+        "endChar": 28
+      },
+      "revId": "7259a2a607f9a99344833d4bb50151ded5fbec07",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
