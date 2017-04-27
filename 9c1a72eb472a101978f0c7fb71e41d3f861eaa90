@@ -344,6 +344,30 @@
       "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e0bca7de",
+        "filename": "csit/testplans/bgpcep-bgpclustering.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-04-27T10:01:20Z",
+      "side": 1,
+      "message": "pc - prefix counting\nshm - shard monitoring",
+      "parentUuid": "da01753e_a7a2befa",
+      "range": {
+        "startLine": 8,
+        "startChar": 61,
+        "endLine": 8,
+        "endChar": 67
+      },
+      "revId": "9c1a72eb472a101978f0c7fb71e41d3f861eaa90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
