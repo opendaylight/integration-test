@@ -107,12 +107,13 @@ TC3_Query Subdomain
     ${root}    To Json    ${resp.content}
     ${out_put}    Get From Dictionary    ${root}    output
     ${subdomain_list}    Get From Dictionary    ${out_put}    subdomain
+    ${subdomain_num}    Get Length    ${subdomain_list}
     ${fixed_value}    Set Variable    ${4}
-    : FOR    ${i}    IN    3    2    1    0
+    :FOR    ${i}    IN RANGE    4
     \    ${subdomain_id}    Get From List    ${subdomain_list}    ${i}
     \    ${value}    Get From Dictionary    ${subdomain_id}    sub-domain-id
-    \    ${sub_value}    Evaluate    ${4}-${i}
-    \    BuiltIn.Should_Be_Equal    ${value}    ${sub_value}
+    \    ${subdomain}    Convert To String    ${value}
+    \    Should Contain    ${SUBDOMAIN_ID_LIST}    ${subdomain}
 
 TC3_Delete Subdomain
     [Documentation]    Delete a bier subdomain in one domain
@@ -343,12 +344,15 @@ TC5_Add Channel
     ${root}    To Json    ${resp3.content}
     ${out_put}    Get From Dictionary    ${root}    output
     ${channel_name_list}    Get From Dictionary    ${out_put}    channel-name
+    ${channel_num}    Get Length    ${channel_name_list}
+    BuiltIn.Should_Be_Equal    ${channel_num}    ${2}
     ${channel_name1}    Get From List    ${channel_name_list}    0
     ${name1}    Get From Dictionary    ${channel_name1}    name
-    BuiltIn.Should_Be_Equal    ${name1}    channel-1
+    @{channel_list}    Create List    channel-1    channel-2
+    List Should Contain Value    ${channel_list}    ${name1}
     ${channel_name2}    Get From List    ${channel_name_list}    1
     ${name2}    Get From Dictionary    ${channel_name2}    name
-    BuiltIn.Should_Be_Equal    ${name2}    channel-2
+    Should Contain    ${channel_list}    ${name2}
 
 TC5_Modify Channel
     [Documentation]    Modify {src_ip} and {dst_group} value of channel-1
