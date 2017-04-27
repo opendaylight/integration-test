@@ -4,6 +4,7 @@ Suite Setup       RequestsLibrary.Create_Session    session    http://${ODL_SYST
 Suite Teardown    RequestsLibrary.Delete_All_Sessions
 Library           RequestsLibrary
 Resource          ${CURDIR}/../../../variables/Variables.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${APIDOC_URL}     /apidoc/apis
@@ -11,7 +12,8 @@ ${APIDOC_URL}     /apidoc/apis
 *** Test Cases ***
 Get Apidoc Apis
     [Documentation]    Get the Apidoc Apis list, check 200 status and apis string presence.
-    ${resp} =    RequestsLibrary.Get_Request    session    ${APIDOC_URL}
-    BuiltIn.Log    ${resp.content}
-    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
+#    ${resp} =    RequestsLibrary.Get_Request    session    ${APIDOC_URL}
+    ${resp} =    TemplatedRequests.Get_As_Json_Templated    session=${APIDOC_URL}    verify=True
+#    BuiltIn.Log    ${resp.content}
+#    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
     BuiltIn.Should_Contain    ${resp.content}    apis
