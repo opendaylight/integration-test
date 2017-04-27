@@ -152,6 +152,14 @@ AddNeighbor To BGP Configuration On ODL
     [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
     TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE_BGP}/addNeighbor_bgp    mapping=${Kwargs}    session=session
 
+DeleteNeighbor From BGP Configuration On ODL
+    [Arguments]    ${odl_session}    ${neighbor_ip}
+    [Documentation]    Delete BGP Neighbor from ODL
+    ${resp} =    RequestsLibrary.Delete Request    ${odl_session}    ${CONFIG_API}/ebgp:bgp/neighbors/${neighbor_ip}/
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    [Return]    ${resp.content}
+
 Get BGP Configuration On ODL
     [Arguments]    ${odl_session}
     [Documentation]    Get bgp configuration
@@ -183,3 +191,8 @@ Get External Tunnel Endpoint Configuration
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:dc-gateway-ip-list/dc-gateway-ip/${ip}/
     Log    ${resp.content}
     [Return]    ${resp.content}
+
+Collect ZRPCD Log From ODL
+     [Documentation]    Collect zrpcd.init.log from ODL node for quagga
+     : FOR    ${idx}    IN RANGE    1    ${NUM_ODL_SYSTEM}+1
+     \    Run Command On Remote System    ${ODL_SYSTEM_${idx}_IP}    sudo cp /opt/quagga/var/log/quagga/zrpcd.init.log /tmp/
