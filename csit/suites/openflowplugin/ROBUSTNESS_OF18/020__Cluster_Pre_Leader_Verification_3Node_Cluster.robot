@@ -29,7 +29,7 @@ ${flow_count_after_del_ten_percent}    900
 ${orig_json_config_add}    sal_add_bulk_flow_config.json
 ${orig_json_config_get}    sal_get_bulk_flow_config.json
 ${orig_json_config_del}    sal_del_bulk_flow_config.json
-${orig_json_config_table_add}    sal_table_add.json
+${orig_json_config_table_add}    add_table.json
 ${shard_name}     inventory
 ${shard_type}     config
 ${verify_restconf}    False
@@ -38,7 +38,7 @@ ${LastIndex}      LastIndex
 ${LastApplied}    LastApplied
 
 *** Test Cases ***
-TCT_Check Shard And Get Inventory
+Check Shard And Get Inventory
     Check Shards Status And Initialize Variables
     Get Inventory Follower
 
@@ -48,52 +48,7 @@ Initial Current Term Verification
     BuiltIn.Log to console    Current Term is ${current_term_value_before}
     BuiltIn.Set Suite Variable    ${current_term_value_before}
 
-Add Bulk Flow From Follower
-    [Documentation]    ${flow_count_after_add} Flows added via Follower Node1 and verify it gets applied in all instances.
-    BulkomaticKeywords.Add Bulk Flow In Node    ${temp_json_config_add}    ${Follower_Node_1}    ${operation_timeout}
-
-Get Bulk Flows And Verify In Cluster
-    [Documentation]    Initiate get operation and check flow count across cluster nodes
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}    ${Inventory_Leader_List}
-
-Current Term Verification After Adding Bulk Flow
-    [Documentation]    Verifying current term for Leader Node after pushing the flows
-    ${current_term_value_after}    ${data_object}    Get_Current_Term_Of_Shard_At_Member
-    BuiltIn.Set Suite Variable    ${current_term_value_after}
-
-Current Term Comparison Before And After Addition Of Flow
-    BuiltIn.Log to console    Current Term after pushing the flows is ${current_term_value_after}
-    Run Keyword If    ${current_term_value_before} == ${current_term_value_after}    Log    SUCCESS
-    ...    ELSE    Log    FAILURE
-    Should Be Equal    ${current_term_value_before}    ${current_term_value_after}
-
-Delete and Add ten percent of the flows for 5 iterations
-    : FOR    ${index}    IN RANGE    1    6
-    \    Log    ${index}
-    \    BulkomaticKeywords.Delete Bulk Flow In Node    ${temp_json_config_del_ten_percent}    ${Follower_Node_1}    ${operation_timeout}
-    \    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del_ten_percent}    ${Inventory_Leader_List}
-    \    BulkomaticKeywords.Add Bulk Flow In Node    ${temp_json_config_add_ten_percent}    ${Follower_Node_1}    ${operation_timeout}
-    \    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}    ${Inventory_Leader_List}
-
-Current Term Verification After Continuous Deletion and Addition Of Flows for 5 iterations
-    [Documentation]    Verifying current term for Leader Node after continuous deletion and addition of ten percent of the flows
-    ${current_term_value_after}    ${data_object}    Get_Current_Term_Of_Shard_At_Member
-    BuiltIn.Set Suite Variable    ${current_term_value_after}
-
-Current Term Comparison Before and After Continuous Deletion and Addition Of Flows for 5 iterations
-    BuiltIn.Log to console    Current Term after pushing the flows is ${current_term_value_after}
-    Run Keyword If    ${current_term_value_before} == ${current_term_value_after}    Log    SUCCESS
-    ...    ELSE    Log    FAILURE
-    Should Be Equal    ${current_term_value_before}    ${current_term_value_after}
-
-Delete All Flows From Follower Node
-    [Documentation]    ${flow_count_after_add} Flows deleted via Leader Node and verify it gets applied in all instances.
-    BulkomaticKeywords.Delete Bulk Flow In Node    ${temp_json_config_del}    ${Follower_Node_1}    ${operation_timeout}
-
-Verify No Flows In Cluster After Flow Deletion
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del}    ${Inventory_Leader_List}
-
-TCT_PreLeader Verification
+PreLeader Verification
     [Documentation]    Verifying LastIndex and LastApplied and compare both are equal
     ${LastIndex}    Get_Last_Index_Of_Shard_At_Member
     ${LastApplied}    Get_Last_Applied_Of_Shard_At_Member

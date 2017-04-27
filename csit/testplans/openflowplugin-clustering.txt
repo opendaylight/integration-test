@@ -6,4 +6,5 @@
 #integration/test/csit/suites/openflowplugin/EntityOwnership/020_Cluster_Node_Failure.robot
 #integration/test/csit/suites/openflowplugin/EntityOwnership/030_Cluster_Sync_Problems.robot
 #integration/test/csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot
-integration/test/csit/suites/openflowplugin/ROBUSTNESS_OF18/010__Cluster_Current_Term_Verification_3Node_Cluster.robot
+#integration/test/csit/suites/openflowplugin/ROBUSTNESS_OF18/010__Cluster_Current_Term_Verification_3Node_Cluster.robot
+integration/test/csit/suites/openflowplugin/ROBUSTNESS_OF18/020__Cluster_Pre_Leader_Verification_3Node_Cluster.robot
