@@ -51,8 +51,10 @@ def _initiate_rpcs(host_list, url_templ, data_templ, subst_dict):
         subst_dict.update({'ID': '{}{}'.format(subst_dict['ID_PREFIX'], i)})
         url = url_templ.substitute({'HOST': host})
         data = data_templ.substitute(subst_dict)
+        timeout = int(subst_dict['DURATION'])+60
+        logger.info('url: {}, data: {}, timeout: {}'.format(url, data, timeout))
         t = threading.Thread(target=_send_http_request_thread_impl,
-                             args=(resqueue, url, data, int(subst_dict['DURATION'])+60))
+                             args=(resqueue, url, data, timeout))
         t.daemon = True
         t.start()
         lthreads.append(t)
