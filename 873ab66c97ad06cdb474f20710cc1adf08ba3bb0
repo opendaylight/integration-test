@@ -22,6 +22,30 @@
       "revId": "873ab66c97ad06cdb474f20710cc1adf08ba3bb0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d8efd3e7",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-04-28T10:28:35Z",
+      "side": 1,
+      "message": "The sub-interface need not be in 10 network. The main purpose of creating a sub interface is to check whether its ip is learnt by the controller using arp request. I can change the ip to some other network say 15.15.15.110.",
+      "parentUuid": "da01753e_16b3fa0a",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 110
+      },
+      "revId": "873ab66c97ad06cdb474f20710cc1adf08ba3bb0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
