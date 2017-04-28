@@ -22,7 +22,7 @@ ${SHARD_TYPE}     config
 ${TRANSACTION_RATE_1K}    ${1000}
 ${DURATION_30S}    ${30}
 ${DURATION_10S}    ${10}
-${ID_PREFIX}      prefix-
+${ID_PREFIX}      member-
 ${TRANSACTION_TIMEOUT}    ${30}
 ${TRANSACTION_TIMEOUT_2X}    ${2*${TRANSACTION_TIMEOUT}}
 ${SIMPLE_TX}      ${False}
@@ -40,7 +40,8 @@ Explicit_Leader_Movement_Test_Templ
     ${idx_from}    ${idx_to}    ${idx_trans} =    Get_Node_Indexes_For_The_ELM_Test    ${leader_from}    ${leader_to}    ${shard_name}
     ...    ${shard_type}
     ${ip_trans_as_list} =    BuiltIn.Create_List    ${ODL_SYSTEM_${idx_trans}_IP}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${ip_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${False}
+    ${idx_trans_as_list} =    BuiltIn.Create_List    ${idx_trans}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${False}
     ClusterAdmin.Make_Leader_Local    ${idx_to}    ${shard_name}    ${shard_type}
     ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}
     ...    ${shard_type}    ${True}    ${idx_from}
@@ -51,13 +52,14 @@ Explicit_Leader_Movement_Test_Templ
 Explicit_Leader_Movement_PrefBasedShard_Test_Templ
     [Arguments]    ${leader_from}    ${leader_to}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements explicit leader movement test scenario.
-    ${idx_from}    ${idx_to}    ${idx_trans} =    Get_Node_Indexes_For_The_ELM_Test    ${leader_from}    ${leader_to}    ${shard_name}    ${shard_type}
+    ${idx_from}    ${idx_to}    ${idx_trans} =    Get_Node_Indexes_For_The_ELM_Test    ${leader_from}    ${leader_to}    ${shard_name}!!    ${shard_type}
     ${ip_trans_as_list} =    BuiltIn.Create_List    ${ODL_SYSTEM_${idx_trans}_IP}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${ip_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${False}
-    ClusterAdmin.Make_Leader_Local    ${idx_to}    ${shard_name}    ${shard_type}
-    ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}
+    ${idx_trans_as_list} =    BuiltIn.Create_List    ${idx_trans}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}
+    MdsalLowlevel.Become_Prefix_Leader    ${idx_to}    ${shard_name}
+    ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
     ...    ${shard_type}    ${True}    ${idx_from}
-    BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
+    #BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     TemplatedRequests.Check_Status_Code    @{resp_list}[0]
 
@@ -78,7 +80,8 @@ Clean_Leader_Shutdown_Test_Templ
     ${removed} =    BuiltIn.Set_Variable    ${False}
     ${producer_idx}    ${actual_leader}    ${follower_list} =    Get_Node_Indexes_For_Clean_Leader_Shutdown_Test    ${leader_location}    ${shard_name}    ${shard_type}
     ${producer_ip_as_list} =    BuiltIn.Create_List    ${ODL_SYSTEM_${producer_idx}_IP}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${producer_ip_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${False}
+    ${producer_idx_as_list} =    BuiltIn.Create_List    ${producer_idx}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${False}
     ClusterAdmin.Remove_Shard_Replica    ${actual_leader}    ${shard_name}    member-${actual_leader}    ${shard_type}
     ${removed} =    BuiltIn.Set_Variable    ${True}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
@@ -91,7 +94,8 @@ Clean_Leader_Shutdown_PrefBasedShard_Test_Templ
     ${removed} =    BuiltIn.Set_Variable    ${False}
     ${producer_idx}    ${actual_leader}     ${follower_list} =    Get_Node_Indexes_For_Clean_Leader_Shutdown_Test    ${leader_location}    ${shard_name}!!    ${shard_type}
     ${producer_ip_as_list} =    BuiltIn.Create_List    ${ODL_SYSTEM_${producer_idx}_IP}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${producer_ip_as_list}    ${shard_name}!    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${False}
+    ${producer_idx_as_list} =    BuiltIn.Create_List    ${producer_idx}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${shard_name}!    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${False}
     ClusterAdmin.Remove_Prefix_Shard_Replica    ${actual_leader}    ${shard_name}    member-${actual_leader}    ${shard_type}
     BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s   ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${follower_list}
     BuiltIn.Run_Keyword_And_Ignore_Error    ClusterManagement.Get_Raft_State_Of_Shard_At_Member    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index=${actual_leader}
@@ -115,7 +119,7 @@ Leader_Isolation_Test_Templ
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${ID_PREFIX}    ${producing_transactions_time}    ${TRANSACTION_RATE_1K}    chained_flag=${SIMPLE_TX}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${producing_transactions_time}    ${TRANSACTION_RATE_1K}    chained_flag=${SIMPLE_TX}
     ${date_start} =    DateTime.Get_Current_Date
     ${date_end} =    DateTime.Add_Time_To_Date    ${date_start}    ${producing_transactions_time}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${leader}
@@ -135,7 +139,7 @@ Leader_Isolation_PrefBasedShard_Test_Templ
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${ID_PREFIX}    ${producing_transactions_time}    ${TRANSACTION_RATE_1K}    chained_flag=${SIMPLE_TX}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${producing_transactions_time}    ${TRANSACTION_RATE_1K}    chained_flag=${SIMPLE_TX}
     ${date_start} =    DateTime.Get_Current_Date
     ${date_end} =    DateTime.Add_Time_To_Date    ${date_start}    ${producing_transactions_time}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${leader}
@@ -162,6 +166,7 @@ Module_Leader_Isolation_Heal_Default
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
     BuiltIn.Log    ${resp}
     ${restart_producer_node}    BuiltIn.Create_List    ${isolated_node}
+    # TODO: debug lists
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${restart_producer_node}    ${ID_PREFIX}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    chained_flag=${SIMPLE_TX}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
@@ -174,6 +179,7 @@ Prefix_Leader_Isolation_Heal_Default
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
     BuiltIn.Log    ${resp}
     ${restart_producer_node}    BuiltIn.Create_List    ${isolated_node}
+    # TODO: rework to lists
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${restart_producer_node}    ${ID_PREFIX}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    chained_flag=${SIMPLE_TX}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
@@ -188,7 +194,8 @@ Client_Isolation_Test_Templ
     ${client_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
     ${client_node_ip_as_list}    BuiltIn.Create_List    ${client_node_ip}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${client_node_ip_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${trans_chain_flag}
+    ${client_node_dst_as_list}    BuiltIn.Create_List    ${client_node_dst}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_dst_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${trans_chain_flag}
     ${start_date}    DateTime.Get_Current_Date
     ${timeout_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${TRANSACTION_TIMEOUT}
     ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${HARD_TIMEOUT}
@@ -210,7 +217,8 @@ Client_Isolation_PrefBasedShard_Test_Templ
     ${client_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
     ${client_node_ip_as_list}    BuiltIn.Create_List    ${client_node_ip}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${client_node_ip_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${trans_chain_flag}
+    ${client_node_dst_as_list}    BuiltIn.Create_List    ${client_node_dst}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_dst_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${trans_chain_flag}
     ${start_date}    DateTime.Get_Current_Date
     ${timeout_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${TRANSACTION_TIMEOUT}
     ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${HARD_TIMEOUT}
@@ -255,7 +263,7 @@ Remote_Listener_Test_Templ
     ${listener_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
     MdsalLowlevel.Subscribe_Dtcl    ${listener_node_dst}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${ID_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}    chained_flag=${SIMPLE_TX}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}    chained_flag=${SIMPLE_TX}
     ClusterAdmin.Make_Leader_Local    ${follower1}    ${shard_name}    ${shard_type}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
@@ -272,7 +280,7 @@ Remote_Listener_PrefBasedShard_Test_Templ
     ${listener_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
     MdsalLowlevel.Subscribe_Dtcl    ${listener_node_dst}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${ID_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}    chained_flag=${SIMPLE_TX}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}    chained_flag=${SIMPLE_TX}
     ClusterAdmin.Make_Leader_Local    ${follower1}    ${shard_name}    ${shard_type}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}

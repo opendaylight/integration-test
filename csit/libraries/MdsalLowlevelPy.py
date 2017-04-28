@@ -33,11 +33,13 @@ def _send_http_request_thread_impl(rqueue, url, data, http_timeout):
     rqueue.put(resp)
 
 
-def _initiate_rpcs(host_list, url_templ, data_templ, subst_dict):
+def _initiate_rpcs(host_list, prefix_list, url_templ, data_templ, subst_dict):
     """Initiate rpc on given hosts.
 
     :param host_list: list of ip address of odl nodes
     :type host_list: list of strings
+    :param id_prefix: list of node indexes which coresponds to the ip addresses
+    :type id_prefix: string
     :param url_templ: url template
     :type url_templ: string.Template object
     :param data_templ: http request data
@@ -48,11 +50,13 @@ def _initiate_rpcs(host_list, url_templ, data_templ, subst_dict):
     resqueue = _globals.pop('result_queue', Queue.Queue())
     lthreads = _globals.pop('threads', [])
     for i, host in enumerate(host_list):
-        subst_dict.update({'ID': '{}{}'.format(subst_dict['ID_PREFIX'], i)})
+        subst_dict.update({'ID': '{}{}'.format(subst_dict['ID_PREFIX'], prefix_list[i])})
         url = url_templ.substitute({'HOST': host})
         data = data_templ.substitute(subst_dict)
+        timeout = int(subst_dict['DURATION'])+60
+        logger.info('url: {}, data: {}, timeout: {}'.format(url, data, timeout))
         t = threading.Thread(target=_send_http_request_thread_impl,
-                             args=(resqueue, url, data, int(subst_dict['DURATION'])+60))
+                             args=(resqueue, url, data, timeout))
         t.daemon = True
         t.start()
         lthreads.append(t)
@@ -60,11 +64,13 @@ def _initiate_rpcs(host_list, url_templ, data_templ, subst_dict):
     _globals.update({'threads': lthreads, 'result_queue': resqueue})
 
 
-def start_write_transactions_on_nodes(host_list, id_prefix, duration, rate, chained_flag=True):
+def start_write_transactions_on_nodes(host_list, prefix_list, id_prefix, duration, rate, chained_flag=False):
     """Invoke write-transactions rpc on given nodes.
 
     :param host_list: list of ip address of odl nodes
     :type host_list: list of strings
+    :param id_prefix: list of node indexes which coresponds to the ip addresses
+    :type id_prefix: string
     :param id_prefix: identifier prefix
     :type id_prefix: string
     :param duration: time in seconds
@@ -84,14 +90,16 @@ def start_write_transactions_on_nodes(host_list, id_prefix, duration, rate, chai
 </input>''')
     subst_dict = {'ID_PREFIX': id_prefix, 'DURATION': duration, 'RATE': rate, 'CHAINED_FLAG': chained_flag}
     urlt = string.Template('''http://$HOST:8181/restconf/operations/odl-mdsal-lowlevel-control:write-transactions''')
-    _initiate_rpcs(host_list, urlt, datat, subst_dict)
+    _initiate_rpcs(host_list, prefix_list, urlt, datat, subst_dict)
 
 
-def start_produce_transactions_on_nodes(host_list, id_prefix, duration, rate, isolated_transactions_flag=True):
+def start_produce_transactions_on_nodes(host_list, prefix_list, id_prefix, duration, rate, isolated_transactions_flag=True):
     """Invoke produce-transactions rpcs on given nodes.
 
     :param host_list: list of ip address of odl nodes
     :type host_list: list of strings
+    :param id_prefix: list of node indexes which coresponds to the ip addresses
+    :type id_prefix: string
     :param id_prefix: identifier prefix
     :type id_prefix: string
     :param duration: time in seconds
@@ -112,7 +120,7 @@ def start_produce_transactions_on_nodes(host_list, id_prefix, duration, rate, is
     subst_dict = {'ID_PREFIX': id_prefix, 'DURATION': duration, 'RATE': rate,
                   'ISOLATED_TRANSACTIONS': isolated_transactions_flag}
     urlt = string.Template('''http://$HOST:8181/restconf/operations/odl-mdsal-lowlevel-control:produce-transactions''')
-    _initiate_rpcs(host_list, urlt, datat, subst_dict)
+    _initiate_rpcs(host_list, prefix_list, urlt, datat, subst_dict)
 
 
 def wait_for_transactions():
