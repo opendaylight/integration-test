@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_64e6fe16",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_300kroutes_longevity.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-04-28T17:23:13Z",
+      "side": 1,
+      "message": "TODO: [Tag] critical\nNo big deal though.",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 5
+      },
+      "revId": "da1dfa0b77a438988f57639525fc46920a1219ab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
