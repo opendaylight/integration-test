@@ -46,6 +46,30 @@
       "revId": "873ab66c97ad06cdb474f20710cc1adf08ba3bb0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_7859828d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-04-28T23:28:17Z",
+      "side": 1,
+      "message": "I talked with our infra folks and the story I\u0027m told is this. You can use *any* extra\nip\u0027s you want and put them on a subinterface. BUT, apparently the only traffic that is\nallowed to/from the host VM is to/from the ONE ip address it\u0027s assigned on eth0.\n\nMeaning if you wanted the ip you give to eth0:1 to be reachable from outside\nthe system, it would be blocked by the infra security group rules.\n\nYou can try it though, as there is another suite doing something *maybe* similar\nand their CSIT is passing. They are actually bringing up an extra tools vm, grabbing\nit\u0027s ip address to use for a VIP and then shutting down that extra VM and using\nthat IP. According to the infra folks that IP should not be reachable from outside\nthat specific VM (which is now shutdown). I did not look too close at their\nCSIT (link below), but either they don\u0027t need it to be reachable or the infra\nsecurity groups aren\u0027t as tight as we think.\n\nFinally, I would suggest to use something like the 172 or 192.168 nets as those \nare typically for private/test kind of networks anyway. You can test all of this\nin the sandbox to learn more.\n\nhope it helps\n\nlink to the sxp suite doing the VIP stuff:\nhttps://logs.opendaylight.org/releng/jenkins092/sxp-csit-3node-periodic-routing-only-carbon/14/archives/log.html.gz",
+      "parentUuid": "da01753e_d8efd3e7",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 110
+      },
+      "revId": "873ab66c97ad06cdb474f20710cc1adf08ba3bb0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
