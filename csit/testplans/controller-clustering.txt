@@ -3,10 +3,10 @@
 #integration/test/csit/suites/controller/dom_data_broker/client_isolation.robot
 #integration/test/csit/suites/controller/dom_data_broker/remote_listener.robot
 #integration/test/csit/suites/controller/dom_data_broker/leader_isolation_prefbasedshard.robot
-#integration/test/csit/suites/controller/dom_data_broker/explicit_leader_movement_prefbasedshard.robot
+integration/test/csit/suites/controller/dom_data_broker/explicit_leader_movement_prefbasedshard.robot
 #integration/test/csit/suites/controller/dom_data_broker/remote_listener_prefbasedshard.robot
 #integration/test/csit/suites/controller/dom_data_broker/client_isolation_prefbasedshard.robot
-integration/test/csit/suites/controller/dom_data_broker/clean_leader_shutdown_prefbasedshard.robot
+#integration/test/csit/suites/controller/dom_data_broker/clean_leader_shutdown_prefbasedshard.robot
 #integration/test/csit/suites/controller/singleton_service/global_rpc_kill.robot
 #integration/test/csit/suites/controller/singleton_service/global_rpc_freeze.robot
 #integration/test/csit/suites/controller/singleton_service/global_rpc_isolate.robot
