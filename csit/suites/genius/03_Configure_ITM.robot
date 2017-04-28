@@ -102,6 +102,7 @@ Create and Verify VTEP IPv6 - No Vlan
     ...    ${type}
     Set Global Variable    ${tunnel-2}
     ${tunnel-type}=    Set Variable    type: vxlan
+    SLEEP    20
     Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/    headers=${ACCEPT_XML}
     Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/    headers=${ACCEPT_XML}
     Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
