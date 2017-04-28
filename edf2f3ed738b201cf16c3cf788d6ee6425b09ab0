@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_58a91ede",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-28T20:03:37Z",
+      "side": 1,
+      "message": "remove create list, keep check status...",
+      "revId": "edf2f3ed738b201cf16c3cf788d6ee6425b09ab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_98aee6e4",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-28T20:03:37Z",
+      "side": 1,
+      "message": "What about check flow in switch?",
+      "revId": "edf2f3ed738b201cf16c3cf788d6ee6425b09ab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_b8b12a49",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-28T20:03:37Z",
+      "side": 1,
+      "message": "remove this",
+      "revId": "edf2f3ed738b201cf16c3cf788d6ee6425b09ab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_f8b73238",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-28T20:03:37Z",
+      "side": 1,
+      "message": "This should go before adding any flow and then I am missing check flow/group in DS + switch",
+      "revId": "edf2f3ed738b201cf16c3cf788d6ee6425b09ab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d8b4ee36",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-28T20:03:37Z",
+      "side": 1,
+      "message": "after owner is restored",
+      "revId": "edf2f3ed738b201cf16c3cf788d6ee6425b09ab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
