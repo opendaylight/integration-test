@@ -12,6 +12,7 @@ Documentation     DOMDataBroker testing: Explicit Leader Movement
 ...               by having a steady-stream producer execute operations against the shard and then
 ...               initiate shard leader shutdown, then the producer is shut down cleanly.
 Suite Setup       BuiltIn.Run_Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+...               AND    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
 ...               AND    DdbCommons.Create_Prefix_Based_Shard
 Suite Teardown    BuiltIn.Run_Keywords    DdbCommons.Remove_Prefix_Based_Shard
 ...               AND    SSHLibrary.Close_All_Connections
@@ -28,10 +29,10 @@ Local_To_Remote_Movement
     [Documentation]    Leader moves from local to remote node during transaction producing.
     local    remote
 
-Remote_To_Remote_Movement
-    [Documentation]    Leader moves from one remote to other remote node during transaction producing.
-    remote    remote
+#Remote_To_Remote_Movement
+#    [Documentation]    Leader moves from one remote to other remote node during transaction producing.
+#    remote    remote
 
-Remote_To_Local_Movement
-    [Documentation]    Leader moves from remote to local node during transaction producing.
-    remote    local
+#Remote_To_Local_Movement
+#    [Documentation]    Leader moves from remote to local node during transaction producing.
+#    remote    local

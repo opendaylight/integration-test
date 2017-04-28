@@ -51,8 +51,10 @@ def _initiate_rpcs(host_list, url_templ, data_templ, subst_dict):
         subst_dict.update({'ID': '{}{}'.format(subst_dict['ID_PREFIX'], i)})
         url = url_templ.substitute({'HOST': host})
         data = data_templ.substitute(subst_dict)
+        timeout = int(subst_dict['DURATION'])+60
+        logger.info('url: {}, data: {}, timeout: {}'.format(url, data, timeout))
         t = threading.Thread(target=_send_http_request_thread_impl,
-                             args=(resqueue, url, data, int(subst_dict['DURATION'])+60))
+                             args=(resqueue, url, data, timeout))
         t.daemon = True
         t.start()
         lthreads.append(t)
@@ -104,7 +106,7 @@ def start_produce_transactions_on_nodes(host_list, id_prefix, duration, rate, is
     logger.info("Input parameters: host_list:{}, id_prefix:{}, duration:{}, rate:{}, isolated_transactions:{}".format(
         host_list, id_prefix, duration, rate, isolated_transactions_flag))
     datat = string.Template('''<input xmlns="tag:opendaylight.org,2017:controller:yang:lowlevel:control">
-  <id>$ID</id>
+  <id>$ID_PREFIX</id>
   <seconds>$DURATION</seconds>
   <transactions-per-second>$RATE</transactions-per-second>
   <isolated-transactions>$ISOLATED_TRANSACTIONS</isolated-transactions>
