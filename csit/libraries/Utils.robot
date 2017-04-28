@@ -369,6 +369,7 @@ No Content From URI
     ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
     ...    returns the data obtained by the request.
     ${response}=    RequestsLibrary.Get Request    ${session}    ${uri}    ${headers}
+    Builtin.Log    ${response.text}
     Builtin.Return_From_Keyword_If    ${response.status_code} == 404
     Builtin.Log    ${response.text}
     Builtin.Fail    The request failed with code ${response.status_code}
