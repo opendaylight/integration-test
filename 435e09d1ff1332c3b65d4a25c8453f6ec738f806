@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_9b126055",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-29T02:46:39Z",
+      "side": 1,
+      "message": "After Stop",
+      "revId": "435e09d1ff1332c3b65d4a25c8453f6ec738f806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_5b2478ae",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-29T02:46:39Z",
+      "side": 1,
+      "message": "After Stop",
+      "revId": "435e09d1ff1332c3b65d4a25c8453f6ec738f806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_f8045219",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-29T02:46:39Z",
+      "side": 1,
+      "message": "Owner Is Stopped",
+      "revId": "435e09d1ff1332c3b65d4a25c8453f6ec738f806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3b02540a",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-29T02:46:39Z",
+      "side": 1,
+      "message": "Owner Is Stopped",
+      "revId": "435e09d1ff1332c3b65d4a25c8453f6ec738f806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_58163e56",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-29T02:46:39Z",
+      "side": 1,
+      "message": "Owner Is Stopped",
+      "revId": "435e09d1ff1332c3b65d4a25c8453f6ec738f806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_bb15a441",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-29T02:46:39Z",
+      "side": 1,
+      "message": "owner is stopped",
+      "revId": "435e09d1ff1332c3b65d4a25c8453f6ec738f806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1b07901a",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-29T02:46:39Z",
+      "side": 1,
+      "message": "Owner is restarted",
+      "revId": "435e09d1ff1332c3b65d4a25c8453f6ec738f806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_7b085c28",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-29T02:46:39Z",
+      "side": 1,
+      "message": "owner is restarted",
+      "revId": "435e09d1ff1332c3b65d4a25c8453f6ec738f806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_5b0d9836",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-29T02:46:39Z",
+      "side": 1,
+      "message": "after owner is restarted",
+      "revId": "435e09d1ff1332c3b65d4a25c8453f6ec738f806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d82a2e8f",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-04-29T02:46:39Z",
+      "side": 1,
+      "message": "You do not need this TC, right?",
+      "revId": "435e09d1ff1332c3b65d4a25c8453f6ec738f806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
