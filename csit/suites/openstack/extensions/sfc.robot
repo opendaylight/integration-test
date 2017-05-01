@@ -34,12 +34,12 @@ Create Subnets For network_1
 Add Allow All Rules
     [Documentation]    Allow all packets for this suite
     Neutron Security Group Create    sg-sfc
-    Neutron Security Group Rule Create    sg-sfc    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    sg-sfc    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    sg-sfc    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    sg-sfc    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    sg-sfc    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    sg-sfc    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-sfc    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    sg-sfc    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    sg-sfc    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp
+    Neutron Security Group Rule Create    sg-sfc    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp
+    Neutron Security Group Rule Create    sg-sfc    direction=ingress    protocol=icmp
+    Neutron Security Group Rule Create    sg-sfc    direction=egress    protocol=icmp
 
 Create Neutron Ports
     [Documentation]    Precreate neutron ports to be used for SFC VMs
