@@ -35,8 +35,8 @@ Resource          ../../../variables/netvirt/Variables.robot
 @{EXTRA_NW_SUBNET}    40.1.1.0/24    50.1.1.0/24
 ${SECURITY_GROUP}    sg-vpnservice
 # Values passed for extra routes
-${RT_OPTIONS}     --routes type=dict list=true
-${RT_CLEAR}       --routes action=clear
+${RT_OPTIONS}     --route
+${RT_CLEAR}       --no-route
 ${ARP_RESPONSE_REGEX}    arp,arp_op=2 actions=CONTROLLER:65535,resubmit\\(,${DISPATCHER_TABLE}\\)
 ${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
 ${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
@@ -76,16 +76,16 @@ Create Neutron Subnets
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
     Neutron Security Group Create    ${SECURITY_GROUP}
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    protocol=icmp
+    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    protocol=icmp
+    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp
+    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
-    ${allowed_address_pairs_args}=    Set Variable    --allowed-address-pairs type=dict list=true ip_address=${EXTRA_NW_SUBNET[0]} ip_address=${EXTRA_NW_SUBNET[1]}
+    ${allowed_address_pairs_args}=    Set Variable    --allowed-address ip_address=${EXTRA_NW_SUBNET[0]} --allowed-address ip_address=${EXTRA_NW_SUBNET[1]}
     Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
     Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
@@ -191,9 +191,9 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     ${CONFIG_EXTRA_ROUTE_IP2} =    Catenate    sudo ifconfig eth0:2 @{EXTRA_NW_IP}[1] netmask 255.255.255.0 up
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP2}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ifconfig
-    ${EXT_RT1} =    Set Variable    destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
-    ${EXT_RT2} =    Set Variable    destination=50.1.1.0/24,nexthop=${VM_IP_NET10[0]}
-    ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}    ${EXT_RT2}
+    ${EXT_RT1} =    Set Variable    destination=40.1.1.0/24,gateway=${VM_IP_NET10[0]}
+    ${EXT_RT2} =    Set Variable    destination=50.1.1.0/24,gateway=${VM_IP_NET10[0]}
+    ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}    ${RT_OPTIONS}    ${EXT_RT2}
     Update Router    @{ROUTERS}[0]    ${cmd}
     Show Router    @{ROUTERS}[0]    -D
     Log    "Verify FIB table"
@@ -216,7 +216,7 @@ Delete And Recreate Extra Route
     Log    "Adding extra route to VM"
     ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP1}
-    ${EXT_RT1} =    Set Variable    destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
+    ${EXT_RT1} =    Set Variable    destination=40.1.1.0/24,gateway=${VM_IP_NET10[0]}
     ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}
     Update Router    @{ROUTERS}[0]    ${cmd}
     Show Router    @{ROUTERS}[0]    -D
