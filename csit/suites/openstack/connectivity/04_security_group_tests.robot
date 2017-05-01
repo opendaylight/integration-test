@@ -36,8 +36,8 @@ Create Subnets For network_1
 Add TCP Allow Rules
     [Documentation]    Allow only TCP packets for this suite
     Security Group Create Without Default Security Rules    csit-remote-sgs
-    Neutron Security Group Rule Create    csit-remote-sgs    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit-remote-sgs    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit-remote-sgs    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    csit-remote-sgs    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
     Neutron Security Group Show    csit-remote-sgs
 
 Create Vm Instances For network_1
@@ -116,7 +116,8 @@ Ping From Vm Instance2 To Vm Instance1
 Add Additional Security Group To VMs
     [Documentation]    Add an additional security group to the VMs - this is done to test a different logic put in place for ports with multiple SGs
     Security Group Create Without Default Security Rules    additional-sg
-    Neutron Security Group Rule Create    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=@{NET1_DHCP_IP}[0]/32
+    #To Do Remove this after the Newton jobs are removed, Openstack CLI with Newton lacks support to configure rule with remote_ip_prefix
+    Neutron Security Group Rule Create Legacy Cli    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=@{NET1_DHCP_IP}[0]/32
     Neutron Security Group Show    additional-sg
     : FOR    ${VM}    IN    @{NET_1_VM_INSTANCES}
     \    Add Security Group To VM    ${VM}    additional-sg
