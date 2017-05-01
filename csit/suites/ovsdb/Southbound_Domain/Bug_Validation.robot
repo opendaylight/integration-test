@@ -155,6 +155,53 @@ Bug 4794
     [Teardown]    Run Keywords    Clean OVSDB Test Environment
     ...    AND    Report_Failure_Due_To_Bug    4794
 
+Bug 8280
+    [Documentation]    TODO
+    [Tags]    8280
+    [Setup]    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
+    ${ovs_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
+    ${body}    Replace String    ${body}    ovsdb://127.0.0.1:61644    ovsdb://uuid/${ovs_uuid}
+    ${body}    Replace String    ${body}    tcp:127.0.0.1:6633    tcp:${ODL_SYSTEM_IP}:6633
+    ${body}    Replace String    ${body}    127.0.0.1    ${TOOLS_SYSTEM_IP}
+    ${body}    Replace String    ${body}    br01    ${BRIDGE}
+    ${body}    Replace String    ${body}    61644    ${OVSDB_PORT}
+    ${uri}=    Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovs_uuid}%2Fbridge%2F${BRIDGE}
+    ${resp}    RequestsLibrary.Put Request    session    ${uri}    data=${body}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port.json
+    ${body}    Replace String    ${body}    192.168.0.21    ${TOOLS_SYSTEM_IP}
+    ${body}    Replace String    ${body}    vxlanport    port1
+    ${resp}    RequestsLibrary.Put Request    session    ${uri}/termination-point/port1/    data=${body}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${body}    Replace String    ${body}    port1    port2
+    ${resp}    RequestsLibrary.Put Request    session    ${uri}/termination-point/port2/    data=${body}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
+    Should Contain    ${resp.content}    ${BRIDGE}
+    Should Contain    ${resp.content}    port1
+    Should Contain    ${resp.content}    port2
+    ${ovs_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Log    ${ovs_output}
+    ${ovs_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    ${ovs_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-port ${BRIDGE} port2
+    ${ovs_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Should Not Contain    ${ovs_output}    port2
+    Log    ${ovs_output}
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
+    Should Contain    ${resp.content}    ${BRIDGE}
+    Should Contain    ${resp.content}    port1
+    Should Contain    ${resp.content}    port2
+    ${ovs_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Should Contain    ${ovs_output}    port2
+    Log    ${ovs_output}
+
 Bug 7160
     [Documentation]    If this bug is reproduced, it's possible that the operational store will be
     ...    stuck with leftover nodes and further system tests could fail. It's advised to run this
