@@ -155,6 +155,34 @@ Bug 4794
     [Teardown]    Run Keywords    Clean OVSDB Test Environment
     ...    AND    Report_Failure_Due_To_Bug    4794
 
+Bug 8280
+    [Documentation]    Any config created for a bridge (e.g. added ports) should be reconciled when a bridge is
+    ...    reconnected. This test case will create two ports via REST and validate that the bridge has those
+    ...    ports. At that point, the bridge will be disconnected from the controller and the 2nd created port
+    ...    will be manually removed. The bridge will be reconnected and the 2nd port should be re-added to the
+    ...    bridge. If not, then bug 8280 will be found and the test case will fail
+    [Tags]    8280
+    [Setup]    Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    ...    AND    Clean OVSDB Test Environment
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
+    ${ovs_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
+    Create Bridge    uuid/${ovs_uuid}    ${BRIDGE}
+    Add Termination Point    uuid%2F${ovs_uuid}    ${BRIDGE}    port1
+    Add Termination Point    uuid%2F${ovs_uuid}    ${BRIDGE}    port2
+    ${config_store_elements}    Create List    ${BRIDGE}    port1    port2
+    Check For Elements At URI    ${CONFIG_TOPO_API}    ${config_store_elements}
+    ${ovs_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Log    ${ovs_output}
+    ${ovs_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    ${ovs_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-port ${BRIDGE} port2
+    Verify Ovs-vsctl Output    show    Port "port2"    ${TOOLS_SYSTEM_IP}    False
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
+    Check For Elements At URI    ${CONFIG_TOPO_API}    ${config_store_elements}
+    Wait Until Keyword Succeeds    5s    1s    Verify Ovs-vsctl Output    show    Port "port2"
+    [Teardown]    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovs_uuid}%2Fbridge%2F${BRIDGE}
+
 Bug 7160
     [Documentation]    If this bug is reproduced, it's possible that the operational store will be
     ...    stuck with leftover nodes and further system tests could fail. It's advised to run this
