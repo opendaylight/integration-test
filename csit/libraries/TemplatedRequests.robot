@@ -325,14 +325,14 @@ Verify_Response_Templated
     ...    ELSE    BuiltIn.Should_Be_Equal    ${expected_text}    ${response}
 
 Get_From_Uri
-    [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False    ${jmes_path}=${EMPTY}
+    [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False    ${jmes_path}=${EMPTY}    ${explicit_status_codes}=${NO_STATUS_CODES}
     [Documentation]    GET data from given URI, check status code and return response text.
     ...    \${accept} is a Python object with headers to use.
     ...    If \${normalize_json}, normalize as JSON text before returning.
     BuiltIn.Log    ${uri}
     BuiltIn.Log    ${accept}
     ${response} =    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}
-    Check_Status_Code    ${response}
+    Check_Status_Code    ${response}    explicit_status_codes=${explicit_status_codes}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
     ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}
     [Return]    ${text_normalized}
