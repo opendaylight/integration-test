@@ -63,6 +63,6 @@ Write Commands Until Prompt
     Log    ${cmd}
     SSHLibrary.Set Client Configuration    timeout=${timeout}
     SSHLibrary.Read
-    SSHLibrary.Write    ${cmd}
+    SSHLibrary.Write    ${cmd};echo Command Returns $?
     ${output}=    SSHLibrary.Read Until Prompt
     [Return]    ${output}
