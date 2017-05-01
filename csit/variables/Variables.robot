@@ -129,6 +129,7 @@ ${OPERATIONAL_NODES_API}    /restconf/operational/opendaylight-inventory:nodes  
 ${OPERATIONAL_NODES_NETVIRT}    /restconf/operational/network-topology:network-topology/topology/netvirt:1    \    # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_TOPO_API}    /restconf/operational/network-topology:network-topology    # FIXME: Move to a separate Resource and add description.
 ${OS_SYSTEM_PROMPT}    \$    # Prompt substring specific to OpenStack systems.
+${OS_CMD_SUCCESS}   Command Returns 0
 ${OSREST}         /v2.0/networks    # FIXME: Move to a separate Neutron-related Resource and add description.
 ${OVSDBPORT}      6640    # Port number ODL uses for OVSDB protocol communication. TODO: Move to OVSDB-specific Resource.
 ${PASSWORD}       ${DEFAULT_PASSWORD}    # Deprecated. FIXME: Eradicate.
