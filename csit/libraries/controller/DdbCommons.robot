@@ -6,6 +6,9 @@ Documentation     DOMDataBroker testing: Common keywords
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...
+...               This resource file implements various test cases templates.
+...               FIXME: add a link to a document (when published) where the scenarios are defined
 Library           ${CURDIR}/../MdsalLowlevelPy.py
 Resource          ${CURDIR}/../ClusterAdmin.robot
 Resource          ${CURDIR}/../ClusterManagement.robot
@@ -26,23 +29,41 @@ ${SIMPLE_TX}      ${False}
 ${CHAINED_TX}     ${True}
 ${HARD_TIMEOUT}    ${60}
 @{TRANSACTION_FAILED}    ${500}
+${PREF_BASED_SHARD}    id-ints
+${TEST_LOG_LEVEL}    info
+@{TEST_LOG_COMPONENTS}    org.opendaylight.controller.cluster.sharding    org.opendaylight.controller.cluster.datastore
 
 *** Keywords ***
 Explicit_Leader_Movement_Test_Templ
     [Arguments]    ${leader_from}    ${leader_to}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements explicit leader movement test scenario.
-    ${idx_from}    ${idx_to}    ${idx_trans} =    Get_Node_Indexes_For_The_ELM_Test    ${leader_from}    ${leader_to}
+    ${idx_from}    ${idx_to}    ${idx_trans} =    Get_Node_Indexes_For_The_ELM_Test    ${leader_from}    ${leader_to}    ${shard_name}
+    ...    ${shard_type}
     ${ip_trans_as_list} =    BuiltIn.Create_List    ${ODL_SYSTEM_${idx_trans}_IP}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${ip_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${False}
     ClusterAdmin.Make_Leader_Local    ${idx_to}    ${shard_name}    ${shard_type}
     ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}
     ...    ${shard_type}    ${True}    ${idx_from}
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Write_Transactions
+    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
+    TemplatedRequests.Check_Status_Code    @{resp_list}[0]
+
+Explicit_Leader_Movement_PrefBasedShard_Test_Templ
+    [Arguments]    ${leader_from}    ${leader_to}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
+    [Documentation]    Implements explicit leader movement test scenario.
+    ${idx_from}    ${idx_to}    ${idx_trans} =    Get_Node_Indexes_For_The_ELM_Test    ${leader_from}    ${leader_to}    ${shard_name}!!    ${shard_type}
+    ${ip_trans_as_list} =    BuiltIn.Create_List    ${ODL_SYSTEM_${idx_trans}_IP}
+    ${idx_trans_as_list} =    BuiltIn.Create_List    @{idx_trans}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${False}
+    MdsalLowlevel.Become_Prefix_Leader    ${idx_to}    ${shard_name}
+    ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
+    ...    ${shard_type}    ${True}    ${idx_from}
+    BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
+    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     TemplatedRequests.Check_Status_Code    @{resp_list}[0]
 
 Get_Node_Indexes_For_The_ELM_Test
-    [Arguments]    ${leader_from}    ${leader_to}
+    [Arguments]    ${leader_from}    ${leader_to}    ${shard_name}    ${shard_type}
     [Documentation]    Return indexes for explicit leader movement test case, indexes of present to next leader node and index where transaction
     ...    producer should be deployed.
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}
@@ -173,3 +194,30 @@ Remote_Listener_Test_Templ
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}
     [Teardown]    MdsalLowlevel.Unsubscribe_Dtcl    ${listener_node_dst}
+
+Create_Prefix_Based_Shard_And_Verify
+    [Arguments]    ${prefix}=${PREF_BASED_SHARD}
+    [Documentation]    Create prefix based shard with replicas on all nodes
+    ${all_indices} =    ClusterManagement.List_All_Indices
+    ${node_to_trigger} =    Collections.Get_From_List    ${all_indices}    ${0}
+    MdsalLowlevel.Create_Prefix_Shard    ${node_to_trigger}    ${prefix}    ${all_indices}
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${prefix}!!    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}
+
+Remove_Prefix_Based_Shard_And_Verify
+    [Arguments]    ${prefix}=${PREF_BASED_SHARD}
+    [Documentation]    Remove prefix based shard with all replicas
+    ${all_indices} =    ClusterManagement.List_All_Indices
+    ${node_to_trigger} =    Collections.Get_From_List    ${all_indices}    ${0}
+    MdsalLowlevel.Remove_Prefix_Shard    ${node_to_trigger}    ${prefix}
+    : FOR     ${idx}    IN    @{all_indices}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    Verify_Shard_Replica_Removed    ${idx}    ${prefix}!!    ${SHARD_TYPE}
+
+Verify_Shard_Replica_Removed
+    [Arguments]    ${member_index}    ${shard_name}    ${shard_type}
+    [Documentation]    Verify that shard is removed. Jolokia return 404 for shard memeber.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${type_class} =    Resolve_Shard_Type_Class    shard_type=${shard_type}
+    ${uri} =    BuiltIn.Set_Variable    /jolokia/read/org.opendaylight.controller:Category=Shards,name=member-${member_index}-shard-${shard_name}-${shard_type},type=${type_class}
+    ${text}    TemplatedRequests.Get_From_Uri    uri=${uri}    session=${session}
+    BuiltIn.Should_Contain    ${text}    "status":404    javax.management.InstanceNotFoundException
+
