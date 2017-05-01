@@ -1,1 +1,1 @@
-/restconf/operations/odl-mdsal-lowlevel-control:become-prefix-leader
+/restconf/operations/odl-mdsal-lowlevel-control:remove-prefix-shard
