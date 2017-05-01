@@ -36,8 +36,8 @@ Create Subnets For network_1
 Add TCP Allow Rules
     [Documentation]    Allow only TCP packets for this suite
     Security Group Create Without Default Security Rules    csit-remote-sgs
-    Neutron Security Group Rule Create    csit-remote-sgs    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit-remote-sgs    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit-remote-sgs    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    csit-remote-sgs    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
     Neutron Security Group Show    csit-remote-sgs
 
 Create Vm Instances For network_1
