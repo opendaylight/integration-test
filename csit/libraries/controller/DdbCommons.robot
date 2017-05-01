@@ -173,3 +173,30 @@ Remote_Listener_Test_Templ
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}
     [Teardown]    MdsalLowlevel.Unsubscribe_Dtcl    ${listener_node_dst}
+
+Create_Prefix_Based_Shard_And_Verify
+    [Arguments]    ${prefix}=${PREF_BASED_SHARD}
+    [Documentation]    Create prefix based shard with replicas on all nodes
+    ${all_indices} =    ClusterManagement.List_All_Indices
+    ${node_to_trigger} =    Collections.Get_From_List    ${all_indices}    ${0}
+    MdsalLowlevel.Create_Prefix_Shard    ${node_to_trigger}    ${prefix}    ${all_indices}
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${prefix}!!    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}
+
+Remove_Prefix_Based_Shard_And_Verify
+    [Arguments]    ${prefix}=${PREF_BASED_SHARD}
+    [Documentation]    Remove prefix based shard with all replicas
+    ${all_indices} =    ClusterManagement.List_All_Indices
+    ${node_to_trigger} =    Collections.Get_From_List    ${all_indices}    ${0}
+    MdsalLowlevel.Remove_Prefix_Shard    ${node_to_trigger}    ${prefix}
+    : FOR     ${idx}    IN    ${all_indices}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    Verify_Shard_Replica_Removed    ${idx}    ${prefix}!!    ${SHARD_TYPE}
+
+Verify_Shard_Replica_Removed
+    [Arguments]    ${member_index}    ${shard_name}    ${shard_type}
+    [Documentation]    Verify that shard is removed. Jolokia return 404 for shard memeber.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${type_class} =    Resolve_Shard_Type_Class    shard_type=${shard_type}
+    ${uri} =    BuiltIn.Set_Variable    /jolokia/read/org.opendaylight.controller:Category=Shards,name=member-${member_index}-shard-${shard_name}-${shard_type},type=${type_class}
+    ${text}    TemplatedRequests.Get_From_Uri    uri=${uri}    session=${session}
+    BuiltIn.Should_Contain    ${text}    "status":404    javax.management.InstanceNotFoundException
+
