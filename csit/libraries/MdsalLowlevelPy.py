@@ -33,7 +33,7 @@ def start_write_transactions_on_nodes(host_list, id_prefix, duration, rate, chai
   <chained-transactions>$CHAINED_FLAG</chained-transactions>
 </input>''')
         data = dtmpl.substitute({'ID': grid, 'DURATION': duration, 'RATE': rate, 'CHAINED_FLAG': chained_flag})
-        logger.info('write-transactions rpc indoked with details: {}'.format(data))
+        logger.debug('write-transactions rpc indoked with details: {}'.format(data))
         try:
             resp = requests.post(url=url, headers={'Content-Type': 'application/xml'},
                                  data=data, auth=('admin', 'admin'), timeout=int(duration)+60)
