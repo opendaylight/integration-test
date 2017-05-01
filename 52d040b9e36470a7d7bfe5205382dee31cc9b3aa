@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_769f6804",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-01T21:40:00Z",
+      "side": 1,
+      "message": "Len, there is one thing you have to take care when chaging suite order: you have to alternate flow/group delete with flow/group add so you always modify something in DS. This means this remove should be add because last thing you did was remove. Also you will have to change test from this point to alternate remove + add.",
+      "revId": "52d040b9e36470a7d7bfe5205382dee31cc9b3aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
