@@ -56,19 +56,35 @@ Delete Bridge From Ovsdb Node
 Add Vxlan To Bridge
     [Arguments]    ${mininet_ip}    ${bridge_num}    ${vxlan_port}    ${remote_ip}    ${custom_port}=create_port.json
     [Documentation]    This request will create vxlan port for vxlan tunnel and attach it to the specific bridge
-    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/${custom_port}
-    ${body}    Replace String    ${sample}    192.168.0.21    ${remote_ip}
-    Log    URL is ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}/termination-point/${vxlan_port}/
-    Log    data: ${body}
-    ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}/termination-point/${vxlan_port}/    data=${body}
-    Log    ${resp.content}
+    Add Termination Point    ${mininet_ip}:${OVSDB_PORT}    ${bridge_num}    ${vxlan_port}    ${remote_ip}
+
+Add Termination Point
+    [Arguments]    ${node_id}    ${bridge_name}    ${tp_name}    ${remote_ip}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Using the json data body file as a template, a REST config request is made to
+    ...    create a termination-point ${tp_name} on ${bridge_name} for the given ${node_id}. The ports
+    ...    remote-ip defaults to ${TOOLS_SYSTEM_IP}
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port.json
+    ${body}    Replace String    ${body}    192.168.0.21    ${remote_ip}
+    ${body}    Replace String    ${body}    vxlanport    ${tp_name}
+    ${uri}=    Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${node_id}%2Fbridge%2F${bridge_name}
+    ${resp}    RequestsLibrary.Put Request    session    ${uri}/termination-point/${tp_name}/    data=${body}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Verify OVS Reports Connected
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
     [Documentation]    Uses "vsctl show" to check for string "is_connected"
-    ${output}=    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl show
-    Should Contain    ${output}    is_connected
+    ${output}    Verify Ovs-vsctl Output    show    is_connected
+    [Return]    ${output}
+
+Verify Ovs-vsctl Output
+    [Arguments]    ${vsctl_args}    ${expected_output}    ${ovs_system}=${TOOLS_SYSTEM_IP}    ${should_match}=True
+    [Documentation]    A wrapper keyword to make it easier to validate ovs-vsctl output, and gives an easy
+    ...    way to check this output in a WUKS. The argument ${should_match} can control if the match should
+    ...    exist (True} or not (False) or don't care (anything but True or False). ${should_match} is True by default
+    ${output}=    Utils.Run Command On Mininet    ${ovs_system}    sudo ovs-vsctl ${vsctl_args}
+    Log    ${output}
+    Run Keyword If    "${should_match}"=="True"    Should Contain    ${output}    ${expected_output}
+    Run Keyword If    "${should_match}"=="False"    Should Not Contain    ${output}    ${expected_output}
     [Return]    ${output}
 
 Get OVSDB UUID
