@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ba068154_d968078a",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2017-05-02T05:21:07Z",
+      "side": 1,
+      "message": "Would prefer this under its own \u0027Reconciliation Suite\u0027, we ran into this bug because we don\u0027t have any tests for reconciliation. We should be adding more tests to this [refer Vinh\u0027s comment in my patch]. Though this is good enough while we get reconciliation suite ready.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 8
+      },
+      "revId": "8fd89f48cbf07bb8b1b94ddb10823e87b31394d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_f91ceb6c",
         "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
         "patchSetId": 1
@@ -13,6 +36,30 @@
       "writtenOn": "2017-05-02T00:28:04Z",
       "side": 1,
       "message": "i think you don\u0027t have to connect bridge to ODL controller.",
+      "range": {
+        "startLine": 167,
+        "startChar": 44,
+        "endLine": 167,
+        "endChar": 91
+      },
+      "revId": "8fd89f48cbf07bb8b1b94ddb10823e87b31394d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_3905d3c2",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2017-05-02T05:21:07Z",
+      "side": 1,
+      "message": "+1. OF connection not needed.",
+      "parentUuid": "ba068154_f91ceb6c",
       "range": {
         "startLine": 167,
         "startChar": 44,
