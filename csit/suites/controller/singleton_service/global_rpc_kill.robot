@@ -58,7 +58,7 @@ Verify_New_Basic_Rpc_Test_Owner_Elected
 Rpc_On_Remained_Cluster_Nodes
     [Documentation]    Run rpc on remained cluster nodes.
     : FOR    ${idx}    IN    @{old_brt_successors}
-    \    Run_Rpc    ${idx}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Run_Rpc    ${idx}
 
 Restart_Killed_Member
     [Documentation]    Restart killed node
