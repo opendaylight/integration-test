@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_459548e3",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-02T23:24:10Z",
+      "side": 1,
+      "message": "yeah, at least we can get this in sooner, and when the reconciliation suite is done it can replace this test case\nor we can keep it for an extra bit of coverage.\n\nis there already work for this reconciliation suite?",
+      "parentUuid": "ba068154_d968078a",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 8
+      },
+      "revId": "8fd89f48cbf07bb8b1b94ddb10823e87b31394d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_f91ceb6c",
         "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
         "patchSetId": 1
