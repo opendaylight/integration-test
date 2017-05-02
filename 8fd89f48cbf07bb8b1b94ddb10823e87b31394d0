@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_f91ceb6c",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 65
+      },
+      "writtenOn": "2017-05-02T00:28:04Z",
+      "side": 1,
+      "message": "i think you don\u0027t have to connect bridge to ODL controller.",
+      "range": {
+        "startLine": 167,
+        "startChar": 44,
+        "endLine": 167,
+        "endChar": 91
+      },
+      "revId": "8fd89f48cbf07bb8b1b94ddb10823e87b31394d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
