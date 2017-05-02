@@ -66,7 +66,7 @@ Rpc_On_Isolated_Node
 Rpc_On_Non_Isolated_Cluster_Nodes
     [Documentation]    Run rpc on remained cluster nodes.
     : FOR    ${idx}    IN    @{old_brt_successors}
-    \    Run_Rpc    ${idx}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Run_Rpc    ${idx}
 
 Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node

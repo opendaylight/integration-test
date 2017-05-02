@@ -112,7 +112,7 @@ Isolate_Owner_And_Verify_Isolated
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Check_New_Owner_Got_Elected_For_Device    ${CS_DEVICE_NAME}    ${CS_DEVICE_TYPE}    ${cs_isolated_index}
     ...    ${node_to_ask}
     Get_And_Save_Present_CsOwner_And_CsCandidates    ${node_to_ask}
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    MdsalLowlevel.Get_Singleton_Constant    ${cs_isolated_index}    explicit_status_codes=${CS_STATUS_ISOLATED}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    MdsalLowlevel.Get_Singleton_Constant    ${cs_isolated_index}    explicit_status_codes=${CS_STATUS_ISOLATED}
 
 Rejoin_Node_And_Verify_Rejoined
     [Documentation]    Rejoin isolated node.
