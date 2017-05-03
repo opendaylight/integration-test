@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_376317b3",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T05:19:51Z",
+      "side": 1,
+      "message": "Can you make this KW to call the KW you created?",
+      "revId": "8c5ef977b0d92c22dbad36156c276bb3ac8d1704",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_975803fc",
+        "filename": "csit/suites/openflowplugin/ROBUSTNESS_OF18/010__Cluster_Current_Term_Verification_3Node_Cluster.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T05:19:51Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "8c5ef977b0d92c22dbad36156c276bb3ac8d1704",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_775d9fe9",
+        "filename": "csit/suites/openflowplugin/ROBUSTNESS_OF18/010__Cluster_Current_Term_Verification_3Node_Cluster.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T05:19:51Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "8c5ef977b0d92c22dbad36156c276bb3ac8d1704",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_d771eb78",
+        "filename": "csit/suites/openflowplugin/ROBUSTNESS_OF18/010__Cluster_Current_Term_Verification_3Node_Cluster.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T05:19:51Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "8c5ef977b0d92c22dbad36156c276bb3ac8d1704",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b76ee794",
+        "filename": "csit/suites/openflowplugin/ROBUSTNESS_OF18/010__Cluster_Current_Term_Verification_3Node_Cluster.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T05:19:51Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "8c5ef977b0d92c22dbad36156c276bb3ac8d1704",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_176c139c",
+        "filename": "csit/suites/openflowplugin/ROBUSTNESS_OF18/010__Cluster_Current_Term_Verification_3Node_Cluster.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T05:19:51Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "8c5ef977b0d92c22dbad36156c276bb3ac8d1704",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f7686f89",
+        "filename": "csit/testplans/openflowplugin-clustering.txt",
+        "patchSetId": 28
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T05:19:51Z",
+      "side": 1,
+      "message": "I think this suite goes better in openflowplugin-bulkomatic-clustering-daily.txt that has already bulkomatic feature enabled.",
+      "revId": "8c5ef977b0d92c22dbad36156c276bb3ac8d1704",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
