@@ -74,6 +74,22 @@ Run_Keyword_Preserve_Connection
     # Resource name has to be prepended, as KarafKeywords still contains a redirect.
     [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_connection.index}
 
+Run_Keyword_With_Ssh
+    [Arguments]    ${ip_address}    ${keyword_name}    @{args}    &{kwargs}
+    [Documentation]    Open temporary connection to given IP address, run keyword, close connection, restore previously active connection, return result.
+    Run_Keyword_Preserve_Connection    Run_Unsafely_Keyword_Over_Temporary_Odl_Session    ${ip_address}    ${keyword_name}    @{args}    &{kwargs}
+
+Run_Unsafely_Keyword_Over_Temporary_Odl_Session
+    [Arguments]    ${ip_address}    ${keyword_name}    @{args}    &{kwargs}
+    [Documentation]    Open connection to given IP address, run keyword, close connection, return result.
+    ...    This is unsafe in the sense that previously active session will be switched out off, but safe in the sense only the temporary connection is closed.
+    Open_Connection_To_ODL_System    ${ip_address}
+    # Not using Teardown, to avoid a call to close if the previous line fails.
+    ${status}    ${result} =    BuiltIn.Run_Keword_And_Ignore_Error    ${keyword_name}    @{args}    &{kwargs}
+    SSHLibrary.Close_Connection
+    BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"    ${result}
+    BuiltIn.Fail    ${result}
+
 Log_Command_Results
     [Arguments]    ${stdout}    ${stderr}    ${rc}
     [Documentation]    Log everything returned by SSHLibrary.Execute_Command
