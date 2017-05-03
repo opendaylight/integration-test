@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_d71f2b08",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/02_bgp_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-05-03T05:35:28Z",
+      "side": 1,
+      "message": "I think we should put these loopback ips and dcgw_system ips in a common variable file so that all the other suites which needs bgp can access them.",
+      "revId": "7a3d8a342f02a9bb9c3d836c246ffd584252b272",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
