@@ -58,6 +58,10 @@ Disconnect Mininet From Owner
     Disconnect Cluster Mininet    break    ${owner_list}
     BuiltIn.Set Suite Variable    ${owner_list}
 
+Check Entity Owner Status And Find Owner and Successor After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
+    ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+
 Check Linear Topology After Disconnect
     [Documentation]    Check Linear Topology After Disconnecting mininet from owner.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
@@ -142,6 +146,10 @@ Check Entity Owner Status And Find Owner and Successor Before Stop
     BuiltIn.Set Suite Variable    ${original_successor_list}
     BuiltIn.Set Suite Variable    ${original_successor}
 
+Check Shards Status before Stop
+    [Documentation]    Check Status for all shards in OpenFlow application.
+    ClusterOpenFlow.Check OpenFlow Shards Status
+
 Stop Owner Instance
     [Documentation]    Stop Owner Instance and verify it is shutdown
     ClusterManagement.Stop Single Member    ${original_owner}
@@ -154,10 +162,7 @@ Check Shards Status After Stop
 Check Entity Owner Status And Find Owner and Successor After Stop
     [Documentation]    Check Entity Owner Status and identify owner and successor.
     ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_successor}    ${new_cluster_list}    after_stop=True
-    ${new_successor}=    Collections.Get From List    ${new_successor_list}    0
     BuiltIn.Set Suite Variable    ${new_owner}
-    BuiltIn.Set Suite Variable    ${new_successor}
-    BuiltIn.Set Suite Variable    ${new_successor_list}
 
 Check Linear Topology After Owner Stop
     [Documentation]    Check Linear Topology.
