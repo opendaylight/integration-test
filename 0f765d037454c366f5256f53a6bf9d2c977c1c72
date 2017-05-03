@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_8b2bbe2f",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T16:51:44Z",
+      "side": 1,
+      "message": "I do not get this. What I asked was to make this more specific KW to use the more generic KW below (raft_property\u003dRaftState) so we avoid code duplication.",
+      "revId": "0f765d037454c366f5256f53a6bf9d2c977c1c72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
