@@ -489,17 +489,39 @@ Flush_Iptables_From_List_Or_All
     ${command} =    BuiltIn.Set_Variable    sudo iptables -v -F
     ${output} =    Run_Bash_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
 
+Check_Bash_Command_On_List_Or_All
+    [Arguments]    ${command}    ${member_index_list}=${EMPTY}    ${return_success_only}=False    ${log_on_success}=True    ${log_on_failure}=True    ${stderr_must_be_empty}=True
+    [Documentation]    Cycle through indices (or all), run bash command on each, using temporary SSH session and restoring the previously active one.
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
+    : FOR    ${index}    IN    @{index_list}
+    \    Check_Bash_Command_On_Member    command=${command}    member_index=${index}    return_success_only=${return_success_only}    log_on_success=${log_on_success}    log_on_failure=${log_on_failure}
+    \    ...    stderr_must_be_empty=${stderr_must_be_empty}
+
+Check_Bash_Command_On_Member
+    [Arguments]    ${command}    ${member_index}    ${return_success_only}=False    ${log_on_success}=True    ${log_on_failure}=True    ${stderr_must_be_empty}=True
+    [Documentation]    Open SSH session, call SSHKeywords.Execute_Command_Passes, close session, restore previously active session and return output.
+    BuiltIn.Run_Keyword_And_Return    SSHKeywords.Run_Keyword_Preserve_Connection    Check_Unsafely_Bash_Command_On_Member    ${command}    ${member_index}    return_success_only=${return_success_only}    log_on_success=${log_on_success}
+    ...    log_on_failure=${log_on_failure}    stderr_must_be_empty=${stderr_must_be_empty}
+
+Check_Unsafely_Bash_Command_On_Member
+    [Arguments]    ${command}    ${member_index}    ${return_success_only}=False    ${log_on_success}=True    ${log_on_failure}=True    ${stderr_must_be_empty}=True
+    [Documentation]    Obtain Ip address, open session, call SSHKeywords.Execute_Command_Passes, close session and return output. This affects which SSH session is active.
+    ${member_ip} =    Resolve_Ip_Address_For_Member    ${member_index}
+    BuiltIn.Run_Keyword_And_Return    SSHKeywords.Run_Unsafely_Keyword_Over_Temporary_Odl_Session    ${member_ip}    Execute_Command_Passes    ${command}    return_success_only=${return_success_only}    log_on_success=${log_on_success}
+    ...    log_on_failure=${log_on_failure}    stderr_must_be_empty=${stderr_must_be_empty}
+
 Run_Bash_Command_On_List_Or_All
     [Arguments]    ${command}    ${member_index_list}=${EMPTY}
     [Documentation]    Cycle through indices (or all), run command on each.
+    # TODO: Migrate callers to Check_Bash_Command_*
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    Run_Bash_Command_On_Member    command=${command}    member_index=${index}
 
 Run_Bash_Command_On_Member
     [Arguments]    ${command}    ${member_index}
-    [Documentation]    Obtain IP, call Utils and return output. This does not preserve active ssh session.
-    # TODO: Rename these keyword to Run_Bash_Command_On_Member to distinguish from Karaf (or even Windows) commands.
+    [Documentation]    Obtain IP, call Utils and return output. This keeps previous ssh session active.
+    # TODO: Migrate callers to Check_Bash_Command_*
     ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_index}
     ${output} =    SSHKeywords.Run_Keyword_Preserve_Connection    Utils.Run_Command_On_Controller    ${member_ip}    ${command}
     [Return]    ${output}
@@ -544,7 +566,6 @@ Install_Feature_On_Member
 With_Ssh_To_List_Or_All_Run_Keyword
     [Arguments]    ${member_index_list}    ${keyword_name}    @{args}    &{kwargs}
     [Documentation]    For each index in given list (or all): activate SSH connection, run given Keyword, close active connection. Return None.
-    ...    Note that if the Keyword affects SSH connections, results are still deterministic, but perhaps undesirable.
     ...    Beware that in order to avoid "got positional argument after named arguments", first two arguments in the call should not be named.
     BuiltIn.Comment    This keyword is experimental and there is high risk of being replaced by another approach.
     # TODO: For_Index_From_List_Or_All_Run_Keyword applied to With_Ssh_To_Member_Run_Keyword?
@@ -552,9 +573,7 @@ With_Ssh_To_List_Or_All_Run_Keyword
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     : FOR    ${member_index}    IN    @{index_list}
     \    ${member_ip} =    Resolve_IP_Address_For_Member    ${member_index}
-    \    SSHKeywords.Open_Connection_To_Odl_System    ip_address=${member_ip}
-    \    BuiltIn.Run_Keyword    ${keyword_name}    @{args}    &{kwargs}
-    \    SSHLibrary.Close_Connection
+    \    SSHKeywords.Run_Unsafely_Keyword_Over_Temporary_Odl_Session    ${member_ip}    ${keyword_name}    @{args}    &{kwargs}
 
 Safe_With_Ssh_To_List_Or_All_Run_Keyword
     [Arguments]    ${member_index_list}    ${keyword_name}    @{args}    &{kwargs}
@@ -562,11 +581,14 @@ Safe_With_Ssh_To_List_Or_All_Run_Keyword
     SSHKeywords.Run_Keyword_Preserve_Connection    With_Ssh_To_List_Or_All_Run_Keyword    ${member_index_list}    ${keyword_name}    @{args}    &{kwargs}
 
 Clean_Directories_On_List_Or_All
-    [Arguments]    ${member_index_list}=${EMPTY}    ${directory_list}=${EMPTY}    ${karaf_home}=${KARAF_HOME}
+    [Arguments]    ${member_index_list}=${EMPTY}    ${directory_list}=${EMPTY}    ${karaf_home}=${KARAF_HOME}    ${log_tmp}=${EMPTY}
     [Documentation]    Clear @{directory_list} or @{ODL_DEFAULT_DATA_PATHS} for members in given list or all. Return None.
+    ...    If \${log_tmp} is nonempty, use that location to preserve data/log/.
     ...    This is intended to return Karaf (offline) to the state it was upon the first boot.
     ${path_list} =    Builtin.Set Variable If    "${directory_list}" == "${EMPTY}"    ${ODL_DEFAULT_DATA_PATHS}    ${directory_list}
+    BuiltIn.Run_Keyword_If    """${log_tmp}""" != ""    Check_Bash_Command_On_List_Or_All    mkdir -p '${log_tmp}' && rm -rf '${log_tmp}/log' && mv -rf '${karaf_home}/data/log' '${log_tmp}/'    ${member_index_list}
     Safe_With_Ssh_To_List_Or_All_Run_Keyword    ${member_index_list}    ClusterManagement__Clean_Directories    ${path_list}    ${karaf_home}
+    BuiltIn.Run_Keyword_If    """${log_tmp}""" != ""    Check_Bash_Command_On_List_Or_All    mkdir -p '${karaf_home}/data' && rm -rf '${karaf_home}/log' && mv -rf '${log_tmp}/log' '${karaf_home}/data/'    ${member_index_list}
 
 Store_Karaf_Log_On_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${dst_dir}=/tmp    ${karaf_home}=${KARAF_HOME}
