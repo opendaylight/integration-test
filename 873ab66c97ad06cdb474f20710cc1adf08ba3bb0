@@ -94,6 +94,30 @@
       "revId": "873ab66c97ad06cdb474f20710cc1adf08ba3bb0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4bcc3636",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-03T18:35:00Z",
+      "side": 1,
+      "message": "you *could* add an extra tools system. here is how sxp does it:  \n\nhttps://github.com/opendaylight/releng-builder/blob/master/jjb/sxp/sxp-csit-cluster-routing.yaml#L33\n\nbut if you are getting what you want with the 192.168 network, then no problem there.",
+      "parentUuid": "ba068154_d7f8cbc6",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 110
+      },
+      "revId": "873ab66c97ad06cdb474f20710cc1adf08ba3bb0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
