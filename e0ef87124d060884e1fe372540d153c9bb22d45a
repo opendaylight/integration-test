@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_e6f71f8b",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T21:57:59Z",
+      "side": 1,
+      "message": "you do not need to change this",
+      "revId": "e0ef87124d060884e1fe372540d153c9bb22d45a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_26f2c79a",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T21:57:59Z",
+      "side": 1,
+      "message": "you also do not need ${new_successor} or ${new_successor_list}",
+      "revId": "e0ef87124d060884e1fe372540d153c9bb22d45a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
