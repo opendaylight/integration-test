@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_c66e5b96",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T20:57:02Z",
+      "side": 1,
+      "message": "Anything wrong in using what i told you in the comment? this as it is will most likely fail.",
+      "revId": "533ae131b712f5e9598f6f801814de5e9d17aab8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
