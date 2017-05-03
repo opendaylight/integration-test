@@ -1,0 +1,27 @@
+{
+    "port": {
+        "Map": {},
+        "admin_state_up": true,
+        "allowed_address_pairs": [],
+        "binding:host_id": "",
+        "binding:vif_type": "unbound",
+        "binding:vnic_type": "normal",
+        "device_id": "r_uuid",
+        "device_owner": "network:router_interface",
+        "extra_dhcp_opts": [],
+        "fixed_ips": [
+            {
+                "ip_address": "ip1",
+                "subnet_id": "subnet1"
+            }
+        ],
+        "id": "p_id",
+        "mac_address": "mac1",
+        "name": "name1",
+        "network_id": "id_1",
+        "port_security_enabled": true,
+        "security_groups": [],
+        "status": "ACTIVE",
+        "tenant_id": "ten-id"
+    }
+}

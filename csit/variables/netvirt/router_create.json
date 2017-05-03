@@ -1,0 +1,11 @@
+{
+    "router": {
+        "admin-state-up": true,
+        "distributed": false,
+        "name": "myrouter",
+        "routes": [],
+        "status": "ACTIVE",
+        "tenant-id": "ten-id",
+        "uuid": "r_uuid"
+    }
+}
