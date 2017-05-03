@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_2b58d255",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-03T19:24:01Z",
+      "side": 1,
+      "message": "Now that I have you here, can you please add:\n\nCheck Shards Status Before Stop\n    [Documentation]    Check Status for all shards in OpenFlow application.\n    ClusterOpenFlow.Check OpenFlow Shards Status",
+      "revId": "96a727cbae4da46a00a3501351fe50b2a2151960",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
