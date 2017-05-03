@@ -49,8 +49,17 @@ Check Flows In Switch
 
 Check Entity Owner Status And Find Owner and Successor Before Fail
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
+    [tags]    exclude
     ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
     BuiltIn.Set Suite Variable    ${original_owner}
+
+Check Entity Owner Status And Find Owner and Successor Before Stop
+    [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
+    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${original_successor}=    Collections.Get From List    ${original_successor_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_successor_list}
+    BuiltIn.Set Suite Variable    ${original_successor}
 
 Disconnect Mininet From Owner
     [Documentation]    Disconnect mininet from the owner
@@ -58,13 +67,21 @@ Disconnect Mininet From Owner
     Disconnect Cluster Mininet    break    ${owner_list}
     BuiltIn.Set Suite Variable    ${owner_list}
 
+Check Entity Owner Status And Find Owner and Successor After Stop
+    [Documentation]    Check Entity Owner Status and identify owner and successor.
+    ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_successor}    ${new_cluster_list}    after_stop=True
+    ${new_successor}=    Collections.Get From List    ${new_successor_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_successor}
+    BuiltIn.Set Suite Variable    ${new_successor_list}
+
 Check Linear Topology After Disconnect
     [Documentation]    Check Linear Topology After Disconnecting mininet from owner.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
 
 Remove Flows And Groups After Mininet Is Disconnected
     [Documentation]    Remove 1 group 1&2 and 1 flow in every switch after mininet is disconnected.
-    Remove Single Group And Flow
+    Remove Single Group And Flow    ${new_owner}
 
 Check Flows In Operational DS After Mininet Is Disconnected
     [Documentation]    Check Flows in Operational DS after mininet is disconnected.
