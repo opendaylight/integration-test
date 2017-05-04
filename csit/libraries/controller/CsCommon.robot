@@ -28,7 +28,6 @@ Resource          ${CURDIR}/../WaitForFailure.robot
 ${CS_DEVICE_NAME}    get-singleton-constant-service']
 ${CS_DEVICE_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${CS_CONSTANT_PREFIX}    constant-
-@{CS_STATUS_ISOLATED}    ${501}
 
 *** Keywords ***
 Cluster_Singleton_Init
@@ -96,28 +95,24 @@ Verify_Singleton_Constant_On_Nodes
     \    Verify_Singleton_Constant_On_Node    ${index}    ${cs_exp_constant}
 
 Verify_Singleton_Constant_During_Isolation
-    [Documentation]    Iterate over all cluster nodes. Isolated node should return http status code ${CS_STATUS_ISOLATED}. All non-isolated nodes should
-    ...    return correct constant.
+    [Documentation]    Iterate over all non-isolated cluster nodes. They should return the correct constant.
     : FOR    ${index}    IN    @{cs_all_indices}
-    \    BuiltIn.Run_Keyword_If    "${index}" == "${cs_isolated_index}"    MdsalLowlevel.Get_Singleton_Constant    ${index}    explicit_status_codes=${CS_STATUS_ISOLATED}
     \    BuiltIn.Run_Keyword_Unless    "${index}" == "${cs_isolated_index}"    Verify_Singleton_Constant_On_Node    ${index}    ${CS_CONSTANT_PREFIX}${cs_owner}
 
 Isolate_Owner_And_Verify_Isolated
-    [Documentation]    Isolate the owner cluster node. Wait until the new owner is elected and store new values of owner and candidates. Then wait
-    ...    for isolated node to respond correctly when isolated.
+    [Documentation]    Isolate the owner cluster node. Wait until the new owner is elected and store new values of owner and candidates.
     ClusterManagement.Isolate_Member_From_List_Or_All    ${cs_owner}
     BuiltIn.Set_Suite_Variable    ${cs_isolated_index}    ${cs_owner}
     ${non_isolated_list} =    ClusterManagement.List_Indices_Minus_Member    ${cs_isolated_index}    member_index_list=${cs_all_indices}
     ${node_to_ask} =    Collections.Get_From_list    ${non_isolated_list}    0
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Check_New_Owner_Got_Elected_For_Device    ${CS_DEVICE_NAME}    ${CS_DEVICE_TYPE}    ${cs_isolated_index}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    ClusterManagement.Check_New_Owner_Got_Elected_For_Device    ${CS_DEVICE_NAME}    ${CS_DEVICE_TYPE}    ${cs_isolated_index}
     ...    ${node_to_ask}
     Get_And_Save_Present_CsOwner_And_CsCandidates    ${node_to_ask}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    MdsalLowlevel.Get_Singleton_Constant    ${cs_isolated_index}    explicit_status_codes=${CS_STATUS_ISOLATED}
 
 Rejoin_Node_And_Verify_Rejoined
     [Documentation]    Rejoin isolated node.
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${cs_isolated_index}
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Singleton_Constant_On_Node    ${cs_isolated_index}    ${CS_CONSTANT_PREFIX}${cs_owner}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    Verify_Singleton_Constant_On_Node    ${cs_isolated_index}    ${CS_CONSTANT_PREFIX}${cs_owner}
 
 Register_Flapping_Singleton_On_Nodes
     [Arguments]    ${index_list}
