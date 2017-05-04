@@ -22,6 +22,30 @@
       "revId": "b2e5cdbe5ee97bd1be24a26d2e627da96456516c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_0b72277c",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-04T17:51:12Z",
+      "side": 1,
+      "message": "We should probably create a universal keyword and make SSHKeywords.Run_Unsafely_Keyword_Over_Temporary_Odl_Session and KarafKeywords.Safe_Issue_Command_On_Karaf_Console just wrappers differing by SSH session and login, and then create more wrappers for tools bash and similar.\n\nNot high priority for me, sadly.\n\nAnd it would get more complicated if we want to do it the KarafKeyword way and keep a list of open sessions to reuse (and reopen on failure).",
+      "parentUuid": "ba068154_4858b556",
+      "range": {
+        "startLine": 492,
+        "startChar": 0,
+        "endLine": 492,
+        "endChar": 33
+      },
+      "revId": "b2e5cdbe5ee97bd1be24a26d2e627da96456516c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
