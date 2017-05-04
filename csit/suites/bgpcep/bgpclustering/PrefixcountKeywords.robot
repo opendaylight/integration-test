@@ -19,6 +19,7 @@ Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/ShardStability.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/ClusterAdmin.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
@@ -61,9 +62,9 @@ Setup_Everything
     [Documentation]    Setup imported resources, SSH-login to tools system,
     ...    create HTTP session, put Python tool to tools system.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    RequestsLibrary.Create_Session    ${CONFIGURATION_1}    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}    timeout=10    max_retries=0
-    RequestsLibrary.Create_Session    ${CONFIGURATION_2}    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}    timeout=10    max_retries=0
-    RequestsLibrary.Create_Session    ${CONFIGURATION_3}    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}    timeout=10    max_retries=0
+    RequestsLibrary.Create_Session    ${CONFIGURATION_1}    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}    timeout=40    max_retries=0
+    RequestsLibrary.Create_Session    ${CONFIGURATION_2}    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}    timeout=40    max_retries=0
+    RequestsLibrary.Create_Session    ${CONFIGURATION_3}    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}    timeout=40    max_retries=0
     PrefixCounting.PC_Setup
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
@@ -125,3 +126,12 @@ Verify_Bgp_Peer_Connection
     ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${peer_ip}
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
+
+Set_Shard_Leaders_Location_And_Verify
+    [Arguments]    ${requested_shard_localtion_idx}
+    [Documentation]    Move default/topology config/operational shard location to local or remote node as requested
+    ...    towards the given rib singleton instance location.
+    ShardStability.Set_Shard_Location    ${requested_shard_localtion_idx}
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ShardStability.Verify_Shard_Leader_Located_As_Expected    ${requested_shard_localtion_idx}
+    ${init_shard_details} =    ShardStability.Shards_Stability_Get_Details    ${SHARD_MONITOR_LIST}
+    BuiltIn.Set_Suite_Variable    ${init_shard_details}
