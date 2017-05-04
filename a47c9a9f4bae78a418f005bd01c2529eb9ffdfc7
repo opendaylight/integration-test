@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_ab25dbac",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-04T17:23:58Z",
+      "side": 1,
+      "message": "TODO: This should be as a Teardown for a keyword which follows (or starts by) line 126, so that we do not start another scenario with a member isolated.",
+      "range": {
+        "startLine": 130,
+        "startChar": 22,
+        "endLine": 130,
+        "endChar": 52
+      },
+      "revId": "a47c9a9f4bae78a418f005bd01c2529eb9ffdfc7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
