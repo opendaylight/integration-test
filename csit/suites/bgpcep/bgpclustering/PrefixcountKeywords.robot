@@ -19,6 +19,7 @@ Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/ShardStability.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/ClusterAdmin.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
@@ -125,3 +126,28 @@ Verify_Bgp_Peer_Connection
     ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${peer_ip}
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
+
+Set_Shard_Location
+    [Arguments]    ${requested_shard_localtion}    ${current_rib_owner}    ${current_rib_candidates}
+    [Documentation]    Move default/topology config/operational shard location to local or remote node as requested
+    ...    towards the given rib gingleton instance location.
+    ${shard_location} =    BuiltIn.Set_Variable_If    "${requested_shard_localtion}" == "local"    ${current_rib_owner}    @{current_rib_candidates}[0]
+    ClusterAdmin.Make_Leader_Local    ${shard_location}    default    config
+    ClusterAdmin.Make_Leader_Local    ${shard_location}    default    operational
+    ClusterAdmin.Make_Leader_Local    ${shard_location}    topology    config
+    ClusterAdmin.Make_Leader_Local    ${shard_location}    topology    operational
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    Verify_Shard_Leader_Located_As_Expected    ${current_rib_owner}
+    ${init_shard_details} =    ShardStability.Shards_Stability_Get_Details    ${SHARD_MONITOR_LIST}
+    BuiltIn.Set_Suite_Variable    ${init_shard_details}
+
+Verify_Shard_Leader_Located_As_Expected
+    [Arguments]    ${current_rib_owner}
+    [Documentation]    Verify default/topology config/operational shard leader location is as expected
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=config
+    BuiltIn.Should_Be_Equal_As_Numbers    ${current_rib_owner}    ${leader}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=operational
+    BuiltIn.Should_Be_Equal_As_Numbers    ${current_rib_owner}    ${leader}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=config
+    BuiltIn.Should_Be_Equal_As_Numbers    ${current_rib_owner}    ${leader}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=operational
+    BuiltIn.Should_Be_Equal_As_Numbers    ${current_rib_owner}    ${leader}
