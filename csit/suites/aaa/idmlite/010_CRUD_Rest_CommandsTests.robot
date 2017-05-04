@@ -30,6 +30,13 @@ ${URI}            http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
 @{cleanup_grant_list}
 
 *** Test Cases ***
+Domain Create Rejects Request With Domain ID
+    [Documentation]    Bug https://bugs.opendaylight.org/show_bug.cgi?id=8382 will make this test case fail if it
+    ...    is seen. The domain create API should not accept the domainid in the request
+    ${data}=    Set Variable    {"domainid":"foo","description":"do not accept","name":\"reject-domain-id\","enabled":"true"}
+    ${resp}    RequestsLibrary.Post Request    httpbin    auth/v1/domains    headers=${HEADERS}    data=${data}
+    Should Be Equal As Strings    ${resp.status_code}    400
+
 Test Post New Domain
     [Documentation]    Create a domain using REST POST command.
     # create a temp name, set it to domainName
