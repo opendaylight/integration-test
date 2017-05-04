@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_7c5f3e73",
+        "filename": "csit/suites/bgpcep/bgpclustering/PrefixcountKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-04T08:40:49Z",
+      "side": 1,
+      "message": "This argument name is the only thing hinting at BGP testing. Rename and move the two keywords to a Resource focused on shards (ShardStability probably).",
+      "range": {
+        "startLine": 131,
+        "startChar": 51,
+        "endLine": 131,
+        "endChar": 71
+      },
+      "revId": "80e1df6319c1f04804c209007fae7fc98e563c86",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_fc732e13",
+        "filename": "csit/suites/bgpcep/bgpclustering/PrefixcountKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-04T08:40:49Z",
+      "side": 1,
+      "message": "s",
+      "range": {
+        "startLine": 133,
+        "startChar": 33,
+        "endLine": 133,
+        "endChar": 34
+      },
+      "revId": "80e1df6319c1f04804c209007fae7fc98e563c86",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_5cc7da12",
+        "filename": "csit/suites/bgpcep/bgpclustering/PrefixcountKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-04T08:40:49Z",
+      "side": 1,
+      "message": "new_leader?\ndesired_index?",
+      "range": {
+        "startLine": 134,
+        "startChar": 6,
+        "endLine": 134,
+        "endChar": 20
+      },
+      "revId": "80e1df6319c1f04804c209007fae7fc98e563c86",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_3cf3f674",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_300kroutes_shards_local.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-04T08:40:49Z",
+      "side": 1,
+      "message": "This is already a part of suite name. Any possibility user would wish to override this? If not, just hardcode, as ${SHARD_LOCATION} is less readable.\n\nAlternatively, list all the differences between remote and local suite to simplify maintenance (in which case the variable is fine).",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "80e1df6319c1f04804c209007fae7fc98e563c86",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_9ce8227e",
+        "filename": "csit/testplans/bgpcep-bgpclustering.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-04T08:40:49Z",
+      "side": 1,
+      "message": "We still want the suites to run on false, and probably also with 1M.",
+      "range": {
+        "startLine": 8,
+        "startChar": 84,
+        "endLine": 8,
+        "endChar": 88
+      },
+      "revId": "80e1df6319c1f04804c209007fae7fc98e563c86",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
