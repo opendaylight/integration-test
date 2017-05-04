@@ -11,6 +11,8 @@ Documentation     Kill nodes, delete all data created since boot, start nodes, w
 ...               This suite is useful for undoing feature installation, Leader movement
 ...               and for recovering from bably broken state.
 ...               The intent is to provide speed compared to isolated job runs.
+...
+...               FIXME: Import improvements from suites manipulating tell-based protocol setting.
 Suite Setup       ClusterManagement.ClusterManagement_Setup
 Default Tags      clustering    critical
 Library           DateTime
