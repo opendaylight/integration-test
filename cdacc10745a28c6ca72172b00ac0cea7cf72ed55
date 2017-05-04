@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_623cb894",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-05-04T09:26:13Z",
+      "side": 1,
+      "message": "Done. I have removed almost all of the log statements.",
+      "parentUuid": "ba068154_abe8427d",
+      "revId": "cdacc10745a28c6ca72172b00ac0cea7cf72ed55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_0bf98e4d",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2017-05-03T18:52:09Z",
       "side": 1,
       "message": "another, maybe better, idea is to stub out the additional\ntest cases you think should be added at a later time\nin the *** Test Cases *** section below. here\u0027s an example:\n\nhttps://git.opendaylight.org/gerrit/#/c/51397/11/csit/suites/iotdm/basic/010_PrimitveParameters.robot\n\nnot required, just an idea",
+      "range": {
+        "startLine": 2,
+        "startChar": 46,
+        "endLine": 2,
+        "endChar": 96
+      },
+      "revId": "cdacc10745a28c6ca72172b00ac0cea7cf72ed55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_c241240d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-05-04T09:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_0bf98e4d",
       "range": {
         "startLine": 2,
         "startChar": 46,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_024b2c2c",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-05-04T09:26:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_6b95bae3",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 113
+      },
+      "revId": "cdacc10745a28c6ca72172b00ac0cea7cf72ed55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_ab9fa202",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
         "patchSetId": 5
@@ -76,6 +142,30 @@
       "writtenOn": "2017-05-03T18:52:09Z",
       "side": 1,
       "message": "a few of these creation blocks could be done in a : FOR loop",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 181,
+        "endChar": 140
+      },
+      "revId": "cdacc10745a28c6ca72172b00ac0cea7cf72ed55",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_e247081c",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2017-05-04T09:26:13Z",
+      "side": 1,
+      "message": "Creation of networks and subnet is now done by using a for loop.",
+      "parentUuid": "ba068154_ab9fa202",
       "range": {
         "startLine": 147,
         "startChar": 4,
