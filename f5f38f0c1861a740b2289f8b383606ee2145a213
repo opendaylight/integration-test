@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_85dd6617",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-04T13:00:06Z",
+      "side": 1,
+      "message": "Line 86 might fail due to timeout, but the shard could be removed eventually.\nMove this to Teardown (perhaps also ignoring error, so that Add_Shard_Replica is attempted even if this fails).",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 39
+      },
+      "revId": "f5f38f0c1861a740b2289f8b383606ee2145a213",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_a5034a72",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-04T13:00:06Z",
+      "side": 1,
+      "message": "WUKS also here.",
+      "range": {
+        "startLine": 106,
+        "startChar": 13,
+        "endLine": 106,
+        "endChar": 14
+      },
+      "revId": "f5f38f0c1861a740b2289f8b383606ee2145a213",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
