@@ -162,8 +162,8 @@ Leader_Isolation_Heal_Within_Tt
 
 Module_Leader_Isolation_Heal_Default
     [Arguments]    ${isolated_node}    ${time_to_finish}
-    [Documentation]    The leader isolation test case end. The transaction producer on isolated node shoudl fail and should be restarted.
-    Then all write transaction producers shoudl finish without error.
+    [Documentation]    The leader isolation test case end. The transaction producer on isolated node should fail and should be restarted.
+    Then all write transaction producers should finish without error.
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
     BuiltIn.Log    ${resp}
     # TODO: check on response status code
@@ -245,11 +245,6 @@ Ongoing_Transactions_Failed
     [Documentation]    Verify if write-transaction failed.
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
     Check_Status_Code    ${resp}    explicit_status_codes=${TRANSACTION_FAILED}
-
-Verify_Client_Aborted
-    [Arguments]    ${exp_aborted}
-    [Documentation]    To be reworked
-    BuiltIn.Fail    TODO: Logic to be reworked
 
 Get_Seconds_To_Time
     [Arguments]    ${date_in_future}
