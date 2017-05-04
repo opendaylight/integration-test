@@ -26,9 +26,10 @@ Kill_All_Members
     ClusterManagement.Kill_Members_From_List_Or_All
 
 Unset_Tell_Based_Protocol_Usage
-    [Documentation]    Comment out the flag usage in config file.
-    ClusterManagement.Run_Bash_Command_On_List_Or_All    sed -ie "s/use-tell-based-protocol=/#use-tell-based-protocol=/g" ${DATASTORE_CFG}
-    ClusterManagement.Run_Bash_Command_On_List_Or_All    cat ${DATASTORE_CFG}
+    [Documentation]    Comment out the flag usage in config file. Also clean most data except data/log/.
+    ClusterManagement.Check_Bash_Command_On_List_Or_All    sed -ie "s/use-tell-based-protocol=/#use-tell-based-protocol=/g" ${DATASTORE_CFG}
+    ClusterManagement.Check_Bash_Command_On_List_Or_All    cat ${DATASTORE_CFG}
+    ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir=/tmp
 
 Start_All_And_Sync
     [Documentation]    Start each member and wait for sync.

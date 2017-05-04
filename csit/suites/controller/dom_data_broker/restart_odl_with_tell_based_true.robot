@@ -7,8 +7,8 @@ Documentation     Set tell-based protocol usage
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
-...               Suite stops all odl nodes, uncomment usage of tell-based protocol in
-...               config file and starts all nodes again.
+...               Suite stops all odl nodes, un-comment usage of tell-based protocol in
+...               config file (means make it true) and starts all nodes again.
 Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown
 Suite Teardown    SSHLibrary.Close_All_Connections
 Library           SSHLibrary
@@ -26,9 +26,10 @@ Kill_All_Members
     ClusterManagement.Kill_Members_From_List_Or_All
 
 Set_Tell_Based_Protocol_Usage
-    [Documentation]    Uncomment the flag usage line in config file
-    ClusterManagement.Run_Bash_Command_On_List_Or_All    sed -ie "s/#use-tell-based-protocol=/use-tell-based-protocol=/g" ${DATASTORE_CFG}
-    ClusterManagement.Run_Bash_Command_On_List_Or_All    cat ${DATASTORE_CFG}
+    [Documentation]    Un-comment the flag usage in config file. Also clean most data except data/log/.
+    ClusterManagement.Check_Bash_Command_On_List_Or_All    sed -ie "s/#use-tell-based-protocol=/use-tell-based-protocol=/g" ${DATASTORE_CFG}
+    ClusterManagement.Check_Bash_Command_On_List_Or_All    cat ${DATASTORE_CFG}
+    ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir=/tmp
 
 Start_All_And_Sync
     [Documentation]    Start each member and wait for sync.
