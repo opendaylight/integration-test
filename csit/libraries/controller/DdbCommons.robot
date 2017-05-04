@@ -84,6 +84,7 @@ Clean_Leader_Shutdown_Test_Templ
     ${producer_idx_as_list} =    BuiltIn.Create_List    ${producer_idx}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${False}
     ClusterAdmin.Remove_Shard_Replica    ${actual_leader}    ${shard_name}    member-${actual_leader}    ${shard_type}
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${follower_list}
     ${removed} =    BuiltIn.Set_Variable    ${True}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     TemplatedRequests.Check_Status_Code    @{resp_list}[0]
