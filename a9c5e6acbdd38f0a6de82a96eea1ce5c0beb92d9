@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_0254cc52",
+        "filename": "csit/suites/aaa/tls/020__tls_connection_manager.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2017-05-04T14:57:18Z",
+      "side": 1,
+      "message": "You can include this call as Test Setup, avoiding calling it at the beginning and end of each test",
+      "revId": "a9c5e6acbdd38f0a6de82a96eea1ce5c0beb92d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_e2226800",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2017-05-04T14:57:18Z",
+      "side": 1,
+      "message": "You could move this variables into a AAA specific Variables.robot file under variables/aaa/Variables.robot\nIt will be useful for future AAA test cases if you create it",
+      "revId": "a9c5e6acbdd38f0a6de82a96eea1ce5c0beb92d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
