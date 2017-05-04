@@ -20,6 +20,7 @@ Default Tags      critical
 Test Template     DdbCommons.Clean_Leader_Shutdown_Test_Templ
 Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/controller/DdbCommons.robot
+Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Test Cases ***
