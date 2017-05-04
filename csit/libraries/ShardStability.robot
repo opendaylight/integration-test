@@ -55,3 +55,24 @@ Shards_Stability_Compare_Same
     Collections.Log_Dictionary    ${exp_details}
     Collections.Log_Dictionary    ${details}
     Collections.Dictionaries_Should_Be_Equal    ${exp_details}    ${details}
+
+Set_Shard_Location
+    [Arguments]    ${requested_leader_idx}
+    [Documentation]    Move default/topology config/operational shard location to local or remote node as requested
+    ...    towards the given member.
+    ClusterAdmin.Make_Leader_Local    ${requested_leader_idx}    default    config
+    ClusterAdmin.Make_Leader_Local    ${requested_leader_idx}    default    operational
+    ClusterAdmin.Make_Leader_Local    ${requested_leader_idx}    topology    config
+    ClusterAdmin.Make_Leader_Local    ${requested_leader_idx}    topology    operational
+
+Verify_Shard_Leader_Located_As_Expected
+    [Arguments]    ${expected_leader_idx}
+    [Documentation]    Verify default/topology config/operational shard leader location is as expected
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=config
+    BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=operational
+    BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=config
+    BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=operational
+    BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
