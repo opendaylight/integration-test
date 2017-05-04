@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_4858b556",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-04T16:52:54Z",
+      "side": 1,
+      "message": "this is meant for running on cluster members, but would\nit be easy to use for any \"list\" of systems?\n\nI know of places it would fit nicely in the netvirt csit\nsuites, but I would want to run it on all linux systems\nin the env.",
+      "range": {
+        "startLine": 492,
+        "startChar": 0,
+        "endLine": 492,
+        "endChar": 33
+      },
+      "revId": "b2e5cdbe5ee97bd1be24a26d2e627da96456516c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
