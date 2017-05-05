@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_715e40eb",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-05T10:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_36090bde",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 461,
+        "endChar": 111
+      },
+      "revId": "0597ba0a0c51d59a5e1c8c3ffd9f8d98c6125684",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_d6723f7b",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-19T18:01:30Z",
       "side": 1,
       "message": "I think a rebase would not have this any more. It was removed\nrecently here:\n\nhttps://git.opendaylight.org/gerrit/#/c/55161/",
+      "range": {
+        "startLine": 469,
+        "startChar": 0,
+        "endLine": 475,
+        "endChar": 20
+      },
+      "revId": "0597ba0a0c51d59a5e1c8c3ffd9f8d98c6125684",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_51633cb1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-05T10:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_d6723f7b",
       "range": {
         "startLine": 469,
         "startChar": 0,
