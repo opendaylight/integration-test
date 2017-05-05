@@ -158,7 +158,7 @@ def get_id_by_name(args):
         :returns nodelist: return the first id that has same corresponding name
     """
     try:
-        jsonobj = json.loads(args['jsonblob'])
+        jsonobj = json.loads(str(args['jsonblob']))
     except KeyError:
         print "get_id_by_name: json blob not specified:"
         raise
@@ -199,34 +199,15 @@ def get_id_by_name(args):
             bkey2 = '$.' + blobkey + '[' + str(i) + '].' + typename
 
             # find records with same name
-            name_record = jsonpath.jsonpath(jsonobj, bkey1)
+            name_record = jsonobj[blobkey][i]['name']
             # find corresponding node info, for that name
-            node_record = jsonpath.jsonpath(jsonobj, bkey2)
+            node_record = jsonobj[blobkey][i][typename]
 
-            # build up an alternative set of keys.  This lets you deal with
-            # other format of json
-            bkey3 = '$.' + blobkey + '.name'
-            typename2 = datatype + 'id'
-            bkey4 = '$.' + blobkey + '.' + typename2
-
-            # find records with same name
-            altname_record = jsonpath.jsonpath(jsonobj, bkey3)
-            # find corresponding record node info, for that name
-            altnode_record = jsonpath.jsonpath(jsonobj, bkey4)
             try:
-                if name in list(name_record):
-                    nodelist.append(node_record.pop())
+                if name == name_record:
+                    return node_record
             except:
-                try:
-                    if name in list(altname_record):
-                        nodelist.append(altnode_record.pop())
-                except:
-                    raise
-
-    try:
-        return nodelist.pop()
-    except LookupError:
-        raise
+                raise
 
 
 def get_attribute_by_id(args):
@@ -290,44 +271,24 @@ def get_attribute_by_id(args):
         print "get_attribute_by_id: specify number of records we need"
         raise
 
+    typename = datatype + 'id'
+
     # Loop through the records looking for the nodeid, when found, return
     # the corresponding attribute value
 
     ncount = size
     if ncount > 0:
         for i in range(ncount):
-            bkey1 = '$.' + blobkey + '[' + str(i) + '].' + attr
-            bkey2 = '$.' + blobkey + '[' + str(i) + '].' + datatype + 'id'
 
-            bkey3 = '$.' + blobkey + '.' + attr
-            bkey4 = '$.' + blobkey + '.' + datatype + 'id'
+            try:
+                name_record = jsonobj[blobkey][i]['name']
+                node_record = jsonobj[blobkey][i][typename]
+            except:
+                name_record = jsonobj['name']
+                node_record = jsonobj[typename]
 
-            name_record = jsonpath.jsonpath(jsonobj, bkey1)
-            node_record = jsonpath.jsonpath(jsonobj, bkey2)
-            altname_record = jsonpath.jsonpath(jsonobj, bkey3)
-            altnode_record = jsonpath.jsonpath(jsonobj, bkey4)
-
-            if type(node_record) is list:
-                if nodeid in list(node_record):
-                    return name_record.pop()
-            else:
-                try:
-                    node_record
-                except:
-                    print "not in list"
-                else:
-                    return name_record
-
-            if type(altnode_record) is list:
-                if nodeid in list(altnode_record):
-                    return altname_record.pop()
-                else:
-                    try:
-                        altnode_record
-                    except:
-                        print "not in list"
-                    else:
-                        return altname_record
+            if nodeid == node_record:
+                return name_record
 
 
 def get_role_id_by_rolename(pobject, rolename, number_nodes):
@@ -461,6 +422,7 @@ def get_domain_id_by_domainname(pobject, domainname, number_nodes):
         the domain-name given
     """
     domainid = get_id_by_name({'jsonblob': pobject,
+                               'head': 'domains',
                                'name': domainname,
                                'size': number_nodes,
                                'typeval': 'domain'})
