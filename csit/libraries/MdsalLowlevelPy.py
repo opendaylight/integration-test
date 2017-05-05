@@ -138,7 +138,11 @@ def wait_for_transactions():
     results = []
     while not resqueue.empty():
         results.append(resqueue.get())
-    logger.info(results)
+    for rsp in results:
+        if isinstance(rsp, requests.Response):
+            logger.info(rsp.text)
+        else:
+            logger.info(rsp)
     return results
 
 
@@ -147,5 +151,10 @@ def get_next_transactions_response():
     resqueue = _globals.get('result_queue')
 
     if not resqueue.empty():
-        return resqueue.get()
+        rsp = resqueue.get()
+        if isinstance(rsp, requests.Response):
+            logger.info(rsp.text)
+        else:
+            logger.info(rsp)
+        return rsp
     return None
