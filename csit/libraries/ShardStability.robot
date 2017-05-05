@@ -14,12 +14,14 @@ Documentation     Robot library to monitor shard stability.
 ...               Requirements: ClusterManagement.ClusterManagement_Setup must be called before Shard_Stability_Init
 ...
 ...               It is possible to use it for stateless comparison.
+...               Variable @{DEFAULT_SHARD_LIST} contains default module shards.
 Library           Collections
 Library           String
 Resource          ${CURDIR}/ClusterManagement.robot
 
 *** Variables ***
 &{stored_details}
+@{DEFAULT_SHARD_LIST}    default:config    default:operational    topology:config    topology:operational    inventory:config    inventory:operational
 
 *** Keywords ***
 Shards_Stability_Init_Details
