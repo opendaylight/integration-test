@@ -11,7 +11,8 @@ Documentation     DOMDataBroker testing: Explicit Leader Movement
 ...               leader is moved as the result of explicit application request. This is performed
 ...               by having a steady-stream producer execute operations against the shard and then
 ...               initiate shard leader shutdown, then the producer is shut down cleanly.
-Suite Setup       BuiltIn.Run_Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+Suite Setup       BuiltIn.Run_Keywords    ClusterManagement.ClusterManagement_Setup    http_timeout=10
+...               AND    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DdbCommons.Create_Prefix_Based_Shard_And_Verify
 Suite Teardown    BuiltIn.Run_Keywords    DdbCommons.Remove_Prefix_Based_Shard_And_Verify
 ...               AND    SSHLibrary.Close_All_Connections
