@@ -57,7 +57,7 @@ Unregister_Singleton_Constant_On_Each_Node
 
 *** Keywords ***
 Setup_Keyword
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=10
     CsCommon.Cluster_Singleton_Init
 
 Get_Node_Idx_To_Unregister

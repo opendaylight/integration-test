@@ -88,7 +88,7 @@ Unregister_Rpc_On_Each_Node
 *** Keywords ***
 Setup_Kw
     [Documentation]    Setup keyword. Create ${possible_constants} list with possible variables of remote constants.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=10
     ${all_indices} =    ClusterManagement.List_All_Indices
     BuiltIn.Set_Suite_Variable    ${all_indices}
     ${non_installed_rpc_member_idx_list} =    ClusterManagement.List_All_Indices
