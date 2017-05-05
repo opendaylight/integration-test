@@ -13,12 +13,11 @@ Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=
 Suite Teardown    SSHLibrary.Close_All_Connections
 Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/ShardStability.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
 ${DATASTORE_CFG}    /${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.controller.cluster.datastore.cfg
-${SHARD_NAME}     default
-${SHARD_TYPE}     config
 
 *** Test Cases ***
 Kill_All_Members
@@ -34,5 +33,5 @@ Set_Tell_Based_Protocol_Usage
 Start_All_And_Sync
     [Documentation]    Start each member and wait for sync.
     ClusterManagement.Start_Members_From_List_Or_All
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}
+    BuiltIn.Wait_Until_Keyword_Succeeds    300s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
     ClusterManagement.Run_Bash_Command_On_List_Or_All    ps -ef | grep java

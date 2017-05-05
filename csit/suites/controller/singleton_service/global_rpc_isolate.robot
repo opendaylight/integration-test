@@ -14,6 +14,7 @@ Default Tags      critical
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/ShardStability.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
@@ -53,13 +54,15 @@ Isolate_Current_Owner_Member
 Verify_New_Basic_Rpc_Test_Owner_Elected
     [Documentation]    Verify new owner of the service is elected.
     ${idx}=    Collections.Get_From_List    ${old_brt_successors}    0
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Owner_Elected    ${True}    ${old_brt_owner}    ${idx}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    member_index_list=${old_brt_successors}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    Verify_Owner_Elected    ${True}    ${old_brt_owner}    ${idx}
     Get_Present_Brt_Owner_And_Successors    ${idx}    store=${True}
 
 Rpc_On_Isolated_Node
     [Documentation]    Run rpc on isolated cluster node.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${old_brt_owner}
     BuiltIn.Run_Keyword_And_Ignore_Error    Get_And_Log_EOS_Output_To_Karaf_Log    ${session}
+    BuiltIn.Pass_Execution    Rpc on isolated node may work for some time(bug 8207), then will fail (bug 8214)
     ${resp} =    RequestsLibrary.Post Request    ${session}    ${RPC_URL}    data=${EMPTY}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    ${RPC_STATUS_ISOLATED}
 
@@ -72,6 +75,7 @@ Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node
     [Tags]    @{NO_TAGS}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${old_brt_owner}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
 
 Verify_New_Owner_Remained_After_Rejoin
     [Documentation]    Verify no owner change happened after rejoin.
