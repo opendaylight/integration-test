@@ -73,7 +73,7 @@ Add Termination Point
 Verify OVS Reports Connected
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
     [Documentation]    Uses "vsctl show" to check for string "is_connected"
-    ${output}    Verify Ovs-vsctl Output    show    is_connected
+    ${output}    Verify Ovs-vsctl Output    show    is_connected    ${tools_system}
     [Return]    ${output}
 
 Verify Ovs-vsctl Output
