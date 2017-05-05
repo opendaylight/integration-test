@@ -9,7 +9,8 @@ Documentation     Unset tell-based protocol usage
 ...
 ...               Suite stops all odl nodes, outcomment usage of tell-based protocol in
 ...               config file (means make it false by default) and starts all nodes again.
-Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown
+Suite Setup       BuiltIn.Run_Keywords    ClusterManagement.ClusterManagement_Setup    http_timeout=10
+...               AND    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 Suite Teardown    SSHLibrary.Close_All_Connections
 Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
