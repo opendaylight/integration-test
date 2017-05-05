@@ -14,6 +14,7 @@ Default Tags      critical
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/ShardStability.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
@@ -72,6 +73,7 @@ Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node
     [Tags]    @{NO_TAGS}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${old_brt_owner}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${SHARD_MONITOR_LIST}
 
 Verify_New_Owner_Remained_After_Rejoin
     [Documentation]    Verify no owner change happened after rejoin.

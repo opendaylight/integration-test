@@ -22,6 +22,7 @@ Documentation     Cluster Singleton testing: Common Keywords
 Library           Collections
 Resource          ${CURDIR}/../ClusterManagement.robot
 Resource          ${CURDIR}/../MdsalLowlevel.robot
+Resource          ${CURDIR}/../ShardStability.robot
 Resource          ${CURDIR}/../WaitForFailure.robot
 
 *** Variables ***
@@ -113,7 +114,8 @@ Isolate_Owner_And_Verify_Isolated
 Rejoin_Node_And_Verify_Rejoined
     [Documentation]    Rejoin isolated node.
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${cs_isolated_index}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    Verify_Singleton_Constant_On_Node    ${cs_isolated_index}    ${CS_CONSTANT_PREFIX}${cs_owner}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Verify_Singleton_Constant_On_Node    ${cs_isolated_index}    ${CS_CONSTANT_PREFIX}${cs_owner}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${SHARD_MONITOR_LIST}
 
 Register_Flapping_Singleton_On_Nodes
     [Arguments]    ${index_list}
