@@ -41,7 +41,7 @@ CS_Pertition_And_Heal
 *** Keywords ***
 Setup_Keyword
     [Documentation]    Suite setup.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=10
     CsCommon.Cluster_Singleton_Init
 
 Test_Scenario
