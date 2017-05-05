@@ -81,7 +81,7 @@ Test Get Domains
     ${content}=    Get Domains
     # parse through that massive blob and get the individual name created in Setup
     ${node_count}=    Nodecount    ${content}    domains    domainid
-    ${domainid}=    Convert To Integer    ${domainid}
+    # ${domainid}=    Convert To Integer    ${domainid}
     # Get the domain name from the database, looking it up by its domainid
     ${domainentry}=    Get Domain Name By Domainid    ${content}    ${domainid}    ${node_count}
     Log    ${domainentry}
@@ -170,7 +170,7 @@ Test Get Users
     ${content}=    Get Users
     # parse through that massive blob and get the individual name
     ${node_count}=    Nodecount    ${content}    users    userid
-    ${userid}=    Convert To Integer    ${userid}
+    # ${userid}=    Convert To Integer    ${userid}
     ${userentry}=    Get User Name By Userid    ${content}    ${userid}    ${node_count}
     Log    ${userentry}
     # compare to see if the parsed user id matches the one we grabbed from list
@@ -227,7 +227,7 @@ Test Post New User
     [Documentation]    Test the POST command to create a new user.
     # create information for a new role (for the test)
     ${testusername}=    Create Random Name    Darth-Maul
-    ${data}=    Set Variable    {"description":"sample user description", "name":"${testusername}", "userid":1}
+    ${data}=    Set Variable    {"description":"sample user description", "name":"${testusername}", "userid":1,"domainid":"${testdomain}","email":"${testemail}"}
     Log    ${testusername}
     # Post this puppy
     ${content}=    Post New User    ${testusername}    ${data}
@@ -246,7 +246,7 @@ Test Delete User
     # create a user and then delete it.    Use Get to verify it's gone
     # create information for a new user (for the test)
     ${testusername}=    Create Random Name    force-user
-    ${data}=    Set Variable    {"description":"sample test description", "name":"${testusername}", "userid":1}
+    ${data}=    Set Variable    {"description":"sample test description", "name":"${testusername}", "userid":1,"domainid":"${testdomain}","email":"${testemail}"}
     Log    ${testusername}
     # Post this disposable user
     ${content}=    Post New User    ${testusername}    ${data}
@@ -295,7 +295,7 @@ Test Get Roles
     ${content}=    Get Roles
     # parse through that massive blob and get the individual name
     ${node_count}=    Nodecount    ${content}    roles    roleid
-    ${roleid}=    Convert To Integer    ${roleid}
+    # ${roleid}=    Convert To Integer    ${roleid}
     ${roleentry}=    Get Role Name By Roleid    ${content}    ${roleid}    ${node_count}
     Log    ${roleentry}
     # compare to see if the parsed user id matches the one we grabbed from list
@@ -327,7 +327,7 @@ Test Post New Role
     [Documentation]    Exercise POST command to create a new Role.
     # create information for a new role (for the test)
     ${testrolename}=    Create Random Name    force-brother-cousin
-    ${data}=    Set Variable    {"description":"sample test description", "name":"${testrolename}", "roleid":1}
+    ${data}=    Set Variable    {"description":"sample test description", "name":"${testrolename}", "roleid":1,"domainid":"${testdomain}"}
     Log    ${testrolename}
     # Post this puppy
     ${content}=    Post New Role    ${data}
@@ -347,7 +347,7 @@ Test Delete Role
     # create a role and then delete it.    Use Get to verify it's gone
     # create information for a new role (for the test)
     ${testrolename}=    Create Random Name    force-usurper
-    ${data}=    Set Variable    {"description":"sample test description", "name":"${testrolename}", "roleid":1}
+    ${data}=    Set Variable    {"description":"sample test description", "name":"${testrolename}", "roleid":1,"domainid":"${testdomain}"}
     Log    ${testrolename}
     # Post this disposable role
     ${content}=    Post New Role    ${data}
@@ -389,7 +389,7 @@ Test Grant Role To Domain And User
     ${domainname}=    Parse Item From Blob By Offset    ${domain_item}    1
     Log    ${domainname}
     # generate the data payload that we wish to post
-    ${data}=    Set Variable    {"roleid":"${roleid}", "description":"fabricated test roleid"}
+    ${data}=    Set Variable    {"roleid":"${roleid}"}
     # post this monster
     ${content}=    Post Role To Domain And User    ${data}    ${domainid}    ${userid}
     # add new json string to the cleanup list for later cleanup
@@ -405,9 +405,11 @@ IdMLight Suite Setup
     Set Global Variable    ${HEADERS}
     # create a name to use in each case
     ${testdomain}=    Create Random Name    Alderaan
+    Set Suite Variable    ${testdomain}
     ${testuser}=    Create Random Name    Leia
     ${testrole}=    Create Random Name    Force-User
     ${testemail}=    Set Variable    sdn@opendaylight.org
+    Set Suite Variable    ${testemail}
     # now create the domain, role and userid
     # create the test domain
     Create Session    httpbin    ${URI}    auth=${AUTH}    headers=${HEADERS}
@@ -416,12 +418,12 @@ IdMLight Suite Setup
     # add new domain name to the cleanup list for later cleanup
     Append To List    ${cleanup_domain_list}    ${newdomain}
     # now create the test user
-    ${userdata}=    Set Variable    {"description":"User-of-the-Force","name":"${testuser}","enabled":"true","domainid":"${testdomain}", "email":"${testemail}"}
+    ${userdata}=    Set Variable    {"description":"User-of-the-Force","name":"${testuser}","enabled":"true","domainid":"${testdomain}","email":"${testemail}"}
     ${newuser}=    Post New User    ${testuser}    ${userdata}
     # add new user name to the cleanup list for later cleanup
     Append To List    ${cleanup_user_list}    ${newuser}
     # now create the test role
-    ${roledata}=    Set Variable    {"name":"${testrole}","description":"Force User"}
+    ${roledata}=    Set Variable    {"name":"${testrole}","description":"Force User","domainid":"${testdomain}"}
     ${newrole}=    Post New Role    ${roledata}
     # add new role name to the cleanup list for later cleanup
     Append To List    ${cleanup_role_list}    ${newrole}
@@ -440,6 +442,7 @@ IdMLight Suite Teardown
     \    ${y}=    Get From List    ${x}    0
     \    ${z}=    Split String    ${y}    :
     \    ${domainid}=    Get From List    ${z}    1
+    \    ${domainid}=    Strip Quotes    ${domainid}
     \    Log    ${domainid}
     \    # convert name on the list to an ID, by which we delete this stuff
     \    Delete Domain    ${domainid}
@@ -454,6 +457,7 @@ IdMLight Suite Teardown
     \    ${y}=    Get From List    ${x}    0
     \    ${z}=    Split String    ${y}    :
     \    ${roleid}=    Get From List    ${z}    1
+    \    ${roleid}=    Strip Quotes    ${roleid}
     \    Log    ${roleid}
     \    # convert name on the list to an ID, by which we delete this stuff
     \    Delete Role    ${roleid}
@@ -468,6 +472,7 @@ IdMLight Suite Teardown
     \    ${y}=    Get From List    ${x}    0
     \    ${z}=    Split String    ${y}    :
     \    ${userid}=    Get From List    ${z}    1
+    \    ${userid}=    Strip Quotes    ${userid}
     \    Log    ${userid}
     \    Delete User    ${userid}
     Log    ${cleanup_user_list}
@@ -572,6 +577,8 @@ Post New User
     # grab the list of users, count the list, and then search the list for the specific user id
     ${users}=    Get Users
     ${depth}=    Nodecount    ${users}    users    userid
+    Log    ${resp.status_code}
+    Log    ${resp.content}
     ${abc}=    Get User Id By Username    ${users}    ${username}    ${depth}
     Should Be Equal As Strings    ${resp.status_code}    201
     Should Contain    ${resp.content}    ${username}
@@ -674,9 +681,8 @@ Parse Item From Blob By Offset
 Create Random Name
     [Arguments]    ${basename}
     [Documentation]    Take the basename given and return a new name with date-time-stamp appended.
-    ${datetime}=    Get Current Date    result_format=%Y-%m-%d-%H-%M
-    Log    ${datetime}
-    ${newname}=    Catenate    SEPARATOR=-    ${basename}    ${datetime}
+    ${random_number}=    Generate Random String    6    [NUMBERS]
+    ${newname}=    Catenate    SEPARATOR=-    ${basename}    ${random_number}
     [Return]    ${newname}
 
 Pop Name Off Json
