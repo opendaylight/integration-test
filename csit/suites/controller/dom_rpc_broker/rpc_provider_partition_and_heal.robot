@@ -48,11 +48,12 @@ Isolate_One_Node
 Invoke_Rpc_On_Isolated_Node
     [Documentation]    Invoke rpc on isolated node. Because rpc is registered on this node, local constant
     ...    is expected.
+    BuiltIn.Pass_Execution    Aaa has a problem to authenticate http request as it is out of cluster too (see bug 8214), skipping for now.
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    DrbCommons.Verify_Constant_On_Registered_Node    ${isolated_idx}
 
 Invoke_Rpc_On_Remaining_Nodes
     [Documentation]    Invoke rpc on non-islolated nodes.
-    DrbCommons.Verify_Constant_On_Active_Nodes
+    BuiltIn.Wait_Until_Keyword_Succeeds    45s    5s    DrbCommons.Verify_Constant_On_Active_Nodes
 
 Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node
@@ -63,22 +64,6 @@ Invoke_Rpc_On_Each_Node_Again
     ...    local instance the local value is expected. If invoked on the node with no local instance, any remote
     ...    value is expected.
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    20s    3s    DrbCommons.Verify_Constant_On_Active_Nodes
-
-Isolate_Member_Without_Registered_Rpc
-    [Documentation]    Isolate one node with unregistered rpc.
-    DrbCommons.Isolate_Node    ${TESTED_MEMBER_WITHOUT_RPC_IDX}
-
-Verify_Rpc_Fails_On_Isolated_Member_Without_Rpc
-    [Documentation]    Rpc should fail as it is requested on isolated node without rpc instance.
-    BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    MdsalLowlevel.Get_Constant    ${TESTED_MEMBER_WITHOUT_RPC_IDX}    explicit_status_codes=${NON_WORKING_RPC_STATUS_CODE}
-
-Rejoin_Isolated_Member_Without_Registered_Rpc
-    [Documentation]    Rejoin isolated node.
-    DrbCommons.Rejoin_Node    ${TESTED_MEMBER_WITHOUT_RPC_IDX}
-
-Verify_Rpc_Again_Passes_On_Member_Without_Rpc
-    [Documentation]    Verify rpc works after the node rejoin.
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    DrbCommons.Verify_Constant_On_Unregistered_Node    ${TESTED_MEMBER_WITHOUT_RPC_IDX}
 
 Unregister_Rpc_On_Each_Node
     [Documentation]    Inregister rpc on both nodes.
