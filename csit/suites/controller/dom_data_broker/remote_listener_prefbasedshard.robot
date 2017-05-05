@@ -10,8 +10,7 @@ Documentation     DOMDataBroker testing: Remote Listener
 ...               The goal is to ensure listeners do no observe disruption when the leader moves.
 ...               This is performed by having a steady stream of transactions being observed by
 ...               the listeners and having the leader move.
-Suite Setup       BuiltIn.Run_Keywords    ClusterManagement.ClusterManagement_Setup    http_timeout=10
-...               AND    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+Suite Setup       BuiltIn.Run_Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
 ...               AND    DdbCommons.Create_Prefix_Based_Shard_And_Verify
 Suite Teardown    BuiltIn.Run_Keywords    DdbCommons.Remove_Prefix_Based_Shard_And_Verify
 ...               AND    SSHLibrary.Close_All_Connections

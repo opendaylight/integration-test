@@ -42,5 +42,5 @@ Unregister_Candidates_And_Validate_Criteria
 
 *** Keywords ***
 Setup_Keyword
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
     CsCommon.Cluster_Singleton_Init

@@ -14,8 +14,9 @@ ${connection_index_dict}    &{EMPTY}
 
 *** Keywords ***
 Setup Karaf Keywords
+    [Arguments]    ${http_timeout}=1
     [Documentation]    Initialize ClusterManagement. Open ssh karaf connections to each ODL.
-    ClusterManagement.ClusterManagement_Setup
+    ClusterManagement.ClusterManagement_Setup    http_timeout=${http_timeout}
     BuiltIn.Comment    First connections to Karaf console may fail, so WUKS is used. TODO: Track as a Bug.
     : FOR    ${index}    IN    @{ClusterManagement__member_index_list}
     \    BuiltIn.Wait_Until_Keyword_Succeeds    10x    0.2s    Open Controller Karaf Console On Background    member_index=${index}
