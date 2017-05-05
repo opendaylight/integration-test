@@ -11,7 +11,7 @@ Documentation     DOMNotificationBroker longevity testing: No-loss rate
 ...               The purpose of this test is to determine the broker can forward messages without
 ...               loss. We do this on a single-node setup by incrementally adding publishers and
 ...               subscribers.
-Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown
+Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
 Suite Teardown    SSHLibrary.Close_All_Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed

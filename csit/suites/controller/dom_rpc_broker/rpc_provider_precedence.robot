@@ -59,5 +59,5 @@ Unregister_Rpc_On_Each_Node
 *** Keywords ***
 Setup_Keyword
     [Documentation]    Create a list of possible constant responses on the node with unregistered rpc.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
     DrbCommons.DrbCommons_Init

@@ -85,7 +85,7 @@ Rpc_After_Rejoin_On_All
 
 *** Keywords ***
 Setup_Suite
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
 
 Run_Rpc
