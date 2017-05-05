@@ -31,7 +31,7 @@ Rpc_Provider_Precedence_Longevity
 *** Keywords ***
 Setup_Kw
     [Documentation]    Setup keyword. Create ${possible_constants} list with possible variables of remote constants.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=10
     DrbCommons.DrbCommons_Init
 
 Test_Scenario
