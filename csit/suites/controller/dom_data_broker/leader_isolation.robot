@@ -9,8 +9,7 @@ Documentation     DOMDataBroker testing: Leader Isolation
 ...
 ...               The goal is to ensure the datastore succeeds in basic isolation/rejoin scenario,
 ...               simulating either a network partition, or a prolonged GC pause.
-Suite Setup       BuiltIn.Run_Keywords    ClusterManagement.ClusterManagement_Setup    http_timeout=10
-...               AND    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=10
 Suite Teardown    SSHLibrary.Close_All_Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
