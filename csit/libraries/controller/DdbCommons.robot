@@ -14,6 +14,7 @@ Resource          ${CURDIR}/../ClusterAdmin.robot
 Resource          ${CURDIR}/../ClusterManagement.robot
 Resource          ${CURDIR}/../MdsalLowlevel.robot
 Resource          ${CURDIR}/../TemplatedRequests.robot
+Resource          ${CURDIR}/../ShardStability.robot
 Resource          ${CURDIR}/../WaitForFailure.robot
 
 *** Variables ***
@@ -43,7 +44,7 @@ Explicit_Leader_Movement_Test_Templ
     ${idx_trans_as_list} =    BuiltIn.Create_List    ${idx_trans}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${False}
     ClusterAdmin.Make_Leader_Local    ${idx_to}    ${shard_name}    ${shard_type}
-    ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}
+    ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}
     ...    ${shard_type}    ${True}    ${idx_from}
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
@@ -58,7 +59,7 @@ Explicit_Leader_Movement_PrefBasedShard_Test_Templ
     ${idx_trans_as_list} =    BuiltIn.Create_List    ${idx_trans}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}
     MdsalLowlevel.Become_Prefix_Leader    ${idx_to}    ${shard_name}    ${ID_PREFIX}
-    ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
+    ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
     ...    ${shard_type}    ${True}    ${idx_from}
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
@@ -120,6 +121,7 @@ Get_Node_Indexes_For_Clean_Leader_Shutdown_Test
 Leader_Isolation_Test_Templ
     [Arguments]    ${heal_timeout}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements leader isolation test scenario.
+    ${li_isolated}    BuiltIn.Set_Variable    ${False}
     ${producing_transactions_time} =    BuiltIn.Set_Variable    ${${heal_timeout}+60}
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}
@@ -128,18 +130,24 @@ Leader_Isolation_Test_Templ
     ${date_start} =    DateTime.Get_Current_Date
     ${date_end} =    DateTime.Add_Time_To_Date    ${date_start}    ${producing_transactions_time}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${leader}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}    ${shard_type}    ${True}
+    ${li_isolated}    BuiltIn.Set_Variable    ${True}
+    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}    ${shard_type}    ${True}
     ...    ${leader}    member_index_list=${follower_list}
     BuiltIn.Sleep    ${heal_timeout}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
-    BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    ${shard_name}    ${shard_type}
+    ${li_isolated}    BuiltIn.Set_Variable    ${False}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
+    BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    ${shard_name}    ${shard_type}
     ${time_to_finish} =    Get_Seconds_To_Time    ${date_end}
     BuiltIn.Run_Keyword_If    ${heal_timeout} < ${TRANSACTION_TIMEOUT}    Leader_Isolation_Heal_Within_Tt
     ...    ELSE    Module_Leader_Isolation_Heal_Default    ${leader}    ${time_to_finish}
+    [Teardown]    BuiltIn.Run_Keyword_If    ${li_isolated}    BuiltIn.Run_Keywords    ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
+    ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
 
 Leader_Isolation_PrefBasedShard_Test_Templ
     [Arguments]    ${heal_timeout}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements leader isolation test scenario.
+    ${li_isolated}    BuiltIn.Set_Variable    ${False}
     ${producing_transactions_time} =    BuiltIn.Set_Variable    ${${heal_timeout}+60}
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
@@ -148,14 +156,19 @@ Leader_Isolation_PrefBasedShard_Test_Templ
     ${date_start} =    DateTime.Get_Current_Date
     ${date_end} =    DateTime.Add_Time_To_Date    ${date_start}    ${producing_transactions_time}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${leader}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!    ${shard_type}    ${True}
+    ${li_isolated}    BuiltIn.Set_Variable    ${True}
+    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!    ${shard_type}    ${True}
     ...    ${leader}    member_index_list=${follower_list}
     BuiltIn.Sleep    ${heal_timeout}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
-    BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    ${shard_name}!!    ${shard_type}
+    ${li_isolated}    BuiltIn.Set_Variable    ${False}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
+    BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    ${shard_name}!!    ${shard_type}
     ${time_to_finish} =    Get_Seconds_To_Time    ${date_end}
     BuiltIn.Run_Keyword_If    ${heal_timeout} < ${TRANSACTION_TIMEOUT}    Leader_Isolation_Heal_Within_Tt
     ...    ELSE    Prefix_Leader_Isolation_Heal_Default    ${leader}    ${time_to_finish}
+    [Teardown]    BuiltIn.Run_Keyword_If    ${li_isolated}    BuiltIn.Run_Keywords    ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
+    ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
 
 Leader_Isolation_Heal_Within_Tt
     [Documentation]    The leader isolation test case end if the heal happens within transaction timeout. All write transaction
@@ -216,6 +229,7 @@ Client_Isolation_Test_Templ
     WaitForFailure.Confirm_Keyword_Fails_Within_Timeout    3s    1s    Verify_Client_Aborted    ${True}
     [Teardown]    BuiltIn.Run Keywords    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
     ...    AND    MdsalLowlevelPy.Wait_For_Transactions
+    ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
 
 Client_Isolation_PrefBasedShard_Test_Templ
     [Arguments]    ${listener_node_role}    ${trans_chain_flag}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
@@ -239,6 +253,7 @@ Client_Isolation_PrefBasedShard_Test_Templ
     WaitForFailure.Confirm_Keyword_Fails_Within_Timeout    3s    1s    Verify_Client_Aborted    ${True}
     [Teardown]    BuiltIn.Run Keywords    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
     ...    AND    MdsalLowlevelPy.Wait_For_Transactions
+    ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
 
 Ongoing_Transactions_Not_Failed_Yet
     [Documentation]    Verify that no write-transaction rpc finished, means they are still running.
