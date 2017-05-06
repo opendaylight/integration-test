@@ -11,6 +11,7 @@ Documentation     Set tell-based protocol usage
 ...               config file (means make it true) and starts all nodes again.
 Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
 Suite Teardown    SSHLibrary.Close_All_Connections
+Default Tags      critical
 Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/ShardStability.robot
