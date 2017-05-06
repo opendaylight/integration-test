@@ -12,6 +12,7 @@ Documentation     Unset tell-based protocol usage
 Suite Setup       BuiltIn.Run_Keywords    ClusterManagement.ClusterManagement_Setup    http_timeout=10
 ...               AND    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 Suite Teardown    SSHLibrary.Close_All_Connections
+Default Tags      critical
 Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
