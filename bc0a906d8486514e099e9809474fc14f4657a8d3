@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_ec5896fc",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-06T05:32:39Z",
+      "side": 1,
+      "message": "this is cryptic enough that you should probably add a comment\nto help people understand what\u0027s going on if/when they are\nreading this line.",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 65
+      },
+      "revId": "bc0a906d8486514e099e9809474fc14f4657a8d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_8c0aaad0",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-06T05:32:39Z",
+      "side": 1,
+      "message": "typically robot suites don\u0027t need so many \"Log\" statements.\nRobot Framework is pretty verbose to start with and we can\nrun with -L TRACE if we want more output. They make reading\nthese suites harder as they are just noise. The robot code\nitself is pretty human readable.\n\nfor example, the below code:\n\nLog    Going to check output returns proper value\nShould Contain    ${output}    ${proper_value}\n\nThere is no reason for the Log statement.\n\nanyway, we talk about it here too:\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Comments",
+      "revId": "bc0a906d8486514e099e9809474fc14f4657a8d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_6c6ca69d",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-06T05:32:39Z",
+      "side": 1,
+      "message": "I see this three line pattern a lot. You could write a \nkeyword (even local to this suite file) to do this work\nand turn 3 lines in to 1 all over the place.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 55
+      },
+      "revId": "bc0a906d8486514e099e9809474fc14f4657a8d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
