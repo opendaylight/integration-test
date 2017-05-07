@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_7f4f2693",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-07T14:35:09Z",
+      "side": 1,
+      "message": "OK.",
+      "parentUuid": "ba068154_7f68c6f5",
+      "range": {
+        "startLine": 231,
+        "startChar": 18,
+        "endLine": 231,
+        "endChar": 55
+      },
+      "revId": "1a910b2eceba931a9b69eb7a7dd76faa3f842cf4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_fffe7637",
         "filename": "csit/suites/controller/dom_rpc_broker/action_provider_partition_and_heal.robot",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Pass execution is not enough ?",
       "parentUuid": "ba068154_fffe7637",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 27
+      },
+      "revId": "1a910b2eceba931a9b69eb7a7dd76faa3f842cf4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_9f4aca81",
+        "filename": "csit/suites/controller/dom_rpc_broker/action_provider_partition_and_heal.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-07T14:35:09Z",
+      "side": 1,
+      "message": "Short term it is ok, but for long term we want the test case to be not present on output at all.\nMaybe exclude tag is another possibility, to re-enable the test if later releases behave better.",
+      "parentUuid": "ba068154_1f77fad5",
       "range": {
         "startLine": 56,
         "startChar": 0,
