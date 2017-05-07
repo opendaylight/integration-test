@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_7f68c6f5",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-05-07T14:29:48Z",
+      "side": 1,
+      "message": "In the patch 56626 the line order is chenged",
+      "parentUuid": "ba068154_dfe8d27e",
+      "range": {
+        "startLine": 231,
+        "startChar": 18,
+        "endLine": 231,
+        "endChar": 55
+      },
+      "revId": "1a910b2eceba931a9b69eb7a7dd76faa3f842cf4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_fffe7637",
         "filename": "csit/suites/controller/dom_rpc_broker/action_provider_partition_and_heal.robot",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-05-07T14:02:12Z",
       "side": 1,
       "message": "This looks as if we are testing this.\nTODO: Remove the testcase, and put comment to suite Documentation why we are not querying the isolated member.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 27
+      },
+      "revId": "1a910b2eceba931a9b69eb7a7dd76faa3f842cf4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_1f77fad5",
+        "filename": "csit/suites/controller/dom_rpc_broker/action_provider_partition_and_heal.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-05-07T14:29:48Z",
+      "side": 1,
+      "message": "Pass execution is not enough ?",
+      "parentUuid": "ba068154_fffe7637",
       "range": {
         "startLine": 56,
         "startChar": 0,
