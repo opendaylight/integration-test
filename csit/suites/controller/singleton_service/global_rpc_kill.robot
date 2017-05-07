@@ -26,12 +26,10 @@ ${SERVICE}        Basic-rpc-test']
 ${TEST_LOG_LEVEL}    info
 @{TEST_LOG_COMPONENTS}    org.opendaylight.controller.remote.rpc
 ${EOS_URL}        /restconf/operational/entity-owners:entity-owners
-@{NO_TAGS}
 
 *** Test Cases ***
 Get_Basic_Rpc_Test_Owner
     [Documentation]    Find a service owner and successors.
-    [Tags]    @{NO_TAGS}
     Get_Present_Brt_Owner_And_Successors    1    store=${True}
 
 Rpc_Before_Killing_On_Owner
@@ -45,7 +43,6 @@ Rpc_Before_Kill_On_Successors
 
 Kill_Current_Owner_Member
     [Documentation]    Kill cluster node which is the owner.
-    [Tags]    @{NO_TAGS}
     ClusterManagement.Kill_Single_Member    ${brt_owner}
     BuiltIn.Set Suite variable    ${old_brt_owner}    ${brt_owner}
     BuiltIn.Set Suite variable    ${old_brt_successors}    ${brt_successors}
@@ -63,7 +60,6 @@ Rpc_On_Remained_Cluster_Nodes
 
 Restart_Killed_Member
     [Documentation]    Restart killed node
-    [Tags]    @{NO_TAGS}
     ClusterManagement.Start_Single_Member    ${old_brt_owner}
 
 Verify_New_Owner_Remained_After_Rejoin
@@ -87,6 +83,7 @@ Rpc_After_Rejoin_On_All
 
 *** Keywords ***
 Setup_Suite
+    [Documentation]    FIXME: Add a documentation.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
 

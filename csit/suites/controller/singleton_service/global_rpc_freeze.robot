@@ -25,13 +25,11 @@ ${SERVICE}        Basic-rpc-test']
 ${TEST_LOG_LEVEL}    info
 @{TEST_LOG_COMPONENTS}    org.opendaylight.controller.remote.rpc
 ${EOS_URL}        /restconf/operational/entity-owners:entity-owners
-@{NO_TAGS}
 ${active_nodes}    ${EMPTY}
 
 *** Test Cases ***
 Get_Basic_Rpc_Test_Owner
     [Documentation]    Find a service owner and successors.
-    [Tags]    @{NO_TAGS}
     Get_Present_Brt_Owner_And_Successors    1    store=${True}
 
 Rpc_Before_Freezing_On_Owner
@@ -45,7 +43,6 @@ Rpc_Before_Freeze_On_Successors
 
 Freeze_Current_Owner_Member
     [Documentation]    Stop cluster node which is the owner.
-    [Tags]    @{NO_TAGS}
     ClusterManagement.Freeze_Single_Member    ${brt_owner}
     BuiltIn.Set_Suite_Variable    ${old_brt_owner}    ${brt_owner}
     BuiltIn.Set_Suite_Variable    ${old_brt_successors}    ${brt_successors}
@@ -64,7 +61,6 @@ Rpc_On_Remained_Cluster_Nodes
 
 Unfreeze_Frozen_Member
     [Documentation]    Restart frozen node
-    [Tags]    @{NO_TAGS}
     ClusterManagement.Unfreeze_Single_Member    ${old_brt_owner}
     BuiltIn.Set_Suite_Variable    ${active_nodes}    ${EMPTY}
 
@@ -88,6 +84,7 @@ Rpc_After_Rejoin_On_All
 
 *** Keywords ***
 Setup_Suite
+    [Documentation]    FIXME: Add a documentation.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
 
