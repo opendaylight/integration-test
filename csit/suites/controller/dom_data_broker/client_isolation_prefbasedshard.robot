@@ -29,14 +29,6 @@ Producer_On_Shard_Leader_Node_ChainedTx
     [Documentation]    Client isolation with producer on shard leader with chained transactions.
     leader    ${CHAINED_TX}
 
-Producer_On_Shard_Leader_Node_SimpleTx
-    [Documentation]    Client isolation with producer on shard leader with simple transactions.
-    leader    ${SIMPLE_TX}
-
 Producer_On_Shard_Non_Leader_Node_ChainedTx
     [Documentation]    Client isolation with producer on shard non-leader with chained transactions.
     non-leader    ${CHAINED_TX}
-
-Producer_On_Shard_Non_Leader_Node_SimpleTx
-    [Documentation]    Client isolation with producer on shard non-leader with simple transactions.
-    non-leader    ${SIMPLE_TX}
