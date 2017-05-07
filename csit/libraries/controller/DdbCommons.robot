@@ -303,7 +303,7 @@ Remote_Listener_PrefBasedShard_Test_Templ
     ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
     ${follower2} =    Collections.Get_From_List    ${follower_list}    ${1}
     ${listener_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
-    MdsalLowlevel.Subscribe_Ddcl    ${listener_node_dst}
+    MdsalLowlevel.Subscribe_Ddtl    ${listener_node_dst}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}
     MdsalLowlevel.Become_Prefix_Leader    ${follower1}    ${shard_name}    ${ID_PREFIX}
@@ -312,7 +312,7 @@ Remote_Listener_PrefBasedShard_Test_Templ
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}
-    [Teardown]    MdsalLowlevel.Unsubscribe_Ddcl    ${listener_node_dst}
+    [Teardown]    MdsalLowlevel.Unsubscribe_Ddtl    ${listener_node_dst}
 
 Create_Prefix_Based_Shard_And_Verify
     [Arguments]    ${prefix}=${PREF_BASED_SHARD}
