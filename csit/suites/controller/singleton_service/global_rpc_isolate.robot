@@ -27,12 +27,10 @@ ${TEST_LOG_LEVEL}    info
 @{TEST_LOG_COMPONENTS}    org.opendaylight.controller.remote.rpc
 ${EOS_URL}        /restconf/operational/entity-owners:entity-owners
 ${RPC_STATUS_ISOLATED}    501
-@{NO_TAGS}
 
 *** Test Cases ***
 Get_Basic_Rpc_Test_Owner
     [Documentation]    Find a service owner and successors.
-    [Tags]    @{NO_TAGS}
     Get_Present_Brt_Owner_And_Successors    1    store=${True}
 
 Rpc_Before_Isolation_On_Owner
@@ -46,7 +44,6 @@ Rpc_Before_Isolation_On_Successors
 
 Isolate_Current_Owner_Member
     [Documentation]    Isolating cluster node which is the owner.
-    [Tags]    @{NO_TAGS}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${brt_owner}
     BuiltIn.Set Suite variable    ${old_brt_owner}    ${brt_owner}
     BuiltIn.Set Suite variable    ${old_brt_successors}    ${brt_successors}
@@ -73,7 +70,6 @@ Rpc_On_Non_Isolated_Cluster_Nodes
 
 Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node
-    [Tags]    @{NO_TAGS}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${old_brt_owner}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
 
@@ -97,6 +93,7 @@ Rpc_After_Rejoin_On_All
 
 *** Keywords ***
 Setup_Suite
+    [Documentation]    FIXME: Add a documentation.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
     SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
 

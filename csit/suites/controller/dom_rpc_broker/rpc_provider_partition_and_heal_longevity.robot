@@ -26,6 +26,7 @@ ${DURATION_24_HOURS_IN_SECONDS}    86400
 
 *** Test Cases ***
 Rpc_Provider_Precedence_Longevity
+    [Documentation]    FIXME: Add a documentation.
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_24_HOURS_IN_SECONDS}    1s    Test_Scenario
 
 *** Keywords ***
@@ -35,6 +36,7 @@ Setup_Kw
     DrbCommons.DrbCommons_Init
 
 Test_Scenario
+    [Documentation]    FIXME: Add a documentation.
     Setup_Test_Scenario_Variables
     DrbCommons.Register_Rpc_On_Nodes    ${installed_rpc_member_idx_list}
     DrbCommons.Verify_Constant_On_Active_Nodes

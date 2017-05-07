@@ -25,6 +25,7 @@ ${DURATION_24_HOURS_IN_SECONDS}    86400
 
 *** Test Cases ***
 Rpc_Provider_Precedence_Longevity
+    [Documentation]    FIXME: Add a documentation.
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_24_HOURS_IN_SECONDS}    1s    Test_Scenario
 
 *** Keywords ***
@@ -34,6 +35,7 @@ Setup_Keyword
     DrbCommons.DrbCommons_Init
 
 Test_Scenario
+    [Documentation]    FIXME: Add a documentation.
     DrbCommons.Register_Rpc_On_Nodes    ${all_indices}
     ${unregistered_rpc_node} =    BuiltIn.Evaluate    random.choice(${all_indices})    modules=random
     ${unregistered_rpc_node} =    BuiltIn.Convert_To_Integer    ${unregistered_rpc_node}

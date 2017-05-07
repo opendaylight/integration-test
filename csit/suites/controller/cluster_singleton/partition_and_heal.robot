@@ -52,7 +52,6 @@ Monitor_Stability_While_Isolated
 
 Rejoin_Isolated_node
     [Documentation]    Rejoin isolated node.
-    [Tags]    @{NO_TAGS}
     CsCommon.Rejoin_Node_And_Verify_Rejoined
 
 Verify_Stability_After_Rejoin
