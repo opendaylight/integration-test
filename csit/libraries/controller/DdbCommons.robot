@@ -191,7 +191,7 @@ Module_Leader_Isolation_Heal_Default
     ${restart_producer_node_idx_as_list}    BuiltIn.Create_List    ${isolated_node}
     ${restart_producer_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${isolated_node}
     ${restart_producer_node_ip_as_list}    BuiltIn.Create_List    ${restart_producer_node_ip}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}    reset_globals=${False}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}
@@ -206,7 +206,7 @@ Prefix_Leader_Isolation_Heal_Default
     ${restart_producer_node_idx_as_list}    BuiltIn.Create_List    ${isolated_node}
     ${restart_producer_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${isolated_node}
     ${restart_producer_node_ip_as_list}    BuiltIn.Create_List    ${restart_producer_node_ip}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX}    ${time_to_finish}    ${TRANSACTION_RATE_1K}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    reset_globals=${False}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}

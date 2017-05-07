@@ -64,7 +64,8 @@ def _initiate_rpcs(host_list, prefix_list, url_templ, data_templ, subst_dict):
     _globals.update({'threads': lthreads, 'result_queue': resqueue})
 
 
-def start_write_transactions_on_nodes(host_list, prefix_list, id_prefix, duration, rate, chained_flag=False):
+def start_write_transactions_on_nodes(host_list, prefix_list, id_prefix, duration, rate, chained_flag=False,
+                                      reset_globals=True):
     """Invoke write-transactions rpc on given nodes.
 
     :param host_list: list of ip address of odl nodes
@@ -79,7 +80,12 @@ def start_write_transactions_on_nodes(host_list, prefix_list, id_prefix, duratio
     :type rate: int
     :param chained_flag: specify chained vs. simple transactions
     :type chained_flag: bool
+    :param reset_globals: reset global variable dict
+    :type reset_globals: bool
     """
+    if reset_globals:
+        _globals.clear()
+        
     logger.info(
         "Input parameters: host_list:{}, prefix_list:{}, id_prefix:{}, duration:{}, rate:{}, chained_flag:{}".format(
             host_list, prefix_list, id_prefix, duration, rate, chained_flag))
@@ -95,7 +101,7 @@ def start_write_transactions_on_nodes(host_list, prefix_list, id_prefix, duratio
 
 
 def start_produce_transactions_on_nodes(host_list, prefix_list, id_prefix,
-                                        duration, rate, isolated_transactions_flag=True):
+                                        duration, rate, isolated_transactions_flag=True, reset_globals=True):
     """Invoke produce-transactions rpcs on given nodes.
 
     :param host_list: list of ip address of odl nodes
@@ -110,7 +116,12 @@ def start_produce_transactions_on_nodes(host_list, prefix_list, id_prefix,
     :type rate: int
     :param isolated_transactions_flag: isolated transactions flag
     :type isolated_transactions_flag: bool
+    :param reset_globals: reset global variable dict
+    :type reset_globals: bool
     """
+    if reset_globals:
+        _globals.clear()
+
     msg = "host_list:{}, prefix_list:{} ,id_prefix:{}, duration:{}, rate:{}, isolated_transactions:{}".format(
             host_list, prefix_list, id_prefix, duration, rate, isolated_transactions_flag)
     msg = "Input parameters: " + msg
