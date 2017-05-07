@@ -53,12 +53,6 @@ Isolate_One_Node
     [Documentation]    Isolate one node with registered rpc.
     ClusterManagement.Isolate_Member_From_List_Or_All    ${isolated_idx}
 
-Invoke_Rpc_On_Isolated_Node
-    [Documentation]    Invoke rpc on isolated node. Because rpc is registered on this node, local constant
-    ...    is expected.
-    BuiltIn.Pass_Execution    Invoking rpc on isolated node has several problems, see bugs 8207, 8214.
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Verify_Local_Rpc_Invoked    ${isolated_idx}
-
 Invoke_Rpc_On_Remaining_Nodes
     [Documentation]    Invoke rpc on non-islolated nodes. As the only instance of rpc remained in the non-isolated
     ...    cluster nodes, only this value is expected.
