@@ -21,6 +21,7 @@ Resource          ${CURDIR}/../WaitForFailure.robot
 ${SHARD_NAME}     default
 ${SHARD_TYPE}     config
 ${TRANSACTION_RATE_1K}    ${1000}
+${DURATION_90S}    ${90}
 ${DURATION_30S}    ${30}
 ${DURATION_10S}    ${10}
 ${ID_PREFIX}      prefix-
@@ -28,6 +29,8 @@ ${TRANSACTION_TIMEOUT}    ${30}
 ${TRANSACTION_TIMEOUT_2X}    ${2*${TRANSACTION_TIMEOUT}}
 ${SIMPLE_TX}      ${False}
 ${CHAINED_TX}     ${True}
+${ISOLATED_TRANS_TRUE}    ${True}
+${ISOLATED_TRANS_FALSE}    ${False}
 ${HARD_TIMEOUT}    ${60}
 @{TRANSACTION_FAILED}    ${500}
 ${PREF_BASED_SHARD}    id-ints
@@ -222,22 +225,22 @@ Client_Isolation_Test_Templ
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
     ${client_node_ip_as_list}    BuiltIn.Create_List    ${client_node_ip}
     ${client_node_idx_as_list}    BuiltIn.Create_List    ${client_node_dst}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${trans_chain_flag}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${DURATION_90S}    ${TRANSACTION_RATE_1K}    chained_flag=${trans_chain_flag}
     ${start_date}    DateTime.Get_Current_Date
     ${timeout_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${TRANSACTION_TIMEOUT}
     ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${HARD_TIMEOUT}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${TRANSACTION_TIMEOUT}    1s    Ongoing_Transactions_Not_Failed_Yet
-    WaitForFailure.Confirm_Keyword_Fails_Within_Timeout    3s    1s    Ongoing_Transactions_Failed
-    ${abort_time}    Get_Seconds_To_Time    ${abort_date}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${abort_time}    1s    Verify_Client_Aborted    ${False}
-    WaitForFailure.Confirm_Keyword_Fails_Within_Timeout    3s    1s    Verify_Client_Aborted    ${True}
+    ${trans_timeout} =    Get_Seconds_To_Time    ${timeout_date}
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${trans_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
+    ${hard_timeout} =    Get_Seconds_To_Time    ${abort_date}
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${trans_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
+    BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    Ongoing_Transactions_Failed
     [Teardown]    BuiltIn.Run Keywords    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
     ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
     ...    AND    MdsalLowlevelPy.Wait_For_Transactions
 
 Client_Isolation_PrefBasedShard_Test_Templ
-    [Arguments]    ${listener_node_role}    ${trans_chain_flag}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
+    [Arguments]    ${listener_node_role}    ${isolated_transactions_flag}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements client isolation test scenario.
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
@@ -246,16 +249,16 @@ Client_Isolation_PrefBasedShard_Test_Templ
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
     ${client_node_ip_as_list}    BuiltIn.Create_List    ${client_node_ip}
     ${client_node_idx_as_list}    BuiltIn.Create_List    ${client_node_dst}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${DURATION_90S}    ${TRANSACTION_RATE_1K}    isolated_transactions_flag=${isolated_transactions_flag}
     ${start_date}    DateTime.Get_Current_Date
     ${timeout_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${TRANSACTION_TIMEOUT}
     ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${HARD_TIMEOUT}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${TRANSACTION_TIMEOUT}    1s    Ongoing_Transactions_Not_Failed_Yet
-    WaitForFailure.Confirm_Keyword_Fails_Within_Timeout    3s    1s    Ongoing_Transactions_Failed
-    ${abort_time}    Get_Seconds_To_Time    ${abort_date}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${abort_time}    1s    Verify_Client_Aborted    ${False}
-    WaitForFailure.Confirm_Keyword_Fails_Within_Timeout    3s    1s    Verify_Client_Aborted    ${True}
+    ${trans_timeout} =    Get_Seconds_To_Time    ${timeout_date}
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${trans_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
+    ${hard_timeout} =    Get_Seconds_To_Time    ${abort_date}
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${trans_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
+    BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    Ongoing_Transactions_Failed
     [Teardown]    BuiltIn.Run Keywords    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
     ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
     ...    AND    MdsalLowlevelPy.Wait_For_Transactions
