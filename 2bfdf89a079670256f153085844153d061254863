@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_f3d98d84",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T23:41:57Z",
+      "side": 1,
+      "message": "missing doc. and probably better to denote that we are\nsetting a \"Global\" variable in this keyword.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b3cf05b0",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T23:41:57Z",
+      "side": 1,
+      "message": "still trying to fully understand everything in this patch,\nbut is this the high level of what happens below:\n\nA   do an export and keep track of it\u0027s data file(s)\n# B --- someday we\u0027ll add code to do the real B\u0026R\nC do another export and then compare it\u0027s data file(s) to A",
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_d341e90c",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T23:41:57Z",
+      "side": 1,
+      "message": "how about if we give default values (like ${EMPTY}) to these\nargs in the [Argument] line and then in lines 43-46 you\ncan check !\u003d${EMPTY}.\n\noh, and the same in ConditionalBackupRestoreCheck.\n\nthis let\u0027s us call these keywords with no args, which is\nless confusing to me than calling the keyword with 4 hyphens.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 45
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_33e4b53a",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T23:41:57Z",
+      "side": 1,
+      "message": "I think you could add the ELSE logic here to init the variable to \u0027 \u0027 like you do in line 39 and would let you get\nrid of line 39. no real preference from me though.",
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_93d00155",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T23:41:57Z",
+      "side": 1,
+      "message": "seems the exporting is always gonna happen on controller1. any reason to allow Perform Export to take the index or \nip in case there is benefit down the road to export on \nother systems besides FIRST_CONTROLLER_INDEX?",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 18
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_33bb1510",
+        "filename": "csit/libraries/backuprestore/JsonDiffTool.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T23:41:57Z",
+      "side": 1,
+      "message": "should we remove entirely?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 66
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b381c54c",
+        "filename": "csit/libraries/backuprestore/README.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T23:41:57Z",
+      "side": 1,
+      "message": "um....  awesome!",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f3922d9e",
+        "filename": "csit/libraries/backuprestore/README.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T23:41:57Z",
+      "side": 1,
+      "message": "I think it looks like this:\n\nSuite Setup    Run Keywords    Init Suite\n...            AND    ClusterManagement Setup",
+      "range": {
+        "startLine": 80,
+        "startChar": 1,
+        "endLine": 80,
+        "endChar": 72
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_733c7d94",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T23:41:57Z",
+      "side": 1,
+      "message": "does this work, or do we need to add each keyword on it\u0027s\nown line with AND? I thought this should have failed \ntox in the robot.tidy step.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 71
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_933761b0",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T23:41:57Z",
+      "side": 1,
+      "message": "please use Variables.robot",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b346e521",
+        "filename": "csit/suites/backuprestore/br-basic/020__br_sfc_tests.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T23:41:57Z",
+      "side": 1,
+      "message": ".robot",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
