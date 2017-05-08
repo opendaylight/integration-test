@@ -22,6 +22,30 @@
       "revId": "d6cdaf16b0293f5424adb491e15d0d3914f5a784",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_bdecf6c8",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-08T11:31:01Z",
+      "side": 1,
+      "message": "For the globals in general:\n\nI agree in principle.\nIn pure Python we would define a class and hide state in its instance. But as this is called from Robot, we would need to pass the instance as an argument, and either always return the new instance (tupled with the real return value Robot is interested in), or document the call changes the instance.\nIn either case we would need a function to create the initial instance.\n\nI remember thinking about it back when reviewing the change [1] which introduced these globals. I decided it is in the spirit of \"library state\". For example, SSHLibrary keeps the most recent session \"active\" so that caller does not need to pass a state object when accessing it. RequestsLibrary requires a session alias, but even it keeps a global: the mapping from aliases to full http sessions.\n\nSo even if I dislike global variables, I am ok with the current implementation, at least until I figure out which implementation would be better from Robot readability perspective.\n\nFor the way to reset globals:\n\nA function for resetting them would be explicit, but forgetting to call it would lead to failures that are hard to debug. Usually I would recommend to have a non-resetting \"write transactions\" function with long name which makes the caller aware it is not resetting the globals, and also a function with a short name which resets globals and calls the first function. But from the robot call site, it would look quite similar to the current solution of overriding the default argument value.\nAgain, there might be a better implementation, but I am not sure which one right now, so I am ok with the current one.\n\n[1] https://git.opendaylight.org/gerrit/#/c/53600/77/csit/libraries/MdsalLowlevelPy.py",
+      "parentUuid": "ba068154_22b0e58a",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 58
+      },
+      "revId": "d6cdaf16b0293f5424adb491e15d0d3914f5a784",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
