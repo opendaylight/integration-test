@@ -202,3 +202,47 @@ OvsManager__Enable_Slaves_For_Switch
     \    ${role}=    Collections.Get From Dictionary    ${cntl_value}    role
     \    ${connected}=    Collections.Get From Dictionary    ${cntl_value}    is_connected
     \    Run Keyword If    ${connected}==${False}    Reconnect Switch To Controller And Verify Connected    ${switch}    ${cntl_id}    verify_connected=${verify_connected}
+
+Enable Extra Ovs Debugging
+    [Arguments]    ${ovs_system}
+    [Documentation]    TODO
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/list
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ovsdb_server:file:dbg
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ovsdb_jsonrpc_server:file:dbg
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ovsdb_file:file:dbg
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ovsdb_error:file:dbg
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set jsonrpc:file:dbg
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set classifier:file:dbg
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ofproto:file:dbg
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ofp_errors:file:dbg
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set :file:dbg
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set poll_loop:file:info
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/list
+
+Disable Extra Ovs Debugging
+    [Arguments]    ${ovs_system}
+    [Documentation]    TODO
+    ${output}    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/list
+    Log    ${output}
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ovsdb_server:file:info
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ovsdb_jsonrpc_server:file:info
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ovsdb_file:file:info
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ovsdb_error:file:info
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set jsonrpc:file:info
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set classifier:file:info
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ofproto:file:info
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set ofp_errors:file:info
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set :file:info
+    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/set poll_loop:file:info
+    ${output}    Run Command On Remote System    ${ovs_system}    sudo ovs-appctl vlog/list
+    Log    ${output}
+
+Dump OVS Logs
+    [Arguments]    ${ovs_system}
+    [Documentation]    TODO
+    ${output}    Run Command On Remote System    ${ovs_system}    sudo ls -altr /var/log/openvswitch/
+    Log    ${output}
+    ${output}    Run Command On Remote System    ${ovs_system}    sudo cat /var/log/openvswitch/ovs-vswitchd.log
+    Log    ${output}
+    ${output}    Run Command On Remote System    ${ovs_system}    sudo cat /var/log/openvswitch/ovsdb-server.log
+    Log    ${output}
