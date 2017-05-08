@@ -1,0 +1,1050 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_78361c05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "I don\u0027t think this comment has anything to do with the \nchanges here.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_384bf4b1",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "if possible, please remove as many of the \"Log\" statments you\nhave in this file. They are mostly just adding noise.\n\nfor example, in line 53 you have a log message\nsaying it\u0027s going to check table 17, but line 55 says\nthe exact same thing in robot code, which is one main\nadvatage of using robot (it\u0027s more human readable...)\n\nalso, the test case names are very long which isn\u0027t a \nproblem in itself, but they are just a full duplication\nof the [Documentation]. maybe trim the test case names\ndown to a more digestable (but still descriptive) name,\nand then use the [Documentation] to explain the gory\ndetails.",
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b85fe471",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "please use Variables.robot",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f8504c60",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "put this in the DevStackUtils.robot file",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 39
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_98c78012",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "make this a variable and stick it in netvirt/Variables.robot",
+      "range": {
+        "startLine": 94,
+        "startChar": 33,
+        "endLine": 94,
+        "endChar": 88
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_58e518a7",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "does this work if you just pass \"dl_src\u003d${lower_mac3}\" here\ninstead of ${array}. If so, you can remove line 135 entirely.\nThat would apply to a lot of places in this file too, and\nyour code would be cleaner and easier to read.",
+      "range": {
+        "startLine": 136,
+        "startChar": 62,
+        "endLine": 136,
+        "endChar": 70
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f8d7acbd",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "don\u0027t we already have these kinds of things in our existing\nlibs?",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 30
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b8d6c4c3",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "1) use the openstack cli now please. We are trying to covert\nto that in our other libraries too.\n\n2) this seems like something that should already exist in \nour openstackoperations library.",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 32
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_d8d108cf",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "we already have keywords to create instances in the \nOpenStackOperations.robot library. use those, or enhance\nthose if they do not quite meet your needs.\n\nalso, 900s seems way too long. If it\u0027s taking 15m for a vm\nto spawn, something is broken.",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 88
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_38e2d49f",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "should be in openstackoperations most likely.\n\ntoo many log statements.",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 21
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_98ee608a",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "my guess is we already have something similar, if not \nidentical. please use what we already have or enhance \nwhat we have if it\u0027s not exactly what you need.",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 25
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_d8e8e87e",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "better name? extract mac from who/what/where?\n\nalso, probably a useful keyword to be put in the right common\nlib.",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 11
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_78f3bc73",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "make this a little more descriptive. maybe noting how it\u0027s\nspecific to the cirros os, otherwise using Ether",
+      "range": {
+        "startLine": 258,
+        "startChar": 23,
+        "endLine": 258,
+        "endChar": 49
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f8fe8c37",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "extract \"what\" port?",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 12
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_1802703e",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "better name?",
+      "range": {
+        "startLine": 281,
+        "startChar": 21,
+        "endLine": 281,
+        "endChar": 23
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_58fcf83e",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "is virsh reboot better/different than an openstack cli \nreboot? I think we already have the latter available in\na lib. if you *need* the former, it\u0027s fine, but put it\nin the proper lib, and make the documentation explain why\nvirsh reboot is needed vs openstack cli reboot.",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 79
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_38f9344e",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "better name is \"Create Invalid IPV6 Subnet\" and it would\nbelong in openstackoperations.",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 76
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_78cc5c36",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "I think I saw this in your __init__.robot file already",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 36
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f885ecad",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "getting both ip addresses is probably specific enough\nto stay as a local keyword, but you should create a\na new keyword in the openstackoperations lib. something\nlike \"Get VM Ip Address From Instance Details\" that \ntakes the ${vm_name} and ${network_name} as args. That\nkeyword needs to use the openstack cli.\n\nOnce that is done, this local keyword to get both will\njust make two calls to that new keyword and then create\nthe list to return.",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 22
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_589358fa",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "the keyword name and it\u0027s documentation do not help me \nunderstand what this is doing. looking at the code, I\nsee it\u0027s parsing some ovs-ofctl output, but still not\nsure the real intention of this keyword",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 53
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_389014ec",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "we have something similar already right? please check the\nlibs.",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 367,
+        "endChar": 58
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_78c1fce3",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "no sleeps allowed:\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Stay_away_from_using_a_Sleep",
+      "range": {
+        "startLine": 382,
+        "startChar": 4,
+        "endLine": 382,
+        "endChar": 19
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b8bb6471",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "much more bang for your buck if you use [0] or [1]\n\n[0] http://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OpenStackOperations.robot.html#Get%20OvsDebugInfo\n\n[1] http://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OpenStackOperations.robot.html#Get%20DumpFlows%20And%20Ovsconfig",
+      "range": {
+        "startLine": 392,
+        "startChar": 4,
+        "endLine": 392,
+        "endChar": 88
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b8ed248e",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "why do you need all the \"table ### check\" specific keywords\nin this file, if you have a smarter, more generic \"table\ncheck\" that will take the table number as an arg?",
+      "range": {
+        "startLine": 506,
+        "startChar": 0,
+        "endLine": 513,
+        "endChar": 44
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f8accc37",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "move to openstackoperations and maybe a little more clear\nname. Get VM Hostname?",
+      "range": {
+        "startLine": 515,
+        "startChar": 0,
+        "endLine": 523,
+        "endChar": 20
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_9863001a",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "use openstack cli",
+      "range": {
+        "startLine": 530,
+        "startChar": 66,
+        "endLine": 530,
+        "endChar": 83
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_7868dcf5",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "neither the keyword name nor the documentation help me \nknow what this keyword is doing. what port? what id?",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 21
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_d86d8806",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "don\u0027t we have something existing for this that will work?",
+      "range": {
+        "startLine": 541,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 21
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b87244e3",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "http://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OVSDB.robot.html#Get%20DPID",
+      "range": {
+        "startLine": 554,
+        "startChar": 0,
+        "endLine": 562,
+        "endChar": 25
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_187710d6",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "\"set json\" is not helping me understand what this keyword \ndoes.",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 576,
+        "endChar": 72
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f8732ce5",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "this can be ${CONFIG_API}",
+      "range": {
+        "startLine": 581,
+        "startChar": 36,
+        "endLine": 581,
+        "endChar": 53
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_5881988e",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "this is there in the genius lib. I think maybe it\u0027s \nhardcoding eth1, but that can be enhanced. When you do that,\nyou need to track down the other suites that are using\nit and make sure they don\u0027t get broken.",
+      "range": {
+        "startLine": 595,
+        "startChar": 0,
+        "endLine": 602,
+        "endChar": 117
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_387e54af",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "for loop",
+      "range": {
+        "startLine": 630,
+        "startChar": 0,
+        "endLine": 636,
+        "endChar": 39
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_984ae081",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "no sleeps",
+      "range": {
+        "startLine": 637,
+        "startChar": 0,
+        "endLine": 637,
+        "endChar": 15
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_784f3c93",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "we have a sg delete keyword:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OpenStackOperations.robot#L766-L774",
+      "range": {
+        "startLine": 638,
+        "startChar": 0,
+        "endLine": 639,
+        "endChar": 100
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_d8446876",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "use the output from \"Show Port\" to do this work.\n\nbtw, all these comments about using existing libs have a\nhuge benefit in that you will get the refactor to using\nthe openstack cli for free.",
+      "range": {
+        "startLine": 640,
+        "startChar": 4,
+        "endLine": 643,
+        "endChar": 66
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b849a48d",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "https://github.com/opendaylight/integration-test/blob/master/csit/libraries/OpenStackOperations.robot#L324",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 674,
+        "endChar": 46
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_185ef045",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "I don\u0027t understand this work.",
+      "range": {
+        "startLine": 702,
+        "startChar": 0,
+        "endLine": 711,
+        "endChar": 25
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f85a0c4f",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "seems like a v6 specific keyword. if so, maybe it\u0027s\nbetter to include v6 in the name.",
+      "range": {
+        "startLine": 713,
+        "startChar": 0,
+        "endLine": 713,
+        "endChar": 22
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_58587856",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "${CONFIG_API}",
+      "range": {
+        "startLine": 724,
+        "startChar": 47,
+        "endLine": 724,
+        "endChar": 63
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_3855b41d",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "this seems overly complex, but I am not sure what the\nreturned data looks like.",
+      "range": {
+        "startLine": 721,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 46
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_9831400e",
+        "filename": "csit/suites/netvirt/IPV6_Service/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "what is this doing? I *think* it\u0027s taking a list of \nip addresses and then just making sure they show up in\n\"ovs-vsctl show\" output. neither the keyword name or\ndocumentation allude to that.\n\nbtw, we have an ovsmanager lib this seems destined for.",
+      "range": {
+        "startLine": 829,
+        "startChar": 0,
+        "endLine": 836,
+        "endChar": 47
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_d85aa882",
+        "filename": "csit/suites/netvirt/IPV6_Service/__init__.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "\"Dev Stack Login\" and \"Check Establishment\" probably \nbelong in our DevStackUtils library. If/When that\nhappens, you\u0027re only left with \"Start Suite\" and \"Stop\nSuite\" in this file. You can move \"Start Suite\" to the\nactual suite file. The \"Stop Suite\" is only a single\nkeyword \"Close All Connections\" so you can just put that\nin the *** Settings *** section for \"Suite Teardown\"",
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_787e1ce6",
+        "filename": "csit/suites/netvirt/IPV6_Service/__init__.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "please use Variables.robot instead.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 49
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_98602037",
+        "filename": "csit/suites/netvirt/IPV6_Service/__init__.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "please use the naming convention we have come to use:\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Capitalization",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_78657c44",
+        "filename": "csit/suites/netvirt/IPV6_Service/__init__.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T21:05:44Z",
+      "side": 1,
+      "message": "could use a better name. now that I look at the details of\nthis keyword, it\u0027s pretty generic. maybe it belongs in our\nutils lib, or just put it in the *** Keywords *** section of\nthe suite you are using it. but, the name by itself should\nsort of indicate what\u0027s going on (checking the network\nport status)",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 19
+      },
+      "revId": "062b148d4e2c45f13d400ae35b4fb8b7a1b29123",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
