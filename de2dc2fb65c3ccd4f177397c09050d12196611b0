@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_b8036472",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T19:49:49Z",
+      "side": 1,
+      "message": "applies throughout patch, but I find these comments really\nonly add noise. the next line, the keyword itself says\n\"Create_sxp_node\" which is probably enough to get the point\nacross.",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 33
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_38ef74b2",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T19:49:49Z",
+      "side": 1,
+      "message": "I get the sense that this mock server MUST be working or the\nwhole suite is not worth running. if so, you could move\nthis work to the suite setup. If it failed to start there,\nthen robot will skip the rest of the suite and not waste\ntime running worthless test cases.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 70
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_18f8b07b",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T19:49:49Z",
+      "side": 1,
+      "message": "this should not be a problem any more, so you can remove\nthe sleep, which we don\u0027t typically allow anyway.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 15
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f8f4cc88",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T19:49:49Z",
+      "side": 1,
+      "message": "since any one suite may be run in a larger job with multiple\nsuites, you should revert these DEBUG log statements in this\nsuite\u0027s teardown.\n\nThis scenario has bitten projects before where one suite\nturns on more verbose logging, then many more suites\nrun, and the karaf log blows up to such a size that our\njenkins jobs choke.",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 183
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_982b00eb",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_renderer_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T19:49:49Z",
+      "side": 1,
+      "message": "you should put these in the ../../../variables/sfc/Variables.robot file, and source it here. Some are already there.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 84
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_7830dc56",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_renderer_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T19:49:49Z",
+      "side": 1,
+      "message": "dont need this now.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 60
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_d8358847",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_renderer_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T19:49:49Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 60
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_384654c0",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ise-adapter.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T19:49:49Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 27,
+        "startChar": 26,
+        "endLine": 27,
+        "endChar": 37
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_9812e0b2",
+        "filename": "csit/variables/gbp/ios-xe-schemas/ned@2016-03-08.yang",
+        "patchSetId": 44
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-08T19:49:49Z",
+      "side": 1,
+      "message": "there are some extra whitespace and tabs in here you can \nclean up, if you want.",
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
