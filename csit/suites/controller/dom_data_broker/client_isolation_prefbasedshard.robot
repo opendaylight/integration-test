@@ -24,18 +24,18 @@ Resource          ${CURDIR}/../../../libraries/controller/DdbCommons.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Test Cases ***
-Producer_On_Shard_Leader_Node_ChainedTx
-    [Documentation]    Client isolation with producer on shard leader with chained transactions.
-    leader    ${CHAINED_TX}
+Producer_On_Shard_Leader_Node_Isolated_Transactions
+    [Documentation]    Client isolation with producer on shard leader with isolated transactions flag set.
+    leader    ${ISOLATED_TRANS_TRUE}
 
-Producer_On_Shard_Leader_Node_SimpleTx
-    [Documentation]    Client isolation with producer on shard leader with simple transactions.
-    leader    ${SIMPLE_TX}
+Producer_On_Shard_Leader_Node_Nonisolated_Transactions
+    [Documentation]    Client isolation with producer on shard leader with isolated transactions flag unset.
+    leader    ${ISOLATED_TRANS_FALSE}
 
-Producer_On_Shard_Non_Leader_Node_ChainedTx
-    [Documentation]    Client isolation with producer on shard non-leader with chained transactions.
-    non-leader    ${CHAINED_TX}
+Producer_On_Shard_Non_Leader_Node_Isolated_Transactions
+    [Documentation]    Client isolation with producer on shard non-leader with isolated transactions flag set.
+    non-leader    ${ISOLATED_TRANS_TRUE}
 
-Producer_On_Shard_Non_Leader_Node_SimpleTx
-    [Documentation]    Client isolation with producer on shard non-leader with simple transactions.
-    non-leader    ${SIMPLE_TX}
+Producer_On_Shard_Non_Leader_Node_Nonisolated_Transactions
+    [Documentation]    Client isolation with producer on shard non-leader with isolated transactions flag unset.
+    non-leader    ${ISOLATED_TRANS_FALSE}
