@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_ac796795",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-05-09T09:14:49Z",
+      "side": 1,
+      "message": "This mock-server is necessary only for \"Register_EP_Using_Manual_Inputs_And_Ise\" test, thus there is no need to extract it to Suite_Setup, as failure during mock-server setup will mark other tests with false-positive state.",
+      "parentUuid": "ba068154_38ef74b2",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 70
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_18f8b07b",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot",
         "patchSetId": 44
