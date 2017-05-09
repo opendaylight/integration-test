@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_751a9e6f",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-09T18:12:58Z",
+      "side": 1,
+      "message": "Mention that http_timeout is configurable both on session level (where it becomes a default value for requests) and on request level (when present, it overrides the session value).\n\nThat way you do not have to update Documentation of every keyword.",
+      "range": {
+        "startLine": 69,
+        "startChar": 59,
+        "endLine": 69,
+        "endChar": 60
+      },
+      "revId": "b39c8a1a3dec188aeda08e4afca1d3fd572da9d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
