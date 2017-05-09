@@ -25,8 +25,10 @@ ${DURATION_24_HOURS_IN_SECONDS}    86400
 
 *** Test Cases ***
 Rpc_Provider_Precedence_Longevity
-    [Documentation]    FIXME: Add a documentation.
+    [Documentation]    Repeat the tested scenario for 24h.
+    DrbCommons.Register_Rpc_On_Nodes    ${all_indices}
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_24_HOURS_IN_SECONDS}    1s    Test_Scenario
+    DrbCommons.Unregister_Rpc_On_Nodes    ${all_indices}
 
 *** Keywords ***
 Setup_Keyword
@@ -35,8 +37,7 @@ Setup_Keyword
     DrbCommons.DrbCommons_Init
 
 Test_Scenario
-    [Documentation]    FIXME: Add a documentation.
-    DrbCommons.Register_Rpc_On_Nodes    ${all_indices}
+    [Documentation]    Test randomly unregister rpc on one node while testing checking expected constants.
     ${unregistered_rpc_node} =    BuiltIn.Evaluate    random.choice(${all_indices})    modules=random
     ${unregistered_rpc_node} =    BuiltIn.Convert_To_Integer    ${unregistered_rpc_node}
     DrbCommons.Verify_Constant_On_Registered_Nodes    ${all_indices}
@@ -45,4 +46,3 @@ Test_Scenario
     DrbCommons.Verify_Constant_On_Registered_Nodes    ${registered_indices}
     DrbCommons.Register_Rpc_And_Update_Possible_Constants    ${unregistered_rpc_node}
     DrbCommons.Verify_Constant_On_Registered_Nodes    ${all_indices}
-    DrbCommons.Unregister_Rpc_On_Nodes    ${all_indices}
