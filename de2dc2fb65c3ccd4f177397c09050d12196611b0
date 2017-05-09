@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_2e460ec0",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-05-09T08:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_b8036472",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 33
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_38ef74b2",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot",
         "patchSetId": 44
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_8e129ab2",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-05-09T08:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_18f8b07b",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 15
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_f8f4cc88",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot",
         "patchSetId": 44
@@ -82,6 +130,30 @@
       "writtenOn": "2017-05-08T19:49:49Z",
       "side": 1,
       "message": "since any one suite may be run in a larger job with multiple\nsuites, you should revert these DEBUG log statements in this\nsuite\u0027s teardown.\n\nThis scenario has bitten projects before where one suite\nturns on more verbose logging, then many more suites\nrun, and the karaf log blows up to such a size that our\njenkins jobs choke.",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 183
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ae115eae",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-05-09T08:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_f8f4cc88",
       "range": {
         "startLine": 66,
         "startChar": 4,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_cefe626b",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_renderer_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-05-09T08:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_982b00eb",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 84
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_7830dc56",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_renderer_part.robot",
         "patchSetId": 44
@@ -128,6 +224,30 @@
       "writtenOn": "2017-05-08T19:49:49Z",
       "side": 1,
       "message": "dont need this now.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 60
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_2eaa8e70",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_renderer_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-05-09T08:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_7830dc56",
       "range": {
         "startLine": 38,
         "startChar": 0,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_8eb61adb",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_renderer_part.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-05-09T08:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_d8358847",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 60
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_384654c0",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/ise-adapter.robot",
         "patchSetId": 44
@@ -174,6 +318,30 @@
       "writtenOn": "2017-05-08T19:49:49Z",
       "side": 1,
       "message": "remove",
+      "range": {
+        "startLine": 27,
+        "startChar": 26,
+        "endLine": 27,
+        "endChar": 37
+      },
+      "revId": "de2dc2fb65c3ccd4f177397c09050d12196611b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ee9fe64e",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ise-adapter.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-05-09T08:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_384654c0",
       "range": {
         "startLine": 27,
         "startChar": 26,
