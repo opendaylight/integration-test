@@ -187,13 +187,13 @@ Post_As_Json_Templated
 
 Post_As_Xml_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
-    ...    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}
+    ...    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}
     [Documentation]    Add arguments sensible for XML data, return Post_Templated response text.
     ...    Optionally, verification against response.xml (no iteration) is called.
     # In case of iterations, we use endlines in data to send, as it should not matter and it is more readable.
     ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=xml    accept=${ACCEPT_XML}    content_type=${HEADERS_XML}
     ...    mapping=${mapping}    session=${session}    normalize_json=False    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
-    ...    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}
+    ...    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}    http_timeout=${http_timeout}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Xml_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
     [Return]    ${response_text}
 
@@ -219,9 +219,9 @@ Verify_Response_As_Xml_Templated
     ...    endline=${EMPTY}    iterations=${iterations}    iter_start=${iter_start}
 
 Get_As_Json_From_Uri
-    [Arguments]    ${uri}    ${session}=default
+    [Arguments]    ${uri}    ${session}=default    ${http_timeout}=${EMPTY}
     [Documentation]    Specify JSON headers and return Get_From_Uri normalized response text.
-    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True
+    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True    http_timeout=${http_timeout}
     [Return]    ${response_text}
 
 Get_As_Xml_From_Uri
@@ -302,14 +302,14 @@ Put_Templated
 Post_Templated
     [Arguments]    ${folder}    ${base_name}    ${extension}    ${content_type}    ${accept}    ${mapping}={}
     ...    ${session}=default    ${normalize_json}=False    ${endline}=${\n}    ${iterations}=${EMPTY}    ${iter_start}=1    ${additional_allowed_status_codes}=${NO_STATUS_CODES}
-    ...    ${explicit_status_codes}=${NO_STATUS_CODES}
+    ...    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}
     [Documentation]    Resolve URI and data from folder, call Post_To_Uri, return response text.
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
     ${data} =    Resolve_Text_From_Template_Folder    folder=${folder}    name_prefix=post_    base_name=${base_name}    extension=${extension}    mapping=${mapping}
     ...    endline=${endline}    iterations=${iterations}    iter_start=${iter_start}
     ${jmes_expression} =    Resolve_Jmes_Path    ${folder}
     ${response_text} =    Post_To_Uri    uri=${uri}    data=${data}    content_type=${content_type}    accept=${accept}    session=${session}
-    ...    jmes_path=${jmes_expression}    normalize_json=${normalize_json}    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}
+    ...    jmes_path=${jmes_expression}    normalize_json=${normalize_json}    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}    http_timeout=${http_timeout}
     [Return]    ${response_text}
 
 Verify_Response_Templated
@@ -325,13 +325,14 @@ Verify_Response_Templated
     ...    ELSE    BuiltIn.Should_Be_Equal    ${expected_text}    ${response}
 
 Get_From_Uri
-    [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False    ${jmes_path}=${EMPTY}
+    [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False    ${jmes_path}=${EMPTY}    ${http_timeout}=${EMPTY}
     [Documentation]    GET data from given URI, check status code and return response text.
     ...    \${accept} is a Python object with headers to use.
     ...    If \${normalize_json}, normalize as JSON text before returning.
     BuiltIn.Log    ${uri}
     BuiltIn.Log    ${accept}
-    ${response} =    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}
+    ${response} =    BuiltIn.Run_Keyword_If    """${http_timeout}""" == """${EMPTY}"""    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}
+    ...    ELSE    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}    timeout=${http_timeout}
     Check_Status_Code    ${response}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
     ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}
@@ -339,7 +340,7 @@ Get_From_Uri
 
 Put_To_Uri
     [Arguments]    ${uri}    ${data}    ${content_type}    ${accept}    ${session}=default    ${normalize_json}=False
-    ...    ${jmes_path}=${EMPTY}
+    ...    ${jmes_path}=${EMPTY}    ${http_timeout}=${EMPTY}
     [Documentation]    PUT data to given URI, check status code and return response text.
     ...    \${content_type} and \${accept} are mandatory Python objects with headers to use.
     ...    If \${normalize_json}, normalize text before returning.
@@ -348,7 +349,8 @@ Put_To_Uri
     BuiltIn.Log    ${content_type}
     BuiltIn.Log    ${accept}
     ${headers} =    Join_Two_Headers    first=${content_type}    second=${accept}
-    ${response} =    RequestsLibrary.Put_Request    alias=${session}    uri=${uri}    data=${data}    headers=${headers}
+    ${response} =    BuiltIn.Run_Keyword_If    """${http_timeout}""" == """${EMPTY}"""    RequestsLibrary.Put_Request    alias=${session}    uri=${uri}    data=${data}    headers=${headers}
+    ...    ELSE    RequestsLibrary.Put_Request    alias=${session}    uri=${uri}    data=${data}    headers=${headers}    timeout=${http_timeout}
     Check_Status_Code    ${response}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
     ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}
@@ -356,7 +358,7 @@ Put_To_Uri
 
 Post_To_Uri
     [Arguments]    ${uri}    ${data}    ${content_type}    ${accept}    ${session}=default    ${normalize_json}=False
-    ...    ${jmes_path}=${EMPTY}    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}
+    ...    ${jmes_path}=${EMPTY}    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${explicit_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}
     [Documentation]    POST data to given URI, check status code and return response text.
     ...    \${content_type} and \${accept} are mandatory Python objects with headers to use.
     ...    If \${normalize_json}, normalize text before returning.
@@ -365,7 +367,10 @@ Post_To_Uri
     BuiltIn.Log    ${content_type}
     BuiltIn.Log    ${accept}
     ${headers} =    Join_Two_Headers    first=${content_type}    second=${accept}
-    ${response} =    RequestsLibrary.Post_Request    alias=${session}    uri=${uri}    data=${data}    headers=${headers}
+    ${response} =    BuiltIn.Run_Keyword_If    """${http_timeout}""" == """${EMPTY}"""    RequestsLibrary.Post_Request    alias=${session}    uri=${uri}    data=${data}
+    ...    headers=${headers}
+    ...    ELSE    RequestsLibrary.Post_Request    alias=${session}    uri=${uri}    data=${data}    headers=${headers}
+    ...    timeout=${http_timeout}
     Check_Status_Code    ${response}    additional_allowed_status_codes=${additional_allowed_status_codes}    explicit_status_codes=${explicit_status_codes}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
     ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}
