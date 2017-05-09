@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_ec2b6f2e",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_f3d98d84",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_b3cf05b0",
         "filename": "csit/libraries/BackupRestoreKeywords.robot",
         "patchSetId": 12
@@ -36,6 +60,24 @@
       "writtenOn": "2017-05-08T23:41:57Z",
       "side": 1,
       "message": "still trying to fully understand everything in this patch,\nbut is this the high level of what happens below:\n\nA   do an export and keep track of it\u0027s data file(s)\n# B --- someday we\u0027ll add code to do the real B\u0026R\nC do another export and then compare it\u0027s data file(s) to A",
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_8cc8e375",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "Yes, basically that\u0027s the idea. Also worth mentioning (high-level): \n- We provide a way for specifying expected differences between the data files A, C (the prefilter files)\n- It\u0027s not that we plan to add the real B\u0026R in the future; It\u0027s more that we think there will be many B\u0026R scripts that will likely not be contributed to ODL (because of containing distribution-specific paths, parameters...). So we\u0027re providing this library as a way to test those B\u0026R implementations, whatever they are (even if they\u0027re not contributed).",
+      "parentUuid": "ba068154_b3cf05b0",
       "revId": "2bfdf89a079670256f153085844153d061254863",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_6f03f10f",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "I have to acknowledge that I liked better the 4 hyphens than the named arguments, but did a quick survey with my mates and they tend to like your approach more XD. Done",
+      "parentUuid": "ba068154_d341e90c",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 45
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_33e4b53a",
         "filename": "csit/libraries/BackupRestoreKeywords.robot",
         "patchSetId": 12
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_921d9869",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "Looks cleaner IMO with those two blocks instead of the four if/else sentences. If you / no one else has a strong opinion on this I\u0027d leave it as it is",
+      "parentUuid": "ba068154_33e4b53a",
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_93d00155",
         "filename": "csit/libraries/BackupRestoreKeywords.robot",
         "patchSetId": 12
@@ -93,6 +177,30 @@
       "writtenOn": "2017-05-08T23:41:57Z",
       "side": 1,
       "message": "seems the exporting is always gonna happen on controller1. any reason to allow Perform Export to take the index or \nip in case there is benefit down the road to export on \nother systems besides FIRST_CONTROLLER_INDEX?",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 18
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_d25e00e9",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "The only thing is that if we add index or ip as a parameter, we\u0027ll have to propagate it to BackupRestoreCheck \u0026 ConditionalBackupRestoreCheck (Perform Export is only called internally). I\u0027m adding it, please have a look",
+      "parentUuid": "ba068154_93d00155",
       "range": {
         "startLine": 47,
         "startChar": 4,
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_ec5d2feb",
+        "filename": "csit/libraries/backuprestore/JsonDiffTool.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "Absolutely; done",
+      "parentUuid": "ba068154_33bb1510",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 66
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_2ec56e5b",
         "filename": "csit/libraries/backuprestore/JsonDiffTool.py",
         "patchSetId": 12
@@ -139,6 +271,30 @@
       "writtenOn": "2017-05-09T07:34:44Z",
       "side": 1,
       "message": ":param json_arg: the json document to filter\n     :type json_arg: str",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 60
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4c727b7d",
+        "filename": "csit/libraries/backuprestore/JsonDiffTool.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_2ec56e5b",
       "range": {
         "startLine": 94,
         "startChar": 0,
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_ec0ecf33",
+        "filename": "csit/libraries/backuprestore/README.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "ba068154_b381c54c",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_f3922d9e",
         "filename": "csit/libraries/backuprestore/README.txt",
         "patchSetId": 12
@@ -185,6 +365,30 @@
       "writtenOn": "2017-05-08T23:41:57Z",
       "side": 1,
       "message": "I think it looks like this:\n\nSuite Setup    Run Keywords    Init Suite\n...            AND    ClusterManagement Setup",
+      "range": {
+        "startLine": 80,
+        "startChar": 1,
+        "endLine": 80,
+        "endChar": 72
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ac2b2781",
+        "filename": "csit/libraries/backuprestore/README.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "Just checked the documentation; looks like the AND separator is optional (useful when the keywords need to have arguments), that being something that I don\u0027t need in this initialization\n\nhttp://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Run%20Keywords\n\n\"Starting from Robot Framework 2.7.6, keywords can also be run with arguments using upper case AND as a separator between keywords. The keywords are executed so that the first argument is the first keyword and proceeding arguments until the first AND are arguments to it. First argument after the first AND is the second keyword and proceeding arguments until the next AND are its arguments.\"",
+      "parentUuid": "ba068154_f3922d9e",
       "range": {
         "startLine": 80,
         "startChar": 1,
@@ -220,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_2e2c4eab",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "Yep, this works + passes validation. Any reason it is incorrect?",
+      "parentUuid": "ba068154_733c7d94",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 71
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_933761b0",
         "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
         "patchSetId": 12
@@ -243,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_2e03ae10",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_933761b0",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_b346e521",
         "filename": "csit/suites/backuprestore/br-basic/020__br_sfc_tests.robot",
         "patchSetId": 12
@@ -254,6 +506,30 @@
       "writtenOn": "2017-05-08T23:41:57Z",
       "side": 1,
       "message": ".robot",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ccff8b00",
+        "filename": "csit/suites/backuprestore/br-basic/020__br_sfc_tests.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-09T15:43:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_b346e521",
       "range": {
         "startLine": 10,
         "startChar": 47,
