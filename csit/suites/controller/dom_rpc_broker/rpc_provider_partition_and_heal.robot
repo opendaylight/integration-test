@@ -23,7 +23,6 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 *** Variables ***
 @{INSTALLED_RPC_MEMEBER_IDX_LIST}    ${1}    ${2}
 ${TESTED_MEMBER_WITHOUT_RPC_IDX}    ${3}
-@{NON_WORKING_RPC_STATUS_CODE}    ${501}
 
 *** Test Cases ***
 Register_Rpc_On_Two_Nodes
@@ -45,13 +44,7 @@ Isolate_One_Node
     BuiltIn.Set_Suite_Variable    ${isolated_idx}
     DrbCommons.Isolate_Node    ${isolated_idx}
 
-Invoke_Rpc_On_Isolated_Node
-    [Documentation]    Invoke rpc on isolated node. Because rpc is registered on this node, local constant
-    ...    is expected.
-    BuiltIn.Pass_Execution    Aaa has a problem to authenticate http request as it is out of cluster too (see bug 8214), skipping for now.
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    DrbCommons.Verify_Constant_On_Registered_Node    ${isolated_idx}
-
-Invoke_Rpc_On_Remaining_Nodes
+Invoke_Rpc_On_Nonisolated_Nodes
     [Documentation]    Invoke rpc on non-islolated nodes.
     BuiltIn.Wait_Until_Keyword_Succeeds    45s    5s    DrbCommons.Verify_Constant_On_Active_Nodes
 
