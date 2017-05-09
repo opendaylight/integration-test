@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_4f7c2d21",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-09T13:17:58Z",
+      "side": 1,
+      "message": "I expect tox to fail on lack of space here.\n\nOh, it passed.\nTODO: Prepare for a future version of tidy to start detecting this.",
+      "range": {
+        "startLine": 24,
+        "startChar": 28,
+        "endLine": 24,
+        "endChar": 33
+      },
+      "revId": "36ed61c1c77d8f405b863a9e266cd92074ea71af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_8f9f355f",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-09T13:17:58Z",
+      "side": 1,
+      "message": "TODO: Suites use this instead of HARD_TIMEOUT. Unify.",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "36ed61c1c77d8f405b863a9e266cd92074ea71af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4f954d3f",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-09T13:17:58Z",
+      "side": 1,
+      "message": "Ok, makes sense now.",
+      "range": {
+        "startLine": 236,
+        "startChar": 68,
+        "endLine": 236,
+        "endChar": 72
+      },
+      "revId": "36ed61c1c77d8f405b863a9e266cd92074ea71af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
