@@ -104,7 +104,7 @@ Wait_For_Getter_Failure_Or_Stateless_Validator_Pass
 
 Stateless_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
     [Arguments]    ${date_deadline}=0    ${period_in_seconds}=1    ${count}=1    ${assertor}=${ScalarClosures__fail}
-    [Documentation]    Pass only if ${assertor} passes ${count} times in a row with ${period_in_seconds} between attempts; less standard arguments.
+    [Documentation]    Pass only if \${assertor} passes ${count} times in a row with ${period_in_seconds} between attempts; less standard arguments.
     ${result} =    BuiltIn.Set_Variable    No result yet.
     # Do we have enough time to succeed?
     ${sleeps} =    BuiltIn.Evaluate    ${count} - 1
@@ -123,7 +123,7 @@ Stateless_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
 
 Stateless_Assert_Closure_Has_To_Succeed_Consecutively
     [Arguments]    ${timeout}=60s    ${period}=1s    ${count}=1    ${assertor}=${ScalarClosures__fail}
-    [Documentation]    Pass only if ${assertor} passes ${count} times in a row with ${period} between attempts; standard arguments.
+    [Documentation]    Pass only if \${assertor} passes ${count} times in a row with ${period} between attempts; standard arguments.
     # TODO: Put default values into variables for users to override at pybot invocation?
     ${timeout_in_seconds}    ${period_in_seconds}    ${date_deadline} =    WaitUtils__Check_Sanity_And_Compute_Derived_Times    timeout=${timeout}    period=${period}    count=${count}
     ${result} =    Stateless_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    count=${count}    assertor=${assertor}
@@ -131,7 +131,7 @@ Stateless_Assert_Closure_Has_To_Succeed_Consecutively
 
 Stateful_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
     [Arguments]    ${date_deadline}=0    ${period_in_seconds}=1    ${count}=1    ${assertor}=${ScalarClosures__fail}    ${initial_state}=${None}
-    [Documentation]    Pass only if ${assertor} passes ${count} times in a row with ${period} between attempts. Keep assertor state in local variable. Less standard arguments.
+    [Documentation]    Pass only if $\{assertor} passes ${count} times in a row with ${period} between attempts. Keep assertor state in local variable. Less standard arguments.
     # TODO: Put default values into variables for users to override.
     ${result} =    BuiltIn.Set_Variable    No result yet.
     ${state} =    BuiltIn.Set_Variable    ${initial_state}
@@ -151,7 +151,7 @@ Stateful_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
 
 Stateful_Assert_Closure_Has_To_Succeed_Consecutively
     [Arguments]    ${timeout}=60s    ${period}=1s    ${count}=1    ${assertor}=${ScalarClosures__fail}    ${initial_state}=${NONE}
-    [Documentation]    Pass only if ${assertor} passes ${count} times in a row with ${period} between attempts. Keep assertor state in local variable. Standard arguments.
+    [Documentation]    Pass only if \${assertor} passes ${count} times in a row with ${period} between attempts. Keep assertor state in local variable. Standard arguments.
     # TODO: Put default values into variables for users to override.
     ${timeout_in_seconds}    ${period_in_seconds}    ${date_deadline} =    WaitUtils__Check_Sanity_And_Compute_Derived_Times    timeout=${timeout}    period=${period}    count=${count}
     ${result} =    Stateful_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    count=${count}    assertor=${assertor}    initial_state=${initial_state}
@@ -159,7 +159,7 @@ Stateful_Assert_Closure_Has_To_Succeed_Consecutively
 
 Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline
     [Arguments]    ${date_deadline}=0    ${period_in_seconds}=1    ${count}=1    ${getter}=${ScalarClosures__fail}    ${safe_validator}=${ScalarClosures__fail}    ${initial_state}=${NONE}
-    [Documentation]    Pass only if consecutively ${count} times in a row with ${period} between attempts: ${getter} creates data and ${safe_validator} passes. Validator updates its state even if it reports failure. Always return validator state, status and message.
+    [Documentation]    Pass only if consecutively ${count} times in a row with ${period} between attempts: \${getter} creates data and \${safe_validator} passes. Validator updates its state even if it reports failure. Always return validator state, status and message.
     ${result} =    BuiltIn.Set_Variable    No result yet.
     ${state} =    BuiltIn.Set_Variable    ${initial_state}
     # Do we have enough time to succeed?
