@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_3b792730",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_function_acl.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2017-05-10T08:41:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_3bd45d1f",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 123
+      },
+      "revId": "9e0fb40117f0267eb921b4b60d0f5f81b8f45e87",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_7bdee540",
         "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_function_acl.robot",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_9b76533d",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_function_acl.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2017-05-10T08:41:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_7bdee540",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 61
+      },
+      "revId": "9e0fb40117f0267eb921b4b60d0f5f81b8f45e87",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_bbe7ad11",
         "filename": "csit/suites/sfc/SFC_Basic/110__sfc_service_function_classifier.robot",
         "patchSetId": 10
@@ -59,6 +107,30 @@
       "writtenOn": "2017-02-08T01:45:42Z",
       "side": 1,
       "message": "here it does make sense to do this, since your vars \ndepend on a ${VERSION_DIR} variable. maybe your\nother suite was supposed to do that too?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 137
+      },
+      "revId": "9e0fb40117f0267eb921b4b60d0f5f81b8f45e87",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_7b73af4d",
+        "filename": "csit/suites/sfc/SFC_Basic/110__sfc_service_function_classifier.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2017-05-10T08:41:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fafc7978_bbe7ad11",
       "range": {
         "startLine": 65,
         "startChar": 0,
