@@ -82,9 +82,13 @@ Restart Pre Leader From Cluster Node
     [Documentation]    Restart Leader Node.
     ClusterManagement.Start Single Member    ${Inventory_Leader}
 
+Check Shards Status After Leader Restart
+    [Documentation]    Wait for node convergence and check status for all shards in OpenFlow application.
+    Wait Until Keyword Succeeds    ${restart_timeout}    2s    ClusterOpenFlow.Check OpenFlow Shards Status
+
 Verify Data Recovery After Leader Restart
     [Documentation]    ${flow_count_after_add} Flows preserved in all controller instances.
-    Wait Until Keyword Succeeds    ${restart_timeout}    2s    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
+    Wait Until Keyword Succeeds    ${operation_timeout}    2s    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
     ...    ${Inventory_Leader_List_Post}
 
 Verify Flows In Switch After Leader Restart
@@ -149,9 +153,13 @@ Restart Follower From Cluster Node
     [Documentation]    Restart Follower Node2.
     ClusterManagement.Start Single Member    ${Follower_Node_2}
 
+Check Shards Status After Follower Restart
+    [Documentation]    Wait for node convergence and check status for all shards in OpenFlow application.
+    Wait Until Keyword Succeeds    ${restart_timeout}    2s    ClusterOpenFlow.Check OpenFlow Shards Status
+
 Verify Data Recovery After Follower Restart
     [Documentation]    ${flow_count_after_add} Flows preserved in all controller instances.
-    Wait Until Keyword Succeeds    ${restart_timeout}    2s    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
+    Wait Until Keyword Succeeds    ${operation_timeout}    2s    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
     ...    ${Inventory_Leader_List}
 
 Verify Flows In Switch After Follower Restart
