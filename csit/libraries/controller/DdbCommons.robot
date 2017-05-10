@@ -283,12 +283,14 @@ Get_Seconds_To_Time
 Remote_Listener_Test_Templ
     [Arguments]    ${listener_node_role}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements remote listener test scenario.
+    ${subscribed} =    BuiltIn.Set_Variable    ${False}
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}
     ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
     ${follower2} =    Collections.Get_From_List    ${follower_list}    ${1}
     ${listener_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
     MdsalLowlevel.Subscribe_Dtcl    ${listener_node_dst}
+    ${subscribed} =    BuiltIn.Set_Variable    ${True}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ClusterAdmin.Make_Leader_Local    ${follower1}    ${shard_name}    ${shard_type}
@@ -297,17 +299,22 @@ Remote_Listener_Test_Templ
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}
-    [Teardown]    MdsalLowlevel.Unsubscribe_Dtcl    ${listener_node_dst}
+    ${copy_matches} =    MdsalLowlevel.Unsubscribe_Dtcl    ${listener_node_dst}
+    ${subscribed} =    BuiltIn.Set_Variable    ${False}
+    BuiltIn.Should_Be_True    ${copy_matches}
+    [Teardown]    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Dtcl    ${listener_node_dst}
 
 Remote_Listener_PrefBasedShard_Test_Templ
     [Arguments]    ${listener_node_role}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements listener isolation test scenario.
+    ${subscribed} =    BuiltIn.Set_Variable    ${False}
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
     ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
     ${follower2} =    Collections.Get_From_List    ${follower_list}    ${1}
     ${listener_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
     MdsalLowlevel.Subscribe_Ddtl    ${listener_node_dst}
+    ${subscribed} =    BuiltIn.Set_Variable    ${True}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}
     MdsalLowlevel.Become_Prefix_Leader    ${follower1}    ${shard_name}    ${ID_PREFIX}
@@ -316,7 +323,10 @@ Remote_Listener_PrefBasedShard_Test_Templ
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}
-    [Teardown]    MdsalLowlevel.Unsubscribe_Ddtl    ${listener_node_dst}
+    ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl    ${listener_node_dst}
+    ${subscribed} =    BuiltIn.Set_Variable    ${False}
+    BuiltIn.Should_Be_True    ${copy_matches}
+    [Teardown]    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Ddtl    ${listener_node_dst}
 
 Create_Prefix_Based_Shard_And_Verify
     [Arguments]    ${prefix}=${PREF_BASED_SHARD}
