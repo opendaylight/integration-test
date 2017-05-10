@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_fb467f22",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal_longevity.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-10T08:21:18Z",
+      "side": 1,
+      "message": "TODO: Consider unregistering one at random for each iteration, as in the precedence longevity suite.",
+      "range": {
+        "startLine": 25,
+        "startChar": 36,
+        "endLine": 25,
+        "endChar": 40
+      },
+      "revId": "d7fb0a31a8009342c7b338e30f70f19e43fb9160",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_bb3cf794",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal_longevity.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-10T08:21:18Z",
+      "side": 1,
+      "message": "Move to line 30.",
+      "range": {
+        "startLine": 42,
+        "startChar": 23,
+        "endLine": 42,
+        "endChar": 62
+      },
+      "revId": "d7fb0a31a8009342c7b338e30f70f19e43fb9160",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_1b59c3fe",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal_longevity.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-10T08:21:18Z",
+      "side": 1,
+      "message": "1s\n\nRapid interactions tend to discover bugs.\nOr failures due to ODL being slowed down by occasional garbage collection, but 5 seconds here do not prevent that either.\nOr is this to reduce output.xml size?\n\nEither way, set to 1 second, document why not.",
+      "range": {
+        "startLine": 46,
+        "startChar": 50,
+        "endLine": 46,
+        "endChar": 52
+      },
+      "revId": "d7fb0a31a8009342c7b338e30f70f19e43fb9160",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_fb5ddfea",
+        "filename": "csit/suites/controller/dom_rpc_broker/rpc_provider_partition_and_heal_longevity.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-10T08:21:18Z",
+      "side": 1,
+      "message": "1s",
+      "range": {
+        "startLine": 48,
+        "startChar": 73,
+        "endLine": 48,
+        "endChar": 75
+      },
+      "revId": "d7fb0a31a8009342c7b338e30f70f19e43fb9160",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
