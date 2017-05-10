@@ -36,6 +36,7 @@ ${HARD_TIMEOUT}    ${2*${TRANSACTION_TIMEOUT}}
 ${PREF_BASED_SHARD}    id-ints
 ${TEST_LOG_LEVEL}    info
 @{TEST_LOG_COMPONENTS}    org.opendaylight.controller.cluster.sharding    org.opendaylight.controller.cluster.datastore
+${HEAL_WITHIN_TRANS_TIMEOUT}    ${0}
 
 *** Keywords ***
 Explicit_Leader_Movement_Test_Templ
@@ -140,6 +141,11 @@ Leader_Isolation_Test_Templ
     ${li_isolated}    BuiltIn.Set_Variable    ${True}
     BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}    ${shard_type}    ${True}
     ...    ${leader}    member_index_list=${follower_list}
+    ${date_leader_elected} =    DateTime.Get_Current_Date
+    ${delta} =    DateTime.Subtract_Date_From_Date    ${date_leader_elected}    ${date_start}
+    BuiltIn.Run_Keyword_If    ${heal_timeout}==${HEAL_WITHIN_TRANS_TIMEOUT} and ${delta} > ${TRANSACTION_TIMEOUT}    BuiltIn.Fail    We are not able to heal the cluster within transaction timout because new leader election took more time.
+    ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
+    BuiltIn.Should_Be_Equal    ${resp}    ${NONE}    No response expected, received ${resp}
     BuiltIn.Sleep    ${heal_timeout}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
@@ -166,6 +172,11 @@ Leader_Isolation_PrefBasedShard_Test_Templ
     ${li_isolated}    BuiltIn.Set_Variable    ${True}
     BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!    ${shard_type}    ${True}
     ...    ${leader}    member_index_list=${follower_list}
+    ${date_leader_elected} =    DateTime.Get_Current_Date
+    ${delta} =    DateTime.Subtract_Date_From_Date    ${date_leader_elected}    ${date_start}
+    BuiltIn.Run_Keyword_If    ${heal_timeout}==${HEAL_WITHIN_TRANS_TIMEOUT} and ${delta} > ${TRANSACTION_TIMEOUT}    BuiltIn.Fail    We are not able to heal the cluster within transaction timout because new leader election took more time.
+    ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
+    BuiltIn.Should_Be_Equal    ${resp}    ${NONE}    No response expected, received ${resp}
     BuiltIn.Sleep    ${heal_timeout}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
