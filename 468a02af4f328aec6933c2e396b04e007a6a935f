@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_7393d3fa",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/020__Cluster_HA_Data_Recovery_BulkFlow_2Node_Cluster.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-10T18:53:36Z",
+      "side": 1,
+      "message": "instead of a new test case, shouldn\u0027t you just add this\nWUKS as one line below \"Start Single Member\", or do we \nwant this to be it\u0027s own test case?",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 107
+      },
+      "revId": "468a02af4f328aec6933c2e396b04e007a6a935f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_53904fec",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/020__Cluster_HA_Data_Recovery_BulkFlow_2Node_Cluster.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-10T18:53:36Z",
+      "side": 1,
+      "message": "same comment",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 107
+      },
+      "revId": "468a02af4f328aec6933c2e396b04e007a6a935f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
