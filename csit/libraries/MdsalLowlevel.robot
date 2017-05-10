@@ -164,21 +164,27 @@ Unsubscribe_Dtcl
     [Arguments]    ${member_index}
     [Documentation]    Unsubscribe a listener from the data changes. Invoke unsubscribe-dtcl rpc.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DTCL_DIR}    session=${session}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DTCL_DIR}    session=${session}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${matches} =    XML.Get_Element_Text    ${xml}    xpath=copy-matches
+    ${matches} =    BuiltIn.Convert_To_Boolean    ${matches}
+    BuiltIn.Return_From_Keyword    ${matches}
 
 Subscribe_Ddtl
     [Arguments]    ${member_index}
     [Documentation]    Subscribe DOMDataTreeListener to listen for the data changes.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${SUBSCRIBE_DDTL_DIR}    base_name=location    extension=uri
-    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    TemplatedRequests.Post_As_Xml_Templated    ${SUBSCRIBE_DDTL_DIR}    session=${session}
 
 Unsubscribe_Ddtl
     [Arguments]    ${member_index}
     [Documentation]    Unsubscribe DOMDataTreeListener from listening to the data changes.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${uri} =    TemplatedRequests.Resolve_Text_From_Template_Folder    folder=${UNSUBSCRIBE_DDTL_DIR}    base_name=location    extension=uri
-    ${text} =    TemplatedRequests.Post_To_Uri    uri=${uri}    data=${EMPTY}    accept=${ACCEPT_JSON}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DDTL_DIR}    session=${session}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${matches} =    XML.Get_Element_Text    ${xml}    xpath=copy-matches
+    ${matches} =    BuiltIn.Convert_To_Boolean    ${matches}
+    BuiltIn.Return_From_Keyword    ${matches}
 
 Start_Publish_Notifications
     [Arguments]    ${member_index}    ${gid}    ${seconds}    ${notif_per_sec}
