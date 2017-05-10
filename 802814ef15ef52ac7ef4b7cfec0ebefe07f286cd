@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_367779d6",
+        "filename": "csit/suites/netvirt/IPV6/__init__.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-10T22:55:27Z",
+      "side": 1,
+      "message": "please use Variables.robot",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 49
+      },
+      "revId": "802814ef15ef52ac7ef4b7cfec0ebefe07f286cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_1674f5cd",
+        "filename": "csit/suites/netvirt/IPV6/__init__.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-10T22:55:27Z",
+      "side": 1,
+      "message": "can you put Library and Resource in same blocks and\nless randomly?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "802814ef15ef52ac7ef4b7cfec0ebefe07f286cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_567e7daf",
+        "filename": "csit/suites/netvirt/IPV6/__init__.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-10T22:55:27Z",
+      "side": 1,
+      "message": "I see an issue with this path. you are assigning it\nhere, but it\u0027s also used in other suites. Can you move\nthe variable to the DevStackUtils lib and source that\nlib here.\n\nalso I see you using DEVSTACK_DEPLOY_PATH below, but not\nsure where you are getting it.\n\nI think l2gw has it defined somewhere, but you can skip\nworrying about l2gw.",
+      "revId": "802814ef15ef52ac7ef4b7cfec0ebefe07f286cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_d649cd8c",
+        "filename": "csit/suites/netvirt/IPV6/__init__.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-10T22:55:27Z",
+      "side": 1,
+      "message": "these are all duplicates from another patch, iirc. we \ncan share each others work instead of copy paste.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "802814ef15ef52ac7ef4b7cfec0ebefe07f286cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
