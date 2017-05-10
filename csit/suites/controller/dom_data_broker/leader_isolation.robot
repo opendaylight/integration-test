@@ -23,7 +23,7 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Healing_Within_Transaction_Timeout
     [Documentation]    The isolated node (leader) is rejoined as soon as new leader is elected and
     ...    and within transaction timeout.
-    ${0}
+    ${HEAL_WITHIN_TRANS_TIMEOUT}
 
 Healing_After_2x_Transaction_Timeout
     [Documentation]    The isolated node (leader) is rejoined after 2x transaction timeout.
