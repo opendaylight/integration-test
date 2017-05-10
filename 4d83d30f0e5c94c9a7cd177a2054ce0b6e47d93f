@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_1b9a6363",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2017-05-10T08:43:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_d7e05cfc",
+      "range": {
+        "startLine": 482,
+        "startChar": 4,
+        "endLine": 482,
+        "endChar": 132
+      },
+      "revId": "4d83d30f0e5c94c9a7cd177a2054ce0b6e47d93f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_f7b2b804",
         "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-06T05:51:24Z",
       "side": 1,
       "message": "looking at this reminded me of the openflow cluster suite. you might want to check it\nout to see if you like that workflow better. In particular it seems a keyword like\nthis could substitute for all of these lines:\n\nClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri\u003d${SERVICE_FUNCTIONS_URI}    dictionary\u003d${jsonbody}    member_index_list\u003d${controller_index_list}",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 53
+      },
+      "revId": "4d83d30f0e5c94c9a7cd177a2054ce0b6e47d93f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_fb9e7f55",
+        "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2017-05-10T08:43:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_f7b2b804",
       "range": {
         "startLine": 38,
         "startChar": 0,
