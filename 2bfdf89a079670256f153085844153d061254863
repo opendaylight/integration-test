@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_165b5555",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-10T23:01:42Z",
+      "side": 1,
+      "message": "secret sauce?!?  :)",
+      "parentUuid": "ba068154_8cc8e375",
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_d341e90c",
         "filename": "csit/libraries/BackupRestoreKeywords.robot",
         "patchSetId": 12
@@ -436,6 +454,30 @@
       "side": 1,
       "message": "Yep, this works + passes validation. Any reason it is incorrect?",
       "parentUuid": "ba068154_733c7d94",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 71
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f63b31e9",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-10T23:01:42Z",
+      "side": 1,
+      "message": "I just never tried it. I always do it like this:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot#L58-L60",
+      "parentUuid": "ba068154_2e2c4eab",
       "range": {
         "startLine": 3,
         "startChar": 0,
