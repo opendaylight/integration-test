@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_169355a4",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/020__Cluster_HA_Data_Recovery_BulkFlow_2Node_Cluster.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-10T20:16:44Z",
+      "side": 1,
+      "message": "The point is the Start Single Member does its own check controller cluster is in sync and this does extra verification for example RESTCONF is available. All the tests are written in this way because becaue Start or Stop can fail too.",
+      "parentUuid": "ba068154_7393d3fa",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 107
+      },
+      "revId": "468a02af4f328aec6933c2e396b04e007a6a935f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_53904fec",
         "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/020__Cluster_HA_Data_Recovery_BulkFlow_2Node_Cluster.robot",
         "patchSetId": 1
