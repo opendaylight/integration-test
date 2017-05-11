@@ -51,7 +51,7 @@ Become_Prefix_Leader
     ${shard_name} =    BuiltIn.Set_Variable    ${PREF_BASED_SHARD}
     ${shard_type} =    BuiltIn.Set_Variable    ${SHARD_TYPE}
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${old_leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
+    ${old_leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
     MdsalLowlevel.Become_Prefix_Leader    ${follower1}    ${shard_name}    ${ID_PREFIX}
     ${leader}    ${follower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    30s    3s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
@@ -63,20 +63,21 @@ Remove_Leader_Prefix_Shard_Replica_And_Add_It_Back
     ${shard_name} =    BuiltIn.Set_Variable    ${PREF_BASED_SHARD}
     ${shard_type} =    BuiltIn.Set_Variable    ${SHARD_TYPE}
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${old_leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
+    ${old_leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ClusterAdmin.Remove_Prefix_Shard_Replica    ${old_leader}    ${shard_name}    member-${old_leader}    ${shard_type}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Verify_Shard_Replica_Removed    ${old_leader}    ${shard_name}!!    ${shard_type}
     ${actual_leader}    ${actual_follower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!
-    ...    shard_type=${shard_type}    member_index_list=${follower_list}
+    ...    verify_restconf=False    shard_type=${shard_type}    member_index_list=${follower_list}
     ClusterAdmin.Add_Prefix_Shard_Replica    ${old_leader}    ${shard_name}    ${shard_type}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
+    ...    verify_restconf=False
 
 Remove_Follower_Prefix_Shard_Replica_And_Add_It_Back
     [Documentation]    Remove and add shard replica adn verify it.
     ${shard_name} =    BuiltIn.Set_Variable    ${PREF_BASED_SHARD}
     ${shard_type} =    BuiltIn.Set_Variable    ${SHARD_TYPE}
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
     ClusterAdmin.Remove_Prefix_Shard_Replica    ${follower1}    ${shard_name}    member-${follower1}    ${shard_type}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    DdbCommons.Verify_Shard_Replica_Removed    ${follower1}    ${shard_name}!!    ${shard_type}
@@ -84,3 +85,4 @@ Remove_Follower_Prefix_Shard_Replica_And_Add_It_Back
     ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!    ${shard_type}    ${False}    ${leader}    member_index_list=${new_indices_list}
     ClusterAdmin.Add_Prefix_Shard_Replica    ${follower1}    ${shard_name}    ${shard_type}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
+    ...    verify_restconf=False

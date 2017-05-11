@@ -39,6 +39,7 @@ Shards_Stability_Get_Details
     : FOR    ${shard_details}    IN    @{shard_list}
     \    ${shard_name}    ${shard_type}    String.Split_String    ${shard_details}    separator=:
     \    ${leader}    ${followers}    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${member_index_list}
+    \    ...    verify_restconf=False
     \    Collections.Sort_List    ${followers}
     \    Collections.Set_To_Dictionary    ${shards_details}    ${shard_name}_${shard_type}_leader=${leader}
     \    Collections.Set_To_Dictionary    ${shards_details}    ${shard_name}_${shard_type}_followers=${followers}
@@ -70,11 +71,11 @@ Set_Shard_Location
 Verify_Shard_Leader_Located_As_Expected
     [Arguments]    ${expected_leader_idx}
     [Documentation]    Verify default/topology config/operational shard leader location is as expected
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=config
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=config    verify_restconf=False
     BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=operational
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=operational    verify_restconf=False
     BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=config
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=config    verify_restconf=False
     BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=operational
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=operational    verify_restconf=False
     BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}

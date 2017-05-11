@@ -73,7 +73,7 @@ Get_Node_Indexes_For_The_ELM_Test
     [Arguments]    ${leader_from}    ${leader_to}    ${shard_name}    ${shard_type}
     [Documentation]    Return indexes for explicit leader movement test case, indexes of present to next leader node and index where transaction
     ...    producer should be deployed.
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    verify_restconf=False
     ${idx_from} =    BuiltIn.Set_Variable    ${leader}
     ${idx_to} =    BuiltIn.Set_Variable    @{follower_list}[0]
     ${idx_trans} =    BuiltIn.Set_Variable_If    "${leader_from}" == "remote" and "${leader_to}" == "remote"    @{follower_list}[1]    "${leader_from}" == "local"    ${leader}    "${leader_to}" == "local"
@@ -93,10 +93,10 @@ Clean_Leader_Shutdown_Test_Templ
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     TemplatedRequests.Check_Status_Code    @{resp_list}[0]
     [Teardown]    BuiltIn.Run_Keywords    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    30s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard
-    ...    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${follower_list}
+    ...    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
     ...    AND    ClusterAdmin.Add_Shard_Replica    ${actual_leader}    ${shard_name}    ${shard_type}
     ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    30s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}
-    ...    shard_type=${shard_type}
+    ...    verify_restconf=False    shard_type=${shard_type}
 
 Clean_Leader_Shutdown_PrefBasedShard_Test_Templ
     [Arguments]    ${leader_location}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
@@ -107,20 +107,21 @@ Clean_Leader_Shutdown_PrefBasedShard_Test_Templ
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}
     ClusterAdmin.Remove_Prefix_Shard_Replica    ${actual_leader}    ${shard_name}    member-${actual_leader}    ${shard_type}
     BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${follower_list}
+    ...    verify_restconf=False
     BuiltIn.Run_Keyword_And_Ignore_Error    ClusterManagement.Get_Raft_State_Of_Shard_At_Member    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index=${actual_leader}
     WaitForFailure.Confirm_Keyword_Fails_Within_Timeout    10s    2s    ClusterManagement.Get_Raft_State_Of_Shard_At_Member    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index=${actual_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     TemplatedRequests.Check_Status_Code    @{resp_list}[0]
     [Teardown]    BuiltIn.Run_Keywords    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    30s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard
-    ...    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${follower_list}
+    ...    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
     ...    AND    ClusterAdmin.Add_Prefix_Shard_Replica    ${actual_leader}    ${shard_name}    ${shard_type}
     ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    30s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!
-    ...    shard_type=${shard_type}
+    ...    verify_restconf=False    shard_type=${shard_type}
 
 Get_Node_Indexes_For_Clean_Leader_Shutdown_Test
     [Arguments]    ${leader_location}    ${shard_name}    ${shard_type}
     [Documentation]    Return indexes for clean leader shudown test case, index where transaction producer shoudl be deployed and a shard leader index.
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    verify_restconf=False
     ${follower_list_leangth} =    BuiltIn.Evaluate    ${NUM_ODL_SYSTEM}-1
     BuiltIn.Length_Should_Be    ${follower_list}    ${follower_list_leangth}
     ${producer_idx} =    BuiltIn.Set_Variable_If    "${leader_location}" == "local"    ${leader}    @{follower_list}[0]
@@ -132,7 +133,7 @@ Leader_Isolation_Test_Templ
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
     ${producing_transactions_time} =    BuiltIn.Set_Variable    ${${heal_timeout}+60}
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${producing_transactions_time}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ${date_start} =    DateTime.Get_Current_Date
@@ -151,7 +152,7 @@ Leader_Isolation_Test_Templ
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
-    BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    ${shard_name}    ${shard_type}
+    BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    ${shard_name}    ${shard_type}    verify_restconf=False
     ${time_to_finish} =    Get_Seconds_To_Time    ${date_end}
     BuiltIn.Run_Keyword_If    ${heal_timeout} < ${TRANSACTION_TIMEOUT}    Leader_Isolation_Heal_Within_Tt
     ...    ELSE    Module_Leader_Isolation_Heal_Default    ${leader}    ${time_to_finish}
@@ -164,7 +165,7 @@ Leader_Isolation_PrefBasedShard_Test_Templ
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
     ${producing_transactions_time} =    BuiltIn.Set_Variable    ${${heal_timeout}+60}
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${producing_transactions_time}    ${TRANSACTION_RATE_1K}
     ${date_start} =    DateTime.Get_Current_Date
@@ -183,7 +184,7 @@ Leader_Isolation_PrefBasedShard_Test_Templ
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
-    BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    ${shard_name}!!    ${shard_type}
+    BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    ${shard_name}!!    ${shard_type}    verify_restconf=False
     ${time_to_finish} =    Get_Seconds_To_Time    ${date_end}
     BuiltIn.Run_Keyword_If    ${heal_timeout} < ${TRANSACTION_TIMEOUT}    Leader_Isolation_Heal_Within_Tt
     ...    ELSE    Prefix_Leader_Isolation_Heal_Default    ${leader}    ${time_to_finish}
@@ -232,7 +233,7 @@ Client_Isolation_Test_Templ
     [Arguments]    ${listener_node_role}    ${trans_chain_flag}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements client isolation test scenario.
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
     ${client_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
@@ -256,7 +257,7 @@ Client_Isolation_PrefBasedShard_Test_Templ
     [Arguments]    ${listener_node_role}    ${isolated_transactions_flag}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements client isolation test scenario.
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
     ${client_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
@@ -298,7 +299,7 @@ Remote_Listener_Test_Templ
     [Documentation]    Implements remote listener test scenario.
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
     ${follower2} =    Collections.Get_From_List    ${follower_list}    ${1}
     ${listener_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
@@ -322,7 +323,7 @@ Remote_Listener_PrefBasedShard_Test_Templ
     [Documentation]    Implements listener isolation test scenario.
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
     ${follower2} =    Collections.Get_From_List    ${follower_list}    ${1}
     ${listener_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
@@ -348,6 +349,7 @@ Create_Prefix_Based_Shard_And_Verify
     ${node_to_trigger} =    Collections.Get_From_List    ${all_indices}    ${0}
     MdsalLowlevel.Create_Prefix_Shard    ${node_to_trigger}    ${prefix}    ${all_indices}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${prefix}!!    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}
+    ...    verify_restconf=False
 
 Remove_Prefix_Based_Shard_And_Verify
     [Arguments]    ${prefix}=${PREF_BASED_SHARD}
