@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_a995cee5",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ep_provider_renderer_part.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-05-11T07:49:32Z",
+      "side": 1,
+      "message": "I have missed this comments when cleaning up suite. Will be removed ...",
+      "parentUuid": "ba068154_76774103",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 14
+      },
+      "revId": "3925574ab2208b4ed79e6cc4a9f84bb343585e14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_16519562",
         "filename": "csit/suites/groupbasedpolicy/GBPSXP/ise-adapter.robot",
         "patchSetId": 47
@@ -36,6 +60,30 @@
       "writtenOn": "2017-05-10T22:01:25Z",
       "side": 1,
       "message": "I know you removed some extra Log lines, but even these\ncomments are not totally useful. this is a good example.\nreading line 27 is nearly the same as just reading the\nkeyword \"Configure_Ise_Source_And_Gain_Harvest_Status\"\nright?\n\napplies in other places, but this is a good example.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 55
+      },
+      "revId": "3925574ab2208b4ed79e6cc4a9f84bb343585e14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_49f9c24c",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/ise-adapter.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2017-05-11T07:49:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_16519562",
       "range": {
         "startLine": 27,
         "startChar": 4,
