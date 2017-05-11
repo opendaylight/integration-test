@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_c9edb28d",
+        "filename": "csit/libraries/BackupRestoreKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-11T07:36:27Z",
+      "side": 1,
+      "message": "XDD. In this case, I think it\u0027s more tyhat we couldn\u0027t figure out how to make a generic backup script from inside ODL only :)",
+      "parentUuid": "ba068154_165b5555",
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_d341e90c",
         "filename": "csit/libraries/BackupRestoreKeywords.robot",
         "patchSetId": 12
@@ -478,6 +496,30 @@
       "side": 1,
       "message": "I just never tried it. I always do it like this:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot#L58-L60",
       "parentUuid": "ba068154_2e2c4eab",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 71
+      },
+      "revId": "2bfdf89a079670256f153085844153d061254863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_29027e3e",
+        "filename": "csit/suites/backuprestore/br-basic/010__br_library_keywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5927
+      },
+      "writtenOn": "2017-05-11T07:36:27Z",
+      "side": 1,
+      "message": "Good to know",
+      "parentUuid": "ba068154_f63b31e9",
       "range": {
         "startLine": 3,
         "startChar": 0,
