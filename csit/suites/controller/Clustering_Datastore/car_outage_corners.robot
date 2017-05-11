@@ -87,7 +87,7 @@ Delete_Cars_On_Leader
 *** Keywords ***
 Setup
     [Documentation]    Initialize resources, memorize shard leaders, pre-compute member lists.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=5
     CarPeople.Set_Variables_For_Shard    shard_name=car
     Set_Additional_Variables
 
