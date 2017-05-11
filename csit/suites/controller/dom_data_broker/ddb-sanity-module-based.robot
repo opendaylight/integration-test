@@ -31,7 +31,7 @@ ${TRANSACTION_RATE_1K}    ${1000}
 ${DURATION_10S}    ${10}
 ${SIMPLE_TX}      ${False}
 ${CHAINED_TX}     ${True}
-${MODULE_SHARD_PREFIX}    member-
+${MODULE_SHARD_PREFIX}    prefix-
 
 *** Test Cases ***
 Make_Leader_Local
@@ -78,7 +78,7 @@ Write_Transactions
     [Documentation]    Write transactions.
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${MODULE_SHARD_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}    chained_flag=${SIMPLE_TX}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${MODULE_SHARD_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}
