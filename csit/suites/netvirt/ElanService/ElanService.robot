@@ -105,7 +105,7 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[2]    ${VM_IP_ELAN3[1]}    ping -c 3 ${VM_IP_ELAN2[1]}
     Should Not Contain    ${output}    ${PING_PASS}
     Log    Reboot VM instance and verify flow
-    Reboot Nova VM    ${VM_INSTANCES_ELAN2[0]}
+    Reboot Nova VM    ${VM_INSTANCES_ELAN2[0]}    120s
     Wait Until Keyword Succeeds    30s    10s    Verify VM Is ACTIVE    ${VM_INSTANCES_ELAN2[0]}
     ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    30s    10s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN2}

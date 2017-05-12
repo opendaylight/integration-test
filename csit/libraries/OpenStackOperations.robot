@@ -1070,11 +1070,11 @@ Delete SFC Port Chain
     [Return]    ${output}
 
 Reboot Nova VM
-    [Arguments]    ${vm_name}
+    [Arguments]    ${vm_name}    ${timeout}=30s
     [Documentation]    Reboot NOVA VM
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    nova reboot --poll ${vm_name}    30s
+    ${output}=    Write Commands Until Prompt    nova reboot --poll ${vm_name}    ${timeout}
     Log    ${output}
     Wait Until Keyword Succeeds    35s    10s    Verify VM Is ACTIVE    ${vm_name}
     Close Connection
