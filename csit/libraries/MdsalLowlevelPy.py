@@ -101,7 +101,7 @@ def start_write_transactions_on_nodes(host_list, prefix_list, id_prefix, duratio
 
 
 def start_produce_transactions_on_nodes(host_list, prefix_list, id_prefix,
-                                        duration, rate, isolated_transactions_flag=True, reset_globals=True):
+                                        duration, rate, isolated_transactions_flag=False, reset_globals=True):
     """Invoke produce-transactions rpcs on given nodes.
 
     :param host_list: list of ip address of odl nodes
