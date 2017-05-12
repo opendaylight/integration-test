@@ -17,7 +17,7 @@ Documentation     Basic tests for eBGP application peers.
 ...               TODO: Extend testsuite by tests dedicated to path selection algorithm
 ...               TODO: Choose keywords used by more than one test suite to be placed in a common place.
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    BgpOperations.Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           Collections
@@ -214,13 +214,6 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
-
-Teardown_Everything
-    [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
-    ...    Tear down imported Resources.
-    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
-    RequestsLibrary.Delete_All_Sessions
-    SSHLibrary.Close_All_Connections
 
 Read_Text_Before_Prompt
     [Documentation]    Log text gathered by SSHLibrary.Read_Until_Prompt.
