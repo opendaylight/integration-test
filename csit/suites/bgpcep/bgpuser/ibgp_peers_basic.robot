@@ -25,7 +25,7 @@ Documentation     Basic tests for iBGP peers.
 ...               Bug 4791 - BGPSessionImpl: Failed to send message Update logged even all UPDATE mesages received by iBGP peer
 ...               Bug 4819 - No routes advertised to one of newly configured iBGP RR-client peer
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    BgpOperations.Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
@@ -34,6 +34,7 @@ Library           DateTime
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
+Resource          ${CURDIR}/../../../libraries/BgpOperations.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -311,13 +312,6 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
-
-Teardown_Everything
-    [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
-    ...    Tear down imported Resources.
-    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
-    RequestsLibrary.Delete_All_Sessions
-    SSHLibrary.Close_All_Connections
 
 Check_Example_IPv4_Topology_Content
     [Arguments]    ${string_to_check}=${EMPTY}
