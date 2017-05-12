@@ -166,7 +166,7 @@ Workflow Full Mesh Topology
 
 Workflow Setup
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Wait Until Keyword Succeeds    3x    1s    KarafKeywords.Issue Command On Karaf Console    log:set ERROR
+    Wait Until Keyword Succeeds    3x    1s    KarafKeywords.Issue Command On Karaf Console    log:set DEBUG org.opendaylight.openflowplugin.impl
 
 Workflow Teardown
     [Documentation]    Cleanup when workflow is interrupt
