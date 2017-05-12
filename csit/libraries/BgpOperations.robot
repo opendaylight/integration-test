@@ -183,3 +183,10 @@ Get External Tunnel Endpoint Configuration
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:dc-gateway-ip-list/dc-gateway-ip/${ip}/
     Log    ${resp.content}
     [Return]    ${resp.content}
+
+Teardown_Everything
+    [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
+    ...    Tear down imported Resources.
+    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
+    RequestsLibrary.Delete_All_Sessions
+    SSHLibrary.Close_All_Connections

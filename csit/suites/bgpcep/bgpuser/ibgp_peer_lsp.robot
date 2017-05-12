@@ -11,7 +11,7 @@ Documentation     Basic tests for iBGP peers.
 ...               carrying LSP State Information in BGP as described in
 ...               http://tools.ietf.org/html/draft-ietf-idr-te-lsp-distribution-03
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    BgpOperations.Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           OperatingSystem
@@ -141,13 +141,6 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
-
-Teardown_Everything
-    [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
-    ...    Tear down imported Resources.
-    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
-    RequestsLibrary.Delete_All_Sessions
-    SSHLibrary.Close_All_Connections
 
 Check_Example_Bgp_Rib_Content
     [Arguments]    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
