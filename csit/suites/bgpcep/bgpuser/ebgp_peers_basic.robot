@@ -17,7 +17,7 @@ Documentation     Basic tests for eBGP application peers.
 ...               TODO: Extend testsuite by tests dedicated to path selection algorithm
 ...               TODO: Choose keywords used by more than one test suite to be placed in a common place.
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    BgpOperations.Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           Collections
@@ -26,6 +26,7 @@ Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
+Resource          ${CURDIR}/../../../libraries/BgpOperations.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -112,8 +113,8 @@ Connect_eBGP_Peer1
 
 Check_IPv4_Topology_For_First_Path
     [Documentation]    The IPv4 topology shall contain the route announced by the first eBGP
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    "node-id":"${eBGP_PEER1_NEXT_HOP}"
-    Check_Example_IPv4_Topology_Content    "prefix":"${eBGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    "node-id":"${eBGP_PEER1_NEXT_HOP}"
+    BgpOperations.Check_Example_IPv4_Topology_Content    "prefix":"${eBGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"
 
 iBGP_Check_Log_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for introduced routes
@@ -142,8 +143,8 @@ Disconnect_eBGP_Peer1
 
 Check_IPv4_Topology_For_Second_Path
     [Documentation]    The IPv4 topology shall contain the route announced by the second eBGP now
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    "node-id":"${eBGP_PEER2_NEXT_HOP}"
-    Check_Example_IPv4_Topology_Content    "prefix":"${eBGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    "node-id":"${eBGP_PEER2_NEXT_HOP}"
+    BgpOperations.Check_Example_IPv4_Topology_Content    "prefix":"${eBGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"
 
 iBGP_Check_Log_For_Updated_Prefixes
     [Documentation]    Check incomming updates for updated routes
@@ -215,26 +216,11 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
 
-Teardown_Everything
-    [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
-    ...    Tear down imported Resources.
-    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
-    RequestsLibrary.Delete_All_Sessions
-    SSHLibrary.Close_All_Connections
-
 Read_Text_Before_Prompt
     [Documentation]    Log text gathered by SSHLibrary.Read_Until_Prompt.
     ...    This needs to be a separate keyword just because how Read_And_Fail_If_Prompt_Is_Seen is implemented.
     ${text}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${text}
-
-Check_Example_IPv4_Topology_Content
-    [Arguments]    ${string_to_check}=${EMPTY}
-    [Documentation]    Check the example-ipv4-topology content for string
-    ${response}=    RequestsLibrary.Get Request    operational    topology/example-ipv4-topology
-    BuiltIn.Log    ${response.status_code}
-    BuiltIn.Log    ${response.text}
-    BuiltIn.Should_Contain    ${response.text}    ${string_to_check}
 
 Check_Example_IPv4_Topology_Does_Not_Contain
     [Arguments]    ${string_to_check}
