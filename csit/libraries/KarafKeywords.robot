@@ -19,7 +19,7 @@ Setup_Karaf_Keywords
     ClusterManagement.ClusterManagement_Setup    http_timeout=${http_timeout}
     BuiltIn.Comment    First connections to Karaf console may fail, so WUKS is used. TODO: Track as a Bug.
     : FOR    ${index}    IN    @{ClusterManagement__member_index_list}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    10x    0.2s    Open_Controller_Karaf_Console_On_Background    member_index=${index}
+    \    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3s    1s    Open_Controller_Karaf_Console_On_Background    member_index=${index}
 
 Verify_Feature_Is_Installed
     [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}
