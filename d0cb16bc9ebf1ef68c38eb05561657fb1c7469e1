@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_27a29eae",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-12T23:39:08Z",
+      "side": 1,
+      "message": "Interesting, never seen this KW concatenation before.",
+      "revId": "d0cb16bc9ebf1ef68c38eb05561657fb1c7469e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
