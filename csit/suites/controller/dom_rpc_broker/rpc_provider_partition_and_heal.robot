@@ -46,7 +46,7 @@ Isolate_One_Node
 
 Invoke_Rpc_On_Nonisolated_Nodes
     [Documentation]    Invoke rpc on non-islolated nodes.
-    BuiltIn.Wait_Until_Keyword_Succeeds    45s    5s    DrbCommons.Verify_Constant_On_Active_Nodes
+    BuiltIn.Wait_Until_Keyword_Succeeds    45s    1s    DrbCommons.Verify_Constant_On_Active_Nodes
 
 Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node
@@ -56,7 +56,8 @@ Invoke_Rpc_On_Each_Node_Again
     [Documentation]    Invoke rpc get-constant on every node. When requested on the node with
     ...    local instance the local value is expected. If invoked on the node with no local instance, any remote
     ...    value is expected.
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    20s    3s    DrbCommons.Verify_Constant_On_Active_Nodes
+    # Shards are settled, but that does not mean RPC registrations have been synchronized between members yet.
+    BuiltIn.Wait_Until_Keyword_Succeeds    5s    1s    DrbCommons.Verify_Constant_On_Active_Nodes
 
 Unregister_Rpc_On_Each_Node
     [Documentation]    Inregister rpc on both nodes.

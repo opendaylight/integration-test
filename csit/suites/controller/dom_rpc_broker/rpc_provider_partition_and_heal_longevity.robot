@@ -46,4 +46,5 @@ Test_Scenario
     DrbCommons.Isolate_Node    ${isolated_idx}
     BuiltIn.Wait_Until_Keyword_Succeeds    45s    1s    DrbCommons.Verify_Constant_On_Active_Nodes
     DrbCommons.Rejoin_Node    ${isolated_idx}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    20s    1s    DrbCommons.Verify_Constant_On_Active_Nodes
+    # Shards are settled, but that does not mean RPC registrations have been synchronized between members yet.
+    BuiltIn.Wait_Until_Keyword_Succeeds    5s    1s    DrbCommons.Verify_Constant_On_Active_Nodes
