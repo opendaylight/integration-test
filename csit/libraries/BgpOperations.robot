@@ -183,3 +183,26 @@ Get External Tunnel Endpoint Configuration
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:dc-gateway-ip-list/dc-gateway-ip/${ip}/
     Log    ${resp.content}
     [Return]    ${resp.content}
+
+Teardown_Everything
+    [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
+    ...    Tear down imported Resources.
+    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
+    RequestsLibrary.Delete_All_Sessions
+    SSHLibrary.Close_All_Connections
+
+Check_Example_Bgp_Rib_Content
+    [Arguments]    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
+    [Documentation]    Check the example-bgp-rib content for string
+    ${response}=    RequestsLibrary.Get Request    operational    bgp-rib:bgp-rib/rib/example-bgp-rib
+    BuiltIn.Log    ${response.status_code}
+    BuiltIn.Log    ${response.text}
+    BuiltIn.Should_Contain    ${response.text}    ${substr}    ${error_message}    values=False
+
+Check_Example_Bgp_Rib_Does_Not_Contain
+    [Arguments]    ${substr}    ${error_message}=${JSONKEYSTR} found, but not expected.
+    [Documentation]    Check the example-bgp-rib does not contain the string
+    ${response}=    RequestsLibrary.Get Request    operational    bgp-rib:bgp-rib/rib/example-bgp-rib
+    BuiltIn.Log    ${response.status_code}
+    BuiltIn.Log    ${response.text}
+    BuiltIn.Should_Not_Contain    ${response.text}    ${substr}    ${error_message}    values=False
