@@ -215,18 +215,18 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
 
+Read_Text_Before_Prompt
+    [Documentation]    Log text gathered by SSHLibrary.Read_Until_Prompt.
+    ...    This needs to be a separate keyword just because how Read_And_Fail_If_Prompt_Is_Seen is implemented.
+    ${text}=    SSHLibrary.Read_Until_Prompt
+    BuiltIn.Log    ${text}
+
 Teardown_Everything
     [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
     ...    Tear down imported Resources.
     KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
-
-Read_Text_Before_Prompt
-    [Documentation]    Log text gathered by SSHLibrary.Read_Until_Prompt.
-    ...    This needs to be a separate keyword just because how Read_And_Fail_If_Prompt_Is_Seen is implemented.
-    ${text}=    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${text}
 
 Check_Example_IPv4_Topology_Content
     [Arguments]    ${string_to_check}=${EMPTY}
