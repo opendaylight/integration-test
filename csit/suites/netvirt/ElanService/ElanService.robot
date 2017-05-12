@@ -89,7 +89,8 @@ Delete All ELAN1 VM And Verify Flow Table Updated
 
 Verify Datapath for Multiple ELAN with Multiple DPN
     [Documentation]    Verify Flow Table and Data path for Multiple ELAN with Multiple DPN
-    [Setup]    MultipleElan Testsuite Setup
+    [Setup]    Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    ...    AND    MultipleElan Testsuite Setup
     Log    Verify flow table, fib Table and then datapath test
     ${SRCMAC_CN1} =    Create List    ${VM_MACAddr_ELAN2[0]}    ${VM_MACAddr_ELAN3[0]}
     ${SRCMAC_CN2} =    Create List    ${VM_MACAddr_ELAN2[1]}    ${VM_MACAddr_ELAN3[1]}
@@ -114,7 +115,8 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${MAC_LIST}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_ELAN2[1]}    ping -c 3 ${VM_IP_ELAN2[0]}
     Should Contain    ${output}    ${PING_PASS}
-    [Teardown]    MultipleElan Testsuite Cleanup
+    [Teardown]    Run Keywords    Get Test Teardown Debugs
+    ...    AND    MultipleElan Testsuite Cleanup
 
 *** Keywords ***
 Elan SuiteSetup
