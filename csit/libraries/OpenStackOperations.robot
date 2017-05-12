@@ -504,7 +504,8 @@ Test Operations From Vm Instance
     \    ${string_empty}=    Run Keyword And Return Status    Should Be Empty    ${dest_ip}
     \    Run Keyword If    ${string_empty}    Continue For Loop
     \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}    ttl=${ttl}
-    Run Keyword If    ${rcode}    Check Metadata Access
+    ${ethertype}=    Get Regexp Matches    ${src_ip}    ${IP_REGEX}
+    Run Keyword If    ${rcode} and ${ethertype}    Check Metadata Access
     [Teardown]    Exit From Vm Console
 
 Test Netcat Operations From Vm Instance
