@@ -457,7 +457,9 @@ Exit From Vm Console
 Check Ping
     [Arguments]    ${ip_address}    ${ttl}=64
     [Documentation]    Run Ping command on the IP available as argument
-    ${output}=    Write Commands Until Expected Prompt    ping -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    ${ethertype}=    Get Regexp Matches    ${ip_address}    ${IP_REGEX}
+    ${output}=    Run Keyword If    ${ethertype}    Write Commands Until Expected Prompt    ping -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    ...    ELSE    Write Commands Until Expected Prompt    ping6 -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    64 bytes
 
 Check Metadata Access
