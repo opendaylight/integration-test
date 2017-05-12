@@ -25,7 +25,7 @@ Documentation     Basic tests for iBGP peers.
 ...               Bug 4791 - BGPSessionImpl: Failed to send message Update logged even all UPDATE mesages received by iBGP peer
 ...               Bug 4819 - No routes advertised to one of newly configured iBGP RR-client peer
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    BgpOperations.Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
@@ -34,6 +34,7 @@ Library           DateTime
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
+Resource          ${CURDIR}/../../../libraries/BgpOperations.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -93,14 +94,14 @@ TC1_Connect_BGP_Peer1
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
     Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC1_Connect_BGP_Peer2
     [Documentation]    Connect BGP peer
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
     Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC1_BGP_Peer1_Check_Log_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes
@@ -143,7 +144,7 @@ TC1_Disconnect_BGP_Peer2
     Store_File_To_Workspace    ${BGP_PEER2_LOG_FILE}    tc1_${BGP_PEER2_LOG_FILE}
 
 TC_1_Check_for_Empty_IPv4_Topology
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Does_Not_Contain    prefix
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix
 
 TC1_Delete_BGP_Peers_Configuration
     [Documentation]    Delete all previously configured BGP peers.
@@ -170,14 +171,14 @@ TC2_Connect_BGP_Peer1
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
     Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC2_Connect_BGP_Peer2
     [Documentation]    Connect BGP peer
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
     Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC2_BGP_Peer1_Check_Log_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes
@@ -218,7 +219,7 @@ TC2_Disconnect_BGP_Peer2
     Store_File_To_Workspace    ${BGP_PEER2_LOG_FILE}    tc2_${BGP_PEER2_LOG_FILE}
 
 TC_2_Check_for_Empty_IPv4_Topology
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Does_Not_Contain    prefix
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix
 
 TC2_Delete_BGP_Peers_Configuration
     [Documentation]    Delete all previously configured BGP peers.
@@ -245,14 +246,14 @@ TC3_Connect_BGP_Peer1
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
     Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC3_Connect_BGP_Peer2
     [Documentation]    Connect BGP peer
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
     Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC3_BGP_Peer1_Check_Log_For_No_Updates
     [Documentation]    Check for no updates received by iBGP peer No. 1
@@ -282,7 +283,7 @@ TC3_Disconnect_BGP_Peer2
     Store_File_To_Workspace    ${BGP_PEER2_LOG_FILE}    tc3_${BGP_PEER2_LOG_FILE}
 
 TC_3_Check_for_Empty_IPv4_Topology
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Does_Not_Contain    prefix
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix
 
 TC3_Delete_BGP_Peers_Configuration
     [Documentation]    Delete all previously configured BGP peers.
@@ -311,26 +312,3 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
-
-Teardown_Everything
-    [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
-    ...    Tear down imported Resources.
-    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
-    RequestsLibrary.Delete_All_Sessions
-    SSHLibrary.Close_All_Connections
-
-Check_Example_IPv4_Topology_Content
-    [Arguments]    ${string_to_check}=${EMPTY}
-    [Documentation]    Check the example-ipv4-topology content for string
-    ${response}=    RequestsLibrary.Get Request    operational    topology/example-ipv4-topology
-    BuiltIn.Log    ${response.status_code}
-    BuiltIn.Log    ${response.text}
-    BuiltIn.Should_Contain    ${response.text}    ${string_to_check}
-
-Check_Example_IPv4_Topology_Does_Not_Contain
-    [Arguments]    ${string_to_check}
-    [Documentation]    Check the example-ipv4-topology does not contain the string
-    ${response}=    RequestsLibrary.Get Request    operational    topology/example-ipv4-topology
-    BuiltIn.Log    ${response.status_code}
-    BuiltIn.Log    ${response.text}
-    BuiltIn.Should_Not_Contain    ${response.text}    ${string_to_check}
