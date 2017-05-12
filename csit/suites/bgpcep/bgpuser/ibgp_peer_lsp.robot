@@ -11,7 +11,7 @@ Documentation     Basic tests for iBGP peers.
 ...               carrying LSP State Information in BGP as described in
 ...               http://tools.ietf.org/html/draft-ietf-idr-te-lsp-distribution-03
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    BgpOperations.Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           OperatingSystem
@@ -20,6 +20,7 @@ Library           DateTime
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
+Resource          ${CURDIR}/../../../libraries/BgpOperations.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -111,7 +112,7 @@ TC2_Check_Example_Bgp_Rib
     [Documentation]    Check RIB for linkstate-route(s)
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    Check_Example_Bgp_Rib_Content    ${JSONKEYSTR}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    BgpOperations.Check_Example_Bgp_Rib_Content    ${JSONKEYSTR}
 
 TC2_Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer & store logs
@@ -141,21 +142,6 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
-
-Teardown_Everything
-    [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
-    ...    Tear down imported Resources.
-    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
-    RequestsLibrary.Delete_All_Sessions
-    SSHLibrary.Close_All_Connections
-
-Check_Example_Bgp_Rib_Content
-    [Arguments]    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
-    [Documentation]    Check the example-bgp-rib content for string
-    ${response}=    RequestsLibrary.Get Request    operational    bgp-rib:bgp-rib/rib/example-bgp-rib
-    BuiltIn.Log    ${response.status_code}
-    BuiltIn.Log    ${response.text}
-    BuiltIn.Should_Contain    ${response.text}    ${substr}    ${error_message}    values=False
 
 Check_Example_Bgp_Rib_Does_Not_Contain
     [Arguments]    ${substr}    ${error_message}=${JSONKEYSTR} found, but not expected.
