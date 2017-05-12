@@ -22,23 +22,23 @@ Peer Sequence Filtering
     ${entries}    Combine Strings    ${entry1}
     Add Filter    GROUP    outbound    ${entries}
     Setup Nodes
-    Wait Until Keyword Succeeds    4    1    Check PeerSequence One
+    Wait Until Keyword Succeeds    4    2    Check PeerSequence One
     Delete Filter    GROUP    outbound
     ${entry1}    Get Filter Entry    10    permit    ps=le,1
     ${entries}    Combine Strings    ${entry1}
     Add Filter    GROUP    outbound    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check PeerSequence Two
+    Wait Until Keyword Succeeds    4    2    Check PeerSequence Two
     Delete Filter    GROUP    outbound
     ${entry1}    Get Filter Entry    10    permit    ps=le,2
     ${entries}    Combine Strings    ${entry1}
     Add Filter    GROUP    outbound    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check PeerSequence Three
+    Wait Until Keyword Succeeds    4    2    Check PeerSequence Three
     Delete Filter    GROUP    outbound
     ${entry1}    Get Filter Entry    10    deny    ps=eq,1
     ${entry2}    Get Filter Entry    20    permit    ps=ge,0
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    outbound    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check PeerSequence Mix
+    Wait Until Keyword Succeeds    4    2    Check PeerSequence Mix
     Delete Filter    GROUP    outbound
 
 Inbound PL Combinations Filtering
@@ -56,7 +56,7 @@ Inbound PL Combinations Filtering
     \    ${entry1}    Get Filter Entry    10    permit    pl=1.1.0.0/16
     \    ${entries}    Combine Strings    ${entry1}
     \    Add Filter    GROUP2    ${scope}    ${entries}
-    \    Wait Until Keyword Succeeds    4    1    Check Inbound PL Combinations Filtering
+    \    Wait Until Keyword Succeeds    4    2    Check Inbound PL Combinations Filtering
     \    Clean Nodes
 
 Inbound ACL Combinations Filtering
@@ -78,7 +78,7 @@ Inbound ACL Combinations Filtering
     \    ${entry1}    Get Filter Entry    10    permit    sgt=40
     \    ${entries}    Combine Strings    ${entry1}
     \    Add Filter    GROUP5    ${scope}    ${entries}
-    \    Wait Until Keyword Succeeds    4    1    Check Inbound ACL Combinations Filtering
+    \    Wait Until Keyword Succeeds    4    2    Check Inbound ACL Combinations Filtering
     \    Clean Nodes
 
 Outbound PL Combinations Filtering
@@ -94,7 +94,7 @@ Outbound PL Combinations Filtering
     ${entry1}    Get Filter Entry    10    permit    ps=le,1
     ${entries}    Combine Strings    ${entry1}
     Add Filter    GROUP2    outbound    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check Outbound PL Combinations Filtering
+    Wait Until Keyword Succeeds    4    2    Check Outbound PL Combinations Filtering
 
 Outbound ACL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with ACL filter
@@ -110,7 +110,7 @@ Outbound ACL Combinations Filtering
     ${entry1}    Get Filter Entry    10    permit    acl=1.1.0.0,0.0.255.255
     ${entries}    Combine Strings    ${entry1}
     Add Filter    GROUP2    outbound    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check Outbound ACL Combinations Filtering
+    Wait Until Keyword Succeeds    4    2    Check Outbound ACL Combinations Filtering
 
 *** Keywords ***
 Setup Nodes

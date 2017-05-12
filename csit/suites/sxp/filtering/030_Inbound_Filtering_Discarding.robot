@@ -22,9 +22,9 @@ Access List Filtering
     ${entry2}    Get Filter Entry    20    permit    acl=10.0.0.0,0.254.0.0
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-2
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-2
 
 Access List Sgt Filtering
     [Documentation]    Test ACL and SGT filter behaviour during filter update
@@ -36,9 +36,9 @@ Access List Sgt Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
     Setup Nodes
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check One Group 5-3
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check One Group 5-3
 
 Prefix List Filtering
     [Documentation]    Test Prefix List filter behaviour during filter update
@@ -50,9 +50,9 @@ Prefix List Filtering
     ${entry2}    Get Filter Entry    20    permit    epl=10.0.0.0/8,le,16
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-2
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-2
 
 Prefix List Sgt Filtering
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
@@ -64,9 +64,9 @@ Prefix List Sgt Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
     Setup Nodes
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check One Group 5-3
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check One Group 5-3
 
 Access List Filtering Legacy
     [Documentation]    Test ACL filter behaviour during filter update
@@ -78,9 +78,9 @@ Access List Filtering Legacy
     ${entry2}    Get Filter Entry    20    permit    acl=10.0.0.0,0.254.0.0
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-2
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-2
 
 Access List Sgt Filtering Legacy
     [Documentation]    Test ACL and SGT filter behaviour during filter update
@@ -92,9 +92,9 @@ Access List Sgt Filtering Legacy
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
     Setup Nodes Legacy Par One
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check One Group 5-3
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check One Group 5-3
 
 Prefix List Filtering Legacy
     [Documentation]    Test Prefix List filter behaviour during filter update
@@ -106,9 +106,9 @@ Prefix List Filtering Legacy
     ${entry2}    Get Filter Entry    20    permit    epl=10.0.0.0/8,le,16
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-2
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-2
 
 Prefix List Sgt Filtering Legacy
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
@@ -120,9 +120,9 @@ Prefix List Sgt Filtering Legacy
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
     Setup Nodes Legacy Par One
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check One Group 5-3
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check One Group 5-3
 
 *** Keywords ***
 Setup Nodes

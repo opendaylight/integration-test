@@ -25,7 +25,7 @@ Access List Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}    policy=manual-update
     Setup Nodes
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-5
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-5
     Delete Filter    GROUP    outbound
     Verify Keyword Does Not Fail Within Timeout    4    1    Check One Group 4-5
     Reconnect Peers
@@ -34,7 +34,7 @@ Access List Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    outbound    ${entries}    policy=manual-update
     Reconnect Peers
-    Wait Until Keyword Succeeds    4    1    Check Two Group 4-5
+    Wait Until Keyword Succeeds    4    2    Check Two Group 4-5
 
 Access List Sgt Filtering
     [Documentation]    Test ACL and SGT filter behaviour during filter update
@@ -47,14 +47,14 @@ Access List Sgt Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}    policy=manual-update
     Setup Nodes
-    Wait Until Keyword Succeeds    4    1    Check One Group 2-5
+    Wait Until Keyword Succeeds    4    2    Check One Group 2-5
     Delete Filter    GROUP    outbound
     Verify Keyword Does Not Fail Within Timeout    4    1    Check One Group 2-5
     Reconnect Peers
     ${entries}    Get Filter Entry    10    permit    esgt=20,40    acl=10.10.0.0,0.0.255.255
     Add Filter    GROUP    outbound    ${entries}    policy=manual-update
     Reconnect Peers
-    Wait Until Keyword Succeeds    4    1    Check Two Group 2-5
+    Wait Until Keyword Succeeds    4    2    Check Two Group 2-5
 
 Prefix List Filtering
     [Documentation]    Test Prefix List filter behaviour during filter update
@@ -67,7 +67,7 @@ Prefix List Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}    policy=manual-update
     Setup Nodes
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-5
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-5
     Delete Filter    GROUP    outbound
     Verify Keyword Does Not Fail Within Timeout    4    1    Check One Group 4-5
     Reconnect Peers
@@ -76,7 +76,7 @@ Prefix List Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    outbound    ${entries}    policy=manual-update
     Reconnect Peers
-    Wait Until Keyword Succeeds    4    1    Check Two Group 4-5
+    Wait Until Keyword Succeeds    4    2    Check Two Group 4-5
 
 Prefix List Sgt Filtering
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
@@ -89,14 +89,14 @@ Prefix List Sgt Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}    policy=manual-update
     Setup Nodes
-    Wait Until Keyword Succeeds    4    1    Check One Group 2-5
+    Wait Until Keyword Succeeds    4    2    Check One Group 2-5
     Delete Filter    GROUP    outbound
     Verify Keyword Does Not Fail Within Timeout    4    1    Check One Group 2-5
     Reconnect Peers
     ${entries}    Get Filter Entry    10    permit    esgt=20,40    pl=10.10.0.0/16
     Add Filter    GROUP    outbound    ${entries}    policy=manual-update
     Reconnect Peers
-    Wait Until Keyword Succeeds    4    1    Check Two Group 2-5
+    Wait Until Keyword Succeeds    4    2    Check Two Group 2-5
 
 *** Keywords ***
 Reconnect Peers
