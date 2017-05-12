@@ -14,6 +14,8 @@ ${ROUTERS}        ROUTER_1
 ${RESP_CODE}      200
 ${RESP_ERROR_CODE}    400
 ${MAC_REGEX}      ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})
+${IP_REGEX}       (([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])
+${IP6_REGEX}      (2001:([0-9A-Fa-f]{0,4}:){1,6}([0-9A-Fa-f]{1,4}))
 ${PING_REGEXP}    , 0% packet loss
 ${NO_PING_REGEXP}    , 100% packet loss
 # Values passed for ARP_Learning
@@ -50,6 +52,10 @@ ${INTERVAL_31000}    {"tunnel-monitor-interval":{"interval":31000}}
 ${NETWORK_URL}    ${CONFIG_API}/neutron:neutron/networks/
 ${SUBNETWORK_URL}    ${CONFIG_API}/neutron:neutron/subnets/
 ${PORT_URL}       ${CONFIG_API}/neutron:neutron/ports/
+${ROUTER_URL}     ${CONFIG_API}/neutron:neutron/routers/
+${FIB_ENTRY_URL}    ${CONFIG_API}/odl-fib:fibEntries/
+${VPN_IFACES_URL}    ${CONFIG_API}/l3vpn:vpn-interfaces/
+${VPN_PORT_DATA_URL}    ${CONFIG_API}/neutronvpn:neutron-vpn-portip-port-data/
 ${TUNNEL_MONITOR_URL}    ${OPERATIONAL_API}/itm-config:tunnel-monitor-params/
 ${MONITOR_INTERVAL_URL}    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
 ${TUNNEL_TRANSPORTZONE}    ${CONFIG_API}/itm:transport-zones
