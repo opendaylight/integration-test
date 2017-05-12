@@ -24,13 +24,13 @@ Access List Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}
     Setup Nodes
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-5
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-5
     Delete Filter    GROUP    outbound
     ${entry1}    Get Filter Entry    10    permit    acl=10.20.0.0,0.0.255.255
     ${entry2}    Get Filter Entry    20    permit    acl=10.10.0.0,0.0.255.0
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    outbound    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check Two Group 4-5
+    Wait Until Keyword Succeeds    4    2    Check Two Group 4-5
 
 Access List Sgt Filtering
     [Documentation]    Test ACL and SGT filter behaviour during filter update
@@ -43,11 +43,11 @@ Access List Sgt Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}
     Setup Nodes
-    Wait Until Keyword Succeeds    4    1    Check One Group 2-5
+    Wait Until Keyword Succeeds    4    2    Check One Group 2-5
     Delete Filter    GROUP    outbound
     ${entries}    Get Filter Entry    10    permit    esgt=20,40    acl=10.10.0.0,0.0.255.255
     Add Filter    GROUP    outbound    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check Two Group 2-5
+    Wait Until Keyword Succeeds    4    2    Check Two Group 2-5
 
 Prefix List Filtering
     [Documentation]    Test Prefix List filter behaviour during filter update
@@ -60,13 +60,13 @@ Prefix List Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}
     Setup Nodes
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-5
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-5
     Delete Filter    GROUP    outbound
     ${entry1}    Get Filter Entry    10    permit    pl=10.20.0.0/16
     ${entry2}    Get Filter Entry    20    permit    epl=10.10.0.0/16,le,24
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    outbound    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check Two Group 4-5
+    Wait Until Keyword Succeeds    4    2    Check Two Group 4-5
 
 Prefix List Sgt Filtering
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
@@ -79,8 +79,8 @@ Prefix List Sgt Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}
     Setup Nodes
-    Wait Until Keyword Succeeds    4    1    Check One Group 2-5
+    Wait Until Keyword Succeeds    4    2    Check One Group 2-5
     Delete Filter    GROUP    outbound
     ${entries}    Get Filter Entry    10    permit    esgt=20,40    pl=10.10.0.0/16
     Add Filter    GROUP    outbound    ${entries}
-    Wait Until Keyword Succeeds    4    1    Check Two Group 2-5
+    Wait Until Keyword Succeeds    4    2    Check Two Group 2-5

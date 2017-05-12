@@ -24,21 +24,21 @@ Access List Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound    ${entries}    policy=manual-update
     Setup Topology Complex
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-2
     Delete Filter    GROUP    inbound
     Verify Keyword Does Not Fail Within Timeout    4    1    Check One Group 4-2
     Reconnect Peers
     ${entries}    Get Filter Entry    10    permit    acl=10.0.0.0,0.255.255.255
     Add Filter    GROUP    inbound    ${entries}    policy=manual-update
     Reconnect Peers
-    Wait Until Keyword Succeeds    4    1    Check Two Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check Two Group 4-2
     Delete Filter    GROUP    inbound
     Verify Keyword Does Not Fail Within Timeout    4    1    Check Two Group 4-2
     Reconnect Peers
     ${entries}    Get Filter Entry    10    deny    acl=10.0.0.0,0.255.255.255
     Add Filter    GROUP    inbound    ${entries}    policy=manual-update
     Reconnect Peers
-    Wait Until Keyword Succeeds    4    1    Check Three Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check Three Group 4-2
 
 Access List Sgt Filtering
     [Documentation]    Test ACL and SGT filter behaviour during filter update
@@ -50,14 +50,14 @@ Access List Sgt Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound    ${entries}    policy=manual-update
     Setup Topology Complex
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check One Group 5-3
     Delete Filter    GROUP    inbound
     Verify Keyword Does Not Fail Within Timeout    4    1    Check One Group 5-3
     Reconnect Peers
     ${entries}    Get Filter Entry    10    permit    esgt=20,40    acl=10.0.0.0,0.255.255.255
     Add Filter    GROUP    inbound    ${entries}    policy=manual-update
     Reconnect Peers
-    Wait Until Keyword Succeeds    4    1    Check Two Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check Two Group 5-3
 
 Prefix List Filtering
     [Documentation]    Test Prefix List filter behaviour during filter update
@@ -69,21 +69,21 @@ Prefix List Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound    ${entries}    policy=manual-update
     Setup Topology Complex
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check One Group 4-2
     Delete Filter    GROUP    inbound
     Verify Keyword Does Not Fail Within Timeout    4    1    Check One Group 4-2
     Reconnect Peers
     ${entries}    Get Filter Entry    10    permit    pl=10.0.0.0/8
     Add Filter    GROUP    inbound    ${entries}    policy=manual-update
     Reconnect Peers
-    Wait Until Keyword Succeeds    4    1    Check Two Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check Two Group 4-2
     Delete Filter    GROUP    inbound
     Verify Keyword Does Not Fail Within Timeout    4    1    Check Two Group 4-2
     Reconnect Peers
     ${entries}    Get Filter Entry    10    deny    pl=10.0.0.0/8
     Add Filter    GROUP    inbound    ${entries}    policy=manual-update
     Reconnect Peers
-    Wait Until Keyword Succeeds    4    1    Check Three Group 4-2
+    Wait Until Keyword Succeeds    4    2    Check Three Group 4-2
 
 Prefix List Sgt Filtering
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
@@ -95,14 +95,14 @@ Prefix List Sgt Filtering
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound    ${entries}    policy=manual-update
     Setup Topology Complex
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check One Group 5-3
     Delete Filter    GROUP    inbound
     Verify Keyword Does Not Fail Within Timeout    4    1    Check One Group 5-3
     Reconnect Peers
     ${entries}    Get Filter Entry    10    permit    esgt=20,40    pl=10.0.0.0/8
     Add Filter    GROUP    inbound    ${entries}    policy=manual-update
     Reconnect Peers
-    Wait Until Keyword Succeeds    4    1    Check Two Group 5-3
+    Wait Until Keyword Succeeds    4    2    Check Two Group 5-3
 
 *** Keywords ***
 Reconnect Peers
