@@ -22,6 +22,30 @@
       "revId": "a41bc9031102a287021b9cd48968787ac1d5ec0c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_13bb58e6",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-05-15T12:16:39Z",
+      "side": 1,
+      "message": "Wait_For_Transactions does not really care about the number of responses, so it will not fail on 198. It cares about the threads/http requests to finish. It returns all responses present in the queue from threads.\n\nWait_For_Transactions returns the first response from the queue, leaving thread object untouched.\n\nThe behavior described will not happen.",
+      "parentUuid": "ba068154_980c8744",
+      "range": {
+        "startLine": 188,
+        "startChar": 33,
+        "endLine": 188,
+        "endChar": 63
+      },
+      "revId": "a41bc9031102a287021b9cd48968787ac1d5ec0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
