@@ -13,6 +13,7 @@ Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/Tcpdump.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
@@ -106,6 +107,14 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[2]    ${VM_IP_ELAN3[1]}    ping -c 3 ${VM_IP_ELAN2[1]}
     Should Not Contain    ${output}    ${PING_PASS}
     Log    Reboot VM instance and verify flow
+    Get Test Teardown Debugs
+    ${filename_prefix}    Replace String    ${TEST_NAME}    ${SPACE}    _
+    ${cn1_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_1_IP}    file_Name=${filename_prefix}_CN1
+    ${cn2_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_2_IP}    file_Name=${filename_prefix}_CN2
+    ${os_conn_id} =    Start Packet Capture on Node    ${OS_CONTROL_NODE_IP}    file_Name=${filename_prefix}_OS
+    # Because of bug 8389 which is infrequently happening, it's requested to add these extra debugs just before and after the
+    # nova reboot step. Once 8389 is resolved, we can remove this line to get debugs before nova reboot. The debugs will be
+    # collected immediately after when that step fails, as is the nature of robot test cases.
     Reboot Nova VM    ${VM_INSTANCES_ELAN2[0]}
     Wait Until Keyword Succeeds    30s    10s    Verify VM Is ACTIVE    ${VM_INSTANCES_ELAN2[0]}
     ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    30s    10s    Collect VM IP Addresses    true
@@ -117,6 +126,9 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     Should Contain    ${output}    ${PING_PASS}
     [Teardown]    Run Keywords    Get Test Teardown Debugs
     ...    AND    MultipleElan Testsuite Cleanup
+    ...    AND    Stop Packet Capture on Node    ${cn1_conn_id}
+    ...    AND    Stop Packet Capture on Node    ${cn2_conn_id}
+    ...    AND    Stop Packet Capture on Node    ${os_conn_id}
 
 *** Keywords ***
 Elan SuiteSetup
