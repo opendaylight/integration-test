@@ -30,18 +30,31 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 ${PREF_BASED_SHARD}    id-ints
 ${SHARD_TYPE}     config
 ${TRANSACTION_RATE_1K}    ${1000}
-${DURATION_10S}    ${10}
+${DURATION}       ${30}
 ${SIMPLE_TX}      ${False}
 ${CHAINED_TX}     ${True}
-${SHARD_PREFIX}    member-
 ${ID_PREFIX}      prefix-
 
 *** Test Cases ***
-Produce_Transactions
-    [Documentation]    Write transactions.
+Produce_Transactions_One_Node_Leader
+    [Documentation]    Produce transactions.
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}    verify_restconf=False
+    ${leader_idx_as_list} =    BuiltIn.Create_List    ${leader}
+    ${leader_ip_as_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${leader_idx_as_list}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${leader_ip_as_list}    ${leader_idx_as_list}    ${ID_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}
+    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
+    : FOR    ${resp}    IN    @{resp_list}
+    \    TemplatedRequests.Check_Status_Code    ${resp}
+
+Produce_Transactions_One_Node_Follower
+    [Documentation]    Produce transactions.
+    ${all_indices} =    ClusterManagement.List_All_Indices
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}    verify_restconf=False
+    ${follower_idx} =    Collections.Get_From_List    ${follower_list}    ${0}
+    ${follower_idx_as_list} =    BuiltIn.Create_List    ${follower_idx}
+    ${follower_ip_as_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${follower_idx_as_list}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${follower_ip_as_list}    ${follower_idx_as_list}    ${ID_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}
@@ -68,6 +81,7 @@ Remove_Leader_Prefix_Shard_Replica_And_Add_It_Back
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Verify_Shard_Replica_Removed    ${old_leader}    ${shard_name}!!    ${shard_type}
     ${actual_leader}    ${actual_follower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!
     ...    verify_restconf=False    shard_type=${shard_type}    member_index_list=${follower_list}
+    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${old_leader}    ${actual_leader}
     ClusterAdmin.Add_Prefix_Shard_Replica    ${old_leader}    ${shard_name}    ${shard_type}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
     ...    verify_restconf=False
@@ -86,3 +100,29 @@ Remove_Follower_Prefix_Shard_Replica_And_Add_It_Back
     ClusterAdmin.Add_Prefix_Shard_Replica    ${follower1}    ${shard_name}    ${shard_type}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
     ...    verify_restconf=False
+
+Produce_Transactions
+    [Documentation]    Produce transactions.
+    ${all_indices} =    ClusterManagement.List_All_Indices
+    ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}
+    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
+    : FOR    ${resp}    IN    @{resp_list}
+    \    TemplatedRequests.Check_Status_Code    ${resp}
+
+Subscribe_Listener_To_Leader
+    [Documentation]    Subscribe listener to leader.
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}    verify_restconf=False
+    MdsalLowlevel.Subscribe_Ddtl    ${leader}
+    BuiltIn.Sleep    5s
+    ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl    ${leader}
+    BuiltIn.Should_Be_True    ${copy_matches}
+
+Subscribe_Listener_To_Follower
+    [Documentation]    Subscribe listener to leader.
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}    verify_restconf=False
+    ${follower_idx} =    Collections.Get_From_List    ${follower_list}    ${0}
+    MdsalLowlevel.Subscribe_Ddtl    ${follower_idx}
+    BuiltIn.Sleep    5s
+    ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl    ${follower_idx}
+    BuiltIn.Should_Be_True    ${copy_matches}
