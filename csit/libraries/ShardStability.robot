@@ -32,14 +32,14 @@ Shards_Stability_Init_Details
     BuiltIn.Set_Suite_Variable    ${stored_details}    ${shards_details}
 
 Shards_Stability_Get_Details
-    [Arguments]    ${shard_list}    ${member_index_list}=${EMPTY}
+    [Arguments]    ${shard_list}    ${member_index_list}=${EMPTY}    ${http_timeout}=5
     [Documentation]    Return shard details stored in dictionary.
     ...    ${shard_list} should be initialized as @{list} shard_name1:shard_type1 shard_name2:shard..
     &{shards_details}    BuiltIn.Create_Dictionary
     : FOR    ${shard_details}    IN    @{shard_list}
     \    ${shard_name}    ${shard_type}    String.Split_String    ${shard_details}    separator=:
     \    ${leader}    ${followers}    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${member_index_list}
-    \    ...    verify_restconf=False
+    \    ...    verify_restconf=False    http_timeout=${http_timeout}
     \    Collections.Sort_List    ${followers}
     \    Collections.Set_To_Dictionary    ${shards_details}    ${shard_name}_${shard_type}_leader=${leader}
     \    Collections.Set_To_Dictionary    ${shards_details}    ${shard_name}_${shard_type}_followers=${followers}
