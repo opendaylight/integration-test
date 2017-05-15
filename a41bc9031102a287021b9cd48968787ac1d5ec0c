@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_980c8744",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-15T11:46:15Z",
+      "side": 1,
+      "message": "Line 133 has started 3 writers, each is expected to be failed by now. This removes one response, other ones will be extracted in line 196, causing a failure in line 198.\n\nEither extract failures here, or perhaps reset globals in line 195.",
+      "range": {
+        "startLine": 188,
+        "startChar": 33,
+        "endLine": 188,
+        "endChar": 63
+      },
+      "revId": "a41bc9031102a287021b9cd48968787ac1d5ec0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
