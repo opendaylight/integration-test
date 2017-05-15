@@ -47,7 +47,7 @@ Create Subnets For l2_network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     Create SubNet    @{NETWORKS_NAME}[1]    @{SUBNETS_NAME}[1]    @{SUBNETS_RANGE}[1]
 
-Add Ssh Allow Rule
+Add Ssh Allow Rule x
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
     Neutron Security Group Create    csit
     Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
