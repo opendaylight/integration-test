@@ -44,7 +44,7 @@ Get_Ipv4_Topology_Count
 Get_Ipv4_Topology_Count_With_Shards_Check
     [Arguments]    ${shards_list}    ${details_exp}    ${session}=operational    ${topology}=example-ipv4-topology
     [Documentation]    Get topology after the shards stability check passes. If not fail, return number of prefixes in the topology.
-    ${details_actual}=    ShardStability.Shards_Stability_Get_Details    ${shards_list}
+    ${details_actual}=    ShardStability.Shards_Stability_Get_Details    ${shards_list}    http_timeout=15
     ShardStability.Shards_Stability_Compare_Same    ${details_actual}    stateless_details=${details_exp}
     ${topology} =    Get_Ipv4_Topology    session=${session}    topology=${topology}
     # Triple quotes are precaution against formatted output.
