@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_9773d4b0",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_3f6ee02f",
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_1f695c25",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -90,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_f767c0e8",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_52d75bed",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_9f642c4a",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -101,6 +143,30 @@
       "writtenOn": "2017-04-24T23:44:05Z",
       "side": 1,
       "message": "this is available in variables/netvirt/Variables.robot so no\nneed to add it here.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 58
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_d7643ce7",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_9f642c4a",
       "range": {
         "startLine": 44,
         "startChar": 0,
@@ -136,6 +202,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_3762e8d8",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_df5eb475",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 67
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_1f503c5d",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -147,6 +237,30 @@
       "writtenOn": "2017-04-24T23:44:05Z",
       "side": 1,
       "message": "use ${NETWORK_URL}",
+      "range": {
+        "startLine": 56,
+        "startChar": 76,
+        "endLine": 56,
+        "endChar": 115
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_175fe40f",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_1f503c5d",
       "range": {
         "startLine": 56,
         "startChar": 76,
@@ -182,6 +296,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_779bd0c9",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_5f4ac4ac",
+      "range": {
+        "startLine": 76,
+        "startChar": 76,
+        "endLine": 76,
+        "endChar": 114
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_bfef7086",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -205,6 +343,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_57a04cf4",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_bfef7086",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 18
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_9ff26c6d",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -216,6 +378,30 @@
       "writtenOn": "2017-04-24T23:44:05Z",
       "side": 1,
       "message": "${PORT_URL}",
+      "range": {
+        "startLine": 114,
+        "startChar": 76,
+        "endLine": 114,
+        "endChar": 112
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b7a53806",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_9ff26c6d",
       "range": {
         "startLine": 114,
         "startChar": 76,
@@ -322,6 +508,54 @@
     },
     {
       "key": {
+        "uuid": "ba068154_8db0cb8c",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "The change, that introduces new keyword \"Collect VM IPv6 SLAAC Addresses\" was merged, see https://git.opendaylight.org/gerrit/#/c/54801/. So I continue to use it in basic_ipv6_vpnservice.robot.",
+      "parentUuid": "da01753e_d6a332b0",
+      "range": {
+        "startLine": 135,
+        "startChar": 23,
+        "endLine": 135,
+        "endChar": 54
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_97aab4d2",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_5ff80449",
+      "range": {
+        "startLine": 135,
+        "startChar": 23,
+        "endLine": 135,
+        "endChar": 54
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_f41652a6",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -375,6 +609,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_f7aea0e6",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_149796ed",
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_bf9650ee",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -386,6 +638,30 @@
       "writtenOn": "2017-04-24T23:44:05Z",
       "side": 1,
       "message": "not needed.",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 23
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_2490dc42",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_bf9650ee",
       "range": {
         "startLine": 172,
         "startChar": 0,
@@ -421,6 +697,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_449fe052",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_9f99cc21",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 23
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_ffa0d844",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -432,6 +732,30 @@
       "writtenOn": "2017-04-24T23:44:05Z",
       "side": 1,
       "message": "not needed. same as below",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 33
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_a4a32c9d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_ffa0d844",
       "range": {
         "startLine": 279,
         "startChar": 0,
@@ -467,6 +791,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_2da55f53",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_1f85dcac",
+      "range": {
+        "startLine": 357,
+        "startChar": 0,
+        "endLine": 357,
+        "endChar": 21
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_ffb73884",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -490,6 +838,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_24b73cda",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_ffb73884",
+      "range": {
+        "startLine": 441,
+        "startChar": 59,
+        "endLine": 441,
+        "endChar": 113
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_1facbc34",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
         "patchSetId": 5
@@ -501,6 +873,30 @@
       "writtenOn": "2017-04-24T23:44:05Z",
       "side": 1,
       "message": "dont need these extra comments. line 465 is pretty clear",
+      "range": {
+        "startLine": 464,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 33
+      },
+      "revId": "1bd945d705a5e4fdcc699989e4fd48eb4d0d7b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_04bcb8ba",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2017-05-15T08:31:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_1facbc34",
       "range": {
         "startLine": 464,
         "startChar": 0,
