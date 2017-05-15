@@ -6,6 +6,7 @@ Suite Teardown    Clean Up After Running Tempest
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Run Keywords    Get Test Teardown Debugs
 Test Template     DevstackUtils.Run Tempest Tests
+Library           OperatingSystem
 Library           SSHLibrary
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
@@ -129,8 +130,8 @@ Create Blacklist File
     [Documentation]    For each exclusion regex in the required @{${OPENSTACK_BRANCH}_exclusion_regexes} list a new
     ...    line will be created in the required ${blacklist_file} location. This file is pushed to the OS_CONTROL_NODE
     ...    which is assumed to be the tempest executor.
-    Create File    ${blacklist_file}
+    OperatingSystem.Create File    ${blacklist_file}
     : FOR    ${exclusion}    IN    @{${OPENSTACK_BRANCH}_exclusion_regexes}
-    \    Append To File    ${blacklist_file}    ${exclusion}\n
+    \    OperatingSystem.Append To File    ${blacklist_file}    ${exclusion}\n
     Log File    ${blacklist_file}
     SSHKeywords.Copy File To Remote System    ${OS_CONTROL_NODE_IP}    ${blacklist_file}    ${blacklist_file}
