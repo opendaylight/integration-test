@@ -7,7 +7,7 @@ Library           DateTime
 Library           Process
 Library           Collections
 Library           RequestsLibrary
-Library           OperatingSystem    WITH NAME    os
+Library           OperatingSystem
 Library           ${CURDIR}/UtilLibrary.py
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
@@ -494,6 +494,6 @@ Json Parse From String
 Json Parse From File
     [Arguments]    ${json_file}
     [Documentation]    Parse given file content into json (dictionary)
-    ${json_plain_string}    os.Get file    ${json_file}
+    ${json_plain_string}    Get file    ${json_file}
     ${json_data}    Json Parse From String    ${json_plain_string}
     [Return]    ${json_data}
