@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_de6394af",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-05-16T02:33:29Z",
+      "side": 1,
+      "message": "curious why in the netvirt file we use OperatingSystem.xxx but here without OperatingSystem? I like using OperatingSystem to make it clear where the method is coming from, but either way is fine.",
+      "revId": "dbfc2df8c1634fb9f5fe739d5bba52d51c9fd0fd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
