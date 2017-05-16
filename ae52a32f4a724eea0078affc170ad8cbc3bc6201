@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_eaa172aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-16T16:44:28Z",
+      "side": 1,
+      "message": "can you update the commit message to detail the purpose of\nthis patch? I noticed it seems to be removing a bunch\nof test cases.\n\nalso, using default sg is fine, but having a custom sg also\nseems like a decent test case. are we covered there\nsomewhere else?",
+      "revId": "ae52a32f4a724eea0078affc170ad8cbc3bc6201",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
