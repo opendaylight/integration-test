@@ -12,6 +12,7 @@ Documentation     DOMDataBroker testing: Common keywords
 Library           ${CURDIR}/../MdsalLowlevelPy.py
 Resource          ${CURDIR}/../ClusterAdmin.robot
 Resource          ${CURDIR}/../ClusterManagement.robot
+Resource          ${CURDIR}/../KarafKeywords.robot
 Resource          ${CURDIR}/../MdsalLowlevel.robot
 Resource          ${CURDIR}/../TemplatedRequests.robot
 Resource          ${CURDIR}/../ShardStability.robot
@@ -138,6 +139,7 @@ Leader_Isolation_Test_Templ
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${producing_transactions_time}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ${date_start} =    DateTime.Get_Current_Date
     ${date_end} =    DateTime.Add_Time_To_Date    ${date_start}    ${producing_transactions_time}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${leader}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${True}
     BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}    ${shard_type}    ${True}
@@ -149,6 +151,7 @@ Leader_Isolation_Test_Templ
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
     BuiltIn.Should_Be_Equal    ${resp}    ${NONE}    No response expected, received ${resp}
     BuiltIn.Sleep    ${heal_timeout}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${leader}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
@@ -170,6 +173,7 @@ Leader_Isolation_PrefBasedShard_Test_Templ
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${producing_transactions_time}    ${TRANSACTION_RATE_1K}
     ${date_start} =    DateTime.Get_Current_Date
     ${date_end} =    DateTime.Add_Time_To_Date    ${date_start}    ${producing_transactions_time}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${leader}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${True}
     BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!    ${shard_type}    ${True}
@@ -181,6 +185,7 @@ Leader_Isolation_PrefBasedShard_Test_Templ
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
     BuiltIn.Should_Be_Equal    ${resp}    ${NONE}    No response expected, received ${resp}
     BuiltIn.Sleep    ${heal_timeout}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${leader}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
@@ -243,13 +248,15 @@ Client_Isolation_Test_Templ
     ${start_date}    DateTime.Get_Current_Date
     ${timeout_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${TRANSACTION_TIMEOUT}
     ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${HARD_TIMEOUT}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${client_node_dst}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
     ${trans_timeout} =    Get_Seconds_To_Time    ${timeout_date}
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${trans_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
     ${hard_timeout} =    Get_Seconds_To_Time    ${abort_date}
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${hard_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
     BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    Ongoing_Transactions_Failed
-    [Teardown]    BuiltIn.Run Keywords    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
+    [Teardown]    BuiltIn.Run Keywords    KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${client_node_dst}
+    ...    AND    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
     ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
     ...    AND    MdsalLowlevelPy.Wait_For_Transactions
 
@@ -267,13 +274,15 @@ Client_Isolation_PrefBasedShard_Test_Templ
     ${start_date}    DateTime.Get_Current_Date
     ${timeout_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${TRANSACTION_TIMEOUT}
     ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${HARD_TIMEOUT}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${client_node_dst}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
     ${trans_timeout} =    Get_Seconds_To_Time    ${timeout_date}
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${trans_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
     ${hard_timeout} =    Get_Seconds_To_Time    ${abort_date}
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${hard_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
     BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    Ongoing_Transactions_Failed
-    [Teardown]    BuiltIn.Run Keywords    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
+    [Teardown]    BuiltIn.Run Keywords    KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${client_node_dst}
+    ...    AND    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
     ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
     ...    AND    MdsalLowlevelPy.Wait_For_Transactions
 
