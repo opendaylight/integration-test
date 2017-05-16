@@ -369,3 +369,11 @@ Verify_Shard_Replica_Removed
     ${uri} =    BuiltIn.Set_Variable    /jolokia/read/org.opendaylight.controller:Category=Shards,name=member-${member_index}-shard-${shard_name}-${shard_type},type=${type_class}
     ${text}    TemplatedRequests.Get_From_Uri    uri=${uri}    session=${session}
     BuiltIn.Should_Contain    ${text}    "status":404    javax.management.InstanceNotFoundException
+
+Restart_Test_Templ
+    [Documentation]    Kill every odl node and start again.
+    ClusterManagement.Kill_Members_From_List_Or_All
+    ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir=/tmp
+    ClusterManagement.Start_Members_From_List_Or_All
+    BuiltIn.Wait_Until_Keyword_Succeeds    300s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
+    ClusterManagement.Run_Bash_Command_On_List_Or_All    ps -ef | grep java

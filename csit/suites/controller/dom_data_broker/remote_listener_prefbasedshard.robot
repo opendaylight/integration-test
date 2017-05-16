@@ -27,6 +27,11 @@ Listener_On_Shard_Leader_Node
     [Documentation]    Listener runs on leader node when leader changed.
     leader
 
+Restart
+    [Documentation]    Restart odl
+    [Template]
+    DdbCommons.Restart_Test_Templ
+
 Listener_On_Shard_Non_Leader_Node
     [Documentation]    Listener runs on non-leader node when leader changed.
     non-leader
