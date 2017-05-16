@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_9e90eced",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5278
+      },
+      "writtenOn": "2017-05-16T07:01:37Z",
+      "side": 1,
+      "message": "can you also dump flows/groups before and after VM reboot ? Also capture ODL\u0027s operational/ietf-interfaces:interfaces-state data store dump and ovs-ofctl show br-int output.\n\nRight now all the above logs can be analyzed only in the teardown logs and giving any clue about what is going on. \n\nso capturing this would help to narrow down to the issue.",
+      "revId": "f793e9b3f40f0216c96ec44db6c44ad28585510f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
