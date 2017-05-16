@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_eb20554b",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-16T23:10:51Z",
+      "side": 1,
+      "message": "I see this is how we are going to validate if our command\nwas successul (returns 0) or not. seems hack-ish, but better\nthan anything I can think of at the moment.",
+      "range": {
+        "startLine": 66,
+        "startChar": 30,
+        "endLine": 66,
+        "endChar": 54
+      },
+      "revId": "94d1c53901c04283d217fd677077b3c5d6be9d21",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_cb1bd11a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-16T23:10:51Z",
+      "side": 1,
+      "message": "curious, did the neutron cli not get fully implemented in the \nopenstack cli for newton?",
+      "range": {
+        "startLine": 105,
+        "startChar": 15,
+        "endLine": 105,
+        "endChar": 72
+      },
+      "revId": "94d1c53901c04283d217fd677077b3c5d6be9d21",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

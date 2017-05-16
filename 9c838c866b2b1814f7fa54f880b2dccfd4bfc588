@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_cbe2b100",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-16T23:10:51Z",
+      "side": 0,
+      "message": "I wonder why removing this arg did not cause any troubles?",
+      "range": {
+        "startLine": 250,
+        "startChar": 90,
+        "endLine": 250,
+        "endChar": 120
+      },
+      "revId": "9c838c866b2b1814f7fa54f880b2dccfd4bfc588",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_0bedd9ef",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/01_basic_vpnservice.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-16T23:10:51Z",
+      "side": 0,
+      "message": "removing a check?",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 62
+      },
+      "revId": "9c838c866b2b1814f7fa54f880b2dccfd4bfc588",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
