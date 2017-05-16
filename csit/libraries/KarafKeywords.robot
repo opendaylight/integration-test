@@ -200,7 +200,7 @@ Wait_For_Karaf_Log
     # "Flexible SSH Login" keyword from the patch above (45596) was failing.
     BuiltIn.Log    Waiting for '${message}' in karaf log
     SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=${timeout}
-    BuiltIn.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
+    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
     SSHLibrary.Write    log:tail
     SSHLibrary.Read_Until    ${message}
     SSHLibrary.Close_Connection
