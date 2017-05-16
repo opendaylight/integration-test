@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_8f48b85c",
+        "filename": "csit/testplans/controller-clustering.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-16T13:56:16Z",
+      "side": 1,
+      "message": "The plan is to add stronger readiness checks here, so even if this is probably satisfied by releng/builder waiting for restconf, the testplan is more consistent when starting with reboot.",
+      "range": {
+        "startLine": 2,
+        "startChar": 83,
+        "endLine": 2,
+        "endChar": 89
+      },
+      "revId": "9798b7b4959365fb949c166b6f6fee3b2f953926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
