@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_aae5aaa9",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-16T17:35:48Z",
+      "side": 1,
+      "message": "it\u0027s using ${number} which is an arg to the keyword.\nwe can move the bugs.opendaylight.org stuff to a \nconstant if it\u0027s beneficial.",
+      "parentUuid": "ba068154_6a546254",
+      "revId": "4e4674b9ebaa08ec40c06abf6f5b9703323ad233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_ca658e46",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2017-05-16T17:29:29Z",
       "side": 1,
       "message": "tag is a url? might be nice and quick to jump to it if it works. Otherwise just the number is fine.\n\nOther comment, I guess this only works if you have a bug. For tests we know will fail or are not ready we would have to add this in there also. Again, not a biggie since you just need to add \"[Teardown]    Run Keywords    Report_Failure_Due_To_Bug    xxxx\"",
+      "revId": "4e4674b9ebaa08ec40c06abf6f5b9703323ad233",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_eaee928a",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-16T17:35:48Z",
+      "side": 1,
+      "message": "yes, tag is a url. it works. I\u0027ll put links to show it working in another comment.\n\nif tests are failing they need to be failing because of a\nbug, in our ideal world. otherwise, hopefully whatever \nthe problem is, is being worked on asap to get cleaned up.",
+      "parentUuid": "ba068154_ca658e46",
       "revId": "4e4674b9ebaa08ec40c06abf6f5b9703323ad233",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
