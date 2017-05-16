@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ba068154_8fb6f83b",
+        "filename": "csit/testplans/bgpcep-bgpclustering.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-16T14:00:44Z",
+      "side": 1,
+      "message": "3node datastore is less memory efficient (akka serialization hides de-duplicated strustures), but I cannot find a Bug for addressing that, so I keep the suites in for now. They should fail fairly quickly.",
+      "range": {
+        "startLine": 17,
+        "startChar": 77,
+        "endLine": 17,
+        "endChar": 79
+      },
+      "revId": "9798b7b4959365fb949c166b6f6fee3b2f953926",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_8f48b85c",
         "filename": "csit/testplans/controller-clustering.txt",
         "patchSetId": 1
