@@ -5,3 +5,4 @@ integration/test/csit/suites/openflowplugin/Clustering/030__Cluster_HA_Data_Reco
 integration/test/csit/suites/openflowplugin/EntityOwnership/010_Switch_Disconnect.robot
 integration/test/csit/suites/openflowplugin/EntityOwnership/020_Cluster_Node_Failure.robot
 integration/test/csit/suites/openflowplugin/EntityOwnership/030_Cluster_Sync_Problems.robot
+integration/test/csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot
