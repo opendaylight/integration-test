@@ -70,8 +70,8 @@ Download VtnCo Distribution
     CompareStream.Run_Keyword_If_At_Least_Boron    SSHLibrary.Get_file    maven-metadata.xml
     ${value}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshotVersion[1]/value
     CompareStream.Run_Keyword_If_Equals    boron    SSHLibrary.Execute Command    wget '${vtn_coordinator_nexus_path}/${boron_version}/${vtn_dist}-${value}-bin.tar.bz2'
-    CompareStream.Run_Keyword_If_Equals    carbon    SSHLibrary.Execute Command    wget '${vtn_coordinator_nexus_path}/${carbon_version}/${vtn_dist}-${value}-bin.tar.bz2'
-    SSHLibrary.Execute Command    tar -C/ -jxvf ${vtn_dist}*-bin.tar.bz2
+    CompareStream.Run_Keyword_If_Equals    carbon    SSHLibrary.Execute Command    wget 'https://nexus.opendaylight.org/content/repositories/autorelease-1802/org/opendaylight/vtn/distribution.vtn-coordinator/6.4.0-Carbon/distribution.vtn-coordinator-6.4.0-Carbon-bin.tar.bz2'
+    SSHLibrary.Execute Command    tar -C/ -jxvf distribution.vtn-coordinator-6.4.0-Carbon-bin.tar.bz2
 
 Stop SuiteVtnCo
     [Documentation]    Exit the Launch Test
