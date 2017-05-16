@@ -32,7 +32,7 @@ ${SIMPLE_TX}      ${False}
 ${CHAINED_TX}     ${True}
 ${ISOLATED_TRANS_TRUE}    ${True}
 ${ISOLATED_TRANS_FALSE}    ${False}
-${HARD_TIMEOUT}    ${2*${TRANSACTION_TIMEOUT}}
+${HARD_TIMEOUT}    ${120}
 @{TRANSACTION_FAILED}    ${500}
 ${PREF_BASED_SHARD}    id-ints
 ${TEST_LOG_LEVEL}    info
