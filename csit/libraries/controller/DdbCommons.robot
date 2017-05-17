@@ -49,7 +49,7 @@ Explicit_Leader_Movement_Test_Templ
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ClusterAdmin.Make_Leader_Local    ${idx_to}    ${shard_name}    ${shard_type}
     ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}
-    ...    ${shard_type}    ${True}    ${idx_from}
+    ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     TemplatedRequests.Check_Status_Code    @{resp_list}[0]
@@ -64,7 +64,7 @@ Explicit_Leader_Movement_PrefBasedShard_Test_Templ
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}
     MdsalLowlevel.Become_Prefix_Leader    ${idx_to}    ${shard_name}    ${ID_PREFIX}
     ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
-    ...    ${shard_type}    ${True}    ${idx_from}
+    ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     TemplatedRequests.Check_Status_Code    @{resp_list}[0]
