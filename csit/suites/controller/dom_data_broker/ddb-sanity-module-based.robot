@@ -34,6 +34,12 @@ ${CHAINED_TX}     ${True}
 ${MODULE_SHARD_PREFIX}    prefix-
 
 *** Test Cases ***
+Get_Shard_Role
+    [Documentation]    Get shard role.
+    ${all_indices} =    ClusterManagement.List_All_Indices
+    : FOR    ${index}    IN    @{all_indices}
+    \    ${role} =    ClusterAdmin.Get_Shard_Role    ${index}    ${SHARD_NAME}    ${SHARD_TYPE}
+
 Write_Transactions_One_Node_Leader
     [Documentation]    Write transactions.
     ${all_indices} =    ClusterManagement.List_All_Indices
