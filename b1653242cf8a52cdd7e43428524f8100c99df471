@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_1116a6f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-17T08:22:14Z",
+      "side": 1,
+      "message": "Also client isolation please.",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 40
+      },
+      "revId": "b1653242cf8a52cdd7e43428524f8100c99df471",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f120424b",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-17T08:22:14Z",
+      "side": 1,
+      "message": "I think we also need to delete all the data (except karaf.log):\n    ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir\u003d/tmp",
+      "range": {
+        "startLine": 375,
+        "startChar": 50,
+        "endLine": 375,
+        "endChar": 51
+      },
+      "revId": "b1653242cf8a52cdd7e43428524f8100c99df471",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
