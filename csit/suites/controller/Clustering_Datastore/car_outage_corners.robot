@@ -55,7 +55,9 @@ Attempt_To_Add_Cars_To_Leader
     ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    iterations=${CAR_ITEMS}
     ...    iter_start=${MINORITY_START_I}
     # TODO: Is there a specific status and mesage to require in this scenario?
-    BuiltIn.Should_Contain    ${message}    '50
+    # Previously it was 500, now the restconf call simply times out.
+    BuiltIn.Log    ${message}
+    BuiltIn.Should_Be_Equal    ${status}    FAIL
 
 Start_Tipping_Follower
     [Documentation]    Start one Follower member without persisted data.
