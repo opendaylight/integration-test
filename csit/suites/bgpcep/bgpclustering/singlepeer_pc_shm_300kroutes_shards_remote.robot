@@ -91,10 +91,12 @@ Wait_For_Stable_Talking_Ipv4_Topology_1
 Wait_For_Stable_Talking_Ipv4_Topology_2
     [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable. This is done by checking stability of prefix count as seen from node 2.
     PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=0    session=${CONFIGURATION_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    ...    shards_list=${SHARD_MONITOR_LIST}    shards_details=${init_shard_details}
 
 Wait_For_Stable_Talking_Ipv4_Topology_3
     [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable. This is done by checking stability of prefix count as seen from node 3.
     PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=0    session=${CONFIGURATION_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    ...    shards_list=${SHARD_MONITOR_LIST}    shards_details=${init_shard_details}
 
 Check_Talking_Ipv4_Topology_Count_1
     [Documentation]    Count the routes in ${EXAMPLE_IPV4_TOPOLOGY} and fail if the count is not correct as seen from node 1.
@@ -125,16 +127,19 @@ Wait_For_Stable_Ipv4_Topology_After_Listening_1
     [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable again as seen from node 1.
     [Tags]    critical
     PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${COUNT}    session=${CONFIGURATION_1}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    ...    shards_list=${SHARD_MONITOR_LIST}    shards_details=${init_shard_details}
 
 Wait_For_Stable_Ipv4_Topology_After_Listening_2
     [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable again as seen from node 2.
     [Tags]    critical
     PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${COUNT}    session=${CONFIGURATION_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    ...    shards_list=${SHARD_MONITOR_LIST}    shards_details=${init_shard_details}
 
 Wait_For_Stable_Ipv4_Topology_After_Listening_3
     [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable again as seen from node 3.
     [Tags]    critical
     PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${COUNT}    session=${CONFIGURATION_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    ...    shards_list=${SHARD_MONITOR_LIST}    shards_details=${init_shard_details}
 
 Check_For_Empty_Ipv4_Topology_After_Listening_1
     [Documentation]    Example-ipv4-topology should be empty now as seen from node 1.
