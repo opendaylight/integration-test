@@ -18,6 +18,7 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Default Tags      critical
 Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/controller/DdbCommons.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
@@ -33,4 +34,5 @@ Explicit_Leader_Movement_Test
 Test_Scenario
     [Documentation]    One leader movement scenario based on randomly chosen direction.
     ${node_from}    ${node_to}    BuiltIn.Evaluate    random.sample(${MOVEMENT_DIRECTION_LIST}, 2)    modules=random
+    KarafKeywords.Log_Message_To_Controller_Karaf    Starting ${node_from} to ${node_to} test.
     DdbCommons.Explicit_Leader_Movement_Test_Templ    ${node_from}    ${node_to}
