@@ -2,7 +2,7 @@
 TOOLS_WORK_DIR="/tmp"
 
 echo "Extracting the new controller... [${TOOLS_SYSTEM_IP}]"
-ssh ${TOOLS_SYSTEM_IP} wget --progress=dot:mega ${ACTUALBUNDLEURL} -P ${TOOLS_WORK_DIR}
+ssh ${TOOLS_SYSTEM_IP} wget --progress=dot:mega ${ACTUAL_BUNDLE_URL} -P ${TOOLS_WORK_DIR}
 ssh ${TOOLS_SYSTEM_IP} unzip -q ${TOOLS_WORK_DIR}/${BUNDLE} -d ${TOOLS_WORK_DIR}
 
 echo "Set Java version"
