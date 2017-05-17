@@ -3,7 +3,7 @@ Documentation     This suite is a common keywordis file for genius project.
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           SSHLibrary
-Resource          ../../variables/Variables.robot
+Resource          ../variables/Variables.robot
 
 *** Variables ***
 
