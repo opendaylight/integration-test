@@ -16,6 +16,24 @@
       "revId": "f793e9b3f40f0216c96ec44db6c44ad28585510f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ee3a23cc",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-17T00:37:34Z",
+      "side": 1,
+      "message": "ok, patch set 3 will grab the debugs just before the \nvm reboot happens. IFF the reboot fails, robot stops\ndoing any more test steps and moves to the [Teardown]\nsection, which will get the debugs again.",
+      "parentUuid": "ba068154_9e90eced",
+      "revId": "f793e9b3f40f0216c96ec44db6c44ad28585510f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
