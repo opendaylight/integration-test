@@ -25,6 +25,11 @@ Healing_Within_Transaction_Timeout
     ...    and within transaction timeout.
     ${HEAL_WITHIN_TRANS_TIMEOUT}
 
+Restart
+    [Documentation]    Restart odl
+    [Template]
+    DdbCommons.Restart_Test_Templ
+
 Healing_After_2x_Transaction_Timeout
     [Documentation]    The isolated node (leader) is rejoined after 2x transaction timeout.
     ${${TRANSACTION_TIMEOUT_2X}+1}

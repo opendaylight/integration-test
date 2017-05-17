@@ -26,6 +26,11 @@ Local_Leader_Shutdown
     [Documentation]    Shutdown the leader on the same node as transaction producer.
     local
 
+Restart
+    [Documentation]    Restart odl
+    [Template]
+    DdbCommons.Restart_Test_Templ
+
 Remote_Leader_Shutdown
     [Documentation]    Shutdown the leader on different node as transaction producer.
     remote

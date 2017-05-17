@@ -28,9 +28,19 @@ Local_To_Remote_Movement
     [Documentation]    Leader moves from local to remote node during transaction producing.
     local    remote
 
+Restart1
+    [Documentation]    Restart odl
+    [Template]
+    DdbCommons.Restart_Test_Templ
+
 Remote_To_Remote_Movement
     [Documentation]    Leader moves from one remote to other remote node during transaction producing.
     remote    remote
+
+Restart2
+    [Documentation]    Restart odl
+    [Template]
+    DdbCommons.Restart_Test_Templ
 
 Remote_To_Local_Movement
     [Documentation]    Leader moves from remote to local node during transaction producing.
