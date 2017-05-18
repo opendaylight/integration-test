@@ -21,6 +21,7 @@ Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
@@ -129,7 +130,7 @@ Stop_Tool
     [Documentation]    Stops the tool by sending ctrl+c
     ${output}=    SSHLibrary.Read
     BuiltIn.Log    ${output}
-    Utils.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     ${output}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${output}
     SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
