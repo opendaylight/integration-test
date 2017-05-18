@@ -2,6 +2,7 @@
 Documentation     Library to catch traffic/packets using linux tcpdump command
 Library           SSHLibrary
 Resource          Utils.robot
+Resource          RemoteBash.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
@@ -27,7 +28,7 @@ Stop Tcpdumping And Download
     [Arguments]    ${filename}=${dumppcap}.xz
     [Documentation]    Stops catching packets with tcpdump and download the saved file
     ${oldcon}=    SSHLibrary.Switch Connection    ${dumpalias}
-    Utils.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     SSHLibrary.Read
     ${stdout}=    SSHLibrary.Execute Command    xz -9ekvv ${dumppcappath}
     Log    ${stdout}
