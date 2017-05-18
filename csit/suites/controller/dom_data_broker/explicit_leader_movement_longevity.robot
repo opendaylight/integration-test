@@ -34,5 +34,4 @@ Explicit_Leader_Movement_Test
 Test_Scenario
     [Documentation]    One leader movement scenario based on randomly chosen direction.
     ${node_from}    ${node_to}    BuiltIn.Evaluate    random.sample(${MOVEMENT_DIRECTION_LIST}, 2)    modules=random
-    KarafKeywords.Log_Message_To_Controller_Karaf    Starting ${node_from} to ${node_to} test.
     DdbCommons.Explicit_Leader_Movement_Test_Templ    ${node_from}    ${node_to}
