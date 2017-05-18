@@ -21,6 +21,7 @@ Resource          NexusKeywords.robot
 Resource          SSHKeywords.robot
 Resource          TemplatedRequests.robot
 Resource          Utils.robot
+Resource          RemoteBash.robot
 
 *** Variables ***
 ${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G -XX:MaxPermSize=256M -Dorg.apache.sshd.registerBouncyCastle=false
@@ -178,7 +179,7 @@ Check_Device_Up_And_Running
 
 Stop_Testtool
     [Documentation]    Stop testtool and download its log.
-    Utils.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     SSHLibrary.Read_Until_Prompt
     # TODO: Unify with play.py and pcc-mock handling.
     # TODO: Maybe this keyword's content shall be moved into SSHUtils and named somewhat like

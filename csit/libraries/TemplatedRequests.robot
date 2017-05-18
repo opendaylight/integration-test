@@ -353,7 +353,7 @@ Get_From_Uri
 
 Put_To_Uri
     [Arguments]    ${uri}    ${data}    ${content_type}    ${accept}    ${session}=default    ${normalize_json}=False
-    ...    ${jmes_path}=${EMPTY}    ${http_timeout}=${EMPTY}
+    ...    ${jmes_path}=${EMPTY}    ${http_timeout}=5s
     [Documentation]    PUT data to given URI, check status code and return response text.
     ...    \${content_type} and \${accept} are mandatory Python objects with headers to use.
     ...    If \${normalize_json}, normalize text before returning.

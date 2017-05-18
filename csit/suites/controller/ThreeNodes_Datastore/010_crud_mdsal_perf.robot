@@ -23,6 +23,7 @@ Library           XML
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/CarPeople.robot
 
@@ -140,7 +141,7 @@ Purchase Is Completed
 
 Stop_Tool
     [Documentation]    Stop the tool if still running.
-    Utils.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     ${output}=    SSHLibrary.Read    delay=1s
     BuiltIn.Log    ${output}
 
