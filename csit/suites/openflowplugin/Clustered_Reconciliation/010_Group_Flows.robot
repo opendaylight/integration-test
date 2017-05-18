@@ -16,11 +16,6 @@ ${ITER}           100
 ${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
 
 *** Test Cases ***
-Enable Stale Flow Entry
-    [Documentation]    Enable stale flow entry feature.
-    # Stale flows/groups feature is only available in Boron onwards.
-    CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"true"}    session=session
-
 Add Groups And Flows
     [Documentation]    Add ${ITER} groups 1&2 and flows in every switch.
     Add Groups And Flows    ${ITER}
@@ -33,11 +28,11 @@ Start Mininet Multiple Connections
 
 Check Linear Topology
     [Documentation]    Check Linear Topology.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Linear Topology    ${SWITCHES}
 
 Check Flows In Operational DS
     [Documentation]    Check Groups after mininet starts.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${all_flows}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Number Of Flows    ${all_flows}
 
 Check Groups In Operational DS
     [Documentation]    Check Flows after mininet starts.
@@ -60,11 +55,11 @@ Disconnect Mininet From Owner
 
 Check Entity Owner Status And Find Owner and Successor After Fail
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Verify Switch Owner Has Changed    openflow:1    ${original_owner}
 
 Check Linear Topology After Disconnect
     [Documentation]    Check Linear Topology After Disconnecting mininet from owner.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Linear Topology    ${SWITCHES}
 
 Remove Flows And Groups After Mininet Is Disconnected
     [Documentation]    Remove 1 group 1&2 and 1 flow in every switch after mininet is disconnected.
@@ -72,7 +67,7 @@ Remove Flows And Groups After Mininet Is Disconnected
 
 Check Flows In Operational DS After Mininet Is Disconnected
     [Documentation]    Check Flows in Operational DS after mininet is disconnected.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${less_flows}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Number Of Flows    ${less_flows}
 
 Check Groups In Operational DS After Mininet Is Disconnected
     [Documentation]    Check Groups in Operational DS after mininet is disconnected.
@@ -88,7 +83,7 @@ Reconnect Mininet To Owner
 
 Check Linear Topology After Reconnect
     [Documentation]    Check Linear Topology After Reconnect.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Linear Topology    ${SWITCHES}
 
 Add Flows And Groups After Reconnect
     [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
@@ -96,7 +91,7 @@ Add Flows And Groups After Reconnect
 
 Check Flows After Reconnect In Operational DS
     [Documentation]    Check Flows in Operational DS after mininet is reconnected.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${all_flows}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Number Of Flows    ${all_flows}
 
 Check Groups After Reconnect In Operational DS
     [Documentation]    Check Groups in Operational DS after mininet is reconnected.
@@ -112,11 +107,7 @@ Disconnect Mininet From Cluster
 
 Check No Switches After Disconnect
     [Documentation]    Check no switches in topology after disconnecting mininet from cluster.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check No Switches In Topology    ${SWITCHES}
-
-Remove Flows And Groups While Mininet Is Disconnected
-    [Documentation]    Remove a group and flow while mininet Is Disconnected from cluster.
-    Remove Single Group And Flow
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check No Switches In Topology    ${SWITCHES}
 
 Reconnect Mininet To Cluster
     [Documentation]    Reconnect mininet to cluster by removing Iptables drop rules that were used to disconnect
@@ -124,11 +115,15 @@ Reconnect Mininet To Cluster
 
 Check Linear Topology After Mininet Reconnects
     [Documentation]    Check Linear Topology after reconnect.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Linear Topology    ${SWITCHES}
+
+Remove Flows And Groups After Mininet Reconnects
+    [Documentation]    Remove a group and flow while mininet Is Disconnected from cluster.
+    Remove Single Group And Flow
 
 Check Flows In Operational DS After Mininet Reconnects
     [Documentation]    Check Flows in Operational DS after mininet is reconnected.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${less_flows}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Number Of Flows    ${less_flows}
 
 Check Groups In Operational DS After Mininet Reconnects
     [Documentation]    Check Groups in Operational DS after mininet is reconnected to cluster.
@@ -166,7 +161,7 @@ Check Entity Owner Status And Find Owner and Successor After Stop
 
 Check Linear Topology After Owner Stop
     [Documentation]    Check Linear Topology.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}    ${new_owner}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Linear Topology    ${SWITCHES}    ${new_owner}
 
 Add Configuration In Owner and Verify After Fail
     [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
@@ -190,7 +185,7 @@ Start Old Owner Instance
 
 Check Linear Topology After Owner Restart
     [Documentation]    Check Linear Topology.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Linear Topology    ${SWITCHES}
 
 Remove Configuration In Owner and Verify After Owner Restart
     [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
@@ -198,7 +193,7 @@ Remove Configuration In Owner and Verify After Owner Restart
 
 Check Flows After Owner Restart In Operational DS
     [Documentation]    Check Flows in Operational DS after owner is restarted.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${less_flows}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Number Of Flows    ${less_flows}
 
 Check Groups After Owner Restart In Operational DS
     [Documentation]    Check Groups in Operational DS after owner is restarted.
@@ -225,7 +220,7 @@ Add Flow And Group After Restart
 
 Check Flows In Operational DS After Controller Restarts
     [Documentation]    Check Flows in Operational DS after controller is restarted.
-    BuiltIn.Wait Until Keyword Succeeds    300s    2s    Check Number Of Flows    ${all_flows}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Number Of Flows    ${all_flows}
 
 Check Groups In Operational DS After Controller Restarts
     [Documentation]    Check Groups in Operational DS after controller is restarted.
@@ -270,9 +265,14 @@ Final Phase
     [Documentation]    Delete all sessions.
     ${command} =    BuiltIn.Set Variable    sudo iptables -v -F
     Utils.Run Command On Controller    cmd=${command}
-    CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"false"}    session=session
     BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
     RequestsLibrary.Delete All Sessions
+
+Verify Switch Owner Has Changed
+    [Arguments]    ${switch}    ${old_owner}    ${member_index}=1
+    [Documentation]    Check Owner has changed.
+    ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    ${switch}    ${member_index}
+    BuiltIn.Should Not Be Equal    ${new_owner}    ${old_owner}
 
 Disconnect Cluster Mininet
     [Arguments]    ${action}=break    ${member_index_list}=${EMPTY}
