@@ -14,7 +14,7 @@ Documentation     Robot keyword library (Resource) for handling the BGP speaker 
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Variables         ${CURDIR}/../variables/Variables.py
-Resource          ${CURDIR}/Utils.robot
+Resource          ${CURDIR}/RemoteBash.robot
 
 *** Keywords ***
 Start_Console_Tool
@@ -31,7 +31,7 @@ Wait_Until_Console_Tool_Finish
 
 Stop_Console_Tool
     [Documentation]    Stop the tool if still running.
-    Utils.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     ${output}=    SSHLibrary.Read    delay=1s
     BuiltIn.Log    ${output}
 
