@@ -40,6 +40,7 @@ Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
@@ -288,7 +289,7 @@ Wait_Until_Benchmark_Tool_Finish
 Stop_Benchmark_Tool
     [Documentation]    Stop the benchmark tool. Fail if still running.
     SSHLibrary.Read
-    Utils.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     SSHLibrary.Read Until Prompt
     SSHKeywords.Virtual_Env_Deactivate_On_Current_Session
 
