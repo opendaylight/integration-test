@@ -79,7 +79,9 @@ No Ping From DHCP To Vm Instance2
 No Ping From Vm Instance1 To Vm Instance2
     [Documentation]    Login to the vm instance and test some operations
     ${VM2_LIST}    Create List    @{NET1_VM_IPS}[1]
-    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[0]    ${VM2_LIST}    ping_should_succeed=False
+    # in transparent mode the behavior is the same as with no SG, so this ping would still work.
+    ${expect_ping_to_work}=    Set Variable If    "skip_if_transparent" in @{TEST_TAGS}    True    False
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[0]    ${VM2_LIST}    ping_should_succeed=${expect_ping_to_work}
 
 No Ping From Vm Instance2 To Vm Instance1
     [Documentation]    Login to the vm instance and test operations
