@@ -35,6 +35,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
 ${device_name}    netconf-test-device
 ${device_type}    full-uri-device
+${http_timeout}    2
 ${USE_NETCONF_CONNECTOR}    ${False}
 
 *** Test Cases ***
@@ -50,7 +51,7 @@ Check_Device_Is_Not_Configured_At_Beginning
 Configure_Device_On_Netconf
     [Documentation]    Make request to configure a testtool device on Netconf connector.
     [Tags]    critical
-    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type}
+    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type}    http_timeout=${http_timeout}
 
 Check_ODL_Has_Netconf_Connector_For_Device
     [Documentation]    Get the list of configured devices and search for our device there. Fail if not found.
