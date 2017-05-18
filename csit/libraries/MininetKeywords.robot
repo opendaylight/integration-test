@@ -120,6 +120,19 @@ Stop Mininet And Exit Multiple Sessions
     : FOR    ${mininet_conn}    IN    @{mininet_conn_list}
     \    MininetKeywords.Stop Mininet And Exit    ${mininet_conn}
 
+Disconnect Cluster Mininet
+    [Arguments]    ${action}=break    ${member_index_list}=${EMPTY}
+    [Documentation]    Break and restore controller to mininet connection via iptables.
+    ${index_list} =    ClusterManagement.List_Indices_Or_All    given_list=${member_index_list}
+    : FOR    ${index}    IN    @{index_list}
+    \    ${rule} =    BuiltIn.Set Variable    OUTPUT -p all --source ${ODL_SYSTEM_${index}_IP} --destination ${TOOLS_SYSTEM_IP} -j DROP
+    \    ${command} =    BuiltIn.Set Variable If    '${action}'=='restore'    sudo /sbin/iptables -D ${rule}    sudo /sbin/iptables -I ${rule}
+    \    Log To Console    ${ODL_SYSTEM_${index}_IP}
+    \    Utils.Run Command On Controller    ${ODL_SYSTEM_${index}_IP}    cmd=${command}
+    \    ${command} =    BuiltIn.Set Variable    sudo /sbin/iptables -L -n
+    \    ${output} =    Utils.Run Command On Controller    cmd=${command}
+    \    BuiltIn.Log    ${output}
+
 Verify Aggregate Flow From Mininet Session
     [Arguments]    ${mininet_conn}=${EMPTY}    ${flow_count}=0    ${time_out}=0s
     [Documentation]    Verify flow count per switch
