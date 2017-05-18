@@ -203,13 +203,6 @@ Run Command On Remote System
     [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
     [Return]    ${stdout}
 
-Write_Bare_Ctrl_C
-    [Documentation]    Construct ctrl+c character and SSH-write it (without endline) to the current SSH connection.
-    ...    Do not read anything yet.
-    BuiltIn.Comment    Use RemoteBash.Write_Bare_Ctrl_C instead.
-    ${ctrl_c}=    BuiltIn.Evaluate    chr(int(3))
-    SSHLibrary.Write_Bare    ${ctrl_c}
-
 Write Bare Ctrl D
     [Documentation]    Construct ctrl+d character and SSH-write it (without endline) to the current SSH connection.
     ...    Do not read anything yet.
