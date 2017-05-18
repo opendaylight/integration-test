@@ -144,6 +144,40 @@ Get_Raft_State_Of_Shard_At_Member
     ${raft_state} =    Collections.Get_From_Dictionary    ${value}    RaftState
     [Return]    ${raft_state}
 
+Get_Shard_Leader_And_Followers_Via_ClusterAdmin
+    [Arguments]    ${shard_name}=default    ${ds_type}=operational    ${member_index_list}=${EMPTY}
+    [Documentation]    Send request to cluster-admin:get-shard-role rpc to given members and returns
+    ...    the leader and follower list. A consistency check to have only one leader is done.
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
+    ${leader_list} =    BuiltIn.Create_List
+    ${follower_list} =    BuiltIn.Create_List
+    : FOR    ${index}    IN    @{index_list}
+    \    ${role} =    ClusterAdmin.Get_Shard_Role    ${index}    ${shard_name}    ${ds_type}
+    \    BuiltIn.Run_Keyword_If    'Follower' == '${raft_state}'    Collections.Append_To_List    ${follower_list}    ${index}
+    \    ...    ELSE IF    'Leader' == '${raft_state}'    Collections.Append_To_List    ${leader_list}    ${index}
+    \    ...    ELSE IF    ${validate}    BuiltIn.Fail    Unrecognized Raft state: ${raft_state}
+    ${leader_count} =    BuiltIn.Get_Length    ${leader_list}
+    BuiltIn.Run_Keyword_If    ${leader_count} < 1    BuiltIn.Fail    No leader found.
+    BuiltIn.Length_Should_Be    ${leader_list}    ${1}    Too many Leaders.
+    [Return]    @{leader}[0]    ${follower_list}
+
+Get_PrefixShard_Leader_And_Followers_Via_ClusterAdmin
+    [Arguments]    ${shard_prefix}=id-ints    ${ds_type}=operational    ${member_index_list}=${EMPTY}
+    [Documentation]    Send request to cluster-admin:get-shard-role rpc to given members and returns
+    ...    the leader and follower list. A consistency check to have only one leader is done.
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
+    ${leader_list} =    BuiltIn.Create_List
+    ${follower_list} =    BuiltIn.Create_List
+    : FOR    ${index}    IN    @{index_list}
+    \    ${role} =    ClusterAdmin.Get_Prefix_Shard_Role    ${index}    ${shard_prefix}    ${ds_type}
+    \    BuiltIn.Run_Keyword_If    'Follower' == '${raft_state}'    Collections.Append_To_List    ${follower_list}    ${index}
+    \    ...    ELSE IF    'Leader' == '${raft_state}'    Collections.Append_To_List    ${leader_list}    ${index}
+    \    ...    ELSE IF    ${validate}    BuiltIn.Fail    Unrecognized Raft state: ${raft_state}
+    ${leader_count} =    BuiltIn.Get_Length    ${leader_list}
+    BuiltIn.Run_Keyword_If    ${leader_count} < 1    BuiltIn.Fail    No leader found.
+    BuiltIn.Length_Should_Be    ${leader_list}    ${1}    Too many Leaders.
+    [Return]    @{leader}[0]    ${follower_list}
+
 Verify_Shard_Leader_Elected
     [Arguments]    ${shard_name}    ${shard_type}    ${new_elected}    ${old_leader}    ${member_index_list}=${EMPTY}
     [Documentation]    Verify new leader was elected or remained the same. Bool paramter ${new_elected} indicates if
