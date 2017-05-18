@@ -147,3 +147,52 @@ Check Flows Operational Datastore On Member
     [Documentation]    Check if number of Operational Flows on member of given index is equal to ${flow_count}.
     ${sw}    ${reported_flow}    ${found_flow}=    ScaleClient.Flow Stats Collected    controller=${ODL_SYSTEM_${member_index}_IP}
     BuiltIn.Should_Be_Equal_As_Numbers    ${flow_count}    ${found_flow}
+
+Check Linear Topology On Member
+    [Arguments]    ${switches}    ${member_index}=1
+    [Documentation]    Check Linear topology.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
+    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
+    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
+    \    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
+    \    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
+    \    ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3
+
+Check No Switches On Member
+    [Arguments]    ${switches}    ${member_index}=1
+    [Documentation]    Check no switch is in topology
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Not Contain    ${resp.content}    openflow:${switch}
+
+Check Number Of Flows On Member
+    [Arguments]    ${flows}    ${member_index}=1
+    [Documentation]    Check number of flows in the inventory.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${count}=    Get Count    ${resp.content}    "priority"
+    Should Be Equal As Integers    ${count}    ${flows}
+
+Check Number Of Groups On Member
+    [Arguments]    ${groups}    ${member_index}=1
+    [Documentation]    Check number of groups in the inventory.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${group_count}=    Get Count    ${resp.content}    "group-type"
+    ${count}=    CompareStream.Set_Variable_If_At Least_Boron    ${group_count}    ${group_count/2}
+    Should Be Equal As Integers    ${count}    ${groups}
