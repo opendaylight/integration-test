@@ -49,6 +49,7 @@ Library           String    # for Get_Regexp_Matches
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
+Resource          ${CURDIR}/../../../libraries/RemeoteBash.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
@@ -122,7 +123,7 @@ Reboot_Manager_Owner
 
 Stop_Configurer
     [Documentation]    Write ctrl+c, download the log, read its contents and match expected patterns.
-    Utils.Write_Bare_Ctrl_C
+    RemeoteBash.Write_Bare_Ctrl_C
     ${output} =    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${output}
     SSHLibrary.Get_File    ${log_filename}
