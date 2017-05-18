@@ -32,6 +32,7 @@ Resource          ${CURDIR}/NexusKeywords.robot
 Resource          ${CURDIR}/SetupUtils.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/Utils.robot
+Resource          ${CURDIR}/RemoteBash.robot
 
 *** Variables ***
 ${RestPerfClient__restperfclientlog}    ${EMPTY}
@@ -51,7 +52,7 @@ Setup_Restperfclient
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclient_invocation_command_prefix}    ${prefix}
 
 RestPerfClient__Kill
-    Utils.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     SSHLibrary.Set_Client_Configuration    timeout=5
     SSHLibrary.Read_Until_Prompt
 

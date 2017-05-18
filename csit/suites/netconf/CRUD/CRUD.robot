@@ -26,6 +26,7 @@ Library           String
 Library           SSHLibrary    timeout=10s
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
+Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
