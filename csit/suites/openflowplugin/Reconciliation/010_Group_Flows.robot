@@ -16,11 +16,6 @@ ${ITER}           100
 ${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
 
 *** Test Cases ***
-Enable Stale Flow Entry
-    [Documentation]    Enable stale flow entry feature.
-    # Stale flows/groups feature is only available in Boron onwards.
-    CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"true"}    session=session
-
 Add Group 1 In Every Switch
     [Documentation]    Add ${ITER} groups of type 1 in every switch.
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
@@ -64,13 +59,6 @@ Check No Switches After Disconnect
     [Documentation]    Check no switches in topology.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check No Switches In Topology    ${SWITCHES}
 
-Remove Flows And Groups While Mininet Is Disconnected
-    [Documentation]    Remove some groups and flows while network is down.
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
-    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
-
 Reconnect Mininet
     [Documentation]    Connect Mininet.
     Disconnect Controller Mininet    restore
@@ -78,6 +66,14 @@ Reconnect Mininet
 Check Linear Topology After Mininet Reconnects
     [Documentation]    Check Linear Topology.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Linear Topology    ${SWITCHES}
+
+Remove Flows And Groups After Mininet Reconnects
+    [Tags]    exclude
+    [Documentation]    Remove some groups and flows while network is down.
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
+    \    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
 
 Check Flows In Operational DS After Mininet Reconnects
     [Documentation]    Check Flows after mininet starts.
@@ -150,7 +146,6 @@ Final Phase
     [Documentation]    Delete all sessions.
     ${command} =    BuiltIn.Set Variable    sudo iptables -v -F
     Utils.Run Command On Controller    cmd=${command}
-    CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"false"}    session=session
     BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
     RequestsLibrary.Delete All Sessions
 
