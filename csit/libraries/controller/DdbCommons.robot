@@ -229,7 +229,7 @@ Module_Leader_Isolation_Heal_Default
 Prefix_Leader_Isolation_Heal_Default
     [Arguments]    ${isolated_node}    ${time_to_finish}
     [Documentation]    The leader isolation test case end. The transaction producer on isolated node shoudl fail and should be restarted.
-    Then all write transaction producers shoudl finish without error.
+    ...    Then all write transaction producers shoudl finish without error.
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
     BuiltIn.Log    ${resp}
     # TODO: check on response status code
