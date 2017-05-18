@@ -140,8 +140,7 @@ Leader_Isolation_Test_Templ
     ${date_end} =    DateTime.Add_Time_To_Date    ${date_start}    ${producing_transactions_time}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${True}
-    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}    ${shard_type}    ${True}
-    ...    ${leader}    member_index_list=${follower_list}
+    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Get_Shard_Leader_And_Followers_Via_ClusterAdmin    ${shard_name}    ${shard_type}    member_index_list=${follower_list}
     ${date_leader_elected} =    DateTime.Get_Current_Date
     ${delta} =    DateTime.Subtract_Date_From_Date    ${date_leader_elected}    ${date_start}
     # TODO: Consider extracting the block which depends on ${heal_timeout} value into two keywords, and have just one If to decide which one to call.
@@ -172,8 +171,7 @@ Leader_Isolation_PrefBasedShard_Test_Templ
     ${date_end} =    DateTime.Add_Time_To_Date    ${date_start}    ${producing_transactions_time}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${True}
-    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!    ${shard_type}    ${True}
-    ...    ${leader}    member_index_list=${follower_list}
+    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Get_PrefixShard_Leader_And_Followers_Via_ClusterAdmin    ${shard_name}    ${shard_type}    member_index_list=${follower_list}
     ${date_leader_elected} =    DateTime.Get_Current_Date
     ${delta} =    DateTime.Subtract_Date_From_Date    ${date_leader_elected}    ${date_start}
     # TODO: Consider extracting the block which depends on ${heal_timeout} value into two keywords, and have just one If to decide which one to call.
