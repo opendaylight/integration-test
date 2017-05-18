@@ -25,6 +25,7 @@ Documentation     Robot keyword library (Resource) for handling the BGP speaker 
 ...               alternative TODO: Explain that it is not worth to perform separate SSH logins.
 Library           SSHLibrary
 Resource          ${CURDIR}/Utils.robot
+Resource          ${CURDIR}/RemoteBash.robot
 
 *** Variables ***
 ${BGPSpeaker__OUTPUT_LOG}    play.py.out
@@ -59,7 +60,7 @@ Kill_BGP_Speaker
     [Documentation]    Interrupt play.py, fail if no prompt is seen within SSHLibrary timeout.
     ...    Also dump the logs with the output the program produced.
     ...    This keyword is also suitable for stopping BGP manager.
-    Utils.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
     Dump_BGP_Speaker_Logs
     # TODO: When Propagate_Failure is moved to better Resource, use it instead of the following.
