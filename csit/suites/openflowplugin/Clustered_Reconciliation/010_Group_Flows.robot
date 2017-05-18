@@ -3,17 +3,22 @@ Documentation     Switch connections and cluster are restarted.
 Suite Setup       Initialization Phase
 Suite Teardown    Final Phase
 Library           RequestsLibrary
+Library           XML
+Library           Collections
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/ClusterOpenFlow.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/Utils.robot
+Library           ../../../libraries/Common.py
 Resource          ../../../variables/Variables.robot
+Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${SWITCHES}       3
 ${ITER}           100
 ${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
+${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
 
 *** Test Cases ***
 Enable Stale Flow Entry
@@ -34,6 +39,10 @@ Start Mininet Multiple Connections
 Check Linear Topology
     [Documentation]    Check Linear Topology.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
+
+Get Flow Stat
+    [Documentation]    Check that deration flow stat is increasing
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats
 
 Check Flows In Operational DS
     [Documentation]    Check Groups after mininet starts.
@@ -66,6 +75,10 @@ Check Linear Topology After Disconnect
     [Documentation]    Check Linear Topology After Disconnecting mininet from owner.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
 
+Check Flow Stat After Disconnect
+    [Documentation]    Check that deration flow stat is increasing
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats
+
 Remove Flows And Groups After Mininet Is Disconnected
     [Documentation]    Remove 1 group 1&2 and 1 flow in every switch after mininet is disconnected.
     Remove Single Group And Flow
@@ -93,6 +106,10 @@ Check Linear Topology After Reconnect
 Add Flows And Groups After Reconnect
     [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
     Add Single Group And Flow
+
+Check Flow Stat After Reconnect
+    [Documentation]    Check that deration flow stat is increasing
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats
 
 Check Flows After Reconnect In Operational DS
     [Documentation]    Check Flows in Operational DS after mininet is reconnected.
@@ -222,6 +239,10 @@ Check Linear Topology After Controller Restarts
 Add Flow And Group After Restart
     [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
     Add Single Group And Flow
+
+Check Flow Stat After Restart
+    [Documentation]    Check that deration flow stat is increasing
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats
 
 Check Flows In Operational DS After Controller Restarts
     [Documentation]    Check Flows in Operational DS after controller is restarted.
@@ -368,3 +389,29 @@ Check No Switches In Topology
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Not Contain    ${resp.content}    openflow:${switch}
+
+Check Flow Stats
+    [Arguments]    ${member_index}=1    ${period_in_seconds}=5
+    [Documentation]    Given the flow extract duration element
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    BuiltIn.Sleep    ${period_in_seconds}
+    ${duration_1} =    Extract Flow Statistics
+    ${duration_1}    Builtin.Convert To Integer    ${duration_1}
+    BuiltIn.Sleep    ${period_in_seconds}
+    ${duration_2} =    Extract Flow Statistics
+    ${duration_2}    Builtin.Convert To Integer    ${duration_2}
+    Should Not Be Equal As Integers    ${duration_1}    ${duration_2}
+
+Extract Flow Statistics
+    [Documentation]    Given the flow extract duration element
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/node/openflow:1/table/0/flow/1    headers=${headers}
+    Log    ${resp}
+    Log    ${resp.content}
+    ${json_resp} =    RequestsLibrary.To_Json    ${resp.content}
+    ${flow_list} =    Collections.Get_From_Dictionary    ${json_resp}    flow-node-inventory:flow
+    Log    ${flow_list}
+    ${flow_stats} =    Collections.Get_From_Dictionary    @{flow_list}[0]    opendaylight-flow-statistics:flow-statistics
+    Log    ${flow_stats}
+    ${duration} =    Collections.Get_From_Dictionary    &{flow_stats}[duration]    second
+    Log    ${duration}
+    Return From Keyword    ${duration}
