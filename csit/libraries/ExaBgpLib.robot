@@ -15,6 +15,7 @@ Documentation     Robot keyword library (Resource) for handling the ExaBgp tool.
 Library           SSHLibrary
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/Utils.robot
+Resource          ${CURDIR}/RemoteBash.robot
 
 *** Variables ***
 ${CMD}            env exabgp.tcp.port=1790 exabgp --debug
@@ -35,7 +36,7 @@ Stop_ExaBgp
     [Documentation]    Stops the ExaBgp by sending ctrl+c
     ${output}=    SSHLibrary.Read
     BuiltIn.Log    ${output}
-    Utils.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     ${output}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${output}
     SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}

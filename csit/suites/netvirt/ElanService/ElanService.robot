@@ -12,6 +12,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
+Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Tcpdump.robot
 Resource          ../../../variables/Variables.robot
