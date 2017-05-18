@@ -37,6 +37,10 @@ Check Flows In Operational DS
     [Documentation]    Check Flows after mininet starts.
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${all_flows}
 
+Get Flow Stat
+    [Documentation]    Check that duration flow stat is increasing
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen
+
 Check Groups In Operational DS
     [Documentation]    Check Groups after mininet starts.
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${all_groups}
@@ -72,6 +76,10 @@ Check Linear Topology After Disconnect
     [Documentation]    Check Linear Topology After Disconnecting mininet from owner.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}
 
+Check Flow Stat After Disconnect
+    [Documentation]    Check that duration flow stat is increasing
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen
+
 Remove Flows And Groups After Mininet Is Disconnected
     [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
     Remove Single Group And Flow On Member
@@ -104,6 +112,10 @@ Check Linear Topology After Reconnect
 Add Flows And Groups After Reconnect
     [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
     Add Single Group And Flow On Member
+
+Check Flow Stat After Reconnect
+    [Documentation]    Check that duration flow stat is increasing
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen
 
 Check Flows After Reconnect In Operational DS
     [Documentation]    Check Flows in Operational DS after mininet is reconnected.
@@ -194,6 +206,11 @@ Add Configuration In Owner and Verify After Fail
     [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
     Add Single Group And Flow On Member    ${new_owner}
 
+Check Flow Stat After Fail
+    [Documentation]    Check that duration flow stat is increasing
+    Log    ${new_owner}
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen    ${new_owner}
+
 Check Flows In Operational DS After Owner Is Stopped
     [Documentation]    Check Flows in Operational DS after Owner is Stopped.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${all_flows}    ${new_owner}
@@ -218,6 +235,10 @@ Check Entity Owner Status And Find Owner and Successor After Start Owner
 Check Linear Topology After Owner Restart
     [Documentation]    Check Linear Topology.
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}
+
+Check Flow Stat After Owner Restart
+    [Documentation]    Check that duration flow stat is increasing
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen
 
 Remove Configuration In Owner and Verify After Owner Restart
     [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
@@ -249,6 +270,10 @@ Check Linear Topology After Controller Restarts
 Add Flow And Group After Restart
     [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
     Add Single Group And Flow On Member
+
+Check Flow Stat After Restart
+    [Documentation]    Check that duration flow stat is increasing
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen
 
 Check Flows In Operational DS After Controller Restarts
     [Documentation]    Check Flows in Operational DS after controller is restarted.
@@ -322,3 +347,84 @@ Remove Single Group And Flow On Member
     \    RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/1
     \    RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1
     \    RequestsLibrary.Delete Request    ${session}    ${CONFIG_NODES_API}/node/openflow:${switch}/group/1000
+
+Check Linear Topology
+    [Arguments]    ${switches}    ${member_index}=1
+    [Documentation]    Check Linear topology.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
+    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
+    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
+    \    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
+    \    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
+    \    ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3
+
+Check No Switches In Inventory
+    [Arguments]    ${switches}    ${member_index}=1
+    [Documentation]    Check no switch is in inventory
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Not Contain    ${resp.content}    "openflow:${switch}"
+
+Check Number Of Flows
+    [Arguments]    ${flows}    ${member_index}=1
+    [Documentation]    Check number of flows in the inventory.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${count}=    Get Count    ${resp.content}    "priority"
+    Should Be Equal As Integers    ${count}    ${flows}
+
+Check Number Of Groups
+    [Arguments]    ${groups}    ${member_index}=1
+    [Documentation]    Check number of groups in the inventory.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}=    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${group_count}=    Get Count    ${resp.content}    "group-type"
+    ${count}=    CompareStream.Set_Variable_If_At Least_Boron    ${group_count}    ${group_count/2}
+    Should Be Equal As Integers    ${count}    ${groups}
+
+Check No Switches In Topology
+    [Arguments]    ${switches}    ${member_index}=1
+    [Documentation]    Check no switch is in topology
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Not Contain    ${resp.content}    openflow:${switch}
+
+Check Flow Stats Are Not Frozen
+    [Arguments]    ${member_index}=1    ${period_in_seconds}=5
+    [Documentation]    Verify flow stats are not frozen for flow 1 and switch 1.
+    ${duration_1} =    Extract Flow Duration    ${member_index}
+    ${duration_1}    Builtin.Convert To Integer    ${duration_1}
+    BuiltIn.Sleep    ${period_in_seconds}
+    ${duration_2} =    Extract Flow Duration    ${member_index}
+    ${duration_2}    Builtin.Convert To Integer    ${duration_2}
+    Should Not Be Equal As Integers    ${duration_1}    ${duration_2}
+
+Extract Flow Duration
+    [Arguments]    ${member_index}
+    [Documentation]    Extract duration for flow 1 in switch 1.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/flow/1    headers=${headers}
+    Log    ${resp.content}
+    ${json_resp} =    RequestsLibrary.To_Json    ${resp.content}
+    ${flow_list} =    Collections.Get_From_Dictionary    ${json_resp}    flow-node-inventory:flow
+    ${flow_stats} =    Collections.Get_From_Dictionary    @{flow_list}[0]    opendaylight-flow-statistics:flow-statistics
+    ${duration} =    Collections.Get_From_Dictionary    &{flow_stats}[duration]    second
+    Return From Keyword    ${duration}
