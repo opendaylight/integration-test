@@ -205,20 +205,6 @@ Run Command On Remote System
     [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
     [Return]    ${stdout}
 
-Write_Bare_Ctrl_C
-    [Documentation]    Construct ctrl+c character and SSH-write it (without endline) to the current SSH connection.
-    ...    Do not read anything yet.
-    BuiltIn.Comment    Use RemoteBash.Write_Bare_Ctrl_C instead.
-    ${ctrl_c}=    BuiltIn.Evaluate    chr(int(3))
-    SSHLibrary.Write_Bare    ${ctrl_c}
-
-Write Bare Ctrl D
-    [Documentation]    Construct ctrl+d character and SSH-write it (without endline) to the current SSH connection.
-    ...    Do not read anything yet.
-    BuiltIn.Comment    Use RemoteBash.Write_Bare_Ctrl_D instead.
-    ${ctrl_d}=    BuiltIn.Evaluate    chr(int(4))
-    SSHLibrary.Write Bare    ${ctrl_d}
-
 Run Command On Mininet
     [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${cmd}=echo    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${TOOLS_SYSTEM_PROMPT}
     [Documentation]    Call Run Comand On Remote System, but with default values suitable for Mininet machine.
