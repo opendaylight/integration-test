@@ -45,6 +45,7 @@ Explicit_Leader_Movement_Test_Templ
     [Documentation]    Implements explicit leader movement test scenario.
     ${idx_from}    ${idx_to}    ${idx_trans} =    Get_Node_Indexes_For_The_ELM_Test    ${leader_from}    ${leader_to}    ${shard_name}
     ...    ${shard_type}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Starting leader movement from node${idx_from} to node${idx_to}, transaction producer at node${idx_trans}.
     ${ip_trans_as_list} =    BuiltIn.Create_List    ${ODL_SYSTEM_${idx_trans}_IP}
     ${idx_trans_as_list} =    BuiltIn.Create_List    ${idx_trans}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
