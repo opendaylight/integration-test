@@ -16,11 +16,6 @@ ${ITER}           100
 ${VAR_DIR}        ${CURDIR}/../../../variables/openflowplugin
 
 *** Test Cases ***
-Enable Stale Flow Entry
-    [Documentation]    Enable stale flow entry feature.
-    # Stale flows/groups feature is only available in Boron onwards.
-    CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"true"}    session=session
-
 Add Groups And Flows
     [Documentation]    Add ${ITER} groups 1&2 and flows in every switch.
     Add Groups And Flows    ${ITER}
@@ -114,10 +109,6 @@ Check No Switches After Disconnect
     [Documentation]    Check no switches in topology after disconnecting mininet from cluster.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check No Switches In Topology    ${SWITCHES}
 
-Remove Flows And Groups While Mininet Is Disconnected
-    [Documentation]    Remove a group and flow while mininet Is Disconnected from cluster.
-    Remove Single Group And Flow
-
 Reconnect Mininet To Cluster
     [Documentation]    Reconnect mininet to cluster by removing Iptables drop rules that were used to disconnect
     Disconnect Cluster Mininet    restore
@@ -125,6 +116,10 @@ Reconnect Mininet To Cluster
 Check Linear Topology After Mininet Reconnects
     [Documentation]    Check Linear Topology after reconnect.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Linear Topology    ${SWITCHES}
+
+Remove Flows And Groups After Mininet Reconnects
+    [Documentation]    Remove a group and flow while mininet Is Disconnected from cluster.
+    Remove Single Group And Flow
 
 Check Flows In Operational DS After Mininet Reconnects
     [Documentation]    Check Flows in Operational DS after mininet is reconnected.
@@ -270,7 +265,6 @@ Final Phase
     [Documentation]    Delete all sessions.
     ${command} =    BuiltIn.Set Variable    sudo iptables -v -F
     Utils.Run Command On Controller    cmd=${command}
-    CompareStream.Run Keyword If At Least Boron    TemplatedRequests.Put As Json Templated    folder=${VAR_DIR}/frm-config    mapping={"STALE":"false"}    session=session
     BuiltIn.Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
     RequestsLibrary.Delete All Sessions
 
