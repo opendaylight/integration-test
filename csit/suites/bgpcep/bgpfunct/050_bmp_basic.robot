@@ -23,6 +23,7 @@ Library           RequestsLibrary
 Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
@@ -55,7 +56,7 @@ Verify Data Reported
 
 Stop_Bmp_Mock
     [Documentation]    Send ctrl+c to bmp-mock to stop it
-    Utils.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     ${output}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${output}
 

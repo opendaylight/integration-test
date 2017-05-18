@@ -19,6 +19,7 @@ Library           SSHLibrary
 Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/CarPeople.robot
 
@@ -110,7 +111,7 @@ Stop_Tool
     # TODO: https://trello.com/c/rXsMu7iz/444-create-keywords-for-the-tool-start-and-stop-in-remotebash-robot
     ${output}=    SSHLibrary.Read
     BuiltIn.Log    ${output}
-    Utils.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     ${output}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${output}
     SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
