@@ -57,21 +57,21 @@ Remove_Shard_Replica
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${REMOVE_SHARD_REPLICA_DIR}    mapping=${mapping}    session=${session}
 
 Get_Shard_Role
-    [Arguments]    ${member_index}    ${shard_name}    ${ds_type}
+    [Arguments]    ${member_index}    ${shard_name}    ${ds_type}    ${http_timeout}=5
     [Documentation]    Get shard member role.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}    DATA_STORE_TYPE=${ds_type}
-    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_SHARD_ROLE_DIR}    mapping=${mapping}    session=${session}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_SHARD_ROLE_DIR}    mapping=${mapping}    session=${session}    http_timeout=${http_timeout}
     ${xml} =    XML.Parse_Xml    ${text}
     ${role} =    XML.Get_Element_Text    ${xml}    xpath=role
     BuiltIn.Return_From_Keyword    ${role}
 
 Get_Prefix_Shard_Role
-    [Arguments]    ${member_index}    ${shard_prefix}    ${ds_type}
+    [Arguments]    ${member_index}    ${shard_prefix}    ${ds_type}    ${http_timeout}=5
     [Documentation]    Get prefix shard member role.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     &{mapping}    BuiltIn.Create_Dictionary    SHARD_PREFIX=${shard_prefix}    DATA_STORE_TYPE=${ds_type}
-    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_PREFIX_SHARD_ROLE_DIR}    mapping=${mapping}    session=${session}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${GET_PREFIX_SHARD_ROLE_DIR}    mapping=${mapping}    session=${session}    http_timeout=${http_timeout}
     ${xml} =    XML.Parse_Xml    ${text}
     ${role} =    XML.Get_Element_Text    ${xml}    xpath=role
     BuiltIn.Return_From_Keyword    ${role}
