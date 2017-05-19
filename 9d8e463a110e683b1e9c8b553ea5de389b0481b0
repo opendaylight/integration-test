@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_b4c4d692",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-19T10:57:40Z",
+      "side": 1,
+      "message": "Check on the result of this. Not sure how strict.",
+      "range": {
+        "startLine": 117,
+        "startChar": 28,
+        "endLine": 117,
+        "endChar": 40
+      },
+      "revId": "9d8e463a110e683b1e9c8b553ea5de389b0481b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
