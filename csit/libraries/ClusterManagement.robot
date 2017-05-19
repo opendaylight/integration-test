@@ -98,11 +98,11 @@ Verify_Leader_Exists_For_Each_Shard
     \    Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    validate=True    member_index_list=${member_index_list}    verify_restconf=${verify_restconf}
 
 Get_Leader_And_Followers_For_Shard
-    [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=True    ${member_index_list}=${EMPTY}    ${verify_restconf}=True
+    [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=True    ${member_index_list}=${EMPTY}    ${verify_restconf}=True    ${http_timeout}=5
     [Documentation]    Get role lists, validate there is one leader, return the leader and list of followers.
     ...    Optionally, issue GET to a simple restconf URL to make sure subsequent operations will not encounter 503.
     ${leader_list}    ${follower_list} =    Get_State_Info_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    validate=True    member_index_list=${member_index_list}
-    ...    verify_restconf=${verify_restconf}
+    ...    verify_restconf=${verify_restconf}    http_timeout=${http_timeout}
     ${leader_count} =    BuiltIn.Get_Length    ${leader_list}
     BuiltIn.Run_Keyword_If    ${leader_count} < 1    BuiltIn.Fail    No leader found.
     BuiltIn.Length_Should_Be    ${leader_list}    ${1}    Too many Leaders.
@@ -110,7 +110,7 @@ Get_Leader_And_Followers_For_Shard
     [Return]    ${leader}    ${follower_list}
 
 Get_State_Info_For_Shard
-    [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=False    ${member_index_list}=${EMPTY}    ${verify_restconf}=False
+    [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=False    ${member_index_list}=${EMPTY}    ${verify_restconf}=False    ${http_timeout}=5
     [Documentation]    Return lists of Leader and Follower member indices from a given member index list
     ...    (or from the full list if empty). If \${shard_type} is not 'config', 'operational' is assumed.
     ...    If \${validate}, Fail if raft state is not Leader or Follower (for example on Candidate).
@@ -124,21 +124,22 @@ Get_State_Info_For_Shard
     ${follower_list} =    BuiltIn.Create_List
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    ${raft_state} =    Get_Raft_State_Of_Shard_At_Member    shard_name=${shard_name}    shard_type=${ds_type}    member_index=${index}    verify_restconf=${verify_restconf}
+    \    ...    http_timeout=${http_timeout}
     \    BuiltIn.Run_Keyword_If    'Follower' == '${raft_state}'    Collections.Append_To_List    ${follower_list}    ${index}
     \    ...    ELSE IF    'Leader' == '${raft_state}'    Collections.Append_To_List    ${leader_list}    ${index}
     \    ...    ELSE IF    ${validate}    BuiltIn.Fail    Unrecognized Raft state: ${raft_state}
     [Return]    ${leader_list}    ${follower_list}
 
 Get_Raft_State_Of_Shard_At_Member
-    [Arguments]    ${shard_name}    ${shard_type}    ${member_index}    ${verify_restconf}=False
+    [Arguments]    ${shard_name}    ${shard_type}    ${member_index}    ${verify_restconf}=False    ${http_timeout}=5
     [Documentation]    Send request to Jolokia on indexed member, return extracted Raft status.
     ...    Optionally, check restconf works.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     # TODO: Does the used URI tend to generate large data which floods log.html?
-    BuiltIn.Run_Keyword_If    ${verify_restconf}    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False    http_timeout=5
+    BuiltIn.Run_Keyword_If    ${verify_restconf}    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False    http_timeout=${http_timeout}
     ${type_class} =    Resolve_Shard_Type_Class    shard_type=${shard_type}
     ${uri} =    BuiltIn.Set_Variable    ${JOLOKIA_READ_URI}:Category=Shards,name=member-${member_index}-shard-${shard_name}-${shard_type},type=${type_class}
-    ${data_text} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${uri}    session=${session}    http_timeout=5
+    ${data_text} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${uri}    session=${session}    http_timeout=${http_timeout}
     ${data_object} =    RequestsLibrary.To_Json    ${data_text}
     ${value} =    Collections.Get_From_Dictionary    ${data_object}    value
     ${raft_state} =    Collections.Get_From_Dictionary    ${value}    RaftState
