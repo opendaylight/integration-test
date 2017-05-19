@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_74d26ed3",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-19T12:28:48Z",
+      "side": 1,
+      "message": "Perhaps 35 as we have sleep there now, but 30 is close enough.",
+      "range": {
+        "startLine": 26,
+        "startChar": 21,
+        "endLine": 26,
+        "endChar": 23
+      },
+      "revId": "bb57e464e743d0fd5868f6b25e3d2e55978bdf42",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
