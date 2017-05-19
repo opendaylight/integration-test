@@ -148,10 +148,10 @@ Remove_Prefix_Shard
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${REMOVE_PREFIX_SHARD_DIR}    mapping=${mapping}    session=${session}
 
 Become_Prefix_Leader
-    [Arguments]    ${member_index}    ${shard_name}    ${id_prefix}
+    [Arguments]    ${member_index}    ${shard_name}
     [Documentation]    Given node ask to become a shard leader.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}    ID=${id_prefix}${member_index}
+    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}    ID=prefix-0
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${BECOME_PREFIX_LEADER_DIR}    mapping=${mapping}    session=${session}
 
 Subscribe_Dtcl

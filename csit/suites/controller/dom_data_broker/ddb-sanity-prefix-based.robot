@@ -100,7 +100,7 @@ Become_Prefix_Leader
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${old_leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
-    MdsalLowlevel.Become_Prefix_Leader    ${follower1}    ${shard_name}    ${ID_PREFIX}
+    MdsalLowlevel.Become_Prefix_Leader    ${follower1}    ${shard_name}
     ${leader}    ${follower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    30s    3s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
     ...    ${shard_type}    ${True}    ${old_leader}    member_index_list=${EMPTY}
     BuiltIn.Should_Be_Equal_As_Numbers    ${follower1}    ${leader}

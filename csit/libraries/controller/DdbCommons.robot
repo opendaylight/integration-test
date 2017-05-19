@@ -65,7 +65,7 @@ Explicit_Leader_Movement_PrefBasedShard_Test_Templ
     ${idx_trans_as_list} =    BuiltIn.Create_List    ${idx_trans}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}
     BuiltIn.Sleep    5s
-    MdsalLowlevel.Become_Prefix_Leader    ${idx_to}    ${shard_name}    ${ID_PREFIX}
+    MdsalLowlevel.Become_Prefix_Leader    ${idx_to}    ${shard_name}
     ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
     ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
