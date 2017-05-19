@@ -215,6 +215,7 @@ Module_Leader_Isolation_Heal_Default
     ...    Then all write transaction producers should finish without error.
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
     BuiltIn.Log    ${resp}
+    BuiltIn.Should_Not_Be_Equal    ${NONE}    ${resp}    Write-transaction should have returned error from isolated leader node.
     # TODO: check on response status code
     ${restart_producer_node_idx_as_list}    BuiltIn.Create_List    ${isolated_node}
     ${restart_producer_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${isolated_node}
@@ -231,6 +232,7 @@ Prefix_Leader_Isolation_Heal_Default
     ...    Then all write transaction producers shoudl finish without error.
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
     BuiltIn.Log    ${resp}
+    BuiltIn.Should_Not_Be_Equal    ${NONE}    ${resp}    Produce-transaction should have returned error from isolated leader node.
     # TODO: check on response status code
     ${restart_producer_node_idx_as_list}    BuiltIn.Create_List    ${isolated_node}
     ${restart_producer_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${isolated_node}
