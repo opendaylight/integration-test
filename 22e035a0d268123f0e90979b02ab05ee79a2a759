@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_7a16d456",
+        "filename": "csit/suites/sfc/SFC_Basic/060__sfc_service_paths.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-19T23:41:04Z",
+      "side": 1,
+      "message": "we need to keep .robot",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "22e035a0d268123f0e90979b02ab05ee79a2a759",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
