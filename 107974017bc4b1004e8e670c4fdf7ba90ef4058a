@@ -22,6 +22,30 @@
       "revId": "107974017bc4b1004e8e670c4fdf7ba90ef4058a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_fa2ac48e",
+        "filename": "csit/suites/openflowplugin/Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T23:39:27Z",
+      "side": 0,
+      "message": "This is the original goal of the patch, remove this REST call that is going to be deprecated.",
+      "parentUuid": "ba068154_1a59885a",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 169
+      },
+      "revId": "107974017bc4b1004e8e670c4fdf7ba90ef4058a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
