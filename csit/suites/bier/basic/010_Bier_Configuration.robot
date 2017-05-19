@@ -6,8 +6,8 @@ Documentation     Basic tests for BIER information configuration and verificatio
 ...               Test suite performs basic BIER information configuration and verification test cases for
 ...               topology domain, subdomain, node and channel as follows:
 ...
-...               Test Case 1: Query the topology and check its existence
-...               Expected result: Exist a topology which topologyId is flow:1
+...               Test Case 1: Query the topology, node and check their existence
+...               Expected result: Exist a topology which topologyId is flow:1 and seven nodes inside it
 ...
 ...               Test Case 2: Configure domain with add and delete operation
 ...               Expected result: The Configure result with corresponding operation verified as expected
@@ -33,7 +33,7 @@ Resource          ../../../variables/Variables.robot
 ${TOPOLOGY_ID}    flow:1
 @{DOMAIN_ID}      1
 @{SUBDOMAIN_ID_LIST}    1    2    3    4
-@{NOID_ID_LIST}    1    2    3    4
+@{NOID_ID_LIST}    1    2    3    4    5    6    7
 @{BSL_OF_IPV4_AND_IPV6}    64    128    256
 @{IGP_TYPE_LIST}    ISIS    OSPF
 @{MT_ID_LIST}     0    1    2    3    4    5
@@ -41,11 +41,11 @@ ${TOPOLOGY_ID}    flow:1
 ${ENCAPSULATION_TYPE}    ietf-bier:bier-encapsulation-mpls
 ${IPV4_BFR_PREFIX}    10.41.41.41/22
 ${IPV6_BFR_PREFIX}    fe80::7009:fe25:8170:36af/64
-${BIER_QUERYALLTOPOLOGYID_URI}    /restconf/operations/bier-topology-api
 
 *** Test Cases ***
 TC1_Query All Topology ID
     [Documentation]    Query all bier topology ID
+    Wait Until Keyword Succeeds    30s    2s    Node_Online
     ${resp}    Send_Request_To_Query_Topology_Id    bier-topology-api    load-topology
     BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
     ${root}    To Json    ${resp.content}
@@ -352,7 +352,7 @@ TC5_Add Channel
     List Should Contain Value    ${channel_list}    ${name1}
     ${channel_name2}    Get From List    ${channel_name_list}    1
     ${name2}    Get From Dictionary    ${channel_name2}    name
-    Should Contain    ${channel_list}    ${name2}
+    List Should Contain Value    ${channel_list}    ${name2}
 
 TC5_Modify Channel
     [Documentation]    Modify {src_ip} and {dst_group} value of channel-1
