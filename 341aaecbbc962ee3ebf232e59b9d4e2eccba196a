@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_8336be50",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "Do you need this?",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_63391a41",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "Do you need this?",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_c33f2624",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "Do you need this?",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_a33ae231",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "remove, this exists already in Variables.robot",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_034acec4",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "typo",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_431336b8",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "You can add a check here",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_2316f2a7",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "You can add another check here.",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_830d1e93",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "typo",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_232f12f8",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "Check Flow Stats Are Not Frozen",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_e3ed0ab9",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "I do not understand this, please explain what this KW does.",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_432cd602",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "Why you need this Sleep here?",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_03f3ee9e",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "Extract Flow Duration",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_a3f3029e",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "I guess you mean Extract duration for flow 1 in switch 1.",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_c3f8c67e",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "remove this",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_6302ba70",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-19T01:59:37Z",
+      "side": 1,
+      "message": "remove this",
+      "revId": "341aaecbbc962ee3ebf232e59b9d4e2eccba196a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
