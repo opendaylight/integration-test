@@ -29,6 +29,23 @@ Send_Request_Operation_Besides_QueryTopology_Id
     BuiltIn.Log    ${resp.content}
     [Return]    ${resp}
 
+Node_Online
+    [Documentation]    Send request to query node and verify their existence
+    ${input}    Create Dictionary    topology-id    ${TOPOLOGY_ID}    node    ${NODE_ID_LIST}
+    ${resp}    Send_Request_Operation_Besides_QueryTopology_Id    bier-topology-api    query-node    ${input}
+    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${STATUS_CODE}
+    ${root}    To Json    ${resp.content}
+    ${out_put}    Get From Dictionary    ${root}    output
+    ${node_list}    Get From Dictionary    ${out_put}    node
+    ${node_num}    Get Length    ${node_list}
+    BuiltIn.Should_Be_Equal    ${node_num}    ${NODE_NUM}
+    @{node_id_list}    Create List    1    2    3    4    5
+    ...    6    7
+    : FOR    ${i}    IN RANGE    7
+    \    ${node}    Get From List    ${node_list}    ${i}
+    \    ${node_id}    Get From Dictionary    ${node}    node-id
+    \    List Should Contain Value    ${node_id_list}    ${node_id}
+
 Construct_Af
     [Arguments]    ${ipv4_bsl}    ${ipv6_bsl}    ${bier_ipv4_mlslab_base}    ${bier_ipv6_mlslab_base}    ${bier_mlslab_range_size}
     [Documentation]    Construct container af inside single subdomain by given details ${ipv4_bsl}, ${ipv6_bsl}, ${bier_mlslab_base} and ${bier_mlslab_range_size}
@@ -83,7 +100,7 @@ Add_Or_Modify_Ipv4
 Verify_Configuration_Success_Or_Not
     [Arguments]    ${resp}
     [Documentation]    Verify the return value ${resp} of request to controller success or not
-    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
+    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${STATUS_CODE}
     ${root}    To Json    ${resp.content}
     ${output}    Get From Dictionary    ${root}    output
     ${configure_result}    Get From Dictionary    ${output}    configure-result
