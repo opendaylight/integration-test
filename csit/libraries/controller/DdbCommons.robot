@@ -24,7 +24,6 @@ ${SHARD_TYPE}     config
 ${TRANSACTION_RATE_1K}    ${1000}
 ${DURATION_90S}    ${90}    #TODO: Rename to hint at the goal of waiting, instead of its default value.
 ${DURATION_30S}    ${30}
-${DURATION_10S}    ${10}
 ${ID_PREFIX}      prefix-
 ${TRANSACTION_TIMEOUT}    ${30}
 ${TRANSACTION_TIMEOUT_2X}    ${2*${TRANSACTION_TIMEOUT}}
@@ -323,7 +322,7 @@ Remote_Listener_Test_Templ
     MdsalLowlevel.Subscribe_Dtcl    ${listener_node_dst}
     ${subscribed} =    BuiltIn.Set_Variable    ${True}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     BuiltIn.Sleep    5s
     ClusterAdmin.Remove_Shard_Replica    ${listener_node_dst}    ${shard_name}    member-${listener_node_dst}    ${shard_type}
     ${alive_replicas} =    ClusterManagement.List_Indices_Minus_Member    ${listener_node_dst}    ${all_indices}
@@ -352,7 +351,7 @@ Remote_Listener_PrefBasedShard_Test_Templ
     MdsalLowlevel.Subscribe_Ddtl    ${listener_node_dst}
     ${subscribed} =    BuiltIn.Set_Variable    ${True}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_10S}    ${TRANSACTION_RATE_1K}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}
     BuiltIn.Sleep    5s
     ClusterAdmin.Remove_Prefix_Shard_Replica    ${listener_node_dst}    ${shard_name}    member-${listener_node_dst}    ${shard_type}
     ${alive_replicas} =    ClusterManagement.List_Indices_Minus_Member    ${listener_node_dst}    ${all_indices}
