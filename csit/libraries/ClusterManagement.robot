@@ -397,9 +397,12 @@ Start_Members_From_List_Or_All
     [Documentation]    If the list is empty, start all cluster members. Otherwise, start members based on present indices.
     ...    If ${wait_for_sync}, wait for cluster sync on listed members.
     ...    Optionally karaf_home can be overriden. Optionally specific JAVA_HOME is used for starting.
-    ${base_command} =    BuiltIn.Set_Variable_If    "${karaf_home}"    ${karaf_home}/bin/start    ${NODE_START_COMMAND}
-    ${command} =    BuiltIn.Set_Variable_If    "${export_java_home}"    export JAVA_HOME="${export_java_home}"; ${base_command}    ${base_command}
-    Run_Bash_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
+    ${base_command} =    BuiltIn.Set_Variable_If    """${karaf_home}""" != ""    ${karaf_home}/bin/start    ${NODE_START_COMMAND}
+    ${command} =    BuiltIn.Set_Variable_If    """${export_java_home}""" != ""    export JAVA_HOME="${export_java_home}"; ${base_command}    ${base_command}
+    ${epoch} =    DateTime.Get_Current_Time    time_zone=UTC    result_format=epoch    exclude_millis=True
+    ${gc_filepath} =    BuiltIn.Set_Variable_If    """${karaf_home}""" != ""    ${karaf_home}/data/log/gc_${epoch}.log    ${WORKSPACE}/${BUNDLEFOLDER}/data/log/gc_${epoch}.log
+    ${gc_options} =    -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:${gc_filepath}
+    Run_Bash_Command_On_List_Or_All    command=${command} ${gc_options}    member_index_list=${member_index_list}
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
     # TODO: Do we also want to check Shard Leaders here?
