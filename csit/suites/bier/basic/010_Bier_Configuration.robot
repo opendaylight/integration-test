@@ -6,8 +6,8 @@ Documentation     Basic tests for BIER information configuration and verificatio
 ...               Test suite performs basic BIER information configuration and verification test cases for
 ...               topology domain, subdomain, node and channel as follows:
 ...
-...               Test Case 1: Query the topology and check its existence
-...               Expected result: Exist a topology which topologyId is flow:1
+...               Test Case 1: Query the topology, node and check their existence
+...               Expected result: Exist a topology which topologyId is flow:1 and seven nodes inside it
 ...
 ...               Test Case 2: Configure domain with add and delete operation
 ...               Expected result: The Configure result with corresponding operation verified as expected
@@ -33,7 +33,7 @@ Resource          ../../../variables/Variables.robot
 ${TOPOLOGY_ID}    flow:1
 @{DOMAIN_ID}      1
 @{SUBDOMAIN_ID_LIST}    1    2    3    4
-@{NOID_ID_LIST}    1    2    3    4
+@{NODE_ID_LIST}    1    2    3    4    5    6    7
 @{BSL_OF_IPV4_AND_IPV6}    64    128    256
 @{IGP_TYPE_LIST}    ISIS    OSPF
 @{MT_ID_LIST}     0    1    2    3    4    5
@@ -41,13 +41,19 @@ ${TOPOLOGY_ID}    flow:1
 ${ENCAPSULATION_TYPE}    ietf-bier:bier-encapsulation-mpls
 ${IPV4_BFR_PREFIX}    10.41.41.41/22
 ${IPV6_BFR_PREFIX}    fe80::7009:fe25:8170:36af/64
-${BIER_QUERYALLTOPOLOGYID_URI}    /restconf/operations/bier-topology-api
+${STATUS_CODE}    200
+${CHANNEL_NUM}    2
+${FIXED_VALUE}    4
+${NODE_NUM}       7
+${BIER_IPV4_MLSLAB_BASE}    17
+${BFR_ID}         10
 
 *** Test Cases ***
 TC1_Query All Topology ID
     [Documentation]    Query all bier topology ID
+    Wait Until Keyword Succeeds    30s    2s    Node_Online
     ${resp}    Send_Request_To_Query_Topology_Id    bier-topology-api    load-topology
-    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
+    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${STATUS_CODE}
     ${root}    To Json    ${resp.content}
     ${out_put}    Get From Dictionary    ${root}    output
     ${topology_list}    Get From Dictionary    ${out_put}    topology
@@ -59,7 +65,7 @@ TC1_Query Single Topology
     [Documentation]    Query the topology which assigned by RestAPI
     ${input}    Create Dictionary    topology-id    ${TOPOLOGY_ID}
     ${resp}    Send_Request_Operation_Besides_QueryTopology_Id    bier-topology-api    query-topology    ${input}
-    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
+    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${STATUS_CODE}
     ${root}    To Json    ${resp.content}
     ${out_put}    Get From Dictionary    ${root}    output
     ${topology_id}    Get From Dictionary    ${out_put}    topology-id
@@ -75,13 +81,13 @@ TC2_Query Domain
     [Documentation]    Query a bier domain in the topology
     ${input}    Create Dictionary    topology-id    ${TOPOLOGY_ID}
     ${resp}    Send_Request_Operation_Besides_QueryTopology_Id    bier-topology-api    query-domain    ${input}
-    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
+    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${STATUS_CODE}
     ${root}    To Json    ${resp.content}
     ${out_put}    Get From Dictionary    ${root}    output
     ${domain_list}    Get From Dictionary    ${out_put}    domain
     ${domain_id}    Get From List    ${domain_list}    0
     ${value}    Get From Dictionary    ${domain_id}    domain-id
-    BuiltIn.Should_Be_Equal    ${value}    ${1}
+    BuiltIn.Should_Be_Equal    ${value}    ${DOMAIN_ID}
 
 TC2_Delete Domain
     [Documentation]    Delete a bier domain in the topology
@@ -103,12 +109,12 @@ TC3_Query Subdomain
     [Documentation]    Query all bier subdomains in one domain
     ${input}    Create Dictionary    topology-id    ${TOPOLOGY_ID}    domain-id    ${DOMAIN_ID}
     ${resp}    Send_Request_Operation_Besides_QueryTopology_Id    bier-topology-api    query-subdomain    ${input}
-    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
+    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${STATUS_CODE}
     ${root}    To Json    ${resp.content}
     ${out_put}    Get From Dictionary    ${root}    output
     ${subdomain_list}    Get From Dictionary    ${out_put}    subdomain
     ${subdomain_num}    Get Length    ${subdomain_list}
-    ${fixed_value}    Set Variable    ${4}
+    ${fixed_value}    Set Variable    ${FIXED_VALUE}
     : FOR    ${i}    IN RANGE    4
     \    ${subdomain_id}    Get From List    ${subdomain_list}    ${i}
     \    ${value}    Get From Dictionary    ${subdomain_id}    sub-domain-id
@@ -227,7 +233,7 @@ TC4_Modify Leaf Of Domain
     \    ${bit_string_length}    Get From Dictionary    ${bier_global}    bitstringlength
     \    ${bfr_id}    Get From Dictionary    ${bier_global}    bfr-id
     \    BuiltIn.Should_Be_Equal    ${bit_string_length}    ${BITSTRINGLENGTH_LIST[1]}
-    \    BuiltIn.Should_Be_Equal    ${bfr_id}    ${10}
+    \    BuiltIn.Should_Be_Equal    ${bfr_id}    ${BFR_ID}
 
 TC4_Modify Leaf Of Subdomain
     [Documentation]    Modify {igp_type}, {mt_id} and {bfr_id} value for every subdomain
@@ -302,7 +308,7 @@ TC4_Modify Ipv4 Of Subdomain
     \    ${ipv4_list}    Get From Dictionary    ${af}    ipv4
     \    ${ipv4}    Get From List    ${ipv4_list}    1
     \    ${bier_ipv4_mlslab_base}    Get From Dictionary    ${ipv4}    bier-mpls-label-base
-    \    BuiltIn.Should_Be_Equal    ${bier_ipv4_mlslab_base}    ${17}
+    \    BuiltIn.Should_Be_Equal    ${bier_ipv4_mlslab_base}    ${BIER_IPV4_MLSLAB_BASE}
 
 TC4_Delete Ipv4 Of Node4
     [Documentation]    Delete Ipv4list in node4
@@ -345,14 +351,14 @@ TC5_Add Channel
     ${out_put}    Get From Dictionary    ${root}    output
     ${channel_name_list}    Get From Dictionary    ${out_put}    channel-name
     ${channel_num}    Get Length    ${channel_name_list}
-    BuiltIn.Should_Be_Equal    ${channel_num}    ${2}
+    BuiltIn.Should_Be_Equal    ${channel_num}    ${CHANNEL_NUM}
     ${channel_name1}    Get From List    ${channel_name_list}    0
     ${name1}    Get From Dictionary    ${channel_name1}    name
     @{channel_list}    Create List    channel-1    channel-2
     List Should Contain Value    ${channel_list}    ${name1}
     ${channel_name2}    Get From List    ${channel_name_list}    1
     ${name2}    Get From Dictionary    ${channel_name2}    name
-    Should Contain    ${channel_list}    ${name2}
+    List Should Contain Value    ${channel_list}    ${name2}
 
 TC5_Modify Channel
     [Documentation]    Modify {src_ip} and {dst_group} value of channel-1
