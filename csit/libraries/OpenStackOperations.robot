@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           SSHLibrary
+Library           OperatingSystem
 Resource          DataModels.robot
 Resource          Utils.robot
 Resource          L2GatewayOperations.robot
@@ -13,11 +14,15 @@ Source Password
     [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
     Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
 
+Source Local Password
+    [Arguments]    ${force}=no    ${source_pwd}=yes
+    [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
+    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    source /tmp/openrc admin admin
+
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron security-group-show default | grep "| tenant_id" | awk '{print $4}'
+    Source Local Password
+    ${rc}    ${output}    Run And Return Rc And Output     neutron security-group-show default | grep "| tenant_id" | awk '{print $4}'
     Log    ${output}
     [Return]    ${output}
 
@@ -31,19 +36,19 @@ Get Tenant ID From Network
 Create Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
     [Documentation]    Create Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    Source Local Password
     ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v net-create ${network_name} ${additional_args}    neutron net-create ${network_name} ${additional_args} | grep -w id | awk '{print $4}'
-    ${output}=    Write Commands Until Prompt    ${command}    30s
+    ${rc}    ${output}    Run And Return Rc And Output    ${command}
+    Log    ${rc}
     Log    ${output}
+    Should Be Equal As Integers    ${rc}    0
     [Return]    ${output}
 
 Update Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v net-update ${network_name} ${additional_args}    30s
+    Source Local Password
+    ${rc}    ${output}    Run And Return Rc And Output    neutron -v net-update ${network_name} ${additional_args}    30s
     Log    ${output}
     Close Connection
     [Return]    ${output}
@@ -51,27 +56,24 @@ Update Network
 Show Network
     [Arguments]    ${network_name}
     [Documentation]    Show Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v net-show ${network_name}    30s
+    Source Local Password
+    ${rc}    ${output}    Run And Return Rc And Output     neutron -v net-show ${network_name}    30s
     Log    ${output}
     Close Connection
     [Return]    ${output}
 
 List Networks
     [Documentation]    List networks and return output with neutron client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron net-list    30s
+    Source Local Password
+    ${rc}    ${output}     Run And Return Rc And Output    neutron net-list    30s
     Close Connection
     Log    ${output}
     [Return]    ${output}
 
 List Subnets
     [Documentation]    List subnets and return output with neutron client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron subnet-list    30s
+    Source Local Password
+    ${rc}    ${output}     Run And Return Rc And Output    neutron subnet-list    30s
     Close Connection
     Log    ${output}
     [Return]    ${output}
@@ -79,9 +81,8 @@ List Subnets
 Delete Network
     [Arguments]    ${network_name}
     [Documentation]    Delete Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v net-delete ${network_name}    30s
+    Source Local Password
+    ${rc}    ${output}    Run And Return Rc And Output    neutron -v net-delete ${network_name}    30s
     Close Connection
     Log    ${output}
     Should Match Regexp    ${output}    Deleted network: ${network_name}|Deleted network\\(s\\): ${network_name}
@@ -89,9 +90,8 @@ Delete Network
 Create SubNet
     [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${additional_args}=${EMPTY}
     [Documentation]    Create SubNet for the Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet} ${additional_args}    30s
+    Source Local Password
+    ${rc}    ${output}    Run And Return Rc And Output     neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet} ${additional_args}    30s
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
