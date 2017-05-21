@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_554be186",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-05-21T05:54:29Z",
+      "side": 1,
+      "message": "yeah, We can think of better ways to determine the success of Openstack comamnds.",
+      "parentUuid": "ba068154_eb20554b",
+      "range": {
+        "startLine": 66,
+        "startChar": 30,
+        "endLine": 66,
+        "endChar": 54
+      },
+      "revId": "94d1c53901c04283d217fd677077b3c5d6be9d21",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_cb1bd11a",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 31
@@ -36,6 +60,30 @@
       "writtenOn": "2017-05-16T23:10:51Z",
       "side": 1,
       "message": "curious, did the neutron cli not get fully implemented in the \nopenstack cli for newton?",
+      "range": {
+        "startLine": 105,
+        "startChar": 15,
+        "endLine": 105,
+        "endChar": 72
+      },
+      "revId": "94d1c53901c04283d217fd677077b3c5d6be9d21",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_354e1d97",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-05-21T05:54:29Z",
+      "side": 1,
+      "message": "Yeah certain options are not available, https://github.com/openstack/python-openstackclient/blob/stable/newton/doc/source/command-objects/subnet.rst Hence had to make this change",
+      "parentUuid": "ba068154_cb1bd11a",
       "range": {
         "startLine": 105,
         "startChar": 15,
