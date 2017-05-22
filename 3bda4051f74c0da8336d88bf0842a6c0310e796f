@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0b7d60_d8e3e131",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-22T18:31:09Z",
+      "side": 1,
+      "message": "If we make the log unconditional we have to provide a way for users of custom distributions to full specify the path for the log. Same as with ${NODE_START_COMMAND}, you could move ${WORKSPACE}/${BUNDLEFOLDER}/data/log to the Variables section and provide a single variable here: ${GC_LOG_PATH}/gc_${epoch}.log",
+      "revId": "3bda4051f74c0da8336d88bf0842a6c0310e796f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
