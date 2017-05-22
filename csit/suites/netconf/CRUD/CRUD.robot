@@ -219,7 +219,7 @@ Check_Device_Going_To_Be_Gone_After_Deconfiguring
 Setup_Everything
     [Documentation]    Initialize SetupUtils. Setup everything needed for the test cases.
     # Setup resources used by the suite.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=2
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     NetconfKeywords.Setup_Netconf_Keywords
     ${device_type}=    BuiltIn.Set_Variable_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    default    ${device_type}
