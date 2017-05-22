@@ -8,7 +8,7 @@ Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_T
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
-Force Tags        skip_if_transparent
+Force Tags        skip_if_${SECURITY_GROUP_MODE}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -88,7 +88,7 @@ No Ping From Vm Instance2 To Vm Instance1
     ${VM1_LIST}    Create List    @{NET1_VM_IPS}[0]
     # in transparent mode the behavior is the same as with no SG, so this ping would still work.
     ${expect_ping_to_work}=    Set Variable If    "skip_if_transparent" in @{TEST_TAGS}    True    False
-    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${VM1_LIST}    ping_should_succeed=False
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${VM1_LIST}    ping_should_succeed=${expect_ping_to_work}
 
 Add Ping Allow Rules With Remote SG (only between VMs)
     Neutron Security Group Rule Create    csit-remote-sgs    direction=ingress    protocol=icmp    remote_group_id=csit-remote-sgs
