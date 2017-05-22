@@ -37,7 +37,7 @@ Setup_NetconfKeywords
     [Documentation]    Setup the environment for the other keywords of this Resource to work properly.
     ${tmp}=    BuiltIn.Create_Dictionary
     BuiltIn.Set_Suite_Variable    ${NetconfKeywords__mounted_device_types}    ${tmp}
-    BuiltIn.Run_Keyword_If    ${create_session_for_templated_requests}    TemplatedRequests.Create_Default_Session
+    BuiltIn.Run_Keyword_If    ${create_session_for_templated_requests}    TemplatedRequests.Create_Default_Session    timeout=2
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
 
 Configure_Device_In_Netconf
