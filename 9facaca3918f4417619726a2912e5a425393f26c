@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7af0899e_ae25f70b",
+        "filename": "csit/scripts/acceptable_akka_hb.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-23T08:19:42Z",
+      "side": 1,
+      "message": "When I tried to use a variant of this, it seems bash does not expand asterisks at the right place. See [0]:\n  sed: can\u0027t read /tmp/distribution-karaf-0.6.0-SNAPSHOT/system/org/opendaylight/controller/sal-clustering-config/*/sal-clustering-config-*-factoryakkaconf.xml: No such file or directory\n\n[0] https://logs.opendaylight.org/sandbox/jenkins091/bgpcep-csit-3node-bgpclustering-longevity-only-carbon/9/console.log.gz",
+      "range": {
+        "startLine": 11,
+        "startChar": 152,
+        "endLine": 11,
+        "endChar": 166
+      },
+      "revId": "9facaca3918f4417619726a2912e5a425393f26c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a0b7d60_d2e1029c",
         "filename": "csit/scripts/acceptable_akka_hb.sh",
         "patchSetId": 7
