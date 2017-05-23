@@ -16,6 +16,24 @@
       "revId": "0f765d037454c366f5256f53a6bf9d2c977c1c72",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_9eaf57e3",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 6538
+      },
+      "writtenOn": "2017-05-23T09:41:24Z",
+      "side": 1,
+      "message": "Hi Luis ,\n In this KW Get_Raft_Property_From_Shard_Member, i am sending a argument (raft_property \u003d Current Term ,Last Applied ,Last Index) ..\nBut the Above KW Get_Raft_State_Of_Shard_At_Member only return 1 argument  which is (Raft_State value)\n#${raft_state} \u003d    Collections.Get_From_Dictionary    ${value}    RaftState\nSo i have taken (data_object) and check the raft Property",
+      "parentUuid": "ba068154_8b2bbe2f",
+      "revId": "0f765d037454c366f5256f53a6bf9d2c977c1c72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
