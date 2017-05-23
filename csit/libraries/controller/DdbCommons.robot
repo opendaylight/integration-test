@@ -34,8 +34,8 @@ ${ISOLATED_TRANS_FALSE}    ${False}
 ${HARD_TIMEOUT}    ${120}
 @{TRANSACTION_FAILED}    ${500}
 ${PREF_BASED_SHARD}    id-ints
-${TEST_LOG_LEVEL}    info
-@{TEST_LOG_COMPONENTS}    org.opendaylight.controller.cluster.sharding    org.opendaylight.controller.cluster.datastore
+${TEST_LOG_LEVEL}    debug
+@{TEST_LOG_COMPONENTS}    org.opendaylight.controller.cluster.databroker.actors.dds    org.opendaylight.controller.cluster.access.client
 ${HEAL_WITHIN_TRANS_TIMEOUT}    ${0}
 
 *** Keywords ***
@@ -316,6 +316,7 @@ Get_Seconds_To_Time
 Remote_Listener_Test_Templ
     [Arguments]    ${listener_node_role}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements remote listener test scenario.
+    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
