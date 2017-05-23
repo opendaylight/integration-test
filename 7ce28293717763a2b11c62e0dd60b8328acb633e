@@ -2,6 +2,108 @@
   "comments": [
     {
       "key": {
+        "uuid": "7af0899e_fdda1316",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-23T19:08:13Z",
+      "side": 1,
+      "message": "Check Stats Are Not Frozen",
+      "revId": "7ce28293717763a2b11c62e0dd60b8328acb633e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_ddd757ec",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-23T19:08:13Z",
+      "side": 1,
+      "message": "Check Stats Are Not Frozen After Disconnect",
+      "revId": "7ce28293717763a2b11c62e0dd60b8328acb633e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_3d049b7d",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-23T19:08:13Z",
+      "side": 1,
+      "message": "Check Stats Are Not Frozen After Reconnect",
+      "revId": "7ce28293717763a2b11c62e0dd60b8328acb633e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_9dc66f48",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-23T19:08:13Z",
+      "side": 1,
+      "message": "Check Stats Are Not Frozen After After Owner Stops",
+      "revId": "7ce28293717763a2b11c62e0dd60b8328acb633e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_5d036773",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-23T19:08:13Z",
+      "side": 1,
+      "message": "Check Stats Are Not Frozen After Owner Restarts",
+      "revId": "7ce28293717763a2b11c62e0dd60b8328acb633e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_fdf17396",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-23T19:08:13Z",
+      "side": 1,
+      "message": "Check Stats Are Not Frozen After Cluster Restart",
+      "revId": "7ce28293717763a2b11c62e0dd60b8328acb633e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0899e_dd72b748",
         "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
         "patchSetId": 9
