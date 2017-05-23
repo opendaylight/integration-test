@@ -124,6 +124,23 @@ Get Operational Topology after Deletion of Bridge
     @{list}    Create List    ${BRIDGE2}
     Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
 
+Vlan Tag Is Removed From Operational
+    [Documentation]    Verify that when the vlan tag is added and removed from an ovs port, it should be accurately reflected
+    ...    in the operational store
+    [Tags]    bug 8529
+    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br vlan-tag-br
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-port vlan-tag-br vlan-tag-port
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set port vlan-tag-port tag=81
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
+    @{list}    Create List    vlan-tag-br    vlan-tag-port    "ovsdb:vlan-tag":81
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl clear port vlan-tag-port tag
+    @{list}    Create List    "ovsdb:vlan-tag":81
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
+    [Teardown]    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
+
 Check For Bug 4756
     [Documentation]    bug 4756 has been seen in the OVSDB Southbound suites. This test case should be one of the last test
     ...    case executed.
