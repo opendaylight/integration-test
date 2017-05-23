@@ -123,6 +123,21 @@ Check No Hosts
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    "node-id":"host:
 
+Add Table Miss Flows
+    [Arguments]    ${switches}
+    [Documentation]    Add table miss flows to switches.
+    ${switches}=    Convert To Integer    ${switches}
+    ${data}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/table_miss_flow.json
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    TemplatedRequests.Put As Json To Uri    ${CONFIG_NODES_API}/node/openflow:${switch}/table/0/flow/default    ${data}    session
+
+Check Table Miss Flows
+    [Arguments]    ${switches}
+    [Documentation]    Check table miss flows in switches.
+    ${switches}=    Convert To Integer    ${switches}
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    TemplatedRequests.Get As Json From Uri    ${OPERATIONAL_NODES_API}/node/openflow:${switch}/table/0/flow/default    session
+
 Create Inventory Flow
     [Documentation]    Calls FlowLib.Make_Inventory_Flow function and initializes and sanitizes
     ...    the basic flow elements that can be given to flow:inventory
