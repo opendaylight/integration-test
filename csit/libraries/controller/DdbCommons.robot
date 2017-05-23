@@ -329,7 +329,7 @@ Remote_Listener_Test_Templ
     ClusterAdmin.Remove_Shard_Replica    ${leader}    ${shard_name}    member-${leader}    ${shard_type}
     ${newleader}    ${newfollower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}
     ...    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
-    BuiltIn.Run_Keyword_If    "${listener_node_role}" != "leader"    BuiltIn.Should_Be_Equal_As_Numbers    ${leader}    ${newleader}
+    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${leader}    ${newleader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}
@@ -357,7 +357,7 @@ Remote_Listener_PrefBasedShard_Test_Templ
     ClusterAdmin.Remove_Prefix_Shard_Replica    ${leader}    ${shard_name}    member-${leader}    ${shard_type}
     ${newleader}    ${newfollower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!
     ...    member_index_list=${follower_list}    verify_restconf=False    shard_type=${shard_type}
-    BuiltIn.Run_Keyword_If    "${listener_node_role}" != "leader"    BuiltIn.Should_Be_Equal_As_Numbers    ${leader}    ${newleader}
+    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${leader}    ${newleader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    ${resp}
