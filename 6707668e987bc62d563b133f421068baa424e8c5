@@ -22,6 +22,30 @@
       "revId": "6707668e987bc62d563b133f421068baa424e8c5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_ceae78e7",
+        "filename": "csit/libraries/FlowLib.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-05-24T17:22:27Z",
+      "side": 1,
+      "message": "You are right but other KWs in the library also use: switches, links, hosts, flows, groups, when it should be num_*. I will need another patch to fix the library.",
+      "parentUuid": "7af0899e_68edbf8b",
+      "range": {
+        "startLine": 127,
+        "startChar": 21,
+        "endLine": 127,
+        "endChar": 29
+      },
+      "revId": "6707668e987bc62d563b133f421068baa424e8c5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
