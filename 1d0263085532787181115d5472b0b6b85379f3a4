@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_4360a435",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/020__connection_manager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2017-05-24T08:56:05Z",
+      "side": 1,
+      "message": "no space, should be \"trunk\":181",
+      "range": {
+        "startLine": 143,
+        "startChar": 61,
+        "endLine": 143,
+        "endChar": 62
+      },
+      "revId": "1d0263085532787181115d5472b0b6b85379f3a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_23659845",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/020__connection_manager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2017-05-24T08:56:05Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 147,
+        "startChar": 61,
+        "endLine": 147,
+        "endChar": 62
+      },
+      "revId": "1d0263085532787181115d5472b0b6b85379f3a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
