@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_6e9e6458",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/03_basic_ipv6_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-24T20:15:44Z",
+      "side": 1,
+      "message": "this looks to duplicate some things from the v4\nbasic_vpnservice suite. We should move the common\ncode to the right resource/library and share it.",
+      "revId": "6df313219d08fdab51f36cf3cd50860453416075",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
