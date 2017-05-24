@@ -19,6 +19,7 @@ Suite Setup       PrefixcountKeywords.Setup_Everything
 Suite Teardown    PrefixcountKeywords.Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
+Default Tags      critical
 Library           SSHLibrary    timeout=10s
 Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
@@ -37,7 +38,7 @@ ${COUNT}          300000
 ${DURATION_24_HOURS_IN_SECONDS}    86400
 
 *** Test Cases ***
-Configure prefixes longevity
+Configure_Prefixes_Longevity
     [Documentation]    Configure bgp peer, repeat the test scenario for 24h and deconfigure it.
     ${rib_owner}    ${rib_candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    1
     BuiltIn.Wait_Until_Keyword_Succeeds    ${INITIAL_RESTCONF_TIMEOUT}    1s    Check_For_Empty_Ipv4_Topology_On_All_Nodes
