@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_68edbf8b",
+        "filename": "csit/libraries/FlowLib.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-24T04:04:49Z",
+      "side": 1,
+      "message": "technically this is ${num_switches}. my first thought\nwas it was a list of switch names.",
+      "range": {
+        "startLine": 127,
+        "startChar": 21,
+        "endLine": 127,
+        "endChar": 29
+      },
+      "revId": "6707668e987bc62d563b133f421068baa424e8c5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
