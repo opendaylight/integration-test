@@ -169,7 +169,7 @@ List Nova VMs
     [Documentation]    List VMs and return output with nova client.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    nova list    30s
+    ${output}=    Write Commands Until Prompt    nova list --debug    30s
     Close Connection
     Log    ${output}
     [Return]    ${output}

@@ -108,6 +108,7 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     Should Not Contain    ${output}    ${PING_PASS}
     Log    Reboot VM instance and verify flow
     Get Test Teardown Debugs
+    Show Debugs    @{VM_INSTANCES_ELAN2}    @{VM_INSTANCES_ELAN3}
     ${filename_prefix}    Replace String    ${TEST_NAME}    ${SPACE}    _
     ${cn1_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_1_IP}    file_Name=${filename_prefix}_CN1
     ${cn2_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_2_IP}    file_Name=${filename_prefix}_CN2
@@ -124,7 +125,8 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${MAC_LIST}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_ELAN2[1]}    ping -c 3 ${VM_IP_ELAN2[0]}
     Should Contain    ${output}    ${PING_PASS}
-    [Teardown]    Run Keywords    Get Test Teardown Debugs
+    [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_ELAN2}    @{VM_INSTANCES_ELAN3}
+    ...    AND    Get Test Teardown Debugs
     ...    AND    MultipleElan Testsuite Cleanup
     ...    AND    Stop Packet Capture on Node    ${cn1_conn_id}
     ...    AND    Stop Packet Capture on Node    ${cn2_conn_id}
