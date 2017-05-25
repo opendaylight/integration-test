@@ -12,7 +12,7 @@ Library           OperatingSystem
 *** Variables ***
 &{ITM_CREATE_DEFAULT}    tunneltype=vxlan    vlanid=0    prefix=1.1.1.1/24    gateway=0.0.0.0    dpnid1=1    portname1=BR1-eth1    ipaddress1=2.2.2.2
 ...               dpnid2=2    portname2= BR2-eth1    ipaddress2=3.3.3.3
-&{L3VPN_CREATE_DEFAULT}    vpnid=4ae8cd92-48ca-49b5-94e1-b2921a261111    name=vpn1    rd=["2200:1"]    exportrt=["2200:1","8800:1"]    importrt=["2200:1","8800:1"]    tenantid=6c53df3a-3456-11e5-a151-feff819cdc9f
+&{L3VPN_CREATE_DEFAULT}    vpnid=4ae8cd92-48ca-49b5-94e1-b2921a261111    name=vpn1    rd=["2200:1"]    exportrt=["2200:1","8800:1"]    importrt=["2200:1","8800:1"]    l3vni=200    tenantid=6c53df3a-3456-11e5-a151-feff819cdc9f
 ${VAR_BASE}       ${CURDIR}/../variables/vpnservice/
 ${ODL_FLOWTABLE_L3VPN}    21
 ${STATE_UP}       UP
@@ -189,3 +189,58 @@ Get Fib Entries
     ${resp}    RequestsLibrary.Get Request    ${session}    ${FIB_ENTRIES_URL}
     Log    ${resp.content}
     [Return]    ${resp.content}
+
+Validation_OpenFlow_Node_Inventory_BGP
+    Log    "Validate Open Flow channel is established between VSwitches and CSC"
+    Verify Tunnel Status as UP
+    Log    "Restart OVSDB"
+    Restart OVSDB    ${OS_COMPUTE_1_IP}
+    Restart OVSDB    ${OS_COMPUTE_2_IP}
+    ${output}     Issue Command on Dpn    ${OS_COMPUTE_1_IP}    sudo ovsdb-client dump -f list Open_vSwitch Controller | grep state
+    Log    ${output}
+    Log    "Validate CSC inventory shows them in the node inventory"
+    ${output}    Get Inventory Nodes    session
+    Log    ${output}
+    Log    "Validate L3VPNoVXLAN should display the L3VNI along with RD, RTs"
+    ${Req_no_of_L3VPN} =    Evaluate    1
+    Verify L3VPN    ${Req_no_of_L3VPN}
+    Log    "Validate BGP neighbour ship is established between CSC and ASR"
+    ${output} =    Wait Until Keyword Succeeds    60s    10s    Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}
+    Log    ${output}
+    ${devstack_conn_id} =    Get ControlNode Connection
+    : FOR    ${index}   IN RANGE   0    1
+    \    ${network_id} =    Get Net Id    ${REQ_NETWORKS[${index}]}    ${devstack_conn_id}
+    \    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    \    Should Contain    ${resp}    ${network_id}
+
+Verify L3VPN
+    [Arguments]    ${NUM_OF_L3VPN}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
+    [Documentation]    Verify the same
+    ${devstack_conn_id} =    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id} =    Get Net Id    @{REQ_NETWORKS}[0]    ${devstack_conn_id}
+    ${tenant_id} =    Get Tenant ID From Network    ${net_id}
+    :FOR   ${index}   IN RANGE   0   ${NUM_OF_L3VPN}
+    \    ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[${index}]}
+    \    Should Contain    ${resp}    ${VPN_INSTANCE_ID[${index}]}
+    \    Should Match Regexp    ${resp}    .*export-RT.*\\n.*${CREATE_EXPORT_RT[${index}]}.*
+    \    Should Match Regexp    ${resp}    .*import-RT.*\\n.*${CREATE_IMPORT_RT[${index}]}.*
+    \    Should Match Regexp    ${resp}    .*route-distinguisher.*\\n.*${CREATE_RD[${index}]}.*
+    \    Should Match Regexp    ${resp}    .*l3vni.*${CREATE_l3VNI[${index}]}.*
+
+Issue Command on Dpn
+    [Arguments]    ${serverip}    ${cmd}
+    [Documentation]    Get DpnId from server and return
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}    Write Commands Until Prompt    ${cmd}    30
+    SSHLibrary.Close Connection
+    [Return]    ${output}
+
+Get Inventory Nodes
+    [Arguments]    ${session}
+    [Documentation]    Get Inventory Nodes using rest
+    ${resp}    RequestsLibrary.Get Request    ${session}    /restconf/operational/opendaylight-inventory:nodes
+    Log    ${resp.content}
+    [Return]    ${resp.content}
+
