@@ -177,19 +177,19 @@ Verify_Owner_And_Successors_For_Device
     [Return]    ${owner}    ${index_list}
 
 Get_Owner_And_Successors_For_Device
-    [Arguments]    ${device_name}    ${device_type}    ${member_index}
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=${EMPTY}
     [Documentation]    Returns the owner and a list of successors for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Successors are those device candidates not elected as owner. The list of successors = (list of candidates) - (owner).
     ...    The returned successor list is sorted numerically.
     ...    Note that "candidate list" definition currently differs between Beryllium and Boron.
     ...    Use Verify_Owner_And_Successors_For_Device if you want the older semantics (inaccessible nodes not present in the list).
-    ${owner}    ${candidate_list} =    Get_Owner_And_Candidates_For_Device    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
+    ${owner}    ${candidate_list} =    Get_Owner_And_Candidates_For_Device    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}    http_timeout=${http_timeout}
     ${successor_list} =    BuiltIn.Create_List    @{candidate_list}    # Copy operation is not required, but new variable name requires a line anyway.
     Collections.Remove_Values_From_List    ${successor_list}    ${owner}
     [Return]    ${owner}    ${successor_list}
 
 Get_Owner_And_Candidates_For_Device_Old
-    [Arguments]    ${device_name}    ${device_type}    ${member_index}
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=${EMPTY}
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
     ...    The returned candidate list is sorted numerically.
@@ -197,7 +197,7 @@ Get_Owner_And_Candidates_For_Device_Old
     ...    It is recommended to use Get_Owner_And_Successors_For_Device instead of this keyword, see documentation there.
     BuiltIn.Comment    TODO: Can this implementation be changed to call Get_Owner_And_Candidates_For_Type_And_Id?
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
+    ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}    http_timeout=${http_timeout}
     ${candidate_list} =    BuiltIn.Create_List
     ${entity_type} =    BuiltIn.Set_Variable_If    '${device_type}' == 'netconf'    netconf-node/${device_name}    ${device_type}
     ${clear_data} =    BuiltIn.Run_Keyword_If    '${device_type}' == 'openflow' or '${device_type}' == 'netconf'    Extract_OpenFlow_Device_Data    ${data}
@@ -224,31 +224,31 @@ Get_Owner_And_Candidates_For_Device_Old
     [Return]    ${owner}    ${candidate_list}
 
 Get_Owner_And_Candidates_For_Device_Singleton
-    [Arguments]    ${device_name}    ${device_type}    ${member_index}
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}     ${http_timeout}=${EMPTY}
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Parsing method is selected by device type
     ...    Separate kw for every supported device type must be defined
     BuiltIn.Keyword_Should_Exist    Get_Owner_And_Candidates_For_Device_Singleton_${device_type}
-    BuiltIn.Run_Keyword_And_Return    Get_Owner_And_Candidates_For_Device_Singleton_${device_type}    ${device_name}    ${member_index}
+    BuiltIn.Run_Keyword_And_Return    Get_Owner_And_Candidates_For_Device_Singleton_${device_type}    ${device_name}    ${member_index}    http_timeout=${http_timeout}
 
 Get_Owner_And_Candidates_For_Device_Singleton_Netconf
-    [Arguments]    ${device_name}    ${member_index}
+    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=${EMPTY}
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type netconf. Request is sent to member ${member_index}.
     ...    Parsing method is set as netconf (using netconf device id prefix and suffix)
     # Get election entity type results
     ${type} =    BuiltIn.Set_Variable    ${SINGLETON_ELECTION_ENTITY_TYPE}
     ${id} =    BuiltIn.Set_Variable    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}
-    ${owner_1}    ${candidate_list_1} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}
+    ${owner_1}    ${candidate_list_1} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
     # Get change ownership entity type results
     ${type} =    BuiltIn.Set_Variable    ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}
     ${id} =    BuiltIn.Set_Variable    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}
-    ${owner_2}    ${candidate_list_2} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}
+    ${owner_2}    ${candidate_list_2} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
     # Owners must be same, if not, there is still some election or change ownership in progress
     BuiltIn.Should_Be_Equal_As_Integers    ${owner_1}    ${owner_2}    Owners for device ${device_name} are not same
     [Return]    ${owner_1}    ${candidate_list_1}
 
 Get_Owner_And_Candidates_For_Device
-    [Arguments]    ${device_name}    ${device_type}    ${member_index}
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=${EMPTY}
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    If parsing as singleton failed, kw try to parse data in old way (without singleton).
     ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
@@ -256,30 +256,30 @@ Get_Owner_And_Candidates_For_Device
     ...    Note that "candidate list" definition currently differs between Beryllium and Boron.
     ...    It is recommended to use Get_Owner_And_Successors_For_Device instead of this keyword, see documentation there.
     # Try singleton
-    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    Get_Owner_And_Candidates_For_Device_Singleton    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    Get_Owner_And_Candidates_For_Device_Singleton    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}    http_timeout=${http_timeout}
     BuiltIn.Return_From_Keyword_If    "${status}"=="PASS"    ${results}
     # If singleton failed, try parsing in old way
-    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    Get_Owner_And_Candidates_For_Device_Old    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    Get_Owner_And_Candidates_For_Device_Old    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}    http_timeout=${http_timeout}
     # previous 3 lines (BuilIn.Return.., # If singleton..., ${status}....) could be deleted when old way will not be supported anymore
     BuiltIn.Run_Keyword_If    '${status}'=='FAIL'    BuiltIn.Fail    Could not parse owner and candidates for device ${device_name}
     [Return]    @{results}
 
 Check_Old_Owner_Stays_Elected_For_Device
-    [Arguments]    ${device_name}    ${device_type}    ${old_owner}    ${node_to_ask}
+    [Arguments]    ${device_name}    ${device_type}    ${old_owner}    ${node_to_ask}    ${http_timeout}=${EMPTY}
     [Documentation]    Verify the owner remain the same as ${old_owner}
-    ${owner}    ${candidates} =    Get_Owner_And_Candidates_For_Device    ${device_name}    ${device_type}    ${node_to_ask}
+    ${owner}    ${candidates} =    Get_Owner_And_Candidates_For_Device    ${device_name}    ${device_type}    ${node_to_ask}    http_timeout=${http_timeout}
     BuiltIn.Should_Be_Equal_As_numbers    ${old_owner}    ${owner}
     BuiltIn.Return_From_Keyword    ${owner}    ${candidates}
 
 Check_New_Owner_Got_Elected_For_Device
-    [Arguments]    ${device_name}    ${device_type}    ${old_owner}    ${node_to_ask}
+    [Arguments]    ${device_name}    ${device_type}    ${old_owner}    ${node_to_ask}    ${http_timeout}=${EMPTY}
     [Documentation]    Verify new owner was elected comparing to ${old_owner}
-    ${owner}    ${candidates} =    Get_Owner_And_Candidates_For_Device    ${device_name}    ${device_type}    ${node_to_ask}
+    ${owner}    ${candidates} =    Get_Owner_And_Candidates_For_Device    ${device_name}    ${device_type}    ${node_to_ask}    http_timeout=${http_timeout}
     BuiltIn.Should_Not_Be_Equal_As_Numbers    ${old_owner}    ${owner}
     BuiltIn.Return_From_Keyword    ${owner}    ${candidates}
 
 Get_Owner_And_Candidates_For_Type_And_Id
-    [Arguments]    ${type}    ${id}    ${member_index}    ${require_candidate_list}=${EMPTY}
+    [Arguments]    ${type}    ${id}    ${member_index}    ${require_candidate_list}=${EMPTY}    ${http_timeout}=${EMPTY}
     [Documentation]    Returns the owner and a list of candidates for entity specified by ${type} and ${id}
     ...    Request is sent to member ${member_index}.
     ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
@@ -289,7 +289,7 @@ Get_Owner_And_Candidates_For_Type_And_Id
     ...    namely you cannot use \${EMPTY} to stand for "full list" in this keyword.
     BuiltIn.Comment    TODO: Find a way to unify and deduplicate code blocks in Get_Owner_And_Candidates_* keywords.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
+    ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}    http_timeout=${http_timeout}
     ${candidate_list} =    BuiltIn.Create_List
     ${json} =    RequestsLibrary.To_Json    ${data}
     ${entity_type_list} =    Collections.Get_From_Dictionary    &{json}[entity-owners]    entity-type
