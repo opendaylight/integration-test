@@ -109,7 +109,7 @@ Isolate_Owner_And_Verify_Isolated
     ${node_to_ask} =    Collections.Get_From_list    ${non_isolated_list}    0
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    member_index_list=${non_isolated_list}
     BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    ClusterManagement.Check_New_Owner_Got_Elected_For_Device    ${CS_DEVICE_NAME}    ${CS_DEVICE_TYPE}    ${cs_isolated_index}
-    ...    ${node_to_ask}
+    ...    ${node_to_ask}    http_timoeout=125
     Get_And_Save_Present_CsOwner_And_CsCandidates    ${node_to_ask}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Verify_Singleton_Constant_During_Isolation
 
