@@ -252,24 +252,28 @@ Get Router Id
     [Return]    ${router_id}
 
 Create Vm Instances
-    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default    ${min}=1
+    ...    ${max}=1
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
+    ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg}
+    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg} --min ${min} --max ${max}
     \    Should Not Be True    ${rc}
     \    Log    ${output}
 
 Create Vm Instance With Port
-    [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
+    ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg}
     Log    ${output}
 
 Create Vm Instance With Ports
-    [Arguments]    ${port_name}    ${port2_name}    ${vm_instance_name}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Arguments]    ${port_name}    ${port2_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
+    ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
     ${port2_id}=    Get Port Id    ${port2_name}    ${devstack_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-group ${sg}
@@ -277,11 +281,20 @@ Create Vm Instance With Ports
     Should Not Be True    ${rc}
 
 Create Vm Instance With Port On Compute Node
-    [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
+    ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack flavor list
+    Log    ${output}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${hostname_compute_node} ${vm_instance_name}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Nano Flavor
+    [Documentation]    Create a nano flavor
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack flavor create m1.nano --id auto --ram 64 --disk 0 --vcpus 1
     Log    ${output}
     Should Not Be True    ${rc}
 
@@ -292,6 +305,11 @@ Verify VM Is ACTIVE
     Log    ${output}
     Should Not Be True    ${rc}
     Should Contain    ${output}    active
+
+Poll VM Is ACTIVE
+    [Arguments]    ${vm_name}    ${retry}=600s    ${retry_interval}=5s
+    [Documentation]    Run these commands to check whether the created vm instance is active or not.
+    Wait Until Keyword Succeeds    ${retry}    ${retry_interval}    Verify VM Is ACTIVE    ${vm_name}
 
 Collect VM IP Addresses
     [Arguments]    ${fail_on_none}    @{vm_list}
@@ -1088,3 +1106,34 @@ Wait For Routes To Propogate
     \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
     \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
     \    Should Contain    ${output}    @{subnets}[${INDEX}]
+
+#VM Creation Quota Update
+#    [Documentation]    Update VM Creation Quota to 20
+#    ${rc}    ${output}=    Run And Return Rc And Output    openstack project list
+#    Log    ${output}
+#    Should Not Be True    ${rc}
+#    ${split_output}=    Split String    ${output}
+#    ${index} =    Get Index From List    ${split_output}    admin
+#    ${rc}    ${output}=    Run And Return Rc And Output    openstack quota set --instances 30 ${split_output[${index-2}]}
+#    Log    ${output}
+
+#Nova Migrate
+#    [Arguments]    ${vm_name}
+#    [Documentation]    Migrate the specified VM from one CSS to another on polling
+#    ${devstack_conn_id}=    Get ControlNode Connection
+#    Switch Connection    ${devstack_conn_id}
+#    ${rc}    ${output}=    Run And Return Rc And Output    openstack server show ${vm_name}    30s
+#    ${rc}    ${output}=    Run And Return Rc And Output    openstack server migrate --poll ${vm_name}    30s
+#    Log    ${output}
+#    ${rc}    ${output}=    Run And Return Rc And Output    openstack server resize --confirm ${vm_name}    30s
+#    Log    ${output}
+#    ${rc}    ${output}=    Run And Return Rc And Output    openstack server show ${vm_name}    30s
+#    Log    ${output}
+
+Verify VM to VM Ping Status
+    [Arguments]    ${NETWORK}    ${VM_IP1}    ${VM_IP2}    ${REQ_PING_REGEXP}
+    [Documentation]    Verify Ping Success among VMs
+    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NETWORK}    ${VM_IP1}
+    ...    ping -c 8 ${VM_IP2}
+    Should Contain    ${output}    ${REQ_PING_REGEXP}
+
