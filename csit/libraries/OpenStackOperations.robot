@@ -1130,3 +1130,25 @@ Remove RSA Key From KnowHosts
     ${output}=    Write Commands Until Prompt    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}    30s
     Log    ${output}
     ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"    30s
+
+VM Creation Quota Update
+    [Documentation]    Update VM Creation Quota to 20
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    openstack project list    30s
+    ${split_output}=    Split String    ${output}
+    ${index} =      Get Index From List    ${split_output}    admin
+    ${output}=    Write Commands Until Prompt    nova quota-update --instances 30 ${split_output[${index-2}]}    30s
+    Log    ${output}
+
+Nova Migrate 
+    [Arguments]    ${vm_name}
+    [Documentation]    Migrate the specified VM from one CSS to another on polling
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name}    30s
+    ${output}=    Write Commands Until Prompt    nova migrate --poll ${vm_name}    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    nova resize-confirm ${vm_name}    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name}    30s
