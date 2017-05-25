@@ -21,7 +21,7 @@ Resource          ${CURDIR}/ClusterManagement.robot
 
 *** Variables ***
 &{stored_details}
-@{DEFAULT_SHARD_LIST}    default:config    default:operational    topology:config    topology:operational    inventory:config    inventory:operational
+@{DEFAULT_SHARD_LIST}    default:config    default:operational    topology:config    topology:operational    inventory:config    inventory:operational    entity-ownership:operational
 
 *** Keywords ***
 Shards_Stability_Init_Details
