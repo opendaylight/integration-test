@@ -222,3 +222,37 @@ Check_Example_IPv4_Topology_Does_Not_Contain
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${string_to_check}
+
+Add Address Family On DCGW
+    [Arguments]    ${dcgw_ip}    ${loopback_ip}    ${as_id}    ${rd}    ${user}=bgpd    ${password}=sdncbgpc
+    [Documentation]    Add Address Family On DCGW
+    Create Quagga Telnet Session    ${dcgw_ip}    ${user}    ${password}
+    Execute Command On Quagga Telnet Session    configure terminal
+    Execute Command On Quagga Telnet Session    router bgp ${as_id}
+    Execute Command On Quagga Telnet Session    address-family vpnv4 unicast
+    Execute Command On Quagga Telnet Session    network ${loopback_ip}/32 rd ${rd} tag ${as_id}
+    Execute Command On Quagga Telnet Session    end
+    ${output} =    Execute Command On Quagga Telnet Session    show running-config
+    Log    ${output}
+    Execute Command On Quagga Telnet Session    exit
+
+Delete Loopback Interface On DCGW
+    [Arguments]    ${dcgw_ip}    ${loopback_name}    ${loopback_ip}    ${user}=zebra    ${password}=zebra
+    [Documentation]    Delete loopback interface on DCGW
+    Create Quagga Telnet Session    ${dcgw_ip}    ${user}    ${password}
+    Execute Command On Quagga Telnet Session    enable
+    Execute Command On Quagga Telnet Session    ${password}
+    Execute Command On Quagga Telnet Session    configure terminal
+    Execute Command On Quagga Telnet Session    no interface ${loopback_name}
+    Execute Command On Quagga Telnet Session    exit
+    Execute Command On Quagga Telnet Session    end
+    ${output} =    Execute Command On Quagga Telnet Session    show running-config
+    Log    ${output}
+    Execute Command On Quagga Telnet Session    exit
+
+Verify BGP Neighbor Not Est Status On Quagga
+    [Arguments]    ${dcgw_ip}    ${neighbor_ip}
+    [Documentation]    Verify bgp neighbor status on quagga
+    ${output} =    Execute Show Command On quagga    ${dcgw_ip}    show bgp neighbors ${neighbor_ip}
+    Log    ${output}
+    Should Not Contain    ${output}    BGP state = Established
