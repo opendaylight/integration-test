@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_694dbe72",
+        "filename": "csit/libraries/BierResource.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-25T03:59:20Z",
+      "side": 1,
+      "message": "using 7 here feels a little too hard coded for a library\nkeyword. Probably would be good to refactor to take an\nargument where the caller would give 7 (or any other number)",
+      "range": {
+        "startLine": 41,
+        "startChar": 46,
+        "endLine": 41,
+        "endChar": 50
+      },
+      "revId": "9c520bbef905ce7540a19eccd02851bbcc8fe6e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_49528214",
+        "filename": "csit/suites/bier/basic/010_Bier_Configuration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-25T03:59:20Z",
+      "side": 1,
+      "message": "I know you didn\u0027t change this, but is this a typo? should be\nNODE maybe?",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "9c520bbef905ce7540a19eccd02851bbcc8fe6e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
