@@ -39,6 +39,7 @@ Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
 
 *** Variables ***
 ${ENTITY_OWNER_URI}    restconf/operational/entity-owners:entity-owners
+${GC_LOG_PATH}    ${KARAF_HOME}/data/log
 ${JAVA_HOME}      ${EMPTY}    # releng/builder scripts should provide correct value
 ${JOLOKIA_CONF_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
 ${JOLOKIA_OPER_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-operational,type=DistributedOperationalDatastore
@@ -397,13 +398,17 @@ Start_Single_Member
     Start_Members_From_List_Or_All    ${index_list}    ${wait_for_sync}    ${timeout}
 
 Start_Members_From_List_Or_All
-    [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${EMPTY}    ${export_java_home}=${EMPTY}
+    [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${EMPTY}    ${export_java_home}=${EMPTY}    ${gc_log_dir}=${EMPTY}
     [Documentation]    If the list is empty, start all cluster members. Otherwise, start members based on present indices.
     ...    If ${wait_for_sync}, wait for cluster sync on listed members.
     ...    Optionally karaf_home can be overriden. Optionally specific JAVA_HOME is used for starting.
-    ${base_command} =    BuiltIn.Set_Variable_If    "${karaf_home}"    ${karaf_home}/bin/start    ${NODE_START_COMMAND}
-    ${command} =    BuiltIn.Set_Variable_If    "${export_java_home}"    export JAVA_HOME="${export_java_home}"; ${base_command}    ${base_command}
-    Run_Bash_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
+    ...    Garbage collection is unconditionally logged to files. TODO: Make that reasonable conditional?
+    ${base_command} =    BuiltIn.Set_Variable_If    """${karaf_home}""" != ""    ${karaf_home}/bin/start    ${NODE_START_COMMAND}
+    ${command} =    BuiltIn.Set_Variable_If    """${export_java_home}""" != ""    export JAVA_HOME="${export_java_home}"; ${base_command}    ${base_command}
+    ${epoch} =    DateTime.Get_Current_Date    time_zone=UTC    result_format=epoch    exclude_millis=False
+    ${gc_filepath} =    BuiltIn.Set_Variable_If    """${karaf_home}""" != ""    ${karaf_home}/data/log/gc_${epoch}.log    ${GC_LOG_PATH}/gc_${epoch}.log
+    ${gc_options} =    BuiltIn.Set_Variable    -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:${gc_filepath}
+    Run_Bash_Command_On_List_Or_All    command=${command} ${gc_options}    member_index_list=${member_index_list}
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
     # TODO: Do we also want to check Shard Leaders here?
