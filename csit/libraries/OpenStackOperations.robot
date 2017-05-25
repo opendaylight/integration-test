@@ -279,6 +279,8 @@ Create Vm Instance With Ports
 Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${hostname_compute_node} ${vm_instance_name}
@@ -1088,3 +1090,28 @@ Wait For Routes To Propogate
     \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
     \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
     \    Should Contain    ${output}    @{subnets}[${INDEX}]
+
+VM Creation Quota Update
+    [Documentation]    Update VM Creation Quota to 20
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack project list   
+    Log    ${output}
+    Should Not Be True    ${rc}
+    ${split_output}=    Split String    ${output}
+    ${index} =      Get Index From List    ${split_output}    admin
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack quota set --instances 30 ${split_output[${index-2}]}    
+    Log    ${output}
+
+Nova Migrate 
+    [Arguments]    ${vm_name}
+    [Documentation]    Migrate the specified VM from one CSS to another on polling
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${rc}    ${output}=    Run And Return Rc And Output    nova show ${vm_name}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output    nova migrate --poll ${vm_name}    30s
+    Log    ${output}
+    ${rc}    ${output}=    Run And Return Rc And Output    nova resize-confirm ${vm_name}    30s
+    Log    ${output}
+    ${rc}    ${output}=    Run And Return Rc And Output    nova show ${vm_name}    30s
+    Log    ${output}
