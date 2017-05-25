@@ -1070,3 +1070,27 @@ Wait For Routes To Propogate
     \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
     \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
     \    Should Contain    ${output}    @{subnets}[${INDEX}]
+
+VM Creation Quota Update
+    [Documentation]    Update VM Creation Quota to 20
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack project list   
+    Log    ${output}
+    Should Not Be True    ${rc}
+    ${split_output}=    Split String    ${output}
+    ${index} =      Get Index From List    ${split_output}    admin
+    ${output}=    Write Commands Until Prompt    nova quota-update --instances 30 ${split_output[${index-2}]}    30s
+    Log    ${output}
+
+Nova Migrate 
+    [Arguments]    ${vm_name}
+    [Documentation]    Migrate the specified VM from one CSS to another on polling
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name}    30s
+    ${output}=    Write Commands Until Prompt    nova migrate --poll ${vm_name}    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    nova resize-confirm ${vm_name}    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name}    30s
