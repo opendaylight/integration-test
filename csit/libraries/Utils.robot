@@ -478,3 +478,4 @@ Json Parse From File
     ${json_plain_string}    Get file    ${json_file}
     ${json_data}    Json Parse From String    ${json_plain_string}
     [Return]    ${json_data}
+
