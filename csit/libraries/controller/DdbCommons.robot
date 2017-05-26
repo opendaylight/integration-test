@@ -22,16 +22,17 @@ Resource          ${CURDIR}/../WaitForFailure.robot
 ${SHARD_NAME}     default
 ${SHARD_TYPE}     config
 ${TRANSACTION_RATE_1K}    ${1000}
-${DURATION_90S}    ${90}    #TODO: Rename to hint at the goal of waiting, instead of its default value.
-${DURATION_30S}    ${30}
+${TRANSACTION_PRODUCTION_TIME_2X_REQ_TIMEOUT}    ${2*${REQUEST_TIMEOUT}}
+${TRANSACTION_PRODUCTION_TIME}    ${40}
 ${ID_PREFIX}      prefix-
-${TRANSACTION_TIMEOUT}    ${30}
-${TRANSACTION_TIMEOUT_2X}    ${2*${TRANSACTION_TIMEOUT}}
 ${SIMPLE_TX}      ${False}
 ${CHAINED_TX}     ${True}
 ${ISOLATED_TRANS_TRUE}    ${True}
 ${ISOLATED_TRANS_FALSE}    ${False}
-${HARD_TIMEOUT}    ${120}
+${JAVA_INTERNAL_RECONNECT_TIMEOUT}    ${30}
+${REQUEST_TIMEOUT}    ${120}
+${HEAL_WITHIN_REQUEST_TIMEOUT}    ${${JAVA_INTERNAL_RECONNECT_TIMEOUT}+10}
+${HEAL_AFTER_REQUEST_TIMEOUT}    ${${REQUEST_TIMEOUT}+10}
 @{TRANSACTION_FAILED}    ${500}
 ${PREF_BASED_SHARD}    id-ints
 ${TEST_LOG_LEVEL}    info
@@ -47,7 +48,7 @@ Explicit_Leader_Movement_Test_Templ
     KarafKeywords.Log_Message_To_Controller_Karaf    Starting leader movement from node${idx_from} to node${idx_to}, transaction producer at node${idx_trans}.
     ${ip_trans_as_list} =    BuiltIn.Create_List    ${ODL_SYSTEM_${idx_trans}_IP}
     ${idx_trans_as_list} =    BuiltIn.Create_List    ${idx_trans}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     BuiltIn.Sleep    5s
     ClusterAdmin.Make_Leader_Local    ${idx_to}    ${shard_name}    ${shard_type}
     ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}
@@ -63,7 +64,7 @@ Explicit_Leader_Movement_PrefBasedShard_Test_Templ
     ...    ${shard_type}
     ${ip_trans_as_list} =    BuiltIn.Create_List    ${ODL_SYSTEM_${idx_trans}_IP}
     ${idx_trans_as_list} =    BuiltIn.Create_List    ${idx_trans}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${ip_trans_as_list}    ${idx_trans_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}
     BuiltIn.Sleep    5s
     MdsalLowlevel.Become_Prefix_Leader    ${idx_to}    ${shard_name}
     ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
@@ -90,7 +91,7 @@ Clean_Leader_Shutdown_Test_Templ
     ${producer_idx}    ${actual_leader}    ${follower_list} =    Get_Node_Indexes_For_Clean_Leader_Shutdown_Test    ${leader_location}    ${shard_name}    ${shard_type}
     ${producer_ip_as_list} =    BuiltIn.Create_List    ${ODL_SYSTEM_${producer_idx}_IP}
     ${producer_idx_as_list} =    BuiltIn.Create_List    ${producer_idx}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     BuiltIn.Sleep    5s
     ClusterAdmin.Remove_Shard_Replica    ${actual_leader}    ${shard_name}    member-${actual_leader}    ${shard_type}
     ${removed} =    BuiltIn.Set_Variable    ${True}
@@ -108,7 +109,7 @@ Clean_Leader_Shutdown_PrefBasedShard_Test_Templ
     ${producer_idx}    ${actual_leader}    ${follower_list} =    Get_Node_Indexes_For_Clean_Leader_Shutdown_Test    ${leader_location}    ${shard_name}!!    ${shard_type}
     ${producer_ip_as_list} =    BuiltIn.Create_List    ${ODL_SYSTEM_${producer_idx}_IP}
     ${producer_idx_as_list} =    BuiltIn.Create_List    ${producer_idx}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}
     BuiltIn.Sleep    5s
     ClusterAdmin.Remove_Prefix_Shard_Replica    ${actual_leader}    ${shard_name}    member-${actual_leader}    ${shard_type}
     BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${follower_list}
@@ -136,7 +137,7 @@ Leader_Isolation_Test_Templ
     [Arguments]    ${heal_timeout}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements leader isolation test scenario.
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
-    ${producing_transactions_time} =    BuiltIn.Set_Variable    ${${heal_timeout}+60}
+    ${producing_transactions_time} =    BuiltIn.Set_Variable_If    ${heal_timeout}<${REQUEST_TIMEOUT}    ${${REQUEST_TIMEOUT}+60}   ${2*${REQUEST_TIMEOUT}}
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
@@ -147,22 +148,20 @@ Leader_Isolation_Test_Templ
     KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${leader}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${True}
-    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}    ${shard_type}    ${True}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}    ${shard_type}    ${True}
     ...    ${leader}    member_index_list=${follower_list}
-    ${date_leader_elected} =    DateTime.Get_Current_Date
-    ${delta} =    DateTime.Subtract_Date_From_Date    ${date_leader_elected}    ${date_start}
-    # TODO: Consider extracting the block which depends on ${heal_timeout} value into two keywords, and have just one If to decide which one to call.
-    BuiltIn.Run_Keyword_If    ${heal_timeout}==${HEAL_WITHIN_TRANS_TIMEOUT} and ${delta} > ${TRANSACTION_TIMEOUT}    BuiltIn.Fail    We are not able to heal the cluster within transaction timout because new leader election took more time.
+    ${heal_date} =     DateTime.Add_Time_To_Date    ${date_start}    ${heal_timeout}
+    ${sleep_to_heal} =    Get_Seconds_To_Time    ${heal_date} 
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
     BuiltIn.Should_Be_Equal    ${resp}    ${NONE}    No response expected, received ${resp}
-    BuiltIn.Sleep    ${heal_timeout}
+    BuiltIn.Sleep    ${sleep_to_heal}
     KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${leader}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
     BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    ${shard_name}    ${shard_type}    verify_restconf=False
     ${time_to_finish} =    Get_Seconds_To_Time    ${date_end}
-    BuiltIn.Run_Keyword_If    ${heal_timeout} < ${TRANSACTION_TIMEOUT}    Leader_Isolation_Heal_Within_Tt
+    BuiltIn.Run_Keyword_If    ${heal_timeout} < ${REQUEST_TIMEOUT}    Leader_Isolation_Heal_Within_Rt
     ...    ELSE    Module_Leader_Isolation_Heal_Default    ${leader}    ${time_to_finish}
     [Teardown]    BuiltIn.Run_Keyword_If    ${li_isolated}    BuiltIn.Run_Keywords    ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
     ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
@@ -171,7 +170,7 @@ Leader_Isolation_PrefBasedShard_Test_Templ
     [Arguments]    ${heal_timeout}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements leader isolation test scenario.
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
-    ${producing_transactions_time} =    BuiltIn.Set_Variable    ${${heal_timeout}+60}
+    ${producing_transactions_time} =    BuiltIn.Set_Variable_If    ${heal_timeout}<${REQUEST_TIMEOUT}    ${${REQUEST_TIMEOUT}+60}   ${2*${REQUEST_TIMEOUT}}
     ${all_indices} =    ClusterManagement.List_All_Indices
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
@@ -182,27 +181,25 @@ Leader_Isolation_PrefBasedShard_Test_Templ
     KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${leader}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${True}
-    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!    ${shard_type}    ${True}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}    ${shard_type}    ${True}
     ...    ${leader}    member_index_list=${follower_list}
-    ${date_leader_elected} =    DateTime.Get_Current_Date
-    ${delta} =    DateTime.Subtract_Date_From_Date    ${date_leader_elected}    ${date_start}
-    # TODO: Consider extracting the block which depends on ${heal_timeout} value into two keywords, and have just one If to decide which one to call.
-    BuiltIn.Run_Keyword_If    ${heal_timeout}==${HEAL_WITHIN_TRANS_TIMEOUT} and ${delta} > ${TRANSACTION_TIMEOUT}    BuiltIn.Fail    We are not able to heal the cluster within transaction timout because new leader election took more time.
+    ${heal_date} =     DateTime.Add_Time_To_Date    ${date_start}    ${heal_timeout}
+    ${sleep_to_heal} =    Get_Seconds_To_Time    ${heal_date} 
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
     BuiltIn.Should_Be_Equal    ${resp}    ${NONE}    No response expected, received ${resp}
-    BuiltIn.Sleep    ${heal_timeout}
+    BuiltIn.Sleep    ${sleep_to_heal}
     KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${leader}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${False}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
     BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    ${shard_name}!!    ${shard_type}    verify_restconf=False
     ${time_to_finish} =    Get_Seconds_To_Time    ${date_end}
-    BuiltIn.Run_Keyword_If    ${heal_timeout} < ${TRANSACTION_TIMEOUT}    Leader_Isolation_Heal_Within_Tt
+    BuiltIn.Run_Keyword_If    ${heal_timeout} < ${REQUEST_TIMEOUT}    Leader_Isolation_Heal_Within_Rt
     ...    ELSE    Prefix_Leader_Isolation_Heal_Default    ${leader}    ${time_to_finish}
     [Teardown]    BuiltIn.Run_Keyword_If    ${li_isolated}    BuiltIn.Run_Keywords    ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
     ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
 
-Leader_Isolation_Heal_Within_Tt
+Leader_Isolation_Heal_Within_Rt
     [Documentation]    The leader isolation test case end if the heal happens within transaction timeout. All write transaction
     ...    producers shoudl finish without error.
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
@@ -252,17 +249,14 @@ Client_Isolation_Test_Templ
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
     ${client_node_ip_as_list}    BuiltIn.Create_List    ${client_node_ip}
     ${client_node_idx_as_list}    BuiltIn.Create_List    ${client_node_dst}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${DURATION_90S}    ${TRANSACTION_RATE_1K}    chained_flag=${trans_chain_flag}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME_2X_REQ_TIMEOUT}    ${TRANSACTION_RATE_1K}    chained_flag=${trans_chain_flag}
     BuiltIn.Sleep    5s
     ${start_date}    DateTime.Get_Current_Date
-    ${timeout_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${TRANSACTION_TIMEOUT}
-    ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${HARD_TIMEOUT}
+    ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${REQUEST_TIMEOUT}
     KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${client_node_dst}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
-    ${trans_timeout} =    Get_Seconds_To_Time    ${timeout_date}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${trans_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
-    ${hard_timeout} =    Get_Seconds_To_Time    ${abort_date}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${hard_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
+    ${request_timeout} =    Get_Seconds_To_Time    ${abort_date}
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${request_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
     BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    Ongoing_Transactions_Failed
     [Teardown]    BuiltIn.Run Keywords    KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${client_node_dst}
     ...    AND    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
@@ -279,17 +273,14 @@ Client_Isolation_PrefBasedShard_Test_Templ
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
     ${client_node_ip_as_list}    BuiltIn.Create_List    ${client_node_ip}
     ${client_node_idx_as_list}    BuiltIn.Create_List    ${client_node_dst}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${DURATION_90S}    ${TRANSACTION_RATE_1K}    isolated_transactions_flag=${isolated_transactions_flag}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME_2X_REQ_TIMEOUT}    ${TRANSACTION_RATE_1K}    isolated_transactions_flag=${isolated_transactions_flag}
     BuiltIn.Sleep    5s
     ${start_date}    DateTime.Get_Current_Date
-    ${timeout_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${TRANSACTION_TIMEOUT}
-    ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${HARD_TIMEOUT}
+    ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${REQUEST_TIMEOUT}
     KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${client_node_dst}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
-    ${trans_timeout} =    Get_Seconds_To_Time    ${timeout_date}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${trans_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
-    ${hard_timeout} =    Get_Seconds_To_Time    ${abort_date}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${hard_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
+    ${request_timeout} =    Get_Seconds_To_Time    ${abort_date}
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${request_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
     BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    Ongoing_Transactions_Failed
     [Teardown]    BuiltIn.Run Keywords    KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${client_node_dst}
     ...    AND    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
@@ -324,7 +315,7 @@ Remote_Listener_Test_Templ
     MdsalLowlevel.Subscribe_Dtcl    ${listener_node_dst}
     ${subscribed} =    BuiltIn.Set_Variable    ${True}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
-    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     BuiltIn.Sleep    5s
     ClusterAdmin.Remove_Shard_Replica    ${leader}    ${shard_name}    member-${leader}    ${shard_type}
     ${newleader}    ${newfollower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}
@@ -352,7 +343,7 @@ Remote_Listener_PrefBasedShard_Test_Templ
     MdsalLowlevel.Subscribe_Ddtl    ${listener_node_dst}
     ${subscribed} =    BuiltIn.Set_Variable    ${True}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION_30S}    ${TRANSACTION_RATE_1K}
+    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}
     BuiltIn.Sleep    5s
     ClusterAdmin.Remove_Prefix_Shard_Replica    ${leader}    ${shard_name}    member-${leader}    ${shard_type}
     ${newleader}    ${newfollower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    45s    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!

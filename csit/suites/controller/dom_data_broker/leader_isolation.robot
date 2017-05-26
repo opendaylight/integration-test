@@ -20,16 +20,16 @@ Resource          ${CURDIR}/../../../libraries/controller/DdbCommons.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Test Cases ***
-Healing_Within_Transaction_Timeout
+Healing_Within_Request_Timeout
     [Documentation]    The isolated node (leader) is rejoined as soon as new leader is elected and
     ...    and within transaction timeout.
-    ${HEAL_WITHIN_TRANS_TIMEOUT}
+    ${HEAL_WITHIN_REQUEST_TIMEOUT}
 
 Restart
     [Documentation]    Restart odl
     [Template]
     DdbCommons.Restart_Test_Templ
 
-Healing_After_2x_Transaction_Timeout
+Healing_After_Request_Timeout
     [Documentation]    The isolated node (leader) is rejoined after 2x transaction timeout.
-    ${${TRANSACTION_TIMEOUT_2X}+1}
+    ${HEAL_AFTER_REQUEST_TIMEOUT}
