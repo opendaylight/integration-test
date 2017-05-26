@@ -130,7 +130,7 @@ Rejoin_Node
     [Arguments]    ${member_index}
     [Documentation]    Rejoin a member and update appropriate suite variables.
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${member_index}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
+    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
     DrbCommons__Upadte_Active_Nodes_List    activate_idx=${member_index}
     BuiltIn.Return_From_Keyword_If    ${member_index} not in ${registered_indices}
     DrbCommons__Add_Possible_Constant    ${member_index}

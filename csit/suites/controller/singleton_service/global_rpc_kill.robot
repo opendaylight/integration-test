@@ -50,13 +50,13 @@ Kill_Current_Owner_Member
 Verify_New_Basic_Rpc_Test_Owner_Elected
     [Documentation]    Verify new owner of the service is elected.
     ${idx}=    Collections.Get_From_List    ${old_brt_successors}    0
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    Verify_Owner_Elected    ${True}    ${old_brt_owner}    ${idx}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Owner_Elected    ${True}    ${old_brt_owner}    ${idx}
     Get_Present_Brt_Owner_And_Successors    ${idx}    store=${True}
 
 Rpc_On_Remained_Cluster_Nodes
     [Documentation]    Run rpc on remained cluster nodes.
     : FOR    ${idx}    IN    @{old_brt_successors}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Run_Rpc    ${idx}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Run_Rpc    ${idx}
 
 Restart_Killed_Member
     [Documentation]    Restart killed node
@@ -65,7 +65,7 @@ Restart_Killed_Member
 Verify_New_Owner_Remained_After_Rejoin
     [Documentation]    Verify no owner change happened after rejoin.
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    15s    2s    Verify_Owner_Elected    ${False}    ${brt_owner}    ${brt_owner}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
+    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
 
 Rpc_After_Rejoin_On_New_Owner
     [Documentation]    Run rpc on the new service owner node.

@@ -51,8 +51,8 @@ Isolate_Current_Owner_Member
 Verify_New_Basic_Rpc_Test_Owner_Elected
     [Documentation]    Verify new owner of the service is elected.
     ${idx}=    Collections.Get_From_List    ${old_brt_successors}    0
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    member_index_list=${old_brt_successors}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    Verify_Owner_Elected    ${True}    ${old_brt_owner}    ${idx}
+    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    member_index_list=${old_brt_successors}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Owner_Elected    ${True}    ${old_brt_owner}    ${idx}
     Get_Present_Brt_Owner_And_Successors    ${idx}    store=${True}
 
 Rpc_On_Isolated_Node
@@ -66,12 +66,12 @@ Rpc_On_Isolated_Node
 Rpc_On_Non_Isolated_Cluster_Nodes
     [Documentation]    Run rpc on remained cluster nodes.
     : FOR    ${idx}    IN    @{old_brt_successors}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Run_Rpc    ${idx}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Run_Rpc    ${idx}
 
 Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${old_brt_owner}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
+    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
 
 Verify_New_Owner_Remained_After_Rejoin
     [Documentation]    Verify no owner change happened after rejoin.

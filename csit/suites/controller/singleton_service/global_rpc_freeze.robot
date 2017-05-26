@@ -51,13 +51,13 @@ Freeze_Current_Owner_Member
 Verify_New_Basic_Rpc_Test_Owner_Elected
     [Documentation]    Verify new owner of the service is elected.
     ${idx}=    Collections.Get_From_List    ${old_brt_successors}    0
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Owner_Elected    ${True}    ${old_brt_owner}    ${idx}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Owner_Elected    ${True}    ${old_brt_owner}    ${idx}
     Get_Present_Brt_Owner_And_Successors    ${idx}    store=${True}
 
 Rpc_On_Remained_Cluster_Nodes
     [Documentation]    Run rpc on remained cluster nodes.
     : FOR    ${idx}    IN    @{old_brt_successors}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Run_Rpc    ${idx}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Run_Rpc    ${idx}
 
 Unfreeze_Frozen_Member
     [Documentation]    Restart frozen node

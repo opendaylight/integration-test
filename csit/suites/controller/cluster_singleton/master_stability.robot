@@ -31,7 +31,7 @@ Register_Singleton_Constant_On_Each_Node_And_Verify
     [Documentation]    Register a candidate application on each node.
     CsCommon.Register_Singleton_Constant_On_Nodes    ${cs_all_indices}
     ${owner}    ${candidates}=    CsCommon.Get_And_Save_Present_CsOwner_And_CsCandidates    1
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${owner}
+    BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${owner}
 
 Unregister_Singleton_Constant_On_Non_Master_Node
     [Documentation]    Unregister the application on a non master node.

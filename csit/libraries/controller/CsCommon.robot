@@ -107,8 +107,8 @@ Isolate_Owner_And_Verify_Isolated
     BuiltIn.Set_Suite_Variable    ${cs_isolated_index}    ${cs_owner}
     ${non_isolated_list} =    ClusterManagement.List_Indices_Minus_Member    ${cs_isolated_index}    member_index_list=${cs_all_indices}
     ${node_to_ask} =    Collections.Get_From_list    ${non_isolated_list}    0
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    member_index_list=${non_isolated_list}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    ClusterManagement.Check_New_Owner_Got_Elected_For_Device    ${CS_DEVICE_NAME}    ${CS_DEVICE_TYPE}    ${cs_isolated_index}
+    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    member_index_list=${non_isolated_list}
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Check_New_Owner_Got_Elected_For_Device    ${CS_DEVICE_NAME}    ${CS_DEVICE_TYPE}    ${cs_isolated_index}
     ...    ${node_to_ask}    http_timeout=125
     Get_And_Save_Present_CsOwner_And_CsCandidates    ${node_to_ask}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Verify_Singleton_Constant_During_Isolation
@@ -116,7 +116,7 @@ Isolate_Owner_And_Verify_Isolated
 Rejoin_Node_And_Verify_Rejoined
     [Documentation]    Rejoin isolated node.
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${cs_isolated_index}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
+    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Verify_Singleton_Constant_On_Node    ${cs_isolated_index}    ${CS_CONSTANT_PREFIX}${cs_owner}
 
 Register_Flapping_Singleton_On_Nodes

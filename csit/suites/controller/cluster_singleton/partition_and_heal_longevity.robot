@@ -49,7 +49,7 @@ Test_Scenario
     ...    Monitor the stability of the singleton application and fail the the owner is changed during the monitoring. Monitoring
     ...    is done after the node isolation and after the node rejoin.
     ${owner}    ${candidates}=    CsCommon.Get_And_Save_Present_CsOwner_And_CsCandidates    1
-    BuiltIn.Wait_Until_Keyword_Succeeds    6s    2s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${owner}
+    BuiltIn.Wait_Until_Keyword_Succeeds    15s    2s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${owner}
     KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node${owner}.
     CsCommon.Isolate_Owner_And_Verify_Isolated
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${STABILITY_TIMEOUT_ISOLATED}    3s    CsCommon.Verify_Singleton_Constant_During_Isolation

@@ -46,7 +46,7 @@ Isolate_One_Node
 
 Invoke_Rpc_On_Nonisolated_Nodes
     [Documentation]    Invoke rpc on non-islolated nodes.
-    BuiltIn.Wait_Until_Keyword_Succeeds    45s    5s    DrbCommons.Verify_Constant_On_Active_Nodes
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    DrbCommons.Verify_Constant_On_Active_Nodes
 
 Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node

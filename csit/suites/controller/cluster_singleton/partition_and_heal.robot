@@ -39,7 +39,7 @@ Verify_Singleton_Constant_On_Each_Node
     [Documentation]    Store the owner and candidates of the application and initially verify that all
     ...    odl nodes are used.
     ${owner}    ${candidates}=    CsCommon.Get_And_Save_Present_CsOwner_And_CsCandidates    1
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${owner}
+    BuiltIn.Wait_Until_Keyword_Succeeds    15    2s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${owner}
 
 Isolate_Owner_Node
     [Documentation]    Isolate the cluster node which is the owner. Wait until the new owner is elected and store
