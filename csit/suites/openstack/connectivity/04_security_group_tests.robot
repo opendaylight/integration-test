@@ -19,30 +19,44 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
-@{NETWORKS_NAME}    network_1
-@{SUBNETS_NAME}    l2_subnet_1
+@{NETWORKS_NAME}    network_1    network_2
+@{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1
-@{SUBNETS_RANGE}    30.0.0.0/24
+@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2
+@{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+@{ROUTERS}        router_1
 
 *** Test Cases ***
 Create VXLAN Network (network_1)
     [Documentation]    Create Network with neutron request.
     Create Network    @{NETWORKS_NAME}[0]
 
+Create VXLAN Network (network_2)
+    [Documentation]    Create Network with neutron request.
+    Create Network    @{NETWORKS_NAME}[1]
+
 Create Subnets For network_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     Create SubNet    @{NETWORKS_NAME}[0]    @{SUBNETS_NAME}[0]    @{SUBNETS_RANGE}[0]
 
+Create Subnets For network_2
+    [Documentation]    Create Sub Nets for the Networks with neutron request.
+    Create SubNet    @{NETWORKS_NAME}[1]    @{SUBNETS_NAME}[1]    @{SUBNETS_RANGE}[1]
+
 Add TCP Allow Rules
     [Documentation]    Allow only TCP packets for this suite
     Security Group Create Without Default Security Rules    csit-remote-sgs
-    Neutron Security Group Rule Create    csit-remote-sgs    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit-remote-sgs    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit-remote-sgs    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    csit-remote-sgs    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
     Neutron Security Group Show    csit-remote-sgs
 
 Create Vm Instances For network_1
     [Documentation]    Create VM instances using flavor and image names for a network.
     Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=csit-remote-sgs
+
+Create Vm Instances For network_1
+    [Documentation]    Create VM instances using flavor and image names for a network.
+    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=csit-remote-sgs
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
@@ -50,22 +64,29 @@ Check Vm Instances Have Ip Address
     ...    already the other instances should have theirs already or at least shortly thereafter.
     # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
     # for dhcp addresses
-    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}
+    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
     ...    true    @{NET_1_VM_INSTANCES}
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ...    true    @{NET_2_VM_INSTANCES}
     ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
-    ${VM_INSTANCES}=    Collections.Combine Lists    ${NET_1_VM_INSTANCES}
-    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}
+    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
+    ${VM_INSTANCES}=    Collections.Combine Lists    ${NET_1_VM_INSTANCES}    ${NET_2_VM_INSTANCES}
+    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET_2_VM_IPS}
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
     \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
     Set Suite Variable    ${NET1_VM_IPS}
     Set Suite Variable    ${NET1_DHCP_IP}
+    Set Suite Variable    ${NET2_VM_IPS}
+    Set Suite Variable    ${NET2_DHCP_IP}
     Should Not Contain    ${NET1_VM_IPS}    None
     Should Not Contain    ${NET1_DHCP_IP}    None
-    [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}
+    Should Not Contain    ${NET2_VM_IPS}    None
+    Should Not Contain    ${NET2_DHCP_IP}    None
+    [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES}
     ...    AND    Get Test Teardown Debugs
 
 No Ping From DHCP To Vm Instance1
@@ -103,15 +124,62 @@ Verify No Ping From DHCP To Vm Instance2
     [Documentation]    Check non-reachability of vm instances by pinging to them.
     Ping From DHCP Should Not Succeed    network_1    @{NET1_VM_IPS}[1]
 
-Ping From Vm Instance1 To Vm Instance2
+Ping From Vm Instance1 To Vm Instance2 (network_1)
     [Documentation]    Login to the vm instance and test some operations
     ${VM2_LIST}    Create List    @{NET1_VM_IPS}[1]
     Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[0]    ${VM2_LIST}
 
-Ping From Vm Instance2 To Vm Instance1
+Ping From Vm Instance2 To Vm Instance1 (network_1)
     [Documentation]    Login to the vm instance and test operations
     ${VM1_LIST}    Create List    @{NET1_VM_IPS}[0]
     Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${VM1_LIST}
+
+Ping From Vm Instance1 To Vm Instance2 (network_1)
+    [Documentation]    Login to the vm instance and test some operations
+    ${VM2_LIST}    Create List    @{NET1_VM_IPS}[1]
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[0]    ${VM2_LIST}
+
+Ping From Vm Instance2 To Vm Instance1 (network_1)
+    [Documentation]    Login to the vm instance and test operations
+    ${VM1_LIST}    Create List    @{NET1_VM_IPS}[0]
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${VM1_LIST}
+
+Ping From Vm Instance1 To Vm Instance2 (network_2)
+    [Documentation]    Login to the vm instance and test some operations
+    ${VM2_LIST}    Create List    @{NET2_VM_IPS}[1]
+    Test Operations From Vm Instance    network_1    @{NET2_VM_IPS}[0]    ${VM2_LIST}
+
+Ping From Vm Instance2 To Vm Instance1 (network_2)
+    [Documentation]    Login to the vm instance and test operations
+    ${VM1_LIST}    Create List    @{NET1_VM_IPS}[0]
+    Test Operations From Vm Instance    network_1    @{NET2_VM_IPS}[1]    ${VM1_LIST}
+
+Ping From Vm Instance1 To Vm Instance2 (network_2)
+    [Documentation]    Login to the vm instance and test some operations
+    ${VM2_LIST}    Create List    @{NET1_VM_IPS}[1]
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[0]    ${VM2_LIST}
+
+Ping From Vm Instance2 To Vm Instance1 (network_2)
+    [Documentation]    Login to the vm instance and test operations
+    ${VM1_LIST}    Create List    @{NET1_VM_IPS}[0]
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${VM1_LIST}
+
+Create Routers
+    [Documentation]    Create Router
+    Create Router    router_1
+
+Add Interfaces To Router
+    [Documentation]    Add Interfaces
+    : FOR    ${interface}    IN    @{SUBNETS_NAME}
+    \    Add Router Interface    router_1    ${interface}
+
+Ping From Vm Instance in network_1 To Vm Instances in network_2
+    [Documentation]    Login to the vm instance and test some operations
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[0]    ${NET2_VM_IPS}
+
+Ping From Vm Instance in network_2 To Vm Instances in network_1
+    [Documentation]    Login to the vm instance and test some operations
+    Test Operations From Vm Instance    network_2    @{NET2_VM_IPS}[0]    ${NET1_VM_IPS}
 
 Add Additional Security Group To VMs
     [Documentation]    Add an additional security group to the VMs - this is done to test a different logic put in place for ports with multiple SGs
