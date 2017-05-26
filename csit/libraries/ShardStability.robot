@@ -69,13 +69,13 @@ Set_Shard_Location
     ClusterAdmin.Make_Leader_Local    ${requested_leader_idx}    topology    operational
 
 Verify_Shard_Leader_Located_As_Expected
-    [Arguments]    ${expected_leader_idx}
+    [Arguments]    ${expected_leader_idx}    ${http_timeout}=5
     [Documentation]    Verify default/topology config/operational shard leader location is as expected
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=config    verify_restconf=False
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=config    verify_restconf=False    http_timeout=${http_timeout}
     BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=operational    verify_restconf=False
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=operational    verify_restconf=False    http_timeout=${http_timeout}
     BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=config    verify_restconf=False
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=config    verify_restconf=False    http_timeout=${http_timeout}
     BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=operational    verify_restconf=False
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=operational    verify_restconf=False    http_timeout=${http_timeout}
     BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
