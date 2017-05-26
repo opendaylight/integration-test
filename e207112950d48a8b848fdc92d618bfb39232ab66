@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_bfd195cf",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-26T10:52:27Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 154,
+        "startChar": 61,
+        "endLine": 154,
+        "endChar": 62
+      },
+      "revId": "e207112950d48a8b848fdc92d618bfb39232ab66",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_df50e160",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-26T10:52:27Z",
+      "side": 1,
+      "message": "Use ${TRANSACTION_PRODUCTION_TIME}, perhaps even unconditionally.",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 173,
+        "endChar": 34
+      },
+      "revId": "e207112950d48a8b848fdc92d618bfb39232ab66",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_3f4e45c2",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-26T10:52:27Z",
+      "side": 1,
+      "message": "Rebase to pick up 5s here.",
+      "range": {
+        "startLine": 184,
+        "startChar": 50,
+        "endLine": 184,
+        "endChar": 51
+      },
+      "revId": "e207112950d48a8b848fdc92d618bfb39232ab66",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_7fc72d13",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-26T10:52:27Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 187,
+        "startChar": 61,
+        "endLine": 187,
+        "endChar": 62
+      },
+      "revId": "e207112950d48a8b848fdc92d618bfb39232ab66",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_1f4b89b1",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-26T10:52:27Z",
+      "side": 1,
+      "message": "This collides with REQUEST_TIMEOUT, choose another name.",
+      "range": {
+        "startLine": 258,
+        "startChar": 6,
+        "endLine": 258,
+        "endChar": 21
+      },
+      "revId": "e207112950d48a8b848fdc92d618bfb39232ab66",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_5fccf135",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-05-26T10:52:27Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 282,
+        "startChar": 6,
+        "endLine": 282,
+        "endChar": 21
+      },
+      "revId": "e207112950d48a8b848fdc92d618bfb39232ab66",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
