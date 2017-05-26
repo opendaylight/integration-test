@@ -55,7 +55,9 @@ Rejoin_Isolated_Member
 Invoke_Rpc_On_Each_Node_Again
     [Documentation]    Invoke rpc get-constant on every node. When requested on the node with
     ...    local instance the local value is expected. If invoked on the node with no local instance, any remote
-    ...    value is expected.
+    ...    value is expected. After node rejoined there shoudl be some time for rpc registrations to stabilize,
+    ...    so wuks is used.
+    BuiltIn.Wait_Until_Keyword_Succeeds    11s    1s    DrbCommons.Verify_Constant_On_Active_Nodes
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    20s    3s    DrbCommons.Verify_Constant_On_Active_Nodes
 
 Unregister_Rpc_On_Each_Node
