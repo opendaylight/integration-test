@@ -27,6 +27,7 @@ Resource          ${CURDIR}/../ShardStability.robot
 
 *** Variables ***
 ${CONSTANT_PREFIX}    constant-
+${CONTEXT}        context
 
 *** Keywords ***
 DrbCommons_Init
@@ -57,6 +58,20 @@ Unregister_Rpc_And_Update_Possible_Constants
     DrbCommons__Rem_Possible_Constant    ${member_index}
     DrbCommons__Deregister_Index    ${member_index}
 
+Register_Action_And_Update_Possible_Constants
+    [Arguments]    ${member_index}
+    [Documentation]    Register routed rpc on given node of the cluster.
+    MdsalLowlevel.Register_Bound_Constant    ${member_index}    ${CONTEXT}    ${CONSTANT_PREFIX}${member_index}
+    DrbCommons__Add_Possible_Constant    ${member_index}
+    DrbCommons__Register_Index    ${member_index}
+
+Unregister_Action_And_Update_Possible_Constants
+    [Arguments]    ${member_index}
+    [Documentation]    Unregister routed rpc on given node of the cluster.
+    MdsalLowlevel.Unregister_Bound_Constant    ${member_index}    ${CONTEXT}
+    DrbCommons__Rem_Possible_Constant    ${member_index}
+    DrbCommons__Deregister_Index    ${member_index}
+
 Register_Rpc_On_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Register global rpc on given nodes of the cluster.
@@ -68,6 +83,18 @@ Unregister_Rpc_On_Nodes
     [Documentation]    Unregister global rpc on given nodes of the cluster.
     : FOR    ${index}    IN    @{index_list}
     \    Unregister_Rpc_And_Update_Possible_Constants    ${index}
+
+Register_Action_On_Nodes
+    [Arguments]    ${index_list}
+    [Documentation]    Register global rpc on given nodes of the cluster.
+    : FOR    ${index}    IN    @{index_list}
+    \    Register_Action_And_Update_Possible_Constants    ${index}
+
+Unregister_Action_On_Nodes
+    [Arguments]    ${index_list}
+    [Documentation]    Unregister global rpc on given nodes of the cluster.
+    : FOR    ${index}    IN    @{index_list}
+    \    Unregister_Action_And_Update_Possible_Constants    ${index}
 
 Verify_Constant_On_Registered_Node
     [Arguments]    ${member_index}
@@ -84,11 +111,32 @@ Verify_Constant_On_Unregistered_Node
     Collections.List_Should_Contain_Value    ${possible_constants}    ${constant}
     BuiltIn.Return_From_Keyword    ${constant}
 
+Verify_Contexted_Constant_On_Registered_Node
+    [Arguments]    ${member_index}
+    [Documentation]    Verify that the rpc response comes from the local node.
+    ${constant} =    MdsalLowlevel.Get_Contexted_Constant    ${member_index}    ${CONTEXT}
+    BuiltIn.Should_Be_Equal_As_Strings    ${CONSTANT_PREFIX}${member_index}    ${constant}
+    BuiltIn.Return_From_Keyword    ${constant}
+    
+Verify_Contexted_Constant_On_Unregistered_Node
+    [Arguments]    ${member_index}
+    [Documentation]    Verify that the response comes from other nodes with rpc registered. Verification
+    ...    passes for registered nodes too.
+    ${constant} =    MdsalLowlevel.Get_Contexted_Constant    ${member_index}    ${CONTEXT}
+    Collections.List_Should_Contain_Value    ${possible_constants}    ${constant}
+    BuiltIn.Return_From_Keyword    ${constant}
+
 Verify_Constant_On_Registered_Nodes
     [Arguments]    ${index_list}
     [Documentation]    Verify that the rpc response comes from the local node for every node in the list.
     : FOR    ${index}    IN    @{index_list}
     \    Verify_Constant_On_Registered_Node    ${index}
+
+Verify_Contexted_Constant_On_Registered_Nodes
+    [Arguments]    ${index_list}
+    [Documentation]    Verify that the rpc response comes from the local node for every node in the list.
+    : FOR    ${index}    IN    @{index_list}
+    \    Verify_Contexted_Constant_On_Registered_Node    ${index}
 
 Verify_Constant_On_Unregistered_Nodes
     [Arguments]    ${index_list}
@@ -102,6 +150,12 @@ Verify_Constant_On_Active_Nodes
     \    BuiltIn.Run_Keyword_If    ${index} in ${registered_indices}    Verify_Constant_On_Registered_Node    ${index}
     \    ...    ELSE    Verify_Constant_On_Unregistered_Node    ${index}
 
+Verify_Constant_On_Active_Nodes
+    [Documentation]    Verify that the rpc response comes from the local node for every node in the list.
+    : FOR    ${index}    IN    @{active_indices}
+    \    BuiltIn.Run_Keyword_If    ${index} in ${registered_indices}    Verify_Contexted_Constant_On_Registered_Node    ${index}
+    \    ...    ELSE    Verify_Contexted_Constant_On_Unregistered_Node    ${index}
+
 Verify_Expected_Constant_On_Nodes
     [Arguments]    ${index_list}    ${exp_constant}
     [Documentation]    Verify that the rpc response comes only from one node only for every node in the list.
@@ -114,6 +168,15 @@ Get_Constant_Index_From_Node
     [Documentation]    Ivoke get-constant rpc on given member index. Returns the index of
     ...    the node where the constant came from.
     ${constant} =    MdsalLowlevel.Get_Constant    ${member_index}
+    ${index} =    String.Replace_String    ${constant}    ${CONSTANT_PREFIX}    ${EMPTY}
+    ${index} =    BuiltIn.Convert_To_Integer    ${index}
+    BuiltIn.Return_From_Keyword    ${index}
+
+Get_Context_Constant_Index_From_Node
+    [Arguments]    ${member_index}
+    [Documentation]    Ivoke get-contexted-constant rpc on given member index. Returns the index of
+    ...    the node where the constant came from.
+    ${constant} =    MdsalLowlevel.Get_Contexted_Constant    ${member_index}    ${CONTEXT}
     ${index} =    String.Replace_String    ${constant}    ${CONSTANT_PREFIX}    ${EMPTY}
     ${index} =    BuiltIn.Convert_To_Integer    ${index}
     BuiltIn.Return_From_Keyword    ${index}
