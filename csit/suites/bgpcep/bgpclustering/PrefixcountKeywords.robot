@@ -132,6 +132,6 @@ Set_Shard_Leaders_Location_And_Verify
     [Documentation]    Move default/topology config/operational shard location to local or remote node as requested
     ...    towards the given rib singleton instance location.
     ShardStability.Set_Shard_Location    ${requested_shard_localtion_idx}
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ShardStability.Verify_Shard_Leader_Located_As_Expected    ${requested_shard_localtion_idx}    http_timeout=125s
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    5s    ShardStability.Verify_Shard_Leader_Located_As_Expected    ${requested_shard_localtion_idx}    http_timeout=125
     ${init_shard_details} =    ShardStability.Shards_Stability_Get_Details    ${SHARD_MONITOR_LIST}
     BuiltIn.Set_Suite_Variable    ${init_shard_details}
