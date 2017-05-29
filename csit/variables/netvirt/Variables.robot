@@ -10,6 +10,8 @@ Documentation     Variables for Netvirt Test Suites
 @{VM_INSTANCES_NET1}    VM1    VM2
 @{VM_INSTANCES_NET2}    VM3    VM4
 @{VM_INSTANCES_NET3}    VM5    VM6
+@{VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261111    4ae8cd92-48ca-49b5-94e1-b2921a261112    4ae8cd92-48ca-49b5-94e1-b2921a261113
+@{VPN_NAME}       vpn1    vpn2    vpn3
 ${ROUTERS}        ROUTER_1
 ${RESP_CODE}      200
 ${RESP_ERROR_CODE}    400
@@ -22,9 +24,16 @@ ${NO_PING_REGEXP}    , 100% packet loss
 @{EXTRA_NW_IP}    192.168.10.110    192.168.20.110
 ${FIB_ENTRY_2}    192.168.10.110
 ${FIB_ENTRY_4}    192.168.20.110
+@{RDS}            ["2200:2"]    ["2300:2"]    ["2400:2"]
 ${RPING_MIP_IP}    sudo arping -I eth0:1 -c 5 -b -s 192.168.10.110 192.168.10.110
 ${RPING_MIP_IP_2}    sudo arping -I eth0:1 -c 5 -b -s 192.168.20.110 192.168.20.110
 ${RPING_EXP_STR}    broadcast
+# Values passed for extra routes
+${RT_OPTIONS}     --routes type=dict list=true
+${RT_CLEAR}       --routes action=clear
+${ARP_RESPONSE_REGEX}    arp,arp_op=2 actions=CONTROLLER:65535,resubmit\\(,${DISPATCHER_TABLE}\\)
+${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
+${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
 # Values passed for BFD Tunnel monitoring
 ${TUNNEL_MONITOR_ON}    Tunnel Monitoring (for VXLAN tunnels): On
 ${TUNNEL_MONITOR_OFF}    Tunnel Monitoring (for VXLAN tunnels): Off
