@@ -21,27 +21,14 @@ Resource          ../../../variables/netvirt/Variables.robot
 *** Variables ***
 @{NETWORKS}       NET10    NET20
 @{SUBNETS}        SUBNET1    SUBNET2
-@{SUBNET_CIDR}    10.1.1.0/24    20.1.1.0/24
+@{SUBNETS_CIDR}    10.1.1.0/24    20.1.1.0/24
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES_NET10}    VM11    VM21
 @{VM_INSTANCES_NET20}    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
-@{VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261111    4ae8cd92-48ca-49b5-94e1-b2921a261112    4ae8cd92-48ca-49b5-94e1-b2921a261113
-@{VPN_NAME}       vpn1    vpn2    vpn3
-@{CREATE_RD}      ["2200:2"]    ["2300:2"]    ["2400:2"]
-@{CREATE_EXPORT_RT}    ["2200:2"]    ["2300:2"]    ["2400:2"]
-@{CREATE_IMPORT_RT}    ["2200:2"]    ["2300:2"]    ["2400:2"]
 @{EXTRA_NW_IP}    40.1.1.2    50.1.1.2
 @{EXTRA_NW_SUBNET}    40.1.1.0/24    50.1.1.0/24
 ${SECURITY_GROUP}    sg-vpnservice
-# Values passed for extra routes
-${RT_OPTIONS}     --route
-${RT_CLEAR}       --no-route
-${ARP_RESPONSE_REGEX}    arp,arp_op=2 actions=CONTROLLER:65535,resubmit\\(,${DISPATCHER_TABLE}\\)
-${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
-${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
-${MAC_REGEX}      (([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2}))
-${IP_REGEX}       (([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])
 ${UPDATE_NETWORK}    UpdateNetwork
 ${UPDATE_SUBNET}    UpdateSubnet
 ${UPDATE_PORT}    UpdatePort
@@ -55,20 +42,20 @@ Create Neutron Networks
     Log    ${NET_LIST}
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
     Should Contain    ${NET_LIST}    ${NETWORKS[1]}
-    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/networks/    ${NETWORKS}
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
     Update Network    ${NETWORKS[0]}    additional_args=--description ${UPDATE_NETWORK}
     ${output} =    Show Network    ${NETWORKS[0]}
     Should Contain    ${output}    ${UPDATE_NETWORK}
 
 Create Neutron Subnets
     [Documentation]    Create two subnets for previously created networks
-    Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNET_CIDR[0]}
-    Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNET_CIDR[1]}
+    Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNETS_CIDR[0]}
+    Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNETS_CIDR[1]}
     ${SUB_LIST}    List Subnets
     Log    ${SUB_LIST}
     Should Contain    ${SUB_LIST}    ${SUBNETS[0]}
     Should Contain    ${SUB_LIST}    ${SUBNETS[1]}
-    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/subnets/    ${SUBNETS}
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
     Update SubNet    ${SUBNETS[0]}    additional_args=--description ${UPDATE_SUBNET}
     ${output} =    Show SubNet    ${SUBNETS[0]}
     Should Contain    ${output}    ${UPDATE_SUBNET}
@@ -111,7 +98,7 @@ Create Nova VMs
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
     Log    Check for routes
-    Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate
+    Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS_CIDR}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
     ...    true    @{VM_INSTANCES_NET10}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
@@ -120,6 +107,7 @@ Create Nova VMs
     ${VM_IP_NET20}    ${DHCP_IP2}    Collect VM IP Addresses    false    @{VM_INSTANCES_NET20}
     ${VM_INSTANCES}=    Collections.Combine Lists    ${VM_INSTANCES_NET10}    ${VM_INSTANCES_NET20}
     ${VM_IPS}=    Collections.Combine Lists    ${VM_IP_NET10}    ${VM_IP_NET20}
+    Log Many    Obtained IPs    ${VM_IPS}
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES_NET10}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
@@ -147,7 +135,7 @@ Create Routers
     Log    ${router_output}
     Should Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
-    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/routers/    ${router_list}
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${ROUTER_URL}    ${router_list}
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
@@ -168,7 +156,7 @@ Check L3_Datapath Traffic Across Networks With Router
     ${cn2_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_2_IP}    file_Name=tcpDumpCN2
     ${os_conn_id} =    Start Packet Capture on Node    ${OS_CONTROL_NODE_IP}    file_Name=tcpDumpOS
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
-    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_instances}
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
     #Verify GWMAC Table
@@ -199,7 +187,7 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     Show Router    @{ROUTERS}[0]    -D
     Log    "Verify FIB table"
     ${vm_instances} =    Create List    @{EXTRA_NW_SUBNET}
-    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_instances}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[1]
     Should Contain    ${output}    64 bytes
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[1]}    ping -c 3 @{EXTRA_NW_IP}[1]
@@ -234,7 +222,8 @@ Create L3VPN
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
-    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=${CREATE_RD[0]}    exportrt=${CREATE_EXPORT_RT[0]}    importrt=${CREATE_IMPORT_RT[0]}    tenantid=${tenant_id}
+    Log    @{RDS}[0]
+    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[0]}
 
@@ -250,8 +239,8 @@ Verify L3VPN Datapath With Router Association
     [Documentation]    Datapath test across the networks using L3VPN with router association.
     Log    Verify VPN interfaces, FIB entries and Flow table
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
-    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${CONFIG_API}/l3vpn:vpn-interfaces/    ${vm_instances}
-    ${RD} =    Strip String    ${CREATE_RD[0]}    characters="[]
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_instances}
+    ${RD} =    Strip String    ${RDS[0]}    characters="[]
     Log    ${RD}
     Wait Until Keyword Succeeds    60s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
     Wait Until Keyword Succeeds    60s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
@@ -298,7 +287,7 @@ Delete Router And Router Interfaces With L3VPN
     Log    ${router_output}
     Should Not Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
-    Wait Until Keyword Succeeds    3s    1s    Check For Elements Not At URI    ${CONFIG_API}/neutron:neutron/routers/    ${router_list}
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements Not At URI    ${ROUTER_URL}    ${router_list}
     # Verify Router Entry removed from L3VPN
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Not Contain    ${resp}    ${router_id}
@@ -347,9 +336,9 @@ Create Multiple L3VPN
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
-    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=${CREATE_RD[0]}    exportrt=${CREATE_EXPORT_RT[0]}    importrt=${CREATE_IMPORT_RT[0]}    tenantid=${tenant_id}
-    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[1]}    name=${VPN_NAME[1]}    rd=${CREATE_RD[1]}    exportrt=${CREATE_EXPORT_RT[1]}    importrt=${CREATE_IMPORT_RT[1]}    tenantid=${tenant_id}
-    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[2]}    name=${VPN_NAME[2]}    rd=${CREATE_RD[2]}    exportrt=${CREATE_EXPORT_RT[2]}    importrt=${CREATE_IMPORT_RT[2]}    tenantid=${tenant_id}
+    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=${RDS[0]}    exportrt=${RDS[0]}    importrt=${RDS[0]}    tenantid=${tenant_id}
+    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[1]}    name=${VPN_NAME[1]}    rd=${RDS[1]}    exportrt=${RDS[1]}    importrt=${RDS[1]}    tenantid=${tenant_id}
+    VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[2]}    name=${VPN_NAME[2]}    rd=${RDS[2]}    exportrt=${RDS[2]}    importrt=${RDS[2]}    tenantid=${tenant_id}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
@@ -357,72 +346,24 @@ Create Multiple L3VPN
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[2]}
 
+Check Datapath Traffic Across Networks With L3VPN
+    [Documentation]    Datapath Test Across the networks with VPN.
+    [Tags]    exclude
+    Log    This test will be added in the next patch
+
 Delete Multiple L3VPN
     [Documentation]    Delete three L3VPNs created using Multiple L3VPN Test
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
 
-Check Datapath Traffic Across Networks With L3VPN
-    [Documentation]    Datapath Test Across the networks with VPN.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
-
-Delete Vm Instances
-    [Documentation]    Delete Vm instances in the given Instance List
-    ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
-    : FOR    ${VmInstance}    IN    @{VM_INSTANCES}
-    \    Delete Vm Instance    ${VmInstance}
-
-Delete Neutron Ports
-    [Documentation]    Delete Neutron Ports in the given Port List.
-    : FOR    ${Port}    IN    @{PORT_LIST}
-    \    Delete Port    ${Port}
-
-Delete Sub Networks
-    [Documentation]    Delete Sub Nets in the given Subnet List.
-    : FOR    ${Subnet}    IN    @{SUBNETS}
-    \    Delete SubNet    ${Subnet}
-
-Delete Networks
-    [Documentation]    Delete Networks in the given Net List
-    : FOR    ${Network}    IN    @{NETWORKS}
-    \    Delete Network    ${Network}
-
 *** Keywords ***
-Basic Vpnservice Suite Setup
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    DevstackUtils.Devstack Suite Setup
-
-Basic Vpnservice Suite Teardown
-    Delete SecurityGroup    ${SECURITY_GROUP}
-    Close All Connections
-
 Test Teardown With Tcpdump Stop
     [Arguments]    ${cn1_conn_id}    ${cn2_conn_id}    ${os_conn_id}
     Stop Packet Capture on Node    ${cn1_conn_id}
     Stop Packet Capture on Node    ${cn2_conn_id}
     Stop Packet Capture on Node    ${os_conn_id}
     Get Test Teardown Debugs
-
-Wait For Routes To Propogate
-    ${devstack_conn_id} =    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
-    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
-    Should Contain    ${output}    @{SUBNET_CIDR}[0]
-    ${net_id} =    Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
-    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
-    Should Contain    ${output}    @{SUBNET_CIDR}[1]
-
-Verify GWMAC Entry On ODL
-    [Arguments]    ${GWMAC_ADDRS}
-    [Documentation]    get ODL GWMAC table entry
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/neutronvpn:neutron-vpn-portip-port-data/
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
-    \    Should Contain    ${resp.content}    ${macAdd}
 
 Get Gateway MAC And IP Address
     [Arguments]    ${router_Name}
@@ -470,24 +411,3 @@ Verify GWMAC Flow Entry On Flow Table
     : FOR    ${macAdd}    ${ipAdd}    IN ZIP    ${GWMAC_ADDRS}    ${GWIP_ADDRS}
     \    ${ARP_RESPONSE_IP_MAC_REGEX} =    Set Variable    arp_tpa=${ipAdd},arp_op=1 actions=.*,set_field:${macAdd}->eth_src
     \    Should Match Regexp    ${arpResponder_table}    ${ARP_RESPONSE_IP_MAC_REGEX}
-
-Verify ARP REQUEST in groupTable
-    [Arguments]    ${group_output}    ${Group-ID}
-    [Documentation]    get flow dump for group ID
-    Should Contain    ${group_output}    group_id=${Group-ID}
-    ${arp_group} =    Get Lines Containing String    ${group_output}    group_id=${Group-ID}
-    Log    ${arp_group}
-    Should Match Regexp    ${arp_group}    ${ARP_REQUEST_GROUP_REGEX}
-
-Verify GWMAC Flow Entry Removed From Flow Table
-    [Arguments]    ${cnIp}
-    [Documentation]    Verify the GWMAC Table, ARP Response table and Dispatcher table.
-    ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${flow_output}
-    #Verify GWMAC_TABLE - 19
-    Should Contain    ${flow_output}    table=${GWMAC_TABLE}
-    ${gwmac_table} =    Get Lines Containing String    ${flow_output}    table=${GWMAC_TABLE}
-    Log    ${gwmac_table}
-    #Verify GWMAC address present in table 19
-    : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
-    \    Should Not Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
