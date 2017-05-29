@@ -22,6 +22,32 @@ ${STATE_ENABLE}    ENABLED
 ${STATE_DISABLE}    DISABLE
 
 *** Keywords ***
+Basic Vpnservice Suite Setup
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    DevstackUtils.Devstack Suite Setup
+
+Basic Vpnservice Suite Teardown
+    # Delete three L3VPNs created using Multiple L3VPN Test
+    Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
+    Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
+    # Delete Vm instances from the given Instance List
+    ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
+    : FOR    ${VmInstance}    IN    @{VM_INSTANCES}
+    \    Run Keyword And Ignore Error    Delete Vm Instance    ${VmInstance}
+    # Delete Neutron Ports from the given Port List.
+    : FOR    ${Port}    IN    @{PORT_LIST}
+    \    Run Keyword And Ignore Error    Delete Port    ${Port}
+    # Delete Sub Nets from the given Subnet List.
+    : FOR    ${Subnet}    IN    @{SUBNETS}
+    \    Run Keyword And Ignore Error    Delete SubNet    ${Subnet}
+    # Delete Networks in the given Net List
+    : FOR    ${Network}    IN    @{NETWORKS}
+    \    Run Keyword And Ignore Error    Delete Network    ${Network}
+    # Remove security group created earlier
+    Run Keyword And Ignore Error    Delete SecurityGroup    ${SECURITY_GROUP}
+    Close All Connections
+
 VPN Create L3VPN
     [Arguments]    &{Kwargs}
     [Documentation]    Create an L3VPN using the Json using the list of optional arguments received.
@@ -95,6 +121,35 @@ Verify Flows Are Present For L3VPN
     Log    ${l3vpn_table}
     : FOR    ${i}    IN    @{vm_ips}
     \    ${resp}=    Should Contain    ${l3vpn_table}    ${i}
+
+Verify GWMAC Entry On ODL
+    [Arguments]    ${GWMAC_ADDRS}
+    [Documentation]    get ODL GWMAC table entry
+    ${resp} =    RequestsLibrary.Get Request    session    ${VPN_PORT_DATA_URL}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
+    \    Should Contain    ${resp.content}    ${macAdd}
+
+Verify GWMAC Flow Entry Removed From Flow Table
+    [Arguments]    ${cnIp}
+    [Documentation]    Verify the GWMAC Table, ARP Response table and Dispatcher table.
+    ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${flow_output}
+    Should Contain    ${flow_output}    table=${GWMAC_TABLE}
+    ${gwmac_table} =    Get Lines Containing String    ${flow_output}    table=${GWMAC_TABLE}
+    Log    ${gwmac_table}
+    #Verify GWMAC address present in table 19
+    : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
+    \    Should Not Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+
+Verify ARP REQUEST in groupTable
+    [Arguments]    ${group_output}    ${Group-ID}
+    [Documentation]    get flow dump for group ID
+    Should Contain    ${group_output}    group_id=${Group-ID}
+    ${arp_group} =    Get Lines Containing String    ${group_output}    group_id=${Group-ID}
+    Log    ${arp_group}
+    Should Match Regexp    ${arp_group}    ${ARP_REQUEST_GROUP_REGEX}
 
 Verify Tunnel Status as UP
     [Documentation]    Verify that the tunnels are UP
