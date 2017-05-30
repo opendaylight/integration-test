@@ -20,7 +20,7 @@ ${swspread}       linear
 ${tabspread}      first
 ${fpr}            10
 ${nrthreads}      5
-${karaf_log_level}    log:set ERROR
+${karaf_log_level}    log:set WARN
 ${rate_results_file}    rate.csv
 ${time_results_file}    time.csv
 

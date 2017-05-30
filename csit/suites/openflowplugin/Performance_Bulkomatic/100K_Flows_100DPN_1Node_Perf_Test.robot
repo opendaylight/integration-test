@@ -16,7 +16,7 @@ ${oper_ds_timeout}    400s
 ${mininet_timeout}    120s
 ${flow_count_per_switch}    1000
 ${switch_count}    100
-${karaf_log_level}    log:set ERROR
+${karaf_log_level}    log:set WARN
 ${orig_json_config_add}    sal_add_bulk_flow_config.json
 ${orig_json_config_get}    sal_get_bulk_flow_config.json
 ${orig_json_config_del}    sal_del_bulk_flow_config.json
