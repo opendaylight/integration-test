@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_26cc8a35",
+        "filename": "csit/suites/aaa/tls/020__tls_connection_manager.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2017-05-30T14:35:02Z",
+      "side": 1,
+      "message": "It would be useful to give the file a more specific file name, something like 020_tls_ovs_connection_manager.robot or similar",
+      "revId": "d05be91c171a10633a15592eb47fb6d13456d10b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
