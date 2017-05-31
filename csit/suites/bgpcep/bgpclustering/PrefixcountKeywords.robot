@@ -6,6 +6,9 @@ Documentation     BGP performance of ingesting from 1 iBGP peer, data change cou
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...
+...               For propper usage of this resource ${config_session} varaible has to be set.
+...               It should point to http://<ip-addr>:${RESTCONFPORT}.
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
@@ -44,10 +47,6 @@ ${INITIAL_RESTCONF_TIMEOUT}    30s
 ${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
 ${SHARD_DEFAULT_CONFIG}    shard-default-config
 ${SHARD_DEFAULT_OPERATIONAL}    shard-default-operational
-${CONFIG_SESSION}    config-session
-${CONFIGURATION_1}    operational-1
-${CONFIGURATION_2}    operational-2
-${CONFIGURATION_3}    operational-3
 ${EXAMPLE_IPV4_TOPOLOGY}    example-ipv4-topology
 ${DEVICE_NAME}    peer-controller-config
 ${DEVICE_CHECK_TIMEOUT}    60s
@@ -62,10 +61,11 @@ Setup_Everything
     [Documentation]    Setup imported resources, SSH-login to tools system,
     ...    create HTTP session, put Python tool to tools system.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    RequestsLibrary.Create_Session    ${CONFIGURATION_1}    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}    timeout=40    max_retries=0
-    RequestsLibrary.Create_Session    ${CONFIGURATION_2}    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}    timeout=40    max_retries=0
-    RequestsLibrary.Create_Session    ${CONFIGURATION_3}    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}    timeout=40    max_retries=0
     PrefixCounting.PC_Setup
+    ${indices} =    ClusterManagement.List_All_Indices
+    : FOR    ${member_index}    IN     ${indices}
+    \    ${session} =     ClusterManagement.Resolve_Http_Session_For_Member    ${rib_owner}
+    \    BuiltIn.Set_Suite_Variable    ${operational_${member_index}}    ${session}
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
@@ -96,8 +96,8 @@ Configure_Netconf_Device_And_Check_Mounted
     [Arguments]    ${mapping}
     [Documentation]    Configures netconf device
     # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
-    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}    session=${config_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}    session=${config_session}
 
 Start_Bgp_Peer
     [Arguments]    ${peerip}=${rib_owner_node_id}
@@ -113,7 +113,7 @@ Start_Bgp_Peer_And_Verify_Connected
     : FOR    ${idx}    IN RANGE    ${connection_retries}
     \    Start_Bgp_Peer    peerip=${peerip}
     \    ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
-    \    ...    Verify_Bgp_Peer_Connection    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}    connected=${True}
+    \    ...    Verify_Bgp_Peer_Connection    ${config_session}    ${TOOLS_SYSTEM_IP}    connected=${True}
     \    BuiltIn.Run_Keyword_Unless    "${status}" == "PASS"    BGPSpeaker.Kill_BGP_Speaker
     \    BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"
     BuiltIn.Fail    Unable to connect bgp peer to ODL
