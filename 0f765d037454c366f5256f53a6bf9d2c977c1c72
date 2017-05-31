@@ -52,6 +52,24 @@
       "revId": "0f765d037454c366f5256f53a6bf9d2c977c1c72",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_5df22a9b",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 6433
+      },
+      "writtenOn": "2017-05-31T05:34:21Z",
+      "side": 1,
+      "message": "Hi Luis ,\n In this KW Get_Raft_Property_From_Shard_Member, i am sending a argument (raft_property \u003d Current Term ) ..where argument is changing as per Raft_Property we need ..\nBut the Above KW Get_Raft_State_Of_Shard_At_Member only return 1 argument  which is Raft_State",
+      "parentUuid": "ba068154_8b2bbe2f",
+      "revId": "0f765d037454c366f5256f53a6bf9d2c977c1c72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
