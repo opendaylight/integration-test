@@ -18,6 +18,7 @@ Resource          ${CURDIR}/WaitUtils.robot
 
 *** Variables ***
 ${CHANGE_COUNTER_TEMPLATE_FOLDER}    ${CURDIR}/../variables/bgpuser
+${CC_DATA_CHANGE_COUNTER_URL}    /restconf/operational/data-change-counter:data-change-counter
 
 *** Keywords ***
 CC_Setup
@@ -28,8 +29,9 @@ CC_Setup
     BuiltIn.Set_Suite_Variable    ${ChangeCounter__getter}    ${counter}
 
 Get_Change_Count
+    [Arguments]    ${session}=operational
     [Documentation]    GET data change request, assert status 200, return the value.
-    ${response} =    RequestsLibrary.Get_Request    operational    data-change-counter:data-change-counter
+    ${response} =    RequestsLibrary.Get_Request    ${session}    ${CC_DATA_CHANGE_COUNTER_URL}
     BuiltIn.Should_Be_Equal    ${response.status_code}    ${200}    Got status: ${response.status_code} and message: ${response.text}
     # CompareStream.Set_Variable_If_At_Least_Else cannot be used direcly, because ${response.text}["data-change-counter"]["count"] would be
     # evaluated before the stream comparison and it causes failures
