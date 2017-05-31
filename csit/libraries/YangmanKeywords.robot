@@ -6,12 +6,47 @@ Library           Selenium2Library    timeout=30    implicit_wait=30    run_on_f
 Resource          ../variables/Variables.robot
 Resource          GUIKeywords.robot
 Resource          ../variables/YangmanGUIVariables.robot
+Resource          ../variables/YangmanTestData.robot
+
+*** Variables ***
 
 *** Keywords ***
 Open DLUX And Login And Navigate To Yangman URL
     [Documentation]    Launches DLUX page using PhantomJS, or Xvfb, or real browser and navigates to yangman url.
     GUIKeywords.Open Or Launch DLUX Page And Log In To DLUX
     GUIKeywords.Navigate To URL    ${YANGMAN_SUBMENU_URL}
+
+Verify Modules Tab Name Is Translated
+    [Documentation]    Verifies that Modules tab name is translated from YANGMAN_MODULES to Modules.
+    ${modules_tab_name}=    Selenium2Library.Get Text    ${LEFT_TAB_AREA}//md-tab-item[@aria-selected="true"]/span
+    BuiltIn.Should Be Equal    ${modules_tab_name}    ${MODULES_TAB_NAME}
+
+Open DLUX And Login And Navigate To Yangman URL And Verify Modules Tab Name Translation
+    [Documentation]    Launches DLUX page and navigates to yangman url and verifies translation of modules tab name.
+    Open DLUX And Login And Navigate To Yangman URL
+    Selenium2Library.Wait Until Page Contains Element    ${YANGMAN_LOGO}
+    Verify Modules Tab Name Is Translated
+
+Verify Yangman Home Page Elements
+    [Documentation]    Verifies presence of Yangman home page elements.
+    Selenium2Library.Wait Until Page Contains Element    ${YANGMAN_LOGO}
+    Selenium2Library.Log Location
+    Modules Tab Is Selected
+    Selenium2Library.Page Should Contain Element    ${TOGGLE_MENU_BUTTON}
+    Selenium2Library.Page Should Contain Element    ${LOGOUT_BUTTON}
+    Verify Selected Operation Is Displayed    GET
+    Selenium2Library.Page Should Contain Element    ${REQUEST_URL_INPUT}
+    Selenium2Library.Page Should Contain Element    ${SEND_BUTTON}
+    Selenium2Library.Page Should Contain Element    ${SAVE_BUTTON}
+    Selenium2Library.Page Should Contain Element    ${PARAMETERS_BUTTON}
+    Selenium2Library.Page Should Contain Element    ${FORM_RADIOBUTTON_UNSELECTED}
+    Selenium2Library.Page Should Contain Element    ${JSON_RADIOBUTTON_SELECTED}
+    Selenium2Library.Page Should Contain Element    ${SHOW_SENT_DATA_CHECKBOX_UNSELECTED}
+    Selenium2Library.Page Should Contain Element    ${SHOW_RECEIVED_DATA_CHECKBOX_SELECTED}
+    Selenium2Library.Page Should Contain Element    ${RECEIVED_DATA_CODE_MIRROR_DISPLAYED}
+    Selenium2Library.Page Should Contain Element    ${RECEIVED_DATA_ENLARGE_FONT_SIZE_BUTTON}
+    Selenium2Library.Page Should Contain Element    ${RECEIVED_DATA_REDUCE_FONT_SIZE_BUTTON}
+    Selenium2Library.Page Should Not Contain Element    ${SENT_DATA_CODE_MIRROR_DISPLAYED}
 
 Return List Of Operation IDs
     [Documentation]    Returns list of IDs of Get, Put, Post and Delete options in expanded operation select menu.
@@ -49,8 +84,8 @@ Select Operation And Verify Operation Has Been Selected
     [Documentation]    Selects chosen operation from expanded operation select menu and verifies the operation has been selected.
     ${status}=    BuiltIn.Run Keyword And Return Status    GUIKeywords.Page Should Contain Element With Wait    ${OPERATION_SELECT_MENU_EXPANDED}
     BuiltIn.Run Keyword If    "${status}"=="False"    Expand Operation Select Menu    ${OPERATION_SELECT_INPUT}
-    ${selected_operation_xpath}=    BuiltIn.Set Variable    ${OPERATION_SELECT_INPUT}//span/div[contains(text(), "${selected_operation_name}")]
-    GUIKeywords.Patient Click    ${operation_id}    ${selected_operation_xpath}
+    ${selected_operation_xpath}=    BuiltIn.Set Variable    ${OPERATION_SELECT_INPUT}//span/div[contains(., "${selected_operation_name}")]
+    GUIKeywords.Helper Click    ${operation_id}    ${selected_operation_xpath}
 
 Expand Operation Select Menu And Select Operation
     [Arguments]    ${operation_id}    ${selected_operation_name}
@@ -87,18 +122,18 @@ Send Request And Verify Request Status Code Matches Desired Code
     Verify Request Execution Time Is Present
 
 Execute Chosen Operation From Form
-    [Arguments]    ${operation_id}    ${selected_operation_name}    ${selected_true_false}
+    [Arguments]    ${operation_id}    ${selected_operation_name}    ${selected_or_unselected}
     [Documentation]    Selects operation, selects or unselects fill form with received data after execution checkbox.
     Expand Operation Select Menu And Select Operation    ${operation_id}    ${selected_operation_name}
-    Select Fill Form With Received Data After Execution Checkbox    ${selected_true_false}
+    Select Fill Form With Received Data After Execution Checkbox    ${selected_or_unselected}
     Send Request
 
 Execute Chosen Operation From Form And Check Status Code
-    [Arguments]    ${operation_id}    ${selected_operation_name}    ${selected_true_false}    ${desired_code_regexp}
+    [Arguments]    ${operation_id}    ${selected_operation_name}    ${selected_or_unselected}    ${desired_code_regexp}
     [Documentation]    Selects operation, selects or unselects fill form with received data after execution checkbox and
     ...    verifies that execution status matches regexp provided as an argument.
     Expand Operation Select Menu And Select Operation    ${operation_id}    ${selected_operation_name}
-    Select Fill Form With Received Data After Execution Checkbox    ${selected_true_false}
+    Select Fill Form With Received Data After Execution Checkbox    ${selected_or_unselected}
     Send Request
     BuiltIn.Run Keyword If    "${desired_code_regexp}"=="${THREE_DOTS_DEFAULT_STATUS_AND_TIME}"    BuiltIn.Run Keywords    Verify Request Status Code Matches Desired Code    ${THREE_DOTS_DEFAULT_STATUS_AND_TIME}
     ...    AND    Verify Request Execution Time Is Threedots
@@ -110,27 +145,6 @@ Return Labelled Api Path Input
     [Documentation]    Returns Xpath of labelled API path input field.
     ${labelled_api_path_input}=    BuiltIn.Set Variable    ${API_PATH}//span[contains(text(), "/${branch_label_without_curly_braces_part}")]//parent::md-input-container//following-sibling::md-input-container[last()]/input
     [Return]    ${labelled_api_path_input}
-
-Verify Yangman Home Page Elements
-    [Documentation]    Verifies presence of Yangman home page elements.
-    Selenium2Library.Wait Until Page Contains Element    ${YANGMAN_LOGO}
-    Selenium2Library.Log Location
-    Modules Tab Is Selected
-    Selenium2Library.Page Should Contain Element    ${TOGGLE_MENU_BUTTON}
-    Selenium2Library.Page Should Contain Element    ${LOGOUT_BUTTON}
-    Verify Selected Operation Is Displayed    GET
-    Selenium2Library.Page Should Contain Element    ${REQUEST_URL_INPUT}
-    Selenium2Library.Page Should Contain Element    ${SEND_BUTTON}
-    Selenium2Library.Page Should Contain Element    ${SAVE_BUTTON}
-    Selenium2Library.Page Should Contain Element    ${PARAMETERS_BUTTON}
-    Selenium2Library.Page Should Contain Element    ${FORM_RADIOBUTTON_UNSELECTED}
-    Selenium2Library.Page Should Contain Element    ${JSON_RADIOBUTTON_SELECTED}
-    Selenium2Library.Page Should Contain Element    ${SHOW_SENT_DATA_CHECKBOX_UNSELECTED}
-    Selenium2Library.Page Should Contain Element    ${SHOW_RECEIVED_DATA_CHECKBOX_SELECTED}
-    Selenium2Library.Page Should Contain Element    ${RECEIVED_DATA_CODE_MIRROR_DISPLAYED}
-    Selenium2Library.Page Should Contain Element    ${RECEIVED_DATA_ENLARGE_FONT_SIZE_BUTTON}
-    Selenium2Library.Page Should Contain Element    ${RECEIVED_DATA_REDUCE_FONT_SIZE_BUTTON}
-    Selenium2Library.Page Should Not Contain Element    ${SENT_DATA_CODE_MIRROR_DISPLAYED}
 
 Select Form View
     [Documentation]    Click Form radiobutton to display form view.
@@ -255,7 +269,8 @@ Expand Module
     ${module_list_item_indexed}=    BuiltIn.Run Keyword If    "${module_name}"!= "${EMPTY}"    Return Indexed Module From Module Name    ${module_name}
     ${module_list_item_indexed}=    BuiltIn.Run Keyword If    "${module_id_index}"!= "${EMPTY}"    Return Module List Indexed Module    ${module_id_index}
     ${module_list_item_expanded_indexed}=    BuiltIn.Set Variable    ${module_list_item_indexed}//following-sibling::md-list[@aria-hidden="false"]
-    GUIKeywords.Mouse Down And Mouse Up Click Element    ${module_list_item_indexed}
+    ${module_list_item_indexed_is_expanded}=    BuiltIn.Run Keyword And Return Status    Selenium2Library.Wait Until Page Contains Element    ${module_list_item_expanded_indexed}
+    BuiltIn.Run Keyword If    ${module_list_item_indexed_is_expanded}==False    GUIKeywords.Mouse Down And Mouse Up Click Element    ${module_list_item_indexed}
     Selenium2Library.Wait Until Page Contains Element    ${module_list_item_expanded_indexed}
 
 Expand Module And Click Module Operational Item
@@ -272,9 +287,16 @@ Expand Module And Click Module Config Item
     Expand Module    ${module_name}    ${module_id_index}
     Click Indexed Module Config To Load Module Detail Config Tab    ${module_id_index}
 
+Navigate To Modules Tab
+    ${toggle_module_detail_button_left_is_visible}=    BuiltIn.Run Keyword And Return Status    Selenium2Library.Element Should Be Visible    ${TOGGLE_MODULE_DETAIL_BUTTON_LEFT}
+    BuiltIn.Run Keyword If    ${toggle_module_detail_button_left_is_visible}==True    GUIKeywords.Patient Click    ${TOGGLE_MODULE_DETAIL_BUTTON_LEFT}    ${TOGGLE_MODULE_DETAIL_BUTTON_RIGHT}
+    ${modules_tab_is_selected}=    BuiltIn.Run Keyword And Return Status    Selenium2Library.Element Should Be Visible    ${MODULES_TAB_SELECTED}
+    BuiltIn.Run Keyword If    ${modules_tab_is_selected}==False    GUIKeywords.Patient Click    ${MODULES_TAB_UNSELECTED}    ${MODULES_TAB_SELECTED}
+
 Navigate From Yangman Submenu To Testing Module Operational Tab
     [Arguments]    ${testing_module_name}
     [Documentation]    Navigates from loaded Yangman URL to testing module detail operational tab.
+    Navigate To Modules Tab
     ${module_id_index}=    YangmanKeywords.Return Module ID Index From Module Name    ${testing_module_name}
     Selenium2Library.Wait Until Page Does Not Contain Element    ${MODULES_WERE_LOADED_ALERT}
     Expand Module And Click Module Operational Item    ${EMPTY}    ${module_id_index}
@@ -282,8 +304,11 @@ Navigate From Yangman Submenu To Testing Module Operational Tab
 Navigate From Yangman Submenu To Testing Module Config Tab
     [Arguments]    ${testing_module_name}
     [Documentation]    Navigates from loaded Yangman URL to testing module detail config tab.
-    ${module_id_index}=    YangmanKeywords.Return Module ID Index From Module Name    ${testing_module_name}
+    Navigate To Modules Tab
+    ${indexed_module_list_item}=    Return Indexed Module From Module Name    ${testing_module_name}
+    Selenium2LIbrary.Wait Until Page Contains Element    ${indexed_module_list_item}
     Selenium2Library.Wait Until Page Does Not Contain Element    ${MODULES_WERE_LOADED_ALERT}
+    ${module_id_index}=    YangmanKeywords.Return Module ID Index From Module Name    ${testing_module_name}
     Expand Module And Click Module Config Item    ${EMPTY}    ${module_id_index}
 
 Compose Branch Id
@@ -310,7 +335,6 @@ Select Module Detail Config Tab
 
 Expand All Branches In Module Detail Content Active Tab
     [Documentation]    Expands all branches in module detail active operations or operational or config tab.
-    Selenium2Library.Wait Until Element Is Visible    ${MODULE_DETAIL_EXPAND_BRANCH_BUTTON}
     : FOR    ${i}    IN RANGE    1    1000
     \    ${count}=    Selenium2Library.Get Matching Xpath Count    ${MODULE_DETAIL_EXPAND_BRANCH_BUTTON}
     \    BuiltIn.Exit For Loop If    ${count}==0
@@ -341,8 +365,15 @@ Return Module Detail Branch ID From Branch Label
 
 Return Module Detail Branch Indexed
     [Arguments]    ${branch_id}
-    [Documentation]    Returns indexed Xpath of the module detail branch. Argument is ${branch_id} in the form "branch-"${index}"".
+    [Documentation]    Returns indexed Xpath of the module detail branch. Argument is ${branch_id} in the form branch-${index}.
     ${module_detail_branch_indexed}=    BuiltIn.Set Variable    ${MODULE_DETAIL_ACTIVE_TAB_CONTENT}//md-list-item[contains(@id, "${branch_id}")]
+    [Return]    ${module_detail_branch_indexed}
+
+Compose Branch Id And Return Module Detail Branch Indexed
+    [Arguments]    ${index}
+    [Documentation]    Composes branch id in the format branch-${index} and returns indexed Xpath of the module detail branch.
+    ${branch_id}=    YangmanKeywords.Compose Branch Id    ${index}
+    ${module_detail_branch_indexed}=    YangmanKeywords.Return Module Detail Branch Indexed    ${branch_id}
     [Return]    ${module_detail_branch_indexed}
 
 Return Indexed Branch Label
@@ -376,7 +407,7 @@ Return Branch Toggle Button From Branch Label And Click
     ${labelled_branch_xpath}=    Return Module Detail Labelled Branch Xpath    ${branch_label}
     ${labelled_branch_toggle_button}=    Return Labelled Branch Toggle Button    ${labelled_branch_xpath}
     Selenium2Library.Page Should Contain Element    ${labelled_branch_toggle_button}
-    Selenium2Library.Click Element    ${labelled_branch_toggle_button}
+    GUIKeywords.Focus And Click Element    ${labelled_branch_toggle_button}
 
 Click Module Detail Branch Indexed
     [Arguments]    ${module_detail_branch_indexed}
@@ -442,7 +473,7 @@ Load Topology Topology Id Node In Form
     ${topology_topology_id_branch}=    Return Module Detail Labelled Branch Xpath    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
     ${status}=    BuiltIn.Run Keyword And Return Status    Selenium2Library.Element Should Be Visible    ${topology_topology_id_branch}
     BuiltIn.Run Keyword If    "${status}"=="False"    Return Branch Toggle Button From Branch Label And Click    ${NETWORK_TOPOLOGY_LABEL}
-    YangmanKeywords.Return Branch Toggle Button From Branch Label And Click    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
+    Return And Click Module Detail Branch Indexed    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
     Verify List Item With Index Or Key Is Visible    ${TOPOLOGY_TOPOLOGY_ID_LABEL}    ${EMPTY}    0
 
 Load Node Node Id Node In Form
@@ -452,7 +483,7 @@ Load Node Node Id Node In Form
     ${node_branch_is_visible}=    BuiltIn.Run Keyword And Return Status    Selenium2Library.Element Should Be Visible    ${node_node_id_branch}
     BuiltIn.Run Keyword If    "${node_branch_is_visible}"=="False"    Run Keywords    Load Topology Topology Id Node In Form
     ...    AND    Return Branch Toggle Button From Branch Label And Click    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
-    YangmanKeywords.Return And Click Module Detail Branch Indexed    ${NODE_NODE_ID_LABEL}
+    Return And Click Module Detail Branch Indexed    ${NODE_NODE_ID_LABEL}
     Verify List Item With Index Or Key Is Visible    ${NODE_NODE_ID_LABEL}    ${EMPTY}    0
 
 Return Labelled Element Yangmenu
@@ -491,7 +522,7 @@ Return Labelled Form Input Field
 
 Return Labelled Form Select
     [Arguments]    ${branch_label_curly_braces_part}
-    [Documentation]    Returns labelled form input field.
+    [Documentation]    Returns labelled form select.
     ${labelled_select}=    BuiltIn.Set Variable    ${FORM_CONTENT}//span[contains(@class, "ng-binding ng-scope") and contains(text(), "${branch_label_curly_braces_part}")]//following::md-select
     [Return]    ${labelled_select}
 

@@ -20,7 +20,7 @@ ${COLLECTIONS_TAB_SELECTED}    ${LEFT_TAB_AREA}//md-tab-item[@aria-selected="tru
 ${COLLECTIONS_TAB_UNSELECTED}    ${LEFT_TAB_AREA}//md-tab-item[@aria-selected="false"]/span[contains(text(), "${COLLECTIONS_TAB_NAME}")]
 ${MODULES_WERE_LOADED_ALERT}    //span[contains(text(), "Modules were loaded.")]
 ${TOGGLE_MODULE_DETAIL_BUTTON_LEFT}    //md-icon[@class="arrow-switcher material-icons" and @id="toggle-module-detail"]
-${TOGGLE_MODULE_DETAIL_BUTTON_RIGHT}    //md-icon[@class="arrow-switcher material-icons arrow-switcher__left"" and @id="toggle-module-detail"]
+${TOGGLE_MODULE_DETAIL_BUTTON_RIGHT}    //md-icon[@class="arrow-switcher material-icons arrow-switcher__left" and @id="toggle-module-detail"]
 # Modules Tab Left Panel
 ${MODULE_TAB_CONTENT}    //*[@id="tab-content-2"]
 ${MODULE_SEARCH_INPUT}    //input[@id="search-modules"]
@@ -94,8 +94,9 @@ ${FORM_RADIOBUTTON_SELECTED}    //md-radio-button[contains(@id, "shown-data-type
 ${FORM_RADIOBUTTON_UNSELECTED}    //md-radio-button[contains(@id, "shown-data-type-form") and contains(@aria-checked, "false")]
 ${JSON_RADIOBUTTON_SELECTED}    //md-radio-button[contains(@id, "shown-data-type-json") and contains(@aria-checked, "true")]
 ${JSON_RADIOBUTTON_UNSELECTED}    //md-radio-button[contains(@id, "shown-data-type-json") and contains(@aria-checked, "false")]
-${FILL_FORM_WITH_RECEIVED_DATA_CHECKBOX_SELECTED}    //span[contains(text(), "Fill form with received data after execution")]//ancestor::md-checkbox[@aria-checked="true"]
-${FILL_FORM_WITH_RECEIVED_DATA_CHECKBOX_UNSELECTED}    //span[contains(text(), "Fill form with received data after execution")]//ancestor::md-checkbox[@aria-checked="false"]
+${FILL_FORM_WITH_RECEIVED_DATA_CHECKBOX}    //md-checkbox[@aria-label="Fill form with received data after execution"]
+${FILL_FORM_WITH_RECEIVED_DATA_CHECKBOX_SELECTED}    //md-checkbox[@aria-label="Fill form with received data after execution" and @aria-checked="true"]
+${FILL_FORM_WITH_RECEIVED_DATA_CHECKBOX_UNSELECTED}    //md-checkbox[@aria-label="Fill form with received data after execution" and @aria-checked="false"]
 ${SHOW_SENT_DATA_CHECKBOX_SELECTED}    //md-checkbox[@id="show-sent-data-checkbox" and @aria-checked="true"]
 ${SHOW_SENT_DATA_CHECKBOX_UNSELECTED}    //md-checkbox[@id="show-sent-data-checkbox" and @aria-checked="false"]
 ${SHOW_RECEIVED_DATA_CHECKBOX_SELECTED}    //md-checkbox[@id="show-received-data-checkbox" and @aria-checked="true"]
@@ -127,6 +128,7 @@ ${JSON_ERROR_MESSAGE_CONTENT_DOES_NOT_EXIST}    Request could not be completed b
 ${JSON_ERROR_MESSAGE_DATA_DOES_NOT_EXIST_FOR_PATH}    Data does not exist for path
 ${JSON_ERROR_MESSAGE_INPUT_IS_REQUIRED}    Input is required.
 # Right Panel Form Content
+${TOPOLOGY_LABEL}    topology
 ${TOPOLOGY_ID_LABEL}    topology-id
 ${FORM_ERROR_MESSAGE}    ${EMPTY}
 ${FORM_CONTENT}    //section[contains(@class, "yangmanModule__right-panel__form bottom-content ng-scope") and contains(@aria-hidden, "false")]

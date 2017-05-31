@@ -4,8 +4,9 @@ Documentation     Verification that Yangman Modules tab contains at least 1 modu
 ...               Verification that each module contains operations, or operational, or config list items when it is extended.
 ...               Verification that when operations or operational or config of in modules list is clicked, the name of the module in module detail is the same as the name of the module in module list.
 ...               Verification that when operations or operational or config is clicked, module detail tab contains chosen tab in selected mode.
-Suite Setup       YangmanKeywords.Open DLUX And Login And Navigate To Yangman URL
-Suite Teardown    Close Browser
+Suite Setup       YangmanKeywords.Open DLUX And Login And Navigate To Yangman URL And Verify Modules Tab Name Translation
+Suite Teardown    Selenium2Library.Close Browser
+Test Teardown     BuiltIn.Run Keyword If Test Failed    GUIKeywords.Return Webdriver Instance And Log Browser Console Content
 Resource          ${CURDIR}/../../../libraries/YangmanKeywords.robot
 
 *** Variables ***
