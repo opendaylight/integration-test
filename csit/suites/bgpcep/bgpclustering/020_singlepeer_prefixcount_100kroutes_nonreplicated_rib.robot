@@ -39,12 +39,14 @@ Get Example Bgp Rib Owner
     ${rib_owner}    ${rib_candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    1
     BuiltIn.Set_Suite_Variable    ${rib_owner}    ${rib_owner}
     BuiltIn.Set_Suite_Variable    ${rib_owner_node_id}    ${ODL_SYSTEM_${rib_owner}_IP}
-    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_${rib_owner}_IP}:${RESTCONFPORT}    auth=${AUTH}    timeout=10    max_retries=0
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    ${rib_owner}
+    BuiltIn.Set_Suite_Variable    ${config_session}    ${session}
 
 Get Topology Operational Leader
     [Documentation]    Gets the operational topology shard leader
     ${leader}    ${followers}=    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=operational
-    BuiltIn.Set_Suite_Variable    ${topo_lead_ses}    operational-${leader}
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    ${leader}
+    BuiltIn.Set_Suite_Variable    ${topo_lead_ses}    ${session}
 
 Check_For_Empty_Ipv4_Topology_Before_Talking
     [Documentation]    Wait for ${EXAMPLE_IPV4_TOPOLOGY} to come up and empty. Give large timeout for case when BGP boots slower than restconf.
@@ -56,7 +58,7 @@ Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module in passive mode (not initiating connection)
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     &{mapping}    Create Dictionary    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${config_session}
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 Start_Talking_BGP_Speaker
@@ -94,4 +96,4 @@ Check_For_Empty_Ipv4_Topology_After_Listening
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers
     &{mapping}    Create Dictionary    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    IP=${TOOLS_SYSTEM_IP}
-    TemplatedRequests.Delete_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Delete_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${config_session}

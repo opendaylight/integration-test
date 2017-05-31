@@ -47,7 +47,7 @@ Configure_Prefixes_Longevity
     ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     Check_For_Empty_Ipv4_Topology_On_All_Nodes
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${rib_owner}
-    BuiltIn.Set_Suite_Variable    ${CONFIG_SESSION}    ${session}
+    BuiltIn.Set_Suite_Variable    ${config_session}    ${session}
     # TODO: Either define BGP_VARIABLES_FOLDER in this file, or create a Resource with the definition and wrapping keywords
     TemplatedRequests.Put_As_Json_Templated    ${BGP_VARIABLES_FOLDER}    mapping=${mapping}    session=${session}
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_24_HOURS_IN_SECONDS}    1s    Test_Scenario    ${rib_owner}
@@ -66,23 +66,23 @@ Test_Scenario
 
 Check_For_Empty_Ipv4_Topology_On_All_Nodes
     [Documentation]    Check the topology is empty on all 3 nodes.
-    PrefixCounting.Check_Ipv4_Topology_Is_Empty    session=${CONFIGURATION_1}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-    PrefixCounting.Check_Ipv4_Topology_Is_Empty    session=${CONFIGURATION_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-    PrefixCounting.Check_Ipv4_Topology_Is_Empty    session=${CONFIGURATION_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Check_Ipv4_Topology_Is_Empty    session=${operational_1}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Check_Ipv4_Topology_Is_Empty    session=${operational_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Check_Ipv4_Topology_Is_Empty    session=${operational_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
 
 Wait_For_Stable_Talking_Ipv4_Topology_On_All_Nodes
     [Arguments]    ${excluded_count}
     [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable. This is done by checking stability of prefix count.
     # TODO: Make the keyword accept member_index_list (or at least session_list) to monitor at once, so that robot can fail faster.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${excluded_count}    session=${CONFIGURATION_1}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${excluded_count}    session=${operational_1}    topology=${EXAMPLE_IPV4_TOPOLOGY}
     ...    shards_list=${SHARD_MONITOR_LIST}    shards_details=${init_shard_details}
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${excluded_count}    session=${CONFIGURATION_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${excluded_count}    session=${operational_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
     ...    shards_list=${SHARD_MONITOR_LIST}    shards_details=${init_shard_details}
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${excluded_count}    session=${CONFIGURATION_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${excluded_count}    session=${operational_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
     ...    shards_list=${SHARD_MONITOR_LIST}    shards_details=${init_shard_details}
 
 Check_Talking_Ipv4_Topology_Count_On_All_Nodes
     [Documentation]    Count the routes in ${EXAMPLE_IPV4_TOPOLOGY} on all nodes and fail if the count is not correct.
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT}    session=${CONFIGURATION_1}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT}    session=${CONFIGURATION_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT}    session=${CONFIGURATION_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT}    session=${operational_1}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT}    session=${operational_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT}    session=${operational_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}

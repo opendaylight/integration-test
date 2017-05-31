@@ -12,12 +12,15 @@ Documentation     Robot keyword library (Resource) for common BGP actions concer
 ...               Prefix is identified by simplistic regular expression on JSON data.
 ...
 ...               This resource assumes that RequestsLibrary has open a connection named "operational"
-...               which points to (an analogue of) http://<ip-addr>:${RESTCONFPORT}/${OPERATIONAL_API}
+...               which points to (an analogue of) http://<ip-addr>:${RESTCONFPORT}
 ...               or user has to provide a similar session.
 Library           RequestsLibrary
 Resource          ${CURDIR}/ShardStability.robot
 Resource          ${CURDIR}/WaitUtils.robot
 Resource          ${CURDIR}/ScalarClosures.robot
+
+*** Variables ***
+${PC_NW_TOPOLOGY}    ${OPERATIONAL_API}/network-topology:network-topology/topology
 
 *** Keywords ***
 PC_Setup
@@ -29,7 +32,7 @@ Get_Ipv4_Topology
     [Documentation]    GET the ${topology} data, check status is 200, return the topology data.
     ...
     ...    Contrary to Utils.Get_Data_From_URI, this does not Log the (potentially huge) content.
-    ${response} =    RequestsLibrary.Get_Request    ${session}    network-topology:network-topology/topology/${topology}
+    ${response} =    RequestsLibrary.Get_Request    ${session}    ${PC_NW_TOPOLOGY}/${topology}
     Run_Keyword_If    ${response.status_code} != 200    Fail    Get on ${topology} returned status code ${response.status_code} with message: ${response.text}
     [Return]    ${response.text}
 
