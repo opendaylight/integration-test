@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_c1d010fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-05-31T00:23:47Z",
+      "side": 1,
+      "message": "I have no skin in the game here, so no problem merging this as it seems like cleanup/reduction and maybe not needed any\nmore. But, can you add a small description as to \"why\" we\nare doing this in the commit message (for posterity)?\n\nalso, there should probably be a partner patch in releng/builder to remove the jobs that use these files.",
+      "revId": "b20c8934b756019f282525f7bc61ffcb860c2eab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
