@@ -2,7 +2,8 @@
 Documentation     Verification that DLUX cotains Yangman submenu when logged in.
 ...               Verification that when Yangman submenu entered, there are certain elements displayed.
 ...               Verification that the selected operation is displayed and relevant code mirror(s) is/are displayed.
-Suite Teardown    Close Browser
+Suite Teardown    Selenium2Library.Close Browser
+Test Teardown     BuiltIn.Run Keyword If Test Failed    GUIKeywords.Return Webdriver Instance And Log Browser Console Content
 Resource          ${CURDIR}/../../../libraries/YangmanKeywords.robot
 
 *** Variables ***
@@ -13,6 +14,7 @@ Open dlux and login and verify yangman submenu has been loaded
 
 Verify yangman submenu elements
     GUIKeywords.Navigate To URL    ${YANGMAN_SUBMENU_URL}
+    YangmanKeywords.Verify Modules Tab Name Is Translated
     YangmanKeywords.Verify Yangman Home Page Elements
     Verify Operations Presence In Operation Select Menu
     YangmanKeywords.Exit Opened Application Dialog

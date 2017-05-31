@@ -4,7 +4,8 @@ Documentation     A resource file containing all global
 ...               DLUX csit testing.
 Library           OperatingSystem
 Library           Process
-Library           Selenium2Library    timeout=30    implicit_wait=30    run_on_failure=Selenium2Library.Log Source
+Library           Selenium2Library    timeout=20    implicit_wait=20    run_on_failure=Selenium2Library.Capture Page Screenshot
+Library           CustomSeleniumKeywords.py
 Resource          ../variables/Variables.robot
 Resource          Utils.robot
 
@@ -111,14 +112,17 @@ Launch DLUX
     ${status}=    BuiltIn.Run Keyword And Return Status    Run Keywords    Open Virtual Display
     ...    AND    Selenium2Library.Open Browser    ${LOGIN_URL}    ${BROWSER}
     BuiltIn.Run Keyword Unless    ${status}    Open Headless Browser    ${LOGIN_URL}
-    Selenium2Library.Wait Until Page Contains Element    css=div.container
 
 Open DLUX Login Page
     [Arguments]    ${LOGIN URL}
     [Documentation]    Loads DLUX login page.
     Selenium2Library.Open Browser    ${LOGIN_URL}    ${BROWSER}
     Selenium2Library.Maximize Browser Window
-    Selenium2Library.Wait Until Page Contains Element    ${PLEASE_SIGN_IN_PANEL}
+
+Open Or Launch DLUX
+    [Documentation]    Tries to open Dlux login page. If it fails, then launches Dlux using xvfb or headless browser.
+    ${status}=    BuiltIn.Run Keyword And Return Status    Open DLUX Login Page    ${LOGIN_URL}
+    BuiltIn.Run Keyword If    "${status}"=="False"    Launch DLUX
 
 Verify Elements Of DLUX Login Page
     [Documentation]    Verifies elements presence in DLUX login page.
@@ -128,13 +132,13 @@ Verify Elements Of DLUX Login Page
     Selenium2Library.Page Should Contain Element    ${REMEMBER_ME_CHECKBOX}
     Selenium2Library.Page Should Contain Element    ${LOGIN_BUTTON}
 
-Log In To DLUX
-    [Arguments]    ${username}    ${password}
-    [Documentation]    Inserts username and password and logs in DLUX.
+Log In To DLUX With Valid Credentials
+    [Documentation]    Inserts valid username and password and logs in DLUX.
+    Selenium2Library.Wait Until Page Contains Element    ${LOGIN_USERNAME_INPUT_FIELD}
     Selenium2Library.Focus    ${LOGIN_USERNAME_INPUT_FIELD}
-    Selenium2Library.Input Text    ${LOGIN_USERNAME_INPUT_FIELD}    ${username}
+    Selenium2Library.Input Text    ${LOGIN_USERNAME_INPUT_FIELD}    ${LOGIN_USERNAME}
     Selenium2Library.Focus    ${LOGIN_PASSWORD_INPUT_FIELD}
-    Selenium2Library.Input Text    ${LOGIN_PASSWORD_INPUT_FIELD}    ${password}
+    Selenium2Library.Input Text    ${LOGIN_PASSWORD_INPUT_FIELD}    ${LOGIN_PASSWORD}
     Focus And Click Element    ${LOGIN_BUTTON}
 
 Log In To DLUX With Invalid Credentials
@@ -148,16 +152,30 @@ Log In To DLUX With Invalid Credentials
     Selenium2Library.Location Should Be    ${LOGIN_URL}
     Selenium2Library.Wait Until Page Contains    ${LOGIN_ERROR_MSG}
 
-Open Or Launch DLUX
-    [Documentation]    Tries to open Dlux login page. If it fails, then launches Dlux using xvfb or headless browser.
-    ${status}=    BuiltIn.Run Keyword And Return Status    Open DLUX Login Page    ${LOGIN_URL}
-    BuiltIn.Run Keyword If    "${status}"=="False"    Launch DLUX
-    Verify Elements Of DLUX Login Page
-
 Open Or Launch DLUX Page And Log In To DLUX
     [Documentation]    Opens or launches Dlux and then logs in to Dlux.
     Open Or Launch DLUX
-    Log In To DLUX    ${LOGIN_USERNAME}    ${LOGIN_PASSWORD}
+    Verify Elements Of DLUX Login Page
+    Log In To DLUX With Valid Credentials
+
+Return Webdriver Instance
+    [Documentation]    Returns webdriver instance of current browser.
+    ${webdriver}=    CustomSeleniumKeywords.Get Webdriver Instance
+    [Return]    ${webdriver}
+
+Return Webdriver Instance And Set It As Suite Variable
+    [Documentation]    Returns webdriver instance of current browser and sets it as suite variable.
+    ${webdriver}=    CustomSeleniumKeywords.Get Webdriver Instance
+    BuiltIn.Set Suite Variable    ${webdriver}
+
+Log Browser Console Content
+    [Arguments]    ${webdriver}
+    ${console_content}=    CustomSeleniumKeywords.Get Browser Console Content    ${webdriver}
+    BuiltIn.Log    ${console_content}
+
+Return Webdriver Instance And Log Browser Console Content
+    ${webdriver}=    Return Webdriver Instance
+    Log Browser Console Content    ${webdriver}
 
 Navigate To URL
     [Arguments]    ${url}
@@ -168,7 +186,7 @@ Navigate To URL
 Focus And Click Element
     [Arguments]    ${element}
     [Documentation]    Clicks the element with previous element visibility check and element focus.
-    Selenium2Library.Wait Until Element Is Visible    ${element}
+    Selenium2Library.Wait Until Page Contains Element    ${element}
     Selenium2Library.Focus    ${element}
     Selenium2Library.Mouse Over    ${element}
     Selenium2Library.Click Element    ${element}
@@ -185,7 +203,13 @@ Mouse Down And Mouse Up Click Element
 Page Should Contain Element With Wait
     [Arguments]    ${element}
     [Documentation]    Similar to Selenium2Library.Wait Until Page Contains Element but returns web page source code when fails.
-    BuiltIn.Wait Until Keyword Succeeds    1 min    5 sec    Selenium2Library.Page Should Contain Element    ${element}
+    BuiltIn.Wait Until Keyword Succeeds    2 min    5 sec    Selenium2Library.Page Should Contain Element    ${element}
+
+Press Enter Key Click Element
+    [Arguments]    ${element}
+    Selenium2Library.Wait Until Page Contains Element    ${element}
+    Selenium2Library.Focus    ${element}
+    Selenium2Library.Press Key    ${element}    \\13
 
 Helper Click
     [Arguments]    ${element_to_be_clicked}    ${element_to_be_checked}
@@ -194,9 +218,35 @@ Helper Click
     Selenium2Library.Click Element    ${element_to_be_clicked}
     Selenium2Library.Wait Until Page Contains Element    ${element_to_be_checked}
 
+Helper Click With Wait Until Page Does Not Contain Element Check
+    [Arguments]    ${element_to_be_clicked}    ${element_to_be_checked}
+    [Documentation]    Clicks the ${element_to_be_clicked} and verifies that page does not contain ${element_to_be_checked}.
+    Selenium2Library.Wait Until Element Is Visible    ${element_to_be_clicked}
+    Selenium2Library.Focus    ${element_to_be_clicked}
+    Selenium2Library.Click Element    ${element_to_be_clicked}
+    ${status}=    BuiltIn.Run Keyword And Return Status    Selenium2Library.Wait Until Page Does Not Contain Element    ${element_to_be_checked}
+    BuiltIn.Should Be True    ${status}==True
+
+Helper Click With Wait Until Element Is Not Visible Check
+    [Arguments]    ${element_to_be_clicked}    ${element_to_be_checked}
+    [Documentation]    Clicks the ${element_to_be_clicked} and verifies that page does not contain ${element_to_be_checked}.
+    Selenium2Library.Wait Until Element Is Visible    ${element_to_be_clicked}
+    Selenium2Library.Focus    ${element_to_be_clicked}
+    Selenium2Library.Click Element    ${element_to_be_clicked}
+    ${status}=    BuiltIn.Run Keyword And Return Status    Selenium2Library.Wait Until Element Is Not Visible    ${element_to_be_checked}
+    BuiltIn.Should Be True    ${status}==True
+
 Patient Click
     [Arguments]    ${element_to_be_clicked}    ${element_to_be_checked}
     [Documentation]    Combines clicking ${element_to_be_clicked} and checking that ${element_to_be_checked} is visible with
     ...    BuiltIn.Wait Until Keyword Succeeds keyword in order to secure reliable execution of Selenium2Library.Click Element
     ...    keyword in AngularJS webapp.
-    BuiltIn.Wait Until Keyword Succeeds    1 min    5 sec    Helper Click    ${element_to_be_clicked}    ${element_to_be_checked}
+    BuiltIn.Wait Until Keyword Succeeds    2 min    5 sec    Helper Click    ${element_to_be_clicked}    ${element_to_be_checked}
+
+Patient Click With Wait Until Page Does Not Contain Element Check
+    [Arguments]    ${element_to_be_clicked}    ${element_to_be_checked}
+    BuiltIn.Wait Until Keyword Succeeds    2 min    5 sec    Helper Click With Wait Until Page Does Not Contain Element Check    ${element_to_be_clicked}    ${element_to_be_checked}
+
+Patient Click With Wait Until Element Is Not Visible Check
+    [Arguments]    ${element_to_be_clicked}    ${element_to_be_checked}
+    BuiltIn.Wait Until Keyword Succeeds    2 min    5 sec    Helper Click With Wait Until Element Is Not Visible Check    ${element_to_be_clicked}    ${element_to_be_checked}
