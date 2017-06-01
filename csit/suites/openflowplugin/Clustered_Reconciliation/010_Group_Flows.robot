@@ -3,6 +3,7 @@ Documentation     Switch connections and cluster are restarted.
 Suite Setup       Initialization Phase
 Suite Teardown    Final Phase
 Library           RequestsLibrary
+Library           Collections
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/ClusterOpenFlow.robot
 Resource          ../../../libraries/TemplatedRequests.robot
@@ -57,15 +58,16 @@ Check Entity Owner Status And Find Owner and Successor Before Fail
 
 Disconnect Mininet From Owner
     [Documentation]    Disconnect mininet from the owner
-    ${owner_list}    BuiltIn.Create List    ${original_owner}
-    MininetKeywords.Disconnect Cluster Mininet    break    ${owner_list}
-    BuiltIn.Set Suite Variable    ${owner_list}
+    ${original_owner_list}    BuiltIn.Create List    ${original_owner}
+    MininetKeywords.Disconnect Cluster Mininet    break    ${original_owner_list}
+    BuiltIn.Set Suite Variable    ${original_owner_list}
 
 Check Entity Owner Status And Find Owner and Successor After Fail
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
     ${new_owner}    ${new_successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
     ...    1    ${new_cluster_list}    after_stop=True
     BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_successor_list}
 
 Check Switch Moves To New Master
     [Documentation]    Check switch s1 is connected to new Master.
@@ -98,12 +100,46 @@ Check Flows In Switch After Mininet Is Disconnected
 
 Reconnect Mininet To Owner
     [Documentation]    Reconnect mininet to switch 1 owner.
-    MininetKeywords.Disconnect Cluster Mininet    restore    ${owner_list}
+    MininetKeywords.Disconnect Cluster Mininet    restore    ${original_owner_list}
 
 Check Entity Owner Status And Find Owner and Successor After Reconnect
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
     ${owner}    ${successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
     ...    1
+
+Disconnect Mininet From Successor
+    [Documentation]    Disconnect mininet from the Successor
+    MininetKeywords.Disconnect Cluster Mininet    break    ${new_successor_list}
+
+Check Entity Owner Status And Find New Owner and Successor After Disconnect
+    [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
+    ${owner_list}=    BuiltIn.Create List    ${original_owner}    ${new_owner}
+    ${current_owner}    ${current_successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
+    ...    1    ${owner_list}    after_stop=True
+    BuiltIn.Set Suite Variable    ${current_owner}
+    BuiltIn.Set Suite Variable    ${current_successor_list}
+
+Disconnect Mininet From Current Owner
+    [Documentation]    Disconnect mininet from the owner
+    ${current_owner_list}=    BuiltIn.Create List    ${current_owner}
+    MininetKeywords.Disconnect Cluster Mininet    break    ${current_owner_list}
+
+Check Entity Owner Status And Find Current Owner and Successor After Disconnect
+    [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
+    ${current_new_owner}    ${current_new_successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
+    ...    1    ${original_owner_list}    after_stop=True
+    BuiltIn.Set Suite Variable    ${current_new_owner}
+    BuiltIn.Set Suite Variable    ${current_new_successor_list}
+
+Check Switch Moves To Current Master
+    [Documentation]    Check switch s1 is connected to new Master.
+    ${current_new_master}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${current_new_owner}_IP}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    OvsManager.Should Be Master    s1    ${current_new_master}    update_data=${True}
+    BuiltIn.Should Be Equal    ${current_new_owner}    ${original_owner}
+
+Reconnect Mininet To Current Successor
+    [Documentation]    Reconnect mininet to switch 1 owner.
+    MininetKeywords.Disconnect Cluster Mininet    restore    ${new_cluster_list}
 
 Check Linear Topology After Reconnect
     [Documentation]    Check Linear Topology After Reconnect.
