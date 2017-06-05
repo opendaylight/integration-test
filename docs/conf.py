@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Integration/Test'
-copyright = '2016, Luis Gomez, Jamo Luhrsen, Daniel Farrell, Vratko Polak, Venkatrangan Govindarajan'
+copyright = '2017, Luis Gomez, Jamo Luhrsen, Daniel Farrell, Vratko Polak, Venkatrangan Govindarajan'
 author = 'Luis Gomez, Jamo Luhrsen, Daniel Farrell, Vratko Polak, Venkatrangan Govindarajan'
 
 # The version info for the project you're documenting, acts as replacement for
