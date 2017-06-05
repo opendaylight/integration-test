@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_592fe2a1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-05T19:15:42Z",
+      "side": 1,
+      "message": "the assumption I have made is that some openstack cli commands are there for newton and don\u0027t need the conditional",
+      "parentUuid": "3afa9182_f985eead",
+      "revId": "17159e15df5b998d3f585445fde372e7ca78052c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_99bcaa6e",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 39
@@ -30,6 +48,24 @@
       "writtenOn": "2017-06-05T18:36:57Z",
       "side": 1,
       "message": "does this mean mitaka is broken?",
+      "revId": "17159e15df5b998d3f585445fde372e7ca78052c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_392c96ab",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-05T19:15:42Z",
+      "side": 1,
+      "message": "we don\u0027t have mitaka jobs now. I\u0027ll send some emails to \nfigure out the best method for picking what job combos we are\ngoing to use.",
+      "parentUuid": "3afa9182_99bcaa6e",
       "revId": "17159e15df5b998d3f585445fde372e7ca78052c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_791d7e73",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-05T19:15:42Z",
+      "side": 1,
+      "message": "I asked this earlier in this patch set. the 0.0.0.0/0\nis not needed. this was just cleanup.",
+      "parentUuid": "3afa9182_d96d9206",
+      "revId": "17159e15df5b998d3f585445fde372e7ca78052c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_19771ad6",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
         "patchSetId": 39
@@ -64,6 +118,24 @@
       "writtenOn": "2017-06-05T18:43:48Z",
       "side": 1,
       "message": "can we wrap this in a Openstack lib method so that we don\u0027t have the if/else here?",
+      "revId": "17159e15df5b998d3f585445fde372e7ca78052c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_d912b261",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-05T19:15:42Z",
+      "side": 1,
+      "message": "yeah, this should be possible.",
+      "parentUuid": "3afa9182_19771ad6",
       "revId": "17159e15df5b998d3f585445fde372e7ca78052c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
