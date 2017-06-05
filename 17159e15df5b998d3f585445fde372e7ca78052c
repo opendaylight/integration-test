@@ -33,6 +33,40 @@
       "revId": "17159e15df5b998d3f585445fde372e7ca78052c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_d96d9206",
+        "filename": "csit/suites/netvirt/ElanService/ElanService.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-06-05T18:43:48Z",
+      "side": 1,
+      "message": "similar question... is this backward compatible to newton and mitaka? Or do we not care about mitaka?\n\nWill newton still work with this change - curious why it was here already.",
+      "revId": "17159e15df5b998d3f585445fde372e7ca78052c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_19771ad6",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-06-05T18:43:48Z",
+      "side": 1,
+      "message": "can we wrap this in a Openstack lib method so that we don\u0027t have the if/else here?",
+      "revId": "17159e15df5b998d3f585445fde372e7ca78052c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
