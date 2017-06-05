@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_c8b5c2ce",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-06-05T08:34:14Z",
+      "side": 1,
+      "message": "I think we want to set also reconnect and timeout parameters everywhere.",
+      "range": {
+        "startLine": 197,
+        "startChar": 96,
+        "endLine": 197,
+        "endChar": 100
+      },
+      "revId": "0108e2d3103c383cef5d38a2593dc6a4f1db1254",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
