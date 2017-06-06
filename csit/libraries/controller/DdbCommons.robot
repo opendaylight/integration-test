@@ -250,9 +250,9 @@ Client_Isolation_Test_Templ
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
     ${client_node_ip_as_list}    BuiltIn.Create_List    ${client_node_ip}
     ${client_node_idx_as_list}    BuiltIn.Create_List    ${client_node_dst}
+    ${start_date}    DateTime.Get_Current_Date
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME_2X_REQ_TIMEOUT}    ${TRANSACTION_RATE_1K}    chained_flag=${trans_chain_flag}
     BuiltIn.Sleep    5s
-    ${start_date}    DateTime.Get_Current_Date
     ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${REQUEST_TIMEOUT}
     KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${client_node_dst}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
@@ -274,9 +274,9 @@ Client_Isolation_PrefBasedShard_Test_Templ
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
     ${client_node_ip_as_list}    BuiltIn.Create_List    ${client_node_ip}
     ${client_node_idx_as_list}    BuiltIn.Create_List    ${client_node_dst}
+    ${start_date}    DateTime.Get_Current_Date
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME_2X_REQ_TIMEOUT}    ${TRANSACTION_RATE_1K}    isolated_transactions_flag=${isolated_transactions_flag}
     BuiltIn.Sleep    5s
-    ${start_date}    DateTime.Get_Current_Date
     ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${REQUEST_TIMEOUT}
     KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${client_node_dst}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
