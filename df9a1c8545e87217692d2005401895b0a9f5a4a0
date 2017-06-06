@@ -51,6 +51,24 @@
       "revId": "df9a1c8545e87217692d2005401895b0a9f5a4a0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_93900297",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-06-06T12:36:03Z",
+      "side": 1,
+      "message": "Yes, we can make that change, but let\u0027s make that another patch since this one here is mainly to get ocata functional.",
+      "parentUuid": "3afa9182_8f373cb0",
+      "revId": "df9a1c8545e87217692d2005401895b0a9f5a4a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
