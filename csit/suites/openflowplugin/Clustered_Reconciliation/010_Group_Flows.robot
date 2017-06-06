@@ -137,8 +137,8 @@ Check Switch Moves To Current Master
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    OvsManager.Should Be Master    s1    ${current_new_master}    update_data=${True}
     BuiltIn.Should Be Equal    ${current_new_owner}    ${original_owner}
 
-Reconnect Mininet To Current Successor
-    [Documentation]    Reconnect mininet to switch 1 owner.
+Reconnect Mininet To All Cluster Instances
+    [Documentation]    Reconnect mininet to all cluster instances.
     MininetKeywords.Disconnect Cluster Mininet    restore    ${new_cluster_list}
 
 Check Linear Topology After Reconnect
