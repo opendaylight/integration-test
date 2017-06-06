@@ -34,6 +34,23 @@
       "revId": "df9a1c8545e87217692d2005401895b0a9f5a4a0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_8f373cb0",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5278
+      },
+      "writtenOn": "2017-06-06T04:27:24Z",
+      "side": 1,
+      "message": "while debugging ARP learning suite failures in CSIT report (6/2) [1] https://logs.opendaylight.org/releng/jenkins092/netvirt-csit-1node-openstack-newton-nodl-v2-upstream-transparent-carbon/533/log.html.gz, I see there is no packet hit on table 17 flow entry which causes some VMs doesn\u0027t IP address. \nBut these flow dumps are collected in TC00 Verify Setup whereas VMs/Neutron Ports are created in Test Setup. There is a gap of ~3min. So we need to see the flows/groups immediately after creating VMs to see OF pipeline is proper.\nSo can add script to collect flow/group and ODL model dumps immediately after Test Setup ?",
+      "revId": "df9a1c8545e87217692d2005401895b0a9f5a4a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
