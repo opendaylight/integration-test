@@ -30,6 +30,16 @@ Start Mininet Multiple Connections
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    ${SWITCHES*3}
 
+Reconnect Switch To Successor And Check OVS Connections
+    [Documentation]    Connect switches s2 and s3 to successor instances.
+    ${controller_opt} =    BuiltIn.Set Variable
+    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${successor}=    Collections.Get From List    ${original_successor_list}    0
+    ${controller_opt} =    BuiltIn.Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_${successor}_IP}:${ODL_OF_PORT}
+    Log    ${controller_opt}
+    OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s1    ${controller_opt}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    7
+
 Check Linear Topology
     [Documentation]    Check Linear Topology.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}
