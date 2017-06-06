@@ -30,6 +30,18 @@ Start Mininet Multiple Connections
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    ${SWITCHES*3}
 
+Add Second Controller Connection In OVS Bridge
+    [Documentation]    Sets controller for a given OVS ${bridge} using controller options in ${controller_opt}
+    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${successor}=    Collections.Get From List    ${original_successor_list}    0
+    ${controller_opt}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${successor}_IP}
+    ${bridge}=    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show | grep Bridge | cut -c 12- | sort | head -1 | tail -1
+    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
+#    ${output}=    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+#    Log    ${output}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    ${SWITCHES*3}
+    Log    ${output}
+
 Check Linear Topology
     [Documentation]    Check Linear Topology.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}
