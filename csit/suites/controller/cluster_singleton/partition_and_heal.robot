@@ -65,5 +65,5 @@ Unregister_Singleton_Constant_On_Each_Node
 *** Keywords ***
 Setup_Keyword
     [Documentation]    Suite setup.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=125
     CsCommon.Cluster_Singleton_Init
