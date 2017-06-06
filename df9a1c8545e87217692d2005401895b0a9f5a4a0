@@ -16,6 +16,24 @@
       "revId": "df9a1c8545e87217692d2005401895b0a9f5a4a0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_741743a4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-06-06T00:37:30Z",
+      "side": 1,
+      "message": "I had same concern, but Jamo explained we only care about Newton and Ocata currently so this will work. When we will adjust these checks as we enable other branches.",
+      "parentUuid": "3afa9182_d4355747",
+      "revId": "df9a1c8545e87217692d2005401895b0a9f5a4a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
