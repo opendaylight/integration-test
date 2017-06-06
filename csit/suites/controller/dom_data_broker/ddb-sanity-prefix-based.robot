@@ -12,7 +12,7 @@ Documentation     DOMDataBroker testing: Module based shards sanity suite
 ...               other suites.
 ...               It also verify the ability of the odl-controller-test-app to perform
 ...               several activities.
-Suite Setup       BuiltIn.Run_Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
+Suite Setup       BuiltIn.Run_Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=125
 ...               AND    DdbCommons.Create_Prefix_Based_Shard_And_Verify
 Suite Teardown    BuiltIn.Run_Keywords    DdbCommons.Remove_Prefix_Based_Shard_And_Verify
 ...               AND    SSHLibrary.Close_All_Connections

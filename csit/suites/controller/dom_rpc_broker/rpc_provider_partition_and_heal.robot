@@ -65,5 +65,5 @@ Unregister_Rpc_On_Each_Node
 *** Keywords ***
 Setup_Kw
     [Documentation]    Setup keyword. Create ${possible_constants} list with possible variables of remote constants.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=125
     DrbCommons.DrbCommons_Init

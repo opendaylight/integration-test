@@ -9,7 +9,7 @@ Documentation     Unset tell-based protocol usage
 ...
 ...               Suite stops all odl nodes, outcomment usage of tell-based protocol in
 ...               config file (means make it false by default) and starts all nodes again.
-Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=30
+Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=125
 Suite Teardown    SSHLibrary.Close_All_Connections
 Default Tags      critical
 Library           SSHLibrary
