@@ -2,6 +2,7 @@
 Python invocation of several parallel publish-notifications RPCs.
 """
 from robot.api import logger
+import time
 import Queue
 import requests
 import string
@@ -11,11 +12,13 @@ import threading
 _globals = {}
 
 
-def _send_http_request_thread_impl(rqueue, url, data, http_timeout):
+def _send_http_request_thread_impl(rqueue, index, url, data, http_timeout):
     """Start either publish or write transactions rpc based on input.
 
     :param rqueue: result queue
     :type rqueue: Queue.Queue
+    :param index: cluster member index
+    :type index: int
     :param url: rpc url
     :type url: string
     :param data: http request content
@@ -23,14 +26,14 @@ def _send_http_request_thread_impl(rqueue, url, data, http_timeout):
     :param http_timeout: http response timeout
     :type http_timeout: int
     """
-    logger.info('rpc indoked with details: {}'.format(data))
+    logger.info('rpc invoked with details: {}'.format(data))
     try:
         resp = requests.post(url=url, headers={'Content-Type': 'application/xml'},
                              data=data, auth=('admin', 'admin'), timeout=http_timeout)
     except Exception as exc:
         resp = exc
         logger.debug(exc)
-    rqueue.put(resp)
+    rqueue.put(("member-" + str(index), time.ctime(), resp))
 
 
 def _initiate_rpcs(host_list, prefix_list, url_templ, data_templ, subst_dict):
@@ -56,7 +59,7 @@ def _initiate_rpcs(host_list, prefix_list, url_templ, data_templ, subst_dict):
         timeout = int(subst_dict['DURATION'])+260
         logger.info('url: {}, data: {}, timeout: {}'.format(url, data, timeout))
         t = threading.Thread(target=_send_http_request_thread_impl,
-                             args=(resqueue, url, data, timeout))
+                             args=(resqueue, i, url, data, timeout))
         t.daemon = True
         t.start()
         lthreads.append(t)
@@ -139,7 +142,11 @@ def start_produce_transactions_on_nodes(host_list, prefix_list, id_prefix,
 
 
 def wait_for_transactions():
-    """Blocking call, waitig for responses from all threads."""
+    """Blocking call, waitig for responses from all threads.
+
+    :return: list of triples; triple consists of member name, response time and response object
+    :rtype: list[(str, int, requests.Response)]
+    """
     lthreads = _globals.pop('threads')
     resqueue = _globals.pop('result_queue')
 
@@ -150,22 +157,24 @@ def wait_for_transactions():
     while not resqueue.empty():
         results.append(resqueue.get())
     for rsp in results:
-        if isinstance(rsp, requests.Response):
-            logger.info(rsp.text)
+        if isinstance(rsp[2], requests.Response):
+            logger.info(rsp[2].text)
         else:
-            logger.info(rsp)
+            logger.info(rsp[2])
     return results
 
 
 def get_next_transactions_response():
-    """Get http response from write-transactions rpc if available."""
+    """Get http response from write-transactions rpc if available.
+
+    :return: None or a triple consisting of member name, response time and response object"""
     resqueue = _globals.get('result_queue')
 
     if not resqueue.empty():
         rsp = resqueue.get()
-        if isinstance(rsp, requests.Response):
-            logger.info(rsp.text)
+        if isinstance(rsp[2], requests.Response):
+            logger.info(rsp[2].text)
         else:
-            logger.info(rsp)
+            logger.info(rsp[2])
         return rsp
     return None
