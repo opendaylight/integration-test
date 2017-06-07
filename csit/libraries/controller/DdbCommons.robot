@@ -9,6 +9,8 @@ Documentation     DOMDataBroker testing: Common keywords
 ...
 ...               This resource file implements various test cases templates.
 ...               FIXME: add a link to a document (when published) where the scenarios are defined
+...
+...               TODO: When checking first response in isolation scenarior, make sure it comes from the expected member.
 Library           ${CURDIR}/../MdsalLowlevelPy.py
 Resource          ${CURDIR}/../ClusterAdmin.robot
 Resource          ${CURDIR}/../ClusterManagement.robot
@@ -56,7 +58,7 @@ Explicit_Leader_Movement_Test_Templ
     ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    TemplatedRequests.Check_Status_Code    @{resp_list}[0]
+    TemplatedRequests.Check_Status_Code    @{resp_list}[0][2]
 
 Explicit_Leader_Movement_PrefBasedShard_Test_Templ
     [Arguments]    ${leader_from}    ${leader_to}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
@@ -72,7 +74,7 @@ Explicit_Leader_Movement_PrefBasedShard_Test_Templ
     ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    TemplatedRequests.Check_Status_Code    @{resp_list}[0]
+    TemplatedRequests.Check_Status_Code    @{resp_list}[0][2]
 
 Get_Node_Indexes_For_The_ELM_Test
     [Arguments]    ${leader_from}    ${leader_to}    ${shard_name}    ${shard_type}
@@ -97,7 +99,7 @@ Clean_Leader_Shutdown_Test_Templ
     ClusterAdmin.Remove_Shard_Replica    ${actual_leader}    ${shard_name}    member-${actual_leader}    ${shard_type}
     ${removed} =    BuiltIn.Set_Variable    ${True}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    TemplatedRequests.Check_Status_Code    @{resp_list}[0]
+    TemplatedRequests.Check_Status_Code    @{resp_list}[0][2]
     [Teardown]    BuiltIn.Run_Keywords    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard
     ...    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
     ...    AND    ClusterAdmin.Add_Shard_Replica    ${actual_leader}    ${shard_name}    ${shard_type}
@@ -118,7 +120,7 @@ Clean_Leader_Shutdown_PrefBasedShard_Test_Templ
     # TODO: Check on the result of this
     BuiltIn.Run_Keyword_And_Ignore_Error    ClusterManagement.Get_Raft_State_Of_Shard_At_Member    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index=${actual_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    TemplatedRequests.Check_Status_Code    @{resp_list}[0]
+    TemplatedRequests.Check_Status_Code    @{resp_list}[0][2]
     [Teardown]    BuiltIn.Run_Keywords    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard
     ...    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
     ...    AND    ClusterAdmin.Add_Prefix_Shard_Replica    ${actual_leader}    ${shard_name}    ${shard_type}
@@ -205,7 +207,7 @@ Leader_Isolation_Heal_Within_Rt
     ...    producers shoudl finish without error.
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    ${resp}
+    \    TemplatedRequests.Check_Status_Code    ${resp}[2]
 
 Module_Leader_Isolation_Heal_Default
     [Arguments]    ${isolated_node}    ${time_to_finish}
@@ -222,7 +224,7 @@ Module_Leader_Isolation_Heal_Default
     ...    reset_globals=${False}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    ${resp}
+    \    TemplatedRequests.Check_Status_Code    ${resp}[2]
 
 Prefix_Leader_Isolation_Heal_Default
     [Arguments]    ${isolated_node}    ${time_to_finish}
@@ -238,7 +240,7 @@ Prefix_Leader_Isolation_Heal_Default
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX2}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    reset_globals=${False}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    ${resp}
+    \    TemplatedRequests.Check_Status_Code    ${resp}[2]
 
 Client_Isolation_Test_Templ
     [Arguments]    ${listener_node_role}    ${trans_chain_flag}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
@@ -296,7 +298,7 @@ Ongoing_Transactions_Not_Failed_Yet
 Ongoing_Transactions_Failed
     [Documentation]    Verify if write-transaction failed.
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
-    Check_Status_Code    ${resp}    explicit_status_codes=${TRANSACTION_FAILED}
+    Check_Status_Code    ${resp}[2]    explicit_status_codes=${TRANSACTION_FAILED}
 
 Get_Seconds_To_Time
     [Arguments]    ${date_in_future}
@@ -324,7 +326,7 @@ Remote_Listener_Test_Templ
     BuiltIn.Should_Not_Be_Equal_As_Numbers    ${leader}    ${newleader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    ${resp}
+    \    TemplatedRequests.Check_Status_Code    ${resp}[2]
     ${copy_matches} =    MdsalLowlevel.Unsubscribe_Dtcl    ${listener_node_dst}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     BuiltIn.Should_Be_True    ${copy_matches}
@@ -352,7 +354,7 @@ Remote_Listener_PrefBasedShard_Test_Templ
     BuiltIn.Should_Not_Be_Equal_As_Numbers    ${leader}    ${newleader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    ${resp}
+    \    TemplatedRequests.Check_Status_Code    ${resp}[2]
     ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl    ${listener_node_dst}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     BuiltIn.Should_Be_True    ${copy_matches}
