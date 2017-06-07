@@ -1130,3 +1130,79 @@ Remove RSA Key From KnowHosts
     ${output}=    Write Commands Until Prompt    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}    30s
     Log    ${output}
     ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"    30s
+
+Create Bgpvpn
+    [Arguments]    ${vpnname}    ${additional_args}=${EMPTY}
+    [Documentation]    Create Bgpvpn with neutron request.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    SSHLibrary.Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v bgpvpn-create --name ${vpnname} ${additional_args}    30s
+    SSHLibrary.Close Connection
+    Log    ${output}
+    Should Contain    ${output}    Created a new bgpvpn
+
+Bgpvpn Net Associate
+    [Arguments]    ${network_name}    ${vpnname}
+    [Documentation]    Associate Network to given Vpn with neutron request
+    ${devstack_conn_id}=    Get ControlNode Connection
+    SSHLibrary.Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-net-assoc-create --network ${network_name} ${vpnname}
+    SSHLibrary.Close Connection
+    Log    ${output}
+
+Bgpvpn Router Associate
+    [Arguments]    ${router_name}    ${vpnname}
+    [Documentation]    Associate Router to given Vpn with neutron request
+    ${devstack_conn_id}=    Get ControlNode Connection
+    SSHLibrary.Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-router-assoc-create --router ${router_name} ${vpnname}
+    SSHLibrary.Close Connection
+    Log    ${output}
+
+Delete Bgpvpn
+    [Arguments]    ${vpnname}
+    [Documentation]    Delete Bgpvpn with neutron request.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    SSHLibrary.Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v bgpvpn-delete --name ${vpnname}    30s
+    SSHLibrary.Close Connection
+    Log    ${output}
+    Should Contain    ${output}    Deleted bgpvpn: ${vpnname}
+
+Bgpvpn Net DisAssociate
+    [Arguments]    ${AssociationID}    ${vpnname}
+    [Documentation]    Dis-Associate Network to given Vpn with neutron request
+    ${devstack_conn_id}=    Get ControlNode Connection
+    SSHLibrary.Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-net-assoc-delete ${AssociationID} ${vpnname}
+    SSHLibrary.Close Connection
+    Log    ${output}
+
+Bgpvpn Router DisAssociate
+    [Arguments]    ${AssociationID}    ${vpnname}
+    [Documentation]    Dis-Associate Router to given Vpn with neutron request
+    ${devstack_conn_id}=    Get ControlNode Connection
+    SSHLibrary.Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-router-assoc-delete ${AssociationID} ${vpnname}
+    SSHLibrary.Close Connection
+    Log    ${output}
+
+Bgpvpn Update
+    [Arguments]    ${vpnname}    ${additional_args}=${EMPTY}
+    [Documentation]    Update Bgpvpn with neutron request.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    SSHLibrary.Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v bgpvpn-update ${vpnname} ${additional_args}    30s
+    SSHLibrary.Close Connection
+    Log    ${output}
+
+Get Bgpvpn Id
+    [Arguments]    ${vpnname}
+    [Documentation]    Retrieve the Bgpvpn id for the given name
+    ${devstack_conn_id}=    Get ControlNode Connection
+    SSHLibrary.Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-list | grep "${vpnname}" | awk '{print $2}'    30s
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${vpn_id}=    Get from List    ${splitted_output}    0
+    [Return]    ${vpn_id}
