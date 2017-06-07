@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_7a1d6266",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2017-06-07T15:52:42Z",
+      "side": 1,
+      "message": ":rtype: list[ (str, int, requests.Response) ]",
+      "revId": "ec1d088b4d2c848cb97552d09e281482ab822fb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
