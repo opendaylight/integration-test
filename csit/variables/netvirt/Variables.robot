@@ -54,6 +54,7 @@ ${TMI_0}          :0
 ${TMI_NEG}        :-100
 ${BFD}            bfd
 ${LLDP}           lldp
+${TEP_COMMIT}     tep:commit
 ${TEP_SHOW}       tep:show
 ${TEP_SHOW_STATE}    tep:show-state
 ${VXLAN_SHOW}     vxlan:show
