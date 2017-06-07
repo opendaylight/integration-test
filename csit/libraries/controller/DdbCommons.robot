@@ -318,7 +318,7 @@ Remote_Listener_Test_Templ
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     BuiltIn.Sleep    5s
-    ClusterAdmin.Remove_Shard_Replica    ${leader}    ${shard_name}    member-${leader}    ${shard_type}
+    ClusterAdmin.Shutdown_Shard    ${leader}    ${shard_name}
     ${newleader}    ${newfollower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}
     ...    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
     BuiltIn.Should_Not_Be_Equal_As_Numbers    ${leader}    ${newleader}
@@ -329,9 +329,6 @@ Remote_Listener_Test_Templ
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     BuiltIn.Should_Be_True    ${copy_matches}
     [Teardown]    BuiltIn.Run_Keywords    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Dtcl    ${listener_node_dst}
-    ...    AND    ClusterAdmin.Add_Shard_Replica    ${leader}    ${shard_name}    ${shard_type}
-    ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}
-    ...    verify_restconf=False    shard_type=${shard_type}
 
 Remote_Listener_PrefBasedShard_Test_Templ
     [Arguments]    ${listener_node_role}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
