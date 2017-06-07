@@ -1190,9 +1190,7 @@ Wait For Routes To Propogate
     : FOR    ${INDEX}    IN RANGE    0    1
     \    ${net_id}=    Get Net Id    @{networks}[${INDEX}]    ${devstack_conn_id}
     \    ${is_ipv6}=    Get Regexp Matches    @{subnets}[${INDEX}]    ${IP6_REGEX}
-    \    Log    ${is_ipv6}
-    \    ${eth_prefix} =    Set Variable
-    \    ${eth_prefix} =    Set Variable If    ${is_ipv6}    -6
-    \    Log    ${eth_prefix}
-    \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip ${eth_prefix} route    ]>
+    \    ${length}=    Get Length    ${is_ipv6}
+    \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
+    \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
     \    Should Contain    ${output}    @{subnets}[${INDEX}]
