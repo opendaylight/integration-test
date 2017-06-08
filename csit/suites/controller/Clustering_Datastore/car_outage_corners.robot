@@ -86,6 +86,8 @@ Delete_Cars_On_Leader
     [Documentation]    Delete cars on Leader.
     TemplatedRequests.Delete_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}
 
+6Nvartest
+
 *** Keywords ***
 Setup
     [Documentation]    Initialize resources, memorize shard leaders, pre-compute member lists.
@@ -101,10 +103,12 @@ Set_Additional_Variables
     ${number_followers} =    BuiltIn.Get_Length    ${car_follower_indices}
     ${half_followers} =    BuiltIn.Evaluate    ${number_followers} / 2
     ${majority_follower_list} =    Collections.Get_Slice_From_List    ${car_follower_indices}    0    ${half_followers}
+    log    ${number_followers}    ${majority_follower_list}    ${half_followers}
     ${leader_list} =    BuiltIn.Create_List    ${car_leader_index}
     ${majority_list} =    Collections.Combine_Lists    ${leader_list}    ${majority_follower_list}
     BuiltIn.Set_Suite_Variable    \${list_of_majority}    ${majority_list}
     ${tipping_list} =    Collections.Get_Slice_From_List    ${majority_follower_list}    0    1
+    log    ${tipping_list}    ${leader_list}    ${majority_list}
     BuiltIn.Set_Suite_Variable    \${list_of_tipping}    ${tipping_list}
     ${revive_list} =    Collections.Get_Slice_From_List    ${car_follower_indices}    ${half_followers}    ${number_followers}
     BuiltIn.Set_Suite_Variable    \${list_of_reviving}    ${revive_list}
