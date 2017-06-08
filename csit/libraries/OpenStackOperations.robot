@@ -277,7 +277,7 @@ Create Vm Instance On Compute Node
     [Documentation]    Create a VM instance on a specific compute node.
     ${image} =    BuiltIn.Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
-    ${output} =    OpenStack CLI    openstack server create ${vm_name} --image ${image} --flavor ${flavor} --nic net-id=${net_id} --security-group ${sg} --availability-zone nova:${node_hostname}
+    ${output} =    OpenStack CLI    openstack server create ${vm_name} --image ${image} --flavor ${flavor} --nic net-id=${net_id} --security-group ${sg} --availability-zone nova:${node_hostname} --debug
 
 Create Vm Instance With Port
     [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
@@ -1330,7 +1330,15 @@ Get Project Id
 Set Instance Quota For Project
     [Arguments]    ${num_instances}    ${project_id}
     [Documentation]    Set quota for the created instances using the specific project id.
-    ${output} =    OpenStack CLI    openstack quota set --instances ${num_instances} ${project_id}
+    ${o1} =    OpenStack CLI    openstack project list
+    ${o2} =    OpenStack CLI    nova quota-show
+#    ${o3} =    OpenStack CLI    openstack flavor show
+    ${o3} =    OpenStack CLI    nova hypervisor-stats
+    ${o4} =    OpenStack CLI    nova hypervisor-list
+    ${o5} =    OpenStack CLI    nova hypervisor-show ${OS_CMP1_HOSTNAME}
+    ${o6} =    OpenStack CLI    nova hypervisor-show ${OS_CMP2_HOSTNAME}
+    ${o7} =    OpenStack CLI    openstack quota set --instances ${num_instances} ${project_id}
+    ${output} =    OpenStack CLI    nova quota-show
     [Return]    ${output}
 
 Create Bgpvpn
