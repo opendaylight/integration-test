@@ -118,6 +118,11 @@ Topology_Postcondition
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10    1    Compare_Topology    ${offjson}    080_Postcondition.json
     # FIXME: We should delete config changes to not affect next suite.
 
+Delete_Pcep_Client_Module
+    [Documentation]    Delete Pcep client module.
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}
+    TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}pcep_topology_client_module
+
 *** Keywords ***
 Set_It_Up
     [Documentation]    Create SSH session to Mininet machine, prepare HTTP client session to Controller.
