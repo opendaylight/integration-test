@@ -25,6 +25,7 @@ ${REGISTER_FLAPPING_SINGLETON_DIR}    ${LOWLEVEL_RPC_DIR}/register_flapping_sing
 ${REGISTER_SINGLETON_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/register_singleton_constant
 ${REMOVE_PREFIX_SHARD_DIR}    ${LOWLEVEL_RPC_DIR}/remove_prefix_shard
 ${SHUTDOWN_SHARD_DIR}    ${LOWLEVEL_RPC_DIR}/shutdown_shard
+${SHUTDOWN_PREFIX_SHARD_DIR}    ${LOWLEVEL_RPC_DIR}/shutdown_prefix_shard
 ${START_PUBLISH_NOTIFICATIONS_DIR}    ${LOWLEVEL_RPC_DIR}/start_publish_notifications
 ${SUBSCRIBE_DDTL_DIR}    ${LOWLEVEL_RPC_DIR}/subscribe_ddtl
 ${SUBSCRIBE_DTCL_DIR}    ${LOWLEVEL_RPC_DIR}/subscribe_dtcl
@@ -253,3 +254,10 @@ Shutdown_Shard
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}
     TemplatedRequests.Post_As_Xml_Templated    ${SHUTDOWN_SHARD_DIR}    mapping=${mapping}    session=${session}
+
+Shutdown_Prefix_Shard
+    [Arguments]    ${member_index}    ${shard_prefix}
+    [Documentation]    Invoke shutdown-prefix-shard rpc.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${shard_prefix}
+    TemplatedRequests.Post_As_Xml_Templated    ${SHUTDOWN_PREFIX_SHARD_DIR}    mapping=${mapping}    session=${session}
