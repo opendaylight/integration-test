@@ -36,6 +36,8 @@ ${INTERFACE_DS_MONI_TRUE}    "odl-interface:monitor-enabled": true
 ${INTERFACE_DS_MONI_INT_1000}    "odl-interface:monitor-interval": 1000
 ${INTERFACE_DS_MONI_INT_5000}    "odl-interface:monitor-interval": 5000
 ${TUNNEL_MONI_PROTO}    tunnel-monitoring-type-bfd
+${NAME}           name
+${DUMP_CACHE}     ds:showcache ItmTunnelStateCache
 
 *** Test Cases ***
 BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
@@ -48,6 +50,11 @@ BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
     ${gateway-ip}=    Set Variable    0.0.0.0
     Create Vteps    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UP
+    ${output}=    Issue Command On Karaf Console    ${DUMP_CACHE}
+    Log    ${output}
+    Wait Until Keyword Succeeds    10s    2s    Verify All Previous Tunnels Are Deleted
+    ${output}=    Issue Command On Karaf Console    ${DUMP_CACHE}
+    Log    ${output}
 
 BFD_TC01 Verify by default BFD monitoring is enabled on Controller
     [Documentation]    Verify by default BFD monitoring is enabled on Controller
@@ -162,3 +169,9 @@ Verify BFD Interval In Config
     ${respjson}    RequestsLibrary.To Json    ${config_int.content}    pretty_print=True
     Log    ${respjson}
     Should Contain    ${respjson}    5000
+
+Verify All Previous Tunnels Are Deleted
+    ${int_resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/
+    ${respjson}    RequestsLibrary.To Json    ${int_resp.content}    pretty_print=True
+    Log    ${respjson}
+    Should Not Contain    ${respjson}    ${NAME}
