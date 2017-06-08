@@ -115,11 +115,11 @@ Setup
 Set_Variables_For_Less_Nodes
     [Arguments]    ${member_index_list}
     [Documentation]    Get current leader and followers for car shard, set additional suite variables.
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=car    shard_type=config    member_index_list=${member_index_list}
+    ${leader}    ${voting_follower_list}    ${all_follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard_Voting_Aware    shard_name=car    shard_type=config    member_index_list=${member_index_list}
     ${leader_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${leader}
     BuiltIn.Set_Suite_Variable    \${new_leader_session}    ${leader_session}
     ${sessions} =    BuiltIn.Create_List
-    : FOR    ${follower_index}    IN    @{follower_list}
+    : FOR    ${follower_index}    IN    @{voting_follower_list}
     \    ${follower_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower_index}
     \    Collections.Append_To_List    ${sessions}    ${follower_session}
     BuiltIn.Set_Suite_Variable    \${new_follower_sessions}    ${sessions}

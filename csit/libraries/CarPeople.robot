@@ -46,15 +46,15 @@ Set_Variables_For_Shard
     ...    set several suite variables related to member indices and sessions.
     ...    ClusterManagement Resource is assumed to be initialized.
     ...    TODO: car-people shard name causes dash in variable names. Should we convert to underscores?
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}
+    ${leader}    ${voting_follower_list}    ${all_follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard_Voting_Aware    shard_name=${shard_name}    shard_type=${shard_type}
     BuiltIn.Set_Suite_Variable    \${${shard_name}_leader_index}    ${leader}
-    BuiltIn.Set_Suite_Variable    \${${shard_name}_follower_indices}    ${follower_list}
-    ${first_follower_index} =    Collections.Get_From_List    ${follower_list}    0
+    BuiltIn.Set_Suite_Variable    \${${shard_name}_follower_indices}    ${voting_follower_list}
+    ${first_follower_index} =    Collections.Get_From_List    ${voting_follower_list}    0
     BuiltIn.Set_Suite_Variable    \${${shard_name}_first_follower_index}    ${first_follower_index}
     ${leader_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${leader}
     BuiltIn.Set_Suite_Variable    \${${shard_name}_leader_session}    ${leader_session}
     ${sessions} =    BuiltIn.Create_List
-    : FOR    ${follower_index}    IN    @{follower_list}
+    : FOR    ${follower_index}    IN    @{voting_follower_list}
     \    ${follower_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower_index}
     \    Collections.Append_To_List    ${sessions}    ${follower_session}
     BuiltIn.Set_Suite_Variable    \${${shard_name}_follower_sessions}    ${sessions}
@@ -71,16 +71,16 @@ Set_Tmp_Variables_For_Shard_For_Nodes
     ...    ${new_first_follower_session} - http session for the first follower node
     ...    ${new_leader_index} - index of the shard leader
     ...    ${new_followers_list} - list of followers indexes
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${member_index_list}
+    ${leader}    ${voting_follower_list}    ${all_follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard_Voting_Aware    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${member_index_list}
     BuiltIn.Set_Suite_Variable    \${new_leader_index}    ${leader}
-    BuiltIn.Set_Suite_Variable    \${new_followers_list}    ${follower_list}
+    BuiltIn.Set_Suite_Variable    \${new_followers_list}    ${voting_follower_list}
     ${leader_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${leader}
     BuiltIn.Set_Suite_Variable    \${new_leader_session}    ${leader_session}
     ${sessions} =    BuiltIn.Create_List
-    : FOR    ${follower_index}    IN    @{follower_list}
+    : FOR    ${follower_index}    IN    @{voting_follower_list}
     \    ${follower_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower_index}
     \    Collections.Append_To_List    ${sessions}    ${follower_session}
     BuiltIn.Set_Suite_Variable    \${new_follower_sessions}    ${sessions}
     ${first_follower_session} =    Collections.Get_From_List    ${sessions}    0
     BuiltIn.Set_Suite_Variable    \${new_first_follower_session}    ${first_follower_session}
-    BuiltIn.Return_From_Keyword    ${leader}    ${follower_list}
+    BuiltIn.Return_From_Keyword    ${leader}    ${voting_follower_list}
