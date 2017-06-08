@@ -71,7 +71,7 @@ Verify Floating Ip Provision And Reachability From External Network Via Neutron 
     VpnOperations.VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID}    name=${VPN_NAME}    rd=["${DCGW_RD}"]    exportrt=["${DCGW_RD}"]    importrt=["${DCGW_RD}"]
     ${ext_net_id} =    OpenStackOperations.Get Net Id    @{EXTERNAL_NETWORKS}[0]
     VpnOperations.Associate L3VPN To Network    networkid=${ext_net_id}    vpnid=${VPN_INSTANCE_ID}
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --disable-snat
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]
     ${output} =    OpenStackOperations.Show Router    ${ROUTER}
     BuiltIn.Should Contain    ${output}    ${SNAT_DISABLED}
     ${subnetid} =    OpenStackOperations.Get Subnet Id    @{EXTERNAL_SUB_NETWORKS}[0]
