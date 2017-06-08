@@ -19,6 +19,8 @@ ${REMOVE_PREFIX_SHARD_REPLICA_DIR}    ${CLUSTERADMIN_RPC_DIR}/remove_prefix_shar
 ${REMOVE_SHARD_REPLICA_DIR}    ${CLUSTERADMIN_RPC_DIR}/remove_shard_replica
 ${GET_SHARD_ROLE_DIR}    ${CLUSTERADMIN_RPC_DIR}/get_shard_role
 ${GET_PREFIX_SHARD_ROLE_DIR}    ${CLUSTERADMIN_RPC_DIR}/get_prefix_shard_role
+${CHANGE_MEMBER_VOTING_STATES_FOR_ALL_SHARDS_NORMAL_DIR}    ${CLUSTERADMIN_RPC_DIR}/change_member_voting_states_for_all_shards_normal
+${CHANGE_MEMBER_VOTING_STATES_FOR_ALL_SHARDS_FLIPPED_DIR}    ${CLUSTERADMIN_RPC_DIR}/change_member_voting_states_for_all_shards_flipped
 
 *** Keywords ***
 Make_Leader_Local
@@ -66,6 +68,15 @@ Get_Shard_Role
     ${role} =    XML.Get_Element_Text    ${xml}    xpath=role
     BuiltIn.Return_From_Keyword    ${role}
 
+Change_Member_Voting_States_For_All_Shards_Normal
+    [Arguments]    ${member_index}
+    [Documentation]    Issues the RPC to change the three first nodes to "voting" and the remaining to "non-voting"
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${text} =    TemplatedRequests.Post_As_Json_Templated    ${CHANGE_MEMBER_VOTING_STATES_FOR_ALL_SHARDS_NORMAL_DIR}    mapping=${mapping}    session=${session}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${role} =    XML.Get_Element_Text    ${xml}    xpath=role
+    BuiltIn.Return_From_Keyword    ${role}
+
 Get_Prefix_Shard_Role
     [Arguments]    ${member_index}    ${shard_prefix}    ${ds_type}
     [Documentation]    Get prefix shard member role.
@@ -75,3 +86,16 @@ Get_Prefix_Shard_Role
     ${xml} =    XML.Parse_Xml    ${text}
     ${role} =    XML.Get_Element_Text    ${xml}    xpath=role
     BuiltIn.Return_From_Keyword    ${role}
+
+Change_Member_Voting_States_For_All_Shards_Normal
+    [Arguments]    ${member_index}
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=[1]
+    ${text} =    TemplatedRequests.Post_As_Json_Templated    ${CHANGE_MEMBER_VOTING_STATES_FOR_ALL_SHARDS_NORMAL_DIR}    session=${session}
+
+Change_Member_Voting_States_For_All_Shards_Flipped
+    [Arguments]    ${member_index}
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=[4]
+    ${text} =    TemplatedRequests.Post_As_Json_Templated    ${CHANGE_MEMBER_VOTING_STATES_FOR_ALL_SHARDS_FLIPPED_DIR}    session=${session}
+
+
+
