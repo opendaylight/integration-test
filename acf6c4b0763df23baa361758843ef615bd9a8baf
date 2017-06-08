@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_c1a109ab",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-06-08T10:16:11Z",
+      "side": 1,
+      "message": "Rebase to current HEAD.",
+      "range": {
+        "startLine": 139,
+        "startChar": 111,
+        "endLine": 139,
+        "endChar": 123
+      },
+      "revId": "acf6c4b0763df23baa361758843ef615bd9a8baf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
