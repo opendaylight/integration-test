@@ -78,6 +78,7 @@ Verify Floating Ip Provision And Reachability From External Network Via Neutron 
     OpenStackOperations.Add Router Gateway    ${ROUTER}    @{EXTERNAL_NETWORKS}[0]    --fixed-ip subnet=${subnetid},ip-address=${FIP}
     ${float} =    OpenStackOperations.Create And Associate Floating IPs    @{EXTERNAL_NETWORKS}[0]    @{NET_1_VMS}[0]
     ${output} =    OVSDB.Get Flow Entries On Node    ${OS_CMP1_CONN_ID}
+    Sleep    10
     BuiltIn.Should Contain    ${output}    ${FIP}
 
 Verify Floating Ip De-provision And Reachability From External Network Via Neutron Router Through L3vpn
