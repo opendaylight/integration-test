@@ -99,12 +99,14 @@ Set_Additional_Variables
     ${last_follower_session} =    Collections.Get_From_List    ${car_follower_sessions}    -1
     BuiltIn.Set_Suite_Variable    \${car_last_follower_session}    ${last_follower_session}
     ${number_followers} =    BuiltIn.Get_Length    ${car_follower_indices}
-    ${half_followers} =    BuiltIn.Evaluate    ${number_followers} / 2
+    ${half_followers} =    BuiltIn.Evaluate    ( ${number_followers} / 2 ) + ( ${number_followers} % 2 )
     ${majority_follower_list} =    Collections.Get_Slice_From_List    ${car_follower_indices}    0    ${half_followers}
+    log    ${number_followers}    ${majority_follower_list}    ${half_followers}
     ${leader_list} =    BuiltIn.Create_List    ${car_leader_index}
     ${majority_list} =    Collections.Combine_Lists    ${leader_list}    ${majority_follower_list}
     BuiltIn.Set_Suite_Variable    \${list_of_majority}    ${majority_list}
-    ${tipping_list} =    Collections.Get_Slice_From_List    ${majority_follower_list}    0    1
+    ${tipping_list} =    Collections.Get_Slice_From_List    ${majority_follower_list}    0    ${half_followers}
+    log    ${tipping_list}    ${leader_list}    ${majority_list}
     BuiltIn.Set_Suite_Variable    \${list_of_tipping}    ${tipping_list}
     ${revive_list} =    Collections.Get_Slice_From_List    ${car_follower_indices}    ${half_followers}    ${number_followers}
     BuiltIn.Set_Suite_Variable    \${list_of_reviving}    ${revive_list}
