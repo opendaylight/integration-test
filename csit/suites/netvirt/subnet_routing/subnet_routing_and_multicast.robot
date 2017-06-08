@@ -76,6 +76,13 @@ Verify The Subnet Route For Multiple Subnets On Multi VSwitch Topology When Qbgp
     BgpOperations.Restart BGP Processes On ODL    ${ODL_SYSTEM_IP}
     Verify Ping between Inter Intra And Enterprise host
 
+Verify The Subnet Route When Vswitch Hosting Subnet Route Is Restarted On Single Vswitch Topology
+    [Documentation]    Restart single OVS node on which subnet route is configured and verify the same
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    10s    20s    OVSDB.Verify Ovsdb State    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    10s    10s    VpnOperations.Verify Tunnel Status as UP
+    BuiltIn.Wait Until Keyword Succeeds    20s    20s    Verify Ping between Inter Intra And Enterprise host
+
 *** Keywords ***
 Suite Setup
     [Documentation]    Test Suite for Subnet_Routing_and_Multicast_Deployments.

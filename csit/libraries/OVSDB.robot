@@ -493,3 +493,10 @@ Get Flow Entries On Node
     ${output} =    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows ${switch}    ${DEFAULT_LINUX_PROMPT_STRICT}
     BuiltIn.Log    ${output}
     [Return]    ${output}
+
+Verify Ovsdb State
+    [Arguments]    ${dpn_ip}    ${state}=ACTIVE
+    [Documentation]    Verify ovsdb state for the given DPN
+    ${output} =    Utils.Run Command On Remote System And Log    ${dpn_ip}    sudo ovsdb-client dump -f list Open_vSwitch Controller | grep state
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Contain    ${output}    state=${state}
