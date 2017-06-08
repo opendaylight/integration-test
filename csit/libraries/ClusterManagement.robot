@@ -96,7 +96,7 @@ Verify_Leader_Exists_For_Each_Shard
     [Documentation]    For each shard name, call Get_Leader_And_Followers_For_Shard.
     ...    Not much logic there, but single Keyword is useful when using BuiltIn.Wait_Until_Keyword_Succeeds.
     : FOR    ${shard_name}    IN    @{shard_name_list}
-    \    Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    validate=True    member_index_list=${member_index_list}    verify_restconf=${verify_restconf}
+    \    Get_Leader_And_Followers_For_Shard_Voting_Aware    shard_name=${shard_name}    shard_type=${shard_type}    validate=True    member_index_list=${member_index_list}    verify_restconf=${verify_restconf}
 
 Get_Leader_And_Followers_For_Shard
     [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=True    ${member_index_list}=${EMPTY}    ${verify_restconf}=True    ${http_timeout}=5
@@ -787,3 +787,54 @@ Sync_Status_Should_Be_True
     [Documentation]    Verify that cluster node is in sync with others
     ${status}    Get_Sync_Status_Of_Member    ${controller_index}
     BuiltIn.Should_Be_True    ${status}
+
+Get_Raft_State_Of_Shard_At_Member_Voting_Aware
+    [Arguments]    ${shard_name}    ${shard_type}    ${member_index}    ${verify_restconf}=False    ${http_timeout}=5
+    [Documentation]    Send request to Jolokia on indexed member, return extracted Raft status.
+    ...    Optionally, check restconf works.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    # TODO: Does the used URI tend to generate large data which floods log.html?
+    BuiltIn.Run_Keyword_If    ${verify_restconf}    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False    http_timeout=${http_timeout}
+    ${type_class} =    Resolve_Shard_Type_Class    shard_type=${shard_type}
+    ${uri} =    BuiltIn.Set_Variable    ${JOLOKIA_READ_URI}:Category=Shards,name=member-${member_index}-shard-${shard_name}-${shard_type},type=${type_class}
+    ${data_text} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${uri}    session=${session}    http_timeout=${http_timeout}
+    ${data_object} =    RequestsLibrary.To_Json    ${data_text}
+    ${value} =    Collections.Get_From_Dictionary    ${data_object}    value
+    ${raft_state} =    Collections.Get_From_Dictionary    ${value}    RaftState
+    ${voting}    Collections.Get_From_Dictionary    ${value}    Voting
+    [Return]    ${raft_state}    ${voting}
+
+Get_State_Info_For_Shard_Voting_Aware
+    [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=False    ${member_index_list}=${EMPTY}    ${verify_restconf}=False    ${http_timeout}=5
+    [Documentation]    Return lists of Leader and Follower member indices from a given member index list
+    ...    (or from the full list if empty). If \${shard_type} is not 'config', 'operational' is assumed.
+    ...    If \${validate}, Fail if raft state is not Leader or Follower (for example on Candidate).
+    ...    The biggest difference from Get_Leader_And_Followers_For_Shard
+    ...    is that no check on number of Leaders is performed.
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
+    Collections.Sort_List    ${index_list}    # to guarantee return values are also sorted lists
+    # TODO: Support alternative capitalization of 'config'?
+    ${ds_type} =    BuiltIn.Set_Variable_If    '${shard_type}' != 'config'    operational    config
+    ${leader_list} =    BuiltIn.Create_List
+    ${all_follower_list} =    BuiltIn.Create_List
+    ${voting_follower_list} =    BuiltIn.Create_List
+    :FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+    \    ${raft_state}    ${voting} =    Get_Raft_State_Of_Shard_At_Member_Voting_Aware    shard_name=${shard_name}    shard_type=${ds_type}    member_index=${index}
+    \    ...    verify_restconf=${verify_restconf}    http_timeout=${http_timeout}
+    \    BuiltIn.Run_Keyword_If    'Follower' == '${raft_state}'    Collections.Append_To_List    ${all_follower_list}    ${index}
+    \    ...    ELSE IF    'Leader' == '${raft_state}'    Collections.Append_To_List    ${leader_list}    ${index}
+    \    ...    ELSE IF    ${validate}    BuiltIn.Fail    Unrecognized Raft state: ${raft_state}
+    \    BuiltIn.Run Keyword If    'Follower' == '${raft_state}' && 'true' == '${voting}'    Collections.Append_To_List    ${voting_follower_list}    ${index}
+    [Return]    ${leader_list}    ${voting_follower_list}    ${all_follower_list}
+
+Get_Leader_And_Followers_For_Shard_Voting_Aware
+    [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=True    ${member_index_list}=${EMPTY}    ${verify_restconf}=True    ${http_timeout}=5
+    [Documentation]    Get role lists, validate there is one leader, return the leader and list of followers.
+    ...    Optionally, issue GET to a simple restconf URL to make sure subsequent operations will not encounter 503.
+    ${leader_list}    ${voting_follower_list}    ${all_follower_list} =    Get_State_Info_For_Shard_Voting_Aware    shard_name=${shard_name}    shard_type=${shard_type}    validate=True
+    ...    member_index_list=${member_index_list}    verify_restconf=${verify_restconf}    http_timeout=${http_timeout}
+    ${leader_count} =    BuiltIn.Get_Length    ${leader_list}
+    BuiltIn.Run_Keyword_If    ${leader_count} < 1    BuiltIn.Fail    No leader found.
+    BuiltIn.Length_Should_Be    ${leader_list}    ${1}    Too many Leaders.
+    ${leader} =    Collections.Get_From_List    ${leader_list}    0
+    [Return]    ${leader}    ${voting_follower_list}    ${all_follower_list}
