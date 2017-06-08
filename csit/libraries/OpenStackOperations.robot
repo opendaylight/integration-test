@@ -1330,6 +1330,8 @@ Get Project Id
 Set Instance Quota For Project
     [Arguments]    ${num_instances}    ${project_id}
     [Documentation]    Set quota for the created instances using the specific project id.
+    ${o1} =    OpenStack CLI    openstack project list
+    ${o2} =    OpenStack CLI    nova quota-show
     ${output} =    OpenStack CLI    openstack quota set --instances ${num_instances} ${project_id}
     [Return]    ${output}
 
