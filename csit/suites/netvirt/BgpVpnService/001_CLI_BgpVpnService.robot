@@ -18,7 +18,7 @@ ${ODL_STREAM}     dummy
 
 *** Testcases ***
 Verify CSC supports VPN creation with multiple RD's via neutron bgpvpn create command
-    [Documentation]    Verify CSC supports VPN creation with multiple RD's via neutron bgpvpn create command
+    [Documentation]    Verify CSC supports VPN creation with multiple RD's via neutron bgpvpn create command removed bgpvpn openstack
     Log    Create a VPN with multiple RD's
     ${Additional_Args}    Set Variable    -- --route-distinguishers list=true 100:10 100:11 100:12 100:13 100:14
     Create Bgpvpn     BgpVpn1    ${Additional_Args}
