@@ -21,8 +21,8 @@ Verify CSC supports VPN creation with multiple RD's via neutron bgpvpn create co
     [Documentation]    Verify CSC supports VPN creation with multiple RD's via neutron bgpvpn create command
     Log    Create a VPN with multiple RD's
     ${Additional_Args}    Set Variable    -- --route-distinguishers list=true 100:10 100:11 100:12 100:13 100:14
-    OpenStackOperations.Create Bgpvpn     BgpVpn1    ${Additional_Args}
-    ${vpnid}    OpenStackOperations.Get Bgpvpn Id    BgpVpn1
+    Create Bgpvpn     BgpVpn1    ${Additional_Args}
+    ${vpnid}    Get Bgpvpn Id    BgpVpn1
     Log    Verify Vpn config in controller
     ${KarafLog}    Issue Command On Karaf Console    vpnservice:l3vpn-config-show -vid ${vpnid}
     ${match}    ${RDs}    Should Match Regexp    ${KarafLog}    ${vpnid}.*\\[(.*)\\]
@@ -37,8 +37,8 @@ Verify deletion of BGPVPN with Multiple RD's
     [Documentation]    Verify deletion of BGPVPN with Multiple RD's
     [Tags]    SANITY
     Log    Delete the Vpn with Multiple RD's
-    ${vpnid}    OpenStackOperations.Get Bgpvpn Id    BgpVpn1
-    OpenStackOperations.Delete Bgpvpn    BgpVpn1
+    ${vpnid}    Get Bgpvpn Id    BgpVpn1
+    Delete Bgpvpn    BgpVpn1
     Sleep    ${3}
     ${KarafLog}    Issue Command On Karaf Console    vpnservice:l3vpn-config-show -vid ${vpnid}
     ${Result}    ${val}    Run Keyword And Ignore Error    Should Contain    ${KarafLog}    ${vpnid} is not present
