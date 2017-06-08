@@ -1,0 +1,12 @@
+{ "input" : {
+    "member-voting-state" : [
+         { "member-name": "member-1" ,"voting": false }
+        ,{ "member-name": "member-2" ,"voting": false }
+        ,{ "member-name": "member-3" ,"voting": false }
+        ,{ "member-name": "member-4" ,"voting": true }
+        ,{ "member-name": "member-5" ,"voting": true }
+        ,{ "member-name": "member-6" ,"voting": true }
+        ]
+    }
+}
+
