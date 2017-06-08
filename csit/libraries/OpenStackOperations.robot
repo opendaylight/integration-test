@@ -164,7 +164,14 @@ Create And Associate Floating IPs
     \    ${ip_length} =    BuiltIn.Get Length    ${ip}
     \    BuiltIn.Run Keyword If    ${ip_length}>0    Collections.Append To List    ${ip_list}    @{ip}[0]
     \    ...    ELSE    Collections.Append To List    ${ip_list}    None
-    \    ${output} =    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
+    \    ${id} =    OpenStack CLI    openstack server list --name ${vm} | grep ${vm} | awk '{print $2}'
+#    \    ${id} =    OpenStack CLI    openstack port list  --fixed-ip ip-address=@{ip}[0] | awk '{print $2}'
+    \    OpenStack CLI    openstack floating ip set --port ${id} @{ip}[0]
+#    \    ${port_id} =    OpenStack CLI    openstack port list --device-id ${vm} | awk '{print $3}'
+#    \    ${output} =    OpenStack CLI    openstack floating ip set --port $(port_id) @{ip}[0]
+#    \    BuiltIn.Run Keyword If    '${OPENSTACK_BRANCH}' == 'stable/rocky'    ${output} =    OpenStack CLI    openstack floating ip set --port $(port_id) @{ip}[0]
+#    \    ...    ELSE    ${output} =    OpenStack CLI    openstack server add_floating_ip ${vm} @{ip}[0]
+    \    ${output} =    OpenStack CLI    openstack server add_floating_ip ${vm} @{ip}[0]
     [Return]    ${ip_list}
 
 Remove Floating Ip From Vm
