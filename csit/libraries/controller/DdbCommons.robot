@@ -93,11 +93,11 @@ Clean_Leader_Shutdown_Test_Templ
     ${producer_idx_as_list} =    BuiltIn.Create_List    ${producer_idx}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     BuiltIn.Sleep    5s
-    MdsalLowlevel.Shutdown_Shard    ${actual_leader}    ${shard_name}
+    MdsalLowlevel.Shutdown_Shard_Replica    ${actual_leader}    ${shard_name}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${actual_leader}    ${shard_name}    ${shard_type}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     TemplatedRequests.Check_Status_Code    @{resp_list}[0]
-    [Teardown]    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}
+    [Teardown]    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    120s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}
     ...    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
 
 Clean_Leader_Shutdown_PrefBasedShard_Test_Templ
@@ -108,18 +108,12 @@ Clean_Leader_Shutdown_PrefBasedShard_Test_Templ
     ${producer_idx_as_list} =    BuiltIn.Create_List    ${producer_idx}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}
     BuiltIn.Sleep    5s
-    ClusterAdmin.Remove_Prefix_Shard_Replica    ${actual_leader}    ${shard_name}    member-${actual_leader}    ${shard_type}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${follower_list}
-    ...    verify_restconf=False
-    # TODO: Check on the result of this
-    BuiltIn.Run_Keyword_And_Ignore_Error    ClusterManagement.Get_Raft_State_Of_Shard_At_Member    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index=${actual_leader}
+    MdsalLowlevel.Shutdown_Prefix_Shard_Replica    ${actual_leader}    ${shard_name}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${actual_leader}    ${shard_name}!!    ${shard_type}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     TemplatedRequests.Check_Status_Code    @{resp_list}[0]
-    [Teardown]    BuiltIn.Run_Keywords    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard
-    ...    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
-    ...    AND    ClusterAdmin.Add_Prefix_Shard_Replica    ${actual_leader}    ${shard_name}    ${shard_type}
-    ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!
-    ...    verify_restconf=False    shard_type=${shard_type}
+    [Teardown]    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    120s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!
+    ...    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
 
 Get_Node_Indexes_For_Clean_Leader_Shutdown_Test
     [Arguments]    ${leader_location}    ${shard_name}    ${shard_type}
@@ -314,7 +308,7 @@ Remote_Listener_Test_Templ
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     BuiltIn.Sleep    5s
-    MdsalLowlevel.Shutdown_Shard    ${leader}    ${shard_name}
+    MdsalLowlevel.Shutdown_Shard_Replica    ${leader}    ${shard_name}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${leader}    ${shard_name}    ${shard_type}
     ${newleader}    ${newfollower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}
     ...    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
@@ -340,7 +334,8 @@ Remote_Listener_PrefBasedShard_Test_Templ
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}
     BuiltIn.Sleep    5s
-    ClusterAdmin.Remove_Prefix_Shard_Replica    ${leader}    ${shard_name}    member-${leader}    ${shard_type}
+    MdsalLowlevel.Shutdown_Prefix_Shard_Replica    ${leader}    ${shard_name}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${leader}    ${shard_name}!!    ${shard_type}
     ${newleader}    ${newfollower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!
     ...    member_index_list=${follower_list}    verify_restconf=False    shard_type=${shard_type}
     BuiltIn.Should_Not_Be_Equal_As_Numbers    ${leader}    ${newleader}
@@ -350,10 +345,7 @@ Remote_Listener_PrefBasedShard_Test_Templ
     ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl    ${listener_node_dst}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     BuiltIn.Should_Be_True    ${copy_matches}
-    [Teardown]    BuiltIn.Run_Keywords    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Ddtl    ${listener_node_dst}
-    ...    AND    ClusterAdmin.Add_Prefix_Shard_Replica    ${leader}    ${shard_name}    ${shard_type}
-    ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!
-    ...    verify_restconf=False    shard_type=${shard_type}
+    [Teardown]    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Ddtl    ${listener_node_dst}
 
 Create_Prefix_Based_Shard_And_Verify
     [Arguments]    ${prefix}=${PREF_BASED_SHARD}
