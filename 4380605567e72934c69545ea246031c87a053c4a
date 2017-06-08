@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_cbe4833d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/01_basic_vpnservice.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-08T22:21:45Z",
+      "side": 1,
+      "message": "it\u0027s not clear in this review where the deleted\nelements ended up?",
+      "revId": "4380605567e72934c69545ea246031c87a053c4a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
