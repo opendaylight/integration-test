@@ -18,6 +18,8 @@ Start Suite
     Log    Start the tests
     ${conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${conn_id_1}
+    ${ENABLE_LOG}    Set Variable    log:set DEBUG org.opendaylight.genius
+    ${output}=    Issue Command On Karaf Console    ${ENABLE_LOG}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Log    ${conn_id_1}
     Execute Command    sudo ovs-vsctl add-br BR1
