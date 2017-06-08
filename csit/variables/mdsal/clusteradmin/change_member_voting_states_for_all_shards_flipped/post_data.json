@@ -1,0 +1,17 @@
+{ "input" : {
+    [
+     { "member_name": "member-1"
+      ,"voting": false }
+    ,{ "member_name": "member-2"
+      ,"voting": false }
+    ,{ "member_name": "member-3"
+      ,"voting": false }
+    ,{ "member_name": "member-4"
+      ,"voting": true }
+    ,{ "member_name": "member-5"
+      ,"voting": true }
+    ,{ "member_name": "member-6"
+      ,"voting": true }
+    ] }
+}
+
