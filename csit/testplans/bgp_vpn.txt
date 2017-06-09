@@ -1,1 +1,1 @@
-integration/test/csit/suites/netvirt/Netvirt_Vpnservice/CLI_BgpVpnService.robot
+test/csit/suites/netvirt/Netvirt_Vpnservice/CLI_BgpVpnService.robot
