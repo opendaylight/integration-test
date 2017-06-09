@@ -5,6 +5,7 @@ Resource          ${CURDIR}/../../libraries/VpnOperations.robot
 Resource          ${CURDIR}/../../libraries/Utils.robot
 Resource          ${CURDIR}/../../libraries/OpenStackOperations.robot
 Library           DebugLibrary
+Library           RequestsLibrary
 
 *** Variables ***
 ${fail_resp}    0
@@ -50,7 +51,7 @@ Verify CSC supports VPN creation with multiple RD's via REST API
     [Tags]    SANITY
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     OpenStackOperations.Create Network    Network100
-    ${devstack_conn_id} =    Get ControlNode Connection
+    ${devstack_conn_id} =    OpenStackOperations.Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${NetID}    OpenStackOperations.Get Net Id    Network100    ${devstack_conn_id}
     ${tenant_id}=    OpenStackOperations.Get Tenant ID From Network    ${NetID}
@@ -109,7 +110,7 @@ Verify Deletion of VPN using REST
 Create Bgpvpn
     [Arguments]    ${vpnname}    ${additional_args}=${EMPTY}
     [Documentation]    Create Bgpvpn with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    OpenStackOperations.Get ControlNode Connection
     SSHLibrary.Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v bgpvpn-create --name ${vpnname} ${additional_args}    30s
     SSHLibrary.Close Connection
@@ -119,7 +120,7 @@ Create Bgpvpn
 Bgpvpn Net Associate
     [Arguments]    ${network_name}    ${vpnname}
     [Documentation]    Associate Network to given Vpn with neutron request
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    OpenStackOperations.Get ControlNode Connection
     SSHLibrary.Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron bgpvpn-net-assoc-create --network ${network_name} ${vpnname}
     SSHLibrary.Close Connection
@@ -128,7 +129,7 @@ Bgpvpn Net Associate
 Bgpvpn Router Associate
     [Arguments]    ${router_name}    ${vpnname}
     [Documentation]    Associate Router to given Vpn with neutron request
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    OpenStackOperations.Get ControlNode Connection
     SSHLibrary.Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron bgpvpn-router-assoc-create --router ${router_name} ${vpnname}
     SSHLibrary.Close Connection
@@ -137,7 +138,7 @@ Bgpvpn Router Associate
 Delete Bgpvpn
     [Arguments]    ${vpnname}
     [Documentation]    Delete Bgpvpn with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    OpenStackOperations.Get ControlNode Connection
     SSHLibrary.Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v bgpvpn-delete --name ${vpnname}    30s
     SSHLibrary.Close Connection
@@ -147,7 +148,7 @@ Delete Bgpvpn
 Bgpvpn Net DisAssociate
     [Arguments]    ${AssociationID}    ${vpnname}
     [Documentation]    Dis-Associate Network to given Vpn with neutron request
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    OpenStackOperations.Get ControlNode Connection
     SSHLibrary.Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron bgpvpn-net-assoc-delete ${AssociationID} ${vpnname}
     SSHLibrary.Close Connection
@@ -156,7 +157,7 @@ Bgpvpn Net DisAssociate
 Bgpvpn Router DisAssociate
     [Arguments]    ${AssociationID}    ${vpnname}
     [Documentation]    Dis-Associate Router to given Vpn with neutron request
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    OpenStackOperations.Get ControlNode Connection
     SSHLibrary.Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron bgpvpn-router-assoc-delete ${AssociationID} ${vpnname}
     SSHLibrary.Close Connection
@@ -165,7 +166,7 @@ Bgpvpn Router DisAssociate
 Bgpvpn Update
     [Arguments]    ${vpnname}    ${additional_args}=${EMPTY}
     [Documentation]    Update Bgpvpn with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    OpenStackOperations.Get ControlNode Connection
     SSHLibrary.Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v bgpvpn-update ${vpnname} ${additional_args}    30s
     SSHLibrary.Close Connection
@@ -174,7 +175,7 @@ Bgpvpn Update
 Get Bgpvpn Id
     [Arguments]    ${vpnname}
     [Documentation]    Retrieve the Bgpvpn id for the given name
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=    OpenStackOperations.Get ControlNode Connection
     SSHLibrary.Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron bgpvpn-list | grep "${vpnname}" | awk '{print $2}'    30s
     Log    ${output}
