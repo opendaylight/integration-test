@@ -1,0 +1,14 @@
+{
+  "vpn-instances": {
+    "vpn-instance": [
+      {
+        "vpn-instance-name":"$vpnid",
+        "ipv4-family": {
+          "route-distinguisher":
+             $rd
+        },
+        "type": "l3"
+      }
+    ]
+  }
+}
