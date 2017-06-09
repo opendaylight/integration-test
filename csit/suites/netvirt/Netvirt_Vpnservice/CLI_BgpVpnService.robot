@@ -1,10 +1,9 @@
 *** Settings ***
 Documentation     Test suite for Cloud Capacity Solution
-Resource          ${CURDIR}/../../libraries/KarafKeywords.robot
-Resource          ${CURDIR}/../../libraries/VpnOperations.robot
-Resource          ${CURDIR}/../../libraries/Utils.robot
-Resource          ${CURDIR}/../../libraries/OpenStackOperations.robot
-Library           DebugLibrary
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../../libraries/VpnOperations.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/OpenStackOperations.robot
 Library           RequestsLibrary
 
 *** Variables ***
