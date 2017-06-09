@@ -189,3 +189,11 @@ Get Fib Entries
     ${resp}    RequestsLibrary.Get Request    ${session}    ${FIB_ENTRIES_URL}
     Log    ${resp.content}
     [Return]    ${resp.content}
+
+VPN Update L3VPN
+    [Arguments]    &{Kwargs}
+    [Documentation]    Update an L3VPN using the Json using the list of optional arguments received.
+    &{L3vpn_create_actual_val} =    Collections.Copy_Dictionary    ${L3VPN_CREATE_DEFAULT}
+    Collections.Set_To_Dictionary    ${L3vpn_create_actual_val}    &{Kwargs}
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_BASE}/l3vpn_update    mapping=${L3vpn_create_actual_val}    session=session
+
