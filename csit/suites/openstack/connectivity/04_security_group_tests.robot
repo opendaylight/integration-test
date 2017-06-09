@@ -117,7 +117,7 @@ Add Additional Security Group To VMs
     [Documentation]    Add an additional security group to the VMs - this is done to test a different logic put in place for ports with multiple SGs
     Security Group Create Without Default Security Rules    additional-sg
     #To Do Remove this after the Newton jobs are removed, Openstack CLI with Newton lacks support to configure rule with remote_ip_prefix
-    Neutron Security Group Rule Create Legacy Cli    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=@{NET1_DHCP_IP}[0]/32
+    Neutron Security Group Rule Create Legacy Cli    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=@{NET1_DHCP_IP}[0]/24
     Neutron Security Group Show    additional-sg
     : FOR    ${VM}    IN    @{NET_1_VM_INSTANCES}
     \    Add Security Group To VM    ${VM}    additional-sg
