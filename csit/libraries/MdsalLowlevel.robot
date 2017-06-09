@@ -24,6 +24,8 @@ ${REGISTER_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/register_constant
 ${REGISTER_FLAPPING_SINGLETON_DIR}    ${LOWLEVEL_RPC_DIR}/register_flapping_singleton
 ${REGISTER_SINGLETON_CONSTANT_DIR}    ${LOWLEVEL_RPC_DIR}/register_singleton_constant
 ${REMOVE_PREFIX_SHARD_DIR}    ${LOWLEVEL_RPC_DIR}/remove_prefix_shard
+${SHUTDOWN_SHARD_REPLICA_DIR}    ${LOWLEVEL_RPC_DIR}/shutdown_shard_replica
+${SHUTDOWN_PREFIX_SHARD_REPLICA_DIR}    ${LOWLEVEL_RPC_DIR}/shutdown_prefix_shard_replica
 ${START_PUBLISH_NOTIFICATIONS_DIR}    ${LOWLEVEL_RPC_DIR}/start_publish_notifications
 ${SUBSCRIBE_DDTL_DIR}    ${LOWLEVEL_RPC_DIR}/subscribe_ddtl
 ${SUBSCRIBE_DTCL_DIR}    ${LOWLEVEL_RPC_DIR}/subscribe_dtcl
@@ -245,3 +247,17 @@ Unregister_Bound_Constant
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     &{mapping}    BuiltIn.Create_Dictionary    CONTEXT=${context}
     TemplatedRequests.Post_As_Xml_Templated    ${UNREGISTER_BOUND_CONSTANT_DIR}    mapping=${mapping}    session=${session}
+
+Shutdown_Shard_Replica
+    [Arguments]    ${member_index}    ${shard_name}
+    [Documentation]    Invoke shutdown-shard-replica rpc.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    &{mapping}    BuiltIn.Create_Dictionary    SHARD_NAME=${shard_name}
+    TemplatedRequests.Post_As_Xml_Templated    ${SHUTDOWN_SHARD_REPLICA_DIR}    mapping=${mapping}    session=${session}
+
+Shutdown_Prefix_Shard_Replica
+    [Arguments]    ${member_index}    ${shard_prefix}
+    [Documentation]    Invoke shutdown-prefix-shard-replica rpc.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${shard_prefix}
+    TemplatedRequests.Post_As_Xml_Templated    ${SHUTDOWN_PREFIX_SHARD_REPLICA_DIR}    mapping=${mapping}    session=${session}
