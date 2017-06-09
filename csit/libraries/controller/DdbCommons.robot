@@ -257,6 +257,7 @@ Client_Isolation_Test_Templ
     KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${client_node_dst}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
     ${rpc_timeout} =    Get_Seconds_To_Time    ${abort_date}
+    ${rpc_timeout} =    DateTime.Subtract_Time_From_Time    ${rpc_timeout}    5
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${rpc_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
     BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    Ongoing_Transactions_Failed
     [Teardown]    BuiltIn.Run Keywords    KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${client_node_dst}
@@ -281,6 +282,7 @@ Client_Isolation_PrefBasedShard_Test_Templ
     KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${client_node_dst}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
     ${rpc_timeout} =    Get_Seconds_To_Time    ${abort_date}
+    ${rpc_timeout} =    DateTime.Subtract_Time_From_Time    ${rpc_timeout}    5
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${rpc_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
     BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    Ongoing_Transactions_Failed
     [Teardown]    BuiltIn.Run Keywords    KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${client_node_dst}
