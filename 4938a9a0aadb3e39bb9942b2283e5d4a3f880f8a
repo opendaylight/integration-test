@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_7c51d361",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-06-09T11:27:34Z",
+      "side": 1,
+      "message": "This is to ensure some transactions are committed (so stream is steady). We should do reads in WUKS to see items appearing. But I think that would not affect current results, only save some of 5 seconds, so adding a TODO would be enough.",
+      "range": {
+        "startLine": 254,
+        "startChar": 4,
+        "endLine": 254,
+        "endChar": 5
+      },
+      "revId": "4938a9a0aadb3e39bb9942b2283e5d4a3f880f8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_bc4b3baf",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-06-09T11:27:34Z",
+      "side": 1,
+      "message": "This works because we are sleeping 5 seconds in line 254. Generally, the first transaction to stay unconfirmed upon isolation might be submitted 0.1 seconds (unlikely, but possible) after line 253.\n\nAs we might want to tweak line 254, it would be better to move line 255 before line 253 and document this decision as a workaround to Bug 8636.",
+      "range": {
+        "startLine": 260,
+        "startChar": 78,
+        "endLine": 260,
+        "endChar": 79
+      },
+      "revId": "4938a9a0aadb3e39bb9942b2283e5d4a3f880f8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
