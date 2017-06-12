@@ -1195,3 +1195,22 @@ Wait For Routes To Propogate
     \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
     \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
     \    Should Contain    ${output}    @{subnets}[${INDEX}]
+
+Get Vm Hostname
+    [Arguments]    ${conn_id}
+    [Documentation]    Getting hostname of the VM
+    Switch Connection    ${conn_id}
+    ${hostname}    Write Commands Until Expected Prompt    hostname    $    30
+    @{host}    Split String    ${hostname}    \r\n
+    log    ${host}
+    ${h}    get from list    ${host}    0
+    [Return]    ${h}
+
+Get Network Segmetation Id
+    [Arguments]    ${conn_id}    ${network}
+    [Documentation]    This keywords returns the network segmentation ID
+    Switch Connection    ${conn_id}
+    ${op}    Write Commands Until Expected Prompt    openstack network show ${network} | grep segmentation_id | awk '{print$4}'    $    30
+    ${splitted_op}    Split To Lines    ${op}
+    ${segmentation_id}    Get From List    ${splitted_op}    0
+    [Return]    ${segmentation_id}
