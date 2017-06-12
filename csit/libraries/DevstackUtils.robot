@@ -14,6 +14,7 @@ Variables         ../variables/Variables.py
 *** Variables ***
 ${default_devstack_prompt_timeout}    10s
 ${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to override if desired
+${DEVSTACK_PATH}    /opt/stack/devstack
 
 *** Keywords ***
 Run Tempest Tests
