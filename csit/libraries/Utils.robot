@@ -173,6 +173,7 @@ Flexible SSH Login
     [Documentation]    On active SSH session: if given non-empty password, do Login, else do Login With Public Key.
     ${pwd_length} =    BuiltIn.Get Length    ${password}
     # ${pwd_length} is guaranteed to be an integer, so we are safe to evaluate it as Python expression.
+    log    ${user},${password}
     BuiltIn.Run Keyword And Return If    ${pwd_length} > 0    SSHLibrary.Login    ${user}    ${password}    delay=${delay}
     BuiltIn.Run Keyword And Return    SSHLibrary.Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    ${KEYFILE_PASS}    delay=${delay}
 

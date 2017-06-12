@@ -3,8 +3,8 @@ Documentation     Openstack library. This library is useful for tests to create 
 Library           SSHLibrary
 Resource          Netvirt.robot
 Resource          Utils.robot
-Resource          L2GatewayOperations.robot
-Resource          ../variables/Variables.robot
+Variables         ../variables/Variables.py
+Resource          DevstackUtils.robot
 
 *** Keywords ***
 Source Password
@@ -76,11 +76,11 @@ Create SubNet
     Should Contain    ${output}    Created a new subnet
 
 Create Port
-    [Arguments]    ${network_name}    ${port_name}    ${sg}=default    ${additional_args}=${EMPTY}
+    [Arguments]    ${network_name}    ${port_name}    ${sg}=default
     [Documentation]    Create Port with neutron request.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v port-create ${network_name} --name ${port_name} --security-group ${sg} ${additional_args}    30s
+    ${output}=    Write Commands Until Prompt    neutron -v port-create ${network_name} --name ${port_name} --security-group ${sg}    30s
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new port
@@ -188,17 +188,6 @@ Get Net Id
     Log    ${net_id}
     [Return]    ${net_id}
 
-Get Subnet Id
-    [Arguments]    ${subnet_name}    ${devstack_conn_id}
-    [Documentation]    Retrieve the subnet id for the given subnet name
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron subnet-list | grep "${subnet_name}" | awk '{print $2}'    30s
-    Log    ${output}
-    ${splitted_output}=    Split String    ${output}    ${EMPTY}
-    ${subnet_id}=    Get from List    ${splitted_output}    0
-    Log    ${subnet_id}
-    [Return]    ${subnet_id}
-
 Get Port Id
     [Arguments]    ${port_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
@@ -212,7 +201,7 @@ Get Port Id
 
 Get Router Id
     [Arguments]    ${router1}    ${devstack_conn_id}
-    [Documentation]    Retrieve the router id for the given router name
+    [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron router-list | grep "${router1}" | awk '{print $2}'    30s
     Log    ${output}
@@ -240,6 +229,7 @@ Create Vm Instance With Port On Compute Node
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
     ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} --availability-zone nova:${hostname_compute_node}    30s
     Log    ${output}
+    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
@@ -250,8 +240,8 @@ Verify VM Is ACTIVE
     Log    ${output}
     Should Contain    ${output}    active
 
-Collect VM IP Addresses
-    [Arguments]    ${fail_on_none}    @{vm_list}
+Verify VMs Received DHCP Lease
+    [Arguments]    @{vm_list}
     [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "obtained" which
     ...    correlates to the instance receiving it's IP address via DHCP. Also retrieved is the ip of the nameserver
     ...    if available in the console-log output. The keyword will also return a list of the learned ips as it
@@ -259,25 +249,21 @@ Collect VM IP Addresses
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${ip_list}    Create List    @{EMPTY}
+    ${dhcp_ip}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
     \    ${vm_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "obtained"    30s
     \    Log    ${vm_ip_line}
-    \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+    \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
     \    ${vm_ip_length}    Get Length    ${vm_ip}
     \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
     \    ...    ELSE    Append To List    ${ip_list}    None
     \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
     \    Log    ${dhcp_ip_line}
-    \    ${dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
-    \    ${dhcp_ip_length}    Get Length    ${dhcp_ip}
-    \    Run Keyword If    ${dhcp_ip_length}<=0    Append To List    ${dhcp_ip}    None
+    \    @{dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
     \    Log    ${dhcp_ip}
     ${dhcp_length}    Get Length    ${dhcp_ip}
-    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${ip_list}    None
-    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
-    Should Be True    ${dhcp_length} <= 1
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
-    [Return]    ${ip_list}    ${dhcp_ip}
+    [Return]    ${ip_list}    @{dhcp_ip}[0]
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
@@ -353,6 +339,7 @@ Exit From Vm Console
     [Documentation]    Check if the session has been able to login to the VM instance and exit the instance
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance    cirros
     Run Keyword If    ${rcode}    Write Commands Until Prompt    exit
+    Get OvsDebugInfo
 
 Check Ping
     [Arguments]    ${ip_address}
@@ -372,7 +359,7 @@ Execute Command on VM Instance
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${vm_ip}
-    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    d:
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
     Log    ${output}
     ${output} =    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
@@ -388,7 +375,7 @@ Test Operations From Vm Instance
     Switch Connection    ${devstack_conn_id}
     Log    ${src_ip}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
-    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    d:
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip}    d:
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
@@ -403,35 +390,6 @@ Test Operations From Vm Instance
     \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
     Run Keyword If    ${rcode}    Check Metadata Access
     [Teardown]    Exit From Vm Console
-
-Install Netcat On Controller
-    [Documentation]    Installs Netcat on the controller - this probably shouldn't be here
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    sudo yum install -y nc
-    Log    ${output}
-    Close Connection
-
-Test Netcat Operations From Vm Instance
-    [Arguments]    ${net_name}    ${vm_ip}    ${dest_ip}    ${additional_args}=${EMPTY}    ${port}=12345    ${user}=cirros
-    ...    ${password}=cubswin:)
-    [Documentation]    Use Netcat to test TCP/UDP connections to the controller
-    ${client_data}    Set Variable    Test Client Data
-    ${server_data}    Set Variable    Test Server Data
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    Log    ${vm_ip}
-    ${output}=    Write Commands Until Prompt    ( ( echo "${server_data}" | sudo timeout 60 nc -l ${additional_args} ${port} ) & )
-    Log    ${output}
-    ${output}=    Write Commands Until Prompt    sudo netstat -nlap | grep ${port}
-    Log    ${output}
-    ${nc_output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${dest_ip} ${port}
-    Log    ${nc_output}
-    ${output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo route -n
-    Log    ${output}
-    ${output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo arp -an
-    Log    ${output}
-    Should Match Regexp    ${nc_output}    ${server_data}
 
 Ping Other Instances
     [Arguments]    ${list_of_external_dst_ips}
@@ -450,15 +408,6 @@ Create Router
     Close Connection
     Should Contain    ${output}    Created a new router
 
-List Router
-    [Documentation]    List Router and return output with neutron client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron router-list    30s
-    Close Connection
-    Log    ${output}
-    [Return]    ${output}
-
 Add Router Interface
     [Arguments]    ${router_name}    ${interface_name}
     ${devstack_conn_id}=    Get ControlNode Connection
@@ -466,16 +415,6 @@ Add Router Interface
     ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router_name} ${interface_name}
     Close Connection
     Should Contain    ${output}    Added interface
-
-Show Router Interface
-    [Arguments]    ${router_name}
-    [Documentation]    List Router interface associated with given Router and return output with neutron client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron router-port-list ${router_name} -f csv    30s
-    Close Connection
-    Log    ${output}
-    [Return]    ${output}
 
 Add Router Gateway
     [Arguments]    ${router_name}    ${network_name}
@@ -528,22 +467,23 @@ Get DumpFlows And Ovsconfig
     SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
     Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
-    Write Commands Until Expected Prompt    ip -o link    ${DEFAULT_LINUX_PROMPT_STRICT}
-    Write Commands Until Expected Prompt    ip -o addr    ${DEFAULT_LINUX_PROMPT_STRICT}
-    Write Commands Until Expected Prompt    ip route    ${DEFAULT_LINUX_PROMPT_STRICT}
-    Write Commands Until Expected Prompt    arp -an    ${DEFAULT_LINUX_PROMPT_STRICT}
-    ${nslist}=    Write Commands Until Expected Prompt    ip netns list | awk '{print $1}'    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    ip -o link    ]>
+    Write Commands Until Expected Prompt    ip -o addr    ]>
+    Write Commands Until Expected Prompt    ip route    ]>
+    Write Commands Until Expected Prompt    arp -an    ]>
+    ${nslist}=    Write Commands Until Expected Prompt    ip netns list | awk '{print $1}'    ]>
     @{lines}    Split To Lines    ${nslist}
     : FOR    ${line}    IN    @{lines}
-    \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o link    ${DEFAULT_LINUX_PROMPT_STRICT}
-    \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o addr    ${DEFAULT_LINUX_PROMPT_STRICT}
-    \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip route    ${DEFAULT_LINUX_PROMPT_STRICT}
-    Write Commands Until Expected Prompt    sudo ovs-vsctl show    ${DEFAULT_LINUX_PROMPT_STRICT}
-    Write Commands Until Expected Prompt    sudo ovs-vsctl list Open_vSwitch    ${DEFAULT_LINUX_PROMPT_STRICT}
-    Write Commands Until Expected Prompt    sudo ovs-ofctl show br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
-    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
-    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
-    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o link    ]>
+    \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o addr    ]>
+    \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip route    ]>
+    Write Commands Until Expected Prompt    sudo ovs-vsctl show    ]>
+    Write Commands Until Expected Prompt    sudo ovs-vsctl list Open_vSwitch    ]>
+    Write Commands Until Expected Prompt    sudo ovs-ofctl show br-int -OOpenFlow13    ]>
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-ports-desc br-int -OOpenFlow13    ]>
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-int -OOpenFlow13    ]>
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ]>
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats br-int -OOpenFlow13    ]>
 
 Get Karaf Log Type From Test Start
     [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
@@ -582,12 +522,8 @@ Get OvsDebugInfo
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${TEST_NAME}
     Get OvsDebugInfo
-    Run Keyword And Ignore Error    Get Model Dump    ${HA_PROXY_IP}
-    Get Karaf Log Events From Test Start    ${test_name}
-
-Get Suite Teardown Debugs
-    Get OvsDebugInfo
     Get Model Dump    ${HA_PROXY_IP}
+    Get Karaf Log Events From Test Start    ${test_name}
 
 Show Debugs
     [Arguments]    @{vm_indices}
@@ -613,10 +549,11 @@ Create Security Group
     Close Connection
 
 Create Security Rule
-    [Arguments]    ${direction}    ${protocol}    ${min_port}    ${max_port}    ${remote_ip}    ${sg_name}
+    [Arguments]    ${direction}    ${protocol}    ${min_port}    ${max_port}    ${ether_type}    ${sg_name}
+    ...    ${remote_type}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
+    ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_type} ${sg_name}
     Close Connection
 
 Neutron Security Group Show
@@ -669,16 +606,6 @@ Neutron Security Group Update
     Log    ${output}
     Close Connection
     [Return]    ${output}
-
-Delete SecurityGroup
-    [Arguments]    ${sg_name}
-    [Documentation]    Delete Security group
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron security-group-delete ${sg_name}    40s
-    Log    ${output}
-    Should Match Regexp    ${output}    Deleted security_group: ${sg_name}|Deleted security_group\\(s\\): ${sg_name}
-    Close Connection
 
 Neutron Security Group Rule Create
     [Arguments]    ${Security_group_name}    &{Kwargs}
@@ -733,128 +660,3 @@ Create Neutron Port With Additional Params
     Close Connection
     [Return]    ${OUTPUT}    ${port_id}
 
-Get Ports MacAddr
-    [Arguments]    ${portName_list}
-    [Documentation]    Retrieve the port MacAddr for the given list of port name and return the MAC address list.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${MacAddr-list}    Create List
-    : FOR    ${portName}    IN    @{portName_list}
-    \    ${macAddr}=    OpenStackOperations.Get Port Mac    ${portName}    ${devstack_conn_id}
-    \    Append To List    ${MacAddr-list}    ${macAddr}
-    [Return]    ${MacAddr-list}
-
-Get Port Ip
-    [Arguments]    ${port_name}
-    [Documentation]    Keyword would return the IP of the ${port_name} received.
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $11}' | awk -F "\\"" '{print $2}'    30s
-    Log    ${output}
-    ${splitted_output}=    Split String    ${output}    ${EMPTY}
-    ${port_ip}=    Get from List    ${splitted_output}    0
-    Log    ${port_ip}
-    [Return]    ${port_ip}
-
-Get Port Mac
-    [Arguments]    ${port_name}    ${conn_id}=${devstack_conn_id}
-    [Documentation]    Keyword would return the MAC ID of the ${port_name} received.
-    Switch Connection    ${conn_id}
-    ${output}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $6}'    30s
-    Log    ${output}
-    ${splitted_output}=    Split String    ${output}    ${EMPTY}
-    ${port_mac}=    Get from List    ${splitted_output}    0
-    Log    ${port_mac}
-    [Return]    ${port_mac}
-
-Create L2Gateway
-    [Arguments]    ${bridge_name}    ${intf_name}    ${gw_name}
-    [Documentation]    Keyword to create an L2 Gateway ${gw_name} for bridge ${bridge_name} connected to interface ${intf_name} (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${l2gw_output}=    Write Commands Until Prompt    ${L2GW_CREATE} name=${bridge_name},interface_names=${intf_name} ${gw_name}    30s
-    Log    ${l2gw_output}
-    [Return]    ${l2gw_output}
-
-Create L2Gateway Connection
-    [Arguments]    ${gw_name}    ${net_name}
-    [Documentation]    Keyword would create a new L2 Gateway Connection for ${gw_name} to ${net_name} (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${l2gw_output}=    Write Commands Until Prompt    ${L2GW_CONN_CREATE} ${gw_name} ${net_name}    30s
-    Log    ${l2gw_output}
-    [Return]    ${l2gw_output}
-
-Get All L2Gateway
-    [Documentation]    Keyword to return all the L2 Gateways available (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    ${L2GW_GET_YAML}    30s
-    [Return]    ${output}
-
-Get All L2Gateway Connection
-    [Documentation]    Keyword to return all the L2 Gateway connections available (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    ${L2GW_GET_CONN_YAML}    30s
-    [Return]    ${output}
-
-Get L2Gateway
-    [Arguments]    ${gw_id}
-    [Documentation]    Keyword to check if the ${gw_id} is available in the L2 Gateway list (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    ${L2GW_SHOW} ${gw_id}    30s
-    Log    ${output}
-    [Return]    ${output}
-
-Get L2gw Id
-    [Arguments]    ${l2gw_name}
-    [Documentation]    Keyword to retrieve the L2 Gateway ID for the ${l2gw_name} (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    ${L2GW_GET} | grep "${l2gw_name}" | awk '{print $2}'    30s
-    Log    ${output}
-    ${splitted_output}=    Split String    ${output}    ${EMPTY}
-    ${l2gw_id}=    Get from List    ${splitted_output}    0
-    Log    ${l2gw_id}
-    [Return]    ${l2gw_id}
-
-Get L2gw Connection Id
-    [Arguments]    ${l2gw_name}
-    [Documentation]    Keyword to retrieve the L2 Gateway Connection ID for the ${l2gw_name} (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${l2gw_id}=    OpenStackOperations.Get L2gw Id    ${l2gw_name}
-    ${output}=    Write Commands Until Prompt    ${L2GW_GET_CONN} | grep "${l2gw_id}" | awk '{print $2}'    30s
-    Log    ${output}
-    ${splitted_output}=    Split String    ${output}    ${EMPTY}
-    ${l2gw_conn_id}=    Get from List    ${splitted_output}    0
-    Log    ${l2gw_conn_id}
-    [Return]    ${l2gw_conn_id}
-
-Neutron Port List Rest
-    [Documentation]    Keyword to get all ports details in Neutron (Using REST).
-    ${resp} =    RequestsLibrary.Get Request    session    ${PORT_URL}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
-
-Get Neutron Port Rest
-    [Arguments]    ${port_id}
-    [Documentation]    Keyword to get the specific port details in Neutron (Using REST).
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
-
-Update Port Rest
-    [Arguments]    ${port_id}    ${json_data}
-    [Documentation]    Keyword to update ${port_id} with json data received in ${json_data} (Using REST).
-    Log    ${json_data}
-    ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}    ${json_data}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp.content}
-
-Create And Configure Security Group
-    [Arguments]    ${sg-name}
-    Neutron Security Group Create    ${sg-name}
-    Neutron Security Group Rule Create    ${sg-name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${sg-name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${sg-name}    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${sg-name}    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${sg-name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    ${sg-name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0

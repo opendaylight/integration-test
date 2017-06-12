@@ -7,20 +7,22 @@ Edited: Many times by many people
 """
 
 # VM Environment defaults
-DEFAULT_LINUX_PROMPT = '>'
-DEFAULT_LINUX_PROMPT_STRICT = ']>'
-DEFAULT_USER = 'jenkins'
+DEFAULT_LINUX_PROMPT = '$'
+DEFAULT_LINUX_PROMPT_STRICT = '$'
+DEFAULT_USER = 'mininet'
 DEFAULT_TIMEOUT = '30s'
-
+DEVSTACK_SYSTEM_PASSWORD = 'stack'
 # ODL system variables
-ODL_SYSTEM_IP = '127.0.0.1'  # Override if ODL is not running locally to pybot
+DEVSTACK_DEPLOY_PATH = '/opt/stack/devstack'
+ODL_SYSTEM_IP = '10.164.225.4'  # Override if ODL is not running locally to pybot
 ODL_SYSTEM_IP_LIST = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
 ODL_SYSTEM_USER = DEFAULT_USER
 ODL_SYSTEM_PASSWORD = ''  # empty means use public key authentication
 ODL_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
 
 # "Tools" system variables (mininet etc).
-TOOLS_SYSTEM_IP = '127.0.0.1'  # Override if tools are not run locally to pybot
+TOOLS_SYSTEM_1_IP = '10.164.225.4'  # Override if tools are not run locally to pybot
+TOOLS_SYSTEM_2_IP = '10.164.225.3'
 TOOLS_SYSTEM_USER = DEFAULT_USER
 TOOLS_SYSTEM_PASSWORD = ''  # empty means use public key authentication
 TOOLS_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
@@ -204,6 +206,8 @@ ENABLE_GLOBAL_TEST_DEADLINES = True
 
 # Deprecated old variables, to be removed once all tests that need them are
 # updated to use the new names.
+OS_CONTROL_NODE_IP=ODL_SYSTEM_IP
+OS_USER = 'stack'
 CONTROLLER = ODL_SYSTEM_IP
 CONTROLLERS = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
 CONTROLLER_PASSWORD = ODL_SYSTEM_PASSWORD
