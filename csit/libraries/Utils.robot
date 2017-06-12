@@ -499,3 +499,11 @@ Json Parse From File
     ${json_plain_string}    Get file    ${json_file}
     ${json_data}    Json Parse From String    ${json_plain_string}
     [Return]    ${json_data}
+
+Checking The Network Port Status
+    [Arguments]    ${conn_id}    ${port}
+    [Documentation]    Establishes the connection.
+    Switch Connection    ${conn_id}
+    ${check_establishment}    Execute Command    netstat -anp | grep ${port}
+    Should contain    ${check_establishment}    ESTABLISHED
+    [Return]    ${check_establishment}
