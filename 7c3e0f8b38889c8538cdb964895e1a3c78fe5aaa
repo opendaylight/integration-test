@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1af78d9a_8e50fb5f",
+        "filename": "csit/libraries/MdsalLowlevelPy.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-06-12T09:07:37Z",
+      "side": 1,
+      "message": "Now I see this is str, see line 36.\nhttps://docs.python.org/2/library/time.html#time.ctime",
+      "range": {
+        "startLine": 148,
+        "startChar": 23,
+        "endLine": 148,
+        "endChar": 26
+      },
+      "revId": "7c3e0f8b38889c8538cdb964895e1a3c78fe5aaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
