@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1af78d9a_fea9607c",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-06-13T18:20:50Z",
+      "side": 1,
+      "message": "I see library is still here, are you really using it?",
+      "revId": "af4fe81afba28975f2668125b151ffbbfe8091f0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af78d9a_9eb01cdf",
+        "filename": "csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-06-13T18:20:50Z",
+      "side": 1,
+      "message": "You have not changed TC title, only doc.",
+      "revId": "af4fe81afba28975f2668125b151ffbbfe8091f0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
