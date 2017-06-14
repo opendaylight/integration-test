@@ -406,7 +406,7 @@ IdMLight Suite Setup
     Set Suite Variable    ${testdomain}
     ${testuser}=    Create Random Name    Leia
     ${testrole}=    Create Random Name    Force-User
-    ${testemail}=    Set Variable    sdn@opendaylight.org
+    ${testemail}=    Set Variable    sdn@test.opendaylight.org
     Set Suite Variable    ${testemail}
     # now create the domain, role and userid
     # create the test domain
