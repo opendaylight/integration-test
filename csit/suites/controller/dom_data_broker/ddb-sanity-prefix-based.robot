@@ -112,7 +112,7 @@ Produce_Transactions_One_Node_Leader
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${leader_ip_as_list}    ${leader_idx_as_list}    ${ID_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    ${resp}
+    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
 
 Produce_Transactions_One_Node_Follower
     [Documentation]    Produce transactions.
@@ -124,7 +124,7 @@ Produce_Transactions_One_Node_Follower
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${follower_ip_as_list}    ${follower_idx_as_list}    ${ID_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    ${resp}
+    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
 
 Produce_Transactions
     [Documentation]    Produce transactions.
@@ -133,4 +133,4 @@ Produce_Transactions
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    ${resp}
+    \    TemplatedRequests.Check_Status_Code    @{resp}[2]

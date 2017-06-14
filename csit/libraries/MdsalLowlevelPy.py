@@ -12,17 +12,17 @@ import threading
 _globals = {}
 
 
-def _send_http_request_thread_impl(rqueue, index, url, data, http_timeout):
+def _send_http_request_thread_impl(rqueue, prefix_id, url, data, http_timeout):
     """Start either publish or write transactions rpc based on input.
 
     :param rqueue: result queue
     :type rqueue: Queue.Queue
-    :param index: cluster member index
-    :type index: int
+    :param prefix_id: identifier for prefix, should imply cluster member index
+    :type prefix_id: str
     :param url: rpc url
-    :type url: string
+    :type url: str
     :param data: http request content
-    :type data: string
+    :type data: str
     :param http_timeout: http response timeout
     :type http_timeout: int
     """
@@ -33,16 +33,16 @@ def _send_http_request_thread_impl(rqueue, index, url, data, http_timeout):
     except Exception as exc:
         resp = exc
         logger.debug(exc)
-    rqueue.put(("member-" + str(index), time.ctime(), resp))
+    rqueue.put((time.ctime(), prefix_id, resp))
 
 
-def _initiate_rpcs(host_list, prefix_list, url_templ, data_templ, subst_dict):
+def _initiate_rpcs(host_list, index_list, url_templ, data_templ, subst_dict):
     """Initiate rpc on given hosts.
 
-    :param host_list: list of ip address of odl nodes
-    :type host_list: list of strings
-    :param id_prefix: list of node indexes which coresponds to the ip addresses
-    :type id_prefix: string
+    :param host_list: IP addresses of odl nodes
+    :type host_list: list[str]
+    :param index_list: node indices which correspond to the ip addresses
+    :type index_list: list[int]
     :param url_templ: url template
     :type url_templ: string.Template object
     :param data_templ: http request data
@@ -53,13 +53,14 @@ def _initiate_rpcs(host_list, prefix_list, url_templ, data_templ, subst_dict):
     resqueue = _globals.pop('result_queue', Queue.Queue())
     lthreads = _globals.pop('threads', [])
     for i, host in enumerate(host_list):
-        subst_dict.update({'ID': '{}{}'.format(subst_dict['ID_PREFIX'], prefix_list[i])})
         url = url_templ.substitute({'HOST': host})
-        data = data_templ.substitute(subst_dict)
         timeout = int(subst_dict['DURATION']) + 3*125+10
+        prefix_id = subst_dict['ID_PREFIX'] + str(index_list[i])
+        subst_dict['ID'] = prefix_id
+        data = data_templ.substitute(subst_dict)
         logger.info('url: {}, data: {}, timeout: {}'.format(url, data, timeout))
         t = threading.Thread(target=_send_http_request_thread_impl,
-                             args=(resqueue, i, url, data, timeout))
+                             args=(resqueue, prefix_id, url, data, timeout))
         t.daemon = True
         t.start()
         lthreads.append(t)
@@ -67,16 +68,16 @@ def _initiate_rpcs(host_list, prefix_list, url_templ, data_templ, subst_dict):
     _globals.update({'threads': lthreads, 'result_queue': resqueue})
 
 
-def start_write_transactions_on_nodes(host_list, prefix_list, id_prefix, duration, rate, chained_flag=False,
+def start_write_transactions_on_nodes(host_list, index_list, id_prefix, duration, rate, chained_flag=False,
                                       reset_globals=True):
     """Invoke write-transactions rpc on given nodes.
 
-    :param host_list: list of ip address of odl nodes
-    :type host_list: list of strings
-    :param prefix_list: list of node indexes which coresponds to the ip addresses
-    :type prefix_list: list
+    :param host_list: IP addresses of odl nodes
+    :type host_list: list[str]
+    :param index_list: node indices which correspond to the ip addresses
+    :type index_list: list[int]
     :param id_prefix: identifier prefix
-    :type id_prefix: string
+    :type id_prefix: str
     :param duration: time in seconds
     :type duration: int
     :param rate: writing transactions rate in transactions per second
@@ -90,8 +91,8 @@ def start_write_transactions_on_nodes(host_list, prefix_list, id_prefix, duratio
         _globals.clear()
 
     logger.info(
-        "Input parameters: host_list:{}, prefix_list:{}, id_prefix:{}, duration:{}, rate:{}, chained_flag:{}".format(
-            host_list, prefix_list, id_prefix, duration, rate, chained_flag))
+        "Input parameters: host_list:{}, index_list:{}, id_prefix:{}, duration:{}, rate:{}, chained_flag:{}".format(
+            host_list, index_list, id_prefix, duration, rate, chained_flag))
     datat = string.Template('''<input xmlns="tag:opendaylight.org,2017:controller:yang:lowlevel:control">
   <id>$ID</id>
   <seconds>$DURATION</seconds>
@@ -100,19 +101,19 @@ def start_write_transactions_on_nodes(host_list, prefix_list, id_prefix, duratio
 </input>''')
     subst_dict = {'ID_PREFIX': id_prefix, 'DURATION': duration, 'RATE': rate, 'CHAINED_FLAG': chained_flag}
     urlt = string.Template('''http://$HOST:8181/restconf/operations/odl-mdsal-lowlevel-control:write-transactions''')
-    _initiate_rpcs(host_list, prefix_list, urlt, datat, subst_dict)
+    _initiate_rpcs(host_list, index_list, urlt, datat, subst_dict)
 
 
-def start_produce_transactions_on_nodes(host_list, prefix_list, id_prefix,
+def start_produce_transactions_on_nodes(host_list, index_list, id_prefix,
                                         duration, rate, isolated_transactions_flag=False, reset_globals=True):
     """Invoke produce-transactions rpcs on given nodes.
 
-    :param host_list: list of ip address of odl nodes
-    :type host_list: list of strings
-    :param prefix_list: list of node indexes which coresponds to the ip addresses
-    :type prefix_list: list
+    :param host_list: IP addresses of odl nodes
+    :type host_list: list[str]
+    :param index_list: node indices which correspond to the ip addresses
+    :type index_list: list[int]
     :param id_prefix: identifier prefix
-    :type id_prefix: string
+    :type id_prefix: str
     :param duration: time in seconds
     :type duration: int
     :param rate: produce transactions rate in transactions per second
@@ -125,8 +126,8 @@ def start_produce_transactions_on_nodes(host_list, prefix_list, id_prefix,
     if reset_globals:
         _globals.clear()
 
-    msg = "host_list:{}, prefix_list:{} ,id_prefix:{}, duration:{}, rate:{}, isolated_transactions:{}".format(
-            host_list, prefix_list, id_prefix, duration, rate, isolated_transactions_flag)
+    msg = "host_list:{}, index_list:{} ,id_prefix:{}, duration:{}, rate:{}, isolated_transactions:{}".format(
+            host_list, index_list, id_prefix, duration, rate, isolated_transactions_flag)
     msg = "Input parameters: " + msg
     logger.info(msg)
     datat = string.Template('''<input xmlns="tag:opendaylight.org,2017:controller:yang:lowlevel:control">
@@ -138,14 +139,14 @@ def start_produce_transactions_on_nodes(host_list, prefix_list, id_prefix,
     subst_dict = {'ID_PREFIX': id_prefix, 'DURATION': duration, 'RATE': rate,
                   'ISOLATED_TRANSACTIONS': isolated_transactions_flag}
     urlt = string.Template('''http://$HOST:8181/restconf/operations/odl-mdsal-lowlevel-control:produce-transactions''')
-    _initiate_rpcs(host_list, prefix_list, urlt, datat, subst_dict)
+    _initiate_rpcs(host_list, index_list, urlt, datat, subst_dict)
 
 
 def wait_for_transactions():
     """Blocking call, waitig for responses from all threads.
 
-    :return: list of triples; triple consists of member name, response time and response object
-    :rtype: list[(str, int, requests.Response)]
+    :return: list of triples; triple consists of response time, prefix identifier and response object
+    :rtype: list[(str, str, requests.Response)]
     """
     lthreads = _globals.pop('threads')
     resqueue = _globals.pop('result_queue')
@@ -167,7 +168,9 @@ def wait_for_transactions():
 def get_next_transactions_response():
     """Get http response from write-transactions rpc if available.
 
-    :return: None or a triple consisting of member name, response time and response object"""
+    :return: None or a triple consisting of response time, prefix identifier and response object
+    :rtype: (str, str, requests.Response)
+    """
     resqueue = _globals.get('result_queue')
 
     if not resqueue.empty():
