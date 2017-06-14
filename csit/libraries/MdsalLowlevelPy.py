@@ -12,17 +12,17 @@ import threading
 _globals = {}
 
 
-def _send_http_request_thread_impl(rqueue, index, url, data, http_timeout):
+def _send_http_request_thread_impl(rqueue, prefix, url, data, http_timeout):
     """Start either publish or write transactions rpc based on input.
 
     :param rqueue: result queue
     :type rqueue: Queue.Queue
-    :param index: cluster member index
-    :type index: int
+    :param prefix_id: identifier for prefix, should imply cluster member index
+    :type prefix: str
     :param url: rpc url
-    :type url: string
+    :type url: str
     :param data: http request content
-    :type data: string
+    :type data: str
     :param http_timeout: http response timeout
     :type http_timeout: int
     """
@@ -33,16 +33,16 @@ def _send_http_request_thread_impl(rqueue, index, url, data, http_timeout):
     except Exception as exc:
         resp = exc
         logger.debug(exc)
-    rqueue.put(("member-" + str(index), time.ctime(), resp))
+    rqueue.put((time.ctime(), prefix, resp))
 
 
 def _initiate_rpcs(host_list, prefix_list, url_templ, data_templ, subst_dict):
     """Initiate rpc on given hosts.
 
     :param host_list: list of ip address of odl nodes
-    :type host_list: list of strings
-    :param id_prefix: list of node indexes which coresponds to the ip addresses
-    :type id_prefix: string
+    :type host_list: list[str]
+    :param id_prefix: list of node indices which correspond to the ip addresses
+    :type id_prefix: list[str]
     :param url_templ: url template
     :type url_templ: string.Template object
     :param data_templ: http request data
@@ -53,13 +53,14 @@ def _initiate_rpcs(host_list, prefix_list, url_templ, data_templ, subst_dict):
     resqueue = _globals.pop('result_queue', Queue.Queue())
     lthreads = _globals.pop('threads', [])
     for i, host in enumerate(host_list):
-        subst_dict.update({'ID': '{}{}'.format(subst_dict['ID_PREFIX'], prefix_list[i])})
         url = url_templ.substitute({'HOST': host})
-        data = data_templ.substitute(subst_dict)
         timeout = int(subst_dict['DURATION']) + 3*125+10
+        prefix_id = subst_dict['ID_PREFIX'] + prefix_list[i]
+        subst_dict['ID'] = prefix_id
+        data = data_templ.substitute(subst_dict)
         logger.info('url: {}, data: {}, timeout: {}'.format(url, data, timeout))
         t = threading.Thread(target=_send_http_request_thread_impl,
-                             args=(resqueue, i, url, data, timeout))
+                             args=(resqueue, prefix_id, url, data, timeout))
         t.daemon = True
         t.start()
         lthreads.append(t)
@@ -72,11 +73,11 @@ def start_write_transactions_on_nodes(host_list, prefix_list, id_prefix, duratio
     """Invoke write-transactions rpc on given nodes.
 
     :param host_list: list of ip address of odl nodes
-    :type host_list: list of strings
-    :param prefix_list: list of node indexes which coresponds to the ip addresses
-    :type prefix_list: list
+    :type host_list: list[str]
+    :param prefix_list: list of node indices which correspond to the ip addresses
+    :type prefix_list: list[str]
     :param id_prefix: identifier prefix
-    :type id_prefix: string
+    :type id_prefix: str
     :param duration: time in seconds
     :type duration: int
     :param rate: writing transactions rate in transactions per second
@@ -108,11 +109,11 @@ def start_produce_transactions_on_nodes(host_list, prefix_list, id_prefix,
     """Invoke produce-transactions rpcs on given nodes.
 
     :param host_list: list of ip address of odl nodes
-    :type host_list: list of strings
+    :type host_list: list[str]
     :param prefix_list: list of node indexes which coresponds to the ip addresses
-    :type prefix_list: list
+    :type prefix_list: list[str]
     :param id_prefix: identifier prefix
-    :type id_prefix: string
+    :type id_prefix: str
     :param duration: time in seconds
     :type duration: int
     :param rate: produce transactions rate in transactions per second
@@ -144,8 +145,8 @@ def start_produce_transactions_on_nodes(host_list, prefix_list, id_prefix,
 def wait_for_transactions():
     """Blocking call, waitig for responses from all threads.
 
-    :return: list of triples; triple consists of member name, response time and response object
-    :rtype: list[(str, int, requests.Response)]
+    :return: list of triples; triple consists of response time, prefix identifier and response object
+    :rtype: list[(str, str, requests.Response)]
     """
     lthreads = _globals.pop('threads')
     resqueue = _globals.pop('result_queue')
@@ -167,7 +168,9 @@ def wait_for_transactions():
 def get_next_transactions_response():
     """Get http response from write-transactions rpc if available.
 
-    :return: None or a triple consisting of member name, response time and response object"""
+    :return: None or a triple consisting of response time, prefix identifier and response object
+    :rtype: (str, str, requests.Response)
+    """
     resqueue = _globals.get('result_queue')
 
     if not resqueue.empty():
