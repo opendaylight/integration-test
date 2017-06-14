@@ -59,7 +59,7 @@ def _initiate_rpcs(host_list, prefix_list, url_templ, data_templ, subst_dict):
         timeout = int(subst_dict['DURATION']) + 3*125+10
         logger.info('url: {}, data: {}, timeout: {}'.format(url, data, timeout))
         t = threading.Thread(target=_send_http_request_thread_impl,
-                             args=(resqueue, i, url, data, timeout))
+                             args=(resqueue, i + 1, url, data, timeout))
         t.daemon = True
         t.start()
         lthreads.append(t)
