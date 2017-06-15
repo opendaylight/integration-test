@@ -564,7 +564,7 @@ Create Router
     [Documentation]    Create Router and Add Interface to the subnets.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack router create ${router_name}    30s
+    ${output}=    Write Commands Until Prompt    openstack router create -f table ${router_name}    30s
     Close Connection
     Should Contain    ${output}    ${OS_CMD_SUCCESS}
 
