@@ -2,24 +2,21 @@
 Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           Collections
 Library           SSHLibrary
+Library           OperatingSystem
 Resource          DataModels.robot
 Resource          Utils.robot
 Resource          L2GatewayOperations.robot
 Resource          ../variables/Variables.robot
+Resource          ../variables/netvirt/Variables.robot
 Variables         ../variables/netvirt/Modules.py
 
-*** Keywords ***
-Source Password
-    [Arguments]    ${force}=no    ${source_pwd}=yes
-    [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
-    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
 
+*** Keywords ***
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack security group show default | grep "| tenant_id" | awk '{print $4}'
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack security group show default | grep "| tenant_id" | awk '{print $4}'
     Log    ${output}
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Get Tenant ID From Network
@@ -32,98 +29,76 @@ Get Tenant ID From Network
 Create Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
     [Documentation]    Create Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack network create ${network_name} ${additional_args}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack network create ${network_name} ${additional_args}
     Log    ${output}
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Update Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${cmd}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v net-update ${network_name} ${additional_args}    openstack network set ${network_name} ${additional_args}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${cmd}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v net-update ${network_name} ${additional_args}     openstack network set ${network_name} ${additional_args} 
+    ${rc}     ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Show Network
     [Arguments]    ${network_name}
     [Documentation]    Show Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack network show ${network_name}    30s
+    ${rc}     ${output}=    Run And Return Rc And Output     openstack network show ${network_name}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 List Networks
     [Documentation]    List networks and return output with neutron client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack network list    30s
-    Close Connection
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack network list 
     Log    ${output}
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 List Subnets
     [Documentation]    List subnets and return output with neutron client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack subnet list    30s
-    Close Connection
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet list 
     Log    ${output}
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Delete Network
     [Arguments]    ${network_name}
     [Documentation]    Delete Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack network delete ${network_name}    30s
-    Close Connection
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack network delete ${network_name} 
     Log    ${output}
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    Should Not Be True     ${rc}
 
 Create SubNet
     [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${additional_args}=${EMPTY}
     [Documentation]    Create SubNet for the Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack subnet create --network ${network_name} --subnet-range ${range_ip} ${subnet} ${additional_args}    30s
-    Close Connection
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet create --network ${network_name} --subnet-range ${range_ip} ${subnet} ${additional_args} 
     Log    ${output}
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    Should Not Be True     ${rc}
 
 Update SubNet
     [Arguments]    ${subnet_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update subnet with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v subnet-update ${subnet_name} ${additional_args}    openstack subnet set ${subnet_name} ${additional_args}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd} 
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Show SubNet
     [Arguments]    ${subnet_name}
     [Documentation]    Show subnet with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack subnet show ${subnet_name}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet show ${subnet_name} 
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Create Port
     [Arguments]    ${network_name}    ${port_name}    ${sg}=default    ${additional_args}=${EMPTY}    ${allowed_address_pairs}=${EMPTY}
     [Documentation]    Create Port with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     # if allowed_address_pairs is not empty we need to create the arguments to pass to the port create command. They are
     # in a different format with the neutron vs openstack cli.
     ${address_pair_length}=    Get Length    ${allowed_address_pairs}
@@ -131,75 +106,62 @@ Create Port
     ${allowed_pairs_argv}=    Set Variable If    '${OPENSTACK_BRANCH}'!='stable/newton' and '${address_pair_length}'=='2'    --allowed-address ip-address=@{allowed_address_pairs}[0] --allowed-address ip-address=@{allowed_address_pairs}[1]    ${allowed_pairs_argv}
     ${allowed_pairs_argv}=    Set Variable If    '${address_pair_length}'=='0'    ${EMPTY}    ${allowed_pairs_argv}
     ${cmd}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v port-create ${network_name} --name ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}    openstack port create --network ${network_name} ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
-    Close Connection
+    ${rc}     ${output}=    Run And Return Rc And Output    ${cmd} 
     Log    ${output}
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    Should Not Be True     ${rc}
 
 Update Port
     [Arguments]    ${port_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update port with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack port set ${port_name} ${additional_args}    30s
+    ${rc}     ${output}=    Run And Return Rc And Output    openstack port set ${port_name} ${additional_args} 
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Show Port
     [Arguments]    ${port_name}
     [Documentation]    Show port with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack port show ${port_name}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     openstack port show ${port_name} 
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Delete Port
     [Arguments]    ${port_name}
     [Documentation]    Delete Port with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack port delete ${port_name}    30s
-    Close Connection
+    ${rc}    ${output}=    Run And Return Rc And Output     openstack port delete ${port_name} 
     Log    ${output}
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    Should Not Be True     ${rc}
 
 List Ports
     [Documentation]    List ports and return output with neutron client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack port list    30s
-    Close Connection
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack port list 
     Log    ${output}
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 List Nova VMs
     [Documentation]    List VMs and return output with nova client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    #TODO Change to Openstak CLI once the problem with Ocata is solved
-    ${output}=    Write Commands Until Prompt    nova list    30s
-    Close Connection
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server list 
     Log    ${output}
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Create And Associate Floating IPs
     [Arguments]    ${external_net}    @{vm_list}
     [Documentation]    Create and associate floating IPs to VMs with nova request
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${ip_list}=    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
-    \    ${output}=    Write Commands Until Prompt    openstack floating ip create ${external_net}    30s
+    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack floating ip create ${external_net} 
     \    Log    ${output}
+    \    Should Not Be True     ${rc}
     \    @{ip}    Get Regexp Matches    ${output}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
     \    ${ip_length}    Get Length    ${ip}
     \    Run Keyword If    ${ip_length}>0    Append To List    ${ip_list}    @{ip}[0]
     \    ...    ELSE    Append To List    ${ip_list}    None
-    \    ${output}=    Write Commands Until Prompt    openstack server add floating ip ${vm} @{ip}[0]    30s
+    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server add floating ip ${vm} @{ip}[0] 
     \    Log    ${output}
+    \    Should Not Be True     ${rc}
     [Return]    ${ip_list}
 
 Verify Gateway Ips
@@ -227,12 +189,9 @@ Delete SubNet
     [Arguments]    ${subnet}
     [Documentation]    Delete SubNet for the Network with neutron request.
     Log    ${subnet}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack subnet delete ${subnet}
-    Close Connection
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet delete ${subnet} 
     Log    ${output}
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    Should Not Be True     ${rc}
 
 Verify No Gateway Ips
     [Documentation]    Verifies the Gateway Ips removed with dump flow.
@@ -244,17 +203,16 @@ Verify No Gateway Ips
 Delete Vm Instance
     [Arguments]    ${vm_name}
     [Documentation]    Delete Vm instances using instance names.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack server delete ${vm_name}    40s
-    Close Connection
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server delete ${vm_name} 
+    Log    ${output}
+    Log    ${rc}
 
 Get Net Id
     [Arguments]    ${network_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack network list | grep "${network_name}" | awk '{print $2}'    30s
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack network list | grep "${network_name}" | awk '{print $2}'
     Log    ${output}
+    Should Not Be True     ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
     Log    ${net_id}
@@ -263,9 +221,9 @@ Get Net Id
 Get Subnet Id
     [Arguments]    ${subnet_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the subnet id for the given subnet name
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack subnet show "${subnet_name}" | grep " id " | awk '{print $4}'    30s
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet show "${subnet_name}" | grep " id " | awk '{print $4}'
     Log    ${output}
+    Should Not Be True     ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${subnet_id}=    Get from List    ${splitted_output}    0
     Log    ${subnet_id}
@@ -274,9 +232,9 @@ Get Subnet Id
 Get Port Id
     [Arguments]    ${port_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack port list | grep "${port_name}" | awk '{print $2}'    30s
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack port list | grep "${port_name}" | awk '{print $2}'
     Log    ${output}
+    Should Not Be True     ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${port_id}=    Get from List    ${splitted_output}    0
     Log    ${port_id}
@@ -285,9 +243,9 @@ Get Port Id
 Get Router Id
     [Arguments]    ${router1}    ${devstack_conn_id}
     [Documentation]    Retrieve the router id for the given router name
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack router list -f table | grep "${router1}" | awk '{print $2}'    30s
+    ${rc}     ${output}=    Run And Return Rc And Output    openstack router list -f table | grep "${router1}" | awk '{print $2}'
     Log    ${output}
+    Should Not Be True     ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${router_id}=    Get from List    ${splitted_output}    0
     Log    ${router_id}
@@ -296,50 +254,43 @@ Get Router Id
 Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${output}=    Write Commands Until Prompt    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg}    30s
+    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg} 
+    \    Should Not Be True     ${rc}
     \    Log    ${output}
 
 Create Vm Instance With Port
     [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} 
     Log    ${output}
 
 Create Vm Instance With Ports
     [Arguments]    ${port_name}    ${port2_name}    ${vm_instance_name}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
     ${port2_id}=    Get Port Id    ${port2_name}    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-group ${sg}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-group ${sg} 
     Log    ${output}
+    Should Not Be True     ${rc}
 
 Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
-    ${output}=    Write Commands Until Prompt    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${hostname_compute_node} ${vm_instance_name}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${hostname_compute_node} ${vm_instance_name} 
     Log    ${output}
+    Should Not Be True     ${rc}
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    #TODO Change to Openstack CLI Command once the Ocata Issue is resolved
-    ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state    30s
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server show ${vm_name} | grep OS-EXT-STS:vm_state
     Log    ${output}
+    Should Not Be True     ${rc}
     Should Contain    ${output}    active
 
 Collect VM IP Addresses
@@ -348,18 +299,18 @@ Collect VM IP Addresses
     ...    correlates to the instance receiving it's IP address via DHCP. Also retrieved is the ip of the nameserver
     ...    if available in the console-log output. The keyword will also return a list of the learned ips as it
     ...    finds them in the console log output, and will have "None" for Vms that no ip was found.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${ip_list}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
-    \    ${vm_ip_line}=    Write Commands Until Prompt    openstack console log show ${vm} | grep -i "obtained"    30s
+    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
     \    Log    ${vm_ip_line}
+    \    Log    ${rc}
     \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
     \    ${vm_ip_length}    Get Length    ${vm_ip}
     \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
     \    ...    ELSE    Append To List    ${ip_list}    None
-    \    ${dhcp_ip_line}=    Write Commands Until Prompt    openstack console log show ${vm} | grep "^nameserver"    30s
+    \    ${rc}    ${dhcp_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep "^nameserver"
     \    Log    ${dhcp_ip_line}
+    \    Log    ${rc}
     \    ${dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
     \    ${dhcp_ip_length}    Get Length    ${dhcp_ip}
     \    Run Keyword If    ${dhcp_ip_length}<=0    Append To List    ${dhcp_ip}    None
@@ -375,13 +326,12 @@ Collect VM IPv6 SLAAC Addresses
     [Arguments]    ${fail_on_none}    ${prefix}    @{vm_list}
     [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "inet6" which
     ...    correlates to the instance generated IPv6 address, based on the ${prefix} received from ODL (SLAAC mode).
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${ip_list}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
     \    Log    ${vm}
-    \    ${vm_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "inet6"    30s
+    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output     nova console-log ${vm} | grep -i "inet6"
     \    Log    ${vm_ip_line}
+    \    Log    ${rc}
     \    @{vm_ip_list}    Get Regexp Matches    ${vm_ip_line}    ${prefix}
     \    ${vm_ip_length}    Get Length    ${vm_ip_list}
     \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip_list}[0]
@@ -395,10 +345,12 @@ View Vm Console
     [Arguments]    ${vm_instance_names}
     [Documentation]    View Console log of the created vm instances using nova show.
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${output}=    Write Commands Until Prompt    nova show ${VmElement}
+    \    ${rc}    ${output}=    Run And Return Rc And Output    nova show ${VmElement} 
     \    Log    ${output}
-    \    ${output}=    Write Commands Until Prompt    openstack console log show ${VmElement}
+    \    Should Not Be True     ${rc}
+    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack console log show ${VmElement} 
     \    Log    ${output}
+    \    Should Not Be True     ${rc}
 
 Ping Vm From DHCP Namespace
     [Arguments]    ${net_name}    ${vm_ip}
@@ -466,6 +418,7 @@ Exit From Vm Console
     [Documentation]    Check if the session has been able to login to the VM instance and exit the instance
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance    cirros
     Run Keyword If    ${rcode}    Write Commands Until Prompt    exit
+    Close Connection
 
 Check Ping
     [Arguments]    ${ip_address}    ${ttl}=64
@@ -562,83 +515,58 @@ Ping Other Instances
 Create Router
     [Arguments]    ${router_name}
     [Documentation]    Create Router and Add Interface to the subnets.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack router create -f table ${router_name}    30s
-    Close Connection
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    ${rc}     ${output}=    Run And Return Rc And Output     openstack router create ${router_name} 
+    Should Not Be True     ${rc}
 
 List Router
     [Documentation]    List Router and return output with neutron client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack router list -f value    30s
-    Close Connection
+    ${rc}     ${output}=    Run And Return Rc And Output     openstack router list -f value
     Log    ${output}
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Add Router Interface
     [Arguments]    ${router_name}    ${interface_name}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack router add subnet ${router_name} ${interface_name}
-    Close Connection
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    ${rc}    ${output}=    Run And Return Rc And Output     openstack router add subnet ${router_name} ${interface_name} 
+    Should Not Be True     ${rc}
 
 Show Router Interface
     [Arguments]    ${router_name}
     [Documentation]    List Router interface associated with given Router and return output with neutron client.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack port list --router ${router_name} -f value    30s
-    Close Connection
+    ${rc}    ${output}=    Run And Return Rc And Output     openstack port list --router ${router_name} -f value
     Log    ${output}
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Add Router Gateway
     [Arguments]    ${router_name}    ${external_network_name}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v router-gateway-set ${router_name} ${external_network_name}    openstack router set ${router_name} --external-gateway ${external_network_name}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
-    Close Connection
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    Should Not Be True     ${rc}
 
 Remove Interface
     [Arguments]    ${router_name}    ${interface_name}
     [Documentation]    Remove Interface to the subnets.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack router remove subnet ${router_name} ${interface_name}
-    Close Connection
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack router remove subnet ${router_name} ${interface_name} 
+    Should Not Be True     ${rc} 
 
 Update Router
     [Arguments]    ${router_name}    ${cmd}
     [Documentation]    Update the router with the command. Router name and command should be passed as argument.
-    ${devstack_conn_id} =    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output} =    Write Commands Until Prompt    openstack router set ${router_name} ${cmd}    30s
-    Close Connection
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    ${rc}    ${output} =    Run And Return Rc And Output     openstack router set ${router_name} ${cmd} 
+    Should Not Be True     ${rc}
 
 Show Router
     [Arguments]    ${router_name}    ${options}
     [Documentation]    Show information of a given router. Router name and optional fields should be sent as arguments.
-    ${devstack_conn_id} =    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output} =    Write Commands Until Prompt    openstack router show ${router_name}    30s
+    ${rc}    ${output} =    Run And Return Rc And Output    openstack router show ${router_name} 
     Log    ${output}
-    Close Connection
 
 Delete Router
     [Arguments]    ${router_name}
     [Documentation]    Delete Router and Interface to the subnets.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack router delete ${router_name}    60s
-    Close Connection
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    ${rc}     ${output}=    Run And Return Rc And Output    openstack router delete ${router_name} 
+    Should Not Be True     ${rc}
 
 Get DumpFlows And Ovsconfig
     [Arguments]    ${openstack_node_ip}
@@ -689,7 +617,6 @@ Get ControlNode Connection
     ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=30s
-    Source Password    force=yes
     [Return]    ${control_conn_id}
 
 Get OvsDebugInfo
@@ -715,51 +642,34 @@ Show Debugs
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns list
     Log    ${output}
-    : FOR    ${index}    IN    @{vm_indices}
-    \    ${output}=    Write Commands Until Prompt    nova show ${index}    30s
-    \    Log    ${output}
     Close Connection
+    : FOR    ${index}    IN    @{vm_indices}
+    \    ${rc}    ${output}=    Run And Return Rc And Output     nova show ${index}
+    \    Log    ${output}
+    \    Log    ${rc}
     List Nova VMs
     List Networks
     List Subnets
     List Ports
 
-Create Security Group
-    [Arguments]    ${sg_name}    ${desc}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack security group create ${sg_name} --description ${desc}    40s
-    Close Connection
-
-Create Security Rule
-    [Arguments]    ${direction}    ${protocol}    ${min_port}    ${max_port}    ${remote_ip}    ${sg_name}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack security group rule create --${direction} --protocol ${protocol} --dst-port ${min_port}:${max_port} ${sg_name}
-    Close Connection
-
 Neutron Security Group Show
     [Arguments]    ${SecurityGroupRuleName}
     [Documentation]    Displays the neutron security group configurations that belongs to a given neutron security group name
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    openstack security group show ${SecurityGroupRuleName}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd} 
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Neutron Port Show
     [Arguments]    ${PortName}
     [Documentation]    Display the port configuration that belong to a given neutron port
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${cmd}=    Set Variable    openstack port show ${PortName}
+    ${cmd}=    Set Variable    openstack port show ${PortName} 
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}     ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Neutron Security Group Create
@@ -769,41 +679,33 @@ Neutron Security Group Create
     Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    openstack security group create ${SecurityGroupName} ${additional_args}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}     ${output}=    Run And Return Rc And Output     ${cmd} 
     Log    ${output}
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    Should Not Be True     ${rc}
     ${sgp_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
     Log    ${sgp_id}
-    Close Connection
     [Return]    ${output}    ${sgp_id}
 
 Neutron Security Group Update
     [Arguments]    ${SecurityGroupName}    ${additional_args}=${EMPTY}
     [Documentation]    Updating security groups
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    openstack security group set ${SecurityGroupName} ${additional_args}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}     ${output}=    Run And Return Rc And Output     ${cmd} 
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Delete SecurityGroup
     [Arguments]    ${sg_name}
     [Documentation]    Delete Security group
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack security group delete ${sg_name}    40s
+    ${rc}     ${output}=    Run And Return Rc And Output     openstack security group delete ${sg_name} 
     Log    ${output}
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
-    Close Connection
+    Should Not Be True     ${rc}
 
 Neutron Security Group Rule Create
     [Arguments]    ${Security_group_name}    &{Kwargs}
     [Documentation]    Creates neutron security rule with Openstack CLI with or without optional params, here security group name is mandatory args, rule with optional params can be created by passing the optional args values ex: direction=${INGRESS_EGRESS}, Then these optional params are catenated with mandatory args, example of usage: "Neutron Security Group Rule Create ${SGP_SSH} direction=${RULE_PARAMS[0]} ethertype=${RULE_PARAMS[1]} ..."
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     Run Keyword If    ${Kwargs}    Log    ${Kwargs}
     ${description}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    description    default=${None}
     ${direction}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    direction    default=${None}
@@ -830,18 +732,15 @@ Neutron Security Group Rule Create
     ...    ELSE    Catenate    ${cmd}
     ${cmd}=    Run Keyword If    '${remote_ip_prefix}'!='None'    Catenate    ${cmd}    --remote-ip ${remote_ip_prefix}
     ...    ELSE    Catenate    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}      ${output}=    Run And Return Rc And Output     ${cmd} 
     ${rule_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
     Log    ${rule_id}
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
-    Close Connection
+    Should Not Be True     ${rc}
     [Return]    ${output}    ${rule_id}
 
 Neutron Security Group Rule Create Legacy Cli
     [Arguments]    ${Security_group_name}    &{Kwargs}
     [Documentation]    Creates neutron security rule with neutron request with or without optional params, here security group name is mandatory args, rule with optional params can be created by passing the optional args values ex: direction=${INGRESS_EGRESS}, Then these optional params are catenated with mandatory args, example of usage: "Neutron Security Group Rule Create ${SGP_SSH} direction=${RULE_PARAMS[0]} ethertype=${RULE_PARAMS[1]} ..."
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     Run Keyword If    ${Kwargs}    Log    ${Kwargs}
     ${description}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    description    default=${None}
     ${direction}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    direction    default=${None}
@@ -868,11 +767,10 @@ Neutron Security Group Rule Create Legacy Cli
     ...    ELSE    Catenate    ${cmd}
     ${cmd}=    Run Keyword If    '${remote_ip_prefix}'!='None'    Catenate    ${cmd}    --remote_ip_prefix ${remote_ip_prefix}
     ...    ELSE    Catenate    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd} 
     ${rule_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
     Log    ${rule_id}
-    Should Contain    ${output}    Created a new security_group_rule
-    Close Connection
+    Should Not Be True     ${rc}
     [Return]    ${output}    ${rule_id}
 
 Security Group Create Without Default Security Rules
@@ -884,36 +782,30 @@ Security Group Create Without Default Security Rules
 Delete All Security Group Rules
     [Arguments]    ${sg_name}
     [Documentation]    Delete all security rules from a specified security group
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${sg_rules_output}=    Write Commands Until Prompt    openstack security group rule list ${sg_name} -cID -fvalue
+    ${rc}     ${sg_rules_output}=    Run And Return Rc And Output     openstack security group rule list ${sg_name} -cID -fvalue
     Log    ${sg_rules_output}
+    Should Not Be True     ${rc}
     @{sg_rules}=    Split String    ${sg_rules_output}    \n
     : FOR    ${rule}    IN    @{sg_rules}
-    \    ${output}=    Write Commands Until Prompt    openstack security group rule delete ${rule}
+    \    ${rc}     ${output}=    Run And Return Rc And Output     openstack security group rule delete ${rule}
     \    Log    ${output}
-    Close Connection
+    \    Should Not Be True     ${rc}
 
 Create Neutron Port With Additional Params
     [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
     [Documentation]    Create Port With given additional parameters
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron -v port-create ${network_name} --name ${port_name} ${additional_args}
     Log    ${cmd}
-    ${OUTPUT}=    Write Commands Until Prompt    ${cmd}    30s
-    Log    ${OUTPUT}
-    Should Contain    ${output}    ${OS_CMD_SUCCESS}
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd} 
+    Log    ${output}
+    Should Not Be True     ${rc}
     ${port_id}=    Should Match Regexp    ${OUTPUT}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
     Log    ${port_id}
-    Close Connection
     [Return]    ${OUTPUT}    ${port_id}
 
 Get Ports MacAddr
     [Arguments]    ${portName_list}
     [Documentation]    Retrieve the port MacAddr for the given list of port name and return the MAC address list.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${MacAddr-list}    Create List
     : FOR    ${portName}    IN    @{portName_list}
     \    ${macAddr}=    OpenStackOperations.Get Port Mac    ${portName}    ${devstack_conn_id}
@@ -923,67 +815,66 @@ Get Ports MacAddr
 Get Port Ip
     [Arguments]    ${port_name}
     [Documentation]    Keyword would return the IP of the ${port_name} received.
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $11}' | awk -F "\\"" '{print $2}'    30s
+    ${rc}     ${output}=    Run And Return Rc And Output     neutron port-list | grep "${port_name}" | awk '{print $11}' | awk -F "\\"" '{print $2}'
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${port_ip}=    Get from List    ${splitted_output}    0
     Log    ${port_ip}
+    Should Not Be True     ${rc}
     [Return]    ${port_ip}
 
 Get Port Mac
     [Arguments]    ${port_name}    ${conn_id}=${devstack_conn_id}
     [Documentation]    Keyword would return the MAC ID of the ${port_name} received.
-    Switch Connection    ${conn_id}
-    ${output}=    Write Commands Until Prompt    openstack port show ${port_name} | grep mac_address | awk '{print $4}'    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     openstack port show ${port_name} | grep mac_address | awk '{print $4}'
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${port_mac}=    Get from List    ${splitted_output}    0
     Log    ${port_mac}
+    Should Not Be True     ${rc}
     [Return]    ${port_mac}
 
 Create L2Gateway
     [Arguments]    ${bridge_name}    ${intf_name}    ${gw_name}
     [Documentation]    Keyword to create an L2 Gateway ${gw_name} for bridge ${bridge_name} connected to interface ${intf_name} (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${l2gw_output}=    Write Commands Until Prompt    ${L2GW_CREATE} name=${bridge_name},interface_names=${intf_name} ${gw_name}    30s
+    ${rc}    ${l2gw_output}=    Run And Return Rc And Output    ${L2GW_CREATE} name=${bridge_name},interface_names=${intf_name} ${gw_name}
     Log    ${l2gw_output}
     [Return]    ${l2gw_output}
 
 Create L2Gateway Connection
     [Arguments]    ${gw_name}    ${net_name}
     [Documentation]    Keyword would create a new L2 Gateway Connection for ${gw_name} to ${net_name} (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${l2gw_output}=    Write Commands Until Prompt    ${L2GW_CONN_CREATE} ${gw_name} ${net_name}    30s
+    ${rc}    ${l2gw_output}=    Run And Return Rc And Output     ${L2GW_CONN_CREATE} ${gw_name} ${net_name}
     Log    ${l2gw_output}
+    Should Not Be True     ${rc}
     [Return]    ${l2gw_output}
 
 Get All L2Gateway
     [Documentation]    Keyword to return all the L2 Gateways available (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    ${L2GW_GET_YAML}    30s
+    ${rc}     ${output}=    Run And Return Rc And Output     ${L2GW_GET_YAML}
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Get All L2Gateway Connection
     [Documentation]    Keyword to return all the L2 Gateway connections available (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    ${L2GW_GET_CONN_YAML}    30s
+    ${rc}     ${output}=    Run And Return Rc And Output     ${L2GW_GET_CONN_YAML}
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Get L2Gateway
     [Arguments]    ${gw_id}
     [Documentation]    Keyword to check if the ${gw_id} is available in the L2 Gateway list (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    ${L2GW_SHOW} ${gw_id}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${L2GW_SHOW} ${gw_id}
     Log    ${output}
+    Should Not Be True     ${rc}
     [Return]    ${output}
 
 Get L2gw Id
     [Arguments]    ${l2gw_name}
     [Documentation]    Keyword to retrieve the L2 Gateway ID for the ${l2gw_name} (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    ${L2GW_GET} | grep "${l2gw_name}" | awk '{print $2}'    30s
+    ${rc}     ${output}=    Run And Return Rc And Output     ${L2GW_GET} | grep "${l2gw_name}" | awk '{print $2}'
     Log    ${output}
+    Should Not Be True     ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${l2gw_id}=    Get from List    ${splitted_output}    0
     Log    ${l2gw_id}
@@ -992,10 +883,11 @@ Get L2gw Id
 Get L2gw Connection Id
     [Arguments]    ${l2gw_name}
     [Documentation]    Keyword to retrieve the L2 Gateway Connection ID for the ${l2gw_name} (Using Neutron CLI).
-    Switch Connection    ${devstack_conn_id}
     ${l2gw_id}=    OpenStackOperations.Get L2gw Id    ${l2gw_name}
-    ${output}=    Write Commands Until Prompt    ${L2GW_GET_CONN} | grep "${l2gw_id}" | awk '{print $2}'    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${L2GW_GET_CONN} | grep "${l2gw_id}" | awk '{print $2}'
     Log    ${output}
+    Should Not Be True     ${rc}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${l2gw_conn_id}=    Get from List    ${splitted_output}    0
     Log    ${l2gw_conn_id}
@@ -1039,22 +931,18 @@ Create And Configure Security Group
 Add Security Group To VM
     [Arguments]    ${vm}    ${sg}
     [Documentation]    Add the security group provided to the given VM.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack server add security group ${vm} ${sg}
+    ${rc}    ${output}=    Run And Return Rc And Output     openstack server add security group ${vm} ${sg}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
 
 Create SFC Flow Classifier
     [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${dest_port}    ${neutron_src_port}
     [Documentation]    Create a flow classifier for SFC
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron flow-classifier-create --ethertype IPv4 --source-ip-prefix ${src_ip}/32 --destination-ip-prefix ${dest_ip}/32 --protocol ${protocol} --destination-port ${dest_port}:${dest_port} --logical-source-port ${neutron_src_port} ${name}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     Should Contain    ${output}    Created a new flow_classifier
     [Return]    ${output}
 
@@ -1065,9 +953,9 @@ Delete SFC Flow Classifier
     Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron flow-classifier-delete ${name}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     Should Contain    ${output}    Deleted flow_classifier
     [Return]    ${output}
 
@@ -1078,48 +966,42 @@ Create SFC Port Pair
     Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron port-pair-create --ingress=${port_in} --egress=${port_out} ${name}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     Should Contain    ${output}    Created a new port_pair
     [Return]    ${output}
 
 Delete SFC Port Pair
     [Arguments]    ${name}
     [Documentation]    Delete a SFC port pair
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron port-pair-delete ${name}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     Should Contain    ${output}    Deleted port_pair
     [Return]    ${output}
 
 Create SFC Port Pair Group
     [Arguments]    ${name}    ${port_pair}
     [Documentation]    Creates a port pair group with a single port pair for SFC
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron port-pair-group-create --port-pair ${port_pair} ${name}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     Should Contain    ${output}    Created a new port_pair_group
     [Return]    ${output}
 
 Create SFC Port Pair Group With Two Pairs
     [Arguments]    ${name}    ${port_pair1}    ${port_pair2}
     [Documentation]    Creates a port pair group with two port pairs for SFC
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron port-pair-group-create --port-pair ${port_pair1} --port-pair ${port_pair2} ${name}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     Should Contain    ${output}    Created a new port_pair_group
     [Return]    ${output}
 
@@ -1127,50 +1009,43 @@ Delete SFC Port Pair Group
     [Arguments]    ${name}
     [Documentation]    Delete a SFC port pair group
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron port-pair-group-delete ${name}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     Should Contain    ${output}    Deleted port_pair_group
     [Return]    ${output}
 
 Create SFC Port Chain
     [Arguments]    ${name}    ${pg1}    ${pg2}    ${fc}
     [Documentation]    Creates a port pair chain with two port groups and a singel classifier.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron port-chain-create --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc} ${name}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     Should Contain    ${output}    Created a new port_chain
     [Return]    ${output}
 
 Delete SFC Port Chain
     [Arguments]    ${name}
     [Documentation]    Delete a SFC port chain
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron port-chain-delete ${name}
     Log    ${cmd}
-    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     ${cmd}
     Log    ${output}
-    Close Connection
+    Should Not Be True     ${rc}
     Should Contain    ${output}    Deleted port_chain
     [Return]    ${output}
 
 Reboot Nova VM
     [Arguments]    ${vm_name}
     [Documentation]    Reboot NOVA VM
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack server reboot --wait ${vm_name}    30s
+    ${rc}    ${output}=    Run And Return Rc And Output     openstack server reboot --wait ${vm_name}
     Log    ${output}
+    Should Not Be True     ${rc}
     Wait Until Keyword Succeeds    35s    10s    Verify VM Is ACTIVE    ${vm_name}
-    Close Connection
 
 Remove RSA Key From KnowHosts
     [Arguments]    ${vm_ip}
