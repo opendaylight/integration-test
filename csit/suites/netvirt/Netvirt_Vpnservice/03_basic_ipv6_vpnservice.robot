@@ -75,7 +75,6 @@ Create Routers
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
-    ${devstack_conn_id} =    Get ControlNode Connection
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
     \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
     ${interface_output} =    Show Router Interface    ${ROUTERS[0]}
@@ -230,8 +229,6 @@ Delete And Recreate Extra Route
 
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
-    ${devstack_conn_id} =    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
     VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
@@ -240,7 +237,6 @@ Create L3VPN
 
 Associate L3VPN To Routers
     [Documentation]    Associating router to L3VPN
-    ${devstack_conn_id}=    Get ControlNode Connection
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
@@ -270,7 +266,6 @@ Verify L3VPN Datapath With Router Association
 
 Dissociate L3VPN From Routers
     [Documentation]    Dissociating router from L3VPN
-    ${devstack_conn_id}=    Get ControlNode Connection
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Dissociate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
@@ -279,7 +274,6 @@ Dissociate L3VPN From Routers
 Delete Router And Router Interfaces With L3VPN
     [Documentation]    Delete Router and Interface to the subnets with L3VPN associate
     # Asscoiate router with L3VPN
-    ${devstack_conn_id} =    Get ControlNode Connection
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
@@ -306,15 +300,13 @@ Delete Router And Router Interfaces With L3VPN
 
 Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output} =    Write Commands Until Prompt    neutron router-delete nonExistentRouter    30s
-    Close Connection
+    ${rc}    ${output}=    Run And Return Rc And Output    neutron router-delete nonExistentRouter
+    Log    ${output}
+    Log    ${rc}
     Should Match Regexp    ${output}    Unable to find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
 
 Associate L3VPN To Networks
     [Documentation]    Associates L3VPN to networks and verify
-    ${devstack_conn_id} =    Get ControlNode Connection
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     Associate L3VPN To Network    networkid=${network1_id}    vpnid=${VPN_INSTANCE_ID[0]}
@@ -326,7 +318,6 @@ Associate L3VPN To Networks
 
 Dissociate L3VPN From Networks
     [Documentation]    Dissociate L3VPN from networks
-    ${devstack_conn_id} =    Get ControlNode Connection
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=${VPN_INSTANCE_ID[0]}
@@ -342,8 +333,6 @@ Delete L3VPN
 
 Create Multiple L3VPN
     [Documentation]    Creates three L3VPNs and then verify the same
-    ${devstack_conn_id} =    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
     VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID[0]}    name=${VPN_NAME[0]}    rd=${RDS[0]}    exportrt=${RDS[0]}    importrt=${RDS[0]}    tenantid=${tenant_id}
@@ -373,8 +362,6 @@ Test Teardown With Tcpdump Stop
 Get Gateway MAC And IP Address
     [Arguments]    ${router_Name}
     [Documentation]    Get Gateway mac and IP Address
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${output} =    Write Commands Until Prompt    neutron router-port-list ${router_Name}    30s
     @{MacAddr-list} =    Get Regexp Matches    ${output}    ${MAC_REGEX}
     @{IpAddr-list} =    Get Regexp Matches    ${output}    ${IP6_REGEX}

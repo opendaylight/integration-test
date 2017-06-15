@@ -188,12 +188,11 @@ Update Security Group Name and Verification
 Neutron Rule Creation With Invalid Parameters
     [Arguments]    ${SecurityGroupName}    ${additional_args}    ${EXPECTED_ERROR}
     [Documentation]    Neutron Rule Creation With Null Protocol
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${cmd}=    Set Variable    neutron security-group-rule-create ${SecurityGroupName} ${additional_args}
     Log    ${cmd}
-    ${OUTPUT}=    Write Commands Until Prompt    ${cmd}    30s
-    Log    ${OUTPUT}
+    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    Log    ${output}
+    Log    ${rc}
     Should Contain    ${output}    ${EXPECTED_ERROR}
     Close Connection
-    [Return]    ${OUTPUT}
+    [Return]    ${output}
