@@ -78,3 +78,4 @@ ${L3_TABLE}       21
 ${ELAN_SMACTABLE}    50
 ${ELAN_DMACTABLE}    51
 ${ELAN_UNKNOWNMACTABLE}    52
+${OS_CMD_GLOBAL_OPTIONS}    --os-username admin --os-password admin --os-project-name admin --os-user-domain-name default --os-project-domain-name default --os-auth-url http://${CONTROL_NODE_IP}:35357/v3 --os-identity-api-version 3 --os-image-api-version 2 --os-cloud CLOUD
