@@ -170,8 +170,6 @@ Create Setup
     Create Router    ${ROUTERS}
     Add Router Interface    ${ROUTERS}    ${SUBNETS[1]}
     Add Router Interface    ${ROUTERS}    ${SUBNETS[2]}
-    ${devstack_conn_id} =    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     Set Suite Variable    ${net_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
