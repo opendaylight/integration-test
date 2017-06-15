@@ -130,8 +130,6 @@ Create Basic Configuartion for BGP VPNservice Suite
     ...    @{VM_NAMES}
     Log    ${VM_IPS}
     Set Suite Variable    ${VM_IPS}
-    ${devstack_conn_id} =    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
     VPN Create L3VPN    vpnid=${VPN_INSTANCE_IDS[0]}    name=${VPN_NAMES[0]}    rd=${RD_LIST[0]}    exportrt=${RD_LIST[0]}    importrt=${RD_LIST[0]}    tenantid=${tenant_id}
@@ -143,7 +141,6 @@ Create Basic Configuartion for BGP VPNservice Suite
 
 Delete Basic Configuartion for BGP VPNservice Suite
     [Documentation]    Delete basic configuration for BGP Vpnservice suite
-    ${devstack_conn_id} =    Get ControlNode Connection
     : FOR    ${network}    IN    @{NETWORKS}
     \    ${network_id} =    Get Net Id    ${network}    ${devstack_conn_id}
     \    Dissociate L3VPN From Networks    networkid=${network_id}    vpnid=${VPN_INSTANCE_IDS[0]}
