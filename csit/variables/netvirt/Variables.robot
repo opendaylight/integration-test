@@ -29,8 +29,8 @@ ${RPING_MIP_IP}    sudo arping -I eth0:1 -c 5 -b -s 192.168.10.110 192.168.10.11
 ${RPING_MIP_IP_2}    sudo arping -I eth0:1 -c 5 -b -s 192.168.20.110 192.168.20.110
 ${RPING_EXP_STR}    broadcast
 # Values passed for extra routes
-${RT_OPTIONS}     --routes type=dict list=true
-${RT_CLEAR}       --routes action=clear
+${RT_OPTIONS}     --route
+${RT_CLEAR}       --no-route
 ${ARP_RESPONSE_REGEX}    arp,arp_op=2 actions=CONTROLLER:65535,resubmit\\(,${DISPATCHER_TABLE}\\)
 ${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
 ${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${DISPATCHER_TABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
