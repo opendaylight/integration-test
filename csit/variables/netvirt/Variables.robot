@@ -2,6 +2,7 @@
 Documentation     Variables for Netvirt Test Suites
 
 *** Variables ***
+${OS_CMD_GLOBAL_OPTIONS}    --os-username admin --os-password admin --os-project-name admin --os-user-domain-name default --os-project-domain-name default --os-auth-url http://${OS_CONTROL_NODE_IP}:5000/v3 --os-identity-api-version 3 --os-image-api-version 2 --verbose  --no
 @{legacy_feature_list}    odl-vtn-manager-neutron    odl-ovsdb-openstack
 @{NETWORKS}       NETWORK1    NETWORK2    NETWORK3
 @{SUBNETS}        SUBNET1    SUBNET2    SUBNET3
