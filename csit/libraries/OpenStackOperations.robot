@@ -2,6 +2,7 @@
 Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           Collections
 Library           SSHLibrary
+Library           OperationgSystem
 Resource          DataModels.robot
 Resource          Utils.robot
 Resource          L2GatewayOperations.robot
@@ -12,14 +13,13 @@ Variables         ../variables/netvirt/Modules.py
 Source Password
     [Arguments]    ${force}=no    ${source_pwd}=yes
     [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
-    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
+    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Run     source /tmp/os_client_rc
 
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack security group show default | grep "| tenant_id" | awk '{print $4}'
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack security group show default | grep "| tenant_id" | awk '{print $4}'
     Log    ${output}
+    Should Contain    ${rc}    0
     [Return]    ${output}
 
 Get Tenant ID From Network
@@ -32,8 +32,6 @@ Get Tenant ID From Network
 Create Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
     [Documentation]    Create Network with neutron request.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    openstack network create ${network_name} ${additional_args}    30s
     Log    ${output}
     Should Contain    ${output}    ${OS_CMD_SUCCESS}
