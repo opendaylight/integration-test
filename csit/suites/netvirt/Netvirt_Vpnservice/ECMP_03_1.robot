@@ -31,11 +31,11 @@ Suite Setup        Pre Setup
 Suite Teardown     Clear Setup
 #Test Setup         Pretest Setup
 #Test Teardown      Pretest Cleanup
-Resource          ${CURDIR}/../../libraries/KarafKeywords.robot
-Resource          ${CURDIR}/../../libraries/VpnOperations.robot
-Resource          ${CURDIR}/../../libraries/Utils.robot
-Resource          ${CURDIR}/../../libraries/OpenStackOperations.robot
-Resource          ${CURDIR}/../../libraries/SwitchOperations.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../../libraries/VpnOperations.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/OpenStackOperations.robot
+Resource          ${CURDIR}/../../../libraries/SwitchOperations.robot
 Library           DebugLibrary
 
 *** Variables ***
