@@ -2,8 +2,10 @@
 Documentation     Switch connections and cluster are restarted.
 Suite Setup       Initialization Phase
 Suite Teardown    Final Phase
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           Collections
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/ClusterOpenFlow.robot
 Resource          ../../../libraries/TemplatedRequests.robot
@@ -334,7 +336,7 @@ Check No Switches
 *** Keywords ***
 Initialization Phase
     [Documentation]    Create controller session and set variables.
-    ClusterManagement.ClusterManagement_Setup
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     ${switches}    Convert To Integer    ${SWITCHES}
     ${iter}    Convert To Integer    ${ITER}

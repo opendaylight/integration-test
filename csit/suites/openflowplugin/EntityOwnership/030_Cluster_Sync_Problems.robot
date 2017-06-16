@@ -2,10 +2,12 @@
 Documentation     Test suite for entity ownership service and openflowplugin. Makes changes on controller side (isolating cluster node)
 Suite Setup       Start Suite
 Suite Teardown    End Suite
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Template     Isolating Node Scenario
 Library           SSHLibrary
 Library           RequestsLibrary
 Library           XML
+Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/FlowLib.robot
 Resource          ${CURDIR}/../../../libraries/OvsManager.robot
@@ -62,7 +64,7 @@ Stop Mininet And Verify No Owners
 
 *** Keywords ***
 Start Suite
-    ClusterManagement.ClusterManagement Setup
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 
 End Suite
     ClusterManagement.Flush Iptables From List Or All

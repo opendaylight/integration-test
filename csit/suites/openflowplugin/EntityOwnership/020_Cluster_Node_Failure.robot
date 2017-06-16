@@ -2,10 +2,12 @@
 Documentation     Test suite for entity ownership service and openflowplugin. Makes changes on controller side (restart karaf)
 Suite Setup       Start Suite
 Suite Teardown    End Suite
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Template     Restarting Karaf Scenario
 Library           SSHLibrary
 Library           RequestsLibrary
 Library           XML
+Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/FlowLib.robot
 Resource          ${CURDIR}/../../../libraries/OvsManager.robot
@@ -34,7 +36,7 @@ Switches Still Be Connected To All Nodes
 
 *** Keywords ***
 Start Suite
-    ClusterManagement.ClusterManagement Setup
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     SSHLibrary.Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/id_rsa    any
