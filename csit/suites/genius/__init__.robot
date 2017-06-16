@@ -1,7 +1,5 @@
 *** Settings ***
 Documentation     Test suite for Inventory Scalability
-Suite Setup       Start Suite
-Suite Teardown    Stop Suite
 Library           SSHLibrary
 Variables         ../../variables/Variables.py
 Resource          ../../libraries/Utils.robot
@@ -44,6 +42,8 @@ Start Suite
     Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     ${output_2}    Execute Command    sudo ovs-vsctl show
     Log    ${output_2}
+    ${ENABLE_LOG}    Set Variable    log:set DEBUG org.opendaylight.genius
+    ${output}=    Issue Command On Karaf Console    ${ENABLE_LOG}
 
 Stop Suite
     Log    Stop the tests

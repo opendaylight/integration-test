@@ -36,10 +36,17 @@ ${INTERFACE_DS_MONI_TRUE}    "odl-interface:monitor-enabled": true
 ${INTERFACE_DS_MONI_INT_1000}    "odl-interface:monitor-interval": 1000
 ${INTERFACE_DS_MONI_INT_5000}    "odl-interface:monitor-interval": 5000
 ${TUNNEL_MONI_PROTO}    tunnel-monitoring-type-bfd
+${NAME}           name
+${DUMP_CACHE}     ds:showCache InternalTunnelCache
 
 *** Test Cases ***
 BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
     [Documentation]    Create ITM between DPNs Verify_BFD_Enablement
+    ${output}=    Issue Command On Karaf Console    ${DUMP_CACHE}
+    Log    ${output}
+    Wait Until Keyword Succeeds    10s    2s    Verify All Previous Tunnels Are Deleted
+    ${output}=    Issue Command On Karaf Console    ${DUMP_CACHE}
+    Log    ${output}
     ${Dpn_id_1}    Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Get Dpn Ids    ${conn_id_2}
     Set Global Variable    ${Dpn_id_1}
@@ -48,6 +55,8 @@ BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
     ${gateway-ip}=    Set Variable    0.0.0.0
     Create Vteps    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UP
+    ${output}=    Issue Command On Karaf Console    ${DUMP_CACHE}
+    Log    ${output}
 
 BFD_TC01 Verify by default BFD monitoring is enabled on Controller
     [Documentation]    Verify by default BFD monitoring is enabled on Controller
@@ -73,8 +82,12 @@ BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     ${oper_int}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
     ${respjson}    RequestsLibrary.To Json    ${oper_int.content}    pretty_print=True
     Log    ${respjson}
+    ${output}=    Issue Command On Karaf Console    ${DUMP_CACHE}
+    Log    ${output}
     Log    "Value of BFD monitoring interval is getting updated"
     ${oper_int}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
+    ${output}=    Issue Command On Karaf Console    ${DUMP_CACHE}
+    Log    ${output}
     ${oper_int}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
     ${respjson}    RequestsLibrary.To Json    ${oper_int.content}    pretty_print=True
     Log    ${respjson}
@@ -163,3 +176,9 @@ Verify Tunnel Monitoring Is On
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Log    ${output}
     Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
+
+Verify All Previous Tunnels Are Deleted
+    ${int_resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/
+    ${respjson}    RequestsLibrary.To Json    ${int_resp.content}    pretty_print=True
+    Log    ${respjson}
+    Should Not Contain    ${respjson}    ${NAME}
