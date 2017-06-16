@@ -22,9 +22,10 @@ Resource          ${CURDIR}/../../../libraries/controller/DnbCommons.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
-${DURATION_24_HOURS_IN_SECONDS}    86400
+# TODO: change back to 24h when releng has more granular steps to kill VMs than days; now 23h=82800s
+${LONGEVITY_TEST_DURATION_IN_SECS}    82800
 ${NOTIFICATION_RATE}    ${60000}
 
 *** Test Cases ***
 Notifications_longevity
-    ${NOTIFICATION_RATE}    ${DURATION_24_HOURS_IN_SECONDS}
+    ${NOTIFICATION_RATE}    ${LONGEVITY_TEST_DURATION_IN_SECS}

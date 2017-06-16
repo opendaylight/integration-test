@@ -24,13 +24,14 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 @{INSTALLED_RPC_MEMEBER_IDX_LIST}    ${1}    ${2}
 # TODO: Consider unregistering one at random for each iteration, as in the precedence longevity suite.
 ${TESTED_MEMBER_WITHOUT_RPC_IDX}    ${3}
-${DURATION_24_HOURS_IN_SECONDS}    86400
+# TODO: change back to 24h when releng has more granular steps to kill VMs than days; now 23h=82800s
+${LONGEVITY_TEST_DURATION_IN_SECS}    82800
 
 *** Test Cases ***
 Rpc_Provider_Precedence_Longevity
     [Documentation]    Test register rpc on two of three nodes and repeat the tested scenario for 24h.
     DrbCommons.Register_Rpc_On_Nodes    ${INSTALLED_RPC_MEMEBER_IDX_LIST}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_24_HOURS_IN_SECONDS}    1s    Test_Scenario
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${LONGEVITY_TEST_DURATION_IN_SECS}    1s    Test_Scenario
     DrbCommons.Unregister_Rpc_On_Nodes    ${INSTALLED_RPC_MEMEBER_IDX_LIST}
 
 *** Keywords ***
