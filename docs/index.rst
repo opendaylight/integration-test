@@ -9,6 +9,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   cluster/index
+
 External resources:
 
 * `System Test Guide <http://docs.opendaylight.org/en/stable-boron/submodules/integration/test/docs/system-test-guide.html>`_.
