@@ -5,7 +5,7 @@ Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Library           OperatingSystem
 Variables         ../../../../../variables/Variables.py
-Resource          ../../../../../libraries/Utils.robot
+Resource          ../../../../../libraries/SSHKeywords.robot
 Resource          ../Variables.robot
 Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
 
@@ -27,14 +27,14 @@ Put Service Function Forwarders
 Wait For Manager and Switch Connected on GBPSFC2
     [Documentation]    Making sure that manager is connected for further processing.
     SSHLibrary.Open Connection    ${GBPSFC2}
-    Utils.Flexible Mininet Login
+    SSHKeywords.Flexible Mininet Login
     Wait Until Keyword Succeeds    2min    3s    Manager and Switch Connected    sw_name=sw2
     SSHLibrary.Close Connection
 
 Wait For Manager and Switch Connected on GBPSFC4
     [Documentation]    Making sure that manager is connected for further processing.
     SSHLibrary.Open Connection    ${GBPSFC4}
-    Utils.Flexible Mininet Login
+    SSHKeywords.Flexible Mininet Login
     Wait Until Keyword Succeeds    2min    3s    Manager and Switch Connected    sw_name=sw4
     SSHLibrary.Close Connection
 
