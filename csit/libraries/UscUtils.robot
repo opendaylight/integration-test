@@ -2,6 +2,7 @@
 Library           Collections
 Library           SSHLibrary
 Library           UtilLibrary.py
+Resource          SSHKeywords.robot
 Resource          Utils.robot
 
 *** Variables ***

@@ -83,7 +83,7 @@ Get Admin Role Id
 Run Docker Keystone
     [Documentation]    Run Keystone in a docker container hosted in the SYSTEM TOOL server and define "CSC_user" and "CSC_user_no_admin" users, the former with "admin" role and the latter with "user" role
     ${output}    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    timeout=20s
-    Utils.Flexible_Controller_Login
+    SSHKeywords.Flexible_Controller_Login
     SSHLibrary.Put File    ${CURDIR}/../../suites/aaa/keystone/start_keystone.sh
     SSHLibrary.Execute Command    ./start_keystone.sh
     Wait Until Keyword Succeeds    10x    15    Check Keystone Log File For String    GET

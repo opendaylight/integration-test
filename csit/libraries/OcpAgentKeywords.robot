@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     OCP agent library. This library is useful for tests using ocp agent tool to simulate RRH devices.
 Library           SSHLibrary
-Resource          Utils.robot
+Resource          SSHKeywords.robot
 Resource          OVSDB.robot
 Variables         ../variables/Variables.py
 
@@ -12,7 +12,7 @@ Install Agent
     Log    Clear any existing Agent
     ${conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${DEFAULT_TIMEOUT}
     Set Suite Variable    ${conn_id}
-    Utils.Flexible Mininet Login
+    SSHKeywords.Flexible Mininet Login
     SSHLibrary.Write    rm -rf /tmp/agent
     SSHLibrary.Write    pkill -f OcpAgent
     SSHLibrary.Write    git clone https://git.opendaylight.org/gerrit/ocpplugin.git /tmp/agent
@@ -28,7 +28,7 @@ Start Emulator Single
     [Documentation]    Start Agent with custom topology and connect to controller.
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${DEFAULT_TIMEOUT}
     Set Suite Variable    ${mininet_conn_id}
-    Utils.Flexible Mininet Login
+    SSHKeywords.Flexible Mininet Login
     SSHLibrary.Write    java -cp /tmp/agent/simple-agent/src/main/java/ org.opendaylight.ocpplugin.OcpAgent ${controller} 1033 ${vendorID} ${serialNumber}
     SSHLibrary.Read Until    getParamResp
     [Return]    ${mininet_conn_id}
@@ -38,7 +38,7 @@ Start Emulator Multiple
     [Documentation]    Start Agent with custom topology and connect to controller.
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${DEFAULT_TIMEOUT}
     Set Suite Variable    ${mininet_conn_id}
-    Utils.Flexible Mininet Login
+    SSHKeywords.Flexible Mininet Login
     : FOR    ${NODE_NUM}    IN RANGE    1    ${number}
     \    SSHLibrary.Write    java -cp /tmp/agent/simple-agent/src/main/java/ org.opendaylight.ocpplugin.OcpAgent ${controller} 1033 ${vendorID} ${NODE_NUM} &
     \    SSHLibrary.Read Until    getParamResp

@@ -4,6 +4,7 @@ Library           Collections
 Library           SSHLibrary
 Resource          DataModels.robot
 Resource          Utils.robot
+Resource          SSHKeywords.robot
 Resource          L2GatewayOperations.robot
 Resource          ../variables/Variables.robot
 Variables         ../variables/netvirt/Modules.py
@@ -645,7 +646,7 @@ Get DumpFlows And Ovsconfig
     [Documentation]    Get the OvsConfig and Flow entries from OVS from the Openstack Node
     Log    ${openstack_node_ip}
     SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
-    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
     Write Commands Until Expected Prompt    ip -o link    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    ip -o addr    ${DEFAULT_LINUX_PROMPT_STRICT}
@@ -687,7 +688,7 @@ Get Karaf Log Events From Test Start
 
 Get ControlNode Connection
     ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
-    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=30s
     Source Password    force=yes
     [Return]    ${control_conn_id}

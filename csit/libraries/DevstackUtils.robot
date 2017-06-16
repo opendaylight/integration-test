@@ -9,6 +9,7 @@ Library           RequestsLibrary
 Library           ./UtilLibrary.py
 Resource          KarafKeywords.robot
 Resource          OpenStackOperations.robot
+Resource          SSHKeywords.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
@@ -54,7 +55,7 @@ Devstack Suite Setup
     Set Suite Variable    ${devstack_conn_id}
     Set Suite Variable    ${source_pwd}
     Log    ${devstack_conn_id}
-    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
 
 Write Commands Until Prompt

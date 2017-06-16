@@ -6,7 +6,7 @@ Library           RequestsLibrary
 Resource          ClusterManagement.robot
 Resource          ../variables/daexim/DaeximVariables.robot
 Resource          ../variables/Variables.robot
-Resource          Utils.robot
+Resource          SSHKeywords.robot
 
 *** Keywords ***
 Verify Export Files
@@ -106,7 +106,7 @@ Return ConnnectionID
     [Arguments]    ${system}=${ODL_SYSTEM_IP}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}
     [Documentation]    Returns the connection of any host. Defaults to controller
     ${conn_id}    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Utils.Flexible SSH Login    ${user}    ${password}
+    SSHKeywords.Flexible SSH Login    ${user}    ${password}
     [Return]    ${conn_id}
 
 Cleanup Directory

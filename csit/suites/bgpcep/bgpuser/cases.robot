@@ -228,7 +228,7 @@ Setup_Everything
     OperatingSystem.Create_Directory    ${EXPECTED_RESPONSES_FOLDER}
     OperatingSystem.Create_Directory    ${ACTUAL_RESPONSES_FOLDER}
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
-    Utils.Flexible_Mininet_Login
+    SSHKeywords.Flexible_Mininet_Login
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
