@@ -1,3 +1,4 @@
-integration/test/csit/suites/l2gw/
-integration/test/csit/suites/netvirt/Netvirt_Vpnservice/01_basic_vpnservice.robot
-integration/test/csit/suites/netvirt/Netvirt_Vpnservice/02_bgp_vpnservice.robot
+#integration/test/csit/suites/l2gw/
+#integration/test/csit/suites/netvirt/Netvirt_Vpnservice/01_basic_vpnservice.robot
+#integration/test/csit/suites/netvirt/Netvirt_Vpnservice/02_bgp_vpnservice.robot
+integration/test/csit/suites/netvirt/multipath_support/CSC_Support_For_Multipath.robot
