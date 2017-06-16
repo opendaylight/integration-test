@@ -3,6 +3,7 @@ Library           Collections
 Library           SSHLibrary
 Library           UtilLibrary.py
 Resource          RemoteBash.robot
+Resource          SSHKeywords.robot
 
 *** Variables ***
 ${REST_VIEW_CHANNEL}    /restconf/operations/usc-channel:view-channel

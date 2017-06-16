@@ -1,6 +1,6 @@
 *** Settings ***
 Library           SSHLibrary
-Resource          ../Utils.robot
+Resource          ../SSHKeywords.robot
 
 *** Variables ***
 ${VE_DIR}         ${WORKSPACE}/GBPSFC_VE
@@ -9,7 +9,7 @@ ${VE_DIR}         ${WORKSPACE}/GBPSFC_VE
 Connect and Login
     [Arguments]    ${ip}    ${timeout}=3s
     SSHLibrary.Open Connection    ${ip}    timeout=${timeout}
-    Utils.Flexible Mininet Login
+    SSHKeywords.Flexible Mininet Login
 
 Execute in VE
     [Arguments]    ${cmd}    ${virt_env_path}=${VE_DIR}    ${timeout}=10s

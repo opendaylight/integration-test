@@ -42,6 +42,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
@@ -244,7 +245,7 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
-    Utils.Flexible_Mininet_Login
+    SSHKeywords.Flexible_Mininet_Login
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/mdsal_benchmark/${tool}
     SSHKeywords.Virtual_Env_Create
     SSHKeywords.Virtual_Env_Install_Package    requests

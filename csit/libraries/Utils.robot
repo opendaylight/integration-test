@@ -26,7 +26,7 @@ Start Mininet
     Clean Mininet System
     ${mininet_conn_id}=    Open Connection    ${system}    prompt=${prompt}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
-    Flexible Mininet Login    user=${user}    password=${password}
+    SSHKeywords.Flexible Mininet Login    user=${user}    password=${password}
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Write    ${start}
     Read Until    mininet>
@@ -171,24 +171,6 @@ Strip Quotes
     ${string_to_return}=    Replace String    ${string_to_strip}    "    \    count=-1
     [Return]    ${string_to_return}
 
-Flexible SSH Login
-    [Arguments]    ${user}    ${password}=${EMPTY}    ${delay}=0.5s
-    [Documentation]    On active SSH session: if given non-empty password, do Login, else do Login With Public Key.
-    ${pwd_length} =    BuiltIn.Get Length    ${password}
-    # ${pwd_length} is guaranteed to be an integer, so we are safe to evaluate it as Python expression.
-    BuiltIn.Run Keyword And Return If    ${pwd_length} > 0    SSHLibrary.Login    ${user}    ${password}    delay=${delay}
-    BuiltIn.Run Keyword And Return    SSHLibrary.Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    ${KEYFILE_PASS}    delay=${delay}
-
-Flexible Mininet Login
-    [Arguments]    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${delay}=0.5s
-    [Documentation]    Call Flexible SSH Login, but with default values suitable for Mininet machine.
-    BuiltIn.Run Keyword And Return    Flexible SSH Login    user=${user}    password=${password}    delay=${delay}
-
-Flexible Controller Login
-    [Arguments]    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${delay}=0.5s
-    [Documentation]    Call Flexible SSH Login, but with default values suitable for Controller machine.
-    BuiltIn.Run Keyword And Return    Flexible SSH Login    user=${user}    password=${password}    delay=${delay}
-
 Run Command On Remote System
     [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
@@ -198,7 +180,7 @@ Run Command On Remote System
     BuiltIn.Log    Attempting to execute command "${cmd}" on remote system "${system}" by user "${user}" with keyfile pass "${keyfile_pass}" and prompt "${prompt}"
     BuiltIn.Log    ${password}
     ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Flexible SSH Login    ${user}    ${password}
+    SSHKeywords.Flexible SSH Login    ${user}    ${password}
     ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
     SSHLibrary.Close Connection
     Log    ${stderr}
@@ -221,7 +203,7 @@ Verify File Exists On Remote System
     [Documentation]    Will create connection with public key and will PASS if the given ${file} exists,
     ...    otherwise will FAIL
     ${conn_id}=    Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Flexible SSH Login    ${user}    ${password}
+    SSHKeywords.Flexible SSH Login    ${user}    ${password}
     SSHLibrary.File Should Exist    ${file}
     Close Connection
 
@@ -480,7 +462,7 @@ Install Package On Ubuntu System
     [Documentation]    Keyword to install packages for testing to Ubuntu Mininet VM
     Log    Keyword to install package to Mininet Ubuntu VM
     Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Flexible Mininet Login    user=${user}    password=${password}
+    SSHKeywords.Flexible Mininet Login    user=${user}    password=${password}
     Write    sudo apt-get install -y ${package_name}
     Read Until    ${prompt}
 

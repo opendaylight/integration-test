@@ -340,10 +340,10 @@ Create_ODL_Netconf_Connection
     #    global variables. This will allow for tracking more Netconf
     #    connections, increasing utility.
     ${control}=    SSHLibrary.Open_Connection    ${host}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
-    Utils.Flexible_Controller_Login
+    SSHKeywords.Flexible_Controller_Login
     BuiltIn.Set_Suite_Variable    ${ssh_control}    ${control}
     ${netconf}=    SSHLibrary.Open_Connection    ${host}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
-    Utils.Flexible_Controller_Login
+    SSHKeywords.Flexible_Controller_Login
     BuiltIn.Set_Suite_Variable    ${ssh_netconf}    ${netconf}
     BuiltIn.Set_Suite_Variable    ${ssh_port}    ${port}
     BuiltIn.Set_Suite_Variable    ${ssh_user}    ${user}
