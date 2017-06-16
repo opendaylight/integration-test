@@ -301,9 +301,9 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Set_Default_Configuration    prompt=${ODL_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    alias=bgp_peer1_console
-    Utils.Flexible_Controller_Login
+    SSHKeywords.Flexible_Controller_Login
     SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    alias=bgp_peer2_console
-    Utils.Flexible_Controller_Login
+    SSHKeywords.Flexible_Controller_Login
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py

@@ -23,6 +23,7 @@ Library           XML
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/CarPeople.robot
 
@@ -109,7 +110,7 @@ Start Suite
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
     Builtin.Set Suite Variable    ${mininet_conn_id}
-    Utils.Flexible Mininet Login    ${TOOLS_SYSTEM_USER}
+    SSHKeywords.Flexible Mininet Login    ${TOOLS_SYSTEM_USER}
     SSHLibrary.Put File    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py    .
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    ls    return_stdout=True    return_stderr=True
     ...    return_rc=True
