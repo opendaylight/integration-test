@@ -147,7 +147,7 @@ Setup_Everything
     # Both TODOs would probably need to update every suite relying on current Variables.
     SSHLibrary.Set_Default_Configuration    prompt=${ODL_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}
-    Utils.Flexible_Controller_Login
+    SSHKeywords.Flexible_Controller_Login
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py

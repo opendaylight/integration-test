@@ -119,8 +119,7 @@ Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/AuthStandalone.py
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot    # for Deploy_Artifact
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot    # for Require_* and Assure_*
-Resource          ${CURDIR}/../../../libraries/Utils.robot    # for Flexible_SSH_Login
+Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot    # for Require_* and Assure_*, Flexible_SSH_Login
 
 *** Variables ***
 # This table acts as an exhaustive list of variables users can modify on pybot invocation.
@@ -167,7 +166,7 @@ Download_Pcc_Mock
     SSHLibrary.Open_Connection    ${PCCMOCKVM_IP}    alias=pccmock
     SSHLibrary.Set_Client_Configuration    timeout=10s
     SSHLibrary.Set_Client_Configuration    prompt=${PCCMOCKVM_PROMPT}
-    Utils.Flexible_SSH_Login    ${PCCMOCKVM_USER}    ${PCCMOCKVM_PASSWORD}    delay=4s
+    SSHKeywords.Flexible_SSH_Login    ${PCCMOCKVM_USER}    ${PCCMOCKVM_PASSWORD}    delay=4s
     ${file_name} =    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${mock_location}    ${file_name}
 
@@ -177,7 +176,7 @@ Put_Updater
     SSHLibrary.Open_Connection    ${UPDATERVM_IP}    alias=updater
     SSHLibrary.Set_Client_Configuration    timeout=20s
     SSHLibrary.Set_Client_Configuration    prompt=${UPDATERVM_PROMPT}
-    Utils.Flexible_SSH_Login    ${UPDATERVM_USER}    ${UPDATERVM_PASSWORD}    delay=4s
+    SSHKeywords.Flexible_SSH_Login    ${UPDATERVM_USER}    ${UPDATERVM_PASSWORD}    delay=4s
     SSHKeywords.Require_Python
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/pcep_updater/updater.py    ${UPDATERVM_WORKSPACE}/
     SSHLibrary.Put_File    ${CURDIR}/../../../libraries/AuthStandalone.py    ${UPDATERVM_WORKSPACE}/
