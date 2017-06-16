@@ -36,7 +36,7 @@ Resource          ${CURDIR}/../../../libraries/VpnOperations.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/OpenStackOperations.robot
 Resource          ${CURDIR}/../../../libraries/SwitchOperations.robot
-Library           DebugLibrary
+#Library           DebugLibrary
 
 *** Variables ***
 ${fail_resp}      0
@@ -65,7 +65,7 @@ Verify Distribution of traffic with weighted buckets-3 VM on CSS1 , 2 VM on CSS2
     Verify Static Ip Configured In VM    NOVA_VM21    ${Dpn2IP}    ${StaticIp}
     Verify Static Ip Configured In VM    NOVA_VM22    ${Dpn2IP}    ${StaticIp}
 
-    Debug
+    #Debug
     Log    Verify the Routes in controller
     ${CtrlFib}    Issue Command On Karaf Console    fib-show
     Log    ${CtrlFib}
