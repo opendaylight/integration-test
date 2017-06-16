@@ -13,7 +13,7 @@ Library           SSHLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
@@ -68,7 +68,7 @@ Start Suite
     [Documentation]    Suite setup keyword
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
     Builtin.Set Suite Variable    ${mininet_conn_id}
-    Utils.Flexible Mininet Login    ${TOOLS_SYSTEM_USER}
+    SSHKeywords.Flexible Mininet Login    ${TOOLS_SYSTEM_USER}
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    ls    return_stdout=True    return_stderr=True
     ...    return_rc=True
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo apt-get install -y python-pip    return_stdout=True    return_stderr=True
