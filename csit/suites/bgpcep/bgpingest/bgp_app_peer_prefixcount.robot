@@ -229,9 +229,9 @@ Teardown_Everything
 Open_BGP_Peer_Console
     [Documentation]    Create a session for BGP peer.
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=bgp_peer_console
-    Utils.Flexible_Mininet_Login
+    SSHKeywords.Flexible_Mininet_Login
 
 Open_BGP_Aplicationp_Peer_Console
     [Documentation]    Create a session for BGP peer.
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=bgp_app_peer_console
-    Utils.Flexible_Mininet_Login
+    SSHKeywords.Flexible_Mininet_Login

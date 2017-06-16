@@ -64,7 +64,6 @@ Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 
@@ -346,12 +345,12 @@ Teardown_Everything
 Open_BGP_Peer_Console
     [Documentation]    Create a session for BGP peer.
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=bgp_peer_console
-    Utils.Flexible_Mininet_Login
+    SSHKeywords.Flexible_Mininet_Login
 
 Open_BGP_Aplicationp_Peer_Console
     [Documentation]    Create a session for BGP peer.
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=bgp_app_peer_console
-    Utils.Flexible_Mininet_Login
+    SSHKeywords.Flexible_Mininet_Login
 
 Switch_To_BGP_Peer_Console
     SSHLibrary.Switch Connection    bgp_peer_console

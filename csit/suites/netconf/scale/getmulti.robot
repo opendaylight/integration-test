@@ -24,7 +24,6 @@ Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
@@ -54,7 +53,7 @@ Issue_Requests_On_Devices
     [Documentation]    Spawn the specified count of worker threads to issue a GET request to each of the devices.
     ${current_ssh_connection}=    SSHLibrary.Get Connection
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
-    Utils.Flexible_Mininet_Login
+    SSHKeywords.Flexible_Mininet_Login
     SSHLibrary.Write    python getter.py --odladdress=${ODL_SYSTEM_IP} --count=${DEVICE_COUNT} --name=${device_name_base} --workers=${WORKER_COUNT}
     : FOR    ${number}    IN RANGE    1    ${DEVICE_COUNT}+1
     \    Read_Python_Tool_Operation_Result    ${number}

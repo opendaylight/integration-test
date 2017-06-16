@@ -235,3 +235,21 @@ Copy_File_To_Tools_System
     [Arguments]    ${system}    ${source}    ${destination}=./
     [Documentation]    Wrapper keyword to make it easier to copy a file to an Tools specific system
     SSHKeywords.Copy_File_To_Remote_System    ${system}    ${source}    ${destination}    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}    ${TOOLS_SYSTEM_PROMPT}
+
+Flexible_SSH_Login
+    [Arguments]    ${user}    ${password}=${EMPTY}    ${delay}=0.5s
+    [Documentation]    On active SSH session: if given non-empty password, do Login, else do Login With Public Key.
+    ${pwd_length} =    BuiltIn.Get Length    ${password}
+    # ${pwd_length} is guaranteed to be an integer, so we are safe to evaluate it as Python expression.
+    BuiltIn.Run Keyword And Return If    ${pwd_length} > 0    SSHLibrary.Login    ${user}    ${password}    delay=${delay}
+    BuiltIn.Run Keyword And Return    SSHLibrary.Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    ${KEYFILE_PASS}    delay=${delay}
+
+Flexible_Mininet_Login
+    [Arguments]    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${delay}=0.5s
+    [Documentation]    Call Flexible SSH Login, but with default values suitable for Mininet machine.
+    BuiltIn.Run Keyword And Return    Flexible SSH Login    user=${user}    password=${password}    delay=${delay}
+
+Flexible_Controller_Login
+    [Arguments]    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${delay}=0.5s
+    [Documentation]    Call Flexible SSH Login, but with default values suitable for Controller machine.
+    BuiltIn.Run Keyword And Return    Flexible SSH Login    user=${user}    password=${password}    delay=${delay}
