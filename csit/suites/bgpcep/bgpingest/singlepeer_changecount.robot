@@ -249,7 +249,7 @@ Setup_Everything
     # Both TODOs would probably need to update every suite relying on current Variables.
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
-    Utils.Flexible_Mininet_Login
+    SSHKeywords.Flexible_Mininet_Login
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
