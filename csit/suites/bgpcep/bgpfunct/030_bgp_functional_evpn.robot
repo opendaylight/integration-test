@@ -19,7 +19,6 @@ Test Setup        Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without
 Library           RequestsLibrary
 Library           SSHLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
-Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
@@ -316,7 +315,7 @@ Start_Suite
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
     Builtin.Set Suite Variable    ${mininet_conn_id}
-    Utils.Flexible Mininet Login    ${TOOLS_SYSTEM_USER}
+    SSHKeywords.Flexible Mininet Login    ${TOOLS_SYSTEM_USER}
     RequestsLibrary.Create Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     SSHLibrary.Put File    ${PLAY_SCRIPT}    .
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.

@@ -18,7 +18,7 @@ Start Mininet Single Controller
     Utils.Clean Mininet System    ${mininet}
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
-    Utils.Flexible Mininet Login
+    SSHKeywords.Flexible Mininet Login
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Log    Start mininet ${options} to ${controller}
     SSHLibrary.Write    sudo mn --controller 'remote,ip=${controller},port=${ofport}' ${options}

@@ -37,7 +37,6 @@ Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
@@ -139,7 +138,7 @@ Setup_Everything
     TemplatedRequests.Create_Default_Session
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=receiver
-    Utils.Flexible_Mininet_Login
+    SSHKeywords.Flexible_Mininet_Login
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/wstools/wsreceiver.py
     ${output_log}    ${error_log} =    SSHLibrary.Execute Command    sudo apt-get install -y python-pip    return_stdout=True    return_stderr=True
     BuiltIn.Log    ${output_log}

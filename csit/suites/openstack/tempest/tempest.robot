@@ -11,7 +11,7 @@ Library           SSHLibrary
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/SSHKeywords.robot
 Variables         ../../../variables/Variables.py
 Resource          ../../../variables/netvirt/Variables.robot
 
@@ -97,7 +97,7 @@ Log In To Tempest Executor And Setup Test Environment
     Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway} --allocation-pool ${external_subnet_allocation_pool}
     List Networks
     ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
-    Utils.Flexible SSH Login    ${OS_USER}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    sudo rm -rf /opt/stack/tempest/.testrepository
     ${net_id}=    Get Net Id    ${external_net_name}    ${control_node_conn_id}
