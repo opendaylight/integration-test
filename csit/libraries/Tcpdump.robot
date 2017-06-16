@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Library to catch traffic/packets using linux tcpdump command
 Library           SSHLibrary
+Resource          SSHKeywords.robot
 Resource          Utils.robot
 Resource          RemoteBash.robot
 Variables         ../variables/Variables.py
@@ -19,7 +20,7 @@ Start Tcpdumping
     [Documentation]    Connects to the remote machine via ssh and starts tcpdump linux command
     ${currentcon}=    SSHLibrary.Get Connection    index=True
     SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${timeout}    alias=${dumpalias}
-    Utils.Flexible SSH Login    ${user}    password=${password}    delay=${timeout}
+    SSHKeywords.Flexible SSH Login    ${user}    password=${password}    delay=${timeout}
     SSHLibrary.Write    ${dumpcmd} -i ${eth} ${more_params}
     Run Keyword If    ${currentcon}==${None}    Return From Keyword
     SSHLibrary.Switch Connection    ${currentcon}
@@ -45,7 +46,7 @@ Start Packet Capture On Node
     [Documentation]    Connects to the remote machine and starts tcpdump
     ${current_ssh_connection}=    SSHLibrary.Get Connection
     ${conn_id}=    SSHLibrary.Open Connection    ${node_ip}    prompt=${prompt}    timeout=${prompt_timeout}
-    Flexible SSH Login    ${user}    ${password}
+    SSHKeywords.Flexible SSH Login    ${user}    ${password}
     ${cmd} =    Set Variable    sudo /usr/sbin/tcpdump -vvv -ni ${networkAdapter} -w /tmp/${file_Name}.pcap
     ${stdout}    ${stderr} =    SSHLibrary.Start Command    ${cmd}
     Log    ${stderr}

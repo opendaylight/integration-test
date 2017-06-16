@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Mininet library. This library is useful for tests using mininet tool to simulate devices.
 Library           SSHLibrary
+Resource          SSHKeywords.robot
 Resource          Utils.robot
 Resource          OVSDB.robot
 Resource          ClusterManagement.robot
@@ -18,7 +19,7 @@ Start Mininet Single Controller
     Utils.Clean Mininet System    ${mininet}
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
-    Utils.Flexible Mininet Login
+    SSHKeywords.Flexible Mininet Login
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Log    Start mininet ${options} to ${controller}
     SSHLibrary.Write    sudo mn --controller 'remote,ip=${controller},port=${ofport}' ${options}
@@ -36,7 +37,7 @@ Start Mininet Multiple Controllers
     Utils.Clean Mininet System    ${mininet}
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
-    Utils.Flexible Mininet Login
+    SSHKeywords.Flexible Mininet Login
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Log    Start mininet ${options}
     SSHLibrary.Write    sudo mn ${options}
@@ -75,7 +76,7 @@ Start Mininet Full Mesh
     [Documentation]    Start a custom mininet topology.
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${mininet_timeout}
     Set Suite Variable    ${mininet_conn_id}
-    Utils.Flexible_Mininet_Login
+    SSHKeywords.Flexible_Mininet_Login
     Log    Copying ${topology_file_path} file to Mininet VM and Creating Full Mesh topology
     SSHLibrary.Put File    ${CURDIR}/${topology_file_path}
     SSHLibrary.Write    python ${topology_file} ${switches} ${hosts} 00:00:00:00:00:00 10.0.0.0

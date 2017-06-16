@@ -9,7 +9,7 @@ Library           RequestsLibrary
 Library           ../../../libraries/SFC/SfcUtils.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../variables/sfc/Variables.robot
-Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/SFC/DockerSfc.robot
@@ -75,7 +75,7 @@ Switch Ips In Json Files
 Init Suite
     [Documentation]    Connect Create session and initialize ODL version specific variables
     SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    timeout=3s
-    Utils.Flexible Mininet Login
+    SSHKeywords.Flexible Mininet Login
     ${docker_cidr}=    DockerSfc.Get Docker Bridge Subnet
     ${docker_nw}=    SfcUtils.Get Network From Cidr    ${docker_cidr}
     ${docker_mask}=    SfcUtils.Get Mask From Cidr    ${docker_cidr}
