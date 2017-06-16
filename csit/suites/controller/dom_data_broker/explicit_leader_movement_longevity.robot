@@ -22,13 +22,14 @@ Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
-${DURATION_24_HOURS_IN_SECONDS}    86400
+# TODO: change back to 24h when releng has more granular steps to kill VMs than days; now 23h=82800s
+${LONGEVITY_TEST_DURATION_IN_SECS}    82800
 @{MOVEMENT_DIRECTION_LIST}    remote    local    remote
 
 *** Test Cases ***
 Explicit_Leader_Movement_Test
     [Documentation]    Leader move for 24 hours from one node to another
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_24_HOURS_IN_SECONDS}    5s    Test_Scenario
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${LONGEVITY_TEST_DURATION_IN_SECS}    5s    Test_Scenario
 
 *** Keywords ***
 Test_Scenario
