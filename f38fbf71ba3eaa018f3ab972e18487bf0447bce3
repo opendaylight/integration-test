@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1af78d9a_abecaac8",
+        "filename": "csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_300kroutes_longevity.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-06-16T10:22:42Z",
+      "side": 1,
+      "message": "82800\n\nMaybe 23h would work as well.",
+      "range": {
+        "startLine": 39,
+        "startChar": 38,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "f38fbf71ba3eaa018f3ab972e18487bf0447bce3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
