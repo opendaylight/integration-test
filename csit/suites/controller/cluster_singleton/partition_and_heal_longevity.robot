@@ -26,7 +26,7 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
 *** Variables ***
-${DURATION_24_HOURS_IN_SECONDS}    86400
+${DURATION_23_HOURS_IN_SECONDS}    82800
 ${STABILITY_TIMEOUT_ISOLATED}    120s
 ${STABILITY_TIMEOUT_REJOINED}    60s
 @{STATUS_ISOLATED}    ${501}
@@ -35,7 +35,7 @@ ${STABILITY_TIMEOUT_REJOINED}    60s
 CS_Pertition_And_Heal
     [Documentation]    24h lasting suite for isolating the cluster singleton leader repeatedly.
     CsCommon.Register_Singleton_Constant_On_Nodes    ${cs_all_indices}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_24_HOURS_IN_SECONDS}    3s    Test_Scenario
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_23_HOURS_IN_SECONDS}    3s    Test_Scenario
     CsCommon.Unregister_Singleton_Constant_On_Nodes    ${cs_all_indices}
 
 *** Keywords ***

@@ -21,13 +21,13 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
 *** Variables ***
-${DURATION_24_HOURS_IN_SECONDS}    86400
+${DURATION_23_HOURS_IN_SECONDS}    82800
 
 *** Test Cases ***
 Rpc_Provider_Precedence_Longevity
     [Documentation]    Repeat the tested scenario for 24h.
     DrbCommons.Register_Rpc_On_Nodes    ${all_indices}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_24_HOURS_IN_SECONDS}    1s    Test_Scenario
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_23_HOURS_IN_SECONDS}    1s    Test_Scenario
     DrbCommons.Unregister_Rpc_On_Nodes    ${all_indices}
 
 *** Keywords ***

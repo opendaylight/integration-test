@@ -35,7 +35,7 @@ Resource          ${CURDIR}/PrefixcountKeywords.robot
 
 *** Variables ***
 ${COUNT}          300000
-${DURATION_24_HOURS_IN_SECONDS}    86400
+${DURATION_23_HOURS_IN_SECONDS}    82800
 
 *** Test Cases ***
 Configure_Prefixes_Longevity
@@ -50,7 +50,7 @@ Configure_Prefixes_Longevity
     BuiltIn.Set_Suite_Variable    ${config_session}    ${session}
     # TODO: Either define BGP_VARIABLES_FOLDER in this file, or create a Resource with the definition and wrapping keywords
     TemplatedRequests.Put_As_Json_Templated    ${BGP_VARIABLES_FOLDER}    mapping=${mapping}    session=${session}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_24_HOURS_IN_SECONDS}    1s    Test_Scenario    ${rib_owner}
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DURATION_23_HOURS_IN_SECONDS}    1s    Test_Scenario    ${rib_owner}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}    mapping=${mapping}    session=${session}
 
 *** Keywords ***

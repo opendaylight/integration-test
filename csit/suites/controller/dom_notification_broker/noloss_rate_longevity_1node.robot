@@ -22,9 +22,9 @@ Resource          ${CURDIR}/../../../libraries/controller/DnbCommons.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
-${DURATION_24_HOURS_IN_SECONDS}    86400
+${DURATION_23_HOURS_IN_SECONDS}    82800
 ${NOTIFICATION_RATE}    ${60000}
 
 *** Test Cases ***
 Notifications_longevity
-    ${NOTIFICATION_RATE}    ${DURATION_24_HOURS_IN_SECONDS}
+    ${NOTIFICATION_RATE}    ${DURATION_23_HOURS_IN_SECONDS}

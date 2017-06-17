@@ -20,7 +20,7 @@ Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
-${TEST_DURATION}    24h
+${TEST_DURATION}    23h
 ${ACCEPTED_PER_SEC_RATE}    100
 ${ACCEPTED_PER_SEC_RATE_CARBON}    5
 
