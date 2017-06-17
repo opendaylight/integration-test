@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1af78d9a_d574309e",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-17T00:21:22Z",
+      "side": 1,
+      "message": "Please check this file for re-writing keywords already\navailable in OpenStackOperations.robot. You should use\nthose keywords if possible, and if they aren\u0027t quite \nwhat you need you can try to enhance those instead of \nmaking new ones.\n\nalso, need [Documentation] for each keyword. these do get\nmunged in to a more readable html format and the docs\nare important for that.\n\nexample:\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OpenStackOperations.robot.html",
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af78d9a_b579a495",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-17T00:21:22Z",
+      "side": 1,
+      "message": "Check, not Checking.",
+      "range": {
+        "startLine": 503,
+        "startChar": 0,
+        "endLine": 503,
+        "endChar": 8
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af78d9a_f5732caf",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-17T00:21:22Z",
+      "side": 1,
+      "message": "it would be a better keyword if you had ${expected_status}\u003dESTABLISHED as a default argument. then others could use it for other status types if the need arises",
+      "range": {
+        "startLine": 504,
+        "startChar": 4,
+        "endLine": 504,
+        "endChar": 40
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af78d9a_556840ba",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite1.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-17T00:21:22Z",
+      "side": 1,
+      "message": "seems some variables are shared with the other suite.\n\nyou could create an ipv6 variables file and source that\ninstead of duplicating them across files.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af78d9a_3565b4e1",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite1.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-17T00:21:22Z",
+      "side": 1,
+      "message": "Table Check takes a list and iterates over that list to make\nsure the items exist. So, why not create one big list and\ncall Table Check once instead of creating a bunch of lists\nof size 1 and calling Table check every time?",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 15
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af78d9a_9562a8d6",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite2.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-17T00:21:22Z",
+      "side": 1,
+      "message": "example of a log line that only adds noise. by reading line\n157 I know exactly what is going on. \"Create Network\"",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af78d9a_755f3c0f",
+        "filename": "csit/suites/netvirt/IPV6Service/__init__.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-17T00:21:22Z",
+      "side": 1,
+      "message": "I feel like this is something that probably already exists.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 36
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
