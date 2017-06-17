@@ -52,18 +52,18 @@ Verify Distribution of traffic with weighted buckets-3 VM on CSS1 , 2 VM on CSS2
     Update Router    Router1    ${RouterUpdateCmd}
     Comment    Configure StaticIp on VMs
     Wait Until Keyword Succeeds    100s    20s    Run Keywords
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM11    ${VMInstanceDict.NOVA_VM11}    ${Dpn1IP}    AND
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM12    ${VMInstanceDict.NOVA_VM12}    ${Dpn1IP}    AND
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM13    ${VMInstanceDict.NOVA_VM13}    ${Dpn1IP}    AND
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM21    ${VMInstanceDict.NOVA_VM21}    ${Dpn2IP}    AND
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM22    ${VMInstanceDict.NOVA_VM22}    ${Dpn2IP}
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM11    ${VMInstanceDict.NOVA_VM11}    ${OS_COMPUTE_1_IP}    AND
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM12    ${VMInstanceDict.NOVA_VM12}    ${OS_COMPUTE_1_IP}    AND
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM13    ${VMInstanceDict.NOVA_VM13}    ${OS_COMPUTE_1_IP}    AND
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM21    ${VMInstanceDict.NOVA_VM21}    ${OS_COMPUTE_2_IP}    AND
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM22    ${VMInstanceDict.NOVA_VM22}    ${OS_COMPUTE_2_IP}
 
     Comment    Verify Static IP got configured on VMs
-    Verify Static Ip Configured In VM    NOVA_VM11    ${Dpn1IP}    ${StaticIp}
-    Verify Static Ip Configured In VM    NOVA_VM12    ${Dpn1IP}    ${StaticIp}
-    Verify Static Ip Configured In VM    NOVA_VM13    ${Dpn1IP}    ${StaticIp}
-    Verify Static Ip Configured In VM    NOVA_VM21    ${Dpn2IP}    ${StaticIp}
-    Verify Static Ip Configured In VM    NOVA_VM22    ${Dpn2IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM11    ${OS_COMPUTE_1_IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM12    ${OS_COMPUTE_1_IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM13    ${OS_COMPUTE_1_IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM21    ${OS_COMPUTE_2_IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM22    ${OS_COMPUTE_2_IP}    ${StaticIp}
 
     #Debug
     Log    Verify the Routes in controller
@@ -74,12 +74,12 @@ Verify Distribution of traffic with weighted buckets-3 VM on CSS1 , 2 VM on CSS2
     Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn1IP}    br-int
-    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     Log    Verify the flow for Co-located ECMP route
     ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
@@ -97,14 +97,14 @@ Verify Distribution of traffic with weighted buckets-3 VM on CSS1 , 2 VM on CSS2
     Length Should Be    ${RemoteVmBucket}    ${3}
 
     Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${Dpn2IP}
+    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
     ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
     ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
 
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     ${match}    ${PacketCount}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*n_packets=(\\d+).*nw_dst=${StaticIp}.*group:(\\d+)
     ${EcmpGroup}    Should Match Regexp    ${Ovs1GroupStat}    group_id=${ECMPgrp}.*
@@ -120,13 +120,13 @@ Verify The ECMP flow should be added into all CSSs that have the footprint of th
     [Documentation]    Verify The ECMP flow should be added into all CSSs that have the footprint of the L3VPN and hosting Nexthop VM
 
     Log    Verify the ECMP flow in switch3
-    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn3IP}    br-int
-    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn3IP}    br-int
+    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_3_IP}    br-int
+    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_3_IP}    br-int
 
     ${match}    Should Not Match Regexp    ${Ovs3Flow}    table=21.*nw_dst=${StaticIp}
 
     Log    Create NOVA_VM31 on Dpn3
-    Create Vm Instance With Port On Compute Node    Network1_Port7    NOVA_VM31    ${Dpn3IP}    ${image}    ${flavor}    CUSTM_SGP
+    Create Vm Instance With Port On Compute Node    Network1_Port7    NOVA_VM31    ${OS_COMPUTE_3_IP}    ${image}    ${flavor}    CUSTM_SGP
     ${InstanceId}    OpenStackOperations.Get VM Instance    NOVA_VM31
     Set To Dictionary    ${VMInstanceDict}    NOVA_VM31=${InstanceId}
     ${VmIp}    OpenStackOperations.Get VM IP     NOVA_VM31
@@ -141,15 +141,15 @@ Verify The ECMP flow should be added into all CSSs that have the footprint of th
     Should Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM31}\/32\\s+${TunnelSourceIp[2]}
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn3IP}    br-int
-    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn1IP}    br-int
-    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn2IP}    br-int
-    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn3IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
-    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn3IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_3_IP}    br-int
+    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_3_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_3_IP}    br-int
 
     Log    Verify the flow for Co-located ECMP route
     ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
@@ -174,7 +174,7 @@ Verify The ECMP flow should be added into all CSSs that have the footprint of th
     Length Should Be    ${RemoteVmBucket}    ${5}
 
     Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM31    ${VMInstanceDict.NOVA_VM31}    ${Dpn3IP}
+    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM31    ${VMInstanceDict.NOVA_VM31}    ${OS_COMPUTE_3_IP}
     ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
     ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
 
@@ -187,28 +187,28 @@ Verify The ECMP flow should be added into all CSSs that have the footprint of th
     Should Not Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM31}\/32\\s+${TunnelSourceIp[2]}
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn3IP}    br-int
-    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn1IP}    br-int
-    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn2IP}    br-int
-    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn3IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
-    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn3IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_3_IP}    br-int
+    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_3_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_3_IP}    br-int
 
     Comment    Verify flow got removed from DPN3
     ${match}    ${ECMPgrp}    Should Not Match Regexp    ${Ovs3Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
 
     Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${Dpn2IP}
+    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
     ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
     ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
     Should Be Equal    ${fail_resp}    ${0}
 
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
-    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn3IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_3_IP}    br-int
 
     Should Be Equal    ${fail_resp}    ${0}
 
@@ -220,16 +220,16 @@ Verify Distribution of traffic with weighted buckets - 2 VM on CSS1 , 2 VM on CS
     Update Router    Router1    ${RouterUpdateCmd}
 
     Wait Until Keyword Succeeds    100s    20s    Run Keywords
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM11    ${VMInstanceDict.NOVA_VM11}    ${Dpn1IP}    AND
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM12    ${VMInstanceDict.NOVA_VM12}    ${Dpn1IP}    AND
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM21    ${VMInstanceDict.NOVA_VM21}    ${Dpn2IP}    AND
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM22    ${VMInstanceDict.NOVA_VM22}    ${Dpn2IP}
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM11    ${VMInstanceDict.NOVA_VM11}    ${OS_COMPUTE_1_IP}    AND
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM12    ${VMInstanceDict.NOVA_VM12}    ${OS_COMPUTE_1_IP}    AND
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM21    ${VMInstanceDict.NOVA_VM21}    ${OS_COMPUTE_2_IP}    AND
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM22    ${VMInstanceDict.NOVA_VM22}    ${OS_COMPUTE_2_IP}
 
     Comment    Verify Static IP got configured on VMs
-    Verify Static Ip Configured In VM    NOVA_VM11    ${Dpn1IP}    ${StaticIp}
-    Verify Static Ip Configured In VM    NOVA_VM12    ${Dpn1IP}    ${StaticIp}
-    Verify Static Ip Configured In VM    NOVA_VM21    ${Dpn2IP}    ${StaticIp}
-    Verify Static Ip Configured In VM    NOVA_VM22    ${Dpn2IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM11    ${OS_COMPUTE_1_IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM12    ${OS_COMPUTE_1_IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM21    ${OS_COMPUTE_2_IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM22    ${OS_COMPUTE_2_IP}    ${StaticIp}
 
 
     Log    Verify the Routes in controller
@@ -239,12 +239,12 @@ Verify Distribution of traffic with weighted buckets - 2 VM on CSS1 , 2 VM on CS
     Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn1IP}    br-int
-    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     Log    Verify the flow for Co-located ECMP route
     ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
@@ -262,15 +262,15 @@ Verify Distribution of traffic with weighted buckets - 2 VM on CSS1 , 2 VM on CS
     Length Should Be    ${RemoteVmBucket}    ${2}
 
     Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${Dpn2IP}
+    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
     ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
     ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     ${match}    ${PacketCount}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*n_packets=(\\d+).*nw_dst=${StaticIp}.*group:(\\d+)
     ${EcmpGroup}    Should Match Regexp    ${Ovs1GroupStat}    group_id=${ECMPgrp}.*
@@ -292,14 +292,14 @@ Verify Distribution of traffic with weighted buckets - 3 VM on CSS1 , 1 VM on CS
     Update Router    Router1    ${RouterUpdateCmd}
 
     Wait Until Keyword Succeeds    100s    20s    Run Keywords
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM11    ${VMInstanceDict.NOVA_VM11}    ${Dpn1IP}    AND
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM12    ${VMInstanceDict.NOVA_VM13}    ${Dpn1IP}    AND
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM21    ${VMInstanceDict.NOVA_VM21}    ${Dpn2IP} 
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM11    ${VMInstanceDict.NOVA_VM11}    ${OS_COMPUTE_1_IP}    AND
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM12    ${VMInstanceDict.NOVA_VM13}    ${OS_COMPUTE_1_IP}    AND
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM21    ${VMInstanceDict.NOVA_VM21}    ${OS_COMPUTE_2_IP} 
 
     Comment    Verify Static IP got configured on VMs
-    Verify Static Ip Configured In VM    NOVA_VM11    ${Dpn1IP}    ${StaticIp}
-    Verify Static Ip Configured In VM    NOVA_VM13    ${Dpn1IP}    ${StaticIp}
-    Verify Static Ip Configured In VM    NOVA_VM21    ${Dpn2IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM11    ${OS_COMPUTE_1_IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM13    ${OS_COMPUTE_1_IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM21    ${OS_COMPUTE_2_IP}    ${StaticIp}
 
     Log    Verify the Routes in controller
     ${CtrlFib}    Issue Command On Karaf Console    fib-show
@@ -308,12 +308,12 @@ Verify Distribution of traffic with weighted buckets - 3 VM on CSS1 , 1 VM on CS
     Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn1IP}    br-int
-    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     Log    Verify the flow for Co-located ECMP route
     ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
@@ -331,15 +331,15 @@ Verify Distribution of traffic with weighted buckets - 3 VM on CSS1 , 1 VM on CS
     Length Should Be    ${RemoteVmBucket}    ${2}
 
     Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${Dpn2IP}
+    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
     ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
     ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     ${match}    ${PacketCount}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*n_packets=(\\d+).*nw_dst=${StaticIp}.*group:(\\d+)
     ${EcmpGroup}    Should Match Regexp    ${Ovs1GroupStat}    group_id=${ECMPgrp}.*
@@ -360,12 +360,12 @@ Verify Distribution of traffic with weighted buckets - 3 VM on CSS1 , 1 VM on CS
     Should Not Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM12}\/32\\s+${TunnelSourceIp[0]}
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn1IP}    br-int
-    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     Log    Verify the flow for Co-located ECMP route
     ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
@@ -384,15 +384,15 @@ Verify Distribution of traffic with weighted buckets - 3 VM on CSS1 , 1 VM on CS
 
 
     Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${Dpn2IP}
+    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
     ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
     ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     ${match}    ${PacketCount}    ${ECMP1grp}    Should Match Regexp    ${Ovs1Flow}    table=21.*n_packets=(\\d+).*nw_dst=${StaticIp}.*group:(\\d+)
     ${EcmpGroup}    Should Match Regexp    ${Ovs1GroupStat}    group_id=${ECMP1grp}.*
@@ -413,12 +413,12 @@ Verify Distribution of traffic with weighted buckets - 3 VM on CSS1 , 1 VM on CS
     Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn1IP}    br-int
-    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     Log    Verify the flow for Co-located ECMP route
     ${match}    Should Match Regexp    ${Ovs1Flow}    table=21.*nw_dst=${StaticIp}.*resubmit\\(,220
@@ -437,15 +437,15 @@ Verify Distribution of traffic with weighted buckets - 3 VM on CSS1 , 1 VM on CS
 
 
     Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${Dpn2IP}
+    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
     ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
     ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     ${match}    ${PacketCount}    ${ECMPgrp}    Should Match Regexp    ${Ovs2Flow}    table=21.*n_packets=(\\d+).*nw_dst=${StaticIp}.*group:(\\d+)
     ${EcmpGroup}    Should Match Regexp    ${Ovs2GroupStat}    group_id=${ECMPgrp}.*
@@ -456,7 +456,7 @@ Verify Distribution of traffic with weighted buckets - 3 VM on CSS1 , 1 VM on CS
 Verify Distribution of traffic with weighted buckets - Add VM on CSS1
     [Documentation]    263.3.2 Verify Distribution of traffic with weighted buckets - Add VM on CSS1
     Log    Create the VMs on DPN1configured as next-hop
-    Create Vm Instance With Port On Compute Node    Network1_Port1    NOVA_VM11    ${Dpn1IP}    ${image}    ${flavor}
+    Create Vm Instance With Port On Compute Node    Network1_Port1    NOVA_VM11    ${OS_COMPUTE_1_IP}    ${image}    ${flavor}
     ${InstanceId}    OpenStackOperations.Get VM Instance    NOVA_VM11
     Set To Dictionary    ${VMInstanceDict}    NOVA_VM11=${InstanceId}
     ${VmIp}    OpenStackOperations.Get VM IP    NOVA_VM11
@@ -464,12 +464,12 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
     Set To Dictionary    ${VmIpDict}    NOVA_VM11=${stripped}
 
     Wait Until Keyword Succeeds    100s    20s    Run Keywords
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM11    ${VMInstanceDict.NOVA_VM11}    ${Dpn1IP}    AND
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM21    ${VMInstanceDict.NOVA_VM21}    ${Dpn2IP}
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM11    ${VMInstanceDict.NOVA_VM11}    ${OS_COMPUTE_1_IP}    AND
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM21    ${VMInstanceDict.NOVA_VM21}    ${OS_COMPUTE_2_IP}
 
     Comment    Verify Static IP got configured on VMs
-    Verify Static Ip Configured In VM    NOVA_VM11    ${Dpn1IP}    ${StaticIp}
-    Verify Static Ip Configured In VM    NOVA_VM21    ${Dpn2IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM11    ${OS_COMPUTE_1_IP}    ${StaticIp}
+    Verify Static Ip Configured In VM    NOVA_VM21    ${OS_COMPUTE_2_IP}    ${StaticIp}
 
     Log    Verify the Routes in controller
     ${CtrlFib}    Issue Command On Karaf Console    fib-show
@@ -479,12 +479,12 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
     Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn1IP}    br-int
-    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     Log    Verify the flow for Co-located ECMP route
     ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
@@ -502,15 +502,15 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
     #Length Should Be    ${RemoteVmBucket}    ${1}
 
     Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${Dpn2IP}
+    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
     ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
     ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     ${match}    ${PacketCount}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*n_packets=(\\d+).*nw_dst=${StaticIp}.*group:(\\d+)
     ${EcmpGroup}    Should Match Regexp    ${Ovs1GroupStat}    group_id=${ECMPgrp}.*
@@ -520,7 +520,7 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
     ${EcmpGroup}    Should Match Regexp    ${Ovs2GroupStat}    group_id=${ECMPgrp}.*
     ${PacketCount}    Get Regexp Matches    ${EcmpGroup}    bucket(\\d+):packet_count=(\\d+)
 
-    Create Vm Instance With Port On Compute Node    Network1_Port2    NOVA_VM12    ${Dpn1IP}    ${image}    ${flavor}
+    Create Vm Instance With Port On Compute Node    Network1_Port2    NOVA_VM12    ${OS_COMPUTE_1_IP}    ${image}    ${flavor}
     ${InstanceId}    OpenStackOperations.Get VM Instance    NOVA_VM12
     Set To Dictionary    ${VMInstanceDict}    NOVA_VM12=${InstanceId}
     ${VmIp}    OpenStackOperations.Get VM IP    NOVA_VM12
@@ -528,20 +528,20 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
     Set To Dictionary    ${VmIpDict}    NOVA_VM12=${stripped}
 
     Wait Until Keyword Succeeds    100s    20s    Run Keywords
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM11    ${VMInstanceDict.NOVA_VM11}    ${Dpn1IP}    AND
-    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM12    ${VMInstanceDict.NOVA_VM12}    ${Dpn1IP}
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM11    ${VMInstanceDict.NOVA_VM11}    ${OS_COMPUTE_1_IP}    AND
+    ...    Execute Command on server    sudo ifconfig eth0:0 ${StaticIp}/24 up    NOVA_VM12    ${VMInstanceDict.NOVA_VM12}    ${OS_COMPUTE_1_IP}
 
     Log    Verify the Routes in controller
     ${CtrlFib}    Issue Command On Karaf Console    fib-show
     Log    ${CtrlFib}
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn1IP}    br-int
-    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     Log    Verify the flow for Co-located ECMP route
     ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
@@ -559,15 +559,15 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
     #Length Should Be    ${RemoteVmBucket}    ${2}
 
     Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${Dpn2IP}
+    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
     ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
     ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
 
     Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn1IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${Dpn2IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn1IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${Dpn2IP}    br-int
+    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
 
     ${match}    ${PacketCount}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*n_packets=(\\d+).*nw_dst=${StaticIp}.*group:(\\d+)
     ${EcmpGroup}    Should Match Regexp    ${Ovs1GroupStat}    group_id=${ECMPgrp}.*
@@ -592,11 +592,11 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
 #    #Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
 #
 #    Log    Verify the ECMP flow in switch
-#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${Dpn1IP}    br-int
-#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${Dpn2IP}    br-int
+#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${OS_COMPUTE_1_IP}    br-int
+#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${OS_COMPUTE_2_IP}    br-int
 #
 #    Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-#    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${Dpn2IP}
+#    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
 #    ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
 #    ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
 #
@@ -609,11 +609,11 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
 #    Log    ${CtrlFib}
 #
 #    Log    Verify the ECMP flow in switch
-#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${Dpn1IP}    br-int
-#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${Dpn2IP}    br-int
+#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${OS_COMPUTE_1_IP}    br-int
+#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${OS_COMPUTE_2_IP}    br-int
 #
 #    Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-#    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${Dpn2IP}
+#    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
 #    ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
 #    ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
 #
@@ -629,11 +629,11 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
 #    #Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
 #
 #    Log    Verify the ECMP flow in switch
-#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${Dpn1IP}    br-int
-#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${Dpn2IP}    br-int
+#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${OS_COMPUTE_1_IP}    br-int
+#    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${OS_COMPUTE_2_IP}    br-int
 #
 #    Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-#    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${Dpn2IP}
+#    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
 #    ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
 #    ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
 #    Should Be Equal    ${fail_resp}    ${0}
@@ -641,9 +641,9 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
 *** Keywords ***
 Pre Setup
     Comment    "Configure ITM tunnel between DPNs"
-    ${Dpn1Id}    SW_GET_SWITCH_ID    ${Dpn1IP}    br-int
-    ${Dpn2Id}    SW_GET_SWITCH_ID    ${Dpn2IP}    br-int
-    ${Dpn3Id}    SW_GET_SWITCH_ID    ${Dpn3IP}    br-int
+    ${Dpn1Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_1_IP}    br-int
+    ${Dpn2Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_2_IP}    br-int
+    ${Dpn3Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_3_IP}    br-int
     Issue Command On Karaf Console    tep:add ${Dpn1Id} dpdk0 0 ${TunnelSourceIp[0]} ${TunnelNetwork} null TZA
     Issue Command On Karaf Console    tep:add ${Dpn2Id} dpdk0 0 ${TunnelSourceIp[1]} ${TunnelNetwork} null TZA
     Issue Command On Karaf Console    tep:add ${Dpn3Id} dpdk0 0 ${TunnelSourceIp[2]} ${TunnelNetwork} null TZA
@@ -679,17 +679,17 @@ Pre Setup
     Create Neutron Port With Additional Params    Network1    Network1_Port7    ${ADD_ARG}
 
     Log To Console    "Creating NOVA_VM11"
-    Create Vm Instance With Port On Compute Node    Network1_Port1    NOVA_VM11    ${Dpn1IP}    ${image}    ${flavor}    CUSTM_SGP
+    Create Vm Instance With Port On Compute Node    Network1_Port1    NOVA_VM11    ${OS_COMPUTE_1_IP}    ${image}    ${flavor}    CUSTM_SGP
     Log To Console    "Creating NOVA_VM12"
-    Create Vm Instance With Port On Compute Node    Network1_Port2    NOVA_VM12    ${Dpn1IP}    ${image}    ${flavor}    CUSTM_SGP
-    Create Vm Instance With Port On Compute Node    Network1_Port3    NOVA_VM13    ${Dpn1IP}    ${image}    ${flavor}    CUSTM_SGP
+    Create Vm Instance With Port On Compute Node    Network1_Port2    NOVA_VM12    ${OS_COMPUTE_1_IP}    ${image}    ${flavor}    CUSTM_SGP
+    Create Vm Instance With Port On Compute Node    Network1_Port3    NOVA_VM13    ${OS_COMPUTE_1_IP}    ${image}    ${flavor}    CUSTM_SGP
     Log To Console    "Creating NOVA_VM21"
-    Create Vm Instance With Port On Compute Node    Network1_Port4    NOVA_VM21    ${Dpn2IP}    ${image}    ${flavor}    CUSTM_SGP
+    Create Vm Instance With Port On Compute Node    Network1_Port4    NOVA_VM21    ${OS_COMPUTE_2_IP}    ${image}    ${flavor}    CUSTM_SGP
     Log To Console    "Creating NOVA_VM22"
-    Create Vm Instance With Port On Compute Node    Network1_Port5    NOVA_VM22    ${Dpn2IP}    ${image}    ${flavor}    CUSTM_SGP
+    Create Vm Instance With Port On Compute Node    Network1_Port5    NOVA_VM22    ${OS_COMPUTE_2_IP}    ${image}    ${flavor}    CUSTM_SGP
 
-    Create Vm Instance With Port On Compute Node    Network1_Port6    NOVA_VM23    ${Dpn2IP}    ${image}    ${flavor}    CUSTM_SGP
-    #Create Vm Instance With Port On Compute Node    Network1_Port7    NOVA_VM31    ${Dpn3IP}    ${image}    ${flavor}    CUSTM_SGP
+    Create Vm Instance With Port On Compute Node    Network1_Port6    NOVA_VM23    ${OS_COMPUTE_2_IP}    ${image}    ${flavor}    CUSTM_SGP
+    #Create Vm Instance With Port On Compute Node    Network1_Port7    NOVA_VM31    ${OS_COMPUTE_3_IP}    ${image}    ${flavor}    CUSTM_SGP
 
     Comment    Create Routers
     Create Router    Router1
@@ -739,15 +739,15 @@ Clear Setup
     Run Keyword And Ignore Error    Update Router    Router1   --no-routes
     Run Keyword And Ignore Error    Remove Interface    Router1    Subnet1
     Run Keyword And Ignore Error    Delete Router     Router1
-    Run Keyword And Ignore Error    Delete Bgpvpn    Vpn1
+#    Run Keyword And Ignore Error    Delete Bgpvpn    Vpn1
     Run Keyword And Ignore Error    Delete SubNet    Subnet1
     Run Keyword And Ignore Error    Delete Network    Network1
     Run Keyword And Ignore Error    Neutron Security Group Delete    ${SGP}
 
     Comment    "Delete ITM tunnel between DPNs"
-    ${Dpn1Id}    SW_GET_SWITCH_ID    ${Dpn1IP}    br-int
-    ${Dpn2Id}    SW_GET_SWITCH_ID    ${Dpn2IP}    br-int
-    ${Dpn3Id}    SW_GET_SWITCH_ID    ${Dpn3IP}    br-int
+    ${Dpn1Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_1_IP}    br-int
+    ${Dpn2Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_2_IP}    br-int
+    ${Dpn3Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_3_IP}    br-int
     Issue Command On Karaf Console    tep:delete ${Dpn1Id} dpdk0 0 ${TunnelSourceIp[0]} ${TunnelNetwork} null TZA
     Issue Command On Karaf Console    tep:delete ${Dpn2Id} dpdk0 0 ${TunnelSourceIp[1]} ${TunnelNetwork} null TZA
     Issue Command On Karaf Console    tep:delete ${Dpn3Id} dpdk0 0 ${TunnelSourceIp[2]} ${TunnelNetwork} null TZA
