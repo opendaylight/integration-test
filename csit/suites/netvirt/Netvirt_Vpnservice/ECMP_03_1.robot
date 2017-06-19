@@ -37,6 +37,7 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/OpenStackOperations.robot
 Resource          ${CURDIR}/../../../libraries/SwitchOperations.robot
 #Library           DebugLibrary
+Library           OperatingSystem
 
 *** Variables ***
 ${fail_resp}      0
@@ -70,8 +71,8 @@ Verify Distribution of traffic with weighted buckets-3 VM on CSS1 , 2 VM on CSS2
     ${CtrlFib}    Issue Command On Karaf Console    fib-show
     Log    ${CtrlFib}
 
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[0]}
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
+    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_1_IP}
+    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_2_IP}
 
     Log    Verify the ECMP flow in switch
     ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
@@ -136,8 +137,8 @@ Verify Distribution of traffic with weighted buckets-3 VM on CSS1 , 2 VM on CSS2
 #    Log    Verify the Routes in controller
 #    ${CtrlFib}    Issue Command On Karaf Console    fib-show
 #    Log    ${CtrlFib}
-#    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[0]}
-#    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
+#    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_1_IP}
+#    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_2_IP}
 #    Should Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM31}\/32\\s+${TunnelSourceIp[2]}
 #
 #    Log    Verify the ECMP flow in switch
@@ -235,8 +236,8 @@ Verify Distribution of traffic with weighted buckets - 2 VM on CSS1 , 2 VM on CS
     Log    Verify the Routes in controller
     ${CtrlFib}    Issue Command On Karaf Console    fib-show
     Log    ${CtrlFib}
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[0]}
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
+    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_1_IP}
+    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_2_IP}
 
     Log    Verify the ECMP flow in switch
     ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
@@ -304,8 +305,8 @@ Verify Distribution of traffic with weighted buckets - 3 VM on CSS1 , 1 VM on CS
     Log    Verify the Routes in controller
     ${CtrlFib}    Issue Command On Karaf Console    fib-show
     Log    ${CtrlFib}
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[0]}
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
+    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_1_IP}
+    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_2_IP}
 
     Log    Verify the ECMP flow in switch
     ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
@@ -355,9 +356,9 @@ Verify Distribution of traffic with weighted buckets - 3 VM on CSS1 , 1 VM on CS
     Log    Verify the Routes in controller
     ${CtrlFib}    Issue Command On Karaf Console    fib-show
     Log    ${CtrlFib}
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[0]}
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
-    Should Not Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM12}\/32\\s+${TunnelSourceIp[0]}
+    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_1_IP}
+    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_2_IP}
+    Should Not Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM12}\/32\\s+${OS_COMPUTE_1_IP}
 
     Log    Verify the ECMP flow in switch
     ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
@@ -408,9 +409,9 @@ Verify Distribution of traffic with weighted buckets - 3 VM on CSS1 , 1 VM on CS
     Log    Verify the Routes in controller
     ${CtrlFib}    Issue Command On Karaf Console    fib-show
     Log    ${CtrlFib}
-    Should Not Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[0]}
-    Should Not Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM11}\/32\\s+${TunnelSourceIp[0]}
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
+    Should Not Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_1_IP}
+    Should Not Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM11}\/32\\s+${OS_COMPUTE_1_IP}
+    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_2_IP}
 
     Log    Verify the ECMP flow in switch
     ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
@@ -474,9 +475,9 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
     Log    Verify the Routes in controller
     ${CtrlFib}    Issue Command On Karaf Console    fib-show
     Log    ${CtrlFib}
-    #Should Not Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[0]}
-    Should Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM11}\/32\\s+${TunnelSourceIp[0]}
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
+    #Should Not Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_1_IP}
+    Should Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM11}\/32\\s+${OS_COMPUTE_1_IP}
+    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_2_IP}
 
     Log    Verify the ECMP flow in switch
     ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
@@ -588,8 +589,8 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
 #    Log    Verify the Routes in controller
 #    ${CtrlFib}    Issue Command On Karaf Console    fib-show
 #    Log    ${CtrlFib}
-#    #Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[0]}
-#    #Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
+#    #Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_1_IP}
+#    #Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_2_IP}
 #
 #    Log    Verify the ECMP flow in switch
 #    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${OS_COMPUTE_1_IP}    br-int
@@ -625,8 +626,8 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
 #    Log    Verify the Routes in controller
 #    ${CtrlFib}    Issue Command On Karaf Console    fib-show
 #    Log    ${CtrlFib}
-#    #Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[0]}
-#    #Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
+#    #Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_1_IP}
+#    #Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${OS_COMPUTE_2_IP}
 #
 #    Log    Verify the ECMP flow in switch
 #    ${OvsFlow}    SwitchOperations.SW_DUMP_ALL_TABLES     ${OS_COMPUTE_1_IP}    br-int
@@ -642,14 +643,17 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
 Pre Setup
 
     ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_1_IP}    .    2
-    ${subnet}=    Set Variable    ${first_two_octets}.0.0/24
+    ${subnet_1}=    Set Variable    ${first_two_octets}.0.0/24
 
+    ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_2_IP}    .    2
+    ${subnet_2}=    Set Variable    ${first_two_octets}.0.0/24
+    
     Comment    "Configure ITM tunnel between DPNs"
     ${Dpn1Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_1_IP}    br-int
     ${Dpn2Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_2_IP}    br-int
     #${Dpn3Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_3_IP}    br-int
-    Issue Command On Karaf Console    tep:add ${Dpn1Id} dpdk0 0 ${OS_COMPUTE_1_IP} ${subnet} null TZA
-    Issue Command On Karaf Console    tep:add ${Dpn2Id} dpdk0 0 ${OS_COMPUTE_2_IP} ${subnet} null TZA
+    Issue Command On Karaf Console    tep:add ${Dpn1Id} dpdk0 0 ${OS_COMPUTE_1_IP} ${subnet_1} null TZA
+    Issue Command On Karaf Console    tep:add ${Dpn2Id} dpdk0 0 ${OS_COMPUTE_2_IP} ${subnet_2} null TZA
     #Issue Command On Karaf Console    tep:add ${Dpn3Id} dpdk0 0 ${TunnelSourceIp[2]} ${TunnelNetwork} null TZA
     Issue Command On Karaf Console    tep:commit
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
@@ -749,11 +753,18 @@ Clear Setup
     Run Keyword And Ignore Error    Neutron Security Group Delete    ${SGP}
 
     Comment    "Delete ITM tunnel between DPNs"
+
+    ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_1_IP}    .    2
+    ${subnet_1}=    Set Variable    ${first_two_octets}.0.0/24
+
+    ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_2_IP}    .    2
+    ${subnet_2}=    Set Variable    ${first_two_octets}.0.0/24
+
     ${Dpn1Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_1_IP}    br-int
     ${Dpn2Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_2_IP}    br-int
     #${Dpn3Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_3_IP}    br-int
-    Issue Command On Karaf Console    tep:delete ${Dpn1Id} dpdk0 0 ${TunnelSourceIp[0]} ${TunnelNetwork} null TZA
-    Issue Command On Karaf Console    tep:delete ${Dpn2Id} dpdk0 0 ${TunnelSourceIp[1]} ${TunnelNetwork} null TZA
+    Issue Command On Karaf Console    tep:delete ${Dpn1Id} dpdk0 0 ${OS_COMPUTE_1_IP} ${subnet_1} null TZA
+    Issue Command On Karaf Console    tep:delete ${Dpn2Id} dpdk0 0 ${OS_COMPUTE_2_IP} ${subnet_2} null TZA
     #Issue Command On Karaf Console    tep:delete ${Dpn3Id} dpdk0 0 ${TunnelSourceIp[2]} ${TunnelNetwork} null TZA
     Issue Command On Karaf Console    tep:commit
 
