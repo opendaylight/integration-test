@@ -17,8 +17,7 @@ Library           Collections
 
 *** Variables ***
 ${SWITCHES}       1
-# this is for mininet 2.2.1 ${START_CMD}    sudo mn --controller=remote,ip=${ODL_SYSTEM_1_IP} --controller=remote,ip=${ODL_SYSTEM_2_IP} --controller=remote,ip=${ODL_SYSTEM_3_IP} --topo linear,${SWITCHES} --switch ovsk,protocols=OpenFlow13
-${START_CMD}      sudo mn --topo linear,${SWITCHES} --switch ovsk,protocols=OpenFlow13
+${START_CMD}      sudo mn --topo linear,${SWITCHES}
 ${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}
 
 *** Test Cases ***
