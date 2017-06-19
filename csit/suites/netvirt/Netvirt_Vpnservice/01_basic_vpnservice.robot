@@ -43,9 +43,8 @@ Create Neutron Networks
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
     Should Contain    ${NET_LIST}    ${NETWORKS[1]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
-    Update Network    ${NETWORKS[0]}    additional_args=--description ${UPDATE_NETWORK}
     ${output} =    Show Network    ${NETWORKS[0]}
-    Should Contain    ${output}    ${UPDATE_NETWORK}
+    ${output} =    Show Network    ${NETWORKS[1]}
 
 Create Neutron Subnets
     [Documentation]    Create two subnets for previously created networks
