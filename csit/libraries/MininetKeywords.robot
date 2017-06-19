@@ -33,6 +33,8 @@ Start Mininet Multiple Controllers
     [Documentation]    Start Mininet with custom topology and connect to list of controllers in ${controller_index_list} or all if no list is provided.
     ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
     Log    Clear any existing mininet
+    Utils.Run Command On Mininet    ${mininet}    sudo ovs-vsctl show
+    Utils.Run Command On Mininet    ${mininet}    sudo mn --version
     Utils.Clean Mininet System    ${mininet}
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
