@@ -1,5 +1,5 @@
 [gerrit]
-host=git.opendaylight.org
+host=git.opendaylight.org/gerrit
 port=29418
 project=integration/test.git
 defaultbranch=master
