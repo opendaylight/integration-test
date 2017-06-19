@@ -286,7 +286,7 @@ Get Router Id
     [Arguments]    ${router1}    ${devstack_conn_id}
     [Documentation]    Retrieve the router id for the given router name
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack router list | grep "${router1}" | awk '{print $2}'    30s
+    ${output}=    Write Commands Until Prompt    openstack router list -f table | grep "${router1}" | awk '{print $2}'    30s
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${router_id}=    Get from List    ${splitted_output}    0
@@ -572,7 +572,7 @@ List Router
     [Documentation]    List Router and return output with neutron client.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack router list    30s
+    ${output}=    Write Commands Until Prompt    openstack router list -f value    30s
     Close Connection
     Log    ${output}
     [Return]    ${output}
@@ -590,7 +590,7 @@ Show Router Interface
     [Documentation]    List Router interface associated with given Router and return output with neutron client.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack port list --router ${router_name}    30s
+    ${output}=    Write Commands Until Prompt    openstack port list --router ${router_name} -f value    30s
     Close Connection
     Log    ${output}
     [Return]    ${output}
@@ -735,7 +735,7 @@ Create Security Rule
     [Arguments]    ${direction}    ${protocol}    ${min_port}    ${max_port}    ${remote_ip}    ${sg_name}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack security group rule create --${direction} --protocol ${protocol} --dst-port ${min_port}:${max_port} --remote-ip ${remote_ip} ${sg_name}
+    ${output}=    Write Commands Until Prompt    openstack security group rule create --${direction} --protocol ${protocol} --dst-port ${min_port}:${max_port} ${sg_name}
     Close Connection
 
 Neutron Security Group Show
