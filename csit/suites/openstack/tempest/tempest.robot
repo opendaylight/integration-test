@@ -94,6 +94,18 @@ tempest.scenario.test_network_v6.TestGettingAddress.test_dhcp6_stateless_from_os
 tempest.scenario.test_network_v6.TestGettingAddress.test_slaac_from_os
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
+tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_multi_prefix_dhcpv6_stateless
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
+
+tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_multi_prefix_slaac
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
+
+tempest.scenario.test_network_v6.TestGettingAddress.test_multi_prefix_slaac
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
+
+tempest.scenario.test_network_v6.TestGettingAddress.test_multi_prefix_dhcpv6_stateless
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
+
 *** Keywords ***
 Log In To Tempest Executor And Setup Test Environment
     [Documentation]    Initialize SetupUtils, open SSH connection to a devstack system and source the openstack
