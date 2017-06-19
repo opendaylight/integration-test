@@ -31,7 +31,6 @@ else:
         BODY['plots'][key][props[0]] = float(vals[0])
         BODY['plots'][key][props[1]] = float(vals[1])
         BODY['plots'][key][props[2]] = float(vals[2])
-        
 
 BODY['jenkins-silo'] = os.environ['SILO']
 BODY['test-name'] = os.environ['JOB_NAME']
