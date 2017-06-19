@@ -39,7 +39,7 @@ Start Mininet Multiple Controllers
     Utils.Flexible Mininet Login
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Log    Start mininet ${options}
-    SSHLibrary.Write    sudo mn ${options}
+    SSHLibrary.Write    sudo mn ${options} --controller 'remote,ip=127.0.0.1,port=6633'
     SSHLibrary.Read Until    mininet>
     Log    Create controller configuration
     ${controller_opt}=    Set Variable
