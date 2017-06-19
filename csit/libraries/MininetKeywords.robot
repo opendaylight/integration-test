@@ -33,13 +33,15 @@ Start Mininet Multiple Controllers
     [Documentation]    Start Mininet with custom topology and connect to list of controllers in ${controller_index_list} or all if no list is provided.
     ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
     Log    Clear any existing mininet
+    Utils.Run Command On Mininet    ${mininet}    sudo ovs-vsctl show
+    Utils.Run Command On Mininet    ${mininet}    sudo mn --version
     Utils.Clean Mininet System    ${mininet}
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
     Utils.Flexible Mininet Login
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Log    Start mininet ${options}
-    SSHLibrary.Write    sudo mn ${options}
+    SSHLibrary.Write    sudo mn ${options} --controller 'remote,ip=127.0.0.1,port=6633'
     SSHLibrary.Read Until    mininet>
     Log    Create controller configuration
     ${controller_opt}=    Set Variable
