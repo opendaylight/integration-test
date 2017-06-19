@@ -1045,6 +1045,15 @@ Add Security Group To VM
     Log    ${output}
     Close Connection
 
+Remove Security Group From VM
+    [Arguments]    ${vm}    ${sg}
+    [Documentation]    Remove the security group provided to the given VM.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    openstack server remove security group ${vm} ${sg}
+    Log    ${output}
+    Close Connection
+
 Create SFC Flow Classifier
     [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${dest_port}    ${neutron_src_port}
     [Documentation]    Create a flow classifier for SFC
