@@ -640,12 +640,16 @@ Verify Distribution of traffic with weighted buckets - Add VM on CSS1
 
 *** Keywords ***
 Pre Setup
+
+    ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_1_IP}    .    2
+    ${subnet}=    Set Variable    ${first_two_octets}.0.0/24
+
     Comment    "Configure ITM tunnel between DPNs"
     ${Dpn1Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_1_IP}    br-int
     ${Dpn2Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_2_IP}    br-int
     #${Dpn3Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_3_IP}    br-int
-    Issue Command On Karaf Console    tep:add ${Dpn1Id} dpdk0 0 ${TunnelSourceIp[0]} ${TunnelNetwork} null TZA
-    Issue Command On Karaf Console    tep:add ${Dpn2Id} dpdk0 0 ${TunnelSourceIp[1]} ${TunnelNetwork} null TZA
+    Issue Command On Karaf Console    tep:add ${Dpn1Id} dpdk0 0 ${OS_COMPUTE_1_IP} ${subnet} null TZA
+    Issue Command On Karaf Console    tep:add ${Dpn2Id} dpdk0 0 ${OS_COMPUTE_2_IP} ${subnet} null TZA
     #Issue Command On Karaf Console    tep:add ${Dpn3Id} dpdk0 0 ${TunnelSourceIp[2]} ${TunnelNetwork} null TZA
     Issue Command On Karaf Console    tep:commit
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
@@ -739,7 +743,7 @@ Clear Setup
     Run Keyword And Ignore Error    Update Router    Router1   --no-routes
     Run Keyword And Ignore Error    Remove Interface    Router1    Subnet1
     Run Keyword And Ignore Error    Delete Router     Router1
-    Run Keyword And Ignore Error    Delete Bgpvpn    Vpn1
+#    Run Keyword And Ignore Error    Delete Bgpvpn    Vpn1
     Run Keyword And Ignore Error    Delete SubNet    Subnet1
     Run Keyword And Ignore Error    Delete Network    Network1
     Run Keyword And Ignore Error    Neutron Security Group Delete    ${SGP}
