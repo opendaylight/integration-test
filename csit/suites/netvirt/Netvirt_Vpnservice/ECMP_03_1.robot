@@ -31,12 +31,12 @@ Suite Setup        Pre Setup
 Suite Teardown     Clear Setup
 #Test Setup         Pretest Setup
 #Test Teardown      Pretest Cleanup
-Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
-Resource          ${CURDIR}/../../../libraries/VpnOperations.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
-Resource          ${CURDIR}/../../../libraries/OpenStackOperations.robot
-Resource          ${CURDIR}/../../../libraries/SwitchOperations.robot
-#Library           DebugLibrary
+Resource          ${CURDIR}/../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../libraries/VpnOperations.robot
+Resource          ${CURDIR}/../../libraries/Utils.robot
+Resource          ${CURDIR}/../../libraries/OpenStackOperations.robot
+Resource          ${CURDIR}/../../libraries/SwitchOperations.robot
+Library           DebugLibrary
 
 *** Variables ***
 ${fail_resp}      0
@@ -65,7 +65,7 @@ Verify Distribution of traffic with weighted buckets-3 VM on CSS1 , 2 VM on CSS2
     Verify Static Ip Configured In VM    NOVA_VM21    ${OS_COMPUTE_2_IP}    ${StaticIp}
     Verify Static Ip Configured In VM    NOVA_VM22    ${OS_COMPUTE_2_IP}    ${StaticIp}
 
-    #Debug
+    Debug
     Log    Verify the Routes in controller
     ${CtrlFib}    Issue Command On Karaf Console    fib-show
     Log    ${CtrlFib}
@@ -116,101 +116,101 @@ Verify Distribution of traffic with weighted buckets-3 VM on CSS1 , 2 VM on CSS2
 
     Should Be Equal    ${fail_resp}    ${0}
 
-Verify The ECMP flow should be added into all CSSs that have the footprint of the L3VPN and hosting Nexthop VM
-    [Documentation]    Verify The ECMP flow should be added into all CSSs that have the footprint of the L3VPN and hosting Nexthop VM
-
-    Log    Verify the ECMP flow in switch3
-    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_3_IP}    br-int
-    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_3_IP}    br-int
-
-    ${match}    Should Not Match Regexp    ${Ovs3Flow}    table=21.*nw_dst=${StaticIp}
-
-    Log    Create NOVA_VM31 on Dpn3
-    Create Vm Instance With Port On Compute Node    Network1_Port7    NOVA_VM31    ${OS_COMPUTE_3_IP}    ${image}    ${flavor}    CUSTM_SGP
-    ${InstanceId}    OpenStackOperations.Get VM Instance    NOVA_VM31
-    Set To Dictionary    ${VMInstanceDict}    NOVA_VM31=${InstanceId}
-    ${VmIp}    OpenStackOperations.Get VM IP     NOVA_VM31
-    ${stripped}    Strip String    ${VmIp[0]}    characters=','
-    Set To Dictionary    ${VmIpDict}    NOVA_VM31=${stripped}
-
-    Log    Verify the Routes in controller
-    ${CtrlFib}    Issue Command On Karaf Console    fib-show
-    Log    ${CtrlFib}
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[0]}
-    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
-    Should Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM31}\/32\\s+${TunnelSourceIp[2]}
-
-    Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
-    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_3_IP}    br-int
-    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
-    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
-    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_3_IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
-    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_3_IP}    br-int
-
-    Log    Verify the flow for Co-located ECMP route
-    ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
-    ${EcmpGroup}    Should Match Regexp    ${Ovs1Group}    group_id=${ECMPgrp}.*
-    ${bucketCount}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=group:(\\d+)
-    Length Should Be    ${bucketCount}    ${3}
-    ${RemoteVmBucket}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=resubmit
-    Length Should Be    ${RemoteVmBucket}    ${2}
-
-    ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs2Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
-    ${EcmpGroup}    Should Match Regexp    ${Ovs2Group}    group_id=${ECMPgrp}.*
-    ${bucketCount}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=group:(\\d+)
-    Length Should Be    ${bucketCount}    ${2}
-    ${RemoteVmBucket}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=resubmit
-    Length Should Be    ${RemoteVmBucket}    ${3}
-
-    ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs3Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
-    ${EcmpGroup}    Should Match Regexp    ${Ovs3Group}    group_id=${ECMPgrp}.*
-    ${bucketCount}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=group:(\\d+)
-    Length Should Be    ${bucketCount}    ${0}
-    ${RemoteVmBucket}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=resubmit
-    Length Should Be    ${RemoteVmBucket}    ${5}
-
-    Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM31    ${VMInstanceDict.NOVA_VM31}    ${OS_COMPUTE_3_IP}
-    ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
-    ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
-
-    Log    Delete VM (NOVA_VM31) from DPN3
-    Delete Vm Instance    NOVA_VM31
-    Sleep    ${10} 
-    Log    Verify the Routes in controller
-    ${CtrlFib}    Issue Command On Karaf Console    fib-show
-    Log    ${CtrlFib}
-    Should Not Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM31}\/32\\s+${TunnelSourceIp[2]}
-
-    Log    Verify the ECMP flow in switch
-    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
-    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
-    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_3_IP}    br-int
-    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
-    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
-    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_3_IP}    br-int
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
-    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_3_IP}    br-int
-
-    Comment    Verify flow got removed from DPN3
-    ${match}    ${ECMPgrp}    Should Not Match Regexp    ${Ovs3Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
-
-    Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
-    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
-    ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
-    ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
-    Should Be Equal    ${fail_resp}    ${0}
-
-    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
-    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
-    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_3_IP}    br-int
-
-    Should Be Equal    ${fail_resp}    ${0}
+#Verify The ECMP flow should be added into all CSSs that have the footprint of the L3VPN and hosting Nexthop VM
+#    [Documentation]    Verify The ECMP flow should be added into all CSSs that have the footprint of the L3VPN and hosting Nexthop VM
+#
+#    Log    Verify the ECMP flow in switch3
+#    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_3_IP}    br-int
+#    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_3_IP}    br-int
+#
+#    ${match}    Should Not Match Regexp    ${Ovs3Flow}    table=21.*nw_dst=${StaticIp}
+#
+#    Log    Create NOVA_VM31 on Dpn3
+#    Create Vm Instance With Port On Compute Node    Network1_Port7    NOVA_VM31    ${OS_COMPUTE_3_IP}    ${image}    ${flavor}    CUSTM_SGP
+#    ${InstanceId}    OpenStackOperations.Get VM Instance    NOVA_VM31
+#    Set To Dictionary    ${VMInstanceDict}    NOVA_VM31=${InstanceId}
+#    ${VmIp}    OpenStackOperations.Get VM IP     NOVA_VM31
+#    ${stripped}    Strip String    ${VmIp[0]}    characters=','
+#    Set To Dictionary    ${VmIpDict}    NOVA_VM31=${stripped}
+#
+#    Log    Verify the Routes in controller
+#    ${CtrlFib}    Issue Command On Karaf Console    fib-show
+#    Log    ${CtrlFib}
+#    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[0]}
+#    Should Match Regexp    ${CtrlFib}     ${StaticIp}\/32\\s+${TunnelSourceIp[1]}
+#    Should Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM31}\/32\\s+${TunnelSourceIp[2]}
+#
+#    Log    Verify the ECMP flow in switch
+#    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+#    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+#    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_3_IP}    br-int
+#    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
+#    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
+#    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_3_IP}    br-int
+#    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+#    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
+#    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_3_IP}    br-int
+#
+#    Log    Verify the flow for Co-located ECMP route
+#    ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs1Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
+#    ${EcmpGroup}    Should Match Regexp    ${Ovs1Group}    group_id=${ECMPgrp}.*
+#    ${bucketCount}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=group:(\\d+)
+#    Length Should Be    ${bucketCount}    ${3}
+#    ${RemoteVmBucket}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=resubmit
+#    Length Should Be    ${RemoteVmBucket}    ${2}
+#
+#    ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs2Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
+#    ${EcmpGroup}    Should Match Regexp    ${Ovs2Group}    group_id=${ECMPgrp}.*
+#    ${bucketCount}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=group:(\\d+)
+#    Length Should Be    ${bucketCount}    ${2}
+#    ${RemoteVmBucket}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=resubmit
+#    Length Should Be    ${RemoteVmBucket}    ${3}
+#
+#    ${match}    ${ECMPgrp}    Should Match Regexp    ${Ovs3Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
+#    ${EcmpGroup}    Should Match Regexp    ${Ovs3Group}    group_id=${ECMPgrp}.*
+#    ${bucketCount}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=group:(\\d+)
+#    Length Should Be    ${bucketCount}    ${0}
+#    ${RemoteVmBucket}    Get Regexp Matches    ${EcmpGroup}    bucket=actions=resubmit
+#    Length Should Be    ${RemoteVmBucket}    ${5}
+#
+#    Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
+#    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM31    ${VMInstanceDict.NOVA_VM31}    ${OS_COMPUTE_3_IP}
+#    ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
+#    ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
+#
+#    Log    Delete VM (NOVA_VM31) from DPN3
+#    Delete Vm Instance    NOVA_VM31
+#    Sleep    ${10} 
+#    Log    Verify the Routes in controller
+#    ${CtrlFib}    Issue Command On Karaf Console    fib-show
+#    Log    ${CtrlFib}
+#    Should Not Match Regexp    ${CtrlFib}     ${VmIpDict.NOVA_VM31}\/32\\s+${TunnelSourceIp[2]}
+#
+#    Log    Verify the ECMP flow in switch
+#    ${Ovs1Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_1_IP}    br-int
+#    ${Ovs2Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_2_IP}    br-int
+#    ${Ovs3Flow}    SwitchOperations.SW_GET_FLOW_TABLE     ${OS_COMPUTE_3_IP}    br-int
+#    ${Ovs1Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_1_IP}    br-int
+#    ${Ovs2Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_2_IP}    br-int
+#    ${Ovs3Group}    SwitchOperations.SW_GET_FLOW_GROUP     ${OS_COMPUTE_3_IP}    br-int
+#    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+#    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
+#    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_3_IP}    br-int
+#
+#    Comment    Verify flow got removed from DPN3
+#    ${match}    ${ECMPgrp}    Should Not Match Regexp    ${Ovs3Flow}    table=21.*nw_dst=${StaticIp}.*group:(\\d+)
+#
+#    Log    Verify the traffic originated from VM getting splitted between nexthop-VMs
+#    ${pingresp}    Execute Command on server    ping ${StaticIp} -c 15    NOVA_VM23    ${VMInstanceDict.NOVA_VM23}    ${OS_COMPUTE_2_IP}
+#    ${match}    ${grp1}    Should Match Regexp    ${pingresp}    (\\d+)\\% packet loss
+#    ${fail_resp}    Run Keyword If    ${grp1}<=${20}    Evaluate    ${fail_resp}+0    ELSE    Evaluate    ${fail_resp}+1
+#    Should Be Equal    ${fail_resp}    ${0}
+#
+#    ${Ovs1GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_1_IP}    br-int
+#    ${Ovs2GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_2_IP}    br-int
+#    ${Ovs3GroupStat}    SwitchOperations.SW_GET_GROUP_STAT     ${OS_COMPUTE_3_IP}    br-int
+#
+#    Should Be Equal    ${fail_resp}    ${0}
 
 
 Verify Distribution of traffic with weighted buckets - 2 VM on CSS1 , 2 VM on CSS2
@@ -643,10 +643,10 @@ Pre Setup
     Comment    "Configure ITM tunnel between DPNs"
     ${Dpn1Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_1_IP}    br-int
     ${Dpn2Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_2_IP}    br-int
-    ${Dpn3Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_3_IP}    br-int
+    #${Dpn3Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_3_IP}    br-int
     Issue Command On Karaf Console    tep:add ${Dpn1Id} dpdk0 0 ${TunnelSourceIp[0]} ${TunnelNetwork} null TZA
     Issue Command On Karaf Console    tep:add ${Dpn2Id} dpdk0 0 ${TunnelSourceIp[1]} ${TunnelNetwork} null TZA
-    Issue Command On Karaf Console    tep:add ${Dpn3Id} dpdk0 0 ${TunnelSourceIp[2]} ${TunnelNetwork} null TZA
+    #Issue Command On Karaf Console    tep:add ${Dpn3Id} dpdk0 0 ${TunnelSourceIp[2]} ${TunnelNetwork} null TZA
     Issue Command On Karaf Console    tep:commit
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
@@ -728,7 +728,7 @@ Clear Setup
     Run Keyword And Ignore Error    Delete Vm Instance    NOVA_VM21
     Run Keyword And Ignore Error    Delete Vm Instance    NOVA_VM22
     Run Keyword And Ignore Error    Delete Vm Instance    NOVA_VM23
-    Run Keyword And Ignore Error    Delete Vm Instance    NOVA_VM31
+    #Run Keyword And Ignore Error    Delete Vm Instance    NOVA_VM31
     Run Keyword And Ignore Error    Delete Port    Network1_Port1
     Run Keyword And Ignore Error    Delete Port    Network1_Port2
     Run Keyword And Ignore Error    Delete Port    Network1_Port3
@@ -739,7 +739,7 @@ Clear Setup
     Run Keyword And Ignore Error    Update Router    Router1   --no-routes
     Run Keyword And Ignore Error    Remove Interface    Router1    Subnet1
     Run Keyword And Ignore Error    Delete Router     Router1
-#    Run Keyword And Ignore Error    Delete Bgpvpn    Vpn1
+    Run Keyword And Ignore Error    Delete Bgpvpn    Vpn1
     Run Keyword And Ignore Error    Delete SubNet    Subnet1
     Run Keyword And Ignore Error    Delete Network    Network1
     Run Keyword And Ignore Error    Neutron Security Group Delete    ${SGP}
@@ -747,10 +747,10 @@ Clear Setup
     Comment    "Delete ITM tunnel between DPNs"
     ${Dpn1Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_1_IP}    br-int
     ${Dpn2Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_2_IP}    br-int
-    ${Dpn3Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_3_IP}    br-int
+    #${Dpn3Id}    SW_GET_SWITCH_ID    ${OS_COMPUTE_3_IP}    br-int
     Issue Command On Karaf Console    tep:delete ${Dpn1Id} dpdk0 0 ${TunnelSourceIp[0]} ${TunnelNetwork} null TZA
     Issue Command On Karaf Console    tep:delete ${Dpn2Id} dpdk0 0 ${TunnelSourceIp[1]} ${TunnelNetwork} null TZA
-    Issue Command On Karaf Console    tep:delete ${Dpn3Id} dpdk0 0 ${TunnelSourceIp[2]} ${TunnelNetwork} null TZA
+    #Issue Command On Karaf Console    tep:delete ${Dpn3Id} dpdk0 0 ${TunnelSourceIp[2]} ${TunnelNetwork} null TZA
     Issue Command On Karaf Console    tep:commit
 
 Verify Static Ip Configured In VM
