@@ -68,7 +68,19 @@ tempest.scenario.test_network_v6.TestGettingAddress.test_dhcp6_stateless_from_os
 tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_dhcp6_stateless_from_os
     ${TEST_NAME}    debug=True
 
+tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_multi_prefix_dhcpv6_stateless
+    ${TEST_NAME}    debug=True
+
+tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_multi_prefix_slaac
+    ${TEST_NAME}    debug=True
+
 tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_slaac_from_os
+    ${TEST_NAME}    debug=True
+
+tempest.scenario.test_network_v6.TestGettingAddress.test_multi_prefix_slaac
+    ${TEST_NAME}    debug=True
+
+tempest.scenario.test_network_v6.TestGettingAddress.test_multi_prefix_dhcpv6_stateless
     ${TEST_NAME}    debug=True
 
 tempest.scenario.test_network_v6.TestGettingAddress.test_slaac_from_os
@@ -93,4 +105,7 @@ tempest.scenario.test_security_groups_basic_ops.TestSecurityGroupsBasicOps.test_
     ${TEST_NAME}    debug=True
 
 tempest.scenario.test_server_basic_ops.TestServerBasicOps.test_server_basic_ops
+    ${TEST_NAME}    debug=True
+
+tempest.scenario.test_network_v6.TestGettingAddress.test_slaac_from_os
     ${TEST_NAME}    debug=True
