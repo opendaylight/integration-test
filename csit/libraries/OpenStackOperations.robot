@@ -256,7 +256,7 @@ Create Vm Instances
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg}
+    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg} --min 4 --max 4
     \    Should Not Be True    ${rc}
     \    Log    ${output}
 
@@ -589,7 +589,9 @@ Get DumpFlows And Ovsconfig
     Write Commands Until Expected Prompt    sudo ovs-vsctl list Open_vSwitch    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo ovs-ofctl show br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-physnet1 -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-physnet1 -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
 
 Get Karaf Log Type From Test Start
