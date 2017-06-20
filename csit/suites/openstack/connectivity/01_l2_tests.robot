@@ -19,8 +19,8 @@ Resource          ../../../variables/netvirt/Variables.robot
 *** Variables ***
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
-@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
-@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
+@{NET_1_VM_INSTANCES}    MyFirstInstance_1-1     MyFirstInstance_1-2    MySecondInstance_1-1    MySecondInstance_1-2    MyThirdInstance_1-1     MyThirdInstance_1-2
+@{NET_2_VM_INSTANCES}    MyFirstInstance_2-1    MySecondInstance_2-1    MyThirdInstance_2-1     MyFirstInstance_2-2    MySecondInstance_2-2    MyThirdInstance_2-2
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 ${network1_vlan_id}    1235
 
