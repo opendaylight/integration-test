@@ -828,7 +828,7 @@ Neutron Security Group Rule Create
     ...    ELSE    Catenate    ${cmd}
     ${cmd}=    Run Keyword If    '${remote_group_id}'!='None'    Catenate    ${cmd}    --remote-group ${remote_group_id}
     ...    ELSE    Catenate    ${cmd}
-    ${cmd}=    Run Keyword If    '${remote_ip_prefix}'!='None'    Catenate    ${cmd}    --remote-ip ${remote_ip_prefix}
+    ${cmd}=    Run Keyword If    '${remote_ip_prefix}'!='None'    Catenate    ${cmd}    --src-ip ${remote_ip_prefix}
     ...    ELSE    Catenate    ${cmd}
     ${output}=    Write Commands Until Prompt    ${cmd}    30s
     ${rule_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
