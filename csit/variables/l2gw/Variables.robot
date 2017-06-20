@@ -84,7 +84,7 @@ ${L2GW_GET_CONN}    neutron l2-gateway-connection-list
 ${L2GW_GET_YAML}    neutron l2-gateway-list -f yaml
 ${L2GW_GET}       neutron l2-gateway-list
 ${L2GW_SHOW}      neutron l2-gateway-show
-${NET_ADDT_ARG}    --provider:network_type vxlan --provider:segmentation_id=
+${NET_ADDT_ARG}    --provider-network-type vxlan --provider-segment
 ${NETNS_ADD}      ${NETNS} add
 ${NETNS_DEL}      ${NETNS} del
 ${NETNS_EXEC}     ${NETNS} exec
@@ -112,7 +112,7 @@ ${STR_VIF_REPLACE}    "neutron-binding:vif-type":"ovs"
 ${STR_VIF_TYPE}    "neutron-binding:vif-type":"unbound"
 ${STR_VNIC_REPLACE}    "neutron-binding:vnic-type":"direct"
 ${STR_VNIC_TYPE}    "neutron-binding:vnic-type":"normal"
-${SUBNET_ADDT_ARG}    --enable-dhcp
+${SUBNET_ADDT_ARG}    --dhcp
 ${UUID_COL_NAME}    _uuid
 ${VTEP LIST}      sudo vtep-ctl list
 ${VTEP_ADD_MGR}    sudo vtep-ctl set-manager tcp
