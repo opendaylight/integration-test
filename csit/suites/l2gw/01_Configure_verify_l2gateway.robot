@@ -11,7 +11,7 @@ TC01 Configure Hwvtep Manager OVS Manager Controller And Verify
     L2GatewayOperations.Add Ovs Bridge Manager Controller And Verify
 
 TC02 Create First Set Of Network Subnet And Ports
-    OpenStackOperations.Create Network    ${NET_1}    ${NET_ADDT_ARG}${NET_1_SEGID}
+    OpenStackOperations.Create Network    ${NET_1}    ${NET_ADDT_ARG} ${NET_1_SEGID}
     ${output}=    OpenStackOperations.List Networks
     Should Contain    ${output}    ${NET_1}
     OpenStackOperations.Create SubNet    ${NET_1}    ${SUBNET_1}    ${SUBNET_RANGE1}    ${SUBNET_ADDT_ARG}
@@ -71,7 +71,7 @@ TC08 Ping Verification From Namespace Tap To Ovs Vm
     Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Extra Timeout    ${HWVTEP_NS1}    ${port_mac_list[1]}    ${port_ip_list[0]}
 
 TC09 Additional Network Subnet Port Creation
-    OpenStackOperations.Create Network    ${NET_2}    ${NET_ADDT_ARG}${NET_2_SEGID}
+    OpenStackOperations.Create Network    ${NET_2}    ${NET_ADDT_ARG} ${NET_2_SEGID}
     ${output}=    OpenStackOperations.List Networks
     Should Contain    ${output}    ${NET_2}
     OpenStackOperations.Create SubNet    ${NET_2}    ${SUBNET_2}    ${SUBNET_RANGE2}    ${SUBNET_ADDT_ARG}
