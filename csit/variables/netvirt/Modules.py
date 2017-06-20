@@ -46,6 +46,7 @@ netvirt_data_models = [
         'operational/elan:elan-forwarding-tables',
         'operational/elan:elan-interfaces',
         'operational/elan:elan-state',
+        'operational/entity-owners:entity-owners',
         'operational/ietf-interfaces:interfaces-state',
         'operational/itm-state:tunnels_state',
         'operational/l3nexthop:l3nexthop',
