@@ -167,7 +167,7 @@ Deconfigure_Device_In_Netconf
 Setup_Everything
     [Documentation]    Setup everything needed for the test cases.
     # Setup resources used by the suite.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown    http_timeout=2
     ClusterManagement.ClusterManagement_Setup
     NetconfKeywords.Setup_Netconf_Keywords    create_session_for_templated_requests=False
     ${node1_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=1
