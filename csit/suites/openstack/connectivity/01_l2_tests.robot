@@ -19,8 +19,10 @@ Resource          ../../../variables/netvirt/Variables.robot
 *** Variables ***
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
-@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
-@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
+@{NET_1_VM_INSTANCES_TEST}    MyFirstInstance_1     MySecondInstance_1
+@{NET_1_VM_INSTANCES}    MyFirstInstance_1-1     MyFirstInstance_1-2    MySecondInstance_1-1    MySecondInstance_1-2
+@{NET_2_VM_INSTANCES_TEST}     MyFirstInstance_2     MySecondInstance_2
+@{NET_2_VM_INSTANCES}    MyFirstInstance_2-1    MySecondInstance_2-1        MyFirstInstance_2-2    MySecondInstance_2-2
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 ${network1_vlan_id}    1235
 
@@ -59,11 +61,11 @@ Add Ssh Allow Rule
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES_TEST}    sg=csit
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES_TEST}    sg=csit
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
@@ -73,9 +75,9 @@ Check Vm Instances Have Ip Address
     # for dhcp addresses
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    10s    Collect VM IP Addresses
     ...    true    @{NET_1_VM_INSTANCES}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    10s    Collect VM IP Addresses
     ...    true    @{NET_2_VM_INSTANCES}
     ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
     ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
@@ -174,6 +176,10 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
+
+Delete Security Group
+    [Documentation]    Delete Security Group
+    Delete SecurityGroup    csit
 
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
