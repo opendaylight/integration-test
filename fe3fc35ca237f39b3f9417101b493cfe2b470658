@@ -16,6 +16,162 @@
       "revId": "fe3fc35ca237f39b3f9417101b493cfe2b470658",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_19f3b774",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-21T20:21:43Z",
+      "side": 1,
+      "message": "Also needs Eclipse License header.",
+      "parentUuid": "fa2559ec_cac0232d",
+      "revId": "fe3fc35ca237f39b3f9417101b493cfe2b470658",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_79e8f37c",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-21T20:21:43Z",
+      "side": 1,
+      "message": "Imports should follow PEP8\nhttps://www.python.org/dev/peps/pep-0008/",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 29
+      },
+      "revId": "fe3fc35ca237f39b3f9417101b493cfe2b470658",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_199a9714",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-21T20:21:43Z",
+      "side": 1,
+      "message": "A better and cleaner way to write this is:\n\n POST_URL \u003d \u0027http://{}:8585\u0027.format(ELK_DB_IP)",
+      "range": {
+        "startLine": 13,
+        "startChar": 11,
+        "endLine": 13,
+        "endChar": 42
+      },
+      "revId": "fe3fc35ca237f39b3f9417101b493cfe2b470658",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_59ed2f8b",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-21T20:21:43Z",
+      "side": 1,
+      "message": "print should use paranthesis so that it works in both Py2 and Py3.\n\n print(POST_URL)",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 14
+      },
+      "revId": "fe3fc35ca237f39b3f9417101b493cfe2b470658",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_99fe8737",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-21T20:21:43Z",
+      "side": 1,
+      "message": "print should use paranthesis so that it works in both Py2 and Py3.\n\n print(POST_URL)",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "fe3fc35ca237f39b3f9417101b493cfe2b470658",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_3995dbe4",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-21T20:21:43Z",
+      "side": 1,
+      "message": "print should use paranthesis so that it works in both Py2 and Py3.\n\n print(POST_URL)",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 9
+      },
+      "revId": "fe3fc35ca237f39b3f9417101b493cfe2b470658",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_d9f8ff4b",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-21T20:21:43Z",
+      "side": 1,
+      "message": "print should use paranthesis so that it works in both Py2 and Py3.\n\n print(POST_URL)",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 9
+      },
+      "revId": "fe3fc35ca237f39b3f9417101b493cfe2b470658",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
