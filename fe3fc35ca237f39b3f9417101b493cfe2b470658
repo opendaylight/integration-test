@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fa2559ec_f99223f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-21T20:22:25Z",
+      "side": 1,
+      "message": "Remove this you only need 1 change-id and 1 sign-off-by. Gerrit uses the last Change-ID as the change id so remove the middle 2.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 58
+      },
+      "revId": "fe3fc35ca237f39b3f9417101b493cfe2b470658",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa2559ec_cac0232d",
         "filename": "tools/dashboard/push-data.py",
         "patchSetId": 1
