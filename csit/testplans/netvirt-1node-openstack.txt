@@ -5,3 +5,4 @@ integration/test/csit/suites/netvirt/Netvirt_Vpnservice/01_basic_vpnservice.robo
 integration/test/csit/suites/netvirt/Netvirt_Vpnservice/03_basic_ipv6_vpnservice.robot
 integration/test/csit/suites/netvirt/ElanService/
 integration/test/csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot
+integration/test/csit/suites/netvirt/MultiPath/Multi_Path_Suite1.robot
