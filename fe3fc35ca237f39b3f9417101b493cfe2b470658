@@ -107,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "fa2559ec_bb9ff84f",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-22T21:25:19Z",
+      "side": 1,
+      "message": "They are not all standard library. For example \"requests\" and \"json\" are thirdparty libraries. Additionally imports should be done in alphabetical order.",
+      "parentUuid": "fa2559ec_bb36d8e5",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 29
+      },
+      "revId": "fe3fc35ca237f39b3f9417101b493cfe2b470658",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa2559ec_199a9714",
         "filename": "tools/dashboard/push-data.py",
         "patchSetId": 1
