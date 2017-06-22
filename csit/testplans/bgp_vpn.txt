@@ -1,0 +1,1 @@
+test/csit/suites/netvirt/MultiPath/Multi_Path_Suite1.robot
