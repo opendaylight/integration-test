@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa2559ec_9b44b475",
+        "filename": "csit/suites/openflowplugin/Bug_Validation/7350.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-06-22T23:57:27Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "4ff7e4bb14c4b4ae28bb860658a182a86bcfb9ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
