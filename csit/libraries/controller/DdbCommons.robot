@@ -298,57 +298,53 @@ Get_Seconds_To_Time
     ${duration} =    DateTime.Subtract_Date_From_Date    ${date_in_future}    ${date_now}
     BuiltIn.Run_Keyword_And_Return    BuiltIn.Convert_To_Integer    ${duration}
 
-Remote_Listener_Test_Templ
-    [Arguments]    ${listener_node_role}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
-    [Documentation]    Implements remote listener test scenario.
+Listener_Stability_Test_Templ
+    [Arguments]    ${leader_from}    ${leader_to}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
+    [Documentation]    Implements listener stability test scenario for module-based shards.
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
-    ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
-    ${listener_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
-    MdsalLowlevel.Subscribe_Dtcl    ${listener_node_dst}
+    ${idx_from}    ${idx_to}    ${idx_listen} =    Get_Node_Indexes_For_The_ELM_Test    ${leader_from}    ${leader_to}    ${shard_name}
+    ...    ${shard_type}
+    MdsalLowlevel.Subscribe_Dtcl    ${idx_listen}
     ${subscribed} =    BuiltIn.Set_Variable    ${True}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     BuiltIn.Sleep    ${SLEEP_AFTER_TRANSACTIONS_INIT}
-    MdsalLowlevel.Shutdown_Shard_Replica    ${leader}    ${shard_name}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${leader}    ${shard_name}    ${shard_type}
-    ${newleader}    ${newfollower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}
-    ...    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
-    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${leader}    ${newleader}
+    ClusterAdmin.Make_Leader_Local    ${idx_to}    ${shard_name}    ${shard_type}
+    ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}
+    ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
+    BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    @{resp}[2]
-    ${copy_matches} =    MdsalLowlevel.Unsubscribe_Dtcl    ${listener_node_dst}
+    ${copy_matches} =    MdsalLowlevel.Unsubscribe_Dtcl    ${idx_listen}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     BuiltIn.Should_Be_True    ${copy_matches}
-    [Teardown]    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Dtcl    ${listener_node_dst}
+    [Teardown]    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Dtcl    ${idx_listen}
 
-Remote_Listener_PrefBasedShard_Test_Templ
-    [Arguments]    ${listener_node_role}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
-    [Documentation]    Implements listener isolation test scenario.
+Listener_Stability_PrefBasedShard_Test_Templ
+    [Arguments]    ${leader_from}    ${leader_to}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
+    [Documentation]    Implements listener stability test scenario for prefix-based shards.
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
-    ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
-    ${listener_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
-    MdsalLowlevel.Subscribe_Ddtl    ${listener_node_dst}
+    ${idx_from}    ${idx_to}    ${idx_listen} =    Get_Node_Indexes_For_The_ELM_Test    ${leader_from}    ${leader_to}    ${shard_name}!!
+    ...    ${shard_type}
+    MdsalLowlevel.Subscribe_Ddtl    ${idx_listen}
     ${subscribed} =    BuiltIn.Set_Variable    ${True}
     ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}
     BuiltIn.Sleep    ${SLEEP_AFTER_TRANSACTIONS_INIT}
-    MdsalLowlevel.Shutdown_Prefix_Shard_Replica    ${leader}    ${shard_name}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${leader}    ${shard_name}!!    ${shard_type}
-    ${newleader}    ${newfollower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!
-    ...    member_index_list=${follower_list}    verify_restconf=False    shard_type=${shard_type}
-    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${leader}    ${newleader}
+    MdsalLowlevel.Become_Prefix_Leader    ${idx_to}    ${shard_name}
+    ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
+    ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
+    BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    @{resp}[2]
-    ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl    ${listener_node_dst}
+    ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl    ${idx_listen}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
     BuiltIn.Should_Be_True    ${copy_matches}
-    [Teardown]    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Ddtl    ${listener_node_dst}
+    [Teardown]    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Ddtl    ${idx_listen}
 
 Create_Prefix_Based_Shard_And_Verify
     [Arguments]    ${prefix}=${PREF_BASED_SHARD}
