@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa2559ec_5bb6bcdd",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-22T21:30:07Z",
+      "side": 1,
+      "message": "Copyright should be your name as you do not represent Cisco. Also year is 2017.",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "5b1c17c9740f34212191a627d45caa61f3a1b1b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_3bbb08c6",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-22T21:30:07Z",
+      "side": 1,
+      "message": "License should look something like this\n\nhttps://github.com/opendaylight/releng-builder/blob/master/scripts/odlrelease#L3-L11\n\nAlso the license header MUST be the first line lines of the file following #!/usr/bin/python so move your docstring to underneath the license header.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "5b1c17c9740f34212191a627d45caa61f3a1b1b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_9bb034df",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-06-22T21:30:07Z",
+      "side": 1,
+      "message": "\"requests\" and \"Json\" are not standard library so should be listed last and grouped together. Also please import in alphabetical order by groupings. So something like this:\n\n # stdlib\n from datetime import datetime\n import glob\n import os\n import sys\n import xml.etree.ElementTree as ET\n \n # 3rdparty\n import json\n import requests\n \n # local\n import .... # additional imports if you have any that you made",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "5b1c17c9740f34212191a627d45caa61f3a1b1b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
