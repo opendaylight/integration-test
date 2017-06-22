@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa2559ec_bb78982c",
+        "filename": "csit/suites/openflowplugin/Bug_Validation/7350.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-06-22T21:21:51Z",
+      "side": 1,
+      "message": "Remove all libraries you do not use",
+      "revId": "d1bff6094a261ea6f10ac6a7affaf01afbadf40f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_1b76043f",
+        "filename": "csit/suites/openflowplugin/Bug_Validation/7350.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-06-22T21:21:51Z",
+      "side": 1,
+      "message": "remove all variables you do not use",
+      "revId": "d1bff6094a261ea6f10ac6a7affaf01afbadf40f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_fb721048",
+        "filename": "csit/suites/openflowplugin/Bug_Validation/7350.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-06-22T21:21:51Z",
+      "side": 1,
+      "message": "Remove flow test cases",
+      "revId": "d1bff6094a261ea6f10ac6a7affaf01afbadf40f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_5b8fdc23",
+        "filename": "csit/suites/openflowplugin/Bug_Validation/7350.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-06-22T21:21:51Z",
+      "side": 1,
+      "message": "remove this too",
+      "revId": "d1bff6094a261ea6f10ac6a7affaf01afbadf40f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_3b94a836",
+        "filename": "csit/suites/openflowplugin/Bug_Validation/7350.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-06-22T21:21:51Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "d1bff6094a261ea6f10ac6a7affaf01afbadf40f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
