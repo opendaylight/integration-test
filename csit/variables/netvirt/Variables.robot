@@ -6,7 +6,14 @@ Documentation     Variables for Netvirt Test Suites
 ${CIRROS_stable/newton}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/ocata}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/pike}    cirros-0.3.5-x86_64-disk
+${CIRROS_stable/queens}    cirros-0.3.5-x86_64-disk
 ${CIRROS_master}    cirros-0.3.5-x86_64-disk
+${PRE_CLEAN_OPENSTACK_ALL}    False
+${EXTERNAL_NET_NAME}    external-net
+${EXTERNAL_SUBNET_NAME}    external-subnet
+${EXTERNAL_GATEWAY}    10.10.10.250
+${EXTERNAL_SUBNET}    10.10.10.0/24
+${EXTERNAL_SUBNET_ALLOCATION_POOL}    start=10.10.10.2,end=10.10.10.249
 ${NET1_IPV6_ADDR_POOL}    --allocation-pool start=2001:db8:0:2::2,end=2001:db8:0:2:ffff:ffff:ffff:fffe
 ${NET2_IPV6_ADDR_POOL}    --allocation-pool start=2001:db8:0:3::2,end=2001:db8:0:3:ffff:ffff:ffff:fffe
 ${RESP_CODE}      200
@@ -14,6 +21,8 @@ ${RESP_ERROR_CODE}    400
 ${MAC_REGEX}      ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})
 ${IP_REGEX}       (([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])
 ${IP6_REGEX}      (2001:([0-9A-Fa-f]{0,4}:){1,6}([0-9A-Fa-f]{1,4}))
+${IP6_SUBNET_CIDR_SUFFIX}    ::/64
+${IP6_ADDR_SUFFIX}    (:[a-f0-9]{,4}){,4}
 ${PING_REGEXP}    , 0% packet loss
 ${NO_PING_REGEXP}    , 100% packet loss
 # Values passed for extra routes
@@ -68,3 +77,7 @@ ${ELAN_BASETABLE}    48
 ${ELAN_SMACTABLE}    50
 ${ELAN_DMACTABLE}    51
 ${ELAN_UNKNOWNMACTABLE}    52
+${DUMP_FLOWS}     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+${DUMP_GROUPS}    sudo ovs-ofctl -O OpenFlow13 dump-groups br-int
+${DUMP_GROUP_STATS}    sudo ovs-ofctl -O OpenFlow13 dump-group-stats br-int
+${FIB_SHOW}       fib-show
