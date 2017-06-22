@@ -66,6 +66,7 @@ Setup_Everything
     : FOR    ${member_index}    IN    @{indices}
     \    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    ${member_index}
     \    BuiltIn.Set_Suite_Variable    ${operational_${member_index}}    ${session}
+    BuiltIn.Set_Suite_Variable    ${pc_all_indices}    ${indices}
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
