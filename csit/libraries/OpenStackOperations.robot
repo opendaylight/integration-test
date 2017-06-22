@@ -40,6 +40,10 @@ Update Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update Network with neutron request.
     ${output} =    OpenStack CLI    openstack network set ${network_name} ${additional_args}
+    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v net-update ${network_name} ${additional_args}    openstack network set ${network_name} ${additional_args}
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Show Network
@@ -72,6 +76,10 @@ Update SubNet
     [Arguments]    ${subnet_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update subnet with neutron request.
     ${output} =    OpenStack CLI    openstack subnet set ${subnet_name} ${additional_args}
+    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v subnet-update ${subnet_name} ${additional_args}    openstack subnet set ${subnet_name} ${additional_args}
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Show SubNet
@@ -89,6 +97,13 @@ Create Port
     ${allowed_pairs_argv} =    BuiltIn.Set Variable    ${EMPTY}
     ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${address_pair_length}'=='2'    --allowed-address ip-address=@{allowed_address_pairs}[0] --allowed-address ip-address=@{allowed_address_pairs}[1]    ${allowed_pairs_argv}
     ${output} =    OpenStack CLI    openstack port create --network ${network_name} ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}
+    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton' and '${address_pair_length}'=='2'    --allowed-address-pairs type=dict list=true ip_address=@{allowed_address_pairs}[0] ip_address=@{allowed_address_pairs}[1]
+    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'!='stable/newton' and '${address_pair_length}'=='2'    --allowed-address ip-address=@{allowed_address_pairs}[0] --allowed-address ip-address=@{allowed_address_pairs}[1]    ${allowed_pairs_argv}
+    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${address_pair_length}'=='0'    ${EMPTY}    ${allowed_pairs_argv}
+    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v port-create ${network_name} --name ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}    openstack port create --network ${network_name} ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Be True    '${rc}' == '0'
 
 Update Port
     [Arguments]    ${port_name}    ${additional_args}=${EMPTY}
@@ -461,6 +476,9 @@ Show Router Interface
 Add Router Gateway
     [Arguments]    ${router_name}    ${external_network_name}
     ${output} =    OpenStack CLI    openstack router set ${router_name} --external-gateway ${external_network_name}
+    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v router-gateway-set ${router_name} ${external_network_name}    openstack router set ${router_name} --external-gateway ${external_network_name}
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    BuiltIn.Should Be True    '${rc}' == '0'
 
 Remove Interface
     [Arguments]    ${router_name}    ${interface_name}
@@ -632,6 +650,10 @@ Neutron Security Group Rule Create
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${output} =    OpenStack CLI    ${cmd}
     ${rule_id} =    BuiltIn.Should Match Regexp    ${output}    ${REGEX_UUID}
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${rule_id} =    BuiltIn.Should Match Regexp    ${output}    ${REGEX_UUID}
+    BuiltIn.Log    ${rule_id}
+    BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}    ${rule_id}
 
 Neutron Security Group Rule Create Legacy Cli
@@ -1065,3 +1087,59 @@ Start Packet Capture On Nodes
 Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+
+Get_Packet_Count_From_Table
+    [Arguments]    ${compute_ip}    ${table_num}    ${additional_args}=${empty}
+    [Documentation]    Get the packet count from specified table for the specified additional arguments
+    ${ovs_flow}    Utils.Run Command On Remote System    ${compute_ip}    ${DUMP_FLOWS}
+    ${match}    ${packet_count}    BuiltIn.Should Match Regexp    ${ovs_flow}    table=${table_num}.*n_packets=(\\d+).*${additional_args}
+    [Return]    ${packet_count}
+
+Configure_IP_On_Sub_Interface
+    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${mask}    ${interface}=eth0    ${sub_interface_number}=0
+    [Documentation]    Keyword for configuring specified IP on specified interface and the corresponding specified sub interface
+    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    sudo ifconfig ${interface}:${sub_interface_number} ${ip} netmask ${mask} up
+
+Verify_IP_Configured_On_Sub_Interface
+    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${interface}=eth0    ${sub_interface_number}=0
+    [Documentation]    Keyword for verifying specified IP on specified interface and the corresponding specified sub interface
+    ${resp}    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    sudo ifconfig ${interface}:${sub_interface_number}
+    BuiltIn.Should Contain    ${resp}    ${ip}
+
+Verify_Ping_To_Destination_IP
+    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${no_of_ping_packets}
+    [Documentation]    Keyword to ping specified Destination IP from the specied source VM IP and verify that there is no packet loss after ping
+    ${ping_resp}    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    ping ${ip} -c ${no_of_ping_packets}
+    BuiltIn.Should Not Contain    ${ping_resp}    ${NO_PING_REGEXP}
+
+Verify_Packet_Count_Before_And_After_Ping
+    [Arguments]    ${network_name}    ${ip}    ${vm_name}    ${no_of_ping_packets}    ${no_of_compute}
+    [Documentation]    Keyword to get the packet count from flow output before ping, perform ping to the specified IP address, get the packet count after ping from flow output and verify there is no packet loss and return the compute IP from which packets are forwarded
+    ${pattern}    BuiltIn.Set Variable    nw_dst=${ip}.*
+    ${packet_count_before_ping}    BuiltIn.Create List
+    ${packet_count_after_ping}    BuiltIn.Create List
+    BuiltIn.Log    Get Packet Count from Compute Node Flows before ping
+    : FOR    ${index}    IN RANGE    ${no_of_compute}
+    \    ${count}    OpenStackOperations.Get Packet Count From Table    ${OS_COMPUTE_${index+1}_IP}    ${L3_TABLE}    ${pattern}
+    \    Collections.Insert Into List    ${packet_count_before_ping}    ${index}    ${count}
+    OpenStackOperations.Verify_Ping_To_Destination_IP    ${network_name}    ${ip}    ${vm_name}    ${no_of_ping_packets}
+    BuiltIn.Log    Get Packet Count from Compute Node Flows after ping
+    : FOR    ${index}    IN RANGE    ${no_of_compute}
+    \    ${count}    OpenStackOperations.Get Packet Count From Table    ${OS_COMPUTE_${index+1}_IP}    ${L3_TABLE}    ${pattern}
+    \    Collections.Insert Into List    ${packet_count_after_ping}    ${index}    ${count}
+    BuiltIn.Log    Check via which Compute Node Packets are forwarded
+    : FOR    ${index}    IN RANGE    ${no_of_compute}
+    \    ${count}    BuiltIn.Evaluate    ${packet_count_after_ping[${index}]}-(${packet_count_before_ping[${index}]}+${no_of_ping_packets})
+    \    ${compute_ip}    BuiltIn.Set variable IF    ${count}==0    ${OS_COMPUTE_${index+1}_IP}
+    \    BuiltIn.Run Keyword If    ${count}==0    BuiltIn.Run Keywords    BuiltIn.Log    Packets forwarded via Compute ${index+1}
+    \    ...    AND    BuiltIn.Exit For Loop
+    [Return]    ${compute_ip}
+
+Get_VM_Mac
+    [Arguments]    ${vm_port_name_list}
+    [Documentation]    Keyword to return the VM MAC ID wrt given port list
+    ${mac_addr_list}    BuiltIn.Create List
+    : FOR    ${port_name}    IN    @{vm_port_name_list}
+    \    ${mac_value}    OpenStack CLI    openstack port list | grep ${port_name} | awk '{print $6}'
+    \    Collections.Append To List    ${mac_addr_list}    ${mac_value}
+    [Return]    ${mac_addr_list}
