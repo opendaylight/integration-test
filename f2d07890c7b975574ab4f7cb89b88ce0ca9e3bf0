@@ -16,6 +16,24 @@
       "revId": "f2d07890c7b975574ab4f7cb89b88ce0ca9e3bf0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_9b35d448",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-22T22:02:35Z",
+      "side": 1,
+      "message": "right, this is what we want. it *was* being passed as\nmultiple args, but it should be all in the same arg.\n\nsandbox is past this now:\nhttps://logs.opendaylight.org/sandbox/jenkins091/netvirt-csit-hwvtep-3node-openstack-newton-jamo-upstream-stateful-carbon/3/log.html.gz#s1-s1-t2-k1",
+      "parentUuid": "fa2559ec_6a25acaa",
+      "revId": "f2d07890c7b975574ab4f7cb89b88ce0ca9e3bf0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
