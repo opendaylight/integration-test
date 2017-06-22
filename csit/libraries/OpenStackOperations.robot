@@ -3,6 +3,7 @@ Documentation     Openstack library. This library is useful for tests to create 
 Library           Collections
 Library           SSHLibrary
 Library           OperatingSystem
+Library           RequestsLibrary
 Resource          DataModels.robot
 Resource          Utils.robot
 Resource          SSHKeywords.robot
@@ -15,7 +16,7 @@ Variables         ../variables/netvirt/Modules.py
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack security group show default | grep "| tenant_id" | awk '{print $4}'
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Get Tenant ID From Network
@@ -30,7 +31,7 @@ Create Network
     [Documentation]    Create Network with neutron request.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack network create ${network_name} ${additional_args}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Update Network
@@ -39,7 +40,7 @@ Update Network
     ${cmd}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v net-update ${network_name} ${additional_args}    openstack network set ${network_name} ${additional_args}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Show Network
@@ -47,21 +48,21 @@ Show Network
     [Documentation]    Show Network with neutron request.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack network show ${network_name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 List Networks
     [Documentation]    List networks and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack network list
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 List Subnets
     [Documentation]    List subnets and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet list
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Delete Network
@@ -69,14 +70,14 @@ Delete Network
     [Documentation]    Delete Network with neutron request.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack network delete ${network_name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Create SubNet
     [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${additional_args}=${EMPTY}
     [Documentation]    Create SubNet for the Network with neutron request.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet create --network ${network_name} --subnet-range ${range_ip} ${subnet} ${additional_args}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Update SubNet
     [Arguments]    ${subnet_name}    ${additional_args}=${EMPTY}
@@ -84,7 +85,7 @@ Update SubNet
     ${cmd}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v subnet-update ${subnet_name} ${additional_args}    openstack subnet set ${subnet_name} ${additional_args}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Show SubNet
@@ -92,7 +93,7 @@ Show SubNet
     [Documentation]    Show subnet with neutron request.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet show ${subnet_name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Create Port
@@ -107,14 +108,14 @@ Create Port
     ${cmd}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v port-create ${network_name} --name ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}    openstack port create --network ${network_name} ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Update Port
     [Arguments]    ${port_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update port with neutron request.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port set ${port_name} ${additional_args}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Show Port
@@ -122,7 +123,7 @@ Show Port
     [Documentation]    Show port with neutron request.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port show ${port_name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Delete Port
@@ -130,20 +131,20 @@ Delete Port
     [Documentation]    Delete Port with neutron request.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port delete ${port_name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 List Ports
     [Documentation]    List ports and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 List Nova VMs
     [Documentation]    List VMs and return output with nova client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server list --all-projects
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Create And Associate Floating IPs
@@ -153,15 +154,22 @@ Create And Associate Floating IPs
     : FOR    ${vm}    IN    @{vm_list}
     \    ${rc}    ${output}=    Run And Return Rc And Output    openstack floating ip create ${external_net}
     \    Log    ${output}
-    \    Should Not Be True    ${rc}
+    \    Should Be True    '${rc}' == '0'
     \    @{ip}    Get Regexp Matches    ${output}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
     \    ${ip_length}    Get Length    ${ip}
     \    Run Keyword If    ${ip_length}>0    Append To List    ${ip_list}    @{ip}[0]
     \    ...    ELSE    Append To List    ${ip_list}    None
     \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server add floating ip ${vm} @{ip}[0]
     \    Log    ${output}
-    \    Should Not Be True    ${rc}
+    \    Should Be True    '${rc}' == '0'
     [Return]    ${ip_list}
+
+Delete Floating IP
+    [Arguments]    ${fip}
+    [Documentation]    Delete floating ip with neutron request.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack floating ip delete ${fip}
+    Log    ${output}
+    Should Be True    '${rc}' == '0'
 
 Verify Gateway Ips
     [Documentation]    Verifies the Gateway Ips with dump flow.
@@ -186,7 +194,7 @@ Delete SubNet
     [Documentation]    Delete SubNet for the Network with neutron request.
     Log    ${subnet}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet delete ${subnet}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Verify No Gateway Ips
     [Documentation]    Verifies the Gateway Ips removed with dump flow.
@@ -204,7 +212,7 @@ Get Net Id
     [Arguments]    ${network_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     ${rc}    ${output}=    Run And Return Rc And Output    openstack network list | grep "${network_name}" | awk '{print $2}'
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
     [Return]    ${net_id}
@@ -213,7 +221,7 @@ Get Subnet Id
     [Arguments]    ${subnet_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the subnet id for the given subnet name
     ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet show "${subnet_name}" | grep " id " | awk '{print $4}'
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${subnet_id}=    Get from List    ${splitted_output}    0
     [Return]    ${subnet_id}
@@ -222,7 +230,7 @@ Get Port Id
     [Arguments]    ${port_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list | grep "${port_name}" | awk '{print $2}'
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${port_id}=    Get from List    ${splitted_output}    0
     [Return]    ${port_id}
@@ -231,7 +239,7 @@ Get Router Id
     [Arguments]    ${router1}    ${devstack_conn_id}
     [Documentation]    Retrieve the router id for the given router name
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router list -f table | grep "${router1}" | awk '{print $2}'
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${router_id}=    Get from List    ${splitted_output}    0
     [Return]    ${router_id}
@@ -244,7 +252,7 @@ Create Vm Instances
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg} --min ${min} --max ${max}
-    \    Should Not Be True    ${rc}
+    \    Should Be True    '${rc}' == '0'
     \    Log    ${output}
 
 Create Vm Instance With Port
@@ -263,7 +271,7 @@ Create Vm Instance With Ports
     ${port2_id}=    Get Port Id    ${port2_name}    ${devstack_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-group ${sg}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
@@ -273,7 +281,7 @@ Create Vm Instance With Port On Compute Node
     ${hostname_compute_node}=    Get Hypervisor Hostname From IP    ${compute_node}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${hostname_compute_node} ${vm_instance_name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Get Hypervisor Hostname From IP
     [Arguments]    ${hypervisor_ip}
@@ -283,14 +291,14 @@ Get Hypervisor Hostname From IP
     Log    ${output}
     ${rc}    ${hostname}=    Run And Return Rc And Output    openstack hypervisor list -f value | grep ${hypervisor_ip} | cut -d" " -f 2
     Log    ${hostname}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${hostname}
 
 Create Nano Flavor
     [Documentation]    Create a nano flavor
     ${rc}    ${output}=    Run And Return Rc And Output    openstack flavor create m1.nano --id auto --ram 64 --disk 0 --vcpus 1
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
@@ -335,9 +343,9 @@ Get Match
     [Documentation]    Wrapper around Get Regexp Matches to return None if not found or the first match if found.
     @{matches} =    String.Get Regexp Matches    ${text}    ${regexp}
     ${matches_length} =    Get Length    ${matches}
-    BuiltIn.Set Test Variable    ${match}    None
-    BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Test Variable    ${match}    @{matches}[${index}]
-    [Return]    ${match}
+    BuiltIn.Set Suite Variable    ${OS_MATCH}    None
+    BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    @{matches}[${index}]
+    [Return]    ${OS_MATCH}
 
 Get VM IP
     [Arguments]    ${fail_on_none}    ${vm}
@@ -403,10 +411,10 @@ View Vm Console
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server show ${VmElement}
     \    Log    ${output}
-    \    Should Not Be True    ${rc}
+    \    Should Be True    '${rc}' == '0'
     \    ${rc}    ${output}=    Run And Return Rc And Output    openstack console log show ${VmElement}
     \    Log    ${output}
-    \    Should Not Be True    ${rc}
+    \    Should Be True    '${rc}' == '0'
 
 Ping Vm From DHCP Namespace
     [Arguments]    ${net_name}    ${vm_ip}
@@ -567,44 +575,49 @@ Create Router
     [Arguments]    ${router_name}
     [Documentation]    Create Router and Add Interface to the subnets.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router create ${router_name}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 List Routers
     [Documentation]    List Routers and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router list -f value
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Add Router Interface
     [Arguments]    ${router_name}    ${interface_name}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router add subnet ${router_name} ${interface_name}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Show Router Interface
     [Arguments]    ${router_name}
     [Documentation]    List Routers interface associated with given Router and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list --router ${router_name} -f value
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Add Router Gateway
     [Arguments]    ${router_name}    ${external_network_name}
     ${cmd}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v router-gateway-set ${router_name} ${external_network_name}    openstack router set ${router_name} --external-gateway ${external_network_name}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Remove Interface
     [Arguments]    ${router_name}    ${interface_name}
     [Documentation]    Remove Interface to the subnets.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router remove subnet ${router_name} ${interface_name}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
+
+Remove Gateway
+    [Arguments]    ${router_name}
+    [Documentation]    Remove external gateway from the router.
+    BuiltIn.Log    openstack router unset ${router_name} --external-gateway
 
 Update Router
     [Arguments]    ${router_name}    ${cmd}
     [Documentation]    Update the router with the command. Router name and command should be passed as argument.
     ${rc}    ${output} =    Run And Return Rc And Output    openstack router set ${router_name} ${cmd}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Show Router
     [Arguments]    ${router_name}    ${options}
@@ -616,7 +629,8 @@ Delete Router
     [Arguments]    ${router_name}
     [Documentation]    Delete Router and Interface to the subnets.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router delete ${router_name}
-    Should Not Be True    ${rc}
+    Log    ${output}
+    Should Be True    '${rc}' == '0'
 
 Get DumpFlows And Ovsconfig
     [Arguments]    ${openstack_node_ip}
@@ -707,7 +721,7 @@ List Security Groups
     ...    credentials are already sourced
     ${rc}    ${output}=    Run And Return Rc And Output    openstack security group list
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Neutron Security Group Show
@@ -715,7 +729,7 @@ Neutron Security Group Show
     [Documentation]    Displays the neutron security group configurations that belongs to a given neutron security group name
     ${rc}    ${output}=    Run And Return Rc And Output    openstack security group show ${SecurityGroupRuleName}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Neutron Port Show
@@ -723,7 +737,7 @@ Neutron Port Show
     [Documentation]    Display the port configuration that belong to a given neutron port
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port show ${PortName}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Neutron Security Group Create
@@ -733,7 +747,7 @@ Neutron Security Group Create
     Switch Connection    ${devstack_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack security group create ${SecurityGroupName} ${additional_args}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     ${sgp_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
     Log    ${sgp_id}
     [Return]    ${output}    ${sgp_id}
@@ -743,7 +757,7 @@ Neutron Security Group Update
     [Documentation]    Updating security groups
     ${rc}    ${output}=    Run And Return Rc And Output    openstack security group set ${SecurityGroupName} ${additional_args}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Delete SecurityGroup
@@ -751,7 +765,7 @@ Delete SecurityGroup
     [Documentation]    Delete Security group
     ${rc}    ${output}=    Run And Return Rc And Output    openstack security group delete ${sg_name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Neutron Security Group Rule Create
     [Arguments]    ${Security_group_name}    &{Kwargs}
@@ -785,7 +799,7 @@ Neutron Security Group Rule Create
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     ${rule_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
     Log    ${rule_id}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}    ${rule_id}
 
 Neutron Security Group Rule Create Legacy Cli
@@ -820,7 +834,7 @@ Neutron Security Group Rule Create Legacy Cli
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     ${rule_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
     Log    ${rule_id}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}    ${rule_id}
 
 Security Group Create Without Default Security Rules
@@ -834,12 +848,12 @@ Delete All Security Group Rules
     [Documentation]    Delete all security rules from a specified security group
     ${rc}    ${sg_rules_output}=    Run And Return Rc And Output    openstack security group rule list ${sg_name} -cID -fvalue
     Log    ${sg_rules_output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     @{sg_rules}=    Split String    ${sg_rules_output}    \n
     : FOR    ${rule}    IN    @{sg_rules}
     \    ${rc}    ${output}=    Run And Return Rc And Output    openstack security group rule delete ${rule}
     \    Log    ${output}
-    \    Should Not Be True    ${rc}
+    \    Should Be True    '${rc}' == '0'
 
 Create Allow All SecurityGroup
     [Arguments]    ${sg_name}    ${ether_type}=IPv4
@@ -857,7 +871,7 @@ Create Neutron Port With Additional Params
     [Documentation]    Create Port With given additional parameters
     ${rc}    ${output}=    Run And Return Rc And Output    neutron -v port-create ${network_name} --name ${port_name} ${additional_args}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     ${port_id}=    Should Match Regexp    ${OUTPUT}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
     Log    ${port_id}
     [Return]    ${OUTPUT}    ${port_id}
@@ -877,7 +891,7 @@ Get Port Ip
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list | grep "${port_name}" | awk -F\\' '{print $2}'
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${port_ip}=    Get from List    ${splitted_output}    0
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${port_ip}
 
 Get Port Mac
@@ -886,7 +900,7 @@ Get Port Mac
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port show ${port_name} | grep mac_address | awk '{print $4}'
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${port_mac}=    Get from List    ${splitted_output}    0
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${port_mac}
 
 Create L2Gateway
@@ -901,19 +915,19 @@ Create L2Gateway Connection
     [Documentation]    Keyword would create a new L2 Gateway Connection for ${gw_name} to ${net_name} (Using Neutron CLI).
     ${rc}    ${l2gw_output}=    Run And Return Rc And Output    ${L2GW_CONN_CREATE} ${gw_name} ${net_name}
     Log    ${l2gw_output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${l2gw_output}
 
 Get All L2Gateway
     [Documentation]    Keyword to return all the L2 Gateways available (Using Neutron CLI).
     ${rc}    ${output}=    Run And Return Rc And Output    ${L2GW_GET_YAML}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Get All L2Gateway Connection
     [Documentation]    Keyword to return all the L2 Gateway connections available (Using Neutron CLI).
     ${rc}    ${output}=    Run And Return Rc And Output    ${L2GW_GET_CONN_YAML}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Get L2Gateway
@@ -921,7 +935,7 @@ Get L2Gateway
     [Documentation]    Keyword to check if the ${gw_id} is available in the L2 Gateway list (Using Neutron CLI).
     ${rc}    ${output}=    Run And Return Rc And Output    ${L2GW_SHOW} ${gw_id}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Get L2gw Id
@@ -929,7 +943,7 @@ Get L2gw Id
     [Documentation]    Keyword to retrieve the L2 Gateway ID for the ${l2gw_name} (Using Neutron CLI).
     ${rc}    ${output}=    Run And Return Rc And Output    ${L2GW_GET} | grep "${l2gw_name}" | awk '{print $2}'
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${l2gw_id}=    Get from List    ${splitted_output}    0
     [Return]    ${l2gw_id}
@@ -939,7 +953,7 @@ Get L2gw Connection Id
     [Documentation]    Keyword to retrieve the L2 Gateway Connection ID for the ${l2gw_name} (Using Neutron CLI).
     ${l2gw_id}=    OpenStackOperations.Get L2gw Id    ${l2gw_name}
     ${rc}    ${output}=    Run And Return Rc And Output    ${L2GW_GET_CONN} | grep "${l2gw_id}" | awk '{print $2}'
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${l2gw_conn_id}=    Get from List    ${splitted_output}    0
@@ -985,7 +999,7 @@ Add Security Group To VM
     [Documentation]    Add the security group provided to the given VM.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server add security group ${vm} ${sg}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
 
 Remove Security Group From VM
     [Arguments]    ${vm}    ${sg}
@@ -1000,7 +1014,7 @@ Create SFC Flow Classifier
     [Documentation]    Create a flow classifier for SFC
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc flow classifier create --ethertype IPv4 --source-ip-prefix ${src_ip}/32 --destination-ip-prefix ${dest_ip}/32 --protocol ${protocol} --destination-port ${dest_port}:${dest_port} --logical-source-port ${neutron_src_port} ${name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     Should Contain    ${output}    ${name}
     [Return]    ${output}
 
@@ -1011,7 +1025,7 @@ Delete SFC Flow Classifier
     Switch Connection    ${devstack_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc flow classifier delete ${name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Create SFC Port Pair
@@ -1021,7 +1035,7 @@ Create SFC Port Pair
     Switch Connection    ${devstack_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair create --ingress=${port_in} --egress=${port_out} ${name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     Should Contain    ${output}    ${name}
     [Return]    ${output}
 
@@ -1030,7 +1044,7 @@ Delete SFC Port Pair
     [Documentation]    Delete a SFC port pair
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair delete ${name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Create SFC Port Pair Group
@@ -1038,7 +1052,7 @@ Create SFC Port Pair Group
     [Documentation]    Creates a port pair group with a single port pair for SFC
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair group create --port-pair ${port_pair} ${name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     Should Contain    ${output}    ${name}
     [Return]    ${output}
 
@@ -1047,7 +1061,7 @@ Create SFC Port Pair Group With Two Pairs
     [Documentation]    Creates a port pair group with two port pairs for SFC
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair group create --port-pair ${port_pair1} --port-pair ${port_pair2} ${name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     Should Contain    ${output}    ${name}
     [Return]    ${output}
 
@@ -1057,7 +1071,7 @@ Delete SFC Port Pair Group
     ${devstack_conn_id}=    Get ControlNode Connection
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair group delete ${name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Create SFC Port Chain
@@ -1065,7 +1079,7 @@ Create SFC Port Chain
     [Documentation]    Creates a port pair chain with two port groups and a singel classifier.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port chain create --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc} ${name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     Should Contain    ${output}    ${name}
     [Return]    ${output}
 
@@ -1074,7 +1088,7 @@ Delete SFC Port Chain
     [Documentation]    Delete a SFC port chain
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port chain delete ${name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Reboot Nova VM
@@ -1082,10 +1096,10 @@ Reboot Nova VM
     [Documentation]    Reboot NOVA VM
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server reboot --wait ${vm_name}
     Log    ${output}
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     Wait Until Keyword Succeeds    35s    10s    Verify VM Is ACTIVE    ${vm_name}
 
-Remove RSA Key From KnowHosts
+Remove RSA Key From KnownHosts
     [Arguments]    ${vm_ip}
     [Documentation]    Remove RSA
     ${devstack_conn_id}=    Get ControlNode Connection
@@ -1106,3 +1120,125 @@ Wait For Routes To Propogate
     \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
     \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
     \    Should Contain    ${output}    @{subnets}[${INDEX}]
+
+Neutron Cleanup
+    [Arguments]    ${vms}=@{EMPTY}    ${networks}=@{EMPTY}    ${subnets}=@{EMPTY}    ${ports}=@{EMPTY}    ${sgs}=@{EMPTY}
+    : FOR    ${vm}    IN    @{vms}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Vm Instance    ${vm}
+    : FOR    ${port}    IN    @{ports}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Port    ${port}
+    : FOR    ${subnet}    IN    @{subnets}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete SubNet    ${subnet}
+    : FOR    ${network}    IN    @{networks}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Network    ${network}
+    : FOR    ${sg}    IN    @{sgs}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete SecurityGroup    ${sg}
+
+OpenStack List All
+    [Documentation]    Get a list of different OpenStack resources that might be in use.
+    @{modules} =    BuiltIn.Create List    floating ip    server    router    port    network
+    ...    subnet    security group    security group rule
+    : FOR    ${module}    IN    @{modules}
+    \    OpenStack CLI    openstack ${module} list
+
+OpenStack CLI Get List
+    [Arguments]    ${cmd}
+    [Documentation]    Return a json list from the output of an OpenStack command.
+    ${json} =    OpenStack CLI    ${cmd}
+    @{list} =    RequestsLibrary.To Json    ${json}
+    BuiltIn.Log    ${list}
+    [Return]    @{list}
+
+OpenStack CLI
+    [Arguments]    ${cmd}
+    [Documentation]    Run the given OpenStack ${cmd}.
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    BuiltIn.Log    ${output}
+    Should Be True    '${rc}' == '0'
+    [Return]    ${output}
+
+OpenStack Cleanup All
+    [Documentation]    Cleanup all Openstack resources with best effort. The keyword will query for all resources
+    ...    in use and then attempt to delete them. Errors are ignored to allow the cleanup to continue.
+    @{fips} =    OpenStack CLI Get List    openstack floating ip list -f json
+    : FOR    ${fip}    IN    @{fips}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Floating IP    ${fip['ID']}
+    @{vms} =    OpenStack CLI Get List    openstack server list -f json
+    : FOR    ${vm}    IN    @{vms}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Vm Instance    ${vm['ID']}
+    @{routers} =    OpenStack CLI Get List    openstack router list -f json
+    : FOR    ${router}    IN    @{routers}
+    \    BuiltIn.Run Keyword And Ignore Error    Cleanup Router    ${router['ID']}
+    @{ports} =    OpenStack CLI Get List    openstack port list -f json
+    : FOR    ${port}    IN    @{ports}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Port    ${port['ID']}
+    @{networks} =    OpenStack CLI Get List    openstack network list -f json
+    : FOR    ${network}    IN    @{networks}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Subnet    ${network['Subnets']}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Network    ${network['ID']}
+    @{security_groups} =    OpenStack CLI Get List    openstack security group list -f json
+    : FOR    ${security_group}    IN    @{security_groups}
+    \    BuiltIn.Run Keyword If    "${security_group['Name']}" != "default"    BuiltIn.Run Keyword And Ignore Error    Delete SecurityGroup    ${security_group['ID']}
+    OpenStack List All
+
+Cleanup Router
+    [Arguments]    ${id}
+    [Documentation]    Delete a router, but first remove any interfaces or gateways so that the delete will be successful.
+    @{ports} =    OpenStack CLI Get List    openstack port list --router ${id} -f json --long
+    : FOR    ${port}    IN    @{ports}
+    \    ${subnet_id} =    Get Match    ${port['Fixed IP Addresses']}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}    0
+    \    BuiltIn.Run Keyword If    "${port['Device Owner']}" == "network:router_gateway"    BuiltIn.Run Keyword And Ignore Error    Remove Gateway    ${id}
+    \    BuiltIn.Run Keyword If    "${port['Device Owner']}" == "network:router_interface"    BuiltIn.Run Keyword And Ignore Error    Remove Interface    ${id}    ${subnet_id}
+    BuiltIn.Run Keyword And Ignore Error    Delete Router    ${id}
+
+OpenStack Suite Teardown
+    OpenStack Cleanup All
+    SSHLibrary.Close All Connections
+
+Get Packet Count From Table
+    [Arguments]    ${COMPUTE_IP}    ${TABLE_NUM}    ${ADDITIONAL_ARGS}=${EMPTY}
+    [Documentation]    Get the packet count from specified table for the specified additional arguments
+    ${OVS_FLOW}    Utils.Run Command On Remote System    ${COMPUTE_IP}    ${DUMP_FLOWS}
+    ${MATCH}    ${PACKET_COUNT}    BuiltIn.Should Match Regexp    ${OVS_FLOW}    ${TABLE_NUM}.*n_packets=(\\d+).*${ADDITIONAL_ARGS}
+    BuiltIn.Log    ${PACKET_COUNT}
+    [Return]    ${PACKET_COUNT}
+
+Configure_IP_On_Sub_Interface
+    [Arguments]    ${NETWORK_NAME}    ${IP}    ${VM_IP}    ${MASK}    ${INTERFACE}=eth0    ${SUB_INTERFACE_NUMBER}=0
+    [Documentation]    Keyword for configuring IP on sub interface
+    OpenStackOperations.Execute Command on VM Instance    ${NETWORK_NAME}    ${VM_IP}    sudo ifconfig ${INTERFACE}:${SUB_INTERFACE_NUMBER} ${IP} netmask ${MASK} up
+
+Verify_IP_Configured_On_Sub_Interface
+    [Arguments]    ${NETWORK_NAME}    ${IP}    ${VM_IP}    ${INTERFACE}=eth0    ${SUB_INTERFACE_NUMBER}=0
+    [Documentation]    Keyword for verifying IP configured on sub interface
+    ${RESP}    OpenStackOperations.Execute Command on VM Instance    ${NETWORK_NAME}    ${VM_IP}    sudo ifconfig ${INTERFACE}:${SUB_INTERFACE_NUMBER}
+    BuiltIn.Should Contain    ${RESP}    ${IP}
+
+Verify_Ping_To_Destination_IP
+    [Arguments]    ${NETWORK_NAME}    ${IP}    ${VM_IP}    ${NO_OF_PING_PACKETS}
+    [Documentation]    Keyword to ping specified Destination IP
+    ${PING_RESP}    OpenStackOperations.Execute Command on VM Instance    ${NETWORK_NAME}    ${VM_IP}    ping ${IP} -c ${NO_OF_PING_PACKETS}
+    BuiltIn.Should Not Contain    ${PING_RESP}    ${NO_PING_REGEXP}
+
+Verify_Ping_And_Packet_Count
+    [Arguments]    ${NETWORK_NAME}    ${IP}    ${VM_NAME}    ${NO_OF_PING_PACKETS}    ${NO_OF_COMPUTE}
+    [Documentation]    Keyword to Verify Ping and Packet count
+    ${PATTERN}    BuiltIn.Set Variable    nw_dst=${IP}.*
+    ${PACKET_COUNT_BEFORE_PING}    BuiltIn.Create List
+    ${PACKET_COUNT_AFTER_PING}    BuiltIn.Create List
+    BuiltIn.Log    Get Packet Count of Compute Nodes before traffic
+    : FOR    ${COMPUTE_NUM}    IN RANGE    1    ${NO_OF_COMPUTE}+1
+    \    ${COUNT}    OpenStackOperations.Get Packet Count From Table    ${OS_COMPUTE_${COMPUTE_NUM}_IP}    ${TABLE_21}    ${PATTERN}
+    \    Collections.Append To List    ${PACKET_COUNT_BEFORE_PING}    ${COUNT}
+    OpenStackOperations.Verify_Ping_To_Destination_IP    ${NETWORK_NAME}    ${IP}    ${VM_NAME}    ${NO_OF_PING_PACKETS}
+    BuiltIn.Log    Get Packet Count of Compute Nodes after traffic
+    : FOR    ${COMPUTE_NUM}    IN RANGE    1    ${NO_OF_COMPUTE}+1
+    \    ${COUNT}    OpenStackOperations.Get Packet Count From Table    ${OS_COMPUTE_${COMPUTE_NUM}_IP}    ${TABLE_21}    ${PATTERN}
+    \    Collections.Append To List    ${PACKET_COUNT_AFTER_PING}    ${COUNT}
+    BuiltIn.Log    Check via which Compute Node Packets are forwarded
+    : FOR    ${INDEX}    IN RANGE    ${NO_OF_COMPUTE}
+    \    ${COUNT}    BuiltIn.Evaluate    ${PACKET_COUNT_AFTER_PING[${Index}]}-(${PACKET_COUNT_BEFORE_PING[${Index}]}+${NO_OF_PING_PACKETS})
+    \    BuiltIn.Run Keyword If    ${COUNT}==0    BuiltIn.Log    Packets forwarded via Compute ${Index}+1
+    \    ${COMPUTE_IP}    BuiltIn.Set variable IF    ${COUNT}==0    ${OS_COMPUTE_${Index+1}_IP}
+    \    BuiltIn.Exit For Loop If    ${COUNT}==0
+    [Return]    ${COMPUTE_IP}
