@@ -1,4 +1,4 @@
 # Suites listed here are intended to help with test driven development and/or when we want to allow
 # CSIT suites to be run without risk of causing our "hopefully" stable existing CSIT jobs to have
 # unnecessary failures.
-integration/test/csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot
+integration/test/csit/suites/netvirt/multipath/multipath_intra_dc.robot
