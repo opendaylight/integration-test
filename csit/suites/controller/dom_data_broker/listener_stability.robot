@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     DOMDataBroker testing: Remote Listener
+Documentation     DOMDataBroker testing: Listener Stability
 ...
 ...               Copyright (c) 2017 Cisco Systems, Inc. and others. All rights reserved.
 ...
@@ -21,15 +21,24 @@ Resource          ${CURDIR}/../../../libraries/controller/DdbCommons.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Test Cases ***
-Listener_On_Shard_Leader_Node
-    [Documentation]    Listener runs on leader node when leader changed.
-    leader
+Move_Leader_From_Listener_Local_To_Remote
+    [Documentation]    Listener runs on leader node when leader is moved to remote node.
+    local    remote
 
-Restart
-    [Documentation]    Restart odl
+Restart_1
+    [Documentation]    Restart odl.
     [Template]
     DdbCommons.Restart_Test_Templ
 
-Listener_On_Shard_Non_Leader_Node
-    [Documentation]    Listener runs on non-leader node when leader changed.
-    non-leader
+Move_Leader_From_Listener_Remote_To_Other_Remote
+    [Documentation]    Listener runs on follower node when leader is moved to the third node.
+    remote    remote
+
+Restart_2
+    [Documentation]    Restart odl.
+    [Template]
+    DdbCommons.Restart_Test_Templ
+
+Move_Leader_From_Listener_Local_To_Remote
+    [Documentation]    Listener runs on follower node when leader is moved to local node.
+    remote    local
