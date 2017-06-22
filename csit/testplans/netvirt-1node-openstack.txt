@@ -5,3 +5,10 @@ integration/test/csit/suites/netvirt/vpnservice/basic.robot
 integration/test/csit/suites/netvirt/vpnservice/basic_ipv6.robot
 integration/test/csit/suites/netvirt/elan/
 integration/test/csit/suites/netvirt/vpnservice/arp_learning.robot
+integration/test/csit/suites/netvirt/multipath/multipath.robot
+integration/test/csit/suites/openstack/NeutronSecurityGrp/
+integration/test/csit/suites/netvirt/Netvirt_Vpnservice/01_basic_vpnservice.robot
+integration/test/csit/suites/netvirt/Netvirt_Vpnservice/03_basic_ipv6_vpnservice.robot
+integration/test/csit/suites/netvirt/ElanService/
+integration/test/csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot
+integration/test/csit/suites/netvirt/MultiPath/Multi_Path_Suite1.robot
