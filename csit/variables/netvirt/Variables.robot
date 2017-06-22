@@ -76,3 +76,7 @@ ${ELAN_BASETABLE}    48
 ${ELAN_SMACTABLE}    50
 ${ELAN_DMACTABLE}    51
 ${ELAN_UNKNOWNMACTABLE}    52
+${DUMP_FLOWS}     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+${DUMP_GROUPS}    sudo ovs-ofctl -O OpenFlow13 dump-groups br-int
+${DUMP_GROUP_STATS}    sudo ovs-ofctl -O OpenFlow13 dump-group-stats br-int
+${FIB_SHOW}       fib-show

@@ -1065,3 +1065,59 @@ Start Packet Capture On Nodes
 Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+
+Get_Packet_Count_From_Table
+    [Arguments]    ${compute_ip}    ${table_num}    ${additional_args}=${empty}
+    [Documentation]    Get the packet count from specified table for the specified additional arguments
+    ${ovs_flow}    Utils.Run Command On Remote System    ${compute_ip}    ${DUMP_FLOWS}
+    ${match}    ${packet_count}    BuiltIn.Should Match Regexp    ${ovs_flow}    table=${table_num}.*n_packets=(\\d+).*${additional_args}
+    [Return]    ${packet_count}
+
+Configure_IP_On_Sub_Interface
+    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${mask}    ${interface}=eth0    ${sub_interface_number}=0
+    [Documentation]    Keyword for configuring specified IP on specified interface and the corresponding specified sub interface
+    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    sudo ifconfig ${interface}:${sub_interface_number} ${ip} netmask ${mask} up
+
+Verify_IP_Configured_On_Sub_Interface
+    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${interface}=eth0    ${sub_interface_number}=0
+    [Documentation]    Keyword for verifying specified IP on specified interface and the corresponding specified sub interface
+    ${resp}    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    sudo ifconfig ${interface}:${sub_interface_number}
+    BuiltIn.Should Contain    ${resp}    ${ip}
+
+Verify_Ping_To_Destination_IP
+    [Arguments]    ${network_name}    ${ip}    ${vm_ip}    ${no_of_ping_packets}
+    [Documentation]    Keyword to ping specified Destination IP from the specied source VM IP and verify that there is no packet loss after ping
+    ${ping_resp}    OpenStackOperations.Execute Command on VM Instance    ${network_name}    ${vm_ip}    ping ${ip} -c ${no_of_ping_packets}
+    BuiltIn.Should Not Contain    ${ping_resp}    ${NO_PING_REGEXP}
+
+Verify_Packet_Count_Before_And_After_Ping
+    [Arguments]    ${network_name}    ${ip}    ${vm_name}    ${no_of_ping_packets}    ${no_of_compute}
+    [Documentation]    Keyword to get the packet count from flow output before ping, perform ping to the specified IP address, get the packet count after ping from flow output and verify there is no packet loss and return the compute IP from which packets are forwarded
+    ${pattern}    BuiltIn.Set Variable    nw_dst=${ip}.*
+    ${packet_count_before_ping}    BuiltIn.Create List
+    ${packet_count_after_ping}    BuiltIn.Create List
+    BuiltIn.Log    Get Packet Count from Compute Node Flows before ping
+    : FOR    ${index}    IN RANGE    ${no_of_compute}
+    \    ${count}    OpenStackOperations.Get Packet Count From Table    ${OS_COMPUTE_${index+1}_IP}    ${L3_TABLE}    ${pattern}
+    \    Collections.Insert Into List    ${packet_count_before_ping}    ${index}    ${count}
+    OpenStackOperations.Verify_Ping_To_Destination_IP    ${network_name}    ${ip}    ${vm_name}    ${no_of_ping_packets}
+    BuiltIn.Log    Get Packet Count from Compute Node Flows after ping
+    : FOR    ${index}    IN RANGE    ${no_of_compute}
+    \    ${count}    OpenStackOperations.Get Packet Count From Table    ${OS_COMPUTE_${index+1}_IP}    ${L3_TABLE}    ${pattern}
+    \    Collections.Insert Into List    ${packet_count_after_ping}    ${index}    ${count}
+    BuiltIn.Log    Check via which Compute Node Packets are forwarded
+    : FOR    ${index}    IN RANGE    ${no_of_compute}
+    \    ${count}    BuiltIn.Evaluate    ${packet_count_after_ping[${index}]}-(${packet_count_before_ping[${index}]}+${no_of_ping_packets})
+    \    ${compute_ip}    BuiltIn.Set variable IF    ${count}==0    ${OS_COMPUTE_${index+1}_IP}
+    \    BuiltIn.Run Keyword If    ${count}==0    BuiltIn.Run Keywords    BuiltIn.Log    Packets forwarded via Compute ${index+1}
+    \    ...    AND    BuiltIn.Exit For Loop
+    [Return]    ${compute_ip}
+
+Get_VM_Mac
+    [Arguments]    ${vm_port_name_list}
+    [Documentation]    Keyword to return the VM MAC ID wrt given port list
+    ${mac_addr_list}    BuiltIn.Create List
+    : FOR    ${port_name}    IN    @{vm_port_name_list}
+    \    ${mac_value}    OpenStack CLI    openstack port list | grep ${port_name} | awk '{print $6}'
+    \    Collections.Append To List    ${mac_addr_list}    ${mac_value}
+    [Return]    ${mac_addr_list}
