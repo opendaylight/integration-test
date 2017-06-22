@@ -1106,3 +1106,46 @@ Wait For Routes To Propogate
     \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
     \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
     \    Should Contain    ${output}    @{subnets}[${INDEX}]
+
+Get Packet Count From Table
+    [Arguments]    ${COMPUTE_IP}    ${TABLE_NUM}    ${ADDITIONAL_ARGS}=${EMPTY}
+    [Documentation]    Get the packet count from specified table for the specified additional arguments
+    ${OVS_FLOW}    Run Command On Remote System    ${COMPUTE_IP}    ${DUMP_FLOWS}
+    ${MATCH}    ${PACKET_COUNT}    Should Match Regexp    ${OVS_FLOW}    ${TABLE_NUM}.*n_packets=(\\d+).*${ADDITIONAL_ARGS}
+    Log    ${PACKET_COUNT}
+    [Return]    ${PACKET_COUNT}
+
+Configure_IP_On_Sub_Interface
+    [Arguments]    ${NETWORK_NAME}    ${IP}    ${VM_IP}    ${MASK}    ${INTERFACE}=eth0    ${SUB_INTERFACE_NUMBER}=0
+    [Documentation]    Keyword for configuring IP on sub interface
+    Execute Command on VM Instance    ${NETWORK_NAME}    ${VM_IP}    sudo ifconfig ${INTERFACE}:${SUB_INTERFACE_NUMBER} ${IP} netmask ${MASK} up
+
+Verify_IP_Configured_On_Sub_Interface
+    [Arguments]    ${NETWORK_NAME}    ${IP}    ${VM_IP}    ${INTERFACE}=eth0    ${SUB_INTERFACE_NUMBER}=0
+    [Documentation]    Keyword for verifying IP configured on sub interface
+    ${RESP}    Execute Command on VM Instance    ${NETWORK_NAME}    ${VM_IP}    sudo ifconfig ${INTERFACE}:${SUB_INTERFACE_NUMBER}
+    Should Contain    ${RESP}    ${IP}
+
+Verify_Ping_To_Destination_IP
+    [Arguments]    ${NETWORK_NAME}    ${IP}    ${VM_IP}    ${NO_OF_PING_PACKETS}
+    [Documentation]    Keyword to ping specified Destination IP
+    ${PING_RESP}    Execute Command on VM Instance    ${NETWORK_NAME}    ${VM_IP}    ping ${IP} -c ${NO_OF_PING_PACKETS}
+    Should Not Contain    ${PING_RESP}    ${NO_PING_REGEXP}
+
+Verify_Ping_And_Packet_Count
+    [Arguments]    ${NETWORK_NAME}    ${IP}    ${VM_NAME}    ${NO_OF_PING_PACKETS}
+    [Documentation]    Keyword to Verify Ping and Packet count
+    ${PATTERN}    Set Variable    nw_dst=${IP}.*
+    ${COMPUTE_1_PACKET_COUNT_BEFORE_PING}    Get_Packet_Count_From_Table    ${OS_COMPUTE_1_IP}    ${TABLE_21}    ${PATTERN}
+    ${COMPUTE_2_PACKET_COUNT_BEFORE_PING}    Get_Packet_Count_From_Table    ${OS_COMPUTE_2_IP}    ${TABLE_21}    ${PATTERN}
+    Verify_Ping_To_Destination_IP    ${NETWORK_NAME}    ${IP}    ${VM_NAME}    ${NO_OF_PING_PACKETS}
+    ${COMPUTE_1_PACKET_COUNT_AFTER_PING}    Get_Packet_Count_From_Table    ${OS_COMPUTE_1_IP}    ${TABLE_21}    ${PATTERN}
+    ${COMPUTE_2_PACKET_COUNT_AFTER_PING}    Get_Packet_Count_From_Table    ${OS_COMPUTE_2_IP}    ${TABLE_21}    ${PATTERN}
+    Log    Check via which Compute Node Packets are forwarded
+    ${COMPUTE_1_COUNT}    Evaluate    ${COMPUTE_1_PACKET_COUNT_AFTER_PING}-(${COMPUTE_1_PACKET_COUNT_BEFORE_PING}+${NO_OF_PING_PACKETS})
+    ${COMPUTE_2_COUNT}    Evaluate    ${COMPUTE_2_PACKET_COUNT_AFTER_PING}-(${COMPUTE_2_PACKET_COUNT_BEFORE_PING}+${NO_OF_PING_PACKETS})
+    Run Keyword If    ${COMPUTE_1_COUNT}==0    Log    Packets forwarded via Compute Node 1
+    ...    ELSE IF    ${COMPUTE_2_COUNT}==0    Log    Packets forwarded via Compute Node 2
+    ...    ELSE    Log    Packets are not forwarded by any of the Compute Nodes
+    ${COMPUTE_NODE_IP}    Set Variable If    ${COMPUTE_1_COUNT}==0    ${OS_COMPUTE_1_IP}    ${COMPUTE_2_COUNT}==0    ${OS_COMPUTE_2_IP}
+    [Return]    ${COMPUTE_NODE_IP}
