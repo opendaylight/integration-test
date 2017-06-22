@@ -1,0 +1,5 @@
+# Place the suites in run order:
+integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
+integration/test/csit/suites/controller/dom_data_broker/explicit_leader_movement.robot
+integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
+integration/test/csit/suites/controller/dom_data_broker/explicit_leader_movement_prefbasedshard.robot
