@@ -7,9 +7,9 @@
 # Place the suites in run order:
 
 # Run non intrusive cluster tests first.
-integration/test/csit/suites/netconf/ready/netconfready.robot
-integration/test/csit/suites/netconf/clustering/CRUD.robot
-integration/test/csit/suites/netconf/clustering/bug8086.robot
+#integration/test/csit/suites/netconf/ready/netconfready.robot
+#integration/test/csit/suites/netconf/clustering/CRUD.robot
+#integration/test/csit/suites/netconf/clustering/bug8086.robot
 
 # Run the intrusive cluster tests after the non-intrusive ones.
 integration/test/csit/suites/test/alter_log_levels.robot
