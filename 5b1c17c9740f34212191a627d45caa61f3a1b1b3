@@ -68,6 +68,30 @@
       "revId": "5b1c17c9740f34212191a627d45caa61f3a1b1b3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_fbc0502c",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6937
+      },
+      "writtenOn": "2017-06-22T21:37:14Z",
+      "side": 1,
+      "message": "I am sorry for missing alphabetical order. Indeed, requests is third party library. But I see that json is listed as standard library here - https://docs.python.org/3/library/index.html.",
+      "parentUuid": "fa2559ec_9bb034df",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "5b1c17c9740f34212191a627d45caa61f3a1b1b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
