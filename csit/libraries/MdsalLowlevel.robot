@@ -172,6 +172,16 @@ Unsubscribe_Dtcl
     ${matches} =    BuiltIn.Convert_To_Boolean    ${matches}
     BuiltIn.Return_From_Keyword    ${matches}
 
+Unsubscribe_Dtcl_No_Tx
+    [Arguments]    ${member_index}
+    [Documentation]    Unsubscribe a listener from the data changes. Expect message about no notifications received.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DTCL_DIR}    session=${session}    explicit_status_codes=${INTERNAL_SERVER_ERROR}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${message} =    XML.Get_Element_Text    ${xml}    xpath=error/error-message
+    BuiltIn.Should_Contain    ${message}    listener has not received
+    BuiltIn.Return_From_Keyword    ${text}
+
 Subscribe_Ddtl
     [Arguments]    ${member_index}
     [Documentation]    Subscribe DOMDataTreeListener to listen for the data changes.
@@ -187,6 +197,16 @@ Unsubscribe_Ddtl
     ${matches} =    XML.Get_Element_Text    ${xml}    xpath=copy-matches
     ${matches} =    BuiltIn.Convert_To_Boolean    ${matches}
     BuiltIn.Return_From_Keyword    ${matches}
+
+Unsubscribe_Ddtl_No_Tx
+    [Arguments]    ${member_index}
+    [Documentation]    Unsubscribe a listener from the data changes. Expect message about no notifications received.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DDTL_DIR}    session=${session}    explicit_status_codes=${INTERNAL_SERVER_ERROR}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${message} =    XML.Get_Element_Text    ${xml}    xpath=error/error-message
+    BuiltIn.Should_Contain    ${message}    listener has not received
+    BuiltIn.Return_From_Keyword    ${text}
 
 Start_Publish_Notifications
     [Arguments]    ${member_index}    ${gid}    ${seconds}    ${notif_per_sec}
