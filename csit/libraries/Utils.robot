@@ -321,9 +321,20 @@ Add Elements To URI And Verify
 
 Add Elements To URI From File And Check Validation Error
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
+    [Documentation]    Shorthand for PUTting data from file and expecting status code 400.
+    BuiltIn.Comment    TODO: Does this have any benefits, considering TemplatedRequests can also do this in one line?
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${DATA_VALIDATION_ERROR}    ${resp.status_code}
+
+Add Elements To URI From File And Check Server Error
+    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
+    [Documentation]    Shorthand for PUTting data from file and expecting status code 500.
+    ...    Consider opening a Bug against ODL, as in most test cases, 400 is the http code to expect.
+    BuiltIn.Comment    TODO: Does this have any benefits, considering TemplatedRequests can also do this in one line?
+    ${body}    OperatingSystem.Get File    ${data_file}
+    ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
+    Should Contain    ${INTERNAL_SERVER_ERROR}    ${resp.status_code}
 
 Post Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
