@@ -15,7 +15,7 @@
                 <action>
                     <order>0</order>
                     <output-action>
-                        <output-node-connector>INPORT</output-node-connector>
+                        <output-node-connector>IN_PORT</output-node-connector>
                         <max-length>60</max-length>
                     </output-action>
                 </action>
