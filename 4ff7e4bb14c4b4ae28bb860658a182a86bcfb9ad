@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "fa2559ec_db246cc8",
+        "filename": "csit/suites/openflowplugin/Bug_Validation/7350.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-06-23T00:04:06Z",
+      "side": 1,
+      "message": "Any reason why you first check there is master and second there are 2 connections? I think it makes more sense to first check you got connection and second you got master.",
+      "revId": "4ff7e4bb14c4b4ae28bb860658a182a86bcfb9ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_1b2f24a3",
+        "filename": "csit/suites/openflowplugin/Bug_Validation/7350.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-06-23T00:04:06Z",
+      "side": 1,
+      "message": "Same comment here",
+      "revId": "4ff7e4bb14c4b4ae28bb860658a182a86bcfb9ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa2559ec_9b44b475",
         "filename": "csit/suites/openflowplugin/Bug_Validation/7350.robot",
         "patchSetId": 2
