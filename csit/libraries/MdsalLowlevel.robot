@@ -172,6 +172,16 @@ Unsubscribe_Dtcl
     ${matches} =    BuiltIn.Convert_To_Boolean    ${matches}
     BuiltIn.Return_From_Keyword    ${matches}
 
+Unsubscribe_Dtcl_No_Tx
+    [Arguments]    ${member_index}
+    [Documentation]    Unsubscribe a listener from the data changes. Invoke unsubscribe-dtcl rpc.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DTCL_DIR}    session=${session}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${matches} =    XML.Get_Element_Text    ${xml}    xpath=copy-matches
+    ${matches} =    BuiltIn.Convert_To_Boolean    ${matches}
+    BuiltIn.Return_From_Keyword    ${matches}
+
 Subscribe_Ddtl
     [Arguments]    ${member_index}
     [Documentation]    Subscribe DOMDataTreeListener to listen for the data changes.
