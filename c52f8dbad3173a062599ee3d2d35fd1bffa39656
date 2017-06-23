@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa2559ec_ac6df906",
+        "filename": "csit/scripts/dcgw_setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-23T21:01:27Z",
+      "side": 1,
+      "message": "remove tab",
+      "revId": "c52f8dbad3173a062599ee3d2d35fd1bffa39656",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
