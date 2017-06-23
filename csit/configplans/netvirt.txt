@@ -6,3 +6,4 @@ integration/test/csit/scripts/disable_ofp_stats.sh
 integration/test/csit/scripts/set_itm_direct_tunnels.sh
 integration/test/csit/scripts/set_ovsdb_inactivity_probe.sh
 integration/test/csit/scripts/set_ovsdb_monitor.sh
+integration/test/csit/scripts/dcgw-setup.sh ${NUM_TOOLS_SYSTEM}
