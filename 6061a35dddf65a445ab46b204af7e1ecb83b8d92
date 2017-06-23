@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa2559ec_2cfc693e",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/SF263_ECMP_UC01_01.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-23T20:54:20Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 6,
+        "startChar": 45,
+        "endLine": 6,
+        "endChar": 46
+      },
+      "revId": "6061a35dddf65a445ab46b204af7e1ecb83b8d92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_4c9a7d15",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/SF263_ECMP_UC01_01.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-23T20:54:20Z",
+      "side": 1,
+      "message": "what is this?",
+      "range": {
+        "startLine": 34,
+        "startChar": 18,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "6061a35dddf65a445ab46b204af7e1ecb83b8d92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_ac9fb902",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/SF263_ECMP_UC01_01.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-23T20:54:20Z",
+      "side": 1,
+      "message": "this is there in the netvirt/variables/Variable.robot file\nwhich you can reference here (or just inline below) as \n${VPN_INSTANCE_ID[0]}\n\nprobably other variables below are also available in \nthat file.",
+      "range": {
+        "startLine": 38,
+        "startChar": 22,
+        "endLine": 38,
+        "endChar": 58
+      },
+      "revId": "6061a35dddf65a445ab46b204af7e1ecb83b8d92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_ec8891c8",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/SF263_ECMP_UC01_01.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-23T20:54:20Z",
+      "side": 1,
+      "message": "assuming you don\u0027t need this.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 23
+      },
+      "revId": "6061a35dddf65a445ab46b204af7e1ecb83b8d92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_6cbca16d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/SF263_ECMP_UC01_01.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-23T20:54:20Z",
+      "side": 1,
+      "message": "before merging, we wont want these commented lines. same as \nbelow.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 39
+      },
+      "revId": "6061a35dddf65a445ab46b204af7e1ecb83b8d92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa2559ec_acb69988",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/SF263_ECMP_UC01_01.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-23T20:54:20Z",
+      "side": 1,
+      "message": "these keywords probably belong in a library, unless this\nis the only suite that will (ever) use them.\n\nAlso, can you use the openstack cli instead of the neutron\ncli? we\u0027ll have to test this on both newton and ocata branches.",
+      "revId": "6061a35dddf65a445ab46b204af7e1ecb83b8d92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
