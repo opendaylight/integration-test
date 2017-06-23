@@ -2,10 +2,13 @@
 Documentation     Test Suite for ITM
 Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
+Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${bfd_data_models}
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
 Variables         ../../variables/Variables.py
+Variables         ../../variables/genius/Modules.py
+Resource          ../../libraries/DataModels.robot
 Library           Collections
 Resource          ../../libraries/Utils.robot
 Resource          ../../libraries/CompareStream.robot
