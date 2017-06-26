@@ -20,7 +20,7 @@ Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
-TODO: change back to 24h when jenkins has more granular steps to abort jobs than days; now 23h
+# TODO: change back to 24h when jenkins has more granular steps to abort jobs than days; now 23h
 ${TEST_DURATION}    23h
 ${ACCEPTED_PER_SEC_RATE}    100
 ${ACCEPTED_PER_SEC_RATE_CARBON}    5
