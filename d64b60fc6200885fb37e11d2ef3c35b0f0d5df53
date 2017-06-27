@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_1830d155",
+        "filename": "csit/libraries/controller/ControllerBugs.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-06-27T12:39:11Z",
+      "side": 1,
+      "message": "e",
+      "range": {
+        "startLine": 10,
+        "startChar": 36,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "d64b60fc6200885fb37e11d2ef3c35b0f0d5df53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_d873d913",
+        "filename": "csit/libraries/controller/CsCommon.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-06-27T12:39:11Z",
+      "side": 1,
+      "message": "i would prefer something with explicit assert, because this may lead to ideas that the check is only done for bug 8420 and nothing else and the no-presence of bug 8420 may not mean the pass status\n\nmaybe something like the code below even if the assert itself is done twice?\nControllerBugs.Check_8420    ${cs_exp_constant}    ${constant}\nBuiltIn.Should_Be_Equal    ${cs_exp_constant}    ${constant}",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 3
+      },
+      "revId": "d64b60fc6200885fb37e11d2ef3c35b0f0d5df53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_d81c79c4",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2017-06-27T12:39:11Z",
+      "side": 1,
+      "message": "why is ${subscribed} removed?   then Unsubscribe_Dtcl will be done twice (once in teardown); same line 349",
+      "range": {
+        "startLine": 326,
+        "startChar": 1,
+        "endLine": 326,
+        "endChar": 3
+      },
+      "revId": "d64b60fc6200885fb37e11d2ef3c35b0f0d5df53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
