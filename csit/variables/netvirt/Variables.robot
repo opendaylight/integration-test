@@ -72,6 +72,7 @@ ${TUNNEL_INTERFACES}    ${CONFIG_API}/ietf-interfaces:interfaces/
 ${LEARNT_VIP}     ${OPERATIONAL_API}/odl-l3vpn:learnt-vpn-vip-to-port-data/
 ${DISPATCHER_TABLE}    17
 ${GWMAC_TABLE}    19
+${ARP_CHECK_TABLE}    43
 ${ARP_RESPONSE_TABLE}    81
 ${IPV6_TABLE}     45
 ${L3_TABLE}       21
