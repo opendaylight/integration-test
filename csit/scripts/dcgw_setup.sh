@@ -1,5 +1,4 @@
 #!/bin/bash
-
 cat > ${WORKSPACE}/dcgw_setup.sh <<EOF
 
 echo "DC-Gateway install procedure"
@@ -20,7 +19,8 @@ echo "DC-Gateway install procedure"
 
     *)
          echo "Tool system related changes"
-	 sudo apt-get update --force-yes
+	 #sudo apt-get update --force-yes
+         sudo apt-get install automake bison flex g++ git libboost1.58-all-dev libevent-dev libssl-dev libtool make pkg-config gawk libreadline-dev libglib2.0-dev wget -y --force-yes 
        ;;
     esac
 
@@ -54,4 +54,3 @@ do
         scp ${WORKSPACE}/dcgw_setup.sh ${!CONTROLLERIP}:/tmp/
         ssh ${!CONTROLLERIP} 'sudo bash /tmp/dcgw_setup.sh'
 done
-
