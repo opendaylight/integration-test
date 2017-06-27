@@ -12,6 +12,7 @@ Documentation     DOMDataBroker testing: Common keywords
 ...
 ...               TODO: When checking first response in isolation scenarior, make sure it comes from the expected member.
 Library           ${CURDIR}/../MdsalLowlevelPy.py
+Resource          ${CURDIR}/ControllerBugs.robot
 Resource          ${CURDIR}/../ClusterAdmin.robot
 Resource          ${CURDIR}/../ClusterManagement.robot
 Resource          ${CURDIR}/../KarafKeywords.robot
@@ -198,6 +199,8 @@ Leader_Isolation_Heal_Within_Rt
     ...    producers shoudl finish without error.
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
+    \    ControllerBugs.Check_8494    ${resp}
+    \    ControllerBugs.Check_8619    ${resp}
     \    TemplatedRequests.Check_Status_Code    @{resp}[2]
 
 Module_Leader_Isolation_Heal_Default
@@ -215,6 +218,8 @@ Module_Leader_Isolation_Heal_Default
     ...    reset_globals=${False}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
+    \    ControllerBugs.Check_8494    ${resp}
+    \    ControllerBugs.Check_8619    ${resp}
     \    TemplatedRequests.Check_Status_Code    @{resp}[2]
 
 Prefix_Leader_Isolation_Heal_Default
@@ -231,6 +236,8 @@ Prefix_Leader_Isolation_Heal_Default
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX2}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    reset_globals=${False}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
+    \    ControllerBugs.Check_8494    ${resp}
+    \    ControllerBugs.Check_8619    ${resp}
     \    TemplatedRequests.Check_Status_Code    @{resp}[2]
 
 Client_Isolation_Test_Templ
@@ -289,6 +296,7 @@ Ongoing_Transactions_Not_Failed_Yet
 Ongoing_Transactions_Failed
     [Documentation]    Verify if write-transaction failed.
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
+    ControllerBugs.Check_8494    ${resp}
     Check_Status_Code    @{resp}[2]    explicit_status_codes=${TRANSACTION_FAILED}
 
 Get_Seconds_To_Time
@@ -318,8 +326,7 @@ Listener_Stability_Test_Templ
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    @{resp}[2]
     ${copy_matches} =    MdsalLowlevel.Unsubscribe_Dtcl    ${idx_listen}
-    ${subscribed} =    BuiltIn.Set_Variable    ${False}
-    BuiltIn.Should_Be_True    ${copy_matches}
+    ControllerBugs.Check_8733    ${copy_matches}
     [Teardown]    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Dtcl    ${idx_listen}
 
 Listener_Stability_PrefBasedShard_Test_Templ
@@ -342,8 +349,7 @@ Listener_Stability_PrefBasedShard_Test_Templ
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    @{resp}[2]
     ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl    ${idx_listen}
-    ${subscribed} =    BuiltIn.Set_Variable    ${False}
-    BuiltIn.Should_Be_True    ${copy_matches}
+    ControllerBugs.Check_8733    ${copy_matches}
     [Teardown]    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Ddtl    ${idx_listen}
 
 Create_Prefix_Based_Shard_And_Verify
