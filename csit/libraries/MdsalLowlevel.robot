@@ -164,13 +164,17 @@ Subscribe_Dtcl
 
 Unsubscribe_Dtcl
     [Arguments]    ${member_index}
-    [Documentation]    Unsubscribe a listener from the data changes. Invoke unsubscribe-dtcl rpc.
+    [Documentation]    Invoke unsubscribe-dtcl rpc, return copy-matches field as boolean.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DTCL_DIR}    session=${session}
-    ${xml} =    XML.Parse_Xml    ${text}
-    ${matches} =    XML.Get_Element_Text    ${xml}    xpath=copy-matches
-    ${matches} =    BuiltIn.Convert_To_Boolean    ${matches}
-    BuiltIn.Return_From_Keyword    ${matches}
+    BuiltIn.Run_Keyword_And_Return    MdsalLowLevel__Parse_Matches    ${text}
+
+Unsubscribe_Dtcl_No_Tx
+    [Arguments]    ${member_index}
+    [Documentation]    Unsubscribe a listener from the data changes. Expect success no notifications received. Return boolean status.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DTCL_DIR}    session=${session}    additional_allowed_status_codes=${INTERNAL_SERVER_ERROR}
+    BuiltIn.Run_Keyword_And_Return    MdsalLowLevel__Parse_Maybe_No_Tx    ${text}
 
 Subscribe_Ddtl
     [Arguments]    ${member_index}
@@ -180,13 +184,36 @@ Subscribe_Ddtl
 
 Unsubscribe_Ddtl
     [Arguments]    ${member_index}
-    [Documentation]    Unsubscribe DOMDataTreeListener from listening to the data changes.
+    [Documentation]    Invoke unsubscribe-ddtl rpc, return copy-matches field as boolean.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DDTL_DIR}    session=${session}
+    BuiltIn.Run_Keyword_And_Return    MdsalLowLevel__Parse_Matches    ${text}
+
+Unsubscribe_Ddtl_No_Tx
+    [Arguments]    ${member_index}
+    [Documentation]    Unsubscribe a listener from the data changes. Expect success no notifications received. Return boolean status.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DDTL_DIR}    session=${session}    additional_allowed_status_codes=${INTERNAL_SERVER_ERROR}
+    BuiltIn.Run_Keyword_And_Return    MdsalLowLevel__Parse_Maybe_No_Tx    ${text}
+
+MdsalLowLevel__Parse_Matches
+    [Arguments]    ${text}
+    [Documentation]    Interpret the \${text} as XML response to an unsubscribe call and return copy-matches as boolean.
     ${xml} =    XML.Parse_Xml    ${text}
     ${matches} =    XML.Get_Element_Text    ${xml}    xpath=copy-matches
     ${matches} =    BuiltIn.Convert_To_Boolean    ${matches}
     BuiltIn.Return_From_Keyword    ${matches}
+
+MdsalLowLevel__Parse_Maybe_No_Tx
+    [Arguments]   ${text}
+    [Documentation]    Attempt to parse the \${text} as successful unsubscribe. If that fails, extract the error message and expect no notifications.
+    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    MdsalLowLevel__Parse_Matches    ${text}
+    BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"    ${message}
+    ${xml} =    XML.Parse_Xml    ${text}
+    ${message} =    XML.Get_Element_Text    ${xml}    xpath=error/error-message
+    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Should_Contain    ${message}    listener has not received
+    BuiltIn.Return_From_Keyword_If    "${status}" == "PASS"    ${TRUE}
+    [Return]    ${FALSE}
 
 Start_Publish_Notifications
     [Arguments]    ${member_index}    ${gid}    ${seconds}    ${notif_per_sec}
