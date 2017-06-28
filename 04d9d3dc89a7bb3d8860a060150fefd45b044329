@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_489552e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-06-28T15:26:39Z",
+      "side": 1,
+      "message": "Not true yet.\nhttps://logs.opendaylight.org/sandbox/jenkins091/controller-csit-3node-clustering-li-only-carbon/10/log.html.gz#s1-s4-t3-k2-k25-k1-k8",
+      "range": {
+        "startLine": 10,
+        "startChar": 21,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "04d9d3dc89a7bb3d8860a060150fefd45b044329",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
