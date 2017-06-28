@@ -16,6 +16,8 @@ ${CIRROS_master}    cirros-0.3.5-x86_64-disk
 @{VM_INSTANCES_NET3}    VM5    VM6
 @{VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261111    4ae8cd92-48ca-49b5-94e1-b2921a261112    4ae8cd92-48ca-49b5-94e1-b2921a261113
 @{VPN_NAME}       vpn1    vpn2    vpn3
+${NET1_IPV6_ADDR_POOL}    --allocation-pool start=2001:db8:0:2::2,end=2001:db8:0:2:ffff:ffff:ffff:fffe
+${NET2_IPV6_ADDR_POOL}    --allocation-pool start=2001:db8:0:3::2,end=2001:db8:0:3:ffff:ffff:ffff:fffe
 ${ROUTERS}        ROUTER_1
 ${RESP_CODE}      200
 ${RESP_ERROR_CODE}    400
