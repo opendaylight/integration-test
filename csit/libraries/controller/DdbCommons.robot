@@ -28,7 +28,7 @@ ${TRANSACTION_PRODUCTION_TIME_2X_REQ_TIMEOUT}    ${2*${REQUEST_TIMEOUT}}
 ${TRANSACTION_PRODUCTION_TIME}    ${40}
 ${SLEEP_AFTER_TRANSACTIONS_INIT}    5s
 ${ID_PREFIX}      prefix-
-${ID_PREFIX2}     different-prefix-
+${ID_PREFIX2}     prefix-    # different-prefix- has been used before, but currently is neither needed nor supported
 ${SIMPLE_TX}      ${False}
 ${CHAINED_TX}     ${True}
 ${ISOLATED_TRANS_TRUE}    ${True}
