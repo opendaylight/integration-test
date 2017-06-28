@@ -113,7 +113,7 @@ Suite Setup       FailFast.Do_Not_Fail_Fast_From_Now_On
 Suite Teardown    Disconnect
 Test Setup        FailFast.Fail_This_Fast_On_Previous_Error
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
-Variables         ${CURDIR}/../../../variables/Variables.robot
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/AuthStandalone.py
