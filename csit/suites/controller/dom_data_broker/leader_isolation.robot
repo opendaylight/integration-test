@@ -24,12 +24,3 @@ Healing_Within_Request_Timeout
     [Documentation]    The isolated node (leader) is rejoined as soon as new leader is elected and
     ...    and within request timeout.
     ${HEAL_WITHIN_REQUEST_TIMEOUT}
-
-Restart
-    [Documentation]    Restart odl
-    [Template]
-    DdbCommons.Restart_Test_Templ
-
-Healing_After_Request_Timeout
-    [Documentation]    The isolated node (leader) is rejoined after request timeout.
-    ${HEAL_AFTER_REQUEST_TIMEOUT}
