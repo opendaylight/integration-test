@@ -12,12 +12,12 @@ integration/test/csit/suites/netconf/clustering/CRUD.robot
 integration/test/csit/suites/netconf/clustering/bug8086.robot
 
 # Run the intrusive cluster tests after the non-intrusive ones.
-integration/test/csit/suites/test/alter_log_levels.robot
+#integration/test/csit/suites/test/alter_log_levels.robot
 integration/test/csit/suites/netconf/clustering/entity.robot
-integration/test/csit/suites/test/revert_log_levels.robot
-integration/test/csit/suites/netconf/clustering/outages.robot
+#integration/test/csit/suites/test/revert_log_levels.robot
+#integration/test/csit/suites/netconf/clustering/outages.robot
 
 # Repeat the CRUD test suite again to try to detect breakage caused by
 # the intrusive tests that survived a "device deconfigure" - "device
 # reconfigure" cycle.
-integration/test/csit/suites/netconf/clustering/CRUD.robot
+#integration/test/csit/suites/netconf/clustering/CRUD.robot
