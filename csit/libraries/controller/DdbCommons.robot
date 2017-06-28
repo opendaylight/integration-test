@@ -12,6 +12,7 @@ Documentation     DOMDataBroker testing: Common keywords
 ...
 ...               TODO: When checking first response in isolation scenarior, make sure it comes from the expected member.
 Library           ${CURDIR}/../MdsalLowlevelPy.py
+Resource          ${CURDIR}/ControllerBugs.robot
 Resource          ${CURDIR}/../ClusterAdmin.robot
 Resource          ${CURDIR}/../ClusterManagement.robot
 Resource          ${CURDIR}/../KarafKeywords.robot
@@ -58,8 +59,7 @@ Explicit_Leader_Movement_Test_Templ
     ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}
     ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    Check_Status_Of_First_Response    ${resp_list}
+    MdsalLowlevel.Wait_For_Transactions_And_Check_Responses
 
 Explicit_Leader_Movement_PrefBasedShard_Test_Templ
     [Arguments]    ${leader_from}    ${leader_to}    ${shard_name}=${PREF_BASED_SHARD}    ${shard_type}=${SHARD_TYPE}
@@ -74,8 +74,7 @@ Explicit_Leader_Movement_PrefBasedShard_Test_Templ
     ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
     ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    Check_Status_Of_First_Response    ${resp_list}
+    MdsalLowlevel.Wait_For_Transactions_And_Check_Responses
 
 Get_Node_Indexes_For_The_ELM_Test
     [Arguments]    ${leader_from}    ${leader_to}    ${shard_name}    ${shard_type}
@@ -99,8 +98,7 @@ Clean_Leader_Shutdown_Test_Templ
     BuiltIn.Comment    Bug 8794 workaround: Use remove-shard-replica until shutdown starts behaving properly.
     ClusterAdmin.Remove_Shard_Replica    ${actual_leader}    ${shard_name}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${actual_leader}    ${shard_name}    ${shard_type}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    Check_Status_Of_First_Response    ${resp_list}
+    MdsalLowlevel.Wait_For_Transactions_And_Check_Responses
     [Teardown]    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    120s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}
     ...    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
 
@@ -115,8 +113,7 @@ Clean_Leader_Shutdown_PrefBasedShard_Test_Templ
     BuiltIn.Comment    Bug 8794 workaround: Use remove-shard-replica until shutdown starts behaving properly.
     ClusterAdmin.Remove_Prefix_Shard_Replica    ${actual_leader}    ${shard_name}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${actual_leader}    ${shard_name}!!    ${shard_type}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    Check_Status_Of_First_Response    ${resp_list}
+    MdsalLowlevel.Wait_For_Transactions_And_Check_Responses
     [Teardown]    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    120s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!
     ...    shard_type=${shard_type}    member_index_list=${follower_list}    verify_restconf=False
 
@@ -148,8 +145,7 @@ Leader_Isolation_Test_Templ
     ...    ${leader}    member_index_list=${follower_list}
     ${heal_date} =    DateTime.Add_Time_To_Date    ${date_start}    ${heal_timeout}
     ${sleep_to_heal} =    Get_Seconds_To_Time    ${heal_date}
-    ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
-    BuiltIn.Should_Be_Equal    ${resp}    ${NONE}    No response expected, received ${resp}
+    Ongoing_Transactions_Not_Failed_Yet
     BuiltIn.Sleep    ${sleep_to_heal}
     KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${leader}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
@@ -181,8 +177,7 @@ Leader_Isolation_PrefBasedShard_Test_Templ
     ...    ${leader}    member_index_list=${follower_list}
     ${heal_date} =    DateTime.Add_Time_To_Date    ${date_start}    ${heal_timeout}
     ${sleep_to_heal} =    Get_Seconds_To_Time    ${heal_date}
-    ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
-    BuiltIn.Should_Be_Equal    ${resp}    ${NONE}    No response expected, received ${resp}
+    Ongoing_Transactions_Not_Failed_Yet
     BuiltIn.Sleep    ${sleep_to_heal}
     KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${leader}
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${leader}
@@ -198,42 +193,30 @@ Leader_Isolation_PrefBasedShard_Test_Templ
 Leader_Isolation_Heal_Within_Rt
     [Documentation]    The leader isolation test case end if the heal happens within transaction timeout. All write transaction
     ...    producers shoudl finish without error.
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    MdsalLowlevel.Wait_For_Transactions_And_Check_Responses
 
 Module_Leader_Isolation_Heal_Default
     [Arguments]    ${isolated_node}    ${time_to_finish}
     [Documentation]    The leader isolation test case end. The transaction producer on isolated node should fail and should be restarted.
     ...    Then all write transaction producers should finish without error.
-    ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
-    BuiltIn.Log    ${resp}
-    BuiltIn.Should_Not_Be_Equal    ${NONE}    ${resp}    Write-transaction should have returned error from isolated leader node.
-    # TODO: check on response status code
+    Ongoing_Transactions_Failed
     ${restart_producer_node_idx_as_list}    BuiltIn.Create_List    ${isolated_node}
     ${restart_producer_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${isolated_node}
     ${restart_producer_node_ip_as_list}    BuiltIn.Create_List    ${restart_producer_node_ip}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX2}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     ...    reset_globals=${False}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    MdsalLowlevel.Wait_For_Transactions_And_Check_Responses
 
 Prefix_Leader_Isolation_Heal_Default
     [Arguments]    ${isolated_node}    ${time_to_finish}
     [Documentation]    The leader isolation test case end. The transaction producer on isolated node shoudl fail and should be restarted.
     ...    Then all write transaction producers shoudl finish without error.
-    ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
-    BuiltIn.Log    ${resp}
-    BuiltIn.Should_Not_Be_Equal    ${NONE}    ${resp}    Produce-transaction should have returned error from isolated leader node.
-    # TODO: check on response status code
+    Ongoing_Transactions_Failed
     ${restart_producer_node_idx_as_list}    BuiltIn.Create_List    ${isolated_node}
     ${restart_producer_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${isolated_node}
     ${restart_producer_node_ip_as_list}    BuiltIn.Create_List    ${restart_producer_node_ip}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX2}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    reset_globals=${False}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    MdsalLowlevel.Wait_For_Transactions_And_Check_Responses
 
 Client_Isolation_Test_Templ
     [Arguments]    ${listener_node_role}    ${trans_chain_flag}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
@@ -286,11 +269,12 @@ Client_Isolation_PrefBasedShard_Test_Templ
 Ongoing_Transactions_Not_Failed_Yet
     [Documentation]    Verify that no write-transaction rpc finished, means they are still running.
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
-    BuiltIn.Should_Be_Equal    ${None}    ${resp}    ${resp} not expected.
+    BuiltIn.Should_Be_Equal    ${None}    ${resp}    Instead of transactions ongoing we got: ${resp}
 
 Ongoing_Transactions_Failed
     [Documentation]    Verify if write-transaction failed.
     ${resp} =    MdsalLowlevelPy.Get_Next_Transactions_Response
+    ControllerBugs.8494_Should_Not_Be_No_Response    ${resp}
     Check_Status_Code    @{resp}[2]    explicit_status_codes=${TRANSACTION_FAILED}
 
 Get_Seconds_To_Time
@@ -316,12 +300,10 @@ Listener_Stability_Test_Templ
     ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}
     ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    MdsalLowlevel.Wait_For_Transactions_And_Check_Responses
     ${copy_matches} =    MdsalLowlevel.Unsubscribe_Dtcl    ${idx_listen}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
-    BuiltIn.Should_Be_True    ${copy_matches}
+    ControllerBugs.8733_Should_Be_True    ${copy_matches}
     [Teardown]    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Dtcl    ${idx_listen}
 
 Listener_Stability_PrefBasedShard_Test_Templ
@@ -340,12 +322,10 @@ Listener_Stability_PrefBasedShard_Test_Templ
     ${new_leader}    ${new_followers} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
     ...    ${shard_type}    ${True}    ${idx_from}    verify_restconf=False
     BuiltIn.Should_Be_Equal    ${idx_to}    ${new_leader}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
+    MdsalLowlevel.Wait_For_Transactions_And_Check_Responses
     ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl    ${idx_listen}
     ${subscribed} =    BuiltIn.Set_Variable    ${False}
-    BuiltIn.Should_Be_True    ${copy_matches}
+    ControllerBugs.8733_Should_Be_True    ${copy_matches}
     [Teardown]    BuiltIn.Run_Keyword_If    ${subscribed}    MdsalLowlevel.Unsubscribe_Ddtl    ${idx_listen}
 
 Create_Prefix_Based_Shard_And_Verify
@@ -383,10 +363,3 @@ Restart_Test_Templ
     ClusterManagement.Start_Members_From_List_Or_All
     BuiltIn.Wait_Until_Keyword_Succeeds    300s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
     ClusterManagement.Run_Bash_Command_On_List_Or_All    ps -ef | grep java
-
-Check_Status_Of_First_Response
-    [Arguments]    ${resp_list}
-    [Documentation]    Extract first item from the list, third item of the tuple and call TemplatedRequests to check the http status code.
-    # @{resp_list}[0][2] does not work
-    ${tuple} =    BuiltIn.Set_Variable    @{resp_list}[0]
-    TemplatedRequests.Check_Status_Code    @{tuple}[2]
