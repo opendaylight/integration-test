@@ -6,9 +6,13 @@ Documentation     Keywords wrapping controller's odl-mdsal-lowlevel yang model r
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...
+...
+...               TODO: Move to ${CURDIR}/controller/.
 Library           XML
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
+Resource          ${CURDIR}/controller/ControllerBugs.robot
 
 *** Variables ***
 ${LOWLEVEL_RPC_DIR}    ${CURDIR}/../variables/mdsal/lowlevelrpc
@@ -288,3 +292,12 @@ Shutdown_Prefix_Shard_Replica
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
     &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${shard_prefix}
     TemplatedRequests.Post_As_Xml_Templated    ${SHUTDOWN_PREFIX_SHARD_REPLICA_DIR}    mapping=${mapping}    session=${session}
+
+Wait_For_Transactions_And_Check_Responses
+    [Documentation]    Make sure all pending writers/producers return it time without any Bug symptom.
+    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
+    : FOR    ${resp_tuple}    IN    @{resp_list}
+    \    ${resp} =    BuiltIn.Set_Variable    @{resp_tuple}[2]
+    \    ControllerBugs.8619_Should_Not_Be_Read_Timeout    ${resp}
+    \    ControllerBugs.8704_Should_Not_Be_Request_Timeout    ${resp}
+    \    TemplatedRequests.Check_Status_Code    ${resp}
