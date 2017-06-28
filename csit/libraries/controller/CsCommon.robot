@@ -20,6 +20,7 @@ Documentation     Cluster Singleton testing: Common Keywords
 ...               Created by Isolate_Owner_And_Verify_Isolated
 ...               ${cs_isolated_index}
 Library           Collections
+Resource          ${CURDIR}/ControlerBugs.robot
 Resource          ${CURDIR}/../ClusterManagement.robot
 Resource          ${CURDIR}/../MdsalLowlevel.robot
 Resource          ${CURDIR}/../ShardStability.robot
@@ -87,7 +88,7 @@ Verify_Singleton_Constant_On_Node
     [Arguments]    ${node_to_ask}    ${cs_exp_constant}
     [Documentation]    Verify that the expected constant is return from the given node.
     ${constant} =    MdsalLowlevel.Get_Singleton_Constant    ${node_to_ask}
-    BuiltIn.Should_Be_Equal    ${cs_exp_constant}    ${constant}
+    ControllerBugs.8420_Should_Be_Equal    ${cs_exp_constant}    ${constant}
 
 Verify_Singleton_Constant_On_Nodes
     [Arguments]    ${index_list}    ${cs_exp_constant}
