@@ -36,42 +36,10 @@ ${CHAINED_TX}     ${True}
 ${ID_PREFIX}      prefix-
 
 *** Test Cases ***
-Get_Prefix_Shard_Role
-    [Documentation]    Get prefix shard role.
-    ${all_indices} =    ClusterManagement.List_All_Indices
-    : FOR    ${index}    IN    @{all_indices}
-    \    ${role} =    ClusterAdmin.Get_Prefix_Shard_Role    ${index}    ${PREF_BASED_SHARD}    ${SHARD_TYPE}
-
-Subscribe_Listener_To_Leader
-    [Documentation]    Subscribe listener to leader.
-    ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}    verify_restconf=False
-    MdsalLowlevel.Subscribe_Ddtl    ${leader}
-    BuiltIn.Sleep    5s
-    ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl_No_Tx    ${leader}
-    BuiltIn.Should_Be_True    ${copy_matches}
-
-Subscribe_Listener_To_Follower
-    [Documentation]    Subscribe listener to follower.
-    ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}    verify_restconf=False
-    ${follower_idx} =    Collections.Get_From_List    ${follower_list}    ${0}
-    MdsalLowlevel.Subscribe_Ddtl    ${follower_idx}
-    BuiltIn.Sleep    5s
-    ${copy_matches} =    MdsalLowlevel.Unsubscribe_Ddtl_No_Tx    ${follower_idx}
-    BuiltIn.Should_Be_True    ${copy_matches}
-
-Become_Prefix_Leader
-    [Documentation]    Make the loeader local and verify.
-    ${shard_name} =    BuiltIn.Set_Variable    ${PREF_BASED_SHARD}
-    ${shard_type} =    BuiltIn.Set_Variable    ${SHARD_TYPE}
-    ${all_indices} =    ClusterManagement.List_All_Indices
-    ${old_leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
-    ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
-    MdsalLowlevel.Become_Prefix_Leader    ${follower1}    ${shard_name}
-    ${leader}    ${follower_list} =    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!
-    ...    ${shard_type}    ${True}    ${old_leader}    member_index_list=${EMPTY}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${follower1}    ${leader}
+Become_Prefix_Leader_0
+    [Documentation]    Make the member-1 leader.
+    MdsalLowlevel.Become_Prefix_Leader    ${1}    ${PREF_BASED_SHARD}
+    ${leader}    ${followers}=    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Get_Leader_And_Followers_For_Shard    shard_name=${PREF_BASED_SHARD}!!    shard_type=${SHARD_TYPE}
 
 Remove_Leader_Prefix_Shard_Replica_And_Add_It_Back
     [Documentation]    Remove and add shard replica adn verify it.
@@ -88,20 +56,10 @@ Remove_Leader_Prefix_Shard_Replica_And_Add_It_Back
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
     ...    verify_restconf=False
 
-Remove_Follower_Prefix_Shard_Replica_And_Add_It_Back
-    [Documentation]    Remove and add shard replica adn verify it.
-    ${shard_name} =    BuiltIn.Set_Variable    ${PREF_BASED_SHARD}
-    ${shard_type} =    BuiltIn.Set_Variable    ${SHARD_TYPE}
-    ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
-    ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
-    ClusterAdmin.Remove_Prefix_Shard_Replica    ${follower1}    ${shard_name}    member-${follower1}    ${shard_type}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    DdbCommons.Verify_Shard_Replica_Not_Present    ${follower1}    ${shard_name}!!    ${shard_type}
-    ${new_indices_list} =    ClusterManagement.List_Indices_Minus_Member    ${follower1}
-    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}!!    ${shard_type}    ${False}    ${leader}    member_index_list=${new_indices_list}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterAdmin.Add_Prefix_Shard_Replica    ${follower1}    ${shard_name}    ${shard_type}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}!!    shard_type=${shard_type}    member_index_list=${all_indices}
-    ...    verify_restconf=False
+Become_Prefix_Leader_1
+    [Documentation]    Make the member-1 leader again.
+    MdsalLowlevel.Become_Prefix_Leader    ${1}    ${PREF_BASED_SHARD}
+    ${leader}    ${followers}=    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Get_Leader_And_Followers_For_Shard    shard_name=${PREF_BASED_SHARD}!!    shard_type=${SHARD_TYPE}
 
 Produce_Transactions_One_Node_Leader
     [Documentation]    Produce transactions.
@@ -110,27 +68,6 @@ Produce_Transactions_One_Node_Leader
     ${leader_idx_as_list} =    BuiltIn.Create_List    ${leader}
     ${leader_ip_as_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${leader_idx_as_list}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${leader_ip_as_list}    ${leader_idx_as_list}    ${ID_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
-
-Produce_Transactions_One_Node_Follower
-    [Documentation]    Produce transactions.
-    ${all_indices} =    ClusterManagement.List_All_Indices
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}    member_index_list=${all_indices}    verify_restconf=False
-    ${follower_idx} =    Collections.Get_From_List    ${follower_list}    ${0}
-    ${follower_idx_as_list} =    BuiltIn.Create_List    ${follower_idx}
-    ${follower_ip_as_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${follower_idx_as_list}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${follower_ip_as_list}    ${follower_idx_as_list}    ${ID_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}
-    ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
-    : FOR    ${resp}    IN    @{resp_list}
-    \    TemplatedRequests.Check_Status_Code    @{resp}[2]
-
-Produce_Transactions
-    [Documentation]    Produce transactions.
-    ${all_indices} =    ClusterManagement.List_All_Indices
-    ${all_ip_list} =    ClusterManagement.Resolve_IP_Address_For_Members    ${all_indices}
-    MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${all_ip_list}    ${all_indices}    ${ID_PREFIX}    ${DURATION}    ${TRANSACTION_RATE_1K}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     : FOR    ${resp}    IN    @{resp_list}
     \    TemplatedRequests.Check_Status_Code    @{resp}[2]
