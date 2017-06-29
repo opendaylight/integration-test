@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da2a55be_06efcbb1",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/01_basic_vpnservice.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-06-29T04:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da2a55be_72a48957",
+      "revId": "72b899513a4ea23dfb12a1e51490df62d4c03a30",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_929f7d03",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/03_basic_ipv6_vpnservice.robot",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2017-06-28T08:41:34Z",
       "side": 1,
       "message": "Arp response regex to match on needs to be modified as well for ARP_CHK_TABLE. This should be the REGEX \"arp,arp_op\u003d2 actions\u003dCONTROLLER:65535,resubmit(,48)\"",
+      "range": {
+        "startLine": 405,
+        "startChar": 20,
+        "endLine": 405,
+        "endChar": 21
+      },
+      "revId": "72b899513a4ea23dfb12a1e51490df62d4c03a30",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_26f2cf9a",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/03_basic_ipv6_vpnservice.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2017-06-29T04:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da2a55be_929f7d03",
       "range": {
         "startLine": 405,
         "startChar": 20,
