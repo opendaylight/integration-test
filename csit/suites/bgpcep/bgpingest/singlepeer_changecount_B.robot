@@ -44,7 +44,6 @@ Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ChangeCounter.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
@@ -94,19 +93,26 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
     # TODO: Choose which tags to assign and make sure they are assigned correctly.
     BuiltIn.Wait_Until_Keyword_Succeeds    120s    1s    PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
+Configure_Netconf_Device
+    [Documentation]    Configures netconf device if ${USE_NETCONF_CONNECTOR} is False.
+    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to configure netconf device because netconf connector is present.
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}
+
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_SINGLE}    PEER_PORT=${BGP_TOOL_PORT}
     ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
-Reconfigure_Data_Change_Counter
-    [Documentation]    Configure data change counter to count transactions in example-ipv4-topology instead of example-linkstate-topology.
-    ChangeCounter.Reconfigure_Topology_Name    example-ipv4-topology
-
 Wait_For_Data_Change_Counter_Ready
     [Documentation]    Data change counter might have been slower to start than ipv4 topology, wait for it.
     BuiltIn.Wait_Until_Keyword_Succeeds    180s    1s    ChangeCounter.Get_Change_Count
+
+Reconfigure_Data_Change_Counter
+    [Documentation]    Configure data change counter to count transactions in example-ipv4-topology instead of example-linkstate-topology.
+    ChangeCounter.Reconfigure_Topology_Name    example-ipv4-topology
 
 Change_Karaf_Logging_Levels
     [Documentation]    We may want to set more verbose logging here after configuration is done.
@@ -221,6 +227,13 @@ Delete_Bgp_Peer_Configuration
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
+
+Remove_Netconf_Device
+    [Documentation]    Removes netconf device if ${USE_NETCONF_CONNECTOR} is False.
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to remove netconf device because netconf connector is present.
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+    TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
 
 *** Keywords ***
 Setup_Everything
