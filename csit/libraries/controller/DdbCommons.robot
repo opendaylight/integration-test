@@ -36,6 +36,7 @@ ${ISOLATED_TRANS_TRUE}    ${True}
 ${ISOLATED_TRANS_FALSE}    ${False}
 ${JAVA_INTERNAL_RECONNECT_TIMEOUT}    ${30}
 ${REQUEST_TIMEOUT}    ${120}
+${ABORT_TIMEOUT}    ${900}
 ${HEAL_WITHIN_REQUEST_TIMEOUT}    ${${JAVA_INTERNAL_RECONNECT_TIMEOUT}+10}
 ${HEAL_AFTER_REQUEST_TIMEOUT}    ${${REQUEST_TIMEOUT}+10}
 @{TRANSACTION_FAILED}    ${500}
@@ -218,6 +219,33 @@ Prefix_Leader_Isolation_Heal_Default
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${restart_producer_node_ip_as_list}    ${restart_producer_node_idx_as_list}    ${ID_PREFIX2}    ${time_to_finish}    ${TRANSACTION_RATE_1K}    reset_globals=${False}
     MdsalLowlevel.Wait_For_Transactions_And_Check_Responses
 
+Client_Abort_Test_Templ
+    [Arguments]    ${listener_node_role}    ${trans_chain_flag}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
+    [Documentation]    Implements client isolation test scenario.
+    ...    TODO: Join with client isolation scenario.
+    ${all_indices} =    ClusterManagement.List_All_Indices
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${all_indices}    verify_restconf=False
+    ${follower1} =    Collections.Get_From_List    ${follower_list}    ${0}
+    ${client_node_dst} =    BuiltIn.Set_Variable_If    "${listener_node_role}" == "leader"    ${leader}    ${follower1}
+    ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
+    ${client_node_ip_as_list}    BuiltIn.Create_List    ${client_node_ip}
+    ${client_node_idx_as_list}    BuiltIn.Create_List    ${client_node_dst}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${client_node_dst}
+    ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
+    ${start_date} =    DateTime.Get_Current_Date
+    ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${ABORT_TIMEOUT}
+    ${client_timeout} =    Get_Seconds_To_Time    ${abort_date}
+    BuiltIn.Sleep    ${client_timeout}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${client_node_dst}
+    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
+    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
+    MdsalLowlevelPy.Wait_For_Transactions
+
+    MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME_2X_REQ_TIMEOUT}    ${TRANSACTION_RATE_1K}    chained_flag=${trans_chain_flag}
+    BuiltIn.Sleep    ${SLEEP_AFTER_TRANSACTIONS_INIT}
+    Ongoing_Transactions_Failed
+
+
 Client_Isolation_Test_Templ
     [Arguments]    ${listener_node_role}    ${trans_chain_flag}    ${shard_name}=${SHARD_NAME}    ${shard_type}=${SHARD_TYPE}
     [Documentation]    Implements client isolation test scenario.
@@ -228,7 +256,7 @@ Client_Isolation_Test_Templ
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
     ${client_node_ip_as_list}    BuiltIn.Create_List    ${client_node_ip}
     ${client_node_idx_as_list}    BuiltIn.Create_List    ${client_node_dst}
-    ${start_date}    DateTime.Get_Current_Date
+    ${start_date} =    DateTime.Get_Current_Date
     ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${REQUEST_TIMEOUT}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME_2X_REQ_TIMEOUT}    ${TRANSACTION_RATE_1K}    chained_flag=${trans_chain_flag}
     BuiltIn.Sleep    ${SLEEP_AFTER_TRANSACTIONS_INIT}
@@ -252,7 +280,7 @@ Client_Isolation_PrefBasedShard_Test_Templ
     ${client_node_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${client_node_dst}
     ${client_node_ip_as_list}    BuiltIn.Create_List    ${client_node_ip}
     ${client_node_idx_as_list}    BuiltIn.Create_List    ${client_node_dst}
-    ${start_date}    DateTime.Get_Current_Date
+    ${start_date} =    DateTime.Get_Current_Date
     ${abort_date} =    DateTime.Add_Time_To_Date    ${start_date}    ${REQUEST_TIMEOUT}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${client_node_ip_as_list}    ${client_node_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME_2X_REQ_TIMEOUT}    ${TRANSACTION_RATE_1K}    isolated_transactions_flag=${isolated_transactions_flag}
     BuiltIn.Sleep    ${SLEEP_AFTER_TRANSACTIONS_INIT}
