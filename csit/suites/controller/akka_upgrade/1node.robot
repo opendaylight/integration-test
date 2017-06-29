@@ -42,7 +42,9 @@ Suite Setup       Setup_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Default Tags      1node    carpeople    critical
+Library           String
 Library           SSHLibrary
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
@@ -79,10 +81,11 @@ Install_Older_Odl
     ${cfg_filename} =    BuiltIn.Set_Variable    org.apache.karaf.features.cfg
     ${cfg_older} =    BuiltIn.Set_Variable    ${alternative_bundlefolder}/etc/${cfg_filename}
     ${cfg_newer} =    BuiltIn.Set_Variable    ${WORKSPACE}/${BUNDLEFOLDER}/etc/${cfg_filename}
-    ${vanilla_line} =    SSHKeywords.Execute_Command_Should_Pass    grep 'featuresBoot' "${cfg_older}" | grep -v 'featuresBootAsynchronous'
+    ${vanilla_line} =     SSHKeywords.Execute_Command_Should_Pass    grep 'featuresBoot' "${cfg_older}" | grep -v 'featuresBootAsynchronous'
     ${csit_line} =    SSHKeywords.Execute_Command_Should_Pass    grep 'featuresBoot' "${cfg_newer}" | grep -v 'featuresBootAsynchronous'
+    ${new_csit_line} =    CompareStream.Set_Variable_If_At_Least_Nitrogen    ${vanilla_line},${karaf4_features}    ${csit_line}
     # Replace the vanilla line.
-    SSHKeywords.Execute_Command_Should_Pass    sed -i 's/${vanilla_line}/${csit_line}/g' "${cfg_older}"
+    SSHKeywords.Execute_Command_Should_Pass    sed -i 's/${vanilla_line}/${new_csit_line}/g' "${cfg_older}"
     # Verify the replaced line.
     ${updated_line} =    SSHKeywords.Execute_Command_Should_Pass    grep 'featuresBoot' "${cfg_older}" | grep -v 'featuresBootAsynchronous'
     BuiltIn.Should_Not_Be_Equal    ${vanilla_line}    ${updated_line}
@@ -153,3 +156,11 @@ Check_Restored_Data
     ...    This has to be a separate keyword, as it is run under WUKS.
     ${data_after} =    TemplatedRequests.Get_As_Json_Templated    folder=${CAR_VAR_DIR}    verify=False
     BuiltIn.Should_Be_Equal    ${data_before}    ${data_after}
+
+Extract_Karaf4_Boot_Features
+    [Arguments]    ${csit_line}
+    [Documentation]    Extract boot features. It is used for the 1st line of  karaf4 featuresBoot parameter from org.apache.karaf.features.cfg.
+    ${bfeatures}    String.Replace_String    ${bfeatures}    ${Space}    ${Empty}
+    ${bfeatures}    String.Replace_String    ${bfeatures}    featuresBoot=    ${Empty}
+    ${bfeatures}    String.Replace_String    ${bfeatures}    ,\\    ${Empty}
+    BuiltIn.Return_From_Keyword     ${bfeatures}
