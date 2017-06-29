@@ -33,6 +33,11 @@ ${external_subnet}    10.10.10.0/24
 tempest.api.network
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
+tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops
+    [Tags]    skip_if_stable/mitaka
+    # Failing due to default security rules behavior missing in Mitaka
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
+
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
