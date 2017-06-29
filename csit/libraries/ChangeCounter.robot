@@ -45,7 +45,7 @@ Reconfigure_Topology_Name
     [Documentation]    Configure data change counter to count transactions affecting
     ...    ${topology_name} instead of previously configured topology name.
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    TOPOLOGY_NAME=${topology_name}
-    TemplatedRequests.Put_As_Xml_Templated    ${CHANGE_COUNTER_TEMPLATE_FOLDER}${/}change_counter    mapping=${mapping}
+    TemplatedRequests.Put_As_Xml_Templated    ${CHANGE_COUNTER_TEMPLATE_FOLDER}${/}bp_change_counter_configure    mapping=${mapping}
 
 Wait_For_Change_Count_To_Become_Stable
     [Arguments]    ${timeout}=60s    ${period}=1s    ${repetitions}=4    ${count_to_overcome}=-1
