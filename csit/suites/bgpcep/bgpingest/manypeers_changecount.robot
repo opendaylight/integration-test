@@ -57,6 +57,7 @@ Library           SSHLibrary    timeout=10s
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ChangeCounter.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
@@ -107,6 +108,7 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
 Configure_Netconf_Device
     [Documentation]    Configures netconf device if ${USE_NETCONF_CONNECTOR} is False.
     BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to configure netconf device because netconf connector is present.
+    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to configure netconf device because data change counter is not configured via it.
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
     TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
     BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}
@@ -124,11 +126,16 @@ Reconfigure_ODL_To_Accept_Connections
 
 Wait_For_Data_Change_Counter_Ready
     [Documentation]    Data change counter might have been slower to start than ipv4 topology, wait for it.
+    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No data change counter is present yet.
     BuiltIn.Wait_Until_Keyword_Succeeds    180s    1s    ChangeCounter.Get_Change_Count
 
 Reconfigure_Data_Change_Counter
     [Documentation]    Configure data change counter to count transactions in example-ipv4-topology instead of example-linkstate-topology.
     ChangeCounter.Reconfigure_Topology_Name    example-ipv4-topology
+
+Verify_For_Data_Change_Counter_Ready
+    [Documentation]    Data change counter might have been slower to start than ipv4 topology, wait for it.
+    BuiltIn.Wait_Until_Keyword_Succeeds    5s    1s    ChangeCounter.Get_Change_Count
 
 Change_Karaf_Logging_Levels
     [Documentation]    We may want to set more verbose logging here after configuration is done.
@@ -193,6 +200,7 @@ Remove_Netconf_Device
     [Documentation]    Removes netconf device if ${USE_NETCONF_CONNECTOR} is False.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to remove netconf device because netconf connector is present.
+    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to remove netconf device because none was used.
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
     TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
 
