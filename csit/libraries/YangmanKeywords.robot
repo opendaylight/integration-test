@@ -186,13 +186,13 @@ Compose Labelled Api Path Input Xpath And Verify It Is Visible
 Verify Labelled Api Path Input Contains Data
     [Arguments]    ${branch_label_without_curly_braces_part}    ${data}
     [Documentation]    Verifies that labelled API path input field contains data provided as an argument.
-    ${labelled_api_path_input}=    YangmanKeywords.Return Labelled Api Path Input    ${branch_label_without_curly_braces_part}
+    ${labelled_api_path_input}=    Return Labelled Api Path Input    ${branch_label_without_curly_braces_part}
     Selenium2Library.Wait Until Element Is Visible    ${labelled_api_path_input}[@aria-label="${data}"]
 
 Verify Labelled Api Path Input Does Not Contain Any Data
     [Arguments]    ${branch_label_without_curly_braces_part}
     [Documentation]    Verifies that labelled API path input field is empty.
-    ${labelled_api_path_input}=    YangmanKeywords.Return Labelled Api Path Input    ${branch_label_without_curly_braces_part}
+    ${labelled_api_path_input}=    Return Labelled Api Path Input    ${branch_label_without_curly_braces_part}
     Selenium2Library.Textfield Value Should Be    ${labelled_api_path_input}    ${EMPTY}
 
 Select Form View
@@ -347,7 +347,7 @@ Navigate From Yangman Submenu To Testing Module Operational Tab
     [Arguments]    ${testing_module_name}
     [Documentation]    Navigates from loaded Yangman URL to testing module detail operational tab.
     Navigate To Modules Tab
-    ${module_id_index}=    YangmanKeywords.Return Module ID Index From Module Name    ${testing_module_name}
+    ${module_id_index}=    Return Module ID Index From Module Name    ${testing_module_name}
     Selenium2Library.Wait Until Page Does Not Contain Element    ${MODULES_WERE_LOADED_ALERT}
     Expand Module And Click Module Operational Item    ${EMPTY}    ${module_id_index}
 
@@ -358,7 +358,7 @@ Navigate From Yangman Submenu To Testing Module Config Tab
     ${indexed_module_list_item}=    Return Indexed Module From Module Name    ${testing_module_name}
     Selenium2LIbrary.Wait Until Page Contains Element    ${indexed_module_list_item}
     Selenium2Library.Wait Until Page Does Not Contain Element    ${MODULES_WERE_LOADED_ALERT}
-    ${module_id_index}=    YangmanKeywords.Return Module ID Index From Module Name    ${testing_module_name}
+    ${module_id_index}=    Return Module ID Index From Module Name    ${testing_module_name}
     Expand Module And Click Module Config Item    ${EMPTY}    ${module_id_index}
 
 Compose Branch Id
@@ -422,8 +422,8 @@ Return Module Detail Branch Indexed
 Compose Branch Id And Return Module Detail Branch Indexed
     [Arguments]    ${index}
     [Documentation]    Composes branch id in the format branch-${index} and returns indexed Xpath of the module detail branch.
-    ${branch_id}=    YangmanKeywords.Compose Branch Id    ${index}
-    ${module_detail_branch_indexed}=    YangmanKeywords.Return Module Detail Branch Indexed    ${branch_id}
+    ${branch_id}=    Compose Branch Id    ${index}
+    ${module_detail_branch_indexed}=    Return Module Detail Branch Indexed    ${branch_id}
     [Return]    ${module_detail_branch_indexed}
 
 Return Indexed Branch Label
@@ -513,7 +513,7 @@ Verify List Item With Index Or Key Is Visible
 Load And Expand Network Topology In Form
     [Documentation]    Loads and expands network-topology top element container.
     Select Form View
-    YangmanKeywords.Return And Click Module Detail Branch Indexed    ${NETWORK_TOPOLOGY_LABEL}
+    Return And Click Module Detail Branch Indexed    ${NETWORK_TOPOLOGY_LABEL}
     Selenium2Library.Page Should Contain Element    ${FORM_TOP_ELEMENT_CONTAINER}
     Selenium2Library.Click Element    ${FORM_TOP_ELEMENT_POINTER}
 
@@ -529,9 +529,9 @@ Load Topology Topology Id Node In Form
 Navigate From Yangman Submenu To Testing Module Config And Load Topology Topology Id Node In Form
     [Arguments]    ${testing_module_name}
     [Documentation]    Navigates from yangman submenu to testing module config tab and loads tpology topology id node in the form view.
-    YangmanKeywords.Navigate From Yangman Submenu To Testing Module Config Tab    ${testing_module_name}
-    YangmanKeywords.Expand All Branches In Module Detail Content Active Tab
-    YangmanKeywords.Load Topology Topology Id Node In Form
+    Navigate From Yangman Submenu To Testing Module Config Tab    ${testing_module_name}
+    Expand All Branches In Module Detail Content Active Tab
+    Load Topology Topology Id Node In Form
 
 Load Node Node Id Node In Form
     [Documentation]    Expands network-topology branch in testing module detail and clicks topology {topology-id} branch to load topology list node in form.
@@ -586,13 +586,13 @@ Compose Labelled Form Input Field Xpath And Verify It Is Visible
 Verify Labelled Form Input Field Contains Data
     [Arguments]    ${branch_label_curly_braces_part}    ${data}
     [Documentation]    Verifies that labelled form input field contains data provided as an argument.
-    ${labelled_form_input_field}=    YangmanKeywords.Return Labelled Form Input Field    ${branch_label_curly_braces_part}
+    ${labelled_form_input_field}=    Return Labelled Form Input Field    ${branch_label_curly_braces_part}
     Selenium2Library.Element Should Be Visible    ${labelled_form_input_field}[@aria-label="${data}"]
 
 Verify Labelled Form Input Field Does Not Contain Any Data
     [Arguments]    ${branch_label_curly_braces_part}
     [Documentation]    Verifies that labelled form input field contains data provided as an argument.
-    ${labelled_form_input_field}=    YangmanKeywords.Return Labelled Form Input Field    ${branch_label_curly_braces_part}
+    ${labelled_form_input_field}=    Return Labelled Form Input Field    ${branch_label_curly_braces_part}
     Selenium2Library.Textfield Value Should Be    ${labelled_form_input_field}    ${EMPTY}
 
 Return Labelled Form Select
@@ -611,17 +611,17 @@ Input Key To Topology Id Input Field And Execute Operation With Checkbox Fill Fo
     [Arguments]    ${key}    ${operation}    ${operation_name}
     [Documentation]    Inputs ${key} as topology key in form and executes operation provided as an argument with fill form checkbox selected
     Return And Click Module Detail Branch Indexed    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
-    ${topology_id_label_curly_braces_part}=    YangmanKeywords.Return Branch Label Curly Braces Part Without Braces    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
-    YangmanKeywords.Input Text To Labelled Form Input Field    ${topology_id_label_curly_braces_part}    ${key}
-    YangmanKeywords.Execute Chosen Operation From Form    ${operation}    ${operation_name}    selected
+    ${topology_id_label_curly_braces_part}=    Return Branch Label Curly Braces Part Without Braces    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
+    Input Text To Labelled Form Input Field    ${topology_id_label_curly_braces_part}    ${key}
+    Execute Chosen Operation From Form    ${operation}    ${operation_name}    selected
 
 Input Key To Topology Id Input Field And Execute Operation With Checkbox Fill Form Unselected
     [Arguments]    ${key}    ${operation}    ${operation_name}
     [Documentation]    Inputs ${key} as topology key in form and executes operation provided as an argument with fill form checkbox unselected
     Return And Click Module Detail Branch Indexed    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
-    ${topology_id_label_curly_braces_part}=    YangmanKeywords.Return Branch Label Curly Braces Part Without Braces    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
-    YangmanKeywords.Input Text To Labelled Form Input Field    ${topology_id_label_curly_braces_part}    ${key}
-    YangmanKeywords.Execute Chosen Operation From Form    ${operation}    ${operation_name}    unselected
+    ${topology_id_label_curly_braces_part}=    Return Branch Label Curly Braces Part Without Braces    ${TOPOLOGY_TOPOLOGY_ID_LABEL}
+    Input Text To Labelled Form Input Field    ${topology_id_label_curly_braces_part}    ${key}
+    Execute Chosen Operation From Form    ${operation}    ${operation_name}    unselected
 
 Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Checkbox Fill Form Selected And Unselected
     [Arguments]    ${key_1}    ${key_2}    ${operation}    ${operation_name}
@@ -631,22 +631,22 @@ Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Chec
 
 Navigate To Testing Module Config And Load Topology Topology Id Node In Form And Put T1 And T0 Topologies
     [Documentation]    Navigate to testing module config and put t1 and t0 topologies.
-    YangmanKeywords.Navigate From Yangman Submenu To Testing Module Config And Load Topology Topology Id Node In Form    ${NETWORK_TOPOLOGY_TESTING_MODULE_NAME}
-    YangmanKeywords.Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Checkbox Fill Form Selected And Unselected    ${TOPOLOGY_ID_0}    ${TOPOLOGY_ID_1}    ${PUT_OPTION}    PUT
+    Navigate From Yangman Submenu To Testing Module Config And Load Topology Topology Id Node In Form    ${NETWORK_TOPOLOGY_TESTING_MODULE_NAME}
+    Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Checkbox Fill Form Selected And Unselected    ${TOPOLOGY_ID_0}    ${TOPOLOGY_ID_1}    ${PUT_OPTION}    PUT
 
 Navigate To Testing Module Config And Load Topology Topology Id Node In Form And Put T1 And T0 Topologies And Get T0 And T1 Topologies And Navigate To History Tab
     [Documentation]    Navigate to testing module config and put t1 and t0 topologies and get t0 and t1 topologies and navigate to history tab.
-    YangmanKeywords.Navigate From Yangman Submenu To Testing Module Config And Load Topology Topology Id Node In Form    ${NETWORK_TOPOLOGY_TESTING_MODULE_NAME}
-    YangmanKeywords.Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Checkbox Fill Form Selected And Unselected    ${TOPOLOGY_ID_0}    ${TOPOLOGY_ID_1}    ${PUT_OPTION}    PUT
-    YangmanKeywords.Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Checkbox Fill Form Selected And Unselected    ${TOPOLOGY_ID_0}    ${TOPOLOGY_ID_1}    ${GET_OPTION}    GET
-    YangmanKeywords.Navigate To History Tab
+    Navigate From Yangman Submenu To Testing Module Config And Load Topology Topology Id Node In Form    ${NETWORK_TOPOLOGY_TESTING_MODULE_NAME}
+    Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Checkbox Fill Form Selected And Unselected    ${TOPOLOGY_ID_0}    ${TOPOLOGY_ID_1}    ${PUT_OPTION}    PUT
+    Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Checkbox Fill Form Selected And Unselected    ${TOPOLOGY_ID_0}    ${TOPOLOGY_ID_1}    ${GET_OPTION}    GET
+    Navigate To History Tab
 
 Navigate To Testing Module Config And Load Topology Topology Id Node In Form And Put T0 And T1 Topologies And Delete T0 And T1 Topologies And Navigate To History Tab
     [Documentation]    Navigate to testing module config and put t1 and t0 topologies and delete t0 and t1 topologies and navigate to history tab.
-    YangmanKeywords.Navigate From Yangman Submenu To Testing Module Config And Load Topology Topology Id Node In Form    ${NETWORK_TOPOLOGY_TESTING_MODULE_NAME}
-    YangmanKeywords.Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Checkbox Fill Form Selected And Unselected    ${TOPOLOGY_ID_0}    ${TOPOLOGY_ID_1}    ${PUT_OPTION}    PUT
-    YangmanKeywords.Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Checkbox Fill Form Selected And Unselected    ${TOPOLOGY_ID_0}    ${TOPOLOGY_ID_1}    ${DELETE_OPTION}    DELETE
-    YangmanKeywords.Navigate To History Tab
+    Navigate From Yangman Submenu To Testing Module Config And Load Topology Topology Id Node In Form    ${NETWORK_TOPOLOGY_TESTING_MODULE_NAME}
+    Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Checkbox Fill Form Selected And Unselected    ${TOPOLOGY_ID_0}    ${TOPOLOGY_ID_1}    ${PUT_OPTION}    PUT
+    Input Key_1 And Key_2 To Topology Id Input Field And Execute Operation With Checkbox Fill Form Selected And Unselected    ${TOPOLOGY_ID_0}    ${TOPOLOGY_ID_1}    ${DELETE_OPTION}    DELETE
+    Navigate To History Tab
 
 Verify Form Contains Error Message
     [Arguments]    ${error_message}
@@ -811,24 +811,24 @@ Verify All History Requests In Request Group Are Selected
     [Arguments]    ${group_id}    ${number_of_requests_in_request_group}
     [Documentation]    Verifies that all history requests of an indexed history requests group are selected.
     : FOR    ${index}    IN RANGE    ${number_of_requests_in_request_group}
-    \    YangmanKeywords.Verify History Request Is Selected    ${group_id}    ${index}
+    \    Verify History Request Is Selected    ${group_id}    ${index}
 
 Verify All History Requests In Request Group Are Unselected
     [Arguments]    ${group_id}    ${number_of_requests_in_request_group}
     [Documentation]    Verifies that all history requests of an indexed history requests group are unselected.
     : FOR    ${index}    IN RANGE    ${number_of_requests_in_request_group}
-    \    YangmanKeywords.Verify History Request Is Not Selected    ${group_id}    ${index}
+    \    Verify History Request Is Not Selected    ${group_id}    ${index}
 
 Click Select All Button And Verify All Requests Have Been Selected
     [Arguments]    ${group_id}    ${number_of_requests_in_request_group}
     [Documentation]    Clicks Select all button to select all history requests and verifies that all requests have been selected.
-    YangmanKeywords.Select All History Requests
+    Select All History Requests
     Verify All History Requests In Request Group Are Selected    ${group_id}    ${number_of_requests_in_request_group}
 
 Click Deselect All Button And Verify All Requests Have Been Unselected
     [Arguments]    ${group_id}    ${number_of_requests_in_request_group}
     [Documentation]    Clicks Deselect all button to deselect all history requests and verifies that all requests have been deselected.
-    YangmanKeywords.Unselect All History Requests
+    Unselect All History Requests
     Verify All History Requests In Request Group Are Unselected    ${group_id}    ${number_of_requests_in_request_group}
 
 Open History Requests Settings Dialog
@@ -878,8 +878,8 @@ Open History Requests Settings Dialog And Unselect Fill Form View With Received 
 
 Navigate To History Tab And Delete All History Requests
     [Documentation]    Navigates to history tab and deletes all history requests and verify they have been deleted.
-    YangmanKeywords.Navigate To History Tab
-    YangmanKeywords.Delete All History Requests And Verify They Have Been Deleted
+    Navigate To History Tab
+    Delete All History Requests And Verify They Have Been Deleted
 
 Click Delete All History Requests Button
     [Documentation]    Clicks delete all button to delete all history requests.
@@ -941,10 +941,10 @@ Verify History Requests With Given Indeces Contain Data In Api And No Data In Fo
     : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
     \    ${key_index}=    BuiltIn.Evaluate    ${key_index}+1
     \    ${key}=    Collections.Get From List    ${keys}    ${key_index}
-    \    YangmanKeywords.Select Indexed History Request    ${group_id}    ${index}
-    \    YangmanKeywords.Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
-    \    YangmanKeywords.Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
-    \    YangmanKeywords.Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${20X_REQUEST_CODE_REGEX}
+    \    Select Indexed History Request    ${group_id}    ${index}
+    \    Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
+    \    Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
+    \    Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${20X_REQUEST_CODE_REGEX}
     \    BuiltIn.Run Keyword If    ${first_index}==${last_index}    BuiltIn.Exit For Loop
 
 Verify History Requests With Given Indeces Contain Data In Api And Form And Contain Status And Time Data
@@ -954,10 +954,10 @@ Verify History Requests With Given Indeces Contain Data In Api And Form And Cont
     : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
     \    ${key_index}=    BuiltIn.Evaluate    ${key_index}+1
     \    ${key}=    Collections.Get From List    ${keys}    ${key_index}
-    \    YangmanKeywords.Select Indexed History Request    ${group_id}    ${index}
-    \    YangmanKeywords.Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
-    \    YangmanKeywords.Verify Labelled Form Input Field Contains Data    ${TOPOLOGY_ID_LABEL}    ${key}
-    \    YangmanKeywords.Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${20X_REQUEST_CODE_REGEX}
+    \    Select Indexed History Request    ${group_id}    ${index}
+    \    Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
+    \    Verify Labelled Form Input Field Contains Data    ${TOPOLOGY_ID_LABEL}    ${key}
+    \    Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${20X_REQUEST_CODE_REGEX}
     \    BuiltIn.Run Keyword If    ${first_index}==${last_index}    BuiltIn.Exit For Loop
 
 Verify History Requests With Given Indeces Contain Data In Api And Form And Do Not Contain Status And Time Data
@@ -967,10 +967,10 @@ Verify History Requests With Given Indeces Contain Data In Api And Form And Do N
     : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
     \    ${key_index}=    BuiltIn.Evaluate    ${key_index}+1
     \    ${key}=    Collections.Get From List    ${keys}    ${key_index}
-    \    YangmanKeywords.Select Indexed History Request    ${group_id}    ${index}
-    \    YangmanKeywords.Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
-    \    YangmanKeywords.Verify Labelled Form Input Field Contains Data    ${TOPOLOGY_ID_LABEL}    ${key}
-    \    YangmanKeywords.Verify Request Status Code Matches Desired Code And Request Execution Time Is Threedots    ${THREE_DOTS_DEFAULT_STATUS_AND_TIME}
+    \    Select Indexed History Request    ${group_id}    ${index}
+    \    Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
+    \    Verify Labelled Form Input Field Contains Data    ${TOPOLOGY_ID_LABEL}    ${key}
+    \    Verify Request Status Code Matches Desired Code And Request Execution Time Is Threedots    ${THREE_DOTS_DEFAULT_STATUS_AND_TIME}
     \    BuiltIn.Run Keyword If    ${first_index}==${last_index}    BuiltIn.Exit For Loop
 
 Verify History Requests With Given Indeces Contain Data In Api And No Data In Form And Do Not Contain Status And Time Data
@@ -980,10 +980,10 @@ Verify History Requests With Given Indeces Contain Data In Api And No Data In Fo
     : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
     \    ${key_index}=    BuiltIn.Evaluate    ${key_index}+1
     \    ${key}=    Collections.Get From List    ${keys}    ${key_index}
-    \    YangmanKeywords.Select Indexed History Request    ${group_id}    ${index}
-    \    YangmanKeywords.Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
-    \    YangmanKeywords.Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
-    \    YangmanKeywords.Verify Request Status Code Matches Desired Code And Request Execution Time Is Threedots    ${THREE_DOTS_DEFAULT_STATUS_AND_TIME}
+    \    Select Indexed History Request    ${group_id}    ${index}
+    \    Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
+    \    Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
+    \    Verify Request Status Code Matches Desired Code And Request Execution Time Is Threedots    ${THREE_DOTS_DEFAULT_STATUS_AND_TIME}
     \    BuiltIn.Run Keyword If    ${first_index}==${last_index}    BuiltIn.Exit For Loop
 
 Verify History Requests With Given Indeces Contain Data In Api And Error Message In Form And Contain 400 Status And Time Data
@@ -993,11 +993,11 @@ Verify History Requests With Given Indeces Contain Data In Api And Error Message
     : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
     \    ${key_index}=    BuiltIn.Evaluate    ${key_index}+1
     \    ${key}=    Collections.Get From List    ${keys}    ${key_index}
-    \    YangmanKeywords.Select Indexed History Request    ${group_id}    ${index}
-    \    YangmanKeywords.Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
-    \    YangmanKeywords.Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
-    \    YangmanKeywords.Verify Form Contains Error Message    ${error_message}
-    \    YangmanKeywords.Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${40X_REQUEST_CODE_REGEX}
+    \    Select Indexed History Request    ${group_id}    ${index}
+    \    Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
+    \    Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
+    \    Verify Form Contains Error Message    ${error_message}
+    \    Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${40X_REQUEST_CODE_REGEX}
     \    BuiltIn.Run Keyword If    ${first_index}==${last_index}    BuiltIn.Exit For Loop
 
 Compare Indexed History Request Operation Label And Verify Url Label Contains Given Key
@@ -1005,8 +1005,8 @@ Compare Indexed History Request Operation Label And Verify Url Label Contains Gi
     [Documentation]    Compares indexed history request operation label with operation name provided as an argument and verifies url label contains the key provided as an argument.
     : FOR    ${index}    IN RANGE    0    len(@{keys})
     \    ${key}=    Collections.Get From List    ${keys}    ${index}
-    \    YangmanKeywords.Compare Indexed History Request Operation Label With Given Operation Name    0    ${index}    ${operation_name}
-    \    YangmanKeywords.Verify Indexed History Request Url Label Contains Given Key    0    ${index}    ${key}
+    \    Compare Indexed History Request Operation Label With Given Operation Name    0    ${index}    ${operation_name}
+    \    Verify Indexed History Request Url Label Contains Given Key    0    ${index}    ${key}
 
 Return History Indexed Request Yangmenu
     [Arguments]    ${group_index}    ${request_index}
@@ -1110,7 +1110,7 @@ Click Save To Collection Button And Fill The Collection Name And Click Save
 Select History Request And Save It To Collection
     [Arguments]    ${group_id}    ${index}    ${collection_name}
     [Documentation]    Selects indexed history request and saves it to collection the name of which is provided as an argument, using Save to collection button.
-    YangmanKeywords.Select Indexed History Request    ${group_id}    ${index}
+    Select Indexed History Request    ${group_id}    ${index}
     Click Save To Collection Button And Fill The Collection Name And Click Save    ${collection_name}
 
 Click Save Button
@@ -1126,7 +1126,7 @@ Click Save Button And Fill The Collection Name And Click Save
 Select History Request And Save It To Collection Using Save Button
     [Arguments]    ${group_id}    ${index}    ${collection_name}
     [Documentation]    Selects indexed history request and saves it to collection the name of which is provided as an argument, using Save button.
-    YangmanKeywords.Select Indexed History Request    ${group_id}    ${index}
+    Select Indexed History Request    ${group_id}    ${index}
     Click Save Button And Fill The Collection Name And Click Save    ${collection_name}
 
 Return Number Of Collections Displayed
@@ -1229,8 +1229,8 @@ Verify Collection Indexed Request Url Label Contains Given Key
 
 Navigate To Collections Tab And Delete All Collections
     [Documentation]    Navigates to history tab and deletes all collections and verify they have been deleted.
-    YangmanKeywords.Navigate To Collections Tab
-    YangmanKeywords.Delete All Collections And Verify They Have Been Deleted
+    Navigate To Collections Tab
+    Delete All Collections And Verify They Have Been Deleted
 
 Click Delete All Collections Button
     [Documentation]    Clicks delete all button to delete all collections.
@@ -1309,6 +1309,26 @@ Select Save Base Response Data And Save Received Data And Fill Form With Receive
     Open Collections Settings Dialog And Select Fill Form View With Received Data On History Request Select Checkbox
     Click Collections Settings Dialog Save Button
 
+Save History Requests With Given Indeces To Collection And Verify Number Of Collections And Number Of Requests In Indexed Collection
+    [Arguments]    ${history_request_index_first}    ${history_request_index_last}    ${collection_name}    ${number_of_collections}
+    Navigate To History And Save History Requests With Given Indeces To Collection    ${history_request_index_first}    ${history_request_index_last}    ${collection_name}
+    Navigate To Collections Tab
+    Verify Number Of Collections Displayed Equals To Number Given    ${number_of_collections}
+    ${number_of_requests_saved_in_collection}=    BuiltIn.Evaluate    ${history_request_index_last}+1
+    ${collection_index}=    BuiltIn.Evaluate    ${number_of_collections}-1
+    Expand Collection And Verify Number Of Requests In Indexed Collection Equals To Number Given    ${collection_index}    ${number_of_requests_saved_in_collection}
+
+Save History Requests With Given Indeces To Collection
+    [Arguments]    ${first_index}    ${last_index}    ${collection_name}
+    : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
+    \    Select History Request And Save It To Collection    0    ${index}    ${collection_name}
+
+Navigate To History And Save History Requests With Given Indeces To Collection
+    [Arguments]    ${first_index}    ${last_index}    ${collection_name}
+    Navigate To History Tab
+    : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
+    \    Select History Request And Save It To Collection    0    ${index}    ${collection_name}
+
 Navigate To Collections Tab And Delete All Collections And Select All Collections Settings Checkboxes
     [Documentation]    Deletes all collections using delete all button and select all checkboxes and save changes
     Navigate To Collections Tab And Delete All Collections
@@ -1316,8 +1336,8 @@ Navigate To Collections Tab And Delete All Collections And Select All Collection
 
 Delete All History Requests And Collections And Select All Checkboxes In History And Collections Settings
     [Documentation]    Deletes all history requests and deletes all collections and selects all checkboxes in history and collections settings.
-    YangmanKeywords.Navigate To History Tab And Delete All History Requests And Select All History Settings Checkboxes
-    YangmanKeywords.Navigate To Collections Tab And Delete All Collections And Select All Collections Settings Checkboxes
+    Navigate To History Tab And Delete All History Requests And Select All History Settings Checkboxes
+    Navigate To Collections Tab And Delete All Collections And Select All Collections Settings Checkboxes
 
 Verify Collections Requests With Given Indeces Contain Data In Api And No Data In Form And Contain Status And Time Data
     [Arguments]    ${keys}    ${collection_id}    ${first_index}    ${last_index}
@@ -1326,10 +1346,10 @@ Verify Collections Requests With Given Indeces Contain Data In Api And No Data I
     : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
     \    ${key_index}=    BuiltIn.Evaluate    ${key_index}+1
     \    ${key}=    Collections.Get From List    ${keys}    ${key_index}
-    \    YangmanKeywords.Select Collection Indexed Request    ${collection_id}    ${index}
-    \    YangmanKeywords.Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
-    \    YangmanKeywords.Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
-    \    YangmanKeywords.Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${20X_REQUEST_CODE_REGEX}
+    \    Select Collection Indexed Request    ${collection_id}    ${index}
+    \    Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
+    \    Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
+    \    Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${20X_REQUEST_CODE_REGEX}
     \    BuiltIn.Run Keyword If    ${first_index}==${last_index}    BuiltIn.Exit For Loop
 
 Verify Collections Requests With Given Indeces Contain Data In Api And Form And Contain Status And Time Data
@@ -1339,10 +1359,10 @@ Verify Collections Requests With Given Indeces Contain Data In Api And Form And 
     : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
     \    ${key_index}=    BuiltIn.Evaluate    ${key_index}+1
     \    ${key}=    Collections.Get From List    ${keys}    ${key_index}
-    \    YangmanKeywords.Select Collection Indexed Request    ${collection_id}    ${index}
-    \    YangmanKeywords.Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
-    \    YangmanKeywords.Verify Labelled Form Input Field Contains Data    ${TOPOLOGY_ID_LABEL}    ${key}
-    \    YangmanKeywords.Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${20X_REQUEST_CODE_REGEX}
+    \    Select Collection Indexed Request    ${collection_id}    ${index}
+    \    Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
+    \    Verify Labelled Form Input Field Contains Data    ${TOPOLOGY_ID_LABEL}    ${key}
+    \    Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${20X_REQUEST_CODE_REGEX}
     \    BuiltIn.Run Keyword If    ${first_index}==${last_index}    BuiltIn.Exit For Loop
 
 Verify Collections Requests With Given Indeces Contain Data In Api And Form And Do Not Contain Status And Time Data
@@ -1352,10 +1372,10 @@ Verify Collections Requests With Given Indeces Contain Data In Api And Form And 
     : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
     \    ${key_index}=    BuiltIn.Evaluate    ${key_index}+1
     \    ${key}=    Collections.Get From List    ${keys}    ${key_index}
-    \    YangmanKeywords.Select Collection Indexed Request    ${collection_id}    ${index}
-    \    YangmanKeywords.Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
-    \    YangmanKeywords.Verify Labelled Form Input Field Contains Data    ${TOPOLOGY_ID_LABEL}    ${key}
-    \    YangmanKeywords.Verify Request Status Code Matches Desired Code And Request Execution Time Is Threedots    ${THREE_DOTS_DEFAULT_STATUS_AND_TIME}
+    \    Select Collection Indexed Request    ${collection_id}    ${index}
+    \    Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
+    \    Verify Labelled Form Input Field Contains Data    ${TOPOLOGY_ID_LABEL}    ${key}
+    \    Verify Request Status Code Matches Desired Code And Request Execution Time Is Threedots    ${THREE_DOTS_DEFAULT_STATUS_AND_TIME}
     \    BuiltIn.Run Keyword If    ${first_index}==${last_index}    BuiltIn.Exit For Loop
 
 Verify Collections Requests With Given Indeces Contain Data In Api And No Data In Form And Do Not Contain Status And Time Data
@@ -1365,10 +1385,10 @@ Verify Collections Requests With Given Indeces Contain Data In Api And No Data I
     : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
     \    ${key_index}=    BuiltIn.Evaluate    ${key_index}+1
     \    ${key}=    Collections.Get From List    ${keys}    ${key_index}
-    \    YangmanKeywords.Select Collection Indexed Request    ${collection_id}    ${index}
-    \    YangmanKeywords.Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
-    \    YangmanKeywords.Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
-    \    YangmanKeywords.Verify Request Status Code Matches Desired Code And Request Execution Time Is Threedots    ${THREE_DOTS_DEFAULT_STATUS_AND_TIME}
+    \    Select Collection Indexed Request    ${collection_id}    ${index}
+    \    Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
+    \    Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
+    \    Verify Request Status Code Matches Desired Code And Request Execution Time Is Threedots    ${THREE_DOTS_DEFAULT_STATUS_AND_TIME}
     \    BuiltIn.Run Keyword If    ${first_index}==${last_index}    BuiltIn.Exit For Loop
 
 Verify Collections Requests With Given Indeces Contain Data In Api And Error Message In Form And Contain 400 Status And Time Data
@@ -1378,11 +1398,11 @@ Verify Collections Requests With Given Indeces Contain Data In Api And Error Mes
     : FOR    ${index}    IN RANGE    ${first_index}    ${last_index}+1
     \    ${key_index}=    BuiltIn.Evaluate    ${key_index}+1
     \    ${key}=    Collections.Get From List    ${keys}    ${key_index}
-    \    YangmanKeywords.Select Collection Indexed Request    ${collection_id}    ${index}
-    \    YangmanKeywords.Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
-    \    YangmanKeywords.Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
-    \    YangmanKeywords.Verify Form Contains Error Message    ${error_message}
-    \    YangmanKeywords.Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${40X_REQUEST_CODE_REGEX}
+    \    Select Collection Indexed Request    ${collection_id}    ${index}
+    \    Verify Labelled Api Path Input Contains Data    ${TOPOLOGY_LABEL}    ${key}
+    \    Verify Labelled Form Input Field Does Not Contain Any Data    ${TOPOLOGY_ID_LABEL}
+    \    Verify Form Contains Error Message    ${error_message}
+    \    Verify Request Status Code Matches Desired Code And Request Execution Time Is Present    ${40X_REQUEST_CODE_REGEX}
     \    BuiltIn.Run Keyword If    ${first_index}==${last_index}    BuiltIn.Exit For Loop
 
 Compare Collection Indexed Request Operation Label And Verify Url Label Contains Given Key
@@ -1390,8 +1410,8 @@ Compare Collection Indexed Request Operation Label And Verify Url Label Contains
     [Documentation]    Compares collection indexed request operation label with operation name provided as an argument and verifies url label contains key provided as an argument.
     : FOR    ${index}    IN RANGE    0    len(@{keys})
     \    ${key}=    Collections.Get From List    ${keys}    ${index}
-    \    YangmanKeywords.Compare Collection Indexed Request Operation Label With Given Operation Name    ${collection_id}    ${index}    ${operation_name}
-    \    YangmanKeywords.Verify Collection Indexed Request Url Label Contains Given Key    ${collection_id}    ${index}    ${key}
+    \    Compare Collection Indexed Request Operation Label With Given Operation Name    ${collection_id}    ${index}    ${operation_name}
+    \    Verify Collection Indexed Request Url Label Contains Given Key    ${collection_id}    ${index}    ${key}
 
 Return Collection Indexed Request Yangmenu
     [Arguments]    ${collection_index}    ${request_index}
