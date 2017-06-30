@@ -165,7 +165,7 @@ SingleElan SuiteSetup
     : FOR    ${VM}    IN    @{VM_INSTANCES_ELAN1}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
     Log    Get IP address for ELAN1
-    Wait Until Keyword Succeeds    50s    10s    Collect VM IP Addresses    true    @{VM_INSTANCES_ELAN1}
+    Wait Until Keyword Succeeds    70s    10s    Collect VM IP Addresses    true    @{VM_INSTANCES_ELAN1}
     ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Collect VM IP Addresses    false    @{VM_INSTANCES_ELAN1}
     Log    ${VM_IP_ELAN1}
     Set Suite Variable    ${VM_IP_ELAN1}
