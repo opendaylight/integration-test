@@ -211,6 +211,7 @@ Test Is Flow 224 Added
 Test Is Flow 225 Added
     f225.xml    ${True}    ${True}    ${False}    ${check_id}
 
+
 Test Update Flows Group 0
     [Documentation]    Update all flows and waits for SM to collect data
     [Template]    NONE
@@ -392,6 +393,7 @@ Test Is Flow 224 Updated
 Test Is Flow 225 Updated
     f225.xml    ${True}    ${True}    ${True}    ${check_id}
 
+
 Test Delete Flows Group 0
     [Documentation]    Delete all flows and waits for SM to collect data
     [Template]    NONE
@@ -572,6 +574,7 @@ Test Is Flow 224 Deleted
 
 Test Is Flow 225 Deleted
     f225.xml    ${False}    ${False}    ${True}
+
 
 *** Keywords ***
 Initialization Phase

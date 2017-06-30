@@ -19,7 +19,8 @@
     <match>
         <ethernet-match>
             <ethernet-source>
-                <address>00:00:00:00:00:01</address>
+		    <address>00:00:00:00:00:01</address>
+		    <mask>ff:ff:ff:ff:ff:ff</mask>
             </ethernet-source>
         </ethernet-match>
     </match>
