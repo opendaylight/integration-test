@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_cc78292e",
+        "filename": "csit/suites/openflowplugin/Flows_Additional_TCs/Stat_Manager_extended/010_SM_add_upd_del_flows.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-30T22:26:09Z",
+      "side": 1,
+      "message": "why the extra lines?",
+      "revId": "1f644a4d16308edf711e69bb03bab9ec04ffa164",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_ec7b6d27",
+        "filename": "csit/variables/xmls/f3.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-06-30T22:26:09Z",
+      "side": 1,
+      "message": "tabs to clean up",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 6
+      },
+      "revId": "1f644a4d16308edf711e69bb03bab9ec04ffa164",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
