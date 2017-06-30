@@ -27,6 +27,7 @@ ${switch_name}    s${switch_idx}
 ...               f108.xml    f109.xml    f110.xml    f113.xml    f156.xml    f201.xml    f202.xml
 ...               f203.xml    f204.xml    f205.xml    f206.xml    f209.xml    f214.xml    f218.xml
 ...               f219.xml    f220.xml    f221.xml    f222.xml    f223.xml    f224.xml    f225.xml
+...               f440.xml    
 
 *** Test Cases ***
 Test Add Flows Group 0
@@ -211,6 +212,9 @@ Test Is Flow 224 Added
 Test Is Flow 225 Added
     f225.xml    ${True}    ${True}    ${False}    ${check_id}
 
+Test Is Flow 440 Added
+    f440.xml    ${True}    ${True}    ${False}    ${check_id}
+
 Test Update Flows Group 0
     [Documentation]    Update all flows and waits for SM to collect data
     [Template]    NONE
@@ -392,6 +396,9 @@ Test Is Flow 224 Updated
 Test Is Flow 225 Updated
     f225.xml    ${True}    ${True}    ${True}    ${check_id}
 
+Test Is Flow 440 Updated
+    f440.xml    ${True}    ${True}    ${True}    ${check_id}
+
 Test Delete Flows Group 0
     [Documentation]    Delete all flows and waits for SM to collect data
     [Template]    NONE
@@ -572,6 +579,9 @@ Test Is Flow 224 Deleted
 
 Test Is Flow 225 Deleted
     f225.xml    ${False}    ${False}    ${True}
+
+Test Is Flow 440 Deleted
+    f440.xml    ${False}    ${False}    ${True}
 
 *** Keywords ***
 Initialization Phase
