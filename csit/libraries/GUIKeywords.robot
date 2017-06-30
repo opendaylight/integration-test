@@ -170,10 +170,12 @@ Return Webdriver Instance And Set It As Suite Variable
 
 Log Browser Console Content
     [Arguments]    ${webdriver}
+    [Documentation]    Logs console content of webdriver instance to output test files.
     ${console_content}=    CustomSeleniumKeywords.Get Browser Console Content    ${webdriver}
     BuiltIn.Log    ${console_content}
 
 Return Webdriver Instance And Log Browser Console Content
+    [Documentation]    Returns webdriver instance of current browser under test and logs console content of the webdriver instance to output test files.
     ${webdriver}=    Return Webdriver Instance
     Log Browser Console Content    ${webdriver}
 
@@ -207,6 +209,7 @@ Page Should Contain Element With Wait
 
 Press Enter Key Click Element
     [Arguments]    ${element}
+    [Documentation]    Simulates pressing the enter key on the web element the xpath of which is provided as an argument.
     Selenium2Library.Wait Until Page Contains Element    ${element}
     Selenium2Library.Focus    ${element}
     Selenium2Library.Press Key    ${element}    \\13
@@ -245,8 +248,19 @@ Patient Click
 
 Patient Click With Wait Until Page Does Not Contain Element Check
     [Arguments]    ${element_to_be_clicked}    ${element_to_be_checked}
+    [Documentation]    Combines clicking ${element_to_be_clicked} and waiting until page does not contain ${element_to_be_checked}
+    ...    in order to secure reliable execution of Selenium2Library.Click Element keyword in AngularJS webapp.
     BuiltIn.Wait Until Keyword Succeeds    2 min    5 sec    Helper Click With Wait Until Page Does Not Contain Element Check    ${element_to_be_clicked}    ${element_to_be_checked}
 
 Patient Click With Wait Until Element Is Not Visible Check
     [Arguments]    ${element_to_be_clicked}    ${element_to_be_checked}
+    [Documentation]    Combines clicking ${element_to_be_clicked} and waiting until ${element_to_be_checked} is not visible
+    ...    in order to secure reliable execution of Selenium2Library.Click Element keyword in AngularJS webapp.
     BuiltIn.Wait Until Keyword Succeeds    2 min    5 sec    Helper Click With Wait Until Element Is Not Visible Check    ${element_to_be_clicked}    ${element_to_be_checked}
+
+Return Reversed List
+    [Arguments]    ${list}
+    [Documentation]    Returns reversed list.
+    ${list_to_reverse}=    Collections.Copy List    ${list}
+    Collections.Reverse List    ${list_to_reverse}
+    [Return]    ${list_to_reverse}
