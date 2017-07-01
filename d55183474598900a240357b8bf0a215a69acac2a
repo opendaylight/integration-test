@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_4c7ef9e5",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-01T17:08:46Z",
+      "side": 1,
+      "message": "I wonder if the inline-variable stuff in RF would be\nuseful here. we\u0027d never have to add new keywords for\nevery release, if so.\n\nhttp://robotframework.org/robotframework/2.8.7/RobotFrameworkUserGuide.html#embedding-arguments-into-keyword-name\n\nFor example, this would be:\n\nSet_Variable_If_At_Least_${stream}\n\nthen s/nitrogen/{stream}\n\nthe user would do something like:\n\nSet_Variable_If_At_Least_Nitrogen    my_nitro_var    not_a_nitro_var\n\njust an idea.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 115
+      },
+      "revId": "d55183474598900a240357b8bf0a215a69acac2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
