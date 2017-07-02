@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_00ce855a",
+        "filename": "tools/dashboard/push-data.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-07-02T20:54:29Z",
+      "side": 1,
+      "message": "URL first value is index\u003dproject-subject",
+      "revId": "01c6551ed01501654a249abaad91285cedc4445d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
