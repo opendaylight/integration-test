@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_f985ecad",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-03T11:54:20Z",
+      "side": 0,
+      "message": "I would prefer to have single suite for both streams (using CompareStream to skip steps not needed for a particular stream), with todos to remove Boron parts when we stop supporting that stream.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "aba049481be0b647b74ebf8d3c2433f3a35daba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_1989e0ca",
+        "filename": "csit/variables/bgpuser/change_counter/data.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-03T11:54:20Z",
+      "side": 0,
+      "message": "I think we need copy of this data content for Boron suite.",
+      "revId": "aba049481be0b647b74ebf8d3c2433f3a35daba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
