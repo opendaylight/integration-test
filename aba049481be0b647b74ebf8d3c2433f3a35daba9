@@ -57,6 +57,24 @@
       "revId": "aba049481be0b647b74ebf8d3c2433f3a35daba9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_144b672c",
+        "filename": "csit/variables/bgpuser/change_counter/data.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-03T13:19:35Z",
+      "side": 0,
+      "message": "Ah, ok.",
+      "parentUuid": "da2a55be_743c6394",
+      "revId": "aba049481be0b647b74ebf8d3c2433f3a35daba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
