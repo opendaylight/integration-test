@@ -387,11 +387,9 @@ Verify GWMAC Flow Entry On Flow Table
     \    Should Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
     #verify Miss entry
     Should Contain    ${gwmac_table}    actions=resubmit(,17)
-    #Verify ARP_CHECK_TABLE - 43
     #arp request and response
-    ${arpchk_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_CHECK_TABLE}
-    Should Match Regexp    ${arpchk_table}    ${ARP_RESPONSE_REGEX}
-    ${match} =    Should Match Regexp    ${arpchk_table}    ${ARP_REQUEST_REGEX}
+    Should Match Regexp    ${gwmac_table}    ${ARP_RESPONSE_REGEX}
+    ${match} =    Should Match Regexp    ${gwmac_table}    ${ARP_REQUEST_REGEX}
     ${groupID} =    Split String    ${match}    separator=:
     Log    groupID
     Should Contain    ${flow_output}    table=${IPV6_TABLE}
