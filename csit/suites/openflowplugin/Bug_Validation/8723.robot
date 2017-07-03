@@ -22,16 +22,18 @@ Create Two Active Switch Connections To Controller And Check OVS Connections
     ${controller_opt} =    BuiltIn.Set Variable
     ${controller_opt} =    BuiltIn.Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}${SPACE}tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT1}
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s1    ${controller_opt}
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    2
-    BuiltIn.Wait Until Keyword Succeeds    30s    3s    Execute OvsVsctl List Controllers Command
+    BuiltIn.Wait Until Keyword Succeeds    20s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    1
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Execute OvsVsctl List Controllers Command
+    [Teardown]    Report_Failure_Due_To_Bug    8723
 
 Restore original Connection To Controller And Check OVS Connection
     [Documentation]    Restore original Connection To Controller And Check OVS Connection
     ${controller_opt} =    BuiltIn.Set Variable
     ${controller_opt} =    BuiltIn.Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s1    ${controller_opt}
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    1
-    BuiltIn.Wait Until Keyword Succeeds    30s    3s    Execute OvsVsctl List Controllers Command
+    BuiltIn.Wait Until Keyword Succeeds    20s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    1
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Execute OvsVsctl List Controllers Command
+    [Teardown]    Report_Failure_Due_To_Bug    8723
 
 *** Keywords ***
 Initialization Phase
