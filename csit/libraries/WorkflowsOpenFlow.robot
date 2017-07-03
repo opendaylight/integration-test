@@ -89,7 +89,7 @@ Workflow Linear Topology
     ${status}    ${result}    Run Keyword And Ignore Error    MininetKeywords.Stop Mininet And Exit
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail stopping mininet    ${topology_discover_time}
     Log To Console    Checking No Switches
-    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    10s    2s    FlowLib.Check No Switches In Inventory
+    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    30s    2s    FlowLib.Check No Switches In Inventory
     ...    ${switches}
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Fail checking no switch    ${topology_discover_time}
     Log To Console    Checking No Topology
