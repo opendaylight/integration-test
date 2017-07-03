@@ -31,6 +31,7 @@ ${switch_name}    s${switch_idx}
 Test Add Flows Group 0
     [Documentation]    Add all flows and waits for SM to collect data
     [Template]    NONE
+    CompareStream.Run_Keyword_If_At_Most_Boron    Remove Values From List    ${flowlist0}    f19.xml    f22.xml
     : FOR    ${flowfile}    IN    @{flowlist0}
     \    Log    ${flowfile}
     \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
@@ -88,6 +89,7 @@ Test Is Flow 18 Added
     f18.xml    ${False}    ${True}    ${False}
 
 Test Is Flow 19 Added
+    [Tags]    skip_if_boron
     f19.xml    ${False}    ${True}    ${False}
 
 Test Is Flow 20 Added
@@ -127,6 +129,7 @@ Test Is Flow 101 Added
     f101.xml    ${False}    ${True}    ${False}
 
 Test Is Flow 102 Added
+    [Tags]    skip_if_boron
     f102.xml    ${False}    ${True}    ${False}
 
 Test Is Flow 103 Added
@@ -251,6 +254,7 @@ Test Is Flow 18 Updated
     f18.xml    ${False}    ${True}    ${True}
 
 Test Is Flow 19 Updated
+    [Tags]    skip_if_boron
     f19.xml    ${False}    ${True}    ${True}
 
 Test Is Flow 20 Updated
@@ -290,6 +294,7 @@ Test Is Flow 101 Updated
     f101.xml    ${False}    ${True}    ${True}
 
 Test Is Flow 102 Updated
+    [Tags]    skip_if_boron
     f102.xml    ${False}    ${True}    ${True}
 
 Test Is Flow 103 Updated
@@ -414,6 +419,7 @@ Test Is Flow 18 Deleted
     f18.xml    ${False}    ${False}    ${True}
 
 Test Is Flow 19 Deleted
+    [Tags]    skip_if_boron
     f19.xml    ${False}    ${False}    ${True}
 
 Test Is Flow 20 Deleted
@@ -453,6 +459,7 @@ Test Is Flow 101 Deleted
     f101.xml    ${False}    ${False}    ${True}
 
 Test Is Flow 102 Deleted
+    [Tags]    skip_if_boron
     f102.xml    ${False}    ${False}    ${True}
 
 Test Is Flow 103 Deleted
