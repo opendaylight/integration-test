@@ -121,16 +121,12 @@ Create Nova VMs
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
     Log    Check for routes
     Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS_CIDR}
-    ${prefix_net10}=    Replace String    ${SUBNETS_CIDR[0]}    ::/64    (:[a-f0-9]{,4}){,4}
-    Log    ${prefix_net10}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    5x    60s    Collect VM IPv6 SLAAC Addresses
-    ...    true    ${prefix_net10}    @{VM_INSTANCES_NET10}
-    ${prefix_net20}=    Replace String    ${SUBNETS_CIDR[1]}    ::/64    (:[a-f0-9]{,4}){,4}
-    Log    ${prefix_net20}
+    ...    true    ${VM_INSTANCES_NET10}    ${NETWORKS[0]}    ${SUBNETS_CIDR[0]}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    5x    60s    Collect VM IPv6 SLAAC Addresses
-    ...    true    ${prefix_net20}    @{VM_INSTANCES_NET20}
-    ${VM_IP_NET10}=    Collect VM IPv6 SLAAC Addresses    false    ${prefix_net10}    @{VM_INSTANCES_NET10}
-    ${VM_IP_NET20}=    Collect VM IPv6 SLAAC Addresses    false    ${prefix_net20}    @{VM_INSTANCES_NET20}
+    ...    true    ${VM_INSTANCES_NET10}    ${NETWORKS[0]}    ${SUBNETS_CIDR[0]}
+    ${VM_IP_NET10}=    Collect VM IPv6 SLAAC Addresses    false    ${VM_INSTANCES_NET10}    ${NETWORKS[0]}    ${SUBNETS_CIDR[0]}
+    ${VM_IP_NET20}=    Collect VM IPv6 SLAAC Addresses    false    ${VM_INSTANCES_NET20}    ${NETWORKS[1]}    ${SUBNETS_CIDR[1]}
     Log    ${VM_IP_NET10}
     Log    ${VM_IP_NET20}
     ${VM_INSTANCES}=    Collections.Combine Lists    ${VM_INSTANCES_NET10}    ${VM_INSTANCES_NET20}
@@ -140,12 +136,10 @@ Create Nova VMs
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
     \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
-    Log    ${VM_IP_NET10}
-    Set Suite Variable    ${VM_IP_NET10}
-    Log    ${VM_IP_NET20}
-    Set Suite Variable    ${VM_IP_NET20}
     Should Not Contain    ${VM_IP_NET10}    None
     Should Not Contain    ${VM_IP_NET20}    None
+    Set Suite Variable    ${VM_IP_NET10}
+    Set Suite Variable    ${VM_IP_NET20}
     [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     ...    AND    Get Suite Teardown Debugs
 
