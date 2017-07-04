@@ -323,23 +323,36 @@ Collect VM IP Addresses
     [Return]    ${ip_list}    ${dhcp_ip}
 
 Collect VM IPv6 SLAAC Addresses
-    [Arguments]    ${fail_on_none}    ${prefix}    @{vm_list}
-    [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "inet6" which
-    ...    correlates to the instance generated IPv6 address, based on the ${prefix} received from ODL (SLAAC mode).
-    ${ip_list}    Create List    @{EMPTY}
+    [Arguments]    ${fail_on_none}    ${vm_list}    ${network}    ${subnet}
+    [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "obtained" which
+    ...    correlates to the instance receiving it's IP address via DHCP. Also retrieved is the ip of the nameserver
+    ...    if available in the console-log output. The keyword will also return a list of the learned ips as it
+    ...    finds them in the console log output, and will have "None" for Vms that no ip was found.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${ipv6_list}    Create List    @{EMPTY}
+    Log    ${vm_list}
+    Log    ${network}
+    Log    ${subnets}
     : FOR    ${vm}    IN    @{vm_list}
-    \    Log    ${vm}
-    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    nova console-log ${vm} | grep -i "inet6"
-    \    Log    ${vm_ip_line}
-    \    Log    ${rc}
-    \    @{vm_ip_list}    Get Regexp Matches    ${vm_ip_line}    ${prefix}
-    \    ${vm_ip_length}    Get Length    ${vm_ip_list}
-    \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip_list}[0]
-    \    ...    ELSE    Append To List    ${ip_list}    None
-    \    Log    ${ip_list}
-    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${ip_list}    None
-    Log    ${ip_list}
-    [Return]    ${ip_list}
+    \    ${vm_info}=    Write Commands Until Prompt    openstack server show ${vm} -f shell    30s
+    \    Log    ${vm_info}
+    \	 ${pattern}=    Replace String    ${subnet}    ::/64    (:[a-f0-9]{,4}){,4}
+    \	 Log    ${pattern}
+    \    @{vm_ipv6}=    Get Regexp Matches    ${vm_info}    ${pattern}
+    \    Log    @{vm_ipv6}
+    \    ${vm_ip_length}    Get Length    ${vm_ipv6[0]}
+    \	 Log    ${network}
+    \    ${ipv6_data_from_vm}=    Run Keyword If    ${vm_ip_length}>0    Execute Command on VM Instance    ${network}    ${vm_ipv6[0]}    ip -6 a
+    \	 Log    ${ipv6_data_from_vm}
+    \    Log    ${pattern}
+    \    @{ipv6}=    Get Regexp Matches    ${ipv6_data_from_vm}    ${pattern}
+    \    Log    ${ipv6[0]}
+    \    ${ipv6_addr_list_length}    Get Length    @{ipv6}
+    \    Run Keyword If    ${ipv6_addr_list_length}>0    Append To List    ${ipv6_list}    ${ipv6[0]}
+    \    ...   ELSE    Append To List    ${ipv6_list}    None
+    Log    ${ipv6_list}
+    [Return]    ${ipv6_list}
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
@@ -446,7 +459,7 @@ Execute Command on VM Instance
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${vm_ip}
-    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    password:
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    d:    60s
     Log    ${output}
     ${output} =    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
@@ -463,7 +476,7 @@ Test Operations From Vm Instance
     Switch Connection    ${devstack_conn_id}
     Log    ${src_ip}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
-    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    password:
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    d:    60s
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
