@@ -97,12 +97,12 @@ Create Nova VMs
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNET_CIDRS}
     ${prefix_net10} =    Replace String    @{SUBNET_CIDRS}[0]    ::/64    (:[a-f0-9]{,4}){,4}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
-    ...    true    ${prefix_net10}    @{NET_1_VMS}
+    ...    fail_on_none=true    vm_list=${NET_1_VMS}    network=@{NETWORKS}[0]    subnet=${prefix_net10}
     ${prefix_net20} =    Replace String    @{SUBNET_CIDRS}[1]    ::/64    (:[a-f0-9]{,4}){,4}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
-    ...    true    ${prefix_net20}    @{NET_2_VMS}
-    ${VM_IP_NET10} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${prefix_net10}    @{NET_1_VMS}
-    ${VM_IP_NET20} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${prefix_net20}    @{NET_2_VMS}
+    ...    fail_on_none=true    vm_list=${NET_2_VMS}    network=@{NETWORKS}[1]    subnet=${prefix_net20}
+    ${VM_IP_NET10} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${NET_1_VMS}   network=@{NETWORKS}[0]    subnet=${prefix_net10}
+    ${VM_IP_NET20} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    fail_on_none=false    vm_list=${NET_2_VMS}   network=@{NETWORKS}[1]    subnet=${prefix_net20}
     ${VM_INSTANCES} =    Collections.Combine Lists    ${NET_1_VMS}    ${NET_2_VMS}
     ${VM_IPS}=    Collections.Combine Lists    ${VM_IP_NET10}    ${VM_IP_NET20}
     ${LOOP_COUNT}    BuiltIn.Get Length    ${NET_1_VMS}

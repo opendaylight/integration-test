@@ -390,23 +390,25 @@ Get VM IPs
     [Return]    @{vm_ips}    ${ips_and_console_log[1]}
 
 Collect VM IPv6 SLAAC Addresses
-    [Arguments]    ${fail_on_none}    ${prefix}    @{vm_list}
-    [Documentation]    Using the console-log on the provided ${vm_list} to search for the string "inet6" which
-    ...    correlates to the instance generated IPv6 address, based on the ${prefix} received from ODL (SLAAC mode).
-    ${ip_list}    Create List    @{EMPTY}
+    [Arguments]    ${fail_on_none}    ${vm_list}    ${network}    ${subnet}
+    [Documentation]    For each VM parse output of "openstack server show" to get its IPv6 address from Neutron DB.
+    ...    Then try to connect to each VM by SSH and execute there "ip -6 a" command. This double-check allows to
+    ...    obtain and compare IP info (Neutron DB vs dnsmasque/ODL DHCP) and to test L2 connectivity as well.
+    ...    Returns an empty list if no IPv6 addresses found or if SSH connection fails.
+    ...    Otherwise, returns a list of IPv6 addresses.
+    ${ipv6_list}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
-    \    Log    ${vm}
-    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "inet6"
-    \    Log    ${vm_ip_line}
-    \    Log    ${rc}
-    \    @{vm_ip_list}    Get Regexp Matches    ${vm_ip_line}    ${prefix}
-    \    ${vm_ip_length}    Get Length    ${vm_ip_list}
-    \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip_list}[0]
-    \    ...    ELSE    Append To List    ${ip_list}    None
-    \    Log    ${ip_list}
-    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${ip_list}    None
-    Log    ${ip_list}
-    [Return]    ${ip_list}
+    \    ${vm_info}=    Write Commands Until Prompt    openstack server show ${vm} -f shell    30s
+    \    ${pattern}=    Replace String    ${subnet}    ::/64    (:[a-f0-9]{,4}){,4}
+    \    @{vm_ipv6}=    Get Regexp Matches    ${vm_info}    ${pattern}
+    \    ${vm_ip_length}    Get Length    ${vm_ipv6}[0]
+    \    ${ipv6_data_from_vm}=    Run Keyword If    ${vm_ip_length}>0    Execute Command on VM Instance    ${network}    ${vm_ipv6}[0]
+    \    ...    ip -6 a
+    \    @{ipv6}=    Get Regexp Matches    ${ipv6_data_from_vm}    ${pattern}
+    \    ${ipv6_addr_list_length}    Get Length    @{ipv6}
+    \    Run Keyword If    ${ipv6_addr_list_length}>0    Append To List    ${ipv6_list}    ${ipv6}[0]
+    \    ...    ELSE    Append To List    ${ipv6_list}    None
+    [Return]    ${ipv6_list}
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
