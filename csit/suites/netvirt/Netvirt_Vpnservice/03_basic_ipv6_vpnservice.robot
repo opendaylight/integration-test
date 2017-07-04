@@ -115,10 +115,10 @@ Create Nova VMs
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
     \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
-    Set Suite Variable    ${VM_IP_NET10}
-    Set Suite Variable    ${VM_IP_NET20}
     Should Not Contain    ${VM_IP_NET10}    None
     Should Not Contain    ${VM_IP_NET20}    None
+    Set Suite Variable    ${VM_IP_NET10}
+    Set Suite Variable    ${VM_IP_NET20}
     [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     ...    AND    Get Test Teardown Debugs
 
