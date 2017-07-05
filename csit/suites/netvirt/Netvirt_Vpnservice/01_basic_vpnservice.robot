@@ -72,16 +72,11 @@ Add Ssh Allow Rule
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
-    ${allowed_address_pairs_args}=    Set Variable    --allowed-address ip_address=${EXTRA_NW_SUBNET[0]} --allowed-address ip_address=${EXTRA_NW_SUBNET[1]}
-    ${allowed_address_pairs_os_cli}=    Set Variable    --allowed-address ip-address=${EXTRA_NW_SUBNET[0]} --allowed-address ip-address=${EXTRA_NW_SUBNET[1]}
-    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/newton'    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    ...    ELSE    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_os_cli}
-    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/newton'    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    ...    ELSE    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_os_cli}
-    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/newton'    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    ...    ELSE    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_os_cli}
-    Run Keyword If    '${OPENSTACK_BRANCH}'=='stable/newton'    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    ...    ELSE    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_os_cli}
+    ${allowed_address_pairs_args}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    --allowed-address ip_address=${EXTRA_NW_SUBNET[0]} --allowed-address ip_address=${EXTRA_NW_SUBNET[1]}    --allowed-address ip-address=${EXTRA_NW_SUBNET[0]} --allowed-address ip-address=${EXTRA_NW_SUBNET[1]}
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORT_LIST}
     ${PORTS_MACADDR} =    Get Ports MacAddr    ${PORT_LIST}
     Set Suite Variable    ${PORTS_MACADDR}
