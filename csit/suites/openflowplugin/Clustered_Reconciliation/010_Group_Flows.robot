@@ -36,20 +36,20 @@ Check Linear Topology
     [Documentation]    Check Linear Topology.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}
 
-Check Flows In Operational DS
-    [Documentation]    Check Flows after mininet starts.
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${all_flows}
-
 Check Stats Are Not Frozen
-    [Documentation]    Check that duration flow stat is increasing
+    [Documentation]    Check that duration flow stat is increasing.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen
 
+Check Flows In Operational DS
+    [Documentation]    Check Flows in operational DS.
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${all_flows}
+
 Check Groups In Operational DS
-    [Documentation]    Check Groups after mininet starts.
+    [Documentation]    Check Groups in operational DS.
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${all_groups}
 
 Check Flows In Switch
-    [Documentation]    Check Flows in switch after mininet starts.
+    [Documentation]    Check Flows in switch.
     MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
 
 Check Entity Owner Status And Find Owner and Successor Before Fail
@@ -68,6 +68,8 @@ Check Entity Owner Status And Find Owner and Successor After Fail
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
     ${new_owner}    ${new_successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
     ...    1    ${new_cluster_list}    after_stop=True
+    ${owner_list}=    BuiltIn.Create List    ${original_owner}    ${new_owner}
+    BuiltIn.Set Suite Variable    ${owner_list}
     BuiltIn.Set Suite Variable    ${new_owner}
     BuiltIn.Set Suite Variable    ${new_successor_list}
 
@@ -77,7 +79,7 @@ Check Switch Moves To New Master
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    OvsManager.Should Be Master    s1    ${new_master}    update_data=${True}
 
 Check Linear Topology After Disconnect
-    [Documentation]    Check Linear Topology After Disconnecting mininet from owner.
+    [Documentation]    Check Linear Topology.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}
 
 Check Stats Are Not Frozen After Disconnect
@@ -89,15 +91,15 @@ Remove Flows And Groups After Mininet Is Disconnected
     Remove Single Group And Flow On Member
 
 Check Flows In Operational DS After Mininet Is Disconnected
-    [Documentation]    Check Flows in Operational DS after mininet is disconnected.
+    [Documentation]    Check Flows in Operational DS.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${less_flows}
 
 Check Groups In Operational DS After Mininet Is Disconnected
-    [Documentation]    Check Groups in Operational DS after mininet is disconnected.
+    [Documentation]    Check Groups in Operational DS.
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${less_groups}
 
 Check Flows In Switch After Mininet Is Disconnected
-    [Documentation]    Check Flows in switch after mininet is disconnected
+    [Documentation]    Check Flows in switch.
     MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
 
 Reconnect Mininet To Owner
@@ -106,16 +108,41 @@ Reconnect Mininet To Owner
 
 Check Entity Owner Status And Find Owner and Successor After Reconnect
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${owner}    ${successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
-    ...    1
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+
+Add Flows And Groups After Owner Reconnect
+    [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
+    Add Single Group And Flow On Member
+
+Check Stats Are Not Frozen After Owner Reconnect
+    [Documentation]    Check that duration flow stat is increasing.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen
+
+Check Flows After Owner Reconnect In Operational DS
+    [Documentation]    Check Flows in Operational DS.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${all_flows}
+
+Check Groups After Owner Reconnect In Operational DS
+    [Documentation]    Check Groups in Operational DS.
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${all_groups}
+
+Check Flows After Owner Reconnect In Switch
+    [Documentation]    Check Flows in switch.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
+
+Check Switches Generate Slave Connection
+    [Documentation]    Check switches are connected to new Slave.
+    ${original_master}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${original_owner}_IP}
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    BuiltIn.Wait Until Keyword Succeeds    50s    1s    OvsManager.Should Be Slave    s1    ${original_master}
+    \    ...    update_data=${True}
 
 Disconnect Mininet From Successor
-    [Documentation]    Disconnect mininet from the Successor
+    [Documentation]    Disconnect mininet from the Successor.
     MininetKeywords.Disconnect Cluster Mininet    break    ${new_successor_list}
 
 Check Entity Owner Status And Find New Owner and Successor After Disconnect
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${owner_list}=    BuiltIn.Create List    ${original_owner}    ${new_owner}
     ${current_owner}    ${current_successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
     ...    1    ${owner_list}    after_stop=True
     BuiltIn.Set Suite Variable    ${current_owner}
@@ -134,45 +161,41 @@ Check Entity Owner Status And Find Current Owner and Successor After Disconnect
     BuiltIn.Set Suite Variable    ${current_new_successor_list}
 
 Check Switch Moves To Current Master
-    [Documentation]    Check switch s1 is connected to new Master.
+    [Documentation]    Check switch s1 is connected to original Master.
     ${current_new_master}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${current_new_owner}_IP}
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    OvsManager.Should Be Master    s1    ${current_new_master}    update_data=${True}
     BuiltIn.Should Be Equal    ${current_new_owner}    ${original_owner}
 
-Reconnect Mininet To All Cluster Instances
-    [Documentation]    Reconnect mininet to all cluster instances.
-    MininetKeywords.Disconnect Cluster Mininet    restore    ${new_cluster_list}
+Check Linear Topology After Owner Disconnect
+    [Documentation]    Check Linear Topology.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}
 
-Check Linear Topology After Reconnect
-    [Documentation]    Check Linear Topology After Reconnect.
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}
-
-Add Flows And Groups After Reconnect
-    [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
-    Add Single Group And Flow On Member
-
-Check Stats Are Not Frozen After Reconnect
-    [Documentation]    Check that duration flow stat is increasing
+Check Stats Are Not Frozen After Owner Disconnect
+    [Documentation]    Check that duration flow stat is increasing.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen
 
-Check Flows After Reconnect In Operational DS
-    [Documentation]    Check Flows in Operational DS after mininet is reconnected.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${all_flows}
+Remove Flows And Groups After Owner Disconnected
+    [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
+    Remove Single Group And Flow On Member
 
-Check Groups After Reconnect In Operational DS
-    [Documentation]    Check Groups in Operational DS after mininet is reconnected.
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${all_groups}
+Check Flows In Operational DS After Owner Disconnected
+    [Documentation]    Check Flows in Operational DS.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${less_flows}
 
-Check Flows After Reconnect In Switch
-    [Documentation]    Check Flows in switch after mininet is reconnected.
-    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
+Check Groups In Operational DS After Owner Disconnected
+    [Documentation]    Check Groups in Operational DS.
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${less_groups}
+
+Check Flows In Switch After Owner Disconnected
+    [Documentation]    Check Flows in switch.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
 
 Disconnect Mininet From Cluster
     [Documentation]    Disconnect Mininet from Cluster.
-    MininetKeywords.Disconnect Cluster Mininet
+    MininetKeywords.Disconnect Cluster Mininet    break    ${original_owner_list}
 
 Check No Switches After Disconnect
-    [Documentation]    Check no switches in topology after disconnecting mininet from cluster.
+    [Documentation]    Check no switches in topology.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check No Switches On Member    ${SWITCHES}
 
 Check Switch Is Not Connected
@@ -185,32 +208,27 @@ Reconnect Mininet To Cluster
     [Documentation]    Reconnect mininet to cluster by removing Iptables drop rules that were used to disconnect
     MininetKeywords.Disconnect Cluster Mininet    restore
 
-Check Entity Owner Status And Find Owner and Successor After Reconnect Cluster
-    [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
-    ${owner}    ${successor_list}    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1
-    ...    1
-
 Check Linear Topology After Mininet Reconnects
-    [Documentation]    Check Linear Topology after reconnect.
+    [Documentation]    Check Linear Topology.
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}
 
-Remove Flows And Groups After Mininet Reconnects
-    [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
-    Remove Single Group And Flow On Member
+Add Flows And Groups After Mininet Reconnects
+    [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
+    Add Single Group And Flow On Member
 
 Check Flows In Operational DS After Mininet Reconnects
-    [Documentation]    Check Flows in Operational DS after mininet is reconnected.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${less_flows}
+    [Documentation]    Check Flows in Operational DS.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${all_flows}
 
 Check Groups In Operational DS After Mininet Reconnects
-    [Documentation]    Check Groups in Operational DS after mininet is reconnected to cluster.
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${less_groups}
+    [Documentation]    Check Groups in Operational DS.
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${all_groups}
 
 Check Flows In Switch After Mininet Reconnects
-    [Documentation]    Check Flows in switch after mininet is reconnected to cluster.
-    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
+    [Documentation]    Check Flows in switch.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
 
-Check Entity Owner Status And Find Owner and Successor Before Stop
+Check Entity Owner Status And Find Owner and Successor Before Owner Stop
     [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
     ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
     ${original_successor}=    Collections.Get From List    ${original_successor_list}    0
@@ -218,7 +236,14 @@ Check Entity Owner Status And Find Owner and Successor Before Stop
     BuiltIn.Set Suite Variable    ${original_successor_list}
     BuiltIn.Set Suite Variable    ${original_successor}
 
-Check Shards Status before Stop
+Check Switch Generates Slave Connection Before Owner Stop
+    [Documentation]    Check switch s1 is connected to Slave.
+    ${original_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${original_successor}_IP}
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    BuiltIn.Wait Until Keyword Succeeds    50s    1s    OvsManager.Should Be Slave    s1    ${original_slave}
+    \    ...    update_data=${True}
+
+Check Shards Status Before Owner Stop
     [Documentation]    Check Status for all shards in OpenFlow application.
     ClusterOpenFlow.Check OpenFlow Shards Status
 
@@ -236,33 +261,28 @@ Check Entity Owner Status And Find Owner and Successor After Stop
     ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_successor}    ${new_cluster_list}    after_stop=True
     BuiltIn.Set Suite Variable    ${new_owner}
 
-Check Linear Topology After Owner Stop
-    [Documentation]    Check Linear Topology.
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}    ${new_owner}
-
-Add Configuration In Owner and Verify After Fail
-    [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
-    Add Single Group And Flow On Member    ${new_owner}
-
-Check Stats Are Not Frozen After Owner Stops
-    [Documentation]    Check that duration flow stat is increasing
-    Log    ${new_owner}
+Check Stats Are Not Frozen After Owner Stop
+    [Documentation]    Check that duration flow stat is increasing in new owner.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen    ${new_owner}
 
-Check Flows In Operational DS After Owner Is Stopped
-    [Documentation]    Check Flows in Operational DS after Owner is Stopped.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${all_flows}    ${new_owner}
+Remove Configuration In Owner and Verify After Owner Stop
+    [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
+    Remove Single Group And Flow On Member    ${new_owner}
 
-Check Groups In Operational DS After Owner Is Stopped
-    [Documentation]    Check Groups in Operational DS after Owner is Stopped.
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${all_groups}    ${new_owner}
+Check Flows After Owner Stop In Operational DS
+    [Documentation]    Check Flows in Operational DS in new owner.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${less_flows}    ${new_owner}
 
-Check Flows In Switch After Owner Is Stopped
-    [Documentation]    Check Flows in switch after Owner is Stopped
-    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
+Check Groups After Owner Stop In Operational DS
+    [Documentation]    Check Groups in Operational DS in new owner.
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${less_groups}    ${new_owner}
+
+Check Flows In Switch After Owner Stop
+    [Documentation]    Check Flows in switch.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
 
 Start Old Owner Instance
-    [Documentation]    Start old Owner Instance and verify it is up
+    [Documentation]    Start old Owner Instance and verify it is up.
     ClusterManagement.Start Single Member    ${original_owner}
 
 Check Entity Owner Status And Find Owner and Successor After Start Owner
@@ -274,25 +294,26 @@ Check Linear Topology After Owner Restart
     [Documentation]    Check Linear Topology.
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}
 
+Add Configuration In Owner and Verify After Owner Restart
+    [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
+    Add Single Group And Flow On Member    ${new_owner}
+
 Check Stats Are Not Frozen After Owner Restart
-    [Documentation]    Check that duration flow stat is increasing
+    [Documentation]    Check that duration flow stat is increasing.
+    Log    ${new_owner}
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen
 
-Remove Configuration In Owner and Verify After Owner Restart
-    [Documentation]    Remove 1 group 1&2 and 1 flow in every switch.
-    Remove Single Group And Flow On Member    ${new_owner}
+Check Flows In Operational DS After Owner Restart
+    [Documentation]    Check Flows in Operational DS.
+    BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${all_flows}
 
-Check Flows After Owner Restart In Operational DS
-    [Documentation]    Check Flows in Operational DS after owner is restarted.
-    BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${less_flows}
+Check Groups In Operational DS After Owner Restart
+    [Documentation]    Check Groups in Operational DS.
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${all_groups}
 
-Check Groups After Owner Restart In Operational DS
-    [Documentation]    Check Groups in Operational DS after owner is restarted.
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${less_groups}
-
-Check Flows In Switch After Owner Is Restarted
-    [Documentation]    Check Flows in switch after Owner is restarted
-    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${less_flows}
+Check Flows In Switch After Owner Restart
+    [Documentation]    Check Flows in switch.
+    MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
 
 Restart Cluster
     [Documentation]    Stop and Start cluster.
@@ -302,27 +323,23 @@ Restart Cluster
     ClusterManagement.Start_Members_From_List_Or_All    wait_for_sync=False
 
 Check Linear Topology After Controller Restarts
-    [Documentation]    Check Linear Topology after controller restarts.
+    [Documentation]    Check Linear Topology
     BuiltIn.Wait Until Keyword Succeeds    300s    2s    ClusterOpenFlow.Check Linear Topology On Member    ${SWITCHES}
 
-Add Flow And Group After Restart
-    [Documentation]    Add 1 group type 1&2 and 1 flow in every switch.
-    Add Single Group And Flow On Member
-
 Check Stats Are Not Frozen After Cluster Restart
-    [Documentation]    Check that duration flow stat is increasing
+    [Documentation]    Check that duration flow stat is increasing.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    Check Flow Stats Are Not Frozen
 
 Check Flows In Operational DS After Controller Restarts
-    [Documentation]    Check Flows in Operational DS after controller is restarted.
+    [Documentation]    Check Flows in Operational DS.
     BuiltIn.Wait Until Keyword Succeeds    30s    1s    ClusterOpenFlow.Check Number Of Flows On Member    ${all_flows}
 
 Check Groups In Operational DS After Controller Restarts
-    [Documentation]    Check Groups in Operational DS after controller is restarted.
+    [Documentation]    Check Groups in Operational DS.
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check Number Of Groups On Member    ${all_groups}
 
 Check Flows In Switch After Controller Restarts
-    [Documentation]    Check Flows in switch after controller is restarted..
+    [Documentation]    Check Flows in switch.
     MininetKeywords.Check Flows In Mininet    ${mininet_conn_id}    ${all_flows}
 
 Stop Mininet
