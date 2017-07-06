@@ -66,7 +66,7 @@ ${DEVICE_SET_SIZE}    30
 @{TAGS_NONCRITICAL}    clustering    netconf
 
 *** Test Cases ***
-Locate_Managers
+Setup_Leaders_Location
     [Documentation]    Detect location of Leader and Owner and store related data into suite variables.
     ...    This cannot be part of Suite Setup, as Utils.Get_Index_From_List_Of_Dictionaries calls BuiltIn.Set_Test_Variable.
     ...    WUKS are used, as location failures are probably due to booting process, not bugs.
@@ -77,13 +77,13 @@ Locate_Managers
     BuiltIn.Set_Suite_Variable    \${topology_config_leader_ip}
     ${topology_config_leader_http_session} =    Resolve_Http_Session_For_Member    ${topology_config_leader_index}
     BuiltIn.Set_Suite_Variable    \${topology_config_leader_http_session}
-    ${netconf_manager_owner_index}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    ClusterManagement.Get_Owner_And_Candidates_For_Type_And_Id    type=topology-netconf
-    ...    id=/general-entity:entity[general-entity:name='topology-manager']    member_index=1
-    BuiltIn.Set_Suite_Variable    \${netconf_manager_owner_index}
-    ${netconf_manager_owner_ip} =    ClusterManagement.Resolve_Ip_Address_For_Member    ${netconf_manager_owner_index}
-    BuiltIn.Set_Suite_Variable    \${netconf_manager_owner_ip}
-    ${netconf_manager_owner_http_session} =    Resolve_Http_Session_For_Member    ${netconf_manager_owner_index}
-    BuiltIn.Set_Suite_Variable    \${netconf_manager_owner_http_session}
+    ${entity_ownership_owner_index}    Change_Entity_Ownership_Leader_If_Needed    ${topology_config_leader_index}
+    BuiltIn.Set_Suite_Variable    \${entity_ownership_owner_index}
+    ${entity_ownership_owner_ip} =    ClusterManagement.Resolve_Ip_Address_For_Member    ${entity_ownership_owner_index}
+    BuiltIn.Set_Suite_Variable    \${entity_ownership_owner_ip}
+    ${entity_ownership_owner_http_session} =    Resolve_Http_Session_For_Member    ${entity_ownership_owner_index}
+    BuiltIn.Set_Suite_Variable    \${entity_ownership_owner_http_session}
+
 
 Start_Testtool
     [Documentation]    Deploy and start test tool on its separate SSH session.
@@ -114,9 +114,9 @@ Reboot_Manager_Owner
     [Documentation]    Kill and restart member where netconf topology manager was, including removal of persisted data.
     ...    After cluster sync, sleep additional time to ensure manager processes requests with the rebooted member fully rejoined.
     [Tags]    @{TAGS_NONCRITICAL}    # To avoid long WUKS list expanded in log.html
-    ClusterManagement.Kill_Single_Member    ${netconf_manager_owner_index}
-    ${owner_list} =    BuiltIn.Create_List    ${netconf_manager_owner_index}
-    ClusterManagement.Start_Single_Member    ${netconf_manager_owner_index}
+    ClusterManagement.Kill_Single_Member    ${entity_ownership_owner_index}
+    ${owner_list} =    BuiltIn.Create_List    ${entity_ownership_owner_index}
+    ClusterManagement.Start_Single_Member    ${entity_ownership_owner_index}
     BuiltIn.Comment    FIXME: Replace sleep with WUKS when it becomes clear what to wait for.
     ${sleep_time} =    Get_Typical_Time    coefficient=3.0
     BuiltIn.Sleep    ${sleep_time}
@@ -192,3 +192,15 @@ Get_Typical_Time
     [Arguments]    ${coefficient}=1.0
     [Documentation]    Return number of seconds typical for given scale variables.
     BuiltIn.Run_Keyword_And_Return    BuiltIn.Evaluate    ${coefficient} * ${CONNECTION_SLEEP} * ${CONFIGURED_DEVICES_LIMIT}
+
+Change_Entity_Ownership_Leader_If_Needed
+    [Arguments]    ${topology_config_leader_idx}
+    ${entity_ownership_leader_index_old}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=entity-ownership
+    ...    shard_type=operational
+    BuiltIn.Return_From_Keyword_If    ${topology_config_leader_idx} != ${entity_ownership_leader_index_old}     ${entity_ownership_leader_index_old}
+    ${idx}=    Collections.Get_From_List    ${candidates}    0
+    ClusterAdmin.Make_Leader_Local    ${idx}    entity-ownership    operational
+    ${entity_ownership_leader_index}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=entity-ownership
+    ...    shard_type=operational
+    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${entity_ownership_leader_index_old}    ${entity_ownership_leader_index}
+    BuiltIn.Return_From_Keyword    ${entity_ownership_leader_index}
