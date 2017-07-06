@@ -6,9 +6,6 @@
 
 # Place the suites in run order:
 
-# Install feature in controlled way.
-integration/test/csit/suites/netconf/clusteringscale/staggered_install.robot
-
 # Make sure ODL is ready.
 integration/test/csit/suites/netconf/ready
 
@@ -19,7 +16,6 @@ integration/test/csit/suites/netconf/clusteringscale/topology_owner_ha.robot
 
 # Reset in order to run more suites.
 integration/test/csit/suites/test/cluster_reset.robot
-integration/test/csit/suites/netconf/clusteringscale/staggered_install.robot
 integration/test/csit/suites/netconf/ready
 
 # More suites.
