@@ -26,7 +26,7 @@ Library           String    # for Get_Regexp_Matches
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
-Resource          ${CURDIR}/../../../libraries/RemeoteBash.robot
+Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
@@ -54,13 +54,12 @@ Locate_Managers
     BuiltIn.Set_Suite_Variable    \${topology_config_leader_ip}
     ${topology_config_leader_http_session} =    Resolve_Http_Session_For_Member    ${topology_config_leader_index}
     BuiltIn.Set_Suite_Variable    \${topology_config_leader_http_session}
-    ${netconf_manager_owner_index}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    ClusterManagement.Get_Owner_And_Candidates_For_Type_And_Id    type=topology-netconf
-    ...    id=/general-entity:entity[general-entity:name='topology-manager']    member_index=1
-    BuiltIn.Set_Suite_Variable    \${netconf_manager_owner_index}
-    ${netconf_manager_owner_ip} =    ClusterManagement.Resolve_Ip_Address_For_Member    ${netconf_manager_owner_index}
-    BuiltIn.Set_Suite_Variable    \${netconf_manager_owner_ip}
-    ${netconf_manager_owner_http_session} =    Resolve_Http_Session_For_Member    ${netconf_manager_owner_index}
-    BuiltIn.Set_Suite_Variable    \${netconf_manager_owner_http_session}
+    ${entity_ownership_leader_index}    Change_Entity_Ownership_Leader_If_Needed    ${topology_config_leader_index}
+    BuiltIn.Set_Suite_Variable    \${entity_ownership_leader_index}
+    ${entity_ownership_leader_ip} =    ClusterManagement.Resolve_Ip_Address_For_Member    ${entity_ownership_leader_index}
+    BuiltIn.Set_Suite_Variable    \${entity_ownership_leader_ip}
+    ${entity_ownership_leader_http_session} =    Resolve_Http_Session_For_Member    ${entity_ownership_leader_index}
+    BuiltIn.Set_Suite_Variable    \${entity_ownership_leader_http_session}
 
 Start_Testtool
     [Documentation]    Deploy and start test tool on its separate SSH session.
@@ -75,7 +74,7 @@ Start_Configurer
     ${log_filename} =    Utils.Get_Log_File_Name    configurer
     BuiltIn.Set_Suite_Variable    \${log_filename}
     # TODO: Should things like restconf port/user/password be set from Variables?
-    ${command} =    BuiltIn.Set_Variable    python configurer.py --odladdress ${netconf_manager_owner_ip} --deviceaddress ${TOOLS_SYSTEM_IP} --devices ${DEVICE_SET_SIZE} --disconndelay ${CONFIGURED_DEVICES_LIMIT} --basename ${DEVICE_BASE_NAME} --connsleep ${CONNECTION_SLEEP} &> "${log_filename}"
+    ${command} =    BuiltIn.Set_Variable    python configurer.py --odladdress ${entity_ownership_leader_ip} --deviceaddress ${TOOLS_SYSTEM_IP} --devices ${DEVICE_SET_SIZE} --disconndelay ${CONFIGURED_DEVICES_LIMIT} --basename ${DEVICE_BASE_NAME} --connsleep ${CONNECTION_SLEEP} &> "${log_filename}"
     SSHLibrary.Write    ${command}
     ${status}    ${text} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${text}
@@ -100,7 +99,7 @@ Reboot_Topology_Leader
 
 Stop_Configurer
     [Documentation]    Write ctrl+c, download the log, read its contents and match expected patterns.
-    RemeoteBash.Write_Bare_Ctrl_C
+    RemoteBash.Write_Bare_Ctrl_C
     ${output} =    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${output}
     SSHLibrary.Get_File    ${log_filename}
@@ -147,12 +146,12 @@ Count_Substring_Occurence
 
 Get_Config_Device_Count
     [Documentation]    Count number of items in config netconf topology matching ${DEVICE_BASE_NAME}
-    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf    session=${netconf_manager_owner_http_session}
+    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf    session=${entity_ownership_leader_http_session}
     BuiltIn.Run_Keyword_And_Return    Count_Substring_Occurence    substring=${DEVICE_BASE_NAME}    main_string=${item_data}
 
 Get_Operational_Device_Count
     [Documentation]    Count number of items in operational netconf topology matching ${DEVICE_BASE_NAME}
-    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri    ${OPERATIONAL_API}/network-topology:network-topology/topology/topology-netconf    session=${netconf_manager_owner_http_session}
+    ${item_data} =    TemplatedRequests.Get_As_Json_From_Uri    ${OPERATIONAL_API}/network-topology:network-topology/topology/topology-netconf    session=${entity_ownership_leader_http_session}
     BuiltIn.Run_Keyword_And_Return    Count_Substring_Occurence    substring=${DEVICE_BASE_NAME}    main_string=${item_data}
 
 Check_Config_Items_Lower_Bound
@@ -169,3 +168,15 @@ Get_Typical_Time
     [Arguments]    ${coefficient}=1.0
     [Documentation]    Return number of seconds typical for given scale variables.
     BuiltIn.Run_Keyword_And_Return    BuiltIn.Evaluate    ${coefficient} * ${CONNECTION_SLEEP} * ${CONFIGURED_DEVICES_LIMIT}
+
+Change_Entity_Ownership_Leader_If_Needed
+    [Arguments]    ${topology_config_leader_idx}
+    ${entity_ownership_leader_index_old}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=entity-ownership
+    ...    shard_type=operational
+    BuiltIn.Return_From_Keyword_If    ${topology_config_leader_idx} != ${entity_ownership_leader_index_old}    ${entity_ownership_leader_index_old}
+    ${idx}=    Collections.Get_From_List    ${candidates}    0
+    ClusterAdmin.Make_Leader_Local    ${idx}    entity-ownership    operational
+    ${entity_ownership_leader_index}    ${candidates} =    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=entity-ownership
+    ...    shard_type=operational
+    BuiltIn.Should_Not_Be_Equal_As_Numbers    ${entity_ownership_leader_index_old}    ${entity_ownership_leader_index}
+    BuiltIn.Return_From_Keyword    ${entity_ownership_leader_index}
