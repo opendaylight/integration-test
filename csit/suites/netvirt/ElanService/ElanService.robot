@@ -2,7 +2,9 @@
 Documentation     Test suite to validate elan service functionality in ODL environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       Elan SuiteSetup
+Suite Setup       BuiltIn.Run Keywords    Get OvsDebugInfo
+...               AND    Elan SuiteSetup
+...               AND    Get OvsDebugInfo
 Suite Teardown    Elan SuiteTeardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
@@ -70,7 +72,7 @@ Verify Datapath After Recreate VM Instance
     Log    ReCreate VM and verify flow updated
     Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[0]}    ${VM_INSTANCES_ELAN1[0]}    ${OS_COMPUTE_1_IP}
     Wait Until Keyword Succeeds    30s    10s    Verify VM Is ACTIVE    ${VM_INSTANCES_ELAN1[0]}
-    ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Wait Until Keyword Succeeds    120s    10s    Collect VM IP Addresses    true
+    ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN1}
     Log    ${VM_IP_ELAN1}
     Set Suite Variable    ${VM_IP_ELAN1}
@@ -117,7 +119,7 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     # collected immediately after when that step fails, as is the nature of robot test cases.
     Reboot Nova VM    ${VM_INSTANCES_ELAN2[0]}
     Wait Until Keyword Succeeds    30s    10s    Verify VM Is ACTIVE    ${VM_INSTANCES_ELAN2[0]}
-    ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    120s    10s    Collect VM IP Addresses    true
+    ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN2}
     Log    ${VM_IP_ELAN2}
     Should Not Contain    ${VM_IP_ELAN2}    None
@@ -140,6 +142,7 @@ Elan SuiteSetup
 Elan SuiteTeardown
     [Documentation]    Elan suite teardown
     SingleElan SuiteTeardown
+    Get OvsDebugInfo
     Close All Connections
 
 SingleElan SuiteTeardown
@@ -165,7 +168,7 @@ SingleElan SuiteSetup
     : FOR    ${VM}    IN    @{VM_INSTANCES_ELAN1}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
     Log    Get IP address for ELAN1
-    Wait Until Keyword Succeeds    120s    10s    Collect VM IP Addresses    true    @{VM_INSTANCES_ELAN1}
+    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true    @{VM_INSTANCES_ELAN1}
     ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Collect VM IP Addresses    false    @{VM_INSTANCES_ELAN1}
     Log    ${VM_IP_ELAN1}
     Set Suite Variable    ${VM_IP_ELAN1}
@@ -191,11 +194,11 @@ MultipleElan Testsuite Setup
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_ELAN2}    @{VM_INSTANCES_ELAN3}
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
-    ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    120s    10s    Collect VM IP Addresses    true
+    ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN2}
     Log    ${VM_IP_ELAN2}
     Set Suite Variable    ${VM_IP_ELAN2}
-    ${VM_IP_ELAN3}    ${DHCP_IP_ELAN3}    Wait Until Keyword Succeeds    120s    10s    Collect VM IP Addresses    true
+    ${VM_IP_ELAN3}    ${DHCP_IP_ELAN3}    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN3}
     Log    ${VM_IP_ELAN3}
     Set Suite Variable    ${VM_IP_ELAN3}
