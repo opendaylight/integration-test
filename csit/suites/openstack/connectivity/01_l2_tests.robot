@@ -59,11 +59,11 @@ Add Ssh Allow Rule
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
@@ -144,7 +144,47 @@ Connectivity Tests From Vm Instance3 In l2_network_2
 
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names.
-    Delete Vm Instance    MyFirstInstance_1
+    Delete Vm Instance    MyThirdInstance_2
+
+Ping Vm Instance1 In l2_network_1
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Ping Vm From DHCP Namespace    l2_network_1    @{NET1_VM_IPS}[0]
+
+Ping Vm Instance2 In l2_network_1
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Ping Vm From DHCP Namespace    l2_network_1    @{NET1_VM_IPS}[1]
+
+Ping Vm Instance3 In l2_network_1
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Ping Vm From DHCP Namespace    l2_network_1    @{NET1_VM_IPS}[2]
+
+Ping Vm Instance1 In l2_network_2
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Ping Vm From DHCP Namespace    l2_network_2    @{NET2_VM_IPS}[0]
+
+Ping Vm Instance2 In l2_network_2
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Ping Vm From DHCP Namespace    l2_network_2    @{NET2_VM_IPS}[1]
+
+Connectivity Tests From Vm Instance1 In l2_network_1
+    [Documentation]    Login to the vm instance and test some operations
+    Test Operations From Vm Instance    l2_network_1    @{NET1_VM_IPS}[0]    ${NET1_VM_IPS}
+
+Connectivity Tests From Vm Instance2 In l2_network_1
+    [Documentation]    Login to the vm instance and test operations
+    Test Operations From Vm Instance    l2_network_1    @{NET1_VM_IPS}[1]    ${NET1_VM_IPS}
+
+Connectivity Tests From Vm Instance3 In l2_network_1
+    [Documentation]    Login to the vm instance and test operations
+    Test Operations From Vm Instance    l2_network_1    @{NET1_VM_IPS}[2]    ${NET1_VM_IPS}
+
+Connectivity Tests From Vm Instance1 In l2_network_2
+    [Documentation]    Login to the vm instance and test operations
+    Test Operations From Vm Instance    l2_network_2    @{NET2_VM_IPS}[0]    ${NET2_VM_IPS}
+
+Connectivity Tests From Vm Instance2 In l2_network_2
+    [Documentation]    Logging to the vm instance using generated key pair.
+    Test Operations From Vm Instance    l2_network_2    @{NET2_VM_IPS}[1]    ${NET2_VM_IPS}
 
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
