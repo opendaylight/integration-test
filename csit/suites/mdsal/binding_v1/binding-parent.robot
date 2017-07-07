@@ -27,6 +27,8 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     Teardown_Test
 Default Tags      1node    binding_v1    critical
 Library           SSHLibrary
+Library           String
+Library           XML
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
@@ -63,6 +65,10 @@ Run_Maven
     [Documentation]    Create pom file with correct version and run maven with some performance switches.
     ${final_pom} =    TemplatedRequests.Resolve_Text_From_Template_File    folder=${CURDIR}/../../../variables/mdsal/binding_v1    file_name=binding_template.xml    mapping={"BINDING_PARENT_VERSION":"${binding_parent_version}"}
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    echo '${final_pom}' > '${POM_FILENAME}'
+    ${autorelease_dir} =    String.Get_Regexp_Matches    ${BUNDLE_URL}    (autorelease-[0-9]+)
+    BuiltIn.Run_Keyword_If    ${autorelease_dir} != []    Add_Autorelease_Repository
+
+sed -i 's/repositories\\/public/repositories\\/@{autorelease_dir}[0]/g' settings.xml
     NexusKeywords.Run_Maven    pom_file=${POM_FILENAME}    log_file=${MAVEN_OUTPUT_FILENAME}
     # TODO: Figure out patters to identify various known Bug symptoms.
 
@@ -86,3 +92,35 @@ Teardown_Test
     [Documentation]    Make sure CWD is set back to dot, then proceed with SetupUtils stuff.
     SSHKeywords.Set_Cwd    .
     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
+
+Add_Autorelease_Repository
+    [Documentation]    Add autorelease repository into the settingx.xml file.
+    SSHLibrary.Get_File    settings.xml
+    ${autorelease_dir} =    String.Get_Regexp_Matches    ${BUNDLE_URL}    (autorelease-[0-9]+)
+    ${root} =    XML.Parse_Xml    settings.xml
+    ${profiles} =    Xml.Get_Elements    ${root}    xpath=profiles/profile
+    : FOR    ${profile}    IN    @{profiles}
+    \    ${id} =    XML.Get_Element_Text    ${profile}    xpath=id
+    \    BuiltIn.Exit_For_Loop_If    "${id}" == "opendaylight-release"
+    BuiltIn.Should_Be_Equal_As_Strings    ${id}    opendaylight-release
+    ${profile} =    Xml.Copy_Element    ${profile}
+    XML.Set_Element_Text    ${profile}    opendaylight-autorelease    xpath=id
+    XML.Remove_Element    ${profile}    xpath=pluginRepositories
+    ${repository} =    XML.Get_Element    ${profile}    xpath=repositories/repository
+    ${url} =    XML.Get_Element_Text    ${repository}    xpath=url
+    ${url} =    String.Replace_String    ${url}    public    @{autorelease_dir}[0]
+    XML.Set_Element_Text    ${repository}    ${url}    xpath=url
+    XML.Set_Element_Text    ${repository}    opendaylight-autorelease-mirror    xpath=id
+    XML.Set_Element_Text    ${repository}    opendaylight-autorelease-mirror    xpath=name
+    #XML.Add_Element    ${profile}    ${repository}    xpath=repositories
+    XML.Log_Element    ${repository}
+    XML.Log_Element    ${profile}
+    XML.Log_Element    ${root}
+    XML.Add_Element    ${root}    ${profile}    xpath=profiles
+    ${profiles} =    XML.Get_Elements    ${root}    xpath=activeProfiles/activeProfile
+    ${profile} =    XML.Copy_Element    @{profiles}[0]
+    XML.Set_Element_Text    ${profile}    opendaylight-autorelease
+    XML.Add_Element    ${root}    ${profile}    xpath=activeProfiles
+    ${content} =    XML.Log_Element    ${root}
+    XML.Save_Xml    ${root}    settings.xml
+    SSHLibrary.Put_File    settings.xml
