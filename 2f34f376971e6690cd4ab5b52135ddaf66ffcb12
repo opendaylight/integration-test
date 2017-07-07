@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_e7ca55a0",
+        "filename": "csit/suites/netconf/clusteringscale/topology_owner_ha.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-07T10:24:58Z",
+      "side": 1,
+      "message": "entity ownership shard",
+      "range": {
+        "startLine": 23,
+        "startChar": 36,
+        "endLine": 23,
+        "endChar": 67
+      },
+      "revId": "2f34f376971e6690cd4ab5b52135ddaf66ffcb12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_07c16980",
+        "filename": "csit/suites/netconf/clusteringscale/topology_owner_ha.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-07T10:24:58Z",
+      "side": 1,
+      "message": "I am not sure Leader and Owner are correct labels here. Wat about Topology (leader) and Ownership (or Entity)?",
+      "range": {
+        "startLine": 23,
+        "startChar": 27,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "2f34f376971e6690cd4ab5b52135ddaf66ffcb12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_67be6501",
+        "filename": "csit/suites/netconf/clusteringscale/topology_owner_ha.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-07T10:24:58Z",
+      "side": 1,
+      "message": "Rename.",
+      "range": {
+        "startLine": 113,
+        "startChar": 7,
+        "endLine": 113,
+        "endChar": 20
+      },
+      "revId": "2f34f376971e6690cd4ab5b52135ddaf66ffcb12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_873c3995",
+        "filename": "csit/suites/netconf/clusteringscale/topology_owner_ha.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-07T10:24:58Z",
+      "side": 1,
+      "message": "Add TODOs to move keywords to a common resource. For example this could go to ShardStability.",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 40
+      },
+      "revId": "2f34f376971e6690cd4ab5b52135ddaf66ffcb12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
