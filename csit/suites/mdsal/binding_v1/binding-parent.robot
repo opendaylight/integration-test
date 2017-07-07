@@ -27,6 +27,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     Teardown_Test
 Default Tags      1node    binding_v1    critical
 Library           SSHLibrary
+Library           ${CURDIR}/../../../libraries/MdsalUtils.py
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
@@ -63,6 +64,8 @@ Run_Maven
     [Documentation]    Create pom file with correct version and run maven with some performance switches.
     ${final_pom} =    TemplatedRequests.Resolve_Text_From_Template_File    folder=${CURDIR}/../../../variables/mdsal/binding_v1    file_name=binding_template.xml    mapping={"BINDING_PARENT_VERSION":"${binding_parent_version}"}
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    echo '${final_pom}' > '${POM_FILENAME}'
+    ${autorelease_dir} =     MdsalUtils.Get_Autorelease_Dir    ${BUNDLE_URL}
+    BuiltIn.Run_Keyword_If    ${autorelease_dir} != ${NONE}    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    sed -i 's/repositories\/public/repositories\/${autorelease_dir}/g' settings.xml
     NexusKeywords.Run_Maven    pom_file=${POM_FILENAME}    log_file=${MAVEN_OUTPUT_FILENAME}
     # TODO: Figure out patters to identify various known Bug symptoms.
 
