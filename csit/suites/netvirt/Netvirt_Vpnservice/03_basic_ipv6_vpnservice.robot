@@ -31,9 +31,7 @@ Resource          ../../../variables/netvirt/Variables.robot
 @{ROUTERS}        ROUTER_1_IPV6
 @{EXTRA_NW_IP}    2001:db9:cafe:d::10    2001:db9:abcd:d::20
 @{EXTRA_NW_SUBNET}    2001:db9:cafe:d::/64    2001:db9:abcd:d::/64
-${NET1_ADDR_POOL}    --allocation-pool start=2001:db8:0:2::2,end=2001:db8:0:2:ffff:ffff:ffff:fffe
-${NET2_ADDR_POOL}    --allocation-pool start=2001:db8:0:3::2,end=2001:db8:0:3:ffff:ffff:ffff:fffe
-${SECURITY_GROUP}    sg-vpnservice-ipv6
+${SECURITY_GROUP}    sg-ipv6-vpnservice
 ${UPDATE_NETWORK}    UpdateNetwork
 ${UPDATE_SUBNET}    UpdateSubnet
 ${UPDATE_PORT}    UpdatePort
@@ -54,8 +52,8 @@ Create Neutron Networks
 
 Create Neutron Subnets
     [Documentation]    Create two subnets for previously created networks
-    ${net1_additional_args}=    Catenate    --ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mode=slaac ${NET1_ADDR_POOL}
-    ${net2_additional_args}=    Catenate    --ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mode=slaac ${NET2_ADDR_POOL}
+    ${net1_additional_args}=    Catenate    --ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mode=slaac ${NET1_IPV6_ADDR_POOL}
+    ${net2_additional_args}=    Catenate    --ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mode=slaac ${NET2_IPV6_ADDR_POOL}
     Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNETS_CIDR[0]}    ${net1_additional_args}
     Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNETS_CIDR[1]}    ${net2_additional_args}
     ${SUB_LIST}    List Subnets
