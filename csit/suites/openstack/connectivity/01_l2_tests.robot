@@ -25,23 +25,9 @@ Resource          ../../../variables/netvirt/Variables.robot
 ${network1_vlan_id}    1235
 
 *** Test Cases ***
-Create VLAN Network (l2_network_1)
-    [Documentation]    Create Network with neutron request.
-    # in the case that the controller under test is using legacy netvirt features, vlan segmentation is not supported,
-    # and we cannot create a vlan network. If those features are installed we will instead stick with vxlan.
-    : FOR    ${feature_name}    IN    @{legacy_feature_list}
-    \    ${feature_check_status}=    Run Keyword And Return Status    Verify Feature Is Installed    ${feature_name}
-    \    Exit For Loop If    '${feature_check_status}' == 'True'
-    Run Keyword If    '${feature_check_status}' == 'True'    Create Network    @{NETWORKS_NAME}[0]
-    ...    ELSE    Create Network    @{NETWORKS_NAME}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${network1_vlan_id}
-
 Create VXLAN Network (l2_network_2)
     [Documentation]    Create Network with neutron request.
     Create Network    @{NETWORKS_NAME}[1]
-
-Create Subnets For l2_network_1
-    [Documentation]    Create Sub Nets for the Networks with neutron request.
-    Create SubNet    @{NETWORKS_NAME}[0]    @{SUBNETS_NAME}[0]    @{SUBNETS_RANGE}[0]
 
 Create Subnets For l2_network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
@@ -49,7 +35,6 @@ Create Subnets For l2_network_2
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
-    Neutron Security Group Create    csit
     Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
     Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
     Neutron Security Group Rule Create    csit    direction=ingress    protocol=icmp
@@ -162,20 +147,18 @@ Delete Vm Instances In l2_network_2
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get Test Teardown Debugs
 
-Delete Sub Networks In l2_network_1
-    [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    Delete SubNet    l2_subnet_1
-
 Delete Sub Networks In l2_network_2
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
     Delete SubNet    l2_subnet_2
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Delete Network    ${NetworkElement}
+    Delete Network    l2_network_2
 
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
     ${feature_check_status}=    Run Keyword And Return Status    Verify Feature Is Installed    odl-vtn-manager-neutron
     Run Keyword If    '${feature_check_status}' != 'True'    Verify Flows Are Cleaned Up On All OpenStack Nodes
+
+Clean up OVS
+    Clean All Ovs Nodes 
