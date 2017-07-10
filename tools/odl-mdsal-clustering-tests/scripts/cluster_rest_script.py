@@ -224,13 +224,15 @@ def _request_sender(thread_id, preparing_function, auth, in_queue=None,
                 logger.error("No response from %s", odl_ip)
                 rc = 99
             else:
-                logger.debug("%s %s", rsp.request, rsp.request.url)
-                logger.debug("Headers %s:", rsp.request.headers)
-                logger.debug("Body: %s", rsp.request.body)
-                logger.debug("Response: %s", rsp.text)
-                logger.debug("%s %s", rsp, rsp.reason)
                 counter[rsp.status_code] += 1
                 rc = rsp.status_code
+                lvl = logging.INFO if rc > 299 else logging.DEBUG
+                logger.log(lvl, "Request started at {} finished with following detais".format(time.ctime(start_time)))
+                logger.log(lvl, "%s %s", rsp.request, rsp.request.url)
+                logger.log(lvl, "Headers %s:", rsp.request.headers)
+                logger.log(lvl, "Body: %s", rsp.request.body)
+                logger.log(lvl, "Response: %s", rsp.text)
+                logger.log(lvl, "%s %s", rsp, rsp.reason)
             if rc not in retry_rcs:
                 break
             time_now = time.time()
