@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_330caf42",
+        "filename": "csit/libraries/MdsalUtils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-10T10:26:07Z",
+      "side": 1,
+      "message": "You do not need Python library for this, it would be a two-liner using [0]. If you want a wrapper keyword, NexusKeywords will be good enough place to host it.\n\n[0] http://robotframework.org/robotframework/latest/libraries/String.html#Get%20Regexp%20Matches",
+      "range": {
+        "startLine": 20,
+        "startChar": 11,
+        "endLine": 20,
+        "endChar": 79
+      },
+      "revId": "cc7078d188973d375723d9105b138e5a655ee948",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
