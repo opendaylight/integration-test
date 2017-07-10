@@ -96,7 +96,8 @@ Clean_Leader_Shutdown_Test_Templ
     ${producer_idx_as_list} =    BuiltIn.Create_List    ${producer_idx}
     MdsalLowlevelPy.Start_Write_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}    chained_flag=${CHAINED_TX}
     BuiltIn.Sleep    ${SLEEP_AFTER_TRANSACTIONS_INIT}
-    MdsalLowlevel.Shutdown_Shard_Replica    ${actual_leader}    ${shard_name}
+    BuiltIn.Comment    Bug 8794 workaround: Use remove-shard-replica until shutdown starts behaving properly.
+    ClusterAdmin.Remove_Shard_Replica    ${actual_leader}    ${shard_name}    member-${actual_leader}    ${shard_type}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${actual_leader}    ${shard_name}    ${shard_type}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     Check_Status_Of_First_Response    ${resp_list}
@@ -111,7 +112,8 @@ Clean_Leader_Shutdown_PrefBasedShard_Test_Templ
     ${producer_idx_as_list} =    BuiltIn.Create_List    ${producer_idx}
     MdsalLowlevelPy.Start_Produce_Transactions_On_Nodes    ${producer_ip_as_list}    ${producer_idx_as_list}    ${ID_PREFIX}    ${TRANSACTION_PRODUCTION_TIME}    ${TRANSACTION_RATE_1K}
     BuiltIn.Sleep    ${SLEEP_AFTER_TRANSACTIONS_INIT}
-    MdsalLowlevel.Shutdown_Prefix_Shard_Replica    ${actual_leader}    ${shard_name}
+    BuiltIn.Comment    Bug 8794 workaround: Use remove-shard-replica until shutdown starts behaving properly.
+    ClusterAdmin.Remove_Prefix_Shard_Replica    ${actual_leader}    ${shard_name}    member-${actual_leader}    ${shard_type}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Verify_Shard_Replica_Not_Present    ${actual_leader}    ${shard_name}!!    ${shard_type}
     ${resp_list} =    MdsalLowlevelPy.Wait_For_Transactions
     Check_Status_Of_First_Response    ${resp_list}
