@@ -179,3 +179,6 @@ Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
     ${feature_check_status}=    Run Keyword And Return Status    Verify Feature Is Installed    odl-vtn-manager-neutron
     Run Keyword If    '${feature_check_status}' != 'True'    Verify Flows Are Cleaned Up On All OpenStack Nodes
+
+Clean up OVS
+    Clean All Ovs Nodes 

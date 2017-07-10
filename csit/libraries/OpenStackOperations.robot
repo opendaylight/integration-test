@@ -592,6 +592,25 @@ Get DumpFlows And Ovsconfig
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
 
+
+Clean OVS before next run
+    [Arguments]    ${openstack_node_ip}
+    SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    Write Commands Until Expected Prompt    sudo ovs-vsctl del-manager     ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-vsctl del-br br-int    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo rm -rf /etc/openvswitch/conf.db     ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_1_IP}:6640 tcp:${ODL_SYSTEM_2_IP}:6640 tcp:${ODL_SYSTEM_3_IP}:6640     ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-vsctl show     ${DEFAULT_LINUX_PROMPT_STRICT}
+
+
+Clean All Ovs Nodes
+    Clean OVS before next run      ${OS_CONTROL_NODE_IP}
+    Clean OVS before next run      ${OS_COMPUTE_1_IP}
+    Clean OVS before next run      ${OS_COMPUTE_2_IP}
+
+
 Get Karaf Log Type From Test Start
     [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
     ...    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
