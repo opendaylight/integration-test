@@ -31,7 +31,7 @@ ${external_subnet}    10.10.10.0/24
 
 *** Test Cases ***
 tempest.api.network
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}    timeout=900s
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
