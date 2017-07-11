@@ -32,7 +32,7 @@ Run Tempest Tests
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd ${tempest_directory}
     # From Ocata and moving forward, we can replace 'ostestr' with 'tempest run'
-    ${results}=    Write Commands Until Prompt    ostestr --regex ${tempest_regex} -b ${exclusion_file}    timeout=${timeout}
+    ${results}=    Write Commands Until Prompt    ostestr --pdb --regex ${tempest_regex} -b ${exclusion_file}    timeout=${timeout}
     Log    ${results}
     # Save stdout to file
     Create File    tempest_output_${tempest_regex}.log    data=${results}
