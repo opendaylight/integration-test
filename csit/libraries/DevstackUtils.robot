@@ -17,7 +17,7 @@ ${default_devstack_prompt_timeout}    10s
 ${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to override if desired
 
 *** Keywords ***
-Run Tempest Tests
+Run Tempest Tests Python
     [Arguments]    ${tempest_regex}    ${exclusion_file}=/dev/null    ${tempest_conf}=""    ${tempest_directory}=/opt/stack/tempest    ${timeout}=420s
     [Documentation]    Execute the tempest tests.
     Return From Keyword If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}
@@ -32,9 +32,22 @@ Run Tempest Tests
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd ${tempest_directory}
     # From Ocata and moving forward, we can replace 'ostestr' with 'tempest run'
-    ${results}=    Write Commands Until Prompt    ostestr --regex ${tempest_regex} -b ${exclusion_file}    timeout=${timeout}
+    ${connection_details}=    SSHLibrary.Get Connection
+    ${previous_prompt}=    Set Variable    ${connection_details.prompt}
+    Modify Config In File On Existing SSH Connection    ${tempest_conf}    set    DEFAULT    pause_teardown    True
+    SSHLibrary.Set Client Configuration    timeout=${timeout}
+    SSHLibrary.Read
+    SSHLibrary.Write    python -m testtools.run ${tempest_regex}
+    ${output}=    SSHLibrary.Read Until Regexp    ${previous_prompt}|pdb.set_trace()
+    Log    ${output}
+    Show Debugs
+    Get Test Teardown Debugs
+    SSHLibrary.Write    quit
+    ${results}=    SSHLibrary.Read Until Regexp    ${previous_prompt}|pdb.set_trace()
     Log    ${results}
-    # Save stdout to file
+    SSHLibrary.Write    quit
+    ${output}=    SSHLibrary.Read Until Prompt
+    Log    ${output}
     Create File    tempest_output_${tempest_regex}.log    data=${results}
     # output tempest generated log file which may have different debug levels than what stdout would show
     # FIXME: having the INFO level tempest logs is helpful as it gives details like the UUIDs of nouns used in the
