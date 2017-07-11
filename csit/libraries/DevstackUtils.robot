@@ -22,19 +22,30 @@ Run Tempest Tests
     [Documentation]    Execute the tempest tests.
     Return From Keyword If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}
     Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    ${tempest_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     # There seems to be a bug in the mitaka version of os-testr that does not allow --regex to work in conjunction
     # with a blacklist-file. Upgrading with pip should resolve this. This can probably go away once mitaka is no
     # longer tested in this environment. But, while it's being tested the mitaka devstack setup will be bringing
     # in this broken os-testr, so we manually upgrade here.
-    Write Commands Until Prompt    sudo pip install os-testr --upgrade    timeout=120s
+    # Write Commands Until Prompt    sudo pip install os-testr --upgrade    timeout=120s
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd ${tempest_directory}
     # From Ocata and moving forward, we can replace 'ostestr' with 'tempest run'
-    ${results}=    Write Commands Until Prompt    ostestr --regex ${tempest_regex} -b ${exclusion_file}    timeout=${timeout}
+    Modify Config In File On Existing SSH Connection    ${tempest_conf}    set    DEFAULT    pause_teardown    True
+    SSHLibrary.Read
+    SSHLibrary.Set Client Configuration    timeout=300s
+    SSHLibrary.Write    python -m testtools.run ${tempest_regex}
+    ${output}=    SSHLibrary.Read Until Regexp    ${DEFAULT_LINUX_PROMPT_STRICT}|pdb.set_trace()
+    Log    ${output}
+    Show Debugs
+    Get Test Teardown Debugs
+    SSHLibrary.Write    quit
+    ${results}=    SSHLibrary.Read Until Regexp    ${DEFAULT_LINUX_PROMPT_STRICT}|pdb.set_trace()
     Log    ${results}
-    # Save stdout to file
+    SSHLibrary.Write    quit
+    ${output}=    SSHLibrary.Read Until Prompt
+    Log    ${output}
     Create File    tempest_output_${tempest_regex}.log    data=${results}
     # output tempest generated log file which may have different debug levels than what stdout would show
     # FIXME: having the INFO level tempest logs is helpful as it gives details like the UUIDs of nouns used in the
