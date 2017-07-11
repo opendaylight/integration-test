@@ -32,6 +32,7 @@ Run Tempest Tests
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd ${tempest_directory}
     # From Ocata and moving forward, we can replace 'ostestr' with 'tempest run'
+    Modify Config In File On Existing SSH Connection    ${tempest_conf}    set    DEFAULT    pause_teardown    True
     ${results}=    Write Commands Until Prompt    ostestr --regex ${tempest_regex} -b ${exclusion_file}    timeout=${timeout}
     Log    ${results}
     # Save stdout to file
