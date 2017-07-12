@@ -1,0 +1,8 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+1: Sam Hague <shague@redhat.com>
+Code-Review+2: Luis Gomez <ecelgp@gmail.com>
+Submitted-by: Luis Gomez <ecelgp@gmail.com>
+Submitted-at: Wed, 12 Jul 2017 22:26:51 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/60260
+Project: integration/test
+Branch: refs/heads/master
