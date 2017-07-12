@@ -74,11 +74,7 @@ BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     ${respjson}    RequestsLibrary.To Json    ${oper_int.content}    pretty_print=True
     Log    ${respjson}
     Log    "Value of BFD monitoring interval is getting updated"
-    ${oper_int}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
-    ${oper_int}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
-    ${respjson}    RequestsLibrary.To Json    ${oper_int.content}    pretty_print=True
-    Log    ${respjson}
-    Should Contain    ${respjson}    5000
+    Wait Until Keyword Succeeds    30s    5s    Verify tunnel monitor Operational
     ${config_int}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/
     ${respjson}    RequestsLibrary.To Json    ${config_int.content}    pretty_print=True
     Log    ${respjson}
@@ -163,3 +159,10 @@ Verify Tunnel Monitoring Is On
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Log    ${output}
     Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
+
+Verify tunnel monitor Operational
+    ${oper_int}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
+    ${oper_int}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
+    ${respjson}    RequestsLibrary.To Json    ${oper_int.content}    pretty_print=True
+    Log    ${respjson}
+    Should Contain    ${respjson}    5000
