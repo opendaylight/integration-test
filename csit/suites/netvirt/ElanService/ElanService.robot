@@ -141,8 +141,8 @@ Elan SuiteSetup
 
 Elan SuiteTeardown
     [Documentation]    Elan suite teardown
-    SingleElan SuiteTeardown
     Get OvsDebugInfo
+    SingleElan SuiteTeardown
     Close All Connections
 
 SingleElan SuiteTeardown
