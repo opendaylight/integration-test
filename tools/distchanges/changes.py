@@ -89,8 +89,16 @@ class Changes(object):
 
         return time.strftime("%Y-%m-%d %H:%M:%S", utc)
 
+    @staticmethod
+    def print_safe_encoding(string):
+        if sys.stdout.encoding is None:
+            # just print(string) could still throw a UnicodeEncodeError sometimes so casting string to unicode
+            print(unicode(string))
+        else:
+            print(string.encode(sys.stdout.encoding, 'replace'))
+
     def pretty_print_gerrits(self, project, gerrits):
-        print("")
+        print("shague test 2")
         if project:
             print("%s" % project)
         print("i  grantedOn           lastUpdatd          chang subject")
@@ -100,7 +108,7 @@ class Changes(object):
             return
         for i, gerrit in enumerate(gerrits):
             if isinstance(gerrit, dict):
-                print("%02d %19s %19s %5s %s"
+                self.print_safe_encoding("%02d %19s %19s %5s %s"
                       % (i,
                          self.epoch_to_utc(gerrit["grantedOn"]) if "grantedOn" in gerrit else 0,
                          self.epoch_to_utc(gerrit["lastUpdated"]) if "lastUpdated" in gerrit else 0,
