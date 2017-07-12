@@ -16,6 +16,7 @@ Resource          ../../libraries/DataModels.robot
 Resource          ../../libraries/Utils.robot
 Resource          ../../libraries/VpnOperations.robot
 Resource          ../../libraries/KarafKeywords.robot
+Resource          ../../libraries/OVSDB.robot
 
 *** Variables ***
 @{itm_created}    TZA
@@ -75,24 +76,17 @@ BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     Log    ${respjson}
     Log    "Value of BFD monitoring interval is getting updated"
     ${oper_int}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
-    ${oper_int}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
-    ${respjson}    RequestsLibrary.To Json    ${oper_int.content}    pretty_print=True
-    Log    ${respjson}
-    Should Contain    ${respjson}    5000
-    ${config_int}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/
-    ${respjson}    RequestsLibrary.To Json    ${config_int.content}    pretty_print=True
-    Log    ${respjson}
-    Should Contain    ${respjson}    5000
+    ${Bfd_updated_value}=    Create List    5000
+    Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
+    Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
     SSHLibrary.Switch Connection    ${conn_id_1}
     Execute Command    sudo ovs-vsctl del-port BR1 tap8ed70586-6c
-    ${tun_name}    Execute Command    sudo ovs-vsctl list-ports BR1
-    ${BFD_int_verification}    Execute Command    sudo ovs-vsctl list interface ${tun_name}
-    Should Contain    ${BFD_int_verification}    5000
+    ${tun_name}    Wait Until Keyword Succeeds    20s    5s    Ovs Tunnel Get    list interface ${Bridge-1}
+    Wait Until Keyword Succeeds    20s    5s    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    ovs_system=${TOOLS_SYSTEM_IP}    5000
     SSHLibrary.Switch Connection    ${conn_id_2}
-    ${tun_name}    Execute Command    sudo ovs-vsctl list-ports BR2
-    ${BFD_int_verification}    Execute Command    sudo ovs-vsctl list interface ${tun_name}
-    Should Contain    ${BFD_int_verification}    5000
+    ${tun_name}    Wait Until Keyword Succeeds    20s    5s    Ovs Tunnel Get    list interface ${Bridge-2}
+    Wait Until Keyword Succeeds    20s    5s    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    ovs_system=${TOOLS_SYSTEM_IP}    5000
 
 BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     [Documentation]    Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
@@ -163,3 +157,9 @@ Verify Tunnel Monitoring Is On
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Log    ${output}
     Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
+
+Ovs Tunnel Get
+    [Arguments]    ${bridge}
+    ${tun_name}    Execute Command    sudo ovs-vsctl list-ports ${bridge}
+    log    ${tun_name}
+    [Return]    ${tun_name}
