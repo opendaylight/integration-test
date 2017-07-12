@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_1ced32c4",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7472
+      },
+      "writtenOn": "2017-07-12T08:07:54Z",
+      "side": 1,
+      "message": "Just a minor comment here. Using ostestr --pdb calls python testtools under the hood. That implies that no parallel run can be done which could be a major drawback if used all the time. Also I was wondering why you just don\u0027t use tempest run workflow ;)",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 102
+      },
+      "revId": "be339c48959c05d894f55e0d00c8e3a12f87a3ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
