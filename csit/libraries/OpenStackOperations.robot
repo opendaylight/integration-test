@@ -315,6 +315,8 @@ Collect VM IP Addresses
     \    ${dhcp_ip_length}    Get Length    ${dhcp_ip}
     \    Run Keyword If    ${dhcp_ip_length}<=0    Append To List    ${dhcp_ip}    None
     \    Log    ${dhcp_ip}
+    \    ${vm_console_output}=    Run    openstack console log show ${vm}
+    \    Log    ${vm_console_output}
     ${dhcp_length}    Get Length    ${dhcp_ip}
     Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${ip_list}    None
     Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
