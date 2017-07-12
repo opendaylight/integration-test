@@ -90,7 +90,6 @@ class Changes(object):
         return time.strftime("%Y-%m-%d %H:%M:%S", utc)
 
     def pretty_print_gerrits(self, project, gerrits):
-        print("")
         if project:
             print("%s" % project)
         print("i  grantedOn           lastUpdatd          chang subject")
@@ -105,7 +104,7 @@ class Changes(object):
                          self.epoch_to_utc(gerrit["grantedOn"]) if "grantedOn" in gerrit else 0,
                          self.epoch_to_utc(gerrit["lastUpdated"]) if "lastUpdated" in gerrit else 0,
                          gerrit["number"] if "number" in gerrit else "00000",
-                         gerrit["subject"] if "subject" in gerrit else "none"))
+                         gerrit["subject"].encode('ascii', 'replace') if "subject" in gerrit else "none"))
 
     def pretty_print_projects(self, projects):
         if isinstance(projects, dict):
