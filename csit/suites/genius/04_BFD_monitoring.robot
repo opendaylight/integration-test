@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for BFD tunnel monitoring
 Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
+Suite Teardown    Genius.Delete All Sessions
 Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${bfd_data_models}
 Library           OperatingSystem
 Library           String
@@ -16,6 +16,7 @@ Resource          ../../libraries/DataModels.robot
 Resource          ../../libraries/Utils.robot
 Resource          ../../libraries/VpnOperations.robot
 Resource          ../../libraries/KarafKeywords.robot
+Resource          ../../libraries/OVSDB.robot
 
 *** Variables ***
 @{itm_created}    TZA
@@ -47,7 +48,7 @@ BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
     ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
     Create Vteps    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
-    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Status as UP
 
 BFD_TC01 Verify by default BFD monitoring is enabled on Controller
     [Documentation]    Verify by default BFD monitoring is enabled on Controller
@@ -75,24 +76,20 @@ BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     Log    ${respjson}
     Log    "Value of BFD monitoring interval is getting updated"
     ${oper_int}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
-    ${oper_int}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
-    ${respjson}    RequestsLibrary.To Json    ${oper_int.content}    pretty_print=True
-    Log    ${respjson}
-    Should Contain    ${respjson}    5000
-    ${config_int}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/
-    ${respjson}    RequestsLibrary.To Json    ${config_int.content}    pretty_print=True
-    Log    ${respjson}
-    Should Contain    ${respjson}    5000
+    ${Bfd_updated_value}=    Create List    5000
+    Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
+    Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
     SSHLibrary.Switch Connection    ${conn_id_1}
-    Execute Command    sudo ovs-vsctl del-port BR1 tap8ed70586-6c
-    ${tun_name}    Execute Command    sudo ovs-vsctl list-ports BR1
-    ${BFD_int_verification}    Execute Command    sudo ovs-vsctl list interface ${tun_name}
-    Should Contain    ${BFD_int_verification}    5000
+    Execute Command    sudo ovs-vsctl del-port ${Bridge-1} tap8ed70586-6c
+    ${ovs_1}    Execute Command    sudo ovs-vsctl show
+    log    ${ovs_1}
+    ${tun_name}    Wait Until Keyword Succeeds    20    5    Ovs Tunnel Get    ${Bridge-1}
+    Wait Until Keyword Succeeds    20s    5    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    5000    ovs_system=${TOOLS_SYSTEM_IP}
     SSHLibrary.Switch Connection    ${conn_id_2}
-    ${tun_name}    Execute Command    sudo ovs-vsctl list-ports BR2
-    ${BFD_int_verification}    Execute Command    sudo ovs-vsctl list interface ${tun_name}
-    Should Contain    ${BFD_int_verification}    5000
+    ${ovs_2}    Execute Command    sudo ovs-vsctl show
+    ${tun_name}    Wait Until Keyword Succeeds    20    5    Ovs Tunnel Get    ${Bridge-2}
+    Wait Until Keyword Succeeds    20s    5    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    5000    ovs_system=${TOOLS_SYSTEM_2_IP}
 
 BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     [Documentation]    Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
@@ -163,3 +160,11 @@ Verify Tunnel Monitoring Is On
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Log    ${output}
     Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
+
+Ovs Tunnel Get
+    [Arguments]    ${bridge}
+    log    sudo ovs-vsctl list-ports ${bridge}
+    ${tun_name}    Execute Command    sudo ovs-vsctl list-ports ${bridge}
+    log    ${tun_name}
+    Should Not Be Empty    ${tun_name}
+    [Return]    ${tun_name}
