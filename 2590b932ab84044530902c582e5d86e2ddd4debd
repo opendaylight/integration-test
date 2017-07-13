@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_017303ea",
+        "filename": "csit/suites/mdsal/binding_v1/binding-parent.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-13T13:18:33Z",
+      "side": 1,
+      "message": "You have this in line 68, so just pass it as an argument in line 69. Better yet, pass @{autorelease_dir}[0] instead.",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 22
+      },
+      "revId": "2590b932ab84044530902c582e5d86e2ddd4debd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_21456770",
+        "filename": "csit/suites/mdsal/binding_v1/binding-parent.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-13T13:18:33Z",
+      "side": 1,
+      "message": "opendaylight-autorelease\n\n-mirror implies there is and external repository and this url is just a copy located closer.",
+      "range": {
+        "startLine": 110,
+        "startChar": 45,
+        "endLine": 110,
+        "endChar": 76
+      },
+      "revId": "2590b932ab84044530902c582e5d86e2ddd4debd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_615e3f47",
+        "filename": "csit/suites/mdsal/binding_v1/binding-parent.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-13T13:18:33Z",
+      "side": 1,
+      "message": "Lines 113-118 repeat the work done by lines 106-111 just for plugin repositories. Extract the repeated code into a keyword (two arguments, one for repositories/repository, one for @{autorelease_dir}[0]).",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 5
+      },
+      "revId": "2590b932ab84044530902c582e5d86e2ddd4debd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
