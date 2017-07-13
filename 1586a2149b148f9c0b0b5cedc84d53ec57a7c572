@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_ebbcce6e",
+        "filename": "csit/suites/mdsal/binding_v1/binding-parent.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-13T07:34:24Z",
+      "side": 1,
+      "message": "Sandbox run fails, log [0] shows this:\n\n[ERROR] Failed to execute goal on project binding-parent-test: Could not resolve dependencies for project org.opendaylight.integration:binding-parent-test:bundle:0.9.5-Boron-SR5: Could not find artifact com.github.romix:java-concurrent-hash-trie-map:jar:0.2.23-ODL in opendaylight-mirror (https://nexus.opendaylight.org/content/repositories/autorelease-1892/) -\u003e [Help 1]\n\nThe reason is 0.2.23-ODL which is a special version only available in ODL nexus. So replacing repository is not a proper fix. Proper fix is to add the autorelease repository while keeping ODL public also there.\n\n[0] https://logs.opendaylight.org/sandbox/jenkins091/mdsal-csit-1node-periodic-bindingv1-only-boron/5/maven.log.gz",
+      "range": {
+        "startLine": 68,
+        "startChar": 108,
+        "endLine": 68,
+        "endChar": 118
+      },
+      "revId": "1586a2149b148f9c0b0b5cedc84d53ec57a7c572",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
