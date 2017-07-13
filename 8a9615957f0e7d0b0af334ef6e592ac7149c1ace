@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_eb9b2ec7",
+        "filename": "csit/scripts/construct_json.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-07-13T04:12:08Z",
+      "side": 1,
+      "message": "So I think this script should just pass a body with the dashboard relevant data (including project, subject, type, and id) and the 2nd script would add the specifics for writing to ES database like: ES IP, ES port and ES URL.",
+      "revId": "8a9615957f0e7d0b0af334ef6e592ac7149c1ace",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
