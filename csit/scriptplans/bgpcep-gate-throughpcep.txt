@@ -1,0 +1,2 @@
+# Place the scripts in run order:
+integration/test/csit/scripts/controllermem_6g.sh
