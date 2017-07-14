@@ -22,6 +22,9 @@ Create Two Active Switch Connections To Controller And Check OVS Connections
     ${controller_opt} =    BuiltIn.Set Variable
     ${controller_opt} =    BuiltIn.Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}${SPACE}tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT1}
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s1    ${controller_opt}
+    # Make sure we get 2 connections for some time
+    sleep    5
+    # If controller receives 2 connections from same DP-ID, it shoulw only handle 1 at a time.
     BuiltIn.Wait Until Keyword Succeeds    20s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    1
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Master Connection
     FlowLib.Check Number Of Flows    1
