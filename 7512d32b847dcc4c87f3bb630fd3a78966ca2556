@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_043b0339",
+        "filename": "csit/scripts/ELK_settings.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-07-17T21:37:28Z",
+      "side": 1,
+      "message": "Global variables are bad practice and should be avoided.\n\nAlso we shouldn\u0027t be hardcoding addresses in scripts in my opinion. We should make the script accept Host and Port as input and let the caller of the script pass in the correct information.",
+      "revId": "7512d32b847dcc4c87f3bb630fd3a78966ca2556",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_4445fbb1",
+        "filename": "csit/scripts/construct_json.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-07-17T21:37:28Z",
+      "side": 1,
+      "message": "This script and the push_data script are very short. No point splitting them into 2 files.\n\nMy original intent for my suggestion was even more basic when I was requesting that the scripts be split into 2 because I was expecting you to make a generally reusable macro that pushes data to Elastic Search.\n\nI thought that the scripts in CSIT would generate the JSON body and then the JJB macro would take that JSON body and push it to ES.",
+      "revId": "7512d32b847dcc4c87f3bb630fd3a78966ca2556",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_644abfc6",
+        "filename": "csit/scripts/push_data.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-07-17T21:37:28Z",
+      "side": 1,
+      "message": "Would be more reusable if we make this script take 3 inputs.\n\n1. Host\n2. Port\n3. Path to json file\n\nThen anyone can call the script more easily.\n\nAlthough I feel this is overly complicated for something 1 line of cURL can do.\n\n curl --netrc ES_HOST:PORT PUT @data",
+      "revId": "7512d32b847dcc4c87f3bb630fd3a78966ca2556",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
