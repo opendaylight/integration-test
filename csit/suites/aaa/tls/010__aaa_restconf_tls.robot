@@ -259,7 +259,7 @@ Enable Client TLS Authentication in ODL
 
 Init Suite
     [Documentation]    Cleans TLS configuration and restart Karaf system to reload
-    ClusterManagement_Setup
+    KarafKeywords.Setup Karaf Keywords
     Clean Up Certificates In Server
     Disable TLS in ODL
     Install a Feature    odl-jolokia
