@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_143b2c9d",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T00:00:03Z",
+      "side": 1,
+      "message": "I think some, if not a lot, of the keywords in here are\nalready done in OpenStackOperations.robot. That is where\nwe are maintaining things like nova boot, etc. please use\nthat library if possible, or enhance it where needed.",
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_5445a415",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T00:00:03Z",
+      "side": 1,
+      "message": "it makes sense to pass this as a variable, as a best option.\nsecond best option would be to change the keyword name to \"Check that Network Port Status is ESTABLISHED\"",
+      "range": {
+        "startLine": 508,
+        "startChar": 44,
+        "endLine": 508,
+        "endChar": 55
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_9446fc1f",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T00:00:03Z",
+      "side": 1,
+      "message": "looks like a lot of these vars are duplicated from an earlier suite",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 13
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_f455b8c6",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T00:00:03Z",
+      "side": 1,
+      "message": "you really need all these Globals?",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 151,
+        "endChar": 14
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_345f50e7",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T00:00:03Z",
+      "side": 1,
+      "message": "looks like a lot of repeated patterns in this code. if you have a bunch of lines doing the same thing and you are just\ncopy/pasting and changing a few variables, then turn it in\nto a keyword (can be a local keyword if it only applies to\nthis suite), but all the repitive code makes it too hard to read/review and even harder to maintain",
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_14620cad",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T00:00:03Z",
+      "side": 1,
+      "message": "why these Comment    sleep    5 lines?",
+      "range": {
+        "startLine": 466,
+        "startChar": 4,
+        "endLine": 466,
+        "endChar": 25
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
