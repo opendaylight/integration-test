@@ -22,6 +22,75 @@
       "revId": "091a19862b9169e50a98b01c4b5da61667c3da0b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_a883e002",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6512
+      },
+      "writtenOn": "2017-07-20T09:30:54Z",
+      "side": 1,
+      "message": "rephrase the display text",
+      "range": {
+        "startLine": 13,
+        "startChar": 14,
+        "endLine": 13,
+        "endChar": 41
+      },
+      "revId": "091a19862b9169e50a98b01c4b5da61667c3da0b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_488ce435",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6512
+      },
+      "writtenOn": "2017-07-20T09:30:54Z",
+      "side": 1,
+      "message": "1. use \"Quagga\", remove all referances to 6wind in the repo\n2. rephrase the message like \"Quagga is not expected to install on devstack VM\"",
+      "range": {
+        "startLine": 18,
+        "startChar": 14,
+        "endLine": 18,
+        "endChar": 19
+      },
+      "revId": "091a19862b9169e50a98b01c4b5da61667c3da0b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_8886dc11",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6512
+      },
+      "writtenOn": "2017-07-20T09:30:54Z",
+      "side": 1,
+      "message": "rephrase the display text",
+      "range": {
+        "startLine": 22,
+        "startChar": 15,
+        "endLine": 22,
+        "endChar": 42
+      },
+      "revId": "091a19862b9169e50a98b01c4b5da61667c3da0b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
