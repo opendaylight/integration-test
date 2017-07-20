@@ -24,7 +24,9 @@ Start Suite
     ${result}    Get From Dictionary    ${result}    token
     ${TOKEN}    Get From Dictionary    ${result}    id
     ${X-AUTH}    Create Dictionary    X-Auth-Token=${TOKEN}    Content-Type=application/json
+    ${X-AUTH-NOCONTENT}    Create Dictionary    X-Auth-Token=${TOKEN}
     Set Global Variable    ${X-AUTH}
+    Set Global Variable    ${X-AUTH-NOCONTENT}
 
 Stop Suite
     Delete All Sessions
