@@ -36,6 +36,6 @@ Check Network Exists
     Should be Equal As Strings    ${resp.status_code}    200
 
 Start Suite
-    Create Session    OSSession    http://${NEUTRON}:9696    headers=${X-AUTH}
+    Create Session    OSSession    http://${NEUTRON}:9696    headers=${X-AUTH-NOCONTENT}
     Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
     Check Network Exists    ${NETID}
