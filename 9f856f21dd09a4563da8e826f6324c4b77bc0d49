@@ -65,6 +65,52 @@
     },
     {
       "key": {
+        "uuid": "da2a55be_81f7d7f4",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T22:11:04Z",
+      "side": 1,
+      "message": "what\u0027s the point of doing this?",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_e1ddf371",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T22:11:04Z",
+      "side": 1,
+      "message": "standard keyword naming should capitalize all words",
+      "range": {
+        "startLine": 92,
+        "startChar": 70,
+        "endLine": 92,
+        "endChar": 105
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_f455b8c6",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
         "patchSetId": 13
@@ -105,6 +151,98 @@
     },
     {
       "key": {
+        "uuid": "da2a55be_c1d8af81",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T22:11:04Z",
+      "side": 1,
+      "message": "I think this is code that should be deleted, right?",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 80
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_21e8ab0f",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T22:11:04Z",
+      "side": 1,
+      "message": "delete?",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 54
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_01e3e733",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T22:11:04Z",
+      "side": 1,
+      "message": "why have this log line at all. the very next line is robot\ncode that says very clearly \"Create ITM Tunnel\"",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 33
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_2191cb99",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T22:11:04Z",
+      "side": 1,
+      "message": "these are the same as in the variables file you are sourcing, so duplicate. I did not search for all cases of this, but \nplease address them all.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 44
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_14620cad",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
         "patchSetId": 13
@@ -121,6 +259,75 @@
         "startChar": 4,
         "endLine": 466,
         "endChar": 25
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_018c877e",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T22:11:04Z",
+      "side": 1,
+      "message": "this is a neutron command keyword. it should probably belong\nin the openstackoperations library and be migrated to use\nthe openstack cli instead of the neutron cli. this comment applies to all keywords that are of a similar nature.",
+      "range": {
+        "startLine": 490,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 34
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_a1f49bf2",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T22:11:04Z",
+      "side": 1,
+      "message": "no it doesn\u0027t. it looks for each element in the given list, which does not have to be an ip. it\u0027s more generic. it\u0027s \nprobably a useful utility for other places too. then again,\nlike the other comment here, we already have something very\nsimilar that should be reused if at all possible.",
+      "range": {
+        "startLine": 556,
+        "startChar": 23,
+        "endLine": 556,
+        "endChar": 66
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_41eddf24",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-20T22:11:04Z",
+      "side": 1,
+      "message": "we already have a keyword similar to this:\n\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OVSDB.robot.html#Verify%20Ovs-vsctl%20Output",
+      "range": {
+        "startLine": 554,
+        "startChar": 0,
+        "endLine": 561,
+        "endChar": 47
       },
       "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
