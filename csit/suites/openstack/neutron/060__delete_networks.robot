@@ -37,5 +37,5 @@ Check Network Exists
 
 Start Suite
     Create Session    OSSession    http://${NEUTRON}:9696    headers=${X-AUTH}
-    Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
+    Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers={}    auth=${AUTH}
     Check Network Exists    ${NETID}
