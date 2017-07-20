@@ -50,6 +50,24 @@
       "revId": "7512d32b847dcc4c87f3bb630fd3a78966ca2556",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_b4b0608c",
+        "filename": "csit/scripts/push_data.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-07-20T06:03:27Z",
+      "side": 1,
+      "message": "To make this full reusable we have to pass: Host, port, URL and path to json, but if we do that, this script will be so simple that it does not makes sense to run it separatelly. If we just do all in a single script (only for CSIT), we only need host and port as arguments.",
+      "parentUuid": "da2a55be_644abfc6",
+      "revId": "7512d32b847dcc4c87f3bb630fd3a78966ca2556",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
