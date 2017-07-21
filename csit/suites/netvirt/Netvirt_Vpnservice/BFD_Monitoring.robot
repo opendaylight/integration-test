@@ -275,7 +275,7 @@ Verify VMs received IP
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES_NET1}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
     Log    ${VM_IP_NET1}
     Log    ${VM_IP_NET2}
     Should Not Contain    ${VM_IP_NET2}    None
