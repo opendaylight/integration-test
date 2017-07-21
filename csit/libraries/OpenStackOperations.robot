@@ -295,7 +295,7 @@ Verify VM Is ACTIVE
 
 Collect VM IP Addresses
     [Arguments]    ${fail_on_none}    @{vm_list}
-    [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "obtained" which
+    [Documentation]    Using the console-log on the provided ${vm_list} to search for the string "obtained" which
     ...    correlates to the instance receiving it's IP address via DHCP. Also retrieved is the ip of the nameserver
     ...    if available in the console-log output. The keyword will also return a list of the learned ips as it
     ...    finds them in the console log output, and will have "None" for Vms that no ip was found.
@@ -326,12 +326,12 @@ Collect VM IP Addresses
 
 Collect VM IPv6 SLAAC Addresses
     [Arguments]    ${fail_on_none}    ${prefix}    @{vm_list}
-    [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "inet6" which
+    [Documentation]    Using the console-log on the provided ${vm_list} to search for the string "inet6" which
     ...    correlates to the instance generated IPv6 address, based on the ${prefix} received from ODL (SLAAC mode).
     ${ip_list}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
     \    Log    ${vm}
-    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    nova console-log ${vm} | grep -i "inet6"
+    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "inet6"
     \    Log    ${vm_ip_line}
     \    Log    ${rc}
     \    @{vm_ip_list}    Get Regexp Matches    ${vm_ip_line}    ${prefix}
@@ -347,7 +347,7 @@ View Vm Console
     [Arguments]    ${vm_instance_names}
     [Documentation]    View Console log of the created vm instances using nova show.
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${rc}    ${output}=    Run And Return Rc And Output    nova show ${VmElement}
+    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server show ${VmElement}
     \    Log    ${output}
     \    Should Not Be True    ${rc}
     \    ${rc}    ${output}=    Run And Return Rc And Output    openstack console log show ${VmElement}

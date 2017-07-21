@@ -106,7 +106,7 @@ Create Nova VMs
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES_NET10}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    nova console-log @{VM_INSTANCES}[${index}]    30s
+    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    View Vm Console    @{VM_INSTANCES}[${index}]    30s
     Log    ${VM_IP_NET10}
     Set Suite Variable    ${VM_IP_NET10}
     Log    ${VM_IP_NET20}
