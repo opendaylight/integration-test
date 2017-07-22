@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_adcc8a62",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-22T06:37:59Z",
+      "side": 1,
+      "message": "this may have worked. at least the sandbox run timed out \nafter the default 7m timeout, presumably because it was\nsitting at the pdb prompt which we are not handling yet.\nthe stdout was not fully captured, so not sure exactly\nwhat\u0027s going on, but this is progress I think.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 28
+      },
+      "revId": "079d46da5da33b73909a66bebafad297319edd3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
