@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_2dba5ac0",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/01_basic_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-07-22T02:39:43Z",
+      "side": 1,
+      "message": "The above line should be \"Run Keyword\" execution as View Vm Console is not an openstack command. The same comment in all files",
+      "revId": "c29e88b223609bb96527d899328b2852e0765bbb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
