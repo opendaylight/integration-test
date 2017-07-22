@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "da2a55be_bf3fa2d5",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-07-22T09:40:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1af78d9a_b579a495",
+      "range": {
+        "startLine": 503,
+        "startChar": 0,
+        "endLine": 503,
+        "endChar": 8
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1af78d9a_f5732caf",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 5
@@ -53,6 +77,30 @@
       "writtenOn": "2017-06-17T00:21:22Z",
       "side": 1,
       "message": "it would be a better keyword if you had ${expected_status}\u003dESTABLISHED as a default argument. then others could use it for other status types if the need arises",
+      "range": {
+        "startLine": 504,
+        "startChar": 4,
+        "endLine": 504,
+        "endChar": 40
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_ff1d9967",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-07-22T09:40:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1af78d9a_f5732caf",
       "range": {
         "startLine": 504,
         "startChar": 4,
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "da2a55be_9f357ddd",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite1.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-07-22T09:40:33Z",
+      "side": 1,
+      "message": "Variables shared across multiple suites are moved to the variable file called IPV6Service_Variables.robot, under variables directory, and imported the same file in all the suites.",
+      "parentUuid": "1af78d9a_556840ba",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1af78d9a_3565b4e1",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite1.robot",
         "patchSetId": 5
@@ -99,6 +171,30 @@
       "writtenOn": "2017-06-17T00:21:22Z",
       "side": 1,
       "message": "Table Check takes a list and iterates over that list to make\nsure the items exist. So, why not create one big list and\ncall Table Check once instead of creating a bunch of lists\nof size 1 and calling Table check every time?",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 15
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_1f518d0e",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite1.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-07-22T09:40:33Z",
+      "side": 1,
+      "message": "Different tables take different parameters to validate. Readability purpose this is easy and understandable.",
+      "parentUuid": "1af78d9a_3565b4e1",
       "range": {
         "startLine": 60,
         "startChar": 4,
@@ -134,6 +230,30 @@
     },
     {
       "key": {
+        "uuid": "da2a55be_9f3c5dc1",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite2.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-07-22T09:40:33Z",
+      "side": 1,
+      "message": "Removed the comment.",
+      "parentUuid": "1af78d9a_9562a8d6",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1af78d9a_755f3c0f",
         "filename": "csit/suites/netvirt/IPV6Service/__init__.robot",
         "patchSetId": 5
@@ -145,6 +265,30 @@
       "writtenOn": "2017-06-17T00:21:22Z",
       "side": 1,
       "message": "I feel like this is something that probably already exists.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 36
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_bf6841bb",
+        "filename": "csit/suites/netvirt/IPV6Service/__init__.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-07-22T09:40:33Z",
+      "side": 1,
+      "message": "Already existing keyword is using \"Write Commands Until Prompt\" and it does not wait for the prompt to come up, before that itself the next command gets executed. If there is a delay in executing prev command, it takes the prev command output for the current command execution. That why we are using our own keyword to login to devstack which uses \"Write Commands Until Expected Prompt\", where in after executing a command, it waits for the prompt to come and them moves to the next command execution.",
+      "parentUuid": "1af78d9a_755f3c0f",
       "range": {
         "startLine": 28,
         "startChar": 0,
