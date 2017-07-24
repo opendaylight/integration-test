@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for verification of HWVTEP usecases
 Suite Setup       BuiltIn.Run Keywords    Basic Suite Setup
+...               AND    Enable ODL DHCP Service
 Suite Teardown    Basic Suite Teardown
 Test Teardown     Get L2gw Debug Info
 Resource          ../../libraries/L2GatewayOperations.robot
