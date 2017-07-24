@@ -207,6 +207,30 @@
     },
     {
       "key": {
+        "uuid": "da2a55be_f6be52d3",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite1.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T22:46:16Z",
+      "side": 1,
+      "message": "It\u0027s very noisy and hard to read and maintain with all\nthese very similar lines repeated over and over. You could\nat least try to collapse some of them.\n\nfor example, instead of having lines 63-64 and 74-75, you\ncould combine to:\n\n@{array}    Create List    dl_dst\u003d${lower_mac1}    dl_src\u003d${lower_mac2}\nTable Check    ${conn_id_1}    ${br_name}    table\u003d50    ${array}",
+      "parentUuid": "da2a55be_1f518d0e",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 15
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1af78d9a_9562a8d6",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite2.robot",
         "patchSetId": 5
@@ -242,6 +266,30 @@
       "side": 1,
       "message": "Removed the comment.",
       "parentUuid": "1af78d9a_9562a8d6",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_76ca626f",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite2.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T22:46:16Z",
+      "side": 1,
+      "message": "This was just an example. I do not have time to go make\nthese review comments everywhere you have them. Please\ngo back over to see all the other places you can remove\nthese kinds of things.",
+      "parentUuid": "da2a55be_9f3c5dc1",
       "range": {
         "startLine": 155,
         "startChar": 0,
