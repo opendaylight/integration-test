@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_b6c05a2b",
+        "filename": "csit/suites/aaa/tls/020__tls_connection_ovsdb.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T23:40:17Z",
+      "side": 1,
+      "message": "probably not neccessary to have this comment. The [Documentation] and robot code alone explain what\u0027s\ngoing on well enough.",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 60
+      },
+      "revId": "d642ecba81bd9bac55efc8bccda3c6f9458e658b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_f6e132d1",
+        "filename": "csit/suites/aaa/tls/020__tls_connection_ovsdb.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T23:40:17Z",
+      "side": 1,
+      "message": "same as above comment",
+      "range": {
+        "startLine": 27,
+        "startChar": 3,
+        "endLine": 27,
+        "endChar": 60
+      },
+      "revId": "d642ecba81bd9bac55efc8bccda3c6f9458e658b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_56e91eb7",
+        "filename": "csit/suites/aaa/tls/020__tls_connection_ovsdb.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T23:40:17Z",
+      "side": 1,
+      "message": "no sleep please. Instead is there something we can \nsearch for in ovs or karaf logs to validate that\nthe connection was denied?\n\nI think what you are trying to get around is the small\nchance that is_connected:True is there when the connection\nis initially attempted, even though it would get removed\nas soon as it\u0027s rejected.",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 67
+      },
+      "revId": "d642ecba81bd9bac55efc8bccda3c6f9458e658b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_b6d7baec",
+        "filename": "csit/suites/aaa/tls/020__tls_connection_ovsdb.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T23:40:17Z",
+      "side": 1,
+      "message": "I tend to think these would be better off in their relevant\nAAAKeywords.robot and OVSDB.robot libraries, for future\nuse by other suites.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 128
+      },
+      "revId": "d642ecba81bd9bac55efc8bccda3c6f9458e658b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_5600fe66",
+        "filename": "csit/suites/aaa/tls/020__tls_connection_ovsdb.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T23:40:17Z",
+      "side": 1,
+      "message": "does an SSL or Certificate robot library make sense for the\nbelow keywords? I know they are only used in this suite,\nbut they may be useful for other suites in the future.",
+      "revId": "d642ecba81bd9bac55efc8bccda3c6f9458e658b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_16068686",
+        "filename": "csit/suites/aaa/tls/020__tls_connection_ovsdb.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T23:40:17Z",
+      "side": 1,
+      "message": "space. l100 and l103 as well.",
+      "revId": "d642ecba81bd9bac55efc8bccda3c6f9458e658b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
