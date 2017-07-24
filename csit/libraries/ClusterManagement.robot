@@ -176,7 +176,7 @@ Verify_Owner_And_Successors_For_Device
     ${owner}    ${successor_list} =    Get_Owner_And_Successors_For_Device    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
     Collections.List_Should_Contain_Value    ${index_list}    ${owner}    Owner ${owner} is not in candidate list ${index_list}
     # In Beryllium or after stopping an instance, the removed instance does not show in the candidate list.
-    ${expected_candidate_list_origin} =    BuiltIn.Set_Variable_If    '${ODL_STREAM}' == 'beryllium' or ${after_stop}    ${index_list}    ${ClusterManagement__member_index_list}
+    ${expected_candidate_list_origin} =    BuiltIn.Set_Variable_If    ${after_stop}    ${index_list}    ${ClusterManagement__member_index_list}
     # We do not want to manipulate either origin list.
     ${expected_successor_list} =    BuiltIn.Create_List    @{expected_candidate_list_origin}
     Collections.Remove_Values_From_List    ${expected_successor_list}    ${owner}
@@ -335,8 +335,7 @@ Extract_Service_Entity_Type
 Extract_OpenFlow_Device_Data
     [Arguments]    ${data}
     [Documentation]    Remove superfluous OpenFlow device data from Entity Owner printout.
-    ${clear_data} =    BuiltIn.Run Keyword If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    String.Replace_String    ${data}    org.opendaylight.mdsal.ServiceEntityType    openflow
-    ...    ELSE    BuiltIn.Set_Variable    ${data}
+    ${clear_data} =    String.Replace_String    ${data}    org.opendaylight.mdsal.ServiceEntityType    openflow
     ${clear_data} =    String.Replace_String    ${clear_data}    /odl-general-entity:entity[odl-general-entity:name='    ${EMPTY}
     ${clear_data} =    String.Replace_String    ${clear_data}    /general-entity:entity[general-entity:name='    ${EMPTY}
     ${clear_data} =    String.Replace_String    ${clear_data}    ']    ${EMPTY}

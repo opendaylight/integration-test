@@ -315,8 +315,7 @@ Verify flowactions
     [Documentation]    Verify the flowfilter actions after ping in the dumpflows
     write    ${DUMPFLOWS}
     ${result}    Read Until    mininet>
-    Run Keyword If    '${actions}' == 'set_field:32->ip_dscp' and '${ODL_STREAM}' == 'beryllium'    Should Contain    ${result}    ${dscp_be_action}
-    ...    ELSE    Should Contain    ${result}    ${actions}
+    Should Contain    ${result}    ${actions}
 
 Add a vtn flowfilter
     [Arguments]    ${vtn_name}    ${vtnflowfilter_data}
