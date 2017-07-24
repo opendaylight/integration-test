@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_d37880f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T16:58:08Z",
+      "side": 1,
+      "message": "this is not an accurate summary of what this review is\ndoing.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 33
+      },
+      "revId": "a089aca45ff9f1a08d082883380ee9239c3a8b1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_73227402",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T16:58:08Z",
+      "side": 1,
+      "message": "And",
+      "revId": "a089aca45ff9f1a08d082883380ee9239c3a8b1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_137b38f6",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T16:58:08Z",
+      "side": 1,
+      "message": "there is no verification here, it\u0027s just issuing ping and\nnot checking if it worked or not",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 20
+      },
+      "revId": "a089aca45ff9f1a08d082883380ee9239c3a8b1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_f37dc4e8",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T16:58:08Z",
+      "side": 1,
+      "message": "again, this is not checking anything. this test will never\nfail. ame applies to the next test case",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 21
+      },
+      "revId": "a089aca45ff9f1a08d082883380ee9239c3a8b1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_5385b0ce",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T16:58:08Z",
+      "side": 1,
+      "message": "this ping is not validated",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 20
+      },
+      "revId": "a089aca45ff9f1a08d082883380ee9239c3a8b1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_3388fce6",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T16:58:08Z",
+      "side": 1,
+      "message": "unless it\u0027s really needed, you can remove this Log\nstatement. It\u0027s not very helpful and just adds to the\nnoise when reading the code. applicable other places as\nwell",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 26
+      },
+      "revId": "a089aca45ff9f1a08d082883380ee9239c3a8b1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_936e082e",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T16:58:08Z",
+      "side": 1,
+      "message": "add a new line",
+      "revId": "a089aca45ff9f1a08d082883380ee9239c3a8b1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_7369d424",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-24T16:58:08Z",
+      "side": 1,
+      "message": "does this work without a restart of the controller?\n\nalso, just fyi, we do have the config/startup scripts in\nplace to enable DHCP before the controller is started. you\ncan use that instead. I actually prefer this method if it\nworks because it\u0027s easier to see and know what\u0027s going\non just via robot code.",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 23
+      },
+      "revId": "a089aca45ff9f1a08d082883380ee9239c3a8b1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
