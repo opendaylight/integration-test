@@ -1,3 +1,0 @@
-# Place the suites in run order:
-integration/test/csit/suites/sxp/topology/010_Topology_Features.robot
-integration/test/csit/suites/sxp/topology/020_Scalability.robot
