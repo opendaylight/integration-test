@@ -1,7 +1,9 @@
 *** Settings ***
 Documentation     Test suite for Cluster HA with Bulk Flows - Data consistency after cluster restart, leader restart and follower restart with one switch connected
-Suite Setup       ClusterManagement Setup
+Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown
 Suite Teardown    Delete All Sessions
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/BulkomaticKeywords.robot
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/ClusterManagement.robot
@@ -135,7 +137,6 @@ Verify Data Recovery After Leader Restart
 Check No Network Operational Information After Leader Restart
     [Documentation]    Check device is not in operational inventory or topology in all cluster instances.
     ClusterOpenFlow.Check No OpenFlow Network Operational Information
-    [Teardown]    Report_Failure_Due_To_Bug    6459
 
 Start Mininet Again Connect To Leader
     [Documentation]    Start mininet with connection to Leader Node.
@@ -145,7 +146,6 @@ Start Mininet Again Connect To Leader
 Verify Flows In Switch After Leader Restart
     [Documentation]    Verify flows are installed in switch after leader restart.
     MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
-    [Teardown]    Report_Failure_Due_To_Bug    6459
 
 Stop Mininet Connected To Leader Node After Leader Restart
     [Documentation]    Stop mininet and exit connection.
@@ -203,7 +203,6 @@ Verify Data Recovery After Follower Node2 Restart
 Check No Network Operational Information After Follower Node2 Restart
     [Documentation]    Check device is not in operational inventory or topology in all cluster instances.
     ClusterOpenFlow.Check No OpenFlow Network Operational Information
-    [Teardown]    Report_Failure_Due_To_Bug    6459
 
 Start Mininet Again Connect To Follower Node2
     [Documentation]    Start mininet with connection to follower node1.
@@ -213,7 +212,6 @@ Start Mininet Again Connect To Follower Node2
 Verify Flows In Switch After Follower Node2 Restart
     [Documentation]    Verify flows are installed in switch after follower restart.
     MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
-    [Teardown]    Report_Failure_Due_To_Bug    6459
 
 Stop Mininet Connected To Follower Node2
     [Documentation]    Stop mininet and exit connection.

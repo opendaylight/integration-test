@@ -1,7 +1,9 @@
 *** Settings ***
 Documentation     Test suite for 2Node Cluster HA with Bulk Flows - Cluster node convergance and Data consistency after leader and follower restart with one switch connected
-Suite Setup       ClusterManagement Setup
+Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown
 Suite Teardown    Delete All Sessions
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/BulkomaticKeywords.robot
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/ClusterManagement.robot
