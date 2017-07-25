@@ -134,7 +134,7 @@ Check Switches Generate Slave Connection
     [Documentation]    Check switches are connected to new Slave.
     ${original_master}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${original_owner}_IP}
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    BuiltIn.Wait Until Keyword Succeeds    50s    1s    OvsManager.Should Be Slave    s1    ${original_master}
+    \    BuiltIn.Wait Until Keyword Succeeds    50s    1s    OvsManager.Should Be Slave    s${switch}    ${original_master}
     \    ...    update_data=${True}
 
 Disconnect Mininet From Successor
@@ -239,9 +239,7 @@ Check Entity Owner Status And Find Owner and Successor Before Owner Stop
 Check Switch Generates Slave Connection Before Owner Stop
     [Documentation]    Check switch s1 is connected to Slave.
     ${original_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${original_successor}_IP}
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    BuiltIn.Wait Until Keyword Succeeds    50s    1s    OvsManager.Should Be Slave    s1    ${original_slave}
-    \    ...    update_data=${True}
+    BuiltIn.Wait Until Keyword Succeeds    50s    1s    OvsManager.Should Be Slave    s1    ${original_slave}    update_data=${True}
 
 Check Shards Status Before Owner Stop
     [Documentation]    Check Status for all shards in OpenFlow application.
