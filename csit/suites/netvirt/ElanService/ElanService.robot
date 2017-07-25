@@ -10,6 +10,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
 Library           OperatingSystem
 Library           RequestsLibrary
+Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/OpenStackOperations.robot
@@ -136,13 +137,15 @@ Verify Datapath for Multiple ELAN with Multiple DPN
 Elan SuiteSetup
     [Documentation]    Elan suite setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius.mdsalutil.internal.MDSALManager
     DevstackUtils.Devstack Suite Setup
     SingleElan SuiteSetup
 
 Elan SuiteTeardown
     [Documentation]    Elan suite teardown
     Get OvsDebugInfo
-    SingleElan SuiteTeardown
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius.mdsalutil.internal.MDSALManager
+    turn off debugs
     Close All Connections
 
 SingleElan SuiteTeardown
