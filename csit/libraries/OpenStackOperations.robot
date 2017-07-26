@@ -72,10 +72,23 @@ Delete Network
     Log    ${output}
     Should Not Be True    ${rc}
 
-Create SubNet
+Create SubNet1
     [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${additional_args}=${EMPTY}
     [Documentation]    Create SubNet for the Network with neutron request.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet create --network ${network_name} --subnet-range ${range_ip} ${subnet} ${additional_args}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create SubNet2
+    [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${additional_args}=${EMPTY}
+    [Documentation]    Create SubNet for the Network with neutron request.
+    Run    openstack subnet create --network ${network_name} --subnet-range ${range_ip} ${subnet} ${additional_args}
+    Log    ${output}
+
+Create SubNet3
+    [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${additional_args}=${EMPTY}
+    [Documentation]    Create SubNet for the Network with neutron request.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack -vvv subnet create --network ${network_name} --subnet-range ${range_ip} ${subnet}
     Log    ${output}
     Should Not Be True    ${rc}
 
