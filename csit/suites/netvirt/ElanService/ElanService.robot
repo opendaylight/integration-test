@@ -145,7 +145,6 @@ Elan SuiteTeardown
     [Documentation]    Elan suite teardown
     Get OvsDebugInfo
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius.mdsalutil.internal.MDSALManager
-    turn off debugs
     Close All Connections
 
 SingleElan SuiteTeardown
