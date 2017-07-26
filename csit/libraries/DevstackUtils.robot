@@ -19,11 +19,9 @@ ${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to ov
 *** Keywords ***
 Run Tempest Tests
     [Arguments]    ${tempest_regex}    ${exclusion_file}=/dev/null    ${tempest_conf}=""    ${tempest_directory}=/opt/stack/tempest    ${timeout}=420s
-    [Documentation]    Execute the tempest tests.
+    [Documentation]    Execute the tempest tests. The ssh connection should be open to control node.
     Return From Keyword If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}
     Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     # There seems to be a bug in the mitaka version of os-testr that does not allow --regex to work in conjunction
     # with a blacklist-file. Upgrading with pip should resolve this. This can probably go away once mitaka is no
     # longer tested in this environment. But, while it's being tested the mitaka devstack setup will be bringing
