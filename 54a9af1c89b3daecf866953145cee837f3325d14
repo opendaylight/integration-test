@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_60f44b87",
+        "filename": "csit/suites/controller/akka_upgrade/1node.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-27T14:59:09Z",
+      "side": 1,
+      "message": "Use Return_From_Keyword_If before line 69 to avoid accessing Nexus.",
+      "range": {
+        "startLine": 70,
+        "startChar": 49,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "54a9af1c89b3daecf866953145cee837f3325d14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_c0f3779c",
+        "filename": "csit/suites/controller/akka_upgrade/1node.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-27T14:59:09Z",
+      "side": 1,
+      "message": "I remember having discussion with Jozef Behran about whether it is ok to change global constants at runtime. Is there a way to avoid it?",
+      "range": {
+        "startLine": 71,
+        "startChar": 34,
+        "endLine": 71,
+        "endChar": 65
+      },
+      "revId": "54a9af1c89b3daecf866953145cee837f3325d14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2a55be_4037874e",
+        "filename": "tools/odl-mdsal-clustering-tests/patch_cars.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-27T14:59:09Z",
+      "side": 1,
+      "message": "So this filename should be replace_cars.py?",
+      "range": {
+        "startLine": 4,
+        "startChar": 17,
+        "endLine": 4,
+        "endChar": 32
+      },
+      "revId": "54a9af1c89b3daecf866953145cee837f3325d14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
