@@ -210,7 +210,7 @@ Delete Vm Instance
 Get Net Id
     [Arguments]    ${network_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack network list | grep "${network_name}" | awk '{print $2}'
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack network list | grep -w "${network_name}" | awk '{print $2}'
     Log    ${output}
     Should Not Be True    ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
@@ -232,7 +232,7 @@ Get Subnet Id
 Get Port Id
     [Arguments]    ${port_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack port list | grep "${port_name}" | awk '{print $2}'
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack port list | grep -w "${port_name}" | awk '{print $2}'
     Log    ${output}
     Should Not Be True    ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
@@ -243,7 +243,7 @@ Get Port Id
 Get Router Id
     [Arguments]    ${router1}    ${devstack_conn_id}
     [Documentation]    Retrieve the router id for the given router name
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack router list -f table | grep "${router1}" | awk '{print $2}'
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack router list -f table | grep -w "${router1}" | awk '{print $2}'
     Log    ${output}
     Should Not Be True    ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
@@ -496,7 +496,7 @@ Test Netcat Operations From Vm Instance
     Log    ${vm_ip}
     ${output}=    Write Commands Until Prompt    ( ( echo "${server_data}" | sudo timeout 60 nc -l ${additional_args} ${port} ) & )
     Log    ${output}
-    ${output}=    Write Commands Until Prompt    sudo netstat -nlap | grep ${port}
+    ${output}=    Write Commands Until Prompt    sudo netstat -nlap | grep -w ${port}
     Log    ${output}
     ${nc_output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${dest_ip} ${port}
     Log    ${nc_output}
@@ -817,7 +817,7 @@ Get Ports MacAddr
 Get Port Ip
     [Arguments]    ${port_name}
     [Documentation]    Keyword would return the IP of the ${port_name} received.
-    ${rc}    ${output}=    Run And Return Rc And Output    neutron port-list | grep "${port_name}" | awk '{print $11}' | awk -F "\\"" '{print $2}'
+    ${rc}    ${output}=    Run And Return Rc And Output    neutron port-list | grep -w "${port_name}" | awk '{print $11}' | awk -F "\\"" '{print $2}'
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${port_ip}=    Get from List    ${splitted_output}    0
@@ -874,7 +874,7 @@ Get L2Gateway
 Get L2gw Id
     [Arguments]    ${l2gw_name}
     [Documentation]    Keyword to retrieve the L2 Gateway ID for the ${l2gw_name} (Using Neutron CLI).
-    ${rc}    ${output}=    Run And Return Rc And Output    ${L2GW_GET} | grep "${l2gw_name}" | awk '{print $2}'
+    ${rc}    ${output}=    Run And Return Rc And Output    ${L2GW_GET} | grep -w "${l2gw_name}" | awk '{print $2}'
     Log    ${output}
     Should Not Be True    ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
@@ -886,7 +886,7 @@ Get L2gw Connection Id
     [Arguments]    ${l2gw_name}
     [Documentation]    Keyword to retrieve the L2 Gateway Connection ID for the ${l2gw_name} (Using Neutron CLI).
     ${l2gw_id}=    OpenStackOperations.Get L2gw Id    ${l2gw_name}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${L2GW_GET_CONN} | grep "${l2gw_id}" | awk '{print $2}'
+    ${rc}    ${output}=    Run And Return Rc And Output    ${L2GW_GET_CONN} | grep -w "${l2gw_id}" | awk '{print $2}'
     Log    ${output}
     Should Not Be True    ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
