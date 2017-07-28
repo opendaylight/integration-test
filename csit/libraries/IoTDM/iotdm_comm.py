@@ -420,9 +420,9 @@ def get_local_ip_from_list(iotdm_ip, local_ip_list_str):
 def create_http_default_communication_parameters(address, port, content_type):
     """Returns JSON string including default HTTP specific parameters"""
     return '{{"{}": "{}", "{}": {}, "Content-Type": "{}"}}'.format(
-                onem2m_http.protocol_address, address,
-                onem2m_http.protocol_port, port,
-                content_type)
+        onem2m_http.protocol_address, address,
+        onem2m_http.protocol_port, port,
+        content_type)
 
 
 def create_iotdm_http_connection(entity_id, address, port, content_type, rx_port=None, allias="default"):

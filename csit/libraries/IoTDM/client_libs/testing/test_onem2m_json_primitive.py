@@ -35,9 +35,9 @@ class TestOneM2MJsonPrimitive(unittest.TestCase):
 
     def _create_primitive(self):
         builder = OneM2MJsonPrimitiveBuilder()\
-               .set_parameters(self.params)\
-               .set_content(self.content)\
-               .set_protocol_specific_parameters(self.proto_params)
+            .set_parameters(self.params)\
+            .set_content(self.content)\
+            .set_protocol_specific_parameters(self.proto_params)
         return builder.build()
 
     def test_primitive_build_with_content(self):
