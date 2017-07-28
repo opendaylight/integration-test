@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2a55be_e1895c27",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-28T10:39:44Z",
+      "side": 1,
+      "message": "Add FIXME: This depends on stream, since Nitrogen it should be just \"karaf\".",
+      "range": {
+        "startLine": 306,
+        "startChar": 79,
+        "endLine": 306,
+        "endChar": 97
+      },
+      "revId": "47770dfc1d16d9586685c181e5d620f15efc2a94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
