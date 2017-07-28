@@ -54,7 +54,7 @@ def _initiate_rpcs(host_list, index_list, url_templ, data_templ, subst_dict):
     lthreads = _globals.pop('threads', [])
     for i, host in enumerate(host_list):
         url = url_templ.substitute({'HOST': host})
-        timeout = int(subst_dict['DURATION']) + 3*125+10
+        timeout = int(subst_dict['DURATION']) + 3 * 125 + 10
         prefix_id = subst_dict['ID_PREFIX'] + str(index_list[i])
         subst_dict['ID'] = prefix_id
         data = data_templ.substitute(subst_dict)
@@ -127,7 +127,7 @@ def start_produce_transactions_on_nodes(host_list, index_list, id_prefix,
         _globals.clear()
 
     msg = "host_list:{}, index_list:{} ,id_prefix:{}, duration:{}, rate:{}, isolated_transactions:{}".format(
-            host_list, index_list, id_prefix, duration, rate, isolated_transactions_flag)
+        host_list, index_list, id_prefix, duration, rate, isolated_transactions_flag)
     msg = "Input parameters: " + msg
     logger.info(msg)
     datat = string.Template('''<input xmlns="tag:opendaylight.org,2017:controller:yang:lowlevel:control">

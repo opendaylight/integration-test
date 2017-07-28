@@ -35,7 +35,7 @@ def generate_akka(original_file, node_idx=1, nodes_ip_list=['127.0.0.1']):
     """
 
     conf = _parse_input(original_file)
-    conf['odl-cluster-data']['akka']['remote']['netty']['tcp']['hostname'] = nodes_ip_list[node_idx-1]
+    conf['odl-cluster-data']['akka']['remote']['netty']['tcp']['hostname'] = nodes_ip_list[node_idx - 1]
     seed_nodes = [u'akka.tcp://opendaylight-cluster-data@{}:2550'.format(ip) for ip in nodes_ip_list]
     conf['odl-cluster-data']['akka']['cluster']['seed-nodes'] = seed_nodes
     conf['odl-cluster-data']['akka']['cluster']['roles'] = ["member-{}".format(node_idx)]
@@ -84,7 +84,7 @@ def generate_module_shards(original_file, nodes=1, shard_name='', replicas=[]):
     """
     conf = _parse_input(original_file)
     for module_shard in conf['module-shards']:
-        module_shard["shards"][0]["replicas"] = ["member-{}".format(i+1) for i in range(int(nodes))]
+        module_shard["shards"][0]["replicas"] = ["member-{}".format(i + 1) for i in range(int(nodes))]
     if shard_name != '' and replicas != []:
         conf['module-shards'].append(
             pyhocon.ConfigTree([("name", shard_name),
