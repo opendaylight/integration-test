@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_9c92f59d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-31T22:30:35Z",
+      "side": 1,
+      "message": "need to update these docs too",
+      "range": {
+        "startLine": 299,
+        "startChar": 106,
+        "endLine": 299,
+        "endChar": 116
+      },
+      "revId": "c132fdcb11bc1dfa4f92fd1873efb73aeae4e11c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_bc95398a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-07-31T22:30:35Z",
+      "side": 1,
+      "message": "we need to change this line too. the ${dhcp_ip_line} looks\nlike this:\n\n-route:169.254.169.254 via 30.0.0.2 dev eth0\n\nGet Regexp Matches is returning both of those ip\u0027s, but\nwe really just want that 2nd one (e.g. 30.0.0.2)",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 113
+      },
+      "revId": "c132fdcb11bc1dfa4f92fd1873efb73aeae4e11c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
