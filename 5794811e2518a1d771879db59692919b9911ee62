@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_a894db44",
+        "filename": "csit/suites/netconf/apidocs/apidocs.robot",
+        "patchSetId": 50
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-31T08:23:33Z",
+      "side": 1,
+      "message": "TemplatedRequests.Create_Default_Session so that you can skip the session argument in line 15.",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 48
+      },
+      "revId": "5794811e2518a1d771879db59692919b9911ee62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_08a6c7c1",
+        "filename": "csit/suites/netconf/apidocs/apidocs.robot",
+        "patchSetId": 50
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-07-31T08:23:33Z",
+      "side": 1,
+      "message": "Not needed, the output is already logged inside TemplatedRequests.",
+      "range": {
+        "startLine": 17,
+        "startChar": 12,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "5794811e2518a1d771879db59692919b9911ee62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
