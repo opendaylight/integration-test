@@ -210,9 +210,9 @@ Post_As_Xml_Templated
     [Return]    ${response_text}
 
 Delete_Templated
-    [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}
+    [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${additional_allowed_status_codes}=${NO_STATUS_CODES}    ${http_timeout}=${EMPTY}    ${location}=location
     [Documentation]    Resolve URI from folder, issue DELETE request.
-    ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
+    ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${location}    extension=uri    mapping=${mapping}
     ${response_text} =    Delete_From_Uri    uri=${uri}    session=${session}    additional_allowed_status_codes=${additional_allowed_status_codes}    http_timeout=${http_timeout}
     [Return]    ${response_text}
 
