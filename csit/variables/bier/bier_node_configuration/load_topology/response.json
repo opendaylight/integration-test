@@ -1,0 +1,9 @@
+{
+  "output": {
+    "topology": [
+      {
+        "topology-id": "example-linkstate-topology"
+      }
+    ]
+  }
+}

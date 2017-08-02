@@ -1,0 +1,6 @@
+{
+	input:{
+		node-id:$NODEID,
+		tp-id:$TPID
+	}
+}
