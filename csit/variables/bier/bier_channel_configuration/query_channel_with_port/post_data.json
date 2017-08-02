@@ -1,0 +1,8 @@
+{
+	input:{
+		domain-id:$DOMAINID,
+		sub-domain-id:$SUBDOMAINID,
+		node-id:$NODEID,
+		tp-id:$TPID
+	}
+}

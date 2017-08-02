@@ -1,0 +1,7 @@
+{
+	input:{
+		channel-name:$CHANNELNAME,
+		bfir-node-id:$BFIRNODEID,
+		bfer-node-id:$BFERNODEID
+	}
+}
