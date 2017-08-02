@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_3e793694",
+        "filename": "csit/suites/netconf/apidocs/apidocs.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-08-02T13:41:09Z",
+      "side": 1,
+      "message": "I think it would be better to skip this argument (TemplatedRequests\u0027 default of 1 second will be used), or set a small value such as 10. Setting None could make the test to hang indefinitely if ODL does not respond due to some bug.",
+      "range": {
+        "startLine": 3,
+        "startChar": 58,
+        "endLine": 3,
+        "endChar": 77
+      },
+      "revId": "362d7d86fecdf71bbf5b93c0951c9534925fefd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
