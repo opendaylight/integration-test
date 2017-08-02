@@ -1,8 +1,5 @@
 *** Settings ***
-Suite Setup       Start Mininet
-Suite Teardown    Stop Mininet
-Library           SSHLibrary
-Resource          ../../../libraries/Utils.robot
-
-*** Variables ***
-${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,3 --switch ovsk
+Suite Setup       RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
+Suite Teardown
+Library           RequestsLibrary
+Resource          ../../../libraries/BierTeResource.robot
