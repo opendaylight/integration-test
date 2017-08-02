@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_d97bd427",
+        "filename": "csit/suites/netvirt/Neutron_Security_Groups_Statistics/01_ACL_operational_Single_DPN.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-02T17:27:15Z",
+      "side": 1,
+      "message": "I have not looked closely at this patch yet, but wanted to\npoint some things out here.\n\n1) we have OpenStackOperations.robot which handles all of\n   these openstack related things (e.g. creating VMs).\n   Please use those keywords. Enhance them if needed.\n\n2) Do not use sleep. I\u0027m guessing you used it here to wait\n   for the VM to come up. Again, we have keywords in the\n   openstack lib to do that.\n\n3) always include clear [Documentation] to your keywords and\n   test cases\n\n4) Follow basic style/coding guidelines we have outlined\n   here:\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines",
+      "range": {
+        "startLine": 786,
+        "startChar": 0,
+        "endLine": 794,
+        "endChar": 20
+      },
+      "revId": "4cc4fcd67892d92e4a7bad0e6ad5a243ce93b10f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
