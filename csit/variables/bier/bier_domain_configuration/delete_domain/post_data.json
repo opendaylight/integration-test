@@ -1,0 +1,7 @@
+{
+    input:
+    {
+		topology-id: $TOPOLOGYID,
+		domain-id: $DOMAINID
+	}
+}

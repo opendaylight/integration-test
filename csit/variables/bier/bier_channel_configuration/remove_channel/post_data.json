@@ -1,0 +1,6 @@
+{
+	input:{
+		topology-id:$TOPOLOGYID,
+		channel-name:$CHANNELNAME
+	}
+}

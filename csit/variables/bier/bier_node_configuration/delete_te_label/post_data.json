@@ -1,0 +1,6 @@
+{
+	input:{
+		topology-id:$TOPOLOGYID,
+		node-id:$NODEID
+	}
+}

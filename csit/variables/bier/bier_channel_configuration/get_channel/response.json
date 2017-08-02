@@ -1,0 +1,15 @@
+{
+  "output": {
+    "channel-name": [
+      {
+        "name": "channel1"
+      },
+      {
+        "name": "channel2"
+      },
+      {
+        "name": "channel3"
+      }
+    ]
+  }
+}
