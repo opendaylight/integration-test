@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_a35a3181",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 60
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-08-02T12:44:45Z",
+      "side": 1,
+      "message": "Possibly not needed.",
+      "range": {
+        "startLine": 131,
+        "startChar": 69,
+        "endLine": 131,
+        "endChar": 88
+      },
+      "revId": "226810aa7cd514d8eae2e170d3d695b8296a1b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_43653544",
+        "filename": "csit/suites/netconf/apidocs/apidocs.robot",
+        "patchSetId": 60
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-08-02T12:44:45Z",
+      "side": 1,
+      "message": "Why is this needed?\nGet_As_Json_Templated specifies its own headers.",
+      "range": {
+        "startLine": 3,
+        "startChar": 62,
+        "endLine": 3,
+        "endChar": 80
+      },
+      "revId": "226810aa7cd514d8eae2e170d3d695b8296a1b7e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
