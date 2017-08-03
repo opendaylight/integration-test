@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_49bb8fc4",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "where is this defined?",
+      "range": {
+        "startLine": 504,
+        "startChar": 44,
+        "endLine": 504,
+        "endChar": 54
+      },
+      "revId": "6de16dff18c10aa07b6991575dfa9db6aeca3b4f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_a935eb47",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite1.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "another example of unnecessary log statement. line 468 below\nliterally says \"Data Store Validation ...\"",
+      "range": {
+        "startLine": 465,
+        "startChar": 4,
+        "endLine": 465,
+        "endChar": 38
+      },
+      "revId": "6de16dff18c10aa07b6991575dfa9db6aeca3b4f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_a9b04bde",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite1.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 720,
+        "startChar": 4,
+        "endLine": 720,
+        "endChar": 7
+      },
+      "revId": "6de16dff18c10aa07b6991575dfa9db6aeca3b4f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_893aa734",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite2.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "no sleeps",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 19
+      },
+      "revId": "6de16dff18c10aa07b6991575dfa9db6aeca3b4f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_69c77313",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "another one to point out. why? who/what/where is needing\nthis to be global at this point. this is the last test\ncase. Does it need to be visible for some keyword that\nyou are calling next? if so, pass it as a variable.",
+      "range": {
+        "startLine": 342,
+        "startChar": 4,
+        "endLine": 342,
+        "endChar": 34
+      },
+      "revId": "6de16dff18c10aa07b6991575dfa9db6aeca3b4f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
