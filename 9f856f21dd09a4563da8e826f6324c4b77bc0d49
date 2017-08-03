@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_285e2bea",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Hi Jamo,\n\nMost of the keywords are using \"write until prompt\" where in it wont check for the prompt after executing the command. IF we change the existing keyword to use \"write command until expected prompt\", and pass prompt as one of the parameters to it, lot of already running scripts might fail. Please suggest me can I do this change in the existing keyword itself?",
+      "parentUuid": "da2a55be_143b2c9d",
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_5445a415",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 13
@@ -53,6 +71,30 @@
       "writtenOn": "2017-07-20T00:00:03Z",
       "side": 1,
       "message": "it makes sense to pass this as a variable, as a best option.\nsecond best option would be to change the keyword name to \"Check that Network Port Status is ESTABLISHED\"",
+      "range": {
+        "startLine": 508,
+        "startChar": 44,
+        "endLine": 508,
+        "endChar": 55
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_c8ff8fa9",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da2a55be_5445a415",
       "range": {
         "startLine": 508,
         "startChar": 44,
@@ -88,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_0831a7a2",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Moved all the common variables into a variable file called \"IPV6Service_Variables.robot\" and kept it in the variables folder.",
+      "parentUuid": "da2a55be_9446fc1f",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 13
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_81f7d7f4",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
         "patchSetId": 13
@@ -99,6 +165,30 @@
       "writtenOn": "2017-07-20T22:11:04Z",
       "side": 1,
       "message": "what\u0027s the point of doing this?",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_68e783e5",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "I am doing a force connection to the virsh console, I am opening a sub connection to it.",
+      "parentUuid": "da2a55be_81f7d7f4",
       "range": {
         "startLine": 64,
         "startChar": 4,
@@ -134,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_fac32788",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da2a55be_e1ddf371",
+      "range": {
+        "startLine": 92,
+        "startChar": 70,
+        "endLine": 92,
+        "endChar": 105
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_f455b8c6",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
         "patchSetId": 13
@@ -145,6 +259,30 @@
       "writtenOn": "2017-07-20T00:00:03Z",
       "side": 1,
       "message": "you really need all these Globals?",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 151,
+        "endChar": 14
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_a81fbb08",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Hi Jamo,\n\nWe need to set them as global, because once they are fetched, we are making use of them across the suite.",
+      "parentUuid": "da2a55be_f455b8c6",
       "range": {
         "startLine": 151,
         "startChar": 8,
@@ -197,6 +335,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_1abb9b0f",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Commented it becuase of testing purpose, I have uncommented the same.",
+      "parentUuid": "da2a55be_c1d8af81",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 80
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_21e8ab0f",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
         "patchSetId": 13
@@ -208,6 +370,30 @@
       "writtenOn": "2017-07-20T22:11:04Z",
       "side": 1,
       "message": "delete?",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 54
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_7a3737b1",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Commented it becuase of testing purpose, I have uncommented the same.",
+      "parentUuid": "da2a55be_21e8ab0f",
       "range": {
         "startLine": 278,
         "startChar": 0,
@@ -243,6 +429,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_9a466b22",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Removed the comments.",
+      "parentUuid": "da2a55be_01e3e733",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 33
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_2191cb99",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
         "patchSetId": 13
@@ -254,6 +464,30 @@
       "writtenOn": "2017-07-20T22:11:04Z",
       "side": 1,
       "message": "these are the same as in the variables file you are sourcing, so duplicate. I did not search for all cases of this, but \nplease address them all.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 44
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_9a9e6b55",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Moved all the common variables into a variable file called \"IPV6Service_Variables.robot\" and kept it in the variables folder.",
+      "parentUuid": "da2a55be_2191cb99",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -289,6 +523,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_28dd8b15",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Each command executes on TOR takes some time, so only we have put the sleeps. But for now I have removed them. Sometimes it works without sleep. It is inconstant.",
+      "parentUuid": "da2a55be_14620cad",
+      "range": {
+        "startLine": 466,
+        "startChar": 4,
+        "endLine": 466,
+        "endChar": 25
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_018c877e",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
         "patchSetId": 13
@@ -300,6 +558,30 @@
       "writtenOn": "2017-07-20T22:11:04Z",
       "side": 1,
       "message": "this is a neutron command keyword. it should probably belong\nin the openstackoperations library and be migrated to use\nthe openstack cli instead of the neutron cli. this comment applies to all keywords that are of a similar nature.",
+      "range": {
+        "startLine": 490,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 34
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_ba836fcb",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Moved this keyword to OpenstackOpenrations.robot library and changed from neutron command to Openstack command.",
+      "parentUuid": "da2a55be_018c877e",
       "range": {
         "startLine": 490,
         "startChar": 0,
@@ -335,6 +617,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_3a777f04",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Hi Jamo,\n\nWe have similar keyword \"Verify Ovs-vsctl Output\" in OVSDB.robot library. But this keyword has a command which executes on mininet. Our code is not mininet command based.",
+      "parentUuid": "da2a55be_a1f49bf2",
+      "range": {
+        "startLine": 556,
+        "startChar": 23,
+        "endLine": 556,
+        "endChar": 66
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_41eddf24",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
         "patchSetId": 13
@@ -346,6 +652,30 @@
       "writtenOn": "2017-07-20T22:11:04Z",
       "side": 1,
       "message": "we already have a keyword similar to this:\n\nhttp://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OVSDB.robot.html#Verify%20Ovs-vsctl%20Output",
+      "range": {
+        "startLine": 554,
+        "startChar": 0,
+        "endLine": 561,
+        "endChar": 47
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_5a651344",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Hi Jamo,\n\nWe have similar keyword \"Verify Ovs-vsctl Output\" in OVSDB.robot library. But this keyword has a command which executes on mininet. Our code is not mininet command based.",
+      "parentUuid": "da2a55be_41eddf24",
       "range": {
         "startLine": 554,
         "startChar": 0,
