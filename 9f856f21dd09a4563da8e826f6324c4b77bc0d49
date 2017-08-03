@@ -60,6 +60,70 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_49170fa4",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "what I\u0027m saying is, instead of making a whole new keyword like this:\n\nnova reboot\n    [Arguments]    ${vm_name}\n    ${output}    Write Commands Until Expected Prompt    nova reboot ${vm_name}    $    60 sec\n    Log    ${output}\n    Should Contain    ${output}    accepted\n    Wait Until Keyword Succeeds    30 sec    10 sec    verify vm creation    ${vm_name}\n\n\nWhy not use this:\n\nOpenStackOperations.Rebot Nova VM    ${vm_name}\n\n\nso much work has been done along these lines and we don\u0027t want to maintain code\nin different places doing the same thing.\n\nAgain, this is a specific example to a general comment I am making here. It will\napply in many places.",
+      "parentUuid": "ba1f61a0_285e2bea",
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_2920dbf6",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "another thing to point out and a great example of why it\u0027s better to use the existing, testing, maintained library is\nthat we are now using the openstack cli (instead of nova, neutron, etc) whenever possible. We are also now invoking\nour openstack commands directly from the test execution\nsystem instead of ssh\u0027ing to the devstack system to\nexecute them. All of this was done in the OpenStackOperations\nlibrary and merged. Using that library for these common\nthings gives you that work for free.",
+      "range": {
+        "startLine": 38,
+        "startChar": 24,
+        "endLine": 38,
+        "endChar": 73
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_8988e7e8",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "is this keyword used anywhere?",
+      "range": {
+        "startLine": 503,
+        "startChar": 0,
+        "endLine": 503,
+        "endChar": 29
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_5445a415",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 13
@@ -248,6 +312,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_c9d77fbe",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "you did not get them all",
+      "parentUuid": "ba1f61a0_fac32788",
+      "range": {
+        "startLine": 92,
+        "startChar": 70,
+        "endLine": 92,
+        "endChar": 105
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_f455b8c6",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
         "patchSetId": 13
@@ -295,6 +383,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_a95a0b81",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "I don\u0027t follow this. you are reusing is and giving it new\nvalues throughout the suite. it seems like a local variable\nin most cases. This is going to be hard to debug.",
+      "parentUuid": "ba1f61a0_a81fbb08",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 151,
+        "endChar": 14
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_345f50e7",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
         "patchSetId": 13
@@ -306,6 +418,24 @@
       "writtenOn": "2017-07-20T00:00:03Z",
       "side": 1,
       "message": "looks like a lot of repeated patterns in this code. if you have a bunch of lines doing the same thing and you are just\ncopy/pasting and changing a few variables, then turn it in\nto a keyword (can be a local keyword if it only applies to\nthis suite), but all the repitive code makes it too hard to read/review and even harder to maintain",
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_49f38f73",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite3.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "what about this?\n\nwhat about a local keyword (if it\u0027s only needed by this\nsuite, but in a lib if it\u0027s needed in other suites)\nthat wraps lines 158 - 164 and returns the ${mac}.\n\nmake the name human readable and understandable.\n\nthen you can use that same keyword instead of the \ntotal duplication you are doing in 184-190\n\nagain, a specific example of a more general comment.",
+      "parentUuid": "da2a55be_345f50e7",
       "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -594,6 +724,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_89ed878e",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "add the additional timeout argument to the keyword. maybe\neven use something larger than 5 to be safe.",
+      "parentUuid": "ba1f61a0_ba836fcb",
+      "range": {
+        "startLine": 490,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 34
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_a1f49bf2",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
         "patchSetId": 13
@@ -629,6 +783,30 @@
       "side": 1,
       "message": "Hi Jamo,\n\nWe have similar keyword \"Verify Ovs-vsctl Output\" in OVSDB.robot library. But this keyword has a command which executes on mininet. Our code is not mininet command based.",
       "parentUuid": "da2a55be_a1f49bf2",
+      "range": {
+        "startLine": 556,
+        "startChar": 23,
+        "endLine": 556,
+        "endChar": 66
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_a96deb06",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-03T22:19:07Z",
+      "side": 1,
+      "message": "if you dig deeper, you\u0027ll see that the keyword used inside\nof \"Verify Ovs-vsctl Output\" in OVSDB.robot is called\nRun Command On Mininet (which is not totally accurate) and\nthat keyword does \"Run Command On Remote System\".\n\nyou should be able to use it.",
+      "parentUuid": "ba1f61a0_3a777f04",
       "range": {
         "startLine": 556,
         "startChar": 23,
