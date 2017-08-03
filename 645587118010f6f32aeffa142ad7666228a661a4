@@ -231,6 +231,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_bd7c0974",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite1.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "da2a55be_f6be52d3",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 15
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1af78d9a_9562a8d6",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite2.robot",
         "patchSetId": 5
@@ -290,6 +314,30 @@
       "side": 1,
       "message": "This was just an example. I do not have time to go make\nthese review comments everywhere you have them. Please\ngo back over to see all the other places you can remove\nthese kinds of things.",
       "parentUuid": "da2a55be_9f3c5dc1",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "645587118010f6f32aeffa142ad7666228a661a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_9d81454d",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite2.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-03T09:31:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da2a55be_76ca626f",
       "range": {
         "startLine": 155,
         "startChar": 0,
