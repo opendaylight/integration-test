@@ -19,8 +19,10 @@ Resource          ../../../variables/netvirt/Variables.robot
 *** Variables ***
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
-@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
-@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
+${NET_1_INSTANCE}     FirstNetInstance
+${NET_2_INSTANCE}     SecondNetInstance
+@{NET_1_VM_INSTANCES}    FirstNetInstance-1    FirstNetInstance-2     FirstNetInstance-3
+@{NET_2_VM_INSTANCES}    SecondNetInstance-1    SecondNetInstance-2    SecondNetInstance-3
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 ${network1_vlan_id}    1235
 
@@ -59,11 +61,11 @@ Add Ssh Allow Rule
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_1      ${NET_1_INSTANCE}     sg=csit     no_of_instances=3
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_2    ${NET_2_INSTANCE}    sg=csit     no_of_instances=3
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
