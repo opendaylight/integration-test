@@ -252,8 +252,9 @@ Get Router Id
     [Return]    ${router_id}
 
 Create Vm Instances
-    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
+    ${image}    Set Variable If    "${image}"!="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg}
@@ -261,15 +262,17 @@ Create Vm Instances
     \    Log    ${output}
 
 Create Vm Instance With Port
-    [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
+    ${image}    Set Variable If    "${image}"!="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg}
     Log    ${output}
 
 Create Vm Instance With Ports
-    [Arguments]    ${port_name}    ${port2_name}    ${vm_instance_name}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Arguments]    ${port_name}    ${port2_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
+    ${image}    Set Variable If    "${image}"!="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
     ${port2_id}=    Get Port Id    ${port2_name}    ${devstack_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-group ${sg}
