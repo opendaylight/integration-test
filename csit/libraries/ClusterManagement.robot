@@ -794,3 +794,9 @@ Sync_Status_Should_Be_True
     [Documentation]    Verify that cluster node is in sync with others
     ${status}    Get_Sync_Status_Of_Member    ${controller_index}
     BuiltIn.Should_Be_True    ${status}
+
+Change_Use_Tell_Based_Protocol
+    [Documentation]    Change status use-tell-based-protocol to True or False
+    [Arguments]    ${status}    ${DATASTORE_CFG}
+    Run Keyword If    "${status}" == "True"    Check_Bash_Command_On_List_Or_All    sed -ie "s/^use-tell-based-protocol=false/use-tell-based-protocol=true/g" ${DATASTORE_CFG}
+    Run Keyword If    "${status}" == "False"    ClusterManagement.Check_Bash_Command_On_List_Or_All    sed -ie "s/^use-tell-based-protocol=true/use-tell-based-protocol=false/g" ${DATASTORE_CFG}
