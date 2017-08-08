@@ -172,6 +172,11 @@ Create External Tunnel Endpoint Configuration
     [Documentation]    Create Tunnel End point
     TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE_BGP}/create_etep    mapping=${Kwargs}    session=session
 
+Create External Vxlan Tunnel Endpoint Configuration
+    [Arguments]    &{Kwargs}
+    [Documentation]    Create Tunnel End point
+    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE_BGP}/create_etep_vxlan    mapping=${Kwargs}    session=session
+
 Delete External Tunnel Endpoint Configuration
     [Arguments]    &{Kwargs}
     [Documentation]    Delete Tunnel End point
