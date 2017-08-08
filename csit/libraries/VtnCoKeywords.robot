@@ -41,7 +41,7 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    sudo mkdir -p /usr/local/vtn
     SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
     SSHLibrary.Execute Command    sudo yum install -q -y https://download.postgresql.org/pub/repos/yum/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-3.noarch.rpm
-    SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc
+    SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc-09.06.0300
     CompareStream.Run_Keyword_If_At_Least_Else    boron    Download VtnCo Distribution
     ...    ELSE    SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/${vtn_dist}*-bin.tar.bz2
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
