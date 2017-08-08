@@ -124,6 +124,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_4d3a6dce",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-08T16:18:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_8988e7e8",
+      "range": {
+        "startLine": 503,
+        "startChar": 0,
+        "endLine": 503,
+        "endChar": 29
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_5445a415",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 13
@@ -748,6 +772,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_0d36b552",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-08T16:18:35Z",
+      "side": 1,
+      "message": "Hi Jamo,\n\nI din\u0027t get what you are saying? Can you please explain?",
+      "parentUuid": "ba1f61a0_89ed878e",
+      "range": {
+        "startLine": 490,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 34
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_a1f49bf2",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
         "patchSetId": 13
@@ -807,6 +855,30 @@
       "side": 1,
       "message": "if you dig deeper, you\u0027ll see that the keyword used inside\nof \"Verify Ovs-vsctl Output\" in OVSDB.robot is called\nRun Command On Mininet (which is not totally accurate) and\nthat keyword does \"Run Command On Remote System\".\n\nyou should be able to use it.",
       "parentUuid": "ba1f61a0_3a777f04",
+      "range": {
+        "startLine": 556,
+        "startChar": 23,
+        "endLine": 556,
+        "endChar": 66
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_eded218d",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 7321
+      },
+      "writtenOn": "2017-08-08T16:18:35Z",
+      "side": 1,
+      "message": "Replaced \"verify ovs\" keyword with \"Verify Ovs-vsctl Output\" keyword from OVSDB.robot lib.",
+      "parentUuid": "ba1f61a0_a96deb06",
       "range": {
         "startLine": 556,
         "startChar": 23,
