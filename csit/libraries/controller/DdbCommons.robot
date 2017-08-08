@@ -390,3 +390,10 @@ Check_Status_Of_First_Response
     # @{resp_list}[0][2] does not work
     ${tuple} =    BuiltIn.Set_Variable    @{resp_list}[0]
     TemplatedRequests.Check_Status_Code    @{tuple}[2]
+
+Change_Use_Tell_Based_Protocol
+    [Arguments]    ${status}    ${DATASTORE_CFG}
+    [Documentation]    Change status use-tell-based-protocol to True or False
+    BuiltIn.Run_Keyword_And_Return_If    "${status}" == "True"    ClusterManagement.Check_Bash_Command_On_List_Or_All    sed -ie "s/^use-tell-based-protocol=false/use-tell-based-protocol=true/g" ${DATASTORE_CFG}
+    BuiltIn.Run_Keyword_And_Return_If    "${status}" == "False"    ClusterManagement.Check_Bash_Command_On_List_Or_All    sed -ie "s/^use-tell-based-protocol=true/use-tell-based-protocol=false/g" ${DATASTORE_CFG}
+    BuiltIn.Fail    Failure in status. Status can be True or False.
