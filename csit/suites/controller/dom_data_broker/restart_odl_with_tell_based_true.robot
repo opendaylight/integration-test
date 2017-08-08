@@ -16,6 +16,7 @@ Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/ShardStability.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/controller/DdbCommons.robot
 
 *** Variables ***
 ${DATASTORE_CFG}    /${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.controller.cluster.datastore.cfg
@@ -27,7 +28,7 @@ Kill_All_Members
 
 Set_Tell_Based_Protocol_Usage
     [Documentation]    Un-comment the flag usage in config file. Also clean most data except data/log/.
-    ClusterManagement.Check_Bash_Command_On_List_Or_All    sed -ie "s/^#use-tell-based-protocol=/use-tell-based-protocol=/g" ${DATASTORE_CFG}
+    DdbCommons.Change_Use_Tell_Based_Protocol    True    ${DATASTORE_CFG}
     ClusterManagement.Check_Bash_Command_On_List_Or_All    cat ${DATASTORE_CFG}
     ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir=/tmp
 
