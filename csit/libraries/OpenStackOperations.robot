@@ -817,7 +817,7 @@ Get Ports MacAddr
 Get Port Ip
     [Arguments]    ${port_name}
     [Documentation]    Keyword would return the IP of the ${port_name} received.
-    ${rc}    ${output}=    Run And Return Rc And Output    neutron port-list | grep "${port_name}" | awk '{print $11}' | awk -F "\\"" '{print $2}'
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack port list | grep "${port_name}" | awk -F\' '{print $2}'
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${port_ip}=    Get from List    ${splitted_output}    0
