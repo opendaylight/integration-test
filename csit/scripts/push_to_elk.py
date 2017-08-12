@@ -123,6 +123,233 @@ print(json.dumps(BODY, indent=4))
 try:
     r = requests.put(PUT_URL, json=BODY)
     print(r.status_code)
-    print(r.content)
+    print(json.dumps(json.loads(r.content), indent=4))
 except:
-    print('Unable to send PUT request')
+    print('Unable to push data to ElasticSearch')
+
+
+def JSONToString(jobj):
+    retval = str(jobj)
+    retval = retval.replace('\'', '"')
+    retval = retval.replace(": ", ":")
+    retval = retval.replace(", ", ",")
+    retval = retval.replace('True', 'true')
+    retval = retval.replace('False', 'false')
+    retval = retval.replace('None', 'null')
+    return retval
+
+
+def getVisualization(tesplan, key, fieldlist):
+    vis = {}
+    vis['title'] = os.environ['TESTPLAN'] + '-' + key
+    vis['description'] = 'visualization of ' + key + ' trends for testplan ' + os.environ['TESTPLAN']
+    vis['version'] = 1
+    vis['kibanaSavedObjectMeta'] = {
+            'searchSourceJSON': ''
+            }
+    searchSourceJSON = {
+        'index': 'opendaylight-*',
+        'query': {
+            'query_string': {
+                'analyze_wildcard': True,
+                'query': '*'
+                }
+            },
+        'filter': [{
+            'meta': {
+                'index': 'opendaylight-*',
+                'negate': False,
+                'disabled': False,
+                'alias': None,
+                'type': 'phrase',
+                'key': 'project',
+                'value': 'opendaylight'
+                },
+            'query': {
+                'match': {
+                        'project': {
+                            'query': 'opendaylight',
+                            'type': 'phrase'
+                            }
+                    }
+                },
+            '$state': {
+                'store': 'appState'
+                }
+            }]
+        }
+    vis['kibanaSavedObjectMeta']['searchSourceJSON'] = JSONToString(searchSourceJSON)
+    vis['uiStateJSON'] = '{"vis":{"legendOpen":true}}'
+    visState = {
+            'title': vis['title'],
+            'type': 'area',
+            'params': {
+                'addLegend': True,
+                'addTimeMarker': False,
+                'addTooltip': True,
+                'times': [],
+                'grid': {
+                    'categoryLines': False,
+                    'style': {
+                        'color': '#eee'
+                        }
+                    },
+                'legendPosition': 'right',
+                'seriesParams': [],
+                'categoryAxes': [{
+                        'id': 'CategoryAxis-1',
+                        'labels': {
+                            'show': True,
+                            'truncate': 100
+                            },
+                        'position': 'bottom',
+                        'scale': {
+                            'type': 'linear'
+                            },
+                        'show': True,
+                        'style': {},
+                        'title': {
+                            'text': 'Test run number'
+                            },
+                        'type': 'category'
+                        }
+                    ],
+                'valueAxes': [{
+                        'id': 'ValueAxis-1',
+                        'labels': {
+                            'filter': False,
+                            'rotate': 0,
+                            'show': True,
+                            'truncate': 100
+                            },
+                        'name': 'LeftAxis-1',
+                        'position': 'left',
+                        'scale': {
+                            'mode': 'normal',
+                            'type': 'linear'
+                            },
+                        'show': True,
+                        'style': {},
+                        'title': {
+                            'text': ''
+                            },
+                        'type': 'value'
+                        }
+                    ]
+                },
+                'aggs': [{
+                        'id': '2',
+                        'enabled': True,
+                        'type': 'histogram',
+                        'schema': 'segment',
+                        'params': {
+                            'field': 'test-run',
+                            'interval': 1,
+                            'extended_bounds': {},
+                            'customLabel': 'Test run number'
+                            }
+                    }
+                ],
+                'listeners': {}
+            }
+    for field in fieldlist:
+        seriesParam = {
+            'show': True,
+            'mode': 'normal',
+            'type': 'area',
+            'drawLinesBetweenPoints': True,
+            'showCircles': True,
+            'interpolate': 'linear',
+            'lineWidth': 2,
+            'data': {
+                'id': str(len(visState['params']['seriesParams'])+1) + '-' + vis['title'],
+                'label': field.split('.')[-1]
+                },
+            'valueAxis': 'ValueAxis-1'
+            }
+        visState['params']['seriesParams'].append(seriesParam)
+        agg = {
+            'id': str(len(visState['params']['seriesParams'])+1) + '-' + vis['title'],
+            'enabled': True,
+            'type': 'sum',
+            'schema': 'metric',
+            'params': {
+                'field': field,
+                'customLabel': field.split('.')[-1]
+                }
+            }
+        visState['aggs'].append(agg)
+    vis['visState'] = JSONToString(visState)
+    return vis
+
+
+vis_ids = []
+if (BODY['test-type'] == 'performance'):
+    # Create visualizations for performance tests
+    # One visualization for one plot
+    for key in BODY['plots']:
+        fieldlist = []
+        for subkey in BODY['plots'][key]:
+            fieldlist.append('plots.' + key + '.' + subkey)
+        vis = getVisualization(os.environ['TESTPLAN'], key, fieldlist)
+        vis_ids.append(os.environ['TESTPLAN'] + '-' + key)
+        PUT_URL = 'https://{}:{}/.kibana/visualization/{}-{}'.format(ELK_DB_HOST, ELK_DB_PORT, os.environ['TESTPLAN'], key)
+        print(PUT_URL)
+        print(json.dumps(vis, indent=4))
+        try:
+            r = requests.put(PUT_URL, json = vis)
+            print(r.status_code)
+            print(json.dumps(json.loads(r.content), indent=4))
+        except:
+            print('Unable to push visualization to Kibana')
+
+vis = getVisualization(os.environ['TESTPLAN'], 'functional', ['pass-tests', 'failed-tests'])
+vis_ids.append(os.environ['TESTPLAN'] + '-functional')
+PUT_URL = 'https://{}:{}/.kibana/visualization/{}-functional'.format(ELK_DB_HOST, ELK_DB_PORT, os.environ['TESTPLAN'])
+print(PUT_URL)
+print(json.dumps(vis, indent = 4))
+try:
+    r = requests.put(PUT_URL, json = vis)
+    print(r.status_code)
+    print(json.dumps(json.loads(r.content), indent=4))
+except:
+    print('Unable to push dashboard to Kibana')
+
+# Create dashboard and add above created visualizations to it
+dashboard = {}
+dashboard['title'] = os.environ['TESTPLAN']
+dashboard['description'] = 'Dashboard for visualizing ' + os.environ['TESTPLAN']
+dashboard['uiStateJSON'] = '{}'
+dashboard['optionsJSON'] = '{"darkTheme":false}'
+dashboard['version'] = 1
+dashboard['timeRestore'] = False
+dashboard['kibanaSavedObjectMeta'] = {
+        "searchSourceJSON": '{"filter":[{"query":{"query_string":{"query":"*","analyze_wildcard":true}}}],"highlightAll":true,"version":true}'
+        }
+panelsJSON = []
+size_x = 6
+size_y = 3
+xpos = 1
+ypos = 1
+for i, vis_id in enumerate(vis_ids):
+    panelJSON = {
+            'size_x': size_x,
+            'size_y': size_y,
+            'panelIndex': i,
+            'type': 'visualization',
+            'id': vis_id,
+            'col': xpos,
+            'row': ypos
+            }
+    xpos += size_x
+    if (xpos > 12):
+        xpos = 1
+        ypos += size_y
+    panelsJSON.append(panelJSON)
+dashboard['panelsJSON'] = JSONToString(panelsJSON)
+PUT_URL = 'https://{}:{}/.kibana/dashboard/{}'.format(ELK_DB_HOST, ELK_DB_PORT, os.environ['TESTPLAN'])
+print(PUT_URL)
+print(json.dumps(dashboard, indent = 4))
+r = requests.put(PUT_URL, json = dashboard)
+print(r.status_code)
+print(json.dumps(json.loads(r.content), indent=4))
