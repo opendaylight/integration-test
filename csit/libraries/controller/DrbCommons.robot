@@ -20,6 +20,12 @@ Documentation     DOMRpcBroker testing: Common keywords
 ...               constant from isolated node with regirered rpc is
 ...               invalid
 ...               ${active_indices} - list of indexes of non-isolated, non-stopped/killed nodes
+...
+...               As RPC registrations are documented to take a while to propagate
+...               http://docs.opendaylight.org/en/latest/developer-guide/controller.html#rpcs-and-cluster
+...               and Akka can create spurious UnreachableMember events
+...               https://bugs.opendaylight.org/show_bug.cgi?id=8430
+...               some keywords contain "tolerance" argument which applier BuiltIn.Wait_Until_Keyword_Succeeds.
 Library           Collections
 Resource          ${CURDIR}/../ClusterManagement.robot
 Resource          ${CURDIR}/../MdsalLowlevel.robot
@@ -145,13 +151,21 @@ Verify_Constant_On_Unregistered_Nodes
     \    Verify_Constant_On_Unregistered_Node    ${index}
 
 Verify_Constant_On_Active_Nodes
+    [Arguments]    ${tolerance}=2
     [Documentation]    Verify that the rpc response comes from the local node for every node in the list.
+    ...    As a workaround for Bug 8430, \${tolerance} can be set as duration (number of seconds) for WUKS.
+    FIXME: Rename most Verify_* keywords to Check_* and use the Verify prefix for the WUKS versions.
+    BuiltIn.Run_Keyword_And_Return_If    ${tolerance}    BuiltIn.Wait_Until_Keyword_Succeeds    ${tolerance}    1s    Verify_Constant_On_Active_Nodes    tolerance=0
     : FOR    ${index}    IN    @{active_indices}
     \    BuiltIn.Run_Keyword_If    ${index} in ${registered_indices}    Verify_Constant_On_Registered_Node    ${index}
     \    ...    ELSE    Verify_Constant_On_Unregistered_Node    ${index}
 
 Verify_Contexted_Constant_On_Active_Nodes
+    [Arguments]    ${tolerance}=2
     [Documentation]    Verify that the rpc response comes from the local node for every node in the list.
+    ...    As a workaround for Bug 8430, \${tolerance} can be set as duration (number of seconds) for WUKS.
+    FIXME: Rename most Verify_* keywords to Check_* and use the Verify prefix for the WUKS versions.
+    BuiltIn.Run_Keyword_And_Return_If    ${tolerance}    BuiltIn.Wait_Until_Keyword_Succeeds    ${tolerance}    1s    Verify_Contexted_Constant_On_Active_Nodes    tolerance=0
     : FOR    ${index}    IN    @{active_indices}
     \    BuiltIn.Run_Keyword_If    ${index} in ${registered_indices}    Verify_Contexted_Constant_On_Registered_Node    ${index}
     \    ...    ELSE    Verify_Contexted_Constant_On_Unregistered_Node    ${index}
@@ -185,7 +199,7 @@ Isolate_Node
     [Arguments]    ${member_index}
     [Documentation]    Isolate a member and update appropriate suite variables.
     ClusterManagement.Isolate_Member_From_List_Or_All    ${member_index}
-    DrbCommons__Upadte_Active_Nodes_List    deactivate_idx=${member_index}
+    DrbCommons__Update_Active_Nodes_List    deactivate_idx=${member_index}
     BuiltIn.Return_From_Keyword_If    ${member_index} not in ${registered_indices}
     DrbCommons__Rem_Possible_Constant    ${member_index}
 
@@ -194,11 +208,11 @@ Rejoin_Node
     [Documentation]    Rejoin a member and update appropriate suite variables.
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${member_index}
     BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
-    DrbCommons__Upadte_Active_Nodes_List    activate_idx=${member_index}
+    DrbCommons__Update_Active_Nodes_List    activate_idx=${member_index}
     BuiltIn.Return_From_Keyword_If    ${member_index} not in ${registered_indices}
     DrbCommons__Add_Possible_Constant    ${member_index}
 
-DrbCommons__Upadte_Active_Nodes_List
+DrbCommons__Update_Active_Nodes_List
     [Arguments]    ${activate_idx}=${EMPTY}    ${deactivate_idx}=${EMPTY}
     [Documentation]    Add or remove member index to/from the list of active nodes.
     BuiltIn.Run_Keyword_If    "${activate_idx}" != "${EMPTY}"    Collections.Append_To_List    ${active_indices}    ${activate_idx}
