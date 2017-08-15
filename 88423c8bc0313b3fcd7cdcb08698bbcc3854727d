@@ -1,0 +1,763 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_8ddefe0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "again, this summary line in your git commit message does\nnot come close to telling what this patch is all about.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_2de39234",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "what is the 29 character? why don\u0027t you put this as a new\nkeyword in RemoteBash.robot with a more readable name.\nOthers will then be able to use/know it and it will read\nmore clearly here.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_cdcbd6a3",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "for ALL of these nova, neutron, glance, etc cli commands,\nplease use the existing ones in OpenStackOperations.robot\nlibrary. If there is not one that works, enhance an\nexisting one to suite your needs (as a first option) or\nwrite a new keyword (as a second option). using the \nopenstack cli. if there is no openstack cli equivalent,\nthen we can still use these other client clis.\n\nbut I know this one has an equivalent in \"openstack server\nshow ...\"",
+      "range": {
+        "startLine": 38,
+        "startChar": 64,
+        "endLine": 38,
+        "endChar": 73
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_8dd1de59",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "is this used any more?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 8
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_6d090add",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "don\u0027t you have a virsh login above that does all this stuff?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 72
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_adce62b2",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "this will turn in to one line when you put the new keyword\nin the remotebash lib",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 30
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_8d06fecc",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "don\u0027t you have a Virsh Exit above that does all this stuff?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 30
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_0d7dee1c",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "what is this going in a keyword called \"Virsh Output\"",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 37
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_0dfa0ebd",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "I have a feeling that all of this is duplicated code that can come from keywords above after they are refactored. like\nmaybe even just a one line \"Virsh Output\" would replace\nall of this.",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 75
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_4d0406c0",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": ", and verifying that everything in ${validation_list} is\nthere in the dump-flows output",
+      "range": {
+        "startLine": 210,
+        "startChar": 83,
+        "endLine": 210,
+        "endChar": 84
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_2d16f2f1",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "this feels like heavier work than needed. but, like I \nsaid above, what\u0027s wrong with this?\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OpenStackOperations.robot#L232",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 21
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_adaf8293",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "we have this:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OpenStackOperations.robot#L288\n\nif you really need to check for Running, I would say this\nwould be a valid thing to do in the openstack lib:\n\nVerify VM State\n    [Arguments]    ${vm_name}    ${state}\n    [Documentation]    \u003cput relevant docs here\u003e\n    ${rc}    ${output}\u003d    Run And Return Rc And Output    openstack server show ${vm_name} | grep OS-EXT-STS:vm_state\n    Log    ${output}\n    Should Not Be True    ${rc}\n    Should Contain ${output} ${state}\n\nVerify VM is ACTIVE\n    [Arguments]    ${vm_name}\n    Verify VM State    ${vm_name}    ACTIVE\n\nVerify VM is Running\n    [Arguments]    ${vm_name}\n    Verify VM State    ${vm_name}    Running\n\nVerify VM is ACTIVE and Running\n    Verify VM is ACTIVE\n    Verify VM is Running",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 46
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_0d968e4c",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "what\u0027s going on here?",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 12
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_ed905a50",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "checking it for what?",
+      "range": {
+        "startLine": 305,
+        "startChar": 23,
+        "endLine": 305,
+        "endChar": 45
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_4da0869f",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "verify what after VM deletion. looks like you are \ncheckign something in table\u003d40 as well as checking\nthat openstack doesn\u0027t show the vm any more...",
+      "range": {
+        "startLine": 321,
+        "startChar": 23,
+        "endLine": 321,
+        "endChar": 48
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_2d9b9273",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "we have this:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OpenStackOperations.robot#L296",
+      "range": {
+        "startLine": 343,
+        "startChar": 70,
+        "endLine": 343,
+        "endChar": 111
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_6d8c6a36",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "is this duplicated code?",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 64
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_8d89de28",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "aren\u0027t these lines doing the same thing?",
+      "range": {
+        "startLine": 424,
+        "startChar": 0,
+        "endLine": 425,
+        "endChar": 14
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_cd83d602",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "why four times?",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 443,
+        "endChar": 29
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_ad866211",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "what\u0027s this?",
+      "range": {
+        "startLine": 471,
+        "startChar": 0,
+        "endLine": 472,
+        "endChar": 12
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_4d77e63a",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "is this really a fundamental suite setup? if so, put it\nin the *** Settings *** section. I would change it to\nbe \"Tor Suite Setup\" without CamelCase. If it fails all\nthe test cases will be skipped, which is what we want if\nthis really is a fundamental suite setup.",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 23
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_2d727249",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "no Capitalization",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 26
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_8d90be44",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "why is this here? You aren\u0027t closing other connections, it doesn\u0027t seem. do you want to close others?",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 20
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_6d93ca4f",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "can this be done with the openstack CLI?\ncan we make a higher level keyword like we have with\nthe other openstackoperation library keywords. looks\nlike it would take 3 args (tor_bridge, portid and network)\nand that keyword can do your \"Should Contain\" validation.\n\nin the end we will get a reusable openstack library keyword\nand 16 lines here become 8.",
+      "range": {
+        "startLine": 93,
+        "startChar": 57,
+        "endLine": 93,
+        "endChar": 82
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_cd9ab662",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "Capitalization",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 26
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_ad9dc25b",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "I really think the use of globals in this patch is not\nright. this is setting conn_id_3_1 to global, then \n3 lines later you are closing the connection, making\nthis global useless. what\u0027s the point?",
+      "range": {
+        "startLine": 158,
+        "startChar": 4,
+        "endLine": 158,
+        "endChar": 41
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_0da4cea4",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "don\u0027t you have a ping keyword in this patches library already?",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 94
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_ed9e9a53",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "you just closed a connection you assigned to a global \nvariable 3 lines up.",
+      "range": {
+        "startLine": 197,
+        "startChar": 4,
+        "endLine": 197,
+        "endChar": 20
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_4daec686",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "is linkaddr2 used anywhere?",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 39
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_cdb116e3",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "what about the ovsbd.verify ovs-vsctl output keyword?",
+      "range": {
+        "startLine": 354,
+        "startChar": 44,
+        "endLine": 354,
+        "endChar": 58
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_edc5fa3d",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "global here, then closing the connection 8 lines later. there is no point to this.",
+      "range": {
+        "startLine": 363,
+        "startChar": 4,
+        "endLine": 363,
+        "endChar": 39
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_2dc0b229",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "use openstackoperations library keywords",
+      "range": {
+        "startLine": 422,
+        "startChar": 53,
+        "endLine": 422,
+        "endChar": 70
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_ed77ba39",
+        "filename": "csit/suites/netvirt/IPV6Service/__init__.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "just put Close All Connections here and remove Stop Suite\nif that\u0027s all you are doing in that keyword below.",
+      "range": {
+        "startLine": 4,
+        "startChar": 18,
+        "endLine": 4,
+        "endChar": 28
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
