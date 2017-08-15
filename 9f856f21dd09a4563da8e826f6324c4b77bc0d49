@@ -796,6 +796,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_8dea7e0d",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-15T19:00:20Z",
+      "side": 1,
+      "message": "I don\u0027t know any more. I was probably commenting on this\nkeyword here, before you had moved it to the openstack\ncli in the other lib.",
+      "parentUuid": "ba1f61a0_0d36b552",
+      "range": {
+        "startLine": 490,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 34
+      },
+      "revId": "9f856f21dd09a4563da8e826f6324c4b77bc0d49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da2a55be_a1f49bf2",
         "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
         "patchSetId": 13
