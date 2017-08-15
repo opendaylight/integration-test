@@ -1,0 +1,233 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_6d30ea9e",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-08-15T18:35:14Z",
+      "side": 1,
+      "message": "Not sure why this was moved but it should go back to where it was.",
+      "revId": "b63a2fb7ca44a66bb84704693591c48ff7993228",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_cd275663",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-08-15T18:35:14Z",
+      "side": 1,
+      "message": "A proper print statement that is compatible with both python 2 and 3 is print(). This will fail as a syntax error in Python 3. Why was this even changed?",
+      "revId": "b63a2fb7ca44a66bb84704693591c48ff7993228",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_0d216e4d",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-08-15T18:35:14Z",
+      "side": 1,
+      "message": "Please use a python 3 compatible print statement.",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 53
+      },
+      "revId": "b63a2fb7ca44a66bb84704693591c48ff7993228",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_ed1b3a1a",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-08-15T18:35:14Z",
+      "side": 1,
+      "message": "Please use a python 3 compatible print statement.",
+      "revId": "b63a2fb7ca44a66bb84704693591c48ff7993228",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_cdb596ef",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-08-15T18:35:14Z",
+      "side": 1,
+      "message": "Please use a python 3 compatible print statement.",
+      "range": {
+        "startLine": 300,
+        "startChar": 8,
+        "endLine": 301,
+        "endChar": 39
+      },
+      "revId": "b63a2fb7ca44a66bb84704693591c48ff7993228",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_adb822e6",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-08-15T18:35:14Z",
+      "side": 1,
+      "message": "Please use a python 3 compatible print statement.",
+      "range": {
+        "startLine": 304,
+        "startChar": 12,
+        "endLine": 307,
+        "endChar": 57
+      },
+      "revId": "b63a2fb7ca44a66bb84704693591c48ff7993228",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_0de84ee1",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-08-15T18:35:14Z",
+      "side": 1,
+      "message": "Please use a python 3 compatible print statement.",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 31
+      },
+      "revId": "b63a2fb7ca44a66bb84704693591c48ff7993228",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_4df246d3",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-08-15T18:35:14Z",
+      "side": 1,
+      "message": "Please use a python 3 compatible print statement.",
+      "range": {
+        "startLine": 317,
+        "startChar": 4,
+        "endLine": 318,
+        "endChar": 53
+      },
+      "revId": "b63a2fb7ca44a66bb84704693591c48ff7993228",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_2ded52f0",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-08-15T18:35:14Z",
+      "side": 1,
+      "message": "Please use a python 3 compatible print statement.",
+      "revId": "b63a2fb7ca44a66bb84704693591c48ff7993228",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_8dd43e21",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-08-15T18:35:14Z",
+      "side": 1,
+      "message": "Please use a python 3 compatible print statement.",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 37
+      },
+      "revId": "b63a2fb7ca44a66bb84704693591c48ff7993228",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_6dd74a24",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-08-15T18:35:14Z",
+      "side": 1,
+      "message": "Please use a python 3 compatible print statement.",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 49
+      },
+      "revId": "b63a2fb7ca44a66bb84704693591c48ff7993228",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
