@@ -25,6 +25,63 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_ad1022a9",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-08-15T19:30:44Z",
+      "side": 1,
+      "message": "maybe this should be pulled from the local.conf? Or something made to keep it in sync with the run.sh script that builds the local.conf?",
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_8d7a7eef",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-08-15T19:30:44Z",
+      "side": 1,
+      "message": "these should be Devstack utils",
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_4d21a6fa",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-08-15T19:30:44Z",
+      "side": 1,
+      "message": "these should be constants somewhere",
+      "range": {
+        "startLine": 22,
+        "startChar": 41,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_2de39234",
         "filename": "csit/libraries/IPV6_Service.robot",
         "patchSetId": 18
@@ -88,6 +145,23 @@
         "endLine": 41,
         "endChar": 8
       },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_ad8782d6",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-08-15T19:30:44Z",
+      "side": 1,
+      "message": "This should feed into the function name so it it more readable",
       "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -180,6 +254,23 @@
         "endLine": 76,
         "endChar": 37
       },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_0d6e8e2f",
+        "filename": "csit/libraries/IPV6_Service.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-08-15T19:30:44Z",
+      "side": 1,
+      "message": "same comment, but much of this this looks generic and could be in the common Devstack or OpenStackOperations lib. There are slightly different mac grep methods in OpenStackOperations already and it would be good to be the same. e.g: [0-9]{1,3}\\\\.[0-9]{1,3}\\\\.[0-9]{1,3}\\\\.[0-9]{1,3}",
       "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -456,6 +547,40 @@
         "endLine": 472,
         "endChar": 12
       },
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_4de6c6b5",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite1.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-08-15T19:30:44Z",
+      "side": 1,
+      "message": "do we not want our usual debugging collected: Test Teardown     Get Test Teardown Debugs",
+      "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_cde91682",
+        "filename": "csit/suites/netvirt/IPV6Service/IPV6_Service_Suite4.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-08-15T19:30:44Z",
+      "side": 1,
+      "message": "these are really long blocks. Is there a way to break them down?",
       "revId": "88423c8bc0313b3fcd7cdcb08698bbcc3854727d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
