@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_ea4fa3bc",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-08-15T08:18:56Z",
+      "side": 1,
+      "message": "Perhaps ${CURDIR}/controller/DdbCommons.robot would be a better resource to host this keyword.",
+      "range": {
+        "startLine": 798,
+        "startChar": 0,
+        "endLine": 798,
+        "endChar": 30
+      },
+      "revId": "48af0ff41d1ce8085624191b4530123f2f11d331",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_0a55d74f",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-08-15T08:18:56Z",
+      "side": 1,
+      "message": "BuiltIn.Run_Keyword_And_Return_If\n\nAnd then in line 803 use BuiltIn.Fail to let callers know when they pass a wrong status, such as \"true\" or \"false\".",
+      "range": {
+        "startLine": 801,
+        "startChar": 4,
+        "endLine": 801,
+        "endChar": 18
+      },
+      "revId": "48af0ff41d1ce8085624191b4530123f2f11d331",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
