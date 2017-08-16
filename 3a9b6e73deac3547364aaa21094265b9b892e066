@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_86789b90",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-08-16T10:06:38Z",
+      "side": 1,
+      "message": "tidy\nArguments should come before Documentation.",
+      "range": {
+        "startLine": 396,
+        "startChar": 4,
+        "endLine": 396,
+        "endChar": 15
+      },
+      "revId": "3a9b6e73deac3547364aaa21094265b9b892e066",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
