@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_108a21bf",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-16T06:30:21Z",
+      "side": 1,
+      "message": "Given my comments below, maybe we should pass: testname, testtype , plotkey, and fieldlist here.",
+      "revId": "875f82135d03a6560a62bf714c124a6d12896c8f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_70cb9d1e",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-16T06:30:21Z",
+      "side": 1,
+      "message": "I think \"initial\" title (user may manually modify the title afterwords) should include: test-name (so that we have a plot per jenkins job instead of testplan) + test-type (functional, performance) + optional plot key (rate, time, etc...)",
+      "revId": "875f82135d03a6560a62bf714c124a6d12896c8f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_90c8d123",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-16T06:30:21Z",
+      "side": 1,
+      "message": "Not sure how the query works but I think it should search records containing the test-name (jenkins job name) in the opendaylight-test index.",
+      "revId": "875f82135d03a6560a62bf714c124a6d12896c8f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_10034143",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-16T06:30:21Z",
+      "side": 1,
+      "message": "area is good for functional but for performance plots is better to use type line.",
+      "revId": "875f82135d03a6560a62bf714c124a6d12896c8f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d0a08945",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-16T06:30:21Z",
+      "side": 1,
+      "message": "For aggregation i normally use type\u003daverage but i think this may not be relevant for our plots",
+      "revId": "875f82135d03a6560a62bf714c124a6d12896c8f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_90bd716b",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-16T06:30:21Z",
+      "side": 1,
+      "message": "we need 1 plot per combination of: test-name (not testplan) + test-type + plot key (optional).",
+      "revId": "875f82135d03a6560a62bf714c124a6d12896c8f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
