@@ -1,5 +1,4 @@
 integration/test/csit/suites/l2gw/
 integration/test/csit/suites/netvirt/Netvirt_Vpnservice/01_basic_vpnservice.robot
-
 #We need an image with quagga bgp before enabling these tests
-#integration/test/csit/suites/netvirt/Netvirt_Vpnservice/02_bgp_vpnservice.robot
+integration/test/csit/suites/netvirt/Netvirt_Vpnservice/02_bgp_vpnservice.robot
