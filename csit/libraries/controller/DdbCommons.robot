@@ -144,7 +144,7 @@ Leader_Isolation_Test_Templ
     KarafKeywords.Log_Message_To_Controller_Karaf    Isolating node ${leader}
     ClusterManagement.Isolate_Member_From_List_Or_All    ${leader}
     ${li_isolated}    BuiltIn.Set_Variable    ${True}
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}    ${shard_type}    ${True}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${shard_name}    ${shard_type}    True    False    Empty    False
     ...    ${leader}    member_index_list=${follower_list}
     ${heal_date} =    DateTime.Add_Time_To_Date    ${date_start}    ${heal_timeout}
     ${sleep_to_heal} =    Get_Seconds_To_Time    ${heal_date}
