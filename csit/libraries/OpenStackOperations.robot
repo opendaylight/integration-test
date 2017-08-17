@@ -267,7 +267,7 @@ Create Vm Instance With Port
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-group ${sg}
     Log    ${output}
 
 Create Vm Instance With Ports
@@ -983,12 +983,12 @@ Remove Security Group From VM
 Create SFC Flow Classifier
     [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${dest_port}    ${neutron_src_port}
     [Documentation]    Create a flow classifier for SFC
-    ${cmd}=    Set Variable    neutron flow-classifier-create --ethertype IPv4 --source-ip-prefix ${src_ip}/32 --destination-ip-prefix ${dest_ip}/32 --protocol ${protocol} --destination-port ${dest_port}:${dest_port} --logical-source-port ${neutron_src_port} ${name}
+    ${cmd}=    Set Variable    openstack sfc flow classifier create --ethertype IPv4 --source-ip-prefix ${src_ip}/32 --destination-ip-prefix ${dest_ip}/32 --protocol ${protocol} --destination-port ${dest_port}:${dest_port} --logical-source-port ${neutron_src_port} ${name}
     Log    ${cmd}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
     Should Not Be True    ${rc}
-    Should Contain    ${output}    Created a new flow_classifier
+    Should Contain    ${output}    ${name}
     [Return]    ${output}
 
 Delete SFC Flow Classifier
@@ -996,12 +996,11 @@ Delete SFC Flow Classifier
     [Documentation]    Delete a SFC flow classifier
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${cmd}=    Set Variable    neutron flow-classifier-delete ${name}
+    ${cmd}=    Set Variable    openstack sfc flow classifier delete ${name}
     Log    ${cmd}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
     Should Not Be True    ${rc}
-    Should Contain    ${output}    Deleted flow_classifier
     [Return]    ${output}
 
 Create SFC Port Pair
@@ -1009,79 +1008,76 @@ Create SFC Port Pair
     [Documentation]    Creates a neutron port pair for SFC
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${cmd}=    Set Variable    neutron port-pair-create --ingress=${port_in} --egress=${port_out} ${name}
+    ${cmd}=    Set Variable    openstack sfc port pair create --ingress=${port_in} --egress=${port_out} ${name}
     Log    ${cmd}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
     Should Not Be True    ${rc}
-    Should Contain    ${output}    Created a new port_pair
+    Should Contain    ${output}    ${name}
     [Return]    ${output}
 
 Delete SFC Port Pair
     [Arguments]    ${name}
     [Documentation]    Delete a SFC port pair
-    ${cmd}=    Set Variable    neutron port-pair-delete ${name}
+    ${cmd}=    Set Variable    openstack sfc port pair delete ${name}
     Log    ${cmd}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
     Should Not Be True    ${rc}
-    Should Contain    ${output}    Deleted port_pair
     [Return]    ${output}
 
 Create SFC Port Pair Group
     [Arguments]    ${name}    ${port_pair}
     [Documentation]    Creates a port pair group with a single port pair for SFC
-    ${cmd}=    Set Variable    neutron port-pair-group-create --port-pair ${port_pair} ${name}
+    ${cmd}=    Set Variable    openstack sfc port pair group create --port-pair ${port_pair} ${name}
     Log    ${cmd}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
     Should Not Be True    ${rc}
-    Should Contain    ${output}    Created a new port_pair_group
+    Should Contain    ${output}    ${name}
     [Return]    ${output}
 
 Create SFC Port Pair Group With Two Pairs
     [Arguments]    ${name}    ${port_pair1}    ${port_pair2}
     [Documentation]    Creates a port pair group with two port pairs for SFC
-    ${cmd}=    Set Variable    neutron port-pair-group-create --port-pair ${port_pair1} --port-pair ${port_pair2} ${name}
+    ${cmd}=    Set Variable    openstack sfc port pair group create --port-pair ${port_pair1} --port-pair ${port_pair2} ${name}
     Log    ${cmd}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
     Should Not Be True    ${rc}
-    Should Contain    ${output}    Created a new port_pair_group
+    Should Contain    ${output}    ${name}
     [Return]    ${output}
 
 Delete SFC Port Pair Group
     [Arguments]    ${name}
     [Documentation]    Delete a SFC port pair group
     ${devstack_conn_id}=    Get ControlNode Connection
-    ${cmd}=    Set Variable    neutron port-pair-group-delete ${name}
+    ${cmd}=    Set Variable    openstack sfc port pair group delete ${name}
     Log    ${cmd}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
     Should Not Be True    ${rc}
-    Should Contain    ${output}    Deleted port_pair_group
     [Return]    ${output}
 
 Create SFC Port Chain
     [Arguments]    ${name}    ${pg1}    ${pg2}    ${fc}
     [Documentation]    Creates a port pair chain with two port groups and a singel classifier.
-    ${cmd}=    Set Variable    neutron port-chain-create --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc} ${name}
+    ${cmd}=    Set Variable    openstack sfc port chain create --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc} ${name}
     Log    ${cmd}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
     Should Not Be True    ${rc}
-    Should Contain    ${output}    Created a new port_chain
+    Should Contain    ${output}    ${name}
     [Return]    ${output}
 
 Delete SFC Port Chain
     [Arguments]    ${name}
     [Documentation]    Delete a SFC port chain
-    ${cmd}=    Set Variable    neutron port-chain-delete ${name}
+    ${cmd}=    Set Variable    openstack sfc port chain delete ${name}
     Log    ${cmd}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
     Log    ${output}
     Should Not Be True    ${rc}
-    Should Contain    ${output}    Deleted port_chain
     [Return]    ${output}
 
 Reboot Nova VM
