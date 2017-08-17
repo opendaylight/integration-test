@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_6502ba70",
+        "filename": "csit/libraries/BierTeResource.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-08-17T07:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_ba7176e2",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 7
+      },
+      "revId": "1c4db15cea61785034ad0f55beeb846c97ebe637",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_1a7882c3",
         "filename": "csit/libraries/BierTeResource.robot",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2017-08-15T17:45:46Z",
       "side": 1,
       "message": "are any of these needed? Wherever you are calling DeleteAll\n(at this point) you can just use \"Delete All Sessions\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 23
+      },
+      "revId": "1c4db15cea61785034ad0f55beeb846c97ebe637",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_c5f8c67e",
+        "filename": "csit/libraries/BierTeResource.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-08-17T07:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_1a7882c3",
       "range": {
         "startLine": 35,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_a5f3129e",
+        "filename": "csit/libraries/BierTeResource.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-08-17T07:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_5a82fa94",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "1c4db15cea61785034ad0f55beeb846c97ebe637",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_5a303a01",
         "filename": "csit/libraries/BierTeResource.robot",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2017-08-15T17:45:46Z",
       "side": 1,
       "message": "what is this? can we get a better name. and [Documentation]\nto know what\u0027s the purpose of this keyword",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 4
+      },
+      "revId": "1c4db15cea61785034ad0f55beeb846c97ebe637",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_05f3fe9e",
+        "filename": "csit/libraries/BierTeResource.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-08-17T07:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_5a303a01",
       "range": {
         "startLine": 47,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_65391a41",
+        "filename": "csit/suites/bier/basic/010_BierTeIntergrationTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-08-17T07:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_ba3fb6d5",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 26
+      },
+      "revId": "1c4db15cea61785034ad0f55beeb846c97ebe637",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_da138a64",
         "filename": "csit/suites/bier/basic/010_BierTeIntergrationTest.robot",
         "patchSetId": 7
@@ -128,6 +248,30 @@
       "writtenOn": "2017-08-15T17:45:46Z",
       "side": 1,
       "message": "probably better to use len(${NODE_ID_LIST}) instead of\n5, so you could just add/subtract more to that list\nand this will still work.\n\napplies below as well",
+      "range": {
+        "startLine": 94,
+        "startChar": 33,
+        "endLine": 94,
+        "endChar": 34
+      },
+      "revId": "1c4db15cea61785034ad0f55beeb846c97ebe637",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_c53f2624",
+        "filename": "csit/suites/bier/basic/010_BierTeIntergrationTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-08-17T07:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_da138a64",
       "range": {
         "startLine": 94,
         "startChar": 33,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_a53af231",
+        "filename": "csit/suites/bier/basic/010_BierTeIntergrationTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-08-17T07:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_3a02a60b",
+      "range": {
+        "startLine": 139,
+        "startChar": 62,
+        "endLine": 139,
+        "endChar": 71
+      },
+      "revId": "1c4db15cea61785034ad0f55beeb846c97ebe637",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_ad0dc239",
         "filename": "csit/suites/bier/basic/010_BierTeIntergrationTest.robot",
         "patchSetId": 7
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_054adec4",
+        "filename": "csit/suites/bier/basic/010_BierTeIntergrationTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-08-17T07:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_ad0dc239",
+      "range": {
+        "startLine": 148,
+        "startChar": 76,
+        "endLine": 148,
+        "endChar": 90
+      },
+      "revId": "1c4db15cea61785034ad0f55beeb846c97ebe637",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_0d14ce42",
         "filename": "csit/suites/bier/basic/010_BierTeIntergrationTest.robot",
         "patchSetId": 7
@@ -197,6 +389,30 @@
       "writtenOn": "2017-08-15T17:45:46Z",
       "side": 1,
       "message": "no sleep please. there is nothing happening in this suite\nafter this anyway.",
+      "range": {
+        "startLine": 226,
+        "startChar": 4,
+        "endLine": 226,
+        "endChar": 14
+      },
+      "revId": "1c4db15cea61785034ad0f55beeb846c97ebe637",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_e544eab8",
+        "filename": "csit/suites/bier/basic/010_BierTeIntergrationTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-08-17T07:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_0d14ce42",
       "range": {
         "startLine": 226,
         "startChar": 4,
@@ -243,6 +459,30 @@
       "writtenOn": "2017-08-15T17:45:46Z",
       "side": 1,
       "message": "two blank lines?",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 0
+      },
+      "revId": "1c4db15cea61785034ad0f55beeb846c97ebe637",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_e51b4ac8",
+        "filename": "csit/variables/bier/bier_bgp_configuration/data.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 6854
+      },
+      "writtenOn": "2017-08-17T07:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_4d1ec664",
       "range": {
         "startLine": 128,
         "startChar": 0,
