@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_251c4277",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-08-17T07:54:09Z",
+      "side": 1,
+      "message": "If you do not match this part, you can skip line 398.",
+      "range": {
+        "startLine": 397,
+        "startChar": 96,
+        "endLine": 397,
+        "endChar": 100
+      },
+      "revId": "094a5ecf7bd23d1bd1c1ec2106046cbca6b5619c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_c813bd5a",
+        "filename": "csit/libraries/controller/DdbCommons.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-08-17T07:54:09Z",
+      "side": 1,
+      "message": ".+\n\nWell, I am not sure what the correct behavior should be if there are lines with neither \"true\" nor \"false\" after the equals sign.",
+      "range": {
+        "startLine": 399,
+        "startChar": 157,
+        "endLine": 399,
+        "endChar": 162
+      },
+      "revId": "094a5ecf7bd23d1bd1c1ec2106046cbca6b5619c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
