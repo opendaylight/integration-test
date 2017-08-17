@@ -264,7 +264,7 @@ Create Vm Instance With Port
     [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-group ${sg}
     Log    ${output}
 
 Create Vm Instance With Ports
