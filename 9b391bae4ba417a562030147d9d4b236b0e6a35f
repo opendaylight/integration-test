@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_d1f7e457",
+        "filename": "docs/cluster/carbon/scenarios.rst",
+        "patchSetId": 143
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-08-17T16:58:31Z",
+      "side": 1,
+      "message": "For example, an external link to this item is hard to distinguish from links to the previous and next item.\n\nIf each item is a small sub-page, its context is not visible (unless clicking another link to a bigger page).\n\nIdeally, I would like to have github\u0027s ability for links to highlight a segment of the target page.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 1
+      },
+      "revId": "9b391bae4ba417a562030147d9d4b236b0e6a35f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
