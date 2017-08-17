@@ -2,7 +2,8 @@
 Documentation     Test suite to verify SFC configuration and packet flows.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-Suite Teardown    Close All Connections
+Suite Teardown    BuiltIn.Run Keywords    Delete Configurations
+...               AND    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
 Library           SSHLibrary
@@ -117,13 +118,15 @@ Connectivity Tests From Vm Instance1 In network_1
     Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[3]    ${DEST_VM_LIST}
     Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[3]    curl http://@{NET1_VM_IPS}[4]
 
-Delete Vm Instances In network_1
-    [Documentation]    Delete Vm instances using instance names in network_1.
+*** Keywords ****
+Delete Configurations
+    [Documentation]    Delete all elements that were created in the test case section. These are done
+    ...    in a local keyword so this can be called as part of the Suite Teardown. When called as part
+    ...    of the Suite Teardown, all steps will be attempted. This prevents robot framework from bailing
+    ...    on the rest of a test case if one step intermittently has trouble and fails. The goal is to attempt
+    ...    to leave the test environment as clean as possible upon completion of this suite.
     : FOR    ${VmElement}    IN    @{VM_INSTANCES}
     \    Delete Vm Instance    ${VmElement}
-
-Delete All SFC Objects
-    [Documentation]    Delete all previously created SFC objects
     Delete SFC Port Chain    PC1
     Delete SFC Port Pair Group    PG1
     Delete SFC Port Pair Group    PG2
@@ -131,17 +134,8 @@ Delete All SFC Objects
     Delete SFC Port Pair    PP2
     Delete SFC Port Pair    PP3
     Delete SFC Flow Classifier    FC_http
-
-Delete Neutron Ports
-    [Documentation]    Delete neutron ports that were used for SFC VMs
     : FOR    ${port}    IN    @{PORTS}
     \    Delete Port    ${port}
-
-Delete Sub Networks In network_1
-    [Documentation]    Delete Sub Nets for the Networks with neutron request.
     Delete SubNet    l2_subnet_1
-
-Delete Networks
-    [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
