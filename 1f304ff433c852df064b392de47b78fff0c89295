@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_3ca297ae",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-17T19:14:00Z",
+      "side": 1,
+      "message": "document this function",
+      "revId": "1f304ff433c852df064b392de47b78fff0c89295",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_1ca513b5",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-17T19:14:00Z",
+      "side": 1,
+      "message": "document this function",
+      "revId": "1f304ff433c852df064b392de47b78fff0c89295",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_7cac0fa1",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-17T19:14:00Z",
+      "side": 1,
+      "message": "I am curious, does the PUT fails if the visualization is already configured?",
+      "revId": "1f304ff433c852df064b392de47b78fff0c89295",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_5caf8b94",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-17T19:14:00Z",
+      "side": 1,
+      "message": "Same question here, does this fails is dashboard is already there?",
+      "revId": "1f304ff433c852df064b392de47b78fff0c89295",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
