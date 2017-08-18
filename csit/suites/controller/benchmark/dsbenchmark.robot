@@ -64,6 +64,8 @@ ${tool_log_name}    dsbenchmark.log
 ${tool_output_name}    test.csv
 ${tool_results1_name}    perf_per_struct.csv
 ${tool_results2_name}    perf_per_ops.csv
+${TEST_LOG_LEVEL}    debug
+@{TEST_LOG_COMPONENTS}    org.opendaylight.controller.cluster.datastore.ShardDataTree
 
 *** Test Cases ***
 Measure_Both_Datastores_For_One_Node_Odl_Setup
@@ -250,6 +252,7 @@ Setup_Everything
     SSHKeywords.Virtual_Env_Create
     SSHKeywords.Virtual_Env_Install_Package    requests
     ClusterManagement.Run_Karaf_Command_On_List_Or_All    log:set ${ODL_LOG_LEVEL}
+    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
 
 Teardown_Everything
     [Documentation]    Cleaning-up
