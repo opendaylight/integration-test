@@ -36,7 +36,7 @@ TC00 Verify Setup
     Log    ${count}
     Run Keyword If    ${count} == 0    Create Tunnel
     [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}
-    ...    AND    Get Suite Teardown Debugs
+    ...    AND    Get Test Teardown Debugs
 
 TC01 Verify That Default Tunnel Type Is Set To BFD
     [Documentation]    Verify that the default tunnel type is set to BFD if both the devices support BFD
