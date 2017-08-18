@@ -25,11 +25,15 @@ Variables         ../../../variables/Variables.py
 @{VM_IPS_NOT_DELETED}    70.0.0.4
 @{cluster_down_list}    ${1}    ${2}
 @{SUBNETS_RANGE}    70.0.0.0/24    80.0.0.0/24
+${TEST_LOG_LEVEL}    debug
+@{TEST_LOG_COMPONENTS}    org.opendaylight.controller.cluster.datastore.ShardDataTree
 
 *** Test Cases ***
 Create All Controller Sessions
     [Documentation]    Create sessions for all three contorllers.
     ClusterManagement.ClusterManagement Setup
+    ClusterManagement.Run_Karaf_Command_On_List_Or_All    log:set ${ODL_LOG_LEVEL}
+    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
 
 Create Networks
     [Documentation]    Create Network with neutron request.
