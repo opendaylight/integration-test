@@ -26,11 +26,14 @@ Variables         ../../../variables/Variables.py
 @{SUBNETS_RANGE}    90.0.0.0/24    100.0.0.0/24
 @{odl_1_and_2_down}    ${1}    ${2}
 @{odl_2_and_3_down}    ${2}    ${3}
+${TEST_LOG_LEVEL}    debug
+@{TEST_LOG_COMPONENTS}    org.opendaylight.controller.cluster.datastore.ShardDataTree    org.opendaylight.controller.cluster.raft
 
 *** Test Cases ***
 Create All Controller Sessions
     [Documentation]    Create sessions for all three contorllers.
     ClusterManagement.ClusterManagement Setup
+    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
 
 Create Networks
     [Documentation]    Create Network with neutron request.

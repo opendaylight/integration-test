@@ -23,10 +23,13 @@ Resource          ../../../variables/netvirt/Variables.robot
 @{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 ${network1_vlan_id}    1235
+${TEST_LOG_LEVEL}    debug
+@{TEST_LOG_COMPONENTS}    org.opendaylight.controller.cluster.datastore.ShardDataTree    org.opendaylight.controller.cluster.raft
 
 *** Test Cases ***
 Create VLAN Network (l2_network_1)
     [Documentation]    Create Network with neutron request.
+    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${TEST_LOG_LEVEL}    ${TEST_LOG_COMPONENTS}
     # in the case that the controller under test is using legacy netvirt features, vlan segmentation is not supported,
     # and we cannot create a vlan network. If those features are installed we will instead stick with vxlan.
     : FOR    ${feature_name}    IN    @{legacy_feature_list}
