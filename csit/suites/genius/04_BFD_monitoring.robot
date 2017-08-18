@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for BFD tunnel monitoring
 Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
+Suite Teardown
 Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${bfd_data_models}
 Library           OperatingSystem
 Library           String
@@ -79,14 +79,16 @@ BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     ${Bfd_updated_value}=    Create List    5000
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
-    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
-    SSHLibrary.Switch Connection    ${conn_id_1}
-    Execute Command    sudo ovs-vsctl del-port BR1 tap8ed70586-6c
-    ${tun_name}    Wait Until Keyword Succeeds    20    5    Ovs Tunnel Get    ${Bridge-1}
-    Wait Until Keyword Succeeds    20s    5s    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    5000    ovs_system=${TOOLS_SYSTEM_IP}
-    SSHLibrary.Switch Connection    ${conn_id_2}
-    ${tun_name}    Wait Until Keyword Succeeds    20    5    Ovs Tunnel Get    ${Bridge-2}
-    Wait Until Keyword Succeeds    20s    5s    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    5000    ovs_system=${TOOLS_SYSTEM_IP}
+    Comment    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
+    Comment    SSHLibrary.Switch Connection    ${conn_id_1}
+    Comment    Execute Command    sudo ovs-vsctl del-port BR1 tap8ed70586-6c
+    Comment    ${tun_name}    Wait Until Keyword Succeeds    20    5    Ovs Tunnel Get    ${Bridge-1}
+    Comment    Wait Until Keyword Succeeds    20s    5    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    5000
+    ...    ovs_system=${TOOLS_SYSTEM_IP}
+    Comment    SSHLibrary.Switch Connection    ${conn_id_2}
+    Comment    ${tun_name}    Wait Until Keyword Succeeds    20    5    Ovs Tunnel Get    ${Bridge-2}
+    Comment    Wait Until Keyword Succeeds    20s    5s    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    5000
+    ...    ovs_system=${TOOLS_SYSTEM_IP}
 
 BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     [Documentation]    Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
@@ -141,6 +143,10 @@ BFD_TC07 Verify that BFD monitoring is disabled on Controller
     Should Contain    ${respjson}    true
     Verify Tunnel Monitoring Is On
     Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
+
+Delete ITM tunnel
+    Log    >>>>> Deleting ITM tunnel created <<<<
+    Genius.Delete All Sessions
 
 *** Keywords ***
 Verify Config Ietf Interface Output
