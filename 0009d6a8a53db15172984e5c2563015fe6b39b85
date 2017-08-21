@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_db0413c2",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-21T21:13:37Z",
+      "side": 1,
+      "message": "This is too much of code replication, can you not just use the above KW in the test using device_type\u003drpc-device?",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_dbc9b379",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-21T21:13:37Z",
+      "side": 1,
+      "message": "This KW is designed to work along with Configure_Device but that does not seem to fit your test, so maybe you can avoid using this.",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_9be8dbe3",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-21T21:13:37Z",
+      "side": 1,
+      "message": "I would not change any of this and instead work on the test suite.",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_5badc39b",
+        "filename": "csit/suites/netconf/CRUD/CRUD-RPC.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-21T21:13:37Z",
+      "side": 1,
+      "message": "I think this should work by just using NetconfKeywords.Configure_Device_In_Netconf with device_type\u003drpc-device",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_9b961b4b",
+        "filename": "csit/suites/netconf/CRUD/CRUD-RPC.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-21T21:13:37Z",
+      "side": 1,
+      "message": "I think for deleting you could just fire TemplatedRequests.Delete_From_Uri with the parameters you need.",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
