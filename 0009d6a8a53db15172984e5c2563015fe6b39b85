@@ -53,6 +53,23 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_db77f338",
+        "filename": "csit/suites/netconf/CRUD/CRUD-RPC.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-21T21:19:07Z",
+      "side": 1,
+      "message": "For new test please use Resource ${CURDIR}/../../../variables/Variables.robot",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_5badc39b",
         "filename": "csit/suites/netconf/CRUD/CRUD-RPC.robot",
         "patchSetId": 10
