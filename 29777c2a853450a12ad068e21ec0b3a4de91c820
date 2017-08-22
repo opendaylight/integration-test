@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_0ca4b055",
+        "filename": "csit/suites/netconf/KeyAuth/keyauth.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-22T21:03:29Z",
+      "side": 1,
+      "message": "Would it work if you use default controller session instead of creating session1?",
+      "revId": "29777c2a853450a12ad068e21ec0b3a4de91c820",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
