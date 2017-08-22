@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_acae4483",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-22T20:59:11Z",
+      "side": 1,
+      "message": "OK, this is good change, we add argument to specify method to connect to device (default\u003dput).",
+      "revId": "07f727090f8472e2238338732e8415a21f167c23",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
