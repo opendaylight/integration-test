@@ -20,5 +20,6 @@ ${ALTERNATIVE_KARAF_LOG_LEVEL}    INFO
 
 *** Test Cases ***
 Set_Levels
-    [Documentation]    Issue log:set command on each Karaf.
-    ClusterManagement.Run_Karaf_Command_On_List_Or_All    log:set ${ALTERNATIVE_KARAF_LOG_LEVEL}
+    [Documentation]    Issue log:set command on each Karaf. Retry few times on failure.
+    # TODO: Extend ClusterManagement to use KarafKeywords.Execute_Controller_Karaf_Command_With_Retry_On_Background.
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    ClusterManagement.Run_Karaf_Command_On_List_Or_All    log:set ${ALTERNATIVE_KARAF_LOG_LEVEL}
