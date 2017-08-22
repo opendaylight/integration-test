@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_e11e8862",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-22T07:09:31Z",
+      "side": 1,
+      "message": "OK, I see.  Since the only difference seems to be the method when device_type\u003drpc-device, would it make sense to just add a condition in the previous KW like: Run_Keyword_If   \u0027${device_type}\u0027 \u003d\u003d \u0027rpc-device\u0027? This way we have also a single KW for all device-types.",
+      "parentUuid": "ba1f61a0_06793293",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_dbc9b379",
         "filename": "csit/libraries/NetconfKeywords.robot",
         "patchSetId": 10
@@ -48,6 +66,24 @@
       "writtenOn": "2017-08-21T21:13:37Z",
       "side": 1,
       "message": "This KW is designed to work along with Configure_Device but that does not seem to fit your test, so maybe you can avoid using this.",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_012bdc82",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-22T07:09:31Z",
+      "side": 1,
+      "message": "Same here I think we could add a condition to use ${device_type} \u003d full-uri-device if \u0027${device_type}\u0027 \u003d\u003d \u0027rpc-device\u0027.",
+      "parentUuid": "ba1f61a0_dbc9b379",
       "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -117,6 +153,24 @@
       "side": 1,
       "message": "Mainly used to differentiate the PUT and POST request. Probably i can used parametrization for that. We can discuss on this.",
       "parentUuid": "ba1f61a0_5badc39b",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_86ac0237",
+        "filename": "csit/suites/netconf/CRUD/CRUD-RPC.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-08-22T07:09:31Z",
+      "side": 1,
+      "message": "OK",
+      "parentUuid": "ba1f61a0_a6b02644",
       "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
