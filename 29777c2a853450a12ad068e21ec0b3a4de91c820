@@ -16,6 +16,24 @@
       "revId": "29777c2a853450a12ad068e21ec0b3a4de91c820",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_2cb89475",
+        "filename": "csit/suites/netconf/KeyAuth/keyauth.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6995
+      },
+      "writtenOn": "2017-08-22T21:20:22Z",
+      "side": 1,
+      "message": "Yes, missed that earlier, default session works on this.",
+      "parentUuid": "ba1f61a0_0ca4b055",
+      "revId": "29777c2a853450a12ad068e21ec0b3a4de91c820",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
