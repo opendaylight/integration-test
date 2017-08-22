@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_06793293",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6995
+      },
+      "writtenOn": "2017-08-22T01:33:42Z",
+      "side": 1,
+      "message": "Main difference from previous keyword is that for RPC, a post is required whereas for other config addition Put is required. TemplatedRequests.Post_As_Xml_Templated vs Put in the previous keyword.",
+      "parentUuid": "ba1f61a0_db0413c2",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_dbc9b379",
         "filename": "csit/libraries/NetconfKeywords.robot",
         "patchSetId": 10
@@ -87,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_a6b02644",
+        "filename": "csit/suites/netconf/CRUD/CRUD-RPC.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6995
+      },
+      "writtenOn": "2017-08-22T01:33:42Z",
+      "side": 1,
+      "message": "Mainly used to differentiate the PUT and POST request. Probably i can used parametrization for that. We can discuss on this.",
+      "parentUuid": "ba1f61a0_5badc39b",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_9b961b4b",
         "filename": "csit/suites/netconf/CRUD/CRUD-RPC.robot",
         "patchSetId": 10
@@ -98,6 +134,24 @@
       "writtenOn": "2017-08-21T21:13:37Z",
       "side": 1,
       "message": "I think for deleting you could just fire TemplatedRequests.Delete_From_Uri with the parameters you need.",
+      "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_46aa0ad5",
+        "filename": "csit/suites/netconf/CRUD/CRUD-RPC.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6995
+      },
+      "writtenOn": "2017-08-22T01:33:42Z",
+      "side": 1,
+      "message": "I changed this keyword to adjust it in the previous framework so that if delete location is different from add (as in any RPC), this keyword can be used now.",
+      "parentUuid": "ba1f61a0_9b961b4b",
       "revId": "0009d6a8a53db15172984e5c2563015fe6b39b85",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
