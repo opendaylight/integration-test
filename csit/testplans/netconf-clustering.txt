@@ -14,7 +14,8 @@ integration/test/csit/suites/netconf/ready/netconfready.robot
 
 # Run the intrusive cluster tests after the non-intrusive ones.
 integration/test/csit/suites/test/alter_log_levels.robot
-integration/test/csit/suites/netconf/clustering/entity.robot
+integration/test/csit/suites/netconf/clustering/bug9027.robot
+#integration/test/csit/suites/netconf/clustering/entity.robot
 #integration/test/csit/suites/test/revert_log_levels.robot
 #integration/test/csit/suites/netconf/clustering/outages.robot
 
