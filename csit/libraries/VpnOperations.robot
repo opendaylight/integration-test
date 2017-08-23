@@ -46,6 +46,7 @@ Basic Vpnservice Suite Teardown
     \    Run Keyword And Ignore Error    Delete Network    ${Network}
     # Remove security group created earlier
     Run Keyword And Ignore Error    Delete SecurityGroup    ${SECURITY_GROUP}
+    Get OvsDebugInfo
     Close All Connections
 
 VPN Create L3VPN
