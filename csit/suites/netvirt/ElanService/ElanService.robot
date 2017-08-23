@@ -2,7 +2,8 @@
 Documentation     Test suite to validate elan service functionality in ODL environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       BuiltIn.Run Keywords    Get OvsDebugInfo
+Suite Setup       BuiltIn.Run Keywords    Devstack Suite Setup
+...               AND    Get OvsDebugInfo
 ...               AND    Elan SuiteSetup
 ...               AND    Get OvsDebugInfo
 Suite Teardown    Elan SuiteTeardown
@@ -147,7 +148,6 @@ Elan SuiteTeardown
     Get OvsDebugInfo
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius.mdsalutil.internal.MDSALManager
     SingleElan SuiteTeardown
-    Close All Connections
 
 SingleElan SuiteTeardown
     [Documentation]    Delete network,subnet and port
