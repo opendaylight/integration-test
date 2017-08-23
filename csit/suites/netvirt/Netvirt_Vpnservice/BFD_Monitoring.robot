@@ -224,7 +224,6 @@ Start Suite
 Stop Suite
     [Documentation]    Run after the tests execution
     Delete Setup
-    Close All Connections
 
 Presuite Cleanup
     [Documentation]    Clean the already existing tunnels and tep interfaces

@@ -134,7 +134,6 @@ Start Suite
 End Suite
     [Documentation]    Run at end of the suite
     Delete Setup
-    Close All Connections
 
 Create Setup
     [Documentation]    Create networks,subnets,ports and VMs

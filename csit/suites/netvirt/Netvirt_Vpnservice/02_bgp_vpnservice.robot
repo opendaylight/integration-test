@@ -105,7 +105,6 @@ BGP Vpnservice Suite Setup
 BGP Vpnservice Suite Teardown
     Delete Basic Configuartion for BGP VPNservice Suite
     Delete SecurityGroup    ${SECURITY_GROUP}
-    Close All Connections
 
 Create Basic Configuartion for BGP VPNservice Suite
     [Documentation]    Create basic configuration for BGP VPNservice suite
