@@ -50,13 +50,15 @@ Run Tempest Tests
 Devstack Suite Setup
     [Arguments]    ${source_pwd}=no    ${odl_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Login to the Openstack Control Node to run tempest suite
-    Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    ${devstack_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    ${devstack_conn_id}=    Get ControlNode Connection
     Set Suite Variable    ${devstack_conn_id}
-    Set Suite Variable    ${source_pwd}
-    Log    ${devstack_conn_id}
-    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
-    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    ${OS_CONTROL_NODE_CXN}=    Run Keyword If    0 < ${NUM_OS_SYSTEM}    DevstackUtils.Get Ssh Connection    ${OS_CONTROL_NODE_IP}
+    Run Keyword If    0 < ${NUM_OS_SYSTEM}    Set Suite Variable    ${OS_CONTROL_NODE_CXN}
+    ${OS_COMPUTE_1_CXN}=    Run Keyword If    1 < ${NUM_OS_SYSTEM}    DevstackUtils.Get Ssh Connection    ${OS_COMPUTE_1_IP}
+    Run Keyword If    1 < ${NUM_OS_SYSTEM}    Set Suite Variable    ${OS_COMPUTE_1_CXN}
+    ${OS_COMPUTE_2_CXN}=    Run Keyword If    2 < ${NUM_OS_SYSTEM}    DevstackUtils.Get Ssh Connection    ${OS_COMPUTE_2_IP}
+    Run Keyword If    2 < ${NUM_OS_SYSTEM}    Set Suite Variable    ${OS_COMPUTE_2_CXN}
+    Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Write Commands Until Prompt
     [Arguments]    ${cmd}    ${timeout}=${default_devstack_prompt_timeout}
@@ -67,3 +69,10 @@ Write Commands Until Prompt
     SSHLibrary.Write    ${cmd};echo Command Returns $?
     ${output}=    SSHLibrary.Read Until Prompt
     [Return]    ${output}
+
+Get Ssh Connection
+    [Arguments]    ${os_ip}
+    ${conn_id}=    SSHLibrary.Open Connection    ${os_ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=1 hour    alias=${os_ip}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    [Return]    ${conn_id}
