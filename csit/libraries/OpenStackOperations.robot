@@ -571,12 +571,12 @@ Delete Router
     Should Not Be True    ${rc}
 
 Get DumpFlows And Ovsconfig
-    [Arguments]    ${openstack_node_ip}
+    [Arguments]    ${openstack_node_cxn}
     [Documentation]    Get the OvsConfig and Flow entries from OVS from the Openstack Node
-    Log    ${openstack_node_ip}
-    SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
-    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
-    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    Log    ${openstack_node_cxn}
+    ${cxns}=    Get Connections
+    Log      ${cxns}
+    Switch Connection     ${openstack_node_cxn}
     Write Commands Until Expected Prompt    ip -o link    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    ip -o addr    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    ip route    ${DEFAULT_LINUX_PROMPT_STRICT}
@@ -623,9 +623,9 @@ Get ControlNode Connection
 
 Get OvsDebugInfo
     [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
-    Run Keyword If    0 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_CONTROL_NODE_IP}
-    Run Keyword If    1 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}
-    Run Keyword If    2 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
+    Run Keyword If    0 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    control_1
+    Run Keyword If    1 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    compute_1
+    Run Keyword If    2 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    compute_2
 
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${TEST_NAME}
