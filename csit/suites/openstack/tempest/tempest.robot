@@ -117,6 +117,12 @@ Log In To Tempest Executor And Setup Test Environment
     Write Commands Until Prompt    sudo rm -rf /opt/stack/tempest/.testrepository
     ${net_id}=    Get Net Id    ${external_net_name}    ${control_node_conn_id}
     Tempest Conf Add External Network    ${net_id}
+    ${OS_CONTROL_NODE_CXN}=     Run Keyword If     0 < ${NUM_OS_SYSTEM}       DevstackUtils.Get Ssh Connection     ${OS_CONTROL_NODE_IP}
+    Run Keyword If     0 < ${NUM_OS_SYSTEM}       Set Suite Variable    ${OS_CONTROL_NODE_CXN}
+    ${OS_COMPUTE_1_CXN}=     Run Keyword If     1 < ${NUM_OS_SYSTEM}       DevstackUtils.Get Ssh Connection     ${OS_COMPUTE_1_IP}
+    Run Keyword If     1 < ${NUM_OS_SYSTEM}       Set Suite Variable    ${OS_COMPUTE_1_CXN}
+    ${OS_COMPUTE_2_CXN}=     Run Keyword If     2 < ${NUM_OS_SYSTEM}       DevstackUtils.Get Ssh Connection     ${OS_COMPUTE_2_IP}
+    Run Keyword If     2 < ${NUM_OS_SYSTEM}       Set Suite Variable    ${OS_COMPUTE_2_CXN}
 
 Tempest Conf Add External Network
     [Arguments]    ${external_network_id}

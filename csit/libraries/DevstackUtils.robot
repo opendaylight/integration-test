@@ -57,7 +57,13 @@ Devstack Suite Setup
     Log    ${devstack_conn_id}
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
-
+    ${OS_CONTROL_NODE_CXN}=     Run Keyword If     0 < ${NUM_OS_SYSTEM}       Get Ssh Connection     ${OS_CONTROL_NODE_IP}
+    Run Keyword If     0 < ${NUM_OS_SYSTEM}       Set Suite Variable    ${OS_CONTROL_NODE_CXN}
+    ${OS_COMPUTE_1_CXN}=     Run Keyword If     1 < ${NUM_OS_SYSTEM}       Get Ssh Connection     ${OS_COMPUTE_1_IP}
+    Run Keyword If     1 < ${NUM_OS_SYSTEM}       Set Suite Variable    ${OS_COMPUTE_1_CXN}
+    ${OS_COMPUTE_2_CXN}=     Run Keyword If     2 < ${NUM_OS_SYSTEM}       Get Ssh Connection     ${OS_COMPUTE_2_IP}
+    Run Keyword If     2 < ${NUM_OS_SYSTEM}       Set Suite Variable    ${OS_COMPUTE_2_CXN}
+    
 Write Commands Until Prompt
     [Arguments]    ${cmd}    ${timeout}=${default_devstack_prompt_timeout}
     [Documentation]    quick wrapper for Write and Read Until Prompt Keywords to make test cases more readable
@@ -67,3 +73,8 @@ Write Commands Until Prompt
     SSHLibrary.Write    ${cmd};echo Command Returns $?
     ${output}=    SSHLibrary.Read Until Prompt
     [Return]    ${output}
+
+Get Ssh Connection
+    [Arguments]    ${os_ip}
+    ${conn_id}=    SSHLibrary.Open Connection    ${os_ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=1 hour
+    [Return]    ${conn_id}
