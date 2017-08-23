@@ -2,7 +2,8 @@
 Documentation     Test suite to validate IPv6 vpnservice functionality in an Openstack integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       BuiltIn.Run Keywords    Get OvsDebugInfo
+Suite Setup       BuiltIn.Run Keywords    Devstack Suite Setup
+...               AND    Get OvsDebugInfo
 ...               AND    Basic Vpnservice Suite Setup
 ...               AND    Get OvsDebugInfo
 Suite Teardown    BuiltIn.Run Keywords    Basic Vpnservice Suite Teardown
