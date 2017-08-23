@@ -2,6 +2,7 @@
 Documentation     Test suite to verify packet flows between vm instances.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
+...               AND    Open Os Cxns
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
@@ -179,3 +180,12 @@ Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
     ${feature_check_status}=    Run Keyword And Return Status    Verify Feature Is Installed    odl-vtn-manager-neutron
     Run Keyword If    '${feature_check_status}' != 'True'    Verify Flows Are Cleaned Up On All OpenStack Nodes
+
+*** Keywords ***
+Open Os Cxns
+    ${OS_CONTROL_NODE_CXN}=     Run Keyword If     0 < ${NUM_OS_SYSTEM}       DevstackUtils.Get Ssh Connection     ${OS_CONTROL_NODE_IP}
+    Run Keyword If     0 < ${NUM_OS_SYSTEM}       Set Suite Variable    ${OS_CONTROL_NODE_CXN}
+    ${OS_COMPUTE_1_CXN}=     Run Keyword If     1 < ${NUM_OS_SYSTEM}       DevstackUtils.Get Ssh Connection     ${OS_COMPUTE_1_IP}
+    Run Keyword If     1 < ${NUM_OS_SYSTEM}       Set Suite Variable    ${OS_COMPUTE_1_CXN}
+    ${OS_COMPUTE_2_CXN}=     Run Keyword If     2 < ${NUM_OS_SYSTEM}       DevstackUtils.Get Ssh Connection     ${OS_COMPUTE_2_IP}
+    Run Keyword If     2 < ${NUM_OS_SYSTEM}       Set Suite Variable    ${OS_COMPUTE_2_CXN}
