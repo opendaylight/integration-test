@@ -198,5 +198,4 @@ Neutron Rule Creation With Invalid Parameters
     Log    ${output}
     Log    ${rc}
     Should Contain    ${output}    ${EXPECTED_ERROR}
-    Close Connection
     [Return]    ${output}
