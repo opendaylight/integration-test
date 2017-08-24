@@ -15,6 +15,7 @@ Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/KarafKeywords.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -43,6 +44,16 @@ Create Subnets For l2_net_1
 Create Subnets For l2_net_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    l2_net_2    l2_sub_net_2    @{SUBNETS_RANGE}[1]
+
+Add Ssh Allow Rule
+    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    Neutron Security Group Create    csit
+    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    csit    direction=ingress    protocol=icmp
+    Neutron Security Group Rule Create    csit    direction=egress    protocol=icmp
+    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp
+    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp
 
 Create Bridge Manually and Verify Before Fail
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
