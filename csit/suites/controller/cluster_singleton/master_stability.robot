@@ -49,7 +49,7 @@ Reregister_Singleton_Constant
 
 Verify_Stability_After_Reregistration
     [Documentation]    Verify that the owner remains on the same node after the unregistered candidate re-registration.
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    5x    3s    CsCommon.Verify_Owner_And_Candidates_Stable    ${cs_owner}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${STABILITY_TIMEOUT}    0.1s    CsCommon.Verify_Owner_And_Candidates_Stable    ${cs_owner}
 
 Unregister_Singleton_Constant_On_Each_Node
     [Documentation]    Unregister the application from each node.
