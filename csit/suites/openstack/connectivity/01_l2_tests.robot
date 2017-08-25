@@ -17,6 +17,7 @@ Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
+${SECURITY_GROUP}    sg-connectivity
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
@@ -49,21 +50,15 @@ Create Subnets For l2_network_2
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
-    Neutron Security Group Create    csit
-    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Rule Create    csit    direction=ingress    protocol=icmp
-    Neutron Security Group Rule Create    csit    direction=egress    protocol=icmp
-    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp
-    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.

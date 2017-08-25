@@ -21,6 +21,7 @@ Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
+${SECURITY_GROUP}    sg-elanservice
 @{NETWORKS}       ELAN1    ELAN2    ELAN3
 @{SUBNETS}        ELANSUBNET1    ELANSUBNET2    ELANSUBNET3
 @{SUBNET_CIDR}    1.1.1.0/24    2.1.1.0/24    3.1.1.0/24
@@ -155,18 +156,18 @@ SingleElan SuiteTeardown
     \    Delete Port    ${Port}
     Delete SubNet    ${SUBNETS[0]}
     Delete Network    ${NETWORKS[0]}
-    Delete SecurityGroup    sg-elanservice
+    Delete SecurityGroup    ${SECURITY_GROUP}
 
 SingleElan SuiteSetup
     [Documentation]    Create single ELAN with Multiple DPN
     Log    Create ELAN1 network, subnet , port and VM
-    Create SecurityGroup    sg-elanservice
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     Create Network    ${NETWORKS[0]}
     Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNET_CIDR[0]}
-    Create Port    ${NETWORKS[0]}    ${ELAN1_PORT_LIST[0]}    sg=sg-elanservice
-    Create Port    ${NETWORKS[0]}    ${ELAN1_PORT_LIST[1]}    sg=sg-elanservice
-    Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[0]}    ${VM_INSTANCES_ELAN1[0]}    ${OS_COMPUTE_1_IP}    sg=sg-elanservice
-    Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[1]}    ${VM_INSTANCES_ELAN1[1]}    ${OS_COMPUTE_2_IP}    sg=sg-elanservice
+    Create Port    ${NETWORKS[0]}    ${ELAN1_PORT_LIST[0]}    sg=${SECURITY_GROUP}
+    Create Port    ${NETWORKS[0]}    ${ELAN1_PORT_LIST[1]}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[0]}    ${VM_INSTANCES_ELAN1[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[1]}    ${VM_INSTANCES_ELAN1[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
     Log    Verify ELAN1 VM active
     : FOR    ${VM}    IN    @{VM_INSTANCES_ELAN1}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
@@ -186,14 +187,14 @@ MultipleElan Testsuite Setup
     Create Network    ${NETWORKS[2]}
     Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNET_CIDR[1]}
     Create SubNet    ${NETWORKS[2]}    ${SUBNETS[2]}    ${SUBNET_CIDR[2]}
-    Create Port    ${NETWORKS[1]}    ${ELAN2_PORT_LIST[0]}    sg=sg-elanservice
-    Create Port    ${NETWORKS[1]}    ${ELAN2_PORT_LIST[1]}    sg=sg-elanservice
-    Create Port    ${NETWORKS[2]}    ${ELAN3_PORT_LIST[0]}    sg=sg-elanservice
-    Create Port    ${NETWORKS[2]}    ${ELAN3_PORT_LIST[1]}    sg=sg-elanservice
-    Create Vm Instance With Port On Compute Node    ${ELAN2_PORT_LIST[0]}    ${VM_INSTANCES_ELAN2[0]}    ${OS_COMPUTE_1_IP}    sg=sg-elanservice
-    Create Vm Instance With Port On Compute Node    ${ELAN2_PORT_LIST[1]}    ${VM_INSTANCES_ELAN2[1]}    ${OS_COMPUTE_2_IP}    sg=sg-elanservice
-    Create Vm Instance With Port On Compute Node    ${ELAN3_PORT_LIST[0]}    ${VM_INSTANCES_ELAN3[0]}    ${OS_COMPUTE_1_IP}    sg=sg-elanservice
-    Create Vm Instance With Port On Compute Node    ${ELAN3_PORT_LIST[1]}    ${VM_INSTANCES_ELAN3[1]}    ${OS_COMPUTE_2_IP}    sg=sg-elanservice
+    Create Port    ${NETWORKS[1]}    ${ELAN2_PORT_LIST[0]}    sg=${SECURITY_GROUP}
+    Create Port    ${NETWORKS[1]}    ${ELAN2_PORT_LIST[1]}    sg=${SECURITY_GROUP}
+    Create Port    ${NETWORKS[2]}    ${ELAN3_PORT_LIST[0]}    sg=${SECURITY_GROUP}
+    Create Port    ${NETWORKS[2]}    ${ELAN3_PORT_LIST[1]}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${ELAN2_PORT_LIST[0]}    ${VM_INSTANCES_ELAN2[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${ELAN2_PORT_LIST[1]}    ${VM_INSTANCES_ELAN2[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${ELAN3_PORT_LIST[0]}    ${VM_INSTANCES_ELAN3[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${ELAN3_PORT_LIST[1]}    ${VM_INSTANCES_ELAN3[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_ELAN2}    @{VM_INSTANCES_ELAN3}
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
@@ -258,14 +259,3 @@ Verify Flows Are Removed For ELAN Service
     Log    ${dMac_output}
     : FOR    ${dMacAddr}    IN    @{srcMacAddrs}
     \    ${resp}=    Should Not Contain    ${dMac_output}    ${dMacAddr}
-
-Create SecurityGroup
-    [Arguments]    ${sg_name}
-    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
-    Neutron Security Group Create    ${sg_name}
-    Neutron Security Group Rule Create    ${sg_name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Rule Create    ${sg_name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Rule Create    ${sg_name}    direction=ingress    protocol=icmp
-    Neutron Security Group Rule Create    ${sg_name}    direction=egress    protocol=icmp
-    Neutron Security Group Rule Create    ${sg_name}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp
-    Neutron Security Group Rule Create    ${sg_name}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp
