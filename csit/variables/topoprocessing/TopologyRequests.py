@@ -1,4 +1,4 @@
-UNIFICATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
+UNIFICATION_NT = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
                             <output-model>{output-model}</output-model>
@@ -23,9 +23,9 @@ UNIFICATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmln
                                 </aggregation>
                             </correlation>
                         </correlations>
-                    </topology>'''
+                    </n:topology>'''
 
-UNIFICATION_NT_AGGREGATE_INSIDE = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
+UNIFICATION_NT_AGGREGATE_INSIDE = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
                             <output-model>{output-model}</output-model>
@@ -44,9 +44,9 @@ UNIFICATION_NT_AGGREGATE_INSIDE = '''<topology xmlns="urn:opendaylight:topology:
                                 </aggregation>
                             </correlation>
                         </correlations>
-                    </topology>'''
+                    </n:topology>'''
 
-UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
+UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
                             <output-model>{output-model}</output-model>
@@ -70,9 +70,9 @@ UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE = '''<topology xmlns="urn:opendayligh
                                 </filtration>
                             </correlation>
                         </correlations>
-                    </topology>'''
+                    </n:topology>'''
 
-UNIFICATION_FILTRATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
+UNIFICATION_FILTRATION_NT = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
                             <output-model>{output-model}</output-model>
@@ -103,9 +103,9 @@ UNIFICATION_FILTRATION_NT = '''<topology xmlns="urn:opendaylight:topology:correl
                                 </filtration>
                             </correlation>
                         </correlations>
-                    </topology>'''
+                    </n:topology>'''
 
-FILTRATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
+FILTRATION_NT = '''<n:topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                     <n:topology-id>topo:1</n:topology-id>
                     <correlations>
                         <output-model>{output-model}</output-model>
@@ -119,7 +119,7 @@ FILTRATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns
                             </filtration>
                         </correlation>
                     </correlations>
-                </topology>'''
+                </n:topology>'''
 
 APPLY_FILTERS = '''
 <apply-filters>{filter-id}</apply-filters>
