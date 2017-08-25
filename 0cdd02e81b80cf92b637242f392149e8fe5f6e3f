@@ -22,6 +22,30 @@
       "revId": "0cdd02e81b80cf92b637242f392149e8fe5f6e3f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_53275812",
+        "filename": "csit/testplans/netvirt-3node-openstack.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-08-25T10:55:30Z",
+      "side": 1,
+      "message": "The logging piece we could merge. I will push another patch for that to keep it isolated. The change to the l2.robot to add the csit shouldn\u0027t go in either as the connectivity suite does that, but I guess we could modify the clustering suite to check for the csit sg and create if needed. I can push a patch for that since suites should be able to run alone.",
+      "parentUuid": "ba1f61a0_78e19b99",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 65
+      },
+      "revId": "0cdd02e81b80cf92b637242f392149e8fe5f6e3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
