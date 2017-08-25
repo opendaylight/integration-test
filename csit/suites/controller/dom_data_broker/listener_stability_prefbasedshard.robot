@@ -26,25 +26,3 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Move_Leader_From_Listener_Local_To_Remote
     [Documentation]    Listener runs on leader node when leader is moved to remote node.
     local    remote
-
-Restart_1
-    [Documentation]    Restart odl.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    [Template]
-    DdbCommons.Restart_Test_Templ
-    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-
-Move_Leader_From_Listener_Remote_To_Other_Remote
-    [Documentation]    Listener runs on follower node when leader is moved to the third node.
-    remote    remote
-
-Restart_2
-    [Documentation]    Restart odl.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    [Template]
-    DdbCommons.Restart_Test_Templ
-    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-
-Move_Leader_From_Listener_Remote_To_Local
-    [Documentation]    Listener runs on follower node when leader is moved to local node.
-    remote    local

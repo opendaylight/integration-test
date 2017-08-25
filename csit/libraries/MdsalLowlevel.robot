@@ -166,7 +166,7 @@ Unsubscribe_Dtcl
     [Arguments]    ${member_index}
     [Documentation]    Invoke unsubscribe-dtcl rpc, return copy-matches field as boolean.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DTCL_DIR}    session=${session}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DTCL_DIR}    session=${session}    http_timeout=600
     BuiltIn.Run_Keyword_And_Return    MdsalLowLevel__Parse_Matches    ${text}
 
 Unsubscribe_Dtcl_No_Tx
@@ -186,7 +186,7 @@ Unsubscribe_Ddtl
     [Arguments]    ${member_index}
     [Documentation]    Invoke unsubscribe-ddtl rpc, return copy-matches field as boolean.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${member_index}
-    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DDTL_DIR}    session=${session}
+    ${text} =    TemplatedRequests.Post_As_Xml_Templated    ${UNSUBSCRIBE_DDTL_DIR}    session=${session}    http_timeout=600
     BuiltIn.Run_Keyword_And_Return    MdsalLowLevel__Parse_Matches    ${text}
 
 Unsubscribe_Ddtl_No_Tx
