@@ -19,7 +19,7 @@ TC02 Create First Set Of Network Subnet And Ports
     Should Contain    ${output}    ${SUBNET_1}
     OpenStackOperations.Create And Configure Security Group    ${SECURITY_GROUP_L2GW}
     OpenStackOperations.Create Port    ${NET_1}    ${OVS_PORT_1}    sg=${SECURITY_GROUP_L2GW}
-    OpenStackOperations.Create Neutron Port With Additional Params    ${NET_1}    ${HWVTEP_PORT_1}    additional_args=${SECURITY_GROUPS_L2GW_NONE}
+    OpenStackOperations.Create Neutron Port With Additional Params    ${NET_1}    ${HWVTEP_PORT_1}    additional_args=${SECURITY_GROUP_L2GW_NONE}
     ${port_mac}=    Get Port Mac    ${OVS_PORT_1}    #port_mac[0]
     ${port_ip}=    Get Port Ip    ${OVS_PORT_1}    #port_ip[0]
     Append To List    ${port_mac_list}    ${port_mac}
@@ -78,7 +78,7 @@ TC09 Additional Network Subnet Port Creation
     ${output}=    OpenStackOperations.List Subnets
     Should Contain    ${output}    ${SUBNET_2}
     OpenStackOperations.Create Port    ${NET_2}    ${OVS_PORT_2}    sg=${SECURITY_GROUP_L2GW}
-    OpenStackOperations.Create Neutron Port With Additional Params    ${NET_2}    ${HWVTEP_PORT_2}    additional_args=${SECURITY_GROUPS_L2GW_NONE}
+    OpenStackOperations.Create Neutron Port With Additional Params    ${NET_2}    ${HWVTEP_PORT_2}    additional_args=${SECURITY_GROUP_L2GW_NONE}
     ${port_mac}=    Get Port Mac    ${OVS_PORT_2}    #port_mac[2]
     ${port_ip}=    Get Port Ip    ${OVS_PORT_2}    #port_ip[2]
     Append To List    ${port_mac_list}    ${port_mac}
