@@ -355,6 +355,8 @@ Kill_Single_Member
     [Documentation]    Convenience keyword that kills the specified member of the cluster.
     ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member}
     ${index_list} =    ClusterManagement__Build_List    ${member}
+    ${member_ip} =    Return_Member_IP    ${member}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Killing ODL${member} ${member_ip}
     ${updated_index_list} =    Kill_Members_From_List_Or_All    ${index_list}    ${original_index_list}    ${confirm}
     [Return]    ${updated_index_list}
 
@@ -794,3 +796,10 @@ Sync_Status_Should_Be_True
     [Documentation]    Verify that cluster node is in sync with others
     ${status}    Get_Sync_Status_Of_Member    ${controller_index}
     BuiltIn.Should_Be_True    ${status}
+
+Return_Member_IP
+    [Arguments]    ${member_index}
+    [Documentation]    Return the IP address of the member given the member_index.
+    ${member_int} =    BuiltIn.Convert_To_Integer    ${member_index}
+    ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_int}
+    [Return]    ${member_ip}
