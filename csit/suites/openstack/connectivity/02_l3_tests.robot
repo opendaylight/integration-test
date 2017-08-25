@@ -16,6 +16,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
+${SECURITY_GROUP}    sg-connectivity
 @{NETWORKS_NAME}    network_1    network_2    network_3
 @{SUBNETS_NAME}    subnet_1    subnet_2    subnet_3
 @{NET_1_VM_INSTANCES}    l3_instance_net_1_1    l3_instance_net_1_2    l3_instance_net_1_3
@@ -57,15 +58,15 @@ Create Subnets For network_3
 
 Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=csit
+    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=csit
+    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For network_3
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_3    ${NET_3_VM_INSTANCES}    sg=csit
+    Create Vm Instances    network_3    ${NET_3_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.

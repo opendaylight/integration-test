@@ -19,6 +19,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
+${SECURITY_GROUP}    sg-remote
 @{NETWORKS_NAME}    network_1    network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1
@@ -44,18 +45,18 @@ Create Subnets For network_2
 
 Add TCP Allow Rules
     [Documentation]    Allow only TCP packets for this suite
-    Security Group Create Without Default Security Rules    csit-remote-sgs
-    Neutron Security Group Rule Create    csit-remote-sgs    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Rule Create    csit-remote-sgs    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Show    csit-remote-sgs
+    Security Group Create Without Default Security Rules    ${SECURITY_GROUP}
+    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Show    ${SECURITY_GROUP}
 
 Create Vm Instances For network_1
     [Documentation]    Create VM instances using flavor and image names for a network.
-    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=csit-remote-sgs
+    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For network_2
     [Documentation]    Create VM instances using flavor and image names for a network.
-    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=csit-remote-sgs
+    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
@@ -109,9 +110,9 @@ No Ping From Vm Instance2 To Vm Instance1
     Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${VM1_LIST}    ping_should_succeed=${expect_ping_to_work}
 
 Add Ping Allow Rules With Remote SG (only between VMs)
-    Neutron Security Group Rule Create Legacy Cli    csit-remote-sgs    direction=ingress    protocol=icmp    remote_group_id=csit-remote-sgs
-    Neutron Security Group Rule Create Legacy Cli    csit-remote-sgs    direction=egress    protocol=icmp    remote_group_id=csit-remote-sgs
-    Neutron Security Group Show    csit-remote-sgs
+    Neutron Security Group Rule Create Legacy Cli    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_group_id=${SECURITY_GROUP}
+    Neutron Security Group Rule Create Legacy Cli    ${SECURITY_GROUP}    direction=egress    protocol=icmp    remote_group_id=${SECURITY_GROUP}
+    Neutron Security Group Show    ${SECURITY_GROUP}
 
 Verify No Ping From DHCP To Vm Instance1
     [Documentation]    Check non-reachability of vm instances by pinging to them.
@@ -260,7 +261,7 @@ Delete Vm Instances In network_1
 Delete SecurityGroups
     [Documentation]    Delete Security group
     Delete SecurityGroup    additional-sg
-    Delete SecurityGroup    csit-remote-sgs
+    Delete SecurityGroup    ${SECURITY_GROUP}
 
 Delete Sub Networks In network_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.

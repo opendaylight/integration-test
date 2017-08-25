@@ -15,6 +15,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
+${SECURITY_GROUP}    sg-sfc
 @{NETWORKS_NAME}    network_1
 @{SUBNETS_NAME}    l2_subnet_1
 @{VM_INSTANCES}    sf1    sf2    sf3    source_vm    dest_vm
@@ -32,27 +33,21 @@ Create Subnets For network_1
     Create SubNet    @{NETWORKS_NAME}[0]    @{SUBNETS_NAME}[0]    @{SUBNETS_RANGE}[0]
 
 Add Allow All Rules
-    [Documentation]    Allow all packets for this suite
-    Neutron Security Group Create    sg-sfc
-    Neutron Security Group Rule Create    sg-sfc    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Rule Create    sg-sfc    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Rule Create    sg-sfc    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp
-    Neutron Security Group Rule Create    sg-sfc    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp
-    Neutron Security Group Rule Create    sg-sfc    direction=ingress    protocol=icmp
-    Neutron Security Group Rule Create    sg-sfc    direction=egress    protocol=icmp
+    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
 
 Create Neutron Ports
     [Documentation]    Precreate neutron ports to be used for SFC VMs
     : FOR    ${port}    IN    @{PORTS}
-    \    Create Port    @{NETWORKS_NAME}[0]    ${port}    sg=sg-sfc
+    \    Create Port    @{NETWORKS_NAME}[0]    ${port}    sg=${SECURITY_GROUP}
 
 Create Vm Instances
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instance With Ports    p1in    p1out    sf1    sg=sg-sfc
-    Create Vm Instance With Ports    p2in    p2out    sf2    sg=sg-sfc
-    Create Vm Instance With Ports    p3in    p3out    sf3    sg=sg-sfc
-    Create Vm Instance With Port    source_vm_port    source_vm    sg=sg-sfc
-    Create Vm Instance With Port    dest_vm_port    dest_vm    sg=sg-sfc
+    Create Vm Instance With Ports    p1in    p1out    sf1    sg=${SECURITY_GROUP}
+    Create Vm Instance With Ports    p2in    p2out    sf2    sg=${SECURITY_GROUP}
+    Create Vm Instance With Ports    p3in    p3out    sf3    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port    source_vm_port    source_vm    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port    dest_vm_port    dest_vm    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.

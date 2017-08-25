@@ -25,6 +25,7 @@ Variables         ../../../variables/Variables.py
 @{VM_IPS_NOT_DELETED}    70.0.0.4
 @{cluster_down_list}    ${1}    ${2}
 @{SUBNETS_RANGE}    70.0.0.0/24    80.0.0.0/24
+${SECURITY_GROUP}    sg-clustering
 
 *** Test Cases ***
 Create All Controller Sessions
@@ -43,6 +44,10 @@ Create Subnets For l2_net_1
 Create Subnets For l2_net_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    l2_net_2    l2_sub_net_2    @{SUBNETS_RANGE}[1]
+
+Add Ssh Allow Rule
+    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
 
 Create Bridge Manually and Verify Before Fail
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.

@@ -18,6 +18,7 @@ Resource          ../../../libraries/SetupUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
+${SECURITY_GROUP}    sg-clustering
 @{NETWORKS_NAME}    l3_net_1    l3_net_2
 @{SUBNETS_NAME}    l3_sub_net_1    l3_sub_net_2
 @{NET_1_VM_INSTANCES}    VmInstance1_net_1    VmInstance2_net_1    VmInstance3_net_1
@@ -51,7 +52,7 @@ Take Down ODL1
 
 Create Vm Instances For l3_net_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    l3_net_1    ${NET_1_VM_INSTANCES}    sg=csit
+    OpenStackOperations.Create Vm Instances    l3_net_1    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
@@ -63,7 +64,7 @@ Take Down ODL2
 
 Create Vm Instances For l3_net_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    l3_net_2    ${NET_2_VM_INSTANCES}    sg=csit
+    OpenStackOperations.Create Vm Instances    l3_net_2    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.

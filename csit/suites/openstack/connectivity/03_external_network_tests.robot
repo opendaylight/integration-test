@@ -15,6 +15,7 @@ Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
+${SECURITY_GROUP}    sg-connectivity
 @{NETWORKS_NAME}    l3_net
 @{SUBNETS_NAME}    l3_subnet
 @{VM_INSTANCES_FLOATING}    VmInstanceFloating1    VmInstanceFloating2
@@ -45,8 +46,8 @@ Create Subnet For Private Network
 
 Create Vm Instances
     [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES_FLOATING}    sg=csit
-    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES_SNAT}    sg=csit
+    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES_FLOATING}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES_SNAT}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.

@@ -789,6 +789,17 @@ Delete All Security Group Rules
     \    Log    ${output}
     \    Should Not Be True    ${rc}
 
+Create Allow All SecurityGroup
+    [Arguments]    ${sg_name}    ${ether_type}=IPv4
+    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    Neutron Security Group Create    ${sg_name}
+    Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=tcp
+    Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    protocol=icmp
+    Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    protocol=icmp
+    Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=udp
+    Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=udp
+
 Create Neutron Port With Additional Params
     [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
     [Documentation]    Create Port With given additional parameters

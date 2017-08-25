@@ -33,7 +33,7 @@ Resource          ../../../variables/netvirt/Variables.robot
 @{EXTRA_NW_SUBNET}    2001:db9:cafe:d::/64    2001:db9:abcd:d::/64
 ${NET1_ADDR_POOL}    --allocation-pool start=2001:db8:0:2::2,end=2001:db8:0:2:ffff:ffff:ffff:fffe
 ${NET2_ADDR_POOL}    --allocation-pool start=2001:db8:0:3::2,end=2001:db8:0:3:ffff:ffff:ffff:fffe
-${SECURITY_GROUP}    sg-ipv6-vpnservice
+${SECURITY_GROUP}    sg-vpnservice-ipv6
 ${UPDATE_NETWORK}    UpdateNetwork
 ${UPDATE_SUBNET}    UpdateSubnet
 ${UPDATE_PORT}    UpdatePort
@@ -92,13 +92,7 @@ Add Interfaces To Router
 
 Add Ssh V6 Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP6 packets for this suite
-    Neutron Security Group Create    ${SECURITY_GROUP}
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    ethertype=IPv6    protocol=icmp
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    ethertype=IPv6    protocol=icmp
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=udp
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    ethertype=IPv6    port_range_max=65535    port_range_min=1    protocol=udp
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}    IPv6
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets

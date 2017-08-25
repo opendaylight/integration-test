@@ -31,7 +31,7 @@ ${LOOPBACK_IP}    5.5.5.2
 ${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
 ${AS_ID}          500
 ${DCGW_RD}        2200:2
-${SG_NAME}        sg_bgp_vpnservice
+${SECURITY_GROUP}    sg-vpnservice-bgp
 
 *** Test Cases ***
 Create BGP Config On ODL
@@ -97,14 +97,14 @@ Delete BGP Config On DCGW
 BGP Vpnservice Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     DevstackUtils.Devstack Suite Setup
-    Create And Configure Security Group    ${SG_NAME}
+    Create And Configure Security Group    ${SECURITY_GROUP}
     Start Quagga Processes On ODL    ${ODL_SYSTEM_IP}
     Start Quagga Processes On DCGW    ${DCGW_SYSTEM_IP}
     Create Basic Configuartion for BGP VPNservice Suite
 
 BGP Vpnservice Suite Teardown
     Delete Basic Configuartion for BGP VPNservice Suite
-    Delete SecurityGroup    ${SG_NAME}
+    Delete SecurityGroup    ${SECURITY_GROUP}
     Close All Connections
 
 Create Basic Configuartion for BGP VPNservice Suite
@@ -118,12 +118,12 @@ Create Basic Configuartion for BGP VPNservice Suite
     \    Create SubNet    ${NETWORKS[${idx}]}    ${SUBNETS[${idx}]}    ${SUBNET_CIDR[${idx}]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
     : FOR    ${network}    ${port}    IN ZIP    ${NETWORKS}    ${PORTS}
-    \    Create Port    ${network}    ${port}    sg=${SG_NAME}
+    \    Create Port    ${network}    ${port}    sg=${SECURITY_GROUP}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${PORT_URL}    ${PORTS}
-    Create Vm Instance With Port On Compute Node    ${PORTS[0]}    ${VM_NAMES[0]}    ${OS_COMPUTE_1_IP}    sg=${SG_NAME}
-    Create Vm Instance With Port On Compute Node    ${PORTS[1]}    ${VM_NAMES[1]}    ${OS_COMPUTE_1_IP}    sg=${SG_NAME}
-    Create Vm Instance With Port On Compute Node    ${PORTS[2]}    ${VM_NAMES[2]}    ${OS_COMPUTE_2_IP}    sg=${SG_NAME}
-    Create Vm Instance With Port On Compute Node    ${PORTS[3]}    ${VM_NAMES[3]}    ${OS_COMPUTE_2_IP}    sg=${SG_NAME}
+    Create Vm Instance With Port On Compute Node    ${PORTS[0]}    ${VM_NAMES[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORTS[1]}    ${VM_NAMES[1]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORTS[2]}    ${VM_NAMES[2]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORTS[3]}    ${VM_NAMES[3]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
     : FOR    ${VM}    IN    @{VM_NAMES}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
     ${VM_IPS}    ${DHCP_IPS}    Wait Until Keyword Succeeds    30s    10s    Collect VM IP Addresses    true

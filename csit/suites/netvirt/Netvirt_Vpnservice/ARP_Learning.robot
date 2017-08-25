@@ -13,7 +13,7 @@ Resource          ../../../variables/netvirt/Variables.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${SECURITY_GROUP}    sg-vpnservice1
+${SECURITY_GROUP}    sg-vpnservice-arp
 @{VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261111    4ae8cd92-48ca-49b5-94e1-b2921a261112
 @{VPN_NAME}       vpn1    vpn2
 ${CREATE_RD}      ["2200:2"]
@@ -148,13 +148,7 @@ Create Setup
     ${SUB_LIST}    List Subnets
     : FOR    ${subnet}    IN    @{SUBNETS}
     \    Should Contain    ${SUB_LIST}    ${subnet}
-    Neutron Security Group Create    ${SECURITY_GROUP}
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    protocol=icmp
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    protocol=icmp
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp
-    Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
     Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
