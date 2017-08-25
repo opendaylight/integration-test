@@ -253,7 +253,7 @@ Client_Isolation_Test_Templ
     ClusterManagement.Isolate_Member_From_List_Or_All    ${client_node_dst}
     ${rpc_timeout} =    Get_Seconds_To_Time    ${abort_date}
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${rpc_timeout}    1s    Ongoing_Transactions_Not_Failed_Yet
-    BuiltIn.Wait_Until_Keyword_Succeeds    20s    2s    Ongoing_Transactions_Failed
+    BuiltIn.Wait_Until_Keyword_Succeeds    30m    0.1s    Ongoing_Transactions_Failed
     [Teardown]    BuiltIn.Run Keywords    KarafKeywords.Log_Message_To_Controller_Karaf    Rejoining node ${client_node_dst}
     ...    AND    ClusterManagement.Rejoin_Member_From_List_Or_All    ${client_node_dst}
     ...    AND    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}
