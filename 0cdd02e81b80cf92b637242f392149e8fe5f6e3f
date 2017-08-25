@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_78e19b99",
+        "filename": "csit/testplans/netvirt-3node-openstack.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-25T05:51:37Z",
+      "side": 1,
+      "message": "seems like all the changes in this patch are probably ok to merge except this file. right?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 65
+      },
+      "revId": "0cdd02e81b80cf92b637242f392149e8fe5f6e3f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
