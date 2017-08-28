@@ -25,15 +25,15 @@ Create source and destination UNIs at the OVS instances using Restconf API
     [Documentation]    Create source and destination UNIs
     [Tags]    UniMgr UNIs Create
     ${elements}    Create List    ${Mininet1_IP}
-    Check For Elements On Karaf Command Output Message    uni-add -ip ${Mininet1_IP} -ma ${UNI1_MAC}    ${elements}
+    Wait Until Keyword Succeeds    16s    2s    Check For Elements On Karaf Command Output Message    uni-add -ip ${Mininet1_IP} -ma ${UNI1_MAC}    ${elements}
     ${elements}    Create List    ${Mininet2_IP}
-    Check For Elements On Karaf Command Output Message    uni-add -ip ${Mininet2_IP} -ma ${UNI2_MAC}    ${elements}
+    Wait Until Keyword Succeeds    16s    2s    Check For Elements On Karaf Command Output Message    uni-add -ip ${Mininet2_IP} -ma ${UNI2_MAC}    ${elements}
 
 List All UNIs
     [Documentation]    List all existing UNIs in the config data store
     [Tags]    UniMgr
     ${elements}    Create List    ${Mininet1_IP}    ${Mininet2_IP}
-    Check For Elements On Karaf Command Output Message    uni-list -c    ${elements}
+    Wait Until Keyword Succeeds    16s    2s    Check For Elements On Karaf Command Output Message    uni-list -c    ${elements}
 
 Show UNI
     [Documentation]    Show the information of the created Unis from the operational data store
