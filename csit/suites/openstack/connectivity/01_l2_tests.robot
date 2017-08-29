@@ -20,8 +20,10 @@ Resource          ../../../variables/netvirt/Variables.robot
 ${SECURITY_GROUP}    sg-connectivity
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
-@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
-@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
+@{NET_1_VM_GRP_NAME}    NET1-VM
+@{NET_2_VM_GRP_NAME}    NET2-VM
+@{NET_1_VM_INSTANCES}    NET1-VM-1    NET1-VM-2    NET1-VM-3    NET1-VM-4
+@{NET_2_VM_INSTANCES}    NET2-VM-1    NET2-VM-2    NET2-VM-3    NET2-VM-4
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 ${network1_vlan_id}    1235
 
@@ -54,11 +56,11 @@ Add Ssh Allow Rule
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
+    Create Vm Instances    l2_network_1    ${NET_1_VM_GRP_NAME}    sg=${SECURITY_GROUP}    ${min}=4    ${max}=4
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
+    Create Vm Instances    l2_network_2    ${NET_2_VM_GRP_NAME}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
@@ -139,7 +141,7 @@ Connectivity Tests From Vm Instance3 In l2_network_2
 
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names.
-    Delete Vm Instance    MyFirstInstance_1
+    Delete Vm Instance    NET1-VM-1
 
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
