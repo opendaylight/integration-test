@@ -21,7 +21,7 @@ fi
 
 echo "Configuring the startup features..."
 TOOLS_FEATURESCONF=${TOOLS_WORK_DIR}/${BUNDLEFOLDER}/etc/org.apache.karaf.features.cfg
-ssh ${TOOLS_SYSTEM_IP} "sed -ie \"s/featuresBoot=.*/featuresBoot=config,standard,region,package,kar,ssh,management,${ACTUALFEATURES}/g\" ${TOOLS_FEATURESCONF}"
+ssh ${TOOLS_SYSTEM_IP} "sed -r -i.old \"s/featuresBoot ?=.*/featuresBoot=config,standard,region,package,kar,ssh,management,${ACTUALFEATURES}/g\" ${TOOLS_FEATURESCONF}"
 
 echo "Starting controller..."
 ssh ${TOOLS_SYSTEM_IP} "${TOOLS_WORK_DIR}/${BUNDLEFOLDER}/bin/start"
