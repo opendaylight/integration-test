@@ -1,0 +1,503 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_72188875",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed.",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 44
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_b22de097",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 1097,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed.",
+      "range": {
+        "startLine": 1096,
+        "startChar": 0,
+        "endLine": 1097,
+        "endChar": 44
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d2285488",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "remove extra whitespace. applies elsewhere.",
+      "range": {
+        "startLine": 1098,
+        "startChar": 81,
+        "endLine": 1098,
+        "endChar": 84
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_121f8c5c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "can this be done with the openstack cli? if so, please use\nthat and change the keyword name to be more descriptive.",
+      "range": {
+        "startLine": 1106,
+        "startChar": 0,
+        "endLine": 1117,
+        "endChar": 20
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_f223d8a4",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "not sure whats the need for this keyword?",
+      "range": {
+        "startLine": 482,
+        "startChar": 0,
+        "endLine": 489,
+        "endChar": 26
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_523c64c8",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "please do not include commented/debug code",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 32
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_92325cf0",
+        "filename": "csit/scriptplans/netvirt-1node-openstack.txt",
+        "patchSetId": 76
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "how long does this take?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 43
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_5243c441",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/EVPN_In_Intra_DC_Deployments_TestArea1.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "you should be able to use NONE here",
+      "range": {
+        "startLine": 33,
+        "startChar": 15,
+        "endLine": 33,
+        "endChar": 38
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_3240d033",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/EVPN_In_Intra_DC_Deployments_TestArea1.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "extra newline to remove",
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_9249bc62",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/EVPN_In_Intra_DC_Deployments_TestArea1.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "whitespace. applies elsewhere",
+      "range": {
+        "startLine": 70,
+        "startChar": 48,
+        "endLine": 70,
+        "endChar": 49
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d27694a3",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/EVPN_In_Intra_DC_Deployments_TestArea1.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "why did you do this?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 55
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_b27b208b",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/EVPN_In_Intra_DC_Deployments_TestArea1.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "this applies elsewhere, but there is no reason to add\na Log statement that is nearly identical to a keyword\nthat it\u0027s called from or right before a keyword that is\ngoing to be called.\n\nrobot is verbose enough as it is and it will be very\nclear that we are in the Pretest Setup section and \nadding this log is just noise.\n\nthis applies elsewhere",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 30
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_32ae10e7",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/EVPN_In_Intra_DC_Deployments_TestArea1.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "Can you put this in OpenStackOperations and call it\nVerify VM to VM Ping Status? I know a few other \nsuites that can take advantage of it. You should make\nthe ${REQ_PING_REGEXP} an argument. That would be flexible\nand could be used for ping success or fail.",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 53
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_92b7fc39",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/EVPN_In_Intra_DC_Deployments_TestArea1.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "this looks like a library keyword too. or maybe something already exists",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 31
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_32957087",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "I feel like a lot of these keywords either already exist in a library or belong in a library and not this folders __init__.robot file",
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_72b40835",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 13,
+        "startChar": 53,
+        "endLine": 13,
+        "endChar": 54
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d284d45f",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "you are not using either of these, afaict. applies elsewhere.",
+      "range": {
+        "startLine": 42,
+        "startChar": 40,
+        "endLine": 42,
+        "endChar": 86
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_b2896077",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "don\u0027t we have this somewhere else already?",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 169
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_f27f5864",
+        "filename": "csit/suites/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "just to be clear, because I didn\u0027t mark this hardly anywhere\nelse except one other place; this is an example of a Log\nstatement that only provides noise to the code. The very\nnext line says \"Create Routers ...\"",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 25
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_32129057",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 76
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "all these lines are commented out?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 75
+      },
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_928edc77",
+        "filename": "csit/testplans/ovsdb-gate-clustering.txt",
+        "patchSetId": 76
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "why is this deleted?",
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d2eb3411",
+        "filename": "csit/testplans/ovsdb-gate-southbound.txt",
+        "patchSetId": 76
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "why is this showing up as a \"new\" file in this patch? it\u0027s already there in master.",
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_f20c783d",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 76
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-30T20:35:04Z",
+      "side": 1,
+      "message": "why are you deleting this file?",
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
