@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_6d18ad75",
+        "filename": "csit/suites/netvirt/Neutron_Security_Groups_Statistics/01.1_ACL_operational_Single_DPN.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-31T05:26:16Z",
+      "side": 1,
+      "message": "please use Variables.robot. eventually we want to remove\nVariables.py entirely.",
+      "range": {
+        "startLine": 8,
+        "startChar": 37,
+        "endLine": 8,
+        "endChar": 49
+      },
+      "revId": "c7a6433bd252fe836b1af23023d5fa49926e8553",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
