@@ -56,7 +56,7 @@ Check Vm Instances Have Ip Address
     # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
     # for dhcp addresses
     : FOR    ${vm}    IN    @{VM_INSTANCES_FLOATING}    @{VM_INSTANCES_SNAT}
-    \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
+    \    Wait Until Keyword Succeeds    600s    5s    Verify VM Is ACTIVE    ${vm}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
     ...    true    @{VM_INSTANCES_FLOATING}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
