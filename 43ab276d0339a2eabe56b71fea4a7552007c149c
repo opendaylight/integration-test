@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_7201a805",
+        "filename": "csit/suites/bier/basic/010_BierTeIntergrationTest.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-31T05:20:36Z",
+      "side": 1,
+      "message": "use Variables.robot please. eventually we are trying to\nremove Variables.robot entirely",
+      "range": {
+        "startLine": 21,
+        "startChar": 47,
+        "endLine": 21,
+        "endChar": 49
+      },
+      "revId": "43ab276d0339a2eabe56b71fea4a7552007c149c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_cd01d906",
+        "filename": "csit/variables/bier/bier_domain_configuration/configure_domain/post_data.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-31T05:20:36Z",
+      "side": 1,
+      "message": "white space to remove.",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 11
+      },
+      "revId": "43ab276d0339a2eabe56b71fea4a7552007c149c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_ad06251b",
+        "filename": "csit/variables/bier/bier_domain_configuration/configure_subdomain/post_data.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-31T05:20:36Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 11
+      },
+      "revId": "43ab276d0339a2eabe56b71fea4a7552007c149c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_0d081127",
+        "filename": "csit/variables/bier/bier_domain_configuration/delete_domain/post_data.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-31T05:20:36Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 11
+      },
+      "revId": "43ab276d0339a2eabe56b71fea4a7552007c149c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_ed0c9d3d",
+        "filename": "csit/variables/bier/bier_domain_configuration/delete_subdomain/post_data.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-31T05:20:36Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 11
+      },
+      "revId": "43ab276d0339a2eabe56b71fea4a7552007c149c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_4d15e93e",
+        "filename": "csit/variables/bier/bier_domain_configuration/query_domain/post_data.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-31T05:20:36Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 11
+      },
+      "revId": "43ab276d0339a2eabe56b71fea4a7552007c149c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_2d123557",
+        "filename": "csit/variables/bier/bier_domain_configuration/query_subdomain/post_data.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-08-31T05:20:36Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 11
+      },
+      "revId": "43ab276d0339a2eabe56b71fea4a7552007c149c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
