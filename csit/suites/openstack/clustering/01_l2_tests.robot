@@ -216,7 +216,7 @@ Delete Vm Instance
 
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
-    ${output}=    OpenStackOperations.Ping From DHCP Should Not Succeed    l2_network_1    @{NET_1_VM_IPS}[0]
+    ${output}=    OpenStackOperations.Ping From DHCP Should Not Succeed    l2_net_1    @{NET_1_VM_IPS}[0]
 
 Delete Vm Instances In network_1
     [Documentation]    Delete Vm instances using instance names in network_1.
