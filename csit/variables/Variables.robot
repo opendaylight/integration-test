@@ -69,6 +69,7 @@ ${DELETE_DASHBOARDRECORD}    /restconf/operations/dashboardrule:delete-dashboard
 ${ELASTICPORT}    9200    # Port to use when interacting with ElasticSearch. FIXME: Hide into a specific Resource.
 ${ENABLE_GLOBAL_TEST_DEADLINES}    True    # Some suites need this to avoid getting stuck. FIXME: Move to the Resource which uses this.
 ${ESCAPE_CHARACTER}    \x1b    # A more readable alias to the special escape character.
+${FAIL_ON_EXCEPTIONS}    False    # global flag (can/should be tweak on pybot command line) which suites can use if they are validating exceptions to pass/fail tests on
 ${FIB_ENTRIES_URL}    ${CONFIG_API}/odl-fib:fibEntries/
 ${FLOWFILTERENTRIES_CREATE}    flowfilterentries.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${FLOWFILTERS}    flowfilters/in    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
@@ -94,6 +95,7 @@ ${KARAF_PROMPT_LOGIN}    opendaylight-user    # This is used for karaf console l
 ${ICMP_TYPE}      135
 ${KARAF_DETAILED_PROMPT}    @${ESCAPE_CHARACTER}[0m${ESCAPE_CHARACTER}[34mroot${ESCAPE_CHARACTER}[0m>    # Larger substring of Karaf prompt, shorter ones may result in false positives.
 ${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}    # Karaf home directory path.
+${KARAF_LOG}      ${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log    # location of karaf.log in standard CSIT jobs
 ${KARAF_PASSWORD}    karaf    # Plaintext password to authenticate to Karaf console.
 ${KARAF_PROMPT}    opendaylight-user.*root.*>    # This is used for interactive read until prompt in regexp format.
 ${KARAF_SHELL_PORT}    8101    # ODL provides SSH access to Karaf consoleon this port.

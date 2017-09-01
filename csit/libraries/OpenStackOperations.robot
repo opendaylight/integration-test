@@ -16,6 +16,7 @@ Resource          Utils.robot
 Resource          ../variables/Variables.robot
 Resource          ../variables/netvirt/Variables.robot
 Variables         ../variables/netvirt/Modules.py
+Variables         ../variables/netvirt/Exceptions_Whitelist.py
 
 *** Keywords ***
 Get Tenant ID From Security Group
@@ -508,27 +509,6 @@ Get DumpFlows And Ovsconfig
     Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
 
-Get Karaf Log Type From Test Start
-    [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
-    ...    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
-    ${cmd} =    BuiltIn.Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file} | grep '${type}'
-    ${output} =    Utils.Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
-    [Return]    ${output}
-
-Get Karaf Log Types From Test Start
-    [Arguments]    ${ip}    ${test_name}    ${types}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
-    ...    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
-    : FOR    ${type}    IN    @{types}
-    \    OpenStackOperations.Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
-    \    ...    ${prompt}    ${log_file}
-
-Get Karaf Log Events From Test Start
-    [Arguments]    ${test_name}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
-    ${log_types} =    BuiltIn.Create List    ERROR    WARN    Exception
-    BuiltIn.Run Keyword If    0 < ${NUM_ODL_SYSTEM}    OpenStackOperations.Get Karaf Log Types From Test Start    ${ODL_SYSTEM_IP}    ${test_name}    ${log_types}
-    BuiltIn.Run Keyword If    1 < ${NUM_ODL_SYSTEM}    OpenStackOperations.Get Karaf Log Types From Test Start    ${ODL_SYSTEM_2_IP}    ${test_name}    ${log_types}
-    BuiltIn.Run Keyword If    2 < ${NUM_ODL_SYSTEM}    OpenStackOperations.Get Karaf Log Types From Test Start    ${ODL_SYSTEM_3_IP}    ${test_name}    ${log_types}
-
 Get ControlNode Connection
     SSHLibrary.Switch Connection    ${OS_CNTL_CONN_ID}
     [Return]    ${OS_CNTL_CONN_ID}
@@ -540,10 +520,11 @@ Get OvsDebugInfo
     BuiltIn.Run Keyword If    2 < ${NUM_OS_SYSTEM}    OpenStackOperations.Get DumpFlows And Ovsconfig    ${OS_CMP2_CONN_ID}
 
 Get Test Teardown Debugs
-    [Arguments]    ${test_name}=${TEST_NAME}
+    [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}
     OpenStackOperations.Get OvsDebugInfo
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
-    OpenStackOperations.Get Karaf Log Events From Test Start    ${test_name}
+    KarafKeywords.Get Karaf Log Events From Test Start    ${test_name}
+    Run Keyword If    "${FAIL_ON_EXCEPTIONS}"=="True"    Fail If Exceptions Found During Test    ${test_name}    ${NETVIRT_EXCEPTIONS_WHITELIST}
 
 Get Test Teardown Debugs For SFC
     [Arguments]    ${test_name}=${TEST_NAME}
