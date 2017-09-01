@@ -1088,3 +1088,16 @@ Wait For Routes To Propogate
     \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
     \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
     \    Should Contain    ${output}    @{subnets}[${INDEX}]
+
+VM Creation Quota Update
+    [Arguments]    ${cmd}
+    [Documentation]    Update VM Creation Quota to 20
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack project list
+    Log    ${output}
+    Should Not Be True    ${rc}
+    ${split_output}=    Split String    ${output}
+    ${index} =    Get Index From List    ${split_output}    admin
+    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd} ${split_output[${index-2}]}
+    Log    ${output}
