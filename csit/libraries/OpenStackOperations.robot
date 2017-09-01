@@ -600,14 +600,15 @@ Get DumpFlows And Ovsconfig
 
 Get Karaf Log Type From Test Start
     [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
-    ...    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
+    ...    ${log_file}=${KARAF_LOG}
     ${cmd}    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file} | grep '${type}'
     ${output}    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
     Log    ${output}
+    [Return]    ${output}
 
 Get Karaf Log Types From Test Start
     [Arguments]    ${ip}    ${test_name}    ${types}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
-    ...    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
+    ...    ${log_file}=${KARAF_LOG}
     : FOR    ${type}    IN    @{types}
     \    Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
     \    ...    ${prompt}    ${log_file}
@@ -618,6 +619,18 @@ Get Karaf Log Events From Test Start
     Run Keyword If    0 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_IP}    ${test_name}    ${log_types}
     Run Keyword If    1 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_2_IP}    ${test_name}    ${log_types}
     Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_3_IP}    ${test_name}    ${log_types}
+
+Fail If Exceptions Found During Test
+    [Arguments]    ${test_name}
+    [Documentation]    Create a failure if an Exception is found in the karaf.log. Will work for single controller jobs
+    ...    as well as 3node cluster jobs
+    ${exceptions}=    Get Karaf Log Type From Test Start    ${ODL_SYSTEM_IP}    ${test_name}    Exception
+    Should Not Contain    ${exceptions}    Exception
+    # In case of 3node jobs, we want to check the other controllers too
+    ${exceptions}=    Run Keyword If    1 < ${NUM_ODL_SYSTEM}    Get Karaf Log Type From Test Start    ${ODL_SYSTEM_2_IP}    ${test_name}    Exception
+    Run Keyword If    1 < ${NUM_ODL_SYSTEM}    Should Not Contain    ${exceptions}    Exception
+    ${exceptions}=    Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Get Karaf Log Type From Test Start    ${ODL_SYSTEM_3_IP}    ${test_name}    Exception
+    Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Should Not Contain    ${exceptions}    Exception
 
 Get ControlNode Connection
     ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
@@ -632,10 +645,11 @@ Get OvsDebugInfo
     Run Keyword If    2 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
 
 Get Test Teardown Debugs
-    [Arguments]    ${test_name}=${TEST_NAME}
+    [Arguments]    ${test_name}=${TEST_NAME}    ${fail_on_exceptions}=${FAIL_ON_EXCEPTIONS}
     Get OvsDebugInfo
     Run Keyword And Ignore Error    Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     Get Karaf Log Events From Test Start    ${test_name}
+    Run Keyword If    "${fail_on_exceptions}"=="True"    Fail If Exceptions Found During Test    ${test_name}
 
 Show Debugs
     [Arguments]    @{vm_indices}
