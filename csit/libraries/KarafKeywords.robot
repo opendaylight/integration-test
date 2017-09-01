@@ -1,5 +1,8 @@
 *** Settings ***
-Documentation     Karaf library. This library is useful to deal with controller Karaf console for ssh sessions in cluster.
+Documentation     Karaf library. General utility keywords for interacting with the karaf environment, such as the
+...               karaf console, karaf.log, karaf features, and karaf config files.
+...
+...               This library is useful to deal with controller Karaf console for ssh sessions in cluster.
 ...               Running Setup_Karaf_Keywords is necessary. If SetupUtils initialization is called, this gets initialized as well.
 ...               If this gets initialized, ClusterManagement gets initialized as well.
 Library           SSHLibrary
@@ -178,7 +181,7 @@ Log_Test_Suite_Start_To_Controller_Karaf
 Log_Testcase_Start_To_Controller_Karaf
     [Arguments]    ${member_index_list}=${EMPTY}
     [Documentation]    Log test case name to karaf log, useful in test case setup.
-    Log_Message_To_Controller_Karaf    Starting test ${TEST_NAME}    ${member_index_list}
+    Log_Message_To_Controller_Karaf    Starting test ${SUITE_NAME}.${TEST_NAME}    ${member_index_list}
 
 Set_Bgpcep_Log_Levels
     [Arguments]    ${bgpcep_level}=${DEFAULT_BGPCEP_LOG_LEVEL}    ${protocol_level}=${DEFAULT_PROTOCOL_LOG_LEVEL}    ${member_index_list}=${EMPTY}
@@ -188,6 +191,64 @@ Set_Bgpcep_Log_Levels
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    Execute_Controller_Karaf_Command_On_Background    log:set ${bgpcep_level} org.opendaylight.bgpcep    member_index=${index}
     \    Execute_Controller_Karaf_Command_On_Background    log:set ${protocol_level} org.opendaylight.protocol    member_index=${index}
+
+Get Karaf Log Type From Test Start
+    [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
+    ...    ${log_file}=${KARAF_LOG}
+    [Documentation]    Scrapes all log messages that match regexp ${type} which fall after a point given by a log message that
+    ...    contains ${test_name}. This is useful if your test cases are marking karaf.log with a message indicating when
+    ...    that test case has started; such that you can easily pull out any extra log messsages to parse/log/etc in the
+    ...    test logic itself. For example, you can grab all ERRORS that occur during your test case.
+    ${cmd}    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file} | grep '${type}'
+    ${output}    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
+    [Return]    ${output}
+
+Get Karaf Log Types From Test Start
+    [Arguments]    ${ip}    ${test_name}    ${types}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
+    ...    ${log_file}=${KARAF_LOG}
+    [Documentation]    A wrapper keyword for "Get Karaf Log Type From Test Start" so that we can parse for multiple types
+    ...    of log messages. For example, we can grab all messages of type WARN and ERROR
+    : FOR    ${type}    IN    @{types}
+    \    Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
+    \    ...    ${prompt}    ${log_file}
+
+Get Karaf Log Events From Test Start
+    [Arguments]    ${test_name}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
+    [Documentation]    Wrapper for the wrapper "Get Karaf Log Types From Test Start" so that we can easily loop over
+    ...    any number of controllers to analyze karaf.log for ERROR, WARN and Exception log messages
+    ${log_types} =    Create List    ERROR    WARN    Exception
+    : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
+    \    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${log_types}
+
+Fail If Exceptions Found During Test
+    [Arguments]    ${test_name}    ${exceptions_white_list}=${EMPTY}
+    [Documentation]    Create a failure if an Exception is found in the karaf.log. Will work for single controller jobs
+    ...    as well as 3node cluster jobs
+    : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
+    \    Verify Exception Logging In Controller    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${exceptions_white_list}
+
+Verify Exception Logging In Controller
+    [Arguments]    ${controller_ip}    ${test_name}    ${exceptions_white_list}
+    [Documentation]    Local keyword to make it easier to loop through N controllers to pull Exceptions from the
+    ...    karaf.log file and validate with "Check Against White List"
+    ${exceptions}=    Get Karaf Log Type From Test Start    ${controller_ip}    ${test_name}    Exception
+    @{log_lines}=    Split String    ${exceptions}    ${\n}
+    ${num_log_entries}    Get Length    ${log_lines}
+    Return From Keyword If    ${num_log_entries} == ${0}    No Exceptions found.
+    : FOR    ${log_message}    IN    @{log_lines}
+    \    Check Against White List    ${log_message}    ${exceptions_white_list}
+
+Check Against White List
+    [Arguments]    ${exception_line}    ${exceptions_white_list}
+    [Documentation]    As soon as the ${exceptions_line} is found in one of the elements of ${exceptions_white_list}
+    ...    this keyword will exit and give a Pass to the caller. If there is no match, this keyword will end up
+    ...    marking a failure. In the case that no exceptions are found, the caller could end up passing a single
+    ...    empty line as that is what is returned when a grep on karaf.log has no match, so we can safely return
+    ...    in that case as well.
+    Return From Keyword If    "${exception_line}" == ""
+    : FOR    ${exception}    IN    @{exceptions_white_list}
+    \    Return From Keyword If    "${exception}" in "${exception_line}"    Exceptions found, but whitelisted: ${\n}${exception_line}${\n}
+    Fail    Exceptions Found: ${\n}${exception_line}${\n}
 
 Wait_For_Karaf_Log
     [Arguments]    ${message}    ${timeout}=60    ${member_index}=${1}
