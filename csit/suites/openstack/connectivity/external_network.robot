@@ -4,6 +4,7 @@ Suite Setup       OpenStackOperations.OpenStack Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
+Force Tags        skip_if_${ODL_SNAT_MODE}
 Library           Collections
 Library           SSHLibrary
 Library           OperatingSystem
@@ -155,6 +156,18 @@ SNAT - TCP connection to External Gateway From SNAT VM Instance3
 SNAT - UDP connection to External Gateway From SNAT VM Instance3
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
     OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[1]    @{NET2_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}    -u
+
+Ping External Network PNF from SNAT VM Instance1
+    [Documentation]    Check reachability of External Network PNF from SNAT VM Instance1
+    ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
+    ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[0]    ${dst_ip}    ping_should_succeed=${expect_ping_to_work}
+
+Ping External Network PNF from SNAT VM Instance2
+    [Documentation]    Check reachability of External Network PNF from SNAT VM Instance2
+    ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
+    ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[1]    ${dst_ip}    ping_should_succeed=${expect_ping_to_work}
 
 Delete Vm Instances
     [Documentation]    Delete Vm instances using instance names.
