@@ -149,6 +149,34 @@ SNAT - UDP connection to External Gateway From SNAT VM Instance2
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
     Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${external_gateway}    -u
 
+Ping External Network PNF from SNAT VM Instance1
+    [Documentation]    Check reachability of External Network PNF from SNAT VM Instance1
+    Pass Execution If    "${ODL_STREAM}" == "boron"    PNF subnet route support is not available in boron or earlier
+    ${dst_ip}=    Create List    ${external_pnf}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${dst_ip}
+
+Ping External Network PNF from SNAT VM Instance2
+    [Documentation]    Check reachability of External Network PNF from SNAT VM Instance2
+    Pass Execution If    "${ODL_STREAM}" == "boron"    PNF subnet route support is not available in boron or earlier
+    ${dst_ip}=    Create List    ${external_pnf}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${dst_ip}
+
+SNAT - TCP connection to PNF From SNAT VM Instance1
+    [Documentation]    Login to the VM instance and test TCP connection to the PNF via SNAT
+    Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${external_pnf}
+
+SNAT - UDP connection to PNF From SNAT VM Instance1
+    [Documentation]    Login to the VM instance and test UDP connection to the PNF via SNAT
+    Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${external_pnf}    -u
+
+SNAT - TCP connection to PNF From SNAT VM Instance2
+    [Documentation]    Login to the VM instance and test TCP connection to the PNF via SNAT
+    Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${external_pnf}
+
+SNAT - UDP connection to PNF From SNAT VM Instance2
+    [Documentation]    Login to the VM instance and test UDP connection to the PNF via SNAT
+    Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${external_pnf}    -u
+
 Delete Vm Instances
     [Documentation]    Delete Vm instances using instance names.
     : FOR    ${VmElement}    IN    @{VM_INSTANCES_FLOATING}
