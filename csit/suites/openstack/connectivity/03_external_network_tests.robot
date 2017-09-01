@@ -148,6 +148,22 @@ SNAT - UDP connection to External Gateway From SNAT VM Instance2
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
     Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${external_gateway}    -u
 
+SNAT - TCP connection to PNF From SNAT VM Instance1
+    [Documentation]    Login to the VM instance and test TCP connection to the PNF via SNAT
+    Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${external_pnf}
+
+SNAT - UDP connection to PNF From SNAT VM Instance1
+    [Documentation]    Login to the VM instance and test UDP connection to the PNF via SNAT
+    Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${external_pnf}    -u
+
+SNAT - TCP connection to PNF From SNAT VM Instance2
+    [Documentation]    Login to the VM instance and test TCP connection to the PNF via SNAT
+    Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${external_pnf}
+
+SNAT - UDP connection to PNF From SNAT VM Instance2
+    [Documentation]    Login to the VM instance and test UDP connection to the PNF via SNAT
+    Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${external_pnf}    -u
+
 Delete Vm Instances
     [Documentation]    Delete Vm instances using instance names.
     : FOR    ${VmElement}    IN    @{VM_INSTANCES_FLOATING}
