@@ -156,6 +156,18 @@ SNAT - UDP connection to External Gateway From SNAT VM Instance3
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
     OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[1]    @{NET2_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}    -u
 
+Ping External Network PNF from SNAT VM Instance1
+    [Documentation]    Check reachability of External Network PNF from SNAT VM Instance1
+    [Tags]    skip_if_controller
+    ${dst_ip}=    Create List    ${external_pnf}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${dst_ip}
+
+Ping External Network PNF from SNAT VM Instance2
+    [Documentation]    Check reachability of External Network PNF from SNAT VM Instance2
+    [Tags]    skip_if_controller
+    ${dst_ip}=    Create List    ${external_pnf}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${dst_ip}
+
 Delete Vm Instances
     [Documentation]    Delete Vm instances using instance names.
     : FOR    ${vm}    IN    @{NET1_FIP_VMS}
