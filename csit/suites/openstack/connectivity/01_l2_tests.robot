@@ -52,6 +52,13 @@ Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
 
+Create Vm Instances Without Ports
+    [Documentation]    Create an instance without a port
+    Create Vm Instance Without Port On Compute Node    vm_no_port_1    ${OS_COMPUTE_1_IP}
+    Create Vm Instance Without Port On Compute Node    vm_no_port_2    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    600s    5s    Verify VM Is ACTIVE    vm_no_port_1
+    Wait Until Keyword Succeeds    600s    5s    Verify VM Is ACTIVE    vm_no_port_2
+
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}

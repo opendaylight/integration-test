@@ -289,6 +289,15 @@ Create Vm Instance With Port On Compute Node
     Log    ${output}
     Should Not Be True    ${rc}
 
+Create Vm Instance Without Port On Compute Node
+    [Arguments]    ${vm_instance_name}    ${compute_node}    ${image}=${EMPTY}    ${flavor}=m1.nano
+    [Documentation]    Create One VM instance without port and for given ${compute_node}
+    ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
+    ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --availability-zone nova:${hostname_compute_node} ${vm_instance_name}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
