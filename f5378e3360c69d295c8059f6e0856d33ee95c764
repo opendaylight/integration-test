@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ba1f61a0_385d4e48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-09-01T12:27:47Z",
+      "side": 1,
+      "message": "should be renamed: CSIT: add dual stack vm test for two router solution.\n\nTest involves configuring two routers with one which is IPv4 router, and the other one which is IPv6 router.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "f5378e3360c69d295c8059f6e0856d33ee95c764",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_78f7c659",
         "filename": "csit/suites/netvirt/Netvirt_Vpnservice/04_basic_dualstack_vpnservice.robot",
         "patchSetId": 5
