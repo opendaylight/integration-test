@@ -16,6 +16,24 @@
       "revId": "6f5409b938fca3139724ec829dca7f378f368e57",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_58d3e203",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-09-01T10:52:28Z",
+      "side": 1,
+      "message": "Could/should be a different patch imho",
+      "parentUuid": "ba1f61a0_556a8bb3",
+      "revId": "6f5409b938fca3139724ec829dca7f378f368e57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
