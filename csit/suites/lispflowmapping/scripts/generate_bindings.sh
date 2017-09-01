@@ -14,23 +14,21 @@ GITWEB_CONTROLLER="https://git.opendaylight.org/gerrit/gitweb?p=controller.git;a
 
 # Download yang-files in the VM on fly using curl before generating
 # binding files.
-curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
 curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-lisp-proto.yang" -o ${WORKSPACE}/$DIRECTORY/odl-lisp-proto.yang
 curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-inet-binary-types.yang" -o ${WORKSPACE}/$DIRECTORY/odl-inet-binary-types.yang
 curl "$GITWEB_LISP;f=mappingservice/api/src/main/yang/odl-mappingservice.yang" -o ${WORKSPACE}/$DIRECTORY/odl-mappingservice.yang
 curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/odl-lisp-address-types.yang
 
-# Currently there is dependency revisions inconsistency in beryllium
-# for ietf-yang-types and ietf-inet-types
-if [ ${GERRIT_BRANCH} = "stable/beryllium" ]
+# ietf-lisp-address-types.yang moved to MD-SAL project in Nitrogen
+if [ ${GERRIT_BRANCH} = "stable/boron" ] || [ ${GERRIT_BRANCH} = "stable/carbon" ]
 then
-    curl "$GITWEB_MDSAL;f=model/ietf/ietf-yang-types/src/main/yang/ietf-yang-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-yang-types.yang
-    curl "$GITWEB_MDSAL;f=model/ietf/ietf-inet-types/src/main/yang/ietf-inet-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-inet-types.yang
+    curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
 else
-    curl "$GITWEB_MDSAL;f=model/ietf/ietf-yang-types-20130715/src/main/yang/ietf-yang-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-yang-types.yang
-    curl "$GITWEB_MDSAL;f=model/ietf/ietf-inet-types-2013-07-15/src/main/yang/ietf-inet-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-inet-types.yang
+    curl "$GITWEB_MDSAL;f=model/ietf/ietf-lisp-address-types/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
 fi
 
+curl "$GITWEB_MDSAL;f=model/ietf/ietf-yang-types-20130715/src/main/yang/ietf-yang-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-yang-types.yang
+curl "$GITWEB_MDSAL;f=model/ietf/ietf-inet-types-2013-07-15/src/main/yang/ietf-inet-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-inet-types.yang
 curl "$GITWEB_MDSAL;f=model/yang-ext/src/main/yang/yang-ext.yang" -o ${WORKSPACE}/$DIRECTORY/yang-ext.yang
 curl "$GITWEB_CONTROLLER;f=opendaylight/config/config-api/src/main/yang/config.yang" -o ${WORKSPACE}/$DIRECTORY/config.yang
 
