@@ -2,6 +2,8 @@
 Documentation     Variables for Netvirt Test Suites
 
 *** Variables ***
+${FAIL_ON_EXCEPTIONS}    False
+${EXCEPTIONS_WHITELIST}
 @{legacy_feature_list}    odl-vtn-manager-neutron    odl-ovsdb-openstack
 ${CIRROS_stable/newton}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/ocata}    cirros-0.3.4-x86_64-uec
