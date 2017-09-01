@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_78f7c659",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/04_basic_dualstack_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-09-01T12:24:26Z",
+      "side": 1,
+      "message": "from the definition of subnets1_rt2 (or subnets2_rt2), it appears we have inside both ipv4 and ipv6.\n\nI think it is not the goal of 2 router solution.\n2 router solution permits configuring only ipv4 on one router, and only ipv6 on other router.",
+      "range": {
+        "startLine": 88,
+        "startChar": 33,
+        "endLine": 88,
+        "endChar": 62
+      },
+      "revId": "f5378e3360c69d295c8059f6e0856d33ee95c764",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_987f1aab",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/04_basic_dualstack_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-09-01T12:24:26Z",
+      "side": 1,
+      "message": "just to be sure.\nis it right that Extra Route feature is not tested through L3VPN ?\nWe only test basic connectivity with extra IP, but on a solely L3 way.",
+      "range": {
+        "startLine": 275,
+        "startChar": 11,
+        "endLine": 275,
+        "endChar": 31
+      },
+      "revId": "f5378e3360c69d295c8059f6e0856d33ee95c764",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_b8513e38",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/04_basic_dualstack_vpnservice.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-09-01T12:24:26Z",
+      "side": 1,
+      "message": "I am not sure this feature is supported for IPv6 networks.\nReason is DHCPv6 allocation without using a router.\nMaybe this part should be removed for now ( otherwise tests would be nok).",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 27
+      },
+      "revId": "f5378e3360c69d295c8059f6e0856d33ee95c764",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
