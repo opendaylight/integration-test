@@ -2,6 +2,8 @@
 Documentation     Variables for Netvirt Test Suites
 
 *** Variables ***
+# Exceptions for which we will not create a failure
+@{NETVIRT_EXCEPTIONS_WHITELIST}    OptimisticLockFailedException:    ConflictingModificationAppliedException: Node was created by other transaction    ConflictingModificationAppliedException: Node was deleted by other transaction
 @{legacy_feature_list}    odl-vtn-manager-neutron    odl-ovsdb-openstack
 ${CIRROS_stable/newton}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/ocata}    cirros-0.3.4-x86_64-uec
