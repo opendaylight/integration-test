@@ -179,15 +179,51 @@ Log_Testcase_Start_To_Controller_Karaf
     [Arguments]    ${member_index_list}=${EMPTY}
     [Documentation]    Log test case name to karaf log, useful in test case setup.
     Log_Message_To_Controller_Karaf    Starting test ${TEST_NAME}    ${member_index_list}
+Get Karaf Log Type From Test Start
+    [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
+    ...    ${log_file}=${KARAF_LOG}
+    ${cmd}    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file} | grep '${type}'
+    ${output}    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
+    [Return]    ${output}
 
-Set_Bgpcep_Log_Levels
-    [Arguments]    ${bgpcep_level}=${DEFAULT_BGPCEP_LOG_LEVEL}    ${protocol_level}=${DEFAULT_PROTOCOL_LOG_LEVEL}    ${member_index_list}=${EMPTY}
-    [Documentation]    Assuming OCKCOB was used, set logging level on bgpcep and protocol loggers without affecting current SSH session.
-    # FIXME: Move to appropriate Resource
-    ${index_list} =    ClusterManagement.List_Indices_Or_All    given_list=${member_index_list}
-    : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
-    \    Execute_Controller_Karaf_Command_On_Background    log:set ${bgpcep_level} org.opendaylight.bgpcep    member_index=${index}
-    \    Execute_Controller_Karaf_Command_On_Background    log:set ${protocol_level} org.opendaylight.protocol    member_index=${index}
+Get Karaf Log Types From Test Start
+    [Arguments]    ${ip}    ${test_name}    ${types}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
+    ...    ${log_file}=${KARAF_LOG}
+    : FOR    ${type}    IN    @{types}
+    \    Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
+    \    ...    ${prompt}    ${log_file}
+
+Get Karaf Log Events From Test Start
+    [Arguments]    ${test_name}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
+    ${log_types} =    Create List    ERROR    WARN    Exception
+    Run Keyword If    0 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_IP}    ${test_name}    ${log_types}
+    Run Keyword If    1 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_2_IP}    ${test_name}    ${log_types}
+    Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_3_IP}    ${test_name}    ${log_types}
+
+Fail If Exceptions Found During Test
+    [Arguments]    ${test_name}    ${exceptions_white_list}=${EMPTY}
+    [Documentation]    Create a failure if an Exception is found in the karaf.log. Will work for single controller jobs
+    ...    as well as 3node cluster jobs
+    : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEMS} + 1
+    \    Verify Exception Logging In Controller    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${exceptions_white_list}
+
+Verify Exception Logging In Controller
+    [Documentation]    Local keyword to make it easier to loop through N controllers to pull Exceptions from the
+    ...    karaf.log file and validate with "Check Against White List"
+    [Arguments]    ${controller_ip}    ${test_name}    ${exceptions_white_list}
+    ${exceptions}=    Get Karaf Log Type From Test Start    ${controller_ip}    ${test_name}    Exception
+    @{log_lines}=    Split String    ${exceptions}    ${\n}
+    : FOR    ${i}    IN    @{log_lines}
+    \    Check Against White List    ${i}    ${exceptions_white_list}
+
+Check Against White List
+    [Documentation]    As soon as the ${exceptions_line} is found in one of the elements of ${exceptions_white_list}
+    ...    this keyword will exit and give a Pass to the caller. If there is no match, this keyword will end up
+    ...    marking a failure.
+    [Arguments]    ${exception_line}    ${exceptions_white_list}
+    : FOR    ${i}    IN    @{exceptions_white_list}
+    \    Pass Execution If    "${i}" in "${exception_line}"    Exceptions found, but whitelisted: ${\n}${exception_line}${\n}
+    Fail    Exceptions Found: ${\n}${exception_line}${\n}
 
 Wait_For_Karaf_Log
     [Arguments]    ${message}    ${timeout}=60    ${member_index}=${1}
@@ -203,6 +239,15 @@ Wait_For_Karaf_Log
     SSHLibrary.Write    log:tail
     SSHLibrary.Read_Until    ${message}
     SSHLibrary.Close_Connection
+
+Set_Bgpcep_Log_Levels
+    [Arguments]    ${bgpcep_level}=${DEFAULT_BGPCEP_LOG_LEVEL}    ${protocol_level}=${DEFAULT_PROTOCOL_LOG_LEVEL}    ${member_index_list}=${EMPTY}
+    [Documentation]    Assuming OCKCOB was used, set logging level on bgpcep and protocol loggers without affecting current SSH session.
+    # FIXME: Move to appropriate Resource
+    ${index_list} =    ClusterManagement.List_Indices_Or_All    given_list=${member_index_list}
+    : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+    \    Execute_Controller_Karaf_Command_On_Background    log:set ${bgpcep_level} org.opendaylight.bgpcep    member_index=${index}
+    \    Execute_Controller_Karaf_Command_On_Background    log:set ${protocol_level} org.opendaylight.protocol    member_index=${index}
 
 Restart_Bundle
     [Arguments]    ${bundle_id}
