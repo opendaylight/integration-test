@@ -45,6 +45,7 @@ Run Tempest Tests Without Debug
     ...    explicitly set to False.
     Return From Keyword If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}
     Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
+    Return From Keyword If    "skip_if_${ODL_SNAT_MODE}" in @{TEST_TAGS}
     ${tempest_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
