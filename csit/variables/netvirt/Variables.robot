@@ -2,6 +2,8 @@
 Documentation     Variables for Netvirt Test Suites
 
 *** Variables ***
+# Exceptions for which we will not create a failure
+@{NETVIRT_EXCEPTIONS_WHITELIST}    OptimisticLockFailedException:    ConflictingModificationAppliedException: Node was created by other transaction    ConflictingModificationAppliedException: Node was deleted by other transaction    org.opendaylight.yang.gen.v1.urn.opendaylight.openflow.oxm.rev150225.match.entries.grouping.MatchEntry msgType: 1 oxm_field: 33 experimenterID: null was not found - please verify that all needed deserializers ale loaded correctly
 @{legacy_feature_list}    odl-vtn-manager-neutron    odl-ovsdb-openstack
 ${CIRROS_stable/ocata}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/pike}    cirros-0.3.5-x86_64-disk
