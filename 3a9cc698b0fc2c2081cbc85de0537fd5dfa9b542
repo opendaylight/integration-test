@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_edf01300",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-03T23:17:59Z",
+      "side": 1,
+      "message": "instead of wrapping this keyword in the Poll keyword below,\nhow about just putting all the work in the Poll VM Is Active\nkeyword and remove this one entirely.\n\nIf someone wants no polling they can just pass in a 1s,1s for\nthe retry and interval args to get that.",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 19
+      },
+      "revId": "3a9cc698b0fc2c2081cbc85de0537fd5dfa9b542",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
