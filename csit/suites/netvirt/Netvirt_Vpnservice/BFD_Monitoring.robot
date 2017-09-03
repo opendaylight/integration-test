@@ -27,7 +27,7 @@ ${SECURITY_GROUP}    sg-vpnservice-bfd
 TC00 Verify Setup
     [Documentation]    Verify if tunnels are present. If not then create new tunnel.
     : FOR    ${VM}    IN    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}
-    \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
+    \    Poll VM Is ACTIVE    ${VM}
     ${VM_IP_NET1}    ${VM_IP_NET2}    Wait Until Keyword Succeeds    180s    10s    Verify VMs received IP
     Set Suite Variable    ${VM_IP_NET2}
     Set Suite Variable    ${VM_IP_NET1}

@@ -73,7 +73,7 @@ Verify Datapath After Recreate VM Instance
     Remove RSA Key From KnowHosts    ${VM_IP_ELAN1[0]}
     Log    ReCreate VM and verify flow updated
     Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[0]}    ${VM_INSTANCES_ELAN1[0]}    ${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    30s    10s    Verify VM Is ACTIVE    ${VM_INSTANCES_ELAN1[0]}
+    Poll VM Is ACTIVE    ${VM_INSTANCES_ELAN1[0]}
     ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN1}
     Log    ${VM_IP_ELAN1}
@@ -120,7 +120,7 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     # nova reboot step. Once 8389 is resolved, we can remove this line to get debugs before nova reboot. The debugs will be
     # collected immediately after when that step fails, as is the nature of robot test cases.
     Reboot Nova VM    ${VM_INSTANCES_ELAN2[0]}
-    Wait Until Keyword Succeeds    30s    10s    Verify VM Is ACTIVE    ${VM_INSTANCES_ELAN2[0]}
+    Poll VM Is ACTIVE    ${VM_INSTANCES_ELAN2[0]}
     ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN2}
     Log    ${VM_IP_ELAN2}
@@ -170,7 +170,7 @@ SingleElan SuiteSetup
     Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[1]}    ${VM_INSTANCES_ELAN1[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
     Log    Verify ELAN1 VM active
     : FOR    ${VM}    IN    @{VM_INSTANCES_ELAN1}
-    \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
+    \    Poll VM Is ACTIVE    ${VM}
     Log    Get IP address for ELAN1
     Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true    @{VM_INSTANCES_ELAN1}
     ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Collect VM IP Addresses    false    @{VM_INSTANCES_ELAN1}
@@ -197,7 +197,7 @@ MultipleElan Testsuite Setup
     Create Vm Instance With Port On Compute Node    ${ELAN3_PORT_LIST[1]}    ${VM_INSTANCES_ELAN3[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_ELAN2}    @{VM_INSTANCES_ELAN3}
     : FOR    ${VM}    IN    @{VM_INSTANCES}
-    \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
+    \    Poll VM Is ACTIVE    ${VM}
     ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN2}
     Log    ${VM_IP_ELAN2}

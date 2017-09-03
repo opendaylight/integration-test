@@ -297,6 +297,11 @@ Verify VM Is ACTIVE
     Should Not Be True    ${rc}
     Should Contain    ${output}    active
 
+Poll VM Is ACTIVE
+    [Arguments]    ${vm_name}    ${retry}=600s    ${retry_interval}=5s
+    [Documentation]    Run these commands to check whether the created vm instance is active or not.
+    Wait Until Keyword Succeeds    ${retry}    ${retry_interval}    Verify VM Is ACTIVE    ${vm_name}
+
 Collect VM IP Addresses
     [Arguments]    ${fail_on_none}    @{vm_list}
     [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "obtained" which

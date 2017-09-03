@@ -125,7 +125,7 @@ Create Basic Configuartion for BGP VPNservice Suite
     Create Vm Instance With Port On Compute Node    ${PORTS[2]}    ${VM_NAMES[2]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
     Create Vm Instance With Port On Compute Node    ${PORTS[3]}    ${VM_NAMES[3]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
     : FOR    ${VM}    IN    @{VM_NAMES}
-    \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
+    \    Poll VM Is ACTIVE    ${VM}
     ${VM_IPS}    ${DHCP_IPS}    Wait Until Keyword Succeeds    30s    10s    Collect VM IP Addresses    true
     ...    @{VM_NAMES}
     Log    ${VM_IPS}
