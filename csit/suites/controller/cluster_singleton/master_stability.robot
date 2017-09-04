@@ -11,6 +11,9 @@ Documentation     Cluster Singleton testing: Master Stability
 ...               application is registered globally in the cluster.
 ...               The goal is to establish the service operates correctly in face of application
 ...               registration changing without moving the active instance.
+...
+...               As service unregistration is asynchronous, the following re-registration can be delayed,
+...               \${UNREGISTER_DELAY} is set to tolerate typical GC times.
 Suite Setup       Setup_Keyword
 Suite Teardown    SSHLibrary.Close_All_Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -25,6 +28,7 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
 *** Variables ***
 ${STABILITY_TIMEOUT}    1m
+${UNREGISTER_DELAY}    6s
 
 *** Test Cases ***
 Register_Singleton_Constant_On_Each_Node_And_Verify
@@ -49,7 +53,8 @@ Reregister_Singleton_Constant
 
 Verify_Stability_After_Reregistration
     [Documentation]    Verify that the owner remains on the same node after the unregistered candidate re-registration.
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    5x    3s    CsCommon.Verify_Owner_And_Candidates_Stable    ${cs_owner}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${UNREGISTER_DELAY}    0.2s    CsCommon.Verify_Owner_And_Candidates_Stable    ${cs_owner}
+    CsCommon.Monitor_Owner_And_Candidates_Stability    ${STABILITY_TIMEOUT}    ${cs_owner}
 
 Unregister_Singleton_Constant_On_Each_Node
     [Documentation]    Unregister the application from each node.
