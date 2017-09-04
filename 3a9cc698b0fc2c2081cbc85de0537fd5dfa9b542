@@ -93,6 +93,30 @@
       "revId": "3a9cc698b0fc2c2081cbc85de0537fd5dfa9b542",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_792861e2",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-09-04T22:27:54Z",
+      "side": 1,
+      "message": "agreed long term. Actually in latest test runs it has been completing in 15s or less. The hack to use the vif_plugging_fatal \u003d false undoes this wait here. So I say we merge this patch since it does cleanup this function and puts it in one place for the timeout values. We can drop the value down as we fix the issue Josh has reproduced.",
+      "parentUuid": "ba1f61a0_b9f01992",
+      "range": {
+        "startLine": 301,
+        "startChar": 42,
+        "endLine": 301,
+        "endChar": 46
+      },
+      "revId": "3a9cc698b0fc2c2081cbc85de0537fd5dfa9b542",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
