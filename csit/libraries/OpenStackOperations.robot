@@ -252,7 +252,7 @@ Get Router Id
     [Return]    ${router_id}
 
 Create Vm Instances
-    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
+    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=${EMPTY}    ${flavor}=cirros128     ${sg}=default
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
