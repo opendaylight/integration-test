@@ -22,6 +22,30 @@
       "revId": "3a9cc698b0fc2c2081cbc85de0537fd5dfa9b542",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_ed3e538b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-09-04T01:29:00Z",
+      "side": 1,
+      "message": "How would that look? This function here does the rc check and then check for active, so not sure how that feeds into the keyword succeeds function",
+      "parentUuid": "ba1f61a0_edf01300",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 19
+      },
+      "revId": "3a9cc698b0fc2c2081cbc85de0537fd5dfa9b542",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
