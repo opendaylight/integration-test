@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_bf9119f3",
+        "filename": "csit/variables/netconf/device/module/location.uri",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-05T10:40:51Z",
+      "side": 0,
+      "message": "From my cursory search, it seems no other suite is using this location, so it is ok to remove it.",
+      "revId": "bfe30729ca939890e79cd845c738642200262a1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
