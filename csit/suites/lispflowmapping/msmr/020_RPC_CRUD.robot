@@ -26,6 +26,7 @@ Attempt To Read Non-Existing Key
 
 Read Key
     [Documentation]    Read an existing key for an IPv4 EID
+    Sleep    500ms    Account for cluster propagation delay
     ${get_key}=    Get LispAddress JSON And Wrap input    ipv4:192.0.2.1/32
     ${resp}=    Post Log Check    ${LFM_RPC_API}:get-key    ${get_key}
     Authentication Key Should Be    ${resp}    password
@@ -39,6 +40,7 @@ Update Key
 
 Read Updated Key
     [Documentation]    Read the key updated in the previous test
+    Sleep    500ms    Account for cluster propagation delay
     ${get_key}=    Get LispAddress JSON And Wrap input    ipv4:192.0.2.1/32
     ${resp}=    Post Log Check    ${LFM_RPC_API}:get-key    ${get_key}
     Authentication Key Should Be    ${resp}    updated-password
@@ -50,6 +52,7 @@ Delete Key
 
 Attempt To Read Deleted Key
     [Documentation]    Try to read the key deleted in the previous test
+    Sleep    500ms    Account for cluster propagation delay
     ${get_key}=    Get LispAddress JSON And Wrap input    ipv4:192.0.2.1/32
     Post Log Check    ${LFM_RPC_API}:get-key    ${get_key}    404
 
@@ -72,6 +75,7 @@ Attempt To Read Non-Existing Mapping
 
 Read Mapping
     [Documentation]    Read an existing mapping for an IPv4 EID
+    Sleep    500ms    Account for cluster propagation delay
     ${get_mapping}=    Get LispAddress JSON And Wrap input    ipv4:192.0.2.1/32
     ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${get_mapping}
     Ipv4 Rloc Should Be    ${resp}    10.10.10.10
@@ -83,6 +87,7 @@ Update Mapping
 
 Read Updated Mapping
     [Documentation]    Read the mapping updated in the previous test
+    Sleep    500ms    Account for cluster propagation delay
     ${get_mapping}=    Get LispAddress JSON And Wrap input    ipv4:192.0.2.1/32
     ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${get_mapping}
     Ipv4 Rloc Should Be    ${resp}    20.20.20.20
@@ -94,6 +99,6 @@ Delete Mapping
 
 Attempt To Read Deleted Mapping
     [Documentation]    Try to read the mapping deleted in the previous test
-    Sleep    200ms    Avoid race conditions
+    Sleep    500ms    Account for cluster propagation delay
     ${get_mapping}=    Get LispAddress JSON And Wrap input    ipv4:192.0.2.1/32
     Check Mapping Removal    ${get_mapping}

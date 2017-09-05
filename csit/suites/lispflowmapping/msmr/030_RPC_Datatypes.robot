@@ -67,7 +67,7 @@ Check Datatype
     ${get_mapping}=    Get LispAddress JSON And Wrap input    ${get_mapping_eid}
     Set Suite Variable    ${RPC_Datatype__current_json}    ${get_mapping}
     Post Log Check    ${LFM_RPC_API}:add-mapping    ${add_mapping}
-    Sleep    200ms    Avoid race conditions
+    Sleep    500ms    Account for cluster propagation delay
     ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${get_mapping}
     ${eid_record}=    Get Eid Record    ${resp}
     Dictionary Should Contain Key    ${eid_record}    LocatorRecord
@@ -75,6 +75,6 @@ Check Datatype
 Remove Datatype And Check Removal
     Variable Should Exist    ${RPC_Datatype__current_json}
     Post Log Check    ${LFM_RPC_API}:remove-mapping    ${RPC_Datatype__current_json}
-    Sleep    200ms    Avoid race conditions
+    Sleep    500ms    Account for cluster propagation delay
     Check Mapping Removal    ${RPC_Datatype__current_json}
     Set Suite Variable    ${RPC_Datatype__current_json}    ${EMPTY}
