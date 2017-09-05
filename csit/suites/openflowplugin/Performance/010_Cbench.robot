@@ -13,6 +13,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
+${log_level}      ERROR
 ${throughput_threshold}    30000
 ${latency_threshold}    10000
 ${switch_count}    16
@@ -87,7 +88,7 @@ Run Cbench And Log Results
     Log Results And Determine Status    ${min}    ${max}    ${average}    ${average_threshold}    ${output_filename}
 
 Cbench Suite Setup
-    Wait Until Keyword Succeeds    3x    1s    KarafKeywords.Issue Command On Karaf Console    log:set ERROR
+    Wait Until Keyword Succeeds    3x    1s    KarafKeywords.Issue Command On Karaf Console    log:set ${log_level}
     Append To File    ${latency_results_file}    LATENCY_MIN,LATENCY_MAX,LATENCY_AVERAGE\n
     Append To File    ${throughput_results_file}    THROUGHPUT_MIN,THROUGHPUT_MAX,THROUGHPUT_AVERAGE\n
     ${duration_in_ms}    Evaluate    ${duration_in_secs} * 1000
