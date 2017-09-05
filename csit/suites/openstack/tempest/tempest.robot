@@ -88,15 +88,19 @@ tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_port_security_m
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_dhcp6_stateless_from_os
+    [Tags]    skip_if_transparent    skip_if_learn
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_slaac_from_os
+    [Tags]    skip_if_transparent    skip_if_learn
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_v6.TestGettingAddress.test_dhcp6_stateless_from_os
+    [Tags]    skip_if_transparent    skip_if_learn
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 tempest.scenario.test_network_v6.TestGettingAddress.test_slaac_from_os
+    [Tags]    skip_if_transparent    skip_if_learn
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
 *** Keywords ***
