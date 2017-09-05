@@ -6,6 +6,9 @@ Resource          FlowLib.robot
 Resource          MininetKeywords.robot
 Resource          ../variables/Variables.robot
 
+*** Variables ***
+${log_level}    ERROR
+
 *** Keywords ***
 Workflow Single Switch Multiple Hosts
     [Arguments]    ${hosts}    ${sustain_time}=0
@@ -57,7 +60,7 @@ Workflow Single Switch Multiple Hosts
 
 Workflow Setup
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    BuiltIn.Wait Until Keyword Succeeds    3x    1s    KarafKeywords.Issue Command On Karaf Console    log:set ERROR
+    BuiltIn.Wait Until Keyword Succeeds    3x    1s    KarafKeywords.Issue Command On Karaf Console    log:set ${log_level}
 
 Workflow Teardown
     [Documentation]    Cleanup when workflow is interrupt

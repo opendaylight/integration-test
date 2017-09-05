@@ -13,6 +13,7 @@ Resource          KarafKeywords.robot
 Resource          ../variables/Variables.robot
 
 *** Variables ***
+${log_level}    ERROR
 ${flow_count}     10000
 ${swspread}       linear
 ${tables}         10
@@ -173,7 +174,7 @@ Workflow Full Mesh Topology
 
 Workflow Setup
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Wait Until Keyword Succeeds    3x    1s    KarafKeywords.Issue Command On Karaf Console    log:set ERROR
+    Wait Until Keyword Succeeds    3x    1s    KarafKeywords.Issue Command On Karaf Console    log:set ${log_level}
 
 Workflow Teardown
     [Documentation]    Cleanup when workflow is interrupt
