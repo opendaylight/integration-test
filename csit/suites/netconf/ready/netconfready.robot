@@ -164,11 +164,11 @@ Verify_Netconf_Topology_Ready_For_Node
     ...    and performing GET operation got from the device's mount point.
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${node_index}
     Configure_Netconf_Device    ${DEVICE_NAME}    ${session}    ${ODL_SYSTEM_${node_index}_IP}
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    MODULE_TYPE=sal-restconf-service:json-restconf-service-impl    MODULE_NAME=json-restconf-service-impl
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}
     Wait_Netconf_Device_Mounted    ${DEVICE_NAME}    ${session}    ${mapping}
     : FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
     \    ${mod_session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${idx}
-    \    BuiltIn.Wait_Until_Keyword_Succeeds    5x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}module    mapping=${mapping}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    5x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}netconf-state    mapping=${mapping}
     \    ...    session=${mod_session}
     [Teardown]    Remove_Netconf_Device    ${DEVICE_NAME}    ${session}
 
