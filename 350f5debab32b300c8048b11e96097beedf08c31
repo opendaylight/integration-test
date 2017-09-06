@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_170122af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-09-06T18:50:31Z",
+      "side": 1,
+      "message": "Yes it is going to create 4 insntaces, the name passed to the comamnd will be used with suffix -1,-2 etc.",
+      "parentUuid": "ba1f61a0_9b543f00",
+      "range": {
+        "startLine": 9,
+        "startChar": 25,
+        "endLine": 9,
+        "endChar": 47
+      },
+      "revId": "350f5debab32b300c8048b11e96097beedf08c31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_bb4f836a",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-08-29T15:59:25Z",
       "side": 1,
       "message": "you didn\u0027t mean to put multiple spaces here, I don\u0027t think.",
+      "range": {
+        "startLine": 260,
+        "startChar": 182,
+        "endLine": 260,
+        "endChar": 186
+      },
+      "revId": "350f5debab32b300c8048b11e96097beedf08c31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_f7fd6eb2",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2017-09-06T18:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1f61a0_bb4f836a",
       "range": {
         "startLine": 260,
         "startChar": 182,
