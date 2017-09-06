@@ -23,7 +23,7 @@ ${NTCF_TPLG_OPR_URL}    /restconf/operational/network-topology:network-topology/
 ${NETCONF_PORT}    1830
 ${NTCF_OPR_STATUS}    connected
 ${DAEXIM_DATA_DIRECTORY}    ../variables/daexim/daexim
-${MDL_DEF_FLAG}    true
+${MDL_DEF_FLAG}    false
 ${STR_DEF_FLAG}    data
 ${IMPORT_PAYLOAD}    ../variables/daexim/import.json
 ${IMPORT_URL}     /restconf/operations/data-export-import:immediate-import
