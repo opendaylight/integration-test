@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_5460b8a4",
+        "filename": "csit/suites/netconf/clustering/entity-isolation-rejoin.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-06T15:44:19Z",
+      "side": 1,
+      "message": "whitespace here (and elsewhere) to clean up.",
+      "revId": "70705ad13ec344bbf546b273915129419478d7bb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_346544b5",
+        "filename": "csit/suites/netconf/clustering/entity-isolation-rejoin.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-06T15:44:19Z",
+      "side": 1,
+      "message": "please use Variables.robot, not .py",
+      "range": {
+        "startLine": 49,
+        "startChar": 47,
+        "endLine": 49,
+        "endChar": 59
+      },
+      "revId": "70705ad13ec344bbf546b273915129419478d7bb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
