@@ -12,17 +12,18 @@ Variables         ../../../variables/Variables.py
 ${OSTENANTNAME}    "admin"
 ${OSUSERNAME}     "admin"
 ${OSPASSWORD}     "admin"
-${UserInfo}       {"auth": {"tenantName": ${OSTENANTNAME}, "passwordCredentials": {"username": ${OSUSERNAME}, "password": ${OSPASSWORD}}}}
+${OSUSERDOMAINNAME}    "Default"
+${OSPROJECTDOMAINNAME}    "Default"
+${PASSWORD}       {"user":{"name":${OSUSERNAME},"domain":{"name": ${OSUSERDOMAINNAME}},"password":${OSPASSWORD}}}
+${SCOPE}          {"project":{"name":${OSTENANTNAME},"domain":{"name": ${OSPROJECTDOMAINNAME}}}}
+${UserInfo}       {"auth":{"identity":{"methods":["password"],"password":${PASSWORD}},"scope":${SCOPE}}}
 
 *** Keywords ***
 Start Suite
     Create Session    KeyStoneSession    http://${KEYSTONE}:5000    headers=${HEADERS}
-    ${resp}    post    KeyStoneSession    /v2.0/tokens    ${UserInfo}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    ${result}    To JSON    ${resp.content}
-    ${result}    Get From Dictionary    ${result}    access
-    ${result}    Get From Dictionary    ${result}    token
-    ${TOKEN}    Get From Dictionary    ${result}    id
+    ${resp}    post    KeyStoneSession    /v3/auth/tokens    ${UserInfo}
+    Should Be Equal As Strings    ${resp.status_code}    201
+    ${TOKEN}    Get From Dictionary    ${resp.headers}    X-Subject-Token
     ${X-AUTH}    Create Dictionary    X-Auth-Token=${TOKEN}    Content-Type=application/json
     ${X-AUTH-NOCONTENT}    Create Dictionary    X-Auth-Token=${TOKEN}
     Set Global Variable    ${X-AUTH}
