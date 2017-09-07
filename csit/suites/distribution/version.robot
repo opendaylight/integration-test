@@ -26,6 +26,7 @@ Suite Teardown    Suite_Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Default Tags      critical    distribution    version
+Resource          ${CURDIR}/../../libraries/distribution/StreamDistro.robot
 Resource          ${CURDIR}/../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../libraries/SetupUtils.robot
 
@@ -38,8 +39,9 @@ ${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../variables/netconf/device/full-uri-mou
 *** Test Cases ***
 Distribution_Version
     [Documentation]    Get version string as a part of ${BUNDLEFOLDER} and match with what RESTCONF says.
-    # ${BUNDLEFOLDER} typically looks like this: distribution-karaf-0.5.0-SNAPSHOT
-    ${version} =    BuiltIn.Evaluate    '''${BUNDLEFOLDER}'''[len("distribution-karaf-"):]
+    # ${BUNDLEFOLDER} typically looks like this: karaf-0.8.0-SNAPSHOT
+    ${filename_prefix} =    StreamDistro.Compose_Zip_Filename_Prefix
+    ${version} =    BuiltIn.Evaluate    """${BUNDLEFOLDER}"""[len("""${filename_prefix}-"""):]
     TemplatedRequests.Get_As_Json_Templated    folder=${VERSION_VARDIR}    mapping={"VERSION":"${version}"}    verify=True
 
 *** Keywords ***
@@ -53,11 +55,11 @@ Suite_Teardown
 
 Configure_Netconf_Device
     [Documentation]    Configures netconf device if ${USE_NETCONF_CONNECTOR} is False.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+    &{mapping} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
     TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
     BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}
 
 Remove_Netconf_Device
     [Documentation]    Removes netconf device if ${USE_NETCONF_CONNECTOR} is False.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}
+    &{mapping} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}
     TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
