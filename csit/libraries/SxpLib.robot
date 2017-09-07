@@ -232,6 +232,30 @@ Should Not Contain Connection
     ${out}    Find Connection    ${resp}    ${version}    ${mode}    ${ip}    ${port}
     ...    ${state}
     Should Not Be True    ${out}    Shouldn't have ${ip}:${port} ${mode} ${version}
+    
+Bindings Should Contain
+    [Documentation]    Retrieves bindings and verifies they contain given binding
+    [Arguments]    ${sgt}    ${prefix}    ${db_source}=any
+    ${resp}    Get Bindings
+    Should Contain Binding    ${resp}    ${sgt}    ${prefix}    ${db_source}
+
+Bindings Should Not Contain
+    [Documentation]    Retrieves bindings and verifies they do not contain given binding
+    [Arguments]    ${sgt}    ${prefix}    ${db_source}=any
+    ${resp}    Get Bindings
+    Should Not Contain Binding    ${resp}    ${sgt}    ${prefix}    ${db_source}
+
+Connections Should Contain
+    [Documentation]    Retrieves connections and verifies they contain given connection
+    [Arguments]    ${ip}    ${port}    ${mode}    ${version}    ${state}=none
+    ${resp}    Get Connections
+    Should Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
+
+Connections Should Not Contain
+    [Documentation]    Retrieves connections and verifies they do not contain given connection
+    [Arguments]    ${ip}    ${port}    ${mode}    ${version}    ${state}=none
+    ${resp}    Get Connections
+    Should Not Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
 
 Setup Topology Complex
     [Arguments]    ${version}=version4    ${PASSWORD}=none
