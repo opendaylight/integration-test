@@ -136,7 +136,7 @@ Setup_Everything
     ${connector}=    Set_Netconf_Connector
     BuiltIn.Set_Suite_Variable    ${netconf_connector}    ${connector}
     BuiltIn.Comment    A workaround for EOF error follows. TODO: Create a test case for the EOF bug, possibly tagged "exclude".
-    BuiltIn.Wait_Until_Keyword_Succeeds    2x    1s    KarafKeywords.Open_Controller_Karaf_Console_On_Background
+    BuiltIn.Wait_Until_Keyword_Succeeds    200x    1s    KarafKeywords.Open_Controller_Karaf_Console_On_Background
     KarafKeywords.Log_Message_To_Controller_Karaf    Starting Netconf readiness test suite
     BuiltIn.Run_Keyword_If    ${DEBUG_LOGGING_FOR_EVERYTHING}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG
     RequestsLibrary.Create_Session    ses    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
