@@ -88,7 +88,7 @@ Verify_New_Candidate
 
 Verify ExaBgp Still Connected
     [Documentation]    Verifies exabgp's presence in operational ds
-    Verify_Tools_Connection    ${living_session}
+    Verify_Tools_Connection    ${living_session}    3
 
 Stop_ExaBgp_Peer
     [Documentation]    Stops exabgp
@@ -162,9 +162,9 @@ Verify_New_Rib_Candidate_Present
     BuiltIn.Should_Contain    ${candidates}    ${candidate}
 
 Verify_Tools_Connection
-    [Arguments]    ${session}    ${connected}=${True}
+    [Arguments]    ${session}    ${connected}=${True}    ${timeout}=${None}
     [Documentation]    Checks peer presence in operational datastore
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${TOOLS_SYSTEM_IP}
+    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${TOOLS_SYSTEM_IP}    ${timeout}
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
