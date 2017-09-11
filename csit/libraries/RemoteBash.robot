@@ -38,9 +38,11 @@ Write_Bare_Ctrl_D
     SSHLibrary.Write_Bare    ${ctrl_d}
 
 Flush_Read
+    [Arguments]    delay=1
     [Documentation]    Attempt to read excess data (probably just multiple prompts), ignoring failure.
     ...    Log the data or error message. Return None.
-    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read
+    ...    \${delay} parameter tunes how long a period of inactivity has to be to consider all excess data to be read.
+    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read    delay=${delay}
     BuiltIn.Log    ${message}
 
 Abort_Execution
