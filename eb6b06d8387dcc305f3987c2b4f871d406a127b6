@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_ea145cea",
+        "filename": "docs/cluster/carbon/caveats.rst",
+        "patchSetId": 156
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2017-09-11T08:00:49Z",
+      "side": 1,
+      "message": "https://bugs.opendaylight.org/show_bug.cgi?id\u003d2140",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 75
+      },
+      "revId": "eb6b06d8387dcc305f3987c2b4f871d406a127b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_4ad5a81a",
+        "filename": "docs/cluster/carbon/caveats.rst",
+        "patchSetId": 156
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 649
+      },
+      "writtenOn": "2017-09-11T08:00:49Z",
+      "side": 1,
+      "message": "This is fixed with BUG 8858, I believe.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 115
+      },
+      "revId": "eb6b06d8387dcc305f3987c2b4f871d406a127b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
