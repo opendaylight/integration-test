@@ -56,7 +56,7 @@ Create Vm Instances For l3_net_1
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
-    ClusterManagement.Start Single Member    1
+    ClusterManagement.Start Single Member    1    timeout=900s
 
 Take Down ODL2
     [Documentation]    Kill the karaf in Second Controller
@@ -99,7 +99,7 @@ Check Vm Instances Have Ip Address
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
-    ClusterManagement.Start Single Member    2
+    ClusterManagement.Start Single Member    2    timeout=900s
 
 Take Down ODL3
     [Documentation]    Kill the karaf in Third Controller
@@ -127,7 +127,7 @@ Verify Created Routers
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
-    ClusterManagement.Start Single Member    3
+    ClusterManagement.Start Single Member    3    timeout=900s
 
 Ping Vm Instance1 In l3_net_2 From l3_net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
@@ -181,7 +181,7 @@ Connectivity Tests From Vm Instance3 In l3_net_1
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again
-    ClusterManagement.Start Members From List Or All    ${odl_1_and_2_down}
+    ClusterManagement.Start Members From List Or All    ${odl_1_and_2_down}    timeout=900s
 
 Take Down ODL2 and ODL3
     [Documentation]    Kill the karaf in First and Second Controller
@@ -211,7 +211,7 @@ Connectivity Tests From Vm Instance3 In l3_net_2
 
 Bring Up ODL2 and ODL3
     [Documentation]    Bring up ODL2 and ODL3 again.
-    ClusterManagement.Start Members From List Or All    ${odl_2_and_3_down}
+    ClusterManagement.Start Members From List Or All    ${odl_2_and_3_down}    timeout=900s
 
 Delete Vm Instances In l3_net_1
     [Documentation]    Delete Vm instances using instance names in l3_net_1.

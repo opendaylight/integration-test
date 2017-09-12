@@ -80,7 +80,7 @@ Delete the Bridge Manually and Verify After Fail
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
-    ClusterManagement.Start Single Member    1
+    ClusterManagement.Start Single Member    1    timeout=900s
 
 Create Bridge Manually and Verify After Recover
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -138,7 +138,7 @@ Check Vm Instances Have Ip Address
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
-    ClusterManagement.Start Single Member    2
+    ClusterManagement.Start Single Member    2    timeout=900s
 
 Ping Vm Instance1 In l2_net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -188,7 +188,7 @@ Connectivity Tests From Vm Instance3 In l2_net_1
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
-    ClusterManagement.Start Single Member    3
+    ClusterManagement.Start Single Member    3    timeout=900s
 
 Take Down ODL1 and ODL2
     [Documentation]    Kill the karaf in First and Second Controller
@@ -208,7 +208,7 @@ Connectivity Tests From Vm Instance3 In l2_net_2
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again.
-    ClusterManagement.Start Members From List Or All    ${cluster_down_list}
+    ClusterManagement.Start Members From List Or All    ${cluster_down_list}    timeout=900s
 
 Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names.
