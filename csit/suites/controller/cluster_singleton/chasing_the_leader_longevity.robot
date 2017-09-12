@@ -23,7 +23,6 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 # TODO: change back to 24h when jenkins has more granular steps to abort jobs than days; now 23h
 ${TEST_DURATION}    23h
 ${ACCEPTED_PER_SEC_RATE}    100
-${ACCEPTED_PER_SEC_RATE_CARBON}    5
 
 *** Test Cases ***
 Register_Candidates
@@ -38,8 +37,7 @@ Do_Nothing
 
 Unregister_Candidates_And_Validate_Criteria
     [Documentation]    Unregister the testing service and check recevied statistics.
-    ${rate_limit_to_pass} =    CompareStream.Set_Variable_If_At_Most_Carbon    ${ACCEPTED_PER_SEC_RATE_CARBON}    ${ACCEPTED_PER_SEC_RATE}
-    CsCommon.Unregister_Flapping_Singleton_On_Nodes_And_Validate_Results    ${cs_all_indices}    ${rate_limit_to_pass}    ${TEST_DURATION}
+    CsCommon.Unregister_Flapping_Singleton_On_Nodes_And_Validate_Results    ${cs_all_indices}    ${ACCEPTED_PER_SEC_RATE}    ${TEST_DURATION}
 
 *** Keywords ***
 Setup_Keyword
