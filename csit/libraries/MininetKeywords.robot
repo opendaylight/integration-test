@@ -13,7 +13,7 @@ ${topology_file_path}    MininetTopo/${topology_file}
 
 *** Keywords ***
 Start Mininet Single Controller
-    [Arguments]    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}    ${timeout}=${DEFAULT_TIMEOUT}
+    [Arguments]    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${options}=--topo tree,1    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start Mininet with custom topology and connect to controller.
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
