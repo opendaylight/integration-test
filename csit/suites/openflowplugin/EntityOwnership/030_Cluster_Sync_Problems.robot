@@ -116,7 +116,6 @@ Rejoin Switchs Old Owner
     ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event
     ${new_owner}    ${new_successors}=    BuiltIn.Wait Until Keyword Succeeds    6x    10s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}
     ...    ${active_member}
-    BuiltIn.Should Be Equal    ${owner}    ${new_owner}
 
 Isolate Switchs Successor
     [Arguments]    ${switch_name}
@@ -144,7 +143,6 @@ Rejoin Switchs Successor
     ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event
     ${new_owner}    ${new_successors}=    BuiltIn.Wait Until Keyword Succeeds    6x    10s    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}
     ...    ${active_member}
-    BuiltIn.Should Be Equal    ${old_owner}    ${new_owner}
 
 Rejoin Controller To The Cluster
     [Arguments]    ${isolated_node}
