@@ -45,7 +45,8 @@ ${JOLOKIA_CONF_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Ca
 ${JOLOKIA_OPER_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-operational,type=DistributedOperationalDatastore
 ${JOLOKIA_READ_URI}    jolokia/read/org.opendaylight.controller
 ${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}    # TODO: Migrate to Variables.robot
-@{ODL_DEFAULT_DATA_PATHS}    tmp/    data/    cache/    snapshots/    journal/    etc/opendaylight/current/
+# Bug 9044 workaround: delete etc/host.key before restart.
+@{ODL_DEFAULT_DATA_PATHS}    tmp/    data/    cache/    snapshots/    journal/    etc/opendaylight/current/    etc/host.key
 ${RESTCONF_MODULES_DIR}    ${CURDIR}/../variables/restconf/modules
 ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='KeyedInstanceIdentifier{targetType=interface org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node, path=[org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology, org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology[key=TopologyKey [_topologyId=Uri [_value=topology-netconf]]], org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node[key=NodeKey [_nodeId=Uri [_value=
 ${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ]]]]}']
