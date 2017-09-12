@@ -14,6 +14,8 @@ ${RESP_ERROR_CODE}    400
 ${MAC_REGEX}      ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})
 ${IP_REGEX}       (([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])
 ${IP6_REGEX}      (2001:([0-9A-Fa-f]{0,4}:){1,6}([0-9A-Fa-f]{1,4}))
+${IP6_SUBNET_CIDR_SUFFIX}    ::/64
+${IP6_ADDR_SUFFIX}    (:[a-f0-9]{,4}){,4}
 ${PING_REGEXP}    , 0% packet loss
 ${NO_PING_REGEXP}    , 100% packet loss
 # Values passed for extra routes
