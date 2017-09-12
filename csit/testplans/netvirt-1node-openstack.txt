@@ -4,5 +4,6 @@ integration/test/csit/suites/openstack/NeutronSecurityGrp/
 integration/test/csit/suites/netvirt/Netvirt_Vpnservice/01_basic_vpnservice.robot
 integration/test/csit/suites/netvirt/Netvirt_Vpnservice/03_basic_ipv6_vpnservice.robot
 integration/test/csit/suites/netvirt/Netvirt_Vpnservice/04_basic_dualstack_one_router_vpnservice.robot
+integration/test/csit/suites/netvirt/Netvirt_Vpnservice/05_basic_dualstack_two_routers_vpnservice.robot
 integration/test/csit/suites/netvirt/ElanService/
 integration/test/csit/suites/netvirt/Netvirt_Vpnservice/ARP_Learning.robot
