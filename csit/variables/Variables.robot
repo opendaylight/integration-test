@@ -88,6 +88,7 @@ ${GET_INTENTS_URI}    /retconf/config/intent:intents    # FIXME: Move to a separ
 &{HEADERS}        Content-Type=application/json    # Deprecated. Sometimes conflicts with argument name. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 &{HEADERS_YANG_JSON}    Content-Type=application/yang.data+json    # Content type for JSON data, used to work around Requests auto-serialization. TODO: Hide into more specific Resource if possible.
 &{HEADERS_XML}    Content-Type=application/xml    # Content type for XML data. TODO: Hide into more specific Resource if possible.
+${ICMP_TYPE}      135
 ${KARAF_DETAILED_PROMPT}    @${ESCAPE_CHARACTER}[0m${ESCAPE_CHARACTER}[34mroot${ESCAPE_CHARACTER}[0m>    # Larger substring of Karaf prompt, shorter ones may result in false positives.
 ${KARAF_PASSWORD}    karaf    # Plaintext password to authenticate to Karaf console.
 ${KARAF_PROMPT}    opendaylight-user    # Simple and readable Karaf prompt substring.
