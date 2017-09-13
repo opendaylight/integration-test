@@ -34,6 +34,7 @@ TC03 Update Port For Hwvtep And Attach Port To Namespace
     Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Attach Port To Hwvtep Namespace    ${port_mac_list[1]}    ${HWVTEP_NS1}    ${NS_TAP1}
 
 TC04 Create Vms On Compute Node
+    OpenStackOperations.Create Nano Flavor
     OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS_PORT_1}    ${OVS_VM1_NAME}    ${OVS_IP}
     ${vm_ip}=    Wait Until Keyword Succeeds    60s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS_VM1_NAME}
     Log    ${vm_ip}
