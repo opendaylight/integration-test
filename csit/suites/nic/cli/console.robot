@@ -64,10 +64,9 @@ Verify NIC Command Add and Remove
 
 *** Keywords ***
 Setup NIC Console Environment
-    [Documentation]    Installing NIC Console related features (odl-nic-core-mdsal, odl-nic-console)
+    [Documentation]    Installing NIC Console related features (odl-nic-core-mdsal)
     Start Mininet
     Verify Feature Is Installed    odl-nic-core-mdsal
-    Verify Feature Is Installed    odl-nic-console
 
 Add Intent
     [Arguments]    ${intent_from}    ${intent_to}    ${intent_permission}
@@ -80,7 +79,7 @@ Add Intent
     [Return]    ${id}
 
 Verify Intent:Add Command is Available
-    [Documentation]    Verifies that odl-nic-console is up and intent:add command is available to be used.
+    [Documentation]    Verifies that intent:add command is available to be used.
     ...    Should be used with the command "Wait Until Keyword Succeeds" to poll until command is available.
     ${output}=    Issue Command On Karaf Console    intent:add
     Should Not Contain    ${output}    Command not found
