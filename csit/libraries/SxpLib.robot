@@ -31,10 +31,10 @@ Post To Controller
 
 Add Node
     [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session    ${ip}=${EMPTY}
-    ...    ${ssl_stores}=${EMPTY}
+    ...    ${ssl_stores}=${EMPTY}    ${retry_open_timer}=1
     [Documentation]    Add node via RPC to ODL
     ${DATA}    Add Node Xml    ${node}    ${port}    ${password}    ${version}    ${ip}
-    ...    keystores=${ssl_stores}
+    ...    keystores=${ssl_stores}    retry_open_timer=${retry_open_timer}
     Post To Controller    ${session}    add-node    ${DATA}
 
 Delete Node
@@ -359,7 +359,8 @@ Setup SXP Environment
     Setup SXP Session
     : FOR    ${num}    IN RANGE    1    ${node_range}
     \    ${ip}    Get Ip From Number    ${num}
-    \    CompareStream.Run_Keyword_If_At_Least_Boron    Add Node    ${ip}
+    \    ${rnd_retry_time} =    Evaluate    random.randint(1, 10)    modules=random
+    \    CompareStream.Run_Keyword_If_At_Least_Boron    Add Node    ${ip}    retry_open_timer=${rnd_retry_time}
     \    CompareStream.Run_Keyword_If_At_Least_Boron    Wait Until Keyword Succeeds    20    1    Check Node Started    ${ip}
 
 Check Node Started

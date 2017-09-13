@@ -898,7 +898,8 @@ def get_bindings_from_node_xml(ip, binding_range, domain_name):
     return data
 
 
-def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bindings_timeout=0, keystores=None):
+def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bindings_timeout=0, keystores=None,
+                 retry_open_timer=1):
     """Generate xml for Add Node request
 
     :param node_id: Ipv4 address formatted node id
@@ -944,7 +945,7 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bi
     templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
     <node-id>$id</node-id>
     <timers>
-        <retry-open-time>1</retry-open-time>
+        <retry-open-time>$retry_open_timer</retry-open-time>
         <hold-time-min-acceptable>120</hold-time-min-acceptable>
         <delete-hold-down-time>$timeout</delete-hold-down-time>
         <hold-time-min>90</hold-time-min>
@@ -966,7 +967,8 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bi
 </input>''')
     data = templ.substitute(
         {'ip': node_ip or node_id, 'id': node_id, 'port': port, 'password': password,
-         'version': version, 'expansion': expansion, 'timeout': bindings_timeout, 'tls': tls})
+         'version': version, 'expansion': expansion, 'timeout': bindings_timeout, 'tls': tls,
+         'retry_open_timer': retry_open_timer})
     return data
 
 
