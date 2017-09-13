@@ -290,6 +290,12 @@ Create Vm Instance With Port On Compute Node
     Log    ${output}
     Should Not Be True    ${rc}
 
+Create Nano Flavor
+    [Documentation]    Create a nano flavor
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack flavor create m1.nano --id auto --ram 64 --disk 0 --vcpus 1
+    Log    ${output}
+    Should Not Be True    ${rc}
+
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
