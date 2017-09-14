@@ -40,6 +40,9 @@ Start Mininet To All Nodes
     BuiltIn.Set Suite Variable    ${active_member}    1
     OvsManager.Setup Clustered Controller For Switches    ${switch_list}    ${cntls_list}
     BuiltIn.Wait Until Keyword Succeeds    15s    1s    ClusterOpenFlow.Verify Switch Connections Running On Member    ${SWITCHES}    1
+    #Remove switch echos
+    SSHLibrary.Execute Command    x=`sudo ovs-vsctl --columns=_uuid list Controller | awk '{print $NF}'`; for i in $x; do sudo ovs-vsctl set Controller $i inactivity_probe=0; done
+    SSHLibrary.Execute Command    sudo ovs-vsctl list Controller
 
 Switches To Be Connected To All Nodes
     [Documentation]    Initial check for correct connected topology.
