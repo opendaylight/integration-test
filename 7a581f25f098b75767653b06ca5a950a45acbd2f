@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_57337daa",
+        "filename": "csit/suites/controller/cluster_singleton/chasing_the_leader.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3741
+      },
+      "writtenOn": "2017-09-15T02:25:37Z",
+      "side": 1,
+      "message": "Please, make sure about it.",
+      "range": {
+        "startLine": 24,
+        "startChar": 28,
+        "endLine": 25,
+        "endChar": 121
+      },
+      "revId": "7a581f25f098b75767653b06ca5a950a45acbd2f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_b7247960",
+        "filename": "csit/suites/controller/cluster_singleton/chasing_the_leader.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3741
+      },
+      "writtenOn": "2017-09-15T02:25:37Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 141
+      },
+      "revId": "7a581f25f098b75767653b06ca5a950a45acbd2f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
