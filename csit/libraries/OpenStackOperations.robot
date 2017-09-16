@@ -136,6 +136,29 @@ Delete Port
     Log    ${output}
     Should Be True    '${rc}' == '0'
 
+Create user
+    [Arguments]    ${user_name}    ${domain}    ${password}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack user create ${user_name} --domain ${domain} --password ${password}
+    ...    ELSE    Run And Return Rc And Output    openstack user create ${user_name} --domain ${domain} --password ${password}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Role Add
+    [Arguments]    ${project_name}    ${user_name}    ${role}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack role add --project ${project_name} --user ${user_name} ${role}
+    ...    ELSE    Run And Return Rc And Output    openstack role add --project ${project_name} --user ${user_name} ${role}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Create Endpoint
+    [Arguments]    ${region_name}    ${host_name}    ${service_category}    ${endpoint_category}    ${port}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack endpoint create --region ${region_name} ${service_category} ${endpoint_category} http://${host_name}:${port}
+    ...    ELSE    Run And Return Rc And Output    openstack endpoint create --region ${region_name} ${service_category} ${endpoint_category} http://${host_name}:${port}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
 List Ports
     [Documentation]    List ports and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list
@@ -300,7 +323,7 @@ Get Hypervisor Hostname From IP
     ...    the full listing is logged first, then followed by a grep | cut to focus on the actual hostname to return
     ${rc}    ${output}    Run And Return Rc And Output    openstack hypervisor list
     Log    ${output}
-    ${rc}    ${hostname}=    Run And Return Rc And Output    openstack hypervisor list -f value | grep "${hypervisor_ip} " | cut -d" " -f 2
+    ${rc}    ${hostname}=    Run And Return Rc And Output    openstack hypervisor list -f value | grep ${hypervisor_ip} | cut -d" " -f 2
     Log    ${hostname}
     Should Be True    '${rc}' == '0'
     [Return]    ${hostname}
@@ -345,7 +368,7 @@ Collect VM IP Addresses
     ${dhcp_length}    Get Length    ${dhcp_ip}
     Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${ip_list}    None
     Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
-    Should Be True    ${dhcp_length} <= 1
+    #    Should Be True    ${dhcp_length} <= 1
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    ${dhcp_ip}
 
@@ -454,6 +477,7 @@ Ping Vm From Control Node
     [Documentation]    Ping VM floating IP from control node
     Get ControlNode Connection
     ${output}=    Write Commands Until Prompt And Log    ping ${additional_args} -c 3 ${vm_floating_ip}    20s
+    Log    ${vm_floating_ip}
     Should Contain    ${output}    64 bytes
 
 Curl Metadata Server
@@ -1202,3 +1226,35 @@ Reset OVS Logging On All OpenStack Nodes
     Run Keyword If    0 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CNTL_CONN_ID}
     Run Keyword If    1 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CMP1_CONN_ID}
     Run Keyword If    2 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CMP2_CONN_ID}
+
+Create Project
+    [Arguments]    ${domain}    ${description}    ${name}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack project create --domain ${domain} --description {description} ${name}
+    ...    ELSE    Run And Return Rc And Output    openstack project create --domain ${domain} --description {description} ${name}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Service
+    [Arguments]    ${name}    ${description}    ${category}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack service create --name ${name} --description ${description} ${category}
+    ...    ELSE    Run And Return Rc And Output    openstack service create --name ${name} --description ${description} ${category}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Image
+    [Arguments]    ${name}    ${file_path}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack image create ${name} --file ${file_path} --disk-format qcow2 --container-format bare --public
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Flavor
+    [Arguments]    ${name}    ${ram}    ${disk}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack flavor create ${name} --ram ${ram} --disk ${disk}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Keypair
+    [Arguments]    ${keypair_name}       ${key_path}      ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack keypair create ${keypair_name} --public-key ${key_path}.pub
+    Log    ${output}
+    Should Not Be True    ${rc}

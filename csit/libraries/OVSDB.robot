@@ -215,3 +215,31 @@ Reset OVS Logging
     [Documentation]    Reset the OVS logging
     SSHLibrary.Switch Connection    ${conn_id}
     ${output} =    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set :file:info    ${DEFAULT_LINUX_PROMPT_STRICT}
+
+GET OVS UUID ALT APPROACH
+    [Arguments]    ${os_node_cxn}
+    Switch Connection    ${os_node_cxn}
+    ${rc}    ${output}=    Run And Return Rc And Output    sudo ovs-vsctl get Open_vSwitch . _uuid
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Set Manager to OVS
+    [Arguments]    ${os_node_cxn}    ${ip_list}=${EMPTY}    ${ovs_manager_port}=6640
+    Switch Connection    ${os_node_cxn}
+    ${ovs_opt}=    Set Variable
+    : FOR    ${ip}    IN    @{ip_list}
+    \    ${ovs_opt}=    Catenate    ${ovs_opt}    ${SPACE}tcp:${ip}:${ovs_mgr_port}
+    \    Log    ${ovs_opt}
+    ${rc}    ${output}=    Run And Return Rc And Output    sudo ovs-vsctl set-manager ${ovs_opt}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Set Other Config to OVS
+    [Arguments]    ${os_node_cxn}    ${ovs_uuid}    ${key}    ${value}
+    Switch Connection    ${os_node_cxn}
+    ${rc}    ${output}=    Run And Return Rc And Output    sudo ovs-vsctl set Open_vSwitch ${ovs_uuid} other_config:${key}=${value}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
