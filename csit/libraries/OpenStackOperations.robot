@@ -117,6 +117,29 @@ Delete Port
     [Documentation]    Delete Port with neutron request.
     ${output} =    OpenStack CLI    openstack port delete ${port_name}
 
+Create user
+    [Arguments]    ${user_name}    ${domain}    ${password}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack user create ${user_name} --domain ${domain} --password ${password}
+    ...    ELSE    Run And Return Rc And Output    openstack user create ${user_name} --domain ${domain} --password ${password}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Role Add
+    [Arguments]    ${project_name}    ${user_name}    ${role}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack role add --project ${project_name} --user ${user_name} ${role}
+    ...    ELSE    Run And Return Rc And Output    openstack role add --project ${project_name} --user ${user_name} ${role}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Create Endpoint
+    [Arguments]    ${region_name}    ${host_name}    ${service_category}    ${endpoint_category}    ${port}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack endpoint create --region ${region_name} ${service_category} ${endpoint_category} http://${host_name}:${port}
+    ...    ELSE    Run And Return Rc And Output    openstack endpoint create --region ${region_name} ${service_category} ${endpoint_category} http://${host_name}:${port}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
 List Ports
     [Documentation]    List ports and return output with neutron client.
     ${output} =    OpenStack CLI    openstack port list
@@ -247,6 +270,32 @@ Poll VM Is ACTIVE
     [Arguments]    ${vm_name}    ${retry}=600s    ${retry_interval}=30s
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
     BuiltIn.Wait Until Keyword Succeeds    ${retry}    ${retry_interval}    OpenStackOperations.Verify VM Is ACTIVE    ${vm_name}
+
+Collect VM IP Addresses
+    [Arguments]    ${fail_on_none}    @{vm_list}
+    [Documentation]    Using the console-log on the provided ${vm_list} to search for the string "obtained" which
+    ...    correlates to the instance receiving it's IP address via DHCP. Also retrieved is the ip of the nameserver
+    ...    if available in the console-log output. The keyword will also return a list of the learned ips as it
+    ...    finds them in the console log output, and will have "None" for Vms that no ip was found.
+    ${ip_list}    Create List    @{EMPTY}
+    : FOR    ${vm}    IN    @{vm_list}
+    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
+    \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+    \    ${vm_ip_length}    Get Length    ${vm_ip}
+    \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
+    \    ...    ELSE    Append To List    ${ip_list}    None
+    \    ${rc}    ${dhcp_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep "^nameserver"
+    \    ${dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+    \    ${dhcp_ip_length}    Get Length    ${dhcp_ip}
+    \    Run Keyword If    ${dhcp_ip_length}<=0    Append To List    ${dhcp_ip}    None
+    \    ${vm_console_output}=    Run    openstack console log show ${vm}
+    \    Log    ${vm_console_output}
+    ${dhcp_length}    Get Length    ${dhcp_ip}
+    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${ip_list}    None
+    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
+    #    Should Be True    ${dhcp_length} <= 1
+    Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
+    [Return]    ${ip_list}    ${dhcp_ip}
 
 Get Match
     [Arguments]    ${text}    ${regexp}    ${index}=0
@@ -1083,3 +1132,35 @@ Start Packet Capture On Nodes
 Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+
+Create Project
+    [Arguments]    ${domain}    ${description}    ${name}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack project create --domain ${domain} --description {description} ${name}
+    ...    ELSE    Run And Return Rc And Output    openstack project create --domain ${domain} --description {description} ${name}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Service
+    [Arguments]    ${name}    ${description}    ${category}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack service create --name ${name} --description ${description} ${category}
+    ...    ELSE    Run And Return Rc And Output    openstack service create --name ${name} --description ${description} ${category}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Image
+    [Arguments]    ${name}    ${file_path}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack image create ${name} --file ${file_path} --disk-format qcow2 --container-format bare --public
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Flavor
+    [Arguments]    ${name}    ${ram}    ${disk}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack flavor create ${name} --ram ${ram} --disk ${disk}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Keypair
+    [Arguments]    ${keypair_name}    ${key_path}    ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If    "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output    source ${rc_file};openstack keypair create ${keypair_name} --public-key ${key_path}.pub
+    Log    ${output}
+    Should Not Be True    ${rc}
