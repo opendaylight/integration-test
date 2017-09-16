@@ -111,10 +111,6 @@ Create And Associate Floating IPs for VMs
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET1_FIP_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
-Ping External Gateway From Control Node
-    [Documentation]    Check reachability of external gateway by pinging it from the control node.
-    OpenStackOperations.Ping Vm From Control Node    ${EXTERNAL_GATEWAY}    additional_args=-I ${EXTERNAL_INTERNET_ADDR}
-
 Ping Vm Instance1 Floating IP From Control Node
     [Documentation]    Check reachability of VM instance through floating IP by pinging them.
     OpenStackOperations.Ping Vm From Control Node    @{VM_FLOATING_IPS}[0]    additional_args=-I ${EXTERNAL_INTERNET_ADDR}
