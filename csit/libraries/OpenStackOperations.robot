@@ -132,6 +132,29 @@ Delete Port
     Log    ${output}
     Should Not Be True    ${rc}
 
+Create user
+    [Arguments]    ${user_name}      ${domain}      ${password}        ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If       "${rc_file}" != "${EMPTY}"       Run And Return Rc And Output     source ${rc_file};openstack user create ${user_name} --domain ${domain} --password ${password}
+    ...                    ELSE       Run And Return Rc And Output    openstack user create ${user_name} --domain ${domain} --password ${password}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Role Add
+    [Arguments]    ${project_name}      ${user_name}      ${role}      ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If       "${rc_file}" != "${EMPTY}"      Run And Return Rc And Output     source ${rc_file};openstack role add --project ${project_name} --user ${user_name} ${role}
+    ...                    ELSE      Run And Return Rc And Output      openstack role add --project ${project_name} --user ${user_name} ${role}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Create Endpoint
+    [Arguments]    ${region_name}      ${host_name}      ${service_category}     ${endpoint_category}      ${port}      ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If       "${rc_file}" != "${EMPTY}"      Run And Return Rc And Output     source ${rc_file};openstack endpoint create --region ${region_name} ${service_category} ${endpoint_category} http://${host_name}:${port}
+    ...                    ELSE         Run And Return Rc And Output     openstack endpoint create --region ${region_name} ${service_category} ${endpoint_category} http://${host_name}:${port}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
 List Ports
     [Documentation]    List ports and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list
@@ -326,7 +349,7 @@ Collect VM IP Addresses
     ${dhcp_length}    Get Length    ${dhcp_ip}
     Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${ip_list}    None
     Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
-    Should Be True    ${dhcp_length} <= 1
+#    Should Be True    ${dhcp_length} <= 1
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    ${dhcp_ip}
 
@@ -668,6 +691,7 @@ Get ControlNode Connection
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=30s
     [Return]    ${control_conn_id}
+
 
 Get OvsDebugInfo
     [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
@@ -1119,3 +1143,29 @@ Neutron Cleanup
     \    BuiltIn.Run Keyword And Ignore Error    Delete Network    ${network}
     : FOR    ${sg}    IN    @{sgs}
     \    BuiltIn.Run Keyword And Ignore Error    Delete SecurityGroup    ${sg}
+
+Create Project
+    [Arguments]    ${domain}     ${description}    ${name}        ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If     "${rc_file}" != "${EMPTY}"     Run And Return Rc And Output      source ${rc_file};openstack project create --domain ${domain} --description {description} ${name}
+    ...                    ELSE          Run And Return Rc And Output      openstack project create --domain ${domain} --description {description} ${name}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Service
+    [Arguments]    ${name}     ${description}    ${category}       ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If     "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output     source ${rc_file};openstack service create --name ${name} --description ${description} ${category}
+    ...                    ELSE         Run And Return Rc And Output     openstack service create --name ${name} --description ${description} ${category}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Image
+    [Arguments]    ${name}     ${file_path}         ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If     "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output     source ${rc_file};openstack image create ${name} --file ${file_path} --disk-format qcow2 --container-format bare --public
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Flavor
+    [Arguments]    ${name}    ${ram}    ${disk}       ${rc_file}=${EMPTY}
+    ${rc}    ${output}=    Run Keyword If     "${rc_file}" != "${EMPTY}"    Run And Return Rc And Output     source ${rc_file};openstack flavor create ${name} --ram ${ram} --disk ${disk} 
+    Log    ${output}
+    Should Not Be True    ${rc}
