@@ -133,6 +133,21 @@ Delete Port
     Log    ${output}
     Should Not Be True    ${rc}
 
+Create user
+    [Arguments]    ${user_name}      ${domain}      ${password}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack user create ${user_name} --domain ${domain} --password ${password}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Role Add
+    [Arguments]    ${project_name}      ${user_name}      ${role}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack role add --project ${project_name} --user ${user_name} ${role}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+
 List Ports
     [Documentation]    List ports and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list
@@ -647,6 +662,7 @@ Get ControlNode Connection
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=30s
     [Return]    ${control_conn_id}
+
 
 Get OvsDebugInfo
     [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
