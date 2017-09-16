@@ -133,6 +133,26 @@ Delete Port
     Log    ${output}
     Should Not Be True    ${rc}
 
+Create user
+    [Arguments]    ${user_name}      ${domain}      ${password}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack user create ${user_name} --domain ${domain} --password ${password}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Role Add
+    [Arguments]    ${project_name}      ${user_name}      ${role}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack role add --project ${project_name} --user ${user_name} ${role}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Create Endpoint
+    [Arguments]    ${region_name}      ${host_name}      ${service_category}     ${endpoint_category}      ${port}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack endpoint create --region ${region_name} ${service_category} ${endpoint_category} http://${host_name}:{port}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
 List Ports
     [Documentation]    List ports and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list
@@ -648,6 +668,7 @@ Get ControlNode Connection
     SSHLibrary.Set Client Configuration    timeout=30s
     [Return]    ${control_conn_id}
 
+
 Get OvsDebugInfo
     [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
     Run Keyword If    0 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_CONTROL_NODE_IP}
@@ -1111,3 +1132,15 @@ Wait For Routes To Propogate
     \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
     \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
     \    Should Contain    ${output}    @{subnets}[${INDEX}]
+
+Create Project
+    [Arguments]    ${domain}     ${description}    ${name}
+    ${rc}    ${output}=    Run And Return Rc And Output    source /tmp/stackrc;openstack project create --domain ${domain} --description {description} ${name}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Service
+    [Arguments]    ${name}     ${description}    ${category} 
+    ${rc}    ${output}=    Run And Return Rc And Output    source /tmp/stackrc;openstack service create --name ${name} --description ${description} ${category}
+    Log    ${output}
+    Should Not Be True    ${rc}
