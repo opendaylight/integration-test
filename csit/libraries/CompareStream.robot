@@ -8,7 +8,7 @@ Library           Collections
 Library           String
 
 *** Variables ***
-&{Stream_dict}    hydrogen=${1}    stable-helium=${2}    stable-lithium=${3}    beryllium=${4}    boron=${5}    carbon=${6}    nitrogen=${7}
+&{Stream_dict}    hydrogen=${1}    stable-helium=${2}    stable-lithium=${3}    beryllium=${4}    boron=${5}    carbon=${6}    nitrogen=${7}    oxygen=${8}
 
 *** Keywords ***
 Set_Variable_If_At_Least
