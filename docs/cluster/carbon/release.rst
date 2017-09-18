@@ -1,0 +1,69 @@
+
+Draft, outdated: Carbon release test report
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Table
+-----
+
+.. table:: Test results (pre-release)
+   :widths: 40,30,20,10
+
+   ==================    ==========    =================================================================    ======
+   Scenario name         Run date      Bug numbers                                                          Result
+   ==================    ==========    =================================================================    ======
+   bgp-1n-1m-a           2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/bgpcep-csit-1node-periodic-bgp-ingest-only-carbon/290/archives/log.html.gz#s1-s2>`__
+   bgp-1n-1m-t           2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/bgpcep-csit-1node-periodic-bgp-ingest-only-carbon/290/archives/log.html.gz#s1-s9>`__
+   bgp-3n-300k-ll-t      2017-05-23    `8318 <https://bugs.opendaylight.org/show_bug.cgi?id=8318#c10>`__    `FAIL <https://logs.opendaylight.org/releng/jenkins092/bgpcep-csit-3node-periodic-bgpclustering-only-carbon/290/archives/log.html.gz#s1-s2-t8-k2-k3-k7-k4-k1-k6-k1-k1-k1-k1-k1-k2-k1-k3-k1>`__
+   bgp-3n-300k-lr-t      2017-05-23    `8318 <https://bugs.opendaylight.org/show_bug.cgi?id=8318>`__        `FAIL <https://logs.opendaylight.org/releng/jenkins092/bgpcep-csit-3node-periodic-bgpclustering-only-carbon/290/archives/log.html.gz#s1-s4-t8-k2-k3-k7-k8-k1-k6-k1-k1-k1-k1-k1-k2-k1-k4>`__
+   ddb-cls-ms-ll-t       2017-05-23    `8403 <https://bugs.opendaylight.org/show_bug.cgi?id=8403#c9>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s20-t1-k2-k9>`__
+   ddb-cls-ms-lr-t       2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s20-t3>`__
+   ddb-cls-ps-ll-t       2017-05-23    `8403 <https://bugs.opendaylight.org/show_bug.cgi?id=8403#c9>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s22-t1-k2-k9>`__
+   ddb-cls-ps-lr-t       2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s22-t3>`__
+   ddb-elm-ms-lr-t       2017-05-23    `8403 <https://bugs.opendaylight.org/show_bug.cgi?id=8403#c6>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s24-t1-k2-k10>`__
+   ddb-elm-ms-rr-t       2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s24-t3>`__
+   ddb-elm-ms-rl-t       2017-05-23    `8403 <https://bugs.opendaylight.org/show_bug.cgi?id=8403#c6>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s24-t5-k2-k10>`__
+   ddb-elm-ps-lr-t       2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s26-t1>`__
+   ddb-elm-ps-rr-t       2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s26-t3>`__
+   ddb-elm-ps-rl-t       2017-05-23    `8403 <https://bugs.opendaylight.org/show_bug.cgi?id=8403#c6>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s26-t5-k2-k9>`__
+   ddb-li-ms-st-t        2017-05-23    `8445 <https://bugs.opendaylight.org/show_bug.cgi?id=8445#c3>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s28-t1-k2-k26-k1-k2-k3-k1-k1>`__
+   ddb-li-ms-dt-t        2017-05-23    `8494 <https://bugs.opendaylight.org/show_bug.cgi?id=8494#c2>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s28-t3-k2-k26-k1-k3>`__
+   ddb-li-ps-st-t        2017-05-23    `8371 <https://bugs.opendaylight.org/show_bug.cgi?id=8371#c6>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s30-t1-k2-k26-k1-k2-k1-k1-k1>`__
+   ddb-li-ps-dt-t        2017-05-23    `8371 <https://bugs.opendaylight.org/show_bug.cgi?id=8371#c6>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s30-t3-k2-k26-k1-k1>`__
+   ddb-ci-ms-ll-ct-t     2017-05-23    `8494 <https://bugs.opendaylight.org/show_bug.cgi?id=8494#c3>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s32-t1-k2-k19-k1-k1>`__
+   ddb-ci-ms-ll-st-t     2017-05-23    `8494 <https://bugs.opendaylight.org/show_bug.cgi?id=8494#c3>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s32-t3-k2-k19-k1-k1>`__
+   ddb-ci-ms-lr-ct-t     2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s32-t5>`__
+   ddb-ci-ms-lr-st-t     2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s32-t7>`__
+   ddb-ci-ps-ll-ct-t     2017-05-23    `8494 <https://bugs.opendaylight.org/show_bug.cgi?id=8494#c4>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s34-t1-k2-k19-k1-k1>`__
+   ddb-ci-ps-ll-st-t     2017-05-23    `8494 <https://bugs.opendaylight.org/show_bug.cgi?id=8494#c4>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s34-t3-k2-k19-k1-k1>`__
+   ddb-ci-ps-lr-ct-t     2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s34-t5>`__
+   ddb-ci-ps-lr-st-t     2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s34-t7>`__
+   ddb-ls-ms-ll-t        2017-05-23    `8524 <https://bugs.opendaylight.org/show_bug.cgi?id=8524#c1>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s36-t1-k2-k12-k1-k3-k1>`__
+   ddb-ls-ms-lr-t        2017-05-23    `8534 <https://bugs.opendaylight.org/show_bug.cgi?id=8534>`__        `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s36-t3-k2-k13-k1>`__
+   ddb-ls-ps-ll-t        2017-05-23    `8524 <https://bugs.opendaylight.org/show_bug.cgi?id=8524#c1>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s38-t1-k2-k13-k1-k3-k1>`__
+   ddb-ls-ps-lr-t        2017-05-23    `8524 <https://bugs.opendaylight.org/show_bug.cgi?id=8524#c2>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s38-t3-k2-k12-k1-k3-k1>`__
+   drb-rpp-ms-a          2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s2>`__
+   drb-rph-ms-a          2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s4>`__
+   drb-app-ms-a          2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s6>`__
+   drb-aph-ms-a          2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s8>`__
+   dnb-1n-60k-a          2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-1node-rest-cars-perf-only-carbon/605/archives/log.html.gz#s1-s2>`__
+   ss-ms-ms-a            2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s10>`__
+   ss-ph-ms-a            2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s12>`__
+   ss-cl-ms-a            2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s14>`__
+   ss-ms-ms-t            2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s40>`__
+   ss-ph-ms-t            2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s42>`__
+   ss-cl-ms-t            2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-carbon/720/archives/log.html.gz#s1-s44>`__
+   netconf-ba-ms-a       2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/netconf-csit-3node-clustering-only-carbon/554/archives/log.html.gz#s1-s2>`__
+   netconf-ok-ms-a       2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/netconf-csit-3node-clustering-only-carbon/554/archives/log.html.gz#s1-s5>`__
+   netconf-rr-ms-a       2017-05-23                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/netconf-csit-3node-clustering-only-carbon/554/archives/log.html.gz#s1-s7>`__
+   bgp-3n-300k-t-long    2017-05-14    `8443 <https://bugs.opendaylight.org/show_bug.cgi?id=8443>`__        `FAIL <https://logs.opendaylight.org/releng/jenkins092/bgpcep-csit-3node-bgpclustering-longevity-only-carbon/3/archives/log.html.gz#s1-s2-t1-k3-k1-k3-k1-k1-k1-k1-k1-k2-k1>`__
+   ddb-elm-mc-a-long     2017-05-14    `8434 <https://bugs.opendaylight.org/show_bug.cgi?id=8434>`__        `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-ddb-expl-lead-movement-longevity-only-carbon/4/archives/log.html.gz#s1-t1-k2-k1-k1-k1-k1-k1-k1-k2-k1-k1-k2-k6-k1-k1-k1-k6-k2-k1-k2-k1-k1-k3-k3-k1>`__
+   drb-rpp-ms-a-long     2017-05-14                                                                         `PASS <https://jenkins.opendaylight.org/releng/view/controller/job/controller-csit-3node-drb-precedence-longevity-only-carbon/6/console>`__
+   drb-rph-ms-a-long     2017-05-14                                                                         `PASS <https://jenkins.opendaylight.org/releng/view/controller/job/controller-csit-3node-drb-partnheal-longevity-only-carbon/9/console>`__
+   dnb-1n-60k-a-long     2017-05-14                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-1node-notifications-longevity-only-carbon/11/console.log.gz>`__
+   ss-ph-ms-a-long       2017-05-14    `8420 <https://bugs.opendaylight.org/show_bug.cgi?id=8420#c5>`__     `FAIL <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-cs-partnheal-longevity-only-carbon/5/archives/log.html.gz#s1-t1-k3-k1-k1-k1-k1-k1-k1-k2-k1-k1-k5-k3-k1-k2>`__
+   ss-cl-ms-a-long       2017-05-14                                                                         `PASS <https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-cs-chasing-leader-longevity-only-carbon/4/archives/log.html.gz#s1>`__
+   ==================    ==========    =================================================================    ======
+
+For descriptions of test cases, see `description page <tests.html>`_.
+Note that the link contains current description,
+the details might have been implemented differently at SR1 release.
