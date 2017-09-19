@@ -99,6 +99,8 @@ ${LFM_RPC_API}    /restconf/operations/odl-mappingservice    # FIXME: Move to a 
 ${LFM_RPC_API_LI}    /restconf/operations/lfm-mapping-database    # FIXME: Move to a separate LispFlowMapping-related Resource and add description.
 ${LFM_SB_RPC_API}    /restconf/operations/odl-lisp-sb    # FIXME: Move to a separate LispFlowMapping-related Resource and add description.
 ${MODULES_API}    /restconf/modules    # FIXME: Move to a separate Resource and add description.
+${NEUTRON}    127.0.0.1    # FIXME: Move to a separate Neutron-related Resource and add description.
+${NEUTRONURL}    http://${NEUTRON}:9696    # FIXME: Move to a separate Neutron-related Resource and add description.
 ${NEUTRON_NB_API}    /controller/nb/v2/neutron    # FIXME: Move to a separate Neutron-related Resource and add description.
 ${NEUTRON_NETWORKS_API}    ${NEUTRON_NB_API}/networks    # FIXME: Move to a separate Neutron-related Resource and add description.
 ${NEUTRON_PORTS_API}    ${NEUTRON_NB_API}/ports    # FIXME: Move to a separate Neutron-related Resource and add description.

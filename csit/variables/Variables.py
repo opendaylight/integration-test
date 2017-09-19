@@ -160,6 +160,8 @@ LFM_RPC_API_LI = "/restconf/operations/lfm-mapping-database"
 LFM_SB_RPC_API = "/restconf/operations/odl-lisp-sb"
 
 # Neutron
+NEUTRON = '127.0.0.1'
+NEUTRONURL = 'http://' + NEUTRON + ':9696'
 NEUTRON_NB_API = '/controller/nb/v2/neutron'
 NEUTRON_NETWORKS_API = NEUTRON_NB_API + '/' + 'networks'
 NEUTRON_SUBNETS_API = NEUTRON_NB_API + '/' + 'subnets'
