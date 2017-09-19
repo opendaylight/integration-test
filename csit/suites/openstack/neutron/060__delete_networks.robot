@@ -3,7 +3,7 @@ Documentation     Checking Network deleted in OpenStack are deleted also in Open
 Suite Setup       Start Suite
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${OSREST}         /v2.0/networks/${NETID}
@@ -36,6 +36,6 @@ Check Network Exists
     Should be Equal As Strings    ${resp.status_code}    200
 
 Start Suite
-    Create Session    OSSession    http://${NEUTRON}:9696    headers=${X-AUTH-NOCONTENT}
+    Create Session    OSSession    ${NEUTRONURL}    headers=${X-AUTH-NOCONTENT}
     Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
     Check Network Exists    ${NETID}
