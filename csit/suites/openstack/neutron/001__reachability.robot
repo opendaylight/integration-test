@@ -2,7 +2,7 @@
 Suite Setup       Create Session    ODL    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
+Resource          ../../../variables/Variables.robot
 
 *** Test Cases ***
 Get the complete list of networks
