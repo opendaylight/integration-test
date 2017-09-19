@@ -6,7 +6,7 @@ Library           SSHLibrary
 Library           Collections
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
-Variables         ../../../variables/Variables.py
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${OSTENANTNAME}    "admin"
@@ -17,10 +17,11 @@ ${OSPROJECTDOMAINNAME}    "Default"
 ${PASSWORD}       {"user":{"name":${OSUSERNAME},"domain":{"name": ${OSUSERDOMAINNAME}},"password":${OSPASSWORD}}}
 ${SCOPE}          {"project":{"name":${OSTENANTNAME},"domain":{"name": ${OSPROJECTDOMAINNAME}}}}
 ${UserInfo}       {"auth":{"identity":{"methods":["password"],"password":${PASSWORD}},"scope":${SCOPE}}}
+${KEYSTONEURL}    http://${KEYSTONE}:5000
 
 *** Keywords ***
 Start Suite
-    Create Session    KeyStoneSession    http://${KEYSTONE}:5000    headers=${HEADERS}
+    Create Session    KeyStoneSession    ${KEYSTONEURL}    headers=${HEADERS}
     ${resp}    post    KeyStoneSession    /v3/auth/tokens    ${UserInfo}
     Should Be Equal As Strings    ${resp.status_code}    201
     ${TOKEN}    Get From Dictionary    ${resp.headers}    X-Subject-Token

@@ -1,10 +1,10 @@
 *** Settings ***
 Documentation     Checking Port created in OpenStack are pushed to OpenDaylight
-Suite Setup       Create Session    OSSession    http://${NEUTRON}:9696    headers=${X-AUTH}
+Suite Setup       Create Session    OSSession    ${NEUTRONURL}    headers=${X-AUTH}
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${OSREST}         /v2.0/ports
