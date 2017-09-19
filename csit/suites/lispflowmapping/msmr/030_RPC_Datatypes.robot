@@ -74,10 +74,3 @@ Remove Datatype And Check Removal
     Post Log Check    ${LFM_RPC_API}:remove-mapping    ${RPC_Datatype__current_json}
     Wait Until Keyword Succeeds    5s    200ms    Check Mapping Removal    ${RPC_Datatype__current_json}
     Set Suite Variable    ${RPC_Datatype__current_json}    ${EMPTY}
-
-Post Log Check LocatorRecord
-    [Arguments]    ${get_mapping}
-    [Documentation]    Extend the 'Post Log Check' keyword to check for the existence of a LocatorRecord
-    ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${get_mapping}
-    ${eid_record}=    Get Eid Record    ${resp}
-    Dictionary Should Contain Key    ${eid_record}    LocatorRecord
