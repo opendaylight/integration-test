@@ -52,6 +52,10 @@ Get Elp Hop
     ${hop}=    Get From List    ${exp_loc_path}    ${actual_hop_index}
     [Return]    ${hop}
 
+Check Key Removal
+    [Arguments]    ${json}
+    Post Log Check    ${LFM_RPC_API}:get-key    ${json}    404
+
 Check Mapping Removal
     [Arguments]    ${json}
     Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    404
@@ -65,3 +69,22 @@ Get Mapping JSON
     ${mapping_record_json}=    Get MappingRecord JSON    ${lisp_address}    ${loc_record_list}
     ${mapping}=    Wrap input    ${mapping_record_json}
     [Return]    ${mapping}
+
+Post Log Check Authkey
+    [Arguments]    ${json}    ${password}
+    [Documentation]    Extend the 'Post Log Check' keyword to check for the correct authentication key
+    ${resp}=    Post Log Check    ${LFM_RPC_API}:get-key    ${json}
+    Authentication Key Should Be    ${resp}    ${password}
+
+Post Log Check Ipv4 Rloc
+    [Arguments]    ${json}    ${rloc}
+    [Documentation]    Extend the 'Post Log Check' keyword to check for the correct IPv4 RLOC
+    ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}
+    Ipv4 Rloc Should Be    ${resp}    ${rloc}
+
+Post Log Check LocatorRecord
+    [Arguments]    ${json}
+    [Documentation]    Extend the 'Post Log Check' keyword to check for the existence of a LocatorRecord
+    ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}
+    ${eid_record}=    Get Eid Record    ${resp}
+    Dictionary Should Contain Key    ${eid_record}    LocatorRecord
