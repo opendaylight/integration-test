@@ -1,2 +1,2 @@
 # Place the suites in run order:
-integration/test/csit/suites/yangtools/yang_system_test/yang_system_test.robot
+integration/test/csit/suites/yangtools/odl-yang-validator/odl-yang-validator.robot

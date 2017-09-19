@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Suite for testing performance of yang-system-test utility.
+Documentation     Suite for testing performance of odl-yang-validator utility.
 ...
 ...               Copyright (c) 2016,2017 Cisco Systems, Inc. and others. All rights reserved.
 ...
@@ -9,14 +9,14 @@ Documentation     Suite for testing performance of yang-system-test utility.
 ...
 ...
 ...               This suite measures time (only as a test case duration) needed
-...               for yang-system-test to execute on a set of yang model.
+...               for odl-yang-validator to execute on a set of yang model.
 ...
 ...               The set of Yang modules is large and fixed (no changes in future).
 ...               It is the same set of models as in mdsal binding-parent suite.
 Suite Setup       Setup_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing    # TODO: Suite Teardown to close SSH connections and other cleanup?
 Test Teardown     Teardown_Test
-Default Tags      1node    yang_system_test    critical
+Default Tags      1node    odl-yang-validator    critical
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
@@ -43,12 +43,12 @@ Prepare_Yang_Files_To_Test
     BuiltIn.Set_Suite_Variable    \${p_option_value}
 
 Deploy_And_Start_Yang_System_Test_Utility
-    [Documentation]    Download appropriate version of yang-system-test artifact and start it against the prepared set.
+    [Documentation]    Download appropriate version of odl-yang-validator artifact and start it against the prepared set.
     ...    The version is either given by ${EXPLICIT_YANG_SYSTEM_TEST_URL},
     ...    or constructed from Jenkins-shaped ${BUNDLE_URL}, or downloaded from Nexus based on ODL version.
     ${status}    ${multipatch_url} =    BuiltIn.Run_Keyword_And_Ignore_Error    Construct_Multipatch_Url
     ${url} =    Builtin.Set_Variable_If    "${status}" == "PASS"    ${multipatch_url}    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
-    ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=yang-system-test    suffix=jar-with-dependencies    tool_options=-p ${p_option_value}    explicit_url=${url}
+    ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=odl-yang-validator    suffix=jar-with-dependencies    tool_options=-p ${p_option_value}    explicit_url=${url}
     BuiltIn.Set_Suite_Variable    \${logfile}
 
 Wait_Until_Utility_Finishes
@@ -93,7 +93,7 @@ Get_Recursive_Dirs
 Construct_Multipatch_Url
     [Documentation]    If ${EXPLICIT_YANG_SYSTEM_TEST_URL} is non-empty, return it. Otherwise:
     ...    Check whether ${BUNDLE_URL} is from multipatch build (or similar maven style job),
-    ...    Check whether yang-system-test was built there as well,
+    ...    Check whether odl-yang-validator was built there as well,
     ...    and return URL with proper version, or fail.
     BuiltIn.Return_From_Keyword_If    """${EXPLICIT_YANG_SYSTEM_TEST_URL}""" != ""    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
     ${marker} =    BuiltIn.Set_Variable    /org.opendaylight.integration$distribution-karaf
@@ -101,10 +101,10 @@ Construct_Multipatch_Url
     BuiltIn.Should_Be_True    ${is_multipatch}
     ${yst_base_url} =    String.Fetch_From_Left    ${BUNDLE_URL}    ${marker}
     RequestsLibrary.Create_Session    alias=cmu    url=${yst_base_url}
-    ${yst_general_uri} =    BuiltIn.Set_Variable    org.opendaylight.yangtools$yang-system-test/artifact/org.opendaylight.yangtools/yang-system-test
+    ${yst_general_uri} =    BuiltIn.Set_Variable    org.opendaylight.yangtools$odl-yang-validator/artifact/org.opendaylight.yangtools/odl-yang-validator
     ${yst_html} =    TemplatedRequests.Get_From_Uri    ${yst_general_uri}    session=cmu
     # The following two lines are very specific to a particular Jenkins html layout.
     ${yst_almost_version} =    String.Fetch_From_Right    ${yst_html}    <td><a href="
     ${yst_version} =    String.Fetch_From_Left    ${yst_almost_version}    ">
-    ${url} =    BuiltIn.Set_Variable    ${yst_base_url}/${yst_general_uri}/${yst_version}/yang-system-test-${yst_version}-jar-with-dependencies.jar
+    ${url} =    BuiltIn.Set_Variable    ${yst_base_url}/${yst_general_uri}/${yst_version}/odl-yang-validator-${yst_version}-jar-with-dependencies.jar
     BuiltIn.Return_From_Keyword    ${url}
