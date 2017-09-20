@@ -285,10 +285,21 @@ Create Vm Instance With Port On Compute Node
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
-    ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
+    ${hostname_compute_node}=    Get Hypervisor Hostname From IP    ${compute_node}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${hostname_compute_node} ${vm_instance_name}
     Log    ${output}
     Should Not Be True    ${rc}
+
+Get Hypervisor Hostname From IP
+    [Arguments]    ${hypervisor_ip}
+    [Documentation]    Returns the hostname found for the given IP address if it's listed in hypervisor list. For debuggability
+    ...    the full listing is logged first, then followed by a grep | cut to focus on the actual hostname to return
+    ${rc}    ${output}    Run And Return Rc And Output    openstack hypervisor list
+    Log ${output}
+    ${rc}    ${hostname}=    Run And Return Rc And Output    openstack hypervisor list -f value | grep ${hypervisor_ip} | cut -d" " -f 2
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${hostname}
 
 Create Nano Flavor
     [Documentation]    Create a nano flavor
