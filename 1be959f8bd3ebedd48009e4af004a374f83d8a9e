@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_d1a76ba5",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-20T17:51:32Z",
+      "side": 1,
+      "message": "don\u0027t need the changes here, right?",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 42
+      },
+      "revId": "1be959f8bd3ebedd48009e4af004a374f83d8a9e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
