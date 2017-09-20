@@ -285,7 +285,7 @@ Create Vm Instance With Port On Compute Node
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
-    ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
+    ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname -f
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${hostname_compute_node} ${vm_instance_name}
     Log    ${output}
     Should Not Be True    ${rc}
