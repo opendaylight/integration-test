@@ -46,6 +46,30 @@
       "revId": "ffaa1d644881d040d2d71704c5a275623b0e7f68",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d6be41ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-20T15:14:15Z",
+      "side": 1,
+      "message": "it\u0027s fine to pass it as a robot arg, but maybe you can give\nit a default here:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.robot#L102",
+      "parentUuid": "ba1f61a0_60feaf6c",
+      "range": {
+        "startLine": 9,
+        "startChar": 45,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "ffaa1d644881d040d2d71704c5a275623b0e7f68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
