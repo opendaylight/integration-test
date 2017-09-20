@@ -38,6 +38,7 @@ ${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRu
 ${AUTH_TOKEN_API}    /oauth2/token    # FIXME: Move to a separate AAA-related Resource and add description.
 ${BGP_TOOL_PORT}    17900    # Tool side of BGP communication listens on this port.
 ${BGPCEP_LOG_LEVEL}    ${DEFAULT_BGPCEP_LOG_LEVEL}    # Some suites temporarily override org.opendaylight.bgpcep Karaf log level to this value.
+${BUNDLEFOLDER}    /opt/opendaylight    # default location to find opendaylight root folder. Upstream CSIT overrides this on the pybot command line
 ${CTRLS}          controllers    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CTRLS_CREATE}    controllers.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CONFIG_NODES_API}    /restconf/config/opendaylight-inventory:nodes    # FIXME: Move to a separate Resource and add description.
