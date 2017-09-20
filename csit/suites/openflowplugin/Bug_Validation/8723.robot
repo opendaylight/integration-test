@@ -24,7 +24,6 @@ Create Two Active Switch Connections To Controller And Check OVS Connections
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s1    ${controller_opt}
     BuiltIn.Wait Until Keyword Succeeds    20s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    1
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    Check Master Connection
-    FlowLib.Check Number Of Flows    1
     [Teardown]    Report_Failure_Due_To_Bug    8723
 
 Restore original Connection To Controller And Check OVS Connection
