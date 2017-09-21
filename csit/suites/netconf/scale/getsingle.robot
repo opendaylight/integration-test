@@ -26,7 +26,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 *** Variables ***
 ${DEVICE_COUNT}    500
 ${TIMEOUT_FACTOR}    10
-${device_type}    full-uri-device
+${device_type}    all-nodes
 
 *** Test Cases ***
 Start_Test_Tool
@@ -69,20 +69,20 @@ Teardown_Everything
     RequestsLibrary.Delete_All_Sessions
     NetconfKeywords.Stop_Testtool
 
-Configure_Device
+Configure_Devices
     [Arguments]    ${current_name}
     [Documentation]    Operation for configuring the device in the Netconf subsystem and connecting to it.
     KarafKeywords.Log_Message_To_Controller_Karaf    Connecting device ${current_name}
-    NetconfKeywords.Configure_Device_In_Netconf    ${current_name}    device_type=${device_type}    device_port=${current_port}
+    NetconfKeywords.Configure_Devices_In_Netconf    ${current_name}    device_type=${device_type}    device_port=${current_port}    iterations=500
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to connect
     NetconfKeywords.Wait_Device_Connected    ${current_name}    period=0.5s
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} connected
 
-Check_Device_Data
+Check_Devices_Data
     [Arguments]    ${current_name}
     [Documentation]    Opration for getting the configuration data of the device and checking that it matches what is expected.
     KarafKeywords.Log_Message_To_Controller_Karaf    Getting data from device ${current_name}
-    ${data}=    Utils.Get_Data_From_URI    config    network-topology:network-topology/topology/topology-netconf/node/${current_name}/yang-ext:mount    headers=${ACCEPT_XML}
+    ${data}=    Utils.Get_Data_From_URI    config    network-topology:network-topology/topology/topology-netconf/yang-ext:mount    headers=${ACCEPT_XML}
     KarafKeywords.Log_Message_To_Controller_Karaf    Got data from device ${current_name}
     BuiltIn.Should_Be_Equal    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
 

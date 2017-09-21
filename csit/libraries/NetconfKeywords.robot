@@ -52,6 +52,15 @@ Configure_Device_In_Netconf
     ...    ELSE    TemplatedRequests.Put_As_Xml_Templated    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    mapping=${mapping}    session=${session}    http_timeout=${http_timeout}
     Collections.Set_To_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}    ${device_type}
 
+Configure_Devices_In_Netconf
+    [Arguments]    ${device_name}    ${device_type}=default    ${device_port}=${FIRST_TESTTOOL_PORT}    ${device_address}=${TOOLS_SYSTEM_IP}    ${device_user}=admin    ${device_password}=topsecret
+    ...    ${session}=default    ${schema_directory}=/tmp/schema    ${http_timeout}=${EMPTY}    ${iterations}=${EMPTY}
+    [Documentation]    Tell Netconf about the specified device so it can add it into its configuration.
+    ${mapping}=    BuiltIn.Create_dictionary    DEVICE_IP=${device_address}    DEVICE_NAME=${device_name}    DEVICE_PORT=${device_port}    DEVICE_USER=${device_user}    DEVICE_PASSWORD=${device_password}
+    ...    SCHEMA_DIRECTORY=${schema_directory}
+    TemplatedRequests.Put_As_Xml_Templated    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    mapping=${mapping}    session=${session}    iterations=${iterations}    http_timeout=${http_timeout}
+    Collections.Set_To_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}    ${device_type}
+
 Count_Netconf_Connectors_For_Device
     [Arguments]    ${device_name}    ${session}=default
     [Documentation]    Count all instances of the specified device in the Netconf topology (usually 0 or 1).
@@ -95,6 +104,13 @@ Wait_Device_Connected
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Connected    ${device_name}    session=${session}
 
 Remove_Device_From_Netconf
+    [Arguments]    ${device_name}    ${session}=default    ${location}=location
+    [Documentation]    Tell Netconf to deconfigure the specified device
+    ${device_type}=    Collections.Pop_From_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
+    TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    ${template_as_string}    session=${session}    location=${location}
+
+Remove_Devices_From_Netconf
     [Arguments]    ${device_name}    ${session}=default    ${location}=location
     [Documentation]    Tell Netconf to deconfigure the specified device
     ${device_type}=    Collections.Pop_From_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}
