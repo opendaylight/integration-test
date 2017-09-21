@@ -112,6 +112,7 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           ${CURDIR}/norm_json.py
+Resource          ${CURDIR}/ScalarClosures.robot    # For Run_Keyword_And_Collect_Garbage TODO: Should we ut that elsewhere?
 Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***
@@ -347,7 +348,8 @@ Get_From_Uri
     BuiltIn.Log    ${accept}
     ${response} =    BuiltIn.Run_Keyword_If    """${http_timeout}""" == """${EMPTY}"""    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}
     ...    ELSE    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}    timeout=${http_timeout}
-    Check_Status_Code    ${response}
+# In case os scale tests, the response can be big. Under WUKS it could drain memory, do garbage collection here.
+    ScalarClosures.Run_Keyword_And_Collect_Garbage    Check_Status_Code    ${response}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
     ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}
     [Return]    ${text_normalized}
