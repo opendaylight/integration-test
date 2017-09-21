@@ -9,9 +9,9 @@ Documentation     netconf-connector scaling test suite (single-threaded GET requ
 ...
 ...
 ...               Performs scaling tests:
-...               - Configuring devices one by one.
+...               - Configuring devices by one resconf call.
 ...               - Sending requests for configuration data.
-...               - Deconfiguring devices one by one.
+...               - Deconfiguring devices by one resconf call.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -26,7 +26,9 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 *** Variables ***
 ${DEVICE_COUNT}    500
 ${TIMEOUT_FACTOR}    10
-${device_type}    full-uri-device
+${device_type}    multiple-device
+${device_name_prefix}    netconf-scaling-device
+${dash}    -
 
 *** Test Cases ***
 Start_Test_Tool
@@ -36,19 +38,21 @@ Start_Test_Tool
 Configure_Devices_Onto_Netconf
     [Documentation]    Make requests to configure the testtool devices.
     [Tags]    critical
+    KarafKeywords.Log_Message_To_Controller_Karaf    Connecting devices
+    NetconfKeywords.Configure_Devices_In_Netconf    ${device_name_prefix}${dash}    device_type=${device_type}    iterations=${DEVICE_COUNT}
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
-    NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device    timeout=${timeout}
+    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_To_Configure_Devices    timeout=${timeout}    base_netconf_device_port=1
 
 Get_Data_From_Devices
     [Documentation]    Ask testtool devices for data.
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
-    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Data    timeout=${timeout}
+    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Devices_Data    count=${DEVICE_COUNT}    timeout=${timeout}
 
 Deconfigure_Devices_From_Netconf
     [Documentation]    Make requests to deconfigure the testtool devices.
     [Tags]    critical
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
-    NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
+    NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Devices    count=1    timeout=${timeout}
     [Teardown]    Report_Failure_Due_To_Bug    4547
 
 *** Keywords ***
@@ -69,16 +73,14 @@ Teardown_Everything
     RequestsLibrary.Delete_All_Sessions
     NetconfKeywords.Stop_Testtool
 
-Configure_Device
+Wait_To_Configure_Devices
     [Arguments]    ${current_name}
-    [Documentation]    Operation for configuring the device in the Netconf subsystem and connecting to it.
-    KarafKeywords.Log_Message_To_Controller_Karaf    Connecting device ${current_name}
-    NetconfKeywords.Configure_Device_In_Netconf    ${current_name}    device_type=${device_type}    device_port=${current_port}
+    [Documentation]    Operation waiting for configuring the devices in the Netconf subsystem and connecting to it.
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to connect
-    NetconfKeywords.Wait_Device_Connected    ${current_name}    period=0.5s
+    NetconfKeywords.Wait_Device_Connected    ${current_name}    period=1s
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} connected
 
-Check_Device_Data
+Check_Devices_Data
     [Arguments]    ${current_name}
     [Documentation]    Opration for getting the configuration data of the device and checking that it matches what is expected.
     KarafKeywords.Log_Message_To_Controller_Karaf    Getting data from device ${current_name}
@@ -86,11 +88,11 @@ Check_Device_Data
     KarafKeywords.Log_Message_To_Controller_Karaf    Got data from device ${current_name}
     BuiltIn.Should_Be_Equal    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
 
-Deconfigure_Device
+Deconfigure_Devices
     [Arguments]    ${current_name}
     [Documentation]    Operation for deconfiguring the device from Netconf.
     KarafKeywords.Log_Message_To_Controller_Karaf    Removing device ${current_name}
-    NetconfKeywords.Remove_Device_From_Netconf    ${current_name}
+    NetconfKeywords.Delete_Whole_Netconf_Topology
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to disappear
-    NetconfKeywords.Wait_Device_Fully_Removed    ${current_name}    period=0.5s    timeout=120s
+    NetconfKeywords.Wait_Device_Fully_Removed    ${current_name}    period=1s    timeout=120s
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} removed
