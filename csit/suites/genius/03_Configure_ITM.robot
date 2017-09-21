@@ -11,7 +11,6 @@ Variables         ../../variables/genius/Modules.py
 Resource          ../../libraries/DataModels.robot
 Library           Collections
 Resource          ../../libraries/Utils.robot
-Resource          ../../libraries/CompareStream.robot
 Library           re
 
 *** Variables ***
@@ -33,10 +32,10 @@ Create and Verify VTEP -No Vlan
     Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     ${type}    set variable    odl-interface:tunnel-type-vxlan
-    ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
+    ${tunnel-1}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ...    ${type}
     Set Global Variable    ${tunnel-1}
-    ${tunnel-2}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
+    ${tunnel-2}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
     ...    ${type}
     Set Global Variable    ${tunnel-2}
     ${tunnel-type}=    Set Variable    type: vxlan
@@ -287,26 +286,25 @@ Get Tunnel
     [Arguments]    ${src}    ${dst}    ${type}
     [Documentation]    This Keyword Gets the Tunnel /Interface name which has been created between 2 DPNS by passing source , destination DPN Ids along with the type of tunnel which is configured.
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
+    log    ${resp.content}
     Log    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Log    ${respjson}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    ${src}    ${dst}    TUNNEL:
+    Should Contain    ${resp.content}    ${src}    ${dst}
     ${json}=    evaluate    json.loads('''${resp.content}''')    json
     log to console    \nOriginal JSON:\n${json}
-    ${expected_tunnel_interface_name} =    Set_Variable_If_At_Least_Carbon    tunnel-interface-names    tunnel-interface-name
-    ${Tunnels}    Collections.Get From Dictionary    ${json["internal-tunnel"][0]}    ${expected_tunnel_interface_name}
-    Log To Console    ${Tunnels}
-    Log    ${Tunnels}
-    ${tunnel_interface} =    Set_Variable_If_At_Least_Carbon    ${Tunnels[0]}    ${Tunnels}
-    [Return]    ${tunnel_interface}
+    ${return}    Run Keyword And Return Status    Should contain    ${resp.content}    tunnel-interface-names
+    log    ${return}
+    ${ret}    Run Keyword If    '${return}'=='True'    Check Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
+    [Return]    ${ret}
 
 Validate interface state
     [Arguments]    ${tunnel-1}    ${dpid-1}    ${tunnel-2}    ${dpid-2}
     [Documentation]    Validates the created Interface Tunnel by checking its Operational status as UP/DOWN from the dump.
     Log    ${tunnel-1},${dpid-1},${tunnel-2},${dpid-2}
-    ${data1-2}    Wait Until Keyword Succeeds    40    10    Check Interface status    ${tunnel-1}    ${dpid-1}
-    ${data2-1}    Wait Until Keyword Succeeds    40    10    Check Interface status    ${tunnel-2}    ${dpid-2}
+    ${data1-2}    Wait Until Keyword Succeeds    40    10    Check Interface Status    ${tunnel-1}    ${dpid-1}
+    ${data2-1}    Wait Until Keyword Succeeds    40    10    Check Interface Status    ${tunnel-2}    ${dpid-2}
     @{data}    combine lists    ${data1-2}    ${data2-1}
     log    ${data}
     [Return]    ${data}
@@ -388,7 +386,7 @@ check-Tunnel-delete-on-ovs
     Should Not Contain    ${return}    ${tunnel}
     [Return]    ${return}
 
-check interface status
+Check Interface Status
     [Arguments]    ${tunnel}    ${dpid}
     [Documentation]    Verifies the operational state of the interface .
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
@@ -429,3 +427,10 @@ Verify Data Base after Delete
     Wait Until Keyword Succeeds    40    10    Get Network Topology without Tunnel    ${OPERATIONAL_TOPO_API}    ${tunnel-1}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Validate interface state Delete    ${tunnel-1}
     Wait Until Keyword Succeeds    40    10    Validate interface state Delete    ${tunnel-2}
+
+Check Interface Name
+    [Arguments]    ${json}    ${expected_tunnel_interface_name}
+    [Documentation]    This keyword Checks the Tunnel interface name is tunnel-interface-names in the output or not .
+    ${Tunnels}    Collections.Get From Dictionary    ${json}    ${expected_tunnel_interface_name}
+    Log    ${Tunnels}
+    [Return]    ${Tunnels[0]}
