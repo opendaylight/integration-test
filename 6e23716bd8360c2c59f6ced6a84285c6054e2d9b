@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_7b7bf9bd",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-21T15:38:08Z",
+      "side": 1,
+      "message": "devices",
+      "range": {
+        "startLine": 58,
+        "startChar": 56,
+        "endLine": 58,
+        "endChar": 62
+      },
+      "revId": "6e23716bd8360c2c59f6ced6a84285c6054e2d9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_9b57cd25",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-21T15:38:08Z",
+      "side": 1,
+      "message": "You need to set multiple names, so that operations which only work for single device can be applied (in a loop).",
+      "range": {
+        "startLine": 62,
+        "startChar": 81,
+        "endLine": 62,
+        "endChar": 95
+      },
+      "revId": "6e23716bd8360c2c59f6ced6a84285c6054e2d9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_7b52d935",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-21T15:38:08Z",
+      "side": 1,
+      "message": "This deletes only one device. Either implement a FOR cycle, or do not use delete at all (instead replace topology with zero-devices data).",
+      "range": {
+        "startLine": 117,
+        "startChar": 71,
+        "endLine": 117,
+        "endChar": 85
+      },
+      "revId": "6e23716bd8360c2c59f6ced6a84285c6054e2d9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_1b3bddeb",
+        "filename": "csit/variables/netconf/device/all-nodes/data.item.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-21T15:38:08Z",
+      "side": 1,
+      "message": "You need to use \"$i\" where iteration number should be inserted (so that ports and names are not constant). The \"i\" value is not given by user, bug generated withing internal item generating cycle. See [0].\n\n[0] https://github.com/opendaylight/integration-test/blob/master/csit/libraries/TemplatedRequests.robot#L431",
+      "range": {
+        "startLine": 4,
+        "startChar": 55,
+        "endLine": 4,
+        "endChar": 67
+      },
+      "revId": "6e23716bd8360c2c59f6ced6a84285c6054e2d9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
