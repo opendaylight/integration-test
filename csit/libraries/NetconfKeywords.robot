@@ -27,8 +27,7 @@ Resource          RemoteBash.robot
 ${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G -XX:MaxPermSize=256M -Dorg.apache.sshd.registerBouncyCastle=false
 ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
-${BASE_NETCONF_DEVICE_PORT}    17830
-${DEVICE_NAME_BASE}    netconf-scaling-device
+${DEVICE_NAME_BASE}    netconf-scaling-device-
 ${TESTTOOL_BOOT_TIMEOUT}    60s
 ${ENABLE_NETCONF_TEST_TIMEOUT}    ${ENABLE_GLOBAL_TEST_DEADLINES}
 
@@ -51,6 +50,17 @@ Configure_Device_In_Netconf
     Run Keyword if    '${http_method}'=='post'    TemplatedRequests.Post_As_Xml_Templated    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    mapping=${mapping}    session=${session}    http_timeout=${http_timeout}
     ...    ELSE    TemplatedRequests.Put_As_Xml_Templated    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    mapping=${mapping}    session=${session}    http_timeout=${http_timeout}
     Collections.Set_To_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}    ${device_type}
+
+Configure_Devices_In_Netconf
+    [Arguments]    ${device_name_prefix}    ${devices_type}=topology-netconf-devices    ${first_device_port}=${FIRST_TESTTOOL_PORT}    ${device_address}=${TOOLS_SYSTEM_IP}    ${device_user}=admin    ${device_password}=topsecret
+    ...    ${session}=default    ${schema_directory}=/tmp/schema    ${http_timeout}=${EMPTY}    ${number_of_devices}=${EMPTY}
+    [Documentation]    Tell Netconf about the specified devices so it can add it into its configuration.
+    ${mapping}=    BuiltIn.Create_dictionary    DEVICE_IP=${device_address}    DEVICE_NAME_PREFIX=${device_name_prefix}    DEVICE_USER=${device_user}    DEVICE_PASSWORD=${device_password}
+    ...    SCHEMA_DIRECTORY=${schema_directory}
+    TemplatedRequests.Put_As_Xml_Templated    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${devices_type}    mapping=${mapping}    session=${session}    iterations=${number_of_devices}    iter_start=${first_device_port}    http_timeout=${http_timeout}
+    ${max_index}=    Builtin.Evaluate    ${first_device_port} + ${number_of_devices}
+    : FOR    ${iteration}    IN RANGE    ${first_device_port}    ${max_index}
+    \    Collections.Set_To_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name_prefix}${iteration}    ${devices_type}
 
 Count_Netconf_Connectors_For_Device
     [Arguments]    ${device_name}    ${session}=default
@@ -82,6 +92,15 @@ Check_Device_Completely_Gone
     BuiltIn.Should_Be_Equal_As_Strings    ${status}    FAIL
     BuiltIn.Should_Contain    ${response}    404
 
+Check_Topology_Completely_Gone
+    [Arguments]    ${session}=default
+    [Documentation]    Check that the topology has not associated data.
+    ${uri}=    Builtin.Set_Variable    ${OPERATIONAL_API}/network-topology:network-topology/topology/topology-netconf/
+    ${status}    ${response}=    BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Get_As_Xml_From_Uri    ${uri}    session=${session}
+    BuiltIn.Should_Be_Equal_As_Strings    ${status}    FAIL
+    BuiltIn.Should_Contain    ${response}    404
+    TemplatedRequests.Check_Status_Code    ${response}    404
+
 Check_Device_Connected
     [Arguments]    ${device_name}    ${session}=default
     [Documentation]    Check that the specified device is accessible from Netconf.
@@ -100,6 +119,11 @@ Remove_Device_From_Netconf
     ${device_type}=    Collections.Pop_From_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
     TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    ${template_as_string}    session=${session}    location=${location}
+
+Delete_Whole_Netconf_Topology
+    [Arguments]    ${session}=default    ${devices_type}=None
+    [Documentation]    Tell Netconf to deconfigure all devices
+    TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_DEVICE_TEMPLATES}/${devices_type}   session=${session}
 
 Wait_Device_Fully_Removed
     [Arguments]    ${device_name}    ${timeout}=10s    ${period}=1s    ${session}=default
@@ -196,16 +220,17 @@ NetconfKeywords__Check_Netconf_Test_Timeout_Not_Expired
     BuiltIn.Run_Keyword_If    ${ellapsed_seconds}<0    Fail    The global time out period expired
 
 NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
-    [Arguments]    ${operation}    ${deadline_Date}
+    [Arguments]    ${operation}    ${deadline_Date}    ${device_name_prefix}=${DEVICE_NAME_BASE}    ${test_type}=None
     NetconfKeywords__Check_Netconf_Test_Timeout_Not_Expired    ${deadline_Date}
-    ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
-    BuiltIn.Run_Keyword    ${operation}    ${DEVICE_NAME_BASE}-${number}
+    ${single_test_number}=    BuiltIn.Evaluate    ${current_port}-${FIRST_TESTTOOL_PORT}+1
+    ${number}=    BuiltIn.Set_Variable_If    "${test_type}" == "multipledevice"    ${current_port}    ${single_test_number}
+    BuiltIn.Run_Keyword    ${operation}    ${device_name_prefix}${number}
     ${next}=    BuiltIn.Evaluate    ${current_port}+1
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
 
 Perform_Operation_On_Each_Device
-    [Arguments]    ${operation}    ${count}=${NetconfKeywords__testtool_device_count}    ${timeout}=30m
+    [Arguments]    ${operation}    ${count}=${NetconfKeywords__testtool_device_count}    ${timeout}=30m    ${device_name_prefix}=${DEVICE_NAME_BASE}    ${test_type}=None
     ${current_Date}=    DateTime.Get_Current_Date
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
-    BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
-    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}
+    BuiltIn.Set_Suite_Variable    ${current_port}    ${FIRST_TESTTOOL_PORT}
+    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}    ${device_name_prefix}    ${test_type}
