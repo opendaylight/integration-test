@@ -45,6 +45,7 @@ ${OVS2_VM1_NAME}    VM3
 ${OVS_VM2_NAME}    VM4
 ${SECURITY_GROUP_L2GW}    sg-l2gateway
 ${SECURITY_GROUP_L2GW_NONE}    --no-security-groups
+${PORT_SECURITY_DISABLED}    --port-security-enabled=FALSE
 ${SUBNET_1}       HWV-SUB1
 ${SUBNET_2}       HWV-SUB2
 ${SUBNET_RANGE1}    13.0.0.0/24
