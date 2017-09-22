@@ -25,7 +25,7 @@ ${USE_NETCONF_CONNECTOR}    ${False}
 *** Test Cases ***
 Check_Device_Is_Not_Configured_At_Beginning
     [Documentation]    Sanity check making sure our device is not there. Fail if found.
-    NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${device_name}
+    Wait Until Keyword Succeeds    5x    20    NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${device_name}
 
 Configure_Device_On_Netconf
     [Documentation]    Make request to configure netconf netopeer with wrong password. Correct auth is root/root
