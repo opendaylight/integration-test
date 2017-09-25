@@ -33,7 +33,7 @@ ${STABILITY_TIMEOUT_REJOINED}    60s
 @{STATUS_ISOLATED}    ${501}
 
 *** Test Cases ***
-CS_Pertition_And_Heal
+CS_Partition_And_Heal
     [Documentation]    24h lasting suite for isolating the cluster singleton leader repeatedly.
     CsCommon.Register_Singleton_Constant_On_Nodes    ${cs_all_indices}
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${LONGEVITY_TEST_DURATION_IN_SECS}    3s    Test_Scenario

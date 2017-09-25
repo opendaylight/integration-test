@@ -41,7 +41,7 @@ Unregister_Singleton_Constant_On_Non_Master_Node
 
 Monitor_Stability_While_Unregistered
     [Documentation]    Verify that the owner remains on the same node after non-owner candidate is unregistered.
-    CsCommon.Monitor_Owner_And_Candidates_Stability    ${STABILITY_TIMEOUT}    ${cs_owner}
+    CsCommon.Monitor_Owner_And_Candidates_Stability    ${STABILITY_TIMEOUT}
 
 Reregister_Singleton_Constant
     [Documentation]    Re-register the unregistered candidate.
