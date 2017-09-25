@@ -113,6 +113,20 @@ Isolate_Owner_And_Verify_Isolated
     Get_And_Save_Present_CsOwner_And_CsCandidates    ${node_to_ask}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Verify_Singleton_Constant_During_Isolation
 
+Isolate_Successor_And_Verify_Isolated
+    [Arguments]
+    [Documentation]    Isolate the successor cluster node. Verify the owner candidates do not change for some time.
+    ${cs_successors} =    BuiltIn.Create_List    ${cs_candidates}
+    Collections.Remove_Values_From_List    ${cs_successors}    ${cs_owner}
+    ${cs_successor} =    Collections.Get_From_list    ${sc_successors}    0
+    ClusterManagement.Isolate_Member_From_List_Or_All    ${cs_successor}
+    BuiltIn.Set_Suite_Variable    ${cs_isolated_index}    ${cs_successor}
+    ${non_isolated_list} =    ClusterManagement.List_Indices_Minus_Member    ${cs_isolated_index}    member_index_list=${cs_all_indices}
+    ${node_to_ask} =    Collections.Get_From_list    ${non_isolated_list}    0
+    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    member_index_list=${non_isolated_list}
+    Monitor_Owner_And_Candidates_Stability    60s    ${cs_owner}
+    Verify_Singleton_Constant_During_Isolation
+
 Rejoin_Node_And_Verify_Rejoined
     [Documentation]    Rejoin isolated node.
     ClusterManagement.Rejoin_Member_From_List_Or_All    ${cs_isolated_index}
