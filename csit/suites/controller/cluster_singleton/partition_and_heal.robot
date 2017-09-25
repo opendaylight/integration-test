@@ -46,15 +46,32 @@ Isolate_Owner_Node
     ...    new values of owner and candidates.
     CsCommon.Isolate_Owner_And_Verify_Isolated
 
-Monitor_Stability_While_Isolated
+Monitor_Stability_While_Owner_Isolated
     [Documentation]    Monitor the stability of the singleton application and fail the the owner is changed during the monitoring.
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${STABILITY_TIMEOUT_ISOLATED}    3s    CsCommon.Verify_Singleton_Constant_During_Isolation
 
-Rejoin_Isolated_node
+Rejoin_Isolated_Owner
     [Documentation]    Rejoin isolated node.
     CsCommon.Rejoin_Node_And_Verify_Rejoined
 
-Verify_Stability_After_Rejoin
+Verify_Stability_After_Owner_Rejoin
+    [Documentation]    Verify that the rejoining of the isolated node does not change the singleton owner.
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${STABILITY_TIMEOUT_REJOINED}    3s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${cs_owner}
+
+Isolate_Successor_Node
+    [Documentation]    Isolate the cluster node which is the successor.
+    ...    Verify owner and (non-isolated) candidates remain the same.
+    CsCommon.Isolate_Successor_And_Verify_Isolated
+
+Monitor_Stability_While_Successor_Isolated
+    [Documentation]    Monitor the stability of the singleton application and fail the the owner is changed during the monitoring.
+    Monitor_Owner_And_Candidates_Stability    ${STABILITY_TIMEOUT_ISOLATED}
+
+Rejoin_Isolated_Successor
+    [Documentation]    Rejoin isolated node.
+    CsCommon.Rejoin_Node_And_Verify_Rejoined
+
+Verify_Stability_After_Successor_Rejoin
     [Documentation]    Verify that the rejoining of the isolated node does not change the singleton owner.
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${STABILITY_TIMEOUT_REJOINED}    3s    CsCommon.Verify_Singleton_Constant_On_Nodes    ${cs_all_indices}    ${CS_CONSTANT_PREFIX}${cs_owner}
 
