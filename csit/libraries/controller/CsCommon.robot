@@ -59,9 +59,9 @@ Verify_Owner_And_Candidates_Stable
     Collections.Lists_Should_Be_Equal    ${cs_exp_candidates}    ${actual_candidates}
 
 Monitor_Owner_And_Candidates_Stability
-    [Arguments]    ${monitoring_duration}    ${owner_index}
-    [Documentation]    Verify that the owner remains on the same node after non-owner candidate is unregistered.
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${monitoring_duration}    3s    Verify_Owner_And_Candidates_Stable    ${owner_index}
+    [Arguments]    ${monitoring_duration}
+    [Documentation]    Verify that the owner remains on the same member for a period of time after test performed some change.
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${monitoring_duration}    3s    Verify_Owner_And_Candidates_Stable    ${cs_owner}
 
 Register_Singleton_Constant_On_Nodes
     [Arguments]    ${index_list}
@@ -112,6 +112,17 @@ Isolate_Owner_And_Verify_Isolated
     ...    ${node_to_ask}    http_timeout=125
     Get_And_Save_Present_CsOwner_And_CsCandidates    ${node_to_ask}
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    3s    Verify_Singleton_Constant_During_Isolation
+
+Isolate_Successor_And_Verify_Isolated
+    [Arguments]
+    [Documentation]    Isolate the successor cluster node. Verify the owner candidates do not change for some time.
+    ${cs_successors} =    ClusterManagement.List_Indices_Minus_Member    ${cs_owner}    member_index_list=${cs_candidates}
+    ${cs_successor} =    Collections.Get_From_list    ${cs_successors}    0
+    ClusterManagement.Isolate_Member_From_List_Or_All    ${cs_successor}
+    BuiltIn.Set_Suite_Variable    ${cs_isolated_index}    ${cs_successor}
+    ${non_isolated_list} =    ClusterManagement.List_Indices_Minus_Member    ${cs_isolated_index}    member_index_list=${cs_all_indices}
+    BuiltIn.Wait_Until_Keyword_Succeeds    70s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    member_index_list=${non_isolated_list}
+    Verify_Singleton_Constant_During_Isolation
 
 Rejoin_Node_And_Verify_Rejoined
     [Documentation]    Rejoin isolated node.
