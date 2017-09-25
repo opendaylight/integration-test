@@ -43,9 +43,9 @@ TC04 Create Vms On Compute Node
 TC05 Create L2Gateway And Connection And Verify
     ${output}=    L2GatewayOperations.Create Verify L2Gateway    ${HWVTEP_BRIDGE}    ${NS_PORT1}    ${L2GW_NAME1}
     Log    ${output}
-    ${output}=    L2GatewayOperations.Create Verify L2Gateway Connection    ${L2GW_NAME1}    ${NET_1}
+    ${output}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Create Verify L2Gateway Connection    ${L2GW_NAME1}    ${NET_1}
     Log    ${output}
-    L2GatewayOperations.Verify Ovs Tunnel    ${HWVTEP_IP}    ${OVS_IP}
+    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify Ovs Tunnel    ${HWVTEP_IP}    ${OVS_IP}
     ${output}=    ITM Get Tunnels
     Log    ${output}
     Should Contain    ${output}    physicalswitch/${HWVTEP_BRIDGE}
