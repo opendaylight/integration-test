@@ -44,8 +44,8 @@ Workflow Linear Topology
     Log To Console    Verify controller is OK
     ${status}    ${result}    Run Keyword And Ignore Error    Utils.Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
     Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller is dead    ${topology_discover_time}
-    ${status}    ${result}    Run Keyword And Ignore Error    Utils.Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
-    Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller has NPE    ${topology_discover_time}
+    #${status}    ${result}    Run Keyword And Ignore Error    Utils.Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
+    #Return From Keyword If    '${status}' == 'FAIL'    ${status}    Controller has NPE    ${topology_discover_time}
     Log To Console    Checking ${switches} switches
     ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    2s    FlowLib.Check Switches In Inventory
     ...    ${switches}
