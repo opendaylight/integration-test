@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_becd5433",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-26T17:06:47Z",
+      "side": 1,
+      "message": "why is this needed? we have a keyword already, but looks\nlike you need an alternate approach?\n\nAlso Use The Standard Naming Technique Please",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 25
+      },
+      "revId": "be0b8dfd83873b18a1e2c41c7f12620e59ae362b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_fed34cd2",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-26T17:06:47Z",
+      "side": 1,
+      "message": "weird that we don\u0027t already have something like this? don\u0027t we?",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 211,
+        "endChar": 18
+      },
+      "revId": "be0b8dfd83873b18a1e2c41c7f12620e59ae362b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_1ed100cd",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-26T17:06:47Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 5
+      },
+      "revId": "be0b8dfd83873b18a1e2c41c7f12620e59ae362b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_7edf5cd6",
+        "filename": "csit/libraries/OpendaylightInstallUtils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-26T17:06:47Z",
+      "side": 1,
+      "message": "hmmmm.... I wonder if it\u0027s time that we start consuming the .rpms instead of the .zips. Then it\u0027s just an rpm --install\non the URL to the rpm.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "be0b8dfd83873b18a1e2c41c7f12620e59ae362b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_feea2c72",
+        "filename": "csit/libraries/SystemUtils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-26T17:06:47Z",
+      "side": 1,
+      "message": "you should double check all of these because some of these keywords are already available in the OperatingSystem library\n\nhttp://robotframework.org/robotframework/latest/libraries/OperatingSystem.html\n\nno need to reinvent the wheel on those.",
+      "revId": "be0b8dfd83873b18a1e2c41c7f12620e59ae362b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_bef4345b",
+        "filename": "csit/libraries/SystemUtils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-26T17:06:47Z",
+      "side": 1,
+      "message": "instead of all the Log statements, how about a few lines\nat the end doing \"systemctl status firewalld\" and for iptables as well. that is really what we want to know; \ntheir status and that they are not running.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 16
+      },
+      "revId": "be0b8dfd83873b18a1e2c41c7f12620e59ae362b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_1ee8e07a",
+        "filename": "csit/libraries/SystemUtils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-26T17:06:47Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 4
+      },
+      "revId": "be0b8dfd83873b18a1e2c41c7f12620e59ae362b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
