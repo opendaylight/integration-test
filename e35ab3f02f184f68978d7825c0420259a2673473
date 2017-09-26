@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_fe5cec7e",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-26T16:55:56Z",
+      "side": 1,
+      "message": "I think you need to add the Login step also, like:\n\nFlexible SSH Login    ${user}    ${password}",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 128
+      },
+      "revId": "e35ab3f02f184f68978d7825c0420259a2673473",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
