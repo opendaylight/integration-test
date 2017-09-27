@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_b12e1ef9",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-27T15:58:08Z",
+      "side": 1,
+      "message": "Again. Make sure this (plus dash) is the name prefix, or make this configurable.",
+      "range": {
+        "startLine": 217,
+        "startChar": 43,
+        "endLine": 217,
+        "endChar": 62
+      },
+      "revId": "748430c6bba291aeca97e305762b4aeee54d6086",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_51ec02bb",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-27T15:58:08Z",
+      "side": 1,
+      "message": "Either make sure the suite uses this default (for the first device port), or make this configurable.",
+      "range": {
+        "startLine": 225,
+        "startChar": 53,
+        "endLine": 225,
+        "endChar": 80
+      },
+      "revId": "748430c6bba291aeca97e305762b4aeee54d6086",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
