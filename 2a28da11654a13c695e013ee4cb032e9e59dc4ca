@@ -134,6 +134,52 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_521fddb6",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "This Log is still useful.",
+      "range": {
+        "startLine": 41,
+        "startChar": 53,
+        "endLine": 41,
+        "endChar": 71
+      },
+      "revId": "2a28da11654a13c695e013ee4cb032e9e59dc4ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_321a29c6",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "You have to configure the devices.",
+      "range": {
+        "startLine": 42,
+        "startChar": 20,
+        "endLine": 42,
+        "endChar": 48
+      },
+      "revId": "2a28da11654a13c695e013ee4cb032e9e59dc4ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_d2574dc8",
         "filename": "csit/suites/netconf/scale/getsingle.robot",
         "patchSetId": 20
