@@ -1,1 +1,1 @@
-integration/test/csit/suites/openstack/tempest/
+integration/test/csit/suites/openstack/tempest/tempest.robot
