@@ -385,6 +385,7 @@ Ping Vm From DHCP Namespace
     [Arguments]    ${net_name}    ${vm_ip}
     [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
+    Should Not Contain    ${vm_ip}     "None"
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
@@ -399,6 +400,7 @@ Ping From DHCP Should Not Succeed
     [Documentation]    Should Not Reach Vm Instance with the net id of the Netowrk.
     Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
     Log    ${vm_ip}
+    Should Not Contain    ${vm_ip}     "None"
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
@@ -412,6 +414,7 @@ Ping Vm From Control Node
     [Arguments]    ${vm_floating_ip}    ${additional_args}=${EMPTY}
     [Documentation]    Ping VM floating IP from control node
     Log    ${vm_floating_ip}
+    Should Not Contain    ${vm_floating_ip}     "None"
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    ping ${additional_args} -c 3 ${vm_floating_ip}    20s
@@ -422,6 +425,7 @@ Ping Vm From Control Node
 Ping From Instance
     [Arguments]    ${dest_vm_ip}
     [Documentation]    Ping to the expected destination ip.
+    Should Not Contain    ${dest_vm_ip}     "None"
     ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${dest_vm_ip}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
     [Return]    ${output}
@@ -452,6 +456,7 @@ Exit From Vm Console
 Check Ping
     [Arguments]    ${ip_address}    ${ttl}=64
     [Documentation]    Run Ping command on the IP available as argument
+    Should Not Contain      ${ip_address}     "None"
     ${ethertype}=    Get Regexp Matches    ${ip_address}    ${IP_REGEX}
     ${output}=    Run Keyword If    ${ethertype}    Write Commands Until Expected Prompt    ping -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
     ...    ELSE    Write Commands Until Expected Prompt    ping6 -t ${ttl} -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
