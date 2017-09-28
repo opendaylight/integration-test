@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_edf6f6d5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T12:56:17Z",
+      "side": 1,
+      "message": "Do you plan to pool also these connections?\nhttps://trello.com/c/0Sy67AAp/342-int-test-improve-usage-of-openstackoperationsgetcontrolnodeconnection",
+      "range": {
+        "startLine": 644,
+        "startChar": 27,
+        "endLine": 645,
+        "endChar": 34
+      },
+      "revId": "98856b4adb3c6669634137acbcfecbead84cc376",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
