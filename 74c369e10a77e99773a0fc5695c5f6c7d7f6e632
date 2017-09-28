@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_b7e9ebb8",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "${devices_type}\nAs templates for multiple devices contain $i they are distinct from single device templates.",
+      "range": {
+        "startLine": 56,
+        "startChar": 44,
+        "endLine": 56,
+        "endChar": 58
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_17d437ea",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "${first_device_port}",
+      "range": {
+        "startLine": 56,
+        "startChar": 70,
+        "endLine": 56,
+        "endChar": 84
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_17fb9779",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "Choose an appropriate multiple-device folder name.",
+      "range": {
+        "startLine": 56,
+        "startChar": 59,
+        "endLine": 56,
+        "endChar": 66
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_f7cec358",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "${number_of_devices}",
+      "range": {
+        "startLine": 57,
+        "startChar": 96,
+        "endLine": 57,
+        "endChar": 109
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_97078781",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "Not needed, implied by first device port.",
+      "range": {
+        "startLine": 57,
+        "startChar": 122,
+        "endLine": 57,
+        "endChar": 137
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_b700cb66",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "See comments for the template files.",
+      "range": {
+        "startLine": 59,
+        "startChar": 27,
+        "endLine": 59,
+        "endChar": 44
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_57486fcb",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "There are no alternative URIs for deleting the topolohy, hardcode a default.",
+      "range": {
+        "startLine": 115,
+        "startChar": 19,
+        "endLine": 115,
+        "endChar": 33
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d7829fc6",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "ALL_CAPS implies a global constant (line 30). That value can be used as a default, byt the argument name has to be different (Robot variable names are is case insensitive).",
+      "range": {
+        "startLine": 214,
+        "startChar": 55,
+        "endLine": 214,
+        "endChar": 82
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_37485bb2",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "See comment on line 214.",
+      "range": {
+        "startLine": 222,
+        "startChar": 144,
+        "endLine": 222,
+        "endChar": 163
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_f7d883f0",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "${DEVICE_COUNT}",
+      "range": {
+        "startLine": 42,
+        "startChar": 156,
+        "endLine": 42,
+        "endChar": 159
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d7d0dfca",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "I do not believe this is initialized yet.",
+      "range": {
+        "startLine": 42,
+        "startChar": 126,
+        "endLine": 42,
+        "endChar": 141
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_b7d3abd3",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "${DEVICE_COUNT}",
+      "range": {
+        "startLine": 49,
+        "startChar": 84,
+        "endLine": 49,
+        "endChar": 85
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_b7ea8b71",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "Mounts are per device (not per topology). You have to check mount access one device at a time.",
+      "range": {
+        "startLine": 87,
+        "startChar": 113,
+        "endLine": 87,
+        "endChar": 127
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_f7ffe331",
+        "filename": "csit/variables/netconf/device/all-nodes/data.item.xml",
+        "patchSetId": 19
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T08:29:34Z",
+      "side": 1,
+      "message": "$DEVICE_NAME_PREFIX\nDecide and document whether it should contain dash.",
+      "range": {
+        "startLine": 2,
+        "startChar": 11,
+        "endLine": 2,
+        "endChar": 23
+      },
+      "revId": "74c369e10a77e99773a0fc5695c5f6c7d7f6e632",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
