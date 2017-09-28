@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_72e301d9",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "Why do you need two constants for the same value? FIRST_TESTTOOL_PORT is the better name.",
+      "range": {
+        "startLine": 30,
+        "startChar": 31,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "47643d4f6d9a75fceb3c6a8f592d8d9c7eff9c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d2e62de7",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "${devices_type} as in patch set 19 comment.",
+      "range": {
+        "startLine": 56,
+        "startChar": 44,
+        "endLine": 56,
+        "endChar": 58
+      },
+      "revId": "47643d4f6d9a75fceb3c6a8f592d8d9c7eff9c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_922e75f9",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "Oh, this should be the max index (plus one), not number of iterations.\n\nhttp://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#for-in-range-loop",
+      "range": {
+        "startLine": 62,
+        "startChar": 65,
+        "endLine": 62,
+        "endChar": 85
+      },
+      "revId": "47643d4f6d9a75fceb3c6a8f592d8d9c7eff9c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_324349b0",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "I believe the slash has to be outside variable name.",
+      "range": {
+        "startLine": 117,
+        "startChar": 78,
+        "endLine": 117,
+        "endChar": 79
+      },
+      "revId": "47643d4f6d9a75fceb3c6a8f592d8d9c7eff9c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_721821d3",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "${FIRST_TESTTOOL_PORT}",
+      "range": {
+        "startLine": 214,
+        "startChar": 84,
+        "endLine": 214,
+        "endChar": 89
+      },
+      "revId": "47643d4f6d9a75fceb3c6a8f592d8d9c7eff9c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d20bcd7a",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "${FIRST_TESTTOOL_PORT}",
+      "range": {
+        "startLine": 222,
+        "startChar": 136,
+        "endLine": 222,
+        "endChar": 141
+      },
+      "revId": "47643d4f6d9a75fceb3c6a8f592d8d9c7eff9c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_f2237102",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "topology-netconf-devices would be a better folder name.",
+      "range": {
+        "startLine": 29,
+        "startChar": 18,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "47643d4f6d9a75fceb3c6a8f592d8d9c7eff9c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_727f81e0",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "You are adding a keyword to delete netconf-topology, you can use it here.",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 52
+      },
+      "revId": "47643d4f6d9a75fceb3c6a8f592d8d9c7eff9c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d282adc6",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "The new suite will not need to configure singular device.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 16
+      },
+      "revId": "47643d4f6d9a75fceb3c6a8f592d8d9c7eff9c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_b28579d0",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T11:46:14Z",
+      "side": 1,
+      "message": "Also deconfiguring can be done by single resconf call (as opposed to one for each device).",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 18
+      },
+      "revId": "47643d4f6d9a75fceb3c6a8f592d8d9c7eff9c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
