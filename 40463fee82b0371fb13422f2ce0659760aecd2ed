@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_91595037",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T18:37:45Z",
+      "side": 1,
+      "message": "This should be 2 if both ${first_device_port} and ${number_of_devices} are 1.\nCurrently, this would be 3 (as max_index would already be 2).",
+      "range": {
+        "startLine": 62,
+        "startChar": 65,
+        "endLine": 62,
+        "endChar": 79
+      },
+      "revId": "40463fee82b0371fb13422f2ce0659760aecd2ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
