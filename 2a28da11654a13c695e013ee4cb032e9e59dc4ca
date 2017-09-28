@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_124e053b",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T10:40:41Z",
+      "side": 1,
+      "message": "See two comments from patch set 19.",
+      "range": {
+        "startLine": 55,
+        "startChar": 44,
+        "endLine": 55,
+        "endChar": 66
+      },
+      "revId": "2a28da11654a13c695e013ee4cb032e9e59dc4ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d240ed08",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T10:40:41Z",
+      "side": 1,
+      "message": "Oh, this is no longer present in the template. Do not add this to the dictionary.",
+      "range": {
+        "startLine": 58,
+        "startChar": 123,
+        "endLine": 58,
+        "endChar": 134
+      },
+      "revId": "2a28da11654a13c695e013ee4cb032e9e59dc4ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_b243b911",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T10:40:41Z",
+      "side": 1,
+      "message": "${first_device_port}",
+      "range": {
+        "startLine": 61,
+        "startChar": 41,
+        "endLine": 61,
+        "endChar": 42
+      },
+      "revId": "2a28da11654a13c695e013ee4cb032e9e59dc4ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_f248912e",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T10:40:41Z",
+      "side": 1,
+      "message": "Hardcode folder with the right location.",
+      "range": {
+        "startLine": 116,
+        "startChar": 80,
+        "endLine": 116,
+        "endChar": 94
+      },
+      "revId": "2a28da11654a13c695e013ee4cb032e9e59dc4ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_324fc935",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T10:40:41Z",
+      "side": 1,
+      "message": "Choose a name which does not clash with existing constant.",
+      "range": {
+        "startLine": 213,
+        "startChar": 55,
+        "endLine": 213,
+        "endChar": 82
+      },
+      "revId": "2a28da11654a13c695e013ee4cb032e9e59dc4ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_12ea85da",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T10:40:41Z",
+      "side": 1,
+      "message": "Instead editing the existing suite, create a new suite so that we can run them both and compare performance.\nBut that can be done in later patch sets, as it is nice to compare the two future suites in one view while reviewing the logic.",
+      "revId": "2a28da11654a13c695e013ee4cb032e9e59dc4ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_d2574dc8",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T10:40:41Z",
+      "side": 1,
+      "message": "${DEVICE_COUNT}",
+      "range": {
+        "startLine": 44,
+        "startChar": 132,
+        "endLine": 44,
+        "endChar": 133
+      },
+      "revId": "2a28da11654a13c695e013ee4cb032e9e59dc4ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_32fd09b2",
+        "filename": "csit/variables/netconf/device/multiple-device/data.item.xml",
+        "patchSetId": 20
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-09-28T10:40:41Z",
+      "side": 1,
+      "message": "Dash or not?\nUnify with NetconfKeywords.robot lines 58, 62, 216 and getsingle.robot lines 30, 42. Perhaps use two different variable names for prefix with and without the dash.",
+      "range": {
+        "startLine": 2,
+        "startChar": 30,
+        "endLine": 2,
+        "endChar": 32
+      },
+      "revId": "2a28da11654a13c695e013ee4cb032e9e59dc4ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
