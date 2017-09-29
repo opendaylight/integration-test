@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_c8acb9ef",
+        "filename": "csit/suites/yangtools/yang-model-validator/yang-model-validator.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-29T17:13:37Z",
+      "side": 1,
+      "message": "I think you just need to put this last arg on the next line\nto pass +verify in jenkins. here is from console output:\n\n15:33:54 -    \\    ${logfile} \u003d    NexusKeywords.Install_And_Start_Java_Artifact    component\u003dyangtools    artifact\u003dyang-model-validator    suffix\u003djar-with-dependencies    tool_options\u003d-p ${p_option_value} ${yang_file}    explicit_url\u003d${url}\n15:33:54 +    \\    ${logfile} \u003d    NexusKeywords.Install_And_Start_Java_Artifact    component\u003dyangtools    artifact\u003dyang-model-validator    suffix\u003djar-with-dependencies    tool_options\u003d-p ${p_option_value} ${yang_file}\n15:33:54 +    \\    ...    explicit_url\u003d${url}",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 231
+      },
+      "revId": "eb24c4c123a0da88cd88bca7af3b288b17b2191a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
