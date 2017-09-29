@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_a8fd0570",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-09-29T20:07:40Z",
+      "side": 1,
+      "message": "does this flip on everything at dbg level?",
+      "revId": "528f80a658121368f694124de829248347e0a832",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_68078d82",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-09-29T20:07:40Z",
+      "side": 1,
+      "message": "this all gets logged to the log.html right? It could potentially blowup the file size and not get dumped.",
+      "revId": "528f80a658121368f694124de829248347e0a832",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
