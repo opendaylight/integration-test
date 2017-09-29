@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_234ad654",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-29T21:30:28Z",
+      "side": 1,
+      "message": "I don\u0027t know what else there is. This was verbatim from an\nemail Vishal gave me, iirc",
+      "parentUuid": "ba1f61a0_a8fd0570",
+      "revId": "528f80a658121368f694124de829248347e0a832",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_68078d82",
         "filename": "csit/libraries/OvsManager.robot",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2017-09-29T20:07:40Z",
       "side": 1,
       "message": "this all gets logged to the log.html right? It could potentially blowup the file size and not get dumped.",
+      "revId": "528f80a658121368f694124de829248347e0a832",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_a36d26ce",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-09-29T21:30:28Z",
+      "side": 1,
+      "message": "I don\u0027t think we are looking at the ovs log file\nat the robot level. That\u0027s the typical trouble we\nget when the robot logs are so big the system just\nkills pybot as it\u0027s trying to create the .html files.\n\nbut, yeah, I guess the ovs log could be so large that\nit takes too long to copy over and the job chokes. we\u0027ve\nseen that before when the karaf.log was too big.",
+      "parentUuid": "ba1f61a0_68078d82",
       "revId": "528f80a658121368f694124de829248347e0a832",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
