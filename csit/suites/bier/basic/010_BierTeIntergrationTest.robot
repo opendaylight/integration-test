@@ -18,7 +18,7 @@ Suite Setup       Init All
 Suite Teardown    Delete All Sessions
 Resource          ../../../libraries/BierTeResource.robot
 Resource          ../../../libraries/TemplatedRequests.robot
-Variables         ../../../variables/Variables.robot
+Resource          ../../../variables/Variables.robot
 Library           RequestsLibrary
 
 *** Variables ***
