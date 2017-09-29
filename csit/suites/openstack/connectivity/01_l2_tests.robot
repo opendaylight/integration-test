@@ -56,11 +56,11 @@ Add Ssh Allow Rule
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_GRP_NAME}    sg=${SECURITY_GROUP}    min=4    max=4
+    Create Vm Instances    l2_network_1    ${NET_1_VM_GRP_NAME}    sg=${SECURITY_GROUP}    min=3    max=3
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_2    ${NET_2_VM_GRP_NAME}    sg=${SECURITY_GROUP}    min=4    max=4
+    Create Vm Instances    l2_network_2    ${NET_2_VM_GRP_NAME}    sg=${SECURITY_GROUP}    min=3    max=3
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
