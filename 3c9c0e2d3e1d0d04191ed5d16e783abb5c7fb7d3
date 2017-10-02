@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_8af58bcd",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-02T10:35:32Z",
+      "side": 1,
+      "message": "Some TemplatedRequests keywords contain ${explicit_status_codes}. Adding that argument Get_* keywords would be better. But that can be done later, if you add a TODO here.",
+      "range": {
+        "startLine": 101,
+        "startChar": 45,
+        "endLine": 101,
+        "endChar": 48
+      },
+      "revId": "3c9c0e2d3e1d0d04191ed5d16e783abb5c7fb7d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_ea0247b3",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-02T10:35:32Z",
+      "side": 1,
+      "message": "This is the same as the default value, skip this.",
+      "range": {
+        "startLine": 123,
+        "startChar": 41,
+        "endLine": 123,
+        "endChar": 61
+      },
+      "revId": "3c9c0e2d3e1d0d04191ed5d16e783abb5c7fb7d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_6a26576a",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-02T10:35:32Z",
+      "side": 1,
+      "message": "${first_device_number} would be better, but this is good enough for now.",
+      "range": {
+        "startLine": 231,
+        "startChar": 152,
+        "endLine": 231,
+        "endChar": 164
+      },
+      "revId": "3c9c0e2d3e1d0d04191ed5d16e783abb5c7fb7d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_2ad3bf39",
+        "filename": "csit/suites/netconf/scale/multipledevice.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-02T10:35:32Z",
+      "side": 1,
+      "message": "This is hardcoded in the library, I see no reason to keep this configurable.",
+      "range": {
+        "startLine": 31,
+        "startChar": 16,
+        "endLine": 31,
+        "endChar": 30
+      },
+      "revId": "3c9c0e2d3e1d0d04191ed5d16e783abb5c7fb7d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
