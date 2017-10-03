@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_f019917a",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-03T11:52:25Z",
+      "side": 1,
+      "message": "This should be a folder name, not uri.",
+      "range": {
+        "startLine": 99,
+        "startChar": 47,
+        "endLine": 99,
+        "endChar": 53
+      },
+      "revId": "7fe69d6c3895e7b1a2fb31eaf06ba35abf5b3819",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
