@@ -1,0 +1,8 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+1: Quan Xiong <xiong.quan@zte.com.cn>
+Code-Review+2: Daniel Farrell <dfarrell@redhat.com>
+Submitted-by: Luis Gomez <ecelgp@gmail.com>
+Submitted-at: Tue, 03 Oct 2017 01:32:51 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/63852
+Project: integration/test
+Branch: refs/heads/master
