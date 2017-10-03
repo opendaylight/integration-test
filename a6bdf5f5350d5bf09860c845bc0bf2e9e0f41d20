@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_a12232ff",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-03T08:19:27Z",
+      "side": 1,
+      "message": "You can use Get_As_Json_Templated with verify\u003dTrue directly without any additional checks.",
+      "range": {
+        "startLine": 99,
+        "startChar": 91,
+        "endLine": 99,
+        "endChar": 110
+      },
+      "revId": "a6bdf5f5350d5bf09860c845bc0bf2e9e0f41d20",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
