@@ -93,7 +93,6 @@ Test Is Flow 18 Added
     f18.xml    ${True}    ${True}    ${False}    ${check_id}
 
 Test Is Flow 19 Added
-    [Tags]    skip_if_boron
     f19.xml    ${True}    ${True}    ${False}    ${check_id}
 
 Test Is Flow 20 Added
@@ -133,7 +132,6 @@ Test Is Flow 101 Added
     f101.xml    ${True}    ${True}    ${False}    ${check_id}
 
 Test Is Flow 102 Added
-    [Tags]    skip_if_boron
     f102.xml    ${True}    ${True}    ${False}    ${check_id}
 
 Test Is Flow 103 Added
@@ -276,7 +274,6 @@ Test Is Flow 18 Updated
     f18.xml    ${True}    ${True}    ${True}    ${check_id}
 
 Test Is Flow 19 Updated
-    [Tags]    skip_if_boron
     f19.xml    ${True}    ${True}    ${True}    ${check_id}
 
 Test Is Flow 20 Updated
@@ -316,7 +313,6 @@ Test Is Flow 101 Updated
     f101.xml    ${True}    ${True}    ${True}    ${check_id}
 
 Test Is Flow 102 Updated
-    [Tags]    skip_if_boron
     f102.xml    ${True}    ${True}    ${True}    ${check_id}
 
 Test Is Flow 103 Updated
@@ -459,7 +455,6 @@ Test Is Flow 18 Deleted
     f18.xml    ${False}    ${False}    ${True}
 
 Test Is Flow 19 Deleted
-    [Tags]    skip_if_boron
     f19.xml    ${False}    ${False}    ${True}
 
 Test Is Flow 20 Deleted
@@ -499,7 +494,6 @@ Test Is Flow 101 Deleted
     f101.xml    ${False}    ${False}    ${True}
 
 Test Is Flow 102 Deleted
-    [Tags]    skip_if_boron
     f102.xml    ${False}    ${False}    ${True}
 
 Test Is Flow 103 Deleted
