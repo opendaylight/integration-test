@@ -90,21 +90,16 @@ Get Bindings
     [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global    ${scope}=all
     [Documentation]    Gets all binding via RPC from Master DB of node
     ${DATA}    Get Bindings From Node Xml    ${node}    ${scope}    ${domain}
-    ${resp1}    CompareStream.Run_Keyword_If_At_Least_Boron    TemplatedRequests.Post_To_Uri    ${REST_CONTEXT}:get-node-bindings    data=${DATA}    accept=${ACCEPT_JSON}    content_type=${HEADERS_XML}
-    ...    session=${session}
-    ${resp2}    CompareStream.Run_Keyword_If_Less_Than_Boron    TemplatedRequests.Get_As_Json_From_Uri    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/master-database/    session=${session}
-    ${resp}    CompareStream.Set_Variable_If_At_Least_Boron    ${resp1}    ${resp2}
+    ${resp}    TemplatedRequests.Post_To_Uri    ${REST_CONTEXT}:get-node-bindings    data=${DATA}    accept=${ACCEPT_JSON}    content_type=${HEADERS_XML}    session=${session}
     [Return]    ${resp}
 
 Clean Bindings
     [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Delete all bindings via RPC from Master DB of node
     ${resp}    Get Bindings    ${node}    ${session}    ${domain}    local
-    @{bindings}    CompareStream.Run_Keyword_If_At_Least_Else    boron    Parse Bindings    ${resp}
-    ...    ELSE    Parse Prefix Groups    ${resp}    local
+    @{bindings}    Parse Bindings    ${resp}
     : FOR    ${binding}    IN    @{bindings}
-    \    CompareStream.Run_Keyword_If_At_Least_Boron    Clean Binding Default    ${binding}    ${node}    ${session}    ${domain}
-    \    CompareStream.Run_Keyword_If_At_Most_Beryllium    Clean Binding At Most Be    ${binding}    ${node}    ${session}    ${domain}
+    \    Clean Binding Default    ${binding}    ${node}    ${session}    ${domain}
 
 Clean Binding Default
     [Arguments]    ${binding}    ${node}    ${session}    ${domain}
@@ -120,10 +115,7 @@ Clean Binding
     [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}=global
     [Documentation]    Used for nester FOR loop
     : FOR    ${prefix}    IN    @{prefixes}
-    \    CompareStream.Run_Keyword_If_At_Least_Boron    Delete Binding Default    ${sgt}    ${prefix}    ${node}    ${domain}
-    \    ...    ${session}
-    \    CompareStream.Run_Keyword_If_At_Most_Beryllium    Delete Binding Be    ${sgt}    ${prefix}    ${node}    ${domain}
-    \    ...    ${session}
+    \    Delete Binding Default    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
 
 Update Binding
     [Arguments]    ${sgtOld}    ${prefixOld}    ${sgtNew}    ${prefixNew}    ${node}=127.0.0.1    ${session}=session
@@ -206,17 +198,13 @@ Delete Domain Filter
 Should Contain Binding
     [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=any
     [Documentation]    Tests if data contains specified binding
-    ${out}    CompareStream.Run_Keyword_If_At_Least_Else    boron    Find Binding    ${resp}    ${sgt}    ${prefix}
-    ...    ELSE    Find Binding Legacy    ${resp}    ${sgt}    ${prefix}    ${db_source}
-    ...    add
+    ${out}    Find Binding    ${resp}    ${sgt}    ${prefix}
     Should Be True    ${out}    Doesn't have ${sgt} ${prefix}
 
 Should Not Contain Binding
     [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=any
     [Documentation]    Tests if data doesn't contains specified binding
-    ${out}    CompareStream.Run_Keyword_If_At_Least_Else    boron    Find Binding    ${resp}    ${sgt}    ${prefix}
-    ...    ELSE    Find Binding Legacy    ${resp}    ${sgt}    ${prefix}    ${db_source}
-    ...    add
+    ${out}    Find Binding    ${resp}    ${sgt}    ${prefix}
     Should Not Be True    ${out}    Should't have ${sgt} ${prefix}
 
 Should Contain Connection
@@ -360,8 +348,8 @@ Setup SXP Environment
     : FOR    ${num}    IN RANGE    1    ${node_range}
     \    ${ip}    Get Ip From Number    ${num}
     \    ${rnd_retry_time} =    Evaluate    random.randint(1, 10)    modules=random
-    \    CompareStream.Run_Keyword_If_At_Least_Boron    Add Node    ${ip}    retry_open_timer=${rnd_retry_time}
-    \    CompareStream.Run_Keyword_If_At_Least_Boron    Wait Until Keyword Succeeds    20    1    Check Node Started    ${ip}
+    \    Add Node    ${ip}    retry_open_timer=${rnd_retry_time}
+    \    Wait Until Keyword Succeeds    20    1    Check Node Started    ${ip}
 
 Check Node Started
     [Arguments]    ${node}    ${port}=64999    ${system}=${ODL_SYSTEM_IP}    ${session}=session    ${ip}=${node}
@@ -376,7 +364,7 @@ Clean SXP Environment
     [Documentation]    Destroy created sessions
     : FOR    ${num}    IN RANGE    1    ${node_range}
     \    ${ip}    Get Ip From Number    ${num}
-    \    CompareStream.Run_Keyword_If_At_Least_Boron    Delete Node    ${ip}
+    \    Delete Node    ${ip}
     Clean SXP Session
 
 Get Routing Configuration From Controller

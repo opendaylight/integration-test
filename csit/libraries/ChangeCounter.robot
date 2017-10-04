@@ -35,9 +35,7 @@ Get_Change_Count
     BuiltIn.Should_Be_Equal    ${response.status_code}    ${200}    Got status: ${response.status_code} and message: ${response.text}
     # CompareStream.Set_Variable_If_At_Least_Else cannot be used direcly, because ${response.text}["data-change-counter"]["count"] would be
     # evaluated before the stream comparison and it causes failures
-    ${at_least_boron}=    CompareStream.Set_Variable_If_At_Least_Boron    ${True}    ${False}
-    ${count} =    BuiltIn.Run Keyword If    ${at_least_boron}    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["counter"][0]["count"]
-    ...    ELSE    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["count"]
+    ${count} =    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["counter"][0]["count"]
     [Return]    ${count}
 
 Reconfigure_Topology_Name

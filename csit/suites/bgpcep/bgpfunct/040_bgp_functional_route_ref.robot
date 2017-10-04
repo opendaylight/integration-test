@@ -56,13 +56,8 @@ Reconfigure_ODL_To_Accept_Connection
 Exa_To_Send_Route_Request
     [Documentation]    Exabgp sends route refresh and count received updates
     [Setup]    Configure_Routes_And_Start_ExaBgp    ${BGP_CFG_NAME}
-    # TODO: remove Run_Keyword_If_At_Most_Boron and leave Verify_Odl_Received_Route_Request only after bug 5032 is implemented.
-    # ... This will require also kw Verify_Odl_Received_Route_Request adaptation for ${ODL_STREAM} as the stats url will be different in carbon/openconfig
-    # ... comparing to boron(${JOLOKURL})
-    CompareStream.Run_Keyword_If_At_Most_Boron    Verify_Odl_Received_Route_Request    0
     BgpRpcClient.exa_clean_received_update_count
     BgpRpcClient.exa_announce    announce route-refresh ipv4 unicast
-    CompareStream.Run_Keyword_If_At_Most_Boron    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Odl_Received_Route_Request    1
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
     [Teardown]    Deconfigure_Routes_And_Stop_ExaBgp
 
@@ -119,7 +114,7 @@ Upload_Config_Files
 Configure_Routes_And_Start_ExaBgp
     [Arguments]    ${cfg_file}
     [Documentation]    Setup keyword for exa to odl test case
-    ${app_rib}    CompareStream.Set_Variable_If_At_Most_Boron    example-app-rib    ${ODL_SYSTEM_IP}
+    ${app_rib}    Set Variable    ${ODL_SYSTEM_IP}
     : FOR    ${prefix}    IN    1.1.1.1/32    2.2.2.2/32
     \    &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}    APP_RIB=${app_rib}
     \    TemplatedRequests.Post_As_Xml_Templated    ${BGP_RR_VAR_FOLDER}/route    mapping=${mapping}    session=${CONFIG_SESSION}
@@ -130,7 +125,7 @@ Configure_Routes_And_Start_ExaBgp
 Deconfigure_Routes_And_Stop_ExaBgp
     [Documentation]    Teardown keyword for exa to odl test case
     ExaBgpLib.Stop_ExaBgp
-    ${app_rib}    CompareStream.Set_Variable_If_At_Most_Boron    example-app-rib    ${ODL_SYSTEM_IP}
+    ${app_rib}    Set Variable    ${ODL_SYSTEM_IP}
     &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}    APP_RIB=${app_rib}
     TemplatedRequests.Delete_Templated    ${BGP_RR_VAR_FOLDER}/route    mapping=${mapping}    session=${CONFIG_SESSION}
 
