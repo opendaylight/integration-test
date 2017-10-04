@@ -20,7 +20,7 @@ curl "$GITWEB_LISP;f=mappingservice/api/src/main/yang/odl-mappingservice.yang" -
 curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/odl-lisp-address-types.yang
 
 # ietf-lisp-address-types.yang moved to MD-SAL project in Nitrogen
-if [ ${DISTROBRANCH} = "stable/boron" ] || [ ${DISTROBRANCH} = "stable/carbon" ]
+if [ ${DISTROBRANCH} = "stable/carbon" ]
 then
     curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
 else
