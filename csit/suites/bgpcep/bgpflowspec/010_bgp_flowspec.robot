@@ -107,7 +107,6 @@ Verify Flowspec Data
     [Arguments]    ${exprspfile}
     [Documentation]    Verify expected response
     ${keys_with_bits}=    BuiltIn.Create_List
-    CompareStream.Run_Keyword_If_At_Most    boron    Collections.Append_To_List    ${keys_with_bits}    op
     ${expected_rsp}=    Get Expected Response From File    ${exprspfile}
     ${rsp}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    ${FLOWSPEC_URL}
     TemplatedRequests.Normalize_Jsons_With_Bits_And_Compare    ${expected_rsp}    ${rsp.content}    keys_with_bits=${keys_with_bits}

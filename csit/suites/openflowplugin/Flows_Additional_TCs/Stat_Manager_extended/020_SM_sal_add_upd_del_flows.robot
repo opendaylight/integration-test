@@ -32,7 +32,6 @@ ${switch_name}    s${switch_idx}
 Test Add Flows Group 0
     [Documentation]    Add all flows and waits for SM to collect data
     [Template]    NONE
-    CompareStream.Run_Keyword_If_At_Most_Boron    Remove Values From List    ${flowlist0}    f19.xml    f102.xml
     : FOR    ${flowfile}    IN    @{flowlist0}
     \    Log    ${flowfile}
     \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
