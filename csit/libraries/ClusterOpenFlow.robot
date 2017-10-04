@@ -194,5 +194,4 @@ Check Number Of Groups On Member
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${group_count}=    Get Count    ${resp.content}    "group-type"
-    ${count}=    CompareStream.Set_Variable_If_At Least_Boron    ${group_count}    ${group_count/2}
-    Should Be Equal As Integers    ${count}    ${groups}
+    Should Be Equal As Integers    ${count}    ${group_count}

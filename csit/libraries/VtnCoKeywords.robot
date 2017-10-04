@@ -42,8 +42,7 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
     SSHLibrary.Execute Command    sudo yum install -q -y https://download.postgresql.org/pub/repos/yum/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-3.noarch.rpm
     SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc
-    CompareStream.Run_Keyword_If_At_Least_Else    boron    Download VtnCo Distribution
-    ...    ELSE    SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/${vtn_dist}*-bin.tar.bz2
+    Download VtnCo Distribution
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
     SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
     SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
@@ -59,20 +58,16 @@ Start SuiteVtnCo
 Download VtnCo Distribution
     # TODO: https://trello.com/c/fDiIUFMv/431-remove-hardcoded-versions-of-vtn-coordinator-in-libraries-vtncokeywords-robot
     SSHLibrary.Execute Command    wget "${vtn_coordinator_nexus_path}/maven-metadata.xml"
-    CompareStream.Run_Keyword_If_At_Least_Boron    SSHLibrary.Get_file    maven-metadata.xml
-    ${boron_version}=    XML.Get Element Text    maven-metadata.xml    xpath=.//versions/version[1]
-    ${boron_version_val}=    SSHLibrary.Execute Command    echo ${boron_version} | awk -F"-" '{print $1}'
+    SSHLibrary.Get_file    maven-metadata.xml
     ${carbon_version}=    XML.Get Element Text    maven-metadata.xml    xpath=.//versions/version[2]
     ${carbon_version_val}=    SSHLibrary.Execute Command    echo ${carbon_version} | awk -F"-" '{print $1}'
     ${nitrogen_version}=    XML.Get Element Text    maven-metadata.xml    xpath=.//versions/version[3]
     ${nitrogen_version_val}=    SSHLibrary.Execute Command    echo ${carbon_version} | awk -F"-" '{print $1}'
     SSHLibrary.Execute Command    sudo mv maven-metadata.xml old-maven-metadata.xml
-    CompareStream.Run_Keyword_If_Equals    boron    SSHLibrary.Execute Command    wget "${vtn_coordinator_nexus_path}/${boron_version}/maven-metadata.xml"
     CompareStream.Run_Keyword_If_Equals    carbon    SSHLibrary.Execute Command    wget "${vtn_coordinator_nexus_path}/${carbon_version}/maven-metadata.xml"
     CompareStream.Run_Keyword_If_Equals    nitrogen    SSHLibrary.Execute Command    wget "${vtn_coordinator_nexus_path}/${nitrogen_version}/maven-metadata.xml"
-    CompareStream.Run_Keyword_If_At_Least_Boron    SSHLibrary.Get_file    maven-metadata.xml
+    SSHLibrary.Get_file    maven-metadata.xml
     ${value}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshotVersion[1]/value
-    CompareStream.Run_Keyword_If_Equals    boron    SSHLibrary.Execute Command    wget '${vtn_coordinator_nexus_path}/${boron_version}/${vtn_dist}-${value}-bin.tar.bz2'
     CompareStream.Run_Keyword_If_Equals    carbon    SSHLibrary.Execute Command    wget '${vtn_coordinator_nexus_path}/${carbon_version}/${vtn_dist}-${value}-bin.tar.bz2'
     CompareStream.Run_Keyword_If_Equals    nitrogen    SSHLibrary.Execute Command    wget '${vtn_coordinator_nexus_path}/${nitrogen_version}/${vtn_dist}-${value}-bin.tar.bz2'
     SSHLibrary.Execute Command    tar -C/ -jxvf ${vtn_dist}*-bin.tar.bz2

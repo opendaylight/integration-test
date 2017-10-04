@@ -84,7 +84,6 @@ Delete and Verify VTEP -No Vlan
 
 Create and Verify VTEP IPv6 - No Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs without VLAN and Gateway configured in Json.
-    Pass Execution If    "${ODL_STREAM}" == "boron"    IPV6 support is not available in boron or before
     ${Dpn_id_1}    Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Get Dpn Ids    ${conn_id_2}
     Set Global Variable    ${Dpn_id_1}
@@ -118,7 +117,6 @@ Create and Verify VTEP IPv6 - No Vlan
 
 Delete and Verify VTEP IPv6 -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
-    Pass Execution If    "${ODL_STREAM}" == "boron"    IPV6 support is not available in boron or before
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     Wait Until Keyword Succeeds    40    10    Verify Data Base after Delete    ${Dpn_id_1}    ${Dpn_id_2}    ${tunnel-1}
     ...    ${tunnel-2}

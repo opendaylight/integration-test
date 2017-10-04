@@ -149,7 +149,7 @@ Teardown_Everything
 
 Set_Netconf_Connector
     [Documentation]    Sets netconf connector verify url according to the ${ODL_STREAM} and ${USE_NETCONF_CONNECTOR} combination
-    ${streamconnector}=    CompareStream.Set_Variable_If_At_Most_Boron    /node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/controller-config    /node/controller-config/yang-ext:mount/config:modules/module/sal-restconf-service:json-restconf-service-impl/json-restconf-service-impl
+    ${streamconnector}=    Set Variable    /node/controller-config/yang-ext:mount/config:modules/module/sal-restconf-service:json-restconf-service-impl/json-restconf-service-impl
     ${connector}=    BuiltIn.Set_Variable_If    ${USE_NETCONF_CONNECTOR}    ${streamconnector}    ${EMPTY}
     BuiltIn.Return_From_Keyword    ${connector}
 

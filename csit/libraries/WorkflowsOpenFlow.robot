@@ -31,8 +31,8 @@ Workflow Linear Topology
     ${controller_list}=    Create List    ${ODL_SYSTEM_IP}
     ${flow_count}=    Convert to Integer    ${flow_count}
     ${flows_ovs_25}=    Evaluate    ${flow_count} + ${switches}
-    ${flows_before}=    CompareStream.Set_Variable_If_At_Least_Boron    ${switches}    ${0}
-    ${flows_after}=    CompareStream.Set_Variable_If_At_Least_Boron    ${flows_ovs_25}    ${flow_count}
+    ${flows_before}=    Set Variable    ${switches}
+    ${flows_after}=    Set Variable    ${flows_ovs_25}
     ${flows}    ${notes}    ScaleClient.Generate New Flow Details    flows=${flow_count}    switches=${switches}    swspread=${swspread}    tables=${tables}
     ...    tabspread=${tabspread}
     # Workflow starts
@@ -111,8 +111,8 @@ Workflow Full Mesh Topology
     ${controller_list}=    Create List    ${ODL_SYSTEM_IP}
     ${flow_count}=    Convert to Integer    ${flow_count}
     ${flows_ovs_25}=    Evaluate    ${flow_count} + ${switches}
-    ${flows_before}=    CompareStream.Set_Variable_If_At_Least_Boron    ${switches}    ${0}
-    ${flows_after}=    CompareStream.Set_Variable_If_At_Least_Boron    ${flows_ovs_25}    ${flow_count}
+    ${flows_before}=    Set Variable    ${switches}
+    ${flows_after}=    Set Variable    ${flows_ovs_25}
     ${flows}    ${notes}    ScaleClient.Generate New Flow Details    flows=${flow_count}    switches=${switches}    swspread=${swspread}    tables=${tables}
     ...    tabspread=${tabspread}
     # Workflow starts

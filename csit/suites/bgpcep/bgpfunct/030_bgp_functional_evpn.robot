@@ -319,8 +319,8 @@ Start_Suite
     RequestsLibrary.Create Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     SSHLibrary.Put File    ${PLAY_SCRIPT}    .
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
-    ${app_rib}=    CompareStream.Set_Variable_If_At_Most_Boron    example-app-rib    ${ODL_SYSTEM_IP}
-    ${bgp_rib}=    CompareStream.Set_Variable_If_At_Most_Boron    example-bgp-rib    example-bgp-rib
+    ${app_rib}=    Set Variable    ${ODL_SYSTEM_IP}
+    ${bgp_rib}=    Set Variable    example-bgp-rib
     BuiltIn.Set_Suite_Variable    ${EVPN_CONF_URL}    /restconf/config/bgp-rib:application-rib/${app_rib}/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes/
     BuiltIn.Set_Suite_Variable    ${EVPN_LOC_RIB_OPER_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/${bgp_rib}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
 

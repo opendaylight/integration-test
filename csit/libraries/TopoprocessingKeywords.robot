@@ -68,8 +68,7 @@ Setup Environment
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     Open Connection    ${ODL_SYSTEM_IP}
     Flexible Controller Login
-    CompareStream.Run_Keyword_If_At_Least_Carbon    Put File    ${CONFIGURATION_CFG}    ${REMOTE_CFG_FILE}
-    CompareStream.Run_Keyword_If_At_Most_Boron    Put File    ${CONFIGURATION_XML}    ${REMOTE_XML_FILE}
+    Put File    ${CONFIGURATION_CFG}    ${REMOTE_CFG_FILE}
     Close Connection
     Wait Until Keyword Succeeds    2x    2s    Issue Command On Karaf Console    log:set DEBUG org.opendaylight.topoprocessing
     Install a Feature    odl-restconf-noauth    timeout=30
@@ -81,8 +80,7 @@ Setup Environment
 Install Features
     [Arguments]    ${features}    ${timeout}=180
     [Documentation]    Install features according to tested distribution
-    CompareStream.Run_Keyword_If_At_Most_Beryllium    Install Features for Beryllium Distribution    ${features}    ${timeout}
-    CompareStream.Run_Keyword_If_At_Least_Boron    Install Features for Other Distributions    ${features}    ${timeout}
+    Install Features for Other Distributions    ${features}    ${timeout}
 
 Install Features for Beryllium Distribution
     [Arguments]    ${features}    ${timeout}
@@ -106,8 +104,7 @@ Clean Environment
     Log    ---- Clean Environment ----
     Open Connection    ${ODL_SYSTEM_IP}
     Flexible Controller Login
-    CompareStream.Run_Keyword_If_At_Least_Carbon    Put File    ${OPERATIONAL_CFG}    ${REMOTE_CFG_FILE}
-    CompareStream.Run_Keyword_If_At_Most_Boron    Put File    ${OPERATIONAL_XML}    ${REMOTE_XML_FILE}
+    Put File    ${OPERATIONAL_CFG}    ${REMOTE_CFG_FILE}
     Close Connection
     Delete All Sessions
 
