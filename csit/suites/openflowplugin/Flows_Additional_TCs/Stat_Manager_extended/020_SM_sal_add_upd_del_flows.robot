@@ -90,7 +90,6 @@ Test Is Flow 18 Added
     f18.xml    ${False}    ${True}    ${False}
 
 Test Is Flow 19 Added
-    [Tags]    skip_if_boron
     f19.xml    ${False}    ${True}    ${False}
 
 Test Is Flow 20 Added
@@ -255,7 +254,6 @@ Test Is Flow 18 Updated
     f18.xml    ${False}    ${True}    ${True}
 
 Test Is Flow 19 Updated
-    [Tags]    skip_if_boron
     f19.xml    ${False}    ${True}    ${True}
 
 Test Is Flow 20 Updated
@@ -420,7 +418,6 @@ Test Is Flow 18 Deleted
     f18.xml    ${False}    ${False}    ${True}
 
 Test Is Flow 19 Deleted
-    [Tags]    skip_if_boron
     f19.xml    ${False}    ${False}    ${True}
 
 Test Is Flow 20 Deleted
