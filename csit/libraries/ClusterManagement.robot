@@ -422,7 +422,7 @@ Start_Members_From_List_Or_All
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
     # TODO: Do we also want to check Shard Leaders here?
-    Run_Bash_Command_On_List_Or_All    command=netstat -pnatu    member_index_list=${member_index_list}
+    [Teardown]    Run_Bash_Command_On_List_Or_All    command=netstat -pnatu    member_index_list=${member_index_list}
 
 Freeze_Single_Member
     [Arguments]    ${member}
