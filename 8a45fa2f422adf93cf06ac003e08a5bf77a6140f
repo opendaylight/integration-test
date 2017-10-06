@@ -22,6 +22,30 @@
       "revId": "8a45fa2f422adf93cf06ac003e08a5bf77a6140f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_b36d5607",
+        "filename": "csit/variables/xmls/f3.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-06T18:34:23Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/#/c/64029/",
+      "parentUuid": "9a245df4_d3d72abe",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 1
+      },
+      "revId": "8a45fa2f422adf93cf06ac003e08a5bf77a6140f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
