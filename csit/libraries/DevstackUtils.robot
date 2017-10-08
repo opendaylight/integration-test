@@ -31,6 +31,7 @@ Run Tempest Tests
     Write Commands Until Prompt    sudo pip install os-testr --upgrade    timeout=120s
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd ${tempest_directory}
+    Write Commands Until Prompt    export PYTHONWARNINGS=ignore::DeprecationWarning
     # From Ocata and moving forward, we can replace 'ostestr' with 'tempest run'
     ${results}=    Write Commands Until Prompt    ostestr --regex ${tempest_regex} -b ${exclusion_file}    timeout=${timeout}
     Log    ${results}
