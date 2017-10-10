@@ -382,7 +382,7 @@ View Vm Console
     \    Should Not Be True    ${rc}
 
 Ping Vm From DHCP Namespace
-    [Arguments]    ${net_name}    ${vm_ip}
+    [Arguments]    ${net_name}    ${vm_ip}     
     [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
     ${devstack_conn_id}=    Get ControlNode Connection
