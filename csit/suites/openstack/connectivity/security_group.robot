@@ -152,8 +152,19 @@ Repeat Ping From Vm Instance2 To Vm Instance1 With additional SG
     ${vm_ips}    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
 
-Remove The Rules From Additional Security Group
-    OpenStackOperations.Delete All Security Group Rules    additional-sg
+Test Connection when Rules Change Dynamically
+     ${devstack_conn_id}=    Get ControlNode Connection
+    ${crtl_c}    Evaluate    chr(int(3))
+    Switch Connection    ${devstack_conn_id}
+    ${net_id}=    Get Net Id     @{NETWORKS}[0]    ${devstack_conn_id}
+    Log    ${net_id}
+    ${output}=    Write    sudo ip netns exec qdhcp-${net_id} ping @{NET_1_VM_IPS}[0]
+    Delete All Security Group Rules    additional-sg
+    sleep    10s
+    Write    ${crtl_c}
+    ${output}=    Read Until    packet loss
+    Should Not Contain    ${output}    0% packet loss
+    Close Connection
 
 No Ping From DHCP To Vm Instance1 With Additional Security Group Rules Removed
     [Documentation]    Check non-reachability of vm instances by pinging to them.
