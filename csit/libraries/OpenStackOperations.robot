@@ -382,7 +382,7 @@ View Vm Console
     \    Should Not Be True    ${rc}
 
 Ping Vm From DHCP Namespace
-    [Arguments]    ${net_name}    ${vm_ip}
+    [Arguments]    ${net_name}    ${vm_ip}     
     [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
     ${devstack_conn_id}=    Get ControlNode Connection
@@ -393,6 +393,26 @@ Ping Vm From DHCP Namespace
     Log    ${output}
     Close Connection
     Should Contain    ${output}    64 bytes
+
+Ping VM in the Background From DHCP Namespace
+    [Arguments]    ${net_name}    ${vm_ip}     
+    [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
+    Log    ${vm_ip}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    Log    ${net_id}
+    ${output}=    Write Commands Until Prompt    sudo nohup ip netns exec qdhcp-${net_id} ping ${vm_ip} &    20s
+    Close Connection
+
+Check Background Ping Fail Status
+    [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
+    ${output}=    Write Commands Until Prompt    tail -10 ~/nohup.out
+    Should Not Contain    ${output}    64 bytes
+
+Kill Background Ping
+    ${output}=    Write Commands Until Prompt    killall ping
+    Log     ${output}
 
 Ping From DHCP Should Not Succeed
     [Arguments]    ${net_name}    ${vm_ip}

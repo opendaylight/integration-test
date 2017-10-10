@@ -183,8 +183,15 @@ Repeat Ping From Vm Instance2 To Vm Instance1 With additional SG
     ${VM1_LIST}    Create List    @{NET1_VM_IPS}[0]
     Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${VM1_LIST}
 
+Trigger a Ping to the VM instance from DHCP (BG)
+    Ping VM in the Background From DHCP Namespace     network_1    @{NET1_VM_IPS}[0]
+
 Remove The Rules From Additional Security Group
     Delete All Security Group Rules    additional-sg
+
+Check the Background Ping Status
+    Wait Until Keyword Succeeds    60s    5s       Check Background Ping Fail Status
+    Kill Background Ping 
 
 No Ping From DHCP To Vm Instance1 With Additional Security Group Rules Removed
     [Documentation]    Check non-reachability of vm instances by pinging to them.
