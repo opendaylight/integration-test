@@ -16,6 +16,7 @@ Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
@@ -152,8 +153,18 @@ Repeat Ping From Vm Instance2 To Vm Instance1 With additional SG
     ${vm_ips}    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
 
-Remove The Rules From Additional Security Group
-    OpenStackOperations.Delete All Security Group Rules    additional-sg
+Test Connection when Rules Change Dynamically
+    [Documentation]    Initiate ping from DHCP to VM instance and remove security rules
+    ...    dynamically check the communication has stopped after removing the security group rules.
+    ${net_id}=    Get Net Id     @{NETWORKS}[0]
+    Get ControlNode Connection
+    ${output}=    Write    sudo ip netns exec qdhcp-${net_id} ping @{NET_1_VM_IPS}[0]
+    Delete All Security Group Rules    additional-sg
+    Read    10s
+    Write_Bare_Ctrl_C
+    ${output}=    Read Until    packet loss
+    Should Not Contain    ${output}    0% packet loss
+    Close Connection
 
 No Ping From DHCP To Vm Instance1 With Additional Security Group Rules Removed
     [Documentation]    Check non-reachability of vm instances by pinging to them.
