@@ -22,6 +22,30 @@
       "revId": "81e0b09a58ae78de4d40316bc5e4c7dc5b235b41",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_722c6aac",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-10-11T23:03:34Z",
+      "side": 1,
+      "message": "There are 2 issues with these constants:\n1) For the At_Least KW we have to make sure latest version (master) is added otherwise master tests will fail. A possible solution  is to pre-provision a bunch of future releases if we already know the name of them.\n2) I think it is fine to clean deprecated versions and compare KWs, but before doing that we have to make sure no test uses deprecated compare KWs which practically means we have to evaluate the deprecated condition (at most, at least) and then leave or remove whatever goes after the compare KW.",
+      "parentUuid": "9a245df4_d2bc366f",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 61
+      },
+      "revId": "81e0b09a58ae78de4d40316bc5e4c7dc5b235b41",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
