@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_92dbde1a",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-10-11T19:27:33Z",
+      "side": 0,
+      "message": "lol, looonnng overdue",
+      "range": {
+        "startLine": 11,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "b0b76a73ef0fc3e8eac67b011101fd0460b34763",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_52f8467c",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-10-11T19:27:33Z",
+      "side": 0,
+      "message": "Hope I\u0027m not being stupid with these comparisons, but versions newer than Boron are \"at least Boron\", right? so this test should now always run BuiltIn.Fail? or the test should just be removed? Also I guess this should go in 63953.",
+      "revId": "b0b76a73ef0fc3e8eac67b011101fd0460b34763",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
