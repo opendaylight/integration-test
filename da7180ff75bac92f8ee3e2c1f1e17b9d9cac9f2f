@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_527cc620",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-10-11T19:18:46Z",
+      "side": 0,
+      "message": "Logic that\u0027s \"if at least boron\" should be kept and always run, right?",
+      "revId": "da7180ff75bac92f8ee3e2c1f1e17b9d9cac9f2f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_b2a6e2bf",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-10-11T19:18:46Z",
+      "side": 0,
+      "message": "Shouldn\u0027t you remove this, like you\u0027re doing on with the same logic on line 185?",
+      "revId": "da7180ff75bac92f8ee3e2c1f1e17b9d9cac9f2f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_12ac0ea0",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functional_evpn.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-10-11T19:18:46Z",
+      "side": 0,
+      "message": "Shouldn\u0027t these be removed? As-is, they only apply to Boron and below, so if we\u0027re removing Boron support they should be removed entirely.",
+      "revId": "da7180ff75bac92f8ee3e2c1f1e17b9d9cac9f2f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

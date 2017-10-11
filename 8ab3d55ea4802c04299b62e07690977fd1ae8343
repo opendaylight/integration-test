@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_92c8fe75",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-10-11T19:18:46Z",
+      "side": 1,
+      "message": "I guess this is fixing another bug?",
+      "range": {
+        "startLine": 197,
+        "startChar": 49,
+        "endLine": 197,
+        "endChar": 60
+      },
+      "revId": "8ab3d55ea4802c04299b62e07690977fd1ae8343",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_3292f257",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-10-11T19:18:46Z",
+      "side": 1,
+      "message": "Same \"I think this should be removed\" feedback",
+      "revId": "8ab3d55ea4802c04299b62e07690977fd1ae8343",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_929f5e5f",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-10-11T19:18:46Z",
+      "side": 1,
+      "message": "Same \"I think this should be removed\" feedback",
+      "revId": "8ab3d55ea4802c04299b62e07690977fd1ae8343",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_729c6a6a",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-10-11T19:18:46Z",
+      "side": 1,
+      "message": "Same \"I think this should be removed\" feedback",
+      "revId": "8ab3d55ea4802c04299b62e07690977fd1ae8343",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_d288b624",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-10-11T19:18:46Z",
+      "side": 1,
+      "message": "Same \"I think this should be removed\" feedback",
+      "revId": "8ab3d55ea4802c04299b62e07690977fd1ae8343",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_b28d4234",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2017-10-11T19:18:46Z",
+      "side": 1,
+      "message": "Same \"I think this should be removed\" feedback",
+      "revId": "8ab3d55ea4802c04299b62e07690977fd1ae8343",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
