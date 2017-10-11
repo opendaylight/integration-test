@@ -38,6 +38,12 @@ tempest.scenario.test_security_groups_basic_ops.TestSecurityGroupsBasicOps
     [Tags]    skip_if_transparent    skip_if_learn
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}    timeout=900s
 
+tempest.scenario.test_floatingip.FloatingIpSameNetwork
+     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}    timeout=900s
+
+tempest.scenario.test_floatingip.FloatingIpSeparateNetwork
+     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}    timeout=900s
+
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
     ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
 
