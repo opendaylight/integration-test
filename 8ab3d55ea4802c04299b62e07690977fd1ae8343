@@ -25,6 +25,47 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_bd2b5381",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-10-11T23:30:18Z",
+      "side": 1,
+      "message": "This should be:\nShould Be Equal As Integers    ${group_count}    ${groups}",
+      "parentUuid": "9a245df4_92c8fe75",
+      "range": {
+        "startLine": 197,
+        "startChar": 49,
+        "endLine": 197,
+        "endChar": 60
+      },
+      "revId": "8ab3d55ea4802c04299b62e07690977fd1ae8343",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_1d21bf9f",
+        "filename": "csit/libraries/FlowLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-10-11T23:30:18Z",
+      "side": 1,
+      "message": "Same here:\nShould Be Equal As Integers    ${group_count}    ${groups}",
+      "revId": "8ab3d55ea4802c04299b62e07690977fd1ae8343",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_3292f257",
         "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
         "patchSetId": 1
