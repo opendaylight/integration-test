@@ -39,6 +39,24 @@
       "revId": "b0b76a73ef0fc3e8eac67b011101fd0460b34763",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_12b7ee87",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-10-11T21:15:20Z",
+      "side": 0,
+      "message": "Good catch Daniel. Question, when we did have beryllium jobs how did the tests ever pass if it would fail?",
+      "parentUuid": "9a245df4_52f8467c",
+      "revId": "b0b76a73ef0fc3e8eac67b011101fd0460b34763",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
