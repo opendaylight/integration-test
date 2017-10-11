@@ -37,6 +37,12 @@ tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.t
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_suspend_resume
     ${TEST_NAME}    debug=True
 
+tempest.scenario.test_floatingip.FloatingIpSameNetwork
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}    timeout=900s
+
+tempest.scenario.test_floatingip.FloatingIpSeparateNetwork
+    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}    timeout=900s
+
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
     ${TEST_NAME}    debug=True
 
