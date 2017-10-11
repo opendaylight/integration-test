@@ -127,9 +127,28 @@ Ping Vm Instance2 Floating IP From Vm Instance1 With Floating IP (Hairpinning)
     ${dst_ip}=    Create List    @{VM_FLOATING_IPS}[1]
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{FLOATING_VM_IPS}[0]    ${dst_ip}    ttl=1
 
+Ping Vm Instance1 Floating IP From SNAT VM Instance1
+    [Documentation]    Check reachability of VM instance floating IP from another VM without Floating IP
+    ${dst_ip}=    Create List    @{VM_FLOATING_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${dst_ip}    ttl=1
+
+Ping Vm Instance1 Floating IP From SNAT VM Instance2
+    [Documentation]    Check reachability of VM instance floating IP from another VM without Floating IP
+    ${dst_ip}=    Create List    @{VM_FLOATING_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${dst_ip}    ttl=1
+
+Ping Vm Instance2 Floating IP From SNAT VM Instance1
+    [Documentation]    Check reachability of VM instance floating IP from another VM without Floating IP
+    ${dst_ip}=    Create List    @{VM_FLOATING_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${dst_ip}    ttl=1
+
+Ping Vm Instance2 Floating IP From SNAT VM Instance2
+    [Documentation]    Check reachability of VM instance floating IP from another VM without Floating IP
+    ${dst_ip}=    Create List    @{VM_FLOATING_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${dst_ip}    ttl=1
+
 Ping External Network PNF from Vm Instance 1
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
-    Pass Execution If    "${ODL_STREAM}" == "boron"    PNF subnet route support is not available in boron or earlier
     ${dst_ip}=    Create List    ${external_pnf}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{FLOATING_VM_IPS}[0]    ${dst_ip}    ttl=1
 
