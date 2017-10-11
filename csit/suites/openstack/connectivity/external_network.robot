@@ -125,12 +125,38 @@ Ping Vm Instance2 Floating IP From Control Node
 
 Ping Vm Instance2 Floating IP From Vm Instance1 With Floating IP (Hairpinning)
     [Documentation]    Check reachability of VM instance floating IP from another VM instance with FIP (with ttl=1 to make sure no router hops)
-    ${dst_ip}=    BuiltIn.Create List    @{VM_FLOATING_IPS}[1]
+    ${dst_ip} =    BuiltIn.Create List    @{VM_FLOATING_IPS}[1]
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
+
+Ping Vm Instance1 Floating IP From SNAT VM Instance1
+    [Documentation]    Check reachability of VM instance floating IP from another VM without Floating IP
+    ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
+    ${dst_ip} =    BuiltIn.Create List    @{VM_FLOATING_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[0]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET2_SNAT_VM_IPS}[0]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
+
+Ping Vm Instance1 Floating IP From SNAT VM Instance2
+    [Documentation]    Check reachability of VM instance floating IP from another VM without Floating IP
+    ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
+    ${dst_ip} =    BuiltIn.Create List    @{VM_FLOATING_IPS}[0]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[1]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
+
+Ping Vm Instance2 Floating IP From SNAT VM Instance1
+    [Documentation]    Check reachability of VM instance floating IP from another VM without Floating IP
+    ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
+    ${dst_ip} =    BuiltIn.Create List    @{VM_FLOATING_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[0]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET2_SNAT_VM_IPS}[0]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
+
+Ping Vm Instance2 Floating IP From SNAT VM Instance2
+    [Documentation]    Check reachability of VM instance floating IP from another VM without Floating IP
+    ${expect_ping_to_work} =    Set Variable If    "skip_if_controller" in @{TEST_TAGS}    False    True
+    ${dst_ip} =    BuiltIn.Create List    @{VM_FLOATING_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[1]    ${dst_ip}    ttl=1    ping_should_succeed=${expect_ping_to_work}
 
 Ping External Network PNF from Vm Instance 1
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
-    ${dst_ip}=    BuiltIn.Create List    ${EXTERNAL_PNF}
+    ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
 
 SNAT - TCP connection to External Gateway From SNAT VM Instance1
