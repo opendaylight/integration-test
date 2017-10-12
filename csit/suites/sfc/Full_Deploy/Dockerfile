@@ -1,20 +1,22 @@
 FROM socketplane/busybox:latest
 MAINTAINER The SocketPlane Team <support@socketplane.io>
-ENV OVS openvswitch_2.5.90-1
-ENV SUPERVISOR_STDOUT_VERSION 0.1.1
+ENV OVS openvswitch_2.6.1
+
 # Configure supervisord
 RUN mkdir -p /var/log/supervisor/
 ADD supervisord.conf /etc/
-# Install supervisor_stdout
-WORKDIR /opt
 RUN mkdir -p /var/log/supervisor/
 RUN mkdir -p /etc/openvswitch
-RUN wget https://pypi.python.org/packages/source/s/supervisor-stdout/supervisor-stdout-$SUPERVISOR_STDOUT_VERSION.tar.gz --no-check-certificate && \
-    tar -xzvf supervisor-stdout-0.1.1.tar.gz && \
-    mv supervisor-stdout-$SUPERVISOR_STDOUT_VERSION supervisor-stdout && \
+
+# Install supervisor_stdout
+COPY supervisor-stdout-0.1.1.tar.gz /opt/
+WORKDIR /opt
+RUN tar -xzvf supervisor-stdout-0.1.1.tar.gz && \
+    mv supervisor-stdout-0.1.1 supervisor-stdout && \
     rm supervisor-stdout-0.1.1.tar.gz && \
     cd supervisor-stdout && \
     python setup.py install -q
+
 # Get Open vSwitch
 WORKDIR /
 COPY ovs_package/${OVS}.tgz /
