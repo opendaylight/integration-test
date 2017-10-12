@@ -1,18 +1,13 @@
 #!/bin/bash
 
 set -o xtrace
-set -o nounset #Don't allow for unset variables
+set -o nounset #Do not allow for unset variables
 #set -e #Exit script if a command fails
 
 # bootstrap_centos
 WORK_DIR=`pwd`
-if sudo yum install -y "kernel-devel-uname-r == $(uname -r)"; then
-   echo "Kernel-devel installed correctly"
-else
-   echo "Warning: Errors issued when installing kernel-devel"
-fi
 
-APT="sudo yum install -y git kernel-debug-devel kernel-headers python-devel vim autoconf automake libtool systemd-units rpm-build openssl openssl-devel groff graphviz selinux-policy-devel python python-twisted-core python-zope-interface python-twisted-web PyQt4 python-six desktop-file-utils procps-ng"
+APT="sudo yum install -y python-devel python wget"
 if $APT; then
   echo "Pacakges installed correctly"
 else
@@ -27,26 +22,10 @@ chmod a+x configure-ovs.sh
 [ -e supervisord.conf ] || \
    wget https://raw.githubusercontent.com/socketplane/docker-ovs/master/supervisord.conf
 
-[ -e ovs_nsh_patches ] || \
-   git clone https://github.com/yyang13/ovs_nsh_patches.git
-[ -e ovs ] || \
-   git clone https://github.com/openvswitch/ovs.git
-
-cd ovs
-git reset --hard 7d433ae57ebb90cd68e8fa948a096f619ac4e2d8
-cp ../ovs_nsh_patches/*.patch ./
-git apply *.patch
-
-#compile ovs
-./boot.sh
-./configure --with-linux=/lib/modules/`uname -r`/build --prefix=/usr/local
-make rpm-fedora RPMBUILD_OPT="--without check --without libcapng"
-make DESTDIR=$WORK_DIR/ovs_install/openvswitch_2.5.90-1 install
-
-#copy rpms and installation
+#download rpms and installation
 mkdir -p $WORK_DIR/ovs_package
-find . -name "*.rpm"|xargs -I[] cp [] $WORK_DIR/ovs_package
-tar cvzf $WORK_DIR/ovs_package/openvswitch_2.5.90-1.tgz -C $WORK_DIR/ovs_install .
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=0B20dtomeEJsVR0dSUnVJbkp5SFk' -O ovs_package/openvswitch_2.6.1_el7_centos_rpms.tgz
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=0B20dtomeEJsVMWZOelp1dW5uMDA' -O ovs_package/openvswitch_2.6.1_el7_centos.tgz
 
 # install_ovs
 cd $WORK_DIR/ovs_package
@@ -54,6 +33,7 @@ CMD='sudo yum list installed openvswitch'
 if $CMD; then
   echo "openvswitch already installed"
 else
+  tar xvzf openvswitch_2.6.1_el7_centos_rpms.tgz
   sudo yum --nogpgcheck -y install `find . -regex "\./openvswitch-[0-9,.,-].*"`
 fi
 

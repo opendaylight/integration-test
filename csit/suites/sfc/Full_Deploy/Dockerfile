@@ -1,6 +1,7 @@
 FROM socketplane/busybox:latest
 MAINTAINER The SocketPlane Team <support@socketplane.io>
-ENV OVS openvswitch_2.5.90-1
+ENV OVS openvswitch_2.6.1
+ENV OVS_TAR openvswitch_2.6.1_el7_centos
 ENV SUPERVISOR_STDOUT_VERSION 0.1.1
 # Configure supervisord
 RUN mkdir -p /var/log/supervisor/
@@ -17,14 +18,14 @@ RUN wget https://pypi.python.org/packages/source/s/supervisor-stdout/supervisor-
     python setup.py install -q
 # Get Open vSwitch
 WORKDIR /
-COPY ovs_package/${OVS}.tgz /
+COPY ovs_package/${OVS_TAR}.tgz /
 RUN ls -la /
 RUN ls -la /var
-RUN tar -xzvf ${OVS}.tgz &&\
+RUN tar -xzvf ${OVS_TAR}.tgz &&\
     mv $OVS openvswitch &&\
     cp -r openvswitch/* / &&\
     rm -r openvswitch &&\
-    rm ${OVS}.tgz
+    rm ${OVS_TAR}.tgz
 ADD configure-ovs.sh /usr/local/share/openvswitch/
 
 COPY libcrypto.so.10 /usr/lib
