@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_b88d2134",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-12T10:00:03Z",
+      "side": 1,
+      "message": "Not needed, the default has the same effect.",
+      "range": {
+        "startLine": 379,
+        "startChar": 77,
+        "endLine": 379,
+        "endChar": 134
+      },
+      "revId": "1d06158804e0b5d1152b67808c05bc33cf945813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
