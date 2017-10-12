@@ -376,6 +376,7 @@ Kill_Members_From_List_Or_All
     BuiltIn.Sleep    1s    Kill -9 closes open files, which may take longer than ssh overhead, but not long enough to warrant WUKS.
     : FOR    ${index}    IN    @{kill_index_list}
     \    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
+    Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550    member_index_list=${ClusterManagement__member_index_list}
     [Return]    ${updated_index_list}
 
 Stop_Single_Member
@@ -399,6 +400,7 @@ Stop_Members_From_List_Or_All
     BuiltIn.Return_From_Keyword_If    not ${confirm}    ${updated_index_list}
     : FOR    ${index}    IN    @{stop_index_list}
     \    BuiltIn.Wait Until Keyword Succeeds    ${timeout}    2s    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
+    Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550    member_index_list=${ClusterManagement__member_index_list}
     [Return]    ${updated_index_list}
 
 Start_Single_Member
@@ -422,7 +424,7 @@ Start_Members_From_List_Or_All
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
     # TODO: Do we also want to check Shard Leaders here?
-    [Teardown]    Run_Bash_Command_On_List_Or_All    command=netstat -pnatu    member_index_list=${member_index_list}
+    [Teardown]    Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550    member_index_list=${ClusterManagement__member_index_list}
 
 Freeze_Single_Member
     [Arguments]    ${member}
