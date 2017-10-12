@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -o xtrace
-set -o nounset #Don't allow for unset variables
+set -o nounset #Do not allow for unset variables
 #set -e #Exit script if a command fails
 
 # bootstrap_centos
@@ -12,7 +12,7 @@ else
    echo "Warning: Errors issued when installing kernel-devel"
 fi
 
-APT="sudo yum install -y git kernel-debug-devel kernel-headers python-devel vim autoconf automake libtool systemd-units rpm-build openssl openssl-devel groff graphviz selinux-policy-devel python python-twisted-core python-zope-interface python-twisted-web PyQt4 python-six desktop-file-utils procps-ng"
+APT="sudo yum install -y git kernel-debug-devel kernel-headers python-devel vim autoconf automake libtool systemd-units rpm-build openssl openssl-devel groff graphviz selinux-policy-devel python python-twisted-core python-zope-interface python-twisted-web PyQt4 python-six desktop-file-utils procps-ng wget"
 if $APT; then
   echo "Pacakges installed correctly"
 else
@@ -33,20 +33,21 @@ chmod a+x configure-ovs.sh
    git clone https://github.com/openvswitch/ovs.git
 
 cd ovs
-git reset --hard 7d433ae57ebb90cd68e8fa948a096f619ac4e2d8
-cp ../ovs_nsh_patches/*.patch ./
-git apply *.patch
+git config user.email "yi.y.yang@intel.com"
+git config user.name "Yi Yang"
+git checkout -b v2.6.1 v2.6.1
+git am ../ovs_nsh_patches/v2.6.1/*.patch
 
 #compile ovs
 ./boot.sh
 ./configure --with-linux=/lib/modules/`uname -r`/build --prefix=/usr/local
 make rpm-fedora RPMBUILD_OPT="--without check --without libcapng"
-make DESTDIR=$WORK_DIR/ovs_install/openvswitch_2.5.90-1 install
+make DESTDIR=$WORK_DIR/ovs_install/openvswitch_2.6.1 install
 
 #copy rpms and installation
 mkdir -p $WORK_DIR/ovs_package
 find . -name "*.rpm"|xargs -I[] cp [] $WORK_DIR/ovs_package
-tar cvzf $WORK_DIR/ovs_package/openvswitch_2.5.90-1.tgz -C $WORK_DIR/ovs_install .
+tar cvzf $WORK_DIR/ovs_package/openvswitch_2.6.1.tgz -C $WORK_DIR/ovs_install .
 
 # install_ovs
 cd $WORK_DIR/ovs_package
