@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_2f68c8b9",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5197
+      },
+      "writtenOn": "2017-10-12T15:24:35Z",
+      "side": 1,
+      "message": "@Jamo, we need some additional changes in Netvirt to support these tests. I\u0027ve raised a bug[*] in Netvirt for this use-case. Please do not merge these tests until the bug is addressed.\n\n[*] https://bugs.opendaylight.org/show_bug.cgi?id\u003d9263",
+      "revId": "8b490440a519f10221c4c340d6a9eed7bcb05f5a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
