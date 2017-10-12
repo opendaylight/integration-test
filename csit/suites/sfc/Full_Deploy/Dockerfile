@@ -1,6 +1,6 @@
 FROM socketplane/busybox:latest
 MAINTAINER The SocketPlane Team <support@socketplane.io>
-ENV OVS openvswitch_2.5.90-1
+ENV OVS openvswitch_2.6.1
 ENV SUPERVISOR_STDOUT_VERSION 0.1.1
 # Configure supervisord
 RUN mkdir -p /var/log/supervisor/
