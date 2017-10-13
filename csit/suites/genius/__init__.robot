@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for Inventory Scalability
+Documentation     Genius Test Suites for Interface manager , ID manager , Internal Transport Manager and BFD monitoring.
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           SSHLibrary
@@ -20,7 +20,7 @@ Start Suite
     Set Global Variable    ${conn_id_1}
     KarafKeywords.Setup_Karaf_Keywords
     ${karaf_debug_enabled}    BuiltIn.Get_Variable_Value    ${KARAF_DEBUG}    ${False}
-    BuiltIn.run_keyword_if    ${karaf_debug_enabled}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius
+    ${karaf_debug_enabled}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Log    ${conn_id_1}
     Execute Command    sudo ovs-vsctl add-br BR1
