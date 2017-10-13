@@ -46,6 +46,30 @@
       "revId": "81e0b09a58ae78de4d40316bc5e4c7dc5b235b41",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_bbc7d611",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-13T21:05:02Z",
+      "side": 1,
+      "message": "these Variables are only relevant to this lib/file so until\nthey are going to be used elsewhere it seems ok to leave\nthem here.\n\nLuis, I\u0027m not really following what problem you are\ndiscussing. I\u0027m just removing release variables that we\nno longer use in CSIT and their corresponding keywords",
+      "parentUuid": "9a245df4_722c6aac",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 61
+      },
+      "revId": "81e0b09a58ae78de4d40316bc5e4c7dc5b235b41",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }

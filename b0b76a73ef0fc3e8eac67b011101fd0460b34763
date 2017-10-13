@@ -57,6 +57,24 @@
       "revId": "b0b76a73ef0fc3e8eac67b011101fd0460b34763",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_9bf3f272",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/BFD_Monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-13T21:05:02Z",
+      "side": 0,
+      "message": "I think this suite is never being used, now that I look closer. I think Daniel\u0027s logic is right though. I\u0027ll have\nto follow up via email with the netvirt alias to see what\u0027s\ngoing on with this suite.\n\nand, I\u0027ll move this change to 63953",
+      "parentUuid": "9a245df4_12b7ee87",
+      "revId": "b0b76a73ef0fc3e8eac67b011101fd0460b34763",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
