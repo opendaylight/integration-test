@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_bb9516e6",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-13T21:20:33Z",
+      "side": 0,
+      "message": "the refactor I did here was to just keep the Post_To_Uri in\nline 93 and return that response.",
+      "parentUuid": "9a245df4_527cc620",
+      "revId": "da7180ff75bac92f8ee3e2c1f1e17b9d9cac9f2f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_b2a6e2bf",
         "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_fb9f8e01",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-13T21:20:33Z",
+      "side": 0,
+      "message": "actually, I think the mistake was not having the Set Variable\nin line 185. next ps has that.",
+      "parentUuid": "9a245df4_b2a6e2bf",
+      "revId": "da7180ff75bac92f8ee3e2c1f1e17b9d9cac9f2f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_12ac0ea0",
         "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functional_evpn.robot",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2017-10-11T19:18:46Z",
       "side": 0,
       "message": "Shouldn\u0027t these be removed? As-is, they only apply to Boron and below, so if we\u0027re removing Boron support they should be removed entirely.",
+      "revId": "da7180ff75bac92f8ee3e2c1f1e17b9d9cac9f2f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_dba44a59",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functional_evpn.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-13T21:20:33Z",
+      "side": 0,
+      "message": "it\u0027s a conditional. IF boron or less, use \"example-app-rib\"\notherwise use ${ODL_SYSTEM_IP}. So, I\u0027m just removing the\ncondition and setting it directly since we know it\u0027s always\ngoing to be after boron now.",
+      "parentUuid": "9a245df4_12ac0ea0",
       "revId": "da7180ff75bac92f8ee3e2c1f1e17b9d9cac9f2f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
