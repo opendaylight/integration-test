@@ -1,1 +1,0 @@
-openflowplugin-scale-stats-collection-daily.txt
