@@ -935,6 +935,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_5b2cdaab",
+        "filename": "csit/testplans/ovsdb-gate-clustering.txt",
+        "patchSetId": 76
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-13T23:41:37Z",
+      "side": 1,
+      "message": "yes it is:\nhttps://github.com/opendaylight/releng-builder/blob/master/jjb/ovsdb/ovsdb-csit-clustering.yaml#L13",
+      "parentUuid": "ba1f61a0_acf4195b",
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_d2eb3411",
         "filename": "csit/testplans/ovsdb-gate-southbound.txt",
         "patchSetId": 76
@@ -964,6 +982,24 @@
       "side": 1,
       "message": "I have deleted this file as it is not required.",
       "parentUuid": "ba1f61a0_d2eb3411",
+      "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_7b2f1ea2",
+        "filename": "csit/testplans/ovsdb-gate-southbound.txt",
+        "patchSetId": 76
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-13T23:41:37Z",
+      "side": 1,
+      "message": "yes it is:\nhttps://github.com/opendaylight/releng-builder/blob/master/jjb/ovsdb/ovsdb-csit-southbound.yaml#L13",
+      "parentUuid": "9a245df4_fc7b2327",
       "revId": "413c186adc415989bb43aa3a28159ecc0672c88f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
