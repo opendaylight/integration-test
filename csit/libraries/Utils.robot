@@ -28,6 +28,10 @@ Start Mininet
     Set Suite Variable    ${mininet_conn_id}
     SSHKeywords.Flexible Mininet Login    user=${user}    password=${password}
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    ${stdout}=    Execute Command    sudo cat /var/log/openvswitch/ovs-vswitchd.log
+    Log    ${stdout}
+    ${stdout}=    Execute Command    sudo cat /var/log/openvswitch/ovsdb-server.log
+    Log    ${stdout}
     Write    ${start}
     Read Until    mininet>
 
