@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_00ff9368",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-10-13T13:17:14Z",
+      "side": 1,
+      "message": "Move these to be in alphabetical order. Patch below started that: https://git.opendaylight.org/gerrit/#/c/64178/",
+      "range": {
+        "startLine": 41,
+        "startChar": 33,
+        "endLine": 41,
+        "endChar": 54
+      },
+      "revId": "4df0c18a06eaae62c5504eaf9c753cf1594bfa07",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
