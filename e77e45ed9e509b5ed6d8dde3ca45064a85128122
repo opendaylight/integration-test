@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_fb82eefe",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-13T18:09:23Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 9
+      },
+      "revId": "e77e45ed9e509b5ed6d8dde3ca45064a85128122",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_db872a0e",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-13T18:09:23Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 8
+      },
+      "revId": "e77e45ed9e509b5ed6d8dde3ca45064a85128122",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_3b7c8620",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-13T18:09:23Z",
+      "side": 1,
+      "message": "ws",
+      "revId": "e77e45ed9e509b5ed6d8dde3ca45064a85128122",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
