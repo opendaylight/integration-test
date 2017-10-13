@@ -16,6 +16,24 @@
       "revId": "b7c6b628aeb1d90ea9596dd11b976136269f39e3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_c088db24",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 4269
+      },
+      "writtenOn": "2017-10-13T14:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_9290fe96",
+      "revId": "b7c6b628aeb1d90ea9596dd11b976136269f39e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
