@@ -12,7 +12,6 @@ Resource          ../../../libraries/Utils.robot
 *** Test Cases ***
 Init Variables
     [Documentation]    Initialize ODL version specific variables using resource CompareStream.
-    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
     Init Variables Master
 
 Add Tenant to one node

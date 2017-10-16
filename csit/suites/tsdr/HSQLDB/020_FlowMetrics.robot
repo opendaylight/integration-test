@@ -17,7 +17,6 @@ Variables         ../../../variables/Variables.py
 *** Test Cases ***
 Init Variables
     [Documentation]    Initialize ODL version specific variables
-    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
     Init Variables Master
 
 Verification of TSDR FlowMetrics
@@ -31,7 +30,3 @@ Verification of TSDR FlowMetrics
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version
     Set Suite Variable    ${TSDR_FLOWSTATS}    tsdr:list FLOWSTATS
-
-Init Variables Lithium
-    [Documentation]    Sets variables specific to Lithium version
-    Set Suite Variable    ${TSDR_FLOWSTATS}    tsdr:list FlowStats
