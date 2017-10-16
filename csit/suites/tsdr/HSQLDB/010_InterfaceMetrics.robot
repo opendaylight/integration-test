@@ -18,7 +18,6 @@ Variables         ../../../variables/Variables.py
 *** Test Cases ***
 Init Variables
     [Documentation]    Initialize ODL version specific variables
-    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
     Init Variables Master
 
 Verification of TSDR HSQLDB Feature Installation
@@ -51,9 +50,3 @@ Init Variables Master
     ...    QUEUESTATS
     Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PORTSTATS
     Set Suite Variable    ${HSQLDB_INSTALL}    odl-tsdr-hsqldb
-
-Init Variables Lithium
-    [Documentation]    Sets variables specific to Lithium version
-    Set Suite Variable    @{CATEGORY}    FlowStats    FlowTableStats    PortStats    QueueStats
-    Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PortStats
-    Set Suite Variable    ${HSQLDB_INSTALL}    odl-tsdr-HSQLDB

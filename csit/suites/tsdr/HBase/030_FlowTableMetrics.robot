@@ -17,7 +17,6 @@ ${TSDR_FLOWTABLE_STATS}    tsdr:list FLOWTABLESTATS
 *** Test Cases ***
 Init Variables
     [Documentation]    Initialize ODL version specific variables using resource CompareStream.
-    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
     Init Variables Master
 
 Verification of TSDR FlowTableMetrics
@@ -50,9 +49,3 @@ Init Variables Master
     Set Suite Variable    ${TSDR_FLOWSTATS}    tsdr:list FLOWTABLESTATS
     set Suite Variable    ${node_connector}    Node:openflow:1,Table:0
     set suite Variable    ${flowtablestats}    FLOWTABLESTATS
-
-Init Variables Lithium
-    [Documentation]    Sets variables specific to Lithium version
-    Set Suite Variable    ${TSDR_FLOWSTATS}    tsdr:list FlowTableStats
-    set Suite Variable    ${node_connector}    openflow:1_0
-    set suite Variable    ${flowtablestats}    FlowTableMetrics

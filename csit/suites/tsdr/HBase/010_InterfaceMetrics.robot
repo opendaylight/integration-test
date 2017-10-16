@@ -21,7 +21,6 @@ Variables         ../../../variables/Variables.py
 *** Test Cases ***
 Init Variables
     [Documentation]    Initialize ODL version specific variables using resource CompareStream.
-    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
     Init Variables Master
 
 Verification of TSDR HBase Feature Installation
@@ -73,17 +72,6 @@ Init Variables Master
     set Suite Variable    ${non_default_poll}    20000
     set Suite Variable    ${node_connector}    Node:openflow:1,NodeConnector:1
     set suite Variable    ${portstats}    PORTSTATS
-
-Init Variables Lithium
-    [Documentation]    Sets variables specific to Lithium version
-    Set Suite Variable    @{CATEGORY}    FlowStats    FlowTableStats    PortStats    QueueStats
-    Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PortStats
-    Set Suite Variable    ${CONFIG_INTERVAL}    /restconf/config/TSDRDC:TSDRDCConfig
-    Set Suite Variable    ${OPER_INTERVAL}    /restconf/operations/TSDRDC:setPollingInterval
-    Set Suite Variable    ${default_poll}    180
-    set Suite Variable    ${non_default_poll}    200
-    set Suite Variable    ${node_connector}    openflow:1_1
-    set suite Variable    ${portstats}    InterfaceMetrics
 
 Initialize the Tsdr Suite
     COMMENT    Initialize the HBase for TSDR
