@@ -4,7 +4,7 @@ Resource          ${CURDIR}/CompareStream.robot
 
 *** Keywords ***
 Init Variables
-    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
+    Init Variables Lithium
     BuiltIn.Set Suite Variable    ${PACKETCABLE_RESOURCE_DIR}    ${CURDIR}/../variables/packetcable/beryllium
     BuiltIn.Set Suite Variable    ${ODLREST_CCAPS}    /restconf/config/packetcable:ccaps
     BuiltIn.Set Suite Variable    ${CCAP_TOKEN}    ccap

@@ -17,7 +17,6 @@ Variables         ../../../variables/Variables.py
 *** Test Cases ***
 Init Variables
     [Documentation]    Initialize ODL version specific variables
-    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
     Init Variables Master
 
 Verify the QueueStats attributes exist thru Karaf console
@@ -35,7 +34,3 @@ Configuration of Queue on Switch
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version
     Set Suite Variable    ${TSDR_QUEUE_STATS}    tsdr:list QUEUESTATS
-
-Init Variables Lithium
-    [Documentation]    Sets variables specific to Lithium version
-    Set Suite Variable    ${TSDR_QUEUE_STATS}    tsdr:list QueueStats

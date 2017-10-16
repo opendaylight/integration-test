@@ -37,7 +37,6 @@ Set Test Variables
 
 Init Variables
     [Documentation]    Initialize ODL version specific variables using resource CompareStream.
-    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
     Init Variables Master
 
 Init Variables Master
@@ -50,14 +49,3 @@ Init Variables Master
     Set Global Variable    ${TENANT2_FILE}    ${CURDIR}/../../../../variables/gbp/3node/master/tenant2.json
     Set Global Variable    ${ENDPOINTS_GBP1_DIR}    ${CURDIR}/../../../../variables/gbp/3node/master/demo-gbp1
     Set Global Variable    ${ENDPOINTS_GBP2_DIR}    ${CURDIR}/../../../../variables/gbp/3node/master/demo-gbp2
-
-Init Variables Lithium
-    [Documentation]    Sets variables specific to Lithium version
-    Set Global Variable    ${GBP_TENANT1_ID}    f5c7d344-d1c7-4208-8531-2c2693657e12
-    Set Global Variable    ${GBP_TENANT2_ID}    25c7d344-d1c7-4208-8531-2c2693657e12
-    Set Global Variable    ${TENANT1_PATH}    ${GBP_TENANTS_API}/policy:tenant/${GBP_TENANT1_ID}
-    Set Global Variable    ${TENANT2_PATH}    ${GBP_TENANTS_API}/policy:tenant/${GBP_TENANT2_ID}
-    Set Global Variable    ${TENANT1_FILE}    ${CURDIR}/../../../../variables/gbp/3node/lithium/tenant1.json
-    Set Global Variable    ${TENANT2_FILE}    ${CURDIR}/../../../../variables/gbp/3node/lithium/tenant2.json
-    Set Global Variable    ${ENDPOINTS_GBP1_DIR}    ${CURDIR}/../../../../variables/gbp/3node/lithium/demo-gbp1
-    Set Global Variable    ${ENDPOINTS_GBP2_DIR}    ${CURDIR}/../../../../variables/gbp/3node/lithium/demo-gbp2
