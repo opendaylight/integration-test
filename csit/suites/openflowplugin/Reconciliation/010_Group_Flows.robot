@@ -128,11 +128,9 @@ Initialization Phase
     ${all_groups}=    BuiltIn.Evaluate    ${switches} * ${iter} * 2
     ${less_groups}=    BuiltIn.Evaluate    ${all_groups} - ${switches} * 2
     # Stale flows/groups feature enabled in Boron onwards.
-    ${less_groups}=    CompareStream.Set Variable If At Most Beryllium    ${all_groups}    ${less_groups}
     ${all_flows}=    BuiltIn.Evaluate    ${switches} * ${iter+1}
     ${less_flows}=    BuiltIn.Evaluate    ${all_flows} - ${switches}
     # Stale flows/groups feature enabled in Boron onwards.
-    ${less_flows}=    CompareStream.Set Variable If At Most Beryllium    ${all_flows}    ${less_flows}
     BuiltIn.Set Suite Variable    ${switches}
     BuiltIn.Set Suite Variable    ${iter}
     BuiltIn.Set Suite Variable    ${all_groups}

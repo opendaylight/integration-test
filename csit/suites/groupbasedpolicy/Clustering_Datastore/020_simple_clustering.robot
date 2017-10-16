@@ -12,7 +12,6 @@ Resource          ../../../libraries/Utils.robot
 *** Test Cases ***
 Init Variables
     [Documentation]    Initialize ODL version specific variables using resource CompareStream.
-    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
     Init Variables Master
 
 Add Tenant to one node
@@ -45,9 +44,3 @@ Init Variables Master
     Set Suite Variable    ${GBP_TENANT_ID}    tenant-red
     Set Suite Variable    ${GBP_TENANT1_API}    /restconf/config/policy:tenants/tenant/${GBP_TENANT_ID}
     Set Suite Variable    ${GBP_TENANT1_FILE}    ${CURDIR}/../../../variables/gbp/master/tenant1.json
-
-Init Variables Lithium
-    [Documentation]    Sets variables specific to Lithium version
-    Set Suite Variable    ${GBP_TENANT_ID}    f5c7d344-d1c7-4208-8531-2c2693657e12
-    Set Suite Variable    ${GBP_TENANT1_API}    /restconf/config/policy:tenants/tenant/${GBP_TENANT_ID}
-    Set Suite Variable    ${GBP_TENANT1_FILE}    ${CURDIR}/../../../variables/gbp/lithium/tenant1.json

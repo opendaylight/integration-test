@@ -51,7 +51,6 @@ Set Test Variables
 
 Set ODL Variables
     [Documentation]    Initialize ODL version specific variables using resource CompareStream.
-    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Set ODL Variables Lithium
     Set ODL Variables Master
 
 Set ODL Variables Master
@@ -63,13 +62,3 @@ Set ODL Variables Master
     Set Global Variable    ${SFF_FILE}    ${CURDIR}/../../../../variables/gbp/6node/master/service_function_forwarders.json
     Set Global Variable    ${ENDPOINTS_ASYMM_DIR}    ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/master/
     Set Global Variable    ${ENDPOINTS_SYMM_DIR}    ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/master/
-
-Set ODL Variables Lithium
-    [Documentation]    Sets variables specific to Lithium version
-    Set Global Variable    ${GBP_TENANT_ID}    f5c7d344-d1c7-4208-8531-2c2693657e12
-    Set Global Variable    ${TENANT_PATH}    ${GBP_TENANTS_API}/tenant/${GBP_TENANT_ID}
-    Set Global Variable    ${TENANT_ASYMM_FILE}    ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/lithium/tenants.json
-    Set Global Variable    ${TENANT_SYMM_FILE}    ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/lithium/tenants.json
-    Set Global Variable    ${SFF_FILE}    ${CURDIR}/../../../../variables/gbp/6node/lithium/service_function_forwarders.json
-    Set Global Variable    ${ENDPOINTS_ASYMM_DIR}    ${CURDIR}/../../../../variables/gbp/6node/demo-asymmetric-chain/lithium/
-    Set Global Variable    ${ENDPOINTS_SYMM_DIR}    ${CURDIR}/../../../../variables/gbp/6node/demo-symmetric-chain/lithium/
