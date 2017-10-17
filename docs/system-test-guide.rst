@@ -357,9 +357,18 @@ Before pushing your system test job into jenkins-releng_, it is recommended to
 debug the job as well as the you system test code in the sandbox. To do that:
 
 * Set up sandbox access using jenkins-sandbox-install_ instruction.
-* Push you new csit job to sandbox::
+* Push your new csit job to sandbox:
 
-    jenkins-jobs --conf jenkins.ini update jjb/ $project-csit-1node-$functionality-only-$branch
+  Method 1:
+
+  you can write a comment in a releng/builder gerrit patch to have the job automatically created
+  in the sandbox. The format of the comment is::
+
+      jjb-deploy <job name>
+
+  Method 2::
+
+      jenkins-jobs --conf jenkins.ini update jjb/ $project-csit-1node-$functionality-only-$branch
 
 * Open your job in jenkins-sandbox_ and start a build replacing the PATCHREFSPEC
   parameter by your int/test patch REFSPEC (e.g. refs/changes/85/23185/1). you
