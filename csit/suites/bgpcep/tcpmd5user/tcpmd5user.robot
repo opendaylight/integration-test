@@ -33,6 +33,8 @@ ${directory_for_actual_responses}    ${TEMPDIR}${/}actual
 ${directory_for_expected_responses}    ${TEMPDIR}${/}expected
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/tcpmd5user/
 ${CONNECTOR_FEATURE}    odl-netconf-connector-all
+${PCEP_FEATURE}    odl-bgpcep-pcep
+${RESTCONF_FEATURE}    odl-restconf-all
 
 *** Test Cases ***
 Topology_Precondition
@@ -166,6 +168,8 @@ Install_Netconf_Connector
     # During the netconf connector installation the karaf's ssh is restarted and connection to karaf console is droped. This is causing an error
     # which is ignored, because the feature should be installed anyway.
     ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${CONNECTOR_FEATURE}
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${PCEP_FEATURE}
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${RESTCONF_FEATURE}
     BuiltIn.Log    ${results}
     BuiltIn.Wait_Until_Keyword_Succeeds    240    3    Check_Netconf_Up_And_Running
 
