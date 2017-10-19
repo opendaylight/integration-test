@@ -19,6 +19,6 @@ do
 
   echo "Set AKKA debug on ${!CONTROLLERIP}"
   scp ${WORKSPACE}/set_akka_debug.sh ${!CONTROLLERIP}:/tmp/
-  ssh ${!CONTROLLERIP} "bash /tmp/set_akka_debug.sh $i"
+  ssh ${!CONTROLLERIP} "bash /tmp/set_akka_debug.sh"
 done
 
