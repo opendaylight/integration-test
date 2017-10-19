@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_d207fa1b",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-19T14:00:27Z",
+      "side": 1,
+      "message": "This should be already installed. Currently most tests assume this is done before calling Robot.",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 34
+      },
+      "revId": "bcb2176550fd83dd1c182f4d1f445ff072a4216b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_f20cbe44",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-19T14:00:27Z",
+      "side": 1,
+      "message": "odl-restconf is the recommended one. odl-restconf-noauth might be useful in some cases.\nodl-restconf-all currently installs apidocs as well, which is not needed by the suite.",
+      "range": {
+        "startLine": 37,
+        "startChar": 23,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "bcb2176550fd83dd1c182f4d1f445ff072a4216b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_55865466",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-19T14:00:27Z",
+      "side": 1,
+      "message": "Karaf 4 can be unstable when installing features during runtime. I recommend to copy code from Configure_Netconf_Device test case of csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot\nto create controller-config device in a way which does not require feature installation.\nIt might be required to add odl-netconf-topology feature to job definition (releng/builder: jjb/bgpcep/bgpcep-csit-userfeatures.yaml) to make that work.",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 25
+      },
+      "revId": "bcb2176550fd83dd1c182f4d1f445ff072a4216b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_1547bc4c",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-19T14:00:27Z",
+      "side": 1,
+      "message": "Looking at location.uri, this folder still uses config subsystem, which is being deprecated. Maybe there is another way to re-configure PCEP?",
+      "range": {
+        "startLine": 224,
+        "startChar": 84,
+        "endLine": 224,
+        "endChar": 111
+      },
+      "revId": "bcb2176550fd83dd1c182f4d1f445ff072a4216b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
