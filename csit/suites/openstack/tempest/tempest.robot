@@ -23,6 +23,9 @@ tempest.api.network
 tempest.scenario.test_aggregates_basic_ops.TestAggregatesBasicOps.test_aggregate_basic_ops
     ${TEST_NAME}    debug=True
 
+tempest.scenario.test_floatingip.FloatingIpSameNetwork.test_east_west
+    ${TEST_NAME}    debug=True
+
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_pause_unpause
     ${TEST_NAME}    debug=True
 
