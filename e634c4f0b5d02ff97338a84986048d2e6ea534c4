@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_e34fd2bc",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:07:56Z",
+      "side": 1,
+      "message": "I think this filename is not accurate. It\u0027s leftover\nfrom the skeleton CSIT job people just copy/pasted\nto get started. Let\u0027s rename it to something more\nmeaningful. also, the naming scheme with numbers to start\nit with is not necessary either, unless you just prefer\nit.",
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_63648249",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:07:56Z",
+      "side": 1,
+      "message": "let\u0027s refactor this to .robot. it\u0027s our end-goal to get\nrid of .py down the road anyway.",
+      "range": {
+        "startLine": 8,
+        "startChar": 47,
+        "endLine": 8,
+        "endChar": 49
+      },
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_8361b63b",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:07:56Z",
+      "side": 1,
+      "message": "this could be reduced to ${CONFIG_API} which doesn\u0027t save much space, but generally better. it comes from Variables.robot",
+      "range": {
+        "startLine": 14,
+        "startChar": 27,
+        "endLine": 14,
+        "endChar": 44
+      },
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_c35bae85",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:07:56Z",
+      "side": 1,
+      "message": "no sleeps please. no reason for it here anyway. ${resp} is\nalready retrieved.",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 14
+      },
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_0355c64f",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:07:56Z",
+      "side": 1,
+      "message": "this is a step in the right direction, but \"internal server\nerror\" would also match here. Maybe there is a legit string\nwe can check for in resp.content? applies below as well.",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 23
+      },
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_a35e7a74",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:07:56Z",
+      "side": 1,
+      "message": "no sleep",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 14
+      },
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
