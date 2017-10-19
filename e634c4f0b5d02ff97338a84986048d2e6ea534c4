@@ -65,6 +65,52 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_234a8aac",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:11:06Z",
+      "side": 1,
+      "message": "remove one space here",
+      "range": {
+        "startLine": 22,
+        "startChar": 32,
+        "endLine": 22,
+        "endChar": 37
+      },
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_83c89623",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:11:06Z",
+      "side": 1,
+      "message": "remove one space here",
+      "range": {
+        "startLine": 38,
+        "startChar": 11,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_c35bae85",
         "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
         "patchSetId": 1
@@ -81,6 +127,29 @@
         "startChar": 4,
         "endLine": 41,
         "endChar": 14
+      },
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_63cbe21e",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:11:06Z",
+      "side": 1,
+      "message": "remove one space here",
+      "range": {
+        "startLine": 47,
+        "startChar": 15,
+        "endLine": 47,
+        "endChar": 20
       },
       "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
@@ -111,6 +180,29 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_c3d28ed1",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:11:06Z",
+      "side": 1,
+      "message": "remove one space here",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 16
+      },
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_a35e7a74",
         "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
         "patchSetId": 1
@@ -128,6 +220,46 @@
         "endLine": 74,
         "endChar": 14
       },
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_a3d5daba",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:11:06Z",
+      "side": 1,
+      "message": "remove one space here",
+      "range": {
+        "startLine": 79,
+        "startChar": 15,
+        "endLine": 79,
+        "endChar": 20
+      },
+      "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_03dca6e3",
+        "filename": "csit/suites/nic/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-10-19T23:11:06Z",
+      "side": 1,
+      "message": "add a newline I think. This is one of the errors in the \n-verify job I *think*",
       "revId": "e634c4f0b5d02ff97338a84986048d2e6ea534c4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
