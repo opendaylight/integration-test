@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_f54b0829",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-19T14:26:19Z",
+      "side": 1,
+      "message": "Why is it not installed? It is installed in CSIT.",
+      "parentUuid": "9a245df4_55edb424",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 34
+      },
+      "revId": "bcb2176550fd83dd1c182f4d1f445ff072a4216b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_f20cbe44",
         "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "The previous test version doesn\u0027t have it installed causing a \u0027404\u0027 when try to use RESTCONF. We can replace for \u0027odl-restconf\u0027 as well, but we have to ensure that this feature is installed due to the test.",
       "parentUuid": "9a245df4_f20cbe44",
+      "range": {
+        "startLine": 37,
+        "startChar": 23,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "bcb2176550fd83dd1c182f4d1f445ff072a4216b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_15517cd8",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-19T14:26:19Z",
+      "side": 1,
+      "message": "When odl-restconf is not installed, you do not get 404, but \"connection refused\".\n404 means restconf works, but there is nothing in the requested URI. You have to examine karaf.log to see what went wrong.",
+      "parentUuid": "9a245df4_3591209a",
       "range": {
         "startLine": 37,
         "startChar": 23,
