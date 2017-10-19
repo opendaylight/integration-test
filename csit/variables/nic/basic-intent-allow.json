@@ -1,0 +1,47 @@
+{
+  "intent:intent": [
+    {
+      "intent:id": "bEeFBc8B-cbBB-7efc-7eac-efCd98AEAfAf",
+      "intent:subjects": [
+        {
+          "intent:order": "0",
+          "end-point-group": {
+            "intent:name": "Intent_A"
+          }
+        }
+      ],
+      "intent:actions": [
+        {
+          "intent:order": "0",
+          "allow": {}
+        }
+      ],
+      "intent:qos-config": [
+        {
+          "intent:order": "0",
+          "dscp-type": {
+            "intent:name": "QoS_Config",
+            "intent:dscp": "10"
+          }
+        }
+      ],
+      "intent:constraints": [
+        {
+          "intent:order": "0",
+          "bandwidth-constraint": {
+            "intent:bandwidth": "100kbps"
+          }
+        }
+      ],
+      "intent:conditions": [
+        {
+          "intent:order": "0",
+          "daily": {
+            "intent:start-time": "47:57:56.9Z",
+            "intent:duration": "3h"
+          }
+        }
+      ]
+    }
+  ]
+}

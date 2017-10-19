@@ -1,0 +1,1 @@
+{"intent":[{"id":"bEeFBc8B-cbBB-7efc-7eac-efCd98AEAfAf","actions":[{"order":0,"allow":{}}],"constraints":[{"order":0,"bandwidth-constraint":{"bandwidth":"100kbps"}}],"qos-config":[{"order":0,"dscp-type":{"name":"QoS_Config","dscp":10}}],"conditions":[{"order":0,"daily":{"duration":"3h","start-time":"47:57:56.9Z"}}],"subjects":[{"order":0,"end-point-group":{"name":"Intent_A"}}]}]}

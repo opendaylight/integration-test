@@ -1,0 +1,21 @@
+{
+  "intent:intent": [
+    {
+      "intent:id": "080ea9fb-189f-497d-b6ac-912064ec6db8",
+      "intent:subjects": [
+        {
+          "intent:order": "0",
+          "end-point-group": {
+            "intent:name": "Intent_B"
+          }
+        }
+      ],
+      "intent:actions": [
+        {
+          "intent:order": "0",
+          "allow": {}
+        }
+      ]
+    }
+  ]
+}
