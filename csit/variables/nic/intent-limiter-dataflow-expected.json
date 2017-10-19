@@ -1,0 +1,1 @@
+{"dataflows":{"dataflow":[{"id":"ED1c03aC-6eBD-63be-44E3-5Bfdb09bfBF2","dataflow-meter-band-type":"OFMBT_DROP","status":"PROCESSING","flow-type":"L3","is-flow-meter":true,"bandwidth-rate":100,"meter-flags":"METER_KBPS","is-refreshable":true,"meter-id":0,"source-ip-address":"247.5.0.25/32","timeout":5,"renderer-action":"ADD","creation-time":"1508416109230"}]}}

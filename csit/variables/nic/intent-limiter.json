@@ -1,0 +1,15 @@
+{
+  "intent-limiter:intent-limiter": [
+    {
+      "intent-limiter:id": "ED1c03aC-6eBD-63be-44E3-5Bfdb09bfBF2",
+      "intent-limiter:source-ip": "247.5.0.25/32",
+      "intent-limiter:action": "DROP",
+      "intent-limiter:duration": "5",
+      "intent-limiter:interval": "5",
+      "intent-limiter:duration-type": "MINUTES",
+      "intent-limiter:interval-type": "SECONDS",
+      "intent-limiter:bandwidth-limit": "100",
+      "intent-limiter:bandwidth-limit-type": "KBPS"
+    }
+  ]
+}

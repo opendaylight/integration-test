@@ -1,0 +1,1 @@
+{"intent-state-transactions":{"intent-state-transaction":[{"intent-id":"ED1c03aC-6eBD-63be-44E3-5Bfdb09bfBF2","deploy-attempts":3,"received-event":"INTENT_CREATED","current-state":"UNDEPLOYED","undeploy-attempts":3}]}}

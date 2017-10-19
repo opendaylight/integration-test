@@ -1,0 +1,1 @@
+{"intents-limiter":{"intent-limiter":[{"id":"ED1c03aC-6eBD-63be-44E3-5Bfdb09bfBF2","bandwidth-limit":100,"duration-type":"MINUTES","bandwidth-limit-type":"KBPS","interval":5,"source-ip":"247.5.0.25/32","action":"DROP","duration":5,"interval-type":"SECONDS"}]}}
