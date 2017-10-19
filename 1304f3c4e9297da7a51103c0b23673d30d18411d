@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_15169cf1",
+        "filename": "csit/scripts/set_akka_debug.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-10-19T15:07:23Z",
+      "side": 1,
+      "message": "Is this used?",
+      "range": {
+        "startLine": 22,
+        "startChar": 52,
+        "endLine": 22,
+        "endChar": 54
+      },
+      "revId": "1304f3c4e9297da7a51103c0b23673d30d18411d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
