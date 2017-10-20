@@ -17,66 +17,18 @@ Resource          ../../../variables/netvirt/Variables.robot
 
 *** Test Cases ***
 tempest.api.network
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}    timeout=900s
-
-tempest.scenario.test_aggregates_basic_ops.TestAggregatesBasicOps.test_aggregate_basic_ops
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_pause_unpause
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_reboot
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_rebuild
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_stop_start
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_suspend_resume
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
+    [Template]    NONE
+    # with the migration to using "python -m testtools.run" we have to discover the api.network tests for some
+    # reason. Because we are using ${tempest_dir} as a variable, that will not expand if it's given in the actual
+    # test case name. So instead we have to disable the [Template] and call it directly in the body of the
+    # test case. However, this is not a problem for the scenario tests.
+    DevstackUtils.Run Tempest Tests    discover ${tempest_dir}/tempest/api/network    timeout=900s
 
 tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_hotplug_nic
-    # Failing due to default security rules behavior missing in Mitaka
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_mtu_sized_frames
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_port_security_macspoofing_port
-    # Failing due to default security rules behavior missing in Mitaka, and also in all transparent runs
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_preserve_preexisting_port
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_router_rescheduling
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_subnet_details
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_v6.TestGettingAddress.test_dhcp6_stateless_from_os
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_dhcp6_stateless_from_os
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_v6.TestGettingAddress.test_dualnet_slaac_from_os
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_network_v6.TestGettingAddress.test_slaac_from_os
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
-
-tempest.scenario.test_security_groups_basic_ops.TestSecurityGroupsBasicOps
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}    timeout=900s
+    ${TEST_NAME}    debug=True
 
 tempest.scenario.test_server_basic_ops.TestServerBasicOps.test_server_basic_ops
-    ${TEST_NAME}    ${blacklist_file}    ${tempest_config_file}
+    ${TEST_NAME}    debug=True
+
+tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_rebuild
+    ${TEST_NAME}    debug=True
