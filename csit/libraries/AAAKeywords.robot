@@ -1,6 +1,6 @@
 *** Settings ***
 Library           RequestsLibrary
-Variables         ../variables/Variables.py
+Resource          ../variables/Variables.robot
 
 *** Variables ***
 ${WORKSPACE}      /tmp
