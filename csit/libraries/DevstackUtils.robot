@@ -28,37 +28,44 @@ ${external_subnet_name}    external-subnet
 ${external_gateway}    10.10.10.250
 ${external_subnet_allocation_pool}    start=10.10.10.2,end=10.10.10.249
 ${external_subnet}    10.10.10.0/24
+${PAUSE_ON_TEMPEST_TEARDOWN}    True
 
 *** Keywords ***
+Tempest Conf Pause On Test Teardown
+    [Arguments]    ${pause_flag}=${PAUSE_ON_TEMPEST_TEARDOWN}
+    [Documentation]    Sets the DEFAULT section flag for pausing the test teardown. The flag is set to it's
+    ...    default in the Variables section and can be overridden on the pybot command line with
+    ...    -v PAUSE_ON_TEMPEST_TEARDOWN:<value> where value should be True or False
+    Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    pause_teardown    ${pause_flag}
+
 Run Tempest Tests
     [Arguments]    ${tempest_regex}    ${exclusion_file}=/dev/null    ${tempest_conf}=""    ${tempest_directory}=/opt/stack/tempest    ${timeout}=420s
     [Documentation]    Execute the tempest tests.
     Return From Keyword If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}
     Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    # There seems to be a bug in the mitaka version of os-testr that does not allow --regex to work in conjunction
-    # with a blacklist-file. Upgrading with pip should resolve this. This can probably go away once mitaka is no
-    # longer tested in this environment. But, while it's being tested the mitaka devstack setup will be bringing
-    # in this broken os-testr, so we manually upgrade here.
-    Write Commands Until Prompt    sudo pip install os-testr --upgrade    timeout=120s
+    ${tempest_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd ${tempest_directory}
-    # From Ocata and moving forward, we can replace 'ostestr' with 'tempest run'
-    ${results}=    Write Commands Until Prompt    ostestr --regex ${tempest_regex} -b ${exclusion_file}    timeout=${timeout}
-    Log    ${results}
-    # Save stdout to file
-    Create File    tempest_output_${tempest_regex}.log    data=${results}
-    # output tempest generated log file which may have different debug levels than what stdout would show
-    # FIXME: having the INFO level tempest logs is helpful as it gives details like the UUIDs of nouns used in the
-    # the tests which can sometimes be tracked in ODL and Openstack logs when debugging. However, this "cat" step
-    # does not even complete for the tempest.api.network tests in under 2min. We need a faster way to get this
-    # info. Probably pulling the log file and storing it on the log server is best. Hopefully someone can get
-    # to this. For now, commenting out this next debug step.
-    # ${output}=    Write Commands Until Prompt    cat ${tempest_directory}/tempest.log    timeout=120s
-    # Log    ${output}
-    Should Contain    ${results}    Failed: 0
-    # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
+    SSHLibrary.Read
+    SSHLibrary.Set Client Configuration    timeout=300s
+    SSHLibrary.Write    python -m testtools.run -l
+    ${output}=    SSHLibrary.Read Until Prompt
+    SSHLibrary.Write    python -m testtools.run ${tempest_regex}
+    ${output}=    SSHLibrary.Read Until Regexp    ${DEFAULT_LINUX_PROMPT_STRICT}|pdb.set_trace()
+    Log    ${output}
+    Show Debugs
+    Get Test Teardown Debugs
+    SSHLibrary.Switch Connection    ${tempest_conn_id}
+    SSHLibrary.Write    continue
+    ${output}=    SSHLibrary.Read Until Regexp    ${DEFAULT_LINUX_PROMPT_STRICT}|pdb.set_trace()
+    Log    ${output}
+    SSHLibrary.Write    continue
+    ${output}=    SSHLibrary.Read Until Prompt
+    Log    ${output}
+    Create File    tempest_output_${tempest_regex}.log    data=${output}
+    Should Contain    ${output}    OK
+    Should Not Contain    ${output}    FAILED
 
 Log In To Tempest Executor And Setup Test Environment
     [Documentation]    Initialize SetupUtils, open SSH connection to a devstack system and source the openstack
@@ -78,15 +85,18 @@ Log In To Tempest Executor And Setup Test Environment
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    sudo rm -rf /opt/stack/tempest/.testrepository
     ${net_id}=    Get Net Id    ${external_net_name}    ${control_node_conn_id}
-    Tempest Conf Add External Network    ${net_id}
+    Tempest Conf Add External Network And Floating Network Name    ${net_id}
+    Tempest Conf Pause On Test Teardown
 
-Tempest Conf Add External Network
+Tempest Conf Add External Network And Floating Network Name
     [Arguments]    ${external_network_id}
     [Documentation]    Tempest will be run with a config file - this function will add the
     ...    given external network ID to the configuration file.
     Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    network    public_network_id    ${external_network_id}
     Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    debug    False
     Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    log_level    INFO
+    # Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    floating_network_name    external-net
+    Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    network    floating_network_name    ${external_net_name}
     Write Commands Until Prompt    sudo cat ${tempest_config_file}
     Write Commands Until Prompt    sudo chmod 777 ${tempest_config_file}
 
