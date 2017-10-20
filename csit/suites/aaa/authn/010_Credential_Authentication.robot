@@ -13,7 +13,7 @@ Resource          ../../../libraries/AAAKeywords.robot
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
-Variables         ../../../variables/Variables.py
+Variables         ../../../variables/Variables.robot
 
 *** Variables ***
 
