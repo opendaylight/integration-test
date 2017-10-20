@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_581b241b",
+        "filename": "docs/system-test-guide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-10-20T20:47:43Z",
+      "side": 1,
+      "message": "Trailing whitespace.",
+      "revId": "89013f51483443777436d316f04e0a9136d17e3d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
