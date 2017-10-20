@@ -142,7 +142,7 @@ List Ports
 
 List Nova VMs
     [Documentation]    List VMs and return output with nova client.
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server list
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server list --all-projects
     Log    ${output}
     Should Not Be True    ${rc}
     [Return]    ${output}

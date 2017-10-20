@@ -20,7 +20,8 @@ ${blacklist_file}    /tmp/blacklist.txt
 @{stable/ocata_exclusion_regexes}    ${EMPTY}
 @{stable/pike_exclusion_regexes}    ${EMPTY}
 @{master_exclusion_regexes}    ${EMPTY}
-${tempest_config_file}    /opt/stack/tempest/etc/tempest.conf
+${tempest_dir}    /opt/stack/tempest
+${tempest_config_file}    ${tempest_dir}/etc/tempest.conf
 ${external_physical_network}    physnet1
 ${external_net_name}    external-net
 ${external_subnet_name}    external-subnet
@@ -28,37 +29,64 @@ ${external_subnet_name}    external-subnet
 ${external_gateway}    10.10.10.250
 ${external_subnet_allocation_pool}    start=10.10.10.2,end=10.10.10.249
 ${external_subnet}    10.10.10.0/24
+${PAUSE_ON_TEMPEST_TEARDOWN}    True
+${default_timeout}    420s
 
 *** Keywords ***
 Run Tempest Tests
-    [Arguments]    ${tempest_regex}    ${exclusion_file}=/dev/null    ${tempest_conf}=""    ${tempest_directory}=/opt/stack/tempest    ${timeout}=420s
-    [Documentation]    Execute the tempest tests.
+    [Arguments]    ${tempest_regex}    ${timeout}=${default_timeout}    ${debug}=False
+    Run Keyword If    "${debug}"=="False"    Run Tempest Tests Without Debug    ${tempest_regex}    timeout=${timeout}
+    Run Keyword If    "${debug}"=="True"    Run Tempest Tests With Debug    ${tempest_regex}    timeout=${timeout}
+    Run Keyword If    "${debug}"!="True" and "${debug}"!="False"    Fail    debug argument must be True or False
+
+Run Tempest Tests Without Debug
+    [Arguments]    ${tempest_regex}    ${tempest_directory}=${tempest_dir}    ${timeout}=${default_timeout}
+    [Documentation]    Using ostestr will allow us to (by default) run tests in paralllel.
+    ...    Because of the parallel fashion, we must ensure there is no pause on teardown so that flag in tempest.conf is
+    ...    explicitly set to False.
     Return From Keyword If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}
     Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    # There seems to be a bug in the mitaka version of os-testr that does not allow --regex to work in conjunction
-    # with a blacklist-file. Upgrading with pip should resolve this. This can probably go away once mitaka is no
-    # longer tested in this environment. But, while it's being tested the mitaka devstack setup will be bringing
-    # in this broken os-testr, so we manually upgrade here.
-    Write Commands Until Prompt    sudo pip install os-testr --upgrade    timeout=120s
+    ${tempest_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd ${tempest_directory}
-    # From Ocata and moving forward, we can replace 'ostestr' with 'tempest run'
-    ${results}=    Write Commands Until Prompt    ostestr --regex ${tempest_regex} -b ${exclusion_file}    timeout=${timeout}
-    Log    ${results}
-    # Save stdout to file
-    Create File    tempest_output_${tempest_regex}.log    data=${results}
-    # output tempest generated log file which may have different debug levels than what stdout would show
-    # FIXME: having the INFO level tempest logs is helpful as it gives details like the UUIDs of nouns used in the
-    # the tests which can sometimes be tracked in ODL and Openstack logs when debugging. However, this "cat" step
-    # does not even complete for the tempest.api.network tests in under 2min. We need a faster way to get this
-    # info. Probably pulling the log file and storing it on the log server is best. Hopefully someone can get
-    # to this. For now, commenting out this next debug step.
-    # ${output}=    Write Commands Until Prompt    cat ${tempest_directory}/tempest.log    timeout=120s
-    # Log    ${output}
-    Should Contain    ${results}    Failed: 0
-    # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
+    SSHLibrary.Read
+    Tempest Conf Pause On Test Teardown    pause_flag=False
+    SSHLibrary.Set Client Configuration    timeout=${timeout}
+    ${output}=    Write Commands Until Prompt    ostestr --regex ${tempest_regex}    timeout=${timeout}
+    Log    ${output}
+    SSHLibrary.Close Connection
+    Should Contain    ${output}    Failed: 0
+
+Run Tempest Tests With Debug
+    [Arguments]    ${tempest_regex}    ${tempest_directory}=${tempest_dir}    ${timeout}=${default_timeout}
+    [Documentation]    After setting pause_teardown=True in tempest.conf, use the python -m testtools.run module to execute
+    ...    a single tempest test case. This process will not be reliable if running tempest tests in parallel as there will
+    ...    be potentional for an unkown number of debug pdb() prompts to catch and continue.
+    Return From Keyword If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}
+    Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
+    ${tempest_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
+    Write Commands Until Prompt    cd ${tempest_directory}
+    SSHLibrary.Read
+    Tempest Conf Pause On Test Teardown
+    SSHLibrary.Set Client Configuration    timeout=${timeout}
+    SSHLibrary.Write    python -m testtools.run ${tempest_regex}
+    ${output}=    SSHLibrary.Read Until Regexp    ${DEFAULT_LINUX_PROMPT_STRICT}|pdb.set_trace()
+    Log    ${output}
+    Show Debugs
+    Get Test Teardown Debugs
+    SSHLibrary.Switch Connection    ${tempest_conn_id}
+    SSHLibrary.Write    continue
+    ${output}=    SSHLibrary.Read Until Regexp    ${DEFAULT_LINUX_PROMPT_STRICT}|pdb.set_trace()
+    Log    ${output}
+    SSHLibrary.Write    continue
+    ${output}=    SSHLibrary.Read Until Prompt
+    Log    ${output}
+    SSHLibrary.Close Connection
+    Should Contain    ${output}    OK
+    Should Not Contain    ${output}    FAILED
 
 Log In To Tempest Executor And Setup Test Environment
     [Documentation]    Initialize SetupUtils, open SSH connection to a devstack system and source the openstack
@@ -89,6 +117,13 @@ Tempest Conf Add External Network
     Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    log_level    INFO
     Write Commands Until Prompt    sudo cat ${tempest_config_file}
     Write Commands Until Prompt    sudo chmod 777 ${tempest_config_file}
+
+Tempest Conf Pause On Test Teardown
+    [Arguments]    ${pause_flag}=${PAUSE_ON_TEMPEST_TEARDOWN}
+    [Documentation]    Sets the DEFAULT section flag for pausing the test teardown. The flag is set to it's
+    ...    default in the Variables section and can be overridden on the pybot command line with
+    ...    -v PAUSE_ON_TEMPEST_TEARDOWN:<value> where value should be True or False
+    Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    pause_teardown    ${pause_flag}
 
 Modify Config In File On Existing SSH Connection
     [Arguments]    ${config_file}    ${modifier}    ${config_section}    ${config_key}    ${config_value}=${EMPTY}
