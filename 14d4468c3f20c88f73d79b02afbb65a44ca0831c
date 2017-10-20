@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_1896cc4c",
+        "filename": "docs/system-test-guide.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2017-10-20T21:14:11Z",
+      "side": 1,
+      "message": "So I think Sphinx won\u0027t render this correctly.\n\nAdditional lines related to a bullet item must start at the same indent level. Additionally if you want a space after the sandbox: then should put a blank line inbetween so for example:\n\n * Push your new csit job to sandbox:\n \n   Method 1:\n \n   you can write a comment in a releng/builder gerrit patch\n   to have the job automatically created in the sandbox.\n   The format of the comment is::\n \n       jjb-deploy \u003cjob name\u003e\n \n   Method 2:\n \n   You can push the job using jenkins-jobs command::\n \n       jenkins-jobs --conf jenkins.ini update jjb/ $project-csit-1node-$functionality-only-$branch",
+      "revId": "14d4468c3f20c88f73d79b02afbb65a44ca0831c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
