@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_6e862267",
+        "filename": "csit/libraries/AAAKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-10-22T23:02:01Z",
+      "side": 1,
+      "message": "Resource",
+      "revId": "cc4f8f18b2eebea1cbec245943738198401609b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_ce7d8e70",
+        "filename": "csit/suites/aaa/authn/010_Credential_Authentication.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-10-22T23:02:01Z",
+      "side": 1,
+      "message": "Resource",
+      "revId": "cc4f8f18b2eebea1cbec245943738198401609b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
