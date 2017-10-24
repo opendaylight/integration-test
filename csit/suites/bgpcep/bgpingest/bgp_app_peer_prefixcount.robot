@@ -38,6 +38,7 @@ Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
+Resource          ${CURDIR}/../../../libraries/BgpOperations.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -76,6 +77,10 @@ ${RIB_INSTANCE}    example-bgp-rib
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 
 *** Test Cases ***
+Check_Initial_State
+    [Documentation]    Check default state of BGP RIB and topology and enable sample config
+    BgpOperations.Verify_Default_State_And_Enable_Sample_Config
+
 Check_For_Empty_Ipv4_Topology_Before_Starting
     [Documentation]    Wait for example-ipv4-topology to come up and empty. Give large timeout for case when BGP boots slower than restconf.
     BuiltIn.Wait_Until_Keyword_Succeeds    120s    1s    PrefixCounting.Check_Ipv4_Topology_Is_Empty

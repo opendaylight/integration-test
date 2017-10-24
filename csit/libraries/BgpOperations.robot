@@ -222,3 +222,10 @@ Check_Example_IPv4_Topology_Does_Not_Contain
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${string_to_check}
+
+Verify_Default_State_And_Enable_Sample_Config
+    [Documentation]    Check the default ODL BGP config state and then enable the sample config
+    Utils.No Content From URI    default    ${CONFIG_API}/bgp-rib:bgp-rib/rib/example-bgp-rib
+    Utils.No Content From URI    default    ${CONFIG_API}/network-topology:network-topology/topology/example-ipv4-topology
+    Utils.Run Command On Controller    ${cmd}=sed -i 's/<!--<protocol>/<protocol>/;s/<\/protocol>-->/<\/protocol>/;/<route-reflector-cluster-id>/d;/<receive>/d;/<send-max>/d' ${WORKSPACE}/${BUNDLEFOLDER}/etc/opendaylight/bgp/protocols-config.xml
+    Utils.Run Command On Controller    ${cmd}=sed -i 's/<!--<topology>/<topology>/;s/<\/topology>-->/<\/topology>/' ${WORKSPACE}/${BUNDLEFOLDER}/etc/opendaylight/bgp/network-topology-config.xml
