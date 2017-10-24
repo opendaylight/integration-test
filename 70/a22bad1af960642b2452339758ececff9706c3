@@ -1,0 +1,8 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+1: Thanh Ha <thanh.ha@linuxfoundation.org>
+Code-Review+2: Venkatrangan Govindarajan <venkatrangang@hcl.com>
+Submitted-by: Venkatrangan Govindarajan <venkatrangang@hcl.com>
+Submitted-at: Tue, 24 Oct 2017 15:32:46 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/64421
+Project: integration/test
+Branch: refs/heads/master
