@@ -50,6 +50,11 @@ ${RIB_INSTANCE}    example-bgp-rib
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 
 *** Test Cases ***
+Check_Initial_State
+    [Documentation]    Check default state of BGP RIB and topology and enable sample config
+    [Tags]    critical
+    BgpOperations.Verify_Default_State_And_Enable_Sample_Config
+
 TC1_Configure_iBGP_Peer
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     [Tags]    critical
@@ -136,6 +141,7 @@ Setup_Everything
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
+    TemplatedRequests.Create_Default_Session
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
