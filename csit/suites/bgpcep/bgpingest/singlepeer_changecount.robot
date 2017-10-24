@@ -42,6 +42,7 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_T
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../libraries/BgpOperations.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ChangeCounter.robot
 Resource          ${CURDIR}/../../../libraries/CompareStream.robot
@@ -88,6 +89,11 @@ ${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-de
 ${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-mount
 
 *** Test Cases ***
+Check_Initial_State
+    [Documentation]    Check default state of BGP RIB and topology and enable sample config
+    [Tags]    critical
+    BgpOperations.Verify_Default_State_And_Enable_Sample_Config
+
 Check_For_Empty_Ipv4_Topology_Before_Talking
     [Documentation]    Wait for example-ipv4-topology to come up and empty. Give large timeout for case when BGP boots slower than restconf.
     [Tags]    critical

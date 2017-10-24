@@ -50,6 +50,11 @@ ${RIB_INSTANCE}    example-bgp-rib
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 
 *** Test Cases ***
+Check_Initial_State
+    [Documentation]    Check default state of BGP RIB and topology and enable sample config
+    [Tags]    critical
+    BgpOperations.Verify_Default_State_And_Enable_Sample_Config
+
 TC1_Configure_iBGP_Peer
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     [Tags]    critical

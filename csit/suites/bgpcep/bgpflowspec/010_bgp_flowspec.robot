@@ -12,10 +12,11 @@ Library           RequestsLibrary
 Library           SSHLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
+Resource          ${CURDIR}/../../../libraries/BgpOperations.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
@@ -35,6 +36,11 @@ ${RIB_INSTANCE}    example-bgp-rib
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 
 *** Test Cases ***
+Check_Initial_State
+    [Documentation]    Check default state of BGP RIB and topology and enable sample config
+    [Tags]    critical
+    BgpOperations.Verify_Default_State_And_Enable_Sample_Config
+
 Check_For_Empty_Topology_Before_Talking
     [Documentation]    Sanity check bgp-flowspec:flowspec-routes is up but empty.
     [Tags]    critical
