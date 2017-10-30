@@ -1,0 +1,4 @@
+# Place the scripts in run order:
+integration/test/csit/scripts/set_netvirt_tz.sh
+integration/test/csit/scripts/set_genius_itm_config.sh
+
