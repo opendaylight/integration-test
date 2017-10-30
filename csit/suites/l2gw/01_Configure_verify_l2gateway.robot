@@ -8,7 +8,6 @@ Resource          ../../libraries/L2GatewayOperations.robot
 *** Test Cases ***
 TC01 Configure Hwvtep Manager OVS Manager Controller And Verify
     L2GatewayOperations.Add Vtep Manager And Verify    ${ODL_IP}
-    L2GatewayOperations.Add Ovs Bridge Manager Controller And Verify
 
 TC02 Create First Set Of Network Subnet And Ports
     OpenStackOperations.Create Network    ${NET_1}    ${NET_ADDT_ARG} ${NET_1_SEGID}
