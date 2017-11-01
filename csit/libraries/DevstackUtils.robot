@@ -78,15 +78,16 @@ Log In To Tempest Executor And Setup Test Environment
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    sudo rm -rf /opt/stack/tempest/.testrepository
     ${net_id}=    Get Net Id    ${external_net_name}    ${control_node_conn_id}
-    Tempest Conf Add External Network    ${net_id}
+    Tempest Conf Add External Network And Floating Network Name    ${net_id}
 
-Tempest Conf Add External Network
+Tempest Conf Add External Network And Floating Network Name
     [Arguments]    ${external_network_id}
     [Documentation]    Tempest will be run with a config file - this function will add the
     ...    given external network ID to the configuration file.
     Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    network    public_network_id    ${external_network_id}
     Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    debug    False
     Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    log_level    INFO
+    Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    network    floating_network_name    ${external_net_name}
     Write Commands Until Prompt    sudo cat ${tempest_config_file}
     Write Commands Until Prompt    sudo chmod 777 ${tempest_config_file}
 
