@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_3273c0e8",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-02T04:54:44Z",
+      "side": 1,
+      "message": "typically, the idea (iirc) is that ALL_UPPER is probably\na parameter we can safely override on the pybot command\nline, but I think it might not really be what ended up\nin this patch.",
+      "parentUuid": "9a245df4_32d90084",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_52de346e",
         "filename": "csit/libraries/DevstackUtils.robot",
         "patchSetId": 21
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-02T00:29:41Z",
       "side": 1,
       "message": "where does this number come from?",
+      "range": {
+        "startLine": 33,
+        "startChar": 22,
+        "endLine": 33,
+        "endChar": 26
+      },
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_92826c92",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-02T04:54:44Z",
+      "side": 1,
+      "message": "from line 34 on the Base of this patch. I was just trying\nto move it to something more visible. I don\u0027t really know\nhow it came to be 420s (also highly possible that I\noriginally made it 420s and just can\u0027t remember)",
+      "parentUuid": "9a245df4_52de346e",
       "range": {
         "startLine": 33,
         "startChar": 22,
@@ -105,6 +153,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_d24b4485",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-02T04:54:44Z",
+      "side": 1,
+      "message": "I can re-write this better now. testtools.run doesn\u0027t even\nallow for parallel execution. What the problem was, is when\nyou do this pause on a higher level tempest bucket where it\u0027s\ncalling multiple test cases. those are executed in serial and\nthe pdb() stuff was coming for each test case.\n\nanyway, I\u0027ll make this [documentation] more clear.",
+      "parentUuid": "9a245df4_b2edf027",
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_72e37833",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 21
@@ -116,6 +182,30 @@
       "writtenOn": "2017-11-02T00:29:41Z",
       "side": 1,
       "message": "why is this needed? thinking about this, we should probably configure devstack to not create the demo project and only keep admin. Another patch.",
+      "range": {
+        "startLine": 145,
+        "startChar": 81,
+        "endLine": 145,
+        "endChar": 95
+      },
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_f2480889",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-02T04:54:44Z",
+      "side": 1,
+      "message": "this was just something I figured out when I was running our\ndebugs against the tempest test cases and nothing was\ncoming in the output. I guess tempest is doing it in it\u0027s\nown/other/whatever project and the default \"server list\"\nwas not querying that project.\n\nI think this is safe to keep. Actually, we need to look\ncloser at the debugs now and see if this kind of flag is\nneeded in all of these openstack clis.",
+      "parentUuid": "9a245df4_72e37833",
       "range": {
         "startLine": 145,
         "startChar": 81,
@@ -145,6 +235,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_325aa050",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-02T04:54:44Z",
+      "side": 1,
+      "message": "correct.\n\nI mean, we could probably figure out how to enable it for\napi tests, but then will have to rewrite the testtools.run\nkeyword to expect however many hundreds of pdb() prompts\nit will get when each of it\u0027s sub testcases hit\u0027s teardown()\n\nOr we can break out each api test one by one and run them\nserially if we really want to get the debugs.\n\nHowever, running in parallel will probably uncover some\nbugs in the future like we have right now in\nNETVIRT-896",
+      "parentUuid": "9a245df4_12ccbcbb",
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_b2d4d047",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 21
@@ -156,6 +264,30 @@
       "writtenOn": "2017-11-02T00:29:41Z",
       "side": 1,
       "message": "are these new tests to add to the suite?",
+      "range": {
+        "startLine": 83,
+        "startChar": 25,
+        "endLine": 83,
+        "endChar": 26
+      },
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_9259cc5c",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-02T04:54:44Z",
+      "side": 1,
+      "message": "no. this is the perfect example of how we have to do this\nnow. tempest.scenario.test_security_groups_basic_ops.TestSecurityGroupsBasicOps is what we used to have here. That was a higher\nlevel bucket which contained 6 sub test cases. Now, we just\ncall them out individually.\n\nwe will lose any speed by running them in parallel, but\nit\u0027s how we can reliably get our teardown debugs now.",
+      "parentUuid": "9a245df4_b2d4d047",
       "range": {
         "startLine": 83,
         "startChar": 25,
