@@ -171,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_bcc82223",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T13:48:44Z",
+      "side": 1,
+      "message": "yeah, that is what I was wanting to know - are there limitations to what we can do with the pdb? Do we have to run in serial mode to use it, or can we us it in parallel? And does ti change how long the test runs if in serial?",
+      "parentUuid": "9a245df4_d24b4485",
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_72e37833",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 21
@@ -218,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_dcd516ba",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T13:48:44Z",
+      "side": 1,
+      "message": "ah, that makes sense. We should add a project list at the beginning or maybe just the first test if it is there. And maybe change this call to use the tempest project, though listing all here might be useful debug info to know if there are left over vms.",
+      "parentUuid": "9a245df4_f2480889",
+      "range": {
+        "startLine": 145,
+        "startChar": 81,
+        "endLine": 145,
+        "endChar": 95
+      },
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_12ccbcbb",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 21
@@ -247,6 +289,24 @@
       "side": 1,
       "message": "correct.\n\nI mean, we could probably figure out how to enable it for\napi tests, but then will have to rewrite the testtools.run\nkeyword to expect however many hundreds of pdb() prompts\nit will get when each of it\u0027s sub testcases hit\u0027s teardown()\n\nOr we can break out each api test one by one and run them\nserially if we really want to get the debugs.\n\nHowever, running in parallel will probably uncover some\nbugs in the future like we have right now in\nNETVIRT-896",
       "parentUuid": "9a245df4_12ccbcbb",
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_7ce6aab5",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T13:48:44Z",
+      "side": 1,
+      "message": "OK. yeah, maybe we can add a tempest only suite that breaks stuff out serially. We can run that every once in a while.",
+      "parentUuid": "9a245df4_325aa050",
       "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
