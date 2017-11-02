@@ -1,0 +1,31 @@
+<flow xmlns="urn:opendaylight:flow:inventory">
+    <hard-timeout>0</hard-timeout>
+    <idle-timeout>0</idle-timeout>
+    <priority>550</priority>
+    <flow-name>flow-tunnel</flow-name>
+    <match>
+        <extension-list xmlns="urn:opendaylight:openflowplugin:extension:general">
+            <extension-key xmlns:x="urn:opendaylight:openflowplugin:extension:nicira:match">x:nxm-nx-tun-ipv4-src-key</extension-key>
+            <extension>
+                <nxm-nx-tun-ipv4-src xmlns="urn:opendaylight:openflowplugin:extension:nicira:match">
+                    <ipv4-address>192.168.0.10</ipv4-address>
+                </nxm-nx-tun-ipv4-src>
+            </extension>
+        </extension-list>
+    </match>    
+    <id>550</id>
+    <table_id>2</table_id>
+    <instructions>
+        <instruction>
+            <order>0</order>
+            <apply-actions>
+                <action>
+                    <order>0</order>
+                    <output-action>
+                        <output-node-connector>1</output-node-connector>
+                    </output-action>
+                </action>
+            </apply-actions>
+        </instruction>
+    </instructions>
+</flow>
