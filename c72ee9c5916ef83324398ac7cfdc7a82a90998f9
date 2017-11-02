@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_32d90084",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T00:29:41Z",
+      "side": 1,
+      "message": "what is the scoop with lowercase and uppercase?",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_52de346e",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T00:29:41Z",
+      "side": 1,
+      "message": "where does this number come from?",
+      "range": {
+        "startLine": 33,
+        "startChar": 22,
+        "endLine": 33,
+        "endChar": 26
+      },
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_b2869063",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T00:29:41Z",
+      "side": 1,
+      "message": "how low can you go?",
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_f2f768f3",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T00:29:41Z",
+      "side": 1,
+      "message": "unknown",
+      "range": {
+        "startLine": 65,
+        "startChar": 33,
+        "endLine": 65,
+        "endChar": 39
+      },
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_b2edf027",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T00:29:41Z",
+      "side": 1,
+      "message": "is it really unreliable or just difficult in our environment? Does the OpenStack CI allow it in parallel?",
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_72e37833",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T00:29:41Z",
+      "side": 1,
+      "message": "why is this needed? thinking about this, we should probably configure devstack to not create the demo project and only keep admin. Another patch.",
+      "range": {
+        "startLine": 145,
+        "startChar": 81,
+        "endLine": 145,
+        "endChar": 95
+      },
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_12ccbcbb",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T00:29:41Z",
+      "side": 1,
+      "message": "so these are single tests so we enable debug, but the api one is a bunch so we can\u0027t enable it there?",
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_b2d4d047",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T00:29:41Z",
+      "side": 1,
+      "message": "are these new tests to add to the suite?",
+      "range": {
+        "startLine": 83,
+        "startChar": 25,
+        "endLine": 83,
+        "endChar": 26
+      },
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

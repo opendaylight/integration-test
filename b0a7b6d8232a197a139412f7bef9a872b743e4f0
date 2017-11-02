@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_f2800848",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T00:29:41Z",
+      "side": 0,
+      "message": "thanks for removing this - meant to do that a while back",
+      "range": {
+        "startLine": 44,
+        "startChar": 34,
+        "endLine": 44,
+        "endChar": 80
+      },
+      "revId": "b0a7b6d8232a197a139412f7bef9a872b743e4f0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_728c1880",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-02T00:29:41Z",
+      "side": 0,
+      "message": "too bad we can\u0027t get this to work. Seemed like a useful option when debugging to flip on a higher level.",
+      "revId": "b0a7b6d8232a197a139412f7bef9a872b743e4f0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
