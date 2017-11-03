@@ -45,69 +45,55 @@ ${INVALID_PORT_RANGE_MIN}    Invalid value for port
 TC01_Update Security Group description and Name
     [Documentation]    This test case validates the security group creation with optional parameter description, Update Security Group description and name
     [Tags]    Regression
-    Log    "Creating security Group and verification"
     Create Security Group and Validate    ${SGP_SSH[0]}
-    Log    "Creating security Rule and verification"
     Create Security Rule and Validate    ${SGP_SSH[0]}    direction=${ADD_PARAMS[0]}    ethertype=${ADD_PARAMS[1]}    port_range_max=${ADD_PARAMS[3]}    port_range_min=${ADD_PARAMS[2]}    protocol=${ADD_PARAMS[4]}
-    Log    "Fetching the flows from DPN1 and DPN2"
-    Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Log    "Creating neutron setup as network subnet port"
+    Get Flows
     Neutron Setup Creation    ${NETWORK[0]}    ${SUBNET[0]}    ${IP_SUBNET[0]}    ${PORT[0]}    ${PORT[1]}    ${SECURITY_GROUPS}
     ...    ${SGP_ID}
-    Log    "Security group verification on Neutron port"
     Security group verification on Neutron port    ${PORT[0]}    ${SGP_ID}
     Security group verification on Neutron port    ${PORT[1]}    ${SGP_ID}
-    Log    "Update Security Group Description and Verification"
     Update Security Group Description and Verification    ${SGP_ID}    ${DESCRIPTION}    ${VERIFY_DESCRIPTION}
-    Log    "Update Security Group Name and Verification"
     Update Security Group Name and Verification    ${SGP_ID}    ${NAME_UPDATE}    ${VERIFY_NAME}
 
 TC02_Create Security Rule with port_range_min > port_range_max
     [Documentation]    This test case validates the security group and rule creation with optional parameters Create Security Rule with port_range_min greater than port_range_max
     [Tags]    Regression
-    Log    "Creating security Group and verification"
     Create Security Group and Validate    ${SGP_SSH[1]}
-    Log    "Fetching the flows from DPN1 and DPN2"
-    Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Log    "Neutron Rule Creation With Port Range Min Grt Port Range Max and Validation"
+    Get Flows
     Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[1]}    ${ADD_ARG_SSH5}    ${PORT_RANGE_ERROR}
 
 TC03_Create Security Rule with port_range_min = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_min = -1
     [Tags]    Regression
-    Log    "Creating security Group and verification"
     Create Security Group and Validate    ${SGP_SSH[2]}
-    Log    "Fetching the flows from DPN1 and DPN2"
-    Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Log    "Neutron Rule Creation With Port Range Min Grt Port Range Max and Validation"
+    Get Flows
     Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[2]}    ${ADD_ARG_SSH6}    ${INVALID_PORT_RANGE_MIN}
 
 TC04_Create Security Rule with port_range_max = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_max = -1
     [Tags]    Regression
-    Log    "Creating security Group and verification"
     Create Security Group and Validate    ${SGP_SSH[3]}
-    Log    "Fetching the flows from DPN1 and DPN2"
-    Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Log    "Neutron Rule Creation With Port Range Min Grt Port Range Max and Validation"
+    Get Flows
     Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
 
 *** Keywords ***
+Get Flows On Node
+    [Arguments]    ${ip}=${EMPTY}
+    [Documentation]    Get the Flows from DPN
+    Builtin.Return From Keyword If    '${ip}' == '${EMPTY}'
+    Log    Fetching the flows from ${ip}
+    ${resp}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
+    Log    ${resp}
+    Log    Fetching the Groups from ${ip}
+    ${resp}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
+    Log    ${resp}
+
 Get Flows
-    [Arguments]    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    [Documentation]    Get the Flows from DPN1 and DPN2
-    Log    "Fetching the flows from DPN1"
-    ${resp}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
-    Log    ${resp}
-    Log    "Fetching the Groups from DPN1"
-    ${resp}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
-    Log    ${resp}
-    Log    "Fetching the flows from DPN2"
-    ${resp}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
-    Log    ${resp}
-    Log    "Fetching the Groups from DPN2"
-    ${resp}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
-    Log    ${resp}
+    [Documentation]    Get the Flows from DPNs
+    @{ips}=    Builtin.Create List    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+    :FOR    ${ip}    IN    @{ips}
+    \    Get Flows On Node    ${ip}
+
 
 Create Security Group and Validate
     [Arguments]    ${SGP_SSH}
