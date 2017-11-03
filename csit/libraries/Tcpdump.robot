@@ -41,9 +41,15 @@ Stop Tcpdumping And Download
     SSHLibrary.Switch Connection    ${oldcon}
 
 Start Packet Capture On Node
-    [Arguments]    ${node_ip}    ${file_Name}=${dump_default_name}    ${network_Adapter}=eth0    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    [Arguments]    ${node_ip}=${EMPTY}    ${file_Name}=${dump_default_name}    ${network_Adapter}=eth0    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}
     ...    ${prompt_timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Connects to the remote machine and starts tcpdump
+    #${current_ssh_connection}=    ${None}
+    Log    node_ip is ${node_ip}
+    Builtin.Return From Keyword If    '${node_ip}' == '${EMPTY}'
+    Run Keyword If    '${node_ip}' == '${EMPTY}'    Return From Keyword
+    Builtin.Return From Keyword If    '${node_ip}' == '${None}'
+    Run Keyword If    '${node_ip}' == '${None}'    Return From Keyword
     ${current_ssh_connection}=    SSHLibrary.Get Connection
     ${conn_id}=    SSHLibrary.Open Connection    ${node_ip}    prompt=${prompt}    timeout=${prompt_timeout}
     SSHKeywords.Flexible SSH Login    ${user}    ${password}
@@ -55,8 +61,9 @@ Start Packet Capture On Node
     [Return]    ${conn_id}
 
 Stop Packet Capture on Node
-    [Arguments]    ${conn_id}
+    [Arguments]    ${conn_id}=${EMPTY}
     [Documentation]    This keyword will list the running processes looking for tcpdump and then kill the process with the name tcpdump
+    Builtin.Return From Keyword If    '${conn_id}' == '${EMPTY}'
     SSHLibrary.Switch Connection    ${conn_id}
     ${stdout} =    SSHLibrary.Execute Command    sudo ps -elf | grep tcpdump
     Log    ${stdout}
