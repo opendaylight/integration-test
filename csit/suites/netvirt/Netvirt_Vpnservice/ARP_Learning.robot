@@ -51,11 +51,11 @@ TC01 Verify GARP Requests
     [Documentation]    Verify that GARP request are sent to controller
     Set Suite Variable    ${FIB_ENTRY_1}    ${VM_IP_NET1[0]}
     Set Suite Variable    ${FIB_ENTRY_3}    ${VM_IP_NET1[1]}
-    Wait Until Keyword Succeeds    10s    1s    Verify Flows Are Present    ${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    10s    1s    Verify Flows Are Present    ${OS_COMPUTE_2_IP}
+    Wait Until Keyword Succeeds    10s    1s    Verify Flows Are Present    ${OS_CMP1_IP}
+    Wait Until Keyword Succeeds    10s    1s    Verify Flows Are Present    ${OS_CMP2_IP}
     ${output}=    Get Fib Entries    session
-    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_3}\/32".*"${OS_COMPUTE_2_IP}\\"
-    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_1}\/32".*"${OS_COMPUTE_1_IP}\\"
+    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_3}\/32".*"${OS_CMP2_IP}\\"
+    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_1}\/32".*"${OS_CMP1_IP}\\"
     Log    Checking the RX Packets Count on VM1 and VM2 before ARP Broadcast
     ${rx_packet1_before} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[1]}    ifconfig eth0
     ${rx_packet0_before} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[0]}    ifconfig eth0
@@ -71,13 +71,13 @@ TC01 Verify GARP Requests
     ${rx_packet0_after} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[0]}    ifconfig eth0
     Should Not Be Equal    ${rx_packet0_before}    ${rx_packet0_after}
     Should Not Be Equal    ${rx_packet1_before}    ${rx_packet1_after}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present    ${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present    ${OS_COMPUTE_2_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present    ${OS_CMP1_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present    ${OS_CMP2_IP}
     Wait Until Keyword Succeeds    5s    1s    Verify Learnt IP    ${FIB_ENTRY_2}    session
     ${output}=    Get Fib Entries    session
-    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_3}\\/32".*"${OS_COMPUTE_2_IP}\\"
-    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_1}\\/32".*"${OS_COMPUTE_1_IP}\\"
-    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_2}\\/32".*"${OS_COMPUTE_2_IP}\\"
+    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_3}\\/32".*"${OS_CMP2_IP}\\"
+    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_1}\\/32".*"${OS_CMP1_IP}\\"
+    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_2}\\/32".*"${OS_CMP2_IP}\\"
     Verify Ping To Sub Interface    ${FIB_ENTRY_2}
 
 TC02 Verify MIP Migration
@@ -98,7 +98,7 @@ TC02 Verify MIP Migration
     Wait Until Keyword Succeeds    5s    1s    Verify Learnt IP    ${FIB_ENTRY_2}    session
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[0]}    ${RPING_MIP_IP}
     ${output}    Get Fib Entries    session
-    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_2}\\/32".*"${OS_COMPUTE_1_IP}\\"
+    ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_2}\\/32".*"${OS_CMP1_IP}\\"
     Verify Ping To Sub Interface    ${FIB_ENTRY_2}
     Log    Removing the created sub-interface
     ${UNCONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 down
@@ -155,12 +155,12 @@ Create Setup
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[4]}    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[5]}    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET1[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET1[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET2[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET2[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[4]}    ${VM_INSTANCES_NET3[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[5]}    ${VM_INSTANCES_NET3[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET1[0]}    ${OS_CMP1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET1[1]}    ${OS_CMP2_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET2[0]}    ${OS_CMP1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET2[1]}    ${OS_CMP2_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[4]}    ${VM_INSTANCES_NET3[0]}    ${OS_CMP1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[5]}    ${VM_INSTANCES_NET3[1]}    ${OS_CMP2_IP}    sg=${SECURITY_GROUP}
     Create Router    ${ROUTERS}
     Add Router Interface    ${ROUTERS}    ${SUBNETS[1]}
     Add Router Interface    ${ROUTERS}    ${SUBNETS[2]}
