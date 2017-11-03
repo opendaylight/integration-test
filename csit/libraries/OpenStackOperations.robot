@@ -247,6 +247,15 @@ Create Vm Instances
     \    Should Not Be True    ${rc}
     \    Log    ${output}
 
+Create Vm Instance On Compute Node
+    [Arguments]    ${net_name}    ${vm_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
+    [Documentation]    Create Vm Instances with the net id of the Netowrk on a specific compute node.
+    ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create ${vm_name} --image ${image} --flavor ${flavor} --nic net-id=${net_id} --security-group ${sg} --availability-zone nova:${node_hostname}
+    Should Not Be True    ${rc}
+    Log    ${output}
+
 Create Vm Instance With Port
     [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
@@ -478,7 +487,9 @@ Test Operations From Vm Instance
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
-    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ip -o link    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ip -o addr    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ip route    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route -n    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route -A inet6    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
@@ -621,16 +632,15 @@ Get Karaf Log Events From Test Start
     Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_3_IP}    ${test_name}    ${log_types}
 
 Get ControlNode Connection
-    ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CNTL_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=30s
     [Return]    ${control_conn_id}
 
 Get OvsDebugInfo
     [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
-    Run Keyword If    0 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_CONTROL_NODE_IP}
-    Run Keyword If    1 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}
-    Run Keyword If    2 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
+    : FOR    ${ip}    IN    @{OS_ALL_IPS}
+    \    Get DumpFlows And Ovsconfig    ${ip}
 
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${TEST_NAME}
@@ -730,6 +740,7 @@ Neutron Security Group Rule Create
     ${cmd}=    Run Keyword If    '${remote_ip_prefix}'!='None'    Catenate    ${cmd}    --src-ip ${remote_ip_prefix}
     ...    ELSE    Catenate    ${cmd}
     ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    Log    ${output}
     ${rule_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
     Log    ${rule_id}
     Should Not Be True    ${rc}
@@ -1041,15 +1052,17 @@ Remove RSA Key From KnowHosts
     ${output}=    Write Commands Until Prompt And Log    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}    30s
     ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"    30s
 
-Wait For Routes To Propogate
+Wait For Routes To Propagate
     [Arguments]    ${networks}    ${subnets}
     [Documentation]    Check propagated routes
     ${devstack_conn_id} =    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    : FOR    ${INDEX}    IN RANGE    0    1
-    \    ${net_id}=    Get Net Id    @{networks}[${INDEX}]    ${devstack_conn_id}
-    \    ${is_ipv6}=    Get Regexp Matches    @{subnets}[${INDEX}]    ${IP6_REGEX}
-    \    ${length}=    Get Length    ${is_ipv6}
-    \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
-    \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
-    \    Should Contain    ${output}    @{subnets}[${INDEX}]
+    ${index} =    BuiltIn.Set Variable    0
+    : FOR    ${network}    IN    @{networks}
+    \    ${net_id} =    Get Net Id    ${network}    ${devstack_conn_id}
+    \    ${is_ipv6} =    Get Regexp Matches    @{subnets}[${index}]    ${IP6_REGEX}
+    \    ${length} =    Get Length    ${is_ipv6}
+    \    ${cmd} =    Set Variable If    ${length} == 0    ip route    ip -6 route
+    \    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    \    Should Contain    ${output}    @{subnets}[${index}]
+    \    ${index} =    Evaluate    ${index} + 1

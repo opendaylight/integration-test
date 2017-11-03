@@ -120,10 +120,10 @@ Create Basic Configuartion for BGP VPNservice Suite
     : FOR    ${network}    ${port}    IN ZIP    ${NETWORKS}    ${PORTS}
     \    Create Port    ${network}    ${port}    sg=${SECURITY_GROUP}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${PORT_URL}    ${PORTS}
-    Create Vm Instance With Port On Compute Node    ${PORTS[0]}    ${VM_NAMES[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORTS[1]}    ${VM_NAMES[1]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORTS[2]}    ${VM_NAMES[2]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORTS[3]}    ${VM_NAMES[3]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORTS[0]}    ${VM_NAMES[0]}    ${OS_CMP1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORTS[1]}    ${VM_NAMES[1]}    ${OS_CMP1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORTS[2]}    ${VM_NAMES[2]}    ${OS_CMP2_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORTS[3]}    ${VM_NAMES[3]}    ${OS_CMP2_IP}    sg=${SECURITY_GROUP}
     : FOR    ${VM}    IN    @{VM_NAMES}
     \    Poll VM Is ACTIVE    ${VM}
     ${VM_IPS}    ${DHCP_IPS}    Wait Until Keyword Succeeds    30s    10s    Collect VM IP Addresses    true
