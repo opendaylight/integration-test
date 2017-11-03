@@ -650,9 +650,8 @@ Get ControlNode Connection
 
 Get OvsDebugInfo
     [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
-    Run Keyword If    0 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_CONTROL_NODE_IP}
-    Run Keyword If    1 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}
-    Run Keyword If    2 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
+    :FOR    ${ip}    IN    @{OS_ALL_IPS}
+    \    Get DumpFlows And Ovsconfig    ${ip}
 
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${TEST_NAME}
