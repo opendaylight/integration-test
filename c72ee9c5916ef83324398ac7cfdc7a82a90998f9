@@ -260,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_f5ff4d65",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-03T00:20:24Z",
+      "side": 1,
+      "message": "mind if we just keep it like this for now and get the \nproject list stuff going in a different patch if it\nseems needed.",
+      "parentUuid": "9a245df4_dcd516ba",
+      "range": {
+        "startLine": 145,
+        "startChar": 81,
+        "endLine": 145,
+        "endChar": 95
+      },
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_12ccbcbb",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 21
