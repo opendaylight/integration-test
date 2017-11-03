@@ -1,8 +1,5 @@
 *** Settings ***
 Documentation     Test suite to verify security groups basic and advanced functionalities, including negative tests.
-...               These test cases are not so relevant for transparent mode, so each test case will be tagged with
-...               "skip_if_transparent" to allow any underlying keywords to return with a PASS without risking
-...               a false failure. The real value of this suite will be in stateful mode.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
 Suite Teardown    Suite Teardown
@@ -23,10 +20,16 @@ Resource          ../../../variables/netvirt/Variables.robot
 ${SECURITY_GROUP}    sg-remote
 @{NETWORKS_NAME}    network_1    network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
+<<<<<<< 3f2d1ee455ed686becb62e7acf7f8d0fe6458564
 @{ROUTERS_NAME}    router1
 @{NET_1_VM_INSTANCES}    sg-net1-vm-1    sg-net1-vm-2
 @{NET_2_VM_INSTANCES}    sg-net2-vm-1
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+=======
+@{NET_1_VM_INSTANCES}    sg-net1-vm-1    sg-net1-vm-2
+@{NET_2_VM_INSTANCES}    sg-net2-vm-1
+@{SUBNETS_RANGE}    61.0.0.0/24    62.0.0.0/24
+>>>>>>> Support for combo node
 
 *** Test Cases ***
 Neutron Setup
@@ -46,11 +49,20 @@ Add TCP Allow Rules
 
 Create Vm Instances For network_1
     [Documentation]    Create VM instances using flavor and image names for a network.
+<<<<<<< 3f2d1ee455ed686becb62e7acf7f8d0fe6458564
     OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For network_2
     [Documentation]    Create VM instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[1]    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
+=======
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS_NAME}[0]    sg-net1-vm-1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS_NAME}[0]    sg-net1-vm-2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+
+Create Vm Instances For network_2
+    [Documentation]    Create VM instances using flavor and image names for a network.
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS_NAME}[1]    sg-net2-vm-1    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+>>>>>>> Support for combo node
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
@@ -58,9 +70,15 @@ Check Vm Instances Have Ip Address
     ...    already the other instances should have theirs already or at least shortly thereafter.
     # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
     # for dhcp addresses
+<<<<<<< 3f2d1ee455ed686becb62e7acf7f8d0fe6458564
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}
     \    OpenStackOperations.Poll VM Is ACTIVE    ${vm}
     ${status}    ${message}    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OpenStackOperations.Collect VM IP Addresses
+=======
+    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
+    \    Poll VM Is ACTIVE    ${vm}
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+>>>>>>> Support for combo node
     ...    true    @{NET_1_VM_INSTANCES}
     ${NET1_VM_IPS}    ${NET1_DHCP_IP}    OpenStackOperations.Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
     ${NET2_VM_IPS}    ${NET2_DHCP_IP}    OpenStackOperations.Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
@@ -87,6 +105,7 @@ No Ping From DHCP To Vm Instance1
 
 No Ping From Vm Instance1 To Vm Instance2
     [Documentation]    Login to the vm instance and test some operations
+<<<<<<< 3f2d1ee455ed686becb62e7acf7f8d0fe6458564
     ${vms} =    BuiltIn.Create List    @{NET1_VM_IPS}[1]
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    ${vms}    ping_should_succeed=False
 
@@ -94,6 +113,15 @@ No Ping From Vm Instance2 To Vm Instance1
     [Documentation]    Login to the vm instance and test operations
     ${vms} =    BuiltIn.Create List    @{NET1_VM_IPS}[0]
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    ${vms}    ping_should_succeed=False
+=======
+    ${VM2_LIST}    Create List    @{NET1_VM_IPS}[1]
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[0]    ${VM2_LIST}    ping_should_succeed=False
+
+No Ping From Vm Instance2 To Vm Instance1
+    [Documentation]    Login to the vm instance and test operations
+    ${VM1_LIST}    Create List    @{NET1_VM_IPS}[0]
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${VM1_LIST}    ping_should_succeed=False
+>>>>>>> Support for combo node
 
 Add Ping Allow Rules With Remote SG (only between VMs)
     OpenStackOperations.Neutron Security Group Rule Create Legacy Cli    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_group_id=${SECURITY_GROUP}
@@ -238,6 +266,7 @@ Delete Vm Instances In network_1
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
     \    OpenStackOperations.Delete Vm Instance    ${VmElement}
 
+<<<<<<< 3f2d1ee455ed686becb62e7acf7f8d0fe6458564
 Delete Security Groups
     OpenStackOperations.Delete SecurityGroup    additional-sg
     OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
@@ -255,3 +284,21 @@ Suite Teardown
     BuiltIn.Run Keyword And Ignore Error    OpenStackOperations.Delete SecurityGroup    additional-sg
     BuiltIn.Run Keyword And Ignore Error    OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
     SSHLibrary.Close All Connections
+=======
+Delete Sub Networks In network_1
+    [Documentation]    Delete Sub Nets for the Networks with neutron request.
+    Delete SubNet    @{SUBNETS_NAME}[0]
+
+Delete Sub Networks In network_2
+    [Documentation]    Delete Sub Nets for the Networks with neutron request.
+    Delete SubNet    @{SUBNETS_NAME}[1]
+
+Delete Networks
+    [Documentation]    Delete Networks with neutron request.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    Delete Network    ${NetworkElement}
+
+Verify Flows Cleanup
+    [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
+    Verify Flows Are Cleaned Up On All OpenStack Nodes
+>>>>>>> Support for combo node
