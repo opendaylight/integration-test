@@ -55,12 +55,16 @@ Add Ssh Allow Rule
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
 
 Create Vm Instances For l2_network_1
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_GRP_NAME}    sg=${SECURITY_GROUP}    min=3    max=3
+    [Documentation]    Create multiple Vm instances using flavor and image names for a network.
+    Create Vm Instances On Compute Node    l2_network_1    @{NET_1_VM_INSTANCES}[0]    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    @{node2_vms} =    Collections.Get Slice From List    ${NET_1_VM_INSTANCES}    1
+    Create Vm Instances On Compute Node    l2_network_1    2{node2_vms}    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For l2_network_2
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_2    ${NET_2_VM_GRP_NAME}    sg=${SECURITY_GROUP}    min=3    max=3
+    [Documentation]    Create multiple Vm instances using flavor and image names for a network.
+    Create Vm Instances On Compute Node    l2_network_2    @{NET_2_VM_INSTANCES}[0]    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    @{node2_vms} =    Collections.Get Slice From List    ${NET_2_VM_INSTANCES}    1
+    Create Vm Instances On Compute Node    l2_network_2    @{node2_vms}    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
@@ -74,8 +78,8 @@ Check Vm Instances Have Ip Address
     ...    true    @{NET_1_VM_INSTANCES}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
     ...    true    @{NET_2_VM_INSTANCES}
-    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
     ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
+    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
     ${VM_INSTANCES}=    Collections.Combine Lists    ${NET_1_VM_INSTANCES}    ${NET_2_VM_INSTANCES}
     ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}

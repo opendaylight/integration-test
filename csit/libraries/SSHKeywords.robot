@@ -36,7 +36,7 @@ Open_Connection_To_Tools_System
     [Return]    ${tools_connection}
 
 Restore_Current_Ssh_Connection_From_Index
-    [Arguments]    ${connection_index}
+    [Arguments]    ${connection_index}=${None}
     [Documentation]    Restore active SSH connection in SSHLibrary to given index.
     ...
     ...    Restore the currently active connection state in
