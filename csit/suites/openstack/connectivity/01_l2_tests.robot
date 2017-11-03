@@ -20,11 +20,11 @@ Resource          ../../../variables/netvirt/Variables.robot
 ${SECURITY_GROUP}    sg-connectivity
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
-@{NET_1_VM_GRP_NAME}    NET1-VM
-@{NET_2_VM_GRP_NAME}    NET2-VM
-@{NET_1_VM_INSTANCES}    NET1-VM-1    NET1-VM-2    NET1-VM-3
-@{NET_2_VM_INSTANCES}    NET2-VM-1    NET2-VM-2    NET2-VM-3
-@{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+@{NET_1_VM_GRP_NAME}    net1-vm
+@{NET_2_VM_GRP_NAME}    net2-vm
+@{NET_1_VM_INSTANCES}    net1-vm-1    net1-vm-2    net1-vm-3
+@{NET_2_VM_INSTANCES}    net2-vm-1    net2-vm-2    net2-vm-3
+@{SUBNETS_RANGE}    31.0.0.0/24    32.0.0.0/24
 ${network1_vlan_id}    1235
 
 *** Test Cases ***
@@ -55,12 +55,16 @@ Add Ssh Allow Rule
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
 
 Create Vm Instances For l2_network_1
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_GRP_NAME}    sg=${SECURITY_GROUP}    min=3    max=3
+    [Documentation]    Create multiple Vm instances using flavor and image names for a network.
+    OpenStackOperations.Create Vm Instance On Compute Node    l2_network_1    net1-vm-1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    l2_network_1    net1-vm-2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    l2_network_1    net1-vm-3    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For l2_network_2
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_2    ${NET_2_VM_GRP_NAME}    sg=${SECURITY_GROUP}    min=3    max=3
+    [Documentation]    Create multiple Vm instances using flavor and image names for a network.
+    OpenStackOperations.Create Vm Instance On Compute Node    l2_network_2    net2-vm-1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    l2_network_2    net2-vm-2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    l2_network_2    net2-vm-3    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
@@ -141,7 +145,7 @@ Connectivity Tests From Vm Instance3 In l2_network_2
 
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names.
-    Delete Vm Instance    NET1-VM-1
+    Delete Vm Instance    net1-vm-1
 
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
@@ -161,11 +165,11 @@ Delete Vm Instances In l2_network_2
 
 Delete Sub Networks In l2_network_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    Delete SubNet    l2_subnet_1
+    Delete SubNet    @{SUBNETS_NAME}[0]
 
 Delete Sub Networks In l2_network_2
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    Delete SubNet    l2_subnet_2
+    Delete SubNet    @{SUBNETS_NAME}[1]
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.
