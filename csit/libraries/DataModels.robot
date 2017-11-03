@@ -2,6 +2,7 @@
 Documentation     Library to deal with mdsal data models. Initially, as a common place to show and
 ...               debug a list of data models.
 Library           RequestsLibrary
+Resource          DevstackUtils.robot
 
 *** Variables ***
 @{internal_data_models}    ${EMPTY}
@@ -23,14 +24,14 @@ Get Model Dump
     \    Log    ${pretty_output}
 
 Verify No Ingress Dispatcher Non-Default Flow Entries
-    [Arguments]    ${ovs_ip}
+    [Arguments]    ${ip}=${EMPTY}
     [Documentation]    Verify the ingress dispatcher table has no non-default flows after neutron was cleaned up
-    ${flow_output}=    Run Command On Remote System    ${ovs_ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int table=${DISPATCHER_TABLE} | grep -v "priority=0"
+    Builtin.Return From Keyword If    '${ip}' == '${EMPTY}'
+    ${flow_output}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int table=${DISPATCHER_TABLE} | grep -v "priority=0"
     Log    ${flow_output}
     #Should Not Contain    ${flow_output}    table=${DISPATCHER_TABLE} # Skipping test verification until bug 7451 is resolved
 
 Verify Flows Are Cleaned Up On All OpenStack Nodes
     [Documentation]    Verify flows are cleaned up from all OpenStack nodes
-    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_CONTROL_NODE_IP}
-    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_COMPUTE_1_IP}
-    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_COMPUTE_2_IP}
+    : FOR    ${ip}    IN    @{OS_ALL_IPS}
+    \    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${ip}
