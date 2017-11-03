@@ -23,8 +23,9 @@ Get Model Dump
     \    Log    ${pretty_output}
 
 Verify No Ingress Dispatcher Non-Default Flow Entries
-    [Arguments]    ${ovs_ip}
+    [Arguments]    ${ovs_ip}=${EMPTY}
     [Documentation]    Verify the ingress dispatcher table has no non-default flows after neutron was cleaned up
+    Builtin.Return From Keyword If    '${ovs_ip}' == '${EMPTY}'
     ${flow_output}=    Run Command On Remote System    ${ovs_ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int table=${DISPATCHER_TABLE} | grep -v "priority=0"
     Log    ${flow_output}
     #Should Not Contain    ${flow_output}    table=${DISPATCHER_TABLE} # Skipping test verification until bug 7451 is resolved
