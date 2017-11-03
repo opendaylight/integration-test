@@ -43,7 +43,7 @@ TC01_Update Security Group description and Name
     [Tags]    Regression
     ${sg_id} =    BuiltIn.Run Keyword    Create Security Group and Validate    ${SGS[0]}
     Create Security Rule and Validate    ${SGS[0]}    direction=${ADD_PARAMS[0]}    ethertype=${ADD_PARAMS[1]}    port_range_max=${ADD_PARAMS[3]}    port_range_min=${ADD_PARAMS[2]}    protocol=${ADD_PARAMS[4]}
-    Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+    Get Flows
     Neutron Setup Creation    ${NETWORKS[0]}    ${SUBNET[0]}    ${IP_SUBNET[0]}    ${PORTS[0]}    ${PORTS[1]}    ${SECURITY_GROUPS}
     ...    ${sg_id}
     Security group verification on Neutron port    ${PORTS[0]}    ${sg_id}
@@ -55,31 +55,35 @@ TC02_Create Security Rule with port_range_min > port_range_max
     [Documentation]    This test case validates the security group and rule creation with optional parameters Create Security Rule with port_range_min greater than port_range_max
     [Tags]    Regression
     Create Security Group and Validate    ${SGS[1]}
-    Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+    Get Flows
     Neutron Rule Creation With Invalid Parameters    ${SGS[1]}    ${ADD_ARG_SSH5}    ${PORT_RANGE_ERROR}
 
 TC03_Create Security Rule with port_range_min = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_min = -1
     [Tags]    Regression
     Create Security Group and Validate    ${SGS[2]}
-    Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+    Get Flows
     Neutron Rule Creation With Invalid Parameters    ${SGS[2]}    ${ADD_ARG_SSH6}    ${INVALID_PORT_RANGE_MIN}
 
 TC04_Create Security Rule with port_range_max = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_max = -1
     [Tags]    Regression
     Create Security Group and Validate    ${SGS[3]}
-    Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+    Get Flows
     Neutron Rule Creation With Invalid Parameters    ${SGS[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
 
 *** Keywords ***
+Get Flows On Node
+    [Arguments]    ${ip}=${EMPTY}
+    [Documentation]    Get the Flows from DPN
+    Builtin.Return From Keyword If    '${ip}' == '${EMPTY}'
+    Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
+    Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
+
 Get Flows
-    [Arguments]    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    [Documentation]    Get the Flows from DPN1 and DPN2
-    ${resp} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
-    ${resp} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
-    ${resp} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
-    ${resp} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
+    [Documentation]    Get the Flows from DPNs
+    : FOR    ${ip}    IN    @{OS_ALL_IPS}
+    \    Get Flows On Node    ${ip}
 
 Create Security Group and Validate
     [Arguments]    ${sg_ssh}
