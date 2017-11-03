@@ -1,8 +1,5 @@
 *** Settings ***
 Documentation     Test suite to verify security groups basic and advanced functionalities, including negative tests.
-...               These test cases are not so relevant for transparent mode, so each test case will be tagged with
-...               "skip_if_transparent" to allow any underlying keywords to return with a PASS without risking
-...               a false failure. The real value of this suite will be in stateful mode.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
 Suite Teardown    Close All Connections
@@ -22,9 +19,9 @@ Resource          ../../../libraries/KarafKeywords.robot
 ${SECURITY_GROUP}    sg-remote
 @{NETWORKS_NAME}    network_1    network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
-@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1
-@{NET_2_VM_INSTANCES}    MyThirdInstance_3
-@{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+@{NET_1_VM_INSTANCES}    sg-net1-vm-1    sg-net1-vm-2
+@{NET_2_VM_INSTANCES}    sg-net2-vm-1
+@{SUBNETS_RANGE}    61.0.0.0/24    62.0.0.0/24
 
 *** Test Cases ***
 Create VXLAN Network (network_1)
@@ -52,11 +49,12 @@ Add TCP Allow Rules
 
 Create Vm Instances For network_1
     [Documentation]    Create VM instances using flavor and image names for a network.
-    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS_NAME}[0]    sg-net1-vm-1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS_NAME}[0]    sg-net1-vm-2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For network_2
     [Documentation]    Create VM instances using flavor and image names for a network.
-    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS_NAME}[1]    sg-net2-vm-1    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
@@ -64,7 +62,7 @@ Check Vm Instances Have Ip Address
     ...    already the other instances should have theirs already or at least shortly thereafter.
     # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
     # for dhcp addresses
-    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}
+    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Poll VM Is ACTIVE    ${vm}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
     ...    true    @{NET_1_VM_INSTANCES}
@@ -98,16 +96,12 @@ No Ping From DHCP To Vm Instance2
 No Ping From Vm Instance1 To Vm Instance2
     [Documentation]    Login to the vm instance and test some operations
     ${VM2_LIST}    Create List    @{NET1_VM_IPS}[1]
-    # in transparent mode the behavior is the same as with no SG, so this ping would still work.
-    ${expect_ping_to_work}=    Set Variable If    "skip_if_transparent" in @{TEST_TAGS}    True    False
-    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[0]    ${VM2_LIST}    ping_should_succeed=${expect_ping_to_work}
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[0]    ${VM2_LIST}    ping_should_succeed=False
 
 No Ping From Vm Instance2 To Vm Instance1
     [Documentation]    Login to the vm instance and test operations
     ${VM1_LIST}    Create List    @{NET1_VM_IPS}[0]
-    # in transparent mode the behavior is the same as with no SG, so this ping would still work.
-    ${expect_ping_to_work}=    Set Variable If    "skip_if_transparent" in @{TEST_TAGS}    True    False
-    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${VM1_LIST}    ping_should_succeed=${expect_ping_to_work}
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${VM1_LIST}    ping_should_succeed=False
 
 Add Ping Allow Rules With Remote SG (only between VMs)
     Neutron Security Group Rule Create Legacy Cli    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_group_id=${SECURITY_GROUP}
@@ -265,9 +259,17 @@ Delete SecurityGroups
 
 Delete Sub Networks In network_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    Delete SubNet    l2_subnet_1
+    Delete SubNet    @{SUBNETS_NAME}[0]
+
+Delete Sub Networks In network_2
+    [Documentation]    Delete Sub Nets for the Networks with neutron request.
+    Delete SubNet    @{SUBNETS_NAME}[1]
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
+
+Verify Flows Cleanup
+    [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
+    Verify Flows Are Cleaned Up On All OpenStack Nodes
