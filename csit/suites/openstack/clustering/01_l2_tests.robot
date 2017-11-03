@@ -104,7 +104,6 @@ Create Vm Instances For l2_net_2
 
 Create Vm Instances For l2_net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    Log    ${devstack_conn_id}
     OpenStackOperations.Create Vm Instances    l2_net_1    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address

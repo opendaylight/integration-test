@@ -1,8 +1,5 @@
 *** Settings ***
 Documentation     Test suite to verify security groups basic and advanced functionalities, including negative tests.
-...               These test cases are not so relevant for transparent mode, so each test case will be tagged with
-...               "skip_if_transparent" to allow any underlying keywords to return with a PASS without risking
-...               a false failure. The real value of this suite will be in stateful mode.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
 Suite Teardown    Close All Connections
@@ -98,15 +95,11 @@ No Ping From DHCP To Vm Instance2
 No Ping From Vm Instance1 To Vm Instance2
     [Documentation]    Login to the vm instance and test some operations
     ${VM2_LIST}    Create List    @{NET1_VM_IPS}[1]
-    # in transparent mode the behavior is the same as with no SG, so this ping would still work.
-    ${expect_ping_to_work}=    Set Variable If    "skip_if_transparent" in @{TEST_TAGS}    True    False
     Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[0]    ${VM2_LIST}    ping_should_succeed=${expect_ping_to_work}
 
 No Ping From Vm Instance2 To Vm Instance1
     [Documentation]    Login to the vm instance and test operations
     ${VM1_LIST}    Create List    @{NET1_VM_IPS}[0]
-    # in transparent mode the behavior is the same as with no SG, so this ping would still work.
-    ${expect_ping_to_work}=    Set Variable If    "skip_if_transparent" in @{TEST_TAGS}    True    False
     Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${VM1_LIST}    ping_should_succeed=${expect_ping_to_work}
 
 Add Ping Allow Rules With Remote SG (only between VMs)
