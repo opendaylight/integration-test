@@ -55,8 +55,9 @@ Start Packet Capture On Node
     [Return]    ${conn_id}
 
 Stop Packet Capture on Node
-    [Arguments]    ${conn_id}
+    [Arguments]    ${conn_id}=${EMPTY}
     [Documentation]    This keyword will list the running processes looking for tcpdump and then kill the process with the name tcpdump
+    Builtin.Return From Keyword If    '${conn_id}' == '${EMPTY}'
     SSHLibrary.Switch Connection    ${conn_id}
     ${stdout} =    SSHLibrary.Execute Command    sudo ps -elf | grep tcpdump
     Log    ${stdout}

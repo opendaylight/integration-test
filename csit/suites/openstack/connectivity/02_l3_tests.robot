@@ -17,12 +17,12 @@ Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    sg-connectivity
-@{NETWORKS_NAME}    network_1    network_2    network_3
-@{SUBNETS_NAME}    subnet_1    subnet_2    subnet_3
-@{NET_1_VM_INSTANCES}    l3_net_1_vm_1    l3_net_1_vm_2    l3_net_1_vm_3
-@{NET_2_VM_INSTANCES}    l3_net_2_vm_1    l3_net_2_vm_2    l3_net_2_vm_3
-@{NET_3_VM_INSTANCES}    l3_net_3_vm_1    l3_net_3_vm_2    l3_net_3_vm_3
-@{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24    70.0.0.0/24
+@{NETWORKS_NAME}    l3_network_1    l3_network_2    l3_network_3
+@{SUBNETS_NAME}    l3_subnet_1    l3_subnet_2    l3_subnet_3
+@{NET_1_VM_INSTANCES}    l3-net1-vm-1    l3-net1-vm-2    l3-net1-vm-3
+@{NET_2_VM_INSTANCES}    l3-net2-vm-1    l3-net2-vm-2    l3-net2-vm-3
+@{NET_3_VM_INSTANCES}    l3-net3-vm-1    l3-net3-vm-2    l3-net3-vm-3
+@{SUBNETS_RANGE}    41.0.0.0/24    42.0.0.0/24    43.0.0.0/24
 ${network1_vlan_id}    1236
 
 *** Test Cases ***
@@ -57,16 +57,22 @@ Create Subnets For network_3
     Create SubNet    @{NETWORKS_NAME}[2]    @{SUBNETS_NAME}[2]    @{SUBNETS_RANGE}[2]
 
 Create Vm Instances For network_1
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
+    [Documentation]    Create Vm instances using flavor and image names for a network.
+    OpenStackOperations.Create Vm Instance On Compute Node    network_1    l3-net1-vm-1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_1    l3-net1-vm-2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_1    l3-net1-vm-3    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For network_2
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
+    [Documentation]    Create Vm instances using flavor and image names for a network.
+    OpenStackOperations.Create Vm Instance On Compute Node    network_2    l3-net2-vm-1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_2    l3-net2-vm-2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_2    l3-net2-vm-3    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For network_3
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_3    ${NET_3_VM_INSTANCES}    sg=${SECURITY_GROUP}
+    [Documentation]    Create Vm instances using flavor and image names for a network.
+    OpenStackOperations.Create Vm Instance On Compute Node    network_3    l3-net3-vm-1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_3    l3-net3-vm-2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_3    l3-net3-vm-3    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     @{NET1_L3_VM_IPS}    ${NET1_L3_DHCP_IP} =    Get VM IPs    @{NET_1_VM_INSTANCES}
@@ -193,15 +199,15 @@ Delete Routers
 
 Delete Sub Networks In network_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    Delete SubNet    subnet_1
+    Delete SubNet    @{SUBNETS_NAME}[0]
 
 Delete Sub Networks In network_2
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    Delete SubNet    subnet_2
+    Delete SubNet    @{SUBNETS_NAME}[1]
 
 Delete Sub Networks In network_3
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    Delete SubNet    subnet_3
+    Delete SubNet    @{SUBNETS_NAME}[2]
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.
