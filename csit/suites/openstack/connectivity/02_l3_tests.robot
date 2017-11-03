@@ -17,11 +17,11 @@ Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    sg-connectivity
-@{NETWORKS_NAME}    network_1    network_2    network_3
-@{SUBNETS_NAME}    subnet_1    subnet_2    subnet_3
-@{NET_1_VM_INSTANCES}    l3_instance_net_1_1    l3_instance_net_1_2    l3_instance_net_1_3
-@{NET_2_VM_INSTANCES}    l3_instance_net_2_1    l3_instance_net_2_2    l3_instance_net_2_3
-@{NET_3_VM_INSTANCES}    l3_instance_net_3_1    l3_instance_net_3_2    l3_instance_net_3_3
+@{NETWORKS_NAME}    l3_network_1    l3_network_2    l3_network_3
+@{SUBNETS_NAME}    l3_subnet_1    l3_subnet_2    l3_subnet_3
+@{NET_1_VM_INSTANCES}    L3-NET1-VM-1    L3-NET1-VM-2    L3-NET1-VM-3
+@{NET_2_VM_INSTANCES}    L3-NET2-VM-1    L3-NET2-VM-2    L3-NET2-VM-3
+@{NET_3_VM_INSTANCES}    L3-NET3-VM-1    L3-NET3-VM-2    L3-NET3-VM-3
 @{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24    70.0.0.0/24
 ${network1_vlan_id}    1236
 
@@ -57,16 +57,22 @@ Create Subnets For network_3
     Create SubNet    @{NETWORKS_NAME}[2]    @{SUBNETS_NAME}[2]    @{SUBNETS_RANGE}[2]
 
 Create Vm Instances For network_1
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
+    [Documentation]    Create Vm instances using flavor and image names for a network.
+    OpenStackOperations.Create Vm Instance On Compute Node    network_1    L3-NET1-VM-1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_1    L3-NET1-VM-2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_1    L3-NET1-VM-3    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For network_2
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
+    [Documentation]    Create Vm instances using flavor and image names for a network.
+    OpenStackOperations.Create Vm Instance On Compute Node    network_2    L3-NET2-VM-1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_2    L3-NET2-VM-2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_2    L3-NET2-VM-3    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For network_3
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    network_3    ${NET_3_VM_INSTANCES}    sg=${SECURITY_GROUP}
+    [Documentation]    Create Vm instances using flavor and image names for a network.
+    OpenStackOperations.Create Vm Instance On Compute Node    network_3    L3-NET3-VM-1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_3    L3-NET3-VM-2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    network_3    L3-NET3-VM-3    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
@@ -82,9 +88,9 @@ Check Vm Instances Have Ip Address
     ...    true    @{NET_2_VM_INSTANCES}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
     ...    true    @{NET_3_VM_INSTANCES}
-    ${NET3_L3_VM_IPS}    ${NET3_DHCP_IP}    Collect VM IP Addresses    false    @{NET_3_VM_INSTANCES}
+    ${NET3_L3_VM_IPS}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
     ${NET2_L3_VM_IPS}    ${NET2_DHCP_IP}    Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
-    ${NET1_L3_VM_IPS}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
+    ${NET1_L3_VM_IPS}    ${NET3_DHCP_IP}    Collect VM IP Addresses    false    @{NET_3_VM_INSTANCES}
     ${VM_INSTANCES}=    Collections.Combine Lists    ${NET_1_VM_INSTANCES}    ${NET_2_VM_INSTANCES}    ${NET_3_VM_INSTANCES}
     ${VM_IPS}=    Collections.Combine Lists    ${NET1_L3_VM_IPS}    ${NET2_L3_VM_IPS}    ${NET3_L3_VM_IPS}
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}
