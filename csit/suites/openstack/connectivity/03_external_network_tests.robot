@@ -18,9 +18,9 @@ Resource          ../../../libraries/Utils.robot
 ${SECURITY_GROUP}    sg-connectivity
 @{NETWORKS_NAME}    l3_net
 @{SUBNETS_NAME}    l3_subnet
-@{VM_INSTANCES_FLOATING}    VmInstanceFloating1    VmInstanceFloating2
-@{VM_INSTANCES_SNAT}    VmInstanceSnat3    VmInstanceSnat4
-@{SUBNETS_RANGE}    90.0.0.0/24
+@{VM_INSTANCES_FLOATING}    l3-net1-vm-fip-1    l3-net1-vm-fip-2
+@{VM_INSTANCES_SNAT}    l3-net1-vm-snat-3    l3-net1-vm-snat-4
+@{SUBNETS_RANGE}    51.0.0.0/24
 # Parameter values below are based on releng/builder - changing them requires updates in releng/builder as well
 ${external_gateway}    10.10.10.250
 ${external_pnf}    10.10.10.253
@@ -46,8 +46,10 @@ Create Subnet For Private Network
 
 Create Vm Instances
     [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES_FLOATING}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES_SNAT}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS_NAME}[0]    l3-net1-vm-fip-1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS_NAME}[0]    l3-net1-vm-fip-2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS_NAME}[0]    l3-net1-vm-snat-3    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS_NAME}[0]    l3-net1-vm-snat-4    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     @{FLOATING_VM_IPS}    ${FLOATING_DHCP_IP} =    Get VM IPs    @{VM_INSTANCES_FLOATING}
