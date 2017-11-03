@@ -46,8 +46,10 @@ Create Subnet For Private Network
 
 Create Vm Instances
     [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES_FLOATING}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES_SNAT}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instances On Compute Node    @{NETWORKS_NAME}[0]    VmInstanceFloating1    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instances On Compute Node    @{NETWORKS_NAME}[0]    VmInstanceFloating2    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instances On Compute Node    @{NETWORKS_NAME}[0]    VmInstanceSnat3    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instances On Compute Node    @{NETWORKS_NAME}[0]    VmInstanceSnat4    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
