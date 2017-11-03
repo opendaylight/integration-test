@@ -28,6 +28,11 @@ ${external_subnet_name}    external-subnet
 ${external_gateway}    10.10.10.250
 ${external_subnet_allocation_pool}    start=10.10.10.2,end=10.10.10.249
 ${external_subnet}    10.10.10.0/24
+${OS_CNTL_IP}     ${EMPTY}
+${OS_CMP1_IP}     ${EMPTY}
+${OS_CMP2_IP}     ${EMPTY}
+@{OS_ALL_IPS}     @{EMPTY}
+@{OS_CMP_IPS}     @{EMPTY}
 
 *** Keywords ***
 Run Tempest Tests
@@ -122,6 +127,7 @@ Devstack Suite Setup
     Set Suite Variable    ${devstack_conn_id}
     Set Suite Variable    ${source_pwd}
     Log    ${devstack_conn_id}
+    Get DevStack Nodes
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
 
@@ -134,3 +140,22 @@ Write Commands Until Prompt
     SSHLibrary.Write    ${cmd};echo Command Returns $?
     ${output}=    SSHLibrary.Read Until Prompt
     [Return]    ${output}
+
+Set Combo Data
+    [Documentation]    Assign global variables for DevStack nodes where the control node is also the compute
+    BuiltIn.Set Suite Variable    ${OS_CMP1_IP}    ${OS_CNTL_IP}
+    BuiltIn.Set Suite Variable    ${OS_CMP2_IP}    ${OS_COMPUTE_1_IP}
+    BuiltIn.Set Suite Variable    @{OS_ALL_IPS}    ${OS_CNTL_IP}    ${OS_CMP1_IP}
+    BuiltIn.Set Suite Variable    @{OS_CMP_IPS}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
+
+Set Dual Data
+    [Documentation]    Assign global variables for DevStack nodes where the control node is different than the compute
+    BuiltIn.Set Suite Variable    ${OS_CMP2_IP}    ${OS_COMPUTE_2_IP}
+    BuiltIn.Set Suite Variable    @{OS_ALL_IPS}    ${OS_CNTL_IP}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
+    BuiltIn.Set Suite Variable    @{OS_CMP_IPS}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
+
+Get DevStack Nodes
+    [Documentation]    Assign global variables for DevStack nodes
+    BuiltIn.Set Suite Variable    ${OS_CNTL_IP}    ${OS_CONTROL_NODE_IP}
+    Run Keyword If    '${OS_COMPUTE_2_IP}' == '${EMPTY}'    Set Combo Data
+    ...    ELSE    Set Dual Data
