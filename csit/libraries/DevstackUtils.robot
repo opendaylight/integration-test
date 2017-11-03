@@ -28,6 +28,11 @@ ${external_subnet_name}    external-subnet
 ${external_gateway}    10.10.10.250
 ${external_subnet_allocation_pool}    start=10.10.10.2,end=10.10.10.249
 ${external_subnet}    10.10.10.0/24
+${OS_CNTL_IP}     ${EMPTY}
+${OS_CMP1_IP}     ${EMPTY}
+${OS_CMP2_IP}     ${EMPTY}
+@{OS_ALL_IPS}     @{EMPTY}
+@{OS_CMP_IPS}     @{EMPTY}
 
 *** Keywords ***
 Run Tempest Tests
@@ -73,7 +78,7 @@ Log In To Tempest Executor And Setup Test Environment
     Create Network    ${external_net_name}    --external --default --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
     Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway} --allocation-pool ${external_subnet_allocation_pool}
     List Networks
-    ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CNTL_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    sudo rm -rf /opt/stack/tempest/.testrepository
@@ -112,13 +117,14 @@ Create Blacklist File
     : FOR    ${exclusion}    IN    @{${OPENSTACK_BRANCH}_exclusion_regexes}
     \    OperatingSystem.Append To File    ${blacklist_file}    ${exclusion}\n
     Log File    ${blacklist_file}
-    SSHKeywords.Copy File To Remote System    ${OS_CONTROL_NODE_IP}    ${blacklist_file}    ${blacklist_file}
+    SSHKeywords.Copy File To Remote System    ${OS_CNTL_IP}    ${blacklist_file}    ${blacklist_file}
 
 Devstack Suite Setup
     [Arguments]    ${source_pwd}=no    ${odl_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Login to the Openstack Control Node to run tempest suite
+    Get DevStack Nodes Data
     Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    ${devstack_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    ${devstack_conn_id}=    SSHLibrary.Open Connection    ${OS_CNTL_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     Set Suite Variable    ${devstack_conn_id}
     Set Suite Variable    ${source_pwd}
     Log    ${devstack_conn_id}
@@ -134,3 +140,40 @@ Write Commands Until Prompt
     SSHLibrary.Write    ${cmd};echo Command Returns $?
     ${output}=    SSHLibrary.Read Until Prompt
     [Return]    ${output}
+
+Log Devstack Nodes Data
+    ${output} =    BuiltIn.Catenate    SEPARATOR=\n
+    ...    OS_CNTL_HN: ${OS_CNTL_HN} - OS_CNTL_IP: ${OS_CNTL_IP} - OS_CONTROL_NODE_IP: ${OS_CONTROL_NODE_IP}
+    ...    OS_CMP1_HN: ${OS_CMP1_HN} - OS_CMP1_IP: ${OS_CMP1_IP} - OS_COMPUTE_1_IP: ${OS_COMPUTE_1_IP}
+    ...    OS_CMP2_HN: ${OS_CMP2_HN} - OS_CMP2_IP: ${OS_CMP2_IP} - OS_COMPUTE_2_IP: ${OS_COMPUTE_2_IP}
+    ...    OS_ALL_IPS: @{OS_ALL_IPS}
+    ...    OS_CMP_IPS: @{OS_CMP_IPS}
+    BuiltIn.Log    DevStack Nodes Data:\n${output}
+
+Get DevStack Hostnames
+    [Documentation]    Assign global variables for DevStack nodes
+    BuiltIn.Set Suite Variable    ${OS_CNTL_HN}    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CNTL_IP}
+    BuiltIn.Set Suite Variable    ${OS_CMP1_HN}    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP1_IP}
+    BuiltIn.Set Suite Variable    ${OS_CMP2_HN}    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP2_IP}
+
+Set Node Data For Control And Compute Node Setup
+    [Documentation]    Assign global variables for DevStack nodes where the control node is also the compute
+    BuiltIn.Set Suite Variable    ${OS_CMP1_IP}    ${OS_CNTL_IP}
+    BuiltIn.Set Suite Variable    ${OS_CMP2_IP}    ${OS_COMPUTE_1_IP}
+    BuiltIn.Set Suite Variable    @{OS_ALL_IPS}    ${OS_CNTL_IP}    ${OS_CMP2_IP}
+    BuiltIn.Set Suite Variable    @{OS_CMP_IPS}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
+
+Set Node Data For Control Only Node Setup
+    [Documentation]    Assign global variables for DevStack nodes where the control node is different than the compute
+    BuiltIn.Set Suite Variable    ${OS_CMP1_IP}    ${OS_COMPUTE_1_IP}
+    BuiltIn.Set Suite Variable    ${OS_CMP2_IP}    ${OS_COMPUTE_2_IP}
+    BuiltIn.Set Suite Variable    @{OS_ALL_IPS}    ${OS_CNTL_IP}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
+    BuiltIn.Set Suite Variable    @{OS_CMP_IPS}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
+
+Get DevStack Nodes Data
+    [Documentation]    Assign global variables for DevStack nodes
+    BuiltIn.Set Suite Variable    ${OS_CNTL_IP}    ${OS_CONTROL_NODE_IP}
+    Run Keyword If    '${OS_COMPUTE_2_IP}' == '${EMPTY}'    Set Node Data For Control And Compute Node Setup
+    ...    ELSE    Set Node Data For Control Only Node Setup
+    Get DevStack Hostnames
+    Log Devstack Nodes Data
