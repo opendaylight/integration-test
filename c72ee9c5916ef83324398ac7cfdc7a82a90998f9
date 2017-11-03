@@ -337,6 +337,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_15f4a185",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-03T00:21:24Z",
+      "side": 1,
+      "message": "yeah, we could. tbh though, tempest.api.network doesn\u0027t\nreally fail much for us. In fact, the only one we\u0027ve had\nrecently is probably coming only because we are running\nthem in parallel. at least that\u0027s my hunch.",
+      "parentUuid": "9a245df4_7ce6aab5",
+      "revId": "c72ee9c5916ef83324398ac7cfdc7a82a90998f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_b2d4d047",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 21
