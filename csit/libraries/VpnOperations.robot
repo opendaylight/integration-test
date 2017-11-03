@@ -112,8 +112,9 @@ ITM Delete Tunnel
     [Return]    ${resp.content}
 
 Verify Flows Are Present For L3VPN
-    [Arguments]    ${ip}    ${vm_ips}
+    [Arguments]    ${ip}=${EMPTY}    ${vm_ips}
     [Documentation]    Verify Flows Are Present For L3VPN
+    Builtin.Return From Keyword If    '${ip}' == '${EMPTY}'
     ${flow_output}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     Log    ${flow_output}
     Should Contain    ${flow_output}    table=${ODL_FLOWTABLE_L3VPN}
