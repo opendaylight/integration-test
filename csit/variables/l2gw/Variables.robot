@@ -2,7 +2,7 @@
 #Configurable Variables
 ${OS_IP}          ${OS_CONTROL_NODE_IP}
 ${OVS_IP}         ${OS_COMPUTE_1_IP}
-${OVS2_IP}        ${OS_COMPUTE_2_IP}
+${OVS2_IP}        ${OS_COMPUTE_2_IP}    # TODO Use OS_CMP2_IP
 ${HWVTEP_IP}      ${TOOLS_SYSTEM_1_IP}
 ${HWVTEP2_IP}     ${TOOLS_SYSTEM_2_IP}
 ${ODL_IP}         ${ODL_SYSTEM_1_IP}
