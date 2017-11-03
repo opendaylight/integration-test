@@ -3,6 +3,7 @@ Documentation     Test Suite for verification of HWVTEP usecases
 Suite Setup       BuiltIn.Run Keywords    Basic Suite Setup
 Suite Teardown    Basic Suite Teardown
 Test Teardown     Get L2gw Debug Info
+Resource          ../../libraries/DevstackUtils.robot
 Resource          ../../libraries/L2GatewayOperations.robot
 
 *** Test Cases ***
@@ -142,6 +143,7 @@ TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
 *** Keywords ***
 Basic Suite Setup
     [Documentation]    Basic Suite Setup required for the HWVTEP Test Suite
+    DevstackUtils.Get DevStack Nodes Data
     RequestsLibrary.Create Session    alias=session    url=http://${ODL_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${devstack_conn_id}=    SSHLibrary.Open Connection    ${OS_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     Log    ${devstack_conn_id}
