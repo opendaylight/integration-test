@@ -93,19 +93,19 @@ Create Neutron Ports
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute node with port
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET10[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET10[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET20[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET20[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET10[0]}    ${OS_CMP1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET10[1]}    ${OS_CMP2_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET20[0]}    ${OS_CMP1_IP}    sg=${SECURITY_GROUP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET20[1]}    ${OS_CMP2_IP}    sg=${SECURITY_GROUP}
     ${VM_INSTANCES}=    Create List    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Poll VM Is ACTIVE    ${VM}
-    Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS_CIDR}
+    Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propagate    ${NETWORKS}    ${SUBNETS_CIDR}
     ${prefix_net10}=    Replace String    ${SUBNETS_CIDR[0]}    ::/64    (:[a-f0-9]{,4}){,4}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    3x    60s    Collect VM IPv6 SLAAC Addresses
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    5x    60s    Collect VM IPv6 SLAAC Addresses
     ...    true    ${prefix_net10}    @{VM_INSTANCES_NET10}
     ${prefix_net20}=    Replace String    ${SUBNETS_CIDR[1]}    ::/64    (:[a-f0-9]{,4}){,4}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    3x    60s    Collect VM IPv6 SLAAC Addresses
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    5x    60s    Collect VM IPv6 SLAAC Addresses
     ...    true    ${prefix_net20}    @{VM_INSTANCES_NET20}
     ${VM_IP_NET10}=    Collect VM IPv6 SLAAC Addresses    false    ${prefix_net10}    @{VM_INSTANCES_NET10}
     ${VM_IP_NET20}=    Collect VM IPv6 SLAAC Addresses    false    ${prefix_net20}    @{VM_INSTANCES_NET20}
@@ -124,24 +124,29 @@ Create Nova VMs
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
-    ${output}=    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ping6 -c 3 ${VM_IP_NET10[1]}
+    BuiltIn.Sleep    30s
+    ${status}    ${output} =    Run Keyword And Ignore Error    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ping6 -c 3 ${VM_IP_NET10[1]}
     Should Contain    ${output}    64 bytes
-    ${output}=    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[0]}    ping6 -c 3 ${VM_IP_NET20[1]}
+    ${status}    ${output} =    Run Keyword And Ignore Error    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[0]}    ping6 -c 3 ${VM_IP_NET20[1]}
+    Should Contain    ${output}    64 bytes
+    ${status}    ${output} =    Run Keyword And Ignore Error    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ping6 -c 3 ${VM_IP_NET10[1]}
+    Should Contain    ${output}    64 bytes
+    ${status}    ${output} =    Run Keyword And Ignore Error    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[0]}    ping6 -c 3 ${VM_IP_NET20[1]}
     Should Contain    ${output}    64 bytes
 
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath test across the networks using router for L3.
     Log    Verification of FIB Entries and Flow
-    ${cn1_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_1_IP}    file_Name=tcpDumpCN1
-    ${cn2_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_2_IP}    file_Name=tcpDumpCN2
-    ${os_conn_id} =    Start Packet Capture on Node    ${OS_CONTROL_NODE_IP}    file_Name=tcpDumpOS
+    ${cn1_conn_id} =    Start Packet Capture on Node    ${OS_CMP1_IP}    file_Name=tcpDumpCN1
+    ${cn2_conn_id} =    Start Packet Capture on Node    ${OS_CMP2_IP}    file_Name=tcpDumpCN2
+    ${os_conn_id} =    Start Packet Capture on Node    ${OS_CNTL_IP}    file_Name=tcpDumpOS
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_instances}
-    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10}
-    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET20}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For L3VPN    ${OS_CMP1_IP}    ${VM_IP_NET10}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For L3VPN    ${OS_CMP1_IP}    ${VM_IP_NET20}
     Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
-    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+    : FOR    ${ip}    IN    @{OS_CMP_IPS}
+    \    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry On Flow Table    ${ip}    ipv6
     ${dst_ip_list} =    Create List    ${VM_IP_NET10[1]}    @{VM_IP_NET20}
     Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ${dst_ip_list}
     ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
@@ -212,11 +217,11 @@ Verify L3VPN Datapath With Router Association
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_instances}
     ${RD} =    Strip String    ${RDS[0]}    characters="[]
     Wait Until Keyword Succeeds    60s    15s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
-    Wait Until Keyword Succeeds    60s    15s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
-    Wait Until Keyword Succeeds    60s    15s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    : FOR    ${ip}    IN    @{OS_CMP_IPS}
+    \    Wait Until Keyword Succeeds    60s    15s    Verify Flows Are Present For L3VPN    ${ip}    ${vm_instances}
     Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
-    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+    : FOR    ${ip}    IN    @{OS_CMP_IPS}
+    \    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry On Flow Table    ${ip}    ipv6
     Log    Check datapath from network1 to network2
     ${dst_ip_list} =    Create List    @{VM_IP_NET10}[1]    @{VM_IP_NET20}
     Test Operations From Vm Instance    ${NETWORKS[0]}    @{VM_IP_NET10}[0]    ${dst_ip_list}
@@ -250,8 +255,8 @@ Delete Router And Router Interfaces With L3VPN
     Wait Until Keyword Succeeds    3s    1s    Check For Elements Not At URI    ${ROUTER_URL}    ${router_list}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Not Contain    ${resp}    ${router_id}
-    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_2_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry Removed From Flow Table    ${OS_CMP1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry Removed From Flow Table    ${OS_CMP2_IP}
 
 Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
