@@ -1,0 +1,7 @@
+<bmp-monitor-config xmlns="urn:opendaylight:params:xml:ns:yang:bmp-monitor-config">
+   <monitor-id>example-bmp-monitor</monitor-id>
+   <server>
+      <binding-port>12345</binding-port>
+      <binding-address>0.0.0.0</binding-address>
+   </server>
+</bmp-monitor-config>

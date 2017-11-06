@@ -29,7 +29,15 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 ${CONFIG_SESSION}    config-session
 ${BGP_BMP_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/filled_structure
 ${BGP_BMP_FEAT_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/empty_structure
+${BGP_BMP_DEF_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/default_structure
 ${BMP_LOG_FILE}    bmpmock.log
+
+*** Test Cases ***
+Start BMP Feature
+    [Documentation]    Starts bmp feature on default configuration unless it's already running
+    &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait_Until_Keyword_Succeeds    6x    10s    TemplatedRequests.Put_As_Xml_Templated    folder=${BGP_BMP_DEF_DIR}    mapping=${mapping}    session=${CONFIG_SESSION}
+    ...    verify=True
 
 *** Test Cases ***
 Verify BMP Feature
