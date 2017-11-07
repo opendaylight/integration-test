@@ -1106,3 +1106,35 @@ Wait For Routes To Propogate
     \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
     \    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
     \    Should Contain    ${output}    @{subnets}[${INDEX}]
+
+Verify VM to VM Ping Status
+    [Arguments]    ${NETWORK}    ${VM_IP1}    ${VM_IP2}    ${REQ_PING_REGEXP}
+    [Documentation]    Verify Ping Success among VMs
+    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NETWORK}    ${VM_IP1}
+    ...    ping -c 8 ${VM_IP2}
+    Should Contain    ${output}    ${REQ_PING_REGEXP}
+
+VM Creation Quota Update
+    [Arguments]    ${num_instances}
+    [Documentation]    Update VM Creation Quota
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack project list
+    Log    ${output}
+    Should Not Be True    ${rc}
+    ${split_output}=    Split String    ${output}
+    ${index} =    Get Index From List    ${split_output}    admin
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack quota set --instances ${num_instances} ${split_output[${index-2}]}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Verify Flows Are Present
+    [Arguments]    ${ip}
+    [Documentation]    Verify Table Flows Are Present
+    ${flow_output}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${flow_output}
+    ${resp}=    Should Contain    ${flow_output}    table=50
+    Log    ${resp}
+    ${resp}=    Should Match regexp    ${flow_output}    table=0.*goto_table:36
+    ${resp}=    Should Match regexp    ${flow_output}    table=0.*goto_table:17
+    ${resp}=    Should Contain    ${flow_output}    table=51
+    Log    ${resp}
