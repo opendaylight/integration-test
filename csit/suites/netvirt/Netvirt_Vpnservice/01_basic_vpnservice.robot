@@ -39,7 +39,6 @@ Create Neutron Networks
     Create Network    ${NETWORKS[0]}
     Create Network    ${NETWORKS[1]}
     ${NET_LIST}    List Networks
-    Log    ${NET_LIST}
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
     Should Contain    ${NET_LIST}    ${NETWORKS[1]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${NETWORK_URL}    ${NETWORKS}
@@ -52,7 +51,6 @@ Create Neutron Subnets
     Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNETS_CIDR[0]}
     Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNETS_CIDR[1]}
     ${SUB_LIST}    List Subnets
-    Log    ${SUB_LIST}
     Should Contain    ${SUB_LIST}    ${SUBNETS[0]}
     Should Contain    ${SUB_LIST}    ${SUBNETS[1]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
@@ -86,7 +84,6 @@ Create Nova VMs
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Poll VM Is ACTIVE    ${VM}
-    Log    Check for routes
     Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS_CIDR}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
     ...    true    @{VM_INSTANCES_NET10}
@@ -121,7 +118,6 @@ Create Routers
     [Documentation]    Create Router
     Create Router    ${ROUTERS[0]}
     ${router_output} =    List Router
-    Log    ${router_output}
     Should Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${ROUTER_URL}    ${router_list}
@@ -153,10 +149,8 @@ Check L3_Datapath Traffic Across Networks With Router
     Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
     Log    L3 Datapath test across the networks using router
     ${dst_ip_list} =    Create List    ${VM_IP_NET10[1]}    @{VM_IP_NET20}
-    Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ${dst_ip_list}
     ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    @{VM_IP_NET10}
-    Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
     [Teardown]    Test Teardown With Tcpdump Stop    ${cn1_conn_id}    ${cn2_conn_id}    ${os_conn_id}
 
@@ -226,7 +220,6 @@ Verify L3VPN Datapath With Router Association
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
     Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_instances}
     ${RD} =    Strip String    ${RDS[0]}    characters="[]
-    Log    ${RD}
     Wait Until Keyword Succeeds    60s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
     Wait Until Keyword Succeeds    60s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
     Wait Until Keyword Succeeds    60s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
@@ -236,11 +229,9 @@ Verify L3VPN Datapath With Router Association
     Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
     Log    Check datapath from network1 to network2
     ${dst_ip_list} =    Create List    @{VM_IP_NET10}[1]    @{VM_IP_NET20}
-    Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[0]}    @{VM_IP_NET10}[0]    ${dst_ip_list}
     Log    Check datapath from network2 to network1
     ${dst_ip_list} =    Create List    @{VM_IP_NET20}[1]    @{VM_IP_NET10}
-    Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    @{VM_IP_NET20}[0]    ${dst_ip_list}
 
 Dissociate L3VPN From Routers
@@ -267,7 +258,6 @@ Delete Router And Router Interfaces With L3VPN
     # Delete Router and Interface to the subnets.
     Delete Router    ${ROUTERS[0]}
     ${router_output} =    List Router
-    Log    ${router_output}
     Should Not Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements Not At URI    ${ROUTER_URL}    ${router_list}
@@ -280,8 +270,6 @@ Delete Router And Router Interfaces With L3VPN
 Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
     ${rc}    ${output}=    Run And Return Rc And Output    neutron router-delete nonExistentRouter
-    Log    ${output}
-    Log    ${rc}
     Should Match Regexp    ${output}    Unable to find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
 
 Associate L3VPN To Networks
@@ -355,19 +343,15 @@ Verify GWMAC Flow Entry On Flow Table
     [Arguments]    ${cnIp}
     [Documentation]    Verify the GWMAC Table, ARP Response table and Dispatcher table.
     ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${flow_output}
     ${group_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-groups br-int
-    Log    ${group_output}
     #Verify DISPATCHER_TABLE - 17
     Should Contain    ${flow_output}    table=${DISPATCHER_TABLE}
     ${dispatcher_table} =    Get Lines Containing String    ${flow_output}    table=${DISPATCHER_TABLE}
-    Log    ${dispatcher_table}
     Should Contain    ${dispatcher_table}    goto_table:${GWMAC_TABLE}
     Should Not Contain    ${dispatcher_table}    goto_table:${ARP_RESPONSE_TABLE}
     #Verify GWMAC_TABLE - 19
     Should Contain    ${flow_output}    table=${GWMAC_TABLE}
     ${gwmac_table} =    Get Lines Containing String    ${flow_output}    table=${GWMAC_TABLE}
-    Log    ${gwmac_table}
     #Verify GWMAC address present in table 19
     : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
     \    Should Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
@@ -379,12 +363,10 @@ Verify GWMAC Flow Entry On Flow Table
     Should Match Regexp    ${arpchk_table}    ${ARP_RESPONSE_REGEX}
     ${match} =    Should Match Regexp    ${arpchk_table}    ${ARP_REQUEST_REGEX}
     ${groupID} =    Split String    ${match}    separator=:
-    Log    groupID
     Verify ARP REQUEST in groupTable    ${group_output}    ${groupID[1]}
     #Verify ARP_RESPONSE_TABLE - 81
     Should Contain    ${flow_output}    table=${ARP_RESPONSE_TABLE}
     ${arpResponder_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_RESPONSE_TABLE}
-    Log    ${arpResponder_table}
     Should Contain    ${arpResponder_table}    priority=0 actions=drop
     : FOR    ${macAdd}    ${ipAdd}    IN ZIP    ${GWMAC_ADDRS}    ${GWIP_ADDRS}
     \    ${ARP_RESPONSE_IP_MAC_REGEX} =    Set Variable    arp_tpa=${ipAdd},arp_op=1 actions=.*,set_field:${macAdd}->eth_src
