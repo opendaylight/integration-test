@@ -52,7 +52,10 @@ Run Tempest Tests Without Debug
     SSHLibrary.Read
     Tempest Conf Modify Pause On Test Teardown    False
     SSHLibrary.Set Client Configuration    timeout=${timeout}
-    ${output}=    Write Commands Until Prompt    ostestr --regex ${tempest_regex}    timeout=${timeout}
+    # There are tons of deprecation error messages when we use ostestr in our CSIT environment (openstack via devstack)
+    # The robot log files are very large and one culprit is all these deprecation warnings. If we redirect stderr to
+    # /dev/null we should be able to ignore them. We will miss any other errors, however.
+    ${output}=    Write Commands Until Prompt    ostestr --regex ${tempest_regex} 2>/dev/null    timeout=${timeout}
     Log    ${output}
     SSHLibrary.Close Connection
     Should Contain    ${output}    Failed: 0
