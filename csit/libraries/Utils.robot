@@ -89,6 +89,13 @@ Check Nodes Stats
     Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     Should Contain    ${resp.content}    flow-table-statistics
 
+Get Inventory Nodes
+    [Arguments]    ${session}
+    [Documentation]    Get Inventory Nodes using rest
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}
+    Log    ${resp.content}
+    [Return]    ${resp.content}
+
 Check For Specific Number Of Elements At URI
     [Arguments]    ${uri}    ${element}    ${expected_count}    ${session}=session
     [Documentation]    A GET is made to the specified ${URI} and the specific count of a
