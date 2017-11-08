@@ -15,7 +15,6 @@ Variables         ../variables/netvirt/Modules.py
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack security group show default | grep "| tenant_id" | awk '{print $4}'
-    Log    ${output}
     Should Not Be True    ${rc}
     [Return]    ${output}
 
@@ -166,22 +165,19 @@ Create And Associate Floating IPs
 
 Verify Gateway Ips
     [Documentation]    Verifies the Gateway Ips with dump flow.
-    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt And Log    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     : FOR    ${GatewayIpElement}    IN    @{GATEWAY_IPS}
     \    Should Contain    ${output}    ${GatewayIpElement}
 
 Verify Dhcp Ips
     [Documentation]    Verifies the Dhcp Ips with dump flow.
-    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt And Log    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     : FOR    ${DhcpIpElement}    IN    @{DHCP_IPS}
     \    Should Contain    ${output}    ${DhcpIpElement}
 
 Verify No Dhcp Ips
     [Documentation]    Verifies the Dhcp Ips with dump flow.
-    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt And Log    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     : FOR    ${DhcpIpElement}    IN    @{DHCP_IPS}
     \    Should Not Contain    ${output}    ${DhcpIpElement}
 
@@ -190,13 +186,11 @@ Delete SubNet
     [Documentation]    Delete SubNet for the Network with neutron request.
     Log    ${subnet}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet delete ${subnet}
-    Log    ${output}
     Should Not Be True    ${rc}
 
 Verify No Gateway Ips
     [Documentation]    Verifies the Gateway Ips removed with dump flow.
-    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt And Log    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     : FOR    ${GatewayIpElement}    IN    @{GATEWAY_IPS}
     \    Should Not Contain    ${output}    ${GatewayIpElement}
 
@@ -205,50 +199,41 @@ Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server delete ${vm_name}
     Log    ${output}
-    Log    ${rc}
 
 Get Net Id
     [Arguments]    ${network_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     ${rc}    ${output}=    Run And Return Rc And Output    openstack network list | grep "${network_name}" | awk '{print $2}'
-    Log    ${output}
     Should Not Be True    ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
-    Log    ${net_id}
     [Return]    ${net_id}
 
 Get Subnet Id
     [Arguments]    ${subnet_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the subnet id for the given subnet name
     ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet show "${subnet_name}" | grep " id " | awk '{print $4}'
-    Log    ${output}
     Should Not Be True    ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${subnet_id}=    Get from List    ${splitted_output}    0
-    Log    ${subnet_id}
     [Return]    ${subnet_id}
 
 Get Port Id
     [Arguments]    ${port_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list | grep "${port_name}" | awk '{print $2}'
-    Log    ${output}
     Should Not Be True    ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${port_id}=    Get from List    ${splitted_output}    0
-    Log    ${port_id}
     [Return]    ${port_id}
 
 Get Router Id
     [Arguments]    ${router1}    ${devstack_conn_id}
     [Documentation]    Retrieve the router id for the given router name
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router list -f table | grep "${router1}" | awk '{print $2}'
-    Log    ${output}
     Should Not Be True    ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${router_id}=    Get from List    ${splitted_output}    0
-    Log    ${router_id}
     [Return]    ${router_id}
 
 Create Vm Instances
@@ -311,7 +296,6 @@ Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server show ${vm_name} | grep OS-EXT-STS:vm_state
-    Log    ${output}
     Should Not Be True    ${rc}
     Should Contain    ${output}    active
 
@@ -389,8 +373,7 @@ Ping Vm From DHCP Namespace
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${net_id}
-    ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt And Log    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Close Connection
     Should Contain    ${output}    64 bytes
 
@@ -414,8 +397,7 @@ Ping Vm From Control Node
     Log    ${vm_floating_ip}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    ping ${additional_args} -c 3 ${vm_floating_ip}    20s
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt And Log    ping ${additional_args} -c 3 ${vm_floating_ip}    20s
     Close Connection
     Should Contain    ${output}    64 bytes
 
@@ -434,8 +416,7 @@ Curl Metadata Server
 
 Close Vm Instance
     [Documentation]    Exit the vm instance.
-    ${output}=    Write Commands Until Prompt    exit
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt And Log    exit
 
 Check If Console Is VmInstance
     [Arguments]    ${console}=cirros
@@ -521,10 +502,8 @@ Test Netcat Operations From Vm Instance
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     Log    ${vm_ip}
-    ${output}=    Write Commands Until Prompt    ( ( echo "${server_data}" | sudo timeout 60 nc -l ${additional_args} ${port} ) & )
-    Log    ${output}
-    ${output}=    Write Commands Until Prompt    sudo netstat -nlap | grep ${port}
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt And Log    ( ( echo "${server_data}" | sudo timeout 60 nc -l ${additional_args} ${port} ) & )
+    ${output}=    Write Commands Until Prompt And Log    sudo netstat -nlap | grep ${port}
     ${nc_output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${dest_ip} ${port}
     Log    ${nc_output}
     ${output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo route -n
@@ -563,7 +542,7 @@ Show Router Interface
     [Arguments]    ${router_name}
     [Documentation]    List Router interface associated with given Router and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list --router ${router_name} -f value
-    Log    ${output}
+
     Should Not Be True    ${rc}
     [Return]    ${output}
 
@@ -665,13 +644,11 @@ Show Debugs
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    sudo ip netns list
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt And Log    sudo ip netns list
     Close Connection
     : FOR    ${index}    IN    @{vm_indices}
     \    ${rc}    ${output}=    Run And Return Rc And Output    nova show ${index}
     \    Log    ${output}
-    \    Log    ${rc}
     List Nova VMs
     List Networks
     List Subnets
@@ -680,9 +657,7 @@ Show Debugs
 Neutron Security Group Show
     [Arguments]    ${SecurityGroupRuleName}
     [Documentation]    Displays the neutron security group configurations that belongs to a given neutron security group name
-    ${cmd}=    Set Variable    openstack security group show ${SecurityGroupRuleName}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack security group show ${SecurityGroupRuleName}
     Log    ${output}
     Should Not Be True    ${rc}
     [Return]    ${output}
@@ -690,9 +665,7 @@ Neutron Security Group Show
 Neutron Port Show
     [Arguments]    ${PortName}
     [Documentation]    Display the port configuration that belong to a given neutron port
-    ${cmd}=    Set Variable    openstack port show ${PortName}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack port show ${PortName}
     Log    ${output}
     Should Not Be True    ${rc}
     [Return]    ${output}
@@ -702,9 +675,7 @@ Neutron Security Group Create
     [Documentation]    Create a security group with specified name ,description & protocol value according to security group template
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${cmd}=    Set Variable    openstack security group create ${SecurityGroupName} ${additional_args}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack security group create ${SecurityGroupName} ${additional_args}
     Log    ${output}
     Should Not Be True    ${rc}
     ${sgp_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
@@ -714,9 +685,7 @@ Neutron Security Group Create
 Neutron Security Group Update
     [Arguments]    ${SecurityGroupName}    ${additional_args}=${EMPTY}
     [Documentation]    Updating security groups
-    ${cmd}=    Set Variable    openstack security group set ${SecurityGroupName} ${additional_args}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack security group set ${SecurityGroupName} ${additional_args}
     Log    ${output}
     Should Not Be True    ${rc}
     [Return]    ${output}
@@ -830,9 +799,7 @@ Create Allow All SecurityGroup
 Create Neutron Port With Additional Params
     [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
     [Documentation]    Create Port With given additional parameters
-    ${cmd}=    Set Variable    neutron -v port-create ${network_name} --name ${port_name} ${additional_args}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    neutron -v port-create ${network_name} --name ${port_name} ${additional_args}
     Log    ${output}
     Should Not Be True    ${rc}
     ${port_id}=    Should Match Regexp    ${OUTPUT}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
@@ -852,10 +819,8 @@ Get Port Ip
     [Arguments]    ${port_name}
     [Documentation]    Keyword would return the IP of the ${port_name} received.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list | grep "${port_name}" | awk -F\\' '{print $2}'
-    Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${port_ip}=    Get from List    ${splitted_output}    0
-    Log    ${port_ip}
     Should Not Be True    ${rc}
     [Return]    ${port_ip}
 
@@ -863,10 +828,8 @@ Get Port Mac
     [Arguments]    ${port_name}    ${conn_id}=${devstack_conn_id}
     [Documentation]    Keyword would return the MAC ID of the ${port_name} received.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port show ${port_name} | grep mac_address | awk '{print $4}'
-    Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${port_mac}=    Get from List    ${splitted_output}    0
-    Log    ${port_mac}
     Should Not Be True    ${rc}
     [Return]    ${port_mac}
 
@@ -913,7 +876,6 @@ Get L2gw Id
     Should Not Be True    ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${l2gw_id}=    Get from List    ${splitted_output}    0
-    Log    ${l2gw_id}
     [Return]    ${l2gw_id}
 
 Get L2gw Connection Id
@@ -921,12 +883,10 @@ Get L2gw Connection Id
     [Documentation]    Keyword to retrieve the L2 Gateway Connection ID for the ${l2gw_name} (Using Neutron CLI).
     ${l2gw_id}=    OpenStackOperations.Get L2gw Id    ${l2gw_name}
     ${rc}    ${output}=    Run And Return Rc And Output    ${L2GW_GET_CONN} | grep "${l2gw_id}" | awk '{print $2}'
-    Log    ${output}
     Should Not Be True    ${rc}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${l2gw_conn_id}=    Get from List    ${splitted_output}    0
-    Log    ${l2gw_conn_id}
     [Return]    ${l2gw_conn_id}
 
 Neutron Port List Rest
@@ -976,16 +936,13 @@ Remove Security Group From VM
     [Documentation]    Remove the security group provided to the given VM.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    openstack server remove security group ${vm} ${sg}
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt And Log    openstack server remove security group ${vm} ${sg}
     Close Connection
 
 Create SFC Flow Classifier
     [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${dest_port}    ${neutron_src_port}
     [Documentation]    Create a flow classifier for SFC
-    ${cmd}=    Set Variable    openstack sfc flow classifier create --ethertype IPv4 --source-ip-prefix ${src_ip}/32 --destination-ip-prefix ${dest_ip}/32 --protocol ${protocol} --destination-port ${dest_port}:${dest_port} --logical-source-port ${neutron_src_port} ${name}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc flow classifier create --ethertype IPv4 --source-ip-prefix ${src_ip}/32 --destination-ip-prefix ${dest_ip}/32 --protocol ${protocol} --destination-port ${dest_port}:${dest_port} --logical-source-port ${neutron_src_port} ${name}
     Log    ${output}
     Should Not Be True    ${rc}
     Should Contain    ${output}    ${name}
@@ -996,9 +953,7 @@ Delete SFC Flow Classifier
     [Documentation]    Delete a SFC flow classifier
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${cmd}=    Set Variable    openstack sfc flow classifier delete ${name}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc flow classifier delete ${name}
     Log    ${output}
     Should Not Be True    ${rc}
     [Return]    ${output}
@@ -1008,9 +963,7 @@ Create SFC Port Pair
     [Documentation]    Creates a neutron port pair for SFC
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${cmd}=    Set Variable    openstack sfc port pair create --ingress=${port_in} --egress=${port_out} ${name}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair create --ingress=${port_in} --egress=${port_out} ${name}
     Log    ${output}
     Should Not Be True    ${rc}
     Should Contain    ${output}    ${name}
@@ -1019,9 +972,7 @@ Create SFC Port Pair
 Delete SFC Port Pair
     [Arguments]    ${name}
     [Documentation]    Delete a SFC port pair
-    ${cmd}=    Set Variable    openstack sfc port pair delete ${name}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair delete ${name}
     Log    ${output}
     Should Not Be True    ${rc}
     [Return]    ${output}
@@ -1029,9 +980,7 @@ Delete SFC Port Pair
 Create SFC Port Pair Group
     [Arguments]    ${name}    ${port_pair}
     [Documentation]    Creates a port pair group with a single port pair for SFC
-    ${cmd}=    Set Variable    openstack sfc port pair group create --port-pair ${port_pair} ${name}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair group create --port-pair ${port_pair} ${name}
     Log    ${output}
     Should Not Be True    ${rc}
     Should Contain    ${output}    ${name}
@@ -1040,9 +989,7 @@ Create SFC Port Pair Group
 Create SFC Port Pair Group With Two Pairs
     [Arguments]    ${name}    ${port_pair1}    ${port_pair2}
     [Documentation]    Creates a port pair group with two port pairs for SFC
-    ${cmd}=    Set Variable    openstack sfc port pair group create --port-pair ${port_pair1} --port-pair ${port_pair2} ${name}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair group create --port-pair ${port_pair1} --port-pair ${port_pair2} ${name}
     Log    ${output}
     Should Not Be True    ${rc}
     Should Contain    ${output}    ${name}
@@ -1052,9 +999,7 @@ Delete SFC Port Pair Group
     [Arguments]    ${name}
     [Documentation]    Delete a SFC port pair group
     ${devstack_conn_id}=    Get ControlNode Connection
-    ${cmd}=    Set Variable    openstack sfc port pair group delete ${name}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair group delete ${name}
     Log    ${output}
     Should Not Be True    ${rc}
     [Return]    ${output}
@@ -1062,9 +1007,7 @@ Delete SFC Port Pair Group
 Create SFC Port Chain
     [Arguments]    ${name}    ${pg1}    ${pg2}    ${fc}
     [Documentation]    Creates a port pair chain with two port groups and a singel classifier.
-    ${cmd}=    Set Variable    openstack sfc port chain create --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc} ${name}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port chain create --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc} ${name}
     Log    ${output}
     Should Not Be True    ${rc}
     Should Contain    ${output}    ${name}
@@ -1073,9 +1016,7 @@ Create SFC Port Chain
 Delete SFC Port Chain
     [Arguments]    ${name}
     [Documentation]    Delete a SFC port chain
-    ${cmd}=    Set Variable    openstack sfc port chain delete ${name}
-    Log    ${cmd}
-    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port chain delete ${name}
     Log    ${output}
     Should Not Be True    ${rc}
     [Return]    ${output}
@@ -1093,10 +1034,8 @@ Remove RSA Key From KnowHosts
     [Documentation]    Remove RSA
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    sudo cat /root/.ssh/known_hosts    30s
-    Log    ${output}
-    ${output}=    Write Commands Until Prompt    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}    30s
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt And Log    sudo cat /root/.ssh/known_hosts    30s
+    ${output}=    Write Commands Until Prompt And Log    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}    30s
     ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"    30s
 
 Wait For Routes To Propogate
