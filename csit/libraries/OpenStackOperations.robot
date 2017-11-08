@@ -638,6 +638,10 @@ Get Test Teardown Debugs
     Run Keyword And Ignore Error    Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     Get Karaf Log Events From Test Start    ${test_name}
 
+Get Test Teardown Debugs For SFC
+    [Arguments]    ${test_name}=${TEST_NAME}
+    Run Keyword And Ignore Error    Get Model Dump    ${HA_PROXY_IP}    ${netvirt_sfc_data_models}
+
 Show Debugs
     [Arguments]    @{vm_indices}
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
