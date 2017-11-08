@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_837964ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-08T19:16:22Z",
+      "side": 1,
+      "message": "what\u0027s this for? I think it\u0027s so we don\u0027t spin a loop\niteration on some \"ip netns $ns\" where $ns in the last\niteration is the hostname prompt.\n\nright?\n\nif so, maybe just write that here in the commit msg, or paste an example?",
+      "revId": "86458c701d9e798d5991f35734ea8310d2922172",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
