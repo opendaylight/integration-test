@@ -587,7 +587,7 @@ Get DumpFlows And Ovsconfig
     Write Commands Until Expected Prompt    ip route    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    arp -an    ${DEFAULT_LINUX_PROMPT_STRICT}
     ${nslist}=    Write Commands Until Expected Prompt    ip netns list | awk '{print $1}'    ${DEFAULT_LINUX_PROMPT_STRICT}
-    @{lines}    Split To Lines    ${nslist}
+    @{lines}    Split To Lines    ${nslist}    end=-1
     : FOR    ${line}    IN    @{lines}
     \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o link    ${DEFAULT_LINUX_PROMPT_STRICT}
     \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o addr    ${DEFAULT_LINUX_PROMPT_STRICT}
