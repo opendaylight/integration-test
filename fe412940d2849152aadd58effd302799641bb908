@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_235eb876",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-08T18:23:42Z",
+      "side": 1,
+      "message": "let\u0027s change this to [Return]    ${output}\n\nthat should stop the output from being duplicated in the\noutput.xml. It\u0027s actually already there because of the \nline above.\n\nexample: drill in to this one:\nhttps://logs.opendaylight.org/releng/jenkins092/netvirt-csit-1node-openstack-ocata-upstream-stateful-carbon/155/log.html.gz#s1-s1-s1-t4-k3-k3-k2-k1-k1-k2\n\nI think we have a lot of this happening (probably our\nbiggest problem with log size is this kind of duplication).\nrobot is already verbose enough and people are just in\nthe habit (me included) of making sure we log interesting\nthings.",
+      "range": {
+        "startLine": 607,
+        "startChar": 4,
+        "endLine": 607,
+        "endChar": 20
+      },
+      "revId": "fe412940d2849152aadd58effd302799641bb908",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_8356845a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-08T18:23:42Z",
+      "side": 1,
+      "message": "let\u0027s leave this. see my comment above about removing the\nextra Log that it would do.\n\nreason is, soon we hope to be able to actually pass/fail\na test case based on Exceptions show up. We\u0027ll want this\nrunning for when that enhancement comes.",
+      "range": {
+        "startLine": 639,
+        "startChar": 0,
+        "endLine": 639,
+        "endChar": 58
+      },
+      "revId": "fe412940d2849152aadd58effd302799641bb908",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
