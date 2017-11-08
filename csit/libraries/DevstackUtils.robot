@@ -171,3 +171,10 @@ Write Commands Until Prompt
     SSHLibrary.Write    ${cmd};echo Command Returns $?
     ${output}=    SSHLibrary.Read Until Prompt
     [Return]    ${output}
+
+Write Commands Until Prompt And Log
+    [Arguments]    ${cmd}    ${timeout}=${default_devstack_prompt_timeout}
+    [Documentation]    quick wrapper for Write and Read Until Prompt Keywords to make test cases more readable
+    ${output} =    Write Commands Until Prompt    ${cmd}    ${timeout}
+    Log    ${output}
+    [Return]    ${output}

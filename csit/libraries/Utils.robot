@@ -187,6 +187,16 @@ Run Command On Remote System
     [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
     [Return]    ${stdout}
 
+Run Command On Remote System And Log
+    [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
+    [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
+    ...    robot keyword, taking care to log in with a public key and. The command given is written
+    ...    and the output returned. No test conditions are checked.
+    ${output} =    Run Command On Remote System    ${system}    ${cmd}    ${user}    ${password}    ${prompt}
+    ...    ${prompt_timeout}
+    Log    ${output}
+    [Return]    ${output}
+
 Run Command On Mininet
     [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${cmd}=echo    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${TOOLS_SYSTEM_PROMPT}
     [Documentation]    Call Run Comand On Remote System, but with default values suitable for Mininet machine.
