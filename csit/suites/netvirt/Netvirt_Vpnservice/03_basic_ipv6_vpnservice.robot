@@ -37,7 +37,7 @@ ${UPDATE_SUBNET}    UpdateSubnet
 ${UPDATE_PORT}    UpdatePort
 
 *** Test Cases ***
-Create Neutron Networks
+IPv6.Create Neutron Networks
     [Documentation]    Create two networks
     Create Network    ${NETWORKS[0]}
     Create Network    ${NETWORKS[1]}
@@ -49,7 +49,7 @@ Create Neutron Networks
     ${output} =    Show Network    ${NETWORKS[0]}
     Should Contain    ${output}    ${UPDATE_NETWORK}
 
-Create Neutron Subnets
+IPv6.Create Neutron Subnets
     [Documentation]    Create two subnets for previously created networks
     ${net1_additional_args}=    Catenate    --ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mode=slaac ${NET1_IPV6_ADDR_POOL}
     ${net2_additional_args}=    Catenate    --ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mode=slaac ${NET2_IPV6_ADDR_POOL}
@@ -63,7 +63,7 @@ Create Neutron Subnets
     ${output} =    Show SubNet    ${SUBNETS[0]}
     Should Contain    ${output}    ${UPDATE_SUBNET}
 
-Create Routers
+IPv6.Create Routers
     [Documentation]    Create Router
     Create Router    ${ROUTERS[0]}
     ${router_output} =    List Router
@@ -71,7 +71,7 @@ Create Routers
     ${router_list} =    Create List    ${ROUTERS[0]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${ROUTER_URL}    ${router_list}
 
-Add Interfaces To Router
+IPv6.Add Interfaces To Router
     [Documentation]    Add Interfaces
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
     \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
@@ -83,11 +83,11 @@ Add Interfaces To Router
     Set Suite Variable    ${GWMAC_ADDRS}
     Set Suite Variable    ${GWIP_ADDRS}
 
-Add Ssh V6 Allow Rule
+IPv6.Add Ssh V6 Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP6 packets for this suite
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}    IPv6
 
-Create Neutron Ports
+IPv6.Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
     ${allowed_address_pairs_args}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    --allowed-address ip_address=${EXTRA_NW_SUBNET[0]} --allowed-address ip_address=${EXTRA_NW_SUBNET[1]}    --allowed-address ip-address=${EXTRA_NW_SUBNET[0]} --allowed-address ip-address=${EXTRA_NW_SUBNET[1]}
     Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
@@ -100,7 +100,7 @@ Create Neutron Ports
     Should Contain    ${output}    ${UPDATE_PORT}
     Update Port    ${UPDATE_PORT}    additional_args=--name ${PORT_LIST[0]}
 
-Create Nova VMs
+IPv6.Create Nova VMs
     [Documentation]    Create Vm instances on compute node with port
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET10[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET10[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
@@ -134,14 +134,14 @@ Create Nova VMs
     [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     ...    AND    Get Test Teardown Debugs
 
-Check ELAN Datapath Traffic Within The Networks
+IPv6.Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
     ${output}=    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ping6 -c 3 ${VM_IP_NET10[1]}
     Should Contain    ${output}    64 bytes
     ${output}=    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[0]}    ping6 -c 3 ${VM_IP_NET20[1]}
     Should Contain    ${output}    64 bytes
 
-Check L3_Datapath Traffic Across Networks With Router
+IPv6.Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath test across the networks using router for L3.
     Log    Verification of FIB Entries and Flow
     ${cn1_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_1_IP}    file_Name=tcpDumpCN1
@@ -163,7 +163,7 @@ Check L3_Datapath Traffic Across Networks With Router
     Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
     [Teardown]    Test Teardown With Tcpdump Stop    ${cn1_conn_id}    ${cn2_conn_id}    ${os_conn_id}
 
-Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
+IPv6.Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation
     Log    "Adding extra one route to VM"
     ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ip -6 addr add ${EXTRA_NW_IP[0]}/64 dev eth0
@@ -187,12 +187,12 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping6 -c 3 @{EXTRA_NW_IP}[0]
     Should Contain    ${output}    64 bytes
 
-Delete Extra Route
+IPv6.Delete Extra Route
     [Documentation]    Delete the extra routes
     Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
     Show Router    @{ROUTERS}[0]    -D
 
-Delete And Recreate Extra Route
+IPv6.Delete And Recreate Extra Route
     [Documentation]    Recreate multiple extra route and check data path before L3VPN creation
     Log    "Adding extra route to VM"
     ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ip -6 addr add ${EXTRA_NW_IP[1]}/64 dev eth0
@@ -208,7 +208,7 @@ Delete And Recreate Extra Route
     ...    AND    Show Router    @{ROUTERS}[0]    -D
     ...    AND    Get Test Teardown Debugs
 
-Create L3VPN
+IPv6.Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
@@ -216,14 +216,14 @@ Create L3VPN
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[0]}
 
-Associate L3VPN To Routers
+IPv6.Associate L3VPN To Routers
     [Documentation]    Associating router to L3VPN
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${router_id}
 
-Verify L3VPN Datapath With Router Association
+IPv6.Verify L3VPN Datapath With Router Association
     [Documentation]    Datapath test across the networks using L3VPN with router association.
     Log    Verify VPN interfaces, FIB entries and Flow table
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
@@ -242,14 +242,14 @@ Verify L3VPN Datapath With Router Association
     ${dst_ip_list} =    Create List    @{VM_IP_NET20}[1]    @{VM_IP_NET10}
     Test Operations From Vm Instance    ${NETWORKS[1]}    @{VM_IP_NET20}[0]    ${dst_ip_list}
 
-Dissociate L3VPN From Routers
+IPv6.Dissociate L3VPN From Routers
     [Documentation]    Dissociating router from L3VPN
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Dissociate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Not Contain    ${resp}    ${router_id}
 
-Delete Router And Router Interfaces With L3VPN
+IPv6.Delete Router And Router Interfaces With L3VPN
     [Documentation]    Delete Router and Interface to the subnets with L3VPN associate
     # Asscoiate router with L3VPN
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
@@ -275,12 +275,12 @@ Delete Router And Router Interfaces With L3VPN
     Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_1_IP}
     Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_2_IP}
 
-Delete Router With NonExistentRouter Name
+IPv6.Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
     ${rc}    ${output}=    Run And Return Rc And Output    neutron router-delete nonExistentRouter
     Should Match Regexp    ${output}    Unable to find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
 
-Associate L3VPN To Networks
+IPv6.Associate L3VPN To Networks
     [Documentation]    Associates L3VPN to networks and verify
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
@@ -291,7 +291,7 @@ Associate L3VPN To Networks
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${network2_id}
 
-Dissociate L3VPN From Networks
+IPv6.Dissociate L3VPN From Networks
     [Documentation]    Dissociate L3VPN from networks
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
@@ -302,11 +302,11 @@ Dissociate L3VPN From Networks
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Not Contain    ${resp}    ${network2_id}
 
-Delete L3VPN
+IPv6.Delete L3VPN
     [Documentation]    Delete L3VPN
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
 
-Create Multiple L3VPN
+IPv6.Create Multiple L3VPN
     [Documentation]    Creates three L3VPNs and then verify the same
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
@@ -320,7 +320,7 @@ Create Multiple L3VPN
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
     Should Contain    ${resp}    ${VPN_INSTANCE_ID[2]}
 
-Delete Multiple L3VPN
+IPv6.Delete Multiple L3VPN
     [Documentation]    Delete three L3VPNs created using Multiple L3VPN Test
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
