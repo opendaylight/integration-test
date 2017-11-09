@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_1ebae76d",
+        "filename": "csit/suites/openstack/NeutronSecurityGrp/Neutron_Security_Group.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-09T01:15:06Z",
+      "side": 1,
+      "message": "API would fall more inline with what we use\nin other places (e.g. CONFIG_API goes to /restconf/config)",
+      "range": {
+        "startLine": 24,
+        "startChar": 12,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "c2f359ff70b854fa7e493bd29d356810feb85c84",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
