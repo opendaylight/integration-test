@@ -44,7 +44,7 @@ Check netvirt is loaded
     [Documentation]    Check if the netvirt piece has been loaded into the karaf instance
     [Tags]    Check netvirt is loaded
     ${netvirt}=    Create Dictionary    netvirt:1=1
-    Wait Until Keyword Succeeds    6s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_NODES_NETVIRT}    dictionary=${netvirt}
+    Wait Until Keyword Succeeds    6s    2s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_NODES_NETVIRT}    dictionary=${netvirt}
 
 Check External Net for Tenant
     [Documentation]    Check External Net for Tenant

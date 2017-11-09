@@ -43,7 +43,7 @@ TC00 Verify Setup
     Should Not Contain    ${VM_IP_NET2}    None
     Should Not Contain    ${VM_IP_NET3}    None
     ${vm_instances} =    Create List    @{VM_IP_NET1}    @{VM_IP_NET2}    @{VM_IP_NET3}
-    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${FIB_ENTRIES_URL}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    10s    Check For Elements At URI    ${FIB_ENTRIES_URL}    ${vm_instances}
     Verify Ping On Same Networks
     Verify Ping On Different Networks
 
@@ -51,8 +51,8 @@ TC01 Verify GARP Requests
     [Documentation]    Verify that GARP request are sent to controller
     Set Suite Variable    ${FIB_ENTRY_1}    ${VM_IP_NET1[0]}
     Set Suite Variable    ${FIB_ENTRY_3}    ${VM_IP_NET1[1]}
-    Wait Until Keyword Succeeds    10s    1s    Verify Flows Are Present    ${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    10s    1s    Verify Flows Are Present    ${OS_COMPUTE_2_IP}
+    Wait Until Keyword Succeeds    10s    2s    Verify Flows Are Present    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    10s    2s    Verify Flows Are Present    ${OS_COMPUTE_2_IP}
     ${output}=    Get Fib Entries    session
     ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_3}\/32".*"${OS_COMPUTE_2_IP}\\"
     ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_1}\/32".*"${OS_COMPUTE_1_IP}\\"
@@ -71,8 +71,8 @@ TC01 Verify GARP Requests
     ${rx_packet0_after} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[0]}    ifconfig eth0
     Should Not Be Equal    ${rx_packet0_before}    ${rx_packet0_after}
     Should Not Be Equal    ${rx_packet1_before}    ${rx_packet1_after}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present    ${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present    ${OS_COMPUTE_2_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present    ${OS_COMPUTE_2_IP}
     Wait Until Keyword Succeeds    5s    1s    Verify Learnt IP    ${FIB_ENTRY_2}    session
     ${output}=    Get Fib Entries    session
     ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_3}\\/32".*"${OS_COMPUTE_2_IP}\\"

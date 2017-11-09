@@ -85,9 +85,9 @@ Create Nova VMs
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Poll VM Is ACTIVE    ${VM}
     Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS_CIDR}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
     ...    true    @{VM_INSTANCES_NET10}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
     ...    true    @{VM_INSTANCES_NET20}
     ${VM_IP_NET10}    ${DHCP_IP1}    Collect VM IP Addresses    false    @{VM_INSTANCES_NET10}
     ${VM_IP_NET20}    ${DHCP_IP2}    Collect VM IP Addresses    false    @{VM_INSTANCES_NET20}
@@ -140,13 +140,13 @@ Check L3_Datapath Traffic Across Networks With Router
     ${cn2_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_2_IP}    file_Name=tcpDumpCN2
     ${os_conn_id} =    Start Packet Capture on Node    ${OS_CONTROL_NODE_IP}    file_Name=tcpDumpOS
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
-    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_instances}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    10s    Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
     #Verify GWMAC Table
-    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
-    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
+    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
     Log    L3 Datapath test across the networks using router
     ${dst_ip_list} =    Create List    ${VM_IP_NET10[1]}    @{VM_IP_NET20}
     Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[0]}    ${dst_ip_list}
@@ -169,7 +169,7 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     Show Router    @{ROUTERS}[0]    -D
     Log    "Verify FIB table"
     ${vm_instances} =    Create List    @{EXTRA_NW_SUBNET}
-    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    10s    Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_instances}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[1]
     Should Contain    ${output}    64 bytes
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[1]}    ping -c 3 @{EXTRA_NW_IP}[1]
@@ -218,15 +218,15 @@ Verify L3VPN Datapath With Router Association
     [Documentation]    Datapath test across the networks using L3VPN with router association.
     Log    Verify VPN interfaces, FIB entries and Flow table
     ${vm_instances} =    Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
-    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    10s    Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_instances}
     ${RD} =    Strip String    ${RDS[0]}    characters="[]
-    Wait Until Keyword Succeeds    60s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
-    Wait Until Keyword Succeeds    60s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
-    Wait Until Keyword Succeeds    60s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    60s    15s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
+    Wait Until Keyword Succeeds    60s    15s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    60s    15s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
     #Verify GWMAC Table
-    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
-    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+    Wait Until Keyword Succeeds    30s    15s    Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
+    Wait Until Keyword Succeeds    30s    15s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    15s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
     Log    Check datapath from network1 to network2
     ${dst_ip_list} =    Create List    @{VM_IP_NET10}[1]    @{VM_IP_NET20}
     Test Operations From Vm Instance    ${NETWORKS[0]}    @{VM_IP_NET10}[0]    ${dst_ip_list}
@@ -264,8 +264,8 @@ Delete Router And Router Interfaces With L3VPN
     # Verify Router Entry removed from L3VPN
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Not Contain    ${resp}    ${router_id}
-    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_2_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_2_IP}
 
 Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
