@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_8ba21697",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_cli.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 3443
+      },
+      "writtenOn": "2017-11-09T17:21:59Z",
+      "side": 1,
+      "message": "if you check the doc, there is no need to install bgp-cli feat.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 57
+      },
+      "revId": "82384d6e1acc27ae9c1330076a2c6c7e33de1d67",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
