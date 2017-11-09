@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_a67e3117",
+        "filename": "csit/suites/openstack/NeutronSecurityGrp/Neutron_Security_Group.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-09T22:58:57Z",
+      "side": 1,
+      "message": "not really allowed.",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 24
+      },
+      "revId": "56b85f64a10b124acb9ad106fe85dfd6b3f35f04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
