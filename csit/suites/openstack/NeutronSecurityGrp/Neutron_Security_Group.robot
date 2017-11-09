@@ -72,6 +72,9 @@ TC04_Create Security Rule with port_range_max = -1
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
 
+TC05_Neutron Cleanup
+    Neutron Cleanup    ${NETWORK[0]}    ${SUBNET[0]}
+
 *** Keywords ***
 Get Flows
     [Arguments]    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
@@ -105,6 +108,11 @@ Neutron Setup Creation
     ${add_args} =    BuiltIn.Set Variable    ${sg_groups} ${sg_id}
     ${port_id}    OpenStackOperations.Create Neutron Port With Additional Params    ${network}    ${port1}    ${add_args}
     ${port_id}    OpenStackOperations.Create Neutron Port With Additional Params    ${network}    ${port2}    ${add_args}
+
+Neutron Cleanup
+    [Arguments]    ${network}    ${subnet}
+    OpenStackOperations.Delete SubNet    ${subnet}
+    OpenStackOperations.Delete Network    ${network}
 
 Security group verification on Neutron port
     [Arguments]    ${port}    ${sg_id}
