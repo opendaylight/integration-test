@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a245df4_e674a937",
+        "filename": "csit/suites/openstack/NeutronSecurityGrp/Neutron_Security_Group.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-09T22:59:24Z",
+      "side": 1,
+      "message": "change to API?",
+      "range": {
+        "startLine": 24,
+        "startChar": 11,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "56b85f64a10b124acb9ad106fe85dfd6b3f35f04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_a67e3117",
         "filename": "csit/suites/openstack/NeutronSecurityGrp/Neutron_Security_Group.robot",
         "patchSetId": 7
