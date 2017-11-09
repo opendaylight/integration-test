@@ -56,7 +56,6 @@ TC01 Verify GARP Requests
     ${output}=    Get Fib Entries    session
     ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_3}\/32".*"${OS_COMPUTE_2_IP}\\"
     ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_1}\/32".*"${OS_COMPUTE_1_IP}\\"
-    Log    Checking the RX Packets Count on VM1 and VM2 before ARP Broadcast
     ${rx_packet1_before} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[1]}    ifconfig eth0
     ${rx_packet0_before} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[0]}    ifconfig eth0
     ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
@@ -66,7 +65,6 @@ TC01 Verify GARP Requests
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[1]}    ${RPING_MIP_IP}
     Should Contain    ${output}    broadcast
     Should Contain    ${output}    Received 0 reply
-    Log    Checking the RX Packets Count on VM1 and VM2 after ARP Broadcast
     ${rx_packet1_after} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[1]}    ifconfig eth0
     ${rx_packet0_after} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[0]}    ifconfig eth0
     Should Not Be Equal    ${rx_packet0_before}    ${rx_packet0_after}
@@ -82,7 +80,6 @@ TC01 Verify GARP Requests
 
 TC02 Verify MIP Migration
     [Documentation]    Verify that after migration of movable ip across compute nodes, the controller updates the routes
-    Log    Bring down the Sub Interface on DPN2
     ${UNCONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 down
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[1]}    ${UNCONFIG_EXTRA_ROUTE_IP1}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[1]}    ifconfig
@@ -100,7 +97,6 @@ TC02 Verify MIP Migration
     ${output}    Get Fib Entries    session
     ${resp}=    Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_2}\\/32".*"${OS_COMPUTE_1_IP}\\"
     Verify Ping To Sub Interface    ${FIB_ENTRY_2}
-    Log    Removing the created sub-interface
     ${UNCONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 down
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET1[0]}    ${UNCONFIG_EXTRA_ROUTE_IP1}
 
