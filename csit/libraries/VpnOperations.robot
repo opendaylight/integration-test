@@ -31,20 +31,15 @@ Basic Vpnservice Suite Teardown
     Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
     Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
-    # Delete Vm instances from the given Instance List
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     : FOR    ${VmInstance}    IN    @{VM_INSTANCES}
     \    Run Keyword And Ignore Error    Delete Vm Instance    ${VmInstance}
-    # Delete Neutron Ports from the given Port List.
     : FOR    ${Port}    IN    @{PORT_LIST}
     \    Run Keyword And Ignore Error    Delete Port    ${Port}
-    # Delete Sub Nets from the given Subnet List.
     : FOR    ${Subnet}    IN    @{SUBNETS}
     \    Run Keyword And Ignore Error    Delete SubNet    ${Subnet}
-    # Delete Networks in the given Net List
     : FOR    ${Network}    IN    @{NETWORKS}
     \    Run Keyword And Ignore Error    Delete Network    ${Network}
-    # Remove security group created earlier
     Run Keyword And Ignore Error    Delete SecurityGroup    ${SECURITY_GROUP}
     Close All Connections
 
@@ -114,8 +109,7 @@ ITM Delete Tunnel
 Verify Flows Are Present For L3VPN
     [Arguments]    ${ip}    ${vm_ips}
     [Documentation]    Verify Flows Are Present For L3VPN
-    ${flow_output}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${flow_output}
+    ${flow_output}=    Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     Should Contain    ${flow_output}    table=${ODL_FLOWTABLE_L3VPN}
     ${l3vpn_table} =    Get Lines Containing String    ${flow_output}    table=${ODL_FLOWTABLE_L3VPN},
     Log    ${l3vpn_table}
@@ -134,8 +128,7 @@ Verify GWMAC Entry On ODL
 Verify GWMAC Flow Entry Removed From Flow Table
     [Arguments]    ${cnIp}
     [Documentation]    Verify the GWMAC Table, ARP Response table and Dispatcher table.
-    ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${flow_output}
+    ${flow_output}=    Run Command On Remote System And Log    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     Should Contain    ${flow_output}    table=${GWMAC_TABLE}
     ${gwmac_table} =    Get Lines Containing String    ${flow_output}    table=${GWMAC_TABLE}
     Log    ${gwmac_table}
@@ -189,3 +182,68 @@ Get Fib Entries
     ${resp}    RequestsLibrary.Get Request    ${session}    ${FIB_ENTRIES_URL}
     Log    ${resp.content}
     [Return]    ${resp.content}
+
+Get Gateway MAC And IP Address
+    [Arguments]    ${router_Name}    ${ip_regex}=${IP_REGEX}
+    [Documentation]    Get Gateway mac and IP Address
+    ${output} =    Write Commands Until Prompt    neutron router-port-list ${router_Name}    30s
+    @{MacAddr-list} =    Get Regexp Matches    ${output}    ${MAC_REGEX}
+    @{IpAddr-list} =    Get Regexp Matches    ${output}    ${ip_regex}
+    [Return]    ${MacAddr-list}    ${IpAddr-list}
+
+Test Teardown With Tcpdump Stop
+    [Arguments]    ${cn1_conn_id}    ${cn2_conn_id}    ${os_conn_id}
+    Stop Packet Capture on Node    ${cn1_conn_id}
+    Stop Packet Capture on Node    ${cn2_conn_id}
+    Stop Packet Capture on Node    ${os_conn_id}
+    Get Test Teardown Debugs
+
+Verify IPv4 GWMAC Flow Entry On Flow Table
+    [Arguments]    ${group_output}    ${group_id}    ${flow_output}
+    Verify ARP REQUEST in groupTable    ${group_output}    ${groupID[1]}
+    #Verify ARP_RESPONSE_TABLE - 81
+    Should Contain    ${flow_output}    table=${ARP_RESPONSE_TABLE}
+    ${arpResponder_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_RESPONSE_TABLE}
+    Should Contain    ${arpResponder_table}    priority=0 actions=drop
+    : FOR    ${macAdd}    ${ipAdd}    IN ZIP    ${GWMAC_ADDRS}    ${GWIP_ADDRS}
+    \    ${ARP_RESPONSE_IP_MAC_REGEX} =    Set Variable    arp_tpa=${ipAdd},arp_op=1 actions=.*,set_field:${macAdd}->eth_src
+    \    Should Match Regexp    ${arpResponder_table}    ${ARP_RESPONSE_IP_MAC_REGEX}
+
+Verify IPv6 GWMAC Flow Entry On Flow Table
+    [Arguments]    ${flow_output}
+    Should Contain    ${flow_output}    table=${IPV6_TABLE}
+    ${icmp_ipv6_flows} =    Get Lines Containing String    ${flow_output}    icmp_type=135
+    : FOR    ${ip_addr}    IN    @{GWIP_ADDRS}
+    \    ${rule} =    Set Variable    icmp_type=135,icmp_code=0,nd_target=${ip_addr} actions=CONTROLLER:65535
+    \    Should Match Regexp    ${icmp_ipv6_flows}    ${rule}
+
+Verify GWMAC Flow Entry On Flow Table
+    [Arguments]    ${cnIp}    ${ipv}=ipv4
+    [Documentation]    Verify the GWMAC Table, ARP Response table and Dispatcher table.
+    ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    ${group_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-groups br-int
+    Should Contain    ${flow_output}    table=${DISPATCHER_TABLE}
+    ${dispatcher_table} =    Get Lines Containing String    ${flow_output}    table=${DISPATCHER_TABLE}
+    Should Contain    ${dispatcher_table}    goto_table:${GWMAC_TABLE}
+    Should Not Contain    ${dispatcher_table}    goto_table:${ARP_RESPONSE_TABLE}
+    Should Contain    ${flow_output}    table=${GWMAC_TABLE}
+    ${gwmac_table} =    Get Lines Containing String    ${flow_output}    table=${GWMAC_TABLE}
+    #Verify GWMAC address present in table 19
+    : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
+    \    Should Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+    #verify Miss entry
+    Should Contain    ${gwmac_table}    actions=resubmit(,17)
+    #Verify ARP_CHECK_TABLE - 43
+    #arp request and response
+    ${arpchk_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_CHECK_TABLE}
+    Should Match Regexp    ${arpchk_table}    ${ARP_RESPONSE_REGEX}
+    ${match} =    Should Match Regexp    ${arpchk_table}    ${ARP_REQUEST_REGEX}
+    ${groupID} =    Split String    ${match}    separator=:
+    BuiltIn.Run Keywork If    '${ipv}' == 'ipv4'    Verify IPv4 GWMAC Flow Entry On Flow Table    ${group_output}    ${group_id}    ${flow_output}
+    ...    ELSE    Verify IPv6 GWMAC Flow Entry On Flow Table    ${flow_output}
+
+Delete Multiple L3VPNs
+    [Arguments]    @{vpns}
+    [Documentation]    Delete three L3VPNs created using Multiple L3VPN Test
+    : FOR    ${vpn}    IN    ${vpns}
+    \    VPN Delete L3VPN    ${vpn}
