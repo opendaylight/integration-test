@@ -2,7 +2,7 @@
 Documentation     Test Suite for Neutron Security Group
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-Suite Teardown    Close All Connections
+Suite Teardown    Neutron Security Group Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
 Library           SSHLibrary
@@ -14,26 +14,22 @@ Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${RESP_CODE}      200
+${RESP_CODE_200}    200
 ${DESCRIPTION}    --description "new security group 1"
 ${VERIFY_DESCRIPTION}    new security group 1
 ${VERIFY_NAME}    SSH_UPDATED
 ${NAME_UPDATE}    --name SSH_UPDATED
 ${SECURITY_FALSE}    --port-security-enabled false
 ${SECURITY_TRUE}    --port-security-enabled true
-${SEC_GROUP}      /restconf/config/neutron:neutron/security-groups/
-${SEC_RULE}       /restconf/config/neutron:neutron/security-rules/
+${SEC_GROUP_API}    /restconf/config/neutron:neutron/security-groups/
+${SEC_RULE_API}    /restconf/config/neutron:neutron/security-rules/
 ${ADD_ARG_SSH}    --direction ingress --ethertype IPv4 --port_range_max 22 --port_range_min 22 --protocol tcp
-@{NETWORK}        net1    net2    net3    net4    net5    net6    net7
-...               net8    net9    net10
-@{SUBNET}         sub1    sub2    sub3    sub4    sub5    sub6    sub7
-...               sub8    sub9    sub10
-@{IP_SUBNET}      20.2.1.0/24    20.2.2.0/24    20.2.3.0/24    20.2.4.0/24    20.2.5.0/24    20.2.6.0/24
-@{PORT}           port01    port02    port03    port04    port05    port06    port07
-...               port08    port09    port10
+@{NETWORKS}       net1
+@{SUBNET}         sub1
+@{IP_SUBNET}      20.2.1.0/24
+@{PORTS}          port01    port02
 ${SECURITY_GROUPS}    --security-group
-@{SGP_SSH}        SSH1    SSH2    SSH3    SSH4    SSH5    SSH6    SSH7
-...               SSH8    SSH9    SSH10
+@{SGS}            SSH1    SSH2    SSH3    SSH4
 ${ADD_ARG_SSH5}    --direction ingress --ethertype IPv4 --port_range_max 20 --port_range_min 25 --protocol tcp
 @{ADD_PARAMS}     ingression    IPv4    20    25    tcp
 ${ADD_ARG_SSH6}    --direction ingress --ethertype IPv4 --port_range_max 25 --port_range_min -1 --protocol tcp
@@ -45,108 +41,103 @@ ${INVALID_PORT_RANGE_MIN}    Invalid value for port
 TC01_Update Security Group description and Name
     [Documentation]    This test case validates the security group creation with optional parameter description, Update Security Group description and name
     [Tags]    Regression
-    Create Security Group and Validate    ${SGP_SSH[0]}
-    Create Security Rule and Validate    ${SGP_SSH[0]}    direction=${ADD_PARAMS[0]}    ethertype=${ADD_PARAMS[1]}    port_range_max=${ADD_PARAMS[3]}    port_range_min=${ADD_PARAMS[2]}    protocol=${ADD_PARAMS[4]}
+    ${sg_id} =    BuiltIn.Run Keyword    Create Security Group and Validate    ${SGS[0]}
+    Create Security Rule and Validate    ${SGS[0]}    direction=${ADD_PARAMS[0]}    ethertype=${ADD_PARAMS[1]}    port_range_max=${ADD_PARAMS[3]}    port_range_min=${ADD_PARAMS[2]}    protocol=${ADD_PARAMS[4]}
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Neutron Setup Creation    ${NETWORK[0]}    ${SUBNET[0]}    ${IP_SUBNET[0]}    ${PORT[0]}    ${PORT[1]}    ${SECURITY_GROUPS}
-    ...    ${SGP_ID}
-    Security group verification on Neutron port    ${PORT[0]}    ${SGP_ID}
-    Security group verification on Neutron port    ${PORT[1]}    ${SGP_ID}
-    Update Security Group Description and Verification    ${SGP_ID}    ${DESCRIPTION}    ${VERIFY_DESCRIPTION}
-    Update Security Group Name and Verification    ${SGP_ID}    ${NAME_UPDATE}    ${VERIFY_NAME}
+    Neutron Setup Creation    ${NETWORKS[0]}    ${SUBNET[0]}    ${IP_SUBNET[0]}    ${PORTS[0]}    ${PORTS[1]}    ${SECURITY_GROUPS}
+    ...    ${sg_id}
+    Security group verification on Neutron port    ${PORTS[0]}    ${sg_id}
+    Security group verification on Neutron port    ${PORTS[1]}    ${sg_id}
+    Update Security Group Description and Verification    ${sg_id}    ${DESCRIPTION}    ${VERIFY_DESCRIPTION}
+    Update Security Group Name and Verification    ${sg_id}    ${NAME_UPDATE}    ${VERIFY_NAME}
 
 TC02_Create Security Rule with port_range_min > port_range_max
     [Documentation]    This test case validates the security group and rule creation with optional parameters Create Security Rule with port_range_min greater than port_range_max
     [Tags]    Regression
-    Create Security Group and Validate    ${SGP_SSH[1]}
+    Create Security Group and Validate    ${SGS[1]}
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[1]}    ${ADD_ARG_SSH5}    ${PORT_RANGE_ERROR}
+    Neutron Rule Creation With Invalid Parameters    ${SGS[1]}    ${ADD_ARG_SSH5}    ${PORT_RANGE_ERROR}
 
 TC03_Create Security Rule with port_range_min = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_min = -1
     [Tags]    Regression
-    Create Security Group and Validate    ${SGP_SSH[2]}
+    Create Security Group and Validate    ${SGS[2]}
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[2]}    ${ADD_ARG_SSH6}    ${INVALID_PORT_RANGE_MIN}
+    Neutron Rule Creation With Invalid Parameters    ${SGS[2]}    ${ADD_ARG_SSH6}    ${INVALID_PORT_RANGE_MIN}
 
 TC04_Create Security Rule with port_range_max = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_max = -1
     [Tags]    Regression
-    Create Security Group and Validate    ${SGP_SSH[3]}
+    Create Security Group and Validate    ${SGS[3]}
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
+    Neutron Rule Creation With Invalid Parameters    ${SGS[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
 
 *** Keywords ***
 Get Flows
     [Arguments]    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     [Documentation]    Get the Flows from DPN1 and DPN2
-    ${resp}=    Run Command On Remote System And Log    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
-    ${resp}=    Run Command On Remote System And Log    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
-    ${resp}=    Run Command On Remote System And Log    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
-    ${resp}=    Run Command On Remote System And Log    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
+    ${resp} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
+    ${resp} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
+    ${resp} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
+    ${resp} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
 
 Create Security Group and Validate
-    [Arguments]    ${SGP_SSH}
-    [Documentation]    Create Security Group and Validate
-    ${OUTPUT}    ${SGP_ID}    Neutron Security Group Create    ${SGP_SSH}
-    Set Global Variable    ${SGP_ID}
-    Log    "Verifying the security group"
-    ${resp}    RequestsLibrary.Get Request    session    ${SEC_GROUP}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
-    Should Contain    ${resp.content}    ${SGP_SSH}
+    [Arguments]    ${sg_ssh}
+    ${output}    ${sg_id} =    OpenStackOperations.Neutron Security Group Create    ${sg_ssh}
+    ${sec_groups} =    BuiltIn.Create List    ${sg_ssh}
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Utils.Check For Elements At URI    ${SEC_GROUP_API}    ${sec_groups}
+    [Return]    ${sg_id}
 
 Create Security Rule and Validate
-    [Arguments]    ${SGP_SSH}    &{Kwargs}
-    [Documentation]    Create Security Rule and Validate
-    ${OUTPUT}    ${RULE_ID}    Neutron Security Group Rule Create    ${SGP_SSH}
-    Set Global Variable    ${RULE_ID}
-    ${resp}    RequestsLibrary.Get Request    session    ${SEC_RULE}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
-    Should Contain    ${resp.content}    ${RULE_ID}
+    [Arguments]    ${sg_ssh}    &{Kwargs}
+    ${output}    ${rule_id} =    OpenStackOperations.Neutron Security Group Rule Create    ${sg_ssh}
+    ${rule_ids} =    BuiltIn.Create List    ${rule_id}
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Utils.Check For Elements At URI    ${SEC_RULE_API}    ${rule_ids}
 
 Neutron Setup Creation
-    [Arguments]    ${NETWORK}    ${SUBNET}    ${IP_SUBNET}    ${PORT1}    ${PORT2}    ${SECURITY_GROUPS}
-    ...    ${SGP_ID}
-    [Documentation]    Neutron Setup Creation
-    ${net_id}    Create Network    ${NETWORK}
-    Set Global Variable    ${net_id}
-    ${subnet_id}    Create SubNet    ${NETWORK}    ${SUBNET}    ${IP_SUBNET}
-    Set Global Variable    ${subnet_id}
-    ${ADD_ARGMS}=    Set Variable    ${SECURITY_GROUPS} ${SGP_ID}
-    ${port_id}    Create Neutron Port With Additional Params    ${NETWORK}    ${PORT1}    ${ADD_ARGMS}
-    ${port_id}    Create Neutron Port With Additional Params    ${NETWORK}    ${PORT2}    ${ADD_ARGMS}
+    [Arguments]    ${network}    ${subnet}    ${ip_subnet}    ${port1}    ${port2}    ${sg_groups}
+    ...    ${sg_id}
+    ${net_id} =    OpenStackOperations.Create Network    ${network}
+    ${subnet_id} =    OpenStackOperations.Create SubNet    ${network}    ${subnet}    ${ip_subnet}
+    ${add_args} =    BuiltIn.Set Variable    ${sg_groups} ${sg_id}
+    ${port_id}    OpenStackOperations.Create Neutron Port With Additional Params    ${network}    ${port1}    ${add_args}
+    ${port_id}    OpenStackOperations.Create Neutron Port With Additional Params    ${network}    ${port2}    ${add_args}
+
+Neutron Security Group Suite Teardown
+    : FOR    ${port}    IN    @{PORTS}
+    \    Run Keyword And Ignore Error    OpenStackOperations.Delete Port    ${port}
+    : FOR    ${subnet}    IN    @{SUBNETS}
+    \    Run Keyword And Ignore Error    OpenStackOperations.Delete SubNet    ${subnet}
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    Run Keyword And Ignore Error    OpenStackOperations.Delete Network    ${network}
+    : FOR    ${sg}    IN    @{SGS}
+    \    Run Keyword And Ignore Error    OpenStackOperations.Delete SecurityGroup    ${sg}
+    Close All Connections
 
 Security group verification on Neutron port
-    [Arguments]    ${PORT}    ${SGP_ID}
-    [Documentation]    Security group verification on Neutron port
-    ${PORT_SHOW}    Neutron Port Show    ${PORT}
-    Should Contain    ${PORT_SHOW}    ${SGP_ID}
+    [Arguments]    ${port}    ${sg_id}
+    ${port_show} =    OpenStackOperations.Neutron Port Show    ${port}
+    BuiltIn.Should Contain    ${port_show}    ${sg_id}
 
 Update Security Group Description and Verification
-    [Arguments]    ${SGP_ID}    ${DESCRIPTION}    ${VERIFY_DESCRIPTION}
-    [Documentation]    Update Security Group Description and Verification
-    ${output}    Neutron Security Group Update    ${SGP_ID}    ${DESCRIPTION}
-    ${output}    Neutron Security Group Show    ${SGP_ID}
-    Should Contain    ${output}    ${VERIFY_DESCRIPTION}
+    [Arguments]    ${sg_id}    ${description}    ${verify_description}
+    OpenStackOperations.Neutron Security Group Update    ${sg_id}    ${description}
+    ${output} =    OpenStackOperations.Neutron Security Group Show    ${sg_id}
+    BuiltIn.Should Contain    ${output}    ${verify_description}
 
 Update Security Group Name and Verification
-    [Arguments]    ${SGP_ID}    ${NAME_UPDATE}    ${VERIFY_NAME}
-    [Documentation]    Update Security Group Name and Verification
-    ${output}    Neutron Security Group Update    ${SGP_ID}    ${NAME_UPDATE}
-    ${output}    Neutron Security Group Show    ${SGP_ID}
-    Should Contain    ${output}    ${VERIFY_NAME}
-    ${resp}    RequestsLibrary.Get Request    session    ${SEC_GROUP}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
-    Should Contain    ${resp.content}    ${VERIFY_NAME}
+    [Arguments]    ${sg_id}    ${name_update}    ${verify_name}
+    OpenStackOperations.Neutron Security Group Update    ${sg_id}    ${name_update}
+    ${output} =    OpenStackOperations.Neutron Security Group Show    ${sg_id}
+    Should Contain    ${output}    ${verify_name}
+    ${resp}    RequestsLibrary.Get Request    session    ${SEC_GROUP_API}
+    BuiltIn.Log    ${resp.content}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE_200}
+    BuiltIn.Should Contain    ${resp.content}    ${verify_name}
 
 Neutron Rule Creation With Invalid Parameters
-    [Arguments]    ${SecurityGroupName}    ${additional_args}    ${EXPECTED_ERROR}
-    [Documentation]    Neutron Rule Creation With Null Protocol
-    ${rc}    ${output}=    Run And Return Rc And Output    neutron security-group-rule-create ${SecurityGroupName} ${additional_args}
-    Log    ${output}
-    Should Contain    ${output}    ${EXPECTED_ERROR}
-    Close Connection
-    [Return]    ${output}
+    [Arguments]    ${sg_name}    ${additional_args}    ${expected_error}
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    neutron security-group-rule-create ${sg_name} ${additional_args}
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Contain    ${output}    ${expected_error}
+    SSHLibrary.Close Connection
