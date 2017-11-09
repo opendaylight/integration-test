@@ -2,7 +2,7 @@
 Documentation     Test Suite for Neutron Security Group
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-Suite Teardown    Close All Connections
+Suite Teardown    Neutron Security Group Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get Test Teardown Debugs
 Library           SSHLibrary
@@ -24,12 +24,12 @@ ${SECURITY_TRUE}    --port-security-enabled true
 ${SEC_GROUP_PATH}    /restconf/config/neutron:neutron/security-groups/
 ${SEC_RULE_PATH}    /restconf/config/neutron:neutron/security-rules/
 ${ADD_ARG_SSH}    --direction ingress --ethertype IPv4 --port_range_max 22 --port_range_min 22 --protocol tcp
-@{NETWORK}        net1
+@{NETWORKS}       net1
 @{SUBNET}         sub1
 @{IP_SUBNET}      20.2.1.0/24
-@{PORT}           port01    port02
+@{PORTS}          port01    port02
 ${SECURITY_GROUPS}    --security-group
-@{SGP_SSH}        SSH1    SSH2    SSH3    SSH4
+@{SGS}            SSH1    SSH2    SSH3    SSH4
 ${ADD_ARG_SSH5}    --direction ingress --ethertype IPv4 --port_range_max 20 --port_range_min 25 --protocol tcp
 @{ADD_PARAMS}     ingression    IPv4    20    25    tcp
 ${ADD_ARG_SSH6}    --direction ingress --ethertype IPv4 --port_range_max 25 --port_range_min -1 --protocol tcp
@@ -41,36 +41,36 @@ ${INVALID_PORT_RANGE_MIN}    Invalid value for port
 TC01_Update Security Group description and Name
     [Documentation]    This test case validates the security group creation with optional parameter description, Update Security Group description and name
     [Tags]    Regression
-    ${sg_id} =    BuiltIn.Run Keyword    Create Security Group and Validate    ${SGP_SSH[0]}
-    Create Security Rule and Validate    ${SGP_SSH[0]}    direction=${ADD_PARAMS[0]}    ethertype=${ADD_PARAMS[1]}    port_range_max=${ADD_PARAMS[3]}    port_range_min=${ADD_PARAMS[2]}    protocol=${ADD_PARAMS[4]}
+    ${sg_id} =    BuiltIn.Run Keyword    Create Security Group and Validate    ${SGS[0]}
+    Create Security Rule and Validate    ${SGS[0]}    direction=${ADD_PARAMS[0]}    ethertype=${ADD_PARAMS[1]}    port_range_max=${ADD_PARAMS[3]}    port_range_min=${ADD_PARAMS[2]}    protocol=${ADD_PARAMS[4]}
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Neutron Setup Creation    ${NETWORK[0]}    ${SUBNET[0]}    ${IP_SUBNET[0]}    ${PORT[0]}    ${PORT[1]}    ${SECURITY_GROUPS}
+    Neutron Setup Creation    ${NETWORKS[0]}    ${SUBNET[0]}    ${IP_SUBNET[0]}    ${PORTS[0]}    ${PORTS[1]}    ${SECURITY_GROUPS}
     ...    ${sg_id}
-    Security group verification on Neutron port    ${PORT[0]}    ${sg_id}
-    Security group verification on Neutron port    ${PORT[1]}    ${sg_id}
+    Security group verification on Neutron port    ${PORTS[0]}    ${sg_id}
+    Security group verification on Neutron port    ${PORTS[1]}    ${sg_id}
     Update Security Group Description and Verification    ${sg_id}    ${DESCRIPTION}    ${VERIFY_DESCRIPTION}
     Update Security Group Name and Verification    ${sg_id}    ${NAME_UPDATE}    ${VERIFY_NAME}
 
 TC02_Create Security Rule with port_range_min > port_range_max
     [Documentation]    This test case validates the security group and rule creation with optional parameters Create Security Rule with port_range_min greater than port_range_max
     [Tags]    Regression
-    Create Security Group and Validate    ${SGP_SSH[1]}
+    Create Security Group and Validate    ${SGS[1]}
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[1]}    ${ADD_ARG_SSH5}    ${PORT_RANGE_ERROR}
+    Neutron Rule Creation With Invalid Parameters    ${SGS[1]}    ${ADD_ARG_SSH5}    ${PORT_RANGE_ERROR}
 
 TC03_Create Security Rule with port_range_min = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_min = -1
     [Tags]    Regression
-    Create Security Group and Validate    ${SGP_SSH[2]}
+    Create Security Group and Validate    ${SGS[2]}
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[2]}    ${ADD_ARG_SSH6}    ${INVALID_PORT_RANGE_MIN}
+    Neutron Rule Creation With Invalid Parameters    ${SGS[2]}    ${ADD_ARG_SSH6}    ${INVALID_PORT_RANGE_MIN}
 
 TC04_Create Security Rule with port_range_max = -1
     [Documentation]    This test case validates the security group and rule creation with optional parameters, Create Security Rule with port_range_max = -1
     [Tags]    Regression
-    Create Security Group and Validate    ${SGP_SSH[3]}
+    Create Security Group and Validate    ${SGS[3]}
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Neutron Rule Creation With Invalid Parameters    ${SGP_SSH[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
+    Neutron Rule Creation With Invalid Parameters    ${SGS[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
 
 *** Keywords ***
 Get Flows
@@ -108,6 +108,17 @@ Neutron Setup Creation
     ${add_args} =    BuiltIn.Set Variable    ${sg_groups} ${sg_id}
     ${port_id}    OpenStackOperations.Create Neutron Port With Additional Params    ${network}    ${port1}    ${add_args}
     ${port_id}    OpenStackOperations.Create Neutron Port With Additional Params    ${network}    ${port2}    ${add_args}
+
+Neutron Security Group Suite Teardown
+    : FOR    ${port}    IN    @{PORTS}
+    \    Run Keyword And Ignore Error    OpenStackOperations.Delete Port    ${port}
+    : FOR    ${subnet}    IN    @{SUBNETS}
+    \    Run Keyword And Ignore Error    OpenStackOperations.Delete SubNet    ${subnet}
+    : FOR    ${network}    IN    @{NETWORKS}
+    \    Run Keyword And Ignore Error    OpenStackOperations.Delete Network    ${network}
+    : FOR    ${sg}    IN    @{SGS}
+    \    Run Keyword And Ignore Error    OpenStackOperations.Delete SecurityGroup    ${sg}
+    Close All Connections
 
 Security group verification on Neutron port
     [Arguments]    ${port}    ${sg_id}
