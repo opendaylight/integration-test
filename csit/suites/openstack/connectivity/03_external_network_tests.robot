@@ -57,9 +57,9 @@ Check Vm Instances Have Ip Address
     # for dhcp addresses
     : FOR    ${vm}    IN    @{VM_INSTANCES_FLOATING}    @{VM_INSTANCES_SNAT}
     \    Poll VM Is ACTIVE    ${vm}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
     ...    true    @{VM_INSTANCES_FLOATING}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
     ...    true    @{VM_INSTANCES_SNAT}
     ${FLOATING_VM_IPS}    ${FLOATING_DHCP_IP}    Collect VM IP Addresses    false    @{VM_INSTANCES_FLOATING}
     ${SNAT_VM_IPS}    ${SNAT_DHCP_IP}    Collect VM IP Addresses    false    @{VM_INSTANCES_SNAT}

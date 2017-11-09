@@ -38,8 +38,8 @@ Verify Datapath for Single ELAN with Multiple DPN
     [Documentation]    Verify Flow Table and Datapath
     ${SRCMAC_CN1} =    Create List    ${VM_MACAddr_ELAN1[0]}
     ${SRCMAC_CN2} =    Create List    ${VM_MACAddr_ELAN1[1]}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${VM_MACAddr_ELAN1}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${VM_MACAddr_ELAN1}
     Log    Verify Datapath Test
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_ELAN1[0]}    ping -c 3 ${VM_IP_ELAN1[1]}
     Should Contain    ${output}    ${PING_PASS}
@@ -69,16 +69,16 @@ Verify Datapath After Recreate VM Instance
     Log    Delete VM and verify flows updated
     Delete Vm Instance    ${VM_INSTANCES_ELAN1[0]}
     ${SRCMAC_CN1} =    Create List    ${VM_MACAddr_ELAN1[0]}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}
     Remove RSA Key From KnowHosts    ${VM_IP_ELAN1[0]}
     Log    ReCreate VM and verify flow updated
     Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[0]}    ${VM_INSTANCES_ELAN1[0]}    ${OS_COMPUTE_1_IP}
     Poll VM Is ACTIVE    ${VM_INSTANCES_ELAN1[0]}
-    ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true
+    ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Wait Until Keyword Succeeds    180s    30s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN1}
     Log    ${VM_IP_ELAN1}
     Set Suite Variable    ${VM_IP_ELAN1}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_ELAN1[0]}    ping -c 3 ${VM_IP_ELAN1[1]}
     Should Contain    ${output}    ${PING_PASS}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_ELAN1[1]}    ping -c 3 ${VM_IP_ELAN1[0]}
@@ -89,8 +89,8 @@ Delete All ELAN1 VM And Verify Flow Table Updated
     Log    Delete VM instances
     : FOR    ${VmInstance}    IN    @{VM_INSTANCES_ELAN1}
     \    Delete Vm Instance    ${VmInstance}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_1_IP}    ${VM_MACAddr_ELAN1}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_2_IP}    ${VM_MACAddr_ELAN1}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_1_IP}    ${VM_MACAddr_ELAN1}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_2_IP}    ${VM_MACAddr_ELAN1}
 
 Verify Datapath for Multiple ELAN with Multiple DPN
     [Documentation]    Verify Flow Table and Data path for Multiple ELAN with Multiple DPN
@@ -100,8 +100,8 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     ${SRCMAC_CN1} =    Create List    ${VM_MACAddr_ELAN2[0]}    ${VM_MACAddr_ELAN3[0]}
     ${SRCMAC_CN2} =    Create List    ${VM_MACAddr_ELAN2[1]}    ${VM_MACAddr_ELAN3[1]}
     ${MAC_LIST} =    Create List    @{VM_MACAddr_ELAN2}    @{VM_MACAddr_ELAN3}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${MAC_LIST}
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${MAC_LIST}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${MAC_LIST}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${MAC_LIST}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_ELAN2[0]}    ping -c 3 ${VM_IP_ELAN2[1]}
     Should Contain    ${output}    ${PING_PASS}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[2]    ${VM_IP_ELAN3[1]}    ping -c 3 ${VM_IP_ELAN3[0]}
@@ -121,11 +121,11 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     # collected immediately after when that step fails, as is the nature of robot test cases.
     Reboot Nova VM    ${VM_INSTANCES_ELAN2[0]}
     Poll VM Is ACTIVE    ${VM_INSTANCES_ELAN2[0]}
-    ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true
+    ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    180s    30s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN2}
     Log    ${VM_IP_ELAN2}
     Should Not Contain    ${VM_IP_ELAN2}    None
-    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${MAC_LIST}
+    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${MAC_LIST}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_ELAN2[1]}    ping -c 3 ${VM_IP_ELAN2[0]}
     Should Contain    ${output}    ${PING_PASS}
     [Teardown]    Run Keywords    Get Test Teardown Debugs
@@ -172,7 +172,7 @@ SingleElan SuiteSetup
     : FOR    ${VM}    IN    @{VM_INSTANCES_ELAN1}
     \    Poll VM Is ACTIVE    ${VM}
     Log    Get IP address for ELAN1
-    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true    @{VM_INSTANCES_ELAN1}
+    Wait Until Keyword Succeeds    180s    30s    Collect VM IP Addresses    true    @{VM_INSTANCES_ELAN1}
     ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Collect VM IP Addresses    false    @{VM_INSTANCES_ELAN1}
     Log    ${VM_IP_ELAN1}
     Set Suite Variable    ${VM_IP_ELAN1}
@@ -198,11 +198,11 @@ MultipleElan Testsuite Setup
     ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_ELAN2}    @{VM_INSTANCES_ELAN3}
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Poll VM Is ACTIVE    ${VM}
-    ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true
+    ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    180s    30s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN2}
     Log    ${VM_IP_ELAN2}
     Set Suite Variable    ${VM_IP_ELAN2}
-    ${VM_IP_ELAN3}    ${DHCP_IP_ELAN3}    Wait Until Keyword Succeeds    180s    10s    Collect VM IP Addresses    true
+    ${VM_IP_ELAN3}    ${DHCP_IP_ELAN3}    Wait Until Keyword Succeeds    180s    30s    Collect VM IP Addresses    true
     ...    @{VM_INSTANCES_ELAN3}
     Log    ${VM_IP_ELAN3}
     Set Suite Variable    ${VM_IP_ELAN3}

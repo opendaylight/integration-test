@@ -76,11 +76,11 @@ Check Vm Instances Have Ip Address
     # for dhcp addresses
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}    @{NET_3_VM_INSTANCES}
     \    Poll VM Is ACTIVE    ${vm}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
     ...    true    @{NET_1_VM_INSTANCES}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
     ...    true    @{NET_2_VM_INSTANCES}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    5s    Collect VM IP Addresses
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
     ...    true    @{NET_3_VM_INSTANCES}
     ${NET3_L3_VM_IPS}    ${NET3_DHCP_IP}    Collect VM IP Addresses    false    @{NET_3_VM_INSTANCES}
     ${NET2_L3_VM_IPS}    ${NET2_DHCP_IP}    Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}

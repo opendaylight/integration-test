@@ -53,7 +53,7 @@ Create BGP Config On DCGW
 
 Verify BGP Neighbor Status
     [Documentation]    Verify BGP status established
-    ${output} =    Wait Until Keyword Succeeds    60s    10s    Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}
+    ${output} =    Wait Until Keyword Succeeds    60s    15s    Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}
     Log    ${output}
     ${output1} =    Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    show ip bgp vrf ${DCGW_RD}
     Log    ${output1}
@@ -68,8 +68,8 @@ Create External Tunnel Endpoint
 Verify Routes Exchange Between ODL And DCGW
     [Documentation]    Verify routes exchange between ODL and DCGW
     ${fib_values} =    Create List    ${LOOPBACK_IP}    @{VM_IPS}
-    Wait Until Keyword Succeeds    60s    5s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${DCGW_RD}/    ${fib_values}
-    Wait Until Keyword Succeeds    60s    5s    Verify Routes On Quagga    ${DCGW_SYSTEM_IP}    ${DCGW_RD}    ${fib_values}
+    Wait Until Keyword Succeeds    60s    15s    Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${DCGW_RD}/    ${fib_values}
+    Wait Until Keyword Succeeds    60s    15s    Verify Routes On Quagga    ${DCGW_SYSTEM_IP}    ${DCGW_RD}    ${fib_values}
     [Teardown]    Run Keywords    Report_Failure_Due_To_Bug    7607
     ...    AND    Get Test Teardown Debugs
 

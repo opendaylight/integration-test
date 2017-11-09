@@ -40,7 +40,7 @@ Get manager connection
 Check Operational topology
     [Documentation]    Check Operational topology
     ${dictionary}=    Create Dictionary    ovsdb://uuid/=5
-    Wait Until Keyword Succeeds    20s    2s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}
+    Wait Until Keyword Succeeds    20s    5s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}
 
 Get bridge setup
     [Documentation]    This request is verifying that the br-int bridge has been created

@@ -60,7 +60,7 @@ Check Vm Instances Have Ip Address
     # for dhcp addresses
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}
     \    OpenStackOperations.Poll VM Is ACTIVE    ${vm}
-    ${status}    ${message}    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OpenStackOperations.Collect VM IP Addresses
+    ${status}    ${message}    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    60s    15s    OpenStackOperations.Collect VM IP Addresses
     ...    true    @{NET_1_VM_INSTANCES}
     ${NET1_VM_IPS}    ${NET1_DHCP_IP}    OpenStackOperations.Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
     ${NET2_VM_IPS}    ${NET2_DHCP_IP}    OpenStackOperations.Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
