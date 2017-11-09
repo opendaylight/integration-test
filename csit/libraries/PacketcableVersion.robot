@@ -4,17 +4,11 @@ Resource          ${CURDIR}/CompareStream.robot
 
 *** Keywords ***
 Init Variables
-    Init Variables Lithium
     BuiltIn.Set Suite Variable    ${PACKETCABLE_RESOURCE_DIR}    ${CURDIR}/../variables/packetcable/beryllium
     BuiltIn.Set Suite Variable    ${ODLREST_CCAPS}    /restconf/config/packetcable:ccaps
     BuiltIn.Set Suite Variable    ${CCAP_TOKEN}    ccap
     log    ${ODLREST_CCAPS}
     log    ${CCAP_TOKEN}
-
-Init Variables Lithium
-    BuiltIn.Set Suite Variable    ${PACKETCABLE_RESOURCE_DIR}    ${CURDIR}/../variables/packetcable/lithium
-    BuildIn.Set Suite Variable    ${ODLREST_CCAPS}    /restconf/config/packetcable:ccap
-    BuildIn.Set Suite Variable    ${CCAP_TOKEN}    ccaps
 
 Create Session And Init Variables
     Init Variables
