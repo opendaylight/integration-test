@@ -52,6 +52,10 @@ Verify Data Reported
     &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_DIR}    mapping=${mapping}    session=${CONFIG_SESSION}
     ...    verify=True
+    ${output}=    KarafKeywords.Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib
+    BuiltIn.Log    ${output}
+    ${output}=    KarafKeywords.Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor 192.0.2.1
+    BuiltIn.Log    ${output}
 
 Stop_Bmp_Mock
     [Documentation]    Send ctrl+c to bmp-mock to stop it
