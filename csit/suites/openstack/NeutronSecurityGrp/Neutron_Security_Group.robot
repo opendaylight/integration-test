@@ -21,8 +21,8 @@ ${VERIFY_NAME}    SSH_UPDATED
 ${NAME_UPDATE}    --name SSH_UPDATED
 ${SECURITY_FALSE}    --port-security-enabled false
 ${SECURITY_TRUE}    --port-security-enabled true
-${SEC_GROUP_PATH}    /restconf/config/neutron:neutron/security-groups/
-${SEC_RULE_PATH}    /restconf/config/neutron:neutron/security-rules/
+${SEC_GROUP_API}    /restconf/config/neutron:neutron/security-groups/
+${SEC_RULE_API}    /restconf/config/neutron:neutron/security-rules/
 ${ADD_ARG_SSH}    --direction ingress --ethertype IPv4 --port_range_max 22 --port_range_min 22 --protocol tcp
 @{NETWORKS}       net1
 @{SUBNET}         sub1
@@ -84,21 +84,15 @@ Get Flows
 Create Security Group and Validate
     [Arguments]    ${sg_ssh}
     ${output}    ${sg_id} =    OpenStackOperations.Neutron Security Group Create    ${sg_ssh}
-    BuiltIn.Sleep    10s
-    ${resp} =    RequestsLibrary.Get Request    session    ${SEC_GROUP_PATH}
-    BuiltIn.Log    ${resp.content}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE_200}
-    BuiltIn.Should Contain    ${resp.content}    ${sg_ssh}
+    ${sec_groups} =    BuiltIn.Create List    ${sg_ssh}
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${SEC_GROUP_API}    ${sec_groups}
     [Return]    ${sg_id}
 
 Create Security Rule and Validate
     [Arguments]    ${sg_ssh}    &{Kwargs}
     ${output}    ${rule_id} =    OpenStackOperations.Neutron Security Group Rule Create    ${sg_ssh}
-    BuiltIn.Sleep    10s
-    ${resp} =    RequestsLibrary.Get Request    session    ${SEC_RULE_PATH}
-    BuiltIn.Log    ${resp.content}
-    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE_200}
-    BuiltIn.Should Contain    ${resp.content}    ${rule_id}
+    ${rule_ids} =    BuiltIn.Create List    ${rule_id}
+    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${SEC_RULE_API}    ${rule_ids}
 
 Neutron Setup Creation
     [Arguments]    ${network}    ${subnet}    ${ip_subnet}    ${port1}    ${port2}    ${sg_groups}
@@ -136,7 +130,7 @@ Update Security Group Name and Verification
     OpenStackOperations.Neutron Security Group Update    ${sg_id}    ${name_update}
     ${output} =    OpenStackOperations.Neutron Security Group Show    ${sg_id}
     Should Contain    ${output}    ${verify_name}
-    ${resp}    RequestsLibrary.Get Request    session    ${SEC_GROUP_PATH}
+    ${resp}    RequestsLibrary.Get Request    session    ${SEC_GROUP_API}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE_200}
     BuiltIn.Should Contain    ${resp.content}    ${verify_name}
