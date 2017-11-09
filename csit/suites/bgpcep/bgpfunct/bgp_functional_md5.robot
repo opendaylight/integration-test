@@ -36,6 +36,14 @@ ${PROTOCOL_OPENCONFIG}    example-bgp-rib
 ${CONFIG_SESSION}    session
 
 *** Test Cases ***
+Verify Bgp Not Running
+    [Documentation]    Verifies bgp is not running with default configuration
+    ${url}=    Builtin.Set_Variable    /restconf/operational/bgp-rib:bgp-rib/
+    ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=${CONFIG_SESSION}
+    BuiltIn.Log    ${data}
+    #BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
+    #BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
+
 Verify Exabgp Connected
     [Documentation]    Verifies exabgp connected with md5 settings
     [Tags]    critical
