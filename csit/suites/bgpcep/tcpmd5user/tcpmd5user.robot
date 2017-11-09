@@ -167,9 +167,9 @@ Install_Netconf_Connector
     [Documentation]    Installs ${CONNECTOR_FEATURE} feature.
     # During the netconf connector installation the karaf's ssh is restarted and connection to karaf console is droped. This is causing an error
     # which is ignored, because the feature should be installed anyway.
-    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${CONNECTOR_FEATURE}
-    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${PCEP_FEATURE}
-    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${RESTCONF_FEATURE}
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    feature:install ${CONNECTOR_FEATURE}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    180
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    feature:install ${PCEP_FEATURE}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    180
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    feature:install ${RESTCONF_FEATURE}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    180
     BuiltIn.Log    ${results}
     BuiltIn.Wait_Until_Keyword_Succeeds    240    3    Check_Netconf_Up_And_Running
 
