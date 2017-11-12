@@ -50,31 +50,14 @@ Create Vm Instances
     OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES_SNAT}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
-    [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
-    ...    We are polling first and longest on the last VM created assuming that if it's received it's address
-    ...    already the other instances should have theirs already or at least shortly thereafter.
-    # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
-    # for dhcp addresses
-    : FOR    ${vm}    IN    @{VM_INSTANCES_FLOATING}    @{VM_INSTANCES_SNAT}
-    \    Poll VM Is ACTIVE    ${vm}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
-    ...    true    @{VM_INSTANCES_FLOATING}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
-    ...    true    @{VM_INSTANCES_SNAT}
-    ${FLOATING_VM_IPS}    ${FLOATING_DHCP_IP}    Collect VM IP Addresses    false    @{VM_INSTANCES_FLOATING}
-    ${SNAT_VM_IPS}    ${SNAT_DHCP_IP}    Collect VM IP Addresses    false    @{VM_INSTANCES_SNAT}
-    ${VM_INSTANCES}=    Collections.Combine Lists    ${VM_INSTANCES_FLOATING}    ${VM_INSTANCES_SNAT}
-    ${VM_IPS}=    Collections.Combine Lists    ${FLOATING_VM_IPS}    ${SNAT_VM_IPS}
-    ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
-    Set Suite Variable    ${FLOATING_VM_IPS}
-    Set Suite Variable    ${SNAT_VM_IPS}
+    @{FLOATING_VM_IPS}    ${FLOATING_DHCP_IP} =    Get VM IPs    @{VM_INSTANCES_FLOATING}
+    @{SNAT_VM_IPS}    ${SNAT_DHCP_IP} =    Get VM IPs    @{VM_INSTANCES_SNAT}
+    Set Suite Variable    @{FLOATING_VM_IPS}
+    Set Suite Variable    @{SNAT_VM_IPS}
     Should Not Contain    ${FLOATING_VM_IPS}    None
     Should Not Contain    ${SNAT_VM_IPS}    None
-    Should Not Contain    @{FLOATING_DHCP_IP}[0]    None
-    Should Not Contain    @{SNAT_DHCP_IP}[0]    None
+    Should Not Contain    ${FLOATING_DHCP_IP}    None
+    Should Not Contain    ${SNAT_DHCP_IP}    None
     [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_FLOATING}    @{VM_INSTANCES_SNAT}
     ...    AND    Get Test Teardown Debugs
 
