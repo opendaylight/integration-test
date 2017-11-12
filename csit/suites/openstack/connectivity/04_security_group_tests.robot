@@ -53,31 +53,15 @@ Create Vm Instances For network_2
     OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[1]    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
-    [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
-    ...    We are polling first and longest on the last VM created assuming that if it's received it's address
-    ...    already the other instances should have theirs already or at least shortly thereafter.
-    # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
-    # for dhcp addresses
-    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}
-    \    OpenStackOperations.Poll VM Is ACTIVE    ${vm}
-    ${status}    ${message}    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    60s    15s    OpenStackOperations.Collect VM IP Addresses
-    ...    true    @{NET_1_VM_INSTANCES}
-    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    OpenStackOperations.Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
-    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    OpenStackOperations.Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
-    ${VM_INSTANCES}=    Collections.Combine Lists    ${NET_1_VM_INSTANCES}
-    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}
-    ${LOOP_COUNT}    BuiltIn.Get Length    ${VM_INSTANCES}
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    ${status}    ${message}    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Should Not Contain    @{VM_IPS}[${index}]    None
-    \    BuiltIn.Run Keyword If    '${status}' == 'FAIL'    DevstackUtils.Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
-    BuiltIn.Set Suite Variable    ${NET1_VM_IPS}
-    BuiltIn.Set Suite Variable    ${NET1_DHCP_IP}
-    BuiltIn.Should Not Contain    ${NET1_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET1_DHCP_IP}    None
-    BuiltIn.Set Suite Variable    ${NET2_VM_IPS}
-    BuiltIn.Set Suite Variable    ${NET2_DHCP_IP}
-    BuiltIn.Should Not Contain    ${NET2_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET2_DHCP_IP}    None
+    ${NET1_VM_IPS}    ${NET1_DHCP_IP} =    Get VM IPs    @{NET_1_VM_INSTANCES}
+    ${NET2_VM_IPS}    ${NET2_DHCP_IP} =    Get VM IPs    @{NET_2_VM_INSTANCES}
+    Set Suite Variable    ${NET1_VM_IPS}
+    Set Suite Variable    ${NET1_DHCP_IP}
+    Set Suite Variable    ${NET2_VM_IPS}
+    Should Not Contain    ${NET1_VM_IPS}    None
+    Should Not Contain    ${NET2_VM_IPS}    None
+    Should Not Contain    ${NET1_DHCP_IP}    None
+    Should Not Contain    ${NET2_DHCP_IP}    None
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VM_INSTANCES}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
@@ -145,7 +129,7 @@ Add Additional Security Group To VMs
     [Documentation]    Add an additional security group to the VMs - this is done to test a different logic put in place for ports with multiple SGs
     OpenStackOperations.Security Group Create Without Default Security Rules    additional-sg
     #TODO Remove this after the Newton jobs are removed, Openstack CLI with Newton lacks support to configure rule with remote_ip_prefix
-    OpenStackOperations.Neutron Security Group Rule Create Legacy Cli    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=@{NET1_DHCP_IP}[0]/32
+    OpenStackOperations.Neutron Security Group Rule Create Legacy Cli    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=${NET1_DHCP_IP}/32
     OpenStackOperations.Neutron Security Group Show    additional-sg
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}
     \    OpenStackOperations.Add Security Group To VM    ${vm}    additional-sg
@@ -180,7 +164,7 @@ No Ping From DHCP To Vm Instance2 With Additional Security Group Rules Removed
     OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]
 
 Add The Rules To Additional Security Group Again
-    OpenStackOperations.Neutron Security Group Rule Create Legacy Cli    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=@{NET1_DHCP_IP}[0]/32
+    OpenStackOperations.Neutron Security Group Rule Create Legacy Cli    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=${NET1_DHCP_IP}/32
 
 Ping From DHCP To Vm Instance1 After Rules Are Added Again
     [Documentation]    Check reachability of vm instances by pinging to them from DHCP.
