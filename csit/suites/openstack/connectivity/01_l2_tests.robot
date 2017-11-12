@@ -68,14 +68,8 @@ Check Vm Instances Have Ip Address
     ...    already the other instances should have theirs already or at least shortly thereafter.
     # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
     # for dhcp addresses
-    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    \    Poll VM Is ACTIVE    ${vm}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
-    ...    true    @{NET_1_VM_INSTANCES}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
-    ...    true    @{NET_2_VM_INSTANCES}
-    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
-    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
+    ${NET1_VM_IPS}    ${NET1_DHCP_IP} =    Get VM IPs    @{NET_1_VM_INSTANCES}
+    ${NET2_VM_IPS}    ${NET2_DHCP_IP} =    Get VM IPs    @{NET_2_VM_INSTANCES}
     ${VM_INSTANCES}=    Collections.Combine Lists    ${NET_1_VM_INSTANCES}    ${NET_2_VM_INSTANCES}
     ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}
     ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}
@@ -90,6 +84,14 @@ Check Vm Instances Have Ip Address
     Should Not Contain    ${NET2_DHCP_IP}    None
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get Test Teardown Debugs
+
+Get VM IPs
+    [Arguments]    @{vms}
+    : FOR    ${vm}    IN    @{vms}
+    \    Poll VM Is ACTIVE    ${vm}
+    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
+    ...    true    @{NET_1_VM_INSTANCES}
+    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
