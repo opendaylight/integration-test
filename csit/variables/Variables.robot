@@ -147,6 +147,9 @@ ${PREDEFINE_ROLE_URI}    /restconf/config/nemo-user:user-roles    # FIXME: Move 
 ${PREFIX}         http://${ODL_SYSTEM_IP}:${PORT}    # Deprecated. FIXME: Name is to generic. Eradicate.
 ${PROTOCOL_LOG_LEVEL}    ${DEFAULT_PROTOCOL_LOG_LEVEL}    # Some suites temporarily override org.opendaylight.protocol Karaf log level to this value.
 ${PWD}            ${ODL_RESTCONF_PASSWORD}    # Deprecated. FIXME: Eradicate.
+${REGEX_IPV4}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+${REGEX_NAMESERVER}    nameserver [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+${REGEX_OBTAINED}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3} obtained
 ${REGISTER_TENANT_URI}    /restconf/operations/nemo-intent:register-user    # FIXME: Move to a separate Nemo-related Resource and add description.
 ${RESTCONFPORT}    8181    # Primary port for ODL RESTCONF, although 8080 should also work.
 ${RESTCONFPORT_TLS}    8443    # Port for ODL RESTCONF Secure (TLS) operations

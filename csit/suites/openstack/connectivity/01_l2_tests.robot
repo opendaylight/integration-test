@@ -63,27 +63,10 @@ Create Vm Instances For l2_network_2
     Create Vm Instances    l2_network_2    ${NET_2_VM_GRP_NAME}    sg=${SECURITY_GROUP}    min=3    max=3
 
 Check Vm Instances Have Ip Address
-    [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
-    ...    We are polling first and longest on the last VM created assuming that if it's received it's address
-    ...    already the other instances should have theirs already or at least shortly thereafter.
-    # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
-    # for dhcp addresses
-    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    \    Poll VM Is ACTIVE    ${vm}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
-    ...    true    @{NET_1_VM_INSTANCES}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
-    ...    true    @{NET_2_VM_INSTANCES}
-    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Collect VM IP Addresses    false    @{NET_1_VM_INSTANCES}
-    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Collect VM IP Addresses    false    @{NET_2_VM_INSTANCES}
-    ${VM_INSTANCES}=    Collections.Combine Lists    ${NET_1_VM_INSTANCES}    ${NET_2_VM_INSTANCES}
-    ${VM_IPS}=    Collections.Combine Lists    ${NET1_VM_IPS}    ${NET2_VM_IPS}
-    ${LOOP_COUNT}    Get Length    ${VM_INSTANCES}
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
-    Set Suite Variable    ${NET1_VM_IPS}
-    Set Suite Variable    ${NET2_VM_IPS}
+    @{NET1_VM_IPS}    ${NET1_DHCP_IP} =    Get VM IPs    @{NET_1_VM_INSTANCES}
+    @{NET2_VM_IPS}    ${NET2_DHCP_IP} =    Get VM IPs    @{NET_2_VM_INSTANCES}
+    Set Suite Variable    @{NET1_VM_IPS}
+    Set Suite Variable    @{NET2_VM_IPS}
     Should Not Contain    ${NET1_VM_IPS}    None
     Should Not Contain    ${NET2_VM_IPS}    None
     Should Not Contain    ${NET1_DHCP_IP}    None
