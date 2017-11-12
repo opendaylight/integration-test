@@ -296,7 +296,7 @@ Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server show ${vm_name} | grep OS-EXT-STS:vm_state
-    Should Not Be True    ${rc}
+    Should Be True    '${rc}' == '0'
     Should Contain    ${output}    active
 
 Poll VM Is ACTIVE
@@ -313,19 +313,14 @@ Collect VM IP Addresses
     ${ip_list}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
     \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
-    \    Log    ${vm_ip_line}
-    \    Log    ${rc}
     \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
     \    ${vm_ip_length}    Get Length    ${vm_ip}
     \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
     \    ...    ELSE    Append To List    ${ip_list}    None
     \    ${rc}    ${dhcp_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep "^nameserver"
-    \    Log    ${dhcp_ip_line}
-    \    Log    ${rc}
     \    ${dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
     \    ${dhcp_ip_length}    Get Length    ${dhcp_ip}
     \    Run Keyword If    ${dhcp_ip_length}<=0    Append To List    ${dhcp_ip}    None
-    \    Log    ${dhcp_ip}
     \    ${vm_console_output}=    Run    openstack console log show ${vm}
     \    Log    ${vm_console_output}
     ${dhcp_length}    Get Length    ${dhcp_ip}
@@ -334,6 +329,36 @@ Collect VM IP Addresses
     Should Be True    ${dhcp_length} <= 1
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    ${dhcp_ip}
+
+Get VM IP
+    [Arguments]    ${fail_on_none}    ${vm}
+    BuiltIn.Set Suite Variable    ${OSO_VM_IP}    None
+    BuiltIn.Set Suite Variable    ${OSO_DHCP_IP}    None
+    ${rc}    ${vm_ip_line} =    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
+    @{matches} =    Get Regexp Matches    ${vm_ip_line}    ${REGEX_IPV4}
+    ${matches_length} =    Get Length    @{matches}
+    BuiltIn.Run Keyword If    ${matches_length} > 0    BuiltIn.Set Suite Variable    ${OSO_VM_IP}    @{matches}[0]
+    ${rc}    ${dhcp_ip_line} =    Run And Return Rc And Output    openstack console log show ${vm} | grep "^nameserver"
+    ${matches} =    Get Regexp Matches    ${dhcp_ip_line}    ${REGEX_IPV4}
+    ${matches_length}    Get Length    ${matches}
+    ${vm_console_output} =    Run    openstack console log show ${vm}
+    BuiltIn.Log    ${vm_console_output}
+    BuiltIn.Run Keyword If    ${matches_length} > 0    BuiltIn.Set Suite Variable    ${OSO_DHCP_IP}    @{matches}[0]
+    BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${OSO_VM_IP}    None
+    BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${OSO_DHCP_IP}    None
+
+Get VM IPs
+    [Arguments]    @{vms}
+    @{OSO_VM_IPS}    BuiltIn.Create List    @{EMPTY}
+    : FOR    ${vm}    IN    @{vms}
+    \    Collections.Append To List    ${OSO_VM_IPS}    None
+    \    Poll VM Is ACTIVE    ${vm}
+    \    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Get VM IP    true    ${vm}
+    \    BuiltIn.Run Keyword If    '${OSO_VM_IP}' != 'None'    Collections.Append To List    ${OSO_VM_IPS}    ${OSO_VM_IP}
+    #: FOR    ${vm}    IN    @{vms}
+    #\    ${vm_console_output} =    Run    openstack console log show ${vm}
+    #\    Log    ${vm_console_output}
+    [Return]    ${OSO_VM_IPS}    ${OS_DHCP_IP}
 
 Collect VM IPv6 SLAAC Addresses
     [Arguments]    ${fail_on_none}    ${prefix}    @{vm_list}
