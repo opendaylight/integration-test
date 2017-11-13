@@ -485,6 +485,6 @@ Json Parse From String
 Json Parse From File
     [Arguments]    ${json_file}
     [Documentation]    Parse given file content into json (dictionary)
-    ${json_plain_string}    Get file    ${json_file}
+    ${json_plain_string}    OperatingSystem.Get file    ${json_file}
     ${json_data}    Json Parse From String    ${json_plain_string}
     [Return]    ${json_data}
