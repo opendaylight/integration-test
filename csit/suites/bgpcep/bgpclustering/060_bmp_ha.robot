@@ -1,7 +1,11 @@
 *** Settings ***
 Documentation     BGP functional HA testing with one exabgp peer.
 ...
-...               Copyright (c) 2016 Cisco Systems, Inc. and others. All rights reserved.
+...               Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+...
+...               This program and the accompanying materials are made available under the
+...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
+...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -18,21 +22,26 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
+Library           Collections
+Library           OperatingSystem
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
+Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 
 *** Variables ***
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpclustering
 ${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer_openconf
-${DEFAUTL_EXA_CFG}    exa.cfg
-${EXA_CMD}        env exabgp.tcp.port=1790 exabgp
-${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
 ${HOLDTIME}       180
 ${RIB_INSTANCE}    example-bgp-rib
+${CONFIG_SESSION}    node1
+${BGP_BMP_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/filled_structure
+${BGP_BMP_FEAT_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/empty_structure
+${BMP_LOG_FILE}    bmpmock.log
 
 *** Test Cases ***
 Get Example Bgp Rib Owner
@@ -52,17 +61,29 @@ Reconfigure_ODL_To_Accept_Connection
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${living_session}
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
-Start_ExaBgp_Peer
-    [Documentation]    Starts exabgp
-    Start_Tool    ${DEFAUTL_EXA_CFG}
+Repeat_Start_Bmp_Mock
+    [Documentation]    Starts bmp mock
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Start_Bmp_Mock
 
-Verify ExaBgp Connected
-    [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tools_Connection    ${living_session}
+Verify_Data_Reported_1
+    [Documentation]    Verifies if the tool reported expected data
+    Verify_Data_Reported
 
-Isolate_Current_Owner_Member
-    [Documentation]    Isolating cluster node which is connected with exabgp.
-    ClusterManagement.Isolate_Member_From_List_Or_All    ${rib_owner}
+Verify_Data_Reported_2
+    [Documentation]    Verifies if the tool reported expected data
+    ${inc_ip}=    Increment_ip    ip=${TOOLS_SYSTEM_IP}    increment=1
+    BuiltIn.Log    ${inc_ip}
+    Verify_Data_Reported    ip=${inc_ip}
+
+Verify_Data_Reported_3
+    [Documentation]    Verifies if the tool reported expected data
+    ${inc_ip}=    Increment_ip    ip=${TOOLS_SYSTEM_IP}    increment=2
+    BuiltIn.Log    ${inc_ip}
+    Verify_Data_Reported    ip=${inc_ip}
+
+Stop_Current_Owner_Member
+    [Documentation]    Stopping karaf which is connected with bmp mock.
+    Kill_Single_Member    ${rib_owner}
     BuiltIn.Set Suite variable    ${old_rib_owner}    ${rib_owner}
     BuiltIn.Set Suite variable    ${old_rib_candidates}    ${rib_candidates}
     ${idx}=    Collections.Get From List    ${old_rib_candidates}    0
@@ -70,28 +91,8 @@ Isolate_Current_Owner_Member
     BuiltIn.Set_Suite_Variable    ${living_session}    ${session}
     BuiltIn.Set_Suite_Variable    ${living_node}    ${idx}
 
-Verify_New_Rib_Owner
-    [Documentation]    Verifies if new owner of example-bgp-rib is elected.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_New_Rib_Owner_Elected    ${old_rib_owner}    ${living_node}
-
-Verify_ExaBgp_Reconnected
-    [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tools_Connection    ${living_session}
-
-Rejoin_Isolated_Member
-    [Documentation]    Rejoin isolated node
-    ClusterManagement.Rejoin_Member_From_List_Or_All    ${old_rib_owner}
-
-Verify_New_Candidate
-    [Documentation]    Verifies started node become candidate for example-bgp-rib
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    Verify_New_Rib_Candidate_Present    ${old_rib_owner}    ${living_node}
-
-Verify ExaBgp Still Connected
-    [Documentation]    Verifies exabgp's presence in operational ds
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tools_Connection    ${living_session}
-
-Stop_ExaBgp_Peer
-    [Documentation]    Stops exabgp
+Stop_Bmp_Mock
+    [Documentation]    Sends ctrl-c to karaf
     Stop_Tool
 
 Delete_Bgp_Peer_Configuration
@@ -107,24 +108,24 @@ Setup_Everything
     ${tools_system_conn_id}=    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
     Builtin.Set_Suite_Variable    ${tools_system_conn_id}
     SSHKeywords.Flexible_Mininet_Login    ${TOOLS_SYSTEM_USER}
-    SSHKeywords.Virtual_Env_Create
-    SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
-    Upload_Config_Files
+    NexusKeywords.Initialize_Artifact_Deployment_And_Usage
+    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}
+    ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    bgp-bmp-mock
+    BuiltIn.Set_Suite_Variable    ${filename}    ${name}
+
+Verify_Data_Reported
+    [Arguments]    ${ip}=${TOOLS_SYSTEM_IP}    ${session_verify}=${CONFIG_SESSION}
+    [Documentation]    Verifies if the tool reported expected data
+    &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${ip}
+    ${output}=    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_DIR}    mapping=${mapping}    session=${session_verify}
+    ...    verify=True
+    BuiltIn.Log    ${output}
+    BuiltIn.Log    ${session_verify}
 
 Teardown_Everything
     [Documentation]    Suite cleanup
-    SSHKeywords.Virtual_Env_Delete
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
-
-Start_Tool
-    [Arguments]    ${cfg_file}    ${mapping}={}
-    [Documentation]    Starts the tool
-    ${start_cmd}    BuiltIn.Set_Variable    ${EXA_CMD} ${cfg_file}
-    BuiltIn.Log    ${start_cmd}
-    SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
-    ${output}=    SSHLibrary.Write    ${start_cmd}
-    BuiltIn.Log    ${output}
 
 Stop_Tool
     [Documentation]    Stops the tool by sending ctrl+c
@@ -133,38 +134,25 @@ Stop_Tool
     RemoteBash.Write_Bare_Ctrl_C
     ${output}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${output}
-    SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
 
-Upload_Config_Files
-    [Documentation]    Uploads exabgp config files.
-    SSHLibrary.Put_File    ${BGP_VAR_FOLDER}/${DEFAUTL_EXA_CFG}    .
-    @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *.cfg
-    : FOR    ${cfgfile}    IN    @{cfgfiles}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP1/${ODL_SYSTEM_1_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP2/${ODL_SYSTEM_2_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP3/${ODL_SYSTEM_3_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
-    \    ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
-    \    Log    ${stdout}
+Increment_Ip
+    [Arguments]    ${ip}=${TOOLS_SYSTEM_IP}    ${increment}=1
+    [Documentation]    Increments string in ip format by increment (argument)
+    ${splitip}=    Evaluate    '${ip}'.split('.')
+    ${new_value}=    Evaluate    str(int(${splitip}[-1])+${increment})
+    Collections.Remove From List    ${splitip}    -1
+    Collections.Append To List    ${splitip}    ${new_value}
+    ${ip}=    Evaluate    ('.').join(${splitip})
+    BuiltIn.Log To Console    ${ip}
+    [Return]    ${ip}
 
-Verify_New_Rib_Owner_Elected
-    [Arguments]    ${old_owner}    ${node_to_ask}
-    [Documentation]    Verifies new owner was elected
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    ${node_to_ask}
-    BuiltIn.Should_Not_Be_Equal    ${old_owner}    ${owner}
+Start_Bmp_Mock
+    [Documentation]    Starts bmp mock
+    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --local_address ${TOOLS_SYSTEM_IP} -ra ${ODL_SYSTEM_1_IP}:12345,${ODL_SYSTEM_2_IP}:12345,${ODL_SYSTEM_3_IP}:12345 --routers_count 1 --peers_count 3 --log_level INFO 2>&1 | tee ${BMP_LOG_FILE}
+    BuiltIn.Log    ${command}
+    SSHLibrary.Set_Client_Configuration    timeout=30s
+    SSHLibrary.Write    ${command}
+    ${until_phrase}=    Set Variable    successfully established.
+    ${output}=    SSHLibrary.Read_Until    ${until_phrase}
 
-Verify_New_Rib_Candidate_Present
-    [Arguments]    ${candidate}    ${node_to_ask}
-    [Documentation]    Verifies candidate's presence.
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    ${node_to_ask}
-    BuiltIn.Should_Contain    ${candidates}    ${candidate}
 
-Verify_Tools_Connection
-    [Arguments]    ${session}    ${connected}=${True}
-    [Documentation]    Checks peer presence in operational datastore
-    ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${TOOLS_SYSTEM_IP}    timeout=10
-    BuiltIn.Log    ${rsp.content}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
