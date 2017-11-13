@@ -587,6 +587,27 @@ Install_Feature_On_Member
     BuiltIn.Should_Not_Contain    ${output}    Can't install    Failed to install ${feature_name}: ${output}
     [Return]    ${output}
 
+Uninstall_Feature_On_List_Or_All
+    [Arguments]    ${feature_name}    ${member_index_list}=${EMPTY}    ${timeout}=60s
+    [Documentation]    Attempt uninstallation on each member from list (or all). Then look for failures.
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
+    ${status_list} =    BuiltIn.Create_List
+    : FOR    ${index}    IN    @{index_list}
+    \    ${status}    ${text} =    BuiltIn.Run_Keyword_And_Ignore_Error    Uninstall_Feature_On_Member    feature_name=${feature_name}    member_index=${index}
+    \    ...    timeout=${timeout}
+    \    BuiltIn.Log    ${text}
+    \    Collections.Append_To_List    ${status_list}    ${status}
+    : FOR    ${status}    IN    @{status_list}
+    \    BuiltIn.Run_Keyword_If    "${status}" != "PASS"    BuiltIn.Fail    ${feature_name} uninstallation failed, see log.
+
+Uninstall_Feature_On_Member
+    [Arguments]    ${feature_name}    ${member_index}    ${timeout}=60s
+    [Documentation]    Run feature:uninstall karaf command, fail if uninstallation was not successful. Return output.
+    ${status}    ${output} =    BuiltIn.Run_Keyword_And_Ignore_Error    Run_Karaf_Command_On_Member    command=feature:uninstall ${feature_name}    member_index=${member_index}    timeout=${timeout}
+    BuiltIn.Run_Keyword_If    "${status}" != "PASS"    BuiltIn.Fail    Failed to uninstall ${feature_name}: ${output}
+    BuiltIn.Should_Not_Contain    ${output}    Can't uninstall    Failed to uninstall ${feature_name}: ${output}
+    [Return]    ${output}
+
 With_Ssh_To_List_Or_All_Run_Keyword
     [Arguments]    ${member_index_list}    ${keyword_name}    @{args}    &{kwargs}
     [Documentation]    For each index in given list (or all): activate SSH connection, run given Keyword, close active connection. Return None.
