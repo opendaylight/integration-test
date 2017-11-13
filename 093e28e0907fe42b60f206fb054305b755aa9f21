@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_726ce5d0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-13T20:29:59Z",
+      "side": 1,
+      "message": "Does this really work? Tests seemed to show only the first var got returned. But if this works then this is much better.",
+      "revId": "093e28e0907fe42b60f206fb054305b755aa9f21",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_127be98c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-13T20:29:59Z",
+      "side": 1,
+      "message": "lowercase since it is local and change the other ones to lowercase since they are local.",
+      "range": {
+        "startLine": 369,
+        "startChar": 24,
+        "endLine": 369,
+        "endChar": 27
+      },
+      "revId": "093e28e0907fe42b60f206fb054305b755aa9f21",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_b2693dc0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-13T20:29:59Z",
+      "side": 1,
+      "message": "console log gets called again - would be nice if not needed. What about passing it is a third argument and then printing it?",
+      "revId": "093e28e0907fe42b60f206fb054305b755aa9f21",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
