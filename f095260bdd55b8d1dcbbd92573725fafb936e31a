@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_322d4dff",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-13T22:31:47Z",
+      "side": 1,
+      "message": "three things.\n\n1) we need to be better (everyone is guilty) of putting\nreal test cases as robot test cases, as opposed to just\nbeing setup/teardown or debug steps. This is not testing\nanything and just inflates our end reporting making us\nthink we have more tests than we do.\n\n1) this is already done in the \"Show Debugs\" keyword we are\nusing in the teardown in the above test case, so we don\u0027t\nreally need it.\n\n2) we have to be more careful with how much Log calls we\nmake. Our existing robot jobs in upstream CSIT are creating\nmassive output.xml files (over 1.5G in size) and it\neventually could cause the robot processing to choke and\ndie if it\u0027s too big. The point being, \"List Nova VMs\" is\nalready printing the output. No need to add it again with\nanother Log statement.\n\nthis is all just FYI. We don\u0027t need this part anyway.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 19
+      },
+      "revId": "f095260bdd55b8d1dcbbd92573725fafb936e31a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_1232c95e",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-13T22:31:47Z",
+      "side": 1,
+      "message": "this fits and is fine with me for now. Eventually we are\ngoing to get things cleaned up (Sam has been working on\nthis for a while now) so that all these kind of \"cleanup\"\nsteps just go in to the suite teardown. that has several\nbenefits.\n\n- suite setup and teardown blocks will have all steps\n  executed, even if one step has trouble and fails. In\n  normal test case blocks, if one step fails the rest of\n  that block is skipped\n\n- we will stop reporting all these extra test cases which\n  are really not testing anything/much.",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 45
+      },
+      "revId": "f095260bdd55b8d1dcbbd92573725fafb936e31a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
