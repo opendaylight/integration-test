@@ -44,6 +44,10 @@ Create Subnet For Private Network
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    @{NETWORKS_NAME}[0]    @{SUBNETS_NAME}[0]    @{SUBNETS_RANGE}[0]
 
+Add Ssh Allow Rule
+    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
+
 Create Vm Instances
     [Documentation]    Create VM instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES_FLOATING}    sg=${SECURITY_GROUP}
@@ -178,6 +182,10 @@ Delete Networks
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    OpenStackOperations.Delete Network    ${NetworkElement}
     OpenStackOperations.Delete Network    ${external_net_name}
+
+Delete Security Group
+    [Documentation]    Delete security groups with neutron request
+    Delete SecurityGroup    ${SECURITY_GROUP}
 
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
