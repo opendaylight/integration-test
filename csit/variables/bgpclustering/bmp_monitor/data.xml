@@ -1,0 +1,12 @@
+<bmp-monitor-config xmlns="urn:opendaylight:params:xml:ns:yang:bmp-monitor-config">
+   <monitor-id>$BMP_OPENCONFIG</monitor-id>
+   <server>
+      <binding-port>12345</binding-port>
+      <binding-address>0.0.0.0</binding-address>
+   </server>
+   <monitored-router>
+      <address>$IP</address>
+      <port>1234</port>
+      <active>true</active>
+   </monitored-router>
+</bmp-monitor-config>
