@@ -37,10 +37,11 @@ ${RIB_INSTANCE}    example-bgp-rib
 *** Test Cases ***
 Get Example Bgp Rib Owner
     [Documentation]    Find an odl node which is able to accept incomming connection. To this node netconf connector should be configured.
-    ${rib_owner}    ${rib_candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    1
-    BuiltIn.Set Suite variable    ${rib_owner}    ${rib_owner}
-    BuiltIn.Set Suite variable    ${rib_owner_node_id}    ${ODL_SYSTEM_${rib_owner}_IP}
-    BuiltIn.Set Suite variable    ${rib_candidates}    ${rib_candidates}
+    ${rib_owner}    ${rib_candidates}=    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    example-bgp-rib
+    ...    Bgpcep    1
+    BuiltIn.Set Suite variable    ${rib_owner}
+    BuiltIn.Log    ${ODL_SYSTEM_${rib_owner}_IP}
+    BuiltIn.Set Suite variable    ${rib_candidates}
     ${session}=    Resolve_Http_Session_For_Member    member_index=${rib_owner}
     BuiltIn.Set_Suite_Variable    ${living_session}    ${session}
     BuiltIn.Set_Suite_Variable    ${living_node}    ${rib_owner}
@@ -49,7 +50,7 @@ Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${living_session}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${living_session}    http_timeout=5
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 Start_ExaBgp_Peer
@@ -76,7 +77,7 @@ Verify_New_Rib_Owner
 
 Verify_ExaBgp_Reconnected
     [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tools_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x   2s    Verify_Tools_Connection    ${living_session}
 
 Start_Stopped_Member
     [Documentation]    Starting stopped node
@@ -88,7 +89,7 @@ Verify_New_Candidate
 
 Verify ExaBgp Still Connected
     [Documentation]    Verifies exabgp's presence in operational ds
-    Verify_Tools_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tools_Connection    ${living_session}
 
 Stop_ExaBgp_Peer
     [Documentation]    Stops exabgp
@@ -97,7 +98,7 @@ Stop_ExaBgp_Peer
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers
     &{mapping}    Create Dictionary    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}    IP=${TOOLS_SYSTEM_IP}
-    TemplatedRequests.Delete_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${living_session}
+    TemplatedRequests.Delete_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${living_session}    http_timeout=5
 
 *** Keywords ***
 Setup_Everything
@@ -152,13 +153,13 @@ Upload_Config_Files
 Verify_New_Rib_Owner_Elected
     [Arguments]    ${old_owner}    ${node_to_ask}
     [Documentation]    Verifies new owner was elected
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    Bgpcep    ${node_to_ask}
     BuiltIn.Should_Not_Be_Equal    ${old_owner}    ${owner}
 
 Verify_New_Rib_Candidate_Present
     [Arguments]    ${candidate}    ${node_to_ask}
     [Documentation]    Verifies candidate's presence.
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    Bgpcep    ${node_to_ask}
     BuiltIn.Should_Contain    ${candidates}    ${candidate}
 
 Verify_Tools_Connection
