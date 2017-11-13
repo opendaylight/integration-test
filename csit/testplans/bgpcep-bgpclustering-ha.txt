@@ -7,3 +7,4 @@
 # Place the suites in run order:
 integration/test/csit/suites/bgpcep/bgpclustering/040_bgp_ha_karaf_restart.robot
 integration/test/csit/suites/bgpcep/bgpclustering/050_bgp_ha_karaf_isolation.robot
+integration/test/csit/suites/bgpcep/bgpclustering/060_bmp_ha.robot
