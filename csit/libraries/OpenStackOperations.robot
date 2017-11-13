@@ -346,30 +346,31 @@ Get VM IP
     # TODO Add hooks to only tail the console log on subsequent runs, e.g. look for "info: initramfs:".
     # This would drop repeatedly logging the kernel messages which are long.
     # Also add flag to log or not
-    BuiltIn.Log    ${vm_console_output}
+    ${OSO_VM_IP}=    Set Variable    None
+    ${OSO_DHCP_IP}=    Set Variable    None
     ${match} =    Get Match    ${vm_console_output}    ${REGEX_OBTAINED}
     ${OSO_VM_IP} =    Get Match    ${match}    ${REGEX_IPV4}
     ${match} =    Get Match    ${vm_console_output}    ${REGEX_NAMESERVER}
     ${OSO_DHCP_IP} =    Get Match    ${match}    ${REGEX_IPV4}
     BuiltIn.Set Test Variable    ${OSO_VM_IP}
     BuiltIn.Set Test Variable    ${OSO_DHCP_IP}
-    BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${OSO_VM_IP}    None
-    BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${OSO_DHCP_IP}    None
+    BuiltIn.Run Keyword If    '${fail_on_none}' == 'True'    Should Not Contain    ${OSO_VM_IP}    None
+    BuiltIn.Run Keyword If    '${fail_on_none}' == 'True'    Should Not Contain    ${OSO_DHCP_IP}    None
+    [Return]    ${OSO_VM_IP}    ${OSO_DHCP_IP}    ${vm_console_output}
 
 Get VM IPs
     [Arguments]    @{vms}
     [Documentation]    Get the instance IP addresses and nameserver address for the list of given vms.
     ...    First poll for the vm instance to be in the active state, then poll for the vm ip address and nameserver.
-    ...    ${OSO_VM_IP} and ${OSO_DHCP_IP} are test variables shared with Get VM IP.
+    ...    Get VM IP returns two values; the instance IP and the DHCP IP (in that order).
     @{OSO_VM_IPS}    BuiltIn.Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vms}
-    \    BuiltIn.Set Test Variable    ${OSO_VM_IP}    None
-    \    BuiltIn.Set Test Variable    ${OSO_DHCP_IP}    None
     \    Poll VM Is ACTIVE    ${vm}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s
-    \    ...    Get VM IP    true    ${vm}
-    \    BuiltIn.Run Keyword If    '${OSO_VM_IP}' != 'None'    Collections.Append To List    ${OSO_VM_IPS}    ${OSO_VM_IP}
-    [Return]    @{OSO_VM_IPS}    ${OSO_DHCP_IP}
+    \    ${status}    ${ips_and_console_log}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s
+    \    ...    Get VM IP    False    ${vm}
+    \    BuiltIn.Log    ${ips_and_console_log[2]}
+    \    BuiltIn.Run Keyword If    '${OSO_VM_IP}' != 'None'    Collections.Append To List    ${OSO_VM_IPS}    ${ips_and_console_log[0]}
+    [Return]    @{OSO_VM_IPS}    ${ips_and_console_log[1]}
 
 Collect VM IPv6 SLAAC Addresses
     [Arguments]    ${fail_on_none}    ${prefix}    @{vm_list}
