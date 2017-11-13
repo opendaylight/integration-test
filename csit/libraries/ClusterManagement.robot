@@ -50,6 +50,8 @@ ${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}    # TODO: Migrate to Variable
 ${RESTCONF_MODULES_DIR}    ${CURDIR}/../variables/restconf/modules
 ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='KeyedInstanceIdentifier{targetType=interface org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node, path=[org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology, org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology[key=TopologyKey [_topologyId=Uri [_value=topology-netconf]]], org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node[key=NodeKey [_nodeId=Uri [_value=
 ${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ]]]]}']
+${SINGLETON_BGPCEP_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='
+${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}    -service-group']
 ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
 ${NODE_START_COMMAND}    ${KARAF_HOME}/bin/start
@@ -258,6 +260,21 @@ Get_Owner_And_Candidates_For_Device_Singleton_Netconf
     # Owners must be same, if not, there is still some election or change ownership in progress
     BuiltIn.Should_Be_Equal_As_Integers    ${owner_1}    ${owner_2}    Owners for device ${device_name} are not same
     [Return]    ${owner_1}    ${candidate_list_1}
+
+Get_Owner_And_Candidates_For_Device_Singleton_Bgpcep
+    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=2
+    [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name}. Request is sent to member ${member_index}.
+    # Get election entity type results
+    ${type} =    BuiltIn.Set_Variable    ${SINGLETON_ELECTION_ENTITY_TYPE}
+    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_BGPCEP_DEVICE_ID_PREFIX}${device_name}${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}
+    ${owner_1}    ${candidate_list_1} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
+    # Get change ownership entity type results
+    ${type} =    BuiltIn.Set_Variable    ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}
+    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_BGPCEP_DEVICE_ID_PREFIX}${device_name}${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}
+    ${owner_2}    ${candidate_list_2} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}    http_timeout=${http_timeout}
+    # Owners must be same, if not, there is still some election or change ownership in progress
+    BuiltIn.Should_Be_Equal_As_Integers    ${owner_1}    ${owner_2}    Owners for device ${device_name} are not same
+    [Return]    ${owner_2}    ${candidate_list_2}
 
 Get_Owner_And_Candidates_For_Device
     [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=${EMPTY}
