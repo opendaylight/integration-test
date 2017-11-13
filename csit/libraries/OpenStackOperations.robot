@@ -367,7 +367,7 @@ Get VM IPs
     \    BuiltIn.Set Test Variable    ${OSO_DHCP_IP}    None
     \    Poll VM Is ACTIVE    ${vm}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s
-    \    Get VM IP    true    ${vm}
+    \    ...    Get VM IP    true    ${vm}
     \    BuiltIn.Run Keyword If    '${OSO_VM_IP}' != 'None'    Collections.Append To List    ${OSO_VM_IPS}    ${OSO_VM_IP}
     [Return]    @{OSO_VM_IPS}    ${OSO_DHCP_IP}
 
