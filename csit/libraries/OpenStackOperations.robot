@@ -331,7 +331,6 @@ Collect VM IP Addresses
     ${dhcp_length}    Get Length    ${dhcp_ip}
     Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${ip_list}    None
     Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
-    Should Be True    ${dhcp_length} <= 1
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    ${dhcp_ip}
 
