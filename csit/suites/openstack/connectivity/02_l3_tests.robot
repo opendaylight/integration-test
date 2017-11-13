@@ -60,6 +60,11 @@ Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
+Add Ssh Allow Rule
+    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
+
+
 Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
@@ -228,6 +233,10 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
+
+Delete Security Group
+    [Documentation]    Delete security groups with neutron request
+    Delete SecurityGroup    ${SECURITY_GROUP}
 
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations

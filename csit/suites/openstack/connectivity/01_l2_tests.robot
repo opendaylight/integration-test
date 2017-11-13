@@ -91,6 +91,10 @@ Check Vm Instances Have Ip Address
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get Test Teardown Debugs
 
+List all instances
+    ${result}   List Nova VMs
+    Log   ${result}
+
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET1_VM_IPS}[0]
@@ -171,6 +175,10 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
+
+Delete Security Group
+    [Documentation]    Delete security groups with neutron request
+    Delete SecurityGroup    ${SECURITY_GROUP}
 
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
