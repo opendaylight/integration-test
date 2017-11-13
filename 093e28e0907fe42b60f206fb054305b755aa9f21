@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_12f009fd",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-13T20:52:03Z",
+      "side": 1,
+      "message": "yeah, look at line 331 above.",
+      "parentUuid": "9a245df4_726ce5d0",
+      "revId": "093e28e0907fe42b60f206fb054305b755aa9f21",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_127be98c",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_32d26d5c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-13T20:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_127be98c",
+      "range": {
+        "startLine": 369,
+        "startChar": 24,
+        "endLine": 369,
+        "endChar": 27
+      },
+      "revId": "093e28e0907fe42b60f206fb054305b755aa9f21",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_b2693dc0",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 3
@@ -53,6 +95,24 @@
       "writtenOn": "2017-11-13T20:29:59Z",
       "side": 1,
       "message": "console log gets called again - would be nice if not needed. What about passing it is a third argument and then printing it?",
+      "revId": "093e28e0907fe42b60f206fb054305b755aa9f21",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_12d7694c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-13T20:52:03Z",
+      "side": 1,
+      "message": "let\u0027s try it.",
+      "parentUuid": "9a245df4_b2693dc0",
       "revId": "093e28e0907fe42b60f206fb054305b755aa9f21",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
