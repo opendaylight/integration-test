@@ -88,7 +88,7 @@ Verify_New_Candidate
 
 Verify ExaBgp Still Connected
     [Documentation]    Verifies exabgp's presence in operational ds
-    Verify_Tools_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tools_Connection    ${living_session}
 
 Stop_ExaBgp_Peer
     [Documentation]    Stops exabgp
