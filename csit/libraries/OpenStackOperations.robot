@@ -340,21 +340,24 @@ Get Match
     [Return]    ${match}
 
 Get VM IP
-    [Arguments]    ${fail_on_none}    ${vm}
+    [Arguments]    ${fail_on_none}    ${vm}    ${log_console_output}=False
     [Documentation]    Get the vm ip address and nameserver by scraping the vm's console log.
     ${rc}    ${vm_console_output} =    Run And Return Rc And Output    openstack console log show ${vm}
     # TODO Add hooks to only tail the console log on subsequent runs, e.g. look for "info: initramfs:".
     # This would drop repeatedly logging the kernel messages which are long.
     # Also add flag to log or not
-    BuiltIn.Log    ${vm_console_output}
+    Run Keyword If    "${log_console_output}"=="True"    BuiltIn.Log    ${vm_console_output}
+    ${OSO_VM_IP}=    Set Variable    None
+    ${OSO_DHCP_IP}=    Set Variable    None
     ${match} =    Get Match    ${vm_console_output}    ${REGEX_OBTAINED}
     ${OSO_VM_IP} =    Get Match    ${match}    ${REGEX_IPV4}
     ${match} =    Get Match    ${vm_console_output}    ${REGEX_NAMESERVER}
     ${OSO_DHCP_IP} =    Get Match    ${match}    ${REGEX_IPV4}
     BuiltIn.Set Test Variable    ${OSO_VM_IP}
     BuiltIn.Set Test Variable    ${OSO_DHCP_IP}
-    BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${OSO_VM_IP}    None
-    BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${OSO_DHCP_IP}    None
+    BuiltIn.Run Keyword If    '${fail_on_none}' == 'True'    Should Not Contain    ${OSO_VM_IP}    None
+    BuiltIn.Run Keyword If    '${fail_on_none}' == 'True'    Should Not Contain    ${OSO_DHCP_IP}    None
+    [Return]    ${OSO_VM_IP}    ${OSO_DHCP_IP}
 
 Get VM IPs
     [Arguments]    @{vms}
@@ -363,11 +366,10 @@ Get VM IPs
     ...    ${OSO_VM_IP} and ${OSO_DHCP_IP} are test variables shared with Get VM IP.
     @{OSO_VM_IPS}    BuiltIn.Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vms}
-    \    BuiltIn.Set Test Variable    ${OSO_VM_IP}    None
-    \    BuiltIn.Set Test Variable    ${OSO_DHCP_IP}    None
     \    Poll VM Is ACTIVE    ${vm}
     \    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s
-    \    Get VM IP    true    ${vm}
+    \    Get VM IP    False    ${vm}
+    \    ${OSO_VM_IP}    ${OSO_DHCP_IP}    Get VM IP    True    ${vm}    True
     \    BuiltIn.Run Keyword If    '${OSO_VM_IP}' != 'None'    Collections.Append To List    ${OSO_VM_IPS}    ${OSO_VM_IP}
     [Return]    @{OSO_VM_IPS}    ${OSO_DHCP_IP}
 
