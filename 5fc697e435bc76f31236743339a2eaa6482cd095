@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1f61a0_90fb6ac0",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2017-11-14T11:55:48Z",
+      "side": 1,
+      "message": "Please make it generic by making table value as i and send i \u003d21 from the script.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 30
+      },
+      "revId": "5fc697e435bc76f31236743339a2eaa6482cd095",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
