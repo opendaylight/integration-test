@@ -34,16 +34,32 @@ ${SECURITY_GROUP}    sg-elanservice
 ${PING_PASS}      , 0% packet loss
 
 *** Test Cases ***
+Create Single Elan
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
+    OpenStackOperations.Create Network    ${NETWORKS[0]}
+    OpenStackOperations.Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNET_CIDR[0]}
+    OpenStackOperations.Create Port    ${NETWORKS[0]}    ${ELAN1_PORT_LIST[0]}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${NETWORKS[0]}    ${ELAN1_PORT_LIST[1]}    sg=${SECURITY_GROUP}
+    Builtin.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${ELAN1_PORT_LIST}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[0]}    ${VM_INSTANCES_ELAN1[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[1]}    ${VM_INSTANCES_ELAN1[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    @{VM_IP_ELAN1}    ${DHCP_IP_ELAN1} =    Get VM IPs    @{VM_INSTANCES_ELAN1}
+    Set Suite Variable    @{VM_IP_ELAN1}
+    Should Not Contain    ${VM_IP_ELAN1}    None
+    Should Not Contain    ${DHCP_IP_ELAN1}    None
+    @{VM_MACAddr_ELAN1} =    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Get Ports MacAddr    ${ELAN1_PORT_LIST}
+    Set Suite Variable    @{VM_MACAddr_ELAN1}
+
 Verify Datapath for Single ELAN with Multiple DPN
     [Documentation]    Verify Flow Table and Datapath
-    ${SRCMAC_CN1} =    Create List    ${VM_MACAddr_ELAN1[0]}
-    ${SRCMAC_CN2} =    Create List    ${VM_MACAddr_ELAN1[1]}
+    ${SRCMAC_CN1} =    Create List    @{VM_MACAddr_ELAN1}[0]
+    ${SRCMAC_CN2} =    Create List    @{VM_MACAddr_ELAN1}[1]
     Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
     Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${VM_MACAddr_ELAN1}
     Log    Verify Datapath Test
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_ELAN1[0]}    ping -c 3 ${VM_IP_ELAN1[1]}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IP_ELAN1}[0]    ping -c 3 @{VM_IP_ELAN1}[1]
     Should Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_ELAN1[1]}    ping -c 3 ${VM_IP_ELAN1[0]}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IP_ELAN1}[1]    ping -c 3 @{VM_IP_ELAN1}[0]
     Should Contain    ${output}    ${PING_PASS}
 
 Verify Datapath After OVS Restart
@@ -54,34 +70,31 @@ Verify Datapath After OVS Restart
     Log    Checking the OVS state and Flow table after restart
     Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
     Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
-    ${SRCMAC_CN1} =    Create List    ${VM_MACAddr_ELAN1[0]}
-    ${SRCMAC_CN2} =    Create List    ${VM_MACAddr_ELAN1[1]}
+    ${SRCMAC_CN1} =    Create List    @{VM_MACAddr_ELAN1}[0]
+    ${SRCMAC_CN2} =    Create List    @{VM_MACAddr_ELAN1}[1]
     Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
     Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${VM_MACAddr_ELAN1}
     Log    Verify Data path test
-    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM_IP_ELAN1[0]}    ping -c 3 ${VM_IP_ELAN1[1]}
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    @{VM_IP_ELAN1}[0]    ping -c 3 @{VM_IP_ELAN1}[1]
     Should Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM_IP_ELAN1[1]}    ping -c 3 ${VM_IP_ELAN1[0]}
+    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    @{VM_IP_ELAN1}[1]    ping -c 3 @{VM_IP_ELAN1}[0]
     Should Contain    ${output}    ${PING_PASS}
 
 Verify Datapath After Recreate VM Instance
     [Documentation]    Verify datapath after recreating Vm instance
-    Log    Delete VM and verify flows updated
     Delete Vm Instance    ${VM_INSTANCES_ELAN1[0]}
-    ${SRCMAC_CN1} =    Create List    ${VM_MACAddr_ELAN1[0]}
+    ${SRCMAC_CN1} =    Create List    @{VM_MACAddr_ELAN1}[0]
     Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}
-    Remove RSA Key From KnowHosts    ${VM_IP_ELAN1[0]}
-    Log    ReCreate VM and verify flow updated
+    Remove RSA Key From KnowHosts    @{VM_IP_ELAN1}[0]
     Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[0]}    ${VM_INSTANCES_ELAN1[0]}    ${OS_COMPUTE_1_IP}
-    Poll VM Is ACTIVE    ${VM_INSTANCES_ELAN1[0]}
-    ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Wait Until Keyword Succeeds    180s    30s    Collect VM IP Addresses    true
-    ...    @{VM_INSTANCES_ELAN1}
-    Log    ${VM_IP_ELAN1}
-    Set Suite Variable    ${VM_IP_ELAN1}
+    @{VM_IP_ELAN1}    ${DHCP_IP_ELAN1} =    Get VM IPs    @{VM_INSTANCES_ELAN1}
+    Set Suite Variable    @{VM_IP_ELAN1}
+    Should Not Contain    ${VM_IP_ELAN1}    None
+    Should Not Contain    ${DHCP_IP_ELAN1}    None
     Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_ELAN1[0]}    ping -c 3 ${VM_IP_ELAN1[1]}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IP_ELAN1}[0]    ping -c 3 @{VM_IP_ELAN1}[1]
     Should Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_ELAN1[1]}    ping -c 3 ${VM_IP_ELAN1[0]}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IP_ELAN1}[1]    ping -c 3 @{VM_IP_ELAN1}[0]
     Should Contain    ${output}    ${PING_PASS}
 
 Delete All ELAN1 VM And Verify Flow Table Updated
@@ -97,18 +110,18 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     [Setup]    Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     ...    AND    MultipleElan Testsuite Setup
     Log    Verify flow table, fib Table and then datapath test
-    ${SRCMAC_CN1} =    Create List    ${VM_MACAddr_ELAN2[0]}    ${VM_MACAddr_ELAN3[0]}
-    ${SRCMAC_CN2} =    Create List    ${VM_MACAddr_ELAN2[1]}    ${VM_MACAddr_ELAN3[1]}
+    ${SRCMAC_CN1} =    Create List    @{VM_MACAddr_ELAN2}[0]    @{VM_MACAddr_ELAN3}[0]
+    ${SRCMAC_CN2} =    Create List    @{VM_MACAddr_ELAN2}[1]    @{VM_MACAddr_ELAN3}[1]
     ${MAC_LIST} =    Create List    @{VM_MACAddr_ELAN2}    @{VM_MACAddr_ELAN3}
     Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${MAC_LIST}
     Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${MAC_LIST}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_ELAN2[0]}    ping -c 3 ${VM_IP_ELAN2[1]}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    @{VM_IP_ELAN2}[0]    ping -c 3 ${VM_IP_ELAN2[1]}
     Should Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[2]    ${VM_IP_ELAN3[1]}    ping -c 3 ${VM_IP_ELAN3[0]}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[2]    @{VM_IP_ELAN3}[1]    ping -c 3 ${VM_IP_ELAN3[0]}
     Should Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_ELAN2[0]}    ping -c 3 ${VM_IP_ELAN3[0]}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    @{VM_IP_ELAN2}[0]    ping -c 3 ${VM_IP_ELAN3[0]}
     Should Not Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[2]    ${VM_IP_ELAN3[1]}    ping -c 3 ${VM_IP_ELAN2[1]}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[2]    @{VM_IP_ELAN3}[1]    ping -c 3 ${VM_IP_ELAN2[1]}
     Should Not Contain    ${output}    ${PING_PASS}
     Log    Reboot VM instance and verify flow
     Get Test Teardown Debugs
@@ -120,13 +133,11 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     # nova reboot step. Once 8389 is resolved, we can remove this line to get debugs before nova reboot. The debugs will be
     # collected immediately after when that step fails, as is the nature of robot test cases.
     Reboot Nova VM    ${VM_INSTANCES_ELAN2[0]}
-    Poll VM Is ACTIVE    ${VM_INSTANCES_ELAN2[0]}
-    ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    180s    30s    Collect VM IP Addresses    true
-    ...    @{VM_INSTANCES_ELAN2}
-    Log    ${VM_IP_ELAN2}
+    @{VM_IP_ELAN2}    ${DHCP_IP_ELAN2} =    Get VM IPs    @{VM_INSTANCES_ELAN2}
     Should Not Contain    ${VM_IP_ELAN2}    None
+    Should Not Contain    ${DHCP_IP_ELAN2}    None
     Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${MAC_LIST}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_ELAN2[1]}    ping -c 3 ${VM_IP_ELAN2[0]}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_ELAN2[1]}    ping -c 3 @{VM_IP_ELAN2}[0]
     Should Contain    ${output}    ${PING_PASS}
     [Teardown]    Run Keywords    Get Test Teardown Debugs
     ...    AND    MultipleElan Testsuite Cleanup
@@ -140,12 +151,11 @@ Elan SuiteSetup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius.mdsalutil.internal.MDSALManager
     DevstackUtils.Devstack Suite Setup
-    SingleElan SuiteSetup
 
 Elan SuiteTeardown
     [Documentation]    Elan suite teardown
     Get OvsDebugInfo
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius.mdsalutil.internal.MDSALManager
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.genius.mdsalutil.internal.MDSALManager
     SingleElan SuiteTeardown
     Close All Connections
 
@@ -160,58 +170,34 @@ SingleElan SuiteTeardown
 
 SingleElan SuiteSetup
     [Documentation]    Create single ELAN with Multiple DPN
-    Log    Create ELAN1 network, subnet , port and VM
-    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
-    Create Network    ${NETWORKS[0]}
-    Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNET_CIDR[0]}
-    Create Port    ${NETWORKS[0]}    ${ELAN1_PORT_LIST[0]}    sg=${SECURITY_GROUP}
-    Create Port    ${NETWORKS[0]}    ${ELAN1_PORT_LIST[1]}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[0]}    ${VM_INSTANCES_ELAN1[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[1]}    ${VM_INSTANCES_ELAN1[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    Log    Verify ELAN1 VM active
-    : FOR    ${VM}    IN    @{VM_INSTANCES_ELAN1}
-    \    Poll VM Is ACTIVE    ${VM}
-    Log    Get IP address for ELAN1
-    Wait Until Keyword Succeeds    180s    30s    Collect VM IP Addresses    true    @{VM_INSTANCES_ELAN1}
-    ${VM_IP_ELAN1}    ${DHCP_IP_ELAN1}    Collect VM IP Addresses    false    @{VM_INSTANCES_ELAN1}
-    Log    ${VM_IP_ELAN1}
-    Set Suite Variable    ${VM_IP_ELAN1}
-    Log    Get MACAddr for ELAN1
-    ${VM_MACAddr_ELAN1}    Wait Until Keyword Succeeds    30s    10s    Get Ports MacAddr    ${ELAN1_PORT_LIST}
-    Log    ${VM_MACAddr_ELAN1}
-    Set Suite Variable    ${VM_MACAddr_ELAN1}
 
 MultipleElan Testsuite Setup
     [Documentation]    Create additional ELAN for multipleElan with Multiple DPN test
-    Create Network    ${NETWORKS[1]}
-    Create Network    ${NETWORKS[2]}
-    Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNET_CIDR[1]}
-    Create SubNet    ${NETWORKS[2]}    ${SUBNETS[2]}    ${SUBNET_CIDR[2]}
-    Create Port    ${NETWORKS[1]}    ${ELAN2_PORT_LIST[0]}    sg=${SECURITY_GROUP}
-    Create Port    ${NETWORKS[1]}    ${ELAN2_PORT_LIST[1]}    sg=${SECURITY_GROUP}
-    Create Port    ${NETWORKS[2]}    ${ELAN3_PORT_LIST[0]}    sg=${SECURITY_GROUP}
-    Create Port    ${NETWORKS[2]}    ${ELAN3_PORT_LIST[1]}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${ELAN2_PORT_LIST[0]}    ${VM_INSTANCES_ELAN2[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${ELAN2_PORT_LIST[1]}    ${VM_INSTANCES_ELAN2[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${ELAN3_PORT_LIST[0]}    ${VM_INSTANCES_ELAN3[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port On Compute Node    ${ELAN3_PORT_LIST[1]}    ${VM_INSTANCES_ELAN3[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_ELAN2}    @{VM_INSTANCES_ELAN3}
-    : FOR    ${VM}    IN    @{VM_INSTANCES}
-    \    Poll VM Is ACTIVE    ${VM}
-    ${VM_IP_ELAN2}    ${DHCP_IP_ELAN2}    Wait Until Keyword Succeeds    180s    30s    Collect VM IP Addresses    true
-    ...    @{VM_INSTANCES_ELAN2}
-    Log    ${VM_IP_ELAN2}
-    Set Suite Variable    ${VM_IP_ELAN2}
-    ${VM_IP_ELAN3}    ${DHCP_IP_ELAN3}    Wait Until Keyword Succeeds    180s    30s    Collect VM IP Addresses    true
-    ...    @{VM_INSTANCES_ELAN3}
-    Log    ${VM_IP_ELAN3}
-    Set Suite Variable    ${VM_IP_ELAN3}
-    ${VM_MACAddr_ELAN2}    Wait Until Keyword Succeeds    30s    10s    Get Ports MacAddr    ${ELAN2_PORT_LIST}
-    Log    ${VM_MACAddr_ELAN2}
-    Set Suite Variable    ${VM_MACAddr_ELAN2}
-    ${VM_MACAddr_ELAN3}    Wait Until Keyword Succeeds    30s    10s    Get Ports MacAddr    ${ELAN3_PORT_LIST}
-    Log    ${VM_MACAddr_ELAN3}
-    Set Suite Variable    ${VM_MACAddr_ELAN3}
+    OpenStackOperations.Create Network    ${NETWORKS[1]}
+    OpenStackOperations.Create Network    ${NETWORKS[2]}
+    OpenStackOperations.Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNET_CIDR[1]}
+    OpenStackOperations.Create SubNet    ${NETWORKS[2]}    ${SUBNETS[2]}    ${SUBNET_CIDR[2]}
+    OpenStackOperations.Create Port    ${NETWORKS[1]}    ${ELAN2_PORT_LIST[0]}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${NETWORKS[1]}    ${ELAN2_PORT_LIST[1]}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${NETWORKS[2]}    ${ELAN3_PORT_LIST[0]}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    ${NETWORKS[2]}    ${ELAN3_PORT_LIST[1]}    sg=${SECURITY_GROUP}
+    Builtin.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${ELAN3_PORT_LIST}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN2_PORT_LIST[0]}    ${VM_INSTANCES_ELAN2[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN2_PORT_LIST[1]}    ${VM_INSTANCES_ELAN2[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN3_PORT_LIST[0]}    ${VM_INSTANCES_ELAN3[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN3_PORT_LIST[1]}    ${VM_INSTANCES_ELAN3[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    @{VM_IP_ELAN2}    ${DHCP_IP_ELAN2} =    Get VM IPs    @{VM_INSTANCES_ELAN2}
+    @{VM_IP_ELAN3}    ${DHCP_IP_ELAN3} =    Get VM IPs    @{VM_INSTANCES_ELAN3}
+    Set Suite Variable    @{VM_IP_ELAN2}
+    Set Suite Variable    @{VM_IP_ELAN3}
+    Should Not Contain    ${VM_IP_ELAN2}    None
+    Should Not Contain    ${DHCP_IP_ELAN2}    None
+    Should Not Contain    ${VM_IP_ELAN3}    None
+    Should Not Contain    ${DHCP_IP_ELAN3}    None
+    @{VM_MACAddr_ELAN2}    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Get Ports MacAddr    ${ELAN2_PORT_LIST}
+    Set Suite Variable    @{VM_MACAddr_ELAN2}
+    @{VM_MACAddr_ELAN3}    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Get Ports MacAddr    ${ELAN3_PORT_LIST}
+    Set Suite Variable    @{VM_MACAddr_ELAN3}
 
 MultipleElan Testsuite Cleanup
     [Documentation]    Delete ELAN2 network,subnet and port
