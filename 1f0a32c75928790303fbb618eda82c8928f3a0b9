@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_b0cf7555",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2017-11-14T11:55:48Z",
+      "side": 1,
+      "message": "Make this api generic to get packet packet count for any table, not just table 21",
+      "range": {
+        "startLine": 43,
+        "startChar": 62,
+        "endLine": 43,
+        "endChar": 64
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_70385d3d",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2017-11-14T11:55:48Z",
+      "side": 1,
+      "message": "Remove this api and do this validation in suite itself",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 28
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_d04029a7",
+        "filename": "csit/suites/netvirt/MultiPath/Multi_Path_Suite1.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2017-11-14T11:55:48Z",
+      "side": 1,
+      "message": "Documentation     Test suite for MultiPath, ECMP forwarding of intra-DC traffic",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_f043adac",
+        "filename": "csit/suites/netvirt/MultiPath/Multi_Path_Suite1.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2017-11-14T11:55:48Z",
+      "side": 1,
+      "message": "Log    Verify the MultiPath group in both Compute Nodes are same",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_3019c5d7",
+        "filename": "csit/suites/netvirt/MultiPath/Multi_Path_Suite1.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2017-11-14T11:55:48Z",
+      "side": 1,
+      "message": "Remove this api and do the validation adn verfication here itself",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
