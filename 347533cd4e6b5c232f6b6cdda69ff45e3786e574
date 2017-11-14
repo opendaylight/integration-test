@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_b542c73b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-14T02:57:39Z",
+      "side": 1,
+      "message": "I think this is the problem with the failure in the sb. This check never happens since it is uppercase True. It should stay as lowercase which matches the usage everywhere else. AS it is now, the check never happens so we always return from WUKS on the first loop. The obtained address for the vm_ip usually happens quickly but the nameserver happens near the end and usually on a second WUKS try.",
+      "revId": "347533cd4e6b5c232f6b6cdda69ff45e3786e574",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
