@@ -518,7 +518,7 @@ Test Operations From Vm Instance
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route -n    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route -A inet6    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
-    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ip -6 neigh    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ip -f inet6 neigh show    ${OS_SYSTEM_PROMPT}
     : FOR    ${dest_ip}    IN    @{dest_ips}
     \    Log    ${dest_ip}
     \    ${string_empty}=    Run Keyword And Return Status    Should Be Empty    ${dest_ip}
