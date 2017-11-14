@@ -1,0 +1,366 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_66a8a7db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 40
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "need a better commit message. I think this patch is large enough that some good details in the commit messages is warranted",
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_867afb74",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "don\u0027t need ALL CAPS, and (for me) I don\u0027t know what \nAlt Approach really means. Is it not possible to use the\nexisting keyword to get UUID? or enhance it?",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 25
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_e68ad762",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "double check if needed, but I think the RARRAO keyword in\nline 206 above will give us the output for free. no need\nto add extra logs to the already giant output.xml",
+      "range": {
+        "startLine": 207,
+        "startChar": 3,
+        "endLine": 207,
+        "endChar": 20
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_c6fa33bc",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "Sam showed me this:\n\nShould Be True    \u0027${rc}\u0027 \u003d\u003d \u00270\u0027\n\nI think that\u0027s more clear. If you agree, let\u0027s use that.\nI\u0027ll try to re-factor this in other places that already\nexist.",
+      "range": {
+        "startLine": 208,
+        "startChar": 4,
+        "endLine": 208,
+        "endChar": 31
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_e6fdb7b2",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "I think \u0027on\u0027 is better than \u0027to\u0027\n\nsame below for the other config keyword",
+      "range": {
+        "startLine": 211,
+        "startChar": 12,
+        "endLine": 211,
+        "endChar": 14
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_0601ebae",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "don\u0027t think we need it.",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 26
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_a6ad7feb",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 5
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_462e4344",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "don\u0027t need it, I think.",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 20
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_46bc83dc",
+        "filename": "csit/libraries/OpenStackInstallUtils.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "probably can be a little more clean and scalable if we\nuse loops.\n\npsuedo code:\n\nfor i in num_control_nodes:\n  ${control_${i}_connection}\u003d    Get Ssh Connection ...\n  Set Suite Variable    ${control_${i}_connection}\n\nthen the same for compute nodes",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 37
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_26c18f54",
+        "filename": "csit/libraries/OpenStackInstallUtils.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 2
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_86b2fb03",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "don\u0027t need Log and change Should Not Be True to\n\nShould Be True    \u0027${rc}\u0027 \u003d\u003d \u00270\u0027\n\n\nthis applies in multiple places, so I wont make it a comment\nagain.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 31
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_66b707f6",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 1106,
+        "startChar": 0,
+        "endLine": 1106,
+        "endChar": 3
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_e6c2d751",
+        "filename": "csit/libraries/OpendaylightInstallUtils.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "maybe a better name is \"Configure Boot Features\"?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 23
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_a6cc5f8a",
+        "filename": "csit/libraries/OpendaylightInstallUtils.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 16,
+        "startChar": 40,
+        "endLine": 16,
+        "endChar": 42
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_c6cfd37d",
+        "filename": "csit/libraries/OpendaylightInstallUtils.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "interesting. does this work? does it overwrite the default\nfeaturesBoot features that are there?",
+      "range": {
+        "startLine": 17,
+        "startChar": 52,
+        "endLine": 17,
+        "endChar": 201
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_06c60b68",
+        "filename": "csit/libraries/OpendaylightInstallUtils.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-14T17:12:12Z",
+      "side": 1,
+      "message": "ws",
+      "range": {
+        "startLine": 23,
+        "startChar": 40,
+        "endLine": 23,
+        "endChar": 42
+      },
+      "revId": "8ff527d0d37115749be748793b1deb36b4dd6108",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
