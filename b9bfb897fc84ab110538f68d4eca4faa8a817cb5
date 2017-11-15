@@ -34,6 +34,24 @@
       "revId": "b9bfb897fc84ab110538f68d4eca4faa8a817cb5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_8ba83f8e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-11-15T09:48:51Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Variable_assignment\n\nThat reminds me, do we want to convert our wikis to .rst?",
+      "parentUuid": "9a245df4_28c6799a",
+      "revId": "b9bfb897fc84ab110538f68d4eca4faa8a817cb5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
