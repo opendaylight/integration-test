@@ -38,7 +38,7 @@ TC04 Create Vms On Compute Node
     OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS_PORT_1}    ${OVS_VM1_NAME}    ${OVS_IP}
     ${vm_ip}=    Wait Until Keyword Succeeds    60s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS_VM1_NAME}
     Log    ${vm_ip}
-    Should Contain    ${vm_ip[0]}    ${port_ip_list[0]}
+    Should Contain    ${vm_ip}    ${port_ip_list[0]}
 
 TC05 Create L2Gateway And Connection And Verify
     ${output}=    L2GatewayOperations.Create Verify L2Gateway    ${HWVTEP_BRIDGE}    ${NS_PORT1}    ${L2GW_NAME1}
@@ -95,7 +95,7 @@ TC10 Update And Attach Second Port To Hwvtep Create L2gw Connection
     OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS_PORT_2}    ${OVS_VM2_NAME}    ${OVS_IP}
     ${vm_ip}=    Wait Until Keyword Succeeds    60s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS_VM2_NAME}
     Log    ${vm_ip}
-    Should Contain    ${vm_ip[0]}    ${port_ip_list[2]}
+    Should Contain    ${vm_ip}    ${port_ip_list[2]}
     ${output}=    L2GatewayOperations.Create Verify L2Gateway    ${HWVTEP_BRIDGE}    ${NS_PORT2}    ${L2GW_NAME2}
     Log    ${output}
     ${output}=    L2GatewayOperations.Create Verify L2Gateway Connection    ${L2GW_NAME2}    ${NET_2}
