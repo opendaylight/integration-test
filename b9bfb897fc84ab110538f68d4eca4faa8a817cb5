@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_a8eb8911",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-15T05:41:29Z",
+      "side": 1,
+      "message": "you had to go and remove all my spaces between vars and \u003d\u0027s... The java and python checkstyle rules require spaces so I followed the same with robot",
+      "revId": "b9bfb897fc84ab110538f68d4eca4faa8a817cb5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
