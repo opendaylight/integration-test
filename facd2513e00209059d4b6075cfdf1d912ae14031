@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_652d3ca8",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-15T04:27:34Z",
+      "side": 1,
+      "message": "we should update the sed or regex strings that look for the different logs to match what is in the run.sh. I changed those a bit to capture the log timestamp and more of the exception.",
+      "revId": "facd2513e00209059d4b6075cfdf1d912ae14031",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_452ab890",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-15T04:27:34Z",
+      "side": 1,
+      "message": "is there a way to be more granular? Probably difficult. Sometimes there are different OFLE\u0027s for different reasons - node deleted, node created by someone else, conflicting modification. So we could end up whitelisting a new OLFE.",
+      "revId": "facd2513e00209059d4b6075cfdf1d912ae14031",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
