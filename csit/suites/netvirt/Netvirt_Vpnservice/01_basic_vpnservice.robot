@@ -78,26 +78,15 @@ Create Nova VMs
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET10[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET20[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET20[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
-    : FOR    ${VM}    IN    @{VM_INSTANCES}
-    \    Poll VM Is ACTIVE    ${VM}
-    Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS_CIDR}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
-    ...    true    @{VM_INSTANCES_NET10}
-    ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s    Collect VM IP Addresses
-    ...    true    @{VM_INSTANCES_NET20}
-    ${VM_IP_NET10}    ${DHCP_IP1}    Collect VM IP Addresses    false    @{VM_INSTANCES_NET10}
-    ${VM_IP_NET20}    ${DHCP_IP2}    Collect VM IP Addresses    false    @{VM_INSTANCES_NET20}
-    ${VM_INSTANCES}=    Collections.Combine Lists    ${VM_INSTANCES_NET10}    ${VM_INSTANCES_NET20}
-    ${VM_IPS}=    Collections.Combine Lists    ${VM_IP_NET10}    ${VM_IP_NET20}
-    ${LOOP_COUNT}    Get Length    ${VM_INSTANCES_NET10}
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
-    Set Suite Variable    ${VM_IP_NET10}
-    Set Suite Variable    ${VM_IP_NET20}
+    @{VM_IP_NET10}    ${DHCP_IP1} =    Get VM IPs    @{VM_INSTANCES_NET10}
+    @{VM_IP_NET20}    ${DHCP_IP2} =    Get VM IPs    @{VM_INSTANCES_NET20}
+    Set Suite Variable    @{VM_IP_NET10}
+    Set Suite Variable    @{VM_IP_NET20}
     Should Not Contain    ${VM_IP_NET10}    None
     Should Not Contain    ${VM_IP_NET20}    None
+    Should Not Contain    ${DHCP_IP1}    None
+    Should Not Contain    ${DHCP_IP2}    None
+    Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS_CIDR}
     [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     ...    AND    Get Test Teardown Debugs
 
