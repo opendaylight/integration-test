@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_0b1f2f09",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_9b1db276",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 46
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_fb12ee60",
         "filename": "csit/libraries/BgpOperations.robot",
         "patchSetId": 95
@@ -36,6 +60,30 @@
       "writtenOn": "2017-10-13T23:41:37Z",
       "side": 1,
       "message": "there\u0027s really no point in this documentation (and the stuff\nbelow) if it\u0027s a copy paste of the keyword name. You can\nbriefly describe what\u0027s really going on...\n\nfor example, it looks like it\u0027s interacting with the quagga\nrouter command line to create a address family in some \nbgp AS",
+      "range": {
+        "startLine": 233,
+        "startChar": 23,
+        "endLine": 233,
+        "endChar": 49
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_6b186b1e",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_fb12ee60",
       "range": {
         "startLine": 233,
         "startChar": 23,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_e02e6342",
+        "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_db172a50",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_3b0c8642",
         "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
         "patchSetId": 95
@@ -82,6 +154,30 @@
       "writtenOn": "2017-10-13T23:41:37Z",
       "side": 1,
       "message": "why are you logging this? lines 27 and 28 say exactly that\nsame thing.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 26
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_acc3c7eb",
+        "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Deleted the Log statement.",
+      "parentUuid": "9a245df4_3b0c8642",
       "range": {
         "startLine": 26,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_0080d744",
+        "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Modified the statement.",
+      "parentUuid": "9a245df4_1b09c231",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_7b06fe21",
         "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
         "patchSetId": 95
@@ -128,6 +248,30 @@
       "writtenOn": "2017-10-13T23:41:37Z",
       "side": 1,
       "message": "${OPERATIONAL_NODES_API}",
+      "range": {
+        "startLine": 74,
+        "startChar": 60,
+        "endLine": 74,
+        "endChar": 110
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_404acf26",
+        "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Replaced the URL path with ${OPERATIONAL_NODES_API}",
+      "parentUuid": "9a245df4_7b06fe21",
       "range": {
         "startLine": 74,
         "startChar": 60,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_a0e58b39",
+        "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "I have moved this keyword to OpenStackOperations.robot library file.",
+      "parentUuid": "9a245df4_5b033a0f",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 24
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_b6ffed00",
         "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
         "patchSetId": 95
@@ -174,6 +342,24 @@
       "writtenOn": "2017-10-13T23:41:37Z",
       "side": 1,
       "message": "did you want to add a \"Should Not Be True    ${rc}\" here?",
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_00457716",
+        "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Added Should Not Be True    ${rc}\n      [Return]    ${output}\n\nin this line.",
+      "parentUuid": "9a245df4_b6ffed00",
       "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -260,6 +446,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_236d25cd",
+        "filename": "csit/suites/netvirt/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_d60ee133",
+      "range": {
+        "startLine": 45,
+        "startChar": 22,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_1610794d",
         "filename": "csit/suites/netvirt/Intra-DC_Deployments_TestPlan/__init__.robot",
         "patchSetId": 95
@@ -271,6 +481,30 @@
       "writtenOn": "2017-10-13T23:41:37Z",
       "side": 1,
       "message": "this is already available in the VpnOperations library.",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 52
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_8346914d",
+        "filename": "csit/suites/netvirt/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "I have deleted this keyword from this file as it is already used in VpnOperations.robot file.",
+      "parentUuid": "9a245df4_1610794d",
       "range": {
         "startLine": 121,
         "startChar": 0,
@@ -306,6 +540,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_832fb187",
+        "filename": "csit/suites/netvirt/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "This keyword is working for me.\nI have moved the keyword to OpenStackOperations.robot library file.",
+      "parentUuid": "9a245df4_3613fd5d",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 18
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_761d7566",
         "filename": "csit/suites/netvirt/Intra-DC_Deployments_TestPlan/__init__.robot",
         "patchSetId": 95
@@ -317,6 +575,30 @@
       "writtenOn": "2017-10-13T23:41:37Z",
       "side": 1,
       "message": "why all these logs?\nThe keywords themselves are saying the exact same thing.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 23
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_80e04797",
+        "filename": "csit/suites/netvirt/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Removed the unnecessary Log statements.",
+      "parentUuid": "9a245df4_761d7566",
       "range": {
         "startLine": 142,
         "startChar": 0,
@@ -352,6 +634,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_c0f51f58",
+        "filename": "csit/suites/netvirt/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Here I am only listing the routes. So,changed the log statement to \"LIST ROUTES ON QUAGGA\".",
+      "parentUuid": "9a245df4_561af16e",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 20
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_b626cdb8",
         "filename": "csit/suites/netvirt/Intra-DC_Deployments_TestPlan/__init__.robot",
         "patchSetId": 95
@@ -363,6 +669,30 @@
       "writtenOn": "2017-10-13T23:41:37Z",
       "side": 1,
       "message": "something is amiss here. where is this used? you have arguments here that are not used. If it\u0027s really needed,\nthe keyword name should be plural, like \"Delete L3PVNs\"",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 63
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_6004334a",
+        "filename": "csit/suites/netvirt/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Deleted the keyword as it is not required for this test area.",
+      "parentUuid": "9a245df4_b626cdb8",
       "range": {
         "startLine": 210,
         "startChar": 0,
@@ -398,6 +728,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_0372a1ac",
+        "filename": "csit/suites/netvirt/Intra-DC_Deployments_TestPlan/__init__.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_f620459d",
+      "range": {
+        "startLine": 217,
+        "startChar": 23,
+        "endLine": 217,
+        "endChar": 47
+      },
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_bb187685",
         "filename": "csit/testplans/netvirt-1node-openstack.txt",
         "patchSetId": 95
@@ -415,6 +769,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_8b9cbf10",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 95
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "I commented all the lines as I was using this patch for sandbox run. Because of the other scripts, it was taking long time for execution.\nNow I have uncommented these lines in new review id.",
+      "parentUuid": "9a245df4_bb187685",
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_763455de",
         "filename": "csit/variables/Intra-DC_Deployments_TestPlan_Var/EVPN_In_Intra_DC_Deployments_vars.robot",
         "patchSetId": 95
@@ -426,6 +798,24 @@
       "writtenOn": "2017-10-13T23:41:37Z",
       "side": 1,
       "message": "there are some duplicates in here to be removed.",
+      "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_2357e5cb",
+        "filename": "csit/variables/Intra-DC_Deployments_TestPlan_Var/EVPN_In_Intra_DC_Deployments_vars.robot",
+        "patchSetId": 95
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2017-11-15T11:23:22Z",
+      "side": 1,
+      "message": "Removed the duplicate variables.",
+      "parentUuid": "9a245df4_763455de",
       "revId": "2d1787e6a045ac0e54376580da226b1a04d8d0e4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
