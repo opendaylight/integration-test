@@ -124,12 +124,10 @@ Create Basic Configuartion for BGP VPNservice Suite
     Create Vm Instance With Port On Compute Node    ${PORTS[1]}    ${VM_NAMES[1]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
     Create Vm Instance With Port On Compute Node    ${PORTS[2]}    ${VM_NAMES[2]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
     Create Vm Instance With Port On Compute Node    ${PORTS[3]}    ${VM_NAMES[3]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    : FOR    ${VM}    IN    @{VM_NAMES}
-    \    Poll VM Is ACTIVE    ${VM}
-    ${VM_IPS}    ${DHCP_IPS}    Wait Until Keyword Succeeds    30s    10s    Collect VM IP Addresses    true
-    ...    @{VM_NAMES}
-    Log    ${VM_IPS}
-    Set Suite Variable    ${VM_IPS}
+    @{VM_IPS}    ${DHCP_IPS} =    Get VM IPs    @{VM_NAMES}
+    Set Suite Variable    @{VM_IPS}
+    Should Not Contain    ${VM_IPS}    None
+    Should Not Contain    ${DHCP_IPS}    None
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
     VPN Create L3VPN    vpnid=${VPN_INSTANCE_IDS[0]}    name=${VPN_NAMES[0]}    rd=${RD_LIST[0]}    exportrt=${RD_LIST[0]}    importrt=${RD_LIST[0]}    tenantid=${tenant_id}
