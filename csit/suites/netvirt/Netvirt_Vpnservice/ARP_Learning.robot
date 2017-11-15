@@ -24,24 +24,18 @@ ${CREATE_IMPORT_RT}    ["2200:2","2200:3"]
 *** Test Cases ***
 TC00 Verify Setup
     [Documentation]    Verify that VMs received ip and ping is happening between different VM
-    ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}    @{VM_INSTANCES_NET3}
-    : FOR    ${VM}    IN    @{VM_INSTANCES}
-    \    Poll VM Is ACTIVE    ${VM}
-    ${VM_IP_NET1}    ${DHCP_IP1}    Collect VM IP Addresses    false    @{VM_INSTANCES_NET1}
-    ${VM_IP_NET2}    ${DHCP_IP2}    Collect VM IP Addresses    false    @{VM_INSTANCES_NET2}
-    ${VM_IP_NET3}    ${DHCP_IP3}    Collect VM IP Addresses    false    @{VM_INSTANCES_NET3}
-    ${VM_INSTANCES}=    Collections.Combine Lists    ${VM_INSTANCES_NET1}    ${VM_INSTANCES_NET2}    ${VM_INSTANCES_NET3}
-    ${VM_IPS}=    Collections.Combine Lists    ${VM_IP_NET1}    ${VM_IP_NET2}    ${VM_IP_NET3}
-    ${LOOP_COUNT}    Get Length    ${VM_INSTANCES_NET1}
-    : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    ${status}    ${message}    Run Keyword And Ignore Error    Should Not Contain    @{VM_IPS}[${index}]    None
-    \    Run Keyword If    '${status}' == 'FAIL'    Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
-    Set Suite Variable    ${VM_IP_NET1}
-    Set Suite Variable    ${VM_IP_NET2}
-    Set Suite Variable    ${VM_IP_NET3}
+    @{VM_IP_NET1}    ${DHCP_IP1} =    Get VM IPs    @{VM_INSTANCES_NET1}
+    @{VM_IP_NET2}    ${DHCP_IP2} =    Get VM IPs    @{VM_INSTANCES_NET2}
+    @{VM_IP_NET3}    ${DHCP_IP3} =    Get VM IPs    @{VM_INSTANCES_NET3}
+    Set Suite Variable    @{VM_IP_NET1}
+    Set Suite Variable    @{VM_IP_NET2}
+    Set Suite Variable    @{VM_IP_NET3}
     Should Not Contain    ${VM_IP_NET1}    None
     Should Not Contain    ${VM_IP_NET2}    None
     Should Not Contain    ${VM_IP_NET3}    None
+    Should Not Contain    ${DHCP_IP1}    None
+    Should Not Contain    ${DHCP_IP2}    None
+    Should Not Contain    ${DHCP_IP3}    None
     ${vm_instances} =    Create List    @{VM_IP_NET1}    @{VM_IP_NET2}    @{VM_IP_NET3}
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At URI    ${FIB_ENTRIES_URL}    ${vm_instances}
     Verify Ping On Same Networks
