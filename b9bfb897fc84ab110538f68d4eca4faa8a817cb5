@@ -16,6 +16,24 @@
       "revId": "b9bfb897fc84ab110538f68d4eca4faa8a817cb5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_28c6799a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-15T05:45:52Z",
+      "side": 1,
+      "message": "LOL! I thought it was my mistake before with putting\nthat space, so figured to clean it up. it\u0027s probably \nboth ways all over. you like it with a space I take it.\nI can go with that.",
+      "parentUuid": "9a245df4_a8eb8911",
+      "revId": "b9bfb897fc84ab110538f68d4eca4faa8a817cb5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
