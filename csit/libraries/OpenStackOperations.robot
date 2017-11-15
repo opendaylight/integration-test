@@ -364,7 +364,7 @@ Get VM IPs
     @{vm_ips}    BuiltIn.Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vms}
     \    Poll VM Is ACTIVE    ${vm}
-    \    ${status}    ${ips_and_console_log}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s
+    \    ${status}    ${ips_and_console_log}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    15s
     \    ...    Get VM IP    true    ${vm}
     \    BuiltIn.Log    ${ips_and_console_log[2]}
     \    BuiltIn.Run Keyword If    '${ips_and_console_log[0]}' != 'None'    Collections.Append To List    ${vm_ips}    ${ips_and_console_log[0]}
