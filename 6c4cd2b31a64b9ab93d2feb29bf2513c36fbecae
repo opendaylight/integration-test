@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_8b8f9f29",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2017-11-15T09:48:51Z",
+      "side": 1,
+      "message": "\"${status}\" \u003d\u003d \"PASS\"\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Do_Something_If",
+      "range": {
+        "startLine": 372,
+        "startChar": 35,
+        "endLine": 372,
+        "endChar": 52
+      },
+      "revId": "6c4cd2b31a64b9ab93d2feb29bf2513c36fbecae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
