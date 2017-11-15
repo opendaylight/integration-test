@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_14974c49",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-15T19:55:47Z",
+      "side": 1,
+      "message": "looks like trouble in the sandbox because the SG doesn\u0027t\nexist anymore after the cleanup happens in the previous\nsuite. I think it needs to be added first. I\u0027d add it\nand create this rule in the same test case and do it before\nthe VM creations",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 75
+      },
+      "revId": "dd0beb2e52786601cd8bd4ee0e3d18736e8568b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
