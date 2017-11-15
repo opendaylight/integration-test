@@ -569,8 +569,8 @@ Create Router
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router create ${router_name}
     Should Not Be True    ${rc}
 
-List Router
-    [Documentation]    List Router and return output with neutron client.
+List Routers
+    [Documentation]    List Routers and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router list -f value
     Log    ${output}
     Should Not Be True    ${rc}
@@ -583,7 +583,7 @@ Add Router Interface
 
 Show Router Interface
     [Arguments]    ${router_name}
-    [Documentation]    List Router interface associated with given Router and return output with neutron client.
+    [Documentation]    List Routers interface associated with given Router and return output with neutron client.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list --router ${router_name} -f value
     Should Not Be True    ${rc}
     [Return]    ${output}
@@ -696,9 +696,19 @@ Show Debugs
     \    ${rc}    ${output}=    Run And Return Rc And Output    nova show ${index}
     \    Log    ${output}
     List Nova VMs
+    List Routers
     List Networks
     List Subnets
     List Ports
+    List Security Groups
+
+List Security Groups
+    [Documentation]    Logging keyword to display all security groups using the openstack cli. Assumes openstack
+    ...    credentials are already sourced
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack security group list
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
 
 Neutron Security Group Show
     [Arguments]    ${SecurityGroupRuleName}

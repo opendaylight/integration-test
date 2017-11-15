@@ -225,7 +225,7 @@ Delete Router And Router Interfaces With L3VPN
     \    ${subnet_id} =    Get Subnet Id    ${INTERFACE}    ${devstack_conn_id}
     \    Should Not Contain    ${interface_output}    ${subnet_id}
     Delete Router    ${ROUTERS[0]}
-    ${router_output} =    List Router
+    ${router_output} =    List Routers
     Should Not Contain    ${router_output}    ${ROUTERS[0]}
     ${router_list} =    Create List    ${ROUTERS[0]}
     Wait Until Keyword Succeeds    3s    1s    Check For Elements Not At URI    ${ROUTER_URL}    ${router_list}
