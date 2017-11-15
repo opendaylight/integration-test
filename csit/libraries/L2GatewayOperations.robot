@@ -166,11 +166,11 @@ Verify Mcas Local Table While Ping
 
 Verify Nova VM IP
     [Arguments]    ${vm_name}
-    [Documentation]    Keyword to verify if the VM has received IP, and to vefiry it is not null.
-    ${vm_ip}    ${dhcp_ip}    Collect VM IP Addresses    false    ${vm_name}
-    Log    ${vm_ip}
+    [Documentation]    Keyword to verify if the VM has received IP, and to verify it is not null.
+    @{vm_ip}    ${dhcp_ip} =    Get VM IPs    ${vm_name}
     Should Not Contain    ${vm_ip}    None
-    [Return]    ${vm_ip}
+    Should Not Contain    ${dhcp_ip}    None
+    [Return]    @{vm_ip}[0]
 
 Get L2gw Debug Info
     [Documentation]    Keyword to collect the general debug information required for HWVTEP Test Suite.
