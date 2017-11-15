@@ -16,6 +16,24 @@
       "revId": "dd8c1570d2129afb8584057613a0743d83fb2988",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_8bbddfb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2017-11-15T13:20:23Z",
+      "side": 1,
+      "message": "Unfortunately I didn\u0027t save the results. I can try to rerun it, but currently hitting some other issues...\n\nThe problem here is logic of the condition. It works only for dhcp_length 0 and 1. \n\nVMs in my deployment get multiple nameservers, so dhcp_length \u003d\u003d 3. This particular \"Should be true\" then fails, because \u00273\u0027 is not \u003c\u003d \u00271\u0027. And doesn\u0027t return, so I don\u0027t get ip_list, nor dhcp_ip (which is also a list). A better condition would be ${dhcp_length} \u003e\u003d 1. I tried this and the robot documentation regarding builtins is wrong ($rc \u003c 10 means rc is lower, not greater than, as \"natural\"). But the following line would never be true.\n\nI believe, that dhcp_length shouldn\u0027t make this function fail, especially since it returns ip_list and EMPTY if it\u0027s \u003d\u003d 0, and ip_list and dhcp_ip otherwise...",
+      "parentUuid": "9a245df4_32f0ad66",
+      "revId": "dd8c1570d2129afb8584057613a0743d83fb2988",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
