@@ -343,15 +343,13 @@ Get VM IP
     [Arguments]    ${fail_on_none}    ${vm}
     [Documentation]    Get the vm ip address and nameserver by scraping the vm's console log.
     ...    Get VM IP returns three values: [0] the vm IP, [1] the DHCP IP and [2] the vm console log.
-    ${rc}    ${vm_console_output} =    Run And Return Rc And Output    openstack console log show ${vm}
-    ${vm_ip}=    Set Variable    None
-    ${dhcp_ip}=    Set Variable    None
+    ${rc}    ${vm_console_output}=    Run And Return Rc And Output    openstack console log show ${vm}
+    ${vm_ip} =    Set Variable    None
+    ${dhcp_ip} =    Set Variable    None
     ${match} =    Get Match    ${vm_console_output}    ${REGEX_OBTAINED}
     ${vm_ip} =    Get Match    ${match}    ${REGEX_IPV4}
     ${match} =    Get Match    ${vm_console_output}    ${REGEX_NAMESERVER}
     ${dhcp_ip} =    Get Match    ${match}    ${REGEX_IPV4}
-    BuiltIn.Set Test Variable    ${vm_ip}
-    BuiltIn.Set Test Variable    ${dhcp_ip}
     BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${vm_ip}    None
     BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
     [Return]    ${vm_ip}    ${dhcp_ip}    ${vm_console_output}
@@ -366,8 +364,15 @@ Get VM IPs
     \    Poll VM Is ACTIVE    ${vm}
     \    ${status}    ${ips_and_console_log}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    15s
     \    ...    Get VM IP    true    ${vm}
-    \    BuiltIn.Log    ${ips_and_console_log[2]}
-    \    BuiltIn.Run Keyword If    '${ips_and_console_log[0]}' != 'None'    Collections.Append To List    ${vm_ips}    ${ips_and_console_log[0]}
+    \    # If there is trouble with Get VM IP, the status will be FAIL and the return value will be a string of what went
+    \    # wrong. We need to handle both the PASS and FAIL cases. In the FAIL case we know we wont have access to the
+    \    # console log, as it would not be returned; so we need to grab it again to log it. We also can append 'None' to
+    \    # the vm ip list if status is FAIL.
+    \    Run Keyword If    ${status} == PASS    BuiltIn.Log    ${ips_and_console_log[2]}
+    \    BuiltIn.Run Keyword If    ${status} == PASS    Collections.Append To List    ${vm_ips}    ${ips_and_console_log[0]}
+    \    BuiltIn.Run Keyword If    ${status} == FAIL    Collections.Append To List    ${vm_ips}    None
+    \    ${rc}    ${vm_console_output}=    BuiltIn.Run Keyword If    ${status} == FAIL    Run And Return Rc And Output    openstack console log show ${vm}
+    \    BuiltIn.Run Keyword If    ${status} == FAIL    BuiltIn.Log    ${vm_console_output}
     [Return]    @{vm_ips}    ${ips_and_console_log[1]}
 
 Collect VM IPv6 SLAAC Addresses
