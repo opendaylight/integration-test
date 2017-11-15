@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_488bed67",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-15T05:38:52Z",
+      "side": 1,
+      "message": "should we make it a TODO or try to get it in with this patch?\nI\u0027m still running in to small issues in the sandbox, but I\nthink it\u0027s almost there.",
+      "parentUuid": "9a245df4_652d3ca8",
+      "revId": "facd2513e00209059d4b6075cfdf1d912ae14031",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_452ab890",
         "filename": "csit/variables/netvirt/Variables.robot",
         "patchSetId": 12
@@ -30,6 +48,24 @@
       "writtenOn": "2017-11-15T04:27:34Z",
       "side": 1,
       "message": "is there a way to be more granular? Probably difficult. Sometimes there are different OFLE\u0027s for different reasons - node deleted, node created by someone else, conflicting modification. So we could end up whitelisting a new OLFE.",
+      "revId": "facd2513e00209059d4b6075cfdf1d912ae14031",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_28df996a",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-15T05:38:52Z",
+      "side": 1,
+      "message": "well all we are doing is the basic python \"$string1 in $string2\" stuff, so I think it\u0027s just pure string matching.\n\ndoes that let us get granular enough? I need help figuring\nout what to put here though.\n\nWe could also use some sort of regexp matching if that\nis needed to catch the very specific cases we want.\n\nbut, yeah, I\u0027m 100% for making this as narrow as possible\nso we don\u0027t let anything new accidentally pop in.",
+      "parentUuid": "9a245df4_452ab890",
       "revId": "facd2513e00209059d4b6075cfdf1d912ae14031",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
