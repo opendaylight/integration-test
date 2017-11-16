@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_026f092c",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-16T23:41:20Z",
+      "side": 1,
+      "message": "it\u0027s a \u0027grep\u0027 but that\u0027s a regular expression tool right?",
+      "parentUuid": "9a245df4_2215ede4",
+      "revId": "01d789e63b998c0ca3d342a1db91fc234eb80718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_02226951",
         "filename": "csit/variables/Variables.robot",
         "patchSetId": 15
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_e26bd51b",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-16T23:41:20Z",
+      "side": 1,
+      "message": "personally I always try to use True as that a special\nkeyword in python, whereas true is just a string. I \nguess there are probably places in this repo where true\nhas creeped in where we should be using True.",
+      "parentUuid": "9a245df4_02226951",
+      "revId": "01d789e63b998c0ca3d342a1db91fc234eb80718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_4218e11d",
         "filename": "csit/variables/netvirt/Variables.robot",
         "patchSetId": 15
@@ -47,6 +83,24 @@
       "writtenOn": "2017-11-16T22:03:10Z",
       "side": 1,
       "message": "so this ends up just part of a regex? OLFE can cover multiple exceptions, but sadly the stacktrace doesn\u0027t distinguish the different types. Usually you have to scan down 3 or 4 more exceptions and then a path pops out that we can use. But that requires complicated scanning to see the first OFLE, then parse a bit and see the path.",
+      "revId": "01d789e63b998c0ca3d342a1db91fc234eb80718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_22720d11",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-16T23:41:20Z",
+      "side": 1,
+      "message": "yeah, we can try to get smarter if needed. However, for\nthe specific netvirt case we might be close enough that\nwe can yell and scream any time an OLFE shows up and get\nit fixed before the patch is merged.",
+      "parentUuid": "9a245df4_4218e11d",
       "revId": "01d789e63b998c0ca3d342a1db91fc234eb80718",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
