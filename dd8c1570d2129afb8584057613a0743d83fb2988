@@ -34,6 +34,24 @@
       "revId": "dd8c1570d2129afb8584057613a0743d83fb2988",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_f16605ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-16T12:57:33Z",
+      "side": 1,
+      "message": "In your setup is it because there are multiple dhcp agents for HA? That would explain the extra nameservers. The upstream does not use more than one agent so we expect a single address.\n\nEven if there are more than one, is it OK if only one is returned? All the tests currently expect a single address. It may work returning more but we need to verify that.\n\nThat being said, let\u0027s hold off on this change. WE are migrating everything to use the newer GET VM IPs. That keyword doesn\u0027t have the problem, but it does forcefully only return a single dhcp address.",
+      "parentUuid": "9a245df4_8bbddfb9",
+      "revId": "dd8c1570d2129afb8584057613a0743d83fb2988",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
