@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_87330b13",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-16T20:30:27Z",
+      "side": 1,
+      "message": "good to note the dhcp piece. In all the changes I made I explicitly call Get VM IPs with a single network. this should be fine since there really isn\u0027t any savings doing all networks at once - the poll is done per vm, so calling Get VMs per network is the same expense.",
+      "revId": "26deb7161633160a4e399e8421acb13841a231c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
