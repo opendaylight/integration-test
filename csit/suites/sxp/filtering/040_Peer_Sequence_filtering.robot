@@ -8,9 +8,7 @@ Library           SSHLibrary
 Library           ../../../libraries/Sxp.py
 Library           ../../../libraries/Common.py
 Resource          ../../../libraries/SxpLib.robot
-Resource          ../../../variables/Variables.py
-
-*** Variables ***
+Variables         ../../../variables/Variables.py
 
 *** Test Cases ***
 Peer Sequence Filtering
