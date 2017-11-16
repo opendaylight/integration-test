@@ -8,6 +8,7 @@ Library           ./Sxp.py
 Resource          CompareStream.robot
 Resource          KarafKeywords.robot
 Resource          Utils.robot
+Resource          SetupUtils.robot
 Resource          TemplatedRequests.robot
 Variables         ../variables/Variables.py
 
@@ -279,6 +280,8 @@ Prepare SSH Keys On Karaf
 Setup SXP Session
     [Arguments]    ${session}=session    ${controller}=${ODL_SYSTEM_IP}
     [Documentation]    Create session to Controller
+    Setup_Utils_For_Setup_And_Teardown
+    Setup_Logging_For_Debug_Purposes_On_List_Or_All    DEBUG    org.opendaylight.sxp
     Verify Feature Is Installed    odl-sxp-controller    ${controller}
     Create Session    ${session}    url=http://${controller}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     ${resp}    RequestsLibrary.Get Request    ${session}    ${MODULES_API}
