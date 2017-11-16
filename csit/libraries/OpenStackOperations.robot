@@ -358,7 +358,10 @@ Get VM IPs
     [Arguments]    @{vms}
     [Documentation]    Get the instance IP addresses and nameserver address for the list of given vms.
     ...    First poll for the vm instance to be in the active state, then poll for the vm ip address and nameserver.
-    ...    Get VM IP returns three values: [0] the vm IP, [1] the DHCP IP and [2] the vm console log.
+    ...    Get VM IPs returns two things: [0] a list of the ips for the vms passed to this keyword (may contain values
+    ...    of None) and [1] the dhcp ip address found in the last vm checked.
+    ...    TODO: there is a potential issue for a caller that passes in VMs belonging to different networks that
+    ...    may have different dhcp server addresses. Not sure what TODO about that, but noting it here for reference.
     @{vm_ips}    BuiltIn.Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vms}
     \    Poll VM Is ACTIVE    ${vm}
