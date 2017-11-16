@@ -371,7 +371,7 @@ Get VM IPs
     \    Run Keyword If    "${status}" == "PASS"    BuiltIn.Log    ${ips_and_console_log[2]}
     \    BuiltIn.Run Keyword If    "${status}" == "PASS"    Collections.Append To List    ${vm_ips}    ${ips_and_console_log[0]}
     \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    Collections.Append To List    ${vm_ips}    None
-    \    ${rc}    ${vm_console_output}=    BuiltIn.Run Keyword If    ${status} == "FAIL"    Run And Return Rc And Output    openstack console log show ${vm}
+    \    ${rc}    ${vm_console_output}=    BuiltIn.Run Keyword If    "${status}" == "FAIL"    Run And Return Rc And Output    openstack console log show ${vm}
     \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    BuiltIn.Log    ${vm_console_output}
     [Return]    @{vm_ips}    ${ips_and_console_log[1]}
 
