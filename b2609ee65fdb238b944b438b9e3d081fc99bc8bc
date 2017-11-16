@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_62bd25b7",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-16T23:00:44Z",
+      "side": 1,
+      "message": "Delete the doc since it the Keyword itself is good",
+      "revId": "b2609ee65fdb238b944b438b9e3d081fc99bc8bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_02cc2969",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-16T23:00:44Z",
+      "side": 1,
+      "message": "should make these unique also. That\u0027s what we started in the other suites. sg-l2, sg-l3, sg-ext",
+      "range": {
+        "startLine": 18,
+        "startChar": 22,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "b2609ee65fdb238b944b438b9e3d081fc99bc8bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
