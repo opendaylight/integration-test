@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_c79d030c",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-16T20:21:25Z",
+      "side": 1,
+      "message": "you probably want to undo this in your suite teardown steps\ntoo. Just in case the suite(s) that use this keyword run\nwith other suites that don\u0027t want/care about this debug.\nThose would get all this extra logging and we\u0027ve seen this\nsometimes fill the karaf.log to a point that it chokes CI",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 73
+      },
+      "revId": "56ab746061f6c462e7656a684a64834ab3aaa227",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
