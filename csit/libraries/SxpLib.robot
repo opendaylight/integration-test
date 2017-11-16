@@ -8,6 +8,7 @@ Library           ./Sxp.py
 Resource          CompareStream.robot
 Resource          KarafKeywords.robot
 Resource          Utils.robot
+Resource          SetupUtils.robot
 Resource          TemplatedRequests.robot
 Variables         ../variables/Variables.py
 

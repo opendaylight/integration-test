@@ -151,7 +151,8 @@ Setup SXP Environment Local
     SSHLibrary.Close Connection
     : FOR    ${node}    IN RANGE    1    ${node_range}
     \    ${SSL}    Create Dictionary    truststore=${ssl_stores}/csit-truststore-${node}    keystore=${ssl_stores}/csit-keystore-${node}    password=${password}
-    \    Add Node    127.0.0.${node}    ${EMPTY}    ssl_stores=${SSL}
+    \    ${rnd_retry_time} =    Evaluate    random.randint(1, 5)    modules=random
+    \    Add Node    127.0.0.${node}    ${EMPTY}    ssl_stores=${SSL}    retry_open_timer=${rnd_retry_time}
     \    Add Binding    ${node}00    1.1.1.${node}/32    127.0.0.${node}
     \    Add Binding    ${node}00    2.2.2.${node}/32    127.0.0.${node}
 
