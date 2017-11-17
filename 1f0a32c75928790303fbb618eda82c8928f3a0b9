@@ -2,6 +2,80 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a245df4_9338693e",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-17T14:45:05Z",
+      "side": 1,
+      "message": "drop Keywords from the name. I know some files have that but going forward we don\u0027t need it.",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_f340c5a6",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-17T14:45:05Z",
+      "side": 1,
+      "message": "remove this part",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 35
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_d33dc12c",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-17T14:45:05Z",
+      "side": 1,
+      "message": "put these in alpha order",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_7314d59f",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-17T14:45:05Z",
+      "side": 1,
+      "message": "we use these in a lot of places so maybe we should move them to Variables. Maybe the netvirt Variables",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_b0cf7555",
         "filename": "csit/libraries/MultiPathKeywords.robot",
         "patchSetId": 49
@@ -25,6 +99,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_d324a10e",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-17T14:45:05Z",
+      "side": 1,
+      "message": "good point. Move this whole keyword over to OpenstackOperations. tabe as an arg, and also the regex to make the keyword reusable.\n\nAlso go through the other keywords to see if any make sense to be in OpenstackOperations",
+      "parentUuid": "9a245df4_b0cf7555",
+      "range": {
+        "startLine": 43,
+        "startChar": 62,
+        "endLine": 43,
+        "endChar": 64
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_70385d3d",
         "filename": "csit/libraries/MultiPathKeywords.robot",
         "patchSetId": 49
@@ -36,6 +134,30 @@
       "writtenOn": "2017-11-14T11:55:48Z",
       "side": 1,
       "message": "Remove this api and do this validation in suite itself",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 28
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_d352e165",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-17T14:45:05Z",
+      "side": 1,
+      "message": "Another good point and likely applies to other Keywords here. Keep them in the test suite unless they can be used for other suites. if they are used in different robot files, but still belong to a single quite then just keep them there in that dir rather than bring here.",
+      "parentUuid": "9a245df4_70385d3d",
       "range": {
         "startLine": 101,
         "startChar": 0,
