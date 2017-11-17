@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_fd553450",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-11-17T08:30:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_e2d915f4",
+      "range": {
+        "startLine": 365,
+        "startChar": 0,
+        "endLine": 367,
+        "endChar": 21
+      },
+      "revId": "b1857490316f029a8bb592de4d9dec57097693de",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_2fe17ffe",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 10
