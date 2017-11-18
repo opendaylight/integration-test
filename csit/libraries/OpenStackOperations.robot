@@ -331,12 +331,12 @@ Collect VM IP Addresses
     [Return]    ${ip_list}    ${dhcp_ip}
 
 Get Match
-    [Arguments]    ${text}    ${regexp}
+    [Arguments]    ${text}    ${regexp}    ${index}=0
     [Documentation]    Wrapper around Get Regexp Matches to return None if not found or the first match if found.
     @{matches} =    String.Get Regexp Matches    ${text}    ${regexp}
     ${matches_length} =    Get Length    ${matches}
     BuiltIn.Set Test Variable    ${match}    None
-    BuiltIn.Run Keyword If    ${matches_length} > 0    BuiltIn.Set Test Variable    ${match}    @{matches}[0]
+    BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Test Variable    ${match}    @{matches}[${index}]
     [Return]    ${match}
 
 Get VM IP
@@ -347,9 +347,9 @@ Get VM IP
     ${vm_ip} =    Set Variable    None
     ${dhcp_ip} =    Set Variable    None
     ${match} =    Get Match    ${vm_console_output}    ${REGEX_OBTAINED}
-    ${vm_ip} =    Get Match    ${match}    ${REGEX_IPV4}
-    ${match} =    Get Match    ${vm_console_output}    ${REGEX_NAMESERVER}
-    ${dhcp_ip} =    Get Match    ${match}    ${REGEX_IPV4}
+    ${vm_ip} =    Get Match    ${match}    ${REGEX_IPV4}    0
+    ${match} =    Get Match    ${vm_console_output}    ${REGEX_IPROUTE}
+    ${dhcp_ip} =    Get Match    ${match}    ${REGEX_IPV4}    1
     BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${vm_ip}    None
     BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
     [Return]    ${vm_ip}    ${dhcp_ip}    ${vm_console_output}
