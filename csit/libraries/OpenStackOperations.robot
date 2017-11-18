@@ -348,7 +348,7 @@ Get VM IP
     ${dhcp_ip} =    Set Variable    None
     ${match} =    Get Match    ${vm_console_output}    ${REGEX_OBTAINED}
     ${vm_ip} =    Get Match    ${match}    ${REGEX_IPV4}
-    ${match} =    Get Match    ${vm_console_output}    ${REGEX_NAMESERVER}
+    ${match} =    Get Match    ${vm_console_output}    ${REGEX_IPROUTE}
     ${dhcp_ip} =    Get Match    ${match}    ${REGEX_IPV4}
     BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${vm_ip}    None
     BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
