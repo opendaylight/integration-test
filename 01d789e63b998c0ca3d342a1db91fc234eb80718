@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_e50bdad3",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-19T02:18:26Z",
+      "side": 1,
+      "message": "Ok, that makes better sense. That Get VM IP method I had to use lowercase true so thought that was the rule, but it is in a string like you mention.",
+      "parentUuid": "9a245df4_e26bd51b",
+      "revId": "01d789e63b998c0ca3d342a1db91fc234eb80718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_4218e11d",
         "filename": "csit/variables/netvirt/Variables.robot",
         "patchSetId": 15
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "yeah, we can try to get smarter if needed. However, for\nthe specific netvirt case we might be close enough that\nwe can yell and scream any time an OLFE shows up and get\nit fixed before the patch is merged.",
       "parentUuid": "9a245df4_4218e11d",
+      "revId": "01d789e63b998c0ca3d342a1db91fc234eb80718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_450f46e1",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-19T02:18:26Z",
+      "side": 1,
+      "message": "But won\u0027t this ignore all OLFE\u0027s? Even so, this is good to have anyways as it will at least catch other exceptions.\n\nOther question, does this catch where the OLFE wraps a ConflictingModificationException? We would want to ignore the whole stack of junk with the OLFE.",
+      "parentUuid": "9a245df4_22720d11",
       "revId": "01d789e63b998c0ca3d342a1db91fc234eb80718",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
