@@ -1,3 +1,0 @@
-integration/test/csit/suites/netvirt/clustering/ovsdb/southbound_netvirt.robot
-integration/test/csit/suites/netvirt/clustering/ovsdb/netvirt_flow.robot
-integration/test/csit/suites/integration/Create_JVM_Plots.robot
