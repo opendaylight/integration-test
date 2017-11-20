@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_d405a214",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-20T21:13:07Z",
+      "side": 1,
+      "message": "please remove all \"Log\" statements in this keyword unless\nwe must have them. Some of them are giving redundant info\nthat we can figure out from the previous keyword.\n\njust double check in the sandbox results what output is\nalready there, and what needs to be logged. We have to be\ncareful with these going forward. the log files we are \ncreating are so verbose in these jobs that they end up\nbeing close to 1.5G or so.",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 411,
+        "endChar": 28
+      },
+      "revId": "2bfff4105cc678252ad948e525f5646afa7eef28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_740af626",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-20T21:13:07Z",
+      "side": 1,
+      "message": "is this needed now for some reason? or maybe it was leftover\nfrom some local debugging?",
+      "range": {
+        "startLine": 532,
+        "startChar": 208,
+        "endLine": 532,
+        "endChar": 215
+      },
+      "revId": "2bfff4105cc678252ad948e525f5646afa7eef28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
