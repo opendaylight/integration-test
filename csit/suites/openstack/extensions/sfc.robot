@@ -52,7 +52,7 @@ Create Vm Instances
     Create Vm Instance With Port    dest_vm_port    dest_vm    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
-    @{VM_IPS}    ${NET1_DHCP_IP} =    Get VM IPs    @{VM_INSTANCES}
+    @{NET1_VM_IPS}    ${NET1_DHCP_IP} =    Get VM IPs    @{VM_INSTANCES}
     Set Suite Variable    @{NET1_VM_IPS}
     Should Not Contain    ${NET1_VM_IPS}    None
     Should Not Contain    ${NET1_DHCP_IP}    None
