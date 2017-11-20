@@ -54,6 +54,7 @@ ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
 ${NODE_START_COMMAND}    ${KARAF_HOME}/bin/start
 ${NODE_STOP_COMMAND}    ${KARAF_HOME}/bin/stop
+${NODE_KARAF_COUNT_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | wc -l
 ${NODE_KILL_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 ${NODE_FREEZE_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -STOP \" $1}' | sh
 ${NODE_UNFREEZE_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk '{print \"kill -CONT \" $1}' | sh
@@ -419,7 +420,7 @@ Start_Members_From_List_Or_All
     ${command} =    BuiltIn.Set_Variable_If    """${export_java_home}""" != ""    export JAVA_HOME="${export_java_home}"; ${base_command}    ${base_command}
     ${epoch} =    DateTime.Get_Current_Date    time_zone=UTC    result_format=epoch    exclude_millis=False
     ${gc_filepath} =    BuiltIn.Set_Variable_If    """${karaf_home}""" != ""    ${karaf_home}/data/log/gc_${epoch}.log    ${GC_LOG_PATH}/gc_${epoch}.log
-    ${gc_options} =    BuiltIn.Set_Variable    -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:${gc_filepath}
+    ${gc_options} =    BuiltIn.Set_Variable_If    "docker" not in """${node_start_command}"""    -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:${gc_filepath}    ${EMPTY}
     Run_Bash_Command_On_List_Or_All    command=${command} ${gc_options}    member_index_list=${member_index_list}
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
@@ -471,7 +472,7 @@ Verify_Single_Karaf_Is_Running_On_Member
 Count_Running_Karafs_On_Member
     [Arguments]    ${member_index}
     [Documentation]    Remotely execute grep for karaf process, return count as string.
-    ${command} =    BuiltIn.Set_Variable    ps axf | grep org.apache.karaf | grep -v grep | wc -l
+    ${command} =    BuiltIn.Set_Variable    ${NODE_KARAF_COUNT_COMMAND}
     ${count} =    Run_Bash_Command_On_Member    command=${command}    member_index=${member_index}
     [Return]    ${count}
 
