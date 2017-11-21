@@ -1,0 +1,7 @@
+<neighbor xmlns="urn:opendaylight:params:xml:ns:yang:bgp:openconfig-extensions">
+    <neighbor-address>$IP</neighbor-address>
+    <config>
+        <peer-type>EXTERNAL</peer-type>
+        <peer-as>64999</peer-as>
+    </config>
+</neighbor>
