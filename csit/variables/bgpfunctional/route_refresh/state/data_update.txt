@@ -1,0 +1,32 @@
+Messages state         |
+====================== |
+Messages Received      |
+NOTIFICATION           | 1
+UPDATE                 | 2
+Messages Sent          |
+NOTIFICATION           | 0
+UPDATE                 | 4
+                       |
+AFI state              |
+====================== |
+Family                 | IPV4UNICAST
+Active                 | true
+Prefixes               |
+Installed              | 0
+Sent                   | 0
+Received               | 0
+                       |
+AFI state              |
+====================== |
+Family                 | L2VPNEVPN
+Active                 | false
+                       |
+AFI state              |
+====================== |
+Family                 | L3VPNIPV4UNICAST
+Active                 | true
+Prefixes               |
+Installed              | 0
+Sent                   | 0
+Received               | 0
+[36mopendaylight-user
