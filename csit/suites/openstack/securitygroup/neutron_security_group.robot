@@ -4,7 +4,7 @@ Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_T
 ...               AND    DevstackUtils.Devstack Suite Setup
 Suite Teardown    Neutron Security Group Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Get Test Teardown Debugs
+Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -24,12 +24,12 @@ ${SECURITY_TRUE}    --port-security-enabled true
 ${SEC_GROUP_API}    /restconf/config/neutron:neutron/security-groups/
 ${SEC_RULE_API}    /restconf/config/neutron:neutron/security-rules/
 ${ADD_ARG_SSH}    --direction ingress --ethertype IPv4 --port_range_max 22 --port_range_min 22 --protocol tcp
-@{NETWORKS}       net1
-@{SUBNET}         sub1
-@{IP_SUBNET}      20.2.1.0/24
-@{PORTS}          port01    port02
+@{NETWORKS}       sgs_net_1
+@{SUBNET}         sgs_sub_1
+@{IP_SUBNET}      61.2.1.0/24
+@{PORTS}          sgs_port_1    sgs_port_2
 ${SECURITY_GROUPS}    --security-group
-@{SGS}            SSH1    SSH2    SSH3    SSH4
+@{SGS}            sgs_sg_1    sgs_sg_2    sgs_sg_3    sgs_sg_4
 ${ADD_ARG_SSH5}    --direction ingress --ethertype IPv4 --port_range_max 20 --port_range_min 25 --protocol tcp
 @{ADD_PARAMS}     ingression    IPv4    20    25    tcp
 ${ADD_ARG_SSH6}    --direction ingress --ethertype IPv4 --port_range_max 25 --port_range_min -1 --protocol tcp
@@ -112,7 +112,7 @@ Neutron Security Group Suite Teardown
     \    Run Keyword And Ignore Error    OpenStackOperations.Delete Network    ${network}
     : FOR    ${sg}    IN    @{SGS}
     \    Run Keyword And Ignore Error    OpenStackOperations.Delete SecurityGroup    ${sg}
-    Close All Connections
+    SSHLibrary.Close All Connections
 
 Security group verification on Neutron port
     [Arguments]    ${port}    ${sg_id}
