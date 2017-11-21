@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_bef6085b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-11-21T09:20:31Z",
+      "side": 1,
+      "message": "indeed , no more need to calculate it.\nsince it is already passed as parameter.",
+      "parentUuid": "9a245df4_a84252ab",
+      "range": {
+        "startLine": 395,
+        "startChar": 44,
+        "endLine": 395,
+        "endChar": 50
+      },
+      "revId": "2bfff4105cc678252ad948e525f5646afa7eef28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_d405a214",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 17
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_1e991420",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-11-21T09:20:31Z",
+      "side": 1,
+      "message": "I removed some logs.",
+      "parentUuid": "9a245df4_d405a214",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 411,
+        "endChar": 28
+      },
+      "revId": "2bfff4105cc678252ad948e525f5646afa7eef28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_740af626",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 17
@@ -59,6 +107,30 @@
       "writtenOn": "2017-11-20T21:13:07Z",
       "side": 1,
       "message": "is this needed now for some reason? or maybe it was leftover\nfrom some local debugging?",
+      "range": {
+        "startLine": 532,
+        "startChar": 208,
+        "endLine": 532,
+        "endChar": 215
+      },
+      "revId": "2bfff4105cc678252ad948e525f5646afa7eef28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_9eb34497",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-11-21T09:20:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_740af626",
       "range": {
         "startLine": 532,
         "startChar": 208,
