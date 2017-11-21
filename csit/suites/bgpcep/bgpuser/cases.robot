@@ -55,17 +55,17 @@ ${BGP_TOOL_LOG_LEVEL}    info
 ${ODL_LOG_LEVEL}    INFO
 ${ODL_BGP_LOG_LEVEL}    DEFAULT
 ${CONFIG_SESSION}    session
-${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
+${OPERATIONAL_TOPO_URI}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/restconf/operational
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
     [Documentation]    Sanity check example-ipv4-topology is up but empty.
     [Tags]    critical
-    Wait_For_Topology_To_Change_To    ${empty_json}    010_Empty.json    timeout=120s
-    # TODO: Verify that 120 seconds is not too short if this suite is run immediatelly after ODL is started.
+    Wait_For_Topology_To_Change_To    ${empty_json}    010_Empty.json    timeout=180s
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
@@ -134,6 +134,10 @@ Check_Listening_Topology_Is_Filled
     [Tags]    critical
     Wait_For_Topology_To_Change_To    ${filled_json}    050_Filled.json
 
+Reset_Bgp_Peer_Session1
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    Run Keyword And Ignore Error    TemplatedRequests.Post_As_Xml_Templated    folder=${BGP_VARIABLES_FOLDER}${/}peer_release_session    mapping=${mapping}    session=${CONFIG_SESSION}
+
 Kill_Listening_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
     [Tags]    critical
@@ -163,14 +167,29 @@ Check_Listening_Topology_Is_Filled_Case_2
     Wait_For_Topology_To_Change_To    ${filled_json}    050_Filled.json
     [Teardown]    Report_Failure_Due_To_Bug    4409
 
-Kill_Listening_BGP_Speaker_Case_2
-    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+#Kill_Listening_BGP_Speaker_Case_2
+#    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+#    [Tags]    critical
+#    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+#    BGPSpeaker.Kill_BGP_Speaker
+#    FailFast.Do_Not_Fail_Fast_From_Now_On
+#    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
+#    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+Check_Bgp_Peer_Configuration3
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    Log    ${output}
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib
+    Log    ${output}
+
+Reset_Bgp_Peer_Session2
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    Run Keyword And Ignore Error    TemplatedRequests.Post_As_Xml_Templated    folder=${BGP_VARIABLES_FOLDER}${/}peer_release_session    mapping=${mapping}    session=${CONFIG_SESSION}
+
+Check_Bgp_Peer_Configuration4
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    Log    ${output}
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib
+    Log    ${output}
 
 Check_For_Empty_Topology_After_Listening_Case_2
     [Documentation]    Post-condition: Check example-ipv4-topology is empty again.
@@ -206,11 +225,23 @@ Check_For_Empty_Topology_After_Listening_Case_3
     [Tags]    critical
     Wait_For_Topology_To_Change_To    ${empty_json}    060_Empty.json
 
+Check_Bgp_Peer_Configuration
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    Log    ${output}
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib
+    Log    ${output}
+
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
     # TODO: Do we need to check something else?
+
+Check_Bgp_Peer_Configuration2
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    Log    ${output}
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib
+    Log    ${output}
 
 *** Keywords ***
 Setup_Everything
@@ -218,9 +249,7 @@ Setup_Everything
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
-    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
-    # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
-    # TODO: Alternatively, create variable in Variables which starts with http.
+    RequestsLibrary.Create_Session    operational    ${OPERATIONAL_TOPO_URI}/network-topology:network-topology    auth=${AUTH}
     # Both TODOs would probably need to update every suite relying on current Variables.
     OperatingSystem.Remove_Directory    ${EXPECTED_RESPONSES_FOLDER}    recursive=True
     OperatingSystem.Remove_Directory    ${ACTUAL_RESPONSES_FOLDER}    recursive=True
