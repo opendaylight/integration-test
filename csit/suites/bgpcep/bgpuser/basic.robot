@@ -7,8 +7,6 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
-...               TODO: Rename this file after Beryllium is out, for example to basic.robot
-...
 ...               Test suite performs basic BGP functional test cases:
 ...               BGP peer initiated coonection
 ...               - introduce and check 3 prefixes in one update message
@@ -64,8 +62,7 @@ ${RIB_INSTANCE}    example-bgp-rib
 Check_For_Empty_Topology_Before_Talking
     [Documentation]    Sanity check example-ipv4-topology is up but empty.
     [Tags]    critical
-    Wait_For_Topology_To_Change_To    ${empty_json}    010_Empty.json    timeout=120s
-    # TODO: Verify that 120 seconds is not too short if this suite is run immediatelly after ODL is started.
+    Wait_For_Topology_To_Change_To    ${empty_json}    010_Empty.json    timeout=180s
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
@@ -90,6 +87,17 @@ Check_Talking_Topology_Is_Filled
     [Documentation]    See new routes in example-ipv4-topology as a proof that synchronization was correct.
     [Tags]    critical
     Wait_For_Topology_To_Change_To    ${filled_json}    020_Filled.json
+
+Reset_Bgp_Peer_Session
+    [Documentation]    Reset Peer Session (Oxygen only)
+    [Tags]    Critical
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    TemplatedRequests.Post_As_Xml_Templated    folder=${BGP_VARIABLES_FOLDER}${/}peer_session/restart    mapping=${mapping}    session=${CONFIG_SESSION}
+
+Check_For_Empty_Topology_After_Resetting
+    [Documentation]    See example-ipv4-topology empty after resetting session (Oxygen only)
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    Wait_For_Topology_To_Change_To    ${empty_json}    030_Empty.json
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
