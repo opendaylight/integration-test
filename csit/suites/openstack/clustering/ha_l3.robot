@@ -30,7 +30,6 @@ ${SECURITY_GROUP}    sg-clustering
 
 *** Test Cases ***
 Create All Controller Sessions
-    [Documentation]    Create sessions for all three contorllers.
     ClusterManagement.ClusterManagement Setup
 
 Create Networks
