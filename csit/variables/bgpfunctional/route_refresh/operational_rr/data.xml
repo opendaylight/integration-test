@@ -1,0 +1,16 @@
+<state xmlns="urn:opendaylight:params:xml:ns:yang:bgp:openconfig-extensions">
+    <session-state>ESTABLISHED</session-state>
+    <supported-capabilities xmlns:x="http://openconfig.net/yang/bgp-types">x:ASN32</supported-capabilities>
+    <supported-capabilities xmlns:x="http://openconfig.net/yang/bgp-types">x:ROUTE-REFRESH</supported-capabilities>
+    <supported-capabilities xmlns:x="http://openconfig.net/yang/bgp-types">x:MPBGP</supported-capabilities>
+    <messages>
+        <sent>
+            <UPDATE>4</UPDATE>
+            <NOTIFICATION>$COUNT</NOTIFICATION>
+        </sent>
+        <received>
+            <UPDATE>4</UPDATE>
+            <NOTIFICATION>0</NOTIFICATION>
+        </received>
+    </messages>
+</state>
