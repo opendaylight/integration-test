@@ -19,11 +19,13 @@ Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
+Library           String
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
@@ -133,6 +135,13 @@ Verify_Odl_Sent_Route_Request
     [Arguments]    ${expcount}
     [Documentation]    Compares expected count of route request messages on exabgp side
     ${count}=    BgpRpcClient.exa_get_received_route_refresh_count
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    BuiltIn.Log    ${output}
+    ${output}=    Normalize_String    ${output}
+    BuiltIn.Should_Contain    ${output}    NOTIFICATION|${expcount}
+    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Should_Contain    ${output}    MessagesReceived|${\n}NOTIFICATION|${expcount}
+    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Should_Contain    ${output}    MessagesReceived|\nNOTIFICATION|${expcount}
+    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Should_Contain    ${output}    MessagesReceived|NOTIFICATION|${expcount}
     BuiltIn.Should Be Equal As Numbers    ${count}    ${expcount}
 
 Verify_Odl_Received_Route_Request
@@ -149,3 +158,9 @@ Verify_ExaBgp_Received_Updates
     [Documentation]    Gets numebr of received update requests and compares with given expected count
     ${count_recv}=    BgpRpcClient.exa_get_received_update_count
     BuiltIn.Should Be Equal As Numbers    ${count_recv}    ${expcount}
+
+Normalize_String
+    [Arguments]    ${string}
+    [Documentation]    Removes irrelevant spaces from the input string variable
+    ${string}=    String.Remove_String    ${string}    ${SPACE}
+    [Return]    ${string}
