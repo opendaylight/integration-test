@@ -1,6 +1,10 @@
-integration/test/csit/suites/openstack/connectivity/
-integration/test/csit/suites/openstack/clustering/
-integration/test/csit/suites/openstack/tempest/
+integration/test/csit/suites/openstack/connectivity/l2.robot
+integration/test/csit/suites/openstack/connectivity/l3.robot
+integration/test/csit/suites/openstack/connectivity/external_network.robot
+integration/test/csit/suites/openstack/connectivity/security_group.robot
+integration/test/csit/suites/openstack/clustering/l2.robot
+integration/test/csit/suites/openstack/clustering/l3.robot
+integration/test/csit/suites/openstack/tempest/tempest.robot
 integration/test/csit/suites/netvirt/vpnservice/basic.robot
-integration/test/csit/suites/netvirt/elan/
+integration/test/csit/suites/netvirt/elan/elan.robot
 integration/test/csit/suites/integration/Create_JVM_Plots.robot
