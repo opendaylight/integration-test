@@ -12,19 +12,21 @@ Documentation     Functional test for bgp - route refresh
 ...               Sending route refresh message from odl is initiated via restconf.
 ...               If route refresh received by odl also correct advertising of routes
 ...               is verified. Receiving of route refresh by odl is verified by
-...               checking appropriate message counter via ${JOLOKURL}. Feature
-...               odl-jolokia is required by this test suite.
+...               checking appropriate message counter via odl-bgpcep-bgp-cli
 Suite Setup       Start_Suite
 Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
-Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
+Library           String
+Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/ExaBgpLib.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/CompareStream.robot
+Library           ../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
 ${HOLDTIME}       180
@@ -38,7 +40,6 @@ ${BGP_RR_VAR_FOLDER}    ${BGP_VAR_FOLDER}/route_refresh
 ${BGP_CFG_NAME}    exa.cfg
 ${CONFIG_SESSION}    config-session
 ${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
-${JOLOKURL}       /jolokia/read/org.opendaylight.controller:instanceName=${BGP_PEER_NAME},type=RuntimeBean,moduleFactoryName=bgp-peer
 
 *** Test Cases ***
 Configure_App_Peer
@@ -59,6 +60,7 @@ Exa_To_Send_Route_Request
     BgpRpcClient.exa_clean_received_update_count
     BgpRpcClient.exa_announce    announce route-refresh ipv4 unicast
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Received_Updates    ${nr_configured_routes}
     [Teardown]    Deconfigure_Routes_And_Stop_ExaBgp
 
 Odl_To_Send_Route_Request
@@ -67,7 +69,8 @@ Odl_To_Send_Route_Request
     BgpRpcClient.exa_clean_received_route_refresh_count
     &{mapping}    BuiltIn.Create_Dictionary    BGP_PEER_IP=${TOOLS_SYSTEM_IP}
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_VAR_FOLDER}/route_refresh    mapping=${mapping}    session=${CONFIG_SESSION}
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Odl_Sent_Route_Request    1
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Route_Request    1
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Received_Route_Request    1
     [Teardown]    ExaBgpLib.Stop_ExaBgp
 
 Delete_Bgp_Peer_Configuration
@@ -129,7 +132,36 @@ Deconfigure_Routes_And_Stop_ExaBgp
     &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}    APP_RIB=${app_rib}
     TemplatedRequests.Delete_Templated    ${BGP_RR_VAR_FOLDER}/route    mapping=${mapping}    session=${CONFIG_SESSION}
 
-Verify_Odl_Sent_Route_Request
+Verify_ExaBgp_Received_Updates
+    [Arguments]    ${expcount}
+    [Documentation]    Gets number of received update requests and compares with given expected count
+    ${count_recv}=    BgpRpcClient.exa_get_received_update_count
+    BuiltIn.Should Be Equal As Numbers    ${count_recv}    ${expcount}
+
+Verify_Odl_Received_Updates
+    [Arguments]    ${expcount}
+    [Documentation]    Compares sent information with given expected count using odl-bgpcep-bgp-cli
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    ${status}    ${ret}=    Run Keyword And Ignore Error    TemplatedRequests.Get_As_Xml_Templated    folder=${BGP_RR_VAR_FOLDER}/operational_updates    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
+    Run Keyword And Ignore Error    Log    ${ret}
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Received_Updates_Cli    ${expcount}
+
+Verify_Odl_Received_Updates_Cli
+    [Arguments]    ${expcount}
+    [Documentation]    Compares sent information with given expected count using odl-bgpcep-bgp-cli
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    BuiltIn.Log    ${output}
+    ${output2}=    String.Remove String    ${output}    ${SPACE}    \r    \n
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    COUNT=${expcount}
+    ${expstate}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/state/    file_name=data_update.txt    mapping=${mapping}
+    ${expstate2}=    String.Remove String    ${expstate}    ${SPACE}    \r    \n
+    Run Keyword And Ignore Error    BuiltIn.Should_Contain    ${output2}    ${expstate2}
+    @{lines}=    String.Split To Lines    ${output}
+    @{lines}=    Evaluate    [x.rstrip() for x in @{lines}]
+    ${output3}=    Catenate    SEPARATOR=\n    @{lines}
+    BuiltIn.Should_Contain    ${output3}    ${expstate}
+
+Verify_ExaBgp_Received_Route_Request
     [Arguments]    ${expcount}
     [Documentation]    Compares expected count of route request messages on exabgp side
     ${count}=    BgpRpcClient.exa_get_received_route_refresh_count
@@ -137,15 +169,25 @@ Verify_Odl_Sent_Route_Request
 
 Verify_Odl_Received_Route_Request
     [Arguments]    ${expcount}
-    [Documentation]    Gets numebr of received route requests and compares with given expected count
-    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${JOLOKURL}
-    BuiltIn.Log    ${rsp.content}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${rsp.status_code}    200
-    BuiltIn.Should_Be_Equal_As_Numbers    ${rsp.json()['status']}    200
-    BuiltIn.Should_Be_Equal_As_Numbers    ${rsp.json()['value']['BgpSessionState']['messagesStats']['routeRefreshMsgs']['received']['count']['value']}    ${expcount}
+    [Documentation]    Compares expected count of messages on odl via restconf
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    ${status}    ${ret}=    Run Keyword And Ignore Error    TemplatedRequests.Get_As_Xml_Templated    folder=${BGP_RR_VAR_FOLDER}/operational_rr    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
+    Run Keyword And Ignore Error    Log    ${ret}
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Received_Route_Request_Cli    ${expcount}
 
-Verify_ExaBgp_Received_Updates
+Verify_Odl_Received_Route_Request_Cli
     [Arguments]    ${expcount}
-    [Documentation]    Gets numebr of received update requests and compares with given expected count
-    ${count_recv}=    BgpRpcClient.exa_get_received_update_count
-    BuiltIn.Should Be Equal As Numbers    ${count_recv}    ${expcount}
+    [Documentation]    Compares expected count of messages on odl via odl-bgpcep-bgp-cli
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    BuiltIn.Log    ${output}
+    ${output2}=    String.Remove String    ${output}    ${SPACE}    \r    \n
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    COUNT=${expcount}
+    ${expstate}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/operational_cli/    file_name=data_rr.txt    mapping=${mapping}
+    ${expstate2}=    String.Remove String    ${expstate}    ${SPACE}    \r    \n
+    Run Keyword And Ignore Error    BuiltIn.Should_Contain    ${output2}    ${expstate2}
+    @{lines}=    String.Split To Lines    ${output}
+    @{lines}=    Evaluate    [x.rstrip() for x in @{lines}]
+    ${output3}=    Catenate    SEPARATOR=\n    @{lines}
+    BuiltIn.Should_Contain    ${output3}    ${expstate}
+
+
