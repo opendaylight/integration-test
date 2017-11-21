@@ -59,6 +59,7 @@ ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
+${BGP_PEER_RELEASE_FOLDER}    ${BGP_VARIABLES_FOLDER}/peer_release_session
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -134,14 +135,13 @@ Check_Listening_Topology_Is_Filled
     [Tags]    critical
     Wait_For_Topology_To_Change_To    ${filled_json}    050_Filled.json
 
-Kill_Listening_BGP_Speaker
-    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+Disconnect_Peer
+    [Documentation]    Abort the Python speaker using peer release session. Also, attempt to stop failing fast.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=true    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Post_As_Xml_Templated    ${BGP_PEER_RELEASE_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Check_For_Empty_Topology_After_Listening
     [Documentation]    Post-condition: Check example-ipv4-topology is empty again.
@@ -163,14 +163,22 @@ Check_Listening_Topology_Is_Filled_Case_2
     Wait_For_Topology_To_Change_To    ${filled_json}    050_Filled.json
     [Teardown]    Report_Failure_Due_To_Bug    4409
 
-Kill_Listening_BGP_Speaker_Case_2
-    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+#Kill_Listening_BGP_Speaker_Case_2
+#    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+#    [Tags]    critical
+#    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+#    BGPSpeaker.Kill_BGP_Speaker
+#    FailFast.Do_Not_Fail_Fast_From_Now_On
+#    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
+#    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+
+Disconnect_Peer_2
+    [Documentation]    Abort the Python speaker using peer release session. Also, attempt to stop failing fast.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=true    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Post_As_Xml_Templated    ${BGP_PEER_RELEASE_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Check_For_Empty_Topology_After_Listening_Case_2
     [Documentation]    Post-condition: Check example-ipv4-topology is empty again.
