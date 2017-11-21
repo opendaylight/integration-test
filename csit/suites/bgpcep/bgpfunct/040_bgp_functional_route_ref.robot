@@ -19,11 +19,14 @@ Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
+Library           String
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
@@ -58,7 +61,9 @@ Exa_To_Send_Route_Request
     [Setup]    Configure_Routes_And_Start_ExaBgp    ${BGP_CFG_NAME}
     BgpRpcClient.exa_clean_received_update_count
     BgpRpcClient.exa_announce    announce route-refresh ipv4 unicast
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_ExaBgp_Received_Updates_Oxygen    ${nr_configured_routes}
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
+    #CompareStream.Run_Keyword_If_Less_Than_Oxygen
     [Teardown]    Deconfigure_Routes_And_Stop_ExaBgp
 
 Odl_To_Send_Route_Request
@@ -67,7 +72,9 @@ Odl_To_Send_Route_Request
     BgpRpcClient.exa_clean_received_route_refresh_count
     &{mapping}    BuiltIn.Create_Dictionary    BGP_PEER_IP=${TOOLS_SYSTEM_IP}
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_VAR_FOLDER}/route_refresh    mapping=${mapping}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Sent_Route_Request_Oxygen    1
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Odl_Sent_Route_Request    1
+    #Add this once functionality on oxygen confirmed CompareStream.Run_Keyword_If_Less_Than_Oxygen
     [Teardown]    ExaBgpLib.Stop_ExaBgp
 
 Delete_Bgp_Peer_Configuration
@@ -135,17 +142,42 @@ Verify_Odl_Sent_Route_Request
     ${count}=    BgpRpcClient.exa_get_received_route_refresh_count
     BuiltIn.Should Be Equal As Numbers    ${count}    ${expcount}
 
-Verify_Odl_Received_Route_Request
+Verify_Odl_Sent_Route_Request_Oxygen
     [Arguments]    ${expcount}
-    [Documentation]    Gets numebr of received route requests and compares with given expected count
-    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${JOLOKURL}
-    BuiltIn.Log    ${rsp.content}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${rsp.status_code}    200
-    BuiltIn.Should_Be_Equal_As_Numbers    ${rsp.json()['status']}    200
-    BuiltIn.Should_Be_Equal_As_Numbers    ${rsp.json()['value']['BgpSessionState']['messagesStats']['routeRefreshMsgs']['received']['count']['value']}    ${expcount}
+    [Documentation]    Compares expected count of route request messages on exabgp side using odl-bgpcep-bgp-cli
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    BuiltIn.Log    ${output}
+    ${output}=    Normalize_String    ${output}
+    BuiltIn.Should_Contain    ${output}    MessagesReceived|NOTIFICATION|${expcount}UPDATE|
+
+#Verify_Odl_Received_Route_Request
+#    [Arguments]    ${expcount}
+#    [Documentation]    Gets numebr of received route requests and compares with given expected count
+#    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${JOLOKURL}
+#    BuiltIn.Log    ${rsp.content}
+#    BuiltIn.Should_Be_Equal_As_Numbers    ${rsp.status_code}    200
+#    BuiltIn.Should_Be_Equal_As_Numbers    ${rsp.json()['status']}    200
+#    BuiltIn.Should_Be_Equal_As_Numbers    ${rsp.json()['value']['BgpSessionState']['messagesStats']['routeRefreshMsgs']['received']['count']['value']}    ${expcount}
+#    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+#    BuiltIn.Log    ${output}
 
 Verify_ExaBgp_Received_Updates
     [Arguments]    ${expcount}
     [Documentation]    Gets numebr of received update requests and compares with given expected count
     ${count_recv}=    BgpRpcClient.exa_get_received_update_count
     BuiltIn.Should Be Equal As Numbers    ${count_recv}    ${expcount}
+
+Verify_ExaBgp_Received_Updates_Oxygen
+    [Arguments]    ${expcount}
+    [Documentation]    Gets number of received update requests and compares with given expected count using odl-bgpcep-bgp-cli
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    BuiltIn.Log    ${output}
+    ${output}=    Normalize_String    ${output}
+    BuiltIn.Should_Contain    ${output}    MessagesReceived|NOTIFICATION|0UPDATE|${expcount}
+
+Normalize_String
+    [Arguments]    ${string}
+    [Documentation]    Removes irrelevant spaces from the input string variable
+    ${status}    ${ret}=    BuiltIn.Run_Keyword_And_Ignore_Error    String.Remove_String    ${string}    ${SPACE}    \r    \n
+    Log    ${ret}
+    [Return]    ${ret}
