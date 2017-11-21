@@ -2,12 +2,12 @@
 Documentation     Test suite to validate elan service functionality in ODL environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       BuiltIn.Run Keywords    Get OvsDebugInfo
+Suite Setup       BuiltIn.Run Keywords    OpenStackOperations.Get OvsDebugInfo
 ...               AND    Elan SuiteSetup
-...               AND    Get OvsDebugInfo
+...               AND    OpenStackOperations.Get OvsDebugInfo
 Suite Teardown    Elan SuiteTeardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Get Test Teardown Debugs
+Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/KarafKeywords.robot
