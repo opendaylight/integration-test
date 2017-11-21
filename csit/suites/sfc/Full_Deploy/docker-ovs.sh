@@ -64,6 +64,10 @@ delete_netns_link () {
     sudo rm -f /var/run/netns/"$PID"
 }
 
+enable_ip_forward () {
+    sudo echo 1 > /proc/sys/net/ipv4/ip_forward
+}
+
 connect_namespace_to_container () {
 
     NAMESPACE="$1"
@@ -261,6 +265,9 @@ spawn_nodes_and_guests () {
          echo >&2 "$UTIL: IP has to be a valid ip address"
          exit 1
     fi
+
+    # Make sure ip forwarding is enabled
+    enable_ip_forward
 
     # Create a host bridge as end point for all tunnels
     if ovs_vsctl br-exists br-tun; then :; else
