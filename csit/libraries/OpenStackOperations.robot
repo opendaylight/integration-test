@@ -1085,7 +1085,7 @@ Reboot Nova VM
     Should Not Be True    ${rc}
     Wait Until Keyword Succeeds    35s    10s    Verify VM Is ACTIVE    ${vm_name}
 
-Remove RSA Key From KnowHosts
+Remove RSA Key From KnownHosts
     [Arguments]    ${vm_ip}
     [Documentation]    Remove RSA
     ${devstack_conn_id}=    Get ControlNode Connection
