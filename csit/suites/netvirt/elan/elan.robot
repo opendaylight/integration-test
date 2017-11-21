@@ -2,14 +2,15 @@
 Documentation     Test suite to validate elan service functionality in ODL environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       BuiltIn.Run Keywords    Get OvsDebugInfo
+Suite Setup       BuiltIn.Run Keywords    OpenStackOperations.Get OvsDebugInfo
 ...               AND    Elan SuiteSetup
-...               AND    Get OvsDebugInfo
+...               AND    OpenStackOperations.Get OvsDebugInfo
 Suite Teardown    Elan SuiteTeardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Get Test Teardown Debugs
+Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           OperatingSystem
 Library           RequestsLibrary
+Library           String
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OVSDB.robot
@@ -21,129 +22,110 @@ Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
-${SECURITY_GROUP}    sg-elanservice
-@{NETWORKS}       ELAN1    ELAN2    ELAN3
-@{SUBNETS}        ELANSUBNET1    ELANSUBNET2    ELANSUBNET3
-@{SUBNET_CIDR}    1.1.1.0/24    2.1.1.0/24    3.1.1.0/24
-@{ELAN1_PORT_LIST}    ELANPORT11    ELANPORT12
-@{ELAN2_PORT_LIST}    ELANPORT21    ELANPORT22
-@{ELAN3_PORT_LIST}    ELANPORT31    ELANPORT32
-@{VM_INSTANCES_ELAN1}    ELANVM11    ELANVM12
-@{VM_INSTANCES_ELAN2}    ELANVM21    ELANVM22
-@{VM_INSTANCES_ELAN3}    ELANVM31    ELANVM32
+${SECURITY_GROUP}    elan_sg
+@{NETWORKS}       elan_net_1    elan_net_2    elan_net_3
+@{SUBNETS}        elan_sub_1    elan_sub_2    elan_sub_3
+@{SUBNET_CIDR}    71.1.1.0/24    72.1.1.0/24    73.1.1.0/24
+@{NET_1_PORTS}    elan_net_1_port_1    elan_net_1_port_2
+@{NET_2_PORTS}    elan_net_2_port_1    elan_net_2_port_2
+@{NET_3_PORTS}    elan_net_3_port_1    elan_net_3_port_2
+@{NET_1_VMS}      elan_net_1_vm_1    elan_net_1_vm_2
+@{NET_2_VMS}      elan_net_2_vm_1    elan_net_2_vm_2
+@{NET_3_VMS}      elan_net_3_vm_1    elan_net_3_vm_2
 ${PING_PASS}      , 0% packet loss
 
 *** Test Cases ***
 Create Single Elan
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
-    OpenStackOperations.Create Network    ${NETWORKS[0]}
-    OpenStackOperations.Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNET_CIDR[0]}
-    OpenStackOperations.Create Port    ${NETWORKS[0]}    ${ELAN1_PORT_LIST[0]}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Port    ${NETWORKS[0]}    ${ELAN1_PORT_LIST[1]}    sg=${SECURITY_GROUP}
-    Builtin.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${ELAN1_PORT_LIST}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[0]}    ${VM_INSTANCES_ELAN1[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[1]}    ${VM_INSTANCES_ELAN1[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    @{VM_IP_ELAN1}    ${DHCP_IP_ELAN1} =    Get VM IPs    @{VM_INSTANCES_ELAN1}
-    Set Suite Variable    @{VM_IP_ELAN1}
-    Should Not Contain    ${VM_IP_ELAN1}    None
-    Should Not Contain    ${DHCP_IP_ELAN1}    None
-    @{VM_MACAddr_ELAN1} =    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Get Ports MacAddr    ${ELAN1_PORT_LIST}
-    Set Suite Variable    @{VM_MACAddr_ELAN1}
+    OpenStackOperations.Create Network    @{NETWORKS}[0]
+    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    ${SUBNET_CIDR[0]}
+    OpenStackOperations.Create Port    @{NETWORKS}[0]    ${NET_1_PORTS[0]}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    @{NETWORKS}[0]    ${NET_1_PORTS[1]}    sg=${SECURITY_GROUP}
+    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${NET_1_PORTS}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[0]}    ${NET_1_VMS[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[1]}    ${NET_1_VMS[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
+    Builtin.Set Suite Variable    @{NET_1_VM_IPS}
+    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
+    @{NET_1_MACS} =    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Get Ports MacAddr    ${NET_1_PORTS}
+    Builtin.Set Suite Variable    @{NET_1_MACS}
 
 Verify Datapath for Single ELAN with Multiple DPN
     [Documentation]    Verify Flow Table and Datapath
-    ${SRCMAC_CN1} =    Create List    @{VM_MACAddr_ELAN1}[0]
-    ${SRCMAC_CN2} =    Create List    @{VM_MACAddr_ELAN1}[1]
-    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
-    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${VM_MACAddr_ELAN1}
-    Log    Verify Datapath Test
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IP_ELAN1}[0]    ping -c 3 @{VM_IP_ELAN1}[1]
-    Should Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IP_ELAN1}[1]    ping -c 3 @{VM_IP_ELAN1}[0]
-    Should Contain    ${output}    ${PING_PASS}
+    ${smac_cn1} =    BuiltIn.Create List    @{NET_1_MACS}[0]
+    ${smac_cn2} =    BuiltIn.Create List    @{NET_1_MACS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${NET_1_MACS}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${smac_cn2}    ${NET_1_MACS}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 3 @{NET_1_VM_IPS}[1]
+    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{NET_1_VM_IPS}[0]
+    BuiltIn.Should Contain    ${output}    ${PING_PASS}
 
 Verify Datapath After OVS Restart
     [Documentation]    Verify datapath after OVS restart
-    Log    Restarting OVS1 and OVS2
-    Restart OVSDB    ${OS_COMPUTE_1_IP}
-    Restart OVSDB    ${OS_COMPUTE_2_IP}
-    Log    Checking the OVS state and Flow table after restart
-    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
-    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
-    ${SRCMAC_CN1} =    Create List    @{VM_MACAddr_ELAN1}[0]
-    ${SRCMAC_CN2} =    Create List    @{VM_MACAddr_ELAN1}[1]
-    Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
-    Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${VM_MACAddr_ELAN1}
-    Log    Verify Data path test
-    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    @{VM_IP_ELAN1}[0]    ping -c 3 @{VM_IP_ELAN1}[1]
-    Should Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    ${NETWORKS[0]}    @{VM_IP_ELAN1}[1]    ping -c 3 @{VM_IP_ELAN1}[0]
-    Should Contain    ${output}    ${PING_PASS}
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_1_IP}
+    OVSDB.Restart OVSDB    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OVSDB.Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OVSDB.Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
+    ${smac_cn1} =    BuiltIn.Create List    @{NET_1_MACS}[0]
+    ${smac_cn2} =    BuiltIn.Create List    @{NET_1_MACS}[1]
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${NET_1_MACS}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${smac_cn2}    ${NET_1_MACS}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 3 @{NET_1_VM_IPS}[1]
+    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{NET_1_VM_IPS}[0]
+    BuiltIn.Should Contain    ${output}    ${PING_PASS}
 
 Verify Datapath After Recreate VM Instance
     [Documentation]    Verify datapath after recreating Vm instance
-    Delete Vm Instance    ${VM_INSTANCES_ELAN1[0]}
-    ${SRCMAC_CN1} =    Create List    @{VM_MACAddr_ELAN1}[0]
-    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}
-    Remove RSA Key From KnowHosts    @{VM_IP_ELAN1}[0]
-    Create Vm Instance With Port On Compute Node    ${ELAN1_PORT_LIST[0]}    ${VM_INSTANCES_ELAN1[0]}    ${OS_COMPUTE_1_IP}
-    @{VM_IP_ELAN1}    ${DHCP_IP_ELAN1} =    Get VM IPs    @{VM_INSTANCES_ELAN1}
-    Set Suite Variable    @{VM_IP_ELAN1}
-    Should Not Contain    ${VM_IP_ELAN1}    None
-    Should Not Contain    ${DHCP_IP_ELAN1}    None
-    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${VM_MACAddr_ELAN1}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IP_ELAN1}[0]    ping -c 3 @{VM_IP_ELAN1}[1]
-    Should Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IP_ELAN1}[1]    ping -c 3 @{VM_IP_ELAN1}[0]
-    Should Contain    ${output}    ${PING_PASS}
+    OpenStackOperations.Delete Vm Instance    ${NET_1_VMS[0]}
+    ${smac_cn1} =    BuiltIn.Create List    @{NET_1_MACS}[0]
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}
+    OpenStackOperations.Remove RSA Key From KnownHosts    @{NET_1_VM_IPS}[0]
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[0]}    ${NET_1_VMS[0]}    ${OS_COMPUTE_1_IP}
+    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
+    Builtin.Set Suite Variable    @{NET_1_VM_IPS}
+    BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${NET_1_MACS}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 3 @{NET_1_VM_IPS}[1]
+    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{NET_1_VM_IPS}[0]
+    BuiltIn.Should Contain    ${output}    ${PING_PASS}
 
-Delete All ELAN1 VM And Verify Flow Table Updated
+Delete All elan_net_1 VM And Verify Flow Table Updated
     [Documentation]    Verify Flow table after all VM instance deleted
-    Log    Delete VM instances
-    : FOR    ${VmInstance}    IN    @{VM_INSTANCES_ELAN1}
-    \    Delete Vm Instance    ${VmInstance}
-    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_1_IP}    ${VM_MACAddr_ELAN1}
-    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_2_IP}    ${VM_MACAddr_ELAN1}
+    : FOR    ${vm}    IN    @{NET_1_VMS}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_1_IP}    ${NET_1_MACS}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_2_IP}    ${NET_1_MACS}
 
 Verify Datapath for Multiple ELAN with Multiple DPN
     [Documentation]    Verify Flow Table and Data path for Multiple ELAN with Multiple DPN
-    [Setup]    Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    [Setup]    BuiltIn.Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     ...    AND    MultipleElan Testsuite Setup
-    Log    Verify flow table, fib Table and then datapath test
-    ${SRCMAC_CN1} =    Create List    @{VM_MACAddr_ELAN2}[0]    @{VM_MACAddr_ELAN3}[0]
-    ${SRCMAC_CN2} =    Create List    @{VM_MACAddr_ELAN2}[1]    @{VM_MACAddr_ELAN3}[1]
-    ${MAC_LIST} =    Create List    @{VM_MACAddr_ELAN2}    @{VM_MACAddr_ELAN3}
-    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${MAC_LIST}
-    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${SRCMAC_CN2}    ${MAC_LIST}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    @{VM_IP_ELAN2}[0]    ping -c 3 ${VM_IP_ELAN2[1]}
-    Should Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[2]    @{VM_IP_ELAN3}[1]    ping -c 3 ${VM_IP_ELAN3[0]}
-    Should Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    @{VM_IP_ELAN2}[0]    ping -c 3 ${VM_IP_ELAN3[0]}
-    Should Not Contain    ${output}    ${PING_PASS}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[2]    @{VM_IP_ELAN3}[1]    ping -c 3 ${VM_IP_ELAN2[1]}
-    Should Not Contain    ${output}    ${PING_PASS}
-    Log    Reboot VM instance and verify flow
-    Get Test Teardown Debugs
-    ${filename_prefix}    Replace String    ${TEST_NAME}    ${SPACE}    _
-    ${cn1_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_1_IP}    file_Name=${filename_prefix}_CN1
-    ${cn2_conn_id} =    Start Packet Capture on Node    ${OS_COMPUTE_2_IP}    file_Name=${filename_prefix}_CN2
-    ${os_conn_id} =    Start Packet Capture on Node    ${OS_CONTROL_NODE_IP}    file_Name=${filename_prefix}_OS
-    # Because of bug 8389 which is infrequently happening, it's requested to add these extra debugs just before and after the
-    # nova reboot step. Once 8389 is resolved, we can remove this line to get debugs before nova reboot. The debugs will be
-    # collected immediately after when that step fails, as is the nature of robot test cases.
-    Reboot Nova VM    ${VM_INSTANCES_ELAN2[0]}
-    @{VM_IP_ELAN2}    ${DHCP_IP_ELAN2} =    Get VM IPs    @{VM_INSTANCES_ELAN2}
-    Should Not Contain    ${VM_IP_ELAN2}    None
-    Should Not Contain    ${DHCP_IP_ELAN2}    None
-    Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${SRCMAC_CN1}    ${MAC_LIST}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_ELAN2[1]}    ping -c 3 @{VM_IP_ELAN2}[0]
-    Should Contain    ${output}    ${PING_PASS}
-    [Teardown]    Run Keywords    Get Test Teardown Debugs
+    ${smac_cn1} =    BuiltIn.Create List    @{VM_MACAddr_elan_net_2}[0]    @{VM_MACAddr_elan_net_3}[0]
+    ${smac_cn2} =    BuiltIn.Create List    @{VM_MACAddr_elan_net_2}[1]    @{VM_MACAddr_elan_net_3}[1]
+    ${MAC_LIST} =    BuiltIn.Create List    @{VM_MACAddr_elan_net_2}    @{VM_MACAddr_elan_net_3}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${MAC_LIST}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${smac_cn2}    ${MAC_LIST}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ping -c 3 ${NET_2_VM_IPS[1]}
+    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_3_VM_IPS}[1]    ping -c 3 ${NET_3_VM_IPS[0]}
+    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ping -c 3 ${NET_3_VM_IPS[0]}
+    BuiltIn.Should Not Contain    ${output}    ${PING_PASS}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_3_VM_IPS}[1]    ping -c 3 ${NET_2_VM_IPS[1]}
+    BuiltIn.Should Not Contain    ${output}    ${PING_PASS}
+    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
+    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${MAC_LIST}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPS[1]}    ping -c 3 @{NET_2_VM_IPS}[0]
+    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Get Test Teardown Debugs
     ...    AND    MultipleElan Testsuite Cleanup
-    ...    AND    Stop Packet Capture on Node    ${cn1_conn_id}
-    ...    AND    Stop Packet Capture on Node    ${cn2_conn_id}
-    ...    AND    Stop Packet Capture on Node    ${os_conn_id}
 
 *** Keywords ***
 Elan SuiteSetup
@@ -154,94 +136,90 @@ Elan SuiteSetup
 
 Elan SuiteTeardown
     [Documentation]    Elan suite teardown
-    Get OvsDebugInfo
+    OpenStackOperations.Get OvsDebugInfo
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.genius.mdsalutil.internal.MDSALManager
     SingleElan SuiteTeardown
-    Close All Connections
+    SSHLibrary.Close All Connections
 
 SingleElan SuiteTeardown
     [Documentation]    Delete network,subnet and port
-    Log    Delete Neutron Ports, Subnet and network
-    : FOR    ${Port}    IN    @{ELAN1_PORT_LIST}
-    \    Delete Port    ${Port}
-    Delete SubNet    ${SUBNETS[0]}
-    Delete Network    ${NETWORKS[0]}
-    Delete SecurityGroup    ${SECURITY_GROUP}
+    BuiltIn.Log    Delete Neutron Ports, Subnet and network
+    : FOR    ${Port}    IN    @{NET_1_PORTS}
+    \    OpenStackOperations.Delete Port    ${Port}
+    OpenStackOperations.Delete SubNet    @{SUBNETS}[0]
+    OpenStackOperations.Delete Network    @{NETWORKS}[0]
+    OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
 
 SingleElan SuiteSetup
     [Documentation]    Create single ELAN with Multiple DPN
 
 MultipleElan Testsuite Setup
     [Documentation]    Create additional ELAN for multipleElan with Multiple DPN test
-    OpenStackOperations.Create Network    ${NETWORKS[1]}
-    OpenStackOperations.Create Network    ${NETWORKS[2]}
-    OpenStackOperations.Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNET_CIDR[1]}
-    OpenStackOperations.Create SubNet    ${NETWORKS[2]}    ${SUBNETS[2]}    ${SUBNET_CIDR[2]}
-    OpenStackOperations.Create Port    ${NETWORKS[1]}    ${ELAN2_PORT_LIST[0]}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Port    ${NETWORKS[1]}    ${ELAN2_PORT_LIST[1]}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Port    ${NETWORKS[2]}    ${ELAN3_PORT_LIST[0]}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Port    ${NETWORKS[2]}    ${ELAN3_PORT_LIST[1]}    sg=${SECURITY_GROUP}
-    Builtin.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${ELAN3_PORT_LIST}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN2_PORT_LIST[0]}    ${VM_INSTANCES_ELAN2[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN2_PORT_LIST[1]}    ${VM_INSTANCES_ELAN2[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN3_PORT_LIST[0]}    ${VM_INSTANCES_ELAN3[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${ELAN3_PORT_LIST[1]}    ${VM_INSTANCES_ELAN3[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    @{VM_IP_ELAN2}    ${DHCP_IP_ELAN2} =    Get VM IPs    @{VM_INSTANCES_ELAN2}
-    @{VM_IP_ELAN3}    ${DHCP_IP_ELAN3} =    Get VM IPs    @{VM_INSTANCES_ELAN3}
-    Set Suite Variable    @{VM_IP_ELAN2}
-    Set Suite Variable    @{VM_IP_ELAN3}
-    Should Not Contain    ${VM_IP_ELAN2}    None
-    Should Not Contain    ${DHCP_IP_ELAN2}    None
-    Should Not Contain    ${VM_IP_ELAN3}    None
-    Should Not Contain    ${DHCP_IP_ELAN3}    None
-    @{VM_MACAddr_ELAN2}    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Get Ports MacAddr    ${ELAN2_PORT_LIST}
-    Set Suite Variable    @{VM_MACAddr_ELAN2}
-    @{VM_MACAddr_ELAN3}    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Get Ports MacAddr    ${ELAN3_PORT_LIST}
-    Set Suite Variable    @{VM_MACAddr_ELAN3}
+    OpenStackOperations.Create Network    @{NETWORKS}[1]
+    OpenStackOperations.Create Network    @{NETWORKS}[2]
+    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    ${SUBNET_CIDR[1]}
+    OpenStackOperations.Create SubNet    @{NETWORKS}[2]    @{SUBNETS}[2]    ${SUBNET_CIDR[2]}
+    OpenStackOperations.Create Port    @{NETWORKS}[1]    ${NET_2_PORTS[0]}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    @{NETWORKS}[1]    ${NET_2_PORTS[1]}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    @{NETWORKS}[2]    ${NET_3_PORTS[0]}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    @{NETWORKS}[2]    ${NET_3_PORTS[1]}    sg=${SECURITY_GROUP}
+    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${NET_3_PORTS}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_2_PORTS[0]}    ${NET_2_VMS[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_2_PORTS[1]}    ${NET_2_VMS[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_3_PORTS[0]}    ${NET_3_VMS[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_3_PORTS[1]}    ${NET_3_VMS[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
+    @{NET_3_VM_IPS}    ${NET_3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_3_VMS}
+    Builtin.Set Suite Variable    @{NET_2_VM_IPS}
+    Builtin.Set Suite Variable    @{NET_3_VM_IPS}
+    BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
+    BuiltIn.Should Not Contain    ${NET_3_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET_3_DHCP_IP}    None
+    @{VM_MACAddr_elan_net_2}    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Get Ports MacAddr    ${NET_2_PORTS}
+    Builtin.Set Suite Variable    @{VM_MACAddr_elan_net_2}
+    @{VM_MACAddr_elan_net_3}    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Get Ports MacAddr    ${NET_3_PORTS}
+    Builtin.Set Suite Variable    @{VM_MACAddr_elan_net_3}
 
 MultipleElan Testsuite Cleanup
-    [Documentation]    Delete ELAN2 network,subnet and port
-    Get Test Teardown Debugs
-    : FOR    ${VmInstance}    IN    @{VM_INSTANCES_ELAN2}    @{VM_INSTANCES_ELAN3}
-    \    Delete Vm Instance    ${VmInstance}
-    : FOR    ${Port}    IN    @{ELAN2_PORT_LIST}    @{ELAN3_PORT_LIST}
-    \    Delete Port    ${Port}
-    Delete SubNet    ${SUBNETS[1]}
-    Delete SubNet    ${SUBNETS[2]}
-    Delete Network    ${NETWORKS[1]}
-    Delete Network    ${NETWORKS[2]}
+    [Documentation]    Delete elan_net_2 network,subnet and port
+    OpenStackOperations.Get Test Teardown Debugs
+    : FOR    ${vm}    IN    @{NET_2_VMS}    @{NET_3_VMS}
+    \    OpenStackOperations.Delete Vm Instance    ${vm}
+    : FOR    ${Port}    IN    @{NET_2_PORTS}    @{NET_3_PORTS}
+    \    OpenStackOperations.Delete Port    ${Port}
+    OpenStackOperations.Delete SubNet    @{SUBNETS}[1]
+    OpenStackOperations.Delete SubNet    @{SUBNETS}[2]
+    OpenStackOperations.Delete Network    @{NETWORKS}[1]
+    OpenStackOperations.Delete Network    @{NETWORKS}[2]
 
 Verify Flows Are Present For ELAN Service
-    [Arguments]    ${ip}    ${srcMacAddrs}    ${destMacAddrs}
-    [Documentation]    Verify Flows Are Present For ELAN service
-    ${flow_output} =    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${flow_output}
-    Should Contain    ${flow_output}    table=${ELAN_SMACTABLE}
-    ${sMac_output} =    Get Lines Containing String    ${flow_output}    table=${ELAN_SMACTABLE}
-    Log    ${sMac_output}
-    : FOR    ${sMacAddr}    IN    @{srcMacAddrs}
-    \    ${resp}=    Should Contain    ${sMac_output}    ${sMacAddr}
-    Should Contain    ${flow_output}    table=${ELAN_DMACTABLE}
-    ${dMac_output} =    Get Lines Containing String    ${flow_output}    table=${ELAN_DMACTABLE}
-    Log    ${dMac_output}
-    : FOR    ${dMacAddr}    IN    @{destMacAddrs}
-    \    ${resp}=    Should Contain    ${dMac_output}    ${dMacAddr}
-    Should Contain    ${flow_output}    table=${ELAN_UNKNOWNMACTABLE}
-    ${sMac_output} =    Get Lines Containing String    ${flow_output}    table=${ELAN_UNKNOWNMACTABLE}
-    Log    ${sMac_output}
+    [Arguments]    ${ip}    @{smacs}    @{dmacs}
+    ${flow_output} =    Utils.Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    BuiltIn.Should Contain    ${flow_output}    table=${ELAN_SMACTABLE}
+    ${smac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_SMACTABLE}
+    Builtin.Log    ${smac_output}
+    : FOR    ${smac}    IN    @{smacs}
+    \    ${resp} =    BuiltIn.Should Contain    ${smac_output}    ${smac}
+    BuiltIn.Should Contain    ${flow_output}    table=${ELAN_DMACTABLE}
+    ${dmac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_DMACTABLE}
+    Builtin.Log    ${dmac_output}
+    : FOR    ${dmac}    IN    @{dmacs}
+    \    ${resp} =    BuiltIn.Should Contain    ${dmac_output}    ${dmac}
+    BuiltIn.Should Contain    ${flow_output}    table=${ELAN_UNKNOWNMACTABLE}
+    ${smac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_UNKNOWNMACTABLE}
+    Builtin.Log    ${smac_output}
 
 Verify Flows Are Removed For ELAN Service
-    [Arguments]    ${ip}    ${srcMacAddrs}
-    [Documentation]    Verify Flows Are Removed For ELAN Service
-    ${flow_output} =    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${flow_output}
-    Should Contain    ${flow_output}    table=${ELAN_SMACTABLE}
-    ${sMac_output} =    Get Lines Containing String    ${flow_output}    table=${ELAN_SMACTABLE}
-    Log    ${sMac_output}
-    : FOR    ${sMacAddr}    IN    @{srcMacAddrs}
-    \    ${resp}=    Should Not Contain    ${sMac_output}    ${sMacAddr}
-    Should Contain    ${flow_output}    table=${ELAN_DMACTABLE}
-    ${dMac_output} =    Get Lines Containing String    ${flow_output}    table=${ELAN_DMACTABLE}
-    Log    ${dMac_output}
-    : FOR    ${dMacAddr}    IN    @{srcMacAddrs}
-    \    ${resp}=    Should Not Contain    ${dMac_output}    ${dMacAddr}
+    [Arguments]    ${ip}    ${smacs}
+    ${flow_output} =    Utils.Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    BuiltIn.Should Contain    ${flow_output}    table=${ELAN_SMACTABLE}
+    ${smac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_SMACTABLE}
+    Builtin.Log    ${smac_output}
+    : FOR    ${smac}    IN    @{smacs}
+    \    ${resp} =    BuiltIn.Should Not Contain    ${smac_output}    ${smac}
+    BuiltIn.Should Contain    ${flow_output}    table=${ELAN_DMACTABLE}
+    ${dmac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_DMACTABLE}
+    Builtin.Log    ${dmac_output}
+    : FOR    ${dmac}    IN    @{smacs}
+    \    ${resp} =    BuiltIn.Should Not Contain    ${dmac_output}    ${dmac}
