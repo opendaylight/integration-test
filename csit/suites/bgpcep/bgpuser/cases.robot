@@ -206,11 +206,27 @@ Check_For_Empty_Topology_After_Listening_Case_3
     [Tags]    critical
     Wait_For_Topology_To_Change_To    ${empty_json}    060_Empty.json
 
-Delete_Bgp_Peer_Configuration
-    [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
-    # TODO: Do we need to check something else?
+#Delete_Bgp_Peer_Configuration
+#    [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
+#    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+#    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+#    # TODO: Do we need to check something else?
+
+Check_Bgp_Peer_Configuration
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    Log    ${output}
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib
+    Log    ${output}
+
+Reset_Bgp_Peer_Session
+    &{mapping}    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Post_As_Xml_Templated    ${BGP_PEER_RELEASE_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
+
+Check_Empty_Bgp_Peer_Configuration
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    Log    ${output}
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib
+    Log    ${output}
 
 *** Keywords ***
 Setup_Everything
