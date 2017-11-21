@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a245df4_a84252ab",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-21T00:09:24Z",
+      "side": 1,
+      "message": "the sandbox failed because this var ${subnet} does\nnot exist:\n\nhttps://logs.opendaylight.org/sandbox/jenkins091/netvirt-csit-1node-openstack-ocata-jamo-upstream-stateful-carbon/2/log_03_basic_ipv6_vpnservice.html.gz#s1-t7-k13-k4-k1-k3",
+      "range": {
+        "startLine": 395,
+        "startChar": 44,
+        "endLine": 395,
+        "endChar": 50
+      },
+      "revId": "2bfff4105cc678252ad948e525f5646afa7eef28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_d405a214",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 17
