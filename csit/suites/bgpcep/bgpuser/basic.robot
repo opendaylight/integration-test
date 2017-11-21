@@ -91,6 +91,16 @@ Check_Talking_Topology_Is_Filled
     [Tags]    critical
     Wait_For_Topology_To_Change_To    ${filled_json}    020_Filled.json
 
+Reset_Bgp_Peer_Session
+    [Tags]    Critical
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Post_As_Xml_Templated    folder=${BGP_VARIABLES_FOLDER}${/}peer_session/restart    mapping=${mapping}    session=${CONFIG_SESSION}
+
+Check_For_Empty_Topology_After_Resetting
+    [Documentation]    See example-ipv4-topology empty again.
+    [Tags]    critical
+    Wait_For_Topology_To_Change_To    ${empty_json}    030_Empty.json
+
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
     [Tags]    critical
