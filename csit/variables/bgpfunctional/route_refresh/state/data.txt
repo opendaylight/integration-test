@@ -1,0 +1,38 @@
+Transport state        |                 \r\n
+====================== |                 \r\n
+Remote Address         | $IP             \r\n
+Remote Port            |                 \r\n
+Local Port             | 1790            \r\n
+                       |                 \r\n
+Messages state         |                 \r\n
+====================== |                 \r\n
+Messages Received      |                 \r\n
+NOTIFICATION           | 1               \r\n
+UPDATE                 | 2               \r\n
+Messages Sent          |                 \r\n
+NOTIFICATION           | 0               \r\n
+UPDATE                 | 4               \r\n
+                       |                 \r\n
+AFI state              |                 \r\n
+====================== |                 \r\n
+Family                 | IPV4UNICAST     \r\n
+Active                 | true            \r\n
+Prefixes               |                 \r\n
+Installed              | 0               \r\n
+Sent                   | 2               \r\n
+Received               | 0               \r\n
+                       |                 \r\n
+AFI state              |                 \r\n
+====================== |                 \r\n
+Family                 | L2VPNEVPN       \r\n
+Active                 | false           \r\n
+                       |                 \r\n
+AFI state              |                 \r\n
+====================== |                 \r\n
+Family                 | L3VPNIPV4UNICAST\r\n
+Active                 | true            \r\n
+Prefixes               |                 \r\n
+Installed              | 0               \r\n
+Sent                   | 0               \r\n
+Received               | 0               \r\n
+[36mopendaylight-user
