@@ -171,7 +171,6 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     Should Contain    ${output}    64 bytes
 
 Delete Extra Route
-    [Documentation]    Delete the extra routes
     Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
     Show Router    @{ROUTERS}[0]    -D
 
