@@ -4,7 +4,7 @@ Documentation     Test suite for running tempest tests. It is assumed that the t
 Suite Setup       DevstackUtils.Log In To Tempest Executor And Setup Test Environment
 Suite Teardown    DevstackUtils.Clean Up After Running Tempest
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Run Keywords    Get Test Teardown Debugs
+Test Teardown     BuiltIn.Run Keywords    OpenStackOperations.Get Test Teardown Debugs
 Test Template     DevstackUtils.Run Tempest Tests
 Library           OperatingSystem
 Library           SSHLibrary
