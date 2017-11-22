@@ -5,8 +5,8 @@ Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_T
 Suite Teardown    BuiltIn.Run Keywords    Delete Configurations
 ...               AND    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     BuiltIn.Run Keywords    Get Test Teardown Debugs
-...               AND    Get Test Teardown Debugs For SFC
+Test Teardown     BuiltIn.Run Keywords    OpenStackOperations.Get Test Teardown Debugs
+...               AND    OpenStackOperations.Get Test Teardown Debugs For SFC
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -52,12 +52,12 @@ Create Vm Instances
     Create Vm Instance With Port    dest_vm_port    dest_vm    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
-    @{NET1_VM_IPS}    ${NET1_DHCP_IP} =    Get VM IPs    @{VM_INSTANCES}
-    Set Suite Variable    @{NET1_VM_IPS}
-    Should Not Contain    ${NET1_VM_IPS}    None
-    Should Not Contain    ${NET1_DHCP_IP}    None
-    [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES}
-    ...    AND    Get Test Teardown Debugs
+    @{NET1_VM_IPS}    ${NET1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{VM_INSTANCES}
+    BuiltIn.Set Suite Variable    @{NET1_VM_IPS}
+    BuiltIn.Should Not Contain    ${NET1_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET1_DHCP_IP}    None
+    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{VM_INSTANCES}
+    ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
 Create Flow Classifiers
     [Documentation]    Create SFC Flow Classifier for TCP traffic between source VM and destination VM
@@ -80,24 +80,24 @@ Create Port Chain
 
 Start Web Server On Destination VM
     [Documentation]    Start a simple web server on the destination VM
-    Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[4]    while true; do echo -e "HTTP/1.0 200 OK\r\nContent-Length: 21\r\n\r\nWelcome to web-server" | sudo nc -l -p 80 ; done &
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[4]    while true; do echo -e "HTTP/1.0 200 OK\r\nContent-Length: 21\r\n\r\nWelcome to web-server" | sudo nc -l -p 80 ; done &
 
 Add Static Routing On Service Function VMs
     [Documentation]    Enable eth1 and add static routing between the ports on the SF VMs
     : FOR    ${INDEX}    IN RANGE    0    2
-    \    Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo sh -c 'echo "auto eth1" >> /etc/network/interfaces'
-    \    Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo sh -c 'echo "iface eth1 inet dhcp" >> /etc/network/interfaces'
-    \    Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo /etc/init.d/S40network restart
-    \    Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo sh -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'
-    \    Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo ip route add @{NET1_VM_IPS}[3] dev eth0
-    \    Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo ip route add @{NET1_VM_IPS}[4] dev eth1
+    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo sh -c 'echo "auto eth1" >> /etc/network/interfaces'
+    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo sh -c 'echo "iface eth1 inet dhcp" >> /etc/network/interfaces'
+    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo /etc/init.d/S40network restart
+    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo sh -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'
+    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo ip route add @{NET1_VM_IPS}[3] dev eth0
+    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[${INDEX}]    sudo ip route add @{NET1_VM_IPS}[4] dev eth1
 
 Connectivity Tests From Vm Instance1 In network_1
     [Documentation]    Login to the source VM instance, and send a HTTP GET using curl to the destination VM instance
     # FIXME need to somehow verify it goes through SFs (flows?)
-    ${DEST_VM_LIST}    Create List    @{NET1_VM_IPS}[4]
+    ${DEST_VM_LIST}    BuiltIn.Create List    @{NET1_VM_IPS}[4]
     Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[3]    ${DEST_VM_LIST}
-    Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[3]    curl http://@{NET1_VM_IPS}[4]
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[3]    curl http://@{NET1_VM_IPS}[4]
 
 *** Keywords ***
 Delete Configurations
