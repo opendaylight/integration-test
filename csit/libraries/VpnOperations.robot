@@ -31,7 +31,7 @@ Basic Vpnservice Suite Teardown
     Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
     Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
-    ${VM_INSTANCES} =    Create List    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
+    ${VM_INSTANCES} =    Create List    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     : FOR    ${VmInstance}    IN    @{VM_INSTANCES}
     \    Run Keyword And Ignore Error    Delete Vm Instance    ${VmInstance}
     : FOR    ${Port}    IN    @{PORT_LIST}
