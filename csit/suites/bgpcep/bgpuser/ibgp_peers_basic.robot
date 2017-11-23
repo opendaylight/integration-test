@@ -103,6 +103,12 @@ TC1_Connect_BGP_Peer2
     Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
+Check_Cli_Output_Full_Topology
+    [Documentation]    Tests results of commands through odl-bgpcep-bgp-cli
+    ...    Expecting Total of 6 prefixes and 3 on each node
+    [Tags]    critical
+    Test_Cli    bgp_rib_value=6    ibgp_1=3    ibgp_2=3
+
 TC1_BGP_Peer1_Check_Log_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes
     [Tags]    critical
@@ -128,6 +134,12 @@ TC1_Disconnect_BGP_Peer1
     Stop_Console_Tool
     Store_File_To_Workspace    ${BGP_PEER1_LOG_FILE}    tc1_${BGP_PEER1_LOG_FILE}
 
+Check_Cli_Output_With_One_Connected
+    [Documentation]    Tests results of commands through odl-bgpcep-bgp-cli
+    ...    Expecting Total of 3 prefixes and 0 on one node, and 3 on the other
+    [Tags]    critical
+    Test_Cli    bgp_rib_value=3    ibgp_1=0    ibgp_2=3
+
 TC1_BGP_Peer2_Check_Log_For_Withdrawn_Prefixes
     [Documentation]    Check incomming updates for withdrawn routes
     [Tags]    critical
@@ -142,6 +154,12 @@ TC1_Disconnect_BGP_Peer2
     SSHLibrary.Switch Connection    bgp_peer2_console
     Stop_Console_Tool
     Store_File_To_Workspace    ${BGP_PEER2_LOG_FILE}    tc1_${BGP_PEER2_LOG_FILE}
+
+Check_Cli_Output_Empty_Topology
+    [Documentation]    Tests results of commands through odl-bgpcep-bgp-cli
+    ...    Expecting Total of 0 prefixes, and 0 on each node
+    [Tags]    critical
+    Test_Cli    bgp_rib_value=0    ibgp_1=0    ibgp_2=0
 
 TC_1_Check_for_Empty_IPv4_Topology
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix
@@ -312,3 +330,20 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
+
+Test_Cli
+    [Arguments]    ${bgp_rib_value}=0    ${ibgp_1}=0    ${ibgp_2}=0
+    [Documentation]    Verifies values of bgp-cli returns for each of neighbors and main rib
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Test_Bgp_Rib    expcount=${bgp_rib_value}    test=TotalPrefixes|
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Test_Bgp_Rib    expcount=${ibgp_1}    ip=-neighbor 127.0.0.1
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Test_Bgp_Rib    expcount=${ibgp_2}    ip=-neighbor 127.0.0.2
+
+Test_Bgp_Rib
+    [Arguments]    ${expcount}    ${test}=Installed|    ${ip}=
+    [Documentation]    Checks for expected number of prefixes on main rib or neighbors
+    ...    It uses karaf command through odl-bgpcep-bgp-cli.
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib ${ip}
+    BuiltIn.Log    ${output}
+    ${ret}=    String.Remove_String    ${output}    ${SPACE}    \r    \n
+    BuiltIn.Should_Contain    ${ret}    ${test}${expcount}
