@@ -60,6 +60,8 @@ L3vpn_Ipv4_To_Odl
     [Documentation]    Testing mpls vpn ipv4 routes reported to odl from exabgp
     [Setup]    Setup_Testcase    ${L3VPN_EXA_CFG}
     BuiltIn.Wait_Until_Keyword_Succeeds    15s    1s    Verify Reported Data    ${L3VPN_URL}    ${L3VPN_RSP}
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib
+    BuiltIn.Log    ${output}
     [Teardown]    Teardown_Simple
 
 L3vpn_Ipv4_From_Odl
@@ -69,6 +71,8 @@ L3vpn_Ipv4_From_Odl
     &{mapping}    BuiltIn.Create_Dictionary    BGP_PEER_IP=${TOOLS_SYSTEM_IP}    APP_PEER_IP=${ODL_SYSTEM_IP}
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_L3VPN_DIR}/route    mapping=${mapping}    session=${CONFIG_SESSION}
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Update    ${BGP_L3VPN_DIR}/route_expected/exa-expected.json
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib
+    BuiltIn.Log    ${output}
     [Teardown]    Teardowm_With_Remove_Route
 
 Delete_Bgp_Peer_Configuration

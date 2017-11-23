@@ -63,6 +63,8 @@ Odl Allpaths Exa SendReceived
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${ALLPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
     BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${PATH_ID_LIST_LEN}
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib
+    BuiltIn.Log    ${output}
     [Teardown]    Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
 
 Odl Npaths Exa SendReceived
@@ -71,6 +73,8 @@ Odl Npaths Exa SendReceived
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${NPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
     BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${N_PATHS_VALUE}
+    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib
+    BuiltIn.Log    ${output}
     [Teardown]    Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
 
 Delete_Bgp_Peer_Configuration
