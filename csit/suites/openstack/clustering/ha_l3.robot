@@ -52,7 +52,7 @@ Take Down ODL1
     ClusterManagement.Kill Single Member    1
 
 Create Vm Instances For net_1
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    [Documentation]    Create Vm instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${NET_1_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Bring Up ODL1
@@ -64,7 +64,7 @@ Take Down ODL2
     ClusterManagement.Kill Single Member    2
 
 Create Vm Instances For net_2
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    [Documentation]    Create Vm instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[1]    ${NET_2_VM_INSTANCES}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
@@ -230,4 +230,4 @@ Delete Networks
 
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
-    OpenStackOperations.Verify Flows Are Cleaned Up On All OpenStack Nodes
+    DataModels.Verify Flows Are Cleaned Up On All OpenStack Nodes
