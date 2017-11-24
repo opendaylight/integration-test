@@ -223,4 +223,4 @@ Delete Networks
 
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
-    OpenStackOperations.Verify Flows Are Cleaned Up On All OpenStack Nodes
+    DataModels.Verify Flows Are Cleaned Up On All OpenStack Nodes
