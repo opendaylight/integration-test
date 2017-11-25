@@ -35,6 +35,19 @@ Create All Controller Sessions
     [Documentation]    Create sessions for all three controllers
     ClusterManagement.ClusterManagement Setup
 
+Create External Network And Subnet
+    Create Network    ${external_net_name}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
+    Update Network    ${external_net_name}    --external
+    Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway} --allocation-pool ${external_subnet_allocation_pool}
+
+Create Router
+    [Documentation]    Create Router and Add Interface to the subnets.
+    OpenStackOperations.Create Router    router1
+
+Add Router Gateway To Router
+    [Documentation]    Add Router Gateway
+    OpenStackOperations.Add Router Gateway    router1    ${external_net_name}
+
 Create Private Network
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
@@ -65,23 +78,12 @@ Check Vm Instances Have Ip Address
     [Teardown]    Run Keywords    Show Debugs    @{VM_INSTANCES_FLOATING}    @{VM_INSTANCES_SNAT}
     ...    AND    Get Test Teardown Debugs
 
-Create External Network And Subnet
-    Create Network    ${external_net_name}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
-    Update Network    ${external_net_name}    --external
-    Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway} --allocation-pool ${external_subnet_allocation_pool}
-
-Create Router
-    [Documentation]    Create Router and Add Interface to the subnets.
-    OpenStackOperations.Create Router    router1
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
     : FOR    ${interface}    IN    @{SUBNETS_NAME}
     \    OpenStackOperations.Add Router Interface    router1    ${interface}
 
-Add Router Gateway To Router
-    [Documentation]    Add Router Gateway
-    OpenStackOperations.Add Router Gateway    router1    ${external_net_name}
 
 Verify Created Routers
     [Documentation]    Check created routers using northbound rest calls
