@@ -26,22 +26,11 @@ Basic Vpnservice Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     DevstackUtils.Devstack Suite Setup
 
-Basic Vpnservice Suite Teardown
-    # Delete three L3VPNs created using Multiple L3VPN Test
-    Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
-    Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[1]}
-    Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${VPN_INSTANCE_ID[2]}
-    ${VM_INSTANCES} =    Create List    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    : FOR    ${VmInstance}    IN    @{VM_INSTANCES}
-    \    Run Keyword And Ignore Error    Delete Vm Instance    ${VmInstance}
-    : FOR    ${Port}    IN    @{PORT_LIST}
-    \    Run Keyword And Ignore Error    Delete Port    ${Port}
-    : FOR    ${Subnet}    IN    @{SUBNETS}
-    \    Run Keyword And Ignore Error    Delete SubNet    ${Subnet}
-    : FOR    ${Network}    IN    @{NETWORKS}
-    \    Run Keyword And Ignore Error    Delete Network    ${Network}
-    Run Keyword And Ignore Error    Delete SecurityGroup    ${SECURITY_GROUP}
-    Close All Connections
+Basic Vpnservice Suite Cleanup
+    [Arguments]    ${vpn_instance_ids}=@{EMPTY}    ${vms}=@{EMPTY}    ${networks}=@{EMPTY}    ${subnets}=@{EMPTY}    ${ports}=@{EMPTY}    ${sgs}=@{EMPTY}
+    : FOR    ${vpn_instance_id}    IN    @{vpn_instance_ids}
+    \    BuiltIn.Run Keyword And Ignore Error    VPN Delete L3VPN    vpnid=${vpn_instance_id}
+    OpenStackOperations.Neutron Cleanup    ${vms}    ${networks}    ${subnets}    ${ports}    ${sgs}
 
 VPN Create L3VPN
     [Arguments]    &{Kwargs}
