@@ -120,3 +120,4 @@ Delete Configurations
     Delete SubNet    l2_subnet_1
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
+    Delete SecurityGroup    ${SECURITY_GROUP}
