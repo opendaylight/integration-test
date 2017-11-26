@@ -229,6 +229,10 @@ Delete Networks
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    OpenStackOperations.Delete Network    ${NetworkElement}
 
+Delete Security Group
+    [Documentation]    Delete security groups with neutron request
+    Delete SecurityGroup    ${SECURITY_GROUP}
+
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
     Verify Flows Are Cleaned Up On All OpenStack Nodes
