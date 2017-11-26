@@ -1,7 +1,7 @@
 integration/test/csit/suites/openstack/connectivity/l2.robot
 integration/test/csit/suites/openstack/connectivity/l3.robot
 integration/test/csit/suites/openstack/connectivity/external_network.robot
-integration/test/csit/suites/openstack/connectivity/neutron_security_group.robot
+integration/test/csit/suites/openstack/connectivity/security_group.robot
 integration/test/csit/suites/openstack/clustering/ha_l2.robot
 integration/test/csit/suites/openstack/clustering/ha_l3.robot
 integration/test/csit/suites/openstack/tempest/tempest.robot
