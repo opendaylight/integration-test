@@ -25,14 +25,13 @@ Resource          ../../../variables/netvirt/Variables.robot
 ${SECURITY_GROUP}    elan_sg
 @{NETWORKS}       elan_net_1    elan_net_2    elan_net_3
 @{SUBNETS}        elan_sub_1    elan_sub_2    elan_sub_3
-@{SUBNET_CIDR}    71.1.1.0/24    72.1.1.0/24    73.1.1.0/24
+@{SUBNET_CIDR}    81.1.1.0/24    82.1.1.0/24    83.1.1.0/24
 @{NET_1_PORTS}    elan_net_1_port_1    elan_net_1_port_2
 @{NET_2_PORTS}    elan_net_2_port_1    elan_net_2_port_2
 @{NET_3_PORTS}    elan_net_3_port_1    elan_net_3_port_2
 @{NET_1_VMS}      elan_net_1_vm_1    elan_net_1_vm_2
 @{NET_2_VMS}      elan_net_2_vm_1    elan_net_2_vm_2
 @{NET_3_VMS}      elan_net_3_vm_1    elan_net_3_vm_2
-${PING_PASS}      , 0% packet loss
 
 *** Test Cases ***
 Create Single Elan
@@ -58,9 +57,9 @@ Verify Datapath for Single ELAN with Multiple DPN
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${NET_1_MACS}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${smac_cn2}    ${NET_1_MACS}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 3 @{NET_1_VM_IPS}[1]
-    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{NET_1_VM_IPS}[0]
-    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
 
 Verify Datapath After OVS Restart
     [Documentation]    Verify datapath after OVS restart
@@ -73,9 +72,9 @@ Verify Datapath After OVS Restart
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${NET_1_MACS}
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${smac_cn2}    ${NET_1_MACS}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 3 @{NET_1_VM_IPS}[1]
-    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{NET_1_VM_IPS}[0]
-    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
 
 Verify Datapath After Recreate VM Instance
     [Documentation]    Verify datapath after recreating Vm instance
@@ -90,9 +89,9 @@ Verify Datapath After Recreate VM Instance
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${NET_1_MACS}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 3 @{NET_1_VM_IPS}[1]
-    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{NET_1_VM_IPS}[0]
-    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
 
 Delete All elan_net_1 VM And Verify Flow Table Updated
     [Documentation]    Verify Flow table after all VM instance deleted
@@ -111,19 +110,19 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${MAC_LIST}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_2_IP}    ${smac_cn2}    ${MAC_LIST}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ping -c 3 ${NET_2_VM_IPS[1]}
-    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_3_VM_IPS}[1]    ping -c 3 ${NET_3_VM_IPS[0]}
-    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ping -c 3 ${NET_3_VM_IPS[0]}
-    BuiltIn.Should Not Contain    ${output}    ${PING_PASS}
+    BuiltIn.Should Not Contain    ${output}    ${PING_REGEXP}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[2]    @{NET_3_VM_IPS}[1]    ping -c 3 ${NET_2_VM_IPS[1]}
-    BuiltIn.Should Not Contain    ${output}    ${PING_PASS}
+    BuiltIn.Should Not Contain    ${output}    ${PING_REGEXP}
     @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     BuiltIn.Should Not Contain    ${NET_2_VM_IPS}    None
     BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${MAC_LIST}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPS[1]}    ping -c 3 @{NET_2_VM_IPS}[0]
-    BuiltIn.Should Contain    ${output}    ${PING_PASS}
+    BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Get Test Teardown Debugs
     ...    AND    MultipleElan Testsuite Cleanup
 
