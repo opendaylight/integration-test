@@ -46,6 +46,10 @@ Create Subnets For l3_net_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    l3_net_2    l3_sub_net_2    @{SUBNETS_RANGE}[1]
 
+Add Ssh Allow Rule
+    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
+
 Take Down ODL1
     [Documentation]    Kill the karaf in First Controller
     ClusterManagement.Kill Single Member    1
