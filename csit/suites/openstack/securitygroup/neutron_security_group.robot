@@ -2,7 +2,7 @@
 Documentation     Test Suite for Neutron Security Group
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-Suite Teardown    Neutron Security Group Suite Teardown
+Suite Teardown    SSHLibrary.Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -25,11 +25,12 @@ ${SEC_GROUP_API}    /restconf/config/neutron:neutron/security-groups/
 ${SEC_RULE_API}    /restconf/config/neutron:neutron/security-rules/
 ${ADD_ARG_SSH}    --direction ingress --ethertype IPv4 --port_range_max 22 --port_range_min 22 --protocol tcp
 @{NETWORKS}       sgs_net_1
-@{SUBNET}         sgs_sub_1
-@{IP_SUBNET}      61.2.1.0/24
+@{SUBNETS}        sgs_sub_1
+@{IP_SUBNETS}     61.2.1.0/24
 @{PORTS}          sgs_port_1    sgs_port_2
 ${SECURITY_GROUPS}    --security-group
 @{SGS}            sgs_sg_1    sgs_sg_2    sgs_sg_3    sgs_sg_4
+${SG_UPDATED}     SSH_UPDATED
 ${ADD_ARG_SSH5}    --direction ingress --ethertype IPv4 --port_range_max 20 --port_range_min 25 --protocol tcp
 @{ADD_PARAMS}     ingression    IPv4    20    25    tcp
 ${ADD_ARG_SSH6}    --direction ingress --ethertype IPv4 --port_range_max 25 --port_range_min -1 --protocol tcp
@@ -44,7 +45,7 @@ TC01_Update Security Group description and Name
     ${sg_id} =    BuiltIn.Run Keyword    Create Security Group and Validate    ${SGS[0]}
     Create Security Rule and Validate    ${SGS[0]}    direction=${ADD_PARAMS[0]}    ethertype=${ADD_PARAMS[1]}    port_range_max=${ADD_PARAMS[3]}    port_range_min=${ADD_PARAMS[2]}    protocol=${ADD_PARAMS[4]}
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
-    Neutron Setup Creation    ${NETWORKS[0]}    ${SUBNET[0]}    ${IP_SUBNET[0]}    ${PORTS[0]}    ${PORTS[1]}    ${SECURITY_GROUPS}
+    Neutron Setup Creation    ${NETWORKS[0]}    ${SUBNETS[0]}    ${IP_SUBNETS[0]}    ${PORTS[0]}    ${PORTS[1]}    ${SECURITY_GROUPS}
     ...    ${sg_id}
     Security group verification on Neutron port    ${PORTS[0]}    ${sg_id}
     Security group verification on Neutron port    ${PORTS[1]}    ${sg_id}
@@ -71,6 +72,11 @@ TC04_Create Security Rule with port_range_max = -1
     Create Security Group and Validate    ${SGS[3]}
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     Neutron Rule Creation With Invalid Parameters    ${SGS[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
+
+Cleanup
+    @{vms} =    BuiltIn.Create List
+    @{sgs} = BuiltIn.Create List    ${SG_UPDATED}    @{SGS}
+    OpenStackOperations.Neutron Cleanup    ${vms}    ${NETWORKS}    ${SUBNETS}    ${PORTS}    ${sgs}
 
 *** Keywords ***
 Get Flows
@@ -102,17 +108,6 @@ Neutron Setup Creation
     ${add_args} =    BuiltIn.Set Variable    ${sg_groups} ${sg_id}
     ${port_id}    OpenStackOperations.Create Neutron Port With Additional Params    ${network}    ${port1}    ${add_args}
     ${port_id}    OpenStackOperations.Create Neutron Port With Additional Params    ${network}    ${port2}    ${add_args}
-
-Neutron Security Group Suite Teardown
-    : FOR    ${port}    IN    @{PORTS}
-    \    Run Keyword And Ignore Error    OpenStackOperations.Delete Port    ${port}
-    : FOR    ${subnet}    IN    @{SUBNETS}
-    \    Run Keyword And Ignore Error    OpenStackOperations.Delete SubNet    ${subnet}
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    Run Keyword And Ignore Error    OpenStackOperations.Delete Network    ${network}
-    : FOR    ${sg}    IN    @{SGS}
-    \    Run Keyword And Ignore Error    OpenStackOperations.Delete SecurityGroup    ${sg}
-    SSHLibrary.Close All Connections
 
 Security group verification on Neutron port
     [Arguments]    ${port}    ${sg_id}

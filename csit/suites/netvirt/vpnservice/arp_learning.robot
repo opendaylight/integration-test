@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite for ARP Request. More test cases to be added in subsequent patches.
 Suite Setup       Start Suite
-Suite Teardown    End Suite
+Suite Teardown    SSHLibrary.Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           RequestsLibrary
@@ -14,21 +14,35 @@ Resource          ../../../variables/netvirt/Variables.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${SECURITY_GROUP}    arp_sg
-@{VPN_INSTANCE_IDS}    4ae8cd92-48ca-49b5-94e1-b2921a261111    4ae8cd92-48ca-49b5-94e1-b2921a261112
-@{VPN_NAMES}      vpn1    vpn2
+${SECURITY_GROUP}    vpna_sg
+@{NETWORKS}       vpna_net_1    vpna_net_2    vpna_net_3
+@{SUBNETS}        vpna_sub_1    vpna_sub_2    vpna_sub_3
+@{SUBNET_CIDR}    10.10.10.0/24    10.20.20.0/24    10.30.30.0/24
+@{PORTS}          vpna_net_1_port_1    vpna_net_1_port_2    vpna_net_2_port_1    vpna_net_2_port_2    vpna_net_3_port_1    vpna_net_3_port_2
+@{NET_1_VM_INSTANCES}    vpna_net_1_vm_1    vpna_net_1_vm_2
+@{NET_2_VM_INSTANCES}    vpna_net_2_vm_1    vpna_net_2_vm_2
+@{NET_3_VM_INSTANCES}    vpna_net_3_vm_1    vpna_net_3_vm_2
+${ROUTERS}        vpna_router
+@{VPN_INSTANCE_IDS}    4ae8cd92-48ca-49b5-94e1-b2921a261111
+@{VPN_NAMES}      vpna_1
 ${RD1}            ["2200:2"]
 ${RD2}            ["2200:3"]
 ${EXPORT_RT}      ["2200:2","2200:3"]
 ${IMPORT_RT}      ["2200:2","2200:3"]
 ${SUB_IF}         eth0:1
+@{EXTRA_NW_IP}    192.168.10.110    192.168.20.110
+${FIB_ENTRY_2}    192.168.10.110
+${FIB_ENTRY_4}    192.168.20.110
+${RPING_MIP_IP}    sudo arping -I eth0:1 -c 5 -b -s 192.168.10.110 192.168.10.110
+${RPING_MIP_IP_2}    sudo arping -I eth0:1 -c 5 -b -s 192.168.20.110 192.168.20.110
+${RPING_EXP_STR}    broadcast
 
 *** Test Cases ***
 TC00 Verify Setup
     [Documentation]    Verify that VMs received ip and ping is happening between different VM
-    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{VM_INSTANCES_NET1}
-    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{VM_INSTANCES_NET2}
-    @{NET_3_VM_IPS}    ${NET_3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{VM_INSTANCES_NET3}
+    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VM_INSTANCES}
+    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VM_INSTANCES}
+    @{NET_3_VM_IPS}    ${NET_3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_3_VM_INSTANCES}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
     BuiltIn.Set Suite Variable    @{NET_3_VM_IPS}
@@ -116,17 +130,24 @@ TC06 Same DPN MIP Migration
     [Tags]    not-implemented    exclude
     TODO
 
+Cleanup
+    [Documentation]    Delete the setup
+    VpnOperations.Dissociate L3VPN From Networks    networkid=${net_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
+    VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
+    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    OpenStackOperations.Remove Interface    ${ROUTERS}    @{SUBNETS}[1]
+    OpenStackOperations.Remove Interface    ${ROUTERS}    @{SUBNETS}[2]
+    OpenStackOperations.Delete Router    ${ROUTERS}
+    @{vms} =    BuiltIn.Create List    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}    @{NET_3_VM_INSTANCES}
+    @{sgs} =    BuiltIn.Create List    ${SECURITY_GROUP}
+    OpenStackOperations.Neutron Cleanup    ${vms}    ${NETWORKS}    ${SUBNETS}    ${PORTS}    ${sgs}
+
 *** Keywords ***
 Start Suite
     [Documentation]    Run at start of the suite
     DevstackUtils.Devstack Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     Create Setup
-
-End Suite
-    [Documentation]    Run at end of the suite
-    Delete Setup
-    SSHLibrary.Close All Connections
 
 Create Setup
     [Documentation]    Create networks, subnets, ports and VMs
@@ -141,18 +162,18 @@ Create Setup
     : FOR    ${subnet}    IN    @{SUBNETS}
     \    BuiltIn.Should Contain    ${neutron_subnets}    ${subnet}
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
-    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORT_LIST}[0]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORT_LIST}[1]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORT_LIST}[2]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORT_LIST}[3]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORT_LIST}[4]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORT_LIST}[5]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[0]    @{VM_INSTANCES_NET1}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[1]    @{VM_INSTANCES_NET1}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[2]    @{VM_INSTANCES_NET2}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[3]    @{VM_INSTANCES_NET2}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[4]    @{VM_INSTANCES_NET3}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORT_LIST}[5]    @{VM_INSTANCES_NET3}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[2]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    OpenStackOperations.Create Port    @{NETWORKS}[2]    @{PORTS}[4]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    OpenStackOperations.Create Port    @{NETWORKS}[2]    @{PORTS}[5]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VM_INSTANCES}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VM_INSTANCES}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VM_INSTANCES}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VM_INSTANCES}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[4]    @{NET_3_VM_INSTANCES}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[5]    @{NET_3_VM_INSTANCES}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Router    ${ROUTERS}
     OpenStackOperations.Add Router Interface    ${ROUTERS}    @{SUBNETS}[1]
     OpenStackOperations.Add Router Interface    ${ROUTERS}    @{SUBNETS}[2]
@@ -230,22 +251,3 @@ Verify Learnt IP
 
 TODO
     Fail    "Not implemented"
-
-Delete Setup
-    [Documentation]    Delete the setup
-    VpnOperations.Dissociate L3VPN From Networks    networkid=${net_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    OpenStackOperations.Remove Interface    ${ROUTERS}    @{SUBNETS}[1]
-    OpenStackOperations.Remove Interface    ${ROUTERS}    @{SUBNETS}[2]
-    OpenStackOperations.Delete Router    ${ROUTERS}
-    ${vms} =    BuiltIn.Create List    @{VM_INSTANCES_NET1}    @{VM_INSTANCES_NET2}    @{VM_INSTANCES_NET3}
-    : FOR    ${vm}    IN    @{vms}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
-    : FOR    ${port}    IN    @{PORT_LIST}
-    \    OpenStackOperations.Delete Port    ${port}
-    : FOR    ${subnet}    IN    @{SUBNETS}
-    \    OpenStackOperations.Delete SubNet    ${subnet}
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    OpenStackOperations.Delete Network    ${network}
-    OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
