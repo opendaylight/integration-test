@@ -25,7 +25,7 @@ Resource          ../../../variables/netvirt/Variables.robot
 ${SECURITY_GROUP}    elan_sg
 @{NETWORKS}       elan_net_1    elan_net_2    elan_net_3
 @{SUBNETS}        elan_sub_1    elan_sub_2    elan_sub_3
-@{SUBNET_CIDR}    81.1.1.0/24    82.1.1.0/24    83.1.1.0/24
+@{SUBNET_CIDRS}    81.1.1.0/24    82.1.1.0/24    83.1.1.0/24
 @{NET_1_PORTS}    elan_net_1_port_1    elan_net_1_port_2
 @{NET_2_PORTS}    elan_net_2_port_1    elan_net_2_port_2
 @{NET_3_PORTS}    elan_net_3_port_1    elan_net_3_port_2
@@ -37,7 +37,7 @@ ${SECURITY_GROUP}    elan_sg
 Create Single Elan
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
     OpenStackOperations.Create Network    @{NETWORKS}[0]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    ${SUBNET_CIDR[0]}
+    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    ${SUBNET_CIDRS[0]}
     OpenStackOperations.Create Port    @{NETWORKS}[0]    ${NET_1_PORTS[0]}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Port    @{NETWORKS}[0]    ${NET_1_PORTS[1]}    sg=${SECURITY_GROUP}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${NET_1_PORTS}
@@ -156,8 +156,8 @@ MultipleElan Testsuite Setup
     [Documentation]    Create additional ELAN for multipleElan with Multiple DPN test
     OpenStackOperations.Create Network    @{NETWORKS}[1]
     OpenStackOperations.Create Network    @{NETWORKS}[2]
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    ${SUBNET_CIDR[1]}
-    OpenStackOperations.Create SubNet    @{NETWORKS}[2]    @{SUBNETS}[2]    ${SUBNET_CIDR[2]}
+    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    ${SUBNET_CIDRS[1]}
+    OpenStackOperations.Create SubNet    @{NETWORKS}[2]    @{SUBNETS}[2]    ${SUBNET_CIDRS[2]}
     OpenStackOperations.Create Port    @{NETWORKS}[1]    ${NET_2_PORTS[0]}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Port    @{NETWORKS}[1]    ${NET_2_PORTS[1]}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Port    @{NETWORKS}[2]    ${NET_3_PORTS[0]}    sg=${SECURITY_GROUP}
