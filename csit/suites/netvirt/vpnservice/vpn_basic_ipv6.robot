@@ -24,10 +24,10 @@ Resource          ../../../variables/netvirt/Variables.robot
 ${SECURITY_GROUP}    vpn6_sg
 @{NETWORKS}       vpn6_net_1    vpn6_net_2
 @{SUBNETS}        vpn6_sub_1    vpn6_sub_2
-@{SUBNETS_CIDR}    2001:db8:0:2::/64    2001:db8:0:3::/64
+@{SUBNET_CIDRS}    2001:db8:0:2::/64    2001:db8:0:3::/64
 @{PORTS}          vpn6_net_1_port_1    vpn6_net_1_port_2    vpn6_net_2_port_1    vpn6_net_2_port_2
-@{NET_1_VM_INSTANCES}    vpn6_net_1_vm_1    vpn6_net_1_vm_2
-@{NET_2_VM_INSTANCES}    vpn6_net_2_vm_1    vpn6_net_2_vm_2
+@{NET_1_VMS}      vpn6_net_1_vm_1    vpn6_net_1_vm_2
+@{NET_2_VMS}      vpn6_net_2_vm_1    vpn6_net_2_vm_2
 ${ROUTER}         vpn6_router
 @{EXTRA_NW_IP}    2001:db9:cafe:d::10    2001:db9:abcd:d::20
 @{EXTRA_NW_SUBNET}    2001:db9:cafe:d::/64    2001:db9:abcd:d::/64
@@ -35,7 +35,7 @@ ${UPDATE_NETWORK}    UpdateNetworkV6
 ${UPDATE_SUBNET}    UpdateSubnetV6
 ${UPDATE_PORT}    UpdatePortV6
 @{VPN_INSTANCE_IDS}    4ae8cd92-48ca-49b5-94e1-b2921a261661    4ae8cd92-48ca-49b5-94e1-b2921a261662    4ae8cd92-48ca-49b5-94e1-b2921a261663
-@{VPN_NAME}       vpn6_1    vpn6_2    vpn6_3
+@{VPN_NAMES}      vpn6_1    vpn6_2    vpn6_3
 @{RDS}            ["2206:2"]    ["2306:2"]    ["2406:2"]
 
 *** Test Cases ***
@@ -50,8 +50,8 @@ Create Neutron Networks
 Create Neutron Subnets
     ${net1_additional_args}=    BuiltIn.Catenate    --ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mode=slaac ${NET1_IPV6_ADDR_POOL}
     ${net2_additional_args}=    BuiltIn.Catenate    --ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mode=slaac ${NET2_IPV6_ADDR_POOL}
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNETS_CIDR}[0]    ${net1_additional_args}
-    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNETS_CIDR}[1]    ${net2_additional_args}
+    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]    ${net1_additional_args}
+    OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]    ${net2_additional_args}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
     OpenStackOperations.Update SubNet    @{SUBNETS}[0]    additional_args=--description ${UPDATE_SUBNET}
     ${output} =    OpenStackOperations.Show SubNet    @{SUBNETS}[0]
@@ -89,25 +89,25 @@ Create Neutron Ports
     Update Port    ${UPDATE_PORT}    additional_args=--name @{PORTS}[0]
 
 Create Nova VMs
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VM_INSTANCES}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VM_INSTANCES}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VM_INSTANCES}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VM_INSTANCES}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    ${vms}=    BuiltIn.Create List    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VMS}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VMS}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VMS}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    ${vms}=    BuiltIn.Create List    @{NET_1_VMS}    @{NET_2_VMS}
     : FOR    ${vm}    IN    @{vms}
     \    OpenStackOperations.Poll VM Is ACTIVE    ${vm}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNETS_CIDR}
-    ${prefix_net10} =    Replace String    @{SUBNETS_CIDR}[0]    ::/64    (:[a-f0-9]{,4}){,4}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNET_CIDRS}
+    ${prefix_net10} =    Replace String    @{SUBNET_CIDRS}[0]    ::/64    (:[a-f0-9]{,4}){,4}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
-    ...    true    ${prefix_net10}    @{NET_1_VM_INSTANCES}
-    ${prefix_net20} =    Replace String    @{SUBNETS_CIDR}[1]    ::/64    (:[a-f0-9]{,4}){,4}
+    ...    true    ${prefix_net10}    @{NET_1_VMS}
+    ${prefix_net20} =    Replace String    @{SUBNET_CIDRS}[1]    ::/64    (:[a-f0-9]{,4}){,4}
     ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    3x    60s    OpenStackOperations.Collect VM IPv6 SLAAC Addresses
-    ...    true    ${prefix_net20}    @{NET_2_VM_INSTANCES}
-    ${VM_IP_NET10} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${prefix_net10}    @{NET_1_VM_INSTANCES}
-    ${VM_IP_NET20} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${prefix_net20}    @{NET_2_VM_INSTANCES}
-    ${VM_INSTANCES} =    Collections.Combine Lists    ${NET_1_VM_INSTANCES}    ${NET_2_VM_INSTANCES}
+    ...    true    ${prefix_net20}    @{NET_2_VMS}
+    ${VM_IP_NET10} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${prefix_net10}    @{NET_1_VMS}
+    ${VM_IP_NET20} =    OpenStackOperations.Collect VM IPv6 SLAAC Addresses    false    ${prefix_net20}    @{NET_2_VMS}
+    ${VM_INSTANCES} =    Collections.Combine Lists    ${NET_1_VMS}    ${NET_2_VMS}
     ${VM_IPS}=    Collections.Combine Lists    ${VM_IP_NET10}    ${VM_IP_NET20}
-    ${LOOP_COUNT}    BuiltIn.Get Length    ${NET_1_VM_INSTANCES}
+    ${LOOP_COUNT}    BuiltIn.Get Length    ${NET_1_VMS}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
     \    ${status}    ${message}    Run Keyword And Ignore Error    BuiltIn.Should Not Contain    @{VM_IPS}[${index}]    None
     \    Run Keyword If    '${status}' == 'FAIL'    DevstackUtils.Write Commands Until Prompt    openstack console log show @{VM_INSTANCES}[${index}]    30s
@@ -115,7 +115,7 @@ Create Nova VMs
     BuiltIn.Set Suite Variable    ${VM_IP_NET20}
     BuiltIn.Should Not Contain    ${VM_IP_NET10}    None
     BuiltIn.Should Not Contain    ${VM_IP_NET20}    None
-    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
+    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
 Check ELAN Datapath Traffic Within The Networks
@@ -185,7 +185,7 @@ Delete And Recreate Extra Route
 Create L3VPN
     ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAME}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
+    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
     ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_IDS}[0]
 
@@ -270,9 +270,9 @@ Delete L3VPN
 Create Multiple L3VPN
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAME}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[1]    name=@{VPN_NAME}[1]    rd=@{RDS}[1]    exportrt=@{RDS}[1]    importrt=@{RDS}[1]    tenantid=${tenant_id}
-    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]    name=@{VPN_NAME}[2]    rd=@{RDS}[2]    exportrt=@{RDS}[2]    importrt=@{RDS}[2]    tenantid=${tenant_id}
+    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
+    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[1]    name=@{VPN_NAMES}[1]    rd=@{RDS}[1]    exportrt=@{RDS}[1]    importrt=@{RDS}[1]    tenantid=${tenant_id}
+    VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]    name=@{VPN_NAMES}[2]    rd=@{RDS}[2]    exportrt=@{RDS}[2]    importrt=@{RDS}[2]    tenantid=${tenant_id}
     ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_IDS}[0]
     ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[1]
@@ -286,6 +286,6 @@ Delete Multiple L3VPN
     VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]
 
 Cleanup
-    @{vms} =    BuiltIn.Create List    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
+    @{vms} =    BuiltIn.Create List    @{NET_1_VMS}    @{NET_2_VMS}
     @{sgs} =    BuiltIn.Create List    ${SECURITY_GROUP}
     Basic Vpnservice Suite Cleanup    ${VPN_INSTANCE_IDS}    ${vms}    ${NETWORKS}    ${SUBNETS}    ${PORTS}    ${sgs}

@@ -17,11 +17,11 @@ Resource          ../../../variables/Variables.robot
 ${SECURITY_GROUP}    vpna_sg
 @{NETWORKS}       vpna_net_1    vpna_net_2    vpna_net_3
 @{SUBNETS}        vpna_sub_1    vpna_sub_2    vpna_sub_3
-@{SUBNET_CIDR}    10.10.10.0/24    10.20.20.0/24    10.30.30.0/24
+@{SUBNET_CIDRS}    10.10.10.0/24    10.20.20.0/24    10.30.30.0/24
 @{PORTS}          vpna_net_1_port_1    vpna_net_1_port_2    vpna_net_2_port_1    vpna_net_2_port_2    vpna_net_3_port_1    vpna_net_3_port_2
-@{NET_1_VM_INSTANCES}    vpna_net_1_vm_1    vpna_net_1_vm_2
-@{NET_2_VM_INSTANCES}    vpna_net_2_vm_1    vpna_net_2_vm_2
-@{NET_3_VM_INSTANCES}    vpna_net_3_vm_1    vpna_net_3_vm_2
+@{NET_1_VMS}      vpna_net_1_vm_1    vpna_net_1_vm_2
+@{NET_2_VMS}      vpna_net_2_vm_1    vpna_net_2_vm_2
+@{NET_3_VMS}      vpna_net_3_vm_1    vpna_net_3_vm_2
 ${ROUTERS}        vpna_router
 @{VPN_INSTANCE_IDS}    4ae8cd92-48ca-49b5-94e1-b2921a261111
 @{VPN_NAMES}      vpna_1
@@ -40,9 +40,9 @@ ${RPING_EXP_STR}    broadcast
 *** Test Cases ***
 TC00 Verify Setup
     [Documentation]    Verify that VMs received ip and ping is happening between different VM
-    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VM_INSTANCES}
-    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VM_INSTANCES}
-    @{NET_3_VM_IPS}    ${NET_3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_3_VM_INSTANCES}
+    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
+    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
+    @{NET_3_VM_IPS}    ${NET_3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_3_VMS}
     BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
     BuiltIn.Set Suite Variable    @{NET_3_VM_IPS}
@@ -138,7 +138,7 @@ Cleanup
     OpenStackOperations.Remove Interface    ${ROUTERS}    @{SUBNETS}[1]
     OpenStackOperations.Remove Interface    ${ROUTERS}    @{SUBNETS}[2]
     OpenStackOperations.Delete Router    ${ROUTERS}
-    @{vms} =    BuiltIn.Create List    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}    @{NET_3_VM_INSTANCES}
+    @{vms} =    BuiltIn.Create List    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
     @{sgs} =    BuiltIn.Create List    ${SECURITY_GROUP}
     OpenStackOperations.Neutron Cleanup    ${vms}    ${NETWORKS}    ${SUBNETS}    ${PORTS}    ${sgs}
 
@@ -157,7 +157,7 @@ Create Setup
     : FOR    ${network}    IN    @{NETWORKS}
     \    BuiltIn.Should Contain    ${neutron_networks}    ${network}
     : FOR    ${i}    IN RANGE    0    3
-    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${i}]    @{SUBNETS}[${i}]    @{SUBNET_CIDR}[${i}]
+    \    OpenStackOperations.Create SubNet    @{NETWORKS}[${i}]    @{SUBNETS}[${i}]    @{SUBNET_CIDRS}[${i}]
     ${neutron_subnets} =    OpenStackOperations.List Subnets
     : FOR    ${subnet}    IN    @{SUBNETS}
     \    BuiltIn.Should Contain    ${neutron_subnets}    ${subnet}
@@ -168,12 +168,12 @@ Create Setup
     OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
     OpenStackOperations.Create Port    @{NETWORKS}[2]    @{PORTS}[4]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
     OpenStackOperations.Create Port    @{NETWORKS}[2]    @{PORTS}[5]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VM_INSTANCES}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VM_INSTANCES}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VM_INSTANCES}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VM_INSTANCES}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[4]    @{NET_3_VM_INSTANCES}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[5]    @{NET_3_VM_INSTANCES}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VMS}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VMS}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VMS}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[4]    @{NET_3_VMS}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[5]    @{NET_3_VMS}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Router    ${ROUTERS}
     OpenStackOperations.Add Router Interface    ${ROUTERS}    @{SUBNETS}[1]
     OpenStackOperations.Add Router Interface    ${ROUTERS}    @{SUBNETS}[2]

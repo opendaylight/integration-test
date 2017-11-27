@@ -16,12 +16,12 @@ Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    l3_ext_sg
-@{NETWORKS_NAME}    l3_ext_net
-@{SUBNETS_NAME}    l3_ext_sub
-${ROUTER_NAME}    l3_ext_router
-@{FIP_VM_INSTANCES}    fip_vm_1    fip_vm_2
-@{SNAT_VM_INSTANCES}    snat_vm_1    snat_vm_2
-@{SUBNETS_RANGE}    41.0.0.0/24
+@{NETWORKS}       l3_ext_net
+@{SUBNETS}        l3_ext_sub
+${ROUTER}         l3_ext_router
+@{FIP_VMS}        fip_vm_1    fip_vm_2
+@{SNAT_VMS}       snat_vm_1    snat_vm_2
+@{SUBNET_CIDRS}    41.0.0.0/24
 # Parameter values below are based on releng/builder - changing them requires updates in releng/builder as well
 ${EXTERNAL_GATEWAY}    10.10.10.250
 ${EXTERNAL_PNF}    10.10.10.253
@@ -38,12 +38,12 @@ Create All Controller Sessions
 
 Create Private Network
     [Documentation]    Create Network with neutron request.
-    : FOR    ${network}    IN    @{NETWORKS_NAME}
+    : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Create Network    ${network}
 
 Create Subnet For Private Network
     [Documentation]    Create Sub Net for the Network with neutron request.
-    OpenStackOperations.Create SubNet    @{NETWORKS_NAME}[0]    @{SUBNETS_NAME}[0]    @{SUBNETS_RANGE}[0]
+    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -51,19 +51,19 @@ Add Ssh Allow Rule
 
 Create Vm Instances
     [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${FIP_VM_INSTANCES}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${SNAT_VM_INSTANCES}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instances    @{NETWORKS}[0]    ${FIP_VMS}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instances    @{NETWORKS}[0]    ${SNAT_VMS}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
-    @{FIP_VM_IPS}    ${FLOATING_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{FIP_VM_INSTANCES}
-    @{SNAT_VM_IPS}    ${SNAT_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{SNAT_VM_INSTANCES}
+    @{FIP_VM_IPS}    ${FLOATING_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{FIP_VMS}
+    @{SNAT_VM_IPS}    ${SNAT_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{SNAT_VMS}
     BuiltIn.Set Suite Variable    @{FIP_VM_IPS}
     BuiltIn.Set Suite Variable    @{SNAT_VM_IPS}
     BuiltIn.Should Not Contain    ${FIP_VM_IPS}    None
     BuiltIn.Should Not Contain    ${SNAT_VM_IPS}    None
     BuiltIn.Should Not Contain    ${FLOATING_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${SNAT_DHCP_IP}    None
-    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{FIP_VM_INSTANCES}    @{SNAT_VM_INSTANCES}
+    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{FIP_VMS}    @{SNAT_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
 Create External Network And Subnet
@@ -73,28 +73,28 @@ Create External Network And Subnet
 
 Create Router
     [Documentation]    Create Router and Add Interface to the subnets.
-    OpenStackOperations.Create Router    ${ROUTER_NAME}
+    OpenStackOperations.Create Router    ${ROUTER}
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
-    : FOR    ${interface}    IN    @{SUBNETS_NAME}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER_NAME}    ${interface}
+    : FOR    ${interface}    IN    @{SUBNETS}
+    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
 
 Add Router Gateway To Router
     [Documentation]    OpenStackOperations.Add Router Gateway
-    OpenStackOperations.Add Router Gateway    ${ROUTER_NAME}    ${EXTERNAL_NET_NAME}
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    ${EXTERNAL_NET_NAME}
 
 Verify Created Router
     [Documentation]    Check created routers using northbound rest calls
     ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
     BuiltIn.Log    ${data}
-    Should Contain    ${data}    ${ROUTER_NAME}
+    Should Contain    ${data}    ${ROUTER}
 
 Create And Associate Floating IPs for VMs
     [Documentation]    Create and associate a floating IP for the VM
-    ${VM_FLOATING_IPS} =    OpenStackOperations.Create And Associate Floating IPs    ${EXTERNAL_NET_NAME}    @{FIP_VM_INSTANCES}
+    ${VM_FLOATING_IPS} =    OpenStackOperations.Create And Associate Floating IPs    ${EXTERNAL_NET_NAME}    @{FIP_VMS}
     BuiltIn.Set Suite Variable    ${VM_FLOATING_IPS}
-    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{FIP_VM_INSTANCES}
+    [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{FIP_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
 Ping External Gateway From Control Node
@@ -112,58 +112,58 @@ Ping Vm Instance2 Floating IP From Control Node
 Ping Vm Instance2 Floating IP From Vm Instance1 With Floating IP (Hairpinning)
     [Documentation]    Check reachability of VM instance floating IP from another VM instance with FIP (with ttl=1 to make sure no router hops)
     ${dst_ip}=    BuiltIn.Create List    @{VM_FLOATING_IPS}[1]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
 
 Ping External Network PNF from Vm Instance 1
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
     ${dst_ip}=    BuiltIn.Create List    ${EXTERNAL_PNF}
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
 
 SNAT - TCP connection to External Gateway From SNAT VM Instance1
     [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
-    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}
 
 SNAT - UDP connection to External Gateway From SNAT VM Instance1
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
-    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}    -u
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}    -u
 
 SNAT - TCP connection to External Gateway From SNAT VM Instance2
     [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
-    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${EXTERNAL_GATEWAY}
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{SNAT_VM_IPS}[1]    ${EXTERNAL_GATEWAY}
 
 SNAT - UDP connection to External Gateway From SNAT VM Instance2
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
-    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS_NAME}[0]    @{SNAT_VM_IPS}[1]    ${EXTERNAL_GATEWAY}    -u
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{SNAT_VM_IPS}[1]    ${EXTERNAL_GATEWAY}    -u
 
 Delete Vm Instances
     [Documentation]    Delete Vm instances using instance names.
-    : FOR    ${vm}    IN    @{FIP_VM_INSTANCES}
+    : FOR    ${vm}    IN    @{FIP_VMS}
     \    OpenStackOperations.Delete Vm Instance    ${vm}
-    : FOR    ${vm}    IN    @{SNAT_VM_INSTANCES}
+    : FOR    ${vm}    IN    @{SNAT_VMS}
     \    OpenStackOperations.Delete Vm Instance    ${vm}
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
-    : FOR    ${interface}    IN    @{SUBNETS_NAME}
-    \    OpenStackOperations.Remove Interface    ${ROUTER_NAME}    ${interface}
+    : FOR    ${interface}    IN    @{SUBNETS}
+    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${interface}
 
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
-    OpenStackOperations.Delete Router    ${ROUTER_NAME}
+    OpenStackOperations.Delete Router    ${ROUTER}
 
 Verify Deleted Router
     [Documentation]    Check deleted router using northbound rest call
     ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
     BuiltIn.Log    ${data}
-    BuiltIn.Should Not Contain    ${data}    ${ROUTER_NAME}
+    BuiltIn.Should Not Contain    ${data}    ${ROUTER}
 
 Delete Sub Network
     [Documentation]    Delete Sub Net for the Network with neutron request.
-    OpenStackOperations.Delete SubNet    @{SUBNETS_NAME}[0]
+    OpenStackOperations.Delete SubNet    @{SUBNETS}[0]
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.
-    : FOR    ${network}    IN    @{NETWORKS_NAME}
+    : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Delete Network    ${network}
     OpenStackOperations.Delete Network    ${EXTERNAL_NET_NAME}
 
