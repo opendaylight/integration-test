@@ -6,7 +6,6 @@ Suite Setup       BuiltIn.Run Keywords    OpenStackOperations.Get OvsDebugInfo
 ...               AND    VpnOperations.Basic Vpnservice Suite Setup
 ...               AND    OpenStackOperations.Get OvsDebugInfo
 Suite Teardown    SSHLibrary.Close All Connections
-...               AND    OpenStackOperations.Get OvsDebugInfo
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           OperatingSystem

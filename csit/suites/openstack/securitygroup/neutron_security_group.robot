@@ -75,7 +75,7 @@ TC04_Create Security Rule with port_range_max = -1
 
 Cleanup
     @{vms} =    BuiltIn.Create List
-    @{sgs} = BuiltIn.Create List    ${SG_UPDATED}    @{SGS}
+    @{sgs} =    BuiltIn.Create List    ${SG_UPDATED}    @{SGS}
     OpenStackOperations.Neutron Cleanup    ${vms}    ${NETWORKS}    ${SUBNETS}    ${PORTS}    ${sgs}
 
 *** Keywords ***
