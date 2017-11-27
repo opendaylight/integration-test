@@ -132,8 +132,8 @@ Check L3_Datapath Traffic Across Networks With Router
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET20}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}    ipv6
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}    ipv6
     ${dst_ip_list} =    BuiltIn.Create List    @{VM_IP_NET10}[1]    @{VM_IP_NET20}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{VM_IP_NET10}[0]    ${dst_ip_list}
     ${dst_ip_list} =    BuiltIn.Create List    @{VM_IP_NET20}[1]    @{VM_IP_NET10}
@@ -202,8 +202,8 @@ Verify L3VPN Datapath With Router Association
     BuiltIn.Wait Until Keyword Succeeds    60s    15s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
     BuiltIn.Wait Until Keyword Succeeds    60s    15s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}    ipv6
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}    ipv6
     BuiltIn.Log    Check datapath from network1 to network2
     ${dst_ip_list} =    BuiltIn.Create List    @{VM_IP_NET10}[1]    @{VM_IP_NET20}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{VM_IP_NET10}[0]    ${dst_ip_list}
