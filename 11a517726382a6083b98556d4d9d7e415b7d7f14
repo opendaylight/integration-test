@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_23e2bdd5",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-28T21:32:16Z",
+      "side": 1,
+      "message": "what about using multiport so only need to add a single line: -A INPUT -p tcp -m multiport --dports 6640,6653 -j DROP",
+      "revId": "11a517726382a6083b98556d4d9d7e415b7d7f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_e3c0a52c",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-11-28T21:32:16Z",
+      "side": 1,
+      "message": "this line is same as above line",
+      "revId": "11a517726382a6083b98556d4d9d7e415b7d7f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
