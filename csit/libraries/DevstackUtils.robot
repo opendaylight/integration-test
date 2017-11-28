@@ -18,7 +18,7 @@ ${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to ov
 ${blacklist_file}    /tmp/blacklist.txt
 @{stable/newton_exclusion_regexes}    ${EMPTY}
 @{stable/ocata_exclusion_regexes}    ${EMPTY}
-@{stable/pike_exclusion_regexes}    ${EMPTY}
+@{stable/pike_exclusion_regexes}    test_security_groups.SecGroupTest.test_create_security_group_rule_with_additional_args
 @{master_exclusion_regexes}    ${EMPTY}
 ${tempest_dir}    /opt/stack/tempest
 ${tempest_config_file}    ${tempest_dir}/etc/tempest.conf
