@@ -488,3 +488,14 @@ Json Parse From File
     ${json_plain_string}    OperatingSystem.Get file    ${json_file}
     ${json_data}    Json Parse From String    ${json_plain_string}
     [Return]    ${json_data}
+
+Modify Iptables On Remote System
+    [Arguments]    ${remote_system_ip}    ${iptables_rule}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
+    [Documentation]    Wrapper keyword to run iptables with any given ${iptables_rule} string on the remote system given
+    ...    by ${remote_system_ip}. The iptables listing will be output before and after the command is run
+    ${list_iptables_command} =    BuiltIn.Set Variable    sudo /sbin/iptables -L -n
+    ${output} =    Utils.Run Command On Controller    ${remote_system_ip}    cmd=${list_iptables_command}    ${user}    ${password}    prompt=${prompt}
+    BuiltIn.Log    ${output}
+    Utils.Run Command On Remote System        ${remote_system_ip}    cmd=sudo /sbin/iptables ${iptables_rule}    ${user}    ${password}    prompt=${prompt}
+    ${output} =    Utils.Run Command On Controller    ${remote_system_ip}    cmd=${list_iptables_command}    ${user}    ${password}    prompt=${prompt}
+    BuiltIn.Log    ${output}
