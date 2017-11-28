@@ -260,6 +260,9 @@ Configure 1 OVSDB Node Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     Open Controller Karaf Console On Background
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Modify Iptables On Remote System    ${ODL_SYSTEM_IP}    -A INPUT -p tcp --destination-port 6640 -j DROP
+    Modify Iptables On Remote System    ${ODL_SYSTEM_IP}    -A INPUT -p tcp --destination-port 6653 -j DROP
+    Modify Iptables On Remote System    ${ODL_SYSTEM_IP}    -A INPUT -p tcp --destination-port 6633 -j DROP
 
 Configure 1 OVSDB Node Suite Teardown
     [Documentation]    Cleans up test environment, close existing sessions.
