@@ -127,7 +127,7 @@ Get Operational Topology after Deletion of Bridge
 Trunk And Vlan Tag Is Removed From Operational
     [Documentation]    Verify that when the vlan tag is added and removed from an ovs port, it should be accurately reflected
     ...    in the operational store. Also verify that when all trunks are cleared from ovs, it's accurate in operational.
-    [Tags]    bug 8529
+    [Tags]    bug 8529    bug
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br vlan-tag-br
