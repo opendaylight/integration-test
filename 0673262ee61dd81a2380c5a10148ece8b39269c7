@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_2063d6b2",
+        "filename": "csit/suites/netvirt/vpnservice/basic_dualstack_one_router.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-11-28T09:33:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_1aa60dc2",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 22
+      },
+      "revId": "0673262ee61dd81a2380c5a10148ece8b39269c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_7aabc189",
         "filename": "csit/suites/netvirt/vpnservice/basic_dualstack_one_router.robot",
         "patchSetId": 20
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-28T00:11:44Z",
       "side": 1,
       "message": "don\u0027t think this is needed. probably the info is going to\nshow up in the logs from earlier keywords. you can double\ncheck in the sandbox trials",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 27
+      },
+      "revId": "0673262ee61dd81a2380c5a10148ece8b39269c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_405ed2ea",
+        "filename": "csit/suites/netvirt/vpnservice/basic_dualstack_one_router.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-11-28T09:33:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_7aabc189",
       "range": {
         "startLine": 93,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_006cda9b",
+        "filename": "csit/suites/netvirt/vpnservice/basic_dualstack_one_router.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-11-28T09:33:15Z",
+      "side": 1,
+      "message": "the change you show me is not yet applied to basic ipv4 and ipv6 vpnservice. So I will wait for Sam\u0027s proposal to make the change.\nOn top of that, this does not prevent me to run the sandbox",
+      "parentUuid": "7a1969be_9a915d55",
+      "range": {
+        "startLine": 148,
+        "startChar": 107,
+        "endLine": 148,
+        "endChar": 130
+      },
+      "revId": "0673262ee61dd81a2380c5a10148ece8b39269c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_5ab085f4",
         "filename": "csit/suites/netvirt/vpnservice/basic_dualstack_one_router.robot",
         "patchSetId": 20
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_953daebe",
+        "filename": "csit/suites/netvirt/vpnservice/basic_dualstack_one_router.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-11-28T09:33:15Z",
+      "side": 1,
+      "message": "I will remove it.",
+      "parentUuid": "7a1969be_5ab085f4",
+      "range": {
+        "startLine": 303,
+        "startChar": 4,
+        "endLine": 303,
+        "endChar": 14
+      },
+      "revId": "0673262ee61dd81a2380c5a10148ece8b39269c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_ba941945",
         "filename": "csit/suites/netvirt/vpnservice/basic_dualstack_one_router.robot",
         "patchSetId": 20
@@ -105,6 +201,30 @@
       "writtenOn": "2017-11-28T00:11:44Z",
       "side": 1,
       "message": "isn\u0027t this already defined and available in the VPNOperations.robot lib file?",
+      "range": {
+        "startLine": 472,
+        "startChar": 0,
+        "endLine": 477,
+        "endChar": 28
+      },
+      "revId": "0673262ee61dd81a2380c5a10148ece8b39269c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_40d37238",
+        "filename": "csit/suites/netvirt/vpnservice/basic_dualstack_one_router.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2017-11-28T09:33:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_ba941945",
       "range": {
         "startLine": 472,
         "startChar": 0,
