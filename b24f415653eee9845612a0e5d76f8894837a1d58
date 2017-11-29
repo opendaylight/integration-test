@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_92a5b906",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T22:27:48Z",
+      "side": 1,
+      "message": "this is happening in the tempest.api.network bucket.\n\nactually, now that I think more on this, I don\u0027t think we\ncan even do this \"exclusion\" stuff any more. The new\ntempest execution is not even using a blacklist like it\nused to.",
+      "range": {
+        "startLine": 21,
+        "startChar": 36,
+        "endLine": 21,
+        "endChar": 122
+      },
+      "revId": "b24f415653eee9845612a0e5d76f8894837a1d58",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
