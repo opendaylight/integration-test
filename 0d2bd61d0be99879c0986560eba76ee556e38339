@@ -1,0 +1,487 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_b2ab95d5",
+        "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "don\u0027t need this. your \"Issue Command on Dpn\" is already\nlogging things\n\nplease check elsewhere for this kind of thing.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 20
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_12b9c92e",
+        "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "don\u0027t add extra verbosity with Logs like this, unless it\u0027s\nreally needed.\n\nrobot is already verbose enough, most of the time. But, we\nare also constantly dealing with very large output.xml\nfiles, so not adding to that is helpful",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 68
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_52822153",
+        "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "this is not really helpful. it\u0027s nearly exactly the same\nas the keyword name. Add a few details about what\u0027s\ngoing on, like that it\u0027s checking for export and import RT\nstrings or whatever.",
+      "range": {
+        "startLine": 47,
+        "startChar": 23,
+        "endLine": 47,
+        "endChar": 47
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_3287a563",
+        "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "this is not accurate",
+      "range": {
+        "startLine": 61,
+        "startChar": 23,
+        "endLine": 61,
+        "endChar": 55
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_d2957189",
+        "filename": "csit/libraries/EVPN_In_Intra_DC_Deployments.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "Put this in Utils.robot. there is a similar keyword\nthere called Check Nodes Stats that you can put it near.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 31
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_b292759d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "probably not needed.",
+      "range": {
+        "startLine": 1121,
+        "startChar": 0,
+        "endLine": 1121,
+        "endChar": 20
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_92f3f909",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "we have a new pattern for this which is more clear. it would\nbe good to use that here and wherever else you are checking\nreturn codes:\n\nShould Be True    \u0027${rc}\u0027 \u003d\u003d \u00270\u0027",
+      "range": {
+        "startLine": 1122,
+        "startChar": 4,
+        "endLine": 1122,
+        "endChar": 31
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_b2d9d585",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "this seems a little specific and not just generically checking flows. it\u0027s looking just for something specific in\ntable 50, 36 and 17. maybe a more specific name is better",
+      "range": {
+        "startLine": 1130,
+        "startChar": 0,
+        "endLine": 1132,
+        "endChar": 53
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_72f8fde5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "this is duplicated",
+      "range": {
+        "startLine": 1140,
+        "startChar": 4,
+        "endLine": 1140,
+        "endChar": 18
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_52d06153",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 26
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "whitespace to cleanup",
+      "range": {
+        "startLine": 56,
+        "startChar": 52,
+        "endLine": 56,
+        "endChar": 54
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_f2ba2d09",
+        "filename": "csit/suites/netvirt/intra_dc/__init__.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "not needed, I\u0027m guessing\n\napplies elsewhere I\u0027m sure.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 22
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_323cc593",
+        "filename": "csit/suites/netvirt/intra_dc/__init__.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "do we need all of this?\n\nagain, applies in other places that I haven\u0027t explicitly\ncalled out.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 43
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_5237c1b0",
+        "filename": "csit/suites/netvirt/intra_dc/__init__.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "we have a new/better way to do this now. check here\nfor an example:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/suites/openstack/connectivity/l2.robot#L63",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 80
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_b21c3515",
+        "filename": "csit/suites/netvirt/intra_dc/evpn.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "unnecessary",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 52
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_d21f3108",
+        "filename": "csit/suites/netvirt/intra_dc/evpn.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "isn\u0027t this available as a variable in the netvirt\nvariables file?",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_121a6917",
+        "filename": "csit/suites/netvirt/intra_dc/evpn.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "it\u0027s everywhere, just pointing out another example.",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 22
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_f216adf0",
+        "filename": "csit/suites/netvirt/intra_dc/evpn.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "why not get rid of \"create setup\" altogether. it\u0027s just\ntwo lines of code and they can go here.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 16
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_52d34138",
+        "filename": "csit/suites/netvirt/intra_dc/evpn.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "same basic comment as I made about about create setup",
+      "range": {
+        "startLine": 107,
+        "startChar": 3,
+        "endLine": 107,
+        "endChar": 16
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_32d84553",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "don\u0027t want these commented out",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 67
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_12bee9ff",
+        "filename": "csit/variables/Intra-DC_Deployments_TestPlan_Var/EVPN_In_Intra_DC_Deployments_vars.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "just an example, but some of these are already coming\nfrom the netvirt variables file. no need to duplicate\nthese. it\u0027ll be a maintenance headache down the road.\n\ncheck all of them please. I see some neutron:neutron apis\nbelow that probably come from other places as well.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 27
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_722bdd30",
+        "filename": "csit/variables/Intra-DC_Deployments_TestPlan_Var/EVPN_In_Intra_DC_Deployments_vars.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:46:13Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 62,
+        "startChar": 31,
+        "endLine": 62,
+        "endChar": 39
+      },
+      "revId": "0d2bd61d0be99879c0986560eba76ee556e38339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
