@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_b2e39504",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-11-29T23:48:59Z",
+      "side": 1,
+      "message": "sandbox failed. I think we need it like ${vm_ipv6}[0]",
+      "range": {
+        "startLine": 396,
+        "startChar": 42,
+        "endLine": 396,
+        "endChar": 55
+      },
+      "revId": "91fca356895ddd17785043a4701ab5b14ee66859",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
