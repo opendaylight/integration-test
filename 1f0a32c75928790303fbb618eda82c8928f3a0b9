@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_29c8d373",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_9338693e",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_f340c5a6",
         "filename": "csit/libraries/MultiPathKeywords.robot",
         "patchSetId": 49
@@ -30,6 +48,30 @@
       "writtenOn": "2017-11-17T14:45:05Z",
       "side": 1,
       "message": "remove this part",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 35
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_09c5175b",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_f340c5a6",
       "range": {
         "startLine": 2,
         "startChar": 18,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_69a12ba9",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_d33dc12c",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_7314d59f",
         "filename": "csit/libraries/MultiPathKeywords.robot",
         "patchSetId": 49
@@ -70,6 +130,24 @@
       "writtenOn": "2017-11-17T14:45:05Z",
       "side": 1,
       "message": "we use these in a lot of places so maybe we should move them to Variables. Maybe the netvirt Variables",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_49a6efc2",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_7314d59f",
       "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -135,6 +213,78 @@
       "side": 1,
       "message": "21 is just the default value. this API does allow for\nany table num to be passed in.\n\nI agree that it can probably be useful in general so moving\nit to a common lib makes sense.",
       "parentUuid": "9a245df4_d324a10e",
+      "range": {
+        "startLine": 43,
+        "startChar": 62,
+        "endLine": 43,
+        "endChar": 64
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_c9913f54",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Have modified and moved the keyword to OpenStackOperations.robot and other keywords which can be in OpenStackOperations.",
+      "parentUuid": "9a245df4_d324a10e",
+      "range": {
+        "startLine": 43,
+        "startChar": 62,
+        "endLine": 43,
+        "endChar": 64
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_89b0e7f5",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_b0cf7555",
+      "range": {
+        "startLine": 43,
+        "startChar": 62,
+        "endLine": 43,
+        "endChar": 64
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_099cf768",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_9f8d0bd6",
       "range": {
         "startLine": 43,
         "startChar": 62,
@@ -218,6 +368,78 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_a98203fe",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Putting these many lines of code will make the suite more lengthy. Hence have gone for keyword.\nLet me know if this approach is fine.",
+      "parentUuid": "9a245df4_70385d3d",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 28
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_0973574e",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Have moved few keywords to common library file.",
+      "parentUuid": "9a245df4_d352e165",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 28
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_698f6b24",
+        "filename": "csit/libraries/MultiPathKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_ffbfe75e",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 28
+      },
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_d04029a7",
         "filename": "csit/suites/netvirt/MultiPath/Multi_Path_Suite1.robot",
         "patchSetId": 49
@@ -229,6 +451,24 @@
       "writtenOn": "2017-11-14T11:55:48Z",
       "side": 1,
       "message": "Documentation     Test suite for MultiPath, ECMP forwarding of intra-DC traffic",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_e9a23b99",
+        "filename": "csit/suites/netvirt/MultiPath/Multi_Path_Suite1.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Have modified the file name accordingly.",
+      "parentUuid": "9a245df4_d04029a7",
       "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -252,6 +492,24 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_c99f7f4f",
+        "filename": "csit/suites/netvirt/MultiPath/Multi_Path_Suite1.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_f043adac",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_3019c5d7",
         "filename": "csit/suites/netvirt/MultiPath/Multi_Path_Suite1.robot",
         "patchSetId": 49
@@ -263,6 +521,24 @@
       "writtenOn": "2017-11-14T11:55:48Z",
       "side": 1,
       "message": "Remove this api and do the validation adn verfication here itself",
+      "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_29ad7389",
+        "filename": "csit/suites/netvirt/MultiPath/Multi_Path_Suite1.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2017-12-01T17:57:26Z",
+      "side": 1,
+      "message": "In further Test cases, we need to do this keyword validation multiple times.\nif the entire code is put here, suite might become more clumsy.\nHence, retaining the keyword approach.",
+      "parentUuid": "9a245df4_3019c5d7",
       "revId": "1f0a32c75928790303fbb618eda82c8928f3a0b9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
