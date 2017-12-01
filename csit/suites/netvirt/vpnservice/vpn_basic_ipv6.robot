@@ -82,11 +82,11 @@ Create Neutron Ports
     Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
     Create Port    @{NETWORKS}[1]    @{PORTS}[2]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
     Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
-    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${PORT_URL}    ${PORTS}
-    Update Port    @{PORTS}[0]    additional_args=--name ${UPDATE_PORT}
+    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${PORT_URL}    ${PORTS}
+    OpenStackOperations.Update Port    @{PORTS}[0]    additional_args=--name ${UPDATE_PORT}
     ${output} =    Show Port    ${UPDATE_PORT}
-    Should Contain    ${output}    ${UPDATE_PORT}
-    Update Port    ${UPDATE_PORT}    additional_args=--name @{PORTS}[0]
+    BuiltIn.Should Contain    ${output}    ${UPDATE_PORT}
+    OpenStackOperations.Update Port    ${UPDATE_PORT}    additional_args=--name @{PORTS}[0]
 
 Create Nova VMs
     OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
