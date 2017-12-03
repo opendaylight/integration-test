@@ -137,20 +137,7 @@ Elan SuiteTeardown
     [Documentation]    Elan suite teardown
     OpenStackOperations.Get OvsDebugInfo
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.genius.mdsalutil.internal.MDSALManager
-    SingleElan SuiteTeardown
-    SSHLibrary.Close All Connections
-
-SingleElan SuiteTeardown
-    [Documentation]    Delete network,subnet and port
-    BuiltIn.Log    Delete Neutron Ports, Subnet and network
-    : FOR    ${Port}    IN    @{NET_1_PORTS}
-    \    OpenStackOperations.Delete Port    ${Port}
-    OpenStackOperations.Delete SubNet    @{SUBNETS}[0]
-    OpenStackOperations.Delete Network    @{NETWORKS}[0]
-    OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
-
-SingleElan SuiteSetup
-    [Documentation]    Create single ELAN with Multiple DPN
+    OpenStackOperations.OpenStack Suite Teardown
 
 MultipleElan Testsuite Setup
     [Documentation]    Create additional ELAN for multipleElan with Multiple DPN test
