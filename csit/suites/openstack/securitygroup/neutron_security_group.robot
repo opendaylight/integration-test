@@ -2,7 +2,7 @@
 Documentation     Test Suite for Neutron Security Group
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-Suite Teardown    SSHLibrary.Close All Connections
+Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -72,11 +72,6 @@ TC04_Create Security Rule with port_range_max = -1
     Create Security Group and Validate    ${SGS[3]}
     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     Neutron Rule Creation With Invalid Parameters    ${SGS[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
-
-Cleanup
-    @{vms} =    BuiltIn.Create List
-    @{sgs} =    BuiltIn.Create List    ${SG_UPDATED}    @{SGS}
-    OpenStackOperations.Neutron Cleanup    ${vms}    ${NETWORKS}    ${SUBNETS}    ${PORTS}    ${sgs}
 
 *** Keywords ***
 Get Flows
