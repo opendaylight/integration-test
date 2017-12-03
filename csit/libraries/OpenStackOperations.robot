@@ -163,6 +163,13 @@ Create And Associate Floating IPs
     \    Should Be True    '${rc}' == '0'
     [Return]    ${ip_list}
 
+Delete Floating IP
+    [Arguments]    ${fip}
+    [Documentation]    Delete floating ip with neutron request.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack floating ip delete ${fip}
+    Log    ${output}
+    Should Be True    '${rc}' == '0'
+
 Verify Gateway Ips
     [Documentation]    Verifies the Gateway Ips with dump flow.
     ${output}=    Write Commands Until Prompt And Log    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
@@ -600,6 +607,11 @@ Remove Interface
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router remove subnet ${router_name} ${interface_name}
     Should Be True    '${rc}' == '0'
 
+Remove Gateway
+    [Arguments]    ${router_name}
+    [Documentation]    Remove external gateway from the router.
+    BuiltIn.Log    openstack router unset ${router_name} --external-gateway
+
 Update Router
     [Arguments]    ${router_name}    ${cmd}
     [Documentation]    Update the router with the command. Router name and command should be passed as argument.
@@ -616,6 +628,7 @@ Delete Router
     [Arguments]    ${router_name}
     [Documentation]    Delete Router and Interface to the subnets.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router delete ${router_name}
+    Log    ${output}
     Should Be True    '${rc}' == '0'
 
 Get DumpFlows And Ovsconfig
@@ -1119,3 +1132,63 @@ Neutron Cleanup
     \    BuiltIn.Run Keyword And Ignore Error    Delete Network    ${network}
     : FOR    ${sg}    IN    @{sgs}
     \    BuiltIn.Run Keyword And Ignore Error    Delete SecurityGroup    ${sg}
+
+OpenStack List All
+    [Documentation]    Get a list of different OpenStack resources that might be in use.
+    @{modules} =    floating ip    server    router    port    network    subnet    security group    security group rule
+    : FOR    ${module}    IN    @{modules}
+    \    OpenStack CLI    openstack ${module} list
+
+OpenStack CLI Get List
+    [Arguments]    ${cmd}
+    [Documentation]    Return a json list from the output of an OpenStack command.
+    ${json} =    OpenStack CLI    ${cmd}
+    @{list} =    To Json    ${json}    pretty_print=True
+    BuiltIn.Log    ${list}
+    [Return]    @{list}
+
+OpenStack CLI
+    [Arguments]    ${cmd}
+    [Documentation]    Run the given OpenStack ${cmd}.
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    Log    ${output}
+    Should Be True    '${rc}' == '0'
+    [Return]    ${output}
+
+OpenStack Cleanup All
+    [Documentation]    Cleanup all Openstack resources with best effort. The keyword will query for all resources
+    ...    in use and then attempt to delete them. Errors are ignored to allow the cleanup to continue.
+    @{fips} =    OpenStack CLI Get List    openstack floating ip list -f json
+    : FOR    ${fip}    IN    @{fips}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Floating IP    ${fip['ID']}
+    @{vms} =    OpenStack CLI Get List    openstack server list -f json
+    : FOR    ${vm}    IN    @{vms}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Vm Instance    ${vm['ID']}
+    @{routers} =    OpenStack CLI Get List    openstack router list -f json
+    : FOR    ${router}    IN    @{routers}
+    \    BuiltIn.Run Keyword And Ignore Error    Cleanup Router    ${router['ID']}
+    @{ports} =    OpenStack CLI Get List    openstack port list -f json
+    : FOR    ${port}    IN    @{ports}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Port    ${port['ID']}
+    @{networks} =    OpenStack CLI Get List    openstack network list -f json
+    : FOR    ${network}    IN    @{networks}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Subnet    ${network['Subnets']}
+    \    BuiltIn.Run Keyword And Ignore Error    Delete Network    ${network['ID']}
+    @{security_groups} =    OpenStack CLI Get List    openstack security group list -f json
+    : FOR    ${security_group}    IN    @{security_groups}
+    \    BuiltIn.Run Keyword If    "${security_group['Name']}" != "default"    BuiltIn.Run Keyword And Ignore Error    Delete SecurityGroup    ${security_group['ID']}
+    OpenStack List All
+
+Cleanup Router
+    [Arguments]    ${id}
+    [Documentation]    Delete a router, but first remove any interfaces or gateways so that the delete will be successful.
+    @{ports} =    OpenStack CLI Get List    openstack port list --router ${id} -f json --long
+    : FOR    ${port}    IN    @{ports}
+    \    ${subnet_id} =    Get Match    ${port['Fixed IP Addresses']}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}    0
+    \    BuiltIn.Run Keyword If    "${port['Device Owner']}" == "network:router_gateway"    BuiltIn.Run Keyword And Ignore Error    Remove Gateway    ${id}
+    \    BuiltIn.Run Keyword If    "${port['Device Owner']}" == "network:router_interface"    BuiltIn.Run Keyword And Ignore Error    Remove Interface    ${id}    ${subnet_id}
+    BuiltIn.Run Keyword And Ignore Error    Delete Router    ${id}
+
+OpenStack Suite Teardown
+    OpenStack Cleanup All
+    SSHLibrary.Close All Connections

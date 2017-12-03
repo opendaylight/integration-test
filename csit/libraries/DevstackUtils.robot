@@ -135,12 +135,6 @@ Modify Config In File On Existing SSH Connection
     # to a library at some point, when/if other suites need to use it, so wanted to make it generic.
     Write Commands Until Prompt    sudo -E crudini --${modifier} ${config_file} ${config_section} ${config_key} ${config_value}
 
-Clean Up After Running Tempest
-    [Documentation]    Clean up any extra leftovers that were created to allow tempest tests to run.
-    Delete Network    ${external_net_name}
-    List Networks
-    Close All Connections
-
 Create Blacklist File
     [Documentation]    For each exclusion regex in the required @{${OPENSTACK_BRANCH}_exclusion_regexes} list a new
     ...    line will be created in the required ${blacklist_file} location. This file is pushed to the OS_CONTROL_NODE
