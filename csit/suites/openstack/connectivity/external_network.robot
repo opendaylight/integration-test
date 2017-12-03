@@ -2,7 +2,7 @@
 Documentation     Test suite to check North-South connectivity in L3 using a router and an external network
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-Suite Teardown    Close All Connections
+Suite Teardown    SSHLibrary.Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -170,6 +170,9 @@ Delete Networks
 Delete Security Group
     [Documentation]    Delete security groups with neutron request
     OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
+
+Cleanup
+    OpenStackOperations.OpenStack Cleanup All
 
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
