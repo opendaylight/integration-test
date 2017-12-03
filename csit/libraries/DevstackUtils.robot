@@ -137,7 +137,8 @@ Modify Config In File On Existing SSH Connection
 
 Clean Up After Running Tempest
     [Documentation]    Clean up any extra leftovers that were created to allow tempest tests to run.
-    Delete Network    ${external_net_name}
+    #Delete Network    ${external_net_name}
+    OpenStackOperations.OpenStack Cleanup All
     List Networks
     Close All Connections
 
