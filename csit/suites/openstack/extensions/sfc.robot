@@ -2,8 +2,7 @@
 Documentation     Test suite to verify SFC configuration and packet flows.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-Suite Teardown    BuiltIn.Run Keywords    Delete Configurations
-...               AND    Close All Connections
+Suite Teardown    SSHLibrary.Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     BuiltIn.Run Keywords    OpenStackOperations.Get Test Teardown Debugs
 ...               AND    OpenStackOperations.Get Test Teardown Debugs For SFC
@@ -99,7 +98,6 @@ Connectivity Tests From Vm Instance1 In net_1
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[3]    ${DEST_VM_LIST}
     OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[3]    curl http://@{NET1_VM_IPS}[4]
 
-*** Keywords ***
 Delete Configurations
     [Documentation]    Delete all elements that were created in the test case section. These are done
     ...    in a local keyword so this can be called as part of the Suite Teardown. When called as part
@@ -121,3 +119,6 @@ Delete Configurations
     : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Delete Network    ${network}
     OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
+
+Cleanup
+    OpenStackOperations.OpenStack Cleanup All

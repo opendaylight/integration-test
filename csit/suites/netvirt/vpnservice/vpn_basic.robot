@@ -279,6 +279,4 @@ Delete Multiple L3VPN
     VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]
 
 Cleanup
-    @{vms} =    BuiltIn.Create List    @{NET_1_VMS}    @{NET_2_VMS}
-    @{sgs} =    BuiltIn.Create List    ${SECURITY_GROUP}
-    Basic Vpnservice Suite Cleanup    ${VPN_INSTANCE_IDS}    ${vms}    ${NETWORKS}    ${SUBNETS}    ${PORTS}    ${sgs}
+    OpenStackOperations.OpenStack Cleanup All
