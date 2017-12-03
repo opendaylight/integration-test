@@ -74,9 +74,7 @@ TC04_Create Security Rule with port_range_max = -1
     Neutron Rule Creation With Invalid Parameters    ${SGS[3]}    ${ADD_ARG_SSH7}    ${INVALID_PORT_RANGE_MIN}
 
 Cleanup
-    @{vms} =    BuiltIn.Create List
-    @{sgs} =    BuiltIn.Create List    ${SG_UPDATED}    @{SGS}
-    OpenStackOperations.Neutron Cleanup    ${vms}    ${NETWORKS}    ${SUBNETS}    ${PORTS}    ${sgs}
+    OpenStackOperations.OpenStack Cleanup All
 
 *** Keywords ***
 Get Flows

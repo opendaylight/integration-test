@@ -5,7 +5,7 @@ Documentation     Test suite to verify security groups basic and advanced functi
 ...               a false failure. The real value of this suite will be in stateful mode.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-Suite Teardown    Suite Teardown
+Suite Teardown    SSHLibrary.Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Force Tags        skip_if_${SECURITY_GROUP_MODE}
@@ -226,16 +226,5 @@ Delete Security Groups
     OpenStackOperations.Delete SecurityGroup    additional-sg
     OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
 
-*** Keywords ***
-Suite Teardown
-    : FOR    ${vm}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
-    : FOR    ${vm}    IN    @{NET_2_VMS}
-    \    OpenStackOperations.Delete Vm Instance    ${vm}
-    : FOR    ${subnet}    IN    @{SUBNETS}
-    \    BuiltIn.Run Keyword And Ignore Error    OpenStackOperations.Delete SubNet    ${subnet}
-    : FOR    ${network}    IN    @{NETWORKS}
-    \    BuiltIn.Run Keyword And Ignore Error    OpenStackOperations.Delete Network    ${network}
-    BuiltIn.Run Keyword And Ignore Error    OpenStackOperations.Delete SecurityGroup    additional-sg
-    BuiltIn.Run Keyword And Ignore Error    OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
-    SSHLibrary.Close All Connections
+Cleanup
+    OpenStackOperations.OpenStack Cleanup All

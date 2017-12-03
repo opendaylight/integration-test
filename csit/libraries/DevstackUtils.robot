@@ -34,6 +34,7 @@ ${default_timeout}    420s
 *** Keywords ***
 Run Tempest Tests
     [Arguments]    ${tempest_regex}    ${timeout}=${default_timeout}    ${debug}=False
+    Run Keyword If    "${TEST_NAME}" == "Cleanup"    OpenStackOperations.OpenStack Cleanup All
     Run Keyword If    "${debug}"=="False"    Run Tempest Tests Without Debug    ${tempest_regex}    timeout=${timeout}
     Run Keyword If    "${debug}"=="True"    Run Tempest Tests With Debug    ${tempest_regex}    timeout=${timeout}
     Run Keyword If    "${debug}"!="True" and "${debug}"!="False"    Fail    debug argument must be True or False
@@ -134,12 +135,6 @@ Modify Config In File On Existing SSH Connection
     # this keyword is only one line so seems like extra overhead, but this may be a good candidate to move
     # to a library at some point, when/if other suites need to use it, so wanted to make it generic.
     Write Commands Until Prompt    sudo -E crudini --${modifier} ${config_file} ${config_section} ${config_key} ${config_value}
-
-Clean Up After Running Tempest
-    [Documentation]    Clean up any extra leftovers that were created to allow tempest tests to run.
-    Delete Network    ${external_net_name}
-    List Networks
-    Close All Connections
 
 Create Blacklist File
     [Documentation]    For each exclusion regex in the required @{${OPENSTACK_BRANCH}_exclusion_regexes} list a new
