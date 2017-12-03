@@ -3,7 +3,7 @@ Documentation     Test suite to validate vpnservice functionality in an openstac
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
 Suite Setup       VpnOperations.Basic Vpnservice Suite Setup
-Suite Teardown    SSHLibrary.Close All Connections
+Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           OperatingSystem
@@ -277,8 +277,3 @@ Delete Multiple L3VPN
     VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[1]
     VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[2]
-
-Cleanup
-    @{vms} =    BuiltIn.Create List    @{NET_1_VMS}    @{NET_2_VMS}
-    @{sgs} =    BuiltIn.Create List    ${SECURITY_GROUP}
-    Basic Vpnservice Suite Cleanup    ${VPN_INSTANCE_IDS}    ${vms}    ${NETWORKS}    ${SUBNETS}    ${PORTS}    ${sgs}
