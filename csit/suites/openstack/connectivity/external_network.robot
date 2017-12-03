@@ -135,6 +135,9 @@ SNAT - UDP connection to External Gateway From SNAT VM Instance2
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
     OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{SNAT_VM_IPS}[1]    ${EXTERNAL_GATEWAY}    -u
 
+Cleanup
+    OpenStackOperations.OpenStack Cleanup All
+
 Delete Vm Instances
     [Documentation]    Delete Vm instances using instance names.
     : FOR    ${vm}    IN    @{FIP_VMS}
