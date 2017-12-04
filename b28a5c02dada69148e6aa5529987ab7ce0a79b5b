@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_cf993c70",
+        "filename": "csit/suites/p4plugin/basic/restconf_modules.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-04T23:15:36Z",
+      "side": 1,
+      "message": "Change to be Resource instead of Variables and use Variables.robot instead of Variables.py",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 59
+      },
+      "revId": "b28a5c02dada69148e6aa5529987ab7ce0a79b5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
