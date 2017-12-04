@@ -89,7 +89,7 @@ Check_Device_Connected
     Builtin.Should_Contain    ${device_status}    "netconf-node-topology:connection-status": "connected"
 
 Wait_Device_Connected
-    [Arguments]    ${device_name}    ${timeout}=10s    ${period}=1s    ${session}=default
+    [Arguments]    ${device_name}    ${timeout}=20s    ${period}=1s    ${session}=default
     [Documentation]    Wait for the device to become connected.
     ...    It is more readable to use this keyword in a test case than to put the whole WUKS below into it.
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Connected    ${device_name}    session=${session}

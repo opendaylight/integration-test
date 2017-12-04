@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to verify Apidocs is OK.
-Suite Setup       TemplatedRequests.Create_Default_Session    timeout=15
+Suite Setup       TemplatedRequests.Create_Default_Session    timeout=30
 Suite Teardown    RequestsLibrary.Delete_All_Sessions
 Library           RequestsLibrary
 Resource          ${CURDIR}/../../../variables/Variables.robot
