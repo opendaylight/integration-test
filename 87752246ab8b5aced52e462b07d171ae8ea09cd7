@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_ea81834b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-05T19:01:54Z",
+      "side": 1,
+      "message": "Agreed. That was the plan to convert all the commands to use the CLI version. I kept this one as is till we do that refactor in a later patch.",
+      "parentUuid": "7a1969be_a0720de3",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 36
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_606815f6",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_2a939ba4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-05T19:01:54Z",
+      "side": 1,
+      "message": "That\u0027s how it works. apparently you can only have one external gw on the router. it shows up as a gw interface in the router port list.",
+      "parentUuid": "7a1969be_606815f6",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 75
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_0077a1d5",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 7
@@ -59,6 +107,30 @@
       "writtenOn": "2017-12-05T18:00:30Z",
       "side": 1,
       "message": "need [Documentation]. Also, I wonder if this would be\nsomething we could create a @{OPENSTACK_ELEMENTS} list\nin the Variables section or Variables.robot file and then\njust loop over them here. That might make it \neasier to add/remove items down the road. just a thought.",
+      "range": {
+        "startLine": 1136,
+        "startChar": 0,
+        "endLine": 1144,
+        "endChar": 55
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_cae9271c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-05T19:01:54Z",
+      "side": 1,
+      "message": "Sure, can add that",
+      "parentUuid": "7a1969be_0077a1d5",
       "range": {
         "startLine": 1136,
         "startChar": 0,
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_6abbd30e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-05T19:01:54Z",
+      "side": 1,
+      "message": "yes, same plan this constant is used in this file here and bunched of places. It\u0027s a uuid, so it should be defined somewhere and reused. Might already be a well known somewhere.",
+      "parentUuid": "7a1969be_8031d10d",
+      "range": {
+        "startLine": 1186,
+        "startChar": 73,
+        "endLine": 1186,
+        "endChar": 133
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_c03bc9e9",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 7
@@ -151,6 +247,30 @@
       "writtenOn": "2017-12-05T18:00:30Z",
       "side": 1,
       "message": "wondering what implications it has to be doing all this\nwork with RKAIE?",
+      "range": {
+        "startLine": 1187,
+        "startChar": 0,
+        "endLine": 1189,
+        "endChar": 66
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_aa3cab94",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-05T19:01:54Z",
+      "side": 1,
+      "message": "The idea with the RKAIE was to keep cleaning up as much as possible. Yes, something might file, but we always do the best effort to clean up. All the tests so far didn\u0027t see any failures since everything is driven by a get list first and then carefully deleted in the right order. So any failure would be a new openstack change or some crazy failure.",
+      "parentUuid": "7a1969be_c03bc9e9",
       "range": {
         "startLine": 1187,
         "startChar": 0,
