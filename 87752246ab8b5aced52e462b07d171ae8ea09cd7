@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_a0720de3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-05T18:00:30Z",
+      "side": 1,
+      "message": "why not use the OpenStack CLI keyword here?\n\nTBH, I\u0027ll put a refactor patch at some point in the near\nfuture to move everything to using that OpenStack CLI\nkeyword. I like that one. So, if there is no major\nupdate needed on this patch, we can leave this and I\u0027ll\ncatch it on my refactor.",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 36
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_606815f6",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-05T18:00:30Z",
+      "side": 1,
+      "message": "this doesn\u0027t seem right.",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 613,
+        "endChar": 75
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_0077a1d5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-05T18:00:30Z",
+      "side": 1,
+      "message": "need [Documentation]. Also, I wonder if this would be\nsomething we could create a @{OPENSTACK_ELEMENTS} list\nin the Variables section or Variables.robot file and then\njust loop over them here. That might make it \neasier to add/remove items down the road. just a thought.",
+      "range": {
+        "startLine": 1136,
+        "startChar": 0,
+        "endLine": 1144,
+        "endChar": 55
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_4081998e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1150,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-05T18:00:30Z",
+      "side": 1,
+      "message": "NBD, but we also have this I remembered from our model dump. Not sure if it would\nwork or not, but it\u0027s more clear to me what\u0027s going on compared to json.loads.\n\n${pretty_output}\u003d    To Json    ${json}    pretty_print\u003dTrue\nBuiltIn.Log    ${pretty_output}",
+      "range": {
+        "startLine": 1149,
+        "startChar": 0,
+        "endLine": 1150,
+        "endChar": 26
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_804a7181",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-05T18:00:30Z",
+      "side": 1,
+      "message": "nice wrapper keyword. we need [Documentation]. below kws too.",
+      "range": {
+        "startLine": 1153,
+        "startChar": 0,
+        "endLine": 1153,
+        "endChar": 13
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_8031d10d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-05T18:00:30Z",
+      "side": 1,
+      "message": "I remember seeing this somewhere.... yeah:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/gbp/Constants.robot#L7\n\nmaybe I can make a new patch after this to move that var\nto a common location.",
+      "range": {
+        "startLine": 1186,
+        "startChar": 73,
+        "endLine": 1186,
+        "endChar": 133
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_c03bc9e9",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-05T18:00:30Z",
+      "side": 1,
+      "message": "wondering what implications it has to be doing all this\nwork with RKAIE?",
+      "range": {
+        "startLine": 1187,
+        "startChar": 0,
+        "endLine": 1189,
+        "endChar": 66
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_202c5dab",
+        "filename": "csit/suites/netvirt/elan/elan.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-05T18:00:30Z",
+      "side": 1,
+      "message": "I think maybe a more explicit test case name here is \nbetter. maybe: \"Cleanup All/Any Leftover OpenStack Configs\" or whatever you can think of that\u0027s better. Also, some\n[Documentation] that explains the thought process here about\nhow we need to do cleanup as a test case, because we....\n\nwait, not I just got confused about our end goal.\n\nWe don\u0027t want to do the grenade cleanup here. We want to\ndo that in the suite teardown.\n\nwhat we want to do in each suite is very carefully *ONLY*\nclean up exactly what the suite has created. if it creates\na port ${port1} then we only delete ${port1}. That would\nbe it\u0027s own test case like this one. Then a follow up\npatch is going to add the work where we take an initial\nstate of the env in suite setup, then add a final test\ncase which looks at the state again and will fail if\nanything is left over.\n\nthen we throw the grenade in teardown to try our best to\nmake things clean for whatever runs next.\n\nam I off track?",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 7
+      },
+      "revId": "87752246ab8b5aced52e462b07d171ae8ea09cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
