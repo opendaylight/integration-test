@@ -22,6 +22,30 @@
       "revId": "f96ac22745d09ac1234dec704c5484516a40cf2f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_2aad5b32",
+        "filename": "csit/suites/p4plugin/basic/restconf_modules.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6888
+      },
+      "writtenOn": "2017-12-06T02:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_4adb77ed",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 9
+      },
+      "revId": "f96ac22745d09ac1234dec704c5484516a40cf2f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
