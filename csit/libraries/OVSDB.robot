@@ -354,3 +354,61 @@ Stop OVS
     [Documentation]    Stop the OVS node.
     ${output} =    Utils.Run Command On Mininet    ${ovs_ip}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
     BuiltIn.Log    ${output}
+
+Delete OVS Controller
+    [Arguments]    ${node}
+    [Documentation]    Delete controller from OVS
+    ${del_ctr}=    Run Command On Remote System    ${node}    sudo ovs-vsctl del-controller br-int
+    Log    ${del_ctr}
+
+Delete OVS Manager
+    [Arguments]    ${node}
+    [Documentation]    Delete manager from OVS
+    ${del_mgr}=    Run Command On Remote System    ${node}    sudo ovs-vsctl del-manager
+    Log    ${del_mgr}
+
+Delete Groups
+    [Arguments]    ${node}    ${br}
+    [Documentation]    Delete OVS groups from br-int
+    ${del_grp}=    Run Command On Remote System    ${node}    sudo ovs-ofctl -O Openflow13 del-groups ${br}
+    Log    ${del_grp}
+
+Get Ports
+    [Arguments]    ${node}    ${br}    ${type}
+    [Documentation]    Get ${type} ports for a bridge ${br} on node ${node}.
+    ${ports}=    Run Command On Remote System    ${node}    sudo ovs-vsctl list-ports ${br} | grep "${type}"
+    ${ports_list}=    String.Split to lines    ${ports}
+    [Return]    ${ports_list}
+
+Delete Ports
+    [Arguments]    ${node}    ${br}    ${type}
+    [Documentation]    List all ports of ${br} and delete ${type} ports
+    ${ports_present}=    Get Ports    ${node}    ${br}    ${type}
+    : FOR    ${port}    IN    @{ports_present}
+    \    ${del-ports}=    Run Command On Remote System    ${node}    sudo ovs-vsctl del-port ${br} ${port}
+    \    Log    ${del-ports}
+    ${ports_present_after_delte}=    Get Ports    ${node}    ${br}    ${type}
+    Log    ${ports_present_after_delte}
+
+Create Tun Ports
+    [Arguments]    ${all_nodes}    ${node}    ${br}
+    ${tun_ends}=     Collections.Remove Values From List    ${all_nodes}    ${node}
+    : FOR    ${tun_end}    IN    @{tun_ends}
+    \    Run Command On Remote System    ${node}    sudo ovs-vsctl add-port ${br} tun-${tun_end} -- set interface tun-${tun_end} type=vxlan options:remote_ip=${tun_end}
+
+Get Info From Bridge
+    [Arguments]    ${openstack_node_ip}    ${br}    ${log_file}
+    [Documentation]    Get the OvsConfig, Flow entries and group info from OVS ${br} from the Openstack Node and log it for ${log_file}
+    OperatingSystem.Create File    ${log_file}
+    OperatingSystem.Append To File    ${log_file}    ${openstack_node_ip}
+    SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-vsctl show    ${DEFAULT_LINUX_PROMPT_STRICT}
+    ${output}=    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl show ${br} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    OperatingSystem.Append To File    ${log_file}    ${output}
+    ${output}=    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${br} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    OperatingSystem.Append To File    ${log_file}    ${output}
+    ${output}=    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups ${br} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    OperatingSystem.Append To File    ${log_file}    ${output}
+    Log File    ${log_file}
