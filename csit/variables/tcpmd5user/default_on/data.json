@@ -1,0 +1,113 @@
+{
+    "topology": [
+        {
+            "node": [
+                {
+                    "network-topology-pcep:path-computation-client": {
+                        "ip-address": "$IP",
+                        "reported-lsp": [
+                            {
+                                "name": "pcc_$IP_tunnel_1",
+                                "path": [
+                                    {
+                                        "ero": {
+                                            "ignore": false,
+                                            "processing-rule": false,
+                                            "subobject": [
+                                                {
+                                                    "ip-prefix": {
+                                                        "ip-prefix": "1.1.1.1/32"
+                                                    },
+                                                    "loose": false
+                                                }
+                                            ]
+                                        },
+                                        "lsp-id": 1,
+                                        "odl-pcep-ietf-stateful07:lsp": {
+                                            "administrative": true,
+                                            "delegate": true,
+                                            "ignore": false,
+                                            "odl-pcep-ietf-initiated00:create": false,
+                                            "operational": "up",
+                                            "plsp-id": 1,
+                                            "processing-rule": false,
+                                            "remove": false,
+                                            "sync": true,
+                                            "tlvs": {
+                                                "lsp-identifiers": {
+                                                    "ipv4": {
+                                                        "ipv4-extended-tunnel-id": "$IP",
+                                                        "ipv4-tunnel-endpoint-address": "1.1.1.1",
+                                                        "ipv4-tunnel-sender-address": "$IP"
+                                                    },
+                                                    "lsp-id": 1,
+                                                    "tunnel-id": 1
+                                                },
+                                                "symbolic-path-name": {
+                                                    "path-name": "$CODE"
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "state-sync": "synchronized",
+                        "stateful-tlv": {
+                            "odl-pcep-ietf-stateful07:stateful": {
+                                "lsp-update-capability": true,
+                                "odl-pcep-ietf-initiated00:initiation": true
+                            }
+                        }
+                    },
+                    "node-id": "pcc://$IP"
+                }
+            ],
+            "topology-id": "pcep-topology",
+            "topology-types": {
+                "network-topology-pcep:topology-pcep": {}
+            }
+        }
+    ]
+}
+
+{
+    "name": "$NAME",
+    "path": [
+        {
+            "ero": {
+                "ignore": false,
+                "processing-rule": false,
+                "subobject": [
+                    $HOPS
+                ]
+            },
+            "lsp-id": $ID,
+            "odl-pcep-ietf-stateful07:lsp": {
+                "administrative": true,
+                "delegate": true,
+                "ignore": false,
+                "odl-pcep-ietf-initiated00:create": $CREATED,
+                "operational": "up",
+                "plsp-id": $ID,
+                "processing-rule": false,
+                "remove": false,
+                "sync": true,
+                "tlvs": {
+                    "lsp-identifiers": {
+                        "ipv4": {
+                            "ipv4-extended-tunnel-id": "$IP",
+                            "ipv4-tunnel-endpoint-address": "1.1.1.1",
+                            "ipv4-tunnel-sender-address": "$IP"
+                        },
+                        "lsp-id": $ID,
+                        "tunnel-id": $ID
+                    },
+                    "symbolic-path-name": {
+                        "path-name": "$CODE"
+                    }
+                }
+            }
+        }
+    ]
+}
