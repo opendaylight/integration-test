@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_d99bc3c7",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2017-12-07T10:24:48Z",
+      "side": 1,
+      "message": "manager needs to be deleted before controller. Otherwise ODL will get a notification of the controller deletion and then try to re-create it ;-)",
+      "revId": "1a326a7ecb0a2328ee641faa0e8f6a70be0d0125",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_f9aaffd2",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2017-12-07T10:24:48Z",
+      "side": 1,
+      "message": "It would be nice if we could stash the karaf.log from the two runs in different files.",
+      "revId": "1a326a7ecb0a2328ee641faa0e8f6a70be0d0125",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_b9a087f5",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2017-12-07T10:24:48Z",
+      "side": 1,
+      "message": "For now I think we should just set the maintenance thread sleep to 30 in net-odl and sleep while we wait for it.\n\nIn local.conf...\n[[post-config|/etc/neutron/plugins/ml2/ml2_conf.ini]]\n[ml2_odl]\nmaintenance_interval\u003d30",
+      "revId": "1a326a7ecb0a2328ee641faa0e8f6a70be0d0125",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_19a6fb10",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2017-12-07T10:24:48Z",
+      "side": 1,
+      "message": "For now let\u0027s forget this. If we have the dumps from before and after we can compare them manually if a test fails.",
+      "revId": "1a326a7ecb0a2328ee641faa0e8f6a70be0d0125",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
