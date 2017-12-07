@@ -19,6 +19,9 @@ Resource          ../variables/netvirt/Variables.robot
 Variables         ../variables/netvirt/Modules.py
 Variables         ../variables/netvirt/Exceptions_Whitelist.py
 
+*** Variables ***
+${GET_NETWORK_URL}      neutron:neutron/networks/network
+
 *** Keywords ***
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
@@ -793,6 +796,14 @@ Update Port Rest
     [Documentation]    Keyword to update ${port_id} with json data received in ${json_data} (Using REST).
     BuiltIn.Log    ${json_data}
     ${resp} =    RequestsLibrary.Put Request    session    ${CONFIG_API}/${GET_PORT_URL}/${port_id}    ${json_data}
+    BuiltIn.Log    ${resp.content}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    [Return]    ${resp.content}
+
+Get Neutron Network Rest
+    [Arguments]    ${net_id}
+    [Documentation]    Keyword to get the specific network details in Neutron (Using REST).
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/${GET_NETWORK_URL}/${net_id}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
