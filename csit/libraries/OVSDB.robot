@@ -215,3 +215,37 @@ Reset OVS Logging
     [Documentation]    Reset the OVS logging
     SSHLibrary.Switch Connection    ${conn_id}
     ${output} =    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set :file:info    ${DEFAULT_LINUX_PROMPT_STRICT}
+
+Delete OVS controller
+    [Arguments]    ${node}
+    [Documentation]    Delete controller from OVS
+    ${del_ctr}=    Run Command On Remote System    ${node}    sudo ovs-vsctl del-controller br-int
+    Log    ${del_ctr}
+
+Delete OVS manager
+    [Arguments]    ${node}
+    [Documentation]    Delete manager from OVS
+    ${del_mgr}=    Run Command On Remote System    ${node}    sudo ovs-vsctl del-manager
+    Log    ${del_mgr}
+
+Delete groups
+    [Arguments]    ${node}    ${br}
+    [Documentation]    Delete OVS groups from br-int
+    ${del_grp}=    Run Command On Remote System    ${node}    sudo ovs-ofctl -O Openflow13 del-groups ${br}
+    Log    ${del_grp}
+
+Get ports
+    [Arguments]    ${node}    ${br}    ${type}
+    [Documentation]    Get ${type} ports for a bridge ${br} on node ${node}.
+    ${ports}=    Run Command On Remote System    ${node}    sudo ovs-vsctl list-ports ${br} | grep "${type}"
+    Log    ${ports}
+    ${port_list}=    Collections.Convert To List    ${ports}
+    [Return]    ${port_list}
+
+Delete ports
+    [Arguments]    ${node}    ${br}    ${type}
+    [Documentation]    List all ports of ${br} and delete ${type} ports
+    ${ports_present}=    Get ports    ${node}    ${br}    ${type}
+    : FOR    ${port}    IN    @{ports_present}
+    \    ${del-ports}=    Run Command On Remote System    ${node}    sudo ovs-vsctl del-port ${br} ${ports_present}
+    \    Log    ${del-ports}
