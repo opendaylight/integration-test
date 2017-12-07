@@ -110,6 +110,7 @@ Documentation     Resource for supporting http Requests based on data stored in 
 ...               perhaps explicit ${ACCEPT_JSON} will be better, even if it sends few bytes more?
 Library           Collections
 Library           OperatingSystem
+Library           String
 Library           RequestsLibrary
 Library           ${CURDIR}/norm_json.py
 Variables         ${CURDIR}/../variables/Variables.py
@@ -292,13 +293,24 @@ Resolve_Jmes_Path
     ${expression} =    BuiltIn.Set Variable If    ${read_jmes_file} == ${true}    ${jmes_expression}    ${EMPTY}
     [Return]    ${expression}
 
+Resolve_Volatiles_Path
+    [Arguments]    ${folder}
+    [Documentation]    Reads Volatiles List from file ${folder}${/}volatiles.list if the file exists and
+    ...    returns the Volatiles List. Empty string is returned otherwise.
+    ${read_volatiles_file} =    BuiltIn.Run Keyword And Return Status    OperatingSystem.File Should Exist    ${folder}${/}volatiles.list
+    Return From Keyword If    ${reat_volatiles_file} == ${false}
+    ${volatiles}=    OperatingSystem.Get_File    ${folder}${/}volatiles.list
+    ${volatiles_list}=    String.Split_String    ${volatiles}    ${\n}
+    [Return]    ${volatiles_list}
+
 Get_Templated
     [Arguments]    ${folder}    ${accept}    ${mapping}={}    ${session}=default    ${normalize_json}=False    ${http_timeout}=${EMPTY}
     [Documentation]    Resolve URI from folder, call Get_From_Uri, return response text.
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
     ${jmes_expression} =    Resolve_Jmes_Path    ${folder}
+    ${volatiles_list}=    Resolve_Volatiles_Path    ${folder}
     ${response_text} =    Get_From_Uri    uri=${uri}    accept=${accept}    session=${session}    normalize_json=${normalize_json}    jmes_path=${jmes_expression}
-    ...    http_timeout=${http_timeout}
+    ...    http_timeout=${http_timeout}    keys_with_volatiles=${volatiles_list}
     [Return]    ${response_text}
 
 Put_Templated
@@ -339,7 +351,7 @@ Verify_Response_Templated
     ...    ELSE    BuiltIn.Should_Be_Equal    ${expected_text}    ${response}
 
 Get_From_Uri
-    [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False    ${jmes_path}=${EMPTY}    ${http_timeout}=${EMPTY}
+    [Arguments]    ${uri}    ${accept}=${ACCEPT_EMPTY}    ${session}=default    ${normalize_json}=False    ${jmes_path}=${EMPTY}    ${http_timeout}=${EMPTY}    ${keys_with_volatiles}=${EMPTY}
     [Documentation]    GET data from given URI, check status code and return response text.
     ...    \${accept} is a Python object with headers to use.
     ...    If \${normalize_json}, normalize as JSON text before returning.
@@ -349,7 +361,7 @@ Get_From_Uri
     ...    ELSE    RequestsLibrary.Get_Request    alias=${session}    uri=${uri}    headers=${accept}    timeout=${http_timeout}
     Check_Status_Code    ${response}
     BuiltIn.Run_Keyword_Unless    ${normalize_json}    BuiltIn.Return_From_Keyword    ${response.text}
-    ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}
+    ${text_normalized} =    norm_json.normalize_json_text    ${response.text}    jmes_path=${jmes_path}    keys_with_volatiles=${keys_with_volatiles}
     [Return]    ${text_normalized}
 
 Put_To_Uri
