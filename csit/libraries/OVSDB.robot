@@ -199,3 +199,32 @@ Get Default Gateway
     ${gateway} =    Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
     Log    ${gateway}
     [Return]    ${gateway}
+
+Delete OVS controller
+    [Arguments]    ${node}
+    [Documentation]    Delete controller from OVS
+    ${del_ctr}=    Run Command On Remote System    ${ip}    sudo ovs-vsctl del-controller br-int
+    Log    ${del_ctr}
+
+Delete OVS manager
+    [Arguments]    ${node}
+    [Documentation]    Delete manager from OVS
+    ${del_mgr}=    Run Command On Remote System    ${ip}    sudo ovs-vsctl del-manager
+    Log    ${del_mgr}
+
+Delete groups
+    [Arguments]    ${node}
+    [Documentation]     Delete OVS groups from br-int
+    ${del_grp}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O Openflow13 del-groups br-int
+    Log    ${del_grp}
+
+Delete tun ports
+    [Arguments]    ${node}
+    [Documentation]    List all ports of br-int and delete tun ports
+    ${tun_ports}=    Run Command On Remote System    ${node}    sudo ovs-vsctl list-ports br-int | grep "tun"
+    Log    ${tun_ports}  ## this is not a list so below logic will fail
+    ${tun_list}=     Run Command On Remote System    ${node}    Collections.Convert To List     ${tun_ports}
+    Log    ${tun_list}
+    : FOR    ${tun_port}    IN    @{tun_list}
+    \    ${del-ports}=    Run Command On Remote System    ${node}    sudo ovs-vsctl del-port br-int ${tun_port}
+    \    Log    ${del-ports}
