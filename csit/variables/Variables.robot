@@ -119,6 +119,8 @@ ${ODL_OF_PLUGIN}    lithium    # Codename of OpenFlowPlugin implementation ODL i
 ${ODL_OF_PORT}    6633    # Port number ODL communicates using OpenFlow protocol on.
 ${ODL_RESTCONF_USER}    admin    # Username for basic HTTP authentication used by requests against ODL RESTCONF server.
 ${ODL_RESTCONF_PASSWORD}    admin    # Plaintext password for basic HTTP authentication used by requests against ODL RESTCONF server.
+${ODL_STOP}       /bin/stop
+${ODL_START}      /bin/start
 ${ODL_SYSTEM_1_IP}    127.0.0.1    # IP address of system hosting member 1 od ODL cluster.
 ${ODL_SYSTEM_2_IP}    127.0.0.2    # IP address of system hosting member 2 od ODL cluster.
 ${ODL_SYSTEM_3_IP}    127.0.0.3    # IP address of system hosting member 3 od ODL cluster.
