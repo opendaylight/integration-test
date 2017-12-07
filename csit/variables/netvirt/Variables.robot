@@ -63,7 +63,7 @@ ${INTERVAL_0}     {"tunnel-monitor-interval":{"interval":0}}
 ${INTERVAL_NEG}    {"tunnel-monitor-interval":{"interval":-100}}
 ${INTERVAL_31000}    {"tunnel-monitor-interval":{"interval":31000}}
 #ODL Rest URLs
-${NETWORK_URL}    ${CONFIG_API}/neutron:neutron/networks/
+${NETWORK_URL}    ${CONFIG_API}/neutron:neutron/networks
 ${SUBNETWORK_URL}    ${CONFIG_API}/neutron:neutron/subnets/
 ${PORT_URL}       ${CONFIG_API}/neutron:neutron/ports/
 ${ROUTER_URL}     ${CONFIG_API}/neutron:neutron/routers/
@@ -77,12 +77,13 @@ ${TUNNEL_INTERFACES}    ${CONFIG_API}/ietf-interfaces:interfaces/
 ${LEARNT_VIP}     ${OPERATIONAL_API}/odl-l3vpn:learnt-vpn-vip-to-port-data/
 ${DISPATCHER_TABLE}    17
 ${GWMAC_TABLE}    19
-${IPV6_TABLE}     45
 ${L3_TABLE}       21
+${IPV6_TABLE}     45
 ${ELAN_BASETABLE}    48
 ${ELAN_SMACTABLE}    50
 ${ELAN_DMACTABLE}    51
 ${ELAN_UNKNOWNMACTABLE}    52
 ${INGRESS_ACL_REMOTE_ACL_TABLE}    211
 ${EGRESS_ACL_TABLE}    240
+${EGRESS_LPORT_DISPATCHER_TABLE}    220
 ${EGRESS_LEARN_ACL_FILTER_TABLE}    244
