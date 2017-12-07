@@ -797,6 +797,14 @@ Update Port Rest
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
+Get Neutron Network Rest
+    [Arguments]    ${net_id}
+    [Documentation]    Keyword to get the specific network details in Neutron (Using REST).
+    ${resp} =    RequestsLibrary.Get Request    session    ${NETWORK_URL}/networks/${net_id}
+    BuiltIn.Log    ${resp.content}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    [Return]    ${resp.content}
+
 Create And Configure Security Group
     [Arguments]    ${sg-name}
     [Documentation]    Create Security Group with given name, and default allow rules for TCP/UDP/ICMP protocols.
