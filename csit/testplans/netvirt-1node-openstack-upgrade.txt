@@ -1,0 +1,1 @@
+integration/test/csit/suites/netvirt/upgrade/upgrade.robot
