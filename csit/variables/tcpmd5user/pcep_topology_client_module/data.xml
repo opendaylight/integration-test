@@ -1,3 +1,5 @@
-<client xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:topology:provider">
- <address xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:topology:provider">$IP</address>
-$PASSWD</client>
+<node xmlns="urn:TBD:params:xml:ns:yang:network-topology">
+    <node-id>$IP</node-id>
+    <session-config xmlns="urn:opendaylight:params:xml:ns:yang:topology:pcep:config">
+    $PASSWD</session-config>
+</node>
