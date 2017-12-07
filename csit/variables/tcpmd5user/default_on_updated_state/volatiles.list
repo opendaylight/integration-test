@@ -1,0 +1,6 @@
+odl-pcep-stateful-stats:last-received-rpt-msg-timestamp
+session-duration
+last-sent-msg-timestamp
+average-time
+max-time
+min-time
