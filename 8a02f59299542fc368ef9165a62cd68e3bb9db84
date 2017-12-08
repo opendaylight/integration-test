@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_e7441176",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-08T23:58:57Z",
+      "side": 1,
+      "message": "I think UpgradeUtils.robot sounds like a generic\nlibrary, but this is very openstack specific.\n\n1) it should be in the csit/libraries/ path\n\n2) maybe name it OpenstackUpgradeUtils.robot?\n\n\nactually, after reading the file I think we should skip\nthis file altogether.\n\nyou can put the OVS keywords in their own OVS lib, or \nmaybe they\u0027ll just fit nicely in the OVSDB.robot library.\n\nthe (good) keywords that are doing real setup and testing\ncan just be local keywords in your test suite. If/when\nthey are ever needed across multiple suites we can break\nthem out in to their own shared resource.",
+      "revId": "8a02f59299542fc368ef9165a62cd68e3bb9db84",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_67582157",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-08T23:58:57Z",
+      "side": 1,
+      "message": "Sam just gave us a cool and comprehensive keyword called\nOpenstackOperations.Cleanup All\n\nprobably good to use that.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 16
+      },
+      "revId": "8a02f59299542fc368ef9165a62cd68e3bb9db84",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_a731790d",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-08T23:58:57Z",
+      "side": 1,
+      "message": "we aren\u0027t starting/stopping ODL in upstream CSIT this\nway. It would be nice to get to that point though.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 49
+      },
+      "revId": "8a02f59299542fc368ef9165a62cd68e3bb9db84",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
