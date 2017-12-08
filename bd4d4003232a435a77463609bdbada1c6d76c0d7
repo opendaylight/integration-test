@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_11f52f83",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2017-12-08T09:28:28Z",
+      "side": 1,
+      "message": "Please make compute ips as variable, the keyword should not have fixed number of compute nodes.",
+      "range": {
+        "startLine": 60,
+        "startChar": 37,
+        "endLine": 60,
+        "endChar": 49
+      },
+      "revId": "bd4d4003232a435a77463609bdbada1c6d76c0d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_9f2f6ba1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 7337
+      },
+      "writtenOn": "2017-12-08T09:28:28Z",
+      "side": 1,
+      "message": "In Case if u want to retain this keyword here itself, please move the verification of, via which compute node the ping packet is forwarded, to the suite.\nSince here you are using 2 compute nodes so this will work fine but if you increase the number of compute nodes then this keyword may not be reusable.\nOr if want to retain this check also here itself then make this verification also generic, instead of having two compute nodes, make number of compute nodes a variable which can be set by user in the suite.",
+      "range": {
+        "startLine": 1144,
+        "startChar": 0,
+        "endLine": 1144,
+        "endChar": 4
+      },
+      "revId": "bd4d4003232a435a77463609bdbada1c6d76c0d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
