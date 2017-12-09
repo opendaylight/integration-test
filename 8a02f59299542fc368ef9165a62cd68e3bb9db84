@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_0a1df40f",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-09T05:20:34Z",
+      "side": 1,
+      "message": "need 4 spaces here.",
+      "range": {
+        "startLine": 19,
+        "startChar": 19,
+        "endLine": 19,
+        "endChar": 20
+      },
+      "revId": "8a02f59299542fc368ef9165a62cd68e3bb9db84",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_67582157",
         "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
         "patchSetId": 5
@@ -58,6 +81,29 @@
         "startChar": 0,
         "endLine": 19,
         "endChar": 49
+      },
+      "revId": "8a02f59299542fc368ef9165a62cd68e3bb9db84",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_6a1aa818",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-09T05:20:34Z",
+      "side": 1,
+      "message": "4 spaces.... same in other places.",
+      "range": {
+        "startLine": 24,
+        "startChar": 19,
+        "endLine": 24,
+        "endChar": 20
       },
       "revId": "8a02f59299542fc368ef9165a62cd68e3bb9db84",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
