@@ -1,0 +1,407 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c928244_74bf5007",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "might as well just move these keywords over to the test file since we only have one set of tests. Better to keep everything together. We are starting to move things back to the test files where it makes sense.",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_2a543053",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "For all these vars here, look at the latest code. We refactored everything, all lowercase, prefix with the test, like here I would use up_. All the var names are shortened and consistent",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_4a4b6cb0",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "use 91 and 92 for subnets",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_6a4e28c3",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "move the subnet up after its network",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_0a517462",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "I moved away from the min max stuff and use the net_1_vm_instances var instead. It allows us to explicitly name the vms. And removes the GRP_NAME var.",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_ead178ce",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "use var",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_cad63cc5",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "use var",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_aac78011",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "comment not needed",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_8acc4437",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "use vars",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_2adb90ee",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "I think these are not used",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 85
+      },
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_6ae588a7",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "append command line and linefeed?",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_0ad854ee",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "add space here, add BuiltIn",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_4ae24ca0",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "is this right? copy file server sourcefile destfile",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_aaee6089",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "likely don\u0027t need to log this as it probably just has a return code which will be seen in the Run Command.",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afe5d2ef_b1ccc1ad",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "guess need more for this command",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_8af3a472",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "I think the remove interface has to be done before removing the subnet",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_eae8587e",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "uppercase",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_2a02703e",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "does this work? WE don\u0027t sue rpm ODL so don\u0027t think we have a service.",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_caed9c8d",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "add library.",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_0affb435",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "doesn\u0027t add much",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "257d1f6d_e5e56ada",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "Rather than removing all the bits, why not just remove the conf.db - that will guaranteed it is all clean. But you would need to make sure the open_vswitch table so this might be more difficult.",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe73ef25_2d0bd6a7",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "similar on these logs, The command above should log the rc so no need to log the output. doublecheck though.",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e86f2f81_87d358a3",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-09T19:30:48Z",
+      "side": 1,
+      "message": "can you not just delete the iptables rules added earlier? If not, save the rules before modifying them. Do the block, then load the saved rules. That\u0027s what we do in the run.sh",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
