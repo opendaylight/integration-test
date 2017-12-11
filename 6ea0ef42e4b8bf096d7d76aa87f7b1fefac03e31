@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "6c2d347c_905a5151",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-11T23:24:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c812e0f_2a4dca02",
+      "revId": "6ea0ef42e4b8bf096d7d76aa87f7b1fefac03e31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "914af280_be0600ba",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 1
@@ -53,6 +71,30 @@
       "writtenOn": "2017-12-11T22:25:33Z",
       "side": 1,
       "message": "where is / who made this script?",
+      "range": {
+        "startLine": 1199,
+        "startChar": 89,
+        "endLine": 1199,
+        "endChar": 114
+      },
+      "revId": "6ea0ef42e4b8bf096d7d76aa87f7b1fefac03e31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "905feb11_407ff308",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1199,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-11T23:24:33Z",
+      "side": 1,
+      "message": "The builder bring up copies the file over. The files have to be copied during the test so it can\u0027t be done at the end of the job. and know what.... this doesn\u0027t work. This script is on the control node so it needs to be run there. Next patch will do that.",
+      "parentUuid": "914af280_be0600ba",
       "range": {
         "startLine": 1199,
         "startChar": 89,
