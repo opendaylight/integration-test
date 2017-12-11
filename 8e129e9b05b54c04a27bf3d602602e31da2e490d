@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2141cb26_e61635af",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "Moved some stuff to OVSDB.robot and some to Upgrade.robot",
+      "parentUuid": "3c928244_74bf5007",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_2a543053",
         "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2017-12-09T19:30:48Z",
       "side": 1,
       "message": "For all these vars here, look at the latest code. We refactored everything, all lowercase, prefix with the test, like here I would use up_. All the var names are shortened and consistent",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c84a9683_e7443956",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_2a543053",
       "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "8bd9241e_cdb100d1",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_4a4b6cb0",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_6a4e28c3",
         "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
         "patchSetId": 6
@@ -64,6 +118,24 @@
       "writtenOn": "2017-12-09T19:30:48Z",
       "side": 1,
       "message": "move the subnet up after its network",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90033ffe_b206eb10",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_6a4e28c3",
       "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "d85ff477_92408a6a",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_0a517462",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_ead178ce",
         "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
         "patchSetId": 6
@@ -98,6 +188,24 @@
       "writtenOn": "2017-12-09T19:30:48Z",
       "side": 1,
       "message": "use var",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "912f3aac_fbdef145",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_ead178ce",
       "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -127,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "0759b520_89b169df",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "which var?",
+      "parentUuid": "7a1969be_cad63cc5",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_aac78011",
         "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
         "patchSetId": 6
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "03e9bad0_002dc4c4",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_aac78011",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_8acc4437",
         "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
         "patchSetId": 6
@@ -155,6 +305,24 @@
       "writtenOn": "2017-12-09T19:30:48Z",
       "side": 1,
       "message": "use vars",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "685f059d_6ba7db2f",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "Which var?",
+      "parentUuid": "7a1969be_8acc4437",
       "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -184,6 +352,30 @@
     },
     {
       "key": {
+        "uuid": "240c0f7c_2314066a",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "These are to ensure that connectivity is possible between 2 networks. I removed pinging from net_1 to vm_2_on_net_2 and voce-versa. I think pinging 1 VM is sufficient.",
+      "parentUuid": "7a1969be_2adb90ee",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 85
+      },
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_6ae588a7",
         "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
         "patchSetId": 6
@@ -195,6 +387,24 @@
       "writtenOn": "2017-12-09T19:30:48Z",
       "side": 1,
       "message": "append command line and linefeed?",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "723d4694_f41a1e2e",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "I didnt understand the comment",
+      "parentUuid": "7a1969be_6ae588a7",
       "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -218,6 +428,24 @@
     },
     {
       "key": {
+        "uuid": "db9da2b1_5469f03c",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "Where to add space?",
+      "parentUuid": "7a1969be_0ad854ee",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_4ae24ca0",
         "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
         "patchSetId": 6
@@ -235,6 +463,24 @@
     },
     {
       "key": {
+        "uuid": "99b83990_f3227b92",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "Yes, the sequence is correct. the variable was incorrect.",
+      "parentUuid": "7a1969be_4ae24ca0",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_aaee6089",
         "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
         "patchSetId": 6
@@ -246,6 +492,24 @@
       "writtenOn": "2017-12-09T19:30:48Z",
       "side": 1,
       "message": "likely don\u0027t need to log this as it probably just has a return code which will be seen in the Run Command.",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3394c2_abc0ca67",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "This is a newly introdcued keyword in this file and I am not returning anything explicity. So logging the output in case for future debugging.",
+      "parentUuid": "7a1969be_aaee6089",
       "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -280,6 +544,24 @@
       "writtenOn": "2017-12-09T19:30:48Z",
       "side": 1,
       "message": "I think the remove interface has to be done before removing the subnet",
+      "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9794a738_1cac5ab0",
+        "filename": "csit/suites/netvirt/upgrade/UpgradeUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7783
+      },
+      "writtenOn": "2017-12-11T11:49:06Z",
+      "side": 1,
+      "message": "Yes. Interfaces need to be removed before. However, I am using \"Clean All\" keyword so deleting this whole section.",
+      "parentUuid": "7a1969be_8af3a472",
       "revId": "8e129e9b05b54c04a27bf3d602602e31da2e490d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
