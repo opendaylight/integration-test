@@ -64,6 +64,7 @@ Check Vm Instances Have Ip Address
     BuiltIn.Should Not Contain    ${NET_2_DHCP_IP}    None
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
+    ...    AND    OpenStackOperations.Copy DHCP Files From Control Node
 
 No Ping From DHCP To Vm Instance1
     [Documentation]    Check non-reachability of vm instances by pinging to them.

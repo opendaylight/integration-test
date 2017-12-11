@@ -87,6 +87,7 @@ Create Nova VMs
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate    ${NETWORKS}    ${SUBNET_CIDRS}
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
+    ...    AND    OpenStackOperations.Copy DHCP Files From Control Node
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.

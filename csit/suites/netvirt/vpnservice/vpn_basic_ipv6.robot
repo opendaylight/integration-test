@@ -117,6 +117,7 @@ Create Nova VMs
     BuiltIn.Should Not Contain    ${VM_IP_NET20}    None
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
+    ...    AND    OpenStackOperations.Copy DHCP Files From Control Node
 
 Check ELAN Datapath Traffic Within The Networks
     ${output}=    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{VM_IP_NET10}[0]    ping6 -c 3 @{VM_IP_NET10}[1]

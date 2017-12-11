@@ -56,6 +56,7 @@ TC00 Verify Setup
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRIES_URL}    ${vms}
     Verify Ping On Same Networks
     Verify Ping On Different Networks
+    OpenStackOperations.Copy DHCP Files From Control Node
 
 TC01 Verify GARP Requests
     [Documentation]    Verify that GARP request are sent to controller

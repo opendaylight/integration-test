@@ -88,6 +88,7 @@ Check Vm Instances Have Ip Address
     BuiltIn.Should Not Contain    ${NET_3_L3_DHCP_IP}    None
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
+    ...    AND    OpenStackOperations.Copy DHCP Files From Control Node
 
 Create Routers
     [Documentation]    Create Router

@@ -49,6 +49,7 @@ Create Single Elan
     BuiltIn.Should Not Contain    ${NET_1_DHCP_IP}    None
     @{NET_1_MACS} =    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OpenStackOperations.Get Ports MacAddr    ${NET_1_PORTS}
     Builtin.Set Suite Variable    @{NET_1_MACS}
+    OpenStackOperations.Copy DHCP Files From Control Node
 
 Verify Datapath for Single ELAN with Multiple DPN
     [Documentation]    Verify Flow Table and Datapath

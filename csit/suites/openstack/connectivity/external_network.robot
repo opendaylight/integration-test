@@ -65,6 +65,7 @@ Check Vm Instances Have Ip Address
     BuiltIn.Should Not Contain    ${SNAT_DHCP_IP}    None
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{FIP_VMS}    @{SNAT_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
+    ...    AND    OpenStackOperations.Copy DHCP Files From Control Node
 
 Create External Network And Subnet
     OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
