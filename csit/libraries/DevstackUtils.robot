@@ -23,8 +23,6 @@ ${blacklist_file}    /tmp/blacklist.txt
 ${tempest_dir}    /opt/stack/tempest
 ${tempest_config_file}    ${tempest_dir}/etc/tempest.conf
 ${external_physical_network}    physnet1
-${external_net_name}    external-net
-${external_subnet_name}    external-subnet
 # Parameter values below are based on releng/builder - changing them requires updates in releng/builder as well
 ${external_gateway}    10.10.10.250
 ${external_subnet_allocation_pool}    start=10.10.10.2,end=10.10.10.249
@@ -109,8 +107,8 @@ Log In To Tempest Executor And Setup Test Environment
     ...    and pushed to the tempest executor.
     Create Blacklist File
     # Tempest tests need an existing external network in order to create routers.
-    Create Network    ${external_net_name}    --external --default --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
-    Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway} --allocation-pool ${external_subnet_allocation_pool}
+    Create Network    ${EXTERNAL_NET_NAME}    --external --default --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
+    Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${external_subnet}    --gateway ${external_gateway} --allocation-pool ${external_subnet_allocation_pool}
     List Networks
     ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}
