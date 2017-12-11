@@ -384,6 +384,7 @@ Get VM IPs
     \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    Collections.Append To List    ${vm_ips}    None
     \    ${rc}    ${vm_console_output}=    BuiltIn.Run Keyword If    "${status}" == "FAIL"    Run And Return Rc And Output    openstack console log show ${vm}
     \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    BuiltIn.Log    ${vm_console_output}
+    Copy DHCP Files From Control Node
     [Return]    @{vm_ips}    ${ips_and_console_log[1]}
 
 Collect VM IPv6 SLAAC Addresses
@@ -1194,3 +1195,12 @@ Cleanup Router
 OpenStack Suite Teardown
     OpenStack Cleanup All
     SSHLibrary.Close All Connections
+
+Copy DHCP Files From Control Node
+    [Documentation]    Copy the current DHCP files to the robot vm. The keyword must be called
+    ...    after the subnet(s) are created and before the subnet(s) are deleted.
+    ${dstdir} =    Set Variable    /tmp/qdhcp/${SUITE_NAME}
+    OperatingSystem.Create Directory    ${dstdir}
+    Get ControlNode Connection
+    BuiltIn.Run Keyword And Ignore Error    SSHLibrary.Get Directory    /opt/stack/data/neutron/dhcp    ${dstdir}    recursive=True
+    SSHLibrary.Close Connection
