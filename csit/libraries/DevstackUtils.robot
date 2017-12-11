@@ -23,12 +23,7 @@ ${blacklist_file}    /tmp/blacklist.txt
 ${tempest_dir}    /opt/stack/tempest
 ${tempest_config_file}    ${tempest_dir}/etc/tempest.conf
 ${external_physical_network}    physnet1
-${external_net_name}    external-net
-${external_subnet_name}    external-subnet
 # Parameter values below are based on releng/builder - changing them requires updates in releng/builder as well
-${external_gateway}    10.10.10.250
-${external_subnet_allocation_pool}    start=10.10.10.2,end=10.10.10.249
-${external_subnet}    10.10.10.0/24
 ${TEMPEST_TIMEOUT}    420s
 ${OS_CNTL_CONN_ID}    None
 ${OS_CMP1_CONN_ID}    None
@@ -109,14 +104,14 @@ Log In To Tempest Executor And Setup Test Environment
     ...    and pushed to the tempest executor.
     Create Blacklist File
     # Tempest tests need an existing external network in order to create routers.
-    Create Network    ${external_net_name}    --external --default --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
-    Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway} --allocation-pool ${external_subnet_allocation_pool}
+    Create Network    ${EXTERNAL_NET_NAME}    --external --default --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
+    Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
     List Networks
     ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    sudo rm -rf /opt/stack/tempest/.testrepository
-    ${net_id}=    Get Net Id    ${external_net_name}
+    ${net_id}=    Get Net Id    ${EXTERNAL_NET_NAME}
     Tempest Conf Add External Network And Floating Network Name    ${net_id}
 
 Tempest Conf Add External Network And Floating Network Name
@@ -126,7 +121,7 @@ Tempest Conf Add External Network And Floating Network Name
     Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    network    public_network_id    ${external_network_id}
     Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    debug    False
     Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    DEFAULT    log_level    INFO
-    Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    network    floating_network_name    ${external_net_name}
+    Modify Config In File On Existing SSH Connection    ${tempest_config_file}    set    network    floating_network_name    ${EXTERNAL_NET_NAME}
     Write Commands Until Prompt    sudo cat ${tempest_config_file}
     Write Commands Until Prompt    sudo chmod 777 ${tempest_config_file}
 
