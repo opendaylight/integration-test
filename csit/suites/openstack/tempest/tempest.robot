@@ -94,3 +94,16 @@ tempest.scenario.test_security_groups_basic_ops.TestSecurityGroupsBasicOps.test_
 
 tempest.scenario.test_server_basic_ops.TestServerBasicOps.test_server_basic_ops
     ${TEST_NAME}    debug=True
+
+Delete External Network
+    [Documentation]    https://jira.opendaylight.org/browse/NETVIRT-1019
+    ...    There is a port leak in one or more of the tempest.scenario tests such that ports are left on the external
+    ...    network created in the suite setup. Because of that, we are unable to delete the network with a simple
+    ...    openstack network delete command. This test case will fail until that is resolved. There is a keyword
+    ...    being run in the suite teardown (OpenstackOperations.OpenStack Suite Teardown which will fully clean the
+    ...    opentack configs and take care of removing the leaked ports and removing the network. This test case is
+    ...    needed to let us still catch the problem.
+    [Tags]    bug NETVIRT-1019    bug
+    [Template]    NONE
+    Delete Network    ${EXTERNAL_NET_NAME}
+    [Teardown]    Report_Failure_Due_To_Bug    NETVIRT-1019
