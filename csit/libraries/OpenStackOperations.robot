@@ -1194,3 +1194,10 @@ Cleanup Router
 OpenStack Suite Teardown
     OpenStack Cleanup All
     SSHLibrary.Close All Connections
+
+Copy DHCP Files From Control Node
+    [Documentation]    Copy the current DHCP files to the robot vm. The keyword must be called
+    ...    after the subnet(s) are created and before the subnet(s) are deleted.
+    Get ControlNode Connection
+    BuiltIn.Run Keyword And Ignore Error    SSHLibrary.Get Directory    /opt/stack/data/neutron/dhcp    /tmp    recursive=True
+    SSHKeywords.Close Connection
