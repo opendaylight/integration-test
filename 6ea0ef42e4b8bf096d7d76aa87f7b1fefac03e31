@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ebec249_e476bccc",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1194,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-11T22:25:33Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/66363",
+      "range": {
+        "startLine": 1194,
+        "startChar": 0,
+        "endLine": 1194,
+        "endChar": 24
+      },
+      "revId": "6ea0ef42e4b8bf096d7d76aa87f7b1fefac03e31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c812e0f_2a4dca02",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-11T22:25:33Z",
+      "side": 1,
+      "message": "Need docs",
+      "revId": "6ea0ef42e4b8bf096d7d76aa87f7b1fefac03e31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "914af280_be0600ba",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1199,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-11T22:25:33Z",
+      "side": 1,
+      "message": "where is / who made this script?",
+      "range": {
+        "startLine": 1199,
+        "startChar": 89,
+        "endLine": 1199,
+        "endChar": 114
+      },
+      "revId": "6ea0ef42e4b8bf096d7d76aa87f7b1fefac03e31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
