@@ -8,6 +8,11 @@ ${CIRROS_stable/ocata}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/pike}    cirros-0.3.5-x86_64-disk
 ${CIRROS_master}    cirros-0.3.5-x86_64-disk
 ${PRE_CLEAN_OPENSTACK_ALL}    False
+${EXTERNAL_NET_NAME}    external-net
+${EXTERNAL_SUBNET_NAME}    external-subnet
+${EXTERNAL_GATEWAY}    10.10.10.250
+${EXTERNAL_SUBNET}    10.10.10.0/24
+${EXTERNAL_SUBNET_ALLOCATION_POOL}    start=10.10.10.2,end=10.10.10.249
 ${NET1_IPV6_ADDR_POOL}    --allocation-pool start=2001:db8:0:2::2,end=2001:db8:0:2:ffff:ffff:ffff:fffe
 ${NET2_IPV6_ADDR_POOL}    --allocation-pool start=2001:db8:0:3::2,end=2001:db8:0:3:ffff:ffff:ffff:fffe
 ${RESP_CODE}      200
