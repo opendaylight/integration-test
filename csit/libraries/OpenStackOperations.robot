@@ -1194,3 +1194,10 @@ Cleanup Router
 OpenStack Suite Teardown
     OpenStack Cleanup All
     SSHLibrary.Close All Connections
+
+Copy DHCP Files
+    [Documentation]    Run the collect_dhcp_logs.sh script to copy all the DHCP configuration files to the tmp
+    ...    directory. The files will be copied at the end of the job. The files need to be collected during the test
+    ...    because the exist only in the subnet create and delete cycle. The script file is created as part of the
+    ...    job bringup.
+    BuiltIn.Run Keyword And Ignore Error    Run Process With Logging And Status Check    /tmp/collect_dhcp_logs.sh    /opt/stack/data/neutron/dhcp    /tmp/qdhcp
