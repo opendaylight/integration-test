@@ -1194,3 +1194,6 @@ Cleanup Router
 OpenStack Suite Teardown
     OpenStack Cleanup All
     SSHLibrary.Close All Connections
+
+Copy DHCP Files
+    BuiltIn.Run Keyword And Ignore Error    Run Process With Logging And Status Check    /tmp/collect_dhcp_logs.sh    /opt/stack/data/neutron/dhcp    /tmp/qdhcp
