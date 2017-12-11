@@ -1192,5 +1192,9 @@ Cleanup Router
     BuiltIn.Run Keyword And Ignore Error    Delete Router    ${id}
 
 OpenStack Suite Teardown
+    [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
+    ...    to clean up all openstack resources. For example, all instances, networks, ports, etc will be listed and
+    ...    and deleted. As other global cleanup tasks are needed, they can be added here and the suites will all
+    ...    benefit automatically.
     OpenStack Cleanup All
     SSHLibrary.Close All Connections
