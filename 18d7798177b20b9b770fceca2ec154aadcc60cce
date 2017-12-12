@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8c0c313_7ace06b2",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 1205,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-12T17:36:37Z",
+      "side": 1,
+      "message": "I like this.\n\ndoes it put the files in the right place for the job\nto eventually archive it?",
+      "range": {
+        "startLine": 1205,
+        "startChar": 4,
+        "endLine": 1205,
+        "endChar": 131
+      },
+      "revId": "18d7798177b20b9b770fceca2ec154aadcc60cce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
