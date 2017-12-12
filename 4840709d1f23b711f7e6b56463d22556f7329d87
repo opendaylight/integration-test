@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61ccef85_646fe011",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-12T00:02:47Z",
+      "side": 1,
+      "message": "if this works, I\u0027m fine with it, but \"collect_dhcp_logs.sh\"\nis kind of a hidden thing to someone not knowing what\u0027s\nreally going on and looking in the releng/builder repo.\n\nSSHLibrary.Get File might work too, or Get Directory even...",
+      "revId": "4840709d1f23b711f7e6b56463d22556f7329d87",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
