@@ -11,6 +11,7 @@ Contents:
 
    system-test-guide
    cluster/index
+   testplans/index
 
 External resources:
 
@@ -19,3 +20,4 @@ External resources:
 * `Test Code Guidelines <https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines>`_
 * `Test Case Expectations <https://wiki.opendaylight.org/view/Integration/Test/Test_Case_Expectations>`_
 * `Robot API docs <_static/integration/robot/index.html>`_
+
