@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     L2Gateway Operations Library. This library has useful keywords for various actions on Hwvtep and Ovs connectivity. Most of the keywords expects that ovs_conn_id,ovs2_conn_id, hwvtep_conn_id, hwvtep2_conn_id and devstack_conn_id are available.
+Documentation     L2Gateway Operations Library. This library has useful keywords for various actions on Hwvtep and Ovs connectivity. Most of the keywords expects that ovs_conn_id,ovs2_conn_id, hwvtep_conn_id, hwvtep2_conn_id and os_cntl_conn_id are available.
 Library           SSHLibrary
 Library           Collections
 Library           RequestsLibrary
@@ -17,7 +17,7 @@ ${L2GW_VAR_BASE}    ${CURDIR}/../variables/l2gw
 
 *** Keywords ***
 Add Ovs Bridge Manager Controller And Verify
-    [Arguments]    ${conn_id}=${ovs_conn_id}    ${hwvtep_bridge}=${HWVTEP_BRIDGE}
+    [Arguments]    ${conn_id}=${os_cmp1_conn_id}    ${hwvtep_bridge}=${HWVTEP_BRIDGE}
     [Documentation]    Keyword to set OVS manager and controller to ${ODL_IP} for the OVS IP connected in ${conn_id} and verify the entries in OVSDB NETWORK TOPOLOGY and NETSTAT results.
     ${output}=    Exec Command    ${conn_id}    ${OVS_RESTART}
     ${output}=    Exec Command    ${conn_id}    ${OVS_DEL_MGR}
@@ -76,7 +76,7 @@ Create Verify L2Gateway
 Delete L2Gateway
     [Arguments]    ${gw_name}
     [Documentation]    Keyword to delete the L2 Gateway ${gw_name} received in argument.
-    ${output}=    Exec Command    ${devstack_conn_id}    ${L2GW_DELETE} ${gw_name}
+    ${output}=    Exec Command    ${os_cntl_conn_id}    ${L2GW_DELETE} ${gw_name}
     Log    ${output}
     @{list_to_check}=    Create List    ${gw_name}
     Utils.Check For Elements Not At URI    ${L2GW_LIST_REST_URL}    ${list_to_check}    session
@@ -98,7 +98,7 @@ Delete L2Gateway Connection
     [Arguments]    ${gw_name}
     [Documentation]    Delete the L2 Gateway connection existing for Gateway ${gw_name} received in argument (Using Neutron CLI).
     ${l2gw_conn_id}=    OpenStackOperations.Get L2gw Connection Id    ${gw_name}
-    ${output}=    Exec Command    ${devstack_conn_id}    ${L2GW_CONN_DELETE} ${l2gw_conn_id}
+    ${output}=    Exec Command    ${os_cntl_conn_id}    ${L2GW_CONN_DELETE} ${l2gw_conn_id}
     @{list_to_check}=    Create List    ${l2gw_conn_id}
     Utils.Check For Elements Not At URI    ${L2GW_CONN_LIST_REST_URL}    ${list_to_check}    session
     Log    ${output}
@@ -106,7 +106,7 @@ Delete L2Gateway Connection
 Update Port For Hwvtep
     [Arguments]    ${port_name}
     [Documentation]    Keyword to update the Neutron Ports for specific configuration required to connect to HWVTEP (Using REST).
-    ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
+    ${port_id}=    Get Port Id    ${port_name}
     Log    ${port_id}
     ${json_data}=    Get Neutron Port Rest    ${port_id}
     Should Contain    ${json_data}    ${STR_VIF_TYPE}
@@ -182,9 +182,9 @@ Get L2gw Debug Info
     Log    ${resp.content}
     ${resp} =    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/network-topology:network-topology/topology/hwvtep:1
     Log    ${resp.content}
-    Exec Command    ${devstack_conn_id}    cat /etc/neutron/neutron.conf
-    Exec Command    ${devstack_conn_id}    cat /etc/neutron/l2gw_plugin.ini
-    Exec Command    ${devstack_conn_id}    ps -ef | grep neutron-server
+    Exec Command    ${os_cntl_conn_id}    cat /etc/neutron/neutron.conf
+    Exec Command    ${os_cntl_conn_id}    cat /etc/neutron/l2gw_plugin.ini
+    Exec Command    ${os_cntl_conn_id}    ps -ef | grep neutron-server
 
 Start Command In Hwvtep
     [Arguments]    ${command}    ${hwvtep_ip}
@@ -226,7 +226,7 @@ Verify Ovs Tunnel
     ${output}=    Exec Command    ${conn_id}    ${OVS_SHOW}
     Log    ${output}
     Should Contain    ${output}    key="${seg_id}", remote_ip="${ovs_ip}"
-    ${output}=    Exec Command    ${ovs_conn_id}    ${OVS_SHOW}
+    ${output}=    Exec Command    ${os_cmp1_conn_id}    ${OVS_SHOW}
     Log    ${output}
     Should Contain    ${output}    key=flow, local_ip="${ovs_ip}", remote_ip="${hwvtep_ip}"
 

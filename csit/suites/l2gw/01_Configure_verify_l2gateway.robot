@@ -141,24 +141,11 @@ TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
 *** Keywords ***
 Basic Suite Setup
     [Documentation]    Basic Suite Setup required for the HWVTEP Test Suite
-    RequestsLibrary.Create Session    alias=session    url=http://${ODL_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    ${devstack_conn_id}=    SSHLibrary.Open Connection    ${OS_IP}    prompt=${DEFAULT_LINUX_PROMPT}
-    Log    ${devstack_conn_id}
-    Set Suite Variable    ${devstack_conn_id}
-    Log    ${OS_IP}
-    Log    ${OS_USER}
-    Log    ${OS_PASSWORD}
-    Wait Until Keyword Succeeds    30s    5s    Flexible SSH Login    ${OS_USER}    ${OS_PASSWORD}
+    OpenStackOperations.OpenStack Suite Setup
+    OpenStackOperations.Get ControlNode Connection
     Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin    30s
     ${hwvtep_conn_id}=    SSHLibrary.Open Connection    ${HWVTEP_IP}    prompt=${DEFAULT_LINUX_PROMPT}
-    Log    ${hwvtep_conn_id}
     Set Suite Variable    ${hwvtep_conn_id}
-    Log    ${DEFAULT_USER}
-    Log    ${DEFAULT_PASSWORD}
-    Wait Until Keyword Succeeds    30s    5s    Flexible SSH Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
-    ${ovs_conn_id}=    SSHLibrary.Open Connection    ${OVS_IP}    prompt=${DEFAULT_LINUX_PROMPT}
-    Log    ${ovs_conn_id}
-    Set Suite Variable    ${ovs_conn_id}
     Wait Until Keyword Succeeds    30s    5s    Flexible SSH Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
     ${port_mac_list}=    Create List
     Set Suite Variable    ${port_mac_list}
@@ -166,9 +153,9 @@ Basic Suite Setup
     Set Suite Variable    ${port_ip_list}
 
 Basic Suite Teardown
-    Switch Connection    ${devstack_conn_id}
+    Switch Connection    ${os_cntl_conn_id}
     close connection
     Switch Connection    ${hwvtep_conn_id}
     close connection
-    Switch Connection    ${ovs_conn_id}
+    Switch Connection    ${os_cmp1_conn_id}
     close connection
