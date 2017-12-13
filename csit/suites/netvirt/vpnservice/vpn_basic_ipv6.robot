@@ -2,9 +2,7 @@
 Documentation     Test suite to validate IPv6 vpnservice functionality in an Openstack integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       BuiltIn.Run Keywords    OpenStackOperations.Get OvsDebugInfo
-...               AND    VpnOperations.Basic Vpnservice Suite Setup
-...               AND    OpenStackOperations.Get OvsDebugInfo
+Suite Setup       OpenStackOperations.OpenStack Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
@@ -67,7 +65,7 @@ Add Interfaces To Router
     \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
     : FOR    ${interface}    IN    @{SUBNETS}
-    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${interface}    ${devstack_conn_id}
+    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${interface}
     \    BuiltIn.Should Contain    ${interface_output}    ${subnet_id}
     ${GWMAC_ADDRS}    ${GWIP_ADDRS} =    VpnOperations.Get Gateway MAC And IP Address    ${ROUTER}    ${IP6_REGEX}
     BuiltIn.Set Suite Variable    ${GWMAC_ADDRS}
@@ -184,14 +182,14 @@ Delete And Recreate Extra Route
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
 Create L3VPN
-    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
     VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
     ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    @{VPN_INSTANCE_IDS}[0]
 
 Associate L3VPN To Routers
-    ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}    ${devstack_conn_id}
+    ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
     VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${router_id}
@@ -215,13 +213,13 @@ Verify L3VPN Datapath With Router Association
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{VM_IP_NET20}[0]    ${dst_ip_list}
 
 Dissociate L3VPN From Routers
-    ${router_id}=    OpenStackOperations.Get Router Id    ${ROUTER}    ${devstack_conn_id}
+    ${router_id}=    OpenStackOperations.Get Router Id    ${ROUTER}
     VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Not Contain    ${resp}    ${router_id}
 
 Delete Router And Router Interfaces With L3VPN
-    ${router_id}=    OpenStackOperations.Get Router Id    ${ROUTER}    ${devstack_conn_id}
+    ${router_id}=    OpenStackOperations.Get Router Id    ${ROUTER}
     VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${router_id}
@@ -229,7 +227,7 @@ Delete Router And Router Interfaces With L3VPN
     \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}    ${devstack_conn_id}
+    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
     \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
     OpenStackOperations.Delete Router    ${ROUTER}
     ${router_output} =    OpenStackOperations.List Routers
@@ -246,8 +244,8 @@ Delete Router With NonExistentRouter Name
     BuiltIn.Should Match Regexp    ${output}    Unable to find router with name or id 'nonExistentRouter'|Unable to find router\\(s\\) with id\\(s\\) 'nonExistentRouter'
 
 Associate L3VPN To Networks
-    ${network1_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
-    ${network2_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
+    ${network1_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
+    ${network2_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[1]
     VpnOperations.Associate L3VPN To Network    networkid=${network1_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${network1_id}
@@ -256,8 +254,8 @@ Associate L3VPN To Networks
     BuiltIn.Should Contain    ${resp}    ${network2_id}
 
 Dissociate L3VPN From Networks
-    ${network1_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
-    ${network2_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
+    ${network1_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
+    ${network2_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[1]
     VpnOperations.Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Not Contain    ${resp}    ${network1_id}
@@ -269,7 +267,7 @@ Delete L3VPN
     VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
 
 Create Multiple L3VPN
-    ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${net_id} =    Get Net Id    @{NETWORKS}[0]
     ${tenant_id} =    Get Tenant ID From Network    ${net_id}
     VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RDS}[0]    exportrt=@{RDS}[0]    importrt=@{RDS}[0]    tenantid=${tenant_id}
     VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[1]    name=@{VPN_NAMES}[1]    rd=@{RDS}[1]    exportrt=@{RDS}[1]    importrt=@{RDS}[1]    tenantid=${tenant_id}
