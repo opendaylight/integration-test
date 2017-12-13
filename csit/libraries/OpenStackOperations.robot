@@ -422,11 +422,11 @@ Ping Vm From DHCP Namespace
     [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt And Log    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
-    Close Connection
+    # Close Connection
     Should Contain    ${output}    64 bytes
 
 Ping From DHCP Should Not Succeed
@@ -435,11 +435,11 @@ Ping From DHCP Should Not Succeed
     Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
     Log    ${vm_ip}
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
-    Close Connection
+    # Close Connection
     Log    ${output}
     Should Not Contain    ${output}    64 bytes
 
@@ -448,9 +448,9 @@ Ping Vm From Control Node
     [Documentation]    Ping VM floating IP from control node
     Log    ${vm_floating_ip}
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt And Log    ping ${additional_args} -c 3 ${vm_floating_ip}    20s
-    Close Connection
+    # Close Connection
     Should Contain    ${output}    64 bytes
 
 Ping From Instance
@@ -505,7 +505,7 @@ Execute Command on VM Instance
     [Arguments]    ${net_name}    ${vm_ip}    ${cmd}    ${user}=cirros    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
     ${devstack_conn_id} =    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${vm_ip}
     ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    password:
@@ -522,7 +522,7 @@ Test Operations From Vm Instance
     ...    ${ping_should_succeed}=True    ${check_metadata}=True
     [Documentation]    Login to the vm instance using ssh in the network.
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     Log    ${src_ip}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    password:
@@ -552,7 +552,7 @@ Test Netcat Operations From Vm Instance
     ${client_data}    Set Variable    Test Client Data
     ${server_data}    Set Variable    Test Server Data
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     Log    ${vm_ip}
     ${output}=    Write Commands Until Prompt And Log    ( ( echo "${server_data}" | sudo timeout 60 nc -l ${additional_args} ${port} ) & )
     ${output}=    Write Commands Until Prompt And Log    sudo netstat -nlap | grep ${port}
@@ -679,7 +679,8 @@ Get Karaf Log Events From Test Start
     Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_3_IP}    ${test_name}    ${log_types}
 
 Get ControlNode Connection
-    ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    # ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    SSHLibrary.Switch Connection    ${devstack_conn_id}
     SSHLibrary.Set Client Configuration    timeout=30s
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     [Return]    ${control_conn_id}
@@ -704,9 +705,9 @@ Show Debugs
     [Arguments]    @{vm_indices}
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt And Log    sudo ip netns list
-    Close Connection
+    # Close Connection
     : FOR    ${index}    IN    @{vm_indices}
     \    ${rc}    ${output}=    Run And Return Rc And Output    nova show ${index}
     \    Log    ${output}
@@ -745,7 +746,7 @@ Neutron Security Group Create
     [Arguments]    ${SecurityGroupName}    ${additional_args}=${EMPTY}
     [Documentation]    Create a security group with specified name ,description & protocol value according to security group template
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack security group create ${SecurityGroupName} ${additional_args}
     Log    ${output}
     Should Be True    '${rc}' == '0'
@@ -1006,9 +1007,9 @@ Remove Security Group From VM
     [Arguments]    ${vm}    ${sg}
     [Documentation]    Remove the security group provided to the given VM.
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt And Log    openstack server remove security group ${vm} ${sg}
-    Close Connection
+    #Close Connection
 
 Create SFC Flow Classifier
     [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${dest_port}    ${neutron_src_port}
@@ -1023,7 +1024,7 @@ Delete SFC Flow Classifier
     [Arguments]    ${name}
     [Documentation]    Delete a SFC flow classifier
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc flow classifier delete ${name}
     Log    ${output}
     Should Be True    '${rc}' == '0'
@@ -1033,7 +1034,7 @@ Create SFC Port Pair
     [Arguments]    ${name}    ${port_in}    ${port_out}
     [Documentation]    Creates a neutron port pair for SFC
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair create --ingress=${port_in} --egress=${port_out} ${name}
     Log    ${output}
     Should Be True    '${rc}' == '0'
@@ -1104,7 +1105,7 @@ Remove RSA Key From KnownHosts
     [Arguments]    ${vm_ip}
     [Documentation]    Remove RSA
     ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt And Log    sudo cat /root/.ssh/known_hosts    30s
     ${output}=    Write Commands Until Prompt And Log    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}    30s
     ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"    30s
@@ -1113,7 +1114,7 @@ Wait For Routes To Propogate
     [Arguments]    ${networks}    ${subnets}
     [Documentation]    Check propagated routes
     ${devstack_conn_id} =    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    #Switch Connection    ${devstack_conn_id}
     : FOR    ${INDEX}    IN RANGE    0    1
     \    ${net_id}=    Get Net Id    @{networks}[${INDEX}]    ${devstack_conn_id}
     \    ${is_ipv6}=    Get Regexp Matches    @{subnets}[${INDEX}]    ${IP6_REGEX}
@@ -1208,4 +1209,4 @@ Copy DHCP Files From Control Node
     OperatingSystem.Create Directory    ${dstdir}
     Get ControlNode Connection
     BuiltIn.Run Keyword And Ignore Error    SSHLibrary.Get Directory    /opt/stack/data/neutron/dhcp    ${dstdir}    recursive=True
-    SSHLibrary.Close Connection
+    #SSHLibrary.Close Connection
