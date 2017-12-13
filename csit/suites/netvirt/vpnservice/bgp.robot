@@ -129,11 +129,11 @@ Create Basic Configuartion for BGP VPNservice Suite
     BuiltIn.Set Suite Variable    @{VM_IPS}
     BuiltIn.Should Not Contain    ${VM_IPS}    None
     BuiltIn.Should Not Contain    ${DHCP_IPS}    None
-    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
     VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RD_LIST}[0]    exportrt=@{RD_LIST}[0]    importrt=@{RD_LIST}[0]    tenantid=${tenant_id}
     : FOR    ${network}    IN    @{NETWORKS}
-    \    ${network_id} =    Get Net Id    ${network}    ${devstack_conn_id}
+    \    ${network_id} =    Get Net Id    ${network}
     \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Log    ${resp}
@@ -141,7 +141,7 @@ Create Basic Configuartion for BGP VPNservice Suite
 Delete Basic Configuartion for BGP VPNservice Suite
     [Documentation]    Delete basic configuration for BGP Vpnservice suite
     : FOR    ${network}    IN    @{NETWORKS}
-    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}    ${devstack_conn_id}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
     \    VpnOperations.Dissociate L3VPN From Networks    networkid=${network_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     : FOR    ${vm}    IN    @{VM_NAMES}

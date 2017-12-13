@@ -106,7 +106,9 @@ Open_Controller_Karaf_Console_On_Background
     ...    close the previous connection. In any case create a new connection
     ...    to karaf console for ${member_index}, set correct prompt set and login to karaf console.
     ...    Store connection index for ${member_index} and restore the previous active connection.
+    SSHLibrary.Get Connections
     ${current_ssh_connection_object}=    SSHLibrary.Get_Connection
+    BuiltIn.Log    current_ssh_connection_object = ${current_ssh_connection_object}
     BuiltIn.Log    ${connection_index_dict}
     BuiltIn.Log    ${member_index}
     ${status}    ${old_connection_index} =    BuiltIn.Run_Keyword_And_Ignore_Error    Get From Dictionary    ${connection_index_dict}    ${member_index}
@@ -118,6 +120,7 @@ Open_Controller_Karaf_Console_On_Background
     Collections.Set_To_Dictionary    ${connection_index_dict}    ${member_index}    ${karaf_connection_object.index}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
     [Teardown]    SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${current_ssh_connection_object.index}
+    ...    AND    SSHLibrary.Get Connections
 
 Open_Controller_Karaf_Console_With_Timeout
     [Arguments]    ${member_index}=${1}    ${timeout}=3s
