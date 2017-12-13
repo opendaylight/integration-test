@@ -236,6 +236,7 @@ Copy_File_To_Tools_System
 Flexible_SSH_Login
     [Arguments]    ${user}    ${password}=${EMPTY}    ${delay}=0.5s
     [Documentation]    On active SSH session: if given non-empty password, do Login, else do Login With Public Key.
+    SSHLibrary.Set Client Configuration    timeout=30s
     ${pwd_length} =    BuiltIn.Get Length    ${password}
     # ${pwd_length} is guaranteed to be an integer, so we are safe to evaluate it as Python expression.
     BuiltIn.Run Keyword And Return If    ${pwd_length} > 0    SSHLibrary.Login    ${user}    ${password}    delay=${delay}
