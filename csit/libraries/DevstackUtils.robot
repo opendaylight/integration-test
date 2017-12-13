@@ -108,7 +108,7 @@ Log In To Tempest Executor And Setup Test Environment
     SSHKeywords.Flexible SSH Login    ${OS_USER}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    sudo rm -rf /opt/stack/tempest/.testrepository
-    ${net_id}=    Get Net Id    ${external_net_name}    ${control_node_conn_id}
+    ${net_id}=    Get Net Id    ${external_net_name}
     Tempest Conf Add External Network And Floating Network Name    ${net_id}
 
 Tempest Conf Add External Network And Floating Network Name
@@ -147,14 +147,19 @@ Create Blacklist File
 
 Devstack Suite Setup
     [Arguments]    ${source_pwd}=no    ${odl_ip}=${ODL_SYSTEM_IP}
-    [Documentation]    Login to the Openstack Control Node to run tempest suite
+    [Documentation]    Open connections to the nodes
     Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    ${devstack_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT}
-    Set Suite Variable    ${devstack_conn_id}
-    Set Suite Variable    ${source_pwd}
-    Log    ${devstack_conn_id}
+    SSHLibrary.Set Default Configuration    timeout=${default_devstack_prompt_timeout}
+    ${os_cntl_conn_id} =    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
-    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    ${os_cmp1_conn_id} =    SSHLibrary.Open Connection    ${OS_COMPUTE_1_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    ${os_cmp2_conn_id} =    SSHLibrary.Open Connection    ${OS_COMPUTE_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    Set Suite Variable    ${os_cntl_conn_id}
+    Set Suite Variable    ${os_cmp1_conn_id}
+    Set Suite Variable    ${os_cmp2_conn_id}
+    Set Suite Variable    ${source_pwd}
 
 Write Commands Until Prompt
     [Arguments]    ${cmd}    ${timeout}=${default_devstack_prompt_timeout}
