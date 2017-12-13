@@ -51,31 +51,18 @@ def get_variables(mininet_ip):
     # First off, there is segment describing PCC which conatins IP address but is otherwise constant.
     # So the top-level template will look like this:
     json_templ = Template('''{
- "topology": [
-  {
-   "node": [
-    {
-     "network-topology-pcep:path-computation-client": {
-      "ip-address": "$IP",
-      "reported-lsp": [$LSPS
-      ],
-      "state-sync": "synchronized",
-      "stateful-tlv": {
-       "odl-pcep-ietf-stateful07:stateful": {
-        "lsp-update-capability": true,
-        "odl-pcep-ietf-initiated00:initiation": true
-       }
-      }
-     },
-     "node-id": "pcc://$IP"
-    }
-   ],
-   "topology-id": "pcep-topology",
-   "topology-types": {
-    "network-topology-pcep:topology-pcep": {}
+ "network-topology-pcep:path-computation-client": {
+  "ip-address": "$IP",
+  "reported-lsp": [$LSPS
+  ],
+  "state-sync": "synchronized",
+  "stateful-tlv": {
+   "odl-pcep-ietf-stateful07:stateful": {
+    "lsp-update-capability": true,
+    "odl-pcep-ietf-initiated00:initiation": true
    }
   }
- ]
+ }
 }''')
     # The _json variables will differ only in $LSPS, but $IP will be present inside.
     # Thus, the $IP substitution will come last, and any auxiliary substitutions before this final one
@@ -87,45 +74,45 @@ def get_variables(mininet_ip):
     # or a pair of delegated and instantiated (separated by comma) LSPS, in appropriate state.
     # Of course, one LSP always follow a structure, for which here is the template:
     lsp_templ = Template('''
-       {
-        "name": "$NAME",
-        "path": [
-         {
-          "ero": {
-           "ignore": false,
-           "processing-rule": false,
-           "subobject": [$HOPS
-           ]
-          },
-          "lsp-id": $ID,
-          "odl-pcep-ietf-stateful07:lsp": {
-           "administrative": true,
-           "delegate": true,
-           "ignore": false,
-           "odl-pcep-ietf-initiated00:create": $CREATED,
-           "operational": "up",
-           "plsp-id": $ID,
-           "processing-rule": false,
-           "remove": false,
-           "sync": true,
-           "tlvs": {
-            "lsp-identifiers": {
-             "ipv4": {
-              "ipv4-extended-tunnel-id": "$IP",
-              "ipv4-tunnel-endpoint-address": "1.1.1.1",
-              "ipv4-tunnel-sender-address": "$IP"
-             },
-             "lsp-id": $ID,
-             "tunnel-id": $ID
-            },
-            "symbolic-path-name": {
-             "path-name": "$CODE"
-            }
-           }
-          }
-         }
-        ]
-       }''')
+   {
+    "name": "$NAME",
+    "path": [
+     {
+      "ero": {
+       "ignore": false,
+       "processing-rule": false,
+       "subobject": [$HOPS
+       ]
+      },
+      "lsp-id": $ID,
+      "odl-pcep-ietf-stateful07:lsp": {
+       "administrative": true,
+       "delegate": true,
+       "ignore": false,
+       "odl-pcep-ietf-initiated00:create": $CREATED,
+       "operational": "up",
+       "plsp-id": $ID,
+       "processing-rule": false,
+       "remove": false,
+       "sync": true,
+       "tlvs": {
+        "lsp-identifiers": {
+         "ipv4": {
+          "ipv4-extended-tunnel-id": "$IP",
+          "ipv4-tunnel-endpoint-address": "1.1.1.1",
+          "ipv4-tunnel-sender-address": "$IP"
+         },
+         "lsp-id": $ID,
+         "tunnel-id": $ID
+        },
+        "symbolic-path-name": {
+         "path-name": "$CODE"
+        }
+       }
+      }
+     }
+    ]
+   }''')
     # IDs were already talked about, IP will be set last. Now, $NAME.
     # Pcc-mock uses a fixed naming scheme for delegated tunnels, so one more template can be written,
     # but it is so simple we can write just the one-line code instead:
@@ -137,14 +124,14 @@ def get_variables(mininet_ip):
     delegated_code = binascii.b2a_base64(delegated_name)[:-1]  # remove endline added by the library function
     instantiated_code = binascii.b2a_base64(instantiated_name)[:-1]
     # The remaining segment is HOPS, and that is the place where default and updated states differ.
-    # Once gain, there is a template for a single hop:
+    # Once again, there is a template for a single hop:
     hop_templ = Template('''
-            {
-             "ip-prefix": {
-              "ip-prefix": "$HOPIP/32"
-             },
-             "loose": false
-            }''')
+        {
+         "ip-prefix": {
+          "ip-prefix": "$HOPIP/32"
+         },
+         "loose": false
+        }''')
     # The low-to-high part of V comes now, it is just substituting and concatenating.
     # Hops:
     final_hop = hop_templ.substitute({'HOPIP': '1.1.1.1'})
