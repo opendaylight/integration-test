@@ -177,7 +177,7 @@ Create Setup
     OpenStackOperations.Create Router    ${ROUTERS}
     OpenStackOperations.Add Router Interface    ${ROUTERS}    @{SUBNETS}[1]
     OpenStackOperations.Add Router Interface    ${ROUTERS}    @{SUBNETS}[2]
-    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
     BuiltIn.Set Suite Variable    ${net_id}
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
     BuiltIn.Set Suite Variable    ${tenant_id}
@@ -187,7 +187,7 @@ Create Setup
     VpnOperations.Associate L3VPN To Network    networkid=${net_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${net_id}
-    ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTERS}    ${devstack_conn_id}
+    ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTERS}
     BuiltIn.Set Suite Variable    ${router_id}
     VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
