@@ -209,7 +209,7 @@ Delete Vm Instance
     Log    ${output}
 
 Get Net Id
-    [Arguments]    ${network_name}    ${devstack_conn_id}
+    [Arguments]    ${network_name}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     ${rc}    ${output}=    Run And Return Rc And Output    openstack network list | grep "${network_name}" | awk '{print $2}'
     Should Be True    '${rc}' == '0'
@@ -218,7 +218,7 @@ Get Net Id
     [Return]    ${net_id}
 
 Get Subnet Id
-    [Arguments]    ${subnet_name}    ${devstack_conn_id}
+    [Arguments]    ${subnet_name}
     [Documentation]    Retrieve the subnet id for the given subnet name
     ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet show "${subnet_name}" | grep " id " | awk '{print $4}'
     Should Be True    '${rc}' == '0'
@@ -227,7 +227,7 @@ Get Subnet Id
     [Return]    ${subnet_id}
 
 Get Port Id
-    [Arguments]    ${port_name}    ${devstack_conn_id}
+    [Arguments]    ${port_name}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port list | grep "${port_name}" | awk '{print $2}'
     Should Be True    '${rc}' == '0'
@@ -236,7 +236,7 @@ Get Port Id
     [Return]    ${port_id}
 
 Get Router Id
-    [Arguments]    ${router1}    ${devstack_conn_id}
+    [Arguments]    ${router1}
     [Documentation]    Retrieve the router id for the given router name
     ${rc}    ${output}=    Run And Return Rc And Output    openstack router list -f table | grep "${router1}" | awk '{print $2}'
     Should Be True    '${rc}' == '0'
@@ -249,7 +249,7 @@ Create Vm Instances
     ...    ${max}=1
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
-    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg} --min ${min} --max ${max}
     \    Should Be True    '${rc}' == '0'
@@ -259,7 +259,7 @@ Create Vm Instance With Port
     [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
-    ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
+    ${port_id}=    Get Port Id    ${port_name}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-group ${sg}
     Log    ${output}
 
@@ -267,8 +267,8 @@ Create Vm Instance With Ports
     [Arguments]    ${port_name}    ${port2_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
-    ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
-    ${port2_id}=    Get Port Id    ${port2_name}    ${devstack_conn_id}
+    ${port_id}=    Get Port Id    ${port_name}
+    ${port2_id}=    Get Port Id    ${port2_name}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-group ${sg}
     Log    ${output}
     Should Be True    '${rc}' == '0'
@@ -277,7 +277,7 @@ Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
-    ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
+    ${port_id}=    Get Port Id    ${port_name}
     ${hostname_compute_node}=    Get Hypervisor Hostname From IP    ${compute_node}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${hostname_compute_node} ${vm_instance_name}
     Log    ${output}
@@ -421,12 +421,12 @@ Ping Vm From DHCP Namespace
     [Arguments]    ${net_name}    ${vm_ip}
     [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt And Log    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
-    Close Connection
+    # Close Connection
     Should Contain    ${output}    64 bytes
 
 Ping From DHCP Should Not Succeed
@@ -434,12 +434,12 @@ Ping From DHCP Should Not Succeed
     [Documentation]    Should Not Reach Vm Instance with the net id of the Netowrk.
     Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
     Log    ${vm_ip}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
-    Close Connection
+    # Close Connection
     Log    ${output}
     Should Not Contain    ${output}    64 bytes
 
@@ -447,10 +447,10 @@ Ping Vm From Control Node
     [Arguments]    ${vm_floating_ip}    ${additional_args}=${EMPTY}
     [Documentation]    Ping VM floating IP from control node
     Log    ${vm_floating_ip}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
     ${output}=    Write Commands Until Prompt And Log    ping ${additional_args} -c 3 ${vm_floating_ip}    20s
-    Close Connection
+    # Close Connection
     Should Contain    ${output}    64 bytes
 
 Ping From Instance
@@ -504,9 +504,9 @@ Check Metadata Access
 Execute Command on VM Instance
     [Arguments]    ${net_name}    ${vm_ip}    ${cmd}    ${user}=cirros    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
-    ${devstack_conn_id} =    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${net_id} =    Get Net Id    ${net_name}    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
+    ${net_id} =    Get Net Id    ${net_name}
     Log    ${vm_ip}
     ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    password:
     Log    ${output}
@@ -521,10 +521,10 @@ Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)    ${ttl}=64
     ...    ${ping_should_succeed}=True    ${check_metadata}=True
     [Documentation]    Login to the vm instance using ssh in the network.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
     Log    ${src_ip}
-    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}
     ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    password:
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
@@ -551,8 +551,8 @@ Test Netcat Operations From Vm Instance
     [Documentation]    Use Netcat to test TCP/UDP connections to the controller
     ${client_data}    Set Variable    Test Client Data
     ${server_data}    Set Variable    Test Server Data
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
     Log    ${vm_ip}
     ${output}=    Write Commands Until Prompt And Log    ( ( echo "${server_data}" | sudo timeout 60 nc -l ${additional_args} ${port} ) & )
     ${output}=    Write Commands Until Prompt And Log    sudo netstat -nlap | grep ${port}
@@ -637,7 +637,7 @@ Get DumpFlows And Ovsconfig
     [Arguments]    ${openstack_node_ip}
     [Documentation]    Get the OvsConfig and Flow entries from OVS from the Openstack Node
     Log    ${openstack_node_ip}
-    SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    ${conn_id} =    SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
     Write Commands Until Expected Prompt    ip -o link    ${DEFAULT_LINUX_PROMPT_STRICT}
@@ -656,6 +656,7 @@ Get DumpFlows And Ovsconfig
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    SSHLibrary.Close Connection
 
 Get Karaf Log Type From Test Start
     [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
@@ -679,10 +680,12 @@ Get Karaf Log Events From Test Start
     Run Keyword If    2 < ${NUM_ODL_SYSTEM}    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_3_IP}    ${test_name}    ${log_types}
 
 Get ControlNode Connection
-    ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    # ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    Log    ${devstack_conn_id}
+    SSHLibrary.Switch Connection    ${devstack_conn_id}
     SSHLibrary.Set Client Configuration    timeout=30s
-    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
-    [Return]    ${control_conn_id}
+    #SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    [Return]    ${devstack_conn_id}
 
 Get OvsDebugInfo
     [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
@@ -703,10 +706,10 @@ Get Test Teardown Debugs For SFC
 Show Debugs
     [Arguments]    @{vm_indices}
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
     ${output}=    Write Commands Until Prompt And Log    sudo ip netns list
-    Close Connection
+    # Close Connection
     : FOR    ${index}    IN    @{vm_indices}
     \    ${rc}    ${output}=    Run And Return Rc And Output    nova show ${index}
     \    Log    ${output}
@@ -744,8 +747,8 @@ Neutron Port Show
 Neutron Security Group Create
     [Arguments]    ${SecurityGroupName}    ${additional_args}=${EMPTY}
     [Documentation]    Create a security group with specified name ,description & protocol value according to security group template
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack security group create ${SecurityGroupName} ${additional_args}
     Log    ${output}
     Should Be True    '${rc}' == '0'
@@ -882,7 +885,7 @@ Get Ports MacAddr
     [Documentation]    Retrieve the port MacAddr for the given list of port name and return the MAC address list.
     ${MacAddr-list}    Create List
     : FOR    ${portName}    IN    @{portName_list}
-    \    ${macAddr}=    OpenStackOperations.Get Port Mac    ${portName}    ${devstack_conn_id}
+    \    ${macAddr}=    OpenStackOperations.Get Port Mac    ${portName}
     \    Append To List    ${MacAddr-list}    ${macAddr}
     [Return]    ${MacAddr-list}
 
@@ -896,7 +899,7 @@ Get Port Ip
     [Return]    ${port_ip}
 
 Get Port Mac
-    [Arguments]    ${port_name}    ${conn_id}=${devstack_conn_id}
+    [Arguments]    ${port_name}
     [Documentation]    Keyword would return the MAC ID of the ${port_name} received.
     ${rc}    ${output}=    Run And Return Rc And Output    openstack port show ${port_name} | grep mac_address | awk '{print $4}'
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
@@ -1005,10 +1008,10 @@ Add Security Group To VM
 Remove Security Group From VM
     [Arguments]    ${vm}    ${sg}
     [Documentation]    Remove the security group provided to the given VM.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
     ${output}=    Write Commands Until Prompt And Log    openstack server remove security group ${vm} ${sg}
-    Close Connection
+    #Close Connection
 
 Create SFC Flow Classifier
     [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${dest_port}    ${neutron_src_port}
@@ -1022,8 +1025,8 @@ Create SFC Flow Classifier
 Delete SFC Flow Classifier
     [Arguments]    ${name}
     [Documentation]    Delete a SFC flow classifier
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc flow classifier delete ${name}
     Log    ${output}
     Should Be True    '${rc}' == '0'
@@ -1032,8 +1035,8 @@ Delete SFC Flow Classifier
 Create SFC Port Pair
     [Arguments]    ${name}    ${port_in}    ${port_out}
     [Documentation]    Creates a neutron port pair for SFC
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair create --ingress=${port_in} --egress=${port_out} ${name}
     Log    ${output}
     Should Be True    '${rc}' == '0'
@@ -1069,7 +1072,7 @@ Create SFC Port Pair Group With Two Pairs
 Delete SFC Port Pair Group
     [Arguments]    ${name}
     [Documentation]    Delete a SFC port pair group
-    ${devstack_conn_id}=    Get ControlNode Connection
+    Get ControlNode Connection
     ${rc}    ${output}=    Run And Return Rc And Output    openstack sfc port pair group delete ${name}
     Log    ${output}
     Should Be True    '${rc}' == '0'
@@ -1103,8 +1106,8 @@ Reboot Nova VM
 Remove RSA Key From KnownHosts
     [Arguments]    ${vm_ip}
     [Documentation]    Remove RSA
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
     ${output}=    Write Commands Until Prompt And Log    sudo cat /root/.ssh/known_hosts    30s
     ${output}=    Write Commands Until Prompt And Log    sudo ssh-keygen -f "/root/.ssh/known_hosts" -R ${vm_ip}    30s
     ${output}=    Write Commands Until Prompt    sudo cat "/root/.ssh/known_hosts"    30s
@@ -1112,10 +1115,10 @@ Remove RSA Key From KnownHosts
 Wait For Routes To Propogate
     [Arguments]    ${networks}    ${subnets}
     [Documentation]    Check propagated routes
-    ${devstack_conn_id} =    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
+    Get ControlNode Connection
+    #Switch Connection    ${cntl_conn_id}
     : FOR    ${INDEX}    IN RANGE    0    1
-    \    ${net_id}=    Get Net Id    @{networks}[${INDEX}]    ${devstack_conn_id}
+    \    ${net_id}=    Get Net Id    @{networks}[${INDEX}]    ${cntl_conn_id}
     \    ${is_ipv6}=    Get Regexp Matches    @{subnets}[${INDEX}]    ${IP6_REGEX}
     \    ${length}=    Get Length    ${is_ipv6}
     \    ${cmd}=    Set Variable If    ${length} == 0    ip route    ip -6 route
@@ -1208,4 +1211,4 @@ Copy DHCP Files From Control Node
     OperatingSystem.Create Directory    ${dstdir}
     Get ControlNode Connection
     BuiltIn.Run Keyword And Ignore Error    SSHLibrary.Get Directory    /opt/stack/data/neutron/dhcp    ${dstdir}    recursive=True
-    SSHLibrary.Close Connection
+    #SSHLibrary.Close Connection
