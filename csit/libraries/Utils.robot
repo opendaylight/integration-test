@@ -177,6 +177,7 @@ Run Command On Remote System
     ...    robot keyword, taking care to log in with a public key and. The command given is written
     ...    and the output returned. No test conditions are checked.
     ${current_ssh_connection}=    SSHLibrary.Get Connection
+    BuiltIn.Log    current_ssh_connection = ${current_ssh_connection}
     BuiltIn.Log    Attempting to execute command "${cmd}" on remote system "${system}" by user "${user}" with keyfile pass "${keyfile_pass}" and prompt "${prompt}"
     BuiltIn.Log    ${password}
     ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
@@ -184,7 +185,7 @@ Run Command On Remote System
     ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
     SSHLibrary.Close Connection
     Log    ${stderr}
-    [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
+    [Teardown]    SSHKeywords.Restore_Current_Ssh_Connection_From_Index    ${current_ssh_connection.index}
     [Return]    ${stdout}
 
 Run Command On Remote System And Log
