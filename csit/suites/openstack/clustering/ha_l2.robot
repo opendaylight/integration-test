@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to verify packet flows between vm instances.
-Suite Setup       Devstack Suite Setup    source_pwd=yes
+Suite Setup       Devstack Suite Setup
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
@@ -102,7 +102,6 @@ Take Down ODL2
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    BuiltIn.Log    ${devstack_conn_id}
     OpenStackOperations.Create Vm Instances    @{NETWORKS}[0]    ${NET_1_VMS}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For net_2

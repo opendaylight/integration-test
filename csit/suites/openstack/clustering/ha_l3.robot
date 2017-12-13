@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to check connectivity in L3 using routers.
-Suite Setup       Devstack Suite Setup    source_pwd=yes
+Suite Setup       Devstack Suite Setup
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
