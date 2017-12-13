@@ -1,0 +1,337 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73e296ef_9b09b0ea",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "need to add [Documentation] in all of these new keywords.\n\nmaybe change ${node} to ${ip} to keep with the same style\nas some of the similar keywords above.",
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a58d8e2_14277880",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "how about have a default arg like ${bridge}\u003dbr-int so it\ncan be used with other bridge names in the future.",
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7376cb88_63b7d01d",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "is this line right? what command do you want to run on ${node}?",
+      "range": {
+        "startLine": 223,
+        "startChar": 4,
+        "endLine": 223,
+        "endChar": 108
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a33262d_1750457d",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "I think we\u0027ll be able to re-use keywords and work\ndone in the ClusterManagement.robot library.\n\ncheck those things out.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 41
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94c5bd79_cf685a6f",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "I vote to use \"upgrade\" over \"up\"",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4af35e79_f98bc6be",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "don\u0027t need this line.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 74
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b355f6c8_8386409e",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "there is nothing really being tested here. I would just\nmove the steps up in to the previous test case, which does\nseem to have at least some checks.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 110
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fea4e07_84176bfd",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "wont Cleanup All get rid of router_1 anyway?",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 50
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72620f6b_569b7c7b",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "again, I think clustermanagement library will give us\nthis stuff.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 114
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79908d68_0df98568",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "we shouldn\u0027t use sleeps. what\u0027s the intention here?\n\nwe just started ODL and unblock the ports. (btw, maybe we\nshould unblock the ports first?)\n\nnext we need to wait until ODL is up and ready right? we have some things we can poll on for that.\n\nand, actually to be specific for this suite, we should write a wrapper keyword do \"compare flows after upgrade\" that will\npass or fail if the flows are as expected. Then we can\nwrap that keyword in a WUKS. after some time ODL should be up and the flows should be right. maybe 2-3m? if not, we fail.",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 15
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6fd0856e_947ec0bd",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "collapse these steps in to the test case below.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 109
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "197a186e_832d239f",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "@{NETWORKS}[0]",
+      "range": {
+        "startLine": 135,
+        "startChar": 55,
+        "endLine": 135,
+        "endChar": 63
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eaedeb52_0be1a30b",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "ies",
+      "range": {
+        "startLine": 157,
+        "startChar": 15,
+        "endLine": 157,
+        "endChar": 16
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4385383_c3ff7e27",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "make this one arg and use it as a list where you\n: FOR loop over it. Then you can delete an arbitrary list\nof dirs",
+      "range": {
+        "startLine": 159,
+        "startChar": 33,
+        "endLine": 159,
+        "endChar": 51
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59d0966c_a75d01c2",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T19:46:54Z",
+      "side": 1,
+      "message": "maybe a little more clear to what this is doing. maybe\niptable modifications for ovsdb and openflow ports",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 21
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
