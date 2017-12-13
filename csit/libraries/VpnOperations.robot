@@ -22,10 +22,6 @@ ${STATE_ENABLE}    ENABLED
 ${STATE_DISABLE}    DISABLE
 
 *** Keywords ***
-Basic Vpnservice Suite Setup
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    DevstackUtils.Devstack Suite Setup
-
 Basic Vpnservice Suite Cleanup
     [Arguments]    ${vpn_instance_ids}=@{EMPTY}    ${vms}=@{EMPTY}    ${networks}=@{EMPTY}    ${subnets}=@{EMPTY}    ${ports}=@{EMPTY}    ${sgs}=@{EMPTY}
     : FOR    ${vpn_instance_id}    IN    @{vpn_instance_ids}
