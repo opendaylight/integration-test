@@ -96,8 +96,7 @@ Delete BGP Config On DCGW
 
 *** Keywords ***
 BGP Vpnservice Suite Setup
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    DevstackUtils.Devstack Suite Setup
+    OpenStackOperations.OpenStack Suite Setup
     OpenStackOperations.Create And Configure Security Group    ${SECURITY_GROUP}
     BgpOperations.Start Quagga Processes On ODL    ${ODL_SYSTEM_IP}
     BgpOperations.Start Quagga Processes On DCGW    ${DCGW_SYSTEM_IP}
@@ -106,7 +105,7 @@ BGP Vpnservice Suite Setup
 BGP Vpnservice Suite Teardown
     BgpOperations.Delete Basic Configuartion for BGP VPNservice Suite
     OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
-    SSHLibrary.Close All Connections
+    OpenStackOperations.OpenStack Suite Teardown
 
 Create Basic Configuartion for BGP VPNservice Suite
     [Documentation]    Create basic configuration for BGP VPNservice suite
@@ -129,11 +128,11 @@ Create Basic Configuartion for BGP VPNservice Suite
     BuiltIn.Set Suite Variable    @{VM_IPS}
     BuiltIn.Should Not Contain    ${VM_IPS}    None
     BuiltIn.Should Not Contain    ${DHCP_IPS}    None
-    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
     VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RD_LIST}[0]    exportrt=@{RD_LIST}[0]    importrt=@{RD_LIST}[0]    tenantid=${tenant_id}
     : FOR    ${network}    IN    @{NETWORKS}
-    \    ${network_id} =    Get Net Id    ${network}    ${devstack_conn_id}
+    \    ${network_id} =    Get Net Id    ${network}
     \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Log    ${resp}
@@ -141,7 +140,7 @@ Create Basic Configuartion for BGP VPNservice Suite
 Delete Basic Configuartion for BGP VPNservice Suite
     [Documentation]    Delete basic configuration for BGP Vpnservice suite
     : FOR    ${network}    IN    @{NETWORKS}
-    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}    ${devstack_conn_id}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
     \    VpnOperations.Dissociate L3VPN From Networks    networkid=${network_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
     VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     : FOR    ${vm}    IN    @{VM_NAMES}
