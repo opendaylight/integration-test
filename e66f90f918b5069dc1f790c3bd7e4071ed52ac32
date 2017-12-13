@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5971b6a_93590b50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T17:31:02Z",
+      "side": 1,
+      "message": "I think a better commit message is warranted for \nthis patch. what\u0027s the overal purpose of this\nupdate/refactor",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "e66f90f918b5069dc1f790c3bd7e4071ed52ac32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcd8454a_dee60d0f",
+        "filename": "csit/suites/bgpcep/pcepuser/pcepuser.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T17:31:02Z",
+      "side": 1,
+      "message": "just use ${OPERATIONAL_TOPO_API} from Variables.robot",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 79
+      },
+      "revId": "e66f90f918b5069dc1f790c3bd7e4071ed52ac32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3deaf27e_f1ea047b",
+        "filename": "csit/suites/bgpcep/pcepuser/pcepuser.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T17:31:02Z",
+      "side": 1,
+      "message": "what\u0027s the point of Ignore Error in these two lines?",
+      "range": {
+        "startLine": 163,
+        "startChar": 20,
+        "endLine": 163,
+        "endChar": 32
+      },
+      "revId": "e66f90f918b5069dc1f790c3bd7e4071ed52ac32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8f564f3_33fd4b04",
+        "filename": "csit/testplans/bgpcep-userfeatures.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-13T17:31:02Z",
+      "side": 1,
+      "message": "I assume that eventually these lines will be uncommented\nbefore we merge this.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 64
+      },
+      "revId": "e66f90f918b5069dc1f790c3bd7e4071ed52ac32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
