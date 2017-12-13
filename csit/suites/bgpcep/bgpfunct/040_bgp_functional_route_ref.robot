@@ -10,7 +10,7 @@ Documentation     Functional test for bgp - route refresh
 ...               This suite tests sending and receiveing route refresh message.
 ...               It uses odl and exabgp as bgp peers.
 ...               Sending route refresh message from odl is initiated via restconf.
-...               If route refresh received by odl also correct advertising of routes
+...               If route refresh is received by odl, correct advertising of routes
 ...               is verified. Receiving of route refresh by odl is verified by
 ...               checking appropriate message counter via odl-bgpcep-bgp-cli and
 ...               restconf using BGP neighbor operational state
@@ -155,7 +155,9 @@ Verify_Odl_Received_Updates_Cli
     ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    COUNT=${expcount}
     ${expstate}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/operational_cli/    file_name=update.txt    mapping=${mapping}
+    ${expstate_ipv4}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/operational_cli/    file_name=update_ipv4.txt    mapping=${mapping}
     BuiltIn.Should_Contain    ${output}    ${expstate}
+    BuiltIn.Should_Contain    ${output}    ${expstate_ipv4}
 
 Verify_ExaBgp_Received_Route_Refresh
     [Arguments]    ${expcount}
