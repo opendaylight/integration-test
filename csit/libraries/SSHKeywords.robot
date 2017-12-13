@@ -57,10 +57,14 @@ Restore_Current_Ssh_Connection_From_Index
     ...    workaround is applied by opening and closing temporary connection.
     ...    Unfortunately this will fail if run on Jython and there is no SSH server
     ...    running on localhost, port 22 but there is nothing easy that can be done about it.
+    BuiltIn.Log    connection_index = ${connection_index}
     BuiltIn.Run Keyword And Return If    ${connection_index} is not None    SSHLibrary.Switch Connection    ${connection_index}
     # The background connection is still current, bury it.
     SSHLibrary.Open Connection    127.0.0.1
     SSHLibrary.Close Connection
+    ${current_con} =    SSHLibrary.Get Connection
+    BuiltIn.Log    current_con = ${current_con}
+    SSHLibrary.Get Connections
 
 Run_Keyword_Preserve_Connection
     [Arguments]    ${keyword_name}    @{args}    &{kwargs}

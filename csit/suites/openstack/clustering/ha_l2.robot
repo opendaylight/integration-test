@@ -102,7 +102,6 @@ Take Down ODL2
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    BuiltIn.Log    ${devstack_conn_id}
     OpenStackOperations.Create Vm Instances    @{NETWORKS}[0]    ${NET_1_VMS}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For net_2

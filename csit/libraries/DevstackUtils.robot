@@ -29,17 +29,17 @@ ${external_subnet_name}    external-subnet
 ${external_gateway}    10.10.10.250
 ${external_subnet_allocation_pool}    start=10.10.10.2,end=10.10.10.249
 ${external_subnet}    10.10.10.0/24
-${default_timeout}    420s
+${TEMPEST_TIMEOUT}    420s
 
 *** Keywords ***
 Run Tempest Tests
-    [Arguments]    ${tempest_regex}    ${timeout}=${default_timeout}    ${debug}=False
+    [Arguments]    ${tempest_regex}    ${timeout}=${TEMPEST_TIMEOUT}    ${debug}=False
     Run Keyword If    "${debug}"=="False"    Run Tempest Tests Without Debug    ${tempest_regex}    timeout=${timeout}
     Run Keyword If    "${debug}"=="True"    Run Tempest Tests With Debug    ${tempest_regex}    timeout=${timeout}
     Run Keyword If    "${debug}"!="True" and "${debug}"!="False"    Fail    debug argument must be True or False
 
 Run Tempest Tests Without Debug
-    [Arguments]    ${tempest_regex}    ${tempest_directory}=${tempest_dir}    ${timeout}=${default_timeout}
+    [Arguments]    ${tempest_regex}    ${tempest_directory}=${tempest_dir}    ${timeout}=${TEMPEST_TIMEOUT}
     [Documentation]    Using ostestr will allow us to (by default) run tests in paralllel.
     ...    Because of the parallel fashion, we must ensure there is no pause on teardown so that flag in tempest.conf is
     ...    explicitly set to False.
@@ -61,7 +61,7 @@ Run Tempest Tests Without Debug
     Should Contain    ${output}    Failed: 0
 
 Run Tempest Tests With Debug
-    [Arguments]    ${tempest_regex}    ${tempest_directory}=${tempest_dir}    ${timeout}=${default_timeout}
+    [Arguments]    ${tempest_regex}    ${tempest_directory}=${tempest_dir}    ${timeout}=${TEMPEST_TIMEOUT}
     [Documentation]    After setting pause_teardown=True in tempest.conf, use the python -m testtools.run module to execute
     ...    a single tempest test case. We need to run only one tempest test case at a time as there will
     ...    be potentional for an unkown number of debug pdb() prompts to catch and continue if we are running multiple
@@ -108,7 +108,7 @@ Log In To Tempest Executor And Setup Test Environment
     SSHKeywords.Flexible SSH Login    ${OS_USER}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    sudo rm -rf /opt/stack/tempest/.testrepository
-    ${net_id}=    Get Net Id    ${external_net_name}    ${control_node_conn_id}
+    ${net_id}=    Get Net Id    ${external_net_name}
     Tempest Conf Add External Network And Floating Network Name    ${net_id}
 
 Tempest Conf Add External Network And Floating Network Name
@@ -147,14 +147,21 @@ Create Blacklist File
 
 Devstack Suite Setup
     [Arguments]    ${source_pwd}=no    ${odl_ip}=${ODL_SYSTEM_IP}
-    [Documentation]    Login to the Openstack Control Node to run tempest suite
+    [Documentation]    Open connections to the nodes
+    SSHLibrary.Get Connections
     Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    ${devstack_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT}
-    Set Suite Variable    ${devstack_conn_id}
-    Set Suite Variable    ${source_pwd}
-    Log    ${devstack_conn_id}
+    SSHLibrary.Set Default Configuration    timeout=${default_devstack_prompt_timeout}
+    ${os_cntl_conn_id} =    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
-    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    ${os_cmp1_conn_id} =    SSHLibrary.Open Connection    ${OS_COMPUTE_1_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    ${os_cmp2_conn_id} =    SSHLibrary.Open Connection    ${OS_COMPUTE_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    Set Suite Variable    ${os_cntl_conn_id}
+    Set Suite Variable    ${os_cmp1_conn_id}
+    Set Suite Variable    ${os_cmp2_conn_id}
+    Set Suite Variable    ${source_pwd}
+    SSHLibrary.Get Connections
 
 Write Commands Until Prompt
     [Arguments]    ${cmd}    ${timeout}=${default_devstack_prompt_timeout}

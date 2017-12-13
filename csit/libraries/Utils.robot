@@ -176,7 +176,9 @@ Run Command On Remote System
     [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
     ...    robot keyword, taking care to log in with a public key and. The command given is written
     ...    and the output returned. No test conditions are checked.
+    SSHLibrary.Get Connections
     ${current_ssh_connection}=    SSHLibrary.Get Connection
+    BuiltIn.Log    current_ssh_connection = ${current_ssh_connection}
     BuiltIn.Log    Attempting to execute command "${cmd}" on remote system "${system}" by user "${user}" with keyfile pass "${keyfile_pass}" and prompt "${prompt}"
     BuiltIn.Log    ${password}
     ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
@@ -185,6 +187,7 @@ Run Command On Remote System
     SSHLibrary.Close Connection
     Log    ${stderr}
     [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
+    ...    AND    SSHLibrary.Get Connections
     [Return]    ${stdout}
 
 Run Command On Remote System And Log
