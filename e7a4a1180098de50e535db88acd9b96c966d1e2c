@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "42cc2d54_628f75d3",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 4269
+      },
+      "writtenOn": "2017-12-14T07:49:07Z",
+      "side": 1,
+      "message": "Would be good a test add the rules back and check if the drop rules are cleared and we have the connection back.",
+      "parentUuid": "7a1969be_bf9a2712",
+      "revId": "e7a4a1180098de50e535db88acd9b96c966d1e2c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_3f8637ba",
         "filename": "csit/suites/openstack/connectivity/security_group.robot",
         "patchSetId": 10
