@@ -1209,3 +1209,10 @@ Copy DHCP Files From Control Node
     Get ControlNode Connection
     BuiltIn.Run Keyword And Ignore Error    SSHLibrary.Get Directory    /opt/stack/data/neutron/dhcp    ${dstdir}    recursive=True
     SSHLibrary.Close Connection
+
+Is Feature Installed
+    [Arguments]    ${features}=none
+    : FOR    ${feature}    IN    ${features}
+    \    ${status}    ${output}    Run Keyword And Ignore Error    Builtin.Should Contain    ${CFEATURES}    ${feature}
+    \    Return From Keyword If    "${status}" == "PASS"    True
+    [Return]    False
