@@ -373,7 +373,7 @@ Get VM IPs
     @{vm_ips}    BuiltIn.Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vms}
     \    Poll VM Is ACTIVE    ${vm}
-    \    ${status}    ${ips_and_console_log}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    15s
+    \    ${status}    ${ips_and_console_log}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    180s    15s
     \    ...    Get VM IP    true    ${vm}
     \    # If there is trouble with Get VM IP, the status will be FAIL and the return value will be a string of what went
     \    # wrong. We need to handle both the PASS and FAIL cases. In the FAIL case we know we wont have access to the
