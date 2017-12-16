@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19c8dd9e_93db9926",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-16T02:48:14Z",
+      "side": 1,
+      "message": "default_timeout is used in other robot files so it was updating the time from 10 or 30s to 420s for those connections",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 17
+      },
+      "revId": "e5c71efcd08c37a552ec9f227d41e6cac96d51c9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e4803d3_f2a5e44f",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-16T02:48:14Z",
+      "side": 1,
+      "message": "this block here is the main change. Open a connection to each openstack node and save the handle for each, then the other keywords just switch to one of these three connections",
+      "revId": "e5c71efcd08c37a552ec9f227d41e6cac96d51c9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "583fa4c9_cdb61027",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-16T02:48:14Z",
+      "side": 1,
+      "message": "use the new var",
+      "range": {
+        "startLine": 79,
+        "startChar": 36,
+        "endLine": 79,
+        "endChar": 51
+      },
+      "revId": "e5c71efcd08c37a552ec9f227d41e6cac96d51c9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dfd922c_c1d014e0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-16T02:48:14Z",
+      "side": 1,
+      "message": "grab the control node index and switch to it.",
+      "revId": "e5c71efcd08c37a552ec9f227d41e6cac96d51c9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}

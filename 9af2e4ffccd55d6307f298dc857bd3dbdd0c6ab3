@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13a1059d_d7139c3f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-16T02:48:14Z",
+      "side": 0,
+      "message": "this is no longer used since we switched to the openstack cli.",
+      "range": {
+        "startLine": 212,
+        "startChar": 38,
+        "endLine": 212,
+        "endChar": 39
+      },
+      "revId": "9af2e4ffccd55d6307f298dc857bd3dbdd0c6ab3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a75ab54_83b05c3c",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-16T02:48:14Z",
+      "side": 0,
+      "message": "var is no longer used since the openstack cli\u0027s are used",
+      "range": {
+        "startLine": 168,
+        "startChar": 71,
+        "endLine": 168,
+        "endChar": 72
+      },
+      "revId": "9af2e4ffccd55d6307f298dc857bd3dbdd0c6ab3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
