@@ -17,7 +17,7 @@ Resource          ../../../variables/netvirt/Variables.robot
 
 *** Test Cases ***
 tempest.api.network
-    ${TEST_NAME}    debug=False    timeout=900s
+    ${TEST_NAME}    debug=False    timeout=1200s
 
 tempest.scenario.test_aggregates_basic_ops.TestAggregatesBasicOps.test_aggregate_basic_ops
     ${TEST_NAME}    debug=True
