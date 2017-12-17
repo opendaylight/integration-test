@@ -2,7 +2,7 @@
 Documentation     Test suite to validate vpnservice functionality in an openstack integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
+Suite Setup       VpnOperations.Basic Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs

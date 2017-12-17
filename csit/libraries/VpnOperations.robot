@@ -22,6 +22,10 @@ ${STATE_ENABLE}    ENABLED
 ${STATE_DISABLE}    DISABLE
 
 *** Keywords ***
+Basic Suite Setup
+    OpenStackOperations.OpenStack Suite Setup
+    TemplatedRequests.Create Default Session    timeout=30
+
 Basic Vpnservice Suite Cleanup
     [Arguments]    ${vpn_instance_ids}=@{EMPTY}    ${vms}=@{EMPTY}    ${networks}=@{EMPTY}    ${subnets}=@{EMPTY}    ${ports}=@{EMPTY}    ${sgs}=@{EMPTY}
     : FOR    ${vpn_instance_id}    IN    @{vpn_instance_ids}
@@ -35,46 +39,46 @@ VPN Create L3VPN
     ...    ELSE    Collections.Set_To_Dictionary    ${Kwargs}    router=${empty}
     &{L3vpn_create_actual_val} =    Collections.Copy_Dictionary    ${L3VPN_CREATE_DEFAULT}
     Collections.Set_To_Dictionary    ${L3vpn_create_actual_val}    &{Kwargs}
-    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/l3vpn_create    mapping=${L3vpn_create_actual_val}    session=session
+    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/l3vpn_create    mapping=${L3vpn_create_actual_val}    session=default    http_timeout=30
 
 VPN Get L3VPN
     [Arguments]    &{Kwargs}
     [Documentation]    Will return detailed list of the L3VPN_ID received
-    ${resp} =    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/get_l3vpn    mapping=${Kwargs}    session=session
+    ${resp} =    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/get_l3vpn    mapping=${Kwargs}    session=default    http_timeout=30
     Log    ${resp}
     [Return]    ${resp}
 
 Associate L3VPN To Network
     [Arguments]    &{Kwargs}
     [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
-    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/assoc_l3vpn    mapping=${Kwargs}    session=session
+    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/assoc_l3vpn    mapping=${Kwargs}    session=default    http_timeout=30
 
 Dissociate L3VPN From Networks
     [Arguments]    &{Kwargs}
     [Documentation]    Disssociate the already associated networks from L3VPN
-    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/dissoc_l3vpn    mapping=${Kwargs}    session=session
+    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/dissoc_l3vpn    mapping=${Kwargs}    session=default    http_timeout=30
 
 Associate VPN to Router
     [Arguments]    &{Kwargs}
     [Documentation]    Associate the created L3VPN to a router-id received as argument
-    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/assoc_router_l3vpn    mapping=${Kwargs}    session=session
+    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/assoc_router_l3vpn    mapping=${Kwargs}    session=default    http_timeout=30
 
 Dissociate VPN to Router
     [Arguments]    &{Kwargs}
     [Documentation]    Dissociate the already associated routers from L3VPN
-    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/dissoc_router_l3vpn    mapping=${Kwargs}    session=session
+    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/dissoc_router_l3vpn    mapping=${Kwargs}    session=default    http_timeout=30
 
 VPN Delete L3VPN
     [Arguments]    &{Kwargs}
     [Documentation]    Delete the created L3VPN
-    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/l3vpn_delete    mapping=${Kwargs}    session=session
+    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/l3vpn_delete    mapping=${Kwargs}    session=default    http_timeout=30
 
 ITM Create Tunnel
     [Arguments]    &{Kwargs}
     [Documentation]    Creates Tunnel between the two DPNs received in the dictionary argument
     &{Itm_actual_val} =    Collections.Copy_Dictionary    ${ITM_CREATE_DEFAULT}
     Collections.Set_To_Dictionary    ${Itm_actual_val}    &{Kwargs}
-    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/itm_create    mapping=${Itm_actual_val}    session=session
+    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/itm_create    mapping=${Itm_actual_val}    session=default    http_timeout=30
 
 ITM Get Tunnels
     [Documentation]    Get all Tunnels and return the contents
