@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91cfd68b_1e9ecb3c",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2017-12-17T17:40:18Z",
+      "side": 1,
+      "message": "this suite was weird in that it had suite setup and teardown in a __init__.py file as well as a setup and teardown in this file, so just moved all the __init__.py stuff into this file.",
+      "revId": "77f11f4d427085cdfc8738c0f20e7c09788c3e2c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
