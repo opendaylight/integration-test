@@ -146,6 +146,7 @@ Cleanup
 Start Suite
     [Documentation]    Run at start of the suite
     OpenStackOperations.OpenStack Suite Setup
+    TemplatedRequests.Create Default Session    timeout=3
     Create Setup
 
 Create Setup
