@@ -22,6 +22,10 @@ ${STATE_ENABLE}    ENABLED
 ${STATE_DISABLE}    DISABLE
 
 *** Keywords ***
+Basic Suite Setup
+    OpenStackOperations.OpenStack Suite Setup
+    TemplatedRequests.Create_Default_Session    timeout=10
+
 Basic Vpnservice Suite Cleanup
     [Arguments]    ${vpn_instance_ids}=@{EMPTY}    ${vms}=@{EMPTY}    ${networks}=@{EMPTY}    ${subnets}=@{EMPTY}    ${ports}=@{EMPTY}    ${sgs}=@{EMPTY}
     : FOR    ${vpn_instance_id}    IN    @{vpn_instance_ids}
