@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d942999_dec51ee8",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-18T22:41:47Z",
+      "side": 1,
+      "message": "we are only needing this because we have slowness/troubles\nin the new cloud infra. seems like 30s is way too big for\nthat kind of workaround. what do you think about making\njust 2-3seconds? We are going to want to be notified (via\nfailures) if something really gets broken such that ODL\nstarts truly slowly responding. Meaning, if all of a sudden\nsome dev patch comes in that makes our REST API respond\nonly after a 5-10s delay this patch would hide that problem.",
+      "range": {
+        "startLine": 42,
+        "startChar": 140,
+        "endLine": 42,
+        "endChar": 155
+      },
+      "revId": "140662953569028252a011d13aa17a3753b24a7b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
