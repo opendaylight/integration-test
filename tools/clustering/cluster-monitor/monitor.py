@@ -128,7 +128,6 @@ for controller in controllers:
     url = "http://" + controller["ip"] + ":" + controller["port"] + "/jolokia/read/org.opendaylight.controller:"
     url += "Category=ShardManager,name=shard-manager-" + data_store.lower()\
            + ",type=Distributed" + data_store + "Datastore"
-    rest_get(url, username, password)
     try:
         data = rest_get(url, username, password)
     except:
