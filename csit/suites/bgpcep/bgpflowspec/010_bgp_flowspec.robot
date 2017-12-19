@@ -97,7 +97,7 @@ Upload Config Files
 Setup Testcase
     [Arguments]    ${cfg_file}
     Verify Empty Flowspec Data
-    ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
+    ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}    connection_retries=${3}
 
 Verify Empty Flowspec Data
     [Documentation]    Verify expected response.
