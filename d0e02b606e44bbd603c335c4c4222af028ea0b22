@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a49e3c5_8e2e20b0",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-19T22:20:00Z",
+      "side": 1,
+      "message": "typically, variables in [Arguments] and local to keywords\nare lower case. UPPER case are generally used for those\nthat we get on a more global level like from the *** Variables *** section or when we do Set Suite Variable or\nwhen we pass them in from the command line.\n\nthis would apply in a lot of places",
+      "range": {
+        "startLine": 15,
+        "startChar": 21,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "d0e02b606e44bbd603c335c4c4222af028ea0b22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d944d19_860993b6",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-19T22:20:00Z",
+      "side": 1,
+      "message": "Log not needed here. it should be printed and available\nin the Regexp keyword in the line above",
+      "range": {
+        "startLine": 1203,
+        "startChar": 4,
+        "endLine": 1203,
+        "endChar": 34
+      },
+      "revId": "d0e02b606e44bbd603c335c4c4222af028ea0b22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6c5fa5f_a41671f5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-19T22:20:00Z",
+      "side": 1,
+      "message": "some of the documentation and keyword naming is sort\nof vague. this is a great example.\n\nfirst [Documentation] is giving no new information that\nwhat I can get from the keyword title. IfI look deeper\nin to the details I think the idea here is to check\npacket counts in the flow output right? Oh, it\u0027s also\nactually doing the ping. this should all be more easy\nto understand from the name and docs.\n\nMaybe the keyword name could be, \"Verify_Packet_Count_In_Flow_Table_Before_And_After_Ping\".\nMaybe you can think of something similar and not as long.\nAnd, the [Documentation] can explain it better as well.\n\nagain, same comment applies elsewhere. just to give another\nexample, \"Verify_Ping_To_Desitnation_IP\" is missing the\ncritical part (in the keyword name or documentation) that\nit\u0027s actually a ping being sourced from an instance and\ngoing to the given destination ${IP}",
+      "range": {
+        "startLine": 1223,
+        "startChar": 0,
+        "endLine": 1225,
+        "endChar": 62
+      },
+      "revId": "d0e02b606e44bbd603c335c4c4222af028ea0b22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6fcc2212_d0a84dab",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-19T22:20:00Z",
+      "side": 1,
+      "message": "this Log is not needed. I can see clearly below that\nyou are Configure_IP_On_Sub_Interface and then\nVerify_IP_Configured_On_Sub_Interface\n\nwe have a constant problem of having very large robot\nlogs in CSIT, so we need to not add more when it\u0027s\nnot needed. Please check all Log calls in this patch and\nremove what you can.",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 66
+      },
+      "revId": "d0e02b606e44bbd603c335c4c4222af028ea0b22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7dacc896_dfcd091b",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-19T22:20:00Z",
+      "side": 1,
+      "message": "please add the OpenStackOperations.OpenStack Cleanup All\nas well.",
+      "revId": "d0e02b606e44bbd603c335c4c4222af028ea0b22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
