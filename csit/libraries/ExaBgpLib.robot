@@ -41,7 +41,7 @@ Stop_ExaBgp
     SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
 
 Start_ExaBgp_And_Verify_Connected
-    [Arguments]    ${cfg_file}    ${session}    ${exabgp_ip}    ${connection_retries}=${1}
+    [Arguments]    ${cfg_file}    ${session}    ${exabgp_ip}    ${connection_retries}=${3}
     [Documentation]    Starts the ExaBgp and verifies its connection. The verification is done by checking the presence
     ...    of the peer in the bgp rib.
     : FOR    ${idx}    IN RANGE    ${connection_retries}
