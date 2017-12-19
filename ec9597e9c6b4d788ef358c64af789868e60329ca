@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0bdc1580_80049e19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-19T18:35:00Z",
+      "side": 1,
+      "message": "tox -verify is from this. s/Setting/Set\n\nfrom the console log you can see:\n|    | Shortlog of HEAD commit isn\u0027t in imperative mood! Bad words are \u0027Setting\u0027",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "ec9597e9c6b4d788ef358c64af789868e60329ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00e5a701_ec69cd47",
+        "filename": "csit/suites/natapp/basic/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-19T18:35:00Z",
+      "side": 1,
+      "message": "probably not worth having an __init__.robot file for this\ncase. there is only one small suite in this folder and\nyou can keep these things in that same suite.",
+      "revId": "ec9597e9c6b4d788ef358c64af789868e60329ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "451304f9_f70dfe01",
+        "filename": "csit/suites/natapp/basic/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-19T18:35:00Z",
+      "side": 1,
+      "message": "we need to use .robot now. We are slowly migrating away\nfrom the .py file. This is just a relic from an old\nskeleton example that natapp took at one point.",
+      "range": {
+        "startLine": 5,
+        "startChar": 57,
+        "endLine": 5,
+        "endChar": 59
+      },
+      "revId": "ec9597e9c6b4d788ef358c64af789868e60329ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
