@@ -27,7 +27,7 @@ Documentation     Resource consisting purely of variable definitions useful for 
 ${ALERTFIELDCONTENTRULERECORD}    /restconf/config/alertrule:alertFieldContentRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTFIELDVALUERULERECORD}    /restconf/config/alertrule:alertFieldValueRuleRecord    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
-@{AUTH}           admin    admin    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
+@{AUTH}           ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 @{AUTH_SDN}       sdnadmin    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
 @{AUTH_SDN_DOMAIN}    sdnadmin@sdn    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
 @{AUTH_SDN_WRONG_DOM}    sdnadmin@wrong    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
