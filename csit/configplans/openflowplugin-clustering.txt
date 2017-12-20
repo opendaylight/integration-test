@@ -1,2 +1,3 @@
 # Place the suites in run order:
 integration/test/csit/scripts/set_akka_debug.sh
+integration/test/csit/scripts/set_persistence_off.sh
