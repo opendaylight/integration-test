@@ -163,7 +163,7 @@ while key != ord('q') and key != ord('Q'):
             controller['name'] = name[:name.find('-shard-')]
             # collect shards found in any controller; does not require all controllers to have the same shards
             for localShard in data['value']['LocalShards']:
-                shardName = localShard[(localShard.find("-shard-") + 7):localShard.find("-" + data_store.lower())]
+                shardName = localShard[(localShard.find("-shard-") + 7):localShard.rfind("-" + data_store.lower())]
                 if shardName not in shards_to_exclude:
                     Shards.add(shardName)
         except:
