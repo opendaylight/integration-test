@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f68b2d75_2bab1075",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_two_routers.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-20T01:38:52Z",
+      "side": 1,
+      "message": "aren\u0027t some/all of these copy/paste things from\nhttps://git.opendaylight.org/gerrit/#/c/63050",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "22e4874d0bec5ae2e5d9d5dbab77cbf0bd008d01",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b15da21_26fd5e95",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_two_routers.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-20T01:38:52Z",
+      "side": 1,
+      "message": "I wont write any more duplicate comments, but please\napply anything I\u0027ve noted in https://git.opendaylight.org/gerrit/#/c/63050 to this patch. this would be one \nexample.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "22e4874d0bec5ae2e5d9d5dbab77cbf0bd008d01",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
