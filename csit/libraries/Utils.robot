@@ -172,7 +172,7 @@ Strip Quotes
     [Return]    ${string_to_return}
 
 Run Command On Remote System
-    [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
+    [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}    ${return_error}=${False}
     [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
     ...    robot keyword, taking care to log in with a public key and. The command given is written
     ...    and the output returned. No test conditions are checked.
@@ -183,9 +183,11 @@ Run Command On Remote System
     SSHKeywords.Flexible SSH Login    ${user}    ${password}
     ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
     SSHLibrary.Close Connection
+    Log    ${stdout}
     Log    ${stderr}
+    ${output}    Set Variable If    ${return_error}    ${stderr}    ${stdout}
     [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
-    [Return]    ${stdout}
+    [Return]    ${output}
 
 Run Command On Remote System And Log
     [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
