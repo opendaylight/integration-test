@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5298c06a_ac51c3db",
+        "filename": "csit/libraries/PcepOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-20T17:42:06Z",
+      "side": 1,
+      "message": "you should push another patch that moves this up to happen\nbefore the Post Request. just on the off chance the Post\nRequest keyword fails, this Log would never happen. That\nmight be exactly when you\u0027ll want to know what xml_data\nis.",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 22
+      },
+      "revId": "8b8c573c4688be682727d3264ad37ee5ff556754",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
