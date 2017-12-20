@@ -53,14 +53,12 @@ def rest_get(restURL, username, password):
     return json.loads(rest_buffer.getvalue())
 
 
-def getClusterRolesWithCurl(shardName, *args):
-    controllers = args[0]
-    names = args[1]
+def getClusterRolesWithCurl(shardName, controllers):
     controller_state = {}
     for i, controller in enumerate(controllers):
         controller_state[controller["ip"]] = None
         url = "http://" + controller["ip"] + ":" + controller["port"] + "/jolokia/read/org.opendaylight.controller:"
-        url += 'Category=Shards,name=' + names[i]
+        url += 'Category=Shards,name=' + controller['name']
         url += '-shard-' + shardName + '-' + data_store.lower() + ',type=Distributed' + data_store + 'Datastore'
         try:
             resp = rest_get(url, username, password)
@@ -121,7 +119,6 @@ except:
     print 'Error reading the file cluster.json'
     exit(1)
 
-controller_names = []
 Shards = set()
 # Retrieve controller names and shard names.
 for controller in controllers:
@@ -144,14 +141,13 @@ for controller in controllers:
     pos = name.find('-shard-')
     print pos
     print name[:8]
-    controller_names.append(name[:name.find('-shard-')])
+    controller['name'] = name[:name.find('-shard-')]
 
     # collect shards found in any controller; does not require all controllers to have the same shards
     for localShard in data['value']['LocalShards']:
         shardName = localShard[(localShard.find("-shard-") + 7):localShard.find("-" + data_store.lower())]
         if shardName not in shards_to_exclude:
             Shards.add(shardName)
-print controller_names
 print Shards
 field_len = max(map(len, Shards)) + 2
 
@@ -170,8 +166,8 @@ curses.init_pair(4, curses.COLOR_WHITE, curses.COLOR_YELLOW)
 curses.init_pair(5, curses.COLOR_BLACK, curses.COLOR_YELLOW)
 
 # display controller and shard headers
-for row, controller in enumerate(controller_names):
-    stdscr.addstr(row + 1, 0, string.center(controller, field_len), curses.color_pair(1))
+for row, controller in enumerate(controllers):
+    stdscr.addstr(row + 1, 0, string.center(controller['name'], field_len), curses.color_pair(1))
 for data_column, shard in enumerate(Shards):
     stdscr.addstr(0, (field_len + 1) * (data_column + 1), string.center(shard, field_len), curses.color_pair(1))
 stdscr.addstr(len(Shards) + 2, 0, 'Press q to quit.', curses.color_pair(1))
@@ -186,7 +182,7 @@ while key != ord('q') and key != ord('Q'):
 
     for data_column, shard_name in enumerate(Shards):
         if shard_name not in shards_to_exclude:
-            cluster_stat = getClusterRolesWithCurl(shard_name, controllers, controller_names)
+            cluster_stat = getClusterRolesWithCurl(shard_name, controllers)
             for row, controller in enumerate(controllers):
                 status = size_and_color(cluster_stat, field_len, controller["ip"])
                 stdscr.addstr(row + 1, (field_len + 1) * (data_column + 1), status['txt'], status['color'])
