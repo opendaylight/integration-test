@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bbd29902_b5524201",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2017-12-20T08:44:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bdc1580_80049e19",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "ec9597e9c6b4d788ef358c64af789868e60329ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00e5a701_ec69cd47",
         "filename": "csit/suites/natapp/basic/__init__.robot",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "a759ce0b_e3cb751e",
+        "filename": "csit/suites/natapp/basic/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2017-12-20T08:44:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00e5a701_ec69cd47",
+      "revId": "ec9597e9c6b4d788ef358c64af789868e60329ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "451304f9_f70dfe01",
         "filename": "csit/suites/natapp/basic/__init__.robot",
         "patchSetId": 1
@@ -53,6 +95,30 @@
       "writtenOn": "2017-12-19T18:35:00Z",
       "side": 1,
       "message": "we need to use .robot now. We are slowly migrating away\nfrom the .py file. This is just a relic from an old\nskeleton example that natapp took at one point.",
+      "range": {
+        "startLine": 5,
+        "startChar": 57,
+        "endLine": 5,
+        "endChar": 59
+      },
+      "revId": "ec9597e9c6b4d788ef358c64af789868e60329ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58654a91_e9627baa",
+        "filename": "csit/suites/natapp/basic/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2017-12-20T08:44:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "451304f9_f70dfe01",
       "range": {
         "startLine": 5,
         "startChar": 57,
