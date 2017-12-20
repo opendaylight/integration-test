@@ -187,6 +187,20 @@ Run Command On Remote System
     [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
     [Return]    ${stdout}
 
+Run Command On Remote System And Return Error
+    [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
+    [Documentation]    Same as Run Command On Remote System but in this case it returns the stderr.
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    BuiltIn.Log    Attempting to execute command "${cmd}" on remote system "${system}" by user "${user}" with keyfile pass "${keyfile_pass}" and prompt "${prompt}"
+    BuiltIn.Log    ${password}
+    ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
+    SSHKeywords.Flexible SSH Login    ${user}    ${password}
+    ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
+    SSHLibrary.Close Connection
+    Log    ${stdout}
+    [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
+    [Return]    ${stderr}
+
 Run Command On Remote System And Log
     [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
