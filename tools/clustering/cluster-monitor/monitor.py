@@ -36,6 +36,7 @@ import json
 import pycurl
 import string
 import argparse
+import math
 
 
 def rest_get(restURL, username, password):
@@ -136,6 +137,8 @@ curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLUE)
 curses.init_pair(4, curses.COLOR_WHITE, curses.COLOR_YELLOW)
 curses.init_pair(5, curses.COLOR_BLACK, curses.COLOR_YELLOW)
 
+(maxy, maxx) = stdscr.getmaxyx()
+
 key = -1
 controller_len = 0
 field_len = 0
@@ -172,6 +175,13 @@ while key != ord('q') and key != ord('Q'):
         field_len = max(map(len, Shards)) + 2
     else:
         field_len = max(field_len, 0)
+
+    # Ensure everything fits
+    if controller_len + 1 + (field_len + 1) * len(Shards) > maxx:
+        extra = controller_len + 1 + (field_len + 1) * len(Shards) - maxx
+        delta = int(math.ceil(float(extra) / (1 + len(Shards))))
+        controller_len -= delta
+        field_len -= delta
 
     # display controller and shard headers
     for row, controller in enumerate(controllers):
