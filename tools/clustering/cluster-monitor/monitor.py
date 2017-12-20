@@ -57,7 +57,8 @@ def getClusterRolesWithCurl(shardName, controllers):
     controller_state = {}
     for i, controller in enumerate(controllers):
         controller_state[controller["ip"]] = None
-        url = "http://" + controller["ip"] + ":" + controller["port"] + "/jolokia/read/org.opendaylight.controller:"
+        url = "http://" + controller["ip"] + ":" + controller["port"]\
+              + "/jolokia/read/org.opendaylight.controller:"
         url += 'Category=Shards,name=' + controller['name']
         url += '-shard-' + shardName + '-' + data_store.lower() + ',type=Distributed' + data_store + 'Datastore'
         try:
@@ -120,35 +121,6 @@ except:
     exit(1)
 
 Shards = set()
-# Retrieve controller names and shard names.
-for controller in controllers:
-    url = "http://" + controller["ip"] + ":" + controller["port"] + "/jolokia/read/org.opendaylight.controller:"
-    url += "Category=ShardManager,name=shard-manager-" + data_store.lower()\
-           + ",type=Distributed" + data_store + "Datastore"
-    try:
-        data = rest_get(url, username, password)
-    except:
-        print 'Unable to retrieve shard names from ' + str(controller)
-        print 'Are all controllers up?'
-        print str(sys.exc_info()[1])
-        exit(1)
-    print 'shards from the first controller'
-    pprint.pprint(data)
-    # grab the controller name from the first shard
-    name = data['value']['LocalShards'][0]
-    print name
-    pos = name.find('-shard-')
-    print pos
-    print name[:8]
-    controller['name'] = name[:name.find('-shard-')]
-
-    # collect shards found in any controller; does not require all controllers to have the same shards
-    for localShard in data['value']['LocalShards']:
-        shardName = localShard[(localShard.find("-shard-") + 7):localShard.find("-" + data_store.lower())]
-        if shardName not in shards_to_exclude:
-            Shards.add(shardName)
-print Shards
-field_len = max(map(len, Shards)) + 2
 
 stdscr = curses.initscr()
 curses.noecho()
@@ -164,32 +136,63 @@ curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLUE)
 curses.init_pair(4, curses.COLOR_WHITE, curses.COLOR_YELLOW)
 curses.init_pair(5, curses.COLOR_BLACK, curses.COLOR_YELLOW)
 
-# display controller and shard headers
-for row, controller in enumerate(controllers):
-    stdscr.addstr(row + 1, 0, string.center(controller['name'], field_len), curses.color_pair(1))
-for data_column, shard in enumerate(Shards):
-    stdscr.addstr(0, (field_len + 1) * (data_column + 1), string.center(shard, field_len), curses.color_pair(1))
-stdscr.addstr(len(Shards) + 2, 0, 'Press q to quit.', curses.color_pair(1))
-stdscr.refresh()
-
-# display shard status
-odd_or_even = 0
 key = ''
+controller_len = 0
+field_len = 0
 while key != ord('q') and key != ord('Q'):
-    odd_or_even += 1
     key = stdscr.getch()
 
+    # Retrieve controller names and shard names.
+    for controller in controllers:
+        url = "http://" + controller["ip"] + ":" + controller["port"]\
+              + "/jolokia/read/org.opendaylight.controller:"
+        url += "Category=ShardManager,name=shard-manager-" + data_store.lower()\
+               + ",type=Distributed" + data_store + "Datastore"
+        try:
+            data = rest_get(url, username, password)
+            # grab the controller name from the first shard
+            name = data['value']['LocalShards'][0]
+            pos = name.find('-shard-')
+            controller['name'] = name[:name.find('-shard-')]
+            # collect shards found in any controller; does not require all controllers to have the same shards
+            for localShard in data['value']['LocalShards']:
+                shardName = localShard[(localShard.find("-shard-") + 7):localShard.find("-" + data_store.lower())]
+                if shardName not in shards_to_exclude:
+                    Shards.add(shardName)
+        except:
+            if 'name' not in controller:
+                controller['name'] = controller['ip'] + ':' + controller['port']
+        controller_len = max(controller_len, len(controller['name']))
+
+    if Shards:
+        field_len = max(map(len, Shards)) + 2
+    else:
+        field_len = max(field_len, 0)
+
+    # display controller and shard headers
+    for row, controller in enumerate(controllers):
+        stdscr.addstr(row + 1, 0, string.center(controller['name'], controller_len), curses.color_pair(1))
+        for data_column, shard in enumerate(Shards):
+            stdscr.addstr(0, controller_len + 1 + (field_len + 1) * data_column, string.center(shard, field_len),
+                          curses.color_pair(1))
+            stdscr.addstr(len(Shards) + 2, 0, 'Press q to quit.', curses.color_pair(1))
+    stdscr.refresh()
+
+    # display shard status
+    odd_or_even = 0
     for data_column, shard_name in enumerate(Shards):
+        odd_or_even += 1
         if shard_name not in shards_to_exclude:
             cluster_stat = getClusterRolesWithCurl(shard_name, controllers)
             for row, controller in enumerate(controllers):
                 status = size_and_color(cluster_stat, field_len, controller["ip"])
-                stdscr.addstr(row + 1, (field_len + 1) * (data_column + 1), status['txt'], status['color'])
+                stdscr.addstr(row + 1, controller_len + 1 + (field_len + 1) * data_column, status['txt'],
+                              status['color'])
         time.sleep(0.5)
         if odd_or_even % 2 == 0:
-            stdscr.addstr(0, field_len / 2 - 2, " <3 ", curses.color_pair(5))
+            stdscr.addstr(0, controller_len / 2 - 2, " <3 ", curses.color_pair(5))
         else:
-            stdscr.addstr(0, field_len / 2 - 2, " <3 ", curses.color_pair(0))
+            stdscr.addstr(0, controller_len / 2 - 2, " <3 ", curses.color_pair(0))
         stdscr.refresh()
 
 # clean up
