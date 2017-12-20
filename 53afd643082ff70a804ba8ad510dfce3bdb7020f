@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9c8d5bf_a13c1fa9",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2017-12-20T01:39:21Z",
+      "side": 1,
+      "message": "to start with please apply review comments from https://git.opendaylight.org/gerrit/#/c/63050",
+      "revId": "53afd643082ff70a804ba8ad510dfce3bdb7020f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
