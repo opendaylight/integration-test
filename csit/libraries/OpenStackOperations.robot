@@ -291,7 +291,7 @@ Get Hypervisor Hostname From IP
     ...    the full listing is logged first, then followed by a grep | cut to focus on the actual hostname to return
     ${rc}    ${output}    Run And Return Rc And Output    openstack hypervisor list
     Log    ${output}
-    ${rc}    ${hostname}=    Run And Return Rc And Output    openstack hypervisor list -f value | grep ${hypervisor_ip} | cut -d" " -f 2
+    ${rc}    ${hostname}=    Run And Return Rc And Output    openstack hypervisor list -f value | grep "${hypervisor_ip} " | cut -d" " -f 2
     Log    ${hostname}
     Should Be True    '${rc}' == '0'
     [Return]    ${hostname}
