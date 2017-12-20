@@ -136,14 +136,18 @@ curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLUE)
 curses.init_pair(4, curses.COLOR_WHITE, curses.COLOR_YELLOW)
 curses.init_pair(5, curses.COLOR_BLACK, curses.COLOR_YELLOW)
 
-key = ''
+key = -1
 controller_len = 0
 field_len = 0
 while key != ord('q') and key != ord('Q'):
-    key = stdscr.getch()
+    key = max(key, stdscr.getch())
 
     # Retrieve controller names and shard names.
     for controller in controllers:
+        key = max(key, stdscr.getch())
+        if key == ord('q') or key == ord('Q'):
+            break
+
         url = "http://" + controller["ip"] + ":" + controller["port"]\
               + "/jolokia/read/org.opendaylight.controller:"
         url += "Category=ShardManager,name=shard-manager-" + data_store.lower()\
@@ -181,6 +185,10 @@ while key != ord('q') and key != ord('Q'):
     # display shard status
     odd_or_even = 0
     for data_column, shard_name in enumerate(Shards):
+        key = max(key, stdscr.getch())
+        if key == ord('q') or key == ord('Q'):
+            break
+
         odd_or_even += 1
         if shard_name not in shards_to_exclude:
             cluster_stat = getClusterRolesWithCurl(shard_name, controllers)
