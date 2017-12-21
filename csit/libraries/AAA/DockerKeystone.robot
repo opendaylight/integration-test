@@ -85,7 +85,10 @@ Run Docker Keystone
     ${output}    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    timeout=20s
     SSHKeywords.Flexible_Controller_Login
     SSHLibrary.Put File    ${CURDIR}/../../suites/aaa/keystone/start_keystone.sh
-    SSHLibrary.Execute Command    ./start_keystone.sh
+    ${output}=    SSHLibrary.Execute Command    ./start_keystone.sh
+    Log    ${output}
+    ${output}=    SSHLibrary.Execute Command    docker ps --all
+    Log    ${output}
     Wait Until Keyword Succeeds    10x    15    Check Keystone Log File For String    GET
     SSHLibrary.Execute Command    docker exec -t keystone bash -c "source openrc;openstack user create --password cscuser CSC_user;openstack user set --project admin CSC_user;openstack role add --project admin --user CSC_user admin;openstack role add --domain default --user CSC_user admin;openstack user list"
     SSHLibrary.Execute Command    docker exec -t keystone bash -c "source openrc;openstack user create --password cscusernoadmin CSC_user_no_admin;openstack user set --project admin CSC_user_no_admin;openstack role add --project admin --user CSC_user_no_admin user;openstack role add --domain default --user CSC_user_no_admin user"
@@ -130,6 +133,6 @@ Set Keystone Certificate into ODL
 Check Keystone Log File For String
     [Arguments]    ${string}
     [Documentation]    Check provided log exists in /var/log/nginx-access.log
-    ${status}    SSHLibrary.Execute Command    docker exec -t keystone bash -c "grep ${string} /var/log/nginx-access.log"
-    Log    ${status}
-    BuiltIn.Should Contain    ${status}    ${string}
+    ${output}    SSHLibrary.Execute Command    docker exec -t keystone bash -c "grep ${string} /var/log/nginx-access.log"
+    Log    ${output}
+    BuiltIn.Should Contain    ${output}    ${string}

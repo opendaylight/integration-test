@@ -1,12 +1,15 @@
 *** Settings ***
 Documentation     Test suite: Authentication Support for Keystone
 ...
-...               This feature implements the user management for ODL NBI REST APIs integrated with OpenStack, so that the authentication functionality provided by Keystone can be used. This allows consuming ODL NBI REST APIs using the same authentication procedures as any OpenStack project, such as Nova, Neutron, etc. bringing the benefits of a centralized / unified user management framework.
+...               This feature implements the user management for ODL NBI REST APIs integrated with OpenStack, so that
+...               the authentication functionality provided by Keystone can be used. This allows consuming ODL NBI REST
+...               APIs using the same authentication procedures as any OpenStack project, such as Nova, Neutron, etc.
+...               bringing the benefits of a centralized / unified user management framework.
 ...
-...               As a first step, It shall be possible to authenticate users against Keystone by using passwords provided by the users.
+...               As a first step, It shall be possible to authenticate users against Keystone by using passwords
+...               provided by the users.
 Suite Setup       Init Suite
 Suite Teardown    Cleanup Suite
-Test Timeout
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
@@ -36,7 +39,6 @@ Successful Authentication Including Domain
     ...    - URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" ia authorized just for "admin" roles according to shiro.ini configuration. As "sdnadmin" has "admin" role in keystone the access is authorized too
     ...
     ...    - URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is not specified neither in shiro.ini nor in MDSAL Dynamic Authorization so no specific role is required
-    [Tags]
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_DOMAIN}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -56,7 +58,6 @@ Successful Authentication Without Domain
     ...    - URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" ia authorized just for "admin" roles according to shiro.ini configuration. As "CSC_user" has "admin" role in keystone the access is authorized too
     ...
     ...    - URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is not specified neither in shiro.ini nor in MDSAL Dynamic Authorization so no specific role is required
-    [Tags]
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_SDN}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -74,7 +75,6 @@ Unsuccessful Authentication Wrong User
     ...    Note:
     ...
     ...    Due to authentication fails, authorization is not evaluated
-    [Tags]
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_INVALID}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
@@ -93,7 +93,6 @@ UnSuccessful Authentication Without Domain
     ...    Note:
     ...
     ...    Due to authentication fails, authorization is not evaluated
-    [Tags]
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
@@ -113,7 +112,6 @@ Unsuccessful Authentication Wrong Domain
     ...    Note:
     ...
     ...    Due to authentication fails, authorization is not evaluated
-    [Tags]
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_WRONG_DOM}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
     Should Contain    ${UNAUTHORIZED_STATUS_CODES}    ${resp.status_code}
@@ -129,7 +127,6 @@ Unsuccessful Basic Authorization
     ...    - Create an HTTP session with ODL as "CSC_user_no_admin" user
     ...    - Check that the access to URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" is NOT authorized because in shiro.ini configuration the access is allowed just to "admin" roles and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role even though the MDSAL Dynamic Authorization would allow the access, that is, authorization process is an "AND" operation between shiro.ini and MDSAL Dynamic Authorization
     ...    - Check that the access to URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is authorized becaiuse that URL is not specified in shiro.ini and in MDSAL Dynamic Authorization access to all URLs is allowed to all user with "user" role
-    [Tags]
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_NO_ADMIN}    headers=${HEADERS}
@@ -147,7 +144,6 @@ Unsuccessful Dynamic Authorization
     ...    - Create an HTTP session with ODL as "CSC_user_no_admin" user
     ...    - Check that the access to URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" is NOT authorized because in shiro.ini configuration the access is allowed just to "admin" roles and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role even though the MDSAL Dynamic Authorization would allow the access, that is, authorization process is an "AND" operation between shiro.ini and MDSAL Dynamic Authorization
     ...    - Check that the access to URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is NOT authorized because although the URL is not specified in shiro.ini, in MDSAL Dynamic Authorization access to all URLs is allowed just for users with "admin" role and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role
-    [Tags]
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth-2.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_CSC_NO_ADMIN}    headers=${HEADERS}
@@ -173,7 +169,6 @@ Unsuccessful Dynamic Authorization 2
     ...    - Create an HTTP session with ODL as "CSC_user_no_admin" user
     ...    - Check that the access to URL "/restconf/operations/aaa-cert-rpc:getODLCertificate" is NOT authorized because in shiro.ini configuration the access is allowed just to "admin" roles and "CSC_user_no_admin" does not have \ "admin" role in keystone but "user" role even though the MDSAL Dynamic Authorization would allow the access, that is, authorization process is an "AND" operation between shiro.ini and MDSAL Dynamic Authorization
     ...    - Check that the access to URL "/restconf/operational/ietf-restconf-monitoring:restconf-state" is authorized because the URL is not specified in shiro.ini and in MDSAL Dynamic Authorization access to that URL is allowed just for users with "user" role and "CSC_user_no_admin" does \ have \ "user" role in keystone
-    [Tags]    include
     Set Suite Variable    ${PUT_DYNAMIC_AUTH_FILE}    ${CURDIR}/../../../variables/aaa/put-dynamic-auth-3.json
     Provision MDSAL    ${PUT_DYNAMIC_AUTH_FILE}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_DOMAIN}    headers=${HEADERS}
@@ -194,7 +189,6 @@ Unsuccessful No Keystone Connection
     ...
     ...    - Put down Keystone
     ...    - All accesses are forbidden
-    [Tags]    include
     Cleanup Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH_SDN_DOMAIN}    headers=${HEADERS}
     ${resp}=    RequestsLibrary.Post Request    session    ${URI_CERTIFICATE}    headers=${HEADERS}
@@ -235,6 +229,7 @@ Cleanup Suite
     ${result}    Run Keyword And Return Status    Set Domain To False    ${domain}    ${HEADERS_TOKEN}
     Run Keyword If    ${result} == True    Delete Keystone Domain    ${domain}    ${HEADERS_TOKEN}
     Run Keyword If    ${result} == True    Destroy Docker Keystone
+    SSHLibrary.Close All Connections
 
 Configure AAA In Controller
     [Arguments]    ${TOOLS_SYSTEM_NAME}
@@ -308,6 +303,9 @@ Restart Controller
     ClusterManagement.ClusterManagement_Setup
     Wait Until Keyword Succeeds    5x    20    Stop_Single_Member    1
     Start_Single_Member    1    wait_for_sync=False    timeout=120
+    # TODO: the below Get Controller Modules keyword ends up giving a lot of WARN messages in the robot
+    # log as the controller is coming up and the initial requests are failing. This is just cosmetic at this point, but
+    # would be nice to clean up somehow.
     Wait Until Keyword Succeeds    30x    5s    Get Controller Modules
 
 Get Controller Modules
