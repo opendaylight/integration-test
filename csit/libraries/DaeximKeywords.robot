@@ -23,6 +23,20 @@ Verify Export Files
     Builtin.Log    ${opr}
     Builtin.Should Match Regexp    ${opr}    .*${EXP_OPER_FILE}
 
+Verify Export Files Not Present
+    [Arguments]    ${host_index}
+    [Documentation]    Verify if the backedup files are not present in the controller
+    ${host_index}    Builtin.Convert To Integer    ${host_index}
+    ${cfg}    ClusterManagement.Run Bash Command On Member    ls -lart ${WORKSPACE}/${BUNDLEFOLDER}/daexim/${EXP_DATA_FILE}    ${host_index}
+    Builtin.Log    ${cfg}
+    Builtin.Should Not Match Regexp    ${cfg}    .*${EXP_DATA_FILE}
+    ${mdl}    ClusterManagement.Run Bash Command On Member    ls -lart ${WORKSPACE}/${BUNDLEFOLDER}/daexim/${MODELS_FILE}    ${host_index}
+    Builtin.Log    ${mdl}
+    Builtin.Should Not Match Regexp    ${mdl}    .*${MODELS_FILE}
+    ${opr}    ClusterManagement.Run Bash Command On Member    ls -lart ${WORKSPACE}/${BUNDLEFOLDER}/daexim/${EXP_OPER_FILE}    ${host_index}
+    Builtin.Log    ${opr}
+    Builtin.Should Not Match Regexp    ${opr}    .*${EXP_OPER_FILE}
+
 Cleanup The Export Files
     [Arguments]    ${host_index}
     [Documentation]    Verify if the export directory exists and delete the files if needed
@@ -54,7 +68,7 @@ Verify Export Status Message
     [Arguments]    ${status}    ${output}
     [Documentation]    Verify export restconf response message is as expected
     Builtin.Should Match Regexp    ${output}    "status": "${status}"
-    Builtin.Run Keyword If    "${status}" == "initial" or "${status}" == "scheduled"    Verify Json Files Not Present    ${output}
+    Builtin.Run Keyword If    "${status}" == "initial" or "${status}" == "scheduled" or "${status}" == "skipped"    Verify Json Files Not Present    ${output}
     ...    ELSE    Verify Json Files Present    ${output}
 
 Verify Json Files Present
@@ -74,7 +88,7 @@ Verify Json Files Not Present
     Builtin.Log    Did not Find all Json Files
 
 Schedule Export
-    [Arguments]    ${controller_index}    ${TIME}=500    ${exclude}=${FALSE}    ${MODULE}=${EMPTY}    ${STORE}=${EMPTY}
+    [Arguments]    ${controller_index}    ${TIME}=500    ${exclude}=${FALSE}    ${MODULE}=${EMPTY}    ${STORE}=${EMPTY}    ${FLAG}=false
     [Documentation]    Schedule Export job
     ${file}    Builtin.Set Variable If    ${exclude}    ${EXPORT_EXCLUDE_FILE}    ${EXPORT_FILE}
     ${JSON1}    OperatingSystem.Get File    ${file}
@@ -193,3 +207,10 @@ Schedule Import
     Builtin.Log    ${resp}
     Builtin.Should Match Regexp    ${resp}    .*"result": ${result}
     Builtin.Run Keyword If    "${reason}" != "${EMPTY}"    Builtin.Should Match Regexp    ${response_json}    .*"reason":"${reason}
+
+Cleanup Cluster Export Files
+    [Arguments]    ${host1_index}=${FIRST_CONTROLLER_INDEX}    ${host2_index}=${SECOND_CONTROLLER_INDEX}    ${host3_index}=${THIRD_CONTROLLER_INDEX}
+    [Documentation]    This keyword cleansup export files of a cluster
+    DaeximKeywords.Cleanup The Export Files    ${host1_index}
+    DaeximKeywords.Cleanup The Export Files    ${host2_index}
+    DaeximKeywords.Cleanup The Export Files    ${host3_index}
