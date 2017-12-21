@@ -1,0 +1,2 @@
+test/csit/suites/daexim/010-special-export.robot
+test/csit/suites/daexim/110-cluster-export-basic.robot

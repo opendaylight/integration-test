@@ -74,7 +74,7 @@ Verify Json Files Not Present
     Builtin.Log    Did not Find all Json Files
 
 Schedule Export
-    [Arguments]    ${controller_index}    ${TIME}=500    ${exclude}=${FALSE}    ${MODULE}=${EMPTY}    ${STORE}=${EMPTY}
+    [Arguments]    ${controller_index}    ${TIME}=500    ${exclude}=${FALSE}    ${MODULE}=${EMPTY}    ${STORE}=${EMPTY}    ${FLAG}=false
     [Documentation]    Schedule Export job
     ${file}    Builtin.Set Variable If    ${exclude}    ${EXPORT_EXCLUDE_FILE}    ${EXPORT_FILE}
     ${JSON1}    OperatingSystem.Get File    ${file}
@@ -193,3 +193,8 @@ Schedule Import
     Builtin.Log    ${resp}
     Builtin.Should Match Regexp    ${resp}    .*"result": ${result}
     Builtin.Run Keyword If    "${reason}" != "${EMPTY}"    Builtin.Should Match Regexp    ${response_json}    .*"reason":"${reason}
+
+Verify Cluster Export Status
+    [Arguments]    ${status}
+    [Documentation]    Verify the export status of a three node cluster
+    @{node_list}    Builtin.Create List    ${FIRST_CONTROLLER_INDEX}    ${SECOND_CONTROLLER_INDEX}    ${THIRD_CONTROLLER_INDEX}

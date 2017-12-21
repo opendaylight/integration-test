@@ -19,6 +19,8 @@ ${EXPORT_INITIAL_STATUS}    initial
 ${EXPORT_SCHEDULED_STATUS}    scheduled
 ${EXPORT_COMPLETE_STATUS}    complete
 ${FIRST_CONTROLLER_INDEX}    1
+${SECOND_CONTROLLER_INDEX}    2
+${THIRD_CONTROLLER_INDEX}    3
 ${NTCF_TPLG_OPR_URL}    /restconf/operational/network-topology:network-topology/topology/topology-netconf/node/
 ${NETCONF_PORT}    1830
 ${NTCF_OPR_STATUS}    connected
