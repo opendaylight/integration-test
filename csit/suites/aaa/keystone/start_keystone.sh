@@ -23,9 +23,9 @@ docker run -d -it --name keystone -p 5000:5000 -p 35357:35357 \
        -h $YOUR_HOST \
        -e IDENTITY_HOST="$YOUR_HOST" \
        -e KEYSTONE_ADMIN_PASSWORD="secret" \
-       -v $MYSQL_DATA_DIR:/var/lib/mysql \
-       -v `pwd`/keystone_cert.pem:/etc/nginx/ssl/keystone_cert.pem \
-       -v `pwd`/keystone_key.pem:/etc/nginx/ssl/keystone_key.pem \
+       -v $MYSQL_DATA_DIR:/var/lib/mysql:Z \
+       -v `pwd`/keystone_cert.pem:/etc/nginx/ssl/keystone_cert.pem:Z \
+       -v `pwd`/keystone_key.pem:/etc/nginx/ssl/keystone_key.pem:Z \
        clearlinux/keystone
 
 
