@@ -193,7 +193,14 @@ spawn_node () {
     fi
 
     if [ -z "$ODL" ]; then :; else
-        d_ovs_vsctl "$CONTAINER" set-manager "tcp:${ODL}:6640"
+        MANAGER="tcp:${ODL}:6640"
+        d_ovs_vsctl "$CONTAINER" set-manager "$MANAGER"
+        d_ovs_vsctl "$CONTAINER" wait-until manager "$MANAGER" is_connected=true
+        M_CONNECTED=`d_ovs_vsctl "$CONTAINER" get manager "$MANAGER" is_connected`
+        if [ "$M_CONNECTED" != "true" ]; then
+            echo >&2 "$UTIL: Node $NODE can't connect to OVSDB manager $MANAGER"
+            exit 1
+        fi
     fi
 
     DO_GUEST="$GUESTS"
