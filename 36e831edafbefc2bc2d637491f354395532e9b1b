@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3788c6bd_1f7c10d0",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2017-12-29T18:16:03Z",
+      "side": 1,
+      "message": "I would change this by a FOR loop using a member index list as the argument. You have example of this in the library in  libraries/ClusterManagement.robot.",
+      "revId": "36e831edafbefc2bc2d637491f354395532e9b1b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
