@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86e29e79_1970cde9",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-02T23:51:30Z",
+      "side": 1,
+      "message": "I guess you could skip this line if you just do: [Return]    ${stdout}    ${stderr} in the last line, but maybe the KW is more clear like this, so I am good.",
+      "revId": "f1275f0d9725123c10d761b63774a3fc4660e2c1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
