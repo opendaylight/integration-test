@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "743ff1d7_bd0dc1e0",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2018-01-02T11:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46539cc2_866d9522",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "e797696509e63c621e6977d63c0277c11291fa2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cb3c043_8fc9977b",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
         "patchSetId": 24
@@ -36,6 +60,24 @@
       "writtenOn": "2017-12-20T00:02:55Z",
       "side": 1,
       "message": "if there is no real checks/verifications in a test case\nthen it should probably not be it\u0027s own test case. this\none is a good example, as well as the next one.",
+      "revId": "e797696509e63c621e6977d63c0277c11291fa2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ca6b6ad_3e6c5bac",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2018-01-02T11:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cb3c043_8fc9977b",
       "revId": "e797696509e63c621e6977d63c0277c11291fa2a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "3669bab6_45cdb8f3",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2018-01-02T11:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c0617f1_43ce0cc2",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 177
+      },
+      "revId": "e797696509e63c621e6977d63c0277c11291fa2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe43803b_bf080fe2",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
         "patchSetId": 24
@@ -76,6 +142,30 @@
       "writtenOn": "2017-12-20T00:02:55Z",
       "side": 1,
       "message": "don\u0027t we have a PORTS_API?",
+      "range": {
+        "startLine": 121,
+        "startChar": 90,
+        "endLine": 121,
+        "endChar": 126
+      },
+      "revId": "e797696509e63c621e6977d63c0277c11291fa2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3bd34f1f_1c91b797",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2018-01-02T11:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe43803b_bf080fe2",
       "range": {
         "startLine": 121,
         "startChar": 90,
@@ -157,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "747451e3_33b8c496",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2018-01-02T11:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20837368_239bbe6c",
+      "range": {
+        "startLine": 295,
+        "startChar": 16,
+        "endLine": 295,
+        "endChar": 60
+      },
+      "revId": "e797696509e63c621e6977d63c0277c11291fa2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f692deb_3b825df4",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
         "patchSetId": 24
@@ -168,6 +282,30 @@
       "writtenOn": "2017-12-20T00:02:55Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 322,
+        "startChar": 3,
+        "endLine": 322,
+        "endChar": 23
+      },
+      "revId": "e797696509e63c621e6977d63c0277c11291fa2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39022fc8_3bb279e8",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2018-01-02T11:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f692deb_3b825df4",
       "range": {
         "startLine": 322,
         "startChar": 3,
@@ -203,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "98a607e9_e1a78da2",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2018-01-02T11:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd3aede8_da6bfd7b",
+      "range": {
+        "startLine": 394,
+        "startChar": 4,
+        "endLine": 394,
+        "endChar": 35
+      },
+      "revId": "e797696509e63c621e6977d63c0277c11291fa2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "170efe20_9fe03cd4",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
         "patchSetId": 24
@@ -226,6 +388,30 @@
     },
     {
       "key": {
+        "uuid": "2de7e555_bf8f0896",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2018-01-02T11:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "170efe20_9fe03cd4",
+      "range": {
+        "startLine": 408,
+        "startChar": 50,
+        "endLine": 408,
+        "endChar": 89
+      },
+      "revId": "e797696509e63c621e6977d63c0277c11291fa2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5421da3c_f7aa6455",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
         "patchSetId": 24
@@ -237,6 +423,30 @@
       "writtenOn": "2017-12-20T00:02:55Z",
       "side": 1,
       "message": "openstack cli",
+      "range": {
+        "startLine": 468,
+        "startChar": 50,
+        "endLine": 468,
+        "endChar": 57
+      },
+      "revId": "e797696509e63c621e6977d63c0277c11291fa2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb8564b9_3d1344de",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2018-01-02T11:16:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5421da3c_f7aa6455",
       "range": {
         "startLine": 468,
         "startChar": 50,
