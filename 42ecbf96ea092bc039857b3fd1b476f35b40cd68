@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f60cea0c_4a55c03b",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-02T18:30:30Z",
+      "side": 1,
+      "message": "I think it would be a little cleaner to just return ${stderr} as a 2nd return val in the \"Run Command On Remote System\"\nkeyword. It would be backward compatible and then you just\nneed to expect two return values in your cbench suite.",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 25
+      },
+      "revId": "42ecbf96ea092bc039857b3fd1b476f35b40cd68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
