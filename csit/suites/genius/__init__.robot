@@ -3,6 +3,7 @@ Documentation     Test suite for Genius Modules
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           SSHLibrary
+Library           BuiltIn
 Variables         ../../variables/Variables.py
 Resource          ../../libraries/Utils.robot
 Library           re
@@ -15,6 +16,7 @@ Resource          ../../libraries/KarafKeywords.robot
 *** Keywords ***
 Start Suite
     [Documentation]    Test suit for vpn service using mininet OF13 and OVS 2.3.1
+    Run_Keyword_If_At_Least_Oxygen    Check Service Status    ACTIVE    OPERATIONAL
     Log    Start the tests
     ${conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${conn_id_1}
@@ -69,3 +71,12 @@ check establishment
     ${check_establishment}    Execute Command    netstat -anp | grep ${port}
     Should contain    ${check_establishment}    ESTABLISHED
     [Return]    ${check_establishment}
+
+Check Service Status
+    [Arguments]    ${system_ready_state}    ${service_state}
+    [Documentation]    Issues the karaf shell command showSvcStatus to verify the ready and service states are the same as the arguments passed
+    ${service_status_output}    Issue_Command_On_Karaf_Console    showSvcStatus    ${ODL_SYSTEM_IP}    8101
+    Should Contain    ${service_status_output}    ${system_ready_state}
+    @{split}    Split To Lines    ${service_status_output}    3    7
+    : FOR    ${var}    IN    @{split}
+    \    Should Contain    ${var}    ${service_state}
