@@ -22,6 +22,30 @@
       "revId": "42ecbf96ea092bc039857b3fd1b476f35b40cd68",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c840d12_e0b0230b",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-02T18:57:50Z",
+      "side": 1,
+      "message": "Will that work? AFAIR when you return 2 arguments and you only specify 1 when calling the KW you get a list and that will break all tests using this KW, or am I wrong?",
+      "parentUuid": "f60cea0c_4a55c03b",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 25
+      },
+      "revId": "42ecbf96ea092bc039857b3fd1b476f35b40cd68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
