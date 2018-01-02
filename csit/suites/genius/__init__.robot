@@ -3,6 +3,7 @@ Documentation     Test suite for Inventory Scalability
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           SSHLibrary
+Library           BuiltIn
 Variables         ../../variables/Variables.py
 Resource          ../../libraries/Utils.robot
 Library           re
@@ -17,6 +18,7 @@ Start Suite
     [Documentation]    Test suit for vpn service using mininet OF13 and OVS 2.3.1
     Log    Start the tests
     ${conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Check Service Status    ${systemreadystate}    ${servicestate}
     Set Global Variable    ${conn_id_1}
     KarafKeywords.Setup_Karaf_Keywords
     ${karaf_debug_enabled}    BuiltIn.Get_Variable_Value    ${KARAF_DEBUG}    ${False}
@@ -69,3 +71,13 @@ check establishment
     ${check_establishment}    Execute Command    netstat -anp | grep ${port}
     Should contain    ${check_establishment}    ESTABLISHED
     [Return]    ${check_establishment}
+
+Check Service Status
+    [Documentation]    Test suit to check Service Status
+    [Arguments]    ${systemreadystate}    ${servicestate}
+    Switch Connection    ${conn_id}
+    ${check servicestatus}    Issue_Command_On_Karaf_Console    showSvcStatus    ${ODL_SYSTEM_IP}    8101
+    Should Contain    ${check servicestatus}    ${systemreadystate}
+    @{split}    Split To Lines    ${result}    3    8
+    : FOR    ${var}    IN    @{split}
+    \    Should Contain    ${var}    ${servicestate}
