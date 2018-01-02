@@ -69,3 +69,10 @@ check establishment
     ${check_establishment}    Execute Command    netstat -anp | grep ${port}
     Should contain    ${check_establishment}    ESTABLISHED
     [Return]    ${check_establishment}
+check servicestatus
+    Switch Connection    ${conn_id}
+    ${check servicestatus}    Issue_Command_On_Karaf_Console    showSvcStatus    192.168.122.12    8101
+    Should Contain    ${check servicestatus}    ACTIVE
+    @{split}    Split To Lines    ${result}    3    8
+    :FOR    ${var}    IN    @{split}
+    \    Should Contain    ${var}    OPERATIONAL
