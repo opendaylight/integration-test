@@ -172,10 +172,14 @@ Strip Quotes
     [Return]    ${string_to_return}
 
 Run Command On Remote System
-    [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
+    [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}    ${return_stdout}=True    ${return_stderr}=False
     [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
-    ...    robot keyword, taking care to log in with a public key and. The command given is written
-    ...    and the output returned. No test conditions are checked.
+    ...    robot keyword, taking care to log in with a public key and. The command given is written and the return value
+    ...    depends on the passed argument values of return_stdout (default: True) and return_stderr (default: False).
+    ...    At least one should be True, or the keyword will exit and FAIL. If both are True, the resulting return value
+    ...    will be a two element list containing both. Otherwise the resulting return value is a string.
+    ...    No test conditions are checked.
+    Run Keyword If    "${return_stdout}"!="True" and "${return_stderr}"!="True"    Fail    At least one of {return_stdout} or {return_stderr} args should be set to True
     ${current_ssh_connection}=    SSHLibrary.Get Connection
     BuiltIn.Log    Attempting to execute command "${cmd}" on remote system "${system}" by user "${user}" with keyfile pass "${keyfile_pass}" and prompt "${prompt}"
     BuiltIn.Log    ${password}
@@ -184,22 +188,11 @@ Run Command On Remote System
     ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
     SSHLibrary.Close Connection
     Log    ${stderr}
+    Run Keyword If    "${return_stdout}"!="True"    Return From Keyword    ${stderr}
+    Run Keyword If    "${return_stderr}"!="True"    Return From Keyword    ${stdout}
+    ${return_val_list}    Create List    ${stdout}    ${stderr}
     [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
-    [Return]    ${stdout}
-
-Run Command On Remote System And Return Error
-    [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
-    [Documentation]    Same as Run Command On Remote System but in this case it returns the stderr.
-    ${current_ssh_connection}=    SSHLibrary.Get Connection
-    BuiltIn.Log    Attempting to execute command "${cmd}" on remote system "${system}" by user "${user}" with keyfile pass "${keyfile_pass}" and prompt "${prompt}"
-    BuiltIn.Log    ${password}
-    ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
-    SSHKeywords.Flexible SSH Login    ${user}    ${password}
-    ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
-    SSHLibrary.Close Connection
-    Log    ${stdout}
-    [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
-    [Return]    ${stderr}
+    [Return]    ${return_val_list}
 
 Run Command On Remote System And Log
     [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}

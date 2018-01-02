@@ -67,7 +67,7 @@ Run Cbench And Log Results
     ##file to log to, so setting it as a suite variable here.
     Set Suite Variable    ${output_filename}
     ${output}=    Run Keyword If    "${cbench_system}" == "localhost"    Run    ${cbench_executable} -c ${ODL_SYSTEM_IP} ${cbench_args}
-    ...    ELSE    Run Command On Remote System And Return Error    ${cbench_system}    ${cbench_executable} -c ${ODL_SYSTEM_IP} ${cbench_args}    prompt_timeout=${test_timeout}
+    ...    ELSE    Run Command On Remote System    ${cbench_system}    ${cbench_executable} -c ${ODL_SYSTEM_IP} ${cbench_args}    prompt_timeout=${test_timeout}    return_stdout=False    return_stderr=False
     Log    ${output}
     Should Contain    ${output}    RESULT
     ${result_line}=    Get Lines Containing String    ${output}    RESULT
