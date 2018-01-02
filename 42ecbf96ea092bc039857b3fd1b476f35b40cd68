@@ -46,6 +46,30 @@
       "revId": "42ecbf96ea092bc039857b3fd1b476f35b40cd68",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b13a07d5_bddc7f93",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-02T19:04:49Z",
+      "side": 1,
+      "message": "I just checked locally. you are right. if you return 2 vars\nand the caller is only saving 1 it will fail.\n\nso much duplication is why I was looking for a better way.\nthe keywords are literally identical except for the\n[Return] line.\n\nI have an idea. Let\u0027s merge this to unblock you, and I\u0027ll\npush a new patch to refactor it.",
+      "parentUuid": "0c840d12_e0b0230b",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 25
+      },
+      "revId": "42ecbf96ea092bc039857b3fd1b476f35b40cd68",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
