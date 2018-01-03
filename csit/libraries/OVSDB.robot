@@ -76,6 +76,12 @@ Verify OVS Reports Connected
     ${output}    Verify Ovs-vsctl Output    show    is_connected    ${tools_system}
     [Return]    ${output}
 
+Verify OVS Not Connected
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl show" to check for string "is_connected" is absent
+    ${output}    Verify Ovs-vsctl Output    show    is_connected    ${tools_system}    should_match=False
+    [Return]    ${output}
+
 Verify Ovs-vsctl Output
     [Arguments]    ${vsctl_args}    ${expected_output}    ${ovs_system}=${TOOLS_SYSTEM_IP}    ${should_match}=True
     [Documentation]    A wrapper keyword to make it easier to validate ovs-vsctl output, and gives an easy
