@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e11fb76_cffd0f7a",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-03T20:30:32Z",
+      "side": 1,
+      "message": "for consistency can you use underscores please? so system_ready_state, service_state, check_service_status (although, I think service_status_output is better), etc etc",
+      "range": {
+        "startLine": 77,
+        "startChar": 21,
+        "endLine": 77,
+        "endChar": 37
+      },
+      "revId": "ecaccf6ff60663bc2b72eb75252b38aed755fed0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e139dcb9_3248bcce",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-03T20:30:32Z",
+      "side": 1,
+      "message": "I think this is not right?",
+      "range": {
+        "startLine": 81,
+        "startChar": 36,
+        "endLine": 81,
+        "endChar": 42
+      },
+      "revId": "ecaccf6ff60663bc2b72eb75252b38aed755fed0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
