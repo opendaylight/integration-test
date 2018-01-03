@@ -22,6 +22,30 @@
       "revId": "6c139ad167a943640a28780bb97f9d5b13304bf0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9904eac7_70203ed5",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-01-03T09:19:23Z",
+      "side": 1,
+      "message": "192.168.122.12 is local controller ip by mistake it has been added. Changed according to script.\nTaken care of all other comments",
+      "parentUuid": "58667d2a_43ac069b",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 48
+      },
+      "revId": "6c139ad167a943640a28780bb97f9d5b13304bf0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
