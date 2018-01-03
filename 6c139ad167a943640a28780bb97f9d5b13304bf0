@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58667d2a_43ac069b",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-03T00:51:12Z",
+      "side": 1,
+      "message": "- add newline between keyword\n- rename keyword with Capitalization and It should probably be \"Service Status\"\n    - while you are at it, you might want to refactor the above keyword to use the expected Capitalization Of Keywords\n- add [Documentation] block with relevant docs\n- use an [Argument] section with something like expected_status so you can call this keyword with other values instead of just ACTIVE. if not, then name this keyword \"Check Service Status Is ACTIVE\"\n- what is that 192.168.122.12 address?",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 48
+      },
+      "revId": "6c139ad167a943640a28780bb97f9d5b13304bf0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
