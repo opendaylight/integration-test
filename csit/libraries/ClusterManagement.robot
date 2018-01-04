@@ -786,6 +786,7 @@ ClusterManagement__Include_Member_Index
     ${member_ip} =    BuiltIn.Set_Variable    ${ODL_SYSTEM_${index}_IP}
     # ${index} is int (not string) so "key=value" syntax does not work in the following line.
     Collections.Set_To_Dictionary    ${index_to_ip_mapping}    ${index}    ${member_ip}
+    ${AUTH} =    Set Variable    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
     # Http session, with ${AUTH}, without headers.
     ${session_alias} =    Resolve_Http_Session_For_Member    member_index=${index}
     RequestsLibrary.Create_Session    ${session_alias}    http://${member_ip}:${RESTCONFPORT}    auth=${AUTH}    timeout=${http_timeout}    max_retries=${http_retries}
