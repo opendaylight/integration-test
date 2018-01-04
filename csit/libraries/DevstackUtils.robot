@@ -158,6 +158,7 @@ Open Connection
 Devstack Suite Setup
     [Arguments]    ${odl_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Open connections to the nodes
+    ${AUTH} =    Set Variable    ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}
     Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     SSHLibrary.Set Default Configuration    timeout=${default_devstack_prompt_timeout}
     Run Keyword If    0 < ${NUM_OS_SYSTEM}    Open Connection    OS_CNTL_CONN_ID    ${OS_CONTROL_NODE_IP}
