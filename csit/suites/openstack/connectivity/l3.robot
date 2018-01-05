@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to check connectivity in L3 using routers.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Setup       Start Suite
+Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -13,6 +13,9 @@ Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/netvirt/Variables.robot
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/VpnOperations.robot
+Resource          ../../../libraries/Tcpdump.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    l3_sg
@@ -24,6 +27,20 @@ ${ROUTER}         l3_router
 @{NET_3_VMS}      l3_net_3_vm_1    l3_net_3_vm_2    l3_net_3_vm_3
 @{SUBNET_CIDRS}    31.0.0.0/24    32.0.0.0/24    33.0.0.0/24
 ${NET_1_VLAN_ID}    1131
+${cn1_conn_id}    blah1
+${cn2_conn_id}    blah2
+${cn3_conn_id}    blah3
+
+*** Keywords ***
+Start Suite
+    OpenStackOperations.OpenStack Suite Setup
+    OpenStackOperations.Add OVS Logging
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set TRACE org.opendaylight.openflowplugin
+
+Stop Suite
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.openflowplugin
+    OpenStackOperations.Remove OVS Logging
+    OpenStackOperations.OpenStack Suite Teardown
 
 *** Test Cases ***
 Create VLAN Network net_1
@@ -64,6 +81,9 @@ Create Vm Instances For net_1
 
 Create Vm Instances For net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
+     ${cn1_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_COMPUTE_1_IP}    file_Name=tcpDumpCN1    port="port 6653"
+     ${cn2_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_COMPUTE_2_IP}    file_Name=tcpDumpCN2    port="port 6653"
+     ${os_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_CONTROL_NODE_IP}    file_Name=tcpDumpOS    port="port 6653"
     OpenStackOperations.Create Vm Instances    @{NETWORKS}[1]    ${NET_2_VMS}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For net_3
@@ -85,6 +105,7 @@ Check Vm Instances Have Ip Address
     BuiltIn.Should Not Contain    ${NET_3_L3_DHCP_IP}    None
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}    @{NET_3_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
+    VpnOperations.Test Teardown With Tcpdump Stop    ${cn1_conn_id}    ${cn2_conn_id}    ${os_conn_id}
 
 Create Routers
     [Documentation]    Create Router
