@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to check connectivity in L3 using routers.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Setup       Start Suite
+Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -13,6 +13,9 @@ Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/netvirt/Variables.robot
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/VpnOperations.robot
+Resource          ../../../libraries/Tcpdump.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    l3_sg
@@ -25,7 +28,30 @@ ${ROUTER}         l3_router
 @{SUBNET_CIDRS}    31.0.0.0/24    32.0.0.0/24    33.0.0.0/24
 ${NET_1_VLAN_ID}    1131
 
+*** Keywords ***
+Start Suite
+    OpenStackOperations.OpenStack Suite Setup
+    OpenStackOperations.Add OVS Logging
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set TRACE org.opendaylight.openflowplugin
+
+Stop Suite
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.openflowplugin
+    OpenStackOperations.Remove OVS Logging
+    OpenStackOperations.OpenStack Suite Teardown
+
 *** Test Cases ***
+Start TCP Dump
+    ${suite_} =    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","_").replace("/","_").replace(".","_")
+    ${fname} =    BuiltIn.Catenate    SEPARATOR=__    ${suite_}    tcpdump_cmp1    ${OS_COMPUTE_1_IP}
+    ${cmp1_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_COMPUTE_1_IP}    file_Name=${fname}    port="port 6653"
+    ${fname} =    BuiltIn.Catenate    SEPARATOR=__    ${suite_}    tcpdump_cmp2    ${OS_COMPUTE_2_IP}
+    ${cmp2_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_COMPUTE_2_IP}    file_Name=${fname}    port="port 6653"
+    ${fname} =    BuiltIn.Catenate    SEPARATOR=__    ${suite_}    tcpdump_cntl    ${OS_CONTROL_NODE_IP}
+    ${cntl_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_CONTROL_NODE_IP}    file_Name=${fname}    port="port 6653"
+    BuiltIn.Set Suite Variable    ${cmp1_conn_id}
+    BuiltIn.Set Suite Variable    ${cmp2_conn_id}
+    BuiltIn.Set Suite Variable    ${cntl_conn_id}
+
 Create VLAN Network net_1
     [Documentation]    Create Network with neutron request.
     # in the case that the controller under test is using legacy netvirt features, vlan segmentation is not supported,
@@ -209,3 +235,6 @@ Delete Security Group
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
     DataModels.Verify Flows Are Cleaned Up On All OpenStack Nodes
+
+Stop TCP Dump
+    Tcpdump.Tcpdump Stop    ${cmp1_conn_id}    ${cmp2_conn_id}    ${cntl_conn_id}
