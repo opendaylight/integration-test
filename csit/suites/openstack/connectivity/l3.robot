@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to check connectivity in L3 using routers.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Setup       Start Suite
+Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -13,6 +13,7 @@ Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/netvirt/Variables.robot
+Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    l3_sg
@@ -24,6 +25,15 @@ ${ROUTER}         l3_router
 @{NET_3_VMS}      l3_net_3_vm_1    l3_net_3_vm_2    l3_net_3_vm_3
 @{SUBNET_CIDRS}    31.0.0.0/24    32.0.0.0/24    33.0.0.0/24
 ${NET_1_VLAN_ID}    1131
+
+*** Keywords ***
+Start Suite
+    OpenStackOperations.OpenStack Suite Setup
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set TRACE org.opendaylight.openflowplugin
+
+Stop Suite
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.openflowplugin
+    OpenStackOperations.OpenStack Suite Teardown
 
 *** Test Cases ***
 Create VLAN Network net_1
