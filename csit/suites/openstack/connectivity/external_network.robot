@@ -35,6 +35,11 @@ Create All Controller Sessions
     [Documentation]    Create sessions for all three controllers
     ClusterManagement.ClusterManagement Setup
 
+Create External Network And Subnet
+    OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
+    OpenStackOperations.Update Network    ${EXTERNAL_NET_NAME}    --external
+    OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
+
 Create Private Network
     [Documentation]    Create Network with neutron request.
     : FOR    ${network}    IN    @{NETWORKS}
@@ -43,6 +48,19 @@ Create Private Network
 Create Subnet For Private Network
     [Documentation]    Create Sub Net for the Network with neutron request.
     OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
+
+Create Router
+    [Documentation]    Create Router and Add Interface to the subnets.
+    OpenStackOperations.Create Router    ${ROUTER}
+
+Add Interfaces To Router
+    [Documentation]    Add Interfaces
+    : FOR    ${interface}    IN    @{SUBNETS}
+    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+
+Add Router Gateway To Router
+    [Documentation]    OpenStackOperations.Add Router Gateway
+    OpenStackOperations.Add Router Gateway    ${ROUTER}    ${EXTERNAL_NET_NAME}
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -65,23 +83,6 @@ Check Vm Instances Have Ip Address
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{FIP_VMS}    @{SNAT_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
-Create External Network And Subnet
-    OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
-    OpenStackOperations.Update Network    ${EXTERNAL_NET_NAME}    --external
-    OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
-
-Create Router
-    [Documentation]    Create Router and Add Interface to the subnets.
-    OpenStackOperations.Create Router    ${ROUTER}
-
-Add Interfaces To Router
-    [Documentation]    Add Interfaces
-    : FOR    ${interface}    IN    @{SUBNETS}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
-
-Add Router Gateway To Router
-    [Documentation]    OpenStackOperations.Add Router Gateway
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    ${EXTERNAL_NET_NAME}
 
 Verify Created Router
     [Documentation]    Check created routers using northbound rest calls
