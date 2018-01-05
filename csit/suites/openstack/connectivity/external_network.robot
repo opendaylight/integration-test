@@ -38,7 +38,17 @@ Create All Controller Sessions
     [Documentation]    Create sessions for all three controllers
     ClusterManagement.ClusterManagement Setup
 
-Create Private Networks
+Create External Network And Subnet
+    OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
+    OpenStackOperations.Update Network    ${EXTERNAL_NET_NAME}    --external
+    OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
+
+Create Routers
+    [Documentation]    Create Router and Add Interface to the subnets.
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    OpenStackOperations.Create Router    ${router}
+
+Create Private Network
     [Documentation]    Create Network with neutron request.
     : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Create Network    ${network}
@@ -48,6 +58,23 @@ Create Subnets For Private Networks
     : FOR    ${network}    ${subnet}    ${cidr}    IN ZIP    ${NETWORKS}    ${SUBNETS}
     ...    ${SUBNET_CIDRS}
     \    OpenStackOperations.Create SubNet    ${network}    ${subnet}    ${cidr}
+
+Add Interfaces To Router
+    [Documentation]    Add Interfaces
+    : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
+    \    OpenStackOperations.Add Router Interface    ${router}    ${interface}
+
+Add Router Gateway To Router
+    [Documentation]    OpenStackOperations.Add Router Gateway
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    OpenStackOperations.Add Router Gateway    ${router}    ${EXTERNAL_NET_NAME}
+
+Verify Created Routers
+    [Documentation]    Check created routers using northbound rest calls
+    ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
+    BuiltIn.Log    ${data}
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    Should Contain    ${data}    ${router}
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -76,33 +103,6 @@ Check Vm Instances Have Ip Address
     BuiltIn.Should Not Contain    ${NET2_SNAT_DHCP_IP}    None
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET1_FIP_VMS}    @{SNAT_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
-
-Create External Network And Subnet
-    OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
-    OpenStackOperations.Update Network    ${EXTERNAL_NET_NAME}    --external
-    OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
-
-Create Routers
-    [Documentation]    Create Router and Add Interface to the subnets.
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    OpenStackOperations.Create Router    ${router}
-
-Add Interfaces To Router
-    [Documentation]    Add Interfaces
-    : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
-    \    OpenStackOperations.Add Router Interface    ${router}    ${interface}
-
-Add Router Gateway To Router
-    [Documentation]    OpenStackOperations.Add Router Gateway
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    OpenStackOperations.Add Router Gateway    ${router}    ${EXTERNAL_NET_NAME}
-
-Verify Created Routers
-    [Documentation]    Check created routers using northbound rest calls
-    ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
-    BuiltIn.Log    ${data}
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    Should Contain    ${data}    ${router}
 
 Create And Associate Floating IPs for VMs
     [Documentation]    Create and associate a floating IP for the VM
