@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51b29bf0_cd80c36e",
+        "filename": "csit/testplans/bgpcep-userfeatures.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-05T23:15:55Z",
+      "side": 1,
+      "message": "don\u0027t forget about the SUITES parameter in our CSIT jobs. that makes it easy to test suite(s) in a one\noff manner and you don\u0027t have to edit a testplan in your gerrit. just fyi. this works too.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 63
+      },
+      "revId": "05a8641bc8aee6164f501acbe1698bd259389c71",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
