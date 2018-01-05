@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c83e930_7666ba99",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-05T19:33:50Z",
+      "side": 1,
+      "message": "this is not accurate. Add docs to explain what this \"keyword\" does. Essentially, something like:\n\n\"Issues the karaf shell command showSvcStatus to verify the ready and service states are the same as the arguments passed\" or whatever makes more sense to you",
+      "range": {
+        "startLine": 77,
+        "startChar": 23,
+        "endLine": 77,
+        "endChar": 56
+      },
+      "revId": "cb956b61fb224325a5206509d511498993330468",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
