@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6a4c743_b1c79bbf",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-05T01:11:08Z",
+      "side": 1,
+      "message": "don\u0027t forget you can just add the suites you want to run in the SUITES param in jenkins instead of putting this in your patch.",
+      "revId": "84548608add89a0a4b166b6c0d96d85d091d33ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
