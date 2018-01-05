@@ -35,6 +35,7 @@ ${directory_with_template_folders}    ${CURDIR}/../../../variables/tcpmd5user/
 ${CONNECTOR_FEATURE}    odl-netconf-connector-all
 ${PCEP_FEATURE}    odl-bgpcep-pcep
 ${RESTCONF_FEATURE}    odl-restconf-all
+${PATH_SESSION_URI}    node/pcc:%2F%2F${TOOLS_SYSTEM_IP}/path-computation-client
 
 *** Test Cases ***
 Topology_Precondition
@@ -76,7 +77,7 @@ Set_Correct_Password
 
 Topology_Intercondition
     [Documentation]    Compare pcep-topology to filled one, which includes a tunnel from pcc-mock.
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Compare_Topology    ${default_json}    050_Intercondition.json
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Compare_Topology    ${default_json}    050_Intercondition.json    ${PATH_SESSION_URI}
 
 Update_Delegated
     [Documentation]    Perform update-lsp on the mocked tunnel, check response is success.
@@ -86,7 +87,7 @@ Update_Delegated
 Topology_Updated
     [Documentation]    Compare pcep-topology to default_json, which includes the updated tunnel.
     [Tags]    critical
-    BuiltIn.Wait_Until_Keyword_succeeds    5s    1s    Compare_Topology    ${updated_json}    060_Topology_Updated.json
+    BuiltIn.Wait_Until_Keyword_succeeds    5s    1s    Compare_Topology    ${updated_json}    060_Topology_Updated.json    ${PATH_SESSION_URI}
 
 Unset_Password
     [Documentation]    De-configure password for pcep dispatcher for client with Mininet IP address.
@@ -193,7 +194,7 @@ Read_Text_Before_Prompt
     BuiltIn.Log    ${text}
 
 Compare_Topology
-    [Arguments]    ${expected}    ${name}
+    [Arguments]    ${expected}    ${name}    ${uri}=${EMPTY}
     [Documentation]    Get current pcep-topology as json, normalize both expected and actual json.
     ...    Save normalized jsons to files for later processing.
     ...    Error codes and normalized jsons should match exactly.
@@ -201,7 +202,7 @@ Compare_Topology
     ${normexp}=    norm_json.normalize_json_text    ${expected}
     BuiltIn.Log    ${normexp}
     OperatingSystem.Create_File    ${directory_for_expected_responses}${/}${name}    ${normexp}
-    ${resp}=    RequestsLibrary.Get_Request    ses    topology/pcep-topology
+    ${resp}=    RequestsLibrary.Get_Request    ses    topology/pcep-topology/${uri}
     BuiltIn.Log    ${resp}
     BuiltIn.Log    ${resp.text}
     ${normresp}=    norm_json.normalize_json_text    ${resp.text}
