@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a343f824_364f903f",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-01-05T09:17:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e11fb76_cffd0f7a",
+      "range": {
+        "startLine": 77,
+        "startChar": 21,
+        "endLine": 77,
+        "endChar": 37
+      },
+      "revId": "ecaccf6ff60663bc2b72eb75252b38aed755fed0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e139dcb9_3248bcce",
         "filename": "csit/suites/genius/__init__.robot",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-01-03T20:30:32Z",
       "side": 1,
       "message": "I think this is not right?",
+      "range": {
+        "startLine": 81,
+        "startChar": 36,
+        "endLine": 81,
+        "endChar": 42
+      },
+      "revId": "ecaccf6ff60663bc2b72eb75252b38aed755fed0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65f95af3_09fda920",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-01-05T09:17:19Z",
+      "side": 1,
+      "message": "That should be ${checkservicestatus}. I changed it",
+      "parentUuid": "e139dcb9_3248bcce",
       "range": {
         "startLine": 81,
         "startChar": 36,
