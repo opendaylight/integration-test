@@ -37,6 +37,7 @@ netvirt_data_models = [
     'operational/elan:elan-interfaces',
     'operational/elan:elan-state',
     'operational/ietf-interfaces:interfaces-state',
+    'operational/interface-service-bindings:bound-services-state-list',
     'operational/itm-state:tunnels_state',
     'operational/l3nexthop:l3nexthop',
     'operational/l3vpn:vpn-interfaces',
