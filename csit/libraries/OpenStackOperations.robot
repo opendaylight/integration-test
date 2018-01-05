@@ -1179,3 +1179,18 @@ Is Feature Installed
     \    ${status}    ${output}    Run Keyword And Ignore Error    Builtin.Should Contain    ${CONTROLLERFEATURES}    ${feature}
     \    Return From Keyword If    "${status}" == "PASS"    True
     [Return]    False
+
+Add OVS Logging
+    ${output} =    Write Commands Until Prompt And Log    sudo ovs-appctl --target ovs-vswitchd vlog/set bridge:file:dbg
+    ${output} =    Write Commands Until Prompt And Log    sudo ovs-appctl --target ovs-vswitchd vlog/set connmgr:file:dbg
+    ${output} =    Write Commands Until Prompt And Log    sudo ovs-appctl --target ovs-vswitchd vlog/set inband:file:dbg
+    ${output} =    Write Commands Until Prompt And Log    sudo ovs-appctl --target ovs-vswitchd vlog/set ofp_actions:file:dbg
+    ${output} =    Write Commands Until Prompt And Log    sudo ovs-appctl --target ovs-vswitchd vlog/set ofp_errors:file:dbg
+    ${output} =    Write Commands Until Prompt And Log    sudo ovs-appctl --target ovs-vswitchd vlog/set ofp_msgs:file:dbg
+    ${output} =    Write Commands Until Prompt And Log    sudo ovs-appctl --target ovs-vswitchd vlog/set ovsdb_error:file:dbg
+    ${output} =    Write Commands Until Prompt And Log    sudo ovs-appctl --target ovs-vswitchd vlog/set rconn:file:dbg
+    ${output} =    Write Commands Until Prompt And Log    sudo ovs-appctl --target ovs-vswitchd vlog/set tunnel:file:dbg
+    ${output} =    Write Commands Until Prompt And Log    sudo ovs-appctl --target ovs-vswitchd vlog/set vconn:file:dbg
+
+Remove OVS Logging
+    ${output} =    Write Commands Until Prompt And Log    sudo ovs-appctl --target ovs-vswitchd vlog/set :file:info
