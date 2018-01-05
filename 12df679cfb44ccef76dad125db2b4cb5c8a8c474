@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4097807_1e8e85de",
+        "filename": "csit/suites/openstack/connectivity/l3.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-05T18:14:43Z",
+      "side": 1,
+      "message": "another way is like this:\n\nRun Keywords    Openstack Suite Setup\n...    AND    The Karaf Command Junk\n...    AND    Anything Else You Want\n\njust fyi",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 29
+      },
+      "revId": "12df679cfb44ccef76dad125db2b4cb5c8a8c474",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
