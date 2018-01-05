@@ -1179,3 +1179,27 @@ Is Feature Installed
     \    ${status}    ${output}    Run Keyword And Ignore Error    Builtin.Should Contain    ${CONTROLLERFEATURES}    ${feature}
     \    Return From Keyword If    "${status}" == "PASS"    True
     [Return]    False
+
+Modify OVS Logging
+    [Arguments]    ${conn_id}
+    SSHLibrary.Switch Connection    ${conn_id}
+    @{modules} =    BuiltIn.Create List    bridge:file:dbg    connmgr:file:dbg    inband:file:dbg    ofp_actions:file:dbg    ofp_errors:file:dbg
+    ...    ofp_msgs:file:dbg    ovsdb_error:file:dbg    rconn:file:dbg    tunnel:file:dbg    vconn:file:dbg
+    : FOR    ${module}    IN    @{modules}
+    \    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set ${module}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/list    ${DEFAULT_LINUX_PROMPT_STRICT}
+
+Remove OVS Logging
+    [Arguments]    ${conn_id}
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output} =    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set :file:info    ${DEFAULT_LINUX_PROMPT_STRICT}
+
+Add OVS Logging
+    Run Keyword If    0 < ${NUM_OS_SYSTEM}    Modify OVS Logging    ${OS_CNTL_CONN_ID}
+    Run Keyword If    1 < ${NUM_OS_SYSTEM}    Modify OVS Logging    ${OS_CMP1_CONN_ID}
+    Run Keyword If    2 < ${NUM_OS_SYSTEM}    Modify OVS Logging    ${OS_CMP2_CONN_ID}
+
+Reset OVS Logging
+    Run Keyword If    0 < ${NUM_OS_SYSTEM}    Remove OVS Logging    ${OS_CNTL_CONN_ID}
+    Run Keyword If    1 < ${NUM_OS_SYSTEM}    Remove OVS Logging    ${OS_CMP1_CONN_ID}
+    Run Keyword If    2 < ${NUM_OS_SYSTEM}    Remove OVS Logging    ${OS_CMP2_CONN_ID}
