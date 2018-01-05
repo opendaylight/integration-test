@@ -35,6 +35,10 @@ ${directory_with_template_folders}    ${CURDIR}/../../../variables/tcpmd5user/
 ${CONNECTOR_FEATURE}    odl-netconf-connector-all
 ${PCEP_FEATURE}    odl-bgpcep-pcep
 ${RESTCONF_FEATURE}    odl-restconf-all
+${DEVICE_NAME}    controller-config
+${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-device
+${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-mount
+${PATH_SESSION_URI}    node/pcc:%2F%2F${TOOLS_SYSTEM_IP}/path-computation-client
 
 *** Test Cases ***
 Topology_Precondition
@@ -168,10 +172,17 @@ Install_Netconf_Connector
     # During the netconf connector installation the karaf's ssh is restarted and connection to karaf console is droped. This is causing an error
     # which is ignored, because the feature should be installed anyway.
     ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${CONNECTOR_FEATURE}
-    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${PCEP_FEATURE}
-    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${RESTCONF_FEATURE}
+    # ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${PCEP_FEATURE}
+    # ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Install_A_Feature    ${RESTCONF_FEATURE}
     BuiltIn.Log    ${results}
+    Configure_Netconf_Device
     BuiltIn.Wait_Until_Keyword_Succeeds    240    3    Check_Netconf_Up_And_Running
+
+Configure_Netconf_Device
+    [Documentation]    Configures netconf device.
+    &{mapping} =    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}
 
 Check_Netconf_Up_And_Running
     [Documentation]    Make a request to netconf connector's mounted pcep module and expect it is mounted.
@@ -201,7 +212,7 @@ Compare_Topology
     ${normexp}=    norm_json.normalize_json_text    ${expected}
     BuiltIn.Log    ${normexp}
     OperatingSystem.Create_File    ${directory_for_expected_responses}${/}${name}    ${normexp}
-    ${resp}=    RequestsLibrary.Get_Request    ses    topology/pcep-topology
+    ${resp}=    RequestsLibrary.Get_Request    ses    topology/pcep-topology/${PATH_SESSION_URI}
     BuiltIn.Log    ${resp}
     BuiltIn.Log    ${resp.text}
     ${normresp}=    norm_json.normalize_json_text    ${resp.text}
