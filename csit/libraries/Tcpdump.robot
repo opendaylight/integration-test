@@ -42,12 +42,12 @@ Stop Tcpdumping And Download
 
 Start Packet Capture On Node
     [Arguments]    ${node_ip}    ${file_Name}=${dump_default_name}    ${network_Adapter}=eth0    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}
-    ...    ${prompt_timeout}=${DEFAULT_TIMEOUT}
+    ...    ${prompt_timeout}=${DEFAULT_TIMEOUT}    ${port}=${EMPTY}
     [Documentation]    Connects to the remote machine and starts tcpdump
     ${current_ssh_connection}=    SSHLibrary.Get Connection
     ${conn_id}=    SSHLibrary.Open Connection    ${node_ip}    prompt=${prompt}    timeout=${prompt_timeout}
     SSHKeywords.Flexible SSH Login    ${user}    ${password}
-    ${cmd} =    Set Variable    sudo /usr/sbin/tcpdump -vvv -ni ${networkAdapter} -w /tmp/${file_Name}.pcap
+    ${cmd} =    Set Variable    sudo /usr/sbin/tcpdump -vvv -ni ${networkAdapter} ${port} -w /tmp/${file_Name}.pcap
     ${stdout}    ${stderr} =    SSHLibrary.Start Command    ${cmd}
     Log    ${stderr}
     Log    ${stdout}
@@ -68,3 +68,9 @@ Stop Packet Capture on Node
     ${stdout} =    SSHLibrary.Execute Command    sudo ls -ls /tmp
     Log    ${stdout}
     SSHLibrary. Close Connection
+
+Tcpdump Stop
+    [Arguments]    ${cn1_conn_id}    ${cn2_conn_id}    ${os_conn_id}
+    Stop Packet Capture on Node    ${cn1_conn_id}
+    Stop Packet Capture on Node    ${cn2_conn_id}
+    Stop Packet Capture on Node    ${os_conn_id}
