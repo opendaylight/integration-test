@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bde104f_f764234a",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-06T02:20:31Z",
+      "side": 1,
+      "message": "is this needed, if you source the Variables.robot Resource in the *** Settings *** section?",
+      "range": {
+        "startLine": 789,
+        "startChar": 0,
+        "endLine": 789,
+        "endChar": 81
+      },
+      "revId": "c03ab3cfad875529ffbea86d199c4a27eafffee0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15570c37_551b78c0",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-06T02:20:31Z",
+      "side": 1,
+      "message": "I think the right fix is to change Variables.py to Variables.robot in the *** Settings *** section and we wont need this.\nI have a patch for that https://git.opendaylight.org/gerrit/c/66914/\nI\u0027ll test it in the sandbox first, and once that\u0027s merged you probably won\u0027t need this line. You will probably want to add the change\nin the cluster lib though.",
+      "range": {
+        "startLine": 161,
+        "startChar": 4,
+        "endLine": 161,
+        "endChar": 81
+      },
+      "revId": "c03ab3cfad875529ffbea86d199c4a27eafffee0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
