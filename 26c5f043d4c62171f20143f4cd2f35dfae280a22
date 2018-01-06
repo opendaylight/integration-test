@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58bfce25_2d779126",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-06T01:19:20Z",
+      "side": 1,
+      "message": "does this not work to do like in line 92 but with IPv6? Seems that\u0027s the idea of the ${ether_type} arg in the Create Allow All SecurityGroup keyword",
+      "revId": "26c5f043d4c62171f20143f4cd2f35dfae280a22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4108a5bb_e79056aa",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-06T01:19:20Z",
+      "side": 1,
+      "message": "don\u0027t need this.",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 45
+      },
+      "revId": "26c5f043d4c62171f20143f4cd2f35dfae280a22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5912f76b_156fcf98",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-06T01:19:20Z",
+      "side": 1,
+      "message": "can you add a step here that checks the routes are deleted? otherwise this is not really even a test case and you can\nmove the steps to the next test case.",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 59
+      },
+      "revId": "26c5f043d4c62171f20143f4cd2f35dfae280a22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80f04266_e9f71f5f",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-06T01:19:20Z",
+      "side": 1,
+      "message": "yeah, maybe that was your intention anyway. to have the above \"delete\" steps in this test case.",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 6
+      },
+      "revId": "26c5f043d4c62171f20143f4cd2f35dfae280a22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2caec69b_d1b06a03",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-06T01:19:20Z",
+      "side": 1,
+      "message": "how useful are these \"Log Many\" statements. They make it hard (for me at least) to read what\u0027s going on here. The real work is just the \"create list\" and \"test operations from ...\" keywords. can they be removed? I saw them in other places too. Not a big deal, but it would reduce some noise when trying to understand this suite for newbies.",
+      "range": {
+        "startLine": 294,
+        "startChar": 4,
+        "endLine": 295,
+        "endChar": 56
+      },
+      "revId": "26c5f043d4c62171f20143f4cd2f35dfae280a22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54af4c65_3f5da652",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-06T01:19:20Z",
+      "side": 1,
+      "message": "this doesn\u0027t look right. is it?",
+      "range": {
+        "startLine": 367,
+        "startChar": 48,
+        "endLine": 367,
+        "endChar": 95
+      },
+      "revId": "26c5f043d4c62171f20143f4cd2f35dfae280a22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5880fdd2_f3f86d56",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-06T01:19:20Z",
+      "side": 1,
+      "message": "change to ${L3_TABLE}\n\nreason is that maybe table 19 changes down the road and the l3 table is something else. it wil avoid confusion if so.\n\nsame applies to other values below. 43, 135. let\u0027s just use variables defined in a variables file or in variables section of this suite, just like you are doing for most already.",
+      "range": {
+        "startLine": 427,
+        "startChar": 43,
+        "endLine": 427,
+        "endChar": 45
+      },
+      "revId": "26c5f043d4c62171f20143f4cd2f35dfae280a22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
