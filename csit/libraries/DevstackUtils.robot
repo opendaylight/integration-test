@@ -10,7 +10,7 @@ Library           ./UtilLibrary.py
 Resource          KarafKeywords.robot
 Resource          OpenStackOperations.robot
 Resource          SSHKeywords.robot
-Variables         ../variables/Variables.py
+Resource         ../variables/Variables.robot
 
 *** Variables ***
 ${default_devstack_prompt_timeout}    10s
