@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4477aa1_a04b7f47",
+        "filename": "csit/variables/pcepuser/variables.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-06T00:19:16Z",
+      "side": 0,
+      "message": "FYI, this change broke TCPMD5 test in all branches. See also the failure in the csit verify job of this patch: https://jenkins.opendaylight.org/releng/job/bgpcep-csit-verify-1node-gate-userfeatures/53/",
+      "revId": "abdf8e95fc1881db5ec164183b8a74cc738fa096",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
