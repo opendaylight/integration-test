@@ -3,3 +3,4 @@ integration/test/csit/scripts/set_sg_mode.sh
 integration/test/csit/scripts/set_federation_rabbit.sh
 integration/test/csit/scripts/set_log_counters.sh
 integration/test/csit/scripts/set_snat_mode.sh
+integration/test/csit/scripts/disable_ofp_stats.sh
