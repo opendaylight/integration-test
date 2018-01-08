@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9109528_b8693d87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T19:21:58Z",
+      "side": 1,
+      "message": "what is FT62? can we use a better (more descriptive) name instead?",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "bc5e07f8b8465f33d3cceeea9fbefa7e215c6b5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ba35707_246bcfb2",
+        "filename": "csit/libraries/FT62_bgp.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T19:21:58Z",
+      "side": 1,
+      "message": "if you want, you can reduce this to ${FIB_ENTRIES_URL} from Variables.robot",
+      "range": {
+        "startLine": 41,
+        "startChar": 78,
+        "endLine": 41,
+        "endChar": 110
+      },
+      "revId": "bc5e07f8b8465f33d3cceeea9fbefa7e215c6b5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "649ee1c5_564b493f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T19:21:58Z",
+      "side": 1,
+      "message": "Can you change it to \"Update VM Creation Quota\" ? that is more clear (to me, at least). not a huge deal.\n\nCan you use the newer/faster pattern we have for running openstack commands? example:\n\n\n    ${rc}    ${output}\u003d    Run And Return Rc And Output    openstack server reboot --wait ${vm_name}\n    Log    ${output}\n    Should Be True    \u0027${rc}\u0027 \u003d\u003d \u00270\u0027",
+      "revId": "bc5e07f8b8465f33d3cceeea9fbefa7e215c6b5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9d358ba_1cf023c3",
+        "filename": "csit/suites/netvirt/ft62_cloud/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T19:21:58Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "bc5e07f8b8465f33d3cceeea9fbefa7e215c6b5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8d6ec65_5d43af3d",
+        "filename": "csit/suites/netvirt/ft62_cloud/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T19:21:58Z",
+      "side": 1,
+      "message": "this applies elsewhere, but remove any extra Log statements if at all possible. This one is not needed because the List Networks keyword itself will log it.",
+      "range": {
+        "startLine": 49,
+        "startChar": 3,
+        "endLine": 49,
+        "endChar": 22
+      },
+      "revId": "bc5e07f8b8465f33d3cceeea9fbefa7e215c6b5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d79c60a6_e0a54225",
+        "filename": "csit/suites/netvirt/ft62_cloud/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T19:21:58Z",
+      "side": 1,
+      "message": "before we merge this, we\u0027ll want to clean up all commented lines like this",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 83
+      },
+      "revId": "bc5e07f8b8465f33d3cceeea9fbefa7e215c6b5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf115664_5233e5d9",
+        "filename": "csit/suites/netvirt/ft62_cloud/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T19:21:58Z",
+      "side": 1,
+      "message": "this is probably available as it\u0027s own single variable from Variables.robot",
+      "range": {
+        "startLine": 153,
+        "startChar": 76,
+        "endLine": 153,
+        "endChar": 114
+      },
+      "revId": "bc5e07f8b8465f33d3cceeea9fbefa7e215c6b5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "463eb89f_cf900292",
+        "filename": "csit/suites/netvirt/ft62_cloud/ft62_vpn.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T19:21:58Z",
+      "side": 1,
+      "message": "Teardown means Post test, but you wrote Pretest. just a small nit, I know.\n\nactually, as I read the actual keyword below, it\u0027s only doing one thing. why not delete that keyword entirely and\nput \"Get Test Teardown Debugs\" here instead.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 33
+      },
+      "revId": "bc5e07f8b8465f33d3cceeea9fbefa7e215c6b5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60fc572a_6c2bc9bb",
+        "filename": "csit/variables/ft62_vars.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T19:21:58Z",
+      "side": 1,
+      "message": "lots of white spaces to clean up.\n\nmake sure these vars are needed and not already defined. for example, I bet some of those neutron urls are already there in Variables.robot",
+      "revId": "bc5e07f8b8465f33d3cceeea9fbefa7e215c6b5e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
