@@ -1179,3 +1179,15 @@ Is Feature Installed
     \    ${status}    ${output}    Run Keyword And Ignore Error    Builtin.Should Contain    ${CONTROLLERFEATURES}    ${feature}
     \    Return From Keyword If    "${status}" == "PASS"    True
     [Return]    False
+
+VM Creation Quota Update
+    [Arguments]    ${num_instances}
+    [Documentation]    Update VM Creation Quota
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Expected Prompt    openstack project list    >
+    Log    ${output}
+    ${split_output}=    Split String    ${output}
+    ${index} =    Get Index From List    ${split_output}    admin
+    ${output}=    Write Commands Until Expected Prompt    openstack quota set --instances ${num_instances} ${split_output[${index-2}]}    >
+    Log    ${output}
