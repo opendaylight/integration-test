@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ff9ee73_25b812e4",
+        "filename": "csit/suites/bgpcep/pcepclustering/pcep_ha.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T18:54:58Z",
+      "side": 1,
+      "message": "please use Variables.robot",
+      "range": {
+        "startLine": 23,
+        "startChar": 47,
+        "endLine": 23,
+        "endChar": 49
+      },
+      "revId": "d98d70b650e24943f101d55b6ee520d46853c59a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "465a38ff_6c8a113f",
+        "filename": "csit/suites/bgpcep/pcepclustering/pcep_ha.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T18:54:58Z",
+      "side": 1,
+      "message": "this seems more of a \"Suite Setup\" thing than a test case.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "d98d70b650e24943f101d55b6ee520d46853c59a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4686a315_b35fa681",
+        "filename": "csit/suites/bgpcep/pcepclustering/pcep_ha.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T18:54:58Z",
+      "side": 1,
+      "message": "I\u0027m not understanding this syntax. I think you only need to list the variable once to make it a suite variable.",
+      "range": {
+        "startLine": 45,
+        "startChar": 34,
+        "endLine": 45,
+        "endChar": 60
+      },
+      "revId": "d98d70b650e24943f101d55b6ee520d46853c59a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d32beb6_c8d1590f",
+        "filename": "csit/suites/bgpcep/pcepclustering/pcep_ha.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-08T18:54:58Z",
+      "side": 1,
+      "message": "this also seems to be a suite setup step. if you combine this with the above steps and do it in a suite setup then if something goes wrong there, the rest of the test cases will just be skipped. That is probably what you want, because if there is no pcc mock running the rest of the suite is pointless anyway right?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "d98d70b650e24943f101d55b6ee520d46853c59a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
