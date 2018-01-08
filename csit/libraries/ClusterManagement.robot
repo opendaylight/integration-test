@@ -33,6 +33,7 @@ Library           RequestsLibrary    # for Create_Session and To_Json
 Library           Collections
 Resource          ${CURDIR}/CompareStream.robot
 Resource          ${CURDIR}/KarafKeywords.robot
+Resource          ${CURDIR}/NexusKeywords.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot    # for Get_As_Json_From_Uri
 Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
