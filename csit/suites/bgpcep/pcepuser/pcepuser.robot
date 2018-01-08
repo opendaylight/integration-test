@@ -17,13 +17,14 @@ Resource          ../../../libraries/PcepOperations.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/CompareStream.robot
+Resource          ../../../variables/Variables.robot
 Variables         ../../../variables/pcepuser/variables.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
 ${CONFIG_SESSION}    session
 ${PATH_SESSION_URI}    node/pcc:%2F%2F${TOOLS_SYSTEM_IP}/path-computation-client
+${PCEP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/pcepuser/
 
 *** Test Cases ***
 Topology_Precondition
@@ -34,10 +35,16 @@ Topology_Precondition
 
 Start_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet, fail is Open is not sent, keep it running for next tests.
-    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_IP} 2>&1 | tee pccmock.log
+    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --reconnect 1 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_IP} 2>&1 | tee pccmock.log
     Log    ${command}
     Write    ${command}
     Read_Until    started, sent proposal Open
+
+Configure_Speaker_Entity_Identifier
+    [Documentation]    Additional PCEP Speaker configuration for at least oxygen streams.
+    ...    Allows PCEP speaker to determine if state synchronization can be skipped when a PCEP session is restarted.
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${ODL_SYSTEM_IP}
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    TemplatedRequests.Put_As_Xml_Templated    ${PCEP_VARIABLES_FOLDER}${/}node_speaker_entity_identifier    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Topology_Default
     [Documentation]    Compare pcep-topology to default_json, which includes a tunnel from pcc-mock.
