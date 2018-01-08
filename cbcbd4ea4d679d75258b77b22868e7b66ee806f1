@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52059606_dd494a75",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-08T15:37:22Z",
+      "side": 1,
+      "message": "this vconn one might be noisy since it logs ofp messages received and sent. For some reason ODL sends a flow dump request every 3s increasing the logging.",
+      "revId": "cbcbd4ea4d679d75258b77b22868e7b66ee806f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
