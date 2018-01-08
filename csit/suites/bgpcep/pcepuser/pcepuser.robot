@@ -24,6 +24,7 @@ Variables         ../../../variables/pcepuser/variables.py    ${TOOLS_SYSTEM_IP}
 *** Variables ***
 ${CONFIG_SESSION}    session
 ${PATH_SESSION_URI}    node/pcc:%2F%2F${TOOLS_SYSTEM_IP}/path-computation-client
+${PCEP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/pcepuser/
 
 *** Test Cases ***
 Topology_Precondition
@@ -38,6 +39,10 @@ Start_Pcc_Mock
     Log    ${command}
     Write    ${command}
     Read_Until    started, sent proposal Open
+
+Configure_Speaker_Entity_Identifier
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${ODL_SYSTEM_IP}
+    TemplatedRequests.Put_As_Xml_Templated    ${PCEP_VARIABLES_FOLDER}${/}node_speaker_entity_identifier    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Topology_Default
     [Documentation]    Compare pcep-topology to default_json, which includes a tunnel from pcc-mock.
