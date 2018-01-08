@@ -17,14 +17,12 @@ Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           SSHLibrary    timeout=10s
-Library           RequestsLibrary
 Library           Collections
 Library           OperatingSystem
 Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/RemoteBash.robot
-Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/NexusKeywords.robot
 
@@ -108,17 +106,8 @@ Stop_Bmp_Mock
 Setup_Everything
     [Documentation]    Initial setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    ${odl1} =    SSHKeywords.Open_Connection_To_ODL_System    ip_address=${ODL_SYSTEM_1_IP}
-    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/deployment/search.sh
-    SSHLibrary.Close_Connection
-    ${odl2} =    SSHKeywords.Open_Connection_To_ODL_System    ip_address=${ODL_SYSTEM_2_IP}
-    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/deployment/search.sh
-    SSHLibrary.Close_Connection
-    ${odl3} =    SSHKeywords.Open_Connection_To_ODL_System    ip_address=${ODL_SYSTEM_3_IP}
-    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/deployment/search.sh
-    SSHLibrary.Close_Connection
     ClusterManagement.ClusterManagement_Setup
-    SSHKeywords.Open_Connection_To_Tools_System
+    ClusterManagement.Cluster_Setup_For_Artifact_Deployment_And_Usage
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    bgp-bmp-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
 
