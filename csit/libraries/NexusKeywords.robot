@@ -43,12 +43,12 @@ ${NEXUS_RELEASES_URL}    https://nexus.opendaylight.org/content/repositories/ope
 
 *** Keywords ***
 Initialize_Artifact_Deployment_And_Usage
-    [Arguments]    ${tools_system_connect}=True
+    [Arguments]    ${tools_system_connect}=True    ${odl_system}=1
     [Documentation]    Places search utility to ODL system, which will be needed for version detection.
     ...    By default also initialize a SSH connection to Tools system,
     ...    as following Keywords assume a working connection towards target system.
     # Connect to the ODL machine.
-    ${odl} =    SSHKeywords.Open_Connection_To_ODL_System
+    ${odl} =    SSHKeywords.Open_Connection_To_ODL_System    ip_address=${ODL_SYSTEM_${odl_system}_IP}
     # Deploy the search tool.
     SSHLibrary.Put_File    ${CURDIR}/../../tools/deployment/search.sh
     SSHLibrary.Close_Connection

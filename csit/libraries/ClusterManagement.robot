@@ -33,6 +33,7 @@ Library           RequestsLibrary    # for Create_Session and To_Json
 Library           Collections
 Resource          ${CURDIR}/CompareStream.robot
 Resource          ${CURDIR}/KarafKeywords.robot
+Resource          ${CURDIR}/NexusKeywords.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot    # for Get_As_Json_From_Uri
 Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
@@ -826,3 +827,12 @@ Return_Member_IP
     ${member_int} =    BuiltIn.Convert_To_Integer    ${member_index}
     ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_int}
     [Return]    ${member_ip}
+
+Cluster_Setup_For_Artifact_Deployment_And_Usage
+    [Arguments]    ${exclude_member_list}=${EMPTY}
+    [Documentation]    Places search utility on each ODL system on cluster using NexusKeywords library
+    ...    By default also initialize a SSH connection to Tools system,
+    ${members_list}    List_Indices_Or_All    ${exclude_member_list}
+    : FOR    ${member_index}    IN    @{members_list}
+    \    NexusKeywords.Initialize_Artifact_Deployment_And_Usage    False    ${member_index}
+    SSHKeywords.Open_Connection_To_Tools_System
