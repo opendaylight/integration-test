@@ -10,7 +10,7 @@ Documentation     BGP functional HA testing with one exabgp peer.
 ...               This suite uses exabgp. It is configured to have 3 peers (all 3 nodes of odl).
 ...               Bgp implemented with singleton accepts only one incomming conection. Exabgp
 ...               logs will show that one peer will be connected and two will fail.
-...               After killing karaf which owned connection new owner should be elected and
+...               After stopping karaf which owned connection new owner should be elected and
 ...               this new owner should accept incomming bgp connection.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
@@ -61,8 +61,8 @@ Verify ExaBgp Connected
     [Documentation]    Verifies exabgp's presence in operational ds.
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tools_Connection    ${living_session}
 
-Kill_Current_Owner_Member
-    [Documentation]    Killing karaf which is connected with exabgp.
+Stop_Current_Owner_Member
+    [Documentation]    Stopping karaf which is connected with exabgp.
     Kill_Single_Member    ${rib_owner}
     BuiltIn.Set Suite variable    ${old_rib_owner}    ${rib_owner}
     BuiltIn.Set Suite variable    ${old_rib_candidates}    ${rib_candidates}
