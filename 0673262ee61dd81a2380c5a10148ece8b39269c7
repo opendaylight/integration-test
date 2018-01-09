@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_c07be227",
+        "filename": "csit/suites/netvirt/vpnservice/basic_dualstack_one_router.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2018-01-09T15:40:22Z",
+      "side": 1,
+      "message": "I seee that Sam already pushed to master.\nso I will try to sync with what Sam did.",
+      "parentUuid": "7a1969be_006cda9b",
+      "range": {
+        "startLine": 148,
+        "startChar": 107,
+        "endLine": 148,
+        "endChar": 130
+      },
+      "revId": "0673262ee61dd81a2380c5a10148ece8b39269c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_5ab085f4",
         "filename": "csit/suites/netvirt/vpnservice/basic_dualstack_one_router.robot",
         "patchSetId": 20
