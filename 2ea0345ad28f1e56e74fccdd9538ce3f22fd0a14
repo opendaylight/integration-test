@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52c8aca4_b01e022a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-09T18:03:17Z",
+      "side": 1,
+      "message": "need [Documentation] for each new keyword",
+      "revId": "2ea0345ad28f1e56e74fccdd9538ce3f22fd0a14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2001e762_adfe8d77",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-09T18:03:17Z",
+      "side": 1,
+      "message": "I think this one fits better in the ovsdb library",
+      "range": {
+        "startLine": 1183,
+        "startChar": 0,
+        "endLine": 1191,
+        "endChar": 1
+      },
+      "revId": "2ea0345ad28f1e56e74fccdd9538ce3f22fd0a14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59d6ac95_a83e2adb",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-09T18:03:17Z",
+      "side": 1,
+      "message": "how about \"Remove Ovs Logging On All OpenStack Nodes\". Same idea below as well. just to be more clear when we are reading the robot html report from a high level",
+      "range": {
+        "startLine": 1192,
+        "startChar": 0,
+        "endLine": 1192,
+        "endChar": 18
+      },
+      "revId": "2ea0345ad28f1e56e74fccdd9538ce3f22fd0a14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e10d94f5_fae43340",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-09T18:03:17Z",
+      "side": 1,
+      "message": "[Documentation] and maybe it\u0027s better to just pass in a single arg list value and loop over it. That makes it a little more useful down the road.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 48
+      },
+      "revId": "2ea0345ad28f1e56e74fccdd9538ce3f22fd0a14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be281084_cb6ff0c7",
+        "filename": "csit/suites/openstack/connectivity/l3.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-09T18:03:17Z",
+      "side": 1,
+      "message": "these either need to be at the bottom of this file, OR (better, imho) just use the \"Run Keywords\" trick in the Suite Setup/Teardown in the *** Settings *** above.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 48
+      },
+      "revId": "2ea0345ad28f1e56e74fccdd9538ce3f22fd0a14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f621728_60c72c29",
+        "filename": "csit/suites/openstack/connectivity/l3.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-09T18:03:17Z",
+      "side": 1,
+      "message": "this isn\u0027t a test case. how about adding this to Suite Setup too? Which now means my idea of doing \"Run Keywords\" is too messy and we are better off with a local Setup keyword",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 49
+      },
+      "revId": "2ea0345ad28f1e56e74fccdd9538ce3f22fd0a14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a2f718b_3dd91883",
+        "filename": "csit/suites/openstack/connectivity/l3.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-09T18:03:17Z",
+      "side": 1,
+      "message": "put this in Suite Teardown",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 81
+      },
+      "revId": "2ea0345ad28f1e56e74fccdd9538ce3f22fd0a14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
