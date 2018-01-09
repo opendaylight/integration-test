@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "d0e95373_67514873",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2018-01-09T15:40:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4108a5bb_e79056aa",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 45
+      },
+      "revId": "26c5f043d4c62171f20143f4cd2f35dfae280a22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5912f76b_156fcf98",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
         "patchSetId": 32
@@ -145,6 +169,30 @@
       "writtenOn": "2018-01-06T01:19:20Z",
       "side": 1,
       "message": "change to ${L3_TABLE}\n\nreason is that maybe table 19 changes down the road and the l3 table is something else. it wil avoid confusion if so.\n\nsame applies to other values below. 43, 135. let\u0027s just use variables defined in a variables file or in variables section of this suite, just like you are doing for most already.",
+      "range": {
+        "startLine": 427,
+        "startChar": 43,
+        "endLine": 427,
+        "endChar": 45
+      },
+      "revId": "26c5f043d4c62171f20143f4cd2f35dfae280a22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03442bac_dd01b2f5",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 6574
+      },
+      "writtenOn": "2018-01-09T15:40:22Z",
+      "side": 1,
+      "message": "135 is ICMP type.",
+      "parentUuid": "5880fdd2_f3f86d56",
       "range": {
         "startLine": 427,
         "startChar": 43,
