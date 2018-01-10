@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "667027e4_807f805b",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-10T23:59:22Z",
+      "side": 1,
+      "message": "none and EMPTY are the same thing since python uses none. Really hate this language. Went ahead and changed it though to keep it consistent.",
+      "parentUuid": "e6fb6336_d0548f64",
+      "range": {
+        "startLine": 73,
+        "startChar": 26,
+        "endLine": 73,
+        "endChar": 30
+      },
+      "revId": "d55619a55eb41e827f55946356be5092ccfe0fe9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9fa1255d_b5319ae3",
         "filename": "csit/libraries/Tcpdump.robot",
         "patchSetId": 5
