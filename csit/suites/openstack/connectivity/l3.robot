@@ -27,29 +27,8 @@ ${ROUTER}         l3_router
 @{SUBNET_CIDRS}    31.0.0.0/24    32.0.0.0/24    33.0.0.0/24
 ${NET_1_VLAN_ID}    1131
 
-*** Keywords ***
-Start Suite
-    OpenStackOperations.OpenStack Suite Setup
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set TRACE org.opendaylight.openflowplugin
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set TRACE org.opendaylight.genius.interfacemanager.servicebindings
-
-Stop Suite
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.openflowplugin
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.genius.interfacemanager.servicebindings
-    OpenStackOperations.OpenStack Suite Teardown
-
 *** Test Cases ***
 Start TCP Dump
-    ${suite_} =    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","_").replace("/","_").replace(".","_")
-    ${fname} =    BuiltIn.Catenate    SEPARATOR=__    ${suite_}    tcpdump_cmp1    ${OS_COMPUTE_1_IP}
-    ${cmp1_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_COMPUTE_1_IP}    file_Name=${fname}    filter="port 6653"
-    ${fname} =    BuiltIn.Catenate    SEPARATOR=__    ${suite_}    tcpdump_cmp2    ${OS_COMPUTE_2_IP}
-    ${cmp2_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_COMPUTE_2_IP}    file_Name=${fname}    filter="port 6653"
-    ${fname} =    BuiltIn.Catenate    SEPARATOR=__    ${suite_}    tcpdump_cntl    ${OS_CONTROL_NODE_IP}
-    ${cntl_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_CONTROL_NODE_IP}    file_Name=${fname}    filter="port 6653"
-    BuiltIn.Set Suite Variable    ${cmp1_conn_id}
-    BuiltIn.Set Suite Variable    ${cmp2_conn_id}
-    BuiltIn.Set Suite Variable    ${cntl_conn_id}
 
 Create VLAN Network net_1
     [Documentation]    Create Network with neutron request.
@@ -237,3 +216,20 @@ Verify Flows Cleanup
 
 Stop TCP Dump
     Tcpdump.Tcpdump Stop    ${cmp1_conn_id}    ${cmp2_conn_id}    ${cntl_conn_id}
+
+*** Keywords ***
+Start Suite
+    OpenStackOperations.OpenStack Suite Setup
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set TRACE org.opendaylight.openflowplugin
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set TRACE org.opendaylight.genius.interfacemanager.servicebindings
+    @{ips} =    BuiltIn.Create List    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+    ${suite_} =    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","_").replace("/","_").replace(".","_")
+    ${tag} =    BuiltIn.Catenate    SEPARATOR=__    tcpdump    ${suite_}
+    @{conn_ids} =    Tcpdump.Start Packet Capture on Nodes    tag=${tag}    filter=port 6653    ${ips}
+    BuiltIn.Set Suite Variable    @{conn_ids}
+
+Stop Suite
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.openflowplugin
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.genius.interfacemanager.servicebindings
+    Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+    OpenStackOperations.OpenStack Suite Teardown

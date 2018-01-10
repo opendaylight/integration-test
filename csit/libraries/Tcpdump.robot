@@ -72,11 +72,10 @@ Stop Packet Capture on Node
 Start Packet Capture on Nodes
     [Arguments]    ${tag}=none    ${filter}=none    @{ips}=none
     [Documentation]    Start packet captures on the given list of node ips.
-    ...    The captures will be named with the tag, suite and ip.
-    ${suite_} =    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","_").replace("/","_").replace(".","_")
+    ...    The captures will be named with the tag and ip.
     @{conn_ids} =    BuiltIn.Create List    @{EMPTY}
     : FOR    ${ip}    IN    ${ips}
-    \    ${fname} =    BuiltIn.Catenate    SEPARATOR=__    ${tag}    ${suite_}    ${ip}
+    \    ${fname} =    BuiltIn.Catenate    SEPARATOR=__    ${tag}    ${ip}
     \    ${conn_id} =    Tcpdump.Start Packet Capture on Node    ${ip}    file_Name=${fname}    filter=${filter}
     \    Collections..Append To List    ${conn_ids}    ${conn_id}
     [Return]    @{conn_ids}
