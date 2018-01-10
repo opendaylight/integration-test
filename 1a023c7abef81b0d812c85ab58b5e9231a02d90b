@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "575fab80_f8d6ee1c",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-10T23:48:39Z",
+      "side": 1,
+      "message": "${EMPTY} here too right?",
+      "range": {
+        "startLine": 73,
+        "startChar": 38,
+        "endLine": 73,
+        "endChar": 67
+      },
+      "revId": "1a023c7abef81b0d812c85ab58b5e9231a02d90b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
