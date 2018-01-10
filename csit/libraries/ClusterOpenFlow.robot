@@ -134,7 +134,7 @@ Take OpenFlow Device Link Up and Verify
     ${ouput}=    MininetKeywords.Send Mininet Command    ${mininet_conn_id}    link s1 s2 up
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${operational_port_1}    dictionary=${dictionary}    member_index_list=${controller_index_list}
     ${dictionary}    Create Dictionary    openflow:1=21    openflow:2=19    openflow:3=19
-    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+    Wait Until Keyword Succeeds    10s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
 Verify Switch Connections Running On Member
     [Arguments]    ${switch_count}    ${member_index}
