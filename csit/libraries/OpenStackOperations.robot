@@ -7,6 +7,7 @@ Library           SSHLibrary
 Resource          DataModels.robot
 Resource          DevstackUtils.robot
 Resource          L2GatewayOperations.robot
+Resource          OVSDB.robot
 Resource          SetupUtils.robot
 Resource          SSHKeywords.robot
 Resource          Utils.robot
@@ -1155,6 +1156,7 @@ OpenStack Suite Setup
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     DevstackUtils.Devstack Suite Setup
+    Add OVS Logging On All OpenStack Nodes
 
 OpenStack Suite Teardown
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
@@ -1179,3 +1181,15 @@ Is Feature Installed
     \    ${status}    ${output}    Run Keyword And Ignore Error    Builtin.Should Contain    ${CONTROLLERFEATURES}    ${feature}
     \    Return From Keyword If    "${status}" == "PASS"    True
     [Return]    False
+
+Add OVS Logging On All OpenStack Nodes
+    [Documentation]    Add higher levels of OVS logging to all the OpenStack nodes
+    Run Keyword If    0 < ${NUM_OS_SYSTEM}    OVSDB.Add OVS Logging    ${OS_CNTL_CONN_ID}
+    Run Keyword If    1 < ${NUM_OS_SYSTEM}    OVSDB.Add OVS Logging    ${OS_CMP1_CONN_ID}
+    Run Keyword If    2 < ${NUM_OS_SYSTEM}    OVSDB.Add OVS Logging    ${OS_CMP2_CONN_ID}
+
+Reset OVS Logging On All OpenStack Nodes
+    [Documentation]    Reset the OVS logging to all the OpenStack nodes
+    Run Keyword If    0 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CNTL_CONN_ID}
+    Run Keyword If    1 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CMP1_CONN_ID}
+    Run Keyword If    2 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CMP2_CONN_ID}
