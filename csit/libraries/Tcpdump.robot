@@ -42,12 +42,12 @@ Stop Tcpdumping And Download
 
 Start Packet Capture On Node
     [Arguments]    ${node_ip}    ${file_Name}=${dump_default_name}    ${network_Adapter}=eth0    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}
-    ...    ${prompt_timeout}=${DEFAULT_TIMEOUT}
+    ...    ${prompt_timeout}=${DEFAULT_TIMEOUT}    ${filter}=${EMPTY}
     [Documentation]    Connects to the remote machine and starts tcpdump
     ${current_ssh_connection}=    SSHLibrary.Get Connection
     ${conn_id}=    SSHLibrary.Open Connection    ${node_ip}    prompt=${prompt}    timeout=${prompt_timeout}
     SSHKeywords.Flexible SSH Login    ${user}    ${password}
-    ${cmd} =    Set Variable    sudo /usr/sbin/tcpdump -vvv -ni ${networkAdapter} -w /tmp/${file_Name}.pcap
+    ${cmd} =    Set Variable    sudo /usr/sbin/tcpdump -vvv -ni ${networkAdapter} ${filter} -w /tmp/${file_Name}.pcap
     ${stdout}    ${stderr} =    SSHLibrary.Start Command    ${cmd}
     Log    ${stderr}
     Log    ${stdout}
@@ -68,3 +68,20 @@ Stop Packet Capture on Node
     ${stdout} =    SSHLibrary.Execute Command    sudo ls -ls /tmp
     Log    ${stdout}
     SSHLibrary. Close Connection
+
+Start Packet Capture on Nodes
+    [Arguments]    ${tag}=none    ${filter}=none    @{ips}=none
+    [Documentation]    Start packet captures on the given list of node ips.
+    ...    The captures will be named with the tag and ip.
+    @{conn_ids} =    BuiltIn.Create List    @{EMPTY}
+    : FOR    ${ip}    IN    ${ips}
+    \    ${fname} =    BuiltIn.Catenate    SEPARATOR=__    ${tag}    ${ip}
+    \    ${conn_id} =    Tcpdump.Start Packet Capture on Node    ${ip}    file_Name=${fname}    filter=${filter}
+    \    Collections..Append To List    ${conn_ids}    ${conn_id}
+    [Return]    @{conn_ids}
+
+Stop Packet Capture on Nodes
+    [Arguments]    ${conn_ids}=none
+    [Documentation]    Stop the packet captures on the given list of node connection ids
+    : FOR    ${conn_id}    IN    ${conn_ids}
+    \    Stop Packet Capture on Node    ${conn_id}
