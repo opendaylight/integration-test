@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to check connectivity in L3 using routers.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Setup       Start Suite
+Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -13,6 +13,8 @@ Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/netvirt/Variables.robot
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/Tcpdump.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    l3_sg
