@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to check connectivity in L3 using routers.
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Setup       Start Suite
+Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -13,6 +13,8 @@ Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/netvirt/Variables.robot
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/Tcpdump.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    l3_sg
@@ -209,3 +211,20 @@ Delete Security Group
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
     DataModels.Verify Flows Are Cleaned Up On All OpenStack Nodes
+
+*** Keywords ***
+Start Suite
+    OpenStackOperations.OpenStack Suite Setup
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set TRACE org.opendaylight.openflowplugin
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set TRACE org.opendaylight.genius.interfacemanager.servicebindings
+    @{ips} =    BuiltIn.Create List    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+    ${suite_} =    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","_").replace("/","_").replace(".","_")
+    ${tag} =    BuiltIn.Catenate    SEPARATOR=__    tcpdump    ${suite_}
+    @{conn_ids} =    Tcpdump.Start Packet Capture on Nodes    tag=${tag}    filter=port 6653    ips=${ips}
+    BuiltIn.Set Suite Variable    @{conn_ids}
+
+Stop Suite
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.openflowplugin
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.genius.interfacemanager.servicebindings
+    Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+    OpenStackOperations.OpenStack Suite Teardown
