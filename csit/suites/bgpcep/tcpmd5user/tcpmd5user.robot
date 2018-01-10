@@ -49,10 +49,7 @@ Topology_Precondition
 
 Start_Secure_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet with password set, fail if pcc-mock promptly exits. Keep pcc-mock running for next test cases.
-    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --password topsecret --reconnect 1 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_IP} 2>&1 | tee pccmock.log
-    BuiltIn.Log    ${command}
-    SSHLibrary.Write    ${command}
-    Read_And_Fail_If_Prompt_Is_Seen
+    Start_Pcc_Mock_Tool_With_Password    ${password}=topsecret
 
 Topology_Unauthorized_1
     [Documentation]    Try to catch a glimpse of pcc-mock in pcep-topology. Pass if no change from Precondition is detected over 10 seconds.
@@ -75,6 +72,38 @@ Set_Correct_Password
     ...    This password finally matches what pcc-mock uses.
     CompareStream.Run_Keyword_If_At_Least_Oxygen    Replace_Password_On_Pcep_Node    password=topsecret
     CompareStream.Run_Keyword_If_Less_Than_Oxygen    Set_Password_Less_Than_Oxygen    password=topsecret
+
+Topology_Intercondition
+    [Documentation]    Compare pcep-topology/path-computation-client to filled one, which includes a tunnel from pcc-mock.
+    ...    For oxygen compares full pcep-topology including pcep-session-state
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on    ${mapping}    ${CONFIG_SESSION}
+    ...    verify=True
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}
+    ...    ${CONFIG_SESSION}    verify=True
+
+Stop_Pcc_Mock_1
+    Stop_Pcc_Mock_Tool
+
+Topology_Unauthorized_3
+    [Documentation]    Try to catch a glimpse of pcc-mock in pcep-topology. Pass if no change from Precondition is detected over 10 seconds.
+    [Tags]    critical
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Test_Unauthorized
+
+Start_Secure_Pcc_Mock_2
+    [Documentation]    Execute pcc-mock on Mininet with password set, fail if pcc-mock promptly exits. Keep pcc-mock running for next test cases.
+    Start_Pcc_Mock_Tool_With_Password    ${password}=newtopsecret
+
+Topology_Unauthorized_4
+    [Documentation]    Try to catch a glimpse of pcc-mock in pcep-topology. Pass if no change from Precondition is detected over 10 seconds.
+    [Tags]    critical
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Test_Unauthorized
+
+Set_Correct_Password_2
+    [Documentation]    Configure password in pcep dispatcher for client with Mininet IP address.
+    ...    This password finally matches what pcc-mock uses.
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    Replace_Password_On_Pcep_Node    password=newtopsecret
+    CompareStream.Run_Keyword_If_Less_Than_Oxygen    Set_Password_Less_Than_Oxygen    password=newtopsecret
 
 Topology_Intercondition
     [Documentation]    Compare pcep-topology/path-computation-client to filled one, which includes a tunnel from pcc-mock.
@@ -115,16 +144,8 @@ Topology_Unauthorized_3
     [Tags]    critical
     BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Test_Unauthorized
 
-Stop_Pcc_Mock
-    [Documentation]    Send ctrl+c to pcc-mock, fails if no prompt is seen
-    ...    after 3 seconds (the default for SSHLibrary)
-    [Setup]    FailFast.Run_Even_When_Failing_Fast
-    RemoteBash.Write_Bare_Ctrl_C
-    ${output}=    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${output}
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing, if both previous and this test failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+Stop_Pcc_Mock_2
+    Stop_Pcc_Mock_Tool
 
 Topology_Postcondition
     [Documentation]    Verify that pcep-topology stays empty.
@@ -232,3 +253,21 @@ Replace_Password_Xml_Element_In_Pcep_Client_Module_Less_Than_Oxygen
     [Documentation]    Send restconf PUT to replace the config module specifying PCEP password element (may be empty=missing).
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    PASSWD=${password_element}
     TemplatedRequests.Put_As_Xml_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_topology_client_module    mapping=${mapping}
+
+Stop_Pcc_Mock_Tool
+    [Documentation]    Send ctrl+c to pcc-mock, fails if no prompt is seen
+    ...    after 3 seconds (the default for SSHLibrary)
+    [Setup]    FailFast.Run_Even_When_Failing_Fast
+    RemoteBash.Write_Bare_Ctrl_C
+    ${output}=    SSHLibrary.Read_Until_Prompt
+    BuiltIn.Log    ${output}
+    FailFast.Do_Not_Fail_Fast_From_Now_On
+    # NOTE: It is still possible to remain failing, if both previous and this test failed.
+    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+
+Start_Pcc_Mock_Tool_With_Password
+    [Arguments]    ${password}
+    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --password ${password} --reconnect 1 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_IP} 2>&1 | tee pccmock.log
+    BuiltIn.Log    ${command}
+    SSHLibrary.Write    ${command}
+    Read_And_Fail_If_Prompt_Is_Seen
