@@ -199,3 +199,19 @@ Get Default Gateway
     ${gateway} =    Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
     Log    ${gateway}
     [Return]    ${gateway}
+
+Add OVS Logging
+    [Documentation]    Add higher levels of OVS logging
+    [Arguments]    ${conn_id}
+    SSHLibrary.Switch Connection    ${conn_id}
+    @{modules} =    BuiltIn.Create List    bridge:file:dbg    connmgr:file:dbg    inband:file:dbg    ofp_actions:file:dbg    ofp_errors:file:dbg
+    ...    ofp_msgs:file:dbg    ovsdb_error:file:dbg    rconn:file:dbg    tunnel:file:dbg    vconn:file:dbg
+    : FOR    ${module}    IN    @{modules}
+    \    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set ${module}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/list    ${DEFAULT_LINUX_PROMPT_STRICT}
+
+Reset OVS Logging
+    [Documentation]    Reset the OVS logging
+    [Arguments]    ${conn_id}
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output} =    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set :file:info    ${DEFAULT_LINUX_PROMPT_STRICT}
