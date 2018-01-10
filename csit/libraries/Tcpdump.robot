@@ -81,7 +81,7 @@ Start Packet Capture on Nodes
     [Return]    @{conn_ids}
 
 Stop Packet Capture on Nodes
-    [Arguments]    @{conn_ids}=@{EMPTY}
+    [Arguments]    ${conn_ids}=@{EMPTY}
     [Documentation]    Stop the packet captures on the given list of node connection ids
     : FOR    ${conn_id}    IN    @{conn_ids}
     \    Stop Packet Capture on Node    ${conn_id}
