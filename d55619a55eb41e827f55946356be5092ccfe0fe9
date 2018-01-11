@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "190d937d_cd8da43e",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-11T04:25:59Z",
+      "side": 1,
+      "message": "they aren\u0027t the same. You have to use ${None} to get the python None value (which is special to python). ${EMPTY} literally just translates to a string of nothing. so \u0027\u0027\n\nBut, I\u0027m wondering if your habit of using none there is probably the way we should have dealt with things anyway. So, instead of checking if vars are ${EMPTY} to know\nthey were not passed in, we should be checking for ${None}.\n\nanyway... patch is merged now.",
+      "parentUuid": "667027e4_807f805b",
+      "range": {
+        "startLine": 73,
+        "startChar": 26,
+        "endLine": 73,
+        "endChar": 30
+      },
+      "revId": "d55619a55eb41e827f55946356be5092ccfe0fe9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9fa1255d_b5319ae3",
         "filename": "csit/libraries/Tcpdump.robot",
         "patchSetId": 5
