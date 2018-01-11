@@ -1155,6 +1155,7 @@ Cleanup Router
 OpenStack Suite Setup
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     DevstackUtils.Devstack Suite Setup
     Add OVS Logging On All OpenStack Nodes
 
