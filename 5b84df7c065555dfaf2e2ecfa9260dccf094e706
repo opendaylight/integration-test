@@ -1,0 +1,389 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6eed7fde_11ad21a5",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "update this to more accurately reflect what this suite is about",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 4,
+        "endChar": 56
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74a5a5d8_1d9edd64",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "IIRC, there is an option to pass IPv6 to the Create Allow All SecurityGroup keyword. Can we just do that, or do we need all 6 of these lines? If we can\u0027t do that,\nI wonder what that ethertype argument is for in the keyword.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 177
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62728918_3c4ab6de",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 45
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4c0aa3d_90cc684a",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "I think these four lines (repeated four more times below will read a lot cleaner if you put them in a local keyword called something like \"Verify Instance Connectivity To Multiple IPs\" or whatever makes sense. Then these 16 lines are more clearly written in just four lines.",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 98
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4c7a8d5_1be168e6",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 225,
+        "startChar": 4,
+        "endLine": 225,
+        "endChar": 37
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "645d0613_f18f2a3d",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "put these lines in the teardown, since we always want this cleanup to run if the next tests are expecting that. otherwise, if something above randomly failed, robot would skip these steps and miss the cleanup. You can use\n    Run Keywords    Keyword One\n    ...    AND    Keyword Two\n    ...    AND    Keyword Three\n\nto do it all in one [Teardown] section, or write a new local keyword to wrap them all up in to a single one to use in [Teardown]",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 58
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dd28f5d_8417d9a4",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "add documentation",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 12
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22c7cd05_98589a45",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "I think this part of this URI is available as it\u0027s own var from variables/netvirt/Variables.robot",
+      "range": {
+        "startLine": 285,
+        "startChar": 92,
+        "endLine": 285,
+        "endChar": 124
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca510369_aad90466",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "another place the new local keyword will save us lots of lines. these 16 would also reduce to 4 and be less noisy to read",
+      "range": {
+        "startLine": 292,
+        "startChar": 4,
+        "endLine": 295,
+        "endChar": 98
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ef7e393_253cc580",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 311,
+        "startChar": 4,
+        "endLine": 311,
+        "endChar": 38
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e59f621_f43d7a25",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "and more to go with new local keyword",
+      "range": {
+        "startLine": 323,
+        "startChar": 4,
+        "endLine": 326,
+        "endChar": 98
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcb7cc09_07570bf9",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 341,
+        "startChar": 4,
+        "endLine": 341,
+        "endChar": 33
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ba692f2_08f136ef",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 346,
+        "startChar": 4,
+        "endLine": 346,
+        "endChar": 21
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "164efde9_9d8e7c5e",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "I like seeing negative test cases :)",
+      "range": {
+        "startLine": 364,
+        "startChar": 0,
+        "endLine": 367,
+        "endChar": 181
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78a02a62_0ff73446",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "turn this in to a local keyword and call it from the Suite Teardown section. Use the trick to \"Run Keywods\" to run what is currently there plus this.\nthis is not really a test case and we want to make sure it always runs, right?",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 65
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b2a8cac_6614454b",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "can you turn this in to a meaningful variable name, like is already done for ${ARP_CHECK_TABLE} and the like?",
+      "range": {
+        "startLine": 438,
+        "startChar": 87,
+        "endLine": 438,
+        "endChar": 90
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a66d81ab_4cea60d3",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T00:05:34Z",
+      "side": 1,
+      "message": "in the future, you don\u0027t need to include modified testplan files in your patches. The netvirt csit jobs have a \njenkins parameter called SUITES that you can modify in the sandbox to only run what you want. Not a big\ndeal, but saves a little pain when you don\u0027t have to do this.",
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
