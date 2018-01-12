@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2e06a173_32ce8842",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-12T01:46:50Z",
+      "side": 1,
+      "message": "need to update commit message eventually. maybe only need to remove these two lines?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 70
+      },
+      "revId": "5b84df7c065555dfaf2e2ecfa9260dccf094e706",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6eed7fde_11ad21a5",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
         "patchSetId": 7
