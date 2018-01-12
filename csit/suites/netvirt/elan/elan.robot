@@ -39,8 +39,8 @@ Create Single Elan
     OpenStackOperations.Create Port    @{NETWORKS}[0]    ${NET_1_PORTS[0]}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Port    @{NETWORKS}[0]    ${NET_1_PORTS[1]}    sg=${SECURITY_GROUP}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${NET_1_PORTS}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[0]}    ${NET_1_VMS[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[1]}    ${NET_1_VMS[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[0]}    ${NET_1_VMS[0]}    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[1]}    ${NET_1_VMS[1]}    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     Builtin.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
@@ -80,7 +80,7 @@ Verify Datapath After Recreate VM Instance
     ${smac_cn1} =    BuiltIn.Create List    @{NET_1_MACS}[0]
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}
     OpenStackOperations.Remove RSA Key From KnownHosts    @{NET_1_VM_IPS}[0]
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[0]}    ${NET_1_VMS[0]}    ${OS_COMPUTE_1_IP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[0]}    ${NET_1_VMS[0]}    ${OS_CMP1_HN}
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     Builtin.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
@@ -146,10 +146,10 @@ MultipleElan Testsuite Setup
     OpenStackOperations.Create Port    @{NETWORKS}[2]    ${NET_3_PORTS[0]}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Port    @{NETWORKS}[2]    ${NET_3_PORTS[1]}    sg=${SECURITY_GROUP}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${NET_3_PORTS}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_2_PORTS[0]}    ${NET_2_VMS[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_2_PORTS[1]}    ${NET_2_VMS[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_3_PORTS[0]}    ${NET_3_VMS[0]}    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_3_PORTS[1]}    ${NET_3_VMS[1]}    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_2_PORTS[0]}    ${NET_2_VMS[0]}    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_2_PORTS[1]}    ${NET_2_VMS[1]}    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_3_PORTS[0]}    ${NET_3_VMS[0]}    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_3_PORTS[1]}    ${NET_3_VMS[1]}    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
     @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
     @{NET_3_VM_IPS}    ${NET_3_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_3_VMS}
     Builtin.Set Suite Variable    @{NET_2_VM_IPS}
