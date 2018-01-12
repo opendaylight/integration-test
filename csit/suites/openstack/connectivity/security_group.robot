@@ -45,11 +45,12 @@ Add TCP Allow Rules
 
 Create Vm Instances For net_1
     [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    @{NETWORKS}[0]    ${NET_1_VMS}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_VMS}[1]    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Create Vm Instances For net_2
     [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    @{NETWORKS}[1]    ${NET_2_VMS}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_VMS}[0]    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}

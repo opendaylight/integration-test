@@ -168,12 +168,12 @@ Create Setup
     OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[3]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
     OpenStackOperations.Create Port    @{NETWORKS}[2]    @{PORTS}[4]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
     OpenStackOperations.Create Port    @{NETWORKS}[2]    @{PORTS}[5]    sg=${SECURITY_GROUP}    allowed_address_pairs=@{EXTRA_NW_IP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VMS}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VMS}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VMS}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[4]    @{NET_3_VMS}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[5]    @{NET_3_VMS}[1]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{NET_1_VMS}[0]    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{NET_1_VMS}[1]    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{NET_2_VMS}[0]    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{NET_2_VMS}[1]    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[4]    @{NET_3_VMS}[0]    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[5]    @{NET_3_VMS}[1]    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Router    ${ROUTERS}
     OpenStackOperations.Add Router Interface    ${ROUTERS}    @{SUBNETS}[1]
     OpenStackOperations.Add Router Interface    ${ROUTERS}    @{SUBNETS}[2]

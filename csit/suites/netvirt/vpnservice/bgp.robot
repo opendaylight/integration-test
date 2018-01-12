@@ -120,10 +120,10 @@ Create Basic Configuartion for BGP VPNservice Suite
     : FOR    ${network}    ${port}    IN ZIP    ${NETWORKS}    ${PORTS}
     \    OpenStackOperations.Create Port    ${network}    ${port}    sg=${SECURITY_GROUP}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${PORTS}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{VM_NAMES}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{VM_NAMES}[1]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{VM_NAMES}[2]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{VM_NAMES}[3]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{VM_NAMES}[0]    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{VM_NAMES}[1]    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{VM_NAMES}[2]    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{VM_NAMES}[3]    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
     @{VM_IPS}    ${DHCP_IPS} =    OpenStackOperations.Get VM IPs    @{VM_NAMES}
     BuiltIn.Set Suite Variable    @{VM_IPS}
     BuiltIn.Should Not Contain    ${VM_IPS}    None

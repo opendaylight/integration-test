@@ -50,8 +50,10 @@ Add Ssh Allow Rule
 
 Create Vm Instances
     [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    @{NETWORKS}[0]    ${FIP_VMS}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instances    @{NETWORKS}[0]    ${SNAT_VMS}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{FIP_VMS}[0]    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{FIP_VMS}[1]    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{SNAT_VMS}[0]    ${OS_CMP1_HN}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{SNAT_VMS}[1]    ${OS_CMP2_HN}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     @{FIP_VM_IPS}    ${FLOATING_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{FIP_VMS}

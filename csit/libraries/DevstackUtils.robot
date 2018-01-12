@@ -33,6 +33,11 @@ ${TEMPEST_TIMEOUT}    420s
 ${OS_CNTL_CONN_ID}    None
 ${OS_CMP1_CONN_ID}    None
 ${OS_CMP2_CONN_ID}    None
+${OS_CNTL_IP}     ${EMPTY}
+${OS_CMP1_IP}     ${EMPTY}
+${OS_CMP2_IP}     ${EMPTY}
+@{OS_ALL_IPS}     @{EMPTY}
+@{OS_CMP_IPS}     @{EMPTY}
 
 *** Keywords ***
 Run Tempest Tests
@@ -158,6 +163,7 @@ Open Connection
 Devstack Suite Setup
     [Arguments]    ${odl_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Open connections to the nodes
+    Get DevStack Nodes Data
     Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     SSHLibrary.Set Default Configuration    timeout=${default_devstack_prompt_timeout}
     Run Keyword If    0 < ${NUM_OS_SYSTEM}    Open Connection    OS_CNTL_CONN_ID    ${OS_CONTROL_NODE_IP}
@@ -180,3 +186,39 @@ Write Commands Until Prompt And Log
     ${output} =    Write Commands Until Prompt    ${cmd}    ${timeout}
     Log    ${output}
     [Return]    ${output}
+
+Log Devstack Nodes Data
+    ${output} =    BuiltIn.Catenate    SEPARATOR=\n    OS_CNTL_HN: ${OS_CNTL_HN} - OS_CNTL_IP: ${OS_CNTL_IP} - OS_CONTROL_NODE_IP: ${OS_CONTROL_NODE_IP}    OS_CMP1_HN: ${OS_CMP1_HN} - OS_CMP1_IP: ${OS_CMP1_IP} - OS_COMPUTE_1_IP: ${OS_COMPUTE_1_IP}    OS_CMP2_HN: ${OS_CMP2_HN} - OS_CMP2_IP: ${OS_CMP2_IP} - OS_COMPUTE_2_IP: ${OS_COMPUTE_2_IP}    OS_ALL_IPS: @{OS_ALL_IPS}
+    ...    OS_CMP_IPS: @{OS_CMP_IPS}
+    BuiltIn.Log    DevStack Nodes Data:\n${output}
+
+Get DevStack Hostnames
+    [Documentation]    Assign hostname global variables for DevStack nodes
+    ${OS_CNTL_HN} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CNTL_IP}
+    ${OS_CMP1_HN} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP1_IP}
+    ${OS_CMP2_HN} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP2_IP}
+    BuiltIn.Set Suite Variable    ${OS_CNTL_HN}
+    BuiltIn.Set Suite Variable    ${OS_CMP1_HN}
+    BuiltIn.Set Suite Variable    ${OS_CMP2_HN}
+
+Set Node Data For Control And Compute Node Setup
+    [Documentation]    Assign global variables for DevStack nodes where the control node is also the compute
+    BuiltIn.Set Suite Variable    ${OS_CMP1_IP}    ${OS_CNTL_IP}
+    BuiltIn.Set Suite Variable    ${OS_CMP2_IP}    ${OS_COMPUTE_1_IP}
+    BuiltIn.Set Suite Variable    @{OS_ALL_IPS}    ${OS_CNTL_IP}    ${OS_CMP2_IP}
+    BuiltIn.Set Suite Variable    @{OS_CMP_IPS}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
+
+Set Node Data For Control Only Node Setup
+    [Documentation]    Assign global variables for DevStack nodes where the control node is different than the compute
+    BuiltIn.Set Suite Variable    ${OS_CMP1_IP}    ${OS_COMPUTE_1_IP}
+    BuiltIn.Set Suite Variable    ${OS_CMP2_IP}    ${OS_COMPUTE_2_IP}
+    BuiltIn.Set Suite Variable    @{OS_ALL_IPS}    ${OS_CNTL_IP}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
+    BuiltIn.Set Suite Variable    @{OS_CMP_IPS}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
+
+Get DevStack Nodes Data
+    [Documentation]    Assign global variables for DevStack nodes
+    BuiltIn.Set Suite Variable    ${OS_CNTL_IP}    ${OS_CONTROL_NODE_IP}
+    Run Keyword If    '${OS_COMPUTE_2_IP}' == '${EMPTY}'    Set Node Data For Control And Compute Node Setup
+    ...    ELSE    Set Node Data For Control Only Node Setup
+    Get DevStack Hostnames
+    Log Devstack Nodes Data
