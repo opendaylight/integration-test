@@ -258,6 +258,15 @@ Create Vm Instances
     \    Should Be True    '${rc}' == '0'
     \    Log    ${output}
 
+Create Vm Instance On Compute Node
+    [Arguments]    ${net_name}    ${vm_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
+    [Documentation]    Create a VM instance on a specific compute node.
+    ${image} =    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
+    ${net_id} =    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${rc}    ${output} =    Run And Return Rc And Output    openstack server create ${vm_name} --image ${image} --flavor ${flavor} --nic net-id=${net_id} --security-group ${sg} --availability-zone nova:${node_hostname}
+    Should Not Be True    ${rc}
+    Log    ${output}
+
 Create Vm Instance With Port
     [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
@@ -277,12 +286,11 @@ Create Vm Instance With Ports
     Should Be True    '${rc}' == '0'
 
 Create Vm Instance With Port On Compute Node
-    [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
+    [Arguments]    ${port_name}    ${vm_instance_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}
-    ${hostname_compute_node}=    Get Hypervisor Hostname From IP    ${compute_node}
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${hostname_compute_node} ${vm_instance_name}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${node_hostname} ${vm_instance_name}
     Log    ${output}
     Should Be True    '${rc}' == '0'
 
