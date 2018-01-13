@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "176ee908_cd01cf43",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T13:51:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bce01459_76473e9d",
+      "range": {
+        "startLine": 200,
+        "startChar": 44,
+        "endLine": 200,
+        "endChar": 46
+      },
+      "revId": "59db963c1026a8ac1c91b6f9eb21f072ab207c12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b290f144_4715d2ed",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-01-13T07:02:31Z",
       "side": 1,
       "message": "we need a single keyword to do all this stuff where we can just pass args if needed to control if it uses a specific port or compute node, or whatever else we need in the future.",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 228
+      },
+      "revId": "59db963c1026a8ac1c91b6f9eb21f072ab207c12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac9275c9_fa3afc4c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T13:51:31Z",
+      "side": 1,
+      "message": "agreed. I looked at that first but didn\u0027t have a quick fix for that. They are all the same except one set uses port and the other uses network. Guess should have just included both params in a single keyword and then just if\u0027ed off them both to create the nic param. This file is still one I want to clean up so will do that then.",
+      "parentUuid": "b290f144_4715d2ed",
       "range": {
         "startLine": 261,
         "startChar": 0,
