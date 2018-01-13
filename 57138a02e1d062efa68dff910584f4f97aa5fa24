@@ -1,0 +1,261 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "577e941d_e26c99e4",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "distinguish this from the basic_vpn suite, like vpn6or_sg",
+      "range": {
+        "startLine": 23,
+        "startChar": 21,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87eb44cb_ae3a2feb",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "same here, vpn6or_net_v4 - idea is these are ipv6 vpn, or (one router) and v4.",
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b3f8c26_0e8f1e39",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "vpn6or_net_v4_1... and so on for the rest of the vars. Idea is we want to keep these all different from the other suites to ensure nothing is stale from one suite to the next",
+      "range": {
+        "startLine": 25,
+        "startChar": 18,
+        "endLine": 25,
+        "endChar": 21
+      },
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c32de7f0_b49294b3",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "use 76.x and 77.x. same for rest of vars. look at basic_ipv6 and just bump up to make everything unique",
+      "range": {
+        "startLine": 33,
+        "startChar": 20,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe59ae7e_e7e0f132",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "add \" \u003d\". also do we need these three lines or can the check for elements at uri suffice? I realize these are from the openstack cli, but the uri call should match it exactly.",
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3b486ea_48e194ab",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "add space",
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5abe1b8d_68c80d35",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "same as above, is this verification needed?",
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2eff0c7e_68f038f7",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "Router since just one router",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 14
+      },
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d34c89d7_7d4831a3",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "break the interface adds into a separate test",
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a18247c_e68e4862",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "does it matter when the check for route propagation happens? in basic_v4 we do that first then get addresses, and basic_ipv6 poll for active then propagate.",
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "363dfee3_c6feeab7",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "space",
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9da5f380_f9d7924f",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "we should move this constant to variables.robot",
+      "range": {
+        "startLine": 135,
+        "startChar": 72,
+        "endLine": 135,
+        "endChar": 100
+      },
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ad2c00f_c396ef83",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 44
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-13T03:08:30Z",
+      "side": 1,
+      "message": "other code has 3x now",
+      "range": {
+        "startLine": 136,
+        "startChar": 101,
+        "endLine": 136,
+        "endChar": 105
+      },
+      "revId": "57138a02e1d062efa68dff910584f4f97aa5fa24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
