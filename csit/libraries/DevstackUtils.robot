@@ -188,18 +188,18 @@ Write Commands Until Prompt And Log
     [Return]    ${output}
 
 Log Devstack Nodes Data
-    ${output} =    BuiltIn.Catenate    SEPARATOR=\n    OS_CNTL_HN: ${OS_CNTL_HN} - OS_CNTL_IP: ${OS_CNTL_IP} - OS_CONTROL_NODE_IP: ${OS_CONTROL_NODE_IP}    OS_CMP1_HN: ${OS_CMP1_HN} - OS_CMP1_IP: ${OS_CMP1_IP} - OS_COMPUTE_1_IP: ${OS_COMPUTE_1_IP}    OS_CMP2_HN: ${OS_CMP2_HN} - OS_CMP2_IP: ${OS_CMP2_IP} - OS_COMPUTE_2_IP: ${OS_COMPUTE_2_IP}    OS_ALL_IPS: @{OS_ALL_IPS}
+    ${output} =    BuiltIn.Catenate    SEPARATOR=\n    OS_CNTL_HOSTNAME: ${OS_CNTL_HOSTNAME} - OS_CNTL_IP: ${OS_CNTL_IP} - OS_CONTROL_NODE_IP: ${OS_CONTROL_NODE_IP}    OS_CMP1_HOSTNAME: ${OS_CMP1_HOSTNAME} - OS_CMP1_IP: ${OS_CMP1_IP} - OS_COMPUTE_1_IP: ${OS_COMPUTE_1_IP}    OS_CMP2_HOSTNAME: ${OS_CMP2_HOSTNAME} - OS_CMP2_IP: ${OS_CMP2_IP} - OS_COMPUTE_2_IP: ${OS_COMPUTE_2_IP}    OS_ALL_IPS: @{OS_ALL_IPS}
     ...    OS_CMP_IPS: @{OS_CMP_IPS}
     BuiltIn.Log    DevStack Nodes Data:\n${output}
 
 Get DevStack Hostnames
     [Documentation]    Assign hostname global variables for DevStack nodes
-    ${OS_CNTL_HN} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CNTL_IP}
-    ${OS_CMP1_HN} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP1_IP}
-    ${OS_CMP2_HN} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP2_IP}
-    BuiltIn.Set Suite Variable    ${OS_CNTL_HN}
-    BuiltIn.Set Suite Variable    ${OS_CMP1_HN}
-    BuiltIn.Set Suite Variable    ${OS_CMP2_HN}
+    ${OS_CNTL_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CNTL_IP}
+    ${OS_CMP1_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP1_IP}
+    ${OS_CMP2_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP2_IP}
+    BuiltIn.Set Suite Variable    ${OS_CNTL_HOSTNAME}
+    BuiltIn.Set Suite Variable    ${OS_CMP1_HOSTNAME}
+    BuiltIn.Set Suite Variable    ${OS_CMP2_HOSTNAME}
 
 Set Node Data For Control And Compute Node Setup
     [Documentation]    Assign global variables for DevStack nodes where the control node is also the compute
