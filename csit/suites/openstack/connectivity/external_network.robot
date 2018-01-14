@@ -4,6 +4,7 @@ Suite Setup       OpenStackOperations.OpenStack Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
+Library           Collections
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -15,12 +16,14 @@ Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    l3_ext_sg
-@{NETWORKS}       l3_ext_net
-@{SUBNETS}        l3_ext_sub
-${ROUTER}         l3_ext_router
+@{NETWORKS}       l3_ext_net_1    l3_ext_net_2
+@{SUBNETS}        l3_ext_sub_1    l3_ext_sub_2
+@{ROUTERS}        l3_ext_router_1    l3_ext_router_2
 @{FIP_VMS}        fip_vm_1    fip_vm_2
-@{SNAT_VMS}       snat_vm_1    snat_vm_2
-@{SUBNET_CIDRS}    41.0.0.0/24
+@{NET1_SNAT_VMS}    snat_vm_1    snat_vm_2
+@{NET2_SNAT_VMS}    snat_vm_3
+@{SNAT_VMS}       @{NET1_SNAT_VMS}    @{NET2_SNAT_VMS}
+@{SUBNET_CIDRS}    41.0.0.0/24    42.0.0.0/24
 # Parameter values below are based on releng/builder - changing them requires updates in releng/builder as well
 ${EXTERNAL_GATEWAY}    10.10.10.250
 ${EXTERNAL_PNF}    10.10.10.253
@@ -35,14 +38,16 @@ Create All Controller Sessions
     [Documentation]    Create sessions for all three controllers
     ClusterManagement.ClusterManagement Setup
 
-Create Private Network
+Create Private Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Create Network    ${network}
 
-Create Subnet For Private Network
+Create Subnets For Private Networks
     [Documentation]    Create Sub Net for the Network with neutron request.
-    OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    @{SUBNET_CIDRS}[0]
+    : FOR    ${network}    ${subnet}    ${cidr}    IN ZIP    ${NETWORKS}    ${SUBNETS}
+    ...    ${SUBNET_CIDRS}
+    \    OpenStackOperations.Create SubNet    ${network}    ${subnet}    ${cidr}
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -52,16 +57,20 @@ Create Vm Instances
     [Documentation]    Create VM instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{FIP_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{FIP_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{SNAT_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
-    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{SNAT_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_SNAT_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_SNAT_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_SNAT_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
 
 Check Vm Instances Have Ip Address
     @{FIP_VM_IPS}    ${FLOATING_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{FIP_VMS}
-    @{SNAT_VM_IPS}    ${SNAT_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{SNAT_VMS}
+    @{NET1_SNAT_VM_IPS}    ${SNAT_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET1_SNAT_VMS}
+    @{NET2_SNAT_VM_IPS}    ${SNAT_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET2_SNAT_VMS}
     BuiltIn.Set Suite Variable    @{FIP_VM_IPS}
-    BuiltIn.Set Suite Variable    @{SNAT_VM_IPS}
+    BuiltIn.Set Suite Variable    @{NET1_SNAT_VM_IPS}
+    BuiltIn.Set Suite Variable    @{NET2_SNAT_VM_IPS}
     BuiltIn.Should Not Contain    ${FIP_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${SNAT_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET1_SNAT_VM_IPS}    None
+    BuiltIn.Should Not Contain    ${NET2_SNAT_VM_IPS}    None
     BuiltIn.Should Not Contain    ${FLOATING_DHCP_IP}    None
     BuiltIn.Should Not Contain    ${SNAT_DHCP_IP}    None
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{FIP_VMS}    @{SNAT_VMS}
@@ -72,24 +81,27 @@ Create External Network And Subnet
     OpenStackOperations.Update Network    ${EXTERNAL_NET_NAME}    --external
     OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
 
-Create Router
+Create Routers
     [Documentation]    Create Router and Add Interface to the subnets.
-    OpenStackOperations.Create Router    ${ROUTER}
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    OpenStackOperations.Create Router    ${router}
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
-    : FOR    ${interface}    IN    @{SUBNETS}
-    \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
+    : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
+    \    OpenStackOperations.Add Router Interface    ${router}    ${interface}
 
 Add Router Gateway To Router
     [Documentation]    OpenStackOperations.Add Router Gateway
-    OpenStackOperations.Add Router Gateway    ${ROUTER}    ${EXTERNAL_NET_NAME}
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    OpenStackOperations.Add Router Gateway    ${router}    ${EXTERNAL_NET_NAME}
 
-Verify Created Router
+Verify Created Routers
     [Documentation]    Check created routers using northbound rest calls
     ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
     BuiltIn.Log    ${data}
-    Should Contain    ${data}    ${ROUTER}
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    Should Contain    ${data}    ${router}
 
 Create And Associate Floating IPs for VMs
     [Documentation]    Create and associate a floating IP for the VM
@@ -122,19 +134,27 @@ Ping External Network PNF from Vm Instance 1
 
 SNAT - TCP connection to External Gateway From SNAT VM Instance1
     [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
-    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}
 
 SNAT - UDP connection to External Gateway From SNAT VM Instance1
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
-    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}    -u
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}    -u
 
 SNAT - TCP connection to External Gateway From SNAT VM Instance2
     [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
-    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{SNAT_VM_IPS}[1]    ${EXTERNAL_GATEWAY}
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[1]    ${EXTERNAL_GATEWAY}
 
 SNAT - UDP connection to External Gateway From SNAT VM Instance2
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
-    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{SNAT_VM_IPS}[1]    ${EXTERNAL_GATEWAY}    -u
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[1]    ${EXTERNAL_GATEWAY}    -u
+
+SNAT - TCP connection to External Gateway From SNAT VM Instance3
+    [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[1]    @{NET2_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}
+
+SNAT - UDP connection to External Gateway From SNAT VM Instance3
+    [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[1]    @{NET2_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}    -u
 
 Delete Vm Instances
     [Documentation]    Delete Vm instances using instance names.
@@ -145,22 +165,20 @@ Delete Vm Instances
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
-    : FOR    ${interface}    IN    @{SUBNETS}
-    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${interface}
+    : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
+    \    OpenStackOperations.Remove Interface    ${router}    ${interface}
 
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
-    OpenStackOperations.Delete Router    ${ROUTER}
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    OpenStackOperations.Delete Router    ${router}
 
 Verify Deleted Router
     [Documentation]    Check deleted router using northbound rest call
     ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
     BuiltIn.Log    ${data}
-    BuiltIn.Should Not Contain    ${data}    ${ROUTER}
-
-Delete Sub Network
-    [Documentation]    Delete Sub Net for the Network with neutron request.
-    OpenStackOperations.Delete SubNet    @{SUBNETS}[0]
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    BuiltIn.Should Not Contain    ${data}    ${ROUTER}
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.
