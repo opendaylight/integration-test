@@ -34,8 +34,7 @@ TC03 Update Port For Hwvtep And Attach Port To Namespace
 
 TC04 Create Vms On Compute Node
     OpenStackOperations.Create Nano Flavor
-    ${hostname_compute_node}=    Get Hypervisor Hostname From IP    ${OVS_IP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS_PORT_1}    ${OVS_VM1_NAME}    ${hostname_compute_node}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS_PORT_1}    ${OVS_VM1_NAME}    ${OS_COMP1_HOSTNAME}
     ${vm_ip}=    Wait Until Keyword Succeeds    60s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS_VM1_NAME}
     Log    ${vm_ip}
     Should Contain    ${vm_ip}    ${port_ip_list[0]}
@@ -92,8 +91,7 @@ TC09 Additional Network Subnet Port Creation
 TC10 Update And Attach Second Port To Hwvtep Create L2gw Connection
     L2GatewayOperations.Update Port For Hwvtep    ${HWVTEP_PORT_2}
     Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Attach Port To Hwvtep Namespace    ${port_mac_list[3]}    ${HWVTEP_NS2}    ${NS2_TAP1}
-    ${hostname_compute_node}=    Get Hypervisor Hostname From IP    ${OVS_IP}
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS_PORT_2}    ${OVS_VM2_NAME}    ${hostname_compute_node}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${OVS_PORT_2}    ${OVS_VM2_NAME}    ${OS_COMP1_HOSTNAME}
     ${vm_ip}=    Wait Until Keyword Succeeds    60s    2s    L2GatewayOperations.Verify Nova VM IP    ${OVS_VM2_NAME}
     Log    ${vm_ip}
     Should Contain    ${vm_ip}    ${port_ip_list[2]}
@@ -124,6 +122,54 @@ TC12 Ping Between Vm In Second Network To Namespace In First Network
 TC13 Ping Between Namespace In Second Network To Vm In First Network
     Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping Fails In Namespace    ${HWVTEP_NS2}    ${port_mac_list[3]}    ${port_ip_list[0]}
 
+
+TC14 Create 2nd Neutron Port to Hwvtep Namespace 1
+    OpenStackOperations.Create Neutron Port With Additional Params    ${NET_1}    ${HWVTEP_PORT_3}    ${SECURITY_GROUP_L2GW_NONE}
+    ${port_mac}=    Get Port Mac    ${HWVTEP_PORT_3}    #port_mac[4]
+    ${port_ip}=    Get Port Ip    ${HWVTEP_PORT_3}    #port_ip[4]
+    Append To List    ${port_mac_list}    ${port_mac}
+    Append To List    ${port_ip_list}    ${port_ip}
+
+TC15 Update and Attach 2nd Port For Hwvtep Namespace 1
+    Namespace Add Port Hwvtep1
+    L2GatewayOperations.Update Port For Hwvtep    ${HWVTEP_PORT_3}
+    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Attach Port To Hwvtep Namespace    ${port_mac_list[4]}    ${HWVTEP_NS1}    ${NS_TAP1}
+
+TC16 Update Existing L2Gateway With 2nd Port And Verify
+    ${output}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Update Verify L2Gateway    ${L2GW_NAME1}    ${NET_1}    ${HWVTEP_PORT_3}
+    Log    ${output}
+
+TC17 Verify L2Gateway Connection
+    ${output}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Create Verify L2Gateway Connection    ${L2GW_NAME1}    ${NET_1}
+    Log    ${output}
+    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify Ovs Tunnel    ${HWVTEP_IP}    ${OVS_IP}
+    ${output}=    ITM Get Tunnels
+    Log    ${output}
+    Should Contain    ${output}    physicalswitch/${HWVTEP_BRIDGE}
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${hwvtep_conn_id}    ${TUNNEL_TABLE}    enable="true"
+    ${phy_port_out}=    Get Vtep List    ${PHYSICAL_PORT_TABLE}
+    Validate Regexp In String    ${phy_port_out}    ${VLAN_BINDING_REGEX}    1
+    ${list}=    Create List    ${OVS_IP}    ${HWVTEP_IP}
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${hwvtep_conn_id}    ${PHYSICAL_LOCATOR_TABLE}    @{list}
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${hwvtep_conn_id}    ${UCAST_MACS_REMOTE_TABLE}    ${port_mac_list[0]}
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${hwvtep_conn_id}    ${UCAST_MACS_REMOTE_TABLE}    ${port_mac_list[4]}
+
+TC18 Dhcp Ip Allocation For Hwvtep Tap Port
+    Wait Until Keyword Succeeds    180s    10s    L2GatewayOperations.Namespace Dhclient Verify    ${HWVTEP_NS1}    ${NS_TAP1}    ${port_ip_list[4]}
+
+TC19 Verify Ping From Compute Node Vm To Hwvtep Port 2
+    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[4]}
+    ...    ping -c 3 ${port_ip_list[4]}
+    Log    ${output}
+    Should Not Contain    ${output}    ${PACKET_LOSS}
+    ${src_mac_list}=    Create List    ${port_mac_list[0]}
+    ${dst_mac_list}=    Create List    ${port_mac_list[4]}
+    Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Elan Flow Entries    ${OVS_IP}    ${src_mac_list}    ${dst_mac_list}
+
+TC20 Ping Verification From Namespace Tap To Ovs Vm
+    Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Extra Timeout    ${HWVTEP_NS1}    ${port_mac_list[4]}    ${port_ip_list[0]}
+
+
 TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME1}
     L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME2}
@@ -135,6 +181,7 @@ TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     OpenStackOperations.Delete Port    ${OVS_PORT_2}
     OpenStackOperations.Delete Port    ${HWVTEP_PORT_1}
     OpenStackOperations.Delete Port    ${HWVTEP_PORT_2}
+    OpenStackOperations.Delete Port    ${HWVTEP_PORT_3}
     OpenStackOperations.Delete SubNet    ${SUBNET_1}
     OpenStackOperations.Delete SubNet    ${SUBNET_2}
     OpenStackOperations.Delete Network    ${NET_1}
@@ -224,9 +271,20 @@ Namespace Intiate Hwvtep1
     Create Configure Namespace    ${HWVTEP_NS1}    ${NS_PORT1}    ${NS_TAP1}    ${HWVTEP_BRIDGE}
     Create Configure Namespace    ${HWVTEP_NS2}    ${NS_PORT2}    ${NS2_TAP1}    ${HWVTEP_BRIDGE}
 
+Namespace Add Port Hwvtep1
+    [Documentation]    Configure the namespace, bridges and ports.
+    Switch Connection    ${hwvtep_conn_id}
+    Configure Namespace    ${HWVTEP_NS1}    ${NS_PORT3}    ${NS_TAP3}    ${HWVTEP_BRIDGE}
+
+
 Create Configure Namespace
     [Arguments]    ${ns_name}    ${ns_port_name}    ${tap_port_name}    ${hwvtep_bridge}
     Write Commands Until Prompt    ${NETNS_ADD} ${ns_name}    30s
+    Configure Namespace    ${ns_name}    ${ns_port_name}    ${tap_port_name}    ${hwvtep_bridge}
+
+
+Configure Namespace
+    [Arguments]    ${ns_name}    ${ns_port_name}    ${tap_port_name}    ${hwvtep_bridge}
     Write Commands Until Prompt    ${IP_LINK_ADD} ${tap_port_name} type veth peer name ${ns_port_name}    30s
     Write Commands Until Prompt    ${CREATE_OVS_PORT} ${hwvtep_bridge} ${ns_port_name}    30s
     Write Commands Until Prompt    ${IP_LINK_SET} ${tap_port_name} netns ${ns_name}    30s
