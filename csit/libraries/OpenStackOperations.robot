@@ -885,6 +885,13 @@ Create L2Gateway
     Log    ${l2gw_output}
     [Return]    ${l2gw_output}
 
+Update L2Gateway
+    [Arguments]    ${bridge_name}    ${intf_name}    ${gw_name}
+    [Documentation]    Keyword to add {intf_name} to an existing L2 Gateway ${gw_name} for bridge ${bridge_name} (Using Neutron CLI).
+    ${rc}    ${l2gw_output}=    Run And Return Rc And Output    ${L2GW_UPDATE} name=${bridge_name} --add-interface=${intf_name} ${gw_name}
+    Log    ${l2gw_output}
+    [Return]    ${l2gw_output}
+
 Create L2Gateway Connection
     [Arguments]    ${gw_name}    ${net_name}
     [Documentation]    Keyword would create a new L2 Gateway Connection for ${gw_name} to ${net_name} (Using Neutron CLI).
