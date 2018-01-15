@@ -7,17 +7,18 @@ ${HWVTEP_IP}      ${TOOLS_SYSTEM_1_IP}
 ${HWVTEP2_IP}     ${TOOLS_SYSTEM_2_IP}
 ${ODL_IP}         ${ODL_SYSTEM_1_IP}
 ${OS_PASSWORD}    ${EMPTY}
-${HWVTEP_BRIDGE}    br-ovs
-${HWVTEP2_BRIDGE}    br-ovs2
+${HWVTEP_BRIDGE}    br-hwvtep-blue
+${HWVTEP2_BRIDGE}    br-hwvtep-red
 ${DEVSTACK_DEPLOY_PATH}    /home/stack/devstack
 ${HWVTEP_NS1}     NS1
 ${HWVTEP_NS2}     NS2
 ${HWVTEP2_NS1}    NS3
 ${HWVTEP2_NS2}    NS4
-${HWVTEP_PORT_1}    HWVPORT1
-${HWVTEP_PORT_2}    HWVPORT2
-${HWVTEP2_PORT_1}    HWVPORT3
-${HWVTEP2_PORT_2}    HWVPORT4
+${HWVTEP_PORT_1}     HWVPORT1
+${HWVTEP_PORT_2}     HWVPORT2
+${HWVTEP_PORT_3}     HWVPORT3
+${HWVTEP2_PORT_1}    HWVPORT4
+${HWVTEP2_PORT_2}    HWVPORT5
 ${L2GW_NAME1}     GW1
 ${L2GW_NAME2}     GW2
 ${L2GW_NAME3}     GW3
@@ -28,12 +29,15 @@ ${NET_2_SEGID}    1064
 ${NET_2}          NETHWV2
 ${NS_PORT1}       PORT1
 ${NS_PORT2}       PORT2
-${NS2_PORT1}      PORT3
-${NS2_PORT2}      PORT4
+${NS_PORT3}       PORT3
+${NS2_PORT1}      PORT4
+${NS2_PORT2}      PORT5
 ${NS_TAP1}        TAP1
-${NS2_TAP1}       TAP2
-${NS3_TAP1}       TAP3
-${NS4_TAP1}       TAP4
+${NS_TAP2}        TAP2
+${NS_TAP3}        TAP3
+${NS2_TAP1}       TAP4
+${NS3_TAP1}       TAP5
+${NS4_TAP1}       TAP6
 ${OVS_BRIDGE}     br-int
 ${OVS_PORT_1}     OVSPORT1
 ${OVS_PORT_2}     OVSPORT2
@@ -79,6 +83,7 @@ ${L2GW_CONN_DELETE}    neutron l2-gateway-connection-delete
 ${L2GW_LIST_REST_URL}    /restconf/config/neutron:neutron/l2gateways/
 ${L2GW_CONN_LIST_REST_URL}    /restconf/config/neutron:neutron/l2gatewayConnections/
 ${L2GW_CREATE}    neutron l2-gateway-create --device
+${L2GW_UPDATE}    neutron l2-gateway-update --device
 ${L2GW_DELETE}    neutron l2-gateway-delete
 ${L2GW_GET_CONN_YAML}    neutron l2-gateway-connection-list -f yaml
 ${L2GW_GET_CONN}    neutron l2-gateway-connection-list
