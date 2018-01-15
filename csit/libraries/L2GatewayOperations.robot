@@ -73,6 +73,19 @@ Create Verify L2Gateway
     Utils.Check For Elements At URI    ${L2GW_LIST_REST_URL}    ${list_to_check}    session
     [Return]    ${l2gw_output}
 
+Update And Verify L2Gateway
+    [Arguments]    ${bridge_name}    ${gw_name}    ${intf_name_1}    ${intf_name_2}
+    [Documentation]    Keyword to add interface {intf_name_2} to an existing L2 Gateway ${gw_name} for bridge ${bridge_name} (Using Neutron CLI).
+    ${l2gw_output}=    OpenStackOperations.Update L2Gateway    ${bridge_name}    ${gw_name}    ${intf_name_1}    ${intf_name_2}
+    ${output}=    OpenStackOperations.Get All L2Gateway
+    Log    ${output}
+    Should Contain    ${output}    ${gw_name}
+    Should Contain    ${output}    ${intf_name_1}
+    Should Contain    ${output}    ${intf_name_2}
+    @{list_to_check}=    Create List    ${gw_name}
+    Utils.Check For Elements At URI    ${L2GW_LIST_REST_URL}    ${list_to_check}    session
+    [Return]    ${l2gw_output}
+
 Delete L2Gateway
     [Arguments]    ${gw_name}
     [Documentation]    Keyword to delete the L2 Gateway ${gw_name} received in argument.
@@ -86,6 +99,17 @@ Create Verify L2Gateway Connection
     [Documentation]    Keyword to create a new L2 Gateway Connection for ${gw_name} to ${net_name} (Using Neutron CLI).
     ${l2gw_output}=    OpenStackOperations.Create L2Gateway Connection    ${gw_name}    ${net_name}
     Log    ${l2gw_output}
+    ${l2gw_id}=    OpenStackOperations.Get L2gw Id    ${gw_name}
+    ${output}=    OpenStackOperations.Get All L2Gateway Connection
+    Log    ${output}
+    Should Contain    ${output}    ${l2gw_id}
+    @{list_to_check}=    Create List    ${l2gw_id}
+    Utils.Check For Elements At URI    ${L2GW_CONN_LIST_REST_URL}    ${list_to_check}    session
+    [Return]    ${l2gw_output}
+
+Verify L2Gateway Connection
+    [Arguments]    ${gw_name}    ${net_name}
+    [Documentation]    Keyword to verify existing L2 Gateway Connection for ${gw_name} to ${net_name} $(Using Neutron CLI).
     ${l2gw_id}=    OpenStackOperations.Get L2gw Id    ${gw_name}
     ${output}=    OpenStackOperations.Get All L2Gateway Connection
     Log    ${output}
