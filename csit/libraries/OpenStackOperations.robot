@@ -1202,3 +1202,16 @@ Reset OVS Logging On All OpenStack Nodes
     Run Keyword If    0 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CNTL_CONN_ID}
     Run Keyword If    1 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CMP1_CONN_ID}
     Run Keyword If    2 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CMP2_CONN_ID}
+
+Create Neutron Multisegment Network
+    [Arguments]    ${network_name}    ${segments}
+    ${rc}    ${output}=    Run And Return Rc And Output    neutron net-create ${network_name} --segments type=dict list=true ${segments}
+    Log    ${output}
+    Should Be True    '${rc}' == '0'
+
+Create Direct Port
+    [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
+    ${cmd}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v port-create ${network_name} --name ${port_name} --vnic-type direct ${additional_args}    openstack port create --network ${network_name} ${port_name} --vnic-type direct ${additional_args}
+    ${rc}    ${output}=    Run And Return Rc And Output    ${cmd}
+    Log    ${output}
+    Should Be True    '${rc}' == '0'
