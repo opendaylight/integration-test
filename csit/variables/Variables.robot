@@ -27,7 +27,7 @@ Documentation     Resource consisting purely of variable definitions useful for 
 ${ALERTFIELDCONTENTRULERECORD}    /restconf/config/alertrule:alertFieldContentRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTFIELDVALUERULERECORD}    /restconf/config/alertrule:alertFieldValueRuleRecord    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
-@{AUTH}           ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
+@{AUTH}           admin    admin    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 @{AUTH_SDN}       sdnadmin    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
 @{AUTH_SDN_DOMAIN}    sdnadmin@sdn    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
 @{AUTH_SDN_WRONG_DOM}    sdnadmin@wrong    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
@@ -56,13 +56,13 @@ ${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_PATHPOLICY_TOPOL
 ${CREATE_VLAN_TOPOLOGY_FILE}    vlan_vtn_test.py    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_VLAN_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_VLAN_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CUSTOMPROP}     /tmp/${BUNDLEFOLDER}/etc/custom.properties    # Full path of custom.properties file
-${DEFAULT_LINUX_PROMPT}    >    # Generic *_SYSTEM prompt for SSHLibrary.Read_Unti_Prompt. Current value is there for historic reasons. FIXME: Add -v to releng/builder and change this value to more common "$" (without quotes, with backslash). TODO: Replace usage with the strict version.
-${DEFAULT_LINUX_PROMPT_STRICT}    ]>    # A more strict prompt substring, this only matches Bash prompt, not Mininet prompt.
+${DEFAULT_LINUX_PROMPT}    $    # Generic *_SYSTEM prompt for SSHLibrary.Read_Unti_Prompt. Current value is there for historic reasons. FIXME: Add -v to releng/builder and change this value to more common "$" (without quotes, with backslash). TODO: Replace usage with the strict version.
+${DEFAULT_LINUX_PROMPT_STRICT}    $    # A more strict prompt substring, this only matches Bash prompt, not Mininet prompt.
 ${DEFAULT_BGPCEP_LOG_LEVEL}    ${DEFAULT_ODL_LOG_LEVEL}    # Fallback Karaf log level specific to org.opendaylight.bgpcep.
 ${DEFAULT_ODL_LOG_LEVEL}    INFO    # Some suites allow to change overall Karaf log level, this is the default value to set or fall back.
 ${DEFAULT_PASSWORD}    ${EMPTY}    # Generic *_SYSTEM linux password. If empty, SSHLibrary.Login_With_Public_Key is attempted instead of SSHLibrary.Login. TODO: Rename to DEFAULT_LINUX_PASSWORD.
 ${DEFAULT_PROTOCOL_LOG_LEVEL}    ${DEFAULT_ODL_LOG_LEVEL}    # Fallback Karaf log level specific to org.opendaylight.protocol.
-${DEFAULT_USER}    jenkins    # Generic *_SYSTEM linux user name name. TODO: Rename to DEFUALT_LINUX_USER. FIXME: Add -v to releng/builder and change the value to something more common, e.g. "vagrant".
+${DEFAULT_USER}    stack    # Generic *_SYSTEM linux user name name. TODO: Rename to DEFUALT_LINUX_USER. FIXME: Add -v to releng/builder and change the value to something more common, e.g. "vagrant".
 ${DEFAULT_TIMEOUT}    30s    # Generic *_SYSTEM SSH.Login timeout. Some systems are slow to authenticate.
 ${DELETE_DASHBOARDRECORD}    /restconf/operations/dashboardrule:delete-dashboard    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ELASTICPORT}    9200    # Port to use when interacting with ElasticSearch. FIXME: Hide into a specific Resource.
@@ -170,7 +170,7 @@ ${STREAMRECORD_CONFIG}    /restconf/config/stream:streamRecord    # FIXME: Move 
 ${STRUCTURE_INTENT_URI}    /restconf/operations/nemo-intent:structure-style-nemo-update    # FIXME: Move to a separate Nemo-related Resource and add description.
 ${SUBSCRIPTION}    /restconf/config/subscribe:subscription/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${SW}             switches    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${TOOLS_SYSTEM_1_IP}    127.0.0.1    # IP address of first system hosting testing tools.
+${TOOLS_SYSTEM_1_IP}    192.168.122.172    # IP address of first system hosting testing tools.
 ${TOOLS_SYSTEM_2_IP}    127.0.0.2    # IP address of second system hosting testing tools.
 ${TOOLS_SYSTEM_3_IP}    127.0.0.3    # IP address of third system hosting testing tools.
 ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}    # IP address of primary system hosting testing tools.
