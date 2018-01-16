@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65ba4d38_d6d77b07",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-16T20:12:59Z",
+      "side": 1,
+      "message": "am I the only one that thinks the word \"And\" is missing here ?  :)",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 13
+      },
+      "revId": "e1cb95b75db86038c68b3ba1096f7092b0223448",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a8d407b_4e34b5e4",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-16T20:12:59Z",
+      "side": 1,
+      "message": "Update L2Gateway does the logging already. no need for this one.",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 25
+      },
+      "revId": "e1cb95b75db86038c68b3ba1096f7092b0223448",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43dbd7d4_a648b866",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-16T20:12:59Z",
+      "side": 1,
+      "message": "reviewing this makes me wonder if we should refactor OpenStackOperations to pull out all the L2GW specific keywords and put them here?\n\nnot for this patch, just thinking out loud.",
+      "range": {
+        "startLine": 114,
+        "startChar": 19,
+        "endLine": 114,
+        "endChar": 50
+      },
+      "revId": "e1cb95b75db86038c68b3ba1096f7092b0223448",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9a42782_cf8c885a",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-16T20:12:59Z",
+      "side": 1,
+      "message": "looks like this originally came in without test case [Documentation] blocks. Not fair to ask that you\nupdate all test cases with that, but can you do it for the new one? Another patch (someday) should\ncome in to update the rest. must have slipped through the first time.",
+      "revId": "e1cb95b75db86038c68b3ba1096f7092b0223448",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56acb5c9_6c6bc0d0",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-16T20:12:59Z",
+      "side": 1,
+      "message": "need to add some validations/checks here or it\u0027s not really a test case. If you don\u0027t have any checks to make, we\ncan just move these steps to the top of the below test case. I know you\u0027ll find other examples like this, but we\nas we get better we\u0027ve learned to ask this.",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 51
+      },
+      "revId": "e1cb95b75db86038c68b3ba1096f7092b0223448",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1de13c3c_bf903400",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-16T20:12:59Z",
+      "side": 1,
+      "message": "do we need this, or maybe the Update Verify keyword will log it anyway?",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 20
+      },
+      "revId": "e1cb95b75db86038c68b3ba1096f7092b0223448",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
