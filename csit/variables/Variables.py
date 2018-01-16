@@ -7,22 +7,30 @@ Edited: Many times by many people
 """
 
 # VM Environment defaults
-DEFAULT_LINUX_PROMPT = '>'
-DEFAULT_LINUX_PROMPT_STRICT = ']>'
-DEFAULT_USER = 'jenkins'
+DEFAULT_LINUX_PROMPT = '$'
+DEFAULT_LINUX_PROMPT_STRICT = '$'
+DEFAULT_USER = 'stack'
 DEFAULT_TIMEOUT = '30s'
 
 # ODL system variables
-ODL_SYSTEM_IP = '127.0.0.1'  # Override if ODL is not running locally to pybot
+ODL_SYSTEM_IP = '192.168.122.123'  # Override if ODL is not running locally to pybot
 ODL_SYSTEM_IP_LIST = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
 ODL_SYSTEM_USER = DEFAULT_USER
 ODL_SYSTEM_PASSWORD = ''  # empty means use public key authentication
 ODL_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
+OS_CONTROL_NODE_IP = '192.168.122.123'
+OS_COMPUTE_1_IP = '192.168.122.123'
+OS_COMPUTE_2_IP = '192.168.122.124'
+OS_USER = 'stack'
+USER_HOME = '/home/stack'
+NUM_ODL_SYSTEM = 1
+NUM_OS_SYSTEM = 1
+
 
 # "Tools" system variables (mininet etc).
-TOOLS_SYSTEM_IP = '127.0.0.1'  # Override if tools are not run locally to pybot
-TOOLS_SYSTEM_USER = DEFAULT_USER
-TOOLS_SYSTEM_PASSWORD = ''  # empty means use public key authentication
+TOOLS_SYSTEM_IP = '192.168.122.172'  # Override if tools are not run locally to pybot
+TOOLS_SYSTEM_USER = 'stack' 
+TOOLS_SYSTEM_PASSWORD = 'stack'  # empty means use public key authentication
 TOOLS_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
 
 # KARAF Variables
