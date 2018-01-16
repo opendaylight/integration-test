@@ -1,0 +1,807 @@
+From fc3f8d1fbc7d057e33ffb4dc05c9b1be5fd9dda1 Mon Sep 17 00:00:00 2001
+From: sailas <sailasbg@gmail.com>
+Date: Tue, 16 Jan 2018 18:16:04 +0530
+Subject: [PATCH] [wip] Adding new test cases to BGP & VPN service
+
+Change-Id: I271d4f516d9c3d766829509f61592795a32d584d
+Signed-off-by: sailas <sailasbg@gmail.com>
+---
+ csit/libraries/BgpOperations.robot       | 229 ++++++++++++++++++++---
+ csit/suites/netvirt/vpnservice/bgp.robot | 304 +++++++++++++++++++++++++++----
+ csit/variables/Variables.py              |  22 ++-
+ csit/variables/Variables.robot           |  10 +-
+ 4 files changed, 495 insertions(+), 70 deletions(-)
+
+diff --git a/csit/libraries/BgpOperations.robot b/csit/libraries/BgpOperations.robot
+index cc63213..e75c1d2 100644
+--- a/csit/libraries/BgpOperations.robot
++++ b/csit/libraries/BgpOperations.robot
+@@ -6,6 +6,8 @@ Resource          ../variables/Variables.robot
+ 
+ *** Variables ***
+ ${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
++${DEFAULT_DCGW_PROMPT_STRICT}    ${DEFAULT_LINUX_PROMPT_STRICT}
++${DEFAULT_DCGW_PROMPT}    ${DEFAULT_LINUX_PROMPT}
+ 
+ *** Keywords ***
+ Start Quagga Processes On ODL
+@@ -15,30 +17,30 @@ Start Quagga Processes On ODL
+     Switch Connection    ${conn_id}
+     Write Commands Until Expected Prompt    cd /opt/quagga/etc/    ${DEFAULT_LINUX_PROMPT_STRICT}
+     Write Commands Until Expected Prompt    sudo cp zebra.conf.sample zebra.conf    ${DEFAULT_LINUX_PROMPT_STRICT}
+-    Write Commands Until Expected Prompt    sudo /opt/quagga/etc/init.d/zrpcd start    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    sudo /opt/quagga/etc/init.d/zrpcd restart -N ${odl_ip}    ${DEFAULT_LINUX_PROMPT_STRICT}
+     Write Commands Until Expected Prompt    ps -ef | grep zrpcd    ${DEFAULT_LINUX_PROMPT_STRICT}
+     Write Commands Until Expected Prompt    netstat -nap | grep 7644    ${DEFAULT_LINUX_PROMPT_STRICT}
+     Close Connection
+ 
+-Start Quagga Processes On DCGW
++Start BGP Processes On DCGW
+     [Arguments]    ${dcgw_ip}
+     [Documentation]    To start the zrpcd, bgpd,and zebra processes on DCGW
+     ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
+     Switch Connection    ${dcgw_conn_id}
+-    Write Commands Until Expected Prompt    cd /opt/quagga/etc/    ${DEFAULT_LINUX_PROMPT_STRICT}
+-    Write Commands Until Expected Prompt    sudo cp zebra.conf.sample zebra.conf    ${DEFAULT_LINUX_PROMPT_STRICT}
+-    Write Commands Until Expected Prompt    sudo /opt/quagga/etc/init.d/zrpcd start    ${DEFAULT_LINUX_PROMPT_STRICT}
+-    Write Commands Until Expected Prompt    ps -ef | grep zrpcd    ${DEFAULT_LINUX_PROMPT_STRICT}
+-    Write Commands Until Expected Prompt    cd /opt/quagga/sbin/    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    cd /opt/quagga/etc/    ${DEFAULT_DCGW_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    sudo cp zebra.conf.sample zebra.conf    ${DEFAULT_DCGW_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    sudo /opt/quagga/etc/init.d/zrpcd start    ${DEFAULT_DCGW_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    ps -ef | grep zrpcd    ${DEFAULT_DCGW_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    cd /opt/quagga/sbin/    ${DEFAULT_DCGW_PROMPT_STRICT}
+     ${output} =    Write    sudo ./bgpd &
+     ${output} =    Read Until    pid
+     Log    ${output}
+     ${output} =    Write    sudo ./zebra &
+     ${output} =    Read
+     Log    ${output}
+-    Write Commands Until Expected Prompt    ps -ef | grep bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
+-    Write Commands Until Expected Prompt    ps -ef | grep zebra    ${DEFAULT_LINUX_PROMPT_STRICT}
+-    Write Commands Until Expected Prompt    netstat -nap | grep 7644    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    ps -ef | grep bgpd    ${DEFAULT_DCGW_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    ps -ef | grep zebra    ${DEFAULT_DCGW_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    netstat -nap | grep 179    ${DEFAULT_DCGW_PROMPT_STRICT}
+ 
+ Show Quagga Configuration On ODL
+     [Arguments]    ${odl_ip}    ${rd}
+@@ -71,8 +73,7 @@ Execute Command On Quagga Telnet Session
+     [Return]    ${output}
+ 
+ Configure BGP And Add Neighbor On DCGW
+-    [Arguments]    ${dcgw_ip}    ${as_id}    ${router_id}    ${neighbor_ip}    ${vrf_name}    ${rd}
+-    ...    ${loopback_ip}
++    [Arguments]    ${dcgw_ip}    ${as_id}    ${router_id}    ${neighbor_ip}    ${addr_family}
+     [Documentation]    Configure BGP and add neighbor on the dcgw
+     Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
+     Execute Command On Quagga Telnet Session    configure terminal
+@@ -81,18 +82,99 @@ Configure BGP And Add Neighbor On DCGW
+     Execute Command On Quagga Telnet Session    redistribute static
+     Execute Command On Quagga Telnet Session    redistribute connected
+     Execute Command On Quagga Telnet Session    neighbor ${neighbor_ip} send-remote-as ${as_id}
++    #    Execute Command On Quagga Telnet Session    exit
++    Execute Command On Quagga Telnet Session    address-family ${addr_family}
++    Execute Command On Quagga Telnet Session    neighbor ${neighbor_ip} activate
++    Execute Command On Quagga Telnet Session    end
++    Execute Command On Quagga Telnet Session    show running-config
++    Execute Command On Quagga Telnet Session    exit
++
++Configure VPN On DCGW
++    [Arguments]    ${dcgw_ip}    ${as_id}    ${vrf_name}    ${rd}    ${irt}    ${ert}
++    [Documentation]    Configure VPN on DCGW
++    Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
++    Execute Command On Quagga Telnet Session    configure terminal
++    Execute Command On Quagga Telnet Session    router bgp ${as_id}
+     Execute Command On Quagga Telnet Session    vrf ${vrf_name}
+     Execute Command On Quagga Telnet Session    rd ${rd}
+-    Execute Command On Quagga Telnet Session    rt import ${rd}
+-    Execute Command On Quagga Telnet Session    rt export ${rd}
++    Execute Command On Quagga Telnet Session    rt import ${irt}
++    Execute Command On Quagga Telnet Session    rt export ${ert}
++    Execute Command On Quagga Telnet Session    end
++    Execute Command On Quagga Telnet Session    exit
++
++Admin Down BGP Neighbor on DCGW
++    [Arguments]    ${dcgw_ip}    ${as_id}    ${neighbor_ip}    ${addr_family}
++    [Documentation]    Admin Down bgp neighbor on DCGW
++    Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
++    Execute Command On Quagga Telnet Session    configure terminal
++    Execute Command On Quagga Telnet Session    router bgp ${as_id}
++    Execute Command On Quagga Telnet Session    address-family ${addr_family}
++    Execute Command On Quagga Telnet Session    neighbor ${neighbor_ip} shutdown
++    Execute Command On Quagga Telnet Session    end
+     Execute Command On Quagga Telnet Session    exit
+-    Execute Command On Quagga Telnet Session    address-family vpnv4 unicast
+-    Execute Command On Quagga Telnet Session    network ${loopback_ip}/32 rd ${rd} tag ${as_id}
++
++Admin UP BGP Neighbor on DCGW
++    [Arguments]    ${dcgw_ip}    ${as_id}    ${neighbor_ip}    ${addr_family}
++    [Documentation]    Admin Up bgp neighbor on DCGW
++    Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
++    Execute Command On Quagga Telnet Session    configure terminal
++    Execute Command On Quagga Telnet Session    router bgp ${as_id}
++    Execute Command On Quagga Telnet Session    address-family ${addr_family}
+     Execute Command On Quagga Telnet Session    neighbor ${neighbor_ip} activate
+     Execute Command On Quagga Telnet Session    end
+-    Execute Command On Quagga Telnet Session    show running-config
+     Execute Command On Quagga Telnet Session    exit
+ 
++Clear BGP Neighbor on DCGW
++    [Arguments]    ${dcgw_ip}    ${neighbor_ip}
++    [Documentation]    Clear bgp neighbor on DCGW
++    Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
++    Execute Command On Quagga Telnet Session    clear bgp ${neighbor_ip}
++
++Restart thrift Processes On ODL
++    [Arguments]    ${odl_ip}
++    [Documentation]    To restart the qthriftd, bgpd processes on ODL VM
++    ${conn_id}=    Open_Connection_To_ODL_System    ip_address=${odl_ip}
++    Switch Connection    ${conn_id}
++    Write Commands Until Expected Prompt    sudo kill -9 'ps -ef | grep thrift'    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    sudo cp zebra.conf.sample zebra.conf    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    sudo /opt/quagga/etc/init.d/zrpcd restart -N ${odl_ip}    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    ps -ef | grep zrpcd    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    netstat -nap | grep 7644    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Close Connection
++
++Restart bgp Processes On ODL
++    [Arguments]    ${odl_ip}
++    [Documentation]    To restart the bgpd , qthriftd processes on ODL VM
++    ${conn_id}=    Open_Connection_To_ODL_System    ip_address=${odl_ip}
++    Switch Connection    ${conn_id}
++    Write Commands Until Expected Prompt    sudo kill -9 'ps -ef | grep bgpd'    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    sudo cp zebra.conf.sample zebra.conf    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    sudo /opt/quagga/etc/init.d/zrpcd -N ${odl_ip}    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    ps -ef | grep zrpcd    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    netstat -nap | grep 7644    ${DEFAULT_LINUX_PROMPT_STRICT}
++    Close Connection
++
++Restart BGP Processes On DCGW
++    [Arguments]    ${dcgw_ip}
++    [Documentation]    To Restart the zrpcd, bgpd,and zebra processes on DCGW
++    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
++    Switch Connection    ${dcgw_conn_id}
++    Write Commands Until Expected Prompt    sudo kill -9 'ps -ef | grep bgpd'    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    Write Commands Until Expected Prompt    cd /opt/quagga/etc/    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    Write Commands Until Expected Prompt    sudo cp zebra.conf.sample zebra.conf    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    Write Commands Until Expected Prompt    sudo /opt/quagga/etc/init.d/zrpcd start    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    Write Commands Until Expected Prompt    ps -ef | grep zrpcd    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    Write Commands Until Expected Prompt    cd /opt/quagga/sbin/    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    ${output} =    Write    sudo ./bgpd &
++    #    ${output} =    Read Until    pid
++    #    Log    ${output}
++    #    ${output} =    Write    sudo ./zebra &
++    #    ${output} =    Read
++    #    Log    ${output}
++    Write Commands Until Expected Prompt    ps -ef | grep bgpd    ${DEFAULT_DCGW_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    ps -ef | grep thrift    ${DEFAULT_DCGW_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    netstat -nap | grep 179    ${DEFAULT_DCGW_PROMPT_STRICT}
++
+ Add Loopback Interface On DCGW
+     [Arguments]    ${dcgw_ip}    ${loopback_name}    ${loopback_ip}    ${user}=zebra    ${password}=zebra
+     [Documentation]    Add loopback interface on DCGW
+@@ -107,7 +189,7 @@ Add Loopback Interface On DCGW
+     Execute Command On Quagga Telnet Session    show running-config
+     Execute Command On Quagga Telnet Session    exit
+ 
+-Execute Show Command On Quagga
++Execute Show Command On DCGW
+     [Arguments]    ${dcgw_ip}    ${cmd}    ${user}=bgpd    ${password}=sdncbgpc
+     [Documentation]    Execute command on quagga and returns the ouput.
+     Create Quagga Telnet Session    ${dcgw_ip}    ${user}    ${password}
+@@ -116,14 +198,14 @@ Execute Show Command On Quagga
+     Execute Command On quagga Telnet Session    exit
+     [Return]    ${output}
+ 
+-Verify BGP Neighbor Status On Quagga
++Verify BGP Neighbor Status On DCGW
+     [Arguments]    ${dcgw_ip}    ${neighbor_ip}
+     [Documentation]    Verify bgp neighbor status on quagga
+     ${output} =    Execute Show Command On quagga    ${dcgw_ip}    show bgp neighbors ${neighbor_ip}
+     Log    ${output}
+     Should Contain    ${output}    BGP state = Established
+ 
+-Verify Routes On Quagga
++Verify VPN Routes On DCGW
+     [Arguments]    ${dcgw_ip}    ${rd}    ${ip_list}
+     [Documentation]    Verify routes on quagga
+     ${output} =    Execute Show Command On quagga    ${dcgw_ip}    show ip bgp vrf ${rd}
+@@ -131,12 +213,12 @@ Verify Routes On Quagga
+     : FOR    ${ip}    IN    @{ip_list}
+     \    Should Contain    ${output}    ${ip}
+ 
+-Delete BGP Config On Quagga
+-    [Arguments]    ${dcgw_ip}    ${bgp_id}    ${user}=bgpd    ${password}=sdncbgpc
++Delete BGP Config On DCGW
++    [Arguments]    ${dcgw_ip}    ${as_id}    ${user}=bgpd    ${password}=sdncbgpc
+     [Documentation]    Delete BGP Config on Quagga
+     Create Quagga Telnet Session    ${dcgw_ip}    ${user}    ${password}
+     Execute Command On Quagga Telnet Session    configure terminal
+-    Execute Command On Quagga Telnet Session    no router bgp ${bgp_id}
++    Execute Command On Quagga Telnet Session    no router bgp ${as_id}
+     Execute Command On Quagga Telnet Session    end
+     ${output} =    Execute Command On Quagga Telnet Session    show running-config
+     Execute Command On Quagga Telnet Session    exit
+@@ -161,7 +243,7 @@ Get BGP Configuration On ODL
+ 
+ Delete BGP Configuration On ODL
+     [Arguments]    ${odl_session}
+-    [Documentation]    Delete BGP
++    [Documentation]    Delete BGP configuration on ODL controller
+     ${resp} =    RequestsLibrary.Delete Request    ${odl_session}    ${CONFIG_API}/ebgp:bgp/
+     Log    ${resp.content}
+     Should Be Equal As Strings    ${resp.status_code}    200
+@@ -222,3 +304,102 @@ Check_Example_IPv4_Topology_Does_Not_Contain
+     BuiltIn.Log    ${response.status_code}
+     BuiltIn.Log    ${response.text}
+     BuiltIn.Should_Not_Contain    ${response.text}    ${string_to_check}
++
++Stop BGP Processes On DCGW
++    [Arguments]    ${dcgw_ip}    ${signal}
++    [Documentation]    Stop BGP and ZRPC process in DC-GWy
++    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
++    Log    ${dcgw_conn_id}
++    ${output}=    Exec Command    ${dcgw_conn_id}    sudo pkill -${signal} ${BGPD_PROCESS_NAME}
++    Log    ${output}
++    ${output}=    Exec Command    ${dcgw_conn_id}    ${NETSTAT}
++    Log    ${output}
++    ${output}=    Exec Command    ${dcgw_conn_id}    sudo pkill -${signal} | ${ZRPCD_PROCESS_NAME}
++    Log    ${output}
++    ${output}=    Exec Command    ${dcgw_conn_id}    ${NETSTAT}
++    Log    ${output}
++    Should not Match Regexp    ${output}    ${NETSTAT_DCGWYBGP_PORT_REGEX}
++
++Check for BGP Processes On DCGW
++    [Arguments]    ${dcgw_ip}
++    [Documentation]    Check for BGP process netstat output in DC-Gwy
++    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ${dcgw_ip}
++    BuiltIn.Log to console    Check for BGP process in DC-Gwy
++    ${output}=    Exec Command    ${dcgw_conn_id}    ${GREP_BGPD}
++    BuiltIn.Log to console    ${output}
++    Should Match Regexp    {output}    [0-9]*
++    BuiltIn.Log to console    Check for ZRPC process in DC-Gwy
++    ${output}=    Exec Command    ${dcgw_conn_id}    ${GREP_ZRPCD}
++    BuiltIn.Log to console    ${output}
++    Should Match Regexp    {output}    [0-9]*
++    BuiltIn.Log to console    Get netstat command output from DC-Gwy and find BGP PORT in Established state
++    ${output}=    Exec Command    ${dcgw_conn_id}    ${NETSTAT}
++    BuiltIn.Log to console    ${output}
++    Wait Until Keyword Succeeds    30s    2s    Validate Regexp In String    ${output}    ${NETSTAT_DCGWYBGP_PORT_REGEX}
++    close connection
++
++Restart BGP Processes On DCGW using SIGTERM
++    [Arguments]    ${dcgw_ip}
++    [Documentation]    To Restart the zrpcd, bgpd,and zebra processes on DCGW
++    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
++    Switch Connection    ${dcgw_conn_id}
++    Write Commands Until Expected Prompt    sudo kill -9 'ps -ef | grep bgpd'    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    Write Commands Until Expected Prompt    cd /opt/quagga/etc/    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    Write Commands Until Expected Prompt    sudo cp zebra.conf.sample zebra.conf    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    Write Commands Until Expected Prompt    sudo /opt/quagga/etc/init.d/zrpcd start    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    Write Commands Until Expected Prompt    ps -ef | grep zrpcd    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    Write Commands Until Expected Prompt    cd /opt/quagga/sbin/    ${DEFAULT_DCGW_PROMPT_STRICT}
++    #    ${output} =    Write    sudo ./bgpd &
++    #    ${output} =    Read Until    pid
++    #    Log    ${output}
++    #    ${output} =    Write    sudo ./zebra &
++    #    ${output} =    Read
++    #    Log    ${output}
++    Write Commands Until Expected Prompt    ps -ef | grep bgpd    ${DEFAULT_DCGW_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    ps -ef | grep thrift    ${DEFAULT_DCGW_PROMPT_STRICT}
++    Write Commands Until Expected Prompt    netstat -nap | grep 179    ${DEFAULT_DCGW_PROMPT_STRICT}
++
++is ODL fib contains routes from DC-Gwy
++    [Arguments]    ${string_match}    ${error_message}=${string_match} not found, but expected.
++    [Documentation]    Check for BGP process netstat output in DC-Gwy
++    ${fibshow_output} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${KARAF_SHELL_PORT}
++    Comment    ${result}=    Should Match Regexp    ${fibshow_output}    ${string_match}
++    Comment    Should Contain    ${fibshow_output}    ${string_match}
++    Comment    BuiltIn.Return_From_Keyword_If    ${fibshow_output} contains ${string_match}    ${TRUE}
++    Comment    ${status}    ${result} =    Should Match Regexp    ${fibshow_output}    ${string_match}
++    Comment    ${result} =    Should Match Regexp    ${fibshow_output}    ${string_match}
++    Comment    BuiltIn.Return_From_Keyword_If    '${result}' == 'PASS'    ${TRUE}
++    ${result} =    BuiltIn.Should Match Regexp    ${fibshow_output}    ${string_match}    ${error_message}    values=True
++    Log    ${result}
++    [Return]    ${result}
++
++return ODL fib karaf output
++    [Documentation]    Check for BGP process netstat output in DC-Gwy
++    ${fibshow_output} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${KARAF_SHELL_PORT}
++    Comment    [Return]    ${fibshow_output}
++    [Return]    ${result}
++
++iptables disable BGP port communication
++    [Arguments]    ${dcgw_ip}
++    [Documentation]    DISABLE BGP COMMUNICATION OVER 179 PORT in DC-Gwy
++    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
++    BuiltIn.Log to console    Disable communication over BGP PORT-179
++    ${output}=    Exec Command    ${dcgw_conn_id}    sudo iptables -nvL
++    BuiltIn.Log to console    ip tables output before change ${output}
++    ${output}=    Exec Command    ${dcgw_conn_id}    sudo iptables -A INPUT -p tcp --dport \ ${BGP_PORT} -j DROP
++    ${output}=    Exec Command    ${dcgw_conn_id}    sudo iptables -A INPUT -p tcp --sport ${BGP_PORT} -j DROP
++    ${output}=    Exec Command    ${dcgw_conn_id}    sudo iptables -nvL
++    BuiltIn.Log to console    ip tables output before change
++    BuiltIn.Log to console    ${output}
++
++iptables enable BGP port communication
++    [Arguments]    ${dcgw_ip}
++    [Documentation]    ENABLE BGP COMMUNICATION OVER 179 PORT in DC-Gwy
++    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
++    BuiltIn.Log to console    Enable communication over BGP PORT-179
++    ${output}    Exec Command    ${dcgw_conn_id}    sudo iptables -nvL
++    BuiltIn.Log to console    ip tables rules before change
++    ${output}=    Exec Command    ${dcgw_conn_id}    sudo iptables -D INPUT -p tcp --dport \ ${BGP_PORT} -j DROP
++    ${output}=    Exec Command    ${dcgw_conn_id}    sudo iptables -D INPUT -p tcp --sport ${BGP_PORT} -j DROP
++    ${output}=    Exec Command    ${dcgw_conn_id}    sudo iptables -nvL
++    BuiltIn.Log to console    ip tables rules after change ${output}
+diff --git a/csit/suites/netvirt/vpnservice/bgp.robot b/csit/suites/netvirt/vpnservice/bgp.robot
+index 6db4106..7141b0a 100644
+--- a/csit/suites/netvirt/vpnservice/bgp.robot
++++ b/csit/suites/netvirt/vpnservice/bgp.robot
+@@ -3,10 +3,8 @@ Documentation     Test suite to validate BGP vpnservice functionality in an open
+ ...               The assumption of this suite is that the environment is already configured with the proper
+ ...               integration bridges and vxlan tunnels.
+ Suite Setup       BGP Vpnservice Suite Setup
+-Suite Teardown    BGP Vpnservice Suite Teardown
+-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+-Test Teardown     OpenStackOperations.Get Test Teardown Debugs
+-Library           OperatingSystem
++Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing    #Suite Teardown    BGP Vpnservice Suite Teardown
++Library           OperatingSystem    #Test Teardown    OpenStackOperations.Get Test Teardown Debugs
+ Library           RequestsLibrary
+ Library           SSHLibrary
+ Resource          ../../../libraries/Utils.robot
+@@ -18,6 +16,7 @@ Resource          ../../../libraries/SetupUtils.robot
+ Resource          ../../../libraries/BgpOperations.robot
+ Resource          ../../../variables/Variables.robot
+ Resource          ../../../variables/netvirt/Variables.robot
++Resource          ../../../libraries/WaitForFailure.robot    # WaitForFailure
+ 
+ *** Variables ***
+ @{NETWORKS}       bgp_net_1    bgp_net_2    bgp_net_3    bgp_net_4
+@@ -32,31 +31,58 @@ ${LOOPBACK_IP}    5.5.5.2
+ ${DCGW_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}
+ ${AS_ID}          500
+ ${DCGW_RD}        2200:2
+-${SECURITY_GROUP}    bgp_sg
++${SECURITY_GROUP_BGP}    sg_bgp
++${ODL_IP}         192.168.122.123
++${ROUTERID}       ${ODL_SYSTEM_IP}
++${DCGW_ROUTERID}    ${DCGW_SYSTEM_IP}
++${addr_family}    vpnv4 unicast
++${BGP_PORT}       179    # bgp port use for communication with DC-Gwy BGP
++${NETSTAT_DCGWYBGP_PORT_REGEX}    :${BGP_PORT}\\s+\(.*\)\\s+ESTABLISHED\\s+(.*)bgpd    # check for established state
++${NETSTAT}        sudo netstat -napt 2> /dev/null    # netstat command
++${BGPD_PROCESS_NAME}    bgpd    # bgpd process name
++${KILL_BGPD}      sudo pkill -TERM ${GREP_BGPD}    # grep bgpd process name and kill the same
++${ZRPCD_PROCESS_NAME}    zrpcd    # zrpc process name
++${KILL_ZRPCD}     sudo \ pkill -TERM ${GREP_ZRPCD}    # kill zrpcd process
++${GREP_BGPD}      pgrep ${BGPD_PROCESS_NAME}    # verify bgpd process is present
++${GREP_ZRPCD}     pgrep ${ZRPCD_PROCESS_NAME}    # grep zrpc process name
++${KARAF_SHELL_PORT}    8101    # karaf shell port
++${FIB_SHOW}       fib-show    # fib show command
++${BGP_FIB_ENTRIES_PRESENT_REGEX}    [1-9]\d*
++${NO_BGP_FIB_ENTRIES_COUNT}    0    # 0 fib entries
++${BGP_GR_STALEPATH_TIME}    90
++${BGP_ORIGIN_TYPE}    \\s+b\\s+
++${BGP_HOLD_TIME}    25
++${BGP_KEEPALIVE_TIME}    5
++${DELAY_START_BGPD_SECONDS}    10
++${BGP_IPTABLES_UPDATE_TIME}    3
++${NETSTAT_BGPPORT_ESTABLISHED}    sudo netstat -napt 2> /dev/null | grep ${BGP_PORT} | grep ESTABLISHED
+ 
+ *** Test Cases ***
+ Create BGP Config On ODL
+-    [Documentation]    Create BGP Config on ODL
+-    BgpOperations.Create BGP Configuration On ODL    localas=${AS_ID}    routerid=${ODL_SYSTEM_IP}
+-    BgpOperations.AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${DCGW_SYSTEM_IP}
++    [Documentation]    Create BGP Config on ODL controller
++    \    BgpOperations.Create BGP Configuration On ODL    localas=${AS_ID}    routerid=${ROUTERID}
++    \    BgpOperations.AddNeighbor To BGP Configuration On ODL    remoteas=${AS_ID}    neighborAddr=${DCGW_SYSTEM_IP}
+     ${output} =    BgpOperations.Get BGP Configuration On ODL    session
+     BuiltIn.Log    ${output}
+     BuiltIn.Should Contain    ${output}    ${DCGW_SYSTEM_IP}
+ 
+ Create BGP Config On DCGW
+     [Documentation]    Configure BGP Config on DCGW
+-    BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}    @{VPN_NAMES}[0]    ${DCGW_RD}
+-    ...    ${LOOPBACK_IP}
++    \    BgpOperations.Start BGP Processes On DCGW    ${DCGW_SYSTEM_IP}
++    BgpOperations.Configure BGP And Add Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${DCGW_ROUTERID}    ${ODL_IP}    ${addr_family}
++    BgpOperations.Configure VPN On DCGW    ${dcgw_ip}    ${as_id}    ${vrf_name}    ${rd}    ${irt}    ${ert}
+     BgpOperations.Add Loopback Interface On DCGW    ${DCGW_SYSTEM_IP}    lo    ${LOOPBACK_IP}
+-    ${output} =    BgpOperations.Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    show running-config
++    ${output} =    BgpOperations.Execute Show Command On DCGW    ${DCGW_SYSTEM_IP}    show running-config
+     BuiltIn.Log    ${output}
+     BuiltIn.Should Contain    ${output}    ${ODL_SYSTEM_IP}
++    #    BuiltIn.Should Contain    ${output1}    ${LOOPBACK_IP}
+ 
+ Verify BGP Neighbor Status
+-    [Documentation]    Verify BGP status established
+-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    60s    15s    BgpOperations.Verify BGP Neighbor Status On Quagga    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}
+-    BuiltIn.Log    ${output}
+-    ${output1} =    BgpOperations.Execute Show Command On Quagga    ${DCGW_SYSTEM_IP}    show ip bgp vrf ${DCGW_RD}
++    [Documentation]    Verify BGP Neighborship status established
++    #    ${output} =    BuiltIn.Wait Until Keyword Succeeds    60s    15s
++    BgpOperations.Verify BGP Neighbor Status On DCGW    ${DCGW_SYSTEM_IP}    ${ODL_SYSTEM_IP}
++    #    BuiltIn.Log    ${output}
++    ${output1} =    BgpOperations.Execute Show Command On DCGW    ${DCGW_SYSTEM_IP}    show ip bgp neighbors
+     BuiltIn.Log    ${output1}
+     BuiltIn.Should Contain    ${output1}    ${LOOPBACK_IP}
+ 
+@@ -71,8 +97,45 @@ Verify Routes Exchange Between ODL And DCGW
+     ${fib_values} =    BuiltIn.Create List    ${LOOPBACK_IP}    @{VM_IPS}
+     BuiltIn.Wait Until Keyword Succeeds    60s    15s    Utils.Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${DCGW_RD}/    ${fib_values}
+     BuiltIn.Wait Until Keyword Succeeds    60s    15s    Verify Routes On Quagga    ${DCGW_SYSTEM_IP}    ${DCGW_RD}    ${fib_values}
+-    [Teardown]    BuiltIn.Run Keywords    Report_Failure_Due_To_Bug    7607
+-    ...    AND    OpenStackOperations.Get Test Teardown Debugs
++
++Restart BGP Process
++    [Documentation]    Delete BGP Configuration on DCGW
++    On ODL
++    ${output} =    BgpOperations.Restart bgp Processes On ODL    ${ODL_SYSTEM_IP}
++    BuiltIn.Log    ${output}
++    BuiltIn.Should Contain    ${output}    ${DCGW_SYSTEM_IP}
++
++Restart BGP Process
++    [Documentation]    Delete BGP Configuration on DCGW
++    On DCGW
++    ${output} =    BgpOperations.Restart BGP Config On Quagga    ${DCGW_SYSTEM_IP}    ${AS_ID}
++    BuiltIn.Log    ${output}
++    BuiltIn.Should Not Contain    ${output}    ${ODL_SYSTEM_IP}
++
++Restart BGP Neighbor On DCGW
++    [Documentation]    Delete BGP Configuration on DCGW
++    ${output} =    BgpOperations.Restart BGP Config On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}
++    BuiltIn.Log    ${output}
++    Verify Routes Exchange Between ODL And DCGW
++    #    BuiltIn.Should Not Contain    ${output}    ${ODL_SYSTEM_IP}
++
++Clear BGP Neighbor On DCGW
++    [Documentation]    Delete BGP Configuration on DCGW
++    ${output} =    BgpOperations.Clear BGP Neighbor On DCGW    ${DCGW_SYSTEM_IP}    ${ODL_IP}
++    BuiltIn.Log    ${output}
++    #    BuiltIn.Should Not Contain    ${output}    ${ODL_SYSTEM_IP}
++
++Admin Down BGP Neighbor On DCGW
++    [Documentation]    Admin Down of BGP Neighbor on DCGW
++    ${output} =    BgpOperations.Admin Down BGP Neighbor on DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${ODL_IP}    ${addr_family}
++    BuiltIn.Log    ${output}
++    #    BuiltIn.Should Not Contain    ${output}    ${ODL_SYSTEM_IP}
++
++Admin UP BGP Neighbor On DCGW
++    [Documentation]    Admin UP of BGP Neighbor on DCGW
++    ${output} =    BgpOperations.Admin UP BGP Neighbor on DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}    ${ODL_IP}    ${addr_family}
++    BuiltIn.Log    ${output}
++    #    BuiltIn.Should Not Contain    ${output}    ${ODL_SYSTEM_IP}
+ 
+ Delete External Tunnel Endpoint
+     [Documentation]    Delete external tunnel endpoint
+@@ -90,22 +153,195 @@ Delete BGP Config On ODL
+ 
+ Delete BGP Config On DCGW
+     [Documentation]    Delete BGP Configuration on DCGW
+-    ${output} =    BgpOperations.Delete BGP Config On Quagga    ${DCGW_SYSTEM_IP}    ${AS_ID}
++    ${output} =    BgpOperations.Delete BGP Config On DCGW    ${DCGW_SYSTEM_IP}    ${AS_ID}
+     BuiltIn.Log    ${output}
+     BuiltIn.Should Not Contain    ${output}    ${ODL_SYSTEM_IP}
+ 
++Disassociate L3VPN From Router
++    ${router_id}=    OpenStackOperations.Get Router Id    ${ROUTER}    ${devstack_conn_id}
++    VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
++    ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
++    BuiltIn.Should Not Contain    ${resp}    ${router_id}
++
++Delete Router And Router Interfaces With L3VPN
++    ${router_id}=    OpenStackOperations.Get Router Id    ${ROUTER}    ${devstack_conn_id}
++    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
++    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
++    BuiltIn.Should Contain    ${resp}    ${router_id}
++    : FOR    ${INTERFACE}    IN    @{SUBNETS}
++    \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
++    ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
++    : FOR    ${INTERFACE}    IN    @{SUBNETS}
++    \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}    ${devstack_conn_id}
++    \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
++    Delete Router    ${ROUTER}
++    ${router_output} =    OpenStackOperations.List Routers
++    BuiltIn.Should Not Contain    ${router_output}    ${ROUTER}
++    @{router_list} =    BuiltIn.Create List    ${ROUTER}
++    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements Not At URI    ${ROUTER_URL}    ${router_list}
++    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
++    BuiltIn.Should Not Contain    ${resp}    ${router_id}
++    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_1_IP}
++    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_2_IP}
++
++Verify Routes Retained until BGP HOLD iptables Timer
++    [Documentation]    Verify routes exchange between ODL and DCGW
++    [Setup]
++    Comment    Bgp Operations.Restart thrift Processes On ODL    ${controller}
++    Sleep    ${DELAY_START_BGPD_SECONDS}    #to let the configuration go to qthriftd and start bgpd
++    BuiltIn.Log to console    Get FIB show output from KARAF CLI of ODL
++    ${fib_before_stopbgp} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${KARAF_SHELL_PORT}
++    BuiltIn.Log to console    ${fib_before_stopbgp}
++    BuiltIn.Log to console    FIB show outuput shall have routes learned from BGP peer -> ORIGIN TYPE as b
++    Should Match Regexp    ${fib_before_stopbgp}    ${BGP_FIB_ENTRIES_PRESENT_REGEX}
++    ${timestamp_before_kill} =    DateTime.Get Current Date    result_format=timestamp
++    BuiltIn.Log to console    Check BGP process and its peer status using port 179
++    ${output} =    BgpOperations.Check for BGP Processes On DCGW    ${dcgw_ip}
++    BuiltIn.Log to console    FIB output
++    ${output} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}
++    BuiltIn.Log to console    ${output}
++    BuiltIn.Log to console    Disable port 179 communication both as source/destination
++    ${output} =    BgpOperations.iptables disable BGP port communication    ${dcgw_ip}
++    ${BGP_HOLD_ROUTES_TIME}=    BuiltIn.Evaluate    ${BGP_HOLD_TIME}-${BGP_KEEPALIVE_TIME}-${BGP_IPTABLES_UPDATE_TIME}
++    BuiltIn.Log to console    Waiting for HOLD Down timer expiry (approximate value), till this timer expiry the BGP peer routes shall be present
++    BuiltIn.Log to console    ${BGP_HOLD_ROUTES_TIME}
++    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${BGP_HOLD_ROUTES_TIME}    1s    BgpOperations.is ODL fib contains routes from DC-Gwy    ${BGP_ORIGIN_TYPE}
++    Sleep    ${BGP_KEEPALIVE_TIME}
++    Sleep    ${BGP_IPTABLES_UPDATE_TIME}
++    ${fib_after_stopbgp_holdtime} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${KARAF_SHELL_PORT}
++    BuiltIn.Log to console    FIB output after hold down timer expiry : ${fib_after_stopbgp_holdtime}
++    Should not Match Regexp    ${fib_after_stopbgp_holdtime}    ${BGP_ORIGIN_TYPE}
++    ${timestamp_after_kill} =    DateTime.Get Current Date    result_format=timestamp
++    ${routes_retained_sec} =    DateTime.Subtract Date From Date    ${timestamp_after_kill}    ${timestamp_before_kill}
++    BuiltIn.Log to console    Enable ip Tables rules for communication over BGP PORT
++    ${output} =    BgpOperations.iptables enable BGP port communication    ${dcgw_ip}
++    [Teardown]    BgpOperations.iptables enable BGP port communication    ${dcgw_ip}
++
++Verify Routes intact by doing stop BGP and start BGP with HOLD Timer
++    [Documentation]    Verify routes exchange between ODL and DCGW
++    [Setup]
++    Comment    Bgp Operations.Restart thrift Processes On ODL    ${controller}
++    Sleep    60s    #to let the configuration go to qthriftd and start bgpd
++    ${output} =    BgpOperations.Check for BGP Processes On DCGW    ${dcgw_ip}
++    log    ${output}
++    ${fib_before_aclrule_enabled} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${KARAF_SHELL_PORT}
++    BuiltIn.Log to console    FIB output before ACL rules disabled, shall have prefixes learned from BGP peer: ${fib_before_aclrule_enabled}
++    Should Match Regexp    ${fib_before_aclrule_enabled}    ${BGP_ORIGIN_TYPE}
++    ${output} =    BgpOperations.iptables disable BGP port communication    ${dcgw_ip}
++    ${BGP_2KA_EXPIRYT_TIME}=    BuiltIn.Evaluate    ${BGP_KEEPALIVE_TIME} + ${BGP_KEEPALIVE_TIME}
++    BuiltIn.Log to console    Waiting for \ 2 * Keep Alive Time ${BGP_2KA_EXPIRYT_TIME}, routes shall be intact during that time
++    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ${dcgw_ip}
++    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${BGP_2KA_EXPIRYT_TIME}    1s    BgpOperations.is ODL fib contains routes from DC-Gwy    ${BGP_ORIGIN_TYPE}
++    ${output} =    BgpOperations.iptables enable BGP port communication    ${dcgw_ip}
++    Sleep    ${BGP_KEEPALIVE_TIME}
++    ${fib_after_aclrule_disabled} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${KARAF_SHELL_PORT}
++    Should Match Regexp    ${fib_after_aclrule_disabled}    ${BGP_ORIGIN_TYPE}
++    BuiltIn.Log to console    fib after ACL rules of BGP port disabled${fib_after_aclrule_disabled}
++    BuiltIn.Log to console    FIB output shall remain intact
++    Should Match    ${fib_before_aclrule_enabled}    ${fib_after_aclrule_disabled}
++    #    BgpOperations.iptables enable BGP port communication    shall be made as part of exit test case criteria
++    [Teardown]    BgpOperations.iptables enable BGP port communication    ${dcgw_ip}
++
++Verify Routes Retained until BGP GR Stale Path Timer
++    [Documentation]    Verify routes exchange between ODL and DCGW
++    [Setup]
++    Comment    Bgp Operations.Restart thrift Processes On ODL    ${controller}
++    Sleep    ${DELAY_START_BGPD_SECONDS}    #to let the configuration go to qthriftd and start bgpd
++    ${fib_before_stopbgp} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${KARAF_SHELL_PORT}
++    BuiltIn.Log to console    FIB before stop BGP called, shall contain \ routes learned from BGP peer ${fib_before_stopbgp}
++    Should Match Regexp    ${fib_before_stopbgp}    ${BGP_ORIGIN_TYPE}
++    ${timestamp_before_kill} =    DateTime.Get Current Date    result_format=timestamp
++    log    ${timestamp_before_kill}
++    ${output} =    BgpOperations.Check for BGP Processes On DCGW    ${dcgw_ip}
++    ${output} =    BgpOperations.Stop BGP Processes On DCGW    ${dcgw_ip}    KILL
++    ${BGP_WAIT_GR_STALEPATH_TIME} =    BuiltIn.Evaluate    ${BGP_GR_STALEPATH_TIME}-${BGP_KEEPALIVE_TIME} - 2
++    BuiltIn.Log to console    Waiting for timer expiry : ${BGP_WAIT_GR_STALEPATH_TIME}
++    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${BGP_WAIT_GR_STALEPATH_TIME}    1s    BgpOperations.is ODL fib contains routes from DC-Gwy    ${BGP_ORIGIN_TYPE}
++    Sleep    12
++    ${fib_after_stopbgp_grstalepathtime} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${KARAF_SHELL_PORT}
++    BuiltIn.Log to console    FIB shall NOT retain BGP routes After GR-stale path timer expirty \ ${fib_after_stopbgp_grstalepathtime}
++    Should not Match Regexp    ${fib_after_stopbgp_grstalepathtime}    ${BGP_ORIGIN_TYPE}
++    ${timestamp_after_kill} =    DateTime.Get Current Date    result_format=timestamp
++    log    ${timestamp_after_kill}
++    ${routes_retained_sec} =    DateTime.Subtract Date From Date    ${timestamp_after_kill}    ${timestamp_before_kill}
++    BuiltIn.Log to console    time taken :${routes_retained_sec}
++    [Teardown]    BgpOperations.Start BGP Processes On DCGW    ${dcgw_ip}
++
++Verify Routes intact by doing stop BGP and start BGP with GR stale path timer
++    [Documentation]    Verify routes exchange between ODL and DCGW
++    [Setup]
++    Sleep    100s    #to let the configuration go to qthriftd and start bgpd
++    ${output} =    BgpOperations.Check for BGP Processes On DCGW    ${dcgw_ip}
++    log    ${output}
++    ${fib_before_stopbgp} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${KARAF_SHELL_PORT}
++    BuiltIn.Log to console     FIB before stop bgp, shall contain prefixes from BGP peer : ${fib_before_stopbgp}
++    Should Match Regexp    ${fib_before_stopbgp}    ${BGP_ORIGIN_TYPE}
++    ${output} =    BgpOperations.Stop BGP Processes On DCGW    ${dcgw_ip}    KILL
++    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ${dcgw_ip}
++    ${BGP_2KA_EXPIRYT_TIME}=    BuiltIn.Evaluate    ${BGP_KEEPALIVE_TIME} + ${BGP_KEEPALIVE_TIME}
++    BuiltIn.Log to console    Waiting for timer expiry \ ${BGP_2KA_EXPIRYT_TIME}
++    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${BGP_2KA_EXPIRYT_TIME}    1s    BgpOperations.is ODL fib contains routes from DC-Gwy    ${BGP_ORIGIN_TYPE}
++    ${output} =    BgpOperations.Start BGP Processes On DCGW    ${dcgw_ip}
++    log    ${output}
++    ${fib_after_stopbgp}=    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${KARAF_SHELL_PORT}
++    BuiltIn.Log to console    FIB after stop bgp, shall match with fib before stop bgp.
++    should match    ${fib_after_stopbgp}    ${fib_before_stopbgp}
++    [Teardown]
++
++Verify Routes Retained by stop BGP and start BGP before HOLD Down Timer
++    [Documentation]    Verify routes exchange between ODL and DCGW
++    [Setup]
++    ${fib_before_stopbgp} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${karaf_port}
++    log    ${fib_before_stopbgp}
++    Should Match Regexp    ${fib_before_stopbgp}    ${BGP_FIB_ENTRIES_PRESENT_REGEX}
++    ${timestamp_before_kill} =    DateTime.Get Current Date    result_format=timestamp
++    log    ${timestamp_before_kill}
++    ${output} =    BgpOperations.Check for BGP Processes On DCGW    ${dcgw_ip}
++    log    ${output}
++    ${output} =    BgpOperations.Restart BGP Config On DCGW    ${dcgw_ip}    ${AS_ID}
++    log    ${output}
++    Wait Until Keyword Succeeds    1s    1s    Verify Strings In Command Output    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    " b"
++    ${timestamp_after_kill} =    DateTime.Get Current Date    result_format=timestamp
++    log    ${timestamp_after_kill}
++    ${routes_retained_sec} =    DateTime.Subtract Date From Date    ${timestamp_after_kill}    ${timestamp_before_kill}
++    log    ${routes_retained_sec}
++    Should Be Equal As Numbers    ${routes_retained_sec}    ${hold_down_time_sec}
++
++Verify Routes Retained by stop BGP and start BGP before GR StalePath Timer
++    [Documentation]    Verify routes exchange between ODL and DCGW
++    [Setup]
++    ${fib_before_stopbgp} =    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    ${controller}    ${karaf_port}
++    log    ${fib_before_stopbgp}
++    Should Match Regexp    ${fib_before_stopbgp}    ${BGP_FIB_ENTRIES_PRESENT_REGEX}
++    ${timestamp_before_kill} =    DateTime.Get Current Date    result_format=timestamp
++    log    ${timestamp_before_kill}
++    ${output} =    BgpOperations.Check for BGP Processes On DCGW    ${dcgw_ip}
++    log    ${output}
++    ${output} =    BgpOperations.Restart BGP Processes On DCGW using SIGTERM    ${dcgw_ip}
++    log    ${output}
++    Wait Until Keyword Succeeds    1s    1s    Verify Strings In Command Output    Issue_Command_On_Karaf_Console    ${FIB_SHOW}    " b"
++    ${timestamp_after_kill} =    DateTime.Get Current Date    result_format=timestamp
++    log    ${timestamp_after_kill}
++    ${routes_retained_sec} =    DateTime.Subtract Date From Date    ${timestamp_after_kill}    ${timestamp_before_kill}
++    log    ${routes_retained_sec}
++    Should Be Equal As Numbers    ${routes_retained_sec}    ${hold_down_time_sec}
++
+ *** Keywords ***
+ BGP Vpnservice Suite Setup
+-    OpenStackOperations.OpenStack Suite Setup
+-    OpenStackOperations.Create And Configure Security Group    ${SECURITY_GROUP}
+-    BgpOperations.Start Quagga Processes On ODL    ${ODL_SYSTEM_IP}
+-    BgpOperations.Start Quagga Processes On DCGW    ${DCGW_SYSTEM_IP}
+-    BgpOperations.Create Basic Configuartion for BGP VPNservice Suite
++    [Documentation]    Entering into BGP VPN service suite setup
++    SetupUtils.Setup_Utils_For_Setup_And_Teardown
++    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
++    #    DevstackUtils.Devstack Suite Setup
++    #    OpenStackOperations.Create And Configure Security Group    ${SECURITY_GROUP_BGP}
++    #    BgpOperations.Start Quagga Processes On ODL    ${ODL_SYSTEM_IP}
++    #    BgpOperations.Start BGP Processes On DCGW    ${DCGW_SYSTEM_IP}
++    #    BgpOperations.Show Quagga Configuration On ODL    ${ODL_SYSTEM_IP}    ${DCGW_RD}
++    #    Create Basic Configuartion for BGP VPNservice Suite
+ 
+ BGP Vpnservice Suite Teardown
+-    BgpOperations.Delete Basic Configuartion for BGP VPNservice Suite
+-    OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP}
+-    OpenStackOperations.OpenStack Suite Teardown
++    Delete Basic Configuartion for BGP VPNservice Suite
++    OpenStackOperations.Delete SecurityGroup    ${SECURITY_GROUP_BGP}
++    SSHLibrary.Close All Connections
+ 
+ Create Basic Configuartion for BGP VPNservice Suite
+     [Documentation]    Create basic configuration for BGP VPNservice suite
+@@ -118,21 +354,21 @@ Create Basic Configuartion for BGP VPNservice Suite
+     \    OpenStackOperations.Create SubNet    ${NETWORKS[${idx}]}    ${SUBNETS[${idx}]}    @{SUBNET_CIDR}[${idx}]
+     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${SUBNETWORK_URL}    ${SUBNETS}
+     : FOR    ${network}    ${port}    IN ZIP    ${NETWORKS}    ${PORTS}
+-    \    OpenStackOperations.Create Port    ${network}    ${port}    sg=${SECURITY_GROUP}
++    \    OpenStackOperations.Create Port    ${network}    ${port}    sg=${SECURITY_GROUP_BGP}
+     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${PORTS}
+-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{VM_NAMES}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{VM_NAMES}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
+-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{VM_NAMES}[2]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+-    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{VM_NAMES}[3]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
++    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[0]    @{VM_NAMES}[0]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP_BGP}
++    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[1]    @{VM_NAMES}[1]    ${OS_COMPUTE_1_IP}    sg=${SECURITY_GROUP_BGP}
++    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[2]    @{VM_NAMES}[2]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP_BGP}
++    OpenStackOperations.Create Vm Instance With Port On Compute Node    @{PORTS}[3]    @{VM_NAMES}[3]    ${OS_COMPUTE_2_IP}    sg=${SECURITY_GROUP_BGP}
+     @{VM_IPS}    ${DHCP_IPS} =    OpenStackOperations.Get VM IPs    @{VM_NAMES}
+     BuiltIn.Set Suite Variable    @{VM_IPS}
+     BuiltIn.Should Not Contain    ${VM_IPS}    None
+     BuiltIn.Should Not Contain    ${DHCP_IPS}    None
+-    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
++    ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
+     VpnOperations.VPN Create L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]    name=@{VPN_NAMES}[0]    rd=@{RD_LIST}[0]    exportrt=@{RD_LIST}[0]    importrt=@{RD_LIST}[0]    tenantid=${tenant_id}
+     : FOR    ${network}    IN    @{NETWORKS}
+-    \    ${network_id} =    Get Net Id    ${network}
++    \    ${network_id} =    Get Net Id    ${network}    ${devstack_conn_id}
+     \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
+     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+     BuiltIn.Log    ${resp}
+@@ -140,7 +376,7 @@ Create Basic Configuartion for BGP VPNservice Suite
+ Delete Basic Configuartion for BGP VPNservice Suite
+     [Documentation]    Delete basic configuration for BGP Vpnservice suite
+     : FOR    ${network}    IN    @{NETWORKS}
+-    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
++    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}    ${devstack_conn_id}
+     \    VpnOperations.Dissociate L3VPN From Networks    networkid=${network_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
+     VpnOperations.VPN Delete L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+     : FOR    ${vm}    IN    @{VM_NAMES}
+diff --git a/csit/variables/Variables.py b/csit/variables/Variables.py
+index e461d71..7378c22 100644
+--- a/csit/variables/Variables.py
++++ b/csit/variables/Variables.py
+@@ -7,22 +7,30 @@ Edited: Many times by many people
+ """
+ 
+ # VM Environment defaults
+-DEFAULT_LINUX_PROMPT = '>'
+-DEFAULT_LINUX_PROMPT_STRICT = ']>'
+-DEFAULT_USER = 'jenkins'
++DEFAULT_LINUX_PROMPT = '$'
++DEFAULT_LINUX_PROMPT_STRICT = '$'
++DEFAULT_USER = 'stack'
+ DEFAULT_TIMEOUT = '30s'
+ 
+ # ODL system variables
+-ODL_SYSTEM_IP = '127.0.0.1'  # Override if ODL is not running locally to pybot
++ODL_SYSTEM_IP = '192.168.122.123'  # Override if ODL is not running locally to pybot
+ ODL_SYSTEM_IP_LIST = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
+ ODL_SYSTEM_USER = DEFAULT_USER
+ ODL_SYSTEM_PASSWORD = ''  # empty means use public key authentication
+ ODL_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
++OS_CONTROL_NODE_IP = '192.168.122.123'
++OS_COMPUTE_1_IP = '192.168.122.123'
++OS_COMPUTE_2_IP = '192.168.122.124'
++OS_USER = 'stack'
++USER_HOME = '/home/stack'
++NUM_ODL_SYSTEM = 1
++NUM_OS_SYSTEM = 1
++
+ 
+ # "Tools" system variables (mininet etc).
+-TOOLS_SYSTEM_IP = '127.0.0.1'  # Override if tools are not run locally to pybot
+-TOOLS_SYSTEM_USER = DEFAULT_USER
+-TOOLS_SYSTEM_PASSWORD = ''  # empty means use public key authentication
++TOOLS_SYSTEM_IP = '192.168.122.172'  # Override if tools are not run locally to pybot
++TOOLS_SYSTEM_USER = 'stack' 
++TOOLS_SYSTEM_PASSWORD = 'stack'  # empty means use public key authentication
+ TOOLS_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
+ 
+ # KARAF Variables
+diff --git a/csit/variables/Variables.robot b/csit/variables/Variables.robot
+index 1812f0c..1f54ced 100644
+--- a/csit/variables/Variables.robot
++++ b/csit/variables/Variables.robot
+@@ -27,7 +27,7 @@ Documentation     Resource consisting purely of variable definitions useful for
+ ${ALERTFIELDCONTENTRULERECORD}    /restconf/config/alertrule:alertFieldContentRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
+ ${ALERTFIELDVALUERULERECORD}    /restconf/config/alertrule:alertFieldValueRuleRecord    # FIXME: Move to a separate Centinel-related Resource and add description.
+ ${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
+-@{AUTH}           ${ODL_RESTCONF_USER}    ${ODL_RESTCONF_PASSWORD}    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
++@{AUTH}           admin    admin    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
+ @{AUTH_SDN}       sdnadmin    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
+ @{AUTH_SDN_DOMAIN}    sdnadmin@sdn    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
+ @{AUTH_SDN_WRONG_DOM}    sdnadmin@wrong    sdnsdn    # Authentication tuple for accessing ODL RESTCONF server with Keystone Authentication
+@@ -56,13 +56,13 @@ ${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_PATHPOLICY_TOPOL
+ ${CREATE_VLAN_TOPOLOGY_FILE}    vlan_vtn_test.py    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
+ ${CREATE_VLAN_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_VLAN_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
+ ${CUSTOMPROP}     /tmp/${BUNDLEFOLDER}/etc/custom.properties    # Full path of custom.properties file
+-${DEFAULT_LINUX_PROMPT}    >    # Generic *_SYSTEM prompt for SSHLibrary.Read_Unti_Prompt. Current value is there for historic reasons. FIXME: Add -v to releng/builder and change this value to more common "$" (without quotes, with backslash). TODO: Replace usage with the strict version.
+-${DEFAULT_LINUX_PROMPT_STRICT}    ]>    # A more strict prompt substring, this only matches Bash prompt, not Mininet prompt.
++${DEFAULT_LINUX_PROMPT}    $    # Generic *_SYSTEM prompt for SSHLibrary.Read_Unti_Prompt. Current value is there for historic reasons. FIXME: Add -v to releng/builder and change this value to more common "$" (without quotes, with backslash). TODO: Replace usage with the strict version.
++${DEFAULT_LINUX_PROMPT_STRICT}    $    # A more strict prompt substring, this only matches Bash prompt, not Mininet prompt.
+ ${DEFAULT_BGPCEP_LOG_LEVEL}    ${DEFAULT_ODL_LOG_LEVEL}    # Fallback Karaf log level specific to org.opendaylight.bgpcep.
+ ${DEFAULT_ODL_LOG_LEVEL}    INFO    # Some suites allow to change overall Karaf log level, this is the default value to set or fall back.
+ ${DEFAULT_PASSWORD}    ${EMPTY}    # Generic *_SYSTEM linux password. If empty, SSHLibrary.Login_With_Public_Key is attempted instead of SSHLibrary.Login. TODO: Rename to DEFAULT_LINUX_PASSWORD.
+ ${DEFAULT_PROTOCOL_LOG_LEVEL}    ${DEFAULT_ODL_LOG_LEVEL}    # Fallback Karaf log level specific to org.opendaylight.protocol.
+-${DEFAULT_USER}    jenkins    # Generic *_SYSTEM linux user name name. TODO: Rename to DEFUALT_LINUX_USER. FIXME: Add -v to releng/builder and change the value to something more common, e.g. "vagrant".
++${DEFAULT_USER}    stack    # Generic *_SYSTEM linux user name name. TODO: Rename to DEFUALT_LINUX_USER. FIXME: Add -v to releng/builder and change the value to something more common, e.g. "vagrant".
+ ${DEFAULT_TIMEOUT}    30s    # Generic *_SYSTEM SSH.Login timeout. Some systems are slow to authenticate.
+ ${DELETE_DASHBOARDRECORD}    /restconf/operations/dashboardrule:delete-dashboard    # FIXME: Move to a separate Centinel-related Resource and add description.
+ ${ELASTICPORT}    9200    # Port to use when interacting with ElasticSearch. FIXME: Hide into a specific Resource.
+@@ -170,7 +170,7 @@ ${STREAMRECORD_CONFIG}    /restconf/config/stream:streamRecord    # FIXME: Move
+ ${STRUCTURE_INTENT_URI}    /restconf/operations/nemo-intent:structure-style-nemo-update    # FIXME: Move to a separate Nemo-related Resource and add description.
+ ${SUBSCRIPTION}    /restconf/config/subscribe:subscription/    # FIXME: Move to a separate Centinel-related Resource and add description.
+ ${SW}             switches    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
+-${TOOLS_SYSTEM_1_IP}    127.0.0.1    # IP address of first system hosting testing tools.
++${TOOLS_SYSTEM_1_IP}    192.168.122.172    # IP address of first system hosting testing tools.
+ ${TOOLS_SYSTEM_2_IP}    127.0.0.2    # IP address of second system hosting testing tools.
+ ${TOOLS_SYSTEM_3_IP}    127.0.0.3    # IP address of third system hosting testing tools.
+ ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}    # IP address of primary system hosting testing tools.
+-- 
+2.7.4
+
