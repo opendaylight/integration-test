@@ -16,6 +16,24 @@
       "revId": "ace290ace746f1f0b943a5cc5d1d6849604b9787",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5391ed8b_8d3a7181",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2029
+      },
+      "writtenOn": "2018-01-16T14:07:13Z",
+      "side": 1,
+      "message": "Thanks, will fix this on my next patch, which is:\nhttps://git.opendaylight.org/gerrit/#/c/67173/",
+      "parentUuid": "a612fb4b_9c10b10e",
+      "revId": "ace290ace746f1f0b943a5cc5d1d6849604b9787",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
