@@ -32,10 +32,10 @@ Issue_Command_On_Karaf_Console
     [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=10    ${loglevel}=INFO
     [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${controller}
     ...    Note that this keyword will open&close new SSH connection, without switching back to previously current session.
-    SSHLibrary.Open_Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
+    SSHLibrary.Open_Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT_LOGIN}    timeout=${timeout}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
     SSHLibrary.Write    ${cmd}
-    ${output}    SSHLibrary.Read_Until    ${KARAF_PROMPT}
+    ${output}    SSHLibrary.Read_Until_Regexp    ${KARAF_PROMPT}
     SSHLibrary.Close_Connection
     BuiltIn.Log    ${output}
     [Return]    ${output}
@@ -89,7 +89,7 @@ Install_A_Feature_Using_Active_Connection
     [Documentation]    Will Install the given ${feature_name} using active connection
     ${cmd} =    BuiltIn.Set_Variable    feature:install ${feature_name}
     SSHLibrary.Write    ${cmd}
-    ${output}    SSHLibrary.Read_Until    ${KARAF_PROMPT}
+    ${output}    SSHLibrary.Read_Until_Regexp    ${KARAF_PROMPT}
     BuiltIn.Log    ${output}
     [Return]    ${output}
 
@@ -113,7 +113,7 @@ Open_Controller_Karaf_Console_On_Background
     BuiltIn.Run_Keyword_If    '${status}'=='PASS'    BuiltIn.Run_Keywords    SSHLibrary.Switch_Connection    ${old_connection_index}
     ...    AND    SSHLibrary.Close_Connection
     ${odl_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${member_index}
-    SSHLibrary.Open_Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}    timeout=${timeout}
+    SSHLibrary.Open_Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT_LOGIN}    timeout=${timeout}
     ${karaf_connection_object} =    SSHLibrary.Get_Connection
     Collections.Set_To_Dictionary    ${connection_index_dict}    ${member_index}    ${karaf_connection_object.index}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
@@ -124,7 +124,7 @@ Open_Controller_Karaf_Console_With_Timeout
     [Documentation]    Open new connection to karaf console for member index with specified timeout.
     BuiltIn.Log    ${member_index}
     ${odl_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${member_index}
-    SSHLibrary.Open_Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}    timeout=${timeout}
+    SSHLibrary.Open_Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT_LOGIN}    timeout=${timeout}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
 
 Configure_Timeout_For_Karaf_Console
@@ -144,7 +144,7 @@ Execute_Controller_Karaf_Command_On_Background
     ${karaf_connection_index} =    Collections.Get_From_Dictionary    ${connection_index_dict}    ${member_index}
     ${current_connection_index} =    SSHLibrary.Switch_Connection    ${karaf_connection_index}
     ${status_write}    ${message_write} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Write    ${command}
-    ${status_wait}    ${message_wait} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
+    ${status_wait}    ${message_wait} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Regexp    ${KARAF_PROMPT}
     BuiltIn.Run Keyword If    '${status_write}' != 'PASS'    BuiltIn.Fail    Failed to send the command: ${command}
     BuiltIn.Log    ${message_wait}
     BuiltIn.Run_Keyword_If    '${status_wait}' != 'PASS'    BuiltIn.Fail    Failed to see prompt after sending the command: ${command}
@@ -198,7 +198,7 @@ Wait_For_Karaf_Log
     # keyword used before this "Wait For Karaf Log" keyword was closing the karaf console connection, so the
     # "Flexible SSH Login" keyword from the patch above (45596) was failing.
     BuiltIn.Log    Waiting for '${message}' in karaf log
-    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=${timeout}
+    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT_LOGIN}    timeout=${timeout}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
     SSHLibrary.Write    log:tail
     SSHLibrary.Read_Until    ${message}
