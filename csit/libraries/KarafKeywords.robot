@@ -35,7 +35,7 @@ Issue_Command_On_Karaf_Console
     SSHLibrary.Open_Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
     SSHLibrary.Write    ${cmd}
-    ${output}    SSHLibrary.Read_Until    ${KARAF_PROMPT}
+    ${output}    SSHLibrary.Read_Until_Regexp    ${KARAF_PROMPT}
     SSHLibrary.Close_Connection
     BuiltIn.Log    ${output}
     [Return]    ${output}
@@ -89,7 +89,7 @@ Install_A_Feature_Using_Active_Connection
     [Documentation]    Will Install the given ${feature_name} using active connection
     ${cmd} =    BuiltIn.Set_Variable    feature:install ${feature_name}
     SSHLibrary.Write    ${cmd}
-    ${output}    SSHLibrary.Read_Until    ${KARAF_PROMPT}
+    ${output}    SSHLibrary.Read_Until_Regexp    ${KARAF_PROMPT}
     BuiltIn.Log    ${output}
     [Return]    ${output}
 
@@ -144,7 +144,7 @@ Execute_Controller_Karaf_Command_On_Background
     ${karaf_connection_index} =    Collections.Get_From_Dictionary    ${connection_index_dict}    ${member_index}
     ${current_connection_index} =    SSHLibrary.Switch_Connection    ${karaf_connection_index}
     ${status_write}    ${message_write} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Write    ${command}
-    ${status_wait}    ${message_wait} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
+    ${status_wait}    ${message_wait} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Regexp    ${KARAF_PROMPT}
     BuiltIn.Run Keyword If    '${status_write}' != 'PASS'    BuiltIn.Fail    Failed to send the command: ${command}
     BuiltIn.Log    ${message_wait}
     BuiltIn.Run_Keyword_If    '${status_wait}' != 'PASS'    BuiltIn.Fail    Failed to see prompt after sending the command: ${command}
