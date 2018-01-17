@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "505f27d0_3f9ce9b8",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-17T22:25:24Z",
+      "side": 1,
+      "message": "I think this file has to change same as .robot.",
+      "revId": "2e97ec48272499e942792d1512ad7878b25d852d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55d67e97_8a1d1263",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-17T22:25:24Z",
+      "side": 1,
+      "message": "It seems like ${KARAF_DETAILED_PROMPT} is used for login while ${KARAF_PROMPT} is used for Read_until. If this is true I would change the former ${KARAF_DETAILED_PROMPT} to simply \"root\" as I do not think regexp is used in Login and something simple like \"root\" should not cause problem if we are just login in the system, other option is to totally remove this variable and set a delay parameter as documented in SSH library.",
+      "revId": "2e97ec48272499e942792d1512ad7878b25d852d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
