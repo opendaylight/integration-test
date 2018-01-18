@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for Inventory Scalability
+Documentation     Test suite for Genius Modules
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           SSHLibrary
