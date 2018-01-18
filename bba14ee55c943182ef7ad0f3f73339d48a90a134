@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78135457_642242c0",
+        "filename": "csit/variables/genius/Modules.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-18T17:32:54Z",
+      "side": 1,
+      "message": "can you move these before itm-state to keep it in order? Same for the other models.",
+      "revId": "bba14ee55c943182ef7ad0f3f73339d48a90a134",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
