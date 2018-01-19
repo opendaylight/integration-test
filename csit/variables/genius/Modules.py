@@ -14,3 +14,11 @@ bfd_data_models = [
     'operational/network-topology:network-topology',
     'operational/odl-interface-meta:bridge-ref-info',
 ]
+
+new_itm_data_models = [
+    'config/itm-tep:tunnel-zones',
+    'config/network-topology:network-topology/topology/ovsdb:1',
+    'config/opendaylight-inventory:nodes',
+    'operational/itm-tep:tep-states',
+    'operational/network-topology:network-topology/topology/ovsdb:1',
+]

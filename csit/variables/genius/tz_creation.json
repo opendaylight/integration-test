@@ -1,0 +1,20 @@
+{
+        "tunnel-zone": [
+            {
+                "tunnel-zone-name": "TZA",
+                "vteps": [
+                    {
+                        "node-id": "ovsdb://uuid/OvsUuid1/bridge/Bridge1",
+                        "ip-address": "2.2.2.2",
+                        "vtep-node-id-type":"node-id-type-ovsdb"
+                    },
+                    {
+                        "node-id": "ovsdb://uuid/OvsUuid2/bridge/Bridge2",
+                        "ip-address": "3.3.3.3",
+                        "vtep-node-id-type":"node-id-type-ovsdb"
+                    }
+                ],
+                "tunnel-type": "odl-interface:tunnel-type-vxlan"
+            }
+        ]
+}

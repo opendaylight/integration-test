@@ -63,3 +63,15 @@ Delete All Sessions
     Log    ${output}
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Log    ${output}
+
+Create New Vteps
+    [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
+    [Documentation]    This keyword creates VTEPs between ${TOOLS_SYSTEM_IP} and ${TOOLS_SYSTEM_2_IP}
+    ${body}    OperatingSystem.Get File    ${genius_config_dir}tz_creation.json
+    ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
+    *** ${body}    Set Json    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}    ${subnet}
+    ${vtep_body}    Set Variable    ${body}
+    Set Global Variable    ${vtep_body}
+    ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/itm-tep:tunnel-zones/    data=${body}
+    Log    ${resp.status_code}
+    should be equal as strings    ${resp.status_code}    204
