@@ -16,6 +16,24 @@
       "revId": "bba14ee55c943182ef7ad0f3f73339d48a90a134",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e8933b5_4ceeca11",
+        "filename": "csit/variables/genius/Modules.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-01-19T07:58:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78135457_642242c0",
+      "revId": "bba14ee55c943182ef7ad0f3f73339d48a90a134",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
