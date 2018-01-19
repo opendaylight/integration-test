@@ -22,6 +22,30 @@
       "revId": "cb956b61fb224325a5206509d511498993330468",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f0736ce_cb0585f7",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-01-19T06:02:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c83e930_7666ba99",
+      "range": {
+        "startLine": 77,
+        "startChar": 23,
+        "endLine": 77,
+        "endChar": 56
+      },
+      "revId": "cb956b61fb224325a5206509d511498993330468",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
