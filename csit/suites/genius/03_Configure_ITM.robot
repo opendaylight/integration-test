@@ -2,7 +2,7 @@
 Documentation     Test Suite for ITM
 Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
-Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${bfd_data_models}
+Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
