@@ -145,9 +145,7 @@ List Ports
 
 List Nova VMs
     [Documentation]    List VMs and return output with nova client.
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server list --all-projects
-    Log    ${output}
-    Should Be True    '${rc}' == '0'
+    ${output}=    OpenStack CLI    openstack server list --all-projects
     [Return]    ${output}
 
 Create And Associate Floating IPs
@@ -162,9 +160,7 @@ Create And Associate Floating IPs
     \    ${ip_length}    Get Length    ${ip}
     \    Run Keyword If    ${ip_length}>0    Append To List    ${ip_list}    @{ip}[0]
     \    ...    ELSE    Append To List    ${ip_list}    None
-    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server add floating ip ${vm} @{ip}[0]
-    \    Log    ${output}
-    \    Should Be True    '${rc}' == '0'
+    \    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
     [Return]    ${ip_list}
 
 Delete Floating IP
@@ -208,8 +204,7 @@ Verify No Gateway Ips
 Delete Vm Instance
     [Arguments]    ${vm_name}
     [Documentation]    Delete Vm instances using instance names.
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server delete ${vm_name}
-    Log    ${output}
+    OpenStack CLI    openstack server delete ${vm_name}
 
 Get Net Id
     [Arguments]    ${network_name}
@@ -254,26 +249,21 @@ Create Vm Instances
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${net_id}=    Get Net Id    ${net_name}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg} --min ${min} --max ${max}
-    \    Should Be True    '${rc}' == '0'
-    \    Log    ${output}
+    \    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-group ${sg} --min ${min} --max ${max}
 
 Create Vm Instance On Compute Node
     [Arguments]    ${net_name}    ${vm_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create a VM instance on a specific compute node.
     ${image} =    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${net_id} =    Get Net Id    ${net_name}
-    ${rc}    ${output} =    Run And Return Rc And Output    openstack server create ${vm_name} --image ${image} --flavor ${flavor} --nic net-id=${net_id} --security-group ${sg} --availability-zone nova:${node_hostname}
-    Should Not Be True    ${rc}
-    Log    ${output}
+    OpenStack CLI    openstack server create ${vm_name} --image ${image} --flavor ${flavor} --nic net-id=${net_id} --security-group ${sg} --availability-zone nova:${node_hostname}
 
 Create Vm Instance With Port
     [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-group ${sg}
-    Log    ${output}
+    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-group ${sg}
 
 Create Vm Instance With Ports
     [Arguments]    ${port_name}    ${port2_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
@@ -281,18 +271,14 @@ Create Vm Instance With Ports
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}
     ${port2_id}=    Get Port Id    ${port2_name}
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-group ${sg}
-    Log    ${output}
-    Should Be True    '${rc}' == '0'
+    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-group ${sg}
 
 Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${node_hostname} ${vm_instance_name}
-    Log    ${output}
-    Should Be True    '${rc}' == '0'
+    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${node_hostname} ${vm_instance_name}
 
 Get Hypervisor Hostname From IP
     [Arguments]    ${hypervisor_ip}
@@ -314,8 +300,7 @@ Create Nano Flavor
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server show ${vm_name} | grep OS-EXT-STS:vm_state
-    Should Be True    '${rc}' == '0'
+    ${output}=    OpenStack CLI    openstack server show ${vm_name} | grep OS-EXT-STS:vm_state
     Should Contain    ${output}    active
 
 Poll VM Is ACTIVE
@@ -407,9 +392,7 @@ Collect VM IPv6 SLAAC Addresses
     ...    Otherwise, returns a list of IPv6 addresses.
     ${ipv6_list}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
-    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server show ${vm} -f shell
-    \    Log    ${output}
-    \    Should Be True    '${rc}' == '0'
+    \    ${output}=    OpenStack CLI    openstack server show ${vm} -f shell
     \    ${pattern}=    Replace String    ${subnet}    ::/64    (:[a-f0-9]{,4}){,4}
     \    @{vm_ipv6}=    Get Regexp Matches    ${output}    ${pattern}
     \    ${vm_ip_length}    Get Length    ${vm_ipv6}[0]
@@ -425,9 +408,7 @@ View Vm Console
     [Arguments]    ${vm_instance_names}
     [Documentation]    View Console log of the created vm instances using nova show.
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server show ${VmElement}
-    \    Log    ${output}
-    \    Should Be True    '${rc}' == '0'
+    \    OpenStack CLI    openstack server show ${VmElement}
     \    ${rc}    ${output}=    Run And Return Rc And Output    openstack console log show ${VmElement}
     \    Log    ${output}
     \    Should Be True    '${rc}' == '0'
@@ -972,15 +953,13 @@ Create And Configure Security Group
 Add Security Group To VM
     [Arguments]    ${vm}    ${sg}
     [Documentation]    Add the security group provided to the given VM.
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server add security group ${vm} ${sg}
-    Log    ${output}
-    Should Be True    '${rc}' == '0'
+    ${output}=    OpenStack CLI    openstack server add security group ${vm} ${sg}
 
 Remove Security Group From VM
     [Arguments]    ${vm}    ${sg}
     [Documentation]    Remove the security group provided to the given VM.
     Get ControlNode Connection
-    ${output}=    Write Commands Until Prompt And Log    openstack server remove security group ${vm} ${sg}
+    OpenStack CLI    openstack server remove security group ${vm} ${sg}
 
 Create SFC Flow Classifier
     [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${dest_port}    ${neutron_src_port}
@@ -1065,9 +1044,7 @@ Delete SFC Port Chain
 Reboot Nova VM
     [Arguments]    ${vm_name}
     [Documentation]    Reboot NOVA VM
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack server reboot --wait ${vm_name}
-    Log    ${output}
-    Should Be True    '${rc}' == '0'
+    OpenStack CLI    openstack server reboot --wait ${vm_name}
     Wait Until Keyword Succeeds    35s    10s    Verify VM Is ACTIVE    ${vm_name}
 
 Remove RSA Key From KnownHosts
@@ -1121,7 +1098,7 @@ OpenStack CLI Get List
 OpenStack CLI
     [Arguments]    ${cmd}
     [Documentation]    Run the given OpenStack ${cmd}.
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd} 2> /dev/null
     BuiltIn.Log    ${output}
     Should Be True    '${rc}' == '0'
     [Return]    ${output}
