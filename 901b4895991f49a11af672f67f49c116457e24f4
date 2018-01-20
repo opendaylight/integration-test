@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d42de2c_ade5690c",
+        "filename": "csit/variables/genius/Modules.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-01-20T03:46:14Z",
+      "side": 1,
+      "message": "change to network-topology:network-topology/topology/ovsdb:1. this will help filter out flow:1 which is duplicate of inventory and just bloats up log files.",
+      "revId": "901b4895991f49a11af672f67f49c116457e24f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70417ce7_d7d63034",
+        "filename": "csit/variables/genius/Modules.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-01-20T03:46:14Z",
+      "side": 1,
+      "message": "same as above",
+      "revId": "901b4895991f49a11af672f67f49c116457e24f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
