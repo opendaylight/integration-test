@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import gerritquery
+import logging
 import os
 import re
 import sys
@@ -39,6 +40,19 @@ See the License for the specific language governing permissions and
 limitations under the License."""
 
 
+logger = logging.getLogger("changes")
+logger.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(levelname).4s - %(name)s - %(lineno)04d - %(message)s')
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+fh = logging.FileHandler("/tmp/changes.txt", "w")
+fh.setLevel(logging.DEBUG)
+fh.setFormatter(formatter)
+logger.addHandler(fh)
+
+
 class ChangeId(object):
     def __init__(self, changeid, merged):
         self.changeid = changeid
@@ -52,7 +66,7 @@ class Changes(object):
     NETVIRT_PROJECTS = ["netvirt", "controller", "dlux", "dluxapps", "genius", "infrautils", "mdsal", "netconf",
                         "neutron", "odlparent", "openflowplugin", "ovsdb", "sfc", "yangtools"]
     PROJECT_NAMES = NETVIRT_PROJECTS
-    VERBOSE = 0
+    VERBOSE = logging.INFO
     DISTRO_PATH = "/tmp/distribution-karaf"
     DISTRO_URL = None
     REMOTE_URL = gerritquery.GerritQuery.REMOTE_URL
@@ -70,6 +84,9 @@ class Changes(object):
     remote_url = REMOTE_URL
     verbose = VERBOSE
     projects = {}
+    regex_changeid = None
+    regex_shortmsg = None
+    regex_longmsg = None
 
     def __init__(self, branch=BRANCH, distro_path=DISTRO_PATH,
                  limit=LIMIT, qlimit=QUERY_LIMIT,
@@ -83,6 +100,17 @@ class Changes(object):
         self.remote_url = remote_url
         self.verbose = verbose
         self.projects = {}
+        self.set_log_level(verbose)
+        self.regex_changeid = re.compile(r'\bI([a-f0-9]{40})\b|\bI([a-f0-9]{8})\b')
+        # self.regex_shortmsg = re.compile(r'"([^"]*)"|(git.commit.message.short=(.*))')
+        self.regex_shortmsg1 = re.compile(r'(git.commit.message.short=.*"([^"]*)")')
+        self.regex_shortmsg2 = re.compile(r'(git.commit.message.short=(.*))')
+        self.regex_longmsg = re.compile(r'git.commit.message.full=(.*)')
+        self.regex_commitid = re.compile(r'(git.commit.id=(.*))')
+
+    @staticmethod
+    def set_log_level(level):
+        ch.setLevel(level)
 
     def epoch_to_utc(self, epoch):
         utc = time.gmtime(epoch)
@@ -120,9 +148,7 @@ class Changes(object):
         """
         Download the distribution from self.distro_url and extract it to self.distro_path
         """
-        if self.verbose >= 2:
-            print("attempting to download distribution from %s and extract to %s " %
-                  (self.distro_url, self.distro_path))
+        logger.info("attempting to download distribution from %s and extract to %s", self.distro_url, self.distro_path)
 
         tmp_distro_zip = '/tmp/distro.zip'
         tmp_unzipped_location = '/tmp/distro_unzipped'
@@ -148,9 +174,9 @@ class Changes(object):
         try:
             os.rename(tmp_unzipped_location + "/" + unzipped_distro_folder[0], self.distro_path)
         except OSError as e:
-            print(e)
-            print("Unable to move extracted files from %s to %s. Using whatever bits are already there" %
-                  (tmp_unzipped_location, self.distro_path))
+            logger.warn(e)
+            logger.warn("Unable to move extracted files from %s to %s. Using whatever bits are already there",
+                        tmp_unzipped_location, self.distro_path)
 
     def get_includes(self, project, changeid=None, msg=None, merged=True):
         """
@@ -167,7 +193,7 @@ class Changes(object):
         else:
             includes = self.gerritquery.get_gerrits(project, changeid, 1, None, None, True)
         if not includes:
-            print("Review %s in %s:%s was not found" % (changeid, project, self.gerritquery.branch))
+            logger.info("Review %s in %s:%s was not found", changeid, project, self.gerritquery.branch)
             return None
 
         gerrits = self.gerritquery.get_gerrits(project, changeid=None, limit=self.qlimit, msg=msg, status="merged")
@@ -185,7 +211,7 @@ class Changes(object):
                 break
 
         if len(includes) != self.limit + 1:
-            print("%s query limit was not large enough to capture %d gerrits" % (project, self.limit))
+            logger.info("%s query limit was not large enough to capture %d gerrits", project, self.limit)
 
         return includes
 
@@ -223,62 +249,102 @@ class Changes(object):
         :param str pfile: String containing the content of the git.properties file
         :return ChangeId: The Change-Id with a valid Change-Id or None if not found
         """
+        logger.info("trying Change-Id from git.properties in %s", project)
         # match a 40 or 8 char Change-Id hash. both start with I
-        regex = re.compile(r'\bI([a-f0-9]{40})\b|\bI([a-f0-9]{8})\b')
-        changeid = regex.search(pfile)
+        changeid = self.regex_changeid.search(pfile)
         if changeid:
-            if self.verbose >= 1:
-                print("trying Change-Id as merged in %s" % (project))
+            logger.info("trying Change-Id from git.properties as merged in %s: %s", project, changeid.group())
 
             gerrits = self.gerritquery.get_gerrits(project, changeid.group(), 1, None, status="merged")
             if gerrits:
+                logger.info("found Change-Id from git.properties as merged in %s", project)
                 return ChangeId(changeid.group(), True)
 
             # Maybe this is a patch that has not merged yet
-            if self.verbose >= 1:
-                print("did not find Change-Id as merged in %s, trying as unmerged" % project)
+            logger.info("did not find Change-Id from git.properties as merged in %s, trying as unmerged: %s",
+                        project, changeid.group())
 
             gerrits = self.gerritquery.get_gerrits(project, changeid.group(), 1, None, status=None, comments=True)
             if gerrits:
+                logger.info("found Change-Id from git.properties as unmerged in %s", project)
                 return ChangeId(gerrits[0]["id"], False)
+
+        logger.info("did not find Change-Id from git.properties in %s, trying commitid", project)
+
+        # match a 40 or 8 char Change-Id hash. both start with I
+        commitid = self.regex_commitid.search(pfile)
+        if commitid and commitid.group(2):
+            logger.info("trying commitid from git.properties in %s: %s", project, commitid.group(2))
+
+            gerrits = self.gerritquery.get_gerrits(project, commitid=commitid.group(2))
+            if gerrits:
+                logger.info("found Change-Id from git.properties as unmerged in %s", project)
+                return ChangeId(gerrits[0]["id"], True)
+
+        logger.info("did not find Change-Id from commitid from git.properties in %s, trying short commit message1",
+                    project)
 
         # Didn't find a Change-Id so try to get a commit message
         # match on "blah" but only keep the blah
-        regex_msg = re.compile(r'"([^"]*)"|^git.commit.message.short=(.*)$')
-        msg = regex_msg.search(pfile)
-        if msg:
-            if self.verbose >= 1:
-                print("did not find Change-Id in %s, trying with commit-msg: %s" % (project, msg.group()))
+        msg = self.regex_shortmsg1.search(pfile)
+        if msg and msg.group(2):
+            # logger.info("msg.groups 0: %s, 1: %s, 2: %s", msg.group(), msg.group(1), msg.group(2))
+            logger.info("trying with short commit-msg 1 from git.properties in %s: %s", project, msg.group(2))
 
-            gerrits = self.gerritquery.get_gerrits(project, None, 1, msg.group())
+            gerrits = self.gerritquery.get_gerrits(project, msg=msg.group(2))
             if gerrits:
+                logger.info("found Change-Id from git.properties short commit-msg 1 in %s", project)
                 return ChangeId(gerrits[0]["id"], True)
 
-            msg_no_spaces = msg.group().replace(" ", "+")
-            if self.verbose >= 1:
-                print("did not find Change-Id in %s, trying with commit-msg (no spaces): %s" % (project, msg_no_spaces))
+            msg_no_spaces = msg.group(2).replace(" ", "+")
+            logger.info("did not find Change-Id in %s, trying with commit-msg 1 (no spaces): %s",
+                        project, msg_no_spaces)
 
-            gerrits = self.gerritquery.get_gerrits(project, None, 1, msg_no_spaces)
+            gerrits = self.gerritquery.get_gerrits(project, msg=msg_no_spaces)
             if gerrits:
+                logger.info("found Change-Id from git.properties short commit-msg 1 (no spaces) in %s", project)
                 return ChangeId(gerrits[0]["id"], True)
+
+        logger.info("did not find Change-Id from short commit message1 from git.properties in %s", project)
+
+        # Didn't find a Change-Id so try to get a commit message
+        # match on "blah" but only keep the blah
+        msg = self.regex_shortmsg2.search(pfile)
+        if msg and msg.group(2):
+            logger.info("trying with short commit-msg 2 from git.properties in %s: %s", project, msg.group(2))
+
+            gerrits = self.gerritquery.get_gerrits(project, msg=msg.group(2))
+            if gerrits:
+                logger.info("found Change-Id from git.properties short commit-msg 2 in %s", project)
+                return ChangeId(gerrits[0]["id"], True)
+
+            msg_no_spaces = msg.group(2).replace(" ", "+")
+            logger.info("did not find Change-Id in %s, trying with commit-msg 2 (no spaces): %s",
+                        project, msg_no_spaces)
+
+            gerrits = self.gerritquery.get_gerrits(project, msg=msg_no_spaces)
+            if gerrits:
+                logger.info("found Change-Id from git.properties short commit-msg 2 (no spaces) in %s", project)
+                return ChangeId(gerrits[0]["id"], True)
+
+        logger.info("did not find Change-Id from short commit message2 from git.properties in %s", project)
 
         # Maybe one of the monster 'merge the world' gerrits
-        regex_msg = re.compile(r'git.commit.message.full=(.*)')
-        msg = regex_msg.search(pfile)
+        msg = self.regex_longmsg.search(pfile)
         first_msg = None
         if msg:
             lines = str(msg.group()).split("\\n")
             cli = next((i for i, line in enumerate(lines[:-1]) if '* changes\\:' in line), None)
             first_msg = lines[cli + 1] if cli else None
         if first_msg:
-            if self.verbose >= 1:
-                print("did not find Change-Id or commit-msg in %s, trying with merge commit-msg: %s"
-                      % (project, first_msg))
+            logger.info("did not find Change-Id or short commit-msg in %s, trying with merge commit-msg: %s",
+                        project, first_msg)
             gerrits = self.gerritquery.get_gerrits(project, None, 1, first_msg)
             if gerrits:
+                logger.info("found Change-Id from git.properties merge commit-msg in %s", project)
                 return ChangeId(gerrits[0]["id"], True)
 
-        print("did not find Change-Id for %s" % project)
+        logger.warn("did not find Change-Id for %s" % project)
 
         return ChangeId(None, False)
 
@@ -302,12 +368,12 @@ class Changes(object):
                         if changeid.changeid:
                             return changeid
                         else:
-                            print("Could not find %s Change-Id in git.properties" % project)
+                            logger.warn("Could not find %s Change-Id in git.properties", project)
                             break  # all jars will have the same git.properties
             if pfile is not None:
                 break  # all jars will have the same git.properties
         if pfile is None:
-            print("Could not find a git.properties file for %s" % project)
+            logger.warn("Could not find a git.properties file for %s", project)
         return ChangeId(None, False)
 
     def init(self):
@@ -341,8 +407,7 @@ class Changes(object):
             self.download_distro()
 
         for project in sorted(self.projects):
-            if self.verbose >= 1:
-                print("Processing %s" % project)
+            logger.info("Processing %s",  project)
             changeid = self.find_distro_changeid(project)
             if changeid.changeid:
                 self.projects[project]['commit'] = changeid.changeid
@@ -411,9 +476,9 @@ def main():
             u = unicode(e)
         except NameError:
             # Python 3, we"re home free.
-            print(e)
+            logger.warn(e)
         else:
-            print(u.encode("utf-8"))
+            logger.warn(u.encode("utf-8"))
             raise
         sys.exit(getattr(e, "EXIT_CODE", -1))
 

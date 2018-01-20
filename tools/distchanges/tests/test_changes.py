@@ -2,6 +2,7 @@
 
 # TODO: Add more tests here using all the tests/resources/* and automate those tests in a verify job
 
+import logging
 import unittest
 import distcompare
 from changes import Changes
@@ -11,7 +12,7 @@ NETVIRT_PROJECTS = ["controller", "dlux", "dluxapps", "genius", "infrautils", "m
                     "neutron", "odlparent", "openflowplugin", "ovsdb", "sfc", "yangtools"]
 PROJECT_NAMES = NETVIRT_PROJECTS
 DISTRO_PATH = "/tmp/distribution-karaf"
-BRANCH = 'master'
+BRANCH = 'stable/nitrogen'
 LIMIT = 10
 QLIMIT = 50
 
@@ -28,14 +29,14 @@ class TestChanges(unittest.TestCase):
         changes.pretty_print_projects(projects)
 
     def test_run_cmd_single(self):
-        project_names = ['neutron']
+        project_names = ['odlparent']
         branch = BRANCH
-        self.run_cmd(branch, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL, 1)
+        self.run_cmd(branch, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL, logging.INFO)
 
     def test_run_cmd_multiple(self):
         project_names = PROJECT_NAMES
         branch = BRANCH
-        self.run_cmd(branch, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL, 1)
+        self.run_cmd(branch, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL, logging.INFO)
 
     def test_pretty_print(self):
         project_names = PROJECT_NAMES
