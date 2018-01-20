@@ -3,6 +3,7 @@ This module contains functions to manipulate gerrit queries.
 """
 import datetime
 import json
+import logging
 import os
 import re
 import shlex
@@ -27,6 +28,9 @@ else:
     urljoin = urllib.parse.urljoin
     urlparse = urllib.parse.urlparse
     do_input = input
+
+
+logger = logging.getLogger("changes.gerritquery")
 
 
 class GitReviewException(Exception):
@@ -61,7 +65,6 @@ class GerritQuery:
     remote_url = REMOTE_URL
     branch = BRANCH
     query_limit = QUERY_LIMIT
-    verbose = 0
 
     def __init__(self, remote_url, branch, query_limit, verbose):
         self.remote_url = remote_url
@@ -69,21 +72,18 @@ class GerritQuery:
         self.query_limit = query_limit
         self.verbose = verbose
 
-    def set_verbose(self, verbose):
-        self.verbose = verbose
-
     @staticmethod
     def print_safe_encoding(string):
-        if sys.stdout.encoding is None:
-            # just print(string) could still throw a UnicodeEncodeError sometimes so casting string to unicode
-            print(unicode(string))
+        if type(string) == unicode:
+            encoding = 'utf-8'
+            if hasattr(sys.stdout, 'encoding') and sys.stdout.encoding:
+                encoding = sys.stdout.encoding
+            return string.encode(encoding or 'utf-8', 'replace')
         else:
-            print(string.encode(sys.stdout.encoding, 'replace'))
+            return str(string)
 
     def run_command_status(self, *argv, **kwargs):
-
-        if self.verbose >= 2:
-            print(datetime.datetime.now(), "Running:", " ".join(argv))
+        logger.debug("%s Running: %s", datetime.datetime.now(), " ".join(argv))
         if len(argv) == 1:
             # for python2 compatibility with shlex
             if sys.version_info < (3,) and isinstance(argv[0], unicode):
@@ -180,17 +180,13 @@ class GerritQuery:
         else:
             userhost = "%s@%s" % (username, hostname)
 
-        if self.verbose >= 2:
-            print("gerrit request %s %s" % (self.remote_url, request))
-        output = self.run_command_exc(
-            CommandFailed,
-            "ssh", "-x" + port_data, userhost,
-            request)
-        if self.verbose >= 3:
-            self.print_safe_encoding(output)
+        logger.debug("gerrit request %s %s" % (self.remote_url, request))
+        output = self.run_command_exc(CommandFailed, "ssh", "-x" + port_data, userhost, request)
+        if logger.isEnabledFor(logging.DEBUG):
+            logger.debug("%s", self.print_safe_encoding(output))
         return output
 
-    def make_gerrit_query(self, project, changeid=None, limit=1, msg=None, status=None, comments=False):
+    def make_gerrit_query(self, project, changeid=None, limit=1, msg=None, status=None, comments=False, commitid=None):
         """
         Make a gerrit query by combining the given options.
 
@@ -200,15 +196,24 @@ class GerritQuery:
         :param str msg or None: A commit-msg to search
         :param str status or None: The gerrit status, i.e. merged
         :param bool comments: If true include comments
+        :param commitid: A commit hash to search
         :return str: A gerrit query
         """
-        query = "gerrit query --format=json limit:%d " \
-                "project:%s branch:%s" \
-                % (limit, project, self.branch)
+
+        if project == "odlparent" or project == "yangtools":
+            query = "gerrit query --format=json limit:%d " \
+                    "project:%s" \
+                    % (limit, project)
+        else:
+            query = "gerrit query --format=json limit:%d " \
+                    "project:%s branch:%s" \
+                    % (limit, project, self.branch)
         if changeid:
             query += " change:%s" % changeid
         if msg:
-            query += " message:%s" % msg
+            query += " message:{%s}" % msg
+        if commitid:
+            query += " commit:%s" % commitid
         if status:
             query += " status:%s --all-approvals" % status
         if comments:
@@ -258,11 +263,11 @@ class GerritQuery:
                                     parsed['grantedOn'] = timestamp
                                     break
                 except Exception:
-                    if self.verbose:
-                        print("Failed to decode JSON: %s" % traceback.format_exc())
-                        self.print_safe_encoding(line)
+                    logger.warn("Failed to decode JSON: %s", traceback.format_exc())
+                    if logger.isEnabledFor(logging.DEBUG):
+                        logger.warn(self.print_safe_encoding(line))
         except Exception as err:
-            print("Exception: %s" % traceback.format_exc())
+            logger.warn("Exception: %s", traceback.format_exc())
             raise parse_exc(err)
         return parsed
 
@@ -278,15 +283,14 @@ class GerritQuery:
         lines = []
         for line in changes.split("\n"):
             if line.find('"type":"error","message"') != -1:
-                print("there was a query error")
+                logger.warn("there was a query error")
                 continue
             if line.find('stats') == -1:
                 lines.append(line)
-        if self.verbose >= 2:
-            print("get_gerrit_lines: found %d lines" % len(lines))
+        logger.debug("get_gerrit_lines: found %d lines", len(lines))
         return lines
 
-    def get_gerrits(self, project, changeid=None, limit=1, msg=None, status=None, comments=False):
+    def get_gerrits(self, project, changeid=None, limit=1, msg=None, status=None, comments=False, commitid=None):
         """
         Get a list of gerrits from gerrit query request.
 
@@ -302,15 +306,26 @@ class GerritQuery:
         :param str or None msg: A commit-msg to search
         :param str or None status: The gerrit status, i.e. merged
         :param bool comments: If true include comments
+        :param commitid: A commit hash to search
         :return str: List of gerrits sorted by merge time
         """
-        query = self.make_gerrit_query(project, changeid, limit, msg, status, comments)
+        logger.debug("get_gerrits: project: %s, changeid: %s, limit: %d, msg: %s, status: %s, comments: %s, " +
+                     "commitid: %s",
+                     project, changeid, limit, msg, status, comments, commitid)
+        query = self.make_gerrit_query(project, changeid, limit, msg, status, comments, commitid)
         changes = self.gerrit_request(query)
         lines = self.extract_lines_from_json(changes)
         gerrits = []
+        sorted_gerrits = []
         for line in lines:
             gerrits.append(self.parse_gerrit(line))
 
         from operator import itemgetter
-        sorted_gerrits = sorted(gerrits, key=itemgetter('grantedOn'), reverse=True)
+        if gerrits is None:
+            logger.warn("No gerrits were found for %s", project)
+            return gerrits
+        try:
+            sorted_gerrits = sorted(gerrits, key=itemgetter('grantedOn'), reverse=True)
+        except KeyError, e:
+            logger.warn("KeyError exception in %s, %s", project, str(e))
         return sorted_gerrits
