@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "537bc058_58247f46",
+        "filename": "csit/variables/genius/Modules.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-01-20T05:23:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d42de2c_ade5690c",
+      "revId": "901b4895991f49a11af672f67f49c116457e24f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70417ce7_d7d63034",
         "filename": "csit/variables/genius/Modules.py",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2018-01-20T03:46:14Z",
       "side": 1,
       "message": "same as above",
+      "revId": "901b4895991f49a11af672f67f49c116457e24f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1ab73e5_5fd18656",
+        "filename": "csit/variables/genius/Modules.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-01-20T05:23:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70417ce7_d7d63034",
       "revId": "901b4895991f49a11af672f67f49c116457e24f4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
