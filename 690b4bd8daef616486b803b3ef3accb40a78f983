@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ed18146_499c5d94",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-21T21:13:38Z",
+      "side": 1,
+      "message": "actually, is this method even used anymore? I don\u0027t think it is as it was replaced with the optimized version.",
+      "revId": "690b4bd8daef616486b803b3ef3accb40a78f983",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "673aaeed_ab6018b0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-21T21:13:38Z",
+      "side": 1,
+      "message": "using cli will dump the log multiple times since the openstack cli always dumps output. Maybe we should have a different one that doesn\u0027t log the output.",
+      "revId": "690b4bd8daef616486b803b3ef3accb40a78f983",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aaea8a77_6ff607d4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-21T21:13:38Z",
+      "side": 1,
+      "message": "ok, so this is the one that we need to worry about, since it is called in a heavy loop. this will dump a lot to the logs.",
+      "revId": "690b4bd8daef616486b803b3ef3accb40a78f983",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
