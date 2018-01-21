@@ -285,11 +285,8 @@ Get Hypervisor Hostname From IP
     [Arguments]    ${hypervisor_ip}
     [Documentation]    Returns the hostname found for the given IP address if it's listed in hypervisor list. For debuggability
     ...    the full listing is logged first, then followed by a grep | cut to focus on the actual hostname to return
-    ${rc}    ${output}    Run And Return Rc And Output    openstack hypervisor list
-    Log    ${output}
-    ${rc}    ${hostname}=    Run And Return Rc And Output    openstack hypervisor list -f value | grep "${hypervisor_ip} " | cut -d" " -f 2
-    Log    ${hostname}
-    Should Be True    '${rc}' == '0'
+    OpenStack CLI    openstack hypervisor list
+    ${hostname}=    OpenStack CLI    openstack hypervisor list -f value | grep "${hypervisor_ip} " | cut -d" " -f 2
     [Return]    ${hostname}
 
 Create Nano Flavor
@@ -309,32 +306,6 @@ Poll VM Is ACTIVE
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
     Wait Until Keyword Succeeds    ${retry}    ${retry_interval}    Verify VM Is ACTIVE    ${vm_name}
 
-Collect VM IP Addresses
-    [Arguments]    ${fail_on_none}    @{vm_list}
-    [Documentation]    Using the console-log on the provided ${vm_list} to search for the string "obtained" which
-    ...    correlates to the instance receiving it's IP address via DHCP. Also retrieved is the ip of the nameserver
-    ...    if available in the console-log output. The keyword will also return a list of the learned ips as it
-    ...    finds them in the console log output, and will have "None" for Vms that no ip was found.
-    ${ip_list}    Create List    @{EMPTY}
-    : FOR    ${vm}    IN    @{vm_list}
-    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep -i "obtained"
-    \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
-    \    ${vm_ip_length}    Get Length    ${vm_ip}
-    \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
-    \    ...    ELSE    Append To List    ${ip_list}    None
-    \    ${rc}    ${dhcp_ip_line}=    Run And Return Rc And Output    openstack console log show ${vm} | grep "^nameserver"
-    \    ${dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
-    \    ${dhcp_ip_length}    Get Length    ${dhcp_ip}
-    \    Run Keyword If    ${dhcp_ip_length}<=0    Append To List    ${dhcp_ip}    None
-    \    ${vm_console_output}=    Run    openstack console log show ${vm}
-    \    Log    ${vm_console_output}
-    ${dhcp_length}    Get Length    ${dhcp_ip}
-    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${ip_list}    None
-    Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
-    Should Be True    ${dhcp_length} <= 1
-    Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
-    [Return]    ${ip_list}    ${dhcp_ip}
-
 Get Match
     [Arguments]    ${text}    ${regexp}    ${index}=0
     [Documentation]    Wrapper around Get Regexp Matches to return None if not found or the first match if found.
@@ -348,7 +319,7 @@ Get VM IP
     [Arguments]    ${fail_on_none}    ${vm}
     [Documentation]    Get the vm ip address and nameserver by scraping the vm's console log.
     ...    Get VM IP returns three values: [0] the vm IP, [1] the DHCP IP and [2] the vm console log.
-    ${rc}    ${vm_console_output}=    Run And Return Rc And Output    openstack console log show ${vm}
+    ${vm_console_output}=    OpenStack CLI    openstack console log show ${vm}    log_output=False
     ${vm_ip} =    Set Variable    None
     ${dhcp_ip} =    Set Variable    None
     ${match} =    Get Match    ${vm_console_output}    ${REGEX_OBTAINED}
@@ -379,7 +350,7 @@ Get VM IPs
     \    Run Keyword If    "${status}" == "PASS"    BuiltIn.Log    ${ips_and_console_log[2]}
     \    BuiltIn.Run Keyword If    "${status}" == "PASS"    Collections.Append To List    ${vm_ips}    ${ips_and_console_log[0]}
     \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    Collections.Append To List    ${vm_ips}    None
-    \    ${rc}    ${vm_console_output}=    BuiltIn.Run Keyword If    "${status}" == "FAIL"    Run And Return Rc And Output    openstack console log show ${vm}
+    \    ${vm_console_output}=    BuiltIn.Run Keyword If    "${status}" == "FAIL"    OpenStack CLI    openstack console log show ${vm}
     \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    BuiltIn.Log    ${vm_console_output}
     Copy DHCP Files From Control Node
     [Return]    @{vm_ips}    ${ips_and_console_log[1]}
@@ -410,9 +381,7 @@ View Vm Console
     [Documentation]    View Console log of the created vm instances using nova show.
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    OpenStack CLI    openstack server show ${VmElement}
-    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack console log show ${VmElement}
-    \    Log    ${output}
-    \    Should Be True    '${rc}' == '0'
+    \    ${output}=    OpenStack CLI    openstack console log show ${VmElement}
 
 Ping Vm From DHCP Namespace
     [Arguments]    ${net_name}    ${vm_ip}
@@ -1097,10 +1066,10 @@ OpenStack CLI Get List
     [Return]    @{list}
 
 OpenStack CLI
-    [Arguments]    ${cmd}
+    [Arguments]    ${cmd}    ${log_output}=True
     [Documentation]    Run the given OpenStack ${cmd}.
     ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
-    BuiltIn.Log    ${output}
+    Run Keyword If    "${log_output}"=="True"    BuiltIn.Log    ${output}
     Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
