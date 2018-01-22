@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "237355ee_6fb67cdb",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-22T19:02:04Z",
+      "side": 1,
+      "message": "use pattern like l3_ext_net_1 and l3_ext_net_2, _sub_1, _sub_2, _router_1, _router_2. that matches like the l3.robot file.",
+      "revId": "7b96460b199c755bfab12005fd2545fc1a1706c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b67e4076_2280f28c",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-22T19:02:04Z",
+      "side": 1,
+      "message": "we might want to break this into NET_1_SNAT_VMS and NET_2_SNAT_VMS to match the other suites. This would make it more readable down below where the vms are created with the index 2",
+      "revId": "7b96460b199c755bfab12005fd2545fc1a1706c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
