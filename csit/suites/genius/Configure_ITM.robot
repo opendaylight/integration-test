@@ -1,17 +1,18 @@
 *** Settings ***
 Documentation     Test Suite for ITM
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
+Suite Setup       Genius Suite Setup
+Suite Teardown    Genius Suite Teardown
 Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
+Library           Collections
 Library           OperatingSystem
-Library           String
 Library           RequestsLibrary
-Variables         ../../variables/Variables.py
+Library           String
+Library           re
 Variables         ../../variables/genius/Modules.py
 Resource          ../../libraries/DataModels.robot
-Library           Collections
+Resource          ../../libraries/Genius.robot
 Resource          ../../libraries/Utils.robot
-Library           re
+Resource          ../../variables/Variables.robot
 
 *** Variables ***
 @{itm_created}    TZA
