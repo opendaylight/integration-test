@@ -8,6 +8,14 @@ Resource          ../variables/Variables.robot
 *** Variables ***
 
 *** Keywords ***
+Genius Suite Setup
+    [Documentation]    Create Rest Session to http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=5
+
+Genius Suite Teardown
+    [Documentation]    Delete all sessions
+    Delete All Sessions
+
 Create Vteps
     [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     [Documentation]    This keyword creates VTEPs between ${TOOLS_SYSTEM_IP} and ${TOOLS_SYSTEM_2_IP}
@@ -53,7 +61,7 @@ Get Dpn Ids
     log    ${Dpn_id}
     [Return]    ${Dpn_id}
 
-Delete All Sessions
+Delete All Vteps
     [Documentation]    This will delete vtep.
     ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_API}/itm:transport-zones/    data=${vtep_body}
     Log    ${resp.status_code}
