@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dc9218a4_83f2cd4c",
+        "filename": "csit/suites/genius/01_Interface_manager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-01-22T17:18:35Z",
+      "side": 1,
+      "message": "This was to fix original issue I saw where ds read was failing with ReadTimeout in 1s. This took care of this. Aim with WUKS was for scenarios where read works, but value it is reading is not changed yet, so need to retry. I guess WUKS could cover both cases. If we get response within 1s this should work anyhow.",
+      "parentUuid": "9329389a_d6cc53e2",
+      "revId": "0630cc5730503432fbc21d2a4c0716bc34fe5d2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "333cbe46_cd82fb8f",
         "filename": "csit/suites/genius/03_Configure_ITM.robot",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ebf7b869_f067f73f",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-01-22T17:18:35Z",
+      "side": 1,
+      "message": "yeah, will do. just getting the hang of how things are currently organized and how to improve. planning a overhaul of entire suite to make it more relevant for sort of issues that can show up in Netvirt.",
+      "parentUuid": "333cbe46_cd82fb8f",
+      "revId": "0630cc5730503432fbc21d2a4c0716bc34fe5d2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44f553ef_38c762b5",
         "filename": "csit/suites/genius/04_BFD_monitoring.robot",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2018-01-22T15:52:28Z",
       "side": 1,
       "message": "this whole file seems off in that these values are hardcoded so much. would be better to use defaults.",
+      "revId": "0630cc5730503432fbc21d2a4c0716bc34fe5d2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78cdd2f1_ffd1c81e",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-01-22T17:18:35Z",
+      "side": 1,
+      "message": "would prefer that, but looks like every single suite has it hardcoded and using it differently. Maybe write our own generic method that \u0027extends\u0027 wuks?",
+      "parentUuid": "44f553ef_38c762b5",
       "revId": "0630cc5730503432fbc21d2a4c0716bc34fe5d2d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
