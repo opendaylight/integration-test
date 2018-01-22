@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for BFD tunnel monitoring
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Genius.Delete All Sessions
+Suite Setup       Genius Suite Setup
+Suite Teardown    Delete All Vteps
 Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
 Library           OperatingSystem
 Library           String
@@ -52,21 +52,21 @@ BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
 
 BFD_TC01 Verify by default BFD monitoring is enabled on Controller
     [Documentation]    Verify by default BFD monitoring is enabled on Controller
-    Verify Tunnel Monitoring Is On
-    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
+    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Is On
+    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC02 Verify that BFD tunnel monitoring interval is set with appropriate default value i.e.,1000
     [Documentation]    This will verify BFD tunnel monitoring default interval
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Log    ${output}
     Should Contain    ${output}    ${DEFAULT_MONITORING_INTERVAL}
-    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
+    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC04 Verify that in controller tunnel status is up when ITM tunnel interface is brought up.
     [Documentation]    Verify that in controller tunnel status is up when ITM tunnel interface is brought up.
-    Verify Tunnel Monitoring Is On
+    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Is On
     Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UP
-    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
+    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     [Documentation]    Verify BFD tunnel monitoring interval can be changed.
@@ -79,7 +79,7 @@ BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     ${Bfd_updated_value}=    Create List    5000
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
-    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
+    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
     SSHLibrary.Switch Connection    ${conn_id_1}
     Execute Command    sudo ovs-vsctl del-port ${Bridge-1} tap8ed70586-6c
     ${ovs_1}    Execute Command    sudo ovs-vsctl show
@@ -106,7 +106,7 @@ BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Log    ${output}
     Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UNKNOWN
-    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
+    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
     SSHLibrary.Switch Connection    ${conn_id_1}
     Execute Command    sudo ovs-vsctl set-controller BR1 tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
     SSHLibrary.Switch Connection    ${conn_id_2}
@@ -117,7 +117,7 @@ BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Log    ${output}
     Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UP
-    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
+    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC07 Verify that BFD monitoring is disabled on Controller
     [Documentation]    Verify that BFD monitoring is disabled on Controller
@@ -131,7 +131,7 @@ BFD_TC07 Verify that BFD monitoring is disabled on Controller
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Log    ${output}
     Should Contain    ${output}    ${TUNNEL_MONITOR_OFF}
-    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_FALSE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
+    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_FALSE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
     Log    "Verifying tunnel is UP after BFD is disabled"
     Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UP
     Log    "Enabling tunnel monitoring once again"
@@ -142,8 +142,8 @@ BFD_TC07 Verify that BFD monitoring is disabled on Controller
     ${respjson}    RequestsLibrary.To Json    ${oper.content}    pretty_print=True
     Log    ${respjson}
     Should Contain    ${respjson}    true
-    Verify Tunnel Monitoring Is On
-    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
+    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Is On
+    Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
 
 *** Keywords ***
 Verify Config Ietf Interface Output

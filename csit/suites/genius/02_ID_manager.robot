@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for IdManager
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Suite Teardown    Delete All Sessions
+Suite Setup       Genius Suite Setup
+Suite Teardown    Genius Suite Teardown
 Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${idmanager_data_models}
 Library           OperatingSystem
 Library           String
@@ -12,6 +12,7 @@ Variables         ../../variables/Variables.py
 Variables         ../../variables/genius/Modules.py
 Resource          ../../libraries/DataModels.robot
 Resource          ../../libraries/Utils.robot
+Resource          ../../libraries/Genius.robot
 
 *** Variables ***
 ${genius_config_dir}    ${CURDIR}/../../variables/genius
