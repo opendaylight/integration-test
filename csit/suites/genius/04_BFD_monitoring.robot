@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test Suite for BFD tunnel monitoring
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=5    max_retries=5
 Suite Teardown    Genius.Delete All Sessions
 Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${bfd_data_models}
 Library           OperatingSystem
