@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9329389a_d6cc53e2",
+        "filename": "csit/suites/genius/01_Interface_manager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-22T15:52:28Z",
+      "side": 1,
+      "message": "We haven\u0027t had to change these values in most cases/ typical the 1s and no retries passes. I wonder if you need a wuks around this instead, though this does the same thing I guess.",
+      "revId": "0630cc5730503432fbc21d2a4c0716bc34fe5d2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "333cbe46_cd82fb8f",
+        "filename": "csit/suites/genius/03_Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-22T15:52:28Z",
+      "side": 1,
+      "message": "might as well just create a single genius suite setup keyword and put this in there.",
+      "revId": "0630cc5730503432fbc21d2a4c0716bc34fe5d2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44f553ef_38c762b5",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-22T15:52:28Z",
+      "side": 1,
+      "message": "this whole file seems off in that these values are hardcoded so much. would be better to use defaults.",
+      "revId": "0630cc5730503432fbc21d2a4c0716bc34fe5d2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
