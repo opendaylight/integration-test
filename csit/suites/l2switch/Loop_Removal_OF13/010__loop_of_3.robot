@@ -36,6 +36,7 @@ Check Ports STP status
 
 Check Flows
     [Documentation]    Check all flows are present
+    [Tags]    bug 6984    bug
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    "output-node-connector"    16
     [Teardown]    Report_Failure_Due_To_Bug    6984
 
