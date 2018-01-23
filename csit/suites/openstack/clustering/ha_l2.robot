@@ -193,8 +193,10 @@ Bring Up ODL1 and ODL2
     ClusterManagement.Start Members From List Or All    ${CLUSTER_DOWN_LIST}
 
 Delete Vm Instance
-    [Documentation]    Delete Vm instances using instance names.
+    [Documentation]    Delete Vm instances using instance names. Also remove the VM from the
+    ...    list so that later cleanup will not try to delete it.
     OpenStackOperations.Delete Vm Instance    @{NET_1_VMS}[0]
+    Remove From List    ${NET_1_VMS}    0
 
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
