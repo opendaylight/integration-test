@@ -278,7 +278,8 @@ Create Vm Instance With Port On Compute Node
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id}=    Get Port Id    ${port_name}
-    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${node_hostname} ${vm_instance_name}
+    #OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${node_hostname} ${vm_instance_name}
+    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --availability-zone nova:${node_hostname} ${vm_instance_name} --security-group ${sg}
 
 Get Hypervisor Hostname From IP
     [Arguments]    ${hypervisor_ip}
@@ -1098,7 +1099,7 @@ OpenStack CLI Get List
 OpenStack CLI
     [Arguments]    ${cmd}
     [Documentation]    Run the given OpenStack ${cmd}.
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd} 2> /dev/null
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
     BuiltIn.Log    ${output}
     Should Be True    '${rc}' == '0'
     [Return]    ${output}
