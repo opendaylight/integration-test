@@ -10,6 +10,7 @@ Resource          L2GatewayOperations.robot
 Resource          OVSDB.robot
 Resource          SetupUtils.robot
 Resource          SSHKeywords.robot
+Resource          Tcpdump.robot
 Resource          Utils.robot
 Resource          ../variables/Variables.robot
 Resource          ../variables/netvirt/Variables.robot
@@ -1179,3 +1180,16 @@ Reset OVS Logging On All OpenStack Nodes
     Run Keyword If    0 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CNTL_CONN_ID}
     Run Keyword If    1 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CMP1_CONN_ID}
     Run Keyword If    2 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CMP2_CONN_ID}
+
+Start Packet Capture On Nodes
+    [Arguments]    ${tag}    ${filter}    @{ips}
+    [Documentation]    Wrapper keyword around the TcpDump packet capture that is catered to the Openstack setup.
+    ...    The caller must pass the three arguments with a variable number of ips at the end,
+    ...    but ${EMPTY} can be used for the tag and filter.
+    ${suite_} =    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","_").replace("/","_").replace(".","_")
+    ${tag_} =    BuiltIn.Catenate    SEPARATOR=__    ${tag}    ${suite_}
+    @{capture_conn_ids} =    Tcpdump.Start Packet Capture on Nodes    tag=${tag_}    filter=${filter}    ${ips}
+    BuiltIn.Set Suite Variable    @{capture_conn_ids}
+
+Stop Packet Capture On Nodes
+    Tcpdump.Stop Packet Capture on Nodes    ${capture_conn_ids}
