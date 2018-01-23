@@ -614,6 +614,8 @@ Get DumpFlows And Ovsconfig
     Write Commands Until Expected Prompt    sudo ovs-vsctl list Open_vSwitch    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo ovs-ofctl show br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Log    adding table60 flows
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-int -OOpenFlow13 | grep table=60    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
 
@@ -1098,7 +1100,7 @@ OpenStack CLI Get List
 OpenStack CLI
     [Arguments]    ${cmd}
     [Documentation]    Run the given OpenStack ${cmd}.
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd} 2> /dev/null
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
     BuiltIn.Log    ${output}
     Should Be True    '${rc}' == '0'
     [Return]    ${output}
