@@ -651,6 +651,7 @@ Get OvsDebugInfo
 
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${TEST_NAME}
+    List Security Groups
     Get OvsDebugInfo
     Run Keyword And Ignore Error    Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     Get Karaf Log Events From Test Start    ${test_name}
@@ -677,9 +678,7 @@ Show Debugs
 List Security Groups
     [Documentation]    Logging keyword to display all security groups using the openstack cli. Assumes openstack
     ...    credentials are already sourced
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack security group list
-    Log    ${output}
-    Should Be True    '${rc}' == '0'
+    ${output}=    OpenStack CLI    openstack security group list --all-projects
     [Return]    ${output}
 
 Neutron Security Group Show
