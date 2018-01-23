@@ -33,14 +33,22 @@ ${SECURITY_GROUP}    elan_sg
 
 *** Test Cases ***
 Create Single Elan
+    List Security Groups
+    OpenStackOperations.Get Test Teardown Debugs
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
+    OpenStackOperations.Get Test Teardown Debugs
+    List Security Groups
     OpenStackOperations.Create Network    @{NETWORKS}[0]
     OpenStackOperations.Create SubNet    @{NETWORKS}[0]    @{SUBNETS}[0]    ${SUBNET_CIDRS[0]}
     OpenStackOperations.Create Port    @{NETWORKS}[0]    ${NET_1_PORTS[0]}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Port    @{NETWORKS}[0]    ${NET_1_PORTS[1]}    sg=${SECURITY_GROUP}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${PORT_URL}    ${NET_1_PORTS}
+    List Security Groups
+    OpenStackOperations.Get Test Teardown Debugs
     OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[0]}    ${NET_1_VMS[0]}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[1]}    ${NET_1_VMS[1]}    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    List Security Groups
+    OpenStackOperations.Get Test Teardown Debugs
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     Builtin.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
