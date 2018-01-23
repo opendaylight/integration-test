@@ -1098,7 +1098,7 @@ OpenStack CLI Get List
 OpenStack CLI
     [Arguments]    ${cmd}
     [Documentation]    Run the given OpenStack ${cmd}.
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd} 2> /dev/null
+    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
     BuiltIn.Log    ${output}
     Should Be True    '${rc}' == '0'
     [Return]    ${output}
