@@ -121,9 +121,9 @@ Connectivity Tests From Vm Instance3 In net_2
     [Documentation]    Login to the vm instance using generated key pair.
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
 
-Delete A Vm Instance
-    [Documentation]    Delete Vm instances using instance names.
-    OpenStackOperations.Delete Vm Instance    @{NET_1_VMS}[0]
+#Delete A Vm Instance
+#    [Documentation]    Delete Vm instances using instance names.
+#    OpenStackOperations.Delete Vm Instance    @{NET_1_VMS}[0]
 
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
@@ -131,6 +131,7 @@ No Ping For Deleted Vm
 
 Delete Vm Instances In net_1
     [Documentation]    Delete Vm instances using instance names in net_1.
+    OpenStackOperations.Show Debugs    @{NET_1_VMS}    @{NET_2_VMS}
     : FOR    ${vm}    IN    @{NET_1_VMS}
     \    OpenStackOperations.Delete Vm Instance    ${vm}
 
