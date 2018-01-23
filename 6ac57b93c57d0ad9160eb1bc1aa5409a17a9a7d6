@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57452917_e4cc21ee",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-23T19:35:08Z",
+      "side": 1,
+      "message": "Vteps",
+      "range": {
+        "startLine": 17,
+        "startChar": 15,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "6ac57b93c57d0ad9160eb1bc1aa5409a17a9a7d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d81c8dc5_7956fe77",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-23T19:35:08Z",
+      "side": 1,
+      "message": "Genius Suite Teardown?",
+      "range": {
+        "startLine": 4,
+        "startChar": 18,
+        "endLine": 4,
+        "endChar": 34
+      },
+      "revId": "6ac57b93c57d0ad9160eb1bc1aa5409a17a9a7d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
