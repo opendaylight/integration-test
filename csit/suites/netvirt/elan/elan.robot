@@ -80,7 +80,7 @@ Verify Datapath After Recreate VM Instance
     ${smac_cn1} =    BuiltIn.Create List    @{NET_1_MACS}[0]
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Removed For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}
     OpenStackOperations.Remove RSA Key From KnownHosts    @{NET_1_VM_IPS}[0]
-    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[0]}    ${NET_1_VMS[0]}    ${OS_CMP1_HOSTNAME}
+    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${NET_1_PORTS[0]}    ${NET_1_VMS[0]}    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
     Builtin.Set Suite Variable    @{NET_1_VM_IPS}
     BuiltIn.Should Not Contain    ${NET_1_VM_IPS}    None
