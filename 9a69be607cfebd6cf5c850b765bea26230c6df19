@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c6d1e9c_d132281f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-23T16:42:59Z",
+      "side": 0,
+      "message": "I\u0027m thinking we want this removed going forward anyway. I added it, because of the problem with client version compatibility and we were accidentally getting the REST call debug output showing up on stderr when using the new openstackclient with older novaclient. I think venkats patch to keep versions in sync will prevent that going forward and if we ever do get\nstderr output we\u0027ll probably be interested in what it is.",
+      "range": {
+        "startLine": 1101,
+        "startChar": 82,
+        "endLine": 1101,
+        "endChar": 95
+      },
+      "revId": "9a69be607cfebd6cf5c850b765bea26230c6df19",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
