@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9ef5391_dba47231",
+        "filename": "csit/suites/genius/__init__.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-23T19:41:04Z",
+      "side": 1,
+      "message": "this is not a suite, it\u0027s a keyword. but, for [Documentation] let us know what\u0027s the point of this keyword.\nI can read the name of the keyword that says \"Check Service Status\" so these docs are not adding\nany value to that.",
+      "range": {
+        "startLine": 77,
+        "startChar": 28,
+        "endLine": 77,
+        "endChar": 32
+      },
+      "revId": "a86835181183871ecfe7cfe349da111a8403f13a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
