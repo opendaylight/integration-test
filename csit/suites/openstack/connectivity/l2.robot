@@ -122,8 +122,10 @@ Connectivity Tests From Vm Instance3 In net_2
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
 
 Delete A Vm Instance
-    [Documentation]    Delete Vm instances using instance names.
+    [Documentation]    Delete Vm instances using instance names. Also remove the VM from the
+    ...    list so that later cleanup will not try to delete it.
     OpenStackOperations.Delete Vm Instance    @{NET_1_VMS}[0]
+    Remove From List    ${NET_1_VMS}    0
 
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
