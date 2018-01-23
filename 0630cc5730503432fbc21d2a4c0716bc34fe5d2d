@@ -104,6 +104,24 @@
       "revId": "0630cc5730503432fbc21d2a4c0716bc34fe5d2d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c894d257_cfecbadb",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-23T19:36:31Z",
+      "side": 1,
+      "message": "we could do that, but it kind of only helps when we know we are going to use the same exact timers. so maybe a local keyword here that uses 10s and 2s polling? I don\u0027t know how much it would save us though. WUKs are used everywhere in the int/test repo and lots of different timings.",
+      "parentUuid": "78cdd2f1_ffd1c81e",
+      "revId": "0630cc5730503432fbc21d2a4c0716bc34fe5d2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
