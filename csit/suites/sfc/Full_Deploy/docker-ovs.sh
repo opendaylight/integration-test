@@ -34,11 +34,6 @@ search_path () {
     exit 1
 }
 
-clean_iptables () {
-    sudo iptables -F
-    sudo iptables -t nat -F
-}
-
 ovs_vsctl () {
     sudo ovs-vsctl --timeout=60 "$@"
 }
@@ -64,8 +59,11 @@ delete_netns_link () {
     sudo rm -f /var/run/netns/"$PID"
 }
 
-enable_ip_forward () {
+setup_ip_forwarding () {
     sudo sh -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'
+    sudo iptables -F
+    sudo iptables -t nat -F
+    sudo iptables -P FORWARD ACCEPT 
 }
 
 connect_namespace_to_container () {
@@ -267,7 +265,7 @@ spawn_nodes_and_guests () {
     fi
 
     # Make sure ip forwarding is enabled
-    enable_ip_forward
+    setup_ip_forwarding
 
     # Create a host bridge as end point for all tunnels
     if ovs_vsctl br-exists br-tun; then :; else
@@ -323,7 +321,6 @@ EOF
 UTIL=$(basename $0)
 search_path ovs-vsctl
 search_path docker
-clean_iptables
 
 #if [[ $EUID -ne 0 ]]; then
 #   echo "This script must be run as root" 1>&2
