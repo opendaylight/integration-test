@@ -16,6 +16,24 @@
       "revId": "8fdc52bc3f74cafe11df056198c51c8f3e23fe59",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fdf2dca_75adb52f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-01-24T19:09:31Z",
+      "side": 1,
+      "message": "Sam, This keyword is failing in every run \nhttps://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/netvirt-csit-1node-openstack-pike-upstream-stateful-snat-conntrack-nitrogen/167/log_01_l2.html.gz#s1-t1-k2-k1-k1-k1\n\nThanks for pointing to the mistake. I have fixed the patch I will post the sandbox run shortly",
+      "parentUuid": "6e63aaa1_a6dc285a",
+      "revId": "8fdc52bc3f74cafe11df056198c51c8f3e23fe59",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
