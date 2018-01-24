@@ -137,7 +137,7 @@ Check L3_Datapath Traffic Across Networks With Router
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{VM_IP_NET10}[0]    ${dst_ip_list}
     ${dst_ip_list} =    BuiltIn.Create List    @{VM_IP_NET20}[1]    @{VM_IP_NET10}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{VM_IP_NET20}[0]    ${dst_ip_list}
-    [Teardown]    OpenStackOperations.Stop Packet Capture On Nodes
+    [Teardown]    VpnOperations.Test Teardown With Tcpdump Stop
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     ${CONFIG_EXTRA_ROUTE_IP1} =    BuiltIn.Catenate    sudo ip -6 addr add @{EXTRA_NW_IP}[0]/64 dev eth0
