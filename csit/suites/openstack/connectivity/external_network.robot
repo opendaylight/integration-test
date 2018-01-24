@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to check North-South connectivity in L3 using a router and an external network
-Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
+Suite Setup       Start Suite
+Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           SSHLibrary
@@ -175,3 +175,12 @@ Delete Security Group
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
     DataModels.Verify Flows Are Cleaned Up On All OpenStack Nodes
+
+*** Keywords ***
+Start Suite
+    OpenStackOperations.OpenStack Suite Setup
+    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_extnet    port 6653    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+
+Stop Suite
+    OpenStackOperations.Stop Packet Capture On Nodes
+    OpenStackOperations.OpenStack Suite Teardown
