@@ -20,8 +20,10 @@ Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
-${TEST_DURATION}    1m
-${ACCEPTED_PER_SEC_RATE}    50
+#${TEST_DURATION}    1m
+${TEST_DURATION}    30s
+${ACCEPTED_PER_SEC_RATE}    5
+# Changed ACCEPTED_PER_SEC_RATE from 50 to 5
 # TODO: Use a better wait to start testing when ODL does not use CPU for initializing features. Then inrease rate to 100.
 
 *** Test Cases ***
