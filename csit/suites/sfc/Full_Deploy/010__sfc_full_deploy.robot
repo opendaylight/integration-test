@@ -28,6 +28,7 @@ Basic Environment Setup Tests
     Add Elements To URI From File    ${SERVICE_METADATA_URI}    ${SERVICE_METADATA_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_ACLS_URI}    ${SERVICE_FUNCTION_ACLS_FILE}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Funtion Types
 
 Create and Get Rendered Service Path
     [Documentation]    Create and Get Rendered Service Path Through RESTConf APIs
@@ -64,6 +65,13 @@ Check Classifier Flows
     log    ${flowList}
     Should Contain Match    ${flowList}    *actions=pop_nsh*
     Should Contain Match    ${flowList}    *actions=push_nsh*
+
+Check Service Funtion Types
+    [Documetation]    Check that the service function types exist
+    ${service_funtion_types}=    Get JSON Elements From URI    ${SERVICE_FUNCTION_TYPES_URI}
+    log    ${service_funtion_types}
+    Should Contain Match    ${service_funtion_types}    *firewall*
+    Should Contain Match    ${service_funtion_types}    *dpi*
 
 Switch Ips In Json Files
     [Arguments]    ${json_dir}    ${container_names}

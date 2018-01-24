@@ -19,6 +19,7 @@ Basic Environment Setup Tests
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Funtion Types
 
 Create and Get Rendered Service Path
     [Documentation]    Create and Get Rendered Service Path Through RESTConf APIs
@@ -223,6 +224,13 @@ Get JSON Elements From URI
     ${resp}    RequestsLibrary.Get Request    session    ${uri}
     ${value}    To Json    ${resp.content}
     [Return]    ${value}
+
+Check Service Funtion Types
+    [Documetation]    Check that the service function types exist
+    ${service_funtion_types}=    Get JSON Elements From URI    ${SERVICE_FUNCTION_TYPES_URI}
+    log    ${service_funtion_types}
+    Should Contain Match    ${service_funtion_types}    *firewall*
+    Should Contain Match    ${service_funtion_types}    *dpi*
 
 Init Suite
     [Documentation]    Create session and initialize ODL version specific variables
