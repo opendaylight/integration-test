@@ -31,6 +31,7 @@ Basic Environment Setup Tests
     [Documentation]    Prepare Basic Test Environment. Logical SFF
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
 
@@ -126,6 +127,12 @@ Delete All Elements
 Create All Elements
     [Documentation]    Delete all provisioned elements
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
+
+Check Service Function Types
+    [Documentation]    Check that the service function types are updated with the service functions names
+    ${elements}=    Create List    "name":"firewall-1"    "name":"dpi-1"
+    Check For Elements At URI    ${SERVICE_FUNCTION_TYPES_URI}    ${elements}
