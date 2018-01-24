@@ -72,6 +72,13 @@ Basic Environment Setup
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Funtion Types
+
+Check Service Funtion Types
+    [Documentation]    Check that the service function types have been added
+    ${sf_types}=    TemplatedRequests.Get_As_Json_From_Uri    ${SERVICE_FUNCTION_TYPES_URI}
+    log    ${sf_types}
+    TemplatedRequests.Verify_Response_As_Json_Templated    ${sf_types}    ${SUITE_DIR}    service-funtion-types-expected
 
 End Suite
     Clean Datastore

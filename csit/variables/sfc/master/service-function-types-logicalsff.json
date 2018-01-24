@@ -1,0 +1,22 @@
+{
+  "service-function-types": {
+    "service-function-type": [
+      {
+        "sft-service-function-name": [
+          {
+            "name": "dpi-1"
+          }
+        ], 
+        "type": "dpi"
+      }, 
+      {
+        "sft-service-function-name": [
+          {
+            "name": "firewall-1"
+          }
+        ],
+        "type": "firewall"
+      }
+    ]
+  }
+}

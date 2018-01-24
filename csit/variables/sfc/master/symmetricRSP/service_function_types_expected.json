@@ -1,0 +1,34 @@
+{
+  "service-function-types": {
+    "service-function-type": [
+      {
+        "type": "dpi-bidirectional",
+        "bidirectional": "true",
+        "nsh-aware": "true",
+        "sft-service-function-name": [
+          {
+            "name": "dpi-2"
+          }
+        ]
+      },
+      {
+        "type": "dpi-non-bidirectional",
+        "bidirectional": "false",
+        "nsh-aware": "true",
+        "sft-service-function-name": [
+          {
+            "name": "dpi-2"
+          }
+        ]
+      },
+      {
+        "type": "firewall",
+        "sft-service-function-name": [
+          {
+            "name": "firewall-1"
+          }
+        ]
+      }
+    ]
+  }
+}

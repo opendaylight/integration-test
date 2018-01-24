@@ -15,10 +15,14 @@ Resource          ../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${VERSION_DIR}    master
-${SERVICE_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions-logicalsff.json
-${SERVICE_FORWARDERS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-forwarders-logicallsff.json
-${SERVICE_CHAINS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-chains-logicalsff.json
-${SERVICE_FUNCTION_PATHS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-paths-logicalsff.json
+${CONFIG_DIR}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}
+${SERVICE_FUNCTIONS_FILE_BASENAME}    service-functions-logicalsff
+${SERVICE_FUNCTIONS_FILE}    ${CONFIG_DIR}/service-functions-logicalsff.json
+${SERVICE_FUNCTION_TYPES_FILE_BASENAME}    service-function-types-logicalsff
+${SERVICE_FUNCTION_TYPES_FILE}    ${CONFIG_DIR}/${SERVICE_FUNCTION_TYPES_FILE_BASENAME}.json
+${SERVICE_FORWARDERS_FILE}    ${CONFIG_DIR}/service-function-forwarders-logicallsff.json
+${SERVICE_CHAINS_FILE}    ${CONFIG_DIR}/service-function-chains-logicalsff.json
+${SERVICE_FUNCTION_PATHS_FILE}    ${CONFIG_DIR}/service-function-paths-logicalsff.json
 ${CREATE_RSP1_INPUT}    {"input":{"name": "RSP1","parent-service-function-path": "SFP1","symmetric": "true"}}
 ${CREATE_RSP2_INPUT}    {"input":{"name": "RSP2","parent-service-function-path": "SFP2","symmetric": "true"}}
 ${CREATE_RSP_FAILURE_INPUT}    {"input":{"name": "RSP1","parent-service-function-path": "SFP3","symmetric": "true"}}
@@ -33,6 +37,7 @@ Basic Environment Setup Tests
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Funtion Types
 
 Create and Get Rendered Service Path
     [Documentation]    Create and Get Rendered Service Path Through RESTConf APIs. Logical SFF
@@ -129,3 +134,10 @@ Create All Elements
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
+
+Check Service Funtion Types
+    [Documentation]    Check that the service function types have been added
+    ${sf_types}=    TemplatedRequests.Get_As_Json_From_Uri    ${SERVICE_FUNCTION_TYPES_URI}
+    log    ${sf_types}
+    TemplatedRequests.Verify_Response_As_Json_Templated    ${sf_types}    ${CONFIG_DIR}    ${SERVICE_FUNCTIONS_FILE_BASENAME}
+

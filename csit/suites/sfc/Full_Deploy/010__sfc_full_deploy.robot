@@ -28,6 +28,7 @@ Basic Environment Setup Tests
     Add Elements To URI From File    ${SERVICE_METADATA_URI}    ${SERVICE_METADATA_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_ACLS_URI}    ${SERVICE_FUNCTION_ACLS_FILE}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Funtion Types
 
 Create and Get Rendered Service Path
     [Documentation]    Create and Get Rendered Service Path Through RESTConf APIs
@@ -65,6 +66,12 @@ Check Classifier Flows
     Should Contain Match    ${flowList}    *actions=pop_nsh*
     Should Contain Match    ${flowList}    *actions=push_nsh*
 
+Check Service Funtion Types
+    [Documentation]    Check that the service function types have been added
+    ${sf_types}=    TemplatedRequests.Get_As_Json_From_Uri    ${SERVICE_FUNCTION_TYPES_URI}
+    log    ${sf_types}
+    TemplatedRequests.Verify_Response_As_Json_Templated    ${sf_types}    ${CONFIG_DIR}    ${SERVICE_FUNCTION_TYPES_FILE_BASENAME}
+
 Switch Ips In Json Files
     [Arguments]    ${json_dir}    ${container_names}
     ${normalized_dir}=    OperatingSystem.Normalize Path    ${json_dir}/*.json
@@ -93,7 +100,9 @@ Init Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
     Set Suite Variable    ${CONFIG_DIR}    ${CURDIR}/../../../variables/sfc/master/full-deploy
-    Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ${CONFIG_DIR}/service-functions.json
+    Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ${CONFIG_DIR}/service-funtions.json
+    Set Suite Variable    ${SERVICE_FUNCTION_TYPES_FILE_BASENAME}    service-function-types
+    Set Suite Variable    ${SERVICE_FUNCTION_TYPES_FILE}    ${CONFIG_DIR}/${SERVICE_FUNCTION_TYPES_FILE_BASENAME}.json
     Set Suite Variable    ${SERVICE_FORWARDERS_FILE}    ${CONFIG_DIR}/service-function-forwarders.json
     Set Suite Variable    ${SERVICE_NODES_FILE}    ${CONFIG_DIR}/service-nodes.json
     Set Suite Variable    ${SERVICE_CHAINS_FILE}    ${CONFIG_DIR}/service-function-chains.json
