@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e63aaa1_a6dc285a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-24T15:05:20Z",
+      "side": 1,
+      "message": "what was the problem with the list?\n\nAlso, looks like missing 4 spaces between \u003d and Get",
+      "revId": "8fdc52bc3f74cafe11df056198c51c8f3e23fe59",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
