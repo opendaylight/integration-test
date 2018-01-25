@@ -15,7 +15,7 @@ Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SetupUtils.robot
-Variables         ../../../variables/Variables.py
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    cl3_sg
