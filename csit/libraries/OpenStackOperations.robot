@@ -1144,6 +1144,8 @@ OpenStack Suite Setup
     Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     DevstackUtils.Devstack Suite Setup
     Add OVS Logging On All OpenStack Nodes
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set TRACE org.opendaylight.openflowplugin.impl
+    OpenStackOperations.Start Packet Capture On Nodes    carbon_debug    ${EMPTY}    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
 
 OpenStack Suite Teardown
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
@@ -1152,6 +1154,7 @@ OpenStack Suite Teardown
     ...    benefit automatically.
     OpenStack Cleanup All
     SSHLibrary.Close All Connections
+    OpenStackOperations.Stop Packet Capture on Nodes
 
 Copy DHCP Files From Control Node
     [Documentation]    Copy the current DHCP files to the robot vm. The keyword must be called
