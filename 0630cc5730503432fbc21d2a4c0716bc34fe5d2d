@@ -122,6 +122,24 @@
       "revId": "0630cc5730503432fbc21d2a4c0716bc34fe5d2d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26709eaa_4029d7b2",
+        "filename": "csit/suites/genius/04_BFD_monitoring.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-01-25T04:41:54Z",
+      "side": 1,
+      "message": "I\u0027ll go with this for now, got a feeling we may have to tweak it for different verifications, so will revisit this once we have data from some test runs.",
+      "parentUuid": "c894d257_cfecbadb",
+      "revId": "0630cc5730503432fbc21d2a4c0716bc34fe5d2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
