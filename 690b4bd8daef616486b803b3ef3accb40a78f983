@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "23a65a6d_d5b52410",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-25T06:30:28Z",
+      "side": 1,
+      "message": "yeah, not used or needed. It\u0027s deleted in ps3",
+      "parentUuid": "6ed18146_499c5d94",
+      "revId": "690b4bd8daef616486b803b3ef3accb40a78f983",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "673aaeed_ab6018b0",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 2
@@ -47,6 +65,24 @@
       "writtenOn": "2018-01-21T21:13:38Z",
       "side": 1,
       "message": "ok, so this is the one that we need to worry about, since it is called in a heavy loop. this will dump a lot to the logs.",
+      "revId": "690b4bd8daef616486b803b3ef3accb40a78f983",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1932dca7_d35abe61",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-25T06:30:28Z",
+      "side": 1,
+      "message": "check ps3. we can now toggle logging off in \"OpenStack CLI\" if we want. It\u0027s default will be to log still.",
+      "parentUuid": "aaea8a77_6ff607d4",
       "revId": "690b4bd8daef616486b803b3ef3accb40a78f983",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
