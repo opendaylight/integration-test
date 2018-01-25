@@ -1089,16 +1089,18 @@ OpenStack List All
     \    OpenStack CLI    openstack ${module} list
 
 OpenStack CLI Get List
-    [Arguments]    ${cmd}
+    [Arguments]    ${cmd}    ${ignore_rc}=no
     [Documentation]    Return a json list from the output of an OpenStack command.
-    ${json} =    OpenStack CLI    ${cmd}
+    Pass Execution If    '${ignore_rc}' == 'yes'    "Command need not be evaluated"
+    ${json} =    OpenStack CLI    ${cmd}    ignore_rc=${ignore_rc}
     @{list} =    RequestsLibrary.To Json    ${json}
     BuiltIn.Log    ${list}
     [Return]    @{list}
 
 OpenStack CLI
-    [Arguments]    ${cmd}
+    [Arguments]    ${cmd}    ${ignore_rc}=no
     [Documentation]    Run the given OpenStack ${cmd}.
+    Pass Execution If    '${ignore_rc}' == 'yes'    "Command need not be evaluated"
     ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
     BuiltIn.Log    ${output}
     Should Be True    '${rc}' == '0'
@@ -1107,13 +1109,13 @@ OpenStack CLI
 OpenStack Cleanup All
     [Documentation]    Cleanup all Openstack resources with best effort. The keyword will query for all resources
     ...    in use and then attempt to delete them. Errors are ignored to allow the cleanup to continue.
-    @{fips} =    OpenStack CLI Get List    openstack floating ip list -f json
+    @{fips} =    OpenStack CLI Get List    openstack floating ip list -f json    ignore_rc=yes
     : FOR    ${fip}    IN    @{fips}
     \    BuiltIn.Run Keyword And Ignore Error    Delete Floating IP    ${fip['ID']}
     @{vms} =    OpenStack CLI Get List    openstack server list -f json
     : FOR    ${vm}    IN    @{vms}
     \    BuiltIn.Run Keyword And Ignore Error    Delete Vm Instance    ${vm['ID']}
-    @{routers} =    OpenStack CLI Get List    openstack router list -f json
+    @{routers} =    OpenStack CLI Get List    openstack router list -f json    ignore_rc=yes
     : FOR    ${router}    IN    @{routers}
     \    BuiltIn.Run Keyword And Ignore Error    Cleanup Router    ${router['ID']}
     @{ports} =    OpenStack CLI Get List    openstack port list -f json
@@ -1164,7 +1166,7 @@ Copy DHCP Files From Control Node
 
 Is Feature Installed
     [Arguments]    ${features}=none
-    : FOR    ${feature}    IN    ${features}
+    : FOR    ${feature}    IN    @{features}
     \    ${status}    ${output}    Run Keyword And Ignore Error    Builtin.Should Contain    ${CONTROLLERFEATURES}    ${feature}
     \    Return From Keyword If    "${status}" == "PASS"    True
     [Return]    False
