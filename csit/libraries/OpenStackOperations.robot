@@ -1144,6 +1144,7 @@ OpenStack Suite Setup
     Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     DevstackUtils.Devstack Suite Setup
     Add OVS Logging On All OpenStack Nodes
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background log:set TRACE org.opendaylight.openflowplugin.impl
 
 OpenStack Suite Teardown
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
