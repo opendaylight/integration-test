@@ -1163,7 +1163,8 @@ Copy DHCP Files From Control Node
 
 Is Feature Installed
     [Arguments]    ${features}=none
-    : FOR    ${feature}    IN    ${features}
+    ${features_list} =  Get Dictionary Items    ${features}
+    : FOR    ${feature}    IN    @{features_list}
     \    ${status}    ${output}    Run Keyword And Ignore Error    Builtin.Should Contain    ${CONTROLLERFEATURES}    ${feature}
     \    Return From Keyword If    "${status}" == "PASS"    True
     [Return]    False
