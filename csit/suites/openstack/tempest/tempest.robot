@@ -12,7 +12,7 @@ Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
-Variables         ../../../variables/Variables.py
+Resource         ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
 *** Test Cases ***
