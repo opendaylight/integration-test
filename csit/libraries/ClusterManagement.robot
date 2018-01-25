@@ -494,14 +494,15 @@ Count_Running_Karafs_On_Member
     [Return]    ${count}
 
 Isolate_Member_From_List_Or_All
-    [Arguments]    ${isolate_member_index}    ${member_index_list}=${EMPTY}
+    [Arguments]    ${isolate_member_index}    ${member_index_list}=${EMPTY}    ${protocol}=all    ${port}=${EMPTY}
     [Documentation]    If the list is empty, isolate member from all ODL instances. Otherwise, isolate member based on present indices.
     ...    The KW will return a list of available members: \${updated index_list}=\${member_index_list}-\${isolate_member_index}
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${source} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${isolate_member_index}
+    ${dport} =    BuiltIn.Set_Variable_If    '${port}' != '${EMPTY}'    --dport ${port}    ${EMPTY}
     : FOR    ${index}    IN    @{index_list}
     \    ${destination} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
-    \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -I OUTPUT -p all --source ${source} --destination ${destination} -j DROP
+    \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -I OUTPUT -p ${protocol} ${dport} --source ${source} --destination ${destination} -j DROP
     \    BuiltIn.Run_Keyword_If    "${index}" != "${isolate_member_index}"    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
     ${output} =    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
@@ -511,13 +512,14 @@ Isolate_Member_From_List_Or_All
     [Return]    ${updated_index_list}
 
 Rejoin_Member_From_List_Or_All
-    [Arguments]    ${rejoin_member_index}    ${member_index_list}=${EMPTY}
+    [Arguments]    ${rejoin_member_index}    ${member_index_list}=${EMPTY}    ${protocol}=all    ${port}=${EMPTY}
     [Documentation]    If the list is empty, rejoin member from all ODL instances. Otherwise, rejoin member based on present indices.
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${source} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${rejoin_member_index}
+    ${dport} =    BuiltIn.Set_Variable_If    '${port}' != '${EMPTY}'    --dport ${port}    ${EMPTY}
     : FOR    ${index}    IN    @{index_list}
     \    ${destination} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
-    \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -D OUTPUT -p all --source ${source} --destination ${destination} -j DROP
+    \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -D OUTPUT -p ${protocol} ${dport} --source ${source} --destination ${destination} -j DROP
     \    BuiltIn.Run_Keyword_If    "${index}" != "${rejoin_member_index}"    Run_Bash_Command_On_Member    command=${command}    member_index=${rejoin_member_index}
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
     ${output} =    Run_Bash_Command_On_Member    command=${command}    member_index=${rejoin_member_index}
