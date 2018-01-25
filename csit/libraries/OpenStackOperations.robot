@@ -1107,13 +1107,13 @@ OpenStack CLI
 OpenStack Cleanup All
     [Documentation]    Cleanup all Openstack resources with best effort. The keyword will query for all resources
     ...    in use and then attempt to delete them. Errors are ignored to allow the cleanup to continue.
-    @{fips} =    OpenStack CLI Get List    openstack floating ip list -f json
+    @{fips} =    BuiltIn.Run Keyword And Ignore Error     OpenStack CLI Get List    openstack floating ip list -f json
     : FOR    ${fip}    IN    @{fips}
     \    BuiltIn.Run Keyword And Ignore Error    Delete Floating IP    ${fip['ID']}
     @{vms} =    OpenStack CLI Get List    openstack server list -f json
     : FOR    ${vm}    IN    @{vms}
     \    BuiltIn.Run Keyword And Ignore Error    Delete Vm Instance    ${vm['ID']}
-    @{routers} =    OpenStack CLI Get List    openstack router list -f json
+    @{routers} =    BuiltIn.Run Keyword And Ignore Error     OpenStack CLI Get List    openstack router list -f json
     : FOR    ${router}    IN    @{routers}
     \    BuiltIn.Run Keyword And Ignore Error    Cleanup Router    ${router['ID']}
     @{ports} =    OpenStack CLI Get List    openstack port list -f json
@@ -1164,7 +1164,7 @@ Copy DHCP Files From Control Node
 
 Is Feature Installed
     [Arguments]    ${features}=none
-    : FOR    ${feature}    IN    ${features}
+    : FOR    ${feature}    IN    @{features}
     \    ${status}    ${output}    Run Keyword And Ignore Error    Builtin.Should Contain    ${CONTROLLERFEATURES}    ${feature}
     \    Return From Keyword If    "${status}" == "PASS"    True
     [Return]    False
