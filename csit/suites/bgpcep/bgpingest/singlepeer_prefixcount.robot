@@ -34,7 +34,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -49,14 +49,14 @@ ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    ${CHECK_PERIOD_PREFIX_COUNT}
-${COUNT}          1000000
+${COUNT}          500000
 ${COUNT_PREFIX_COUNT}    ${COUNT}
 ${COUNT_PREFIX_COUNT_SINGLE}    ${COUNT_PREFIX_COUNT}
 ${HOLDTIME}       180
 ${HOLDTIME_PREFIX_COUNT}    ${HOLDTIME}
 ${HOLDTIME_PREFIX_COUNT_SINGLE}    ${HOLDTIME_PREFIX_COUNT}
 ${INSERT}         1
-${KARAF_LOG_LEVEL}    INFO
+${KARAF_LOG_LEVEL}    WARN
 ${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
 ${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
 ${PREFILL}        0
@@ -64,7 +64,7 @@ ${REPETITIONS}    1
 ${REPETITIONS_PREFIX_COUNT}    ${REPETITIONS}
 ${REPETITIONS_PREFIX_COUNT_SINGLE}    ${REPETITIONS_PREFIX_COUNT}
 ${RESULTS_FILE_NAME}    bgp.csv
-${TEST_DURATION_MULTIPLIER}    1
+${TEST_DURATION_MULTIPLIER}    2
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}    ${TEST_DURATION_MULTIPLIER}
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_SINGLE}    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}
 ${UPDATE}         single
@@ -218,6 +218,7 @@ Setup_Everything
     ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_SINGLE} * (${COUNT_PREFIX_COUNT_SINGLE} * 9.0 / 10000 + 20)
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL} org.ops4j.pax
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
