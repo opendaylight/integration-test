@@ -51,7 +51,7 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_T
 Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot

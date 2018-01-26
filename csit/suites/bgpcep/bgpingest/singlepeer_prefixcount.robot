@@ -34,7 +34,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -80,7 +80,7 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
     [Documentation]    Wait for example-ipv4-topology to come up and empty. Give large timeout for case when BGP boots slower than restconf.
     [Tags]    critical
     # TODO: Choose which tags to assign and make sure they are assigned correctly.
-    BuiltIn.Wait_Until_Keyword_Succeeds    120s    1s    PrefixCounting.Check_Ipv4_Topology_Is_Empty
+    BuiltIn.Wait_Until_Keyword_Succeeds    300s    1s    PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.

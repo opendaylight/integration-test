@@ -82,6 +82,7 @@ Setup_Everything
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${bgp_filling_timeout*3.0/4}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set WARN org.ops4j.pax
     ${init_shard_details} =    ShardStability.Shards_Stability_Get_Details    ${SHARD_MONITOR_LIST}
     BuiltIn.Set_Suite_Variable    ${init_shard_details}
 

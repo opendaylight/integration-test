@@ -29,7 +29,7 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_T
 Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -43,7 +43,7 @@ ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_PEERS_LOG_FILE_NAME}    bgp_peer.log
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${CHECK_PERIOD_PREFIX_COUNT_MANY_RRC}    10
-${COUNT}          100000    # With AdjRibsOut, the amount of data present is on the same scale as 1M ingest with single peer.
+${COUNT}          1000000    # With AdjRibsOut, the amount of data present is on the same scale as 1M ingest with single peer.
 ${COUNT_PREFIX_COUNT_MANY_RRC}    ${COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
 ${HOLDTIME}       180
@@ -80,6 +80,7 @@ Reconfigure_ODL_To_Accept_Connections
 Start_Talking_BGP_Manager
     [Documentation]    Start Python manager to connect speakers to ODL.
     BGPSpeaker.Start_BGP_Manager    --amount=${COUNT_PREFIX_COUNT_MANY_RRC} --multiplicity=${MULTIPLICITY_PREFIX_COUNT_MANY_RRC} --myip=${FIRST_PEER_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --logfile=${BGP_PEERS_LOG_FILE_NAME} --${BGP_TOOL_LOG_LEVEL}
+    --amount=20000 --multiplicity=10 --myip=127.0.0.1 --myport=17900 --peerip=127.0.0.15 --peerport=1790 --logfile=bgp_peer.log --info
 
 Wait_For_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology reaches the target prefix count.
