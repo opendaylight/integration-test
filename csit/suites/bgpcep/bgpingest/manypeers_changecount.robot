@@ -54,7 +54,7 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_T
 Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ChangeCounter.robot
 Resource          ${CURDIR}/../../../libraries/CompareStream.robot
@@ -71,25 +71,25 @@ ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_CHANGE_COUNT}    ${CHECK_PERIOD}
 ${CHECK_PERIOD_CHANGE_COUNT_MANY}    ${CHECK_PERIOD_CHANGE_COUNT}
-${COUNT}          1000000
+${COUNT}          100000
 ${COUNT_CHANGE_COUNT}    ${COUNT}
 ${COUNT_CHANGE_COUNT_MANY}    ${COUNT_CHANGE_COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
 ${HOLDTIME}       180
 ${HOLDTIME_CHANGE_COUNT}    ${HOLDTIME}
 ${HOLDTIME_CHANGE_COUNT_MANY}    ${HOLDTIME_CHANGE_COUNT}
-${KARAF_LOG_LEVEL}    INFO
+${KARAF_LOG_LEVEL}    WARN
 ${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
 ${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
 ${MULTIPLICITY}    2    # May be increased after Bug 4488 is fixed.
 ${MULTIPLICITY_CHANGE_COUNT}    ${MULTIPLICITY}
 ${MULTIPLICITY_CHANGE_COUNT_MANY}    ${MULTIPLICITY_CHANGE_COUNT}
-${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-device
-${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-mount
+#${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-device
+#${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-mount
 ${REPETITIONS}    1    # Should be increased depending on multiplicity.
 ${REPETITIONS_CHANGE_COUNT}    ${REPETITIONS}
 ${REPETITIONS_CHANGE_COUNT_MANY}    ${REPETITIONS_CHANGE_COUNT}
-${TEST_DURATION_MULTIPLIER}    1
+${TEST_DURATION_MULTIPLIER}    2
 ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT}    ${TEST_DURATION_MULTIPLIER}
 ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT_MANY}    ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT}
 ${RIB_INSTANCE}    example-bgp-rib
@@ -105,13 +105,13 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
     # TODO: Choose which tags to assign and make sure they are assigned correctly.
     BuiltIn.Wait_Until_Keyword_Succeeds    120s    1s    PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
-Configure_Netconf_Device
-    [Documentation]    Configures netconf device if ${USE_NETCONF_CONNECTOR} is False.
-    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to configure netconf device because netconf connector is present.
-    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to configure netconf device because data change counter is not configured via it.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
-    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}
+#Configure_Netconf_Device
+#    [Documentation]    Configures netconf device if ${USE_NETCONF_CONNECTOR} is False.
+#    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to configure netconf device because netconf connector is present.
+#    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to configure netconf device because data change counter is not configured via it.
+#    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+#    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
+#    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}
 
 Reconfigure_ODL_To_Accept_Connections
     [Documentation]    Configure BGP peer modules with initiate-connection set to false.
@@ -196,13 +196,13 @@ Delete_Bgp_Peer_Configuration
     \    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     \    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
-Remove_Netconf_Device
-    [Documentation]    Removes netconf device if ${USE_NETCONF_CONNECTOR} is False.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to remove netconf device because netconf connector is present.
-    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to remove netconf device because none was used.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
-    TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
+#Remove_Netconf_Device
+#    [Documentation]    Removes netconf device if ${USE_NETCONF_CONNECTOR} is False.
+#    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+#    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to remove netconf device because netconf connector is present.
+#    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to remove netconf device because none was used.
+#    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+#    TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
 
 *** Keywords ***
 Setup_Everything
@@ -230,6 +230,7 @@ Setup_Everything
     ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT_MANY} * (${COUNT_CHANGE_COUNT_MANY} * 2.0 / 10000 + ${period} * (${REPETITIONS_CHANGE_COUNT_MANY} + 1)) + 20
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${timeout}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL} org.ops4j.pax
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.

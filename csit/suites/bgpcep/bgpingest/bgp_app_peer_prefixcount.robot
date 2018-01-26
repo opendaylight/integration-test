@@ -36,7 +36,7 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_T
 Force Tags        critical
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
@@ -50,15 +50,15 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${HOLDTIME}       180
 ${HOLDTIME_APP_PEER_PREFIX_COUNT}    ${HOLDTIME}
-${COUNT}          200000
-${PREFILL}        100000
+${COUNT}          100000
+${PREFILL}        50000
 ${COUNT_APP_PEER_PREFIX_COUNT}    ${COUNT}
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_APP_PEER_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${REPETITIONS_APP_PEER_PREFIX_COUNT}    1
 ${BGP_PEER_LOG_LEVEL}    info
 ${BGP_APP_PEER_LOG_LEVEL}    info
-${ODL_LOG_LEVEL}    INFO
+${ODL_LOG_LEVEL}    WARN
 ${ODL_BGP_LOG_LEVEL}    DEFAULT
 ${BGP_PEER_COMMAND}    python play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL}
 ${BGP_PEER_OPTIONS}    &>bgp_peer.log
@@ -94,13 +94,13 @@ Reconfigure_ODL_To_Accept_BGP_Application_Peer
 Connect_BGP_Peer
     [Documentation]    Start BGP peer tool
     SSHLibrary.Switch Connection    bgp_peer_console
-    Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
+    BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
     Read_And_Fail_If_Prompt_Is_Seen
 
 BGP_Application_Peer_Prefill_Routes
     [Documentation]    Start BGP application peer tool and prefill routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    Start_Console_Tool    ${BGP_APP_PEER_INITIAL_COMMAND} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    BGPcliKeywords.Start_Console_Tool    ${BGP_APP_PEER_INITIAL_COMMAND} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_prefill.log
 
@@ -215,6 +215,7 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL} org.ops4j.pax
     ${script_uri_opt}=    Set Variable    --uri config/bgp-rib:application-rib/${BGP_APP_PEER_ID}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
     BuiltIn.Set_Suite_Variable    ${script_uri_opt}
 
