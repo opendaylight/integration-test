@@ -38,8 +38,6 @@ Documentation     BGP performance of ingesting from many iBGP peers, data change
 ...               Brief description how to configure BGP peer can be found here:
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:User_Guide#BGP_Peer
 ...               http://docs.opendaylight.org/en/stable-boron/user-guide/bgp-user-guide.html#bgp-peering
-...               The peer configuration depends on the ${ODL_STREAM}. For "boron" and older streams it uses netconf connector and
-...               for carbon and further it configures peer via openconfig.
 ...
 ...               TODO: Is there a need for version of this suite where ODL connects to pers?
 ...               Note that configuring ODL is slow, which may affect measured performance singificantly.
@@ -51,7 +49,7 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_T
 Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
