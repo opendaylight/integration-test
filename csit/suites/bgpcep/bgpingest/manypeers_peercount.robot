@@ -29,7 +29,7 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_T
 Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -43,7 +43,7 @@ ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_PEERS_LOG_FILE_NAME}    bgp_peer.log
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${CHECK_PERIOD_PREFIX_COUNT_MANY_RRC}    10
-${COUNT}          100000    # With AdjRibsOut, the amount of data present is on the same scale as 1M ingest with single peer.
+${COUNT}          50000    # With AdjRibsOut, the amount of data present is on the same scale as 1M ingest with single peer.
 ${COUNT_PREFIX_COUNT_MANY_RRC}    ${COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
 ${HOLDTIME}       180
@@ -53,7 +53,7 @@ ${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
 ${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
 ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}    10
 ${REPETITIONS_PREFIX_COUNT_MANY_RRC}    10
-${TEST_DURATION_MULTIPLIER}    1
+${TEST_DURATION_MULTIPLIER}    2
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY_RRC}    ${TEST_DURATION_MULTIPLIER}
 ${RIB_INSTANCE}    example-bgp-rib
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}

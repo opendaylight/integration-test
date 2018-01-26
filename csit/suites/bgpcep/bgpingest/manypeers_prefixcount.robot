@@ -51,7 +51,7 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_T
 Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -66,7 +66,7 @@ ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${CHECK_PERIOD}    1    # ${MULTIPLICITY*2} recommended for this suite, but keeping the common default.
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${CHECK_PERIOD_PREFIX_COUNT_MANY}    ${CHECK_PERIOD_PREFIX_COUNT}
-${COUNT}          1000000
+${COUNT}          100000
 ${COUNT_PREFIX_COUNT}    ${COUNT}
 ${COUNT_PREFIX_COUNT_MANY}    ${COUNT_PREFIX_COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
@@ -82,7 +82,7 @@ ${MULTIPLICITY_PREFIX_COUNT_MANY}    ${MULTIPLICITY_PREFIX_COUNT}
 ${REPETITIONS}    1
 ${REPETITIONS_PREFIX_COUNT}    ${REPETITIONS}
 ${REPETITIONS_PREFIX_COUNT_MANY}    ${REPETITIONS_PREFIX_COUNT}
-${TEST_DURATION_MULTIPLIER}    1
+${TEST_DURATION_MULTIPLIER}    2
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}    ${TEST_DURATION_MULTIPLIER}
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY}    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}
 ${RIB_INSTANCE}    example-bgp-rib

@@ -34,7 +34,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -49,7 +49,7 @@ ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    ${CHECK_PERIOD_PREFIX_COUNT}
-${COUNT}          1000000
+${COUNT}          500000
 ${COUNT_PREFIX_COUNT}    ${COUNT}
 ${COUNT_PREFIX_COUNT_SINGLE}    ${COUNT_PREFIX_COUNT}
 ${HOLDTIME}       180
@@ -64,7 +64,7 @@ ${REPETITIONS}    1
 ${REPETITIONS_PREFIX_COUNT}    ${REPETITIONS}
 ${REPETITIONS_PREFIX_COUNT_SINGLE}    ${REPETITIONS_PREFIX_COUNT}
 ${RESULTS_FILE_NAME}    bgp.csv
-${TEST_DURATION_MULTIPLIER}    1
+${TEST_DURATION_MULTIPLIER}    2
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}    ${TEST_DURATION_MULTIPLIER}
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_SINGLE}    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}
 ${UPDATE}         single
