@@ -5,15 +5,15 @@
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
 # Place the suites in run order:
-integration/test/csit/suites/netconf/ready/netconfready.robot
+#integration/test/csit/suites/netconf/ready/netconfready.robot
 integration/test/csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_300kroutes.robot
 integration/test/csit/suites/bgpcep/bgpingest/singlepeer_prefixcount.robot
 integration/test/csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot
 integration/test/csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot
-integration/test/csit/suites/bgpcep/bgpingest/manypeers_prefixcount.robot
-integration/test/csit/suites/bgpcep/bgpingest/manypeers_peercount.robot
-integration/test/csit/suites/bgpcep/bgpingest/manypeers_changecount.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_300kroutes.robot
-integration/test/csit/suites/bgpcep/bgpingest/singlepeer_prefixcount.robot
-integration/test/csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot
+#integration/test/csit/suites/bgpcep/bgpingest/manypeers_prefixcount.robot
+#integration/test/csit/suites/bgpcep/bgpingest/manypeers_peercount.robot
+#integration/test/csit/suites/bgpcep/bgpingest/manypeers_changecount.robot
+#integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
+#integration/test/csit/suites/bgpcep/bgpclustering/singlepeer_pc_shm_300kroutes.robot
+#integration/test/csit/suites/bgpcep/bgpingest/singlepeer_prefixcount.robot
+#integration/test/csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot

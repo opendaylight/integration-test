@@ -84,8 +84,8 @@ ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 # TODO: Option names can be better.
 ${last_change_count_single}    -1
-${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-device
-${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-mount
+#${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-device
+#${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-mount
 
 *** Test Cases ***
 Check_For_Empty_Ipv4_Topology_Before_Talking
@@ -94,13 +94,13 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
     # TODO: Choose which tags to assign and make sure they are assigned correctly.
     BuiltIn.Wait_Until_Keyword_Succeeds    120s    1s    PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
-Configure_Netconf_Device
-    [Documentation]    Configures netconf device if ${USE_NETCONF_CONNECTOR} is False.
-    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to configure netconf device because netconf connector is present.
-    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to configure netconf device because data change counter is not configured via it.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
-    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}
+#Configure_Netconf_Device
+#    [Documentation]    Configures netconf device if ${USE_NETCONF_CONNECTOR} is False.
+#    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to configure netconf device because netconf connector is present.
+#    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to configure netconf device because data change counter is not configured via it.
+#    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+#    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
+#    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
@@ -235,13 +235,13 @@ Delete_Bgp_Peer_Configuration
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
-Remove_Netconf_Device
-    [Documentation]    Removes netconf device if ${USE_NETCONF_CONNECTOR} is False.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to remove netconf device because netconf connector is present.
-    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to remove netconf device because none was used.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
-    TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
+#Remove_Netconf_Device
+#    [Documentation]    Removes netconf device if ${USE_NETCONF_CONNECTOR} is False.
+#    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+#    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to remove netconf device because netconf connector is present.
+#    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to remove netconf device because none was used.
+#    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+#    TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
 
 *** Keywords ***
 Setup_Everything
