@@ -51,7 +51,7 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_T
 Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
@@ -66,14 +66,14 @@ ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${CHECK_PERIOD}    1    # ${MULTIPLICITY*2} recommended for this suite, but keeping the common default.
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${CHECK_PERIOD_PREFIX_COUNT_MANY}    ${CHECK_PERIOD_PREFIX_COUNT}
-${COUNT}          1000000
+${COUNT}          100000
 ${COUNT_PREFIX_COUNT}    ${COUNT}
 ${COUNT_PREFIX_COUNT_MANY}    ${COUNT_PREFIX_COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
 ${HOLDTIME}       180
 ${HOLDTIME_PREFIX_COUNT}    ${HOLDTIME}
 ${HOLDTIME_PREFIX_COUNT_MANY}    ${HOLDTIME_PREFIX_COUNT}
-${KARAF_LOG_LEVEL}    INFO
+${KARAF_LOG_LEVEL}    WARN
 ${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
 ${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
 ${MULTIPLICITY}    2    # May be increased after Bug 4488 is fixed.
@@ -82,7 +82,7 @@ ${MULTIPLICITY_PREFIX_COUNT_MANY}    ${MULTIPLICITY_PREFIX_COUNT}
 ${REPETITIONS}    1
 ${REPETITIONS_PREFIX_COUNT}    ${REPETITIONS}
 ${REPETITIONS_PREFIX_COUNT_MANY}    ${REPETITIONS_PREFIX_COUNT}
-${TEST_DURATION_MULTIPLIER}    1
+${TEST_DURATION_MULTIPLIER}    2
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}    ${TEST_DURATION_MULTIPLIER}
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY}    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}
 ${RIB_INSTANCE}    example-bgp-rib
@@ -187,6 +187,7 @@ Setup_Everything
     ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 2.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1)) + 20
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${timeout}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL} org.ops4j.pax
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.

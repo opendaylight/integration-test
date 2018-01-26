@@ -41,10 +41,10 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ChangeCounter.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
+#Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
@@ -58,14 +58,14 @@ ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_CHANGE_COUNT}    ${CHECK_PERIOD}
 ${CHECK_PERIOD_CHANGE_COUNT_SINGLE}    ${CHECK_PERIOD_CHANGE_COUNT}
-${COUNT}          1000000
+${COUNT}          500000
 ${COUNT_CHANGE_COUNT}    ${COUNT}
 ${COUNT_CHANGE_COUNT_SINGLE}    ${COUNT_CHANGE_COUNT}
 ${HOLDTIME}       180
 ${HOLDTIME_CHANGE_COUNT}    ${HOLDTIME}
 ${HOLDTIME_CHANGE_COUNT_SINGLE}    ${HOLDTIME_CHANGE_COUNT}
 ${INSERT}         1
-${KARAF_LOG_LEVEL}    INFO
+${KARAF_LOG_LEVEL}    WARN
 ${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
 ${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
 ${PREFILL}        0
@@ -73,7 +73,7 @@ ${REPETITIONS}    1
 ${REPETITIONS_CHANGE_COUNT}    ${REPETITIONS}
 ${REPETITIONS_CHANGE_COUNT_SINGLE}    ${REPETITIONS_CHANGE_COUNT}
 ${RESULTS_FILE_NAME}    bgp.csv
-${TEST_DURATION_MULTIPLIER}    1
+${TEST_DURATION_MULTIPLIER}    2
 ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT}    ${TEST_DURATION_MULTIPLIER}
 ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT_SINGLE}    ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT}
 ${UPDATE}         single
@@ -84,8 +84,8 @@ ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 # TODO: Option names can be better.
 ${last_change_count_single}    -1
-${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-device
-${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-mount
+#${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-device
+#${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-mount
 
 *** Test Cases ***
 Check_For_Empty_Ipv4_Topology_Before_Talking
@@ -94,13 +94,13 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
     # TODO: Choose which tags to assign and make sure they are assigned correctly.
     BuiltIn.Wait_Until_Keyword_Succeeds    120s    1s    PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
-Configure_Netconf_Device
-    [Documentation]    Configures netconf device if ${USE_NETCONF_CONNECTOR} is False.
-    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to configure netconf device because netconf connector is present.
-    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to configure netconf device because data change counter is not configured via it.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
-    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}
+#Configure_Netconf_Device
+#    [Documentation]    Configures netconf device if ${USE_NETCONF_CONNECTOR} is False.
+#    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to configure netconf device because netconf connector is present.
+#    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to configure netconf device because data change counter is not configured via it.
+#    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+#    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
+#    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
@@ -108,10 +108,10 @@ Reconfigure_ODL_To_Accept_Connection
     ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
-Wait_For_Data_Change_Counter_Ready
-    [Documentation]    Data change counter might have been slower to start than ipv4 topology, wait for it.
-    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No data change counter is present yet.
-    BuiltIn.Wait_Until_Keyword_Succeeds    180s    1s    ChangeCounter.Get_Change_Count
+#Wait_For_Data_Change_Counter_Ready
+#    [Documentation]    Data change counter might have been slower to start than ipv4 topology, wait for it.
+#    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No data change counter is present yet.
+#    BuiltIn.Wait_Until_Keyword_Succeeds    180s    1s    ChangeCounter.Get_Change_Count
 
 Reconfigure_Data_Change_Counter
     [Documentation]    Configure data change counter to count transactions in example-ipv4-topology instead of example-linkstate-topology.
@@ -235,13 +235,13 @@ Delete_Bgp_Peer_Configuration
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
-Remove_Netconf_Device
-    [Documentation]    Removes netconf device if ${USE_NETCONF_CONNECTOR} is False.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to remove netconf device because netconf connector is present.
-    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to remove netconf device because none was used.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
-    TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
+#Remove_Netconf_Device
+#    [Documentation]    Removes netconf device if ${USE_NETCONF_CONNECTOR} is False.
+#    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+#    BuiltIn.Run_Keyword_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    BuiltIn.Pass_Execution    No need to remove netconf device because netconf connector is present.
+#    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    No need to remove netconf device because none was used.
+#    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+#    TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}
 
 *** Keywords ***
 Setup_Everything
@@ -267,6 +267,7 @@ Setup_Everything
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${bgp_filling_timeout*3.0/4}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL} org.ops4j.pax
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
