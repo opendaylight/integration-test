@@ -113,10 +113,11 @@ Suite Setup       FailFast.Do_Not_Fail_Fast_From_Now_On
 Suite Teardown    Disconnect
 Test Setup        FailFast.Fail_This_Fast_On_Previous_Error
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
-Resource          ${CURDIR}/../../../variables/Variables.robot
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/AuthStandalone.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
+Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot    # for Deploy_Artifact
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot    # for Require_* and Assure_*, Flexible_SSH_Login
@@ -142,14 +143,15 @@ ${PCCMOCKVM_WORKSPACE}    ${TOOLS_SYSTEM_WORKSPACE}
 ${PCCS}           1
 ${PCEP_READY_VERIFY_TIMEOUT}    300s
 # Yes, the default timeout is 5 minutes, as this suite might be started eagerly just after ODL starts booting up.
-${RESTCONF_PASSWORD}    ${PWD}    # from Variables.py
+${RESTCONF_PASSWORD}    ${PWD}    # from Variables.robot
 ${RESTCONF_REUSE}    True
 ${RESTCONF_SCOPE}    ${EMPTY}
-${RESTCONF_USER}    ${USER}    # from Variables.py
+${RESTCONF_USER}    ${USER}    # from Variables.robot
 ${TOOLS_SYSTEM_WORKSPACE}    /tmp
 ${UPDATER_COLOCATED}    False
 ${UPDATER_ODLADDRESS}    ${ODL_SYSTEM_IP}
 ${UPDATER_REFRESH}    0.1
+# Updater timeout is overwritten in releng/builder
 ${UPDATER_TIMEOUT}    300
 ${UPDATERVM_ENABLE_TCP_RW_REUSE}    True
 ${UPDATERVM_IP}    ${TOOLS_SYSTEM_IP}
@@ -158,7 +160,7 @@ ${UPDATERVM_PROMPT}    ${TOOLS_SYSTEM_PROMPT}
 ${UPDATERVM_USER}    ${TOOLS_SYSTEM_USER}
 ${UPDATERVM_WORKSPACE}    ${TOOLS_SYSTEM_WORKSPACE}
 
-*** TestCases ***
+*** Test Cases ***
 Download_Pcc_Mock
     [Documentation]    SSH login to pcc-mock VM, download latest pcc-mock executable from Nexus.
     BuiltIn.Run_Keyword_If    ${PCCMOCK_COLOCATED}    Pccmock_From_Controller
@@ -228,7 +230,7 @@ Topology_Intercondition
 Updater_1
     [Documentation]    Run updater tool to change hops, using 1 blocking http thread.
     [Tags]    critical
-    Updater    1
+    Updater    1    1
     [Teardown]    Do_Not_Start_Failing_If_This_Failed
 
 Verify_1
@@ -239,7 +241,7 @@ Verify_1
 Updater_2
     [Documentation]    Run updater tool to change hops again, using 2 blocking http threads.
     [Tags]    critical
-    Updater    2
+    Updater    2    1
     [Teardown]    Do_Not_Start_Failing_If_This_Failed
 
 Verify_2
@@ -250,7 +252,7 @@ Verify_2
 Updater_3
     [Documentation]    Run updater tool to change hops again, using 4 blocking http threads.
     [Tags]    critical
-    Updater    3
+    Updater    3    4
     [Teardown]    Do_Not_Start_Failing_If_This_Failed
 
 Verify_3
@@ -261,7 +263,7 @@ Verify_3
 Updater_4
     [Documentation]    Run updater tool to change hops again, using 8 blocking http threads.
     [Tags]    critical
-    Updater    4
+    Updater    4    8
     [Teardown]    Do_Not_Start_Failing_If_This_Failed
 
 Verify_4
@@ -272,7 +274,7 @@ Verify_4
 Updater_5
     [Documentation]    Run updater tool to change hops again, using 16 blocking http threads.
     [Tags]    critical
-    Updater    5
+    Updater    5    16
     [Teardown]    Do_Not_Start_Failing_If_This_Failed
 
 Verify_5
@@ -283,7 +285,7 @@ Verify_5
 Updater_6
     [Documentation]    Run updater tool to change hops again, using 32 blocking http threads.
     [Tags]    critical
-    Updater    6
+    Updater    6    32
     [Teardown]    Do_Not_Start_Failing_If_This_Failed
 
 Verify_6
@@ -294,7 +296,7 @@ Verify_6
 Updater_7
     [Documentation]    Run updater tool to change hops again, using 64 blocking http threads.
     [Tags]    critical
-    Updater    7
+    Updater    7    64
     [Teardown]    Do_Not_Start_Failing_If_This_Failed
 
 Verify_7
@@ -305,7 +307,7 @@ Verify_7
 Updater_8
     [Documentation]    Run updater tool to change hops again, using 128 blocking http threads.
     [Tags]    critical
-    Updater    8
+    Updater    8    128
     [Teardown]    Do_Not_Start_Failing_If_This_Failed
 
 Verify_8
@@ -316,7 +318,7 @@ Verify_8
 Updater_9
     [Documentation]    Run updater tool to change hops again, using 256 blocking http threads.
     [Tags]    critical
-    Updater    9
+    Updater    9    256
     [Teardown]    Do_Not_Start_Failing_If_This_Failed
 
 Verify_9
@@ -327,7 +329,7 @@ Verify_9
 Updater_10
     [Documentation]    Run updater tool to change hops again, using 512 blocking http threads.
     [Tags]    critical
-    Updater    10
+    Updater    10    512
     [Teardown]    Do_Not_Start_Failing_If_This_Failed
 
 Verify_10
@@ -338,14 +340,8 @@ Verify_10
 Stop_Pcc_Mock
     [Documentation]    Send ctrl+c to pcc-mock, see prompt again within timeout.
     [Setup]    Run_Even_When_Failing_Fast
-    # TODO: This should be in a library similar to BGPSpeaker.robot
     SSHLibrary.Switch_Connection    pccmock
-    # FIXME: send_ctrl should be in some library.
-    ${command} =    BuiltIn.Evaluate    chr(int(3))
-    BuiltIn.Log    ${command}
-    SSHLibrary.Write    ${command}
-    ${response} =    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${response}
+    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
 
 Download_Pccmock_Log
     [Documentation]    Transfer pcc-mock output from pcc-mock VM to robot VM.
@@ -356,7 +352,7 @@ Topology_Postcondition
     [Documentation]    Verify that within timeout, PCEP topology contains no PCCs again.
     [Tags]    critical
     [Setup]    Run_Even_When_Failing_Fast
-    Builtin.Wait_Until_Keyword_Succeeds    30s    1s    Pcep_Off_Again
+    Builtin.Wait_Until_Keyword_Succeeds    90s    5s    Pcep_Off_Again
 
 Restore_Tcp_Rw_Reuse
     [Documentation]    If requested, restore the old value if enabling TCP reuse was successful on Updater VM.
@@ -433,16 +429,13 @@ Set_Hop
     BuiltIn.Log    ${hop}
 
 Updater
-    [Arguments]    ${iteration}
+    [Arguments]    ${iteration}    ${workers}
     [Documentation]    Compute number of workers, call updater.py, assert its response.
     SSHLibrary.Switch_Connection    pccmock
     # In some systems, inactive SSH sessions get severed.
     ${command} =    BuiltIn.Set_Variable    echo "still alive"
     ${output} =    SSHLibrary.Execute_Command    bash -c '${command}'
     # The previous line relies on a fact that Execute_Command spawns separate shels, so running pcc-mock is not affected.
-    ${workers} =    Evaluate    2**int(${iteration} - 1)
-    # TODO: Provide ${workers} explicitly as an argument to avoid math?
-    BuiltIn.Log    ${workers}
     Set_Hop    ${iteration}
     SSHLibrary.Switch_Connection    updater
     ${response} =    SSHLibrary.Execute_Command    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${FIRST_PCC_IP}' --pccs '${PCCS}' --lsps '${LSPS}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' 2>&1"
