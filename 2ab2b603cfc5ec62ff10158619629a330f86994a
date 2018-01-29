@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d03876b6_186a00a1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-29T20:45:50Z",
+      "side": 1,
+      "message": "why not use the new keyword that does all this work for the tcpdump piece?",
+      "revId": "2ab2b603cfc5ec62ff10158619629a330f86994a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
