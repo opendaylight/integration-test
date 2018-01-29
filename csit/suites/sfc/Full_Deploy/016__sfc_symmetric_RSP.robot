@@ -26,6 +26,7 @@ ${CREATE_RSP3_INPUT}    {"input":{"parent-service-function-path":"SFP3","name":"
 ${DELETE_RSP1_INPUT}    {"input":{"name":"RSP1"}}
 ${DELETE_RSP2_INPUT}    {"input":{"name":"RSP2"}}
 ${DELETE_RSP3_INPUT}    {"input":{"name":"RSP3"}}
+@{SF_NAMES}        "name":"firewall-1"    "name":"dpi-1"    "name":"dpi-2"
 
 *** Test Cases ***
 Create symmetric RSP with bidirectional flag set true in one SF type
@@ -70,14 +71,9 @@ Basic Environment Setup
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_TYPES_URI}    ${SERVICE_FUNCTION_TYPES_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types    ${SF_NAMES}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
-
-Check Service Function Types
-    [Documentation]    Check that the service function types are updated with the service function names
-    ${elements}=    Create List    "name":"firewall-1"    "name":"dpi-1"    "name":"dpi-2"
-    Check For Elements At URI    ${SERVICE_FUNCTION_TYPES_URI}    ${elements}
 
 End Suite
     Clean Datastore
