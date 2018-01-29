@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c53308d_0e299c1e",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-29T04:21:14Z",
+      "side": 1,
+      "message": "why do not use ${member_index_list}\u003d${EMPTY} like other KWs in this library?",
+      "revId": "9faa7b33a7807104a71de09c66eec6fe9e9494a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15767863_626c1eb5",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-29T04:21:14Z",
+      "side": 1,
+      "message": "It is good to make this KW cluster member aware but it is kind of useless if the other KWs in the library are not, or is there a way you can leverage the search script is in all the members?",
+      "revId": "9faa7b33a7807104a71de09c66eec6fe9e9494a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ffa0126_00c6ed9c",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-29T04:21:14Z",
+      "side": 1,
+      "message": "we normally use ${member_index) to define the cluster member index.",
+      "revId": "9faa7b33a7807104a71de09c66eec6fe9e9494a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
