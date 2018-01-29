@@ -25,13 +25,14 @@ ${CREATE_RSP_FAILURE_INPUT}    {"input":{"name": "RSP1","parent-service-function
 ${DELETE_RSP1_INPUT}    {"input":{"name":"RSP1"}}
 ${DELETE_RSP1_REVERSE_INPUT}    {"input":{"name":"RSP1-Reverse"}}
 ${DELETE_RSP2_INPUT}    {"input":{"name":"RSP2"}}
+@{SF_NAMES}    "name":"firewall-1"    "name":"dpi-1"
 
 *** Test Cases ***
 Basic Environment Setup Tests
     [Documentation]    Prepare Basic Test Environment. Logical SFF
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types    ${SF_NAMES}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
 
@@ -131,8 +132,3 @@ Create All Elements
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
-
-Check Service Function Types
-    [Documentation]    Check that the service function types are updated with the service functions names
-    ${elements}=    Create List    "name":"firewall-1"    "name":"dpi-1"
-    Check For Elements At URI    ${SERVICE_FUNCTION_TYPES_URI}    ${elements}

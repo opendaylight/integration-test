@@ -7,7 +7,7 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           ../../../libraries/SFC/SfcUtils.py
-Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/SFC/SfcKeywords.robot
 Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
@@ -17,6 +17,7 @@ Resource          ../../../libraries/SFC/DockerSfc.robot
 *** Variables ***
 ${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFP1","name":"RSP1"}}
 ${CREATE_RSP_FAILURE_INPUT}    {"input":{"parent-service-function-path":"SFC1-empty","name":"RSP1-empty-Path-1"}}
+@{SF_NAMES}    "name":"firewall-1"    "name":"dpi-1"
 
 *** Test Cases ***
 Basic Environment Setup Tests
@@ -24,7 +25,7 @@ Basic Environment Setup Tests
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types    ${SF_NAMES}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_METADATA_URI}    ${SERVICE_METADATA_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
@@ -49,35 +50,6 @@ Create and Get Classifiers
     Wait Until Keyword Succeeds    60s    2s    Check Classifier Flows
 
 *** Keywords ***
-Post Elements To URI As JSON
-    [Arguments]    ${uri}    ${data}
-    ${resp}    RequestsLibrary.Post Request    session    ${uri}    data=${data}    headers=${headers}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-
-Get JSON Elements From URI
-    [Arguments]    ${uri}
-    ${resp}    RequestsLibrary.Get Request    session    ${uri}
-    ${value}    To Json    ${resp.content}
-    [Return]    ${value}
-
-Check Classifier Flows
-    ${flowList}=    DockerSfc.Get Flows In Docker Containers
-    log    ${flowList}
-    Should Contain Match    ${flowList}    *actions=pop_nsh*
-    Should Contain Match    ${flowList}    *actions=push_nsh*
-
-Check Service Function Types
-    [Documentation]    Check that the service function types are updated with the service function names
-    ${elements}=    Create List    "name":"firewall-1"    "name":"dpi-1"
-    Check For Elements At URI    ${SERVICE_FUNCTION_TYPES_URI}    ${elements}
-
-Switch Ips In Json Files
-    [Arguments]    ${json_dir}    ${container_names}
-    ${normalized_dir}=    OperatingSystem.Normalize Path    ${json_dir}/*.json
-    : FOR    ${cont_name}    IN    @{container_names}
-    \    ${cont_ip}=    Get Docker IP    ${cont_name}
-    \    OperatingSystem.Run    sudo sed -i 's/${cont_name}/${cont_ip}/g' ${normalized_dir}
-
 Init Suite
     [Documentation]    Connect Create session and initialize ODL version specific variables
     SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    timeout=3s
