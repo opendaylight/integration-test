@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36189761_077cb128",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-29T20:54:54Z",
+      "side": 1,
+      "message": "might as well call it NET1_FIP_VMS",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 9
+      },
+      "revId": "fd64485521af4e2c5947a40eb09b4d0223baa63b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5db68fb7_24f2138c",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-29T20:54:54Z",
+      "side": 1,
+      "message": "and make this l3_ext_net_1_fip_vm_1. same for the snat vms",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 26
+      },
+      "revId": "fd64485521af4e2c5947a40eb09b4d0223baa63b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fac5adf0_135e8b6a",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-29T20:54:54Z",
+      "side": 1,
+      "message": "NET1_FIP_VM_IPS, NET1_FIP_DHCP_IP",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 16
+      },
+      "revId": "fd64485521af4e2c5947a40eb09b4d0223baa63b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a51dab7_fd957e3a",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-29T20:54:54Z",
+      "side": 1,
+      "message": "should be a different dhcp ip, so NET1_DHCP_IP and NET2_DHCP_IP",
+      "range": {
+        "startLine": 67,
+        "startChar": 29,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "fd64485521af4e2c5947a40eb09b4d0223baa63b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
