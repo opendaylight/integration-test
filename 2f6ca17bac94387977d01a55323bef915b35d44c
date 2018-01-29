@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5e346b4f_01bbe89c",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2018-01-29T16:08:28Z",
+      "side": 1,
+      "message": "Yes, I\u0027ve thought like this earlier, but even if we will create 2 security groups with \"Create Allow All Security Group\" token (one for IPv4 and another one for IPv6) it will provoke signature and code changes for following tokens:\n\nCreate Port\n    [Arguments]    ${network_name}    ${port_name}    ${sg}\u003ddefault    ${additional_args}\u003d${EMPTY}    ${allowed_address_pairs}\u003d${EMPTY}\n\nand\n\nCreate Vm Instances                                                              \n    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}\u003d${EMPTY}    ${flavor}\u003dm1.nano    ${sg}\u003ddefault    ${min}\u003d1\n\nIn dualstack case, for these tokens we should provide security-groups list and we shall treat this list properly in the token\u0027s code. So, I\u0027ve chosen more simple way: to create at first only one security group with IPv4 ethertype, and then add in this group IPv6 rules.\n\n\u0027Neutron Security Group Update\u0027 token updates only group\u0027s description, please, see help for \u0027openstack security group set\u0027 command. \n\n\u0027Neutron Security Group Create\u0027: if I pass to this token already existed security-group name, this will create new security-group with given name and different ID. All errors will happen later, when will try to add rules in this new group.\n\nOf course, I can refactor \u0027Neutron Security Group Create\u0027 token, but once again, I think, that it is more simply to call once \"Create Allow All Security Group\" with ethertype IPv4 and then just to add IPv6 rules in this group.",
+      "parentUuid": "1450787f_e1b64fb3",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 177
+      },
+      "revId": "2f6ca17bac94387977d01a55323bef915b35d44c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ab96ac8_24ccc634",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
         "patchSetId": 54
