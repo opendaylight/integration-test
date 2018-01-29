@@ -15,7 +15,6 @@ Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/Tcpdump.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
