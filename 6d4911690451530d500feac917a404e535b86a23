@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b99aca24_4a9c6618",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-29T22:44:34Z",
+      "side": 1,
+      "message": "what is being catenated? might as well just make this a var and add to variables above.",
+      "range": {
+        "startLine": 58,
+        "startChar": 41,
+        "endLine": 58,
+        "endChar": 49
+      },
+      "revId": "6d4911690451530d500feac917a404e535b86a23",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6b5ba69_8956c7cc",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-29T22:44:34Z",
+      "side": 1,
+      "message": "we don\u0027t use the named vars typically. was there a reason to add it?",
+      "range": {
+        "startLine": 59,
+        "startChar": 41,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "6d4911690451530d500feac917a404e535b86a23",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
