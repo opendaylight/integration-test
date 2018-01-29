@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5a352de_d5bcd864",
+        "filename": "csit/suites/bgpcep/bgpclustering/050_bgp_ha_karaf_stop.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-29T15:00:18Z",
+      "side": 1,
+      "message": "Some KWs are repeated in 040_bgp_ha_karaf_restart.robot, it would be good to put them in a separate library to avoid code replication.",
+      "revId": "28b2bf028ad9a982ea5436da88a7d442db0c94a1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13fec169_aeeb6428",
+        "filename": "csit/suites/bgpcep/bgpclustering/090_pcep_ha_karaf_stop.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-29T15:00:18Z",
+      "side": 1,
+      "message": "Same here, same KWs are duplicated from 080_pcep_ha_karaf_restart.robot, it would be good to put them in a separate library.",
+      "revId": "28b2bf028ad9a982ea5436da88a7d442db0c94a1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
