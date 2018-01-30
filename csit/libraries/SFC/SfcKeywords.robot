@@ -20,10 +20,15 @@ Check Classifier Flows
     Should Contain Match    ${flowList}    *actions=pop_nsh*
     Should Contain Match    ${flowList}    *actions=push_nsh*
 
-Check Service Function Types
+Check Service Function Types Added
     [Arguments]    ${elements}
     [Documentation]    Check that the service function types are updated with the service function names
     Check For Elements At URI    ${SERVICE_FUNCTION_TYPES_URI}    ${elements}
+
+Check Service Function Types Removed
+    [Arguments]    ${elements}
+    [Documentation]    Check that the service function names are removed from the service function types
+    Check For Elements Not At URI    ${SERVICE_FUNCTION_TYPES_URI}    ${elements}
 
 Switch Ips In Json Files
     [Arguments]    ${json_dir}    ${container_names}

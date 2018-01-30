@@ -25,7 +25,7 @@ Basic Environment Setup Tests
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types    ${SF_NAMES}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Added    ${SF_NAMES}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_METADATA_URI}    ${SERVICE_METADATA_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
@@ -86,6 +86,7 @@ Cleanup Suite
     Remove All Elements At URI    ${SERVICE_CLASSIFIERS_URI}
     Remove All Elements At URI    ${SERVICE_FUNCTION_ACLS_URI}
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Removed    ${SF_NAMES}
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Remove All Elements At URI    ${SERVICE_NODES_URI}
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
