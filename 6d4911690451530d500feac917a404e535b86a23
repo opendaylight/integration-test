@@ -117,6 +117,30 @@
       "revId": "6d4911690451530d500feac917a404e535b86a23",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "232527de_f5dfaa28",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7194
+      },
+      "writtenOn": "2018-01-30T10:19:28Z",
+      "side": 1,
+      "message": "I\u0027ve changed this everywhere in this script, to keep the same style.\n\nBut in my opinion, this is worthy to use named arguments, because in most cases it help to understand functions code more quickly and reuse it more effectively.\n\nI mean, you see a function signature even in a code, when it was called, named arguments with assigned values give you all info how this function should be called and some ideas about what this function does.",
+      "parentUuid": "77a62dad_ffe9b563",
+      "range": {
+        "startLine": 59,
+        "startChar": 41,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "6d4911690451530d500feac917a404e535b86a23",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
