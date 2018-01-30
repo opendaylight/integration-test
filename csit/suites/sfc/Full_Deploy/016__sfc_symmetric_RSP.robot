@@ -72,7 +72,7 @@ Basic Environment Setup
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_TYPES_URI}    ${SERVICE_FUNCTION_TYPES_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types    ${SF_NAMES}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Added    ${SF_NAMES}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
 
@@ -83,6 +83,7 @@ End Suite
 Clean Datastore
     [Documentation]    Remove All Elements
     Remove All Elements If Exist    ${SERVICE_FUNCTIONS_URI}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Removed    ${SF_NAMES}
     Remove All Elements If Exist    ${SERVICE_FORWARDERS_URI}
     Remove All Elements If Exist    ${SERVICE_NODES_URI}
     Remove All Elements If Exist    ${SERVICE_CHAINS_URI}

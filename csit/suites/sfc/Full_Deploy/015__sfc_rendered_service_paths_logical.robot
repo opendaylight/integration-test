@@ -33,7 +33,7 @@ Basic Environment Setup Tests
     [Documentation]    Prepare Basic Test Environment. Logical SFF
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types    ${SF_NAMES}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Added    ${SF_NAMES}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
 
@@ -125,11 +125,12 @@ Delete All Elements
     Remove All Elements If Exist    ${SERVICE_CHAINS_URI}
     Remove All Elements If Exist    ${SERVICE_FORWARDERS_URI}
     Remove All Elements If Exist    ${SERVICE_FUNCTIONS_URI}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Removed    ${SF_NAMES}
 
 Create All Elements
     [Documentation]    Delete all provisioned elements
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types    ${SF_NAMES}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Added    ${SF_NAMES}
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
