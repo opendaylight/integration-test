@@ -15,13 +15,24 @@ Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Variables         ${CURDIR}/../variables/Variables.py
 Resource          ${CURDIR}/RemoteBash.robot
+Resource          ${CURDIR}/NexusKeywords.robot
 
 *** Keywords ***
 Start_Console_Tool
     [Arguments]    ${command}    ${tool_opt}
     [Documentation]    Start the tool ${command} ${tool_opt}
-    BuiltIn.Log    ${command}
-    ${output}=    SSHLibrary.Write    ${command} ${tool_opt}
+    ${start_cmd}    BuiltIn.Set_Variable    ${command} ${tool_opt}
+    BuiltIn.Log    ${start_cmd}
+    ${output}=    SSHLibrary.Write    ${start_cmd}
+    BuiltIn.Log    ${output}
+
+Start_Java_Tool_And_Verify_Connection
+    [Arguments]    ${command}    ${until_phrase}
+    ${start_cmd}    NexusKeywords.Compose_Full_Java_Command    ${command}
+    BuiltIn.Log    ${start_cmd}
+    SSHLibrary.Set_Client_Configuration    timeout=30s
+    SSHLibrary.Write    ${start_cmd}
+    ${output}=    SSHLibrary.Read_Until    ${until_phrase}
     BuiltIn.Log    ${output}
 
 Wait_Until_Console_Tool_Finish
@@ -33,6 +44,14 @@ Stop_Console_Tool
     [Documentation]    Stop the tool if still running.
     RemoteBash.Write_Bare_Ctrl_C
     ${output}=    SSHLibrary.Read    delay=1s
+    BuiltIn.Log    ${output}
+
+Stop_Console_Tool_And_Wait_Until_Prompt
+    [Documentation]    Stops the tool by sending ctrl+c
+    ${output}=    SSHLibrary.Read
+    BuiltIn.Log    ${output}
+    RemoteBash.Write_Bare_Ctrl_C
+    ${output}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${output}
 
 Read_And_Fail_If_Prompt_Is_Seen
