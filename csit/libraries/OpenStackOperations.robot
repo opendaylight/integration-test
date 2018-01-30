@@ -868,9 +868,9 @@ Create L2Gateway
     [Return]    ${l2gw_output}
 
 Create L2Gateway Connection
-    [Arguments]    ${gw_name}    ${net_name}
+    [Arguments]    ${gw_name}    ${net_name}    ${additional_args}=${EMPTY}
     [Documentation]    Keyword would create a new L2 Gateway Connection for ${gw_name} to ${net_name} (Using Neutron CLI).
-    ${rc}    ${l2gw_output}=    Run And Return Rc And Output    ${L2GW_CONN_CREATE} ${gw_name} ${net_name}
+    ${rc}    ${l2gw_output}=    Run And Return Rc And Output    ${L2GW_CONN_CREATE} ${gw_name} ${net_name} ${additional_args}
     Log    ${l2gw_output}
     Should Be True    '${rc}' == '0'
     [Return]    ${l2gw_output}
@@ -1193,3 +1193,18 @@ Start Packet Capture On Nodes
 
 Stop Packet Capture On Nodes
     Tcpdump.Stop Packet Capture on Nodes    ${capture_conn_ids}
+
+Create Neutron Multisegment Network
+    [Arguments]    ${network_name}    ${segments}
+    [Documentation]    Creates multisegment network with vxlan and vlan network segments
+    ${rc}    ${output}=    OpenStack CLI    neutron net-create ${network_name} --segments type=dict list=true ${segments}
+    Log    ${output}
+    Should Be True    '${rc}' == '0'
+
+Create Direct Port
+    [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Creates neutron port of type direct used for spawning SR-IOV VMs.
+    ${cmd}=    Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v port-create ${network_name} --name ${port_name} --vnic-type direct ${additional_args}    openstack port create --network ${network_name} ${port_name} --vnic-type direct ${additional_args}
+    ${rc}    ${output}=    OpenStack CLI    ${cmd}
+    Log    ${output}
+    Should Be True    '${rc}' == '0'
