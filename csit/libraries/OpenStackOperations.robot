@@ -247,6 +247,7 @@ Get Match
     ${matches_length} =    BuiltIn.Get Length    ${matches}
     BuiltIn.Set Suite Variable    ${OS_MATCH}    None
     BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    @{matches}[${index}]
+    BuiltIn.Run Keyword If    ${matches_length} == ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    @{matches}[0]
     [Return]    ${OS_MATCH}
 
 Get VM IP
@@ -713,8 +714,7 @@ Get Port Mac
 Create L2Gateway
     [Arguments]    ${bridge_name}    ${intf_name}    ${gw_name}
     [Documentation]    Keyword to create an L2 Gateway ${gw_name} for bridge ${bridge_name} connected to interface ${intf_name} (Using Neutron CLI).
-    ${rc}    ${l2gw_output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_CREATE} name=${bridge_name},interface_names=${intf_name} ${gw_name}
-    BuiltIn.Log    ${l2gw_output}
+    ${l2gw_output} =    OpenStack CLI    ${L2GW_CREATE} name=${bridge_name},interface_names=${intf_name} ${gw_name}
     [Return]    ${l2gw_output}
 
 Update L2Gateway
@@ -725,17 +725,15 @@ Update L2Gateway
     [Return]    ${l2gw_output}
 
 Create L2Gateway Connection
-    [Arguments]    ${gw_name}    ${net_name}
+    [Arguments]    ${gw_name}    ${net_name}    ${additional_args}=${EMPTY}
     [Documentation]    Keyword would create a new L2 Gateway Connection for ${gw_name} to ${net_name} (Using Neutron CLI).
-    ${rc}    ${l2gw_output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_CONN_CREATE} ${gw_name} ${net_name}
-    BuiltIn.Log    ${l2gw_output}
-    BuiltIn.Should Be True    '${rc}' == '0'
-    [Return]    ${l2gw_output}
+    ${rc}    ${l2gw_output}=    Run And Return Rc And Output    ${L2GW_CONN_CREATE} ${gw_name} ${net_name} ${additional_args}
+    Log    ${l2gw_output}
+    Should Be True    '${rc}' == '0'
 
 Get All L2Gateway
     [Documentation]    Keyword to return all the L2 Gateways available (Using Neutron CLI).
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_GET_YAML}
-    BuiltIn.Should Be True    '${rc}' == '0'
+    ${output} =    OpenStack CLI    ${L2GW_GET_YAML}
     [Return]    ${output}
 
 Get All L2Gateway Connection
@@ -1049,3 +1047,14 @@ Start Packet Capture On Nodes
 Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+
+Create Neutron Multisegment Network
+    [Arguments]    ${network_name}    ${segments}
+    [Documentation]    Creates multisegment network with vxlan and vlan network segments
+    ${output}=    OpenStack CLI    neutron net-create ${network_name} --segments type=dict list=true ${segments}
+
+Create Direct Port
+    [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Creates neutron port of type direct used for spawning SR-IOV VMs.
+    ${cmd}=    Set Variable    openstack port create --network ${network_name} ${port_name} --vnic-type direct ${additional_args}
+    ${output}=    OpenStack CLI    ${cmd}
