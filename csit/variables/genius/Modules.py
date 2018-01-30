@@ -7,6 +7,7 @@ data_models = [
     'config/itm-config:tunnel-monitor-params',
     'config/itm-state:dpn-endpoints',
     'config/itm-state:external-tunnel-list',
+    'config/itm-state:tunnel-list',
     'config/network-topology:network-topology/topology/ovsdb:1',
     'config/odl-interface-meta:bridge-interface-info',
     'config/odl-interface-meta:interface-child-info',
