@@ -12,18 +12,20 @@ Documentation     BGP functional HA testing with one exabgp peer.
 ...               logs will show that one peer will be connected and two will fail.
 ...               After stopping karaf which owned connection new owner should be elected and
 ...               this new owner should accept incomming bgp connection.
+...               TODO: Add similar keywords from all bgpclustering-ha tests into same libraries
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Variables         ${CURDIR}/../../../variables/Variables.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
-Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ../../../variables/Variables.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/ClusterManagement.robot
+Resource          ../../../libraries/RemoteBash.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
 
 *** Variables ***
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpclustering
@@ -35,7 +37,7 @@ ${HOLDTIME}       180
 ${RIB_INSTANCE}    example-bgp-rib
 
 *** Test Cases ***
-Get Example Bgp Rib Owner
+Get_Example_Bgp_Rib_Owner
     [Documentation]    Find an odl node which is able to accept incomming connection. To this node netconf connector should be configured.
     ${rib_owner}    ${rib_candidates}=    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    example-bgp-rib
     ...    org.opendaylight.mdsal.ServiceEntityType    1
@@ -55,7 +57,8 @@ Reconfigure_ODL_To_Accept_Connection
 
 Start_ExaBgp_Peer
     [Documentation]    Starts exabgp
-    Start_Tool    ${DEFAUTL_EXA_CFG}
+    SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
+    BGPcliKeywords.Start_Console_Tool    ${EXA_CMD}    ${DEFAUTL_EXA_CFG}
 
 Verify ExaBgp Connected
     [Documentation]    Verifies exabgp's presence in operational ds.
@@ -92,8 +95,9 @@ Verify ExaBgp Still Connected
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tools_Connection    ${living_session}
 
 Stop_ExaBgp_Peer
-    [Documentation]    Stops exabgp
-    Stop_Tool
+    [Documentation]    Stops exabgp tool by sending ctrl+c
+    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers
@@ -117,24 +121,6 @@ Teardown_Everything
     SSHKeywords.Virtual_Env_Delete
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
-
-Start_Tool
-    [Arguments]    ${cfg_file}    ${mapping}={}
-    [Documentation]    Starts the tool
-    ${start_cmd}    BuiltIn.Set_Variable    ${EXA_CMD} ${cfg_file}
-    BuiltIn.Log    ${start_cmd}
-    SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
-    ${output}=    SSHLibrary.Write    ${start_cmd}
-    BuiltIn.Log    ${output}
-
-Stop_Tool
-    [Documentation]    Stops the tool by sending ctrl+c
-    ${output}=    SSHLibrary.Read
-    BuiltIn.Log    ${output}
-    RemoteBash.Write_Bare_Ctrl_C
-    ${output}=    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${output}
-    SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
 
 Upload_Config_Files
     [Documentation]    Uploads exabgp config files.
