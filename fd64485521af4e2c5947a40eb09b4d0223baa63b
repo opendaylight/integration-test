@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "7bb1b51b_9aa904e2",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-01-30T13:37:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36189761_077cb128",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 9
+      },
+      "revId": "fd64485521af4e2c5947a40eb09b4d0223baa63b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83411df2_0afe3457",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-01-30T13:37:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5db68fb7_24f2138c",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 26
+      },
+      "revId": "fd64485521af4e2c5947a40eb09b4d0223baa63b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fac5adf0_135e8b6a",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 4
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "eebe5da1_8076235d",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-01-30T13:37:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fac5adf0_135e8b6a",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 16
+      },
+      "revId": "fd64485521af4e2c5947a40eb09b4d0223baa63b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a51dab7_fd957e3a",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2018-01-29T20:54:54Z",
       "side": 1,
       "message": "should be a different dhcp ip, so NET1_DHCP_IP and NET2_DHCP_IP",
+      "range": {
+        "startLine": 67,
+        "startChar": 29,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "fd64485521af4e2c5947a40eb09b4d0223baa63b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c015a04_3a60e3f9",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-01-30T13:37:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a51dab7_fd957e3a",
       "range": {
         "startLine": 67,
         "startChar": 29,
