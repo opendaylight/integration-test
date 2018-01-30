@@ -1,0 +1,5 @@
+{
+  "dhcpservice-config": {
+    "controller-dhcp-enabled": "true"
+  }
+}
