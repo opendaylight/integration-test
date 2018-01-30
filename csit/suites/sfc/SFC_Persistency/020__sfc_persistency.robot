@@ -31,16 +31,11 @@ Add SFC Elements and restart cluster
     ${session} =    Resolve Http Session for Controller
     Kill_Members_From_List_Or_All
     Start_Members_From_List_Or_All    wait_for_sync=True
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_FORWARDERS_URI}
+    Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_NODES_URI}
+    Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_FUNCTIONS_URI}
+    Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_CHAINS_URI}
+    Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_FUNCTION_PATHS_URI}
     Wait until Keyword succeeds    2min    5 sec    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
