@@ -26,6 +26,11 @@ ${NET_1_SEGID}    1063
 ${NET_1}          NETHWV1
 ${NET_2_SEGID}    1064
 ${NET_2}          NETHWV2
+${PHY_NET_NAME}    physnet1
+${PHY_VLAN_ID_1}    2902
+${PHY_VLAN_ID_2}    2903
+${PHY_NW_VLAN_TYPE}    vlan
+${PHY_NW_FLAT_TYPE}    flat
 ${NS_PORT1}       PORT1
 ${NS_PORT2}       PORT2
 ${NS2_PORT1}      PORT3
@@ -73,7 +78,8 @@ ${IP_LINK}        sudo ip link
 ${IPLINK_SET}     ip link set dev
 ${KILL_OVSDB_PROC}    sudo killall -9 ovsdb-server
 ${KILL_VSWITCHD_PROC}    sudo killall -9 ovs-vswitchd
-${KILL_VTEP_PROC}    sudo killall -9 python
+${KILL_VTEP_PROC}    sudo killall -9 ovs-vtep
+${KILL_DHCLIENT_PROC}    sudo killall -9 dhclient
 ${L2GW_CONN_CREATE}    neutron l2-gateway-connection-create --default-segmentation-id 0
 ${L2GW_CONN_DELETE}    neutron l2-gateway-connection-delete
 ${L2GW_LIST_REST_URL}    /restconf/config/neutron:neutron/l2gateways/
@@ -86,6 +92,8 @@ ${L2GW_GET_YAML}    neutron l2-gateway-list -f yaml
 ${L2GW_GET}       neutron l2-gateway-list
 ${L2GW_SHOW}      neutron l2-gateway-show
 ${NET_ADDT_ARG}    --provider-network-type vxlan --provider-segment
+${VXLAN_VLAN_SEG}    provider:physical_network=${PHY_NET_NAME},provider:segmentation_id=${PHY_VLAN_ID_1},provider:network_type=${PHY_NW_VLAN_TYPE} provider:physical_network='',provider:segmentation_id=${NET_1_SEGID},provider:network_type=vxlan
+${VXLAN_FLAT_SEG}    provider:physical_network=${PHY_NET_NAME},provider:network_type=${PHY_NW_FLAT_TYPE} provider:physical_network='',provider:segmentation_id=${NET_1_SEGID},provider:network_type=vxlan
 ${NETNS_ADD}      ${NETNS} add
 ${NETNS_DEL}      ${NETNS} del
 ${NETNS_EXEC}     ${NETNS} exec
@@ -109,7 +117,7 @@ ${SET_VTEP_PS}    sudo vtep-ctl set ${PHYSICAL_SWITCH_TABLE}
 ${SLEEP1S}        sleep 1
 ${START_OVSDB_SERVER}    sudo ovsdb-server --pidfile --detach --log-file --remote punix:/var/run/openvswitch/db.sock --remote=db:hardware_vtep,Global,managers /etc/openvswitch/ovs.db /etc/openvswitch/vtep.db
 ${START_OVSVTEP}    sudo /usr/share/openvswitch/scripts/ovs-vtep --log-file=/var/log/openvswitch/ovs-vtep.log --pidfile=/var/run/openvswitch/ovs-vtep.pid --detach
-${STR_VIF_REPLACE}    "neutron-binding:vif-type":"ovs"
+${STR_VIF_REPLACE}    "neutron-binding:vif-type":"hw_veb"
 ${STR_VIF_TYPE}    "neutron-binding:vif-type":"unbound"
 ${STR_VNIC_REPLACE}    "neutron-binding:vnic-type":"direct"
 ${STR_VNIC_TYPE}    "neutron-binding:vnic-type":"normal"
@@ -131,7 +139,11 @@ ${PHYSICAL_SWITCH_TABLE}    Physical_Switch
 ${TUNNEL_TABLE}    Tunnel
 ${UCAST_MACS_LOCALE_TABLE}    Ucast_Macs_Local
 ${UCAST_MACS_REMOTE_TABLE}    Ucast_Macs_Remote
+#Flow Table ids
+${DEST_MAC_TABLE}    51
+${DHCP_HWVTEP_TABLE}    18
 #Regular Expressions
 ${VLAN_BINDING_REGEX}    vlan_bindings+\\s+:\\s+[{]0[=]
 ${NETSTAT_OVSDB_REGEX}    ${ODL_SYSTEM_IP}:${OVSDBPORT}\\s+ESTABLISHED\\s
 ${NETSTAT_OF_REGEX}    ${ODL_SYSTEM_IP}:${ODL_OF_PORT}\\s+ESTABLISHED\\s
+${PACKET_LOSS_REGEX}    [0-9]{1,3}% packet loss
