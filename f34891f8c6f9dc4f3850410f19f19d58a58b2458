@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7e7c9cc_0113856b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-01-30T11:00:14Z",
+      "side": 1,
+      "message": "and data too, I think. Probably worth saving karaf.log somewhere.",
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "438b3a4e_79397463",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-01-30T11:00:14Z",
+      "side": 1,
+      "message": "I put a comment in the commit msg as well. I think you should delete data as well and also copy karaf.log to the side somehow.",
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94789d4c_6faf7a66",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-01-30T11:00:14Z",
+      "side": 1,
+      "message": "Since you are deleting the manager and controller, no need to block these.",
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d7a526b_4c47bfe9",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-01-30T11:00:14Z",
+      "side": 1,
+      "message": "ditto. This is not required. See above.",
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7bc51f0b_d1e85380",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-01-30T11:00:14Z",
+      "side": 1,
+      "message": "For now I think this is not so useful. The reason is that there is a fair amount of \"massaging\" that needs to be done to the flows before the diff is meaningful. I think it\u0027s just enough to provide the two flow dumps. \n\nOH! And we need the dump-groups also ;-) Just thought of that now. Sorry.",
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
