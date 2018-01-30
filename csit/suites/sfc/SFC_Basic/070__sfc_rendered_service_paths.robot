@@ -7,7 +7,7 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           HttpLibrary.HTTP
-Resource          ../../../variables/sfc/Variables.robot
+Resource          ../../../libraries/SFC/SfcKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 
@@ -17,6 +17,7 @@ Basic Environment Setup Tests
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types    ${SERVICE_FUNCTION_NAMES}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
 
@@ -231,6 +232,7 @@ Init Suite
     Set Suite Variable    ${VERSION_DIR}    master
     Set Suite Variable    ${SERVICE_FUNCTIONS_URI}    /restconf/config/service-function:service-functions/
     Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
+    Set Suite Variable    @{SERVICE_FUNCTION_NAMES}    "napt44-103-2"    "napt44-103-1"    "dpi-102-2"    "firewall-101-2"    "napt44-104"    "dpi-102-1"    "firewall-104"    "dpi-102-3"    "firewall-101-1"
     Set Suite Variable    ${SERVICE_FORWARDERS_URI}    /restconf/config/service-function-forwarder:service-function-forwarders/
     Set Suite Variable    ${SERVICE_FORWARDERS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-forwarders.json
     Set Suite Variable    ${SERVICE_NODES_URI}    /restconf/config/service-node:service-nodes/
