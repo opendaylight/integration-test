@@ -12,6 +12,7 @@ Documentation     PCEP functional HA testing with one pcep peer.
 ...               logs will show that one peer will be connected and two will fail.
 ...               After killing karaf which owned connection new owner should be elected and
 ...               this new owner should accept incomming PCC connection.
+...               TODO: Add similar keywords from all bgpclustering-ha tests into same libraries
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -25,10 +26,13 @@ Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/NexusKeywords.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
 
 *** Variables ***
 ${HOLDTIME}       180
 ${DIR_WITH_TEMPLATES}    ${CURDIR}/../../../variables/bgpclustering/
+${PCC_LOG_FILE}    pccmock.restart.log
+${CONFIG_SESSION}    session
 
 *** Test Cases ***
 Get_Example_Pcep_Owner
@@ -82,9 +86,7 @@ Verify_Data_Reported_3
 
 Stop_Pcc_Mock
     [Documentation]    Send ctrl+c to pcc-mock to stop it.
-    RemoteBash.Write_Bare_Ctrl_C
-    ${output}=    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${output}
+    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
 
 *** Keywords ***
 Setup_Everything
@@ -92,30 +94,33 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ClusterManagement.ClusterManagement_Setup
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
+    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     #Setting Pcc Name and its code for mapping for templates
     BuiltIn.Set_Suite_Variable    ${pcc_name}    pcc_${TOOLS_SYSTEM_IP}_tunnel_1
     ${code}=    Evaluate    binascii.b2a_base64('${pcc_name}')[:-1]    modules=binascii
     BuiltIn.Set_Suite_Variable    ${pcc_name_code}    ${code}
+    Topology_Precondition    ${CONFIG_SESSION}
     Start_Pcc_Mock
 
 Teardown_Everything
     [Documentation]    Suite cleanup
-    SSHLibrary.Get_File    pccmock.log
-    ${cnt}=    OperatingSystem.Get_File    pccmock.log
-    Log    ${cnt}
+    BGPcliKeywords.Store_File_To_Workspace    ${PCC_LOG_FILE}    ${PCC_LOG_FILE}
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
+Topology_Precondition
+    [Arguments]    ${session}=${CONFIG_SESSION}
+    [Documentation]    Compare current pcep-topology to empty one.
+    ...    Timeout is long enough to see that pcep is ready, with no PCC connected.
+    [Tags]    critical
+    BuiltIn.Wait_Until_Keyword_Succeeds    300s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_off    session=${session}    verify=True
+
 Start_Pcc_Mock
     [Documentation]    Starts pcc mock
-    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --reconnect 1 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_1_IP}:4189,${ODL_SYSTEM_2_IP}:4189,${ODL_SYSTEM_3_IP}:4189 --log-level INFO 2>&1 | tee pccmock.log
-    BuiltIn.Log    ${command}
-    SSHLibrary.Set_Client_Configuration    timeout=30s
-    SSHLibrary.Write    ${command}
-    ${output}=    SSHLibrary.Read_Until    started
-    BuiltIn.Log    ${output}
+    ${command}=    BuiltIn.Set_Variable    -jar ${filename} --reconnect 1 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_1_IP}:4189,${ODL_SYSTEM_2_IP}:4189,${ODL_SYSTEM_3_IP}:4189 --log-level INFO 2>&1 | tee ${PCC_LOG_FILE}
+    BGPcliKeywords.Start_Java_Tool_And_Verify_Connection    ${command}    started
 
 Verify_Data_Reported
     [Documentation]    Verifies if the tool reported expected data

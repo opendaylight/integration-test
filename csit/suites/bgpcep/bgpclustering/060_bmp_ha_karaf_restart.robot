@@ -12,6 +12,7 @@ Documentation     BMP functional HA testing with BMP mock.
 ...               logs will show that one peer will be connected and two will fail.
 ...               After killing karaf which owned connection new owner should be elected and
 ...               this new owner should accept incomming BMP connection.
+...               TODO: Add similar keywords from all bgpclustering-ha tests into same libraries
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -25,13 +26,15 @@ Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/NexusKeywords.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
 
 *** Variables ***
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpclustering
 ${HOLDTIME}       180
 ${BGP_BMP_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/filled_structure
 ${BGP_BMP_FEAT_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/empty_structure
-${BMP_LOG_FILE}    bmpmock.log
+${BMP_LOG_FILE}    bmpmock.restart.log
+${CONFIG_SESSION}    session
 
 *** Test Cases ***
 Get_Example_Bm_Owner
@@ -46,21 +49,6 @@ Get_Example_Bm_Owner
     BuiltIn.Set_Suite_Variable    ${living_session}    ${session}
     BuiltIn.Log    ${living_session}
     BuiltIn.Set_Suite_Variable    ${living_node}    ${bm_owner}
-
-Verify_Bmp_Feature
-    [Documentation]    Verify example-bmp-monitor presence in bmp-monitors
-    &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_FEAT_DIR}    mapping=${mapping}    verify=True
-    ...    session=${living_session}
-
-Start_Bmp_Mock
-    [Documentation]    Starts bmp mock
-    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --local_address ${TOOLS_SYSTEM_IP} --remote_address ${ODL_SYSTEM_1_IP}:12345,${ODL_SYSTEM_2_IP}:12345,${ODL_SYSTEM_3_IP}:12345 --routers_count 1 --peers_count 1 --log_level TRACE 2>&1 | tee ${BMP_LOG_FILE}
-    BuiltIn.Log    ${command}
-    SSHLibrary.Set_Client_Configuration    timeout=30s
-    SSHLibrary.Write    ${command}
-    ${output}=    SSHLibrary.Read_Until    successfully established.
-    BuiltIn.Log    ${output}
 
 Verify_Data_Reported_1
     [Documentation]    Verifies if example-bmp-monitor reported expected data
@@ -98,9 +86,7 @@ Verify_Data_Reported_3
 
 Stop_Bmp_Mock
     [Documentation]    Send ctrl+c to bmp-mock to stop it
-    RemoteBash.Write_Bare_Ctrl_C
-    ${output}=    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${output}
+    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
 
 *** Keywords ***
 Setup_Everything
@@ -108,17 +94,29 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ClusterManagement.ClusterManagement_Setup
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
-    #ClusterManagement.Cluster_Setup_For_Artifact_Deployment_And_Usage
+    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    bgp-bmp-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
+    Verify_Bmp_Feature    ${CONFIG_SESSION}
+    Start_Bmp_Mock
 
 Teardown_Everything
     [Documentation]    Suite cleanup
-    SSHLibrary.Get_File    ${BMP_LOG_FILE}
-    ${cnt}=    OperatingSystem.Get_File    ${BMP_LOG_FILE}
-    Log    ${cnt}
+    BGPcliKeywords.Store_File_To_Workspace    ${BMP_LOG_FILE}    ${BMP_LOG_FILE}
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
+
+Verify_Bmp_Feature
+    [Arguments]    ${session}=${CONFIG_SESSION}
+    [Documentation]    Verify example-bmp-monitor presence in bmp-monitors
+    &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_FEAT_DIR}    mapping=${mapping}    verify=True
+    ...    session=${session}
+
+Start_Bmp_Mock
+    [Documentation]    Starts bmp mock
+    ${command}=    BuiltIn.Set_Variable    -jar ${filename} --local_address ${TOOLS_SYSTEM_IP} --remote_address ${ODL_SYSTEM_1_IP}:12345,${ODL_SYSTEM_2_IP}:12345,${ODL_SYSTEM_3_IP}:12345 --routers_count 1 --peers_count 1 --log_level INFO 2>&1 | tee ${BMP_LOG_FILE}
+    BGPcliKeywords.Start_Java_Tool_And_Verify_Connection    ${command}    successfully established.
 
 Verify_Data_Reported
     [Arguments]    ${ip}=${TOOLS_SYSTEM_IP}
@@ -126,16 +124,18 @@ Verify_Data_Reported
     &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${ip}
     ${output}=    Wait Until Keyword Succeeds    10x    5s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_DIR}    mapping=${mapping}
     ...    session=${living_session}    verify=True
-    Log    ${output}
+    BuiltIn.Log    ${output}
 
 Verify_New_Bm_Owner_Elected
     [Arguments]    ${old_owner}    ${node_to_ask}
     [Documentation]    Verifies new owner was elected
     ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    bmp-monitors    Bgpcep    ${node_to_ask}
+    BuiltIn.Log    ${owner}
     BuiltIn.Should_Not_Be_Equal    ${old_owner}    ${owner}
 
 Verify_New_Bm_Candidate_Present
     [Arguments]    ${candidate}    ${node_to_ask}
     [Documentation]    Verifies candidate's presence.
     ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    bmp-monitors    Bgpcep    ${node_to_ask}
+    BuiltIn.Log    ${owner}
     BuiltIn.Should_Contain    ${candidates}    ${candidate}

@@ -1,0 +1,10 @@
+{
+    "topology": [
+        {
+            "topology-id": "pcep-topology",
+            "topology-types": {
+                "network-topology-pcep:topology-pcep": {}
+            }
+        }
+    ]
+}
