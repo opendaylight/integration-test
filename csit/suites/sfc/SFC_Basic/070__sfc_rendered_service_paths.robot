@@ -18,7 +18,7 @@ Basic Environment Setup Tests
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types    ${SERVICE_FUNCTION_NAMES}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Added    ${SERVICE_FUNCTION_NAMES}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
 
@@ -208,6 +208,7 @@ Generate RSPs with Shortest Path Schedule Algorithm type
 Clean Datastore After Tests
     [Documentation]    Clean All Items In Datastore After Tests
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Removed    ${SERVICE_FUNCTION_NAMES}
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Remove All Elements At URI    ${SERVICE_NODES_URI}
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
