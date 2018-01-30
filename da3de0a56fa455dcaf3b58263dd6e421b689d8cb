@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75344ec0_21d754cc",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-30T18:35:13Z",
+      "side": 1,
+      "message": "seems like something that should be done outside this keyword. Why call a keyword knowing you are going to just return anyways?",
+      "revId": "da3de0a56fa455dcaf3b58263dd6e421b689d8cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25647d01_f860e158",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-30T18:35:13Z",
+      "side": 1,
+      "message": "would it be better to do and if else:\n@fips \u003d    Run Keyword If    l3\u003d\u003dyes    CLI Get List\n...    ELSE    Create List\nThat way we don\u0027t have to change CLI Get List.",
+      "revId": "da3de0a56fa455dcaf3b58263dd6e421b689d8cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "103b098a_258e8337",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-01-30T18:35:13Z",
+      "side": 1,
+      "message": "same as comment above",
+      "range": {
+        "startLine": 1120,
+        "startChar": 79,
+        "endLine": 1120,
+        "endChar": 94
+      },
+      "revId": "da3de0a56fa455dcaf3b58263dd6e421b689d8cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
