@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4403789_3d60b980",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T17:11:12Z",
+      "side": 1,
+      "message": "rewite these three lines like in the following two lines:\n    ${net_id}\u003d    Get Net Id    @{NETWORKS}[0]\n    Get ControlNode Connection\n\nreasons:\n- Get Net Id does not expect that devstack conn id variable\n- Get ControlNode Connection is just a wrapper to do the \"switch connection\"",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 70
+      },
+      "revId": "7f71d914c9024ca0e972b784a416f266b17383b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
