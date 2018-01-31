@@ -37,6 +37,42 @@
     },
     {
       "key": {
+        "uuid": "d9a971b0_5a7c2f99",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-01-31T10:16:30Z",
+      "side": 1,
+      "message": "After Dynamic change test is done , we are adding the Sg rule again and checking the connection.\nline 177 and 180 are the relevant test cases.",
+      "parentUuid": "42cc2d54_628f75d3",
+      "revId": "e7a4a1180098de50e535db88acd9b96c966d1e2c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab58d664_535af5ac",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-01-31T10:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_bf9a2712",
+      "revId": "e7a4a1180098de50e535db88acd9b96c966d1e2c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_3f8637ba",
         "filename": "csit/suites/openstack/connectivity/security_group.robot",
         "patchSetId": 10
@@ -48,6 +84,30 @@
       "writtenOn": "2017-12-08T04:40:00Z",
       "side": 1,
       "message": "this might be the -verfiy problem",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 5
+      },
+      "revId": "e7a4a1180098de50e535db88acd9b96c966d1e2c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a008cd64_822e6d47",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-01-31T10:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_3f8637ba",
       "range": {
         "startLine": 156,
         "startChar": 4,
@@ -83,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "1e17cf59_e6086fe3",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-01-31T10:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_5f8973c9",
+      "range": {
+        "startLine": 157,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 40
+      },
+      "revId": "e7a4a1180098de50e535db88acd9b96c966d1e2c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_ffa49f58",
         "filename": "csit/suites/openstack/connectivity/security_group.robot",
         "patchSetId": 10
@@ -106,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "df4387d7_e538ba20",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-01-31T10:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_ffa49f58",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 20
+      },
+      "revId": "e7a4a1180098de50e535db88acd9b96c966d1e2c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_1fa09b42",
         "filename": "csit/suites/openstack/connectivity/security_group.robot",
         "patchSetId": 10
@@ -117,6 +225,30 @@
       "writtenOn": "2017-12-08T04:40:00Z",
       "side": 1,
       "message": "I wonder if there is a way to get around this sleep.\n\ncould we poll on some specific flows that would be added/removed when the security group is deleted and when\nthat is true we can then issue the CTRL-C and make sure\nno packets were lost?\n\nif not, put a very clear comment on why the sleep is \nneeded, because that\u0027s one of our more strict policies\nto not let sleeps in test code.",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 16
+      },
+      "revId": "e7a4a1180098de50e535db88acd9b96c966d1e2c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "efaecf94_d1c70098",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-01-31T10:16:30Z",
+      "side": 1,
+      "message": "After SG rules removed this test shoud allow the on going ping communication for sometime to check the packets loss.\nso we added the sleep time to allow the ping before writing CTRL-C , Now we are reading the console for 10s and writing CTRL-C",
+      "parentUuid": "7a1969be_1fa09b42",
       "range": {
         "startLine": 163,
         "startChar": 4,
