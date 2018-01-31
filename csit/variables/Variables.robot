@@ -118,7 +118,10 @@ ${ODL_NETCONF_PASSWORD}    ${ODL_RESTCONF_PASSWORD}    # Both ODL Netconf server
 ${ODL_NETCONF_PROMPT}    ]]>]]>    # Standard prompt string for NETCONF protocol.
 ${ODL_NETCONF_USER}    ${ODL_RESTCONF_USER}    # Both ODL Netconf servers require this user name to authenticate.
 ${ODL_OF_PLUGIN}    lithium    # Codename of OpenFlowPlugin implementation ODL is configured to use.
+# TODO: get rid of all uses of ODL_OF_PORT and use ODL_OF_PORT_6633 instead, if 6653 is not acceptable
 ${ODL_OF_PORT}    6633    # Port number ODL communicates using OpenFlow protocol on.
+${ODL_OF_PORT_6633}    6633    # Port number ODL communicates using OpenFlow protocol on.
+${ODL_OF_PORT_6653}    6653    # Port number ODL communicates using OpenFlow protocol on.
 ${ODL_RESTCONF_USER}    admin    # Username for basic HTTP authentication used by requests against ODL RESTCONF server.
 ${ODL_RESTCONF_PASSWORD}    admin    # Plaintext password for basic HTTP authentication used by requests against ODL RESTCONF server.
 ${ODL_SYSTEM_1_IP}    127.0.0.1    # IP address of system hosting member 1 od ODL cluster.
