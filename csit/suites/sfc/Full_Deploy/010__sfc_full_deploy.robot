@@ -18,6 +18,7 @@ Resource          ../../../libraries/SFC/DockerSfc.robot
 ${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFP1","name":"RSP1"}}
 ${CREATE_RSP_FAILURE_INPUT}    {"input":{"parent-service-function-path":"SFC1-empty","name":"RSP1-empty-Path-1"}}
 @{SF_NAMES}       "name":"firewall-1"    "name":"dpi-1"
+@{INTERFACE_NAMES}    v-ovsnsn6g1    v-ovsnsn1g1
 
 *** Test Cases ***
 Basic Environment Setup Tests
@@ -66,6 +67,7 @@ Init Suite
     log    ${result}
     Should be equal as integers    ${result[2]}    0
     DockerSfc.Docker Ovs Start    nodes=6    guests=1    tunnel=vxlan-gpe    odl_ip=${ODL_SYSTEM_IP}
+    Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${OVSDB_TOPOLOGY_URI}    ${INTERFACE_NAMES}
     ${docker_name_list}=    DockerSfc.Get Docker Names As List
     Set Suite Variable    ${DOCKER_NAMES_LIST}    ${docker_name_list}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
