@@ -112,6 +112,7 @@ ${NEUTRON_NETWORKS_API}    ${NEUTRON_NB_API}/networks    # FIXME: Move to a sepa
 ${NEUTRON_SUBNETS_API}    ${NEUTRON_NB_API}/subnets    # FIXME: Move to a separate Neutron-related Resource and add description.
 ${NEUTRON_PORTS_API}    ${NEUTRON_NB_API}/ports    # FIXME: Move to a separate Neutron-related Resource and add description.
 ${NEUTRON_ROUTERS_API}    ${NEUTRON_NB_API}/routers    # FIXME: Move to a separate Neutron-related Resource and add description.
+${ODL_AKKA_PORT}    2550    # Port number akka cluster communicates on
 ${ODL_BGP_PORT}    1790    # ODL side of BGP communication listens on this port number.
 ${ODL_CONTROLLER_SESSION}    ${NONE}    # Deprecated. Not clear if this refers to HTTP or SSH sessions. FIXME: Eradicate, or at least convert to a resource-private variable.
 ${ODL_NETCONF_CONFIG_PORT}    1830    # Port number ODL NETCONF server of Config Subsystem listens on.
