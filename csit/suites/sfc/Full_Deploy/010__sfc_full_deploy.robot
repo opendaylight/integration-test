@@ -18,6 +18,7 @@ Resource          ../../../libraries/SFC/DockerSfc.robot
 ${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFP1","name":"RSP1"}}
 ${CREATE_RSP_FAILURE_INPUT}    {"input":{"parent-service-function-path":"SFC1-empty","name":"RSP1-empty-Path-1"}}
 @{SF_NAMES}       "name":"firewall-1"    "name":"dpi-1"
+@{IETF_INT_VALUES}    v-ovsnsn6g1    v-ovsnsn1g1
 
 *** Test Cases ***
 Basic Environment Setup Tests
@@ -42,6 +43,7 @@ Create and Get Rendered Service Path
 
 Create and Get Classifiers
     [Documentation]    Apply json file descriptions of ACLs and Classifiers
+    Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${REST_OPER}/ietf-interfaces:interfaces-state/    ${IETF_INT_VALUES}
     Add Elements To URI From File    ${SERVICE_CLASSIFIERS_URI}    ${SERVICE_CLASSIFIERS_FILE}
     ${classifiers}=    Create List    "service-function-classifiers"    "service-function-classifier"    "type":"ietf-access-control-list:ipv4-acl"    "scl-service-function-forwarder"
     Append To List    ${classifiers}    "name":"Classifier2"    "name":"ACL2"
