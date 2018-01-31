@@ -19,6 +19,259 @@
     },
     {
       "key": {
+        "uuid": "c06a0c66_089fa80b",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "don\u0027t you want this to be node? applies below.",
+      "range": {
+        "startLine": 222,
+        "startChar": 53,
+        "endLine": 222,
+        "endChar": 55
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb0d2776_b3403771",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "maybe add a 2nd argument ${bridge}\u003dbr-int and then use the variable in the body. makes it a little more flexible for the future without changing anything that already uses it.",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 21
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e793d8b8_a453d533",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "Might be useful to wrap this in a \"Get Tunnel Ports\" keyword",
+      "range": {
+        "startLine": 240,
+        "startChar": 4,
+        "endLine": 240,
+        "endChar": 109
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eecda8d3_772b8fe2",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "delete this line, as you\u0027ll probably have a \"Log\" statement in the keyword wrapper I suggested",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 1
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6211131d_898074f7",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "delete. robot should give use the output in it\u0027s logs just by running that Convert To List keyword",
+      "range": {
+        "startLine": 243,
+        "startChar": 4,
+        "endLine": 243,
+        "endChar": 22
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4440758a_f93abde8",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "How about another keyword called \"Delete Port\" that takes the bridge and port name as args",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 28
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ed53b3f_06a86c35",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "OpenStackOperations.OpenStack Suite Setup",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 59
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec1aa53d_1ad764fe",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "BEFORE_RESTART what? BEFORE_RESTART_LOG would read more clear to me. oh wait, after reading the first test case, I think this should be FLOWS_BEFORE_RESTART?",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f51fb09f_d6d9de8d",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "can you put these in Variables.robot please? then I can start asking others to use it from there. I know there are a few places\nI can refactor after you do that.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 41
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afcce241_77865c54",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "if there is anything special/specific we can check about these flows, add them here. It would be nice to get a failure here if something\nreally simple was missing or extra",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 110
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16ecfa62_a6133b22",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "this isn\u0027t really a test case unless we are going to check something.\n\nalso, there is another way to do this, which might be more resilient:\n\n    ClusterManagement.ClusterManagement_Setup\n    Stop_Single_Member    1\n\nyou\u0027d have to source that ClusterManagement Lib, but that\u0027s NBD\n\nThat 1 is an index in to a list of controllers. The keyword is meant for a clustered setup, where\u0027d\nyou end up with a list of controllers in the cluster. So, you could also stop single member 3 or\nwhatever. Anyway, it works in a single node environment too. Down in the weeds, the keyword\nchecks that karaf is actually no longer running and that port 2550 is no longer up; thus my\n\"more resilient\" comment.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 81
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "438b3a4e_79397463",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 16
@@ -30,6 +283,24 @@
       "writtenOn": "2018-01-30T11:00:14Z",
       "side": 1,
       "message": "I put a comment in the commit msg as well. I think you should delete data as well and also copy karaf.log to the side somehow.",
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f53a67f_d7252b91",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "yeah, and I\u0027d update the ClusterManagement lib to handle that.",
+      "parentUuid": "438b3a4e_79397463",
       "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -50,6 +321,52 @@
       "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db27a246_4ab40c5c",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "start_single_member is there too, in ClusterManagement",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 82
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f874e91d_87d783dd",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "we need to find a way to poll, instead of a hard sleep.\n\nis there a log message we can check in karaf.log or netowkring-odl to tell us when it has been done?",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 12
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     },
     {
       "key": {
@@ -84,6 +401,52 @@
       "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4f06142_16f41974",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "I didn\u0027t know about this. cool :)",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 26
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "015c0d0b_9a9221a5",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-01-31T18:46:52Z",
+      "side": 1,
+      "message": "use ${ODL_OF_PORT_6633} ${ODL_OF_PORT_6653} and ${OVSDBPORT}\n\nneed this first https://git.opendaylight.org/gerrit/67792",
+      "range": {
+        "startLine": 149,
+        "startChar": 105,
+        "endLine": 149,
+        "endChar": 119
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
