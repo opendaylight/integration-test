@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bde5f9b0_ece826ca",
+        "filename": "csit/suites/bgpcep/bgpclustering/040_bgp_ha_karaf_restart.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-31T17:58:54Z",
+      "side": 1,
+      "message": "What about this one? can it be also be moved to library as it is used in another test?",
+      "revId": "aba0a41ce17f6205c00035eeb653f15116ebf8eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40725677_126cb624",
+        "filename": "csit/suites/bgpcep/bgpclustering/060_bmp_ha_karaf_restart.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-31T17:58:54Z",
+      "side": 1,
+      "message": "These KWs are also used in the next suite so better put in a library, right?",
+      "revId": "aba0a41ce17f6205c00035eeb653f15116ebf8eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f14bddd1_967f61d4",
+        "filename": "csit/suites/bgpcep/bgpclustering/080_pcep_ha_karaf_restart.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-01-31T17:58:54Z",
+      "side": 1,
+      "message": "Same comment here, it seems all these KWs are rewritten in the next suite.",
+      "revId": "aba0a41ce17f6205c00035eeb653f15116ebf8eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
