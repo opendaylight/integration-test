@@ -4,6 +4,8 @@ integration/test/csit/suites/openstack/connectivity/external_network.robot
 integration/test/csit/suites/openstack/connectivity/security_group.robot
 integration/test/csit/suites/openstack/clustering/ha_l2.robot
 integration/test/csit/suites/openstack/clustering/ha_l3.robot
+# Disable this test until https://bugzilla.redhat.com/show_bug.cgi?id=1488907 gets resolved and then reflect changes in healthcheck in haproxy
+# integration/test/csit/suites/openstack/clustering/ha_l3_block_port.robot
 integration/test/csit/suites/openstack/tempest/tempest.robot
 integration/test/csit/suites/netvirt/vpnservice/vpn_basic.robot
 integration/test/csit/suites/netvirt/elan/elan.robot
