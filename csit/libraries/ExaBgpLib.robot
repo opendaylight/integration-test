@@ -53,9 +53,24 @@ Start_ExaBgp_And_Verify_Connected
     BuiltIn.Fail    Unable to connect ExaBgp to ODL
 
 Verify_ExaBgps_Connection
-    [Arguments]    ${session}    ${exabgp_ip}    ${connected}=${True}
+    [Arguments]    ${session}    ${exabgp_ip}=${TOOLS_SYSTEM_IP}    ${connected}=${True}
     [Documentation]    Checks peer presence in operational datastore
     ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
     ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${exabgp_ip}
     BuiltIn.Log    ${rsp.content}
     BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
+
+Upload_ExaBgp_Cluster_Config_Files
+    [Arguments]    ${bgp_var_folder}    ${cfg_file}
+    [Documentation]    Uploads exabgp config files.
+    SSHLibrary.Put_File    ${bgp_var_folder}/${cfg_file}    .
+    @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *.cfg
+    : FOR    ${cfgfile}    IN    @{cfgfiles}
+    \    SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
+    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP1/${ODL_SYSTEM_1_IP}/g' ${cfgfile}
+    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP2/${ODL_SYSTEM_2_IP}/g' ${cfgfile}
+    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP3/${ODL_SYSTEM_3_IP}/g' ${cfgfile}
+    \    SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
+    \    SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
+    \    ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
+    \    Log    ${stdout}
