@@ -8,6 +8,7 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Library           HttpLibrary.HTTP
 Library           ../../../libraries/SFC/SfcUtils.py
+Resource          ../../../libraries/SFC/SfcKeywords.robot
 Resource          ../../../libraries/ClusterOpenFlow.robot
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../variables/sfc/Variables.robot
@@ -23,6 +24,8 @@ ${SERVICE_NODES_FILE}    ${JSON_DIR}/service-nodes.json
 ${SERVICE_CHAINS_FILE}    ${JSON_DIR}/service-function-chains.json
 ${SERVICE_FUNCTION_PATHS_FILE}    ${JSON_DIR}/service-function-paths.json
 ${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFC1-100","name":"SFC1-100-Path-1"}}
+@{SF_NAMES}       napt44-103-2    napt44-103-1    dpi-102-2    firewall-101-2    napt44-104    dpi-102-1    firewall-104
+...               dpi-102-3    firewall-101-1
 
 *** Test Cases ***
 Add SFC Elements and restart cluster
@@ -34,11 +37,11 @@ Add SFC Elements and restart cluster
     Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_FORWARDERS_URI}
     Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_NODES_URI}
     Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_FUNCTIONS_URI}
+    Wait Until Keyword Succeeds    2min    5 sec    Check Service Function Types Added    ${SF_NAMES}
     Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_CHAINS_URI}
     Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_FUNCTION_PATHS_URI}
     Wait until Keyword succeeds    2min    5 sec    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    404
+    Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${OPERATIONAL_RSPS_URI}
     [Teardown]    Remove SFC Elements
 
 *** Keywords ***
@@ -52,8 +55,10 @@ Add SFC Elements
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
+    Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Added    ${SF_NAMES}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
+    Wait until Keyword succeeds    60s    2s    Get Data From URI    session    ${OPERATIONAL_RSPS_URI}
 
 Remove SFC Elements
     [Documentation]    Remove Elements from the Controller via API REST
