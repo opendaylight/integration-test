@@ -69,7 +69,7 @@ Set_It_Up
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
 
 Tear_It_Down
-    [Documentation]    Download pccmock.log and Log its contents.
+    [Documentation]    Download bmpmock.log and Log its contents.
     ...    Compute and Log the diff between expected and actual normalized responses.
     ...    Close both HTTP client session and SSH connection to Mininet.
     SSHLibrary.Get_File    ${BMP_LOG_FILE}

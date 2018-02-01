@@ -18,19 +18,19 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
-Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource         ../../../variables/Variables.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/ClusterManagement.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/ExaBgpLib.robot
 
 *** Variables ***
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpclustering
 ${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer_openconf
-${DEFAUTL_EXA_CFG}    exa.cfg
+${DEFAULT_EXA_CFG}    exa.cfg
 ${EXA_CMD}        env exabgp.tcp.port=1790 exabgp
-${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
 ${HOLDTIME}       180
 ${RIB_INSTANCE}    example-bgp-rib
 
@@ -38,7 +38,7 @@ ${RIB_INSTANCE}    example-bgp-rib
 Get Example Bgp Rib Owner
     [Documentation]    Find an odl node which is able to accept incomming connection. To this node netconf connector should be configured.
     ${rib_owner}    ${rib_candidates}=    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    example-bgp-rib
-    ...    Bgpcep    1
+    ...    org.opendaylight.mdsal.ServiceEntityType    1
     BuiltIn.Set Suite variable    ${rib_owner}
     BuiltIn.Log    ${ODL_SYSTEM_${rib_owner}_IP}
     BuiltIn.Set Suite variable    ${rib_candidates}
@@ -55,11 +55,12 @@ Reconfigure_ODL_To_Accept_Connection
 
 Start_ExaBgp_Peer
     [Documentation]    Starts exabgp
-    Start_Tool    ${DEFAUTL_EXA_CFG}
+    SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
+    BGPcliKeywords.Start_Console_Tool    ${EXA_CMD}    ${DEFAULT_EXA_CFG}
 
 Verify ExaBgp Connected
     [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tools_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Isolate_Current_Owner_Member
     [Documentation]    Isolating cluster node which is connected with exabgp.
@@ -77,7 +78,7 @@ Verify_New_Rib_Owner
 
 Verify_ExaBgp_Reconnected
     [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tools_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node
@@ -89,11 +90,12 @@ Verify_New_Candidate
 
 Verify ExaBgp Still Connected
     [Documentation]    Verifies exabgp's presence in operational ds
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tools_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Stop_ExaBgp_Peer
     [Documentation]    Stops exabgp
-    Stop_Tool
+    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers
@@ -110,7 +112,7 @@ Setup_Everything
     SSHKeywords.Flexible_Mininet_Login    ${TOOLS_SYSTEM_USER}
     SSHKeywords.Virtual_Env_Create
     SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
-    Upload_Config_Files
+    ExaBgpLib.Upload_ExaBgp_Cluster_Config_Files    ${BGP_VAR_FOLDER}    ${DEFAULT_EXA_CFG}
 
 Teardown_Everything
     [Documentation]    Suite cleanup
@@ -118,54 +120,14 @@ Teardown_Everything
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
-Start_Tool
-    [Arguments]    ${cfg_file}    ${mapping}={}
-    [Documentation]    Starts the tool
-    ${start_cmd}    BuiltIn.Set_Variable    ${EXA_CMD} ${cfg_file}
-    BuiltIn.Log    ${start_cmd}
-    SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
-    ${output}=    SSHLibrary.Write    ${start_cmd}
-    BuiltIn.Log    ${output}
-
-Stop_Tool
-    [Documentation]    Stops the tool by sending ctrl+c
-    ${output}=    SSHLibrary.Read
-    BuiltIn.Log    ${output}
-    RemoteBash.Write_Bare_Ctrl_C
-    ${output}=    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${output}
-    SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
-
-Upload_Config_Files
-    [Documentation]    Uploads exabgp config files.
-    SSHLibrary.Put_File    ${BGP_VAR_FOLDER}/${DEFAUTL_EXA_CFG}    .
-    @{cfgfiles}=    SSHLibrary.List_Files_In_Directory    .    *.cfg
-    : FOR    ${cfgfile}    IN    @{cfgfiles}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/EXABGPIP/${TOOLS_SYSTEM_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP1/${ODL_SYSTEM_1_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP2/${ODL_SYSTEM_2_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ODLIP3/${ODL_SYSTEM_3_IP}/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ROUTEREFRESH/disable/g' ${cfgfile}
-    \    SSHLibrary.Execute_Command    sed -i -e 's/ADDPATH/disable/g' ${cfgfile}
-    \    ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
-    \    Log    ${stdout}
-
 Verify_New_Rib_Owner_Elected
     [Arguments]    ${old_owner}    ${node_to_ask}
     [Documentation]    Verifies new owner was elected
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    Bgpcep    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    ${node_to_ask}
     BuiltIn.Should_Not_Be_Equal    ${old_owner}    ${owner}
 
 Verify_New_Rib_Candidate_Present
     [Arguments]    ${candidate}    ${node_to_ask}
     [Documentation]    Verifies candidate's presence.
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    Bgpcep    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    ${node_to_ask}
     BuiltIn.Should_Contain    ${candidates}    ${candidate}
-
-Verify_Tools_Connection
-    [Arguments]    ${session}    ${connected}=${True}
-    [Documentation]    Checks peer presence in operational datastore
-    ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${session}    ${PEER_CHECK_URL}${TOOLS_SYSTEM_IP}    timeout=10
-    BuiltIn.Log    ${rsp.content}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
