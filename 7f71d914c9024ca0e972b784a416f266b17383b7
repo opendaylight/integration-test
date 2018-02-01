@@ -22,6 +22,30 @@
       "revId": "7f71d914c9024ca0e972b784a416f266b17383b7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb14046a_fecb7bd1",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-02-01T09:08:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4403789_3d60b980",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 70
+      },
+      "revId": "7f71d914c9024ca0e972b784a416f266b17383b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
