@@ -83,6 +83,13 @@ Reconfigure_ODL_To_Accept_Connection
     TemplatedRequests.Put_As_Json_Templated    ${BGP_VARIABLES_FOLDER}    mapping=${mapping}    session=${config_session}
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
+Reconfigure_ODL_To_Accept_Connection
+    [Documentation]    Configure BGP peer module with initiate-connection set to false.
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${living_session}    http_timeout=5
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
 Start_Talking_BGP_Speaker
     [Documentation]    Start Python speaker to connect to ODL.
     PrefixcountKeywords.Start_Bgp_Peer_And_Verify_Connected    connection_retries=${3}
