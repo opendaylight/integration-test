@@ -188,7 +188,7 @@ Check L3_Datapath Traffic Across Networks With Router
     Test Operations From Vm Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[0]}    ${dst_ipv6_list1}
     ${dst_ipv6_list2} =    BuiltIn.Create List    ${NET_2_VM_IPV6[1]}    @{NET_1_VM_IPV6}
     Test Operations From Vm Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[0]}    ${dst_ipv6_list2}
-    [Teardown]    VpnOperations.Test Teardown With Tcpdump Stop    ${cn1_conn_id}    ${cn2_conn_id}    ${os_conn_id}
+    [Teardown]    VpnOperations.Test Teardown With Tcpdump Stop
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation.
