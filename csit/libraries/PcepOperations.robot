@@ -6,9 +6,16 @@ Documentation     Robot keyword library (Resource) for performing PCEP operation
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...
+...               TODO: Remove all old keywords, update pcepuser.robot accordingly
+...               TODO: Add new KWs, update all pcep tests to use them.
 Library           RequestsLibrary
-Library           ${CURDIR}/norm_json.py
-Variables         ${CURDIR}/../variables/Variables.py
+Library           norm_json.py
+Resource          ../variables/Variables.robot
+Resource          TemplatedRequests.robot
+
+*** Variables ***
+${PCEP_VAR_FOLDER}    ${CURDIR}/../variables/tcpmd5user
 
 *** Keywords ***
 Setup_Pcep_Operations
@@ -64,3 +71,9 @@ Pcep_Json_Is_Refused
     ${actual_normalized}=    norm_json.normalize_json_text    ${actual_raw}
     BuiltIn.Should_Be_Equal    ${actual_normalized}    ${expected_normalized}
     # TODO: Would the diff approach be more useful?
+
+Pcep_Topology_Precondition
+    [Arguments]    ${session}
+    [Documentation]    Compare current pcep-topology to empty one.
+    ...    Timeout is long enough to see that pcep is ready.
+    BuiltIn.Wait_Until_Keyword_Succeeds    300s    1s    TemplatedRequests.Get_As_Json_Templated    ${PCEP_VAR_FOLDER}/default_off    session=${session}    verify=True

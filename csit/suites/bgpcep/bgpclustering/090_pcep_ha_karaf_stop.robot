@@ -12,6 +12,7 @@ Documentation     PCEP functional HA testing with one pcep peer.
 ...               logs will show that one peer will be connected and two will fail.
 ...               After stopping karaf which owned connection new owner should be elected and
 ...               this new owner should accept incomming PCC connection.
+...               TODO: Add similar keywords from all bgpclustering-ha tests into same libraries
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -22,13 +23,16 @@ Library           OperatingSystem
 Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../libraries/RemoteBash.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/NexusKeywords.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/PcepOperations.robot
 
 *** Variables ***
 ${HOLDTIME}       180
 ${DIR_WITH_TEMPLATES}    ${CURDIR}/../../../variables/bgpclustering/
+${PCC_LOG_FILE}    pccmock.stop.log
+${CONFIG_SESSION}    session
 
 *** Test Cases ***
 Get_Example_Pcep_Owner
@@ -46,7 +50,7 @@ Get_Example_Pcep_Owner
 Verify_Data_Reported_1
     [Documentation]    Verifies if pcep-topology reported expected data
     ...    Expects pcep-topology not be empty/filled path-computation.
-    Verify_Data_Reported
+    Pcep_Topology_Postcondition
 
 Stop_Current_Owner_Member
     [Documentation]    Stopping cluster node which is connected with pcc-mock.
@@ -65,7 +69,7 @@ Verify_New_Pcep_Owner
 Verify_Data_Reported_2
     [Documentation]    Verifies if pcep-topology reports expected data
     ...    Expects pcep-topology not be empty/filled path-computation.
-    Verify_Data_Reported
+    Pcep_Topology_Postcondition
 
 Start_Stopped_Member
     [Documentation]    Starting stopped node
@@ -78,13 +82,11 @@ Verify_New_Candidate
 Verify_Data_Reported_3
     [Documentation]    Verifies if pcep-topology reported expected data
     ...    Expects pcep-topology not be empty/filled path-computation.
-    Verify_Data_Reported
+    Pcep_Topology_Postcondition
 
 Stop_Pcc_Mock
     [Documentation]    Send ctrl+c to pcc-mock to stop it.
-    RemoteBash.Write_Bare_Ctrl_C
-    ${output}=    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${output}
+    BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
 
 *** Keywords ***
 Setup_Everything
@@ -92,32 +94,28 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ClusterManagement.ClusterManagement_Setup
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
+    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     #Setting Pcc Name and its code for mapping for templates
     BuiltIn.Set_Suite_Variable    ${pcc_name}    pcc_${TOOLS_SYSTEM_IP}_tunnel_1
     ${code}=    Evaluate    binascii.b2a_base64('${pcc_name}')[:-1]    modules=binascii
     BuiltIn.Set_Suite_Variable    ${pcc_name_code}    ${code}
+    PcepOperations.Pcep_Topology_Precondition    ${CONFIG_SESSION}
     Start_Pcc_Mock
 
 Teardown_Everything
     [Documentation]    Suite cleanup
-    SSHLibrary.Get_File    pccmock.log
-    ${cnt}=    OperatingSystem.Get_File    pccmock.log
-    Log    ${cnt}
+    BGPcliKeywords.Store_File_To_Workspace    ${PCC_LOG_FILE}    ${PCC_LOG_FILE}
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
 Start_Pcc_Mock
     [Documentation]    Starts pcc mock
-    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --reconnect 5 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_1_IP}:4189,${ODL_SYSTEM_2_IP}:4189,${ODL_SYSTEM_3_IP}:4189 --log-level INFO 2>&1 | tee pccmock.log
-    BuiltIn.Log    ${command}
-    SSHLibrary.Set_Client_Configuration    timeout=30s
-    SSHLibrary.Write    ${command}
-    ${output}=    SSHLibrary.Read_Until    started
-    BuiltIn.Log    ${output}
+    ${command}=    BuiltIn.Set_Variable    -jar ${filename} --reconnect 5 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_1_IP}:4189,${ODL_SYSTEM_2_IP}:4189,${ODL_SYSTEM_3_IP}:4189 --log-level INFO 2>&1 | tee ${PCC_LOG_FILE}
+    BGPcliKeywords.Start_Java_Tool_And_Verify_Connection    ${command}    started
 
-Verify_Data_Reported
+Pcep_Topology_Postcondition
     [Documentation]    Verifies if the tool reported expected data
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_${pcep_owner}_IP}
     BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}pcep_on_state    ${mapping}    ${living_session}

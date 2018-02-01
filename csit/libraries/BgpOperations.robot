@@ -3,9 +3,12 @@ Documentation     This library contains keywords related to the BGP functionalit
 Library           SSHLibrary
 Resource          Utils.robot
 Resource          ../variables/Variables.robot
+Resource          TemplatedRequests.robot
 
 *** Variables ***
 ${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
+${BGP_BMP_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/filled_structure
+${BGP_BMP_FEAT_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic/empty_structure
 
 *** Keywords ***
 Start Quagga Processes On ODL
@@ -222,3 +225,18 @@ Check_Example_IPv4_Topology_Does_Not_Contain
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${string_to_check}
+
+Bmp_Monitor_Precondition
+    [Arguments]    ${session}
+    [Documentation]    Verify example-bmp-monitor presence in bmp-monitors
+    &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait_Until_Keyword_Succeeds    6x    10s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_FEAT_DIR}    mapping=${mapping}    verify=True
+    ...    session=${session}
+
+Bmp_Monitor_Postcondition
+    [Arguments]    ${session}
+    [Documentation]    Verifies if example-bmp-monitor data contains one peer.
+    &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
+    ${output}    BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_DIR}    mapping=${mapping}
+    ...    session=${session}    verify=True
+    BuiltIn.Log    ${output}
