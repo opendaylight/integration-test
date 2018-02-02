@@ -129,7 +129,7 @@ Variables         ${CURDIR}/../variables/Variables.py
 
 *** Keywords ***
 Create_Default_Session
-    [Arguments]    ${url}=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    ${auth}=${AUTH}    ${timeout}=1    ${max_retries}=0
+    [Arguments]    ${url}=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    ${auth}=${AUTH}    ${timeout}=${DEFAULT_TIMEOUT_HTTP}    ${max_retries}=0
     [Documentation]    Create "default" session to ${url} with authentication and connection parameters.
     ...    This Keyword is in this Resource only so that user do not need to call RequestsLibrary directly.
     RequestsLibrary.Create_Session    alias=default    url=${url}    auth=${auth}    timeout=${timeout}    max_retries=${max_retries}

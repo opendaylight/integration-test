@@ -13,7 +13,8 @@ ${topology_file_path}    MininetTopo/${topology_file}
 
 *** Keywords ***
 Start Mininet Single Controller
-    [Arguments]    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}    ${timeout}=${DEFAULT_TIMEOUT}
+    [Arguments]    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${options}=--topo tree,1    ${custom}=${EMPTY}    ${ofversion}=13    ${ofport}=${ODL_OF_PORT}
+    ...    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start Mininet with custom topology and connect to controller.
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
@@ -22,7 +23,7 @@ Start Mininet Single Controller
     SSHKeywords.Flexible Mininet Login
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Log    Start mininet ${options} to ${controller}
-    SSHLibrary.Write    sudo mn --controller 'remote,ip=${controller},port=${ofport}' ${options}
+    SSHLibrary.Write    sudo mn --controller 'remote,ip=${controller},port=${ofport}' ${options} --switch ovsk,protocols=OpenFlow${ofversion}
     SSHLibrary.Read Until    mininet>
     Log    Check OVS configuratiom
     SSHLibrary.Write    sh ovs-vsctl show
@@ -30,7 +31,8 @@ Start Mininet Single Controller
     [Return]    ${mininet_conn_id}
 
 Start Mininet Multiple Controllers
-    [Arguments]    ${mininet}    ${controller_index_list}=${EMPTY}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}    ${timeout}=${DEFAULT_TIMEOUT}
+    [Arguments]    ${mininet}    ${controller_index_list}=${EMPTY}    ${options}=--topo tree,1    ${custom}=${EMPTY}    ${ofversion}=13    ${ofport}=${ODL_OF_PORT}
+    ...    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start Mininet with custom topology and connect to list of controllers in ${controller_index_list} or all if no list is provided.
     ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
     Log    Clear any existing mininet
@@ -53,26 +55,27 @@ Start Mininet Multiple Controllers
     Log    Configure OVS controllers ${controller_opt} in all bridges
     : FOR    ${i}    IN RANGE    1    ${num_bridges+1}
     \    ${bridge}=    Utils.Run Command On Mininet    ${mininet}    sudo ovs-vsctl show | grep Bridge | cut -c 12- | sort | head -${i} | tail -1
-    \    OVSDB.Set Controller In OVS Bridge    ${mininet}    ${bridge}    ${controller_opt}
+    \    OVSDB.Set Controller In OVS Bridge    ${mininet}    ${bridge}    ${controller_opt}    ${ofversion}
     Log    Check OVS configuratiom
     SSHLibrary.Write    sh ovs-vsctl show
     SSHLibrary.Read Until    mininet>
     [Return]    ${mininet_conn_id}
 
 Start Mininet Multiple Hosts
-    [Arguments]    ${hosts}    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${mininet_timeout}=${DEFAULT_TIMEOUT}
+    [Arguments]    ${hosts}    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${ofversion}=13    ${ofport}=${ODL_OF_PORT}    ${mininet_timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start mininet 1 switch with ${hosts} hosts attached.
     Log    Start Mininet Linear
-    MininetKeywords.StartMininet Single Controller    options=--topo single,${hosts} --mac --switch ovsk,protocols=OpenFlow13    timeout=${mininet_timeout}
+    MininetKeywords.StartMininet Single Controller    options=--topo single,${hosts} --mac    ofversion=${ofversion}    ofport=${ofport}    timeout=${mininet_timeout}
 
 Start Mininet Linear
-    [Arguments]    ${switches}    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${mininet_timeout}=${DEFAULT_TIMEOUT}
+    [Arguments]    ${switches}    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${ofversion}=13    ${ofport}=${ODL_OF_PORT}    ${mininet_timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start mininet linear topology with ${switches} nodes.
     Log    Start Mininet Linear
-    MininetKeywords.StartMininet Single Controller    options=--topo linear,${switches} --switch ovsk,protocols=OpenFlow13    timeout=${mininet_timeout}
+    MininetKeywords.StartMininet Single Controller    options=--topo linear,${switches}    ofversion=${ofversion}    ofport=${ofport}    timeout=${mininet_timeout}
 
 Start Mininet Full Mesh
-    [Arguments]    ${switches}    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${hosts}=0    ${mininet_timeout}=${DEFAULT_TIMEOUT}
+    [Arguments]    ${switches}    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${ofversion}=13    ${ofport}=${ODL_OF_PORT}    ${hosts}=0
+    ...    ${mininet_timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start a custom mininet topology.
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${mininet_timeout}
     Set Suite Variable    ${mininet_conn_id}
@@ -82,7 +85,7 @@ Start Mininet Full Mesh
     SSHLibrary.Write    python ${topology_file} ${switches} ${hosts} 00:00:00:00:00:00 10.0.0.0
     SSHLibrary.Read Until    ${TOOLS_SYSTEM_PROMPT}
     Log    Start Mininet Full Mesh
-    SSHLibrary.Write    sudo mn --controller=remote,ip=${controller} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow13
+    SSHLibrary.Write    sudo mn --controller=remote,ip=${controller},port=${ofport} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow${ofversion}
     SSHLibrary.Read Until    mininet>
     Log    Check OVS configuratiom
     SSHLibrary.Write    sh ovs-vsctl show
