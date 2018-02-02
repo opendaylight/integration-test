@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a04a7f54_95c2cc90",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-02T03:11:11Z",
+      "side": 1,
+      "message": "seems like this should be a common variable. Could even go further and create a common keyword that takes the rest of the line as an arg. That way this common piece would be in the keyword.",
+      "revId": "c71d4d328e081cfc9a2db6ab4fe330867b094277",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
