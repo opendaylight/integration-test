@@ -3,12 +3,12 @@ Documentation     Test suite for Genius Modules
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           SSHLibrary
-Variables         ../../variables/Variables.py
-Resource          ../../libraries/Utils.robot
+Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/Utils.robot
 Library           re
 Library           Collections
 Library           string
-Resource          ../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 

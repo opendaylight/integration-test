@@ -9,18 +9,18 @@ Library           RequestsLibrary
 Library           Collections
 Library           re
 Library           SSHLibrary
-Resource          ../../variables/Variables.robot
-Variables         ../../variables/genius/Modules.py
-Resource          ../../libraries/Genius.robot
-Resource          ../../libraries/DataModels.robot
-Resource          ../../libraries/Utils.robot
-Resource          ../../libraries/VpnOperations.robot
-Resource          ../../libraries/KarafKeywords.robot
-Resource          ../../libraries/OVSDB.robot
+Resource          ../../../variables/Variables.robot
+Variables         ../../../variables/genius/Modules.py
+Resource          ../../../libraries/Genius.robot
+Resource          ../../../libraries/DataModels.robot
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/VpnOperations.robot
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/OVSDB.robot
 
 *** Variables ***
 @{itm_created}    TZA
-${genius_config_dir}    ${CURDIR}/../../variables/genius
+${genius_config_dir}    ${CURDIR}/../../../variables/genius
 ${Bridge-1}       BR1
 ${Bridge-2}       BR2
 ${TEP_SHOW}       tep:show

@@ -6,16 +6,16 @@ Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
-Variables         ../../variables/Variables.py
-Variables         ../../variables/genius/Modules.py
-Resource          ../../libraries/DataModels.robot
+Variables         ../../../variables/Variables.py
+Variables         ../../../variables/genius/Modules.py
+Resource          ../../../libraries/DataModels.robot
 Library           Collections
-Resource          ../../libraries/Utils.robot
+Resource          ../../../libraries/Utils.robot
 Library           re
 
 *** Variables ***
 @{itm_created}    TZA
-${genius_config_dir}    ${CURDIR}/../../variables/genius
+${genius_config_dir}    ${CURDIR}/../../../variables/genius
 ${Bridge-1}       BR1
 ${Bridge-2}       BR2
 

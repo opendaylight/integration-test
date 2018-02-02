@@ -1,2 +1,2 @@
 # Place the suites in run order:
-integration/test/csit/suites/genius/
+integration/test/csit/suites/genius/genius/

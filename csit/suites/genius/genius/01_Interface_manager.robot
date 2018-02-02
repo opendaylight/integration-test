@@ -8,13 +8,13 @@ Library           String
 Library           RequestsLibrary
 Library           Collections
 Library           re
-Variables         ../../variables/Variables.py
-Variables         ../../variables/genius/Modules.py
-Resource          ../../libraries/DataModels.robot
-Resource          ../../libraries/Utils.robot
+Variables         ../../../variables/Variables.py
+Variables         ../../../variables/genius/Modules.py
+Resource          ../../../libraries/DataModels.robot
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${genius_config_dir}    ${CURDIR}/../../variables/genius
+${genius_config_dir}    ${CURDIR}/../../../variables/genius
 ${bridgename}     BR1
 ${interface_name}    l2vlan-trunk
 ${trunk_json}     l2vlan.json
