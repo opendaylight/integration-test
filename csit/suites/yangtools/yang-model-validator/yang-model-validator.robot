@@ -20,6 +20,7 @@ Default Tags      1node    yang-model-validator    critical
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -29,6 +30,9 @@ Resource          ${CURDIR}/../../../libraries/YangCollection.robot
 
 *** Variables ***
 ${EXPLICIT_YANG_SYSTEM_TEST_URL}    ${EMPTY}
+${YANGTOOLS_RELEASE_URL_NITROGEN}    ${NEXUS_RELEASE_BASE_URL}
+${YANGTOOLS_RELEASE_URL_OXYGEN}    ${NEXUS_RELEASE_BASE_URL}
+${TEST_TOOL_NAME}    yang-model-validator
 
 *** Test Cases ***
 Kill_Odl
@@ -52,7 +56,7 @@ Deploy_And_Start_Odl_Yang_Validator_Utility
     ${status}    ${multipatch_url} =    BuiltIn.Run_Keyword_And_Ignore_Error    Construct_Multipatch_Url
     ${url} =    Builtin.Set_Variable_If    "${status}" == "PASS"    ${multipatch_url}    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
     : FOR    ${yang_file}    IN    @{yang_files_to_validate}
-    \    ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=yang-model-validator    suffix=jar-with-dependencies    tool_options=-p ${p_option_value} ${yang_file}
+    \    ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=${TEST_TOOL_NAME}    suffix=jar-with-dependencies    tool_options=-p ${p_option_value} ${yang_file}
     \    ...    explicit_url=${url}
     \    BuiltIn.Set_Suite_Variable    \${logfile}
     \    Wait_Until_Utility_Finishes
@@ -67,6 +71,11 @@ Collect_Files_To_Archive
 Setup_Suite
     [Documentation]    Activate dependency Resources, create SSH connection.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    ${TEST_TOOL_NAME}=    CompareStream.Set_Variable_If_At_Most_Carbon    yang-system-test    ${TEST_TOOL_NAME}
+    ${EXPLICIT_YANG_SYSTEM_TEST_URL}=    Set_Variable_If    "${ODL_STREAM}" == "nitrogen"    ${YANGTOOLS_RELEASE_URL_NITROGEN}    ${EMPTY}
+    ${EXPLICIT_YANG_SYSTEM_TEST_URL}=    Set_Variable_If    "${ODL_STREAM}" == "oxygen"    ${YANGTOOLS_RELEASE_URL_OXYGEN}    ${EMPTY}
+    Set Suite Variable    ${TEST_TOOL_NAME}
+    Set Suite Variable    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage    tools_system_connect=False
     SSHKeywords.Open_Connection_To_ODL_System
 

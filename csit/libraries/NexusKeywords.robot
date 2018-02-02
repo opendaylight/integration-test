@@ -39,7 +39,8 @@ ${MAVEN_REPOSITORY_PATH}    /tmp/r
 ${MAVEN_SETTINGS_URL}    https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml
 ${MAVEN_VERSION}    3.3.9
 ${NEXUS_FALLBACK_URL}    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot
-${NEXUS_RELEASES_URL}    https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distribution-karaf
+${NEXUS_RELEASE_BASE_URL}    https://nexus.opendaylight.org/content/repositories/opendaylight.release
+${NEXUS_RELEASES_URL}    ${NEXUS_RELEASE_BASE_URL}/org/opendaylight/integration/distribution-karaf
 
 *** Keywords ***
 Initialize_Artifact_Deployment_And_Usage
