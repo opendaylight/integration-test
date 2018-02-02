@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74e31393_4d0e6184",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-02-02T14:54:56Z",
+      "side": 1,
+      "message": "Should this be SF_NAMES or SFT_NAMES?",
+      "range": {
+        "startLine": 39,
+        "startChar": 92,
+        "endLine": 39,
+        "endChar": 100
+      },
+      "revId": "f50c3f25c39746f2f5212cbc7717d62f8eeeb32e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f195dc3_4ccfad6d",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-02-02T14:54:56Z",
+      "side": 1,
+      "message": "SF_NAMES or SFT_NAMES?",
+      "range": {
+        "startLine": 57,
+        "startChar": 88,
+        "endLine": 57,
+        "endChar": 96
+      },
+      "revId": "f50c3f25c39746f2f5212cbc7717d62f8eeeb32e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
