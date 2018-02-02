@@ -34,6 +34,24 @@
       "revId": "c71d4d328e081cfc9a2db6ab4fe330867b094277",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03e2a9e_1c0eddd5",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-02T15:17:26Z",
+      "side": 1,
+      "message": "it was a different suggestion - create a new keyword that takes care of the version for the users. With OpenStack we have this problem that the apis keep changing, so try to push this into the lib code and not force the users to worry. We ended up creating wrappers around each api so we only have to change the library code if needed.\n\nMininet CLI\n[Arguments]    ${cmd}\nSSHLibrary.Write    sudo mn --switch ovsk,protocols\u003dOpenFlow13 ${cmd}",
+      "parentUuid": "1eda2ee0_114374ef",
+      "revId": "c71d4d328e081cfc9a2db6ab4fe330867b094277",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
