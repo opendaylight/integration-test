@@ -16,6 +16,24 @@
       "revId": "7208babb89055cca72aa95b2c183965b093560b7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bdbf1b50_d7739670",
+        "filename": "csit/testplans/genius-genius.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-02-02T12:58:35Z",
+      "side": 1,
+      "message": "Yes! This solves other problem I was thinking about, how to add the WiP suite to main once it is ready. Just moving in testplan.txt should take care of it. My only issue is how will __init__ fit the picture? Lets say all are set up in suites/genius/ if I give suite1.robot, it won\u0027t invoke __init__ while I think currently it does. I think am just not sure of how __init__ works and if need to get rid of it to do what you proposed.",
+      "parentUuid": "5bf7638f_b496e39d",
+      "revId": "7208babb89055cca72aa95b2c183965b093560b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
