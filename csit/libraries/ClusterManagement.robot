@@ -190,7 +190,7 @@ Verify_Owner_And_Successors_For_Device
     [Return]    ${owner}    ${index_list}
 
 Get_Owner_And_Successors_For_Device
-    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=${EMPTY}
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=5
     [Documentation]    Returns the owner and a list of successors for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Successors are those device candidates not elected as owner. The list of successors = (list of candidates) - (owner).
     ...    The returned successor list is sorted numerically.
@@ -203,7 +203,7 @@ Get_Owner_And_Successors_For_Device
     [Return]    ${owner}    ${successor_list}
 
 Get_Owner_And_Candidates_For_Device_Old
-    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=${EMPTY}
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=5
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
     ...    The returned candidate list is sorted numerically.
@@ -238,7 +238,7 @@ Get_Owner_And_Candidates_For_Device_Old
     [Return]    ${owner}    ${candidate_list}
 
 Get_Owner_And_Candidates_For_Device_Singleton
-    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=${EMPTY}
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=5
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Parsing method is selected by device type
     ...    Separate kw for every supported device type must be defined
@@ -246,7 +246,7 @@ Get_Owner_And_Candidates_For_Device_Singleton
     BuiltIn.Run_Keyword_And_Return    Get_Owner_And_Candidates_For_Device_Singleton_${device_type}    ${device_name}    ${member_index}    http_timeout=${http_timeout}
 
 Get_Owner_And_Candidates_For_Device_Singleton_Netconf
-    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=${EMPTY}
+    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=5
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type netconf. Request is sent to member ${member_index}.
     ...    Parsing method is set as netconf (using netconf device id prefix and suffix)
     # Get election entity type results
@@ -262,7 +262,7 @@ Get_Owner_And_Candidates_For_Device_Singleton_Netconf
     [Return]    ${owner_1}    ${candidate_list_1}
 
 Get_Owner_And_Candidates_For_Device_Singleton_Bgpcep
-    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=2
+    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=5
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name}. Request is sent to member ${member_index}.
     # Get election entity type results
     ${type} =    BuiltIn.Set_Variable    ${SINGLETON_ELECTION_ENTITY_TYPE}
@@ -277,7 +277,7 @@ Get_Owner_And_Candidates_For_Device_Singleton_Bgpcep
     [Return]    ${owner_1}    ${candidate_list_1}
 
 Get_Owner_And_Candidates_For_Device
-    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=${EMPTY}
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${http_timeout}=5
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    If parsing as singleton failed, kw try to parse data in old way (without singleton).
     ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
@@ -296,21 +296,21 @@ Get_Owner_And_Candidates_For_Device
     [Return]    @{results}
 
 Check_Old_Owner_Stays_Elected_For_Device
-    [Arguments]    ${device_name}    ${device_type}    ${old_owner}    ${node_to_ask}    ${http_timeout}=${EMPTY}
+    [Arguments]    ${device_name}    ${device_type}    ${old_owner}    ${node_to_ask}    ${http_timeout}=5
     [Documentation]    Verify the owner remain the same as ${old_owner}
     ${owner}    ${candidates} =    Get_Owner_And_Candidates_For_Device    ${device_name}    ${device_type}    ${node_to_ask}    http_timeout=${http_timeout}
     BuiltIn.Should_Be_Equal_As_numbers    ${old_owner}    ${owner}
     BuiltIn.Return_From_Keyword    ${owner}    ${candidates}
 
 Check_New_Owner_Got_Elected_For_Device
-    [Arguments]    ${device_name}    ${device_type}    ${old_owner}    ${node_to_ask}    ${http_timeout}=${EMPTY}
+    [Arguments]    ${device_name}    ${device_type}    ${old_owner}    ${node_to_ask}    ${http_timeout}=5
     [Documentation]    Verify new owner was elected comparing to ${old_owner}
     ${owner}    ${candidates} =    Get_Owner_And_Candidates_For_Device    ${device_name}    ${device_type}    ${node_to_ask}    http_timeout=${http_timeout}
     BuiltIn.Should_Not_Be_Equal_As_Numbers    ${old_owner}    ${owner}
     BuiltIn.Return_From_Keyword    ${owner}    ${candidates}
 
 Get_Owner_And_Candidates_For_Type_And_Id
-    [Arguments]    ${type}    ${id}    ${member_index}    ${require_candidate_list}=${EMPTY}    ${http_timeout}=${EMPTY}
+    [Arguments]    ${type}    ${id}    ${member_index}    ${require_candidate_list}=${EMPTY}    ${http_timeout}=5
     [Documentation]    Returns the owner and a list of candidates for entity specified by ${type} and ${id}
     ...    Request is sent to member ${member_index}.
     ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
@@ -785,7 +785,7 @@ List_Indices_Minus_Member
     [Return]    ${index_list}
 
 ClusterManagement__Compute_Derived_Variables
-    [Arguments]    ${int_of_members}    ${http_timeout}=1    ${http_retries}=0
+    [Arguments]    ${int_of_members}    ${http_timeout}=5    ${http_retries}=0
     [Documentation]    Construct index list, session list and IP mapping, publish them as suite variables.
     @{member_index_list} =    BuiltIn.Create_List
     @{session_list} =    BuiltIn.Create_List
@@ -798,7 +798,7 @@ ClusterManagement__Compute_Derived_Variables
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__session_list}    ${session_list}
 
 ClusterManagement__Include_Member_Index
-    [Arguments]    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}    ${http_timeout}=1    ${http_retries}=0
+    [Arguments]    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}    ${http_timeout}=5    ${http_retries}=0
     [Documentation]    Add a corresponding item based on index into the last three arguments.
     ...    Create the Http session whose alias is added to list.
     Collections.Append_To_List    ${member_index_list}    ${index}

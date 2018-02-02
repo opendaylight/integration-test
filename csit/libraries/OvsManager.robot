@@ -48,8 +48,12 @@ Execute OvsVsctl Show Command
     Log    ${output}
 
 Set Bridge Controllers
-    [Arguments]    ${bridge}    ${controllers}    ${disconnected}=${False}
+    [Arguments]    ${bridge}    ${controllers}    ${ofversion}=13    ${disconnected}=${False}
     [Documentation]    Adds controller to the bridge
+    ${cmd}=    BuiltIn.Set Variable    ${lcmd_prefix} ovs-vsctl set bridge ${bridge} protocols=OpenFlow${ofversion}
+    SSHLibrary.Write    ${cmd}
+    ${output}=    SSHLibrary.Read_Until    ${lprompt}
+    Log    ${output}
     ${cmd}=    BuiltIn.Set Variable    ${lcmd_prefix} ovs-vsctl set-controller ${bridge}
     : FOR    ${cntl}    IN    @{controllers}
     \    ${cmd}=    BuiltIn.Set Variable If    ${disconnected}==${False}    ${cmd} tcp:${cntl}:6653    ${cmd} tcp:${cntl}:6654

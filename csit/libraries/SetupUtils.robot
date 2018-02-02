@@ -23,7 +23,7 @@ ${SetupUtils__Known_Bug_ID}    ${EMPTY}
 
 *** Keywords ***
 Setup_Utils_For_Setup_And_Teardown
-    [Arguments]    ${http_timeout}=1
+    [Arguments]    ${http_timeout}=5
     [Documentation]    Prepare both FailFast and Karaf logging, log that the caller suite has started.
     ...    This keyword is to be used in suite setup, and without it the other keywords may not work properly.
     FailFast.Do_Not_Fail_Fast_From_Now_On
