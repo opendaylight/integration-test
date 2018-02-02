@@ -17,7 +17,7 @@ Library           Collections
 
 *** Variables ***
 ${SWITCHES}       1
-${START_CMD}      sudo mn --topo linear,${SWITCHES}
+${START_CMD}      sudo mn --switch ovsk,protocols=OpenFlow13 --topo linear,${SWITCHES}
 @{cntls_idx_list}    ${1}    ${2}    ${3}
 
 *** Test Cases ***

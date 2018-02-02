@@ -7,6 +7,6 @@ Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,1 --switch user
+${start}          sudo mn --switch ovsk,protocols=OpenFlow13 --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,1 --switch user
 
 *** Keywords ***
