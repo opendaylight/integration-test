@@ -17,7 +17,7 @@ Library           Collections
 
 *** Variables ***
 ${SWITCHES}       1
-${START_CMD}      sudo mn --topo linear,${SWITCHES}
+${START_CMD}      sudo mn --switch ovsk,protocols=OpenFlow13 --topo linear,${SWITCHES}
 ${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}
 
 *** Test Cases ***

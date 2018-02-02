@@ -17,7 +17,7 @@ Check Shards Status Before Stop
 
 Start Mininet Multiple Connections
     [Documentation]    Start mininet tree,2 with connection to all cluster instances.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${ClusterManagement__member_index_list}    --topo tree,2
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${ClusterManagement__member_index_list}    --topo tree,2 --switch ovsk,protocols=OpenFlow13
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    9
 
