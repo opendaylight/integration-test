@@ -20,6 +20,7 @@ Default Tags      1node    yang-model-validator    critical
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/RemoteBash.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -29,6 +30,9 @@ Resource          ${CURDIR}/../../../libraries/YangCollection.robot
 
 *** Variables ***
 ${EXPLICIT_YANG_SYSTEM_TEST_URL}    ${EMPTY}
+${NITROGEN_YANG_SYSTEM_TEST_URL}    https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/yangtools/yang-model-validator/2.0.0/yang-model-validator-2.0.0-jar-with-dependencies.jar
+${OXYGEN_YANG_SYSTEM_TEST_URL}    https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/yangtools/yang-model-validator/2.0.1/yang-model-validator-2.0.1-jar-with-dependencies.jar
+${TEST_TOOL_NAME}    yang-model-validator
 
 *** Test Cases ***
 Kill_Odl
@@ -49,11 +53,9 @@ Deploy_And_Start_Odl_Yang_Validator_Utility
     ...    and run it for each single yang file in the prepared set.
     ...    The version is either given by ${EXPLICIT_YANG_SYSTEM_TEST_URL},
     ...    or constructed from Jenkins-shaped ${BUNDLE_URL}, or downloaded from Nexus based on ODL version.
-    ${status}    ${multipatch_url} =    BuiltIn.Run_Keyword_And_Ignore_Error    Construct_Multipatch_Url
-    ${url} =    Builtin.Set_Variable_If    "${status}" == "PASS"    ${multipatch_url}    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
     : FOR    ${yang_file}    IN    @{yang_files_to_validate}
-    \    ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=yang-model-validator    suffix=jar-with-dependencies    tool_options=-p ${p_option_value} ${yang_file}
-    \    ...    explicit_url=${url}
+    \    ${logfile} =    NexusKeywords.Install_And_Start_Java_Artifact    component=yangtools    artifact=${TEST_TOOL_NAME}    suffix=jar-with-dependencies    tool_options=-p ${p_option_value} ${yang_file}
+    \    ...    explicit_url=${EXPLICIT_YANG_SYSTEM_TEST_URL}
     \    BuiltIn.Set_Suite_Variable    \${logfile}
     \    Wait_Until_Utility_Finishes
     \    Check_Return_Code
@@ -67,6 +69,11 @@ Collect_Files_To_Archive
 Setup_Suite
     [Documentation]    Activate dependency Resources, create SSH connection.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    ${TEST_TOOL_NAME}=    CompareStream.Set_Variable_If_At_Most_Carbon    yang-system-test    ${TEST_TOOL_NAME}
+    ${EXPLICIT_YANG_SYSTEM_TEST_URL}=    CompareStream.Set_Variable_If_At_Least_Nitrogen    ${NITROGEN_YANG_SYSTEM_TEST_URL}    ${EMPTY}
+    ${EXPLICIT_YANG_SYSTEM_TEST_URL}=    CompareStream.Set_Variable_If_At_Least_Oxygen    ${OXYGEN_YANG_SYSTEM_TEST_URL}    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
+    Set Suite Variable    ${TEST_TOOL_NAME}
+    Set Suite Variable    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage    tools_system_connect=False
     SSHKeywords.Open_Connection_To_ODL_System
 
@@ -97,25 +104,6 @@ Get_Yang_Files_From_Dirs
     \    ${yang_files_in_dir} =    SSHLibrary.List_Files_In_Directory    path=${dir}    pattern=*.yang    absolute=True
     \    ${collected_yang_files} =    Collections.Combine_Lists    ${collected_yang_files}    ${yang_files_in_dir}
     [Return]    ${collected_yang_files}
-
-Construct_Multipatch_Url
-    [Documentation]    If ${EXPLICIT_YANG_SYSTEM_TEST_URL} is non-empty, return it. Otherwise:
-    ...    Check whether ${BUNDLE_URL} is from multipatch build (or similar maven style job),
-    ...    Check whether yang-model-validator was built there as well,
-    ...    and return URL with proper version, or fail.
-    BuiltIn.Return_From_Keyword_If    """${EXPLICIT_YANG_SYSTEM_TEST_URL}""" != ""    ${EXPLICIT_YANG_SYSTEM_TEST_URL}
-    ${marker} =    BuiltIn.Set_Variable    /org.opendaylight.integration$distribution-karaf
-    ${is_multipatch} =    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Should_Contain    ${BUNDLE_URL}    ${marker}
-    BuiltIn.Should_Be_True    ${is_multipatch}
-    ${yst_base_url} =    String.Fetch_From_Left    ${BUNDLE_URL}    ${marker}
-    RequestsLibrary.Create_Session    alias=cmu    url=${yst_base_url}
-    ${yst_general_uri} =    BuiltIn.Set_Variable    org.opendaylight.yangtools$yang-model-validator/artifact/org.opendaylight.yangtools/yang-model-validator
-    ${yst_html} =    TemplatedRequests.Get_From_Uri    ${yst_general_uri}    session=cmu
-    # The following two lines are very specific to a particular Jenkins html layout.
-    ${yst_almost_version} =    String.Fetch_From_Right    ${yst_html}    <td><a href="
-    ${yst_version} =    String.Fetch_From_Left    ${yst_almost_version}    ">
-    ${url} =    BuiltIn.Set_Variable    ${yst_base_url}/${yst_general_uri}/${yst_version}/yang-model-validator-${yst_version}-jar-with-dependencies.jar
-    BuiltIn.Return_From_Keyword    ${url}
 
 Wait_Until_Utility_Finishes
     [Documentation]    Repeatedly send endline to keep session alive; pass on prompt, fail on timeout.
