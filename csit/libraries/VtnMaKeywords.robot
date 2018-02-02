@@ -14,7 +14,7 @@ Resource          ./TemplatedRequests.robot
 Resource          DataModels.robot
 
 *** Variables ***
-${vlan_topo_10}    --custom vlan_vtn_test.py --topo vlantopo
+${vlan_topo_10}    --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow10
 ${vlan_topo_13}    --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${VERSION_VTN}    controller/nb/v2/vtn/version
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
