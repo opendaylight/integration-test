@@ -32,7 +32,7 @@ Shards_Stability_Init_Details
     BuiltIn.Set_Suite_Variable    ${stored_details}    ${shards_details}
 
 Shards_Stability_Get_Details
-    [Arguments]    ${shard_list}    ${member_index_list}=${EMPTY}    ${verify_restconf}=False    ${http_timeout}=5
+    [Arguments]    ${shard_list}    ${member_index_list}=${EMPTY}    ${verify_restconf}=False    ${http_timeout}=${EMPTY}
     [Documentation]    Return shard details stored in dictionary.
     ...    ${shard_list} should be initialized as @{list} shard_name1:shard_type1 shard_name2:shard..
     &{shards_details}    BuiltIn.Create_Dictionary
@@ -69,7 +69,7 @@ Set_Shard_Location
     ClusterAdmin.Make_Leader_Local    ${requested_leader_idx}    topology    operational
 
 Verify_Shard_Leader_Located_As_Expected
-    [Arguments]    ${expected_leader_idx}    ${http_timeout}=5
+    [Arguments]    ${expected_leader_idx}    ${http_timeout}=${EMPTY}
     [Documentation]    Verify default/topology config/operational shard leader location is as expected
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=default    shard_type=config    verify_restconf=False    http_timeout=${http_timeout}
     BuiltIn.Should_Be_Equal_As_Numbers    ${expected_leader_idx}    ${leader}
