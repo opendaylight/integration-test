@@ -63,7 +63,7 @@ ${NODE_UNFREEZE_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk 
 
 *** Keywords ***
 ClusterManagement_Setup
-    [Arguments]    ${http_timeout}=1    ${http_retries}=0
+    [Arguments]    ${http_timeout}=5    ${http_retries}=0
     [Documentation]    Detect repeated call, or detect number of members and initialize derived suite variables.
     ...    Http sessions are created with parameters to not waste time when ODL is no accepting connections properly.
     # Avoid multiple initialization by several downstream libraries.
