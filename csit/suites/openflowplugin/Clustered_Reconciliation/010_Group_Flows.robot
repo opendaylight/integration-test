@@ -27,7 +27,7 @@ Add Groups And Flows
 Start Mininet Multiple Connections
     [Documentation]    Start mininet linear with connection to all cluster instances.
     ${cluster_index_list}=    ClusterManagement.List All Indices
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${cluster_index_list}    --topo linear,${SWITCHES}
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${cluster_index_list}    --topo linear,${SWITCHES} --switch ovsk,protocols=OpenFlow13
     BuiltIn.Set Suite Variable    ${cluster_index_list}
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    ${SWITCHES*3}
