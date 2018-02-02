@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5bf7638f_b496e39d",
+        "filename": "csit/testplans/genius-genius.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-02T12:40:39Z",
+      "side": 1,
+      "message": "just get rid of the directory and call the script explicitly. Also remove the number prepended to the scripts. That\u0027s what we did with the netvirt/openstack tests. Makes it easier to follow since you know what scripts will be in in testplan without having to worry about organizing them into directories.\n\nThis should remove a lot of the edited path\u0027s so you can focus on just the new tdd stuff.\n\nthis also means you don\u0027t have to move the scripts from the tdd dir to the main dir when they are ready - you simply edit the test plans. though that is similar to moving the script, but modifying test plans is more intuitive.",
+      "revId": "7208babb89055cca72aa95b2c183965b093560b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
