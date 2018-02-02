@@ -139,8 +139,9 @@ Restart OVSDB
     Log    ${output}
 
 Set Controller In OVS Bridge
-    [Arguments]    ${tools_system}    ${bridge}    ${controller_opt}
-    [Documentation]    Sets controller for a given OVS ${bridge} using controller options in ${controller_opt}
+    [Arguments]    ${tools_system}    ${bridge}    ${controller_opt}    ${ofversion}=13
+    [Documentation]    Sets controller for the OVS bridge ${bridge} using ${controller_opt} and OF version ${ofversion}.
+    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set bridge ${bridge} protocols=OpenFlow${ofversion}
     Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
 
 Check OVS OpenFlow Connections
