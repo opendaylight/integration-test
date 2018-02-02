@@ -64,6 +64,7 @@ ${DEFAULT_PASSWORD}    ${EMPTY}    # Generic *_SYSTEM linux password. If empty, 
 ${DEFAULT_PROTOCOL_LOG_LEVEL}    ${DEFAULT_ODL_LOG_LEVEL}    # Fallback Karaf log level specific to org.opendaylight.protocol.
 ${DEFAULT_USER}    jenkins    # Generic *_SYSTEM linux user name name. TODO: Rename to DEFUALT_LINUX_USER. FIXME: Add -v to releng/builder and change the value to something more common, e.g. "vagrant".
 ${DEFAULT_TIMEOUT}    30s    # Generic *_SYSTEM SSH.Login timeout. Some systems are slow to authenticate.
+${DEFAULT_TIMEOUT_HTTP}    5    # Used for HTTP connections
 ${DELETE_DASHBOARDRECORD}    /restconf/operations/dashboardrule:delete-dashboard    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ELASTICPORT}    9200    # Port to use when interacting with ElasticSearch. FIXME: Hide into a specific Resource.
 ${ENABLE_GLOBAL_TEST_DEADLINES}    True    # Some suites need this to avoid getting stuck. FIXME: Move to the Resource which uses this.

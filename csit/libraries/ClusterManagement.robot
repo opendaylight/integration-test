@@ -63,7 +63,7 @@ ${NODE_UNFREEZE_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | awk 
 
 *** Keywords ***
 ClusterManagement_Setup
-    [Arguments]    ${http_timeout}=5    ${http_retries}=0
+    [Arguments]    ${http_timeout}=${DEFAULT_TIMEOUT_HTTP}    ${http_retries}=0
     [Documentation]    Detect repeated call, or detect number of members and initialize derived suite variables.
     ...    Http sessions are created with parameters to not waste time when ODL is no accepting connections properly.
     # Avoid multiple initialization by several downstream libraries.
@@ -103,7 +103,7 @@ Verify_Leader_Exists_For_Each_Shard
     \    Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    validate=True    member_index_list=${member_index_list}    verify_restconf=${verify_restconf}
 
 Get_Leader_And_Followers_For_Shard
-    [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=True    ${member_index_list}=${EMPTY}    ${verify_restconf}=True    ${http_timeout}=5
+    [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=True    ${member_index_list}=${EMPTY}    ${verify_restconf}=True    ${http_timeout}=${EMPTY}
     [Documentation]    Get role lists, validate there is one leader, return the leader and list of followers.
     ...    Optionally, issue GET to a simple restconf URL to make sure subsequent operations will not encounter 503.
     ${leader_list}    ${follower_list} =    Get_State_Info_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    validate=True    member_index_list=${member_index_list}
@@ -115,7 +115,7 @@ Get_Leader_And_Followers_For_Shard
     [Return]    ${leader}    ${follower_list}
 
 Get_State_Info_For_Shard
-    [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=False    ${member_index_list}=${EMPTY}    ${verify_restconf}=False    ${http_timeout}=5
+    [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=False    ${member_index_list}=${EMPTY}    ${verify_restconf}=False    ${http_timeout}=${EMPTY}
     [Documentation]    Return lists of Leader and Follower member indices from a given member index list
     ...    (or from the full list if empty). If \${shard_type} is not 'config', 'operational' is assumed.
     ...    If \${validate}, Fail if raft state is not Leader or Follower (for example on Candidate).
@@ -136,7 +136,7 @@ Get_State_Info_For_Shard
     [Return]    ${leader_list}    ${follower_list}
 
 Get_Raft_State_Of_Shard_At_Member
-    [Arguments]    ${shard_name}    ${shard_type}    ${member_index}    ${verify_restconf}=False    ${http_timeout}=5
+    [Arguments]    ${shard_name}    ${shard_type}    ${member_index}    ${verify_restconf}=False    ${http_timeout}=${EMPTY}
     [Documentation]    Send request to Jolokia on indexed member, return extracted Raft status.
     ...    Optionally, check restconf works.
     ${raft_state} =    Get_Raft_Property_From_Shard_Member    RaftState    ${shard_name}    ${shard_type}    ${member_index}    verify_restconf=${verify_restconf}
@@ -144,7 +144,7 @@ Get_Raft_State_Of_Shard_At_Member
     [Return]    ${raft_state}
 
 Get_Raft_Property_From_Shard_Member
-    [Arguments]    ${property}    ${shard_name}    ${shard_type}    ${member_index}    ${verify_restconf}=False    ${http_timeout}=5
+    [Arguments]    ${property}    ${shard_name}    ${shard_type}    ${member_index}    ${verify_restconf}=False    ${http_timeout}=${EMPTY}
     [Documentation]    Send request to Jolokia on indexed member, return extracted Raft property.
     ...    Optionally, check restconf works.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
@@ -262,7 +262,7 @@ Get_Owner_And_Candidates_For_Device_Singleton_Netconf
     [Return]    ${owner_1}    ${candidate_list_1}
 
 Get_Owner_And_Candidates_For_Device_Singleton_Bgpcep
-    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=2
+    [Arguments]    ${device_name}    ${member_index}    ${http_timeout}=${EMPTY}
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name}. Request is sent to member ${member_index}.
     # Get election entity type results
     ${type} =    BuiltIn.Set_Variable    ${SINGLETON_ELECTION_ENTITY_TYPE}
@@ -785,7 +785,7 @@ List_Indices_Minus_Member
     [Return]    ${index_list}
 
 ClusterManagement__Compute_Derived_Variables
-    [Arguments]    ${int_of_members}    ${http_timeout}=1    ${http_retries}=0
+    [Arguments]    ${int_of_members}    ${http_timeout}=${DEFAULT_TIMEOUT_HTTP}    ${http_retries}=0
     [Documentation]    Construct index list, session list and IP mapping, publish them as suite variables.
     @{member_index_list} =    BuiltIn.Create_List
     @{session_list} =    BuiltIn.Create_List
@@ -798,7 +798,7 @@ ClusterManagement__Compute_Derived_Variables
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__session_list}    ${session_list}
 
 ClusterManagement__Include_Member_Index
-    [Arguments]    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}    ${http_timeout}=1    ${http_retries}=0
+    [Arguments]    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}    ${http_timeout}=${DEFAULT_TIMEOUT_HTTP}    ${http_retries}=0
     [Documentation]    Add a corresponding item based on index into the last three arguments.
     ...    Create the Http session whose alias is added to list.
     Collections.Append_To_List    ${member_index_list}    ${index}
