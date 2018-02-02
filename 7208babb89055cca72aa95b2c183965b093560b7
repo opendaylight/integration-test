@@ -34,6 +34,24 @@
       "revId": "7208babb89055cca72aa95b2c183965b093560b7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6826df68_cf808712",
+        "filename": "csit/testplans/genius-genius.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-02T14:24:28Z",
+      "side": 1,
+      "message": "Personally, I don\u0027t use the __init__ for this reason - I can never remember when it is called or not and I always forget about the file. I would move the __init__ stuff into a genius.robot file and make it explicit that the stuff is called in suite setup.\n\nI think what is happening now, is that stuff in init is called for each suite as part of start suite.",
+      "parentUuid": "bdbf1b50_d7739670",
+      "revId": "7208babb89055cca72aa95b2c183965b093560b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
