@@ -135,6 +135,9 @@ class Changes(object):
                          gerrit["subject"].encode('ascii', 'replace') if "subject" in gerrit else "none"))
 
     def pretty_print_projects(self, projects):
+        print("========================================")
+        print("distchanges")
+        print("========================================")
         if isinstance(projects, dict):
             for project_name, values in sorted(projects.items()):
                 if "includes" in values:
