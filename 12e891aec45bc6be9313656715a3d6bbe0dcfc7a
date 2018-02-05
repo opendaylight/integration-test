@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1daedd93_9d61f7d9",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 0,
+      "message": "does this need to be removed? Is it replaced with a different test?",
+      "revId": "12e891aec45bc6be9313656715a3d6bbe0dcfc7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

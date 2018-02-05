@@ -1,0 +1,221 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d91d7df_ad4fccd9",
+        "filename": "csit/libraries/OpenStackInstallUtils.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 1,
+      "message": "this comment should be more about openstack install utilities",
+      "revId": "e05707bcb8ea00b4dfe49dfabbecd8e5d7e1a58c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ceface5_5793b293",
+        "filename": "csit/libraries/OpenStackInstallUtils.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 1,
+      "message": "would this stuff be better to add to DevstackUtils?",
+      "revId": "e05707bcb8ea00b4dfe49dfabbecd8e5d7e1a58c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0081226b_5d13c13a",
+        "filename": "csit/libraries/OpenStackInstallUtils.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 1,
+      "message": "temporarily\n\nDoes selinux really need to be disabled or do we need to open something up? I thought we fixed everything in builder to open up the right access.",
+      "range": {
+        "startLine": 16,
+        "startChar": 20,
+        "endLine": 16,
+        "endChar": 31
+      },
+      "revId": "e05707bcb8ea00b4dfe49dfabbecd8e5d7e1a58c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4540161_a9d95fb9",
+        "filename": "csit/libraries/OpenStackInstallUtils.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 1,
+      "message": "DevstackUtils.Devstack Suite Setup has code to connect to the nodes. could that be used?",
+      "revId": "e05707bcb8ea00b4dfe49dfabbecd8e5d7e1a58c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c645ef99_18e7bba9",
+        "filename": "csit/libraries/OpenStackInstallUtils.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 1,
+      "message": "is this a standard prompt defined somewhere already? And password. Maybe they should at least be defaults on the Setup Basic Ssh keyword.",
+      "range": {
+        "startLine": 41,
+        "startChar": 93,
+        "endLine": 41,
+        "endChar": 96
+      },
+      "revId": "e05707bcb8ea00b4dfe49dfabbecd8e5d7e1a58c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41709ac8_af7c5be3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 1,
+      "message": "everything is now wrapped with the OpenStack CLI keyword",
+      "range": {
+        "startLine": 143,
+        "startChar": 19,
+        "endLine": 143,
+        "endChar": 48
+      },
+      "revId": "e05707bcb8ea00b4dfe49dfabbecd8e5d7e1a58c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28446dfd_effd28e1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 1,
+      "message": "this is deleted now - do you need it?",
+      "revId": "e05707bcb8ea00b4dfe49dfabbecd8e5d7e1a58c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46ded6cb_42462f30",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 1,
+      "message": "do we need this extra log - the command logs the fip already?",
+      "revId": "e05707bcb8ea00b4dfe49dfabbecd8e5d7e1a58c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2f5b010_19466c13",
+        "filename": "csit/libraries/OpendaylightInstallUtils.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 1,
+      "message": "odl comment",
+      "revId": "e05707bcb8ea00b4dfe49dfabbecd8e5d7e1a58c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b370c5af_cb6a7a0b",
+        "filename": "csit/suites/netvirt/install/deploy_odl_with_netvirt.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 1,
+      "message": "all",
+      "range": {
+        "startLine": 2,
+        "startChar": 76,
+        "endLine": 2,
+        "endChar": 78
+      },
+      "revId": "e05707bcb8ea00b4dfe49dfabbecd8e5d7e1a58c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adce080e_d0e16e7c",
+        "filename": "csit/suites/netvirt/install/deploy_odl_with_netvirt.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T14:02:21Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 24,
+        "startChar": 20,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "e05707bcb8ea00b4dfe49dfabbecd8e5d7e1a58c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
