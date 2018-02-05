@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43c10e18_9bca1aa4",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T18:25:23Z",
+      "side": 1,
+      "message": "These are pretty much the exact same tests as the existing ha_l3 right, just uses a blocked port rather than the disable of odl right? Maybe it would be better to reuse the suite and just change the block/disable path as needed?",
+      "revId": "248d736e0f3799c2fa0288444eb0e7706d356fba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0cde47f_89155461",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T18:25:23Z",
+      "side": 1,
+      "message": "try to make these all unique, like cl3_bp_sg - bp for block_port. We sometimes have cleanup issues so this makes it easier to identify where they came from.",
+      "revId": "248d736e0f3799c2fa0288444eb0e7706d356fba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d49c1f7_d4d64b7c",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T18:25:23Z",
+      "side": 1,
+      "message": "same here, so prefix with cl3_bp_",
+      "revId": "248d736e0f3799c2fa0288444eb0e7706d356fba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2949c4b6_edc11a8a",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-05T18:25:23Z",
+      "side": 1,
+      "message": "use 38 and 39",
+      "revId": "248d736e0f3799c2fa0288444eb0e7706d356fba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
