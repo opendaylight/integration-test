@@ -9,9 +9,11 @@ Library           RequestsLibrary
 Library           ../../../libraries/SFC/SfcUtils.py
 Resource          ../../../libraries/SFC/SfcKeywords.robot
 Resource          ../../../variables/sfc/Variables.robot
+Resource          ../../../variables/sfc/Modules.py
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/DataModels.robot
 Resource          ../../../libraries/SFC/DockerSfc.robot
 
 *** Variables ***
@@ -85,6 +87,7 @@ Init Suite
 
 Cleanup Suite
     [Documentation]    Clean up all docker containers created and delete sessions
+    Get Model Dump    ${ODL_SYSTEM_IP}    ${sfc_data_models}
     Remove All Elements At URI    ${SERVICE_CLASSIFIERS_URI}
     Remove All Elements At URI    ${SERVICE_FUNCTION_ACLS_URI}
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
