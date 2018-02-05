@@ -1,0 +1,22 @@
+sfc_data_models = [
+    'config/ietf-access-control-list:access-lists',
+    'config/ietf-interfaces:interfaces',
+    'config/interface-service-bindings:service-bindings',
+    'config/network-topology:network-topology/topology/ovsdb:1',
+    'config/opendaylight-inventory:nodes',
+    'config/rendered-service-path:rendered-service-path',
+    'config/service-function-chain:service-function-chains',
+    'config/service-function-classifier:service-function-classifiers',
+    'config/service-function-forwarder:service-function-forwarders',
+    'config/service-function-group:service-function-groups',
+    'config/service-function-mapping:sff-dpl-by-sf-dpl-mappings',
+    'config/service-function-path:service-function-paths',
+    'config/service-function-path-metadata:service-function-metadata',
+    'config/service-function-type:service-function-types',
+    'config/service-function:service-functions',
+    'config/sfc-of-renderer:sfc-of-renderer-config',
+    'operational/ietf-interfaces:interfaces-state',
+    'operational/network-topology:network-topology/topology/ovsdb:1',
+    'operational/opendaylight-inventory:nodes',
+    'operational/rendered-service-path:rendered-service-path'
+]
