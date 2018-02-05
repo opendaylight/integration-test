@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f514e59_22ae396c",
+        "filename": "csit/variables/sfc/Modules.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-05T18:53:59Z",
+      "side": 1,
+      "message": "it makes it easier to maintain and double check if you alphabetize these.",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 62
+      },
+      "revId": "62d92f31ca9756cd1c8ff99f78b53fd2079f7f18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
