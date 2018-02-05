@@ -1114,6 +1114,8 @@ Cleanup Router
 OpenStack Suite Setup
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    @{tcpdump_port_6653_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_port_6653    port 6653    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+    BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
     Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     DevstackUtils.Devstack Suite Setup
     Add OVS Logging On All OpenStack Nodes
@@ -1124,6 +1126,7 @@ OpenStack Suite Teardown
     ...    and deleted. As other global cleanup tasks are needed, they can be added here and the suites will all
     ...    benefit automatically.
     OpenStack Cleanup All
+    OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
     SSHLibrary.Close All Connections
 
 Copy DHCP Files From Control Node
@@ -1161,8 +1164,9 @@ Start Packet Capture On Nodes
     ...    but ${EMPTY} can be used for the tag and filter.
     ${suite_} =    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","_").replace("/","_").replace(".","_")
     ${tag_} =    BuiltIn.Catenate    SEPARATOR=__    ${tag}    ${suite_}
-    @{capture_conn_ids} =    Tcpdump.Start Packet Capture on Nodes    tag=${tag_}    filter=${filter}    ips=${ips}
-    BuiltIn.Set Suite Variable    @{capture_conn_ids}
+    @{conn_ids} =    Tcpdump.Start Packet Capture on Nodes    tag=${tag_}    filter=${filter}    ips=${ips}
+    [Return]    @{conn_ids}
 
 Stop Packet Capture On Nodes
-    Tcpdump.Stop Packet Capture on Nodes    ${capture_conn_ids}
+    [Arguments]    ${conn_ids}=@{EMPTY}
+    Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}

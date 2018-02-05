@@ -125,7 +125,7 @@ Check ELAN Datapath Traffic Within The Networks
 
 Check L3_Datapath Traffic Across Networks With Router
     BuiltIn.Log    Verification of FIB Entries and Flow
-    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_vpn6    ${EMPTY}    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+    @{tcpdump_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_vpn6    ${EMPTY}    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     ${vm_ips} =    BuiltIn.Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ips}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10}
@@ -137,7 +137,7 @@ Check L3_Datapath Traffic Across Networks With Router
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{VM_IP_NET10}[0]    ${dst_ip_list}
     ${dst_ip_list} =    BuiltIn.Create List    @{VM_IP_NET20}[1]    @{VM_IP_NET10}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{VM_IP_NET20}[0]    ${dst_ip_list}
-    [Teardown]    VpnOperations.Test Teardown With Tcpdump Stop
+    [Teardown]    VpnOperations.Test Teardown With Tcpdump Stop    ${tcpdump_conn_ids}
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     ${CONFIG_EXTRA_ROUTE_IP1} =    BuiltIn.Catenate    sudo ip -6 addr add @{EXTRA_NW_IP}[0]/64 dev eth0

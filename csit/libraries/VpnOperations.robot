@@ -182,7 +182,8 @@ Get Gateway MAC And IP Address
     [Return]    ${MacAddr-list}    ${IpAddr-list}
 
 Test Teardown With Tcpdump Stop
-    OpenStackOperations.Stop Packet Capture On Nodes
+    [Arguments]    ${conn_ids}=@{EMPTY}
+    OpenStackOperations.Stop Packet Capture On Nodes    ${conn_ids}
     Get Test Teardown Debugs
 
 Verify IPv4 GWMAC Flow Entry On Flow Table
