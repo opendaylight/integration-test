@@ -169,9 +169,7 @@ Check ELAN Datapath Traffic Within The Networks
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    L3 Datapath test across networks using previously created router.
     BuiltIn.Log    Verification of FIB Entries and Flow
-    ${cn1_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_COMPUTE_1_IP}    file_Name=tcpDumpCN1
-    ${cn2_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_COMPUTE_2_IP}    file_Name=tcpDumpCN2
-    ${os_conn_id} =    Tcpdump.Start Packet Capture on Node    ${OS_CONTROL_NODE_IP}    file_Name=tcpDumpOS
+    @{tcpdump_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_vpn_ds    ${EMPTY}    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     ${vm_instances} =    BuiltIn.Create List    @{NET_1_VM_IPV4}    @{NET_2_VM_IPV4}    @{NET_1_VM_IPV6}    @{NET_2_VM_IPV6}
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_instances}
     : FOR    ${VM}    IN    ${vm_instances}
@@ -188,7 +186,7 @@ Check L3_Datapath Traffic Across Networks With Router
     Test Operations From Vm Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[0]}    ${dst_ipv6_list1}
     ${dst_ipv6_list2} =    BuiltIn.Create List    ${NET_2_VM_IPV6[1]}    @{NET_1_VM_IPV6}
     Test Operations From Vm Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[0]}    ${dst_ipv6_list2}
-    [Teardown]    VpnOperations.Test Teardown With Tcpdump Stop
+    [Teardown]    VpnOperations.Test Teardown With Tcpdump Stop    ${tcpdump_conn_ids}
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation.
