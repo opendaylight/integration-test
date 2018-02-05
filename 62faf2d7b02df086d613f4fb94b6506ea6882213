@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96dfb05e_b016da76",
+        "filename": "csit/variables/sfc/Variables.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-05T18:58:05Z",
+      "side": 1,
+      "message": "these are there in the main Variables.robot file as well.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 38
+      },
+      "revId": "62faf2d7b02df086d613f4fb94b6506ea6882213",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
