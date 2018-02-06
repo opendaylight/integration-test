@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4e6c2c0d_25a2115b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T04:39:39Z",
+      "side": 1,
+      "message": "I have a hunch this is a problem in our infra. it\u0027s something we saw a lot of in the beginning after migrating. it sort of went\naway for a while, but now I feel like I see it a lot more. I sent an email on integration-dev about it.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 40
+      },
+      "revId": "f416007255bd91493547b359895c76e4b71f97d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "973111c6_a8c0ea50",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 4
@@ -13,6 +36,24 @@
       "writtenOn": "2018-02-02T15:29:17Z",
       "side": 1,
       "message": "what\u0027s the take on Documentation? Seems pretty obvious that the Genius Suite Setup keyword documents itself really well. The Documentation chunk is distracting and adds no value. The int/test code has rules to add Documentation but it seems it doesn\u0027t apply in all cases.",
+      "revId": "f416007255bd91493547b359895c76e4b71f97d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15aec7f1_9d1eeac3",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T04:39:39Z",
+      "side": 1,
+      "message": "there is some pie in the sky stuff where we can get prettier test plans based off of this test code, and it would use the [Documentation] blocks to build it.\nthat\u0027s one reason we were thinking to always require it. It does seem pointless in some cases like this when you are looking at one line of code.",
+      "parentUuid": "973111c6_a8c0ea50",
       "revId": "f416007255bd91493547b359895c76e4b71f97d0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -47,6 +88,24 @@
       "writtenOn": "2018-02-02T15:29:17Z",
       "side": 1,
       "message": "should this be changed to Variables.robot? I think there was an effort to move away from the .py and to .robot.",
+      "revId": "f416007255bd91493547b359895c76e4b71f97d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7dee038b_b84193f9",
+        "filename": "csit/suites/genius/01_Interface_manager.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T04:39:39Z",
+      "side": 1,
+      "message": "yes please. I assume you\u0027ll be using the sandbox to check this patch, and if some corner case pops up that has a variable in the .py\nfile, but not the .robot file we can take that time to get it fixed. I want to get rid of this .py file eventually.",
+      "parentUuid": "772b2bae_6e8f7207",
       "revId": "f416007255bd91493547b359895c76e4b71f97d0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
