@@ -130,6 +130,10 @@ Create And Associate Floating IPs
     \    ${output} =    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
     [Return]    ${ip_list}
 
+DisAssociate Floating Ip From Vm
+    [Arguments]    ${vm_name}    ${fip}
+    ${output}=    OpenStack CLI    openstack server remove floating ip ${vm_name} ${fip}
+
 Delete Floating IP
     [Arguments]    ${fip}
     [Documentation]    Delete floating ip with neutron request.
