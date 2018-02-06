@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcad802f_1807e257",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T04:01:05Z",
+      "side": 1,
+      "message": "lower case",
+      "range": {
+        "startLine": 167,
+        "startChar": 3,
+        "endLine": 167,
+        "endChar": 4
+      },
+      "revId": "65603690d6fcea8e55da539e391952f7062eea94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2233437f_5bb08027",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T04:01:05Z",
+      "side": 1,
+      "message": "Use the OpenStack CLI keyword instead of these three lines",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 36
+      },
+      "revId": "65603690d6fcea8e55da539e391952f7062eea94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
