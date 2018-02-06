@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e84c6cc4_69490171",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T04:15:08Z",
+      "side": 1,
+      "message": "I think you probably want to use the Get Data Model keyword.\n\nexample here:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OpenStackOperations.robot#L624",
+      "range": {
+        "startLine": 181,
+        "startChar": 4,
+        "endLine": 201,
+        "endChar": 111
+      },
+      "revId": "23c5c10268bf2c67ad5bc3c0ceb93c6857277d22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06b6d918_46bb8546",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T04:15:08Z",
+      "side": 1,
+      "message": "use OpenStack CLI for these.\nadd [Documentation] blocks",
+      "range": {
+        "startLine": 1197,
+        "startChar": 0,
+        "endLine": 1208,
+        "endChar": 36
+      },
+      "revId": "23c5c10268bf2c67ad5bc3c0ceb93c6857277d22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "887de6a3_e7c676a0",
+        "filename": "csit/suites/l2gw/01_L2gateway_Single_Segment_Network.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T04:15:08Z",
+      "side": 1,
+      "message": "I think you need a newline and the AND helper keyword to make this work, but maybe it also works this way",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 82
+      },
+      "revId": "23c5c10268bf2c67ad5bc3c0ceb93c6857277d22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c9dd517_1d922cd3",
+        "filename": "csit/suites/l2gw/01_L2gateway_Single_Segment_Network.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T04:15:08Z",
+      "side": 1,
+      "message": "${HWVTEP_NETWORK_TOPOLOGY}",
+      "range": {
+        "startLine": 42,
+        "startChar": 78,
+        "endLine": 42,
+        "endChar": 143
+      },
+      "revId": "23c5c10268bf2c67ad5bc3c0ceb93c6857277d22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e439f7e1_9c62ed7c",
+        "filename": "csit/suites/l2gw/01_L2gateway_Single_Segment_Network.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T04:15:08Z",
+      "side": 1,
+      "message": "I don\u0027t think lines 178-179 are needed. Use the OpenStack CLI keyword and it should all be handled.",
+      "revId": "23c5c10268bf2c67ad5bc3c0ceb93c6857277d22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "578966fa_8ab5f06a",
+        "filename": "csit/suites/l2gw/02_Dynamic_Node_Addition_Multi_Segment_Network.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T04:15:08Z",
+      "side": 1,
+      "message": "my comments in the other suite will apply to this suite, but seeing these keywords makes me wonder how much\nduplicated code we can move in to a library instead of duplicating it.",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 1
+      },
+      "revId": "23c5c10268bf2c67ad5bc3c0ceb93c6857277d22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
