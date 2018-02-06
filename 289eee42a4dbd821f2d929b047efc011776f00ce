@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a9a069a_9297543e",
+        "filename": "csit/suites/genius/dummy.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T17:52:28Z",
+      "side": 1,
+      "message": "let\u0027s delete all of this to start clean. if/when tests need the resources they can add them.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 45
+      },
+      "revId": "289eee42a4dbd821f2d929b047efc011776f00ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "becedc6d_7fda0fe2",
+        "filename": "csit/suites/genius/dummy.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T17:52:28Z",
+      "side": 1,
+      "message": "add a TODO comment here to remove this test case entirely once there is something legit in this file. I know we need it for now so the new job will actually run something and not give a red dot.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "289eee42a4dbd821f2d929b047efc011776f00ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b41d3037_ec751145",
+        "filename": "csit/suites/genius/dummy.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-06T17:52:28Z",
+      "side": 1,
+      "message": "who you callin\u0027 dummy?!?!?",
+      "range": {
+        "startLine": 21,
+        "startChar": 31,
+        "endLine": 21,
+        "endChar": 36
+      },
+      "revId": "289eee42a4dbd821f2d929b047efc011776f00ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
