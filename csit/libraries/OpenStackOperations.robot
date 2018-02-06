@@ -237,7 +237,7 @@ Get Port Id
 Get Router Id
     [Arguments]    ${router1}
     [Documentation]    Retrieve the router id for the given router name
-    ${rc}    ${output}=    Run And Return Rc And Output    openstack router list -f table | grep "${router1}" | awk '{print $2}'
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack router show "${router1}" |awk '/ id / {print $4}'
     Should Be True    '${rc}' == '0'
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${router_id}=    Get from List    ${splitted_output}    0
