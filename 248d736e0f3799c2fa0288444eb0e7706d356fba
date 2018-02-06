@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "976f2679_b56c5270",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2018-02-06T14:52:19Z",
+      "side": 1,
+      "message": "Yup, it\u0027s pretty much the same one. But the behavior of cluster in this case is somewhat different and the isolated node, as of now, is still considered  as \"UP\" by haproxy.\n\nWe\u0027d like to have this and the regular ha_l3 suite as part of d/s testing, and for this, it\u0027s easier to add another file, compared to running it twice, with different options",
+      "parentUuid": "43c10e18_9bca1aa4",
+      "revId": "248d736e0f3799c2fa0288444eb0e7706d356fba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0cde47f_89155461",
         "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
         "patchSetId": 1
