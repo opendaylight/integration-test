@@ -156,6 +156,23 @@ SNAT - UDP connection to External Gateway From SNAT VM Instance3
     [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
     OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[1]    @{NET2_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}    -u
 
+Delete Floating Ip from VM Instance1
+    [Documentation]    Delete FIP from VM Instance 1
+    OpenStackOperations.DisAssociate Floating Ip From Vm      @{NET1_FIP_VMS}[0]     @{VM_FLOATING_IPS}[0]
+
+SNAT - TCP connection to External Gateway From SNAT VM Instance1
+    [Documentation]    Login to the VM instance and test TCP connection to the controller via SNAT
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}
+
+SNAT - UDP connection to External Gateway From SNAT VM Instance1
+    [Documentation]    Login to the VM instance and test UDP connection to the controller via SNAT
+    OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[0]    ${EXTERNAL_GATEWAY}    -u
+
+Ping External Network PNF from Vm Instance 1
+    [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
+    ${dst_ip}=    BuiltIn.Create List    ${EXTERNAL_PNF}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
+
 Delete Vm Instances
     [Documentation]    Delete Vm instances using instance names.
     : FOR    ${vm}    IN    @{NET1_FIP_VMS}
