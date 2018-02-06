@@ -169,6 +169,21 @@ Ping External Network PNF from SNAT VM Instance2
     ${dst_ip} =    BuiltIn.Create List    ${EXTERNAL_PNF}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_SNAT_VM_IPS}[1]    ${dst_ip}    ping_should_succeed=${expect_ping_to_work}
 
+Delete Floating Ip from VM Instance1
+    [Documentation]    Delete FIP from VM Instance 1
+    OpenStackOperations.DisAssociate Floating Ip From Vm    @{NET1_FIP_VMS}[0]    @{VM_FLOATING_IPS}[0]
+    OpenStackOperations.DisAssociate Floating Ip From Vm    @{NET1_FIP_VMS}[1]    @{VM_FLOATING_IPS}[1]
+
+Ping External Network PNF from Vm Instance 1
+    [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
+    ${dst_ip}=    BuiltIn.Create List    ${EXTERNAL_PNF}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
+
+Ping External Network PNF from Vm Instance 2
+    [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
+    ${dst_ip}=    BuiltIn.Create List    ${EXTERNAL_PNF}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[1]    ${dst_ip}    ttl=1
+
 Delete Vm Instances
     [Documentation]    Delete Vm instances using instance names.
     : FOR    ${vm}    IN    @{NET1_FIP_VMS}
