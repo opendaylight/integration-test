@@ -164,6 +164,12 @@ Create And Associate Floating IPs
     \    OpenStack CLI    openstack server add floating ip ${vm} @{ip}[0]
     [Return]    ${ip_list}
 
+DisAssociate Floating Ip From Vm
+    [Arguments]    ${vm_name}       ${fip}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack remove floating ip ${vm_name} ${fip}
+    Log    ${output}
+    Should Be True    '${rc}' == '0'
+
 Delete Floating IP
     [Arguments]    ${fip}
     [Documentation]    Delete floating ip with neutron request.
