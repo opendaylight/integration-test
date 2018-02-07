@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f1e7441_b9d39471",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:44:26Z",
+      "side": 1,
+      "message": "Try to match the variable naming with other suites in netvirt. vars named specific to test suite, unique cidr\u0027s, etc.",
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57bec2fe_8f72ee83",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:44:26Z",
+      "side": 1,
+      "message": "CSS shouldn\u0027t be in upstream.",
+      "range": {
+        "startLine": 2,
+        "startChar": 52,
+        "endLine": 2,
+        "endChar": 55
+      },
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56f0354a_265424ed",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:44:26Z",
+      "side": 1,
+      "message": "whitespace all through file",
+      "range": {
+        "startLine": 106,
+        "startChar": 33,
+        "endLine": 106,
+        "endChar": 39
+      },
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4238213b_c441538a",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:44:26Z",
+      "side": 1,
+      "message": "Try to use OpenStackOperations.Start Suite",
+      "range": {
+        "startLine": 340,
+        "startChar": 4,
+        "endLine": 341,
+        "endChar": 38
+      },
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dafae2fd_24023c50",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:44:26Z",
+      "side": 1,
+      "message": "if this is ovs specific and reusable move over to OVSDB.robot",
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b214972_e6944400",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:44:26Z",
+      "side": 1,
+      "message": "break this out to different tests to match the other suites. It is easier to follow and debug if something goes wrong. This means many of the keywords above become tests.",
+      "range": {
+        "startLine": 446,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 12
+      },
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
