@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55c366ae_02aee7b6",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T17:04:38Z",
+      "side": 1,
+      "message": "would it be better in the OpenStackOperations.Suite Setup to  change the passed in list of ips?\n\n@{tcpdump_port_6653_conn_ids} \u003d    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_port_6653    port 6653    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}",
+      "revId": "51430a655d1e8bc3ff875fe7800391311e6bed32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
