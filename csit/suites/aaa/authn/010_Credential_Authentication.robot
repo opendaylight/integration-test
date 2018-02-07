@@ -20,6 +20,7 @@ Resource          ../../../variables/Variables.robot
 *** Test Cases ***
 Get Token With Valid Username And Password
     [Documentation]    Sanity test to ensure default user/password can get a token
+    Log    TESTMODEFLAG was found to be: ${TESTMODEFLAG}
     ${auth_token}=    Get Auth Token
     Should Be String    ${auth_token}
     Log    Token: ${auth_token}

@@ -1,3 +1,4 @@
 # Place the suites in run order:
-integration/test/csit/suites/aaa/authn
+-v TESTMODEFLAG:DoItLikeThis integration/test/csit/suites/aaa/authn
+-v TESTMODEFLAG:DoItLikeThat integration/test/csit/suites/aaa/authn
 
