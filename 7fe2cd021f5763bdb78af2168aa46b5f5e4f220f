@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b5fe4768_6494ff76",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:56:20Z",
+      "side": 1,
+      "message": "Make sure to fully qualify all keyword calls - include the library.",
+      "parentUuid": "5f1e7441_b9d39471",
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57bec2fe_8f72ee83",
         "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
         "patchSetId": 1
@@ -42,6 +60,132 @@
     },
     {
       "key": {
+        "uuid": "1ff9bc21_80ebd2c9",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:56:20Z",
+      "side": 1,
+      "message": "Remove _ and only capitalize first letter of each word. Also where is this defined?",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 49
+      },
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d61abede_d0ecfbf5",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:56:20Z",
+      "side": 1,
+      "message": "Remove these logs in all the  tests.",
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6f19f89_3bb315e4",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:56:20Z",
+      "side": 1,
+      "message": "for all vars put a space between the {} and \u003d. Also make sure to use the \u003d pattern for all assignments",
+      "range": {
+        "startLine": 94,
+        "startChar": 22,
+        "endLine": 94,
+        "endChar": 25
+      },
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d96eedd_e513fa0f",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:56:20Z",
+      "side": 1,
+      "message": "OpenStack CLI doesn\u0027t need the connection so this and the get controlnode connection can be removed",
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9bea9258_d4921dde",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:56:20Z",
+      "side": 1,
+      "message": "lowercase since this is a local var- vm",
+      "range": {
+        "startLine": 96,
+        "startChar": 14,
+        "endLine": 96,
+        "endChar": 16
+      },
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45ec859a_a62b68ab",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:56:20Z",
+      "side": 1,
+      "message": "endpoint? just remove the EP as hosts should cover it.",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 102,
+        "endChar": 9
+      },
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56f0354a_265424ed",
         "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
         "patchSetId": 1
@@ -58,6 +202,63 @@
         "startChar": 33,
         "endLine": 106,
         "endChar": 39
+      },
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8ffa273_88be4f2e",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:56:20Z",
+      "side": 1,
+      "message": "update the documentation so that this comment can be removed",
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dae24af3_45988aa4",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:56:20Z",
+      "side": 1,
+      "message": "${cmd} \u003d",
+      "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5005832_6aa7369d",
+        "filename": "csit/suites/netvirt/Subnet_Routing_And_Multicast/Subnet_Routing_And_Multicast.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-07T19:56:20Z",
+      "side": 1,
+      "message": "remove extra text like this",
+      "range": {
+        "startLine": 291,
+        "startChar": 7,
+        "endLine": 291,
+        "endChar": 15
       },
       "revId": "7fe2cd021f5763bdb78af2168aa46b5f5e4f220f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
