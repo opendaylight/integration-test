@@ -77,7 +77,7 @@ Kill_Original_Odl
     ClusterManagement.Kill_Members_From_List_Or_All
     # This is deliberately analoguous to killing the whole cluster.
     # (As opposed to killing just one member, but for 1 node it is the same.)
-    ClusterManagement.Clean_Journals_And_Snapshots_On_List_Or_All
+    ClusterManagement.Clean_Journals_Data_And_Snapshots_On_List_Or_All
 
 Install_Older_Odl
     [Documentation]    Download .zip of older ODL, unpack, delete .zip, copy featuresBoot line.
