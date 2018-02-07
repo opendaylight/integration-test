@@ -133,8 +133,6 @@ Create And Associate Floating IPs
     ${ip_list} =    BuiltIn.Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
     \    ${output} =    OpenStack CLI    openstack floating ip create ${external_net}
-    \    BuiltIn.Log    ${output}
-    \    BuiltIn.Should Be True    '${rc}' == '0'
     \    @{ip} =    String.Get Regexp Matches    ${output}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
     \    ${ip_length} =    BuiltIn.Get Length    ${ip}
     \    BuiltIn.Run Keyword If    ${ip_length}>0    Collections.Append To List    ${ip_list}    @{ip}[0]
