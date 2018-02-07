@@ -30,7 +30,6 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/PrefixcountKeywords.robot
 
 *** Variables ***
@@ -38,7 +37,7 @@ ${COUNT}          300000
 
 *** Test Cases ***
 Get Example Bgp Rib Owner
-    [Documentation]    Find an odl node which is able to accept incomming connection. To this node netconf connector should be configured.
+    [Documentation]    Find an odl node which is able to accept incomming connection.
     ${rib_owner}    ${rib_candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    1
     BuiltIn.Set_Suite_Variable    ${rib_owner}    ${rib_owner}
     BuiltIn.Set_Suite_Variable    ${rib_owner_node_id}    ${ODL_SYSTEM_${rib_owner}_IP}
@@ -62,18 +61,6 @@ Check_For_Empty_Ipv4_Topology_Before_Talking_3
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BuiltIn.Wait_Until_Keyword_Succeeds    ${INITIAL_RESTCONF_TIMEOUT}    1s    PrefixCounting.Check_Ipv4_Topology_Is_Empty    session=${operational_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-
-Configure_Netconf_Device
-    [Documentation]    Configures and verifies netconf device configuration. If configuration is not successful, it de-configures the device before the next attempt.
-    # No need for configuring netconf device in carbon and above, openconfig is used
-    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    Openconfig usage does not need netconf connector
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${rib_owner_node_id}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
-    # After the netconf device is configured, odl starts downloading schemas. If the downloading will not finish within akka timeout, more tries are needed, 3 is based on a user experience.
-    : FOR    ${index}    IN RANGE    0    3
-    \    ${status}    ${value}=    Run Keyword And Ignore Error    PrefixcountKeywords.Configure_Netconf_Device_And_Check_Mounted    ${mapping}
-    \    Exit For Loop If    '${status}' == 'PASS'
-    \    Run Keyword Unless    '${status}' == 'PASS'    TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}    session=${config_session}
-    Run Keyword Unless    '${status}' == 'PASS'    Fail
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
@@ -163,10 +150,3 @@ Delete_Bgp_Peer_Configuration
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
     ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}    mapping=${mapping}    session=${config_session}
-
-Delete_Netconf_Device_Configuration
-    [Documentation]    Revert the netconf configuration to the original stat
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Pass_Execution    Openconfig usage does not need netconf connector
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${rib_owner_node_id}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
-    TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}    session=${config_session}
