@@ -133,6 +133,22 @@ connect_namespace_to_container () {
     delete_netns_link
 }
 
+check_status () {
+    CHECKED_CONTAINER="$1"
+    CHECKED_PROGRAM="$2"
+    CHECKED_STATUS="$3"
+
+    STATUS=""
+    retry=0
+    while [ "$STATUS" != "$CHECKED_STATUS" -a $retry -le 60 ]; do
+       sleep 1
+       STATUS=`sudo docker exec "$CHECKED_CONTAINER" supervisorctl status "$CHECKED_PROGRAM" |\
+          awk '{print $2}'`
+       retry=$[$retry+1]
+    done
+    [ "$STATUS" == "$CHECKED_STATUS" ] || exit 1
+}
+
 spawn_node () {
     NODE="$1"
     TUN="$2"
@@ -149,11 +165,10 @@ spawn_node () {
        exit 1
     fi
 
-    STATUS=""
-    while [ "$STATUS" != "EXITED" ]; do
-       STATUS=`sudo docker exec "$CONTAINER" supervisorctl status configure-ovs |\
-          awk '{print $2}'`
-    done
+    check_status "$CONTAINER" ovsdb-server RUNNING
+    check_status "$CONTAINER" ovs-vswitchd RUNNING
+    check_status "$CONTAINER" configure-ovs EXITED
+
     CONTAINER_GW=`sudo docker inspect -f '{{ .NetworkSettings.Gateway }}' "$CONTAINER"`
     CONTAINER_IP=`sudo docker inspect -f '{{ .NetworkSettings.IPAddress }}' "$CONTAINER"`
 
