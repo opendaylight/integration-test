@@ -464,13 +464,14 @@ Freeze_Or_Unfreeze_Members_From_List_Or_All
     ${freeze_index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     Run_Bash_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
 
-Clean_Journals_And_Snapshots_On_List_Or_All
+Clean_Journals_Data_And_Snapshots_On_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${karaf_home}=${KARAF_HOME}
     [Documentation]    Delete journal and snapshots directories on every node listed (or all).
     ...    BEWARE: If only a subset of members is cleaned, this causes RetiredGenerationException in Carbon after the affected node re-start.
     ...    See https://bugs.opendaylight.org/show_bug.cgi?id=8138
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
-    ${command} =    Set Variable    rm -rf "${karaf_home}/journal" "${karaf_home}/snapshots"
+    SSHLibrary.Get Directory    ${karaf_home}/data/log    recursive=True
+    ${command} =    Set Variable    rm -rf "${karaf_home}/journal" "${karaf_home}/snapshots" "${karaf_home}/data"
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    Run_Bash_Command_On_Member    command=${command}    member_index=${index}
 
