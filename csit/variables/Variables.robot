@@ -157,6 +157,7 @@ ${REGEX_IPROUTE}    ip-route:169.254.169.254 via [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]
 ${REGEX_IPV4}     [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
 ${REGEX_NAMESERVER}    nameserver [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
 ${REGEX_OBTAINED}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3} obtained
+${REGEX_UUID}     [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
 ${REGISTER_TENANT_URI}    /restconf/operations/nemo-intent:register-user    # FIXME: Move to a separate Nemo-related Resource and add description.
 ${RESTCONFPORT}    8181    # Primary port for ODL RESTCONF, although 8080 should also work.
 ${RESTCONFPORT_TLS}    8443    # Port for ODL RESTCONF Secure (TLS) operations
