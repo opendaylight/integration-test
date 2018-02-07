@@ -34,7 +34,7 @@ ${CONFIG_SESSION}    session
 
 *** Test Cases ***
 Get_Example_Bm_Owner
-    [Documentation]    Find an odl node which is able to accept incomming connection. To this node netconf connector should be configured.
+    [Documentation]    Find an odl node which is able to accept incomming connection.
     ${bm_owner}    ${bm_candidates}=    Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    bmp-monitors
     ...    Bgpcep    1
     BuiltIn.Set Suite variable    ${bm_owner}

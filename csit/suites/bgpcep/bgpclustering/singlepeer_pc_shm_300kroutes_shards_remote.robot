@@ -33,7 +33,6 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/PrefixcountKeywords.robot
 
 *** Variables ***
