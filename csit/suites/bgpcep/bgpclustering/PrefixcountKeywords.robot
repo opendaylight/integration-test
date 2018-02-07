@@ -27,10 +27,8 @@ Resource          ${CURDIR}/../../../libraries/ClusterAdmin.robot
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer_openconf    # used for configuration of bgp peer via openconfig
-${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer    # used for configuration of bgp peer vie netconf connector
+${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer    # used for configuration of bgp peer
 ${BGP_VARIABLES_FOLDER_OP}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer_operational
-${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-device
-${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-mount
 ${CHECK_PERIOD}    10
 ${HOLDTIME}       180
 ${INSERT}         1
@@ -92,13 +90,6 @@ Teardown_Everything
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
-
-Configure_Netconf_Device_And_Check_Mounted
-    [Arguments]    ${mapping}
-    [Documentation]    Configures netconf device
-    # TODO:    This keyword is not specific to prefix counting. Find a better place for it.
-    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}    session=${config_session}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}    session=${config_session}
 
 Start_Bgp_Peer
     [Arguments]    ${peerip}=${rib_owner_node_id}
