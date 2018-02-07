@@ -193,30 +193,43 @@ Verify L3VPN Datapath With Router Association
     ${dst_ip_list} =    BuiltIn.Create List    @{NET_2_VM_IPS}[1]    @{NET_1_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
 
-Disassociate L3VPN From Router
+Delete Router Failure When Associated With L3VPN
     ${router_id}=    OpenStackOperations.Get Router Id    ${ROUTER}
-    VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
-    ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Not Contain    ${resp}    ${router_id}
-
-Delete Router And Router Interfaces With L3VPN
-    ${router_id}=    OpenStackOperations.Get Router Id    ${ROUTER}
-    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack router delete ${ROUTER}
+    BuiltIn.Should Match Regexp    ${output}    Failed to delete router.*${ROUTER}
+    BuiltIn.Should Be True    '${rc}' == '1'
+    ${router_output} =    OpenStackOperations.List Routers
+    BuiltIn.Should Contain    ${router_output}    ${ROUTER}
+    @{router_list} =    BuiltIn.Create List    ${ROUTER}
+    BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${ROUTER_URL}    ${router_list}
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${router_id}
+    BuiltIn.Wait Until Keyword Succeeds    30s    15s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
+    BuiltIn.Wait Until Keyword Succeeds    30s    15s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+
+Remove Router Interfaces
+    ${router_id}=    OpenStackOperations.Get Router Id    ${ROUTER}
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
     \    OpenStackOperations.Remove Interface    ${ROUTER}    ${INTERFACE}
     ${interface_output} =    OpenStackOperations.Show Router Interface    ${ROUTER}
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
     \    ${subnet_id} =    OpenStackOperations.Get Subnet Id    ${INTERFACE}
     \    BuiltIn.Should Not Contain    ${interface_output}    ${subnet_id}
+
+Disassociate L3VPN From Router
+    ${router_id}=    OpenStackOperations.Get Router Id    ${ROUTER}
+    VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=@{VPN_INSTANCE_IDS}[0]
+    ${resp}=    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
+    BuiltIn.Should Not Contain    ${resp}    ${router_id}
+
+Delete Router
     Delete Router    ${ROUTER}
     ${router_output} =    OpenStackOperations.List Routers
     BuiltIn.Should Not Contain    ${router_output}    ${ROUTER}
     @{router_list} =    BuiltIn.Create List    ${ROUTER}
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements Not At URI    ${ROUTER_URL}    ${router_list}
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
-    BuiltIn.Should Not Contain    ${resp}    ${router_id}
+    BuiltIn.Should Not Contain    ${resp}    ${ROUTER}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_1_IP}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_2_IP}
 
