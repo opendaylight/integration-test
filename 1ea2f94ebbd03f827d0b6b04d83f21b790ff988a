@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6777faec_a953e8e6",
+        "filename": "csit/testplans/aaa-authn.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-08T16:13:20Z",
+      "side": 1,
+      "message": "does this make it past the code before the pybot command that parses out the suites?",
+      "revId": "1ea2f94ebbd03f827d0b6b04d83f21b790ff988a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
