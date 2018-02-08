@@ -512,7 +512,7 @@ Isolate_Member_From_List_Or_All
     [Return]    ${updated_index_list}
 
 Rejoin_Member_From_List_Or_All
-    [Arguments]    ${rejoin_member_index}    ${member_index_list}=${EMPTY}    ${protocol}=all    ${port}=${EMPTY}
+    [Arguments]    ${rejoin_member_index}    ${member_index_list}=${EMPTY}    ${protocol}=all    ${port}=${EMPTY}    ${timeout}=60s
     [Documentation]    If the list is empty, rejoin member from all ODL instances. Otherwise, rejoin member based on present indices.
     ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
     ${source} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${rejoin_member_index}
@@ -524,6 +524,7 @@ Rejoin_Member_From_List_Or_All
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
     ${output} =    Run_Bash_Command_On_Member    command=${command}    member_index=${rejoin_member_index}
     BuiltIn.Log    ${output}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync
 
 Flush_Iptables_From_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}
