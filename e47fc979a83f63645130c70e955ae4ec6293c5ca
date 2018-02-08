@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94cff5ea_1e86af7a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-08T14:48:07Z",
+      "side": 1,
+      "message": "A better option is to just use the DevstackUtils.OS_ALL_IPS. That var holds all the ips and already knows there is just one ip.\n\nNeed one movement in OpenStackOperations.Stuite Setup. Need to move the DevstackUtils.Devstack Suite Stup to above the tcpdump call so that the vars are set.",
+      "range": {
+        "startLine": 1117,
+        "startChar": 57,
+        "endLine": 1117,
+        "endChar": 77
+      },
+      "revId": "e47fc979a83f63645130c70e955ae4ec6293c5ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
