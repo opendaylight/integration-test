@@ -680,6 +680,15 @@ Create External Network And Subnet
     OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --external
     OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
 
+Create Allow SSH/ICMP SecurityGroup Rule
+    [Arguments]    ${sg_name}    ${ether_type}=IPv4
+    [Documentation]    Create a Security Group and Create rules to allow ICMP/SSH Traffic
+    OpenStackOperations.Neutron Security Group Create    ${sg_name}
+    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    port_range_max=22    port_range_min=22    protocol=tcp
+    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    port_range_max=22    port_range_min=22    protocol=tcp
+    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    protocol=icmp
+    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    protocol=icmp
+
 Create Neutron Port With Additional Params
     [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
     [Documentation]    Create Port With given additional parameters

@@ -61,6 +61,18 @@ Get DevStack Hostnames
     ${OS_CNTL_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CNTL_IP}
     ${OS_CMP1_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP1_IP}
     ${OS_CMP2_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP2_IP}
+    ${OS_CNTL_1_HOSTNAME} =    Get Node Name From Ip    ${OS_CNTL_1_IP}
+    ${OS_CNTL_2_HOSTNAME} =    Get Node Name From Ip    ${OS_CNTL_2_IP}
+    ${OS_CNTL_3_HOSTNAME} =    Get Node Name From Ip    ${OS_CNTL_3_IP}
+    ${OS_CMP_1_SHORT} =    Fetch From Left    ${OS_CMP_1_HOSTNAME}    .
+    ${OS_CMP_2_SHORT} =    Fetch From Left    ${OS_CMP_2_HOSTNAME}    .
+    ${OS_CNTL_1__SHORT} =    Fetch From Left    ${OS_CNTL_1_HOSTNAME}    .
+    ${OS_CNTL_2__SHORT} =    Fetch From Left    ${OS_CNTL_2_HOSTNAME}    .
+    ${OS_CNTL_3__SHORT} =    Fetch From Left    ${OS_CNTL_3_HOSTNAME}    .
+    Collections.Set To Dictionary    ${OS_NODES}    ${OS_CMP_1_SHORT}    ${OS_CMP_2_IP}    ${OS_CMP_2_SHORT}    ${OS_CMP_2_IP}    ${OS_CNTL_1__SHORT}
+    ...    ${OS_CNTL_1_IP}    ${OS_CNTL_2__SHORT}    ${OS_CNTL_2_IP}    ${OS_CNTL_2_SHORT}    ${OS_CNTL_3_IP}
+    @{CMP_NODES_HOSTNAMES} =    Create List    ${OS_CMP_1_HOSTNAME}    ${OS_CMP_2_HOSTNAME}
+    BuiltIn.Set Suite Variable    ${CMP_NODES_HOSTNAMES}
     BuiltIn.Set Suite Variable    ${OS_CNTL_HOSTNAME}
     BuiltIn.Set Suite Variable    ${OS_CMP1_HOSTNAME}
     BuiltIn.Set Suite Variable    ${OS_CMP2_HOSTNAME}
@@ -91,3 +103,20 @@ Get DevStack Nodes Data
     ...    ELSE IF    ${NUM_OS_SYSTEM} == 3    DevstackUtils.Set Node Data For Control Only Node Setup
     DevstackUtils.Get DevStack Hostnames
     DevstackUtils.Log Devstack Nodes Data
+
+Get OS nodes
+    [Documentation]    Set all the variables needed for later phases
+    ${OS_CMP_1_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP1_IP}
+    ${OS_CMP_2_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP2_IP}
+    ${OS_CNTL_1_HOSTNAME} =    Get Node Name From Ip    ${OS_CNTL_1_IP}
+    ${OS_CNTL_2_HOSTNAME} =    Get Node Name From Ip    ${OS_CNTL_2_IP}
+    ${OS_CNTL_3_HOSTNAME} =    Get Node Name From Ip    ${OS_CNTL_3_IP}
+    ${OS_CMP_1_SHORT} =    Fetch From Left    ${OS_CMP_1_HOSTNAME}    .
+    ${OS_CMP_2_SHORT} =    Fetch From Left    ${OS_CMP_2_HOSTNAME}    .
+    ${OS_CNTL_1__SHORT} =    Fetch From Left    ${OS_CNTL_1_HOSTNAME}    .
+    ${OS_CNTL_2__SHORT} =    Fetch From Left    ${OS_CNTL_2_HOSTNAME}    .
+    ${OS_CNTL_3__SHORT} =    Fetch From Left    ${OS_CNTL_3_HOSTNAME}    .
+    Collections.Set To Dictionary    ${OS_NODES}    ${OS_CMP_1_SHORT}    ${OS_CMP_2_IP}    ${OS_CMP_2_SHORT}    ${OS_CMP_2_IP}    ${OS_CNTL_1__SHORT}
+    ...    ${OS_CNTL_1_IP}    ${OS_CNTL_2__SHORT}    ${OS_CNTL_2_IP}    ${OS_CNTL_2_SHORT}    ${OS_CNTL_3_IP}
+    @{CMP_NODES_HOSTNAMES} =    Create List    ${OS_CMP_1_HOSTNAME}    ${OS_CMP_2_HOSTNAME}
+    BuiltIn.Set Suite Variable    ${CMP_NODES_HOSTNAMES}

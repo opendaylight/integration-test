@@ -8,6 +8,9 @@ ${CIRROS_stable/ocata}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/pike}    cirros-0.3.5-x86_64-disk
 ${CIRROS_stable/queens}    cirros-0.3.5-x86_64-disk
 ${CIRROS_master}    cirros-0.3.5-x86_64-disk
+${CONTAINERS}     False
+@{DISPLAY_NAPT_CMD}    Safe_Issue_Command_On_Karaf_Console    display-napt-switches
+@{DISPLAY_NAPT_CMD_CONTAINERS}    Utils.Run Command On Controller    ${ODL_SYSTEM_IP}    sudo docker exec -i opendaylight_api /opt/opendaylight/bin/client -u karaf display-napt-switches
 ${PRE_CLEAN_OPENSTACK_ALL}    False
 ${EXTERNAL_NET_NAME}    external-net
 ${EXTERNAL_SUBNET_NAME}    external-subnet
@@ -77,3 +80,15 @@ ${ELAN_BASETABLE}    48
 ${ELAN_SMACTABLE}    50
 ${ELAN_DMACTABLE}    51
 ${ELAN_UNKNOWNMACTABLE}    52
+${SECURITY_GROUP}    l3_ext_sg
+${NETWORK}        internal-net
+${SUBNET}         internal-subnet
+${SUBNET_CIDR}    41.0.0.0/24
+# Parameter values below are based on releng/builder - changing them requires updates in releng/builder as well
+${EXTERNAL_GATEWAY}    10.10.10.250
+${EXTERNAL_PNF}    10.10.10.253
+${EXTERNAL_SUBNET}    10.10.10.0/24
+${EXTERNAL_SUBNET_ALLOCATION_POOL}    start=10.10.10.2,end=10.10.10.249
+${EXTERNAL_INTERNET_ADDR}    10.9.9.9
+${EXTERNAL_NET_NAME}    external-net
+${EXTERNAL_SUBNET_NAME}    external-subnet
