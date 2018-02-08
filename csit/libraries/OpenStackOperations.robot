@@ -1016,10 +1016,10 @@ Cleanup Router
 OpenStack Suite Setup
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    @{tcpdump_port_6653_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_port_6653    port 6653    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+    DevstackUtils.Devstack Suite Setup
+    @{tcpdump_port_6653_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_port_6653    port 6653    ${OS_ALL_IPS}
     BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
     BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
-    DevstackUtils.Devstack Suite Setup
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
 
 OpenStack Suite Teardown
