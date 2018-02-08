@@ -200,6 +200,10 @@ Get DevStack Hostnames
     BuiltIn.Set Suite Variable    ${OS_CMP1_HOSTNAME}
     BuiltIn.Set Suite Variable    ${OS_CMP2_HOSTNAME}
 
+Set Node Data For AllinOne Setup
+    [Documentation]    Assign global variables for DevStack nodes where the Control Node enables Compute service also.
+    BuiltIn.Set Suite Variable    @{OS_ALL_IPS}    ${OS_CNTL_IP}
+
 Set Node Data For Control And Compute Node Setup
     [Documentation]    Assign global variables for DevStack nodes where the control node is also the compute
     BuiltIn.Set Suite Variable    ${OS_CMP1_IP}    ${OS_CNTL_IP}
@@ -217,7 +221,8 @@ Set Node Data For Control Only Node Setup
 Get DevStack Nodes Data
     [Documentation]    Assign global variables for DevStack nodes
     BuiltIn.Set Suite Variable    ${OS_CNTL_IP}    ${OS_CONTROL_NODE_IP}
-    Run Keyword If    '${OS_COMPUTE_2_IP}' == '${EMPTY}'    Set Node Data For Control And Compute Node Setup
-    ...    ELSE    Set Node Data For Control Only Node Setup
+    Run Keyword If    ${NUM_OS_SYSTEM} == 1    Set Node Data For AllinOne Setup
+    ...    ELSE IF    ${NUM_OS_SYSTEM} == 2    Set Node Data For Control And Compute Node Setup
+    ...    ELSE IF    ${NUM_OS_SYSTEM} == 3    Set Node Data For Control Only Node Setup
     Get DevStack Hostnames
     Log Devstack Nodes Data
