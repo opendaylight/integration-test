@@ -56,11 +56,23 @@ Log Devstack Nodes Data
     ...    OS_CMP_IPS: @{OS_CMP_IPS}
     BuiltIn.Log    DevStack Nodes Data:\n${output}
 
+Get Node Name From Ip
+    [Arguments]    ${ip}
+    [Documentation]    Get Node Name From IP by looking at the first controller hosts file
+    ${output} =    Utils.Run Command On Controller    ${ODL_SYSTEM_1_IP}    sudo getent hosts ${ip} | awk '{print $2}'
+    [Return]    ${output}
+
 Get DevStack Hostnames
     [Documentation]    Assign hostname global variables for DevStack nodes
-    ${OS_CNTL_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CNTL_IP}
-    ${OS_CMP1_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP1_IP}
-    ${OS_CMP2_HOSTNAME} =    OpenStackOperations.Get Hypervisor Hostname From IP    ${OS_CMP2_IP}
+    ${OS_CMP_1_SHORT} =    Fetch From Left    ${OS_CMP1_HOSTNAME}    .
+    ${OS_CMP_2_SHORT} =    Fetch From Left    ${OS_CMP2_HOSTNAME}    .
+    ${OS_CNTL_1_SHORT} =    Fetch From Left    ${OS_CNTL_1_HOSTNAME}    .
+    ${OS_CNTL_2_SHORT} =    Fetch From Left    ${OS_CNTL_2_HOSTNAME}    .
+    ${OS_CNTL_3_SHORT} =    Fetch From Left    ${OS_CNTL_3_HOSTNAME}    .
+    Collections.Set To Dictionary    ${OS_NODES}    ${OS_CMP_1_SHORT}    ${OS_CMP_2_IP}    ${OS_CMP_2_SHORT}    ${OS_CMP_2_IP}    ${OS_CNTL_1_SHORT}
+    ...    ${OS_CNTL_1_IP}    ${OS_CNTL_2_SHORT}    ${OS_CNTL_2_IP}    ${OS_CNTL_3_SHORT}    ${OS_CNTL_3_IP}
+    @{CMP_NODES_HOSTNAMES} =    Create List    ${OS_CMP1_HOSTNAME}    ${OS_CMP_2_HOSTNAME}
+    BuiltIn.Set Suite Variable    ${CMP_NODES_HOSTNAMES}
     BuiltIn.Set Suite Variable    ${OS_CNTL_HOSTNAME}
     BuiltIn.Set Suite Variable    ${OS_CMP1_HOSTNAME}
     BuiltIn.Set Suite Variable    ${OS_CMP2_HOSTNAME}
