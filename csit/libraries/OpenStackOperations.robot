@@ -1003,6 +1003,31 @@ OpenStack Cleanup All
     \    BuiltIn.Run Keyword If    "${security_group['Name']}" != "default"    BuiltIn.Run Keyword And Ignore Error    Delete SecurityGroup    ${security_group['ID']}
     OpenStack List All
 
+Inventory Resources
+    [Documentation]    Inventory the current openstack resources
+    @{modules} =    BuiltIn.Create List    floating ip    server    router    port    network
+    ...    subnet    security group    security group rule
+    &{map} =    BuiltIn.Create Dictionary
+    : FOR    ${module}    IN    @{modules}
+    \    @{list} =    OpenStack CLI Get List    openstack {module} list -f json
+    \    Collections.Set To Dictionary    ${map}    ${module}    ${list}
+    Collections.Log Dictionary  ${map}
+    [Return]    &{map}
+
+Compare Resources
+    [Arguments]    &{map1}    &{map2}
+    [Documentation]    Compare two maps of resources
+    [Return]    ${EMPTY}
+
+Validate Resources
+    [Arguments]    ${fail_on_compare}=false
+    &{current_map} =    OpenStackOperations.Inventory Resources
+    ${rc}    ${output} =    BuiltIn.Run Keyword And Ignore Error    Collections.Dictionaries Should Be Equal    ${OPENSTACK_RESOURCES}    ${current_map}
+    ${rc}    ${output} =    BuiltIn.Run Keyword If    "${rc}" == "FAIL"    BuiltIn.Run Keyword And Ignore Error    Compare Resources    ${OPENSTACK_RESOURCES}    ${current_map}
+    ...    ELSE    BuiltIn.Set Variable    PASS    ${EMPTY}
+    BuiltIn.Run Keyword If    '${fail_on_compare}' == 'true'    BuiltIn.Should Be True    '${output}' == 'EMPTY'
+    [Return]    ${rc}
+
 Cleanup Router
     [Arguments]    ${id}
     [Documentation]    Delete a router, but first remove any interfaces or gateways so that the delete will be successful.
@@ -1021,6 +1046,8 @@ OpenStack Suite Setup
     BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     DevstackUtils.Devstack Suite Setup
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
+    &{OPENSTACK_RESOURCES} =    OpenStackOperations.Inventory Resources
+    BuiltIn.Set Suite Variable    &{OPENSTACK_RESOURCES}
 
 OpenStack Suite Teardown
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
@@ -1028,6 +1055,7 @@ OpenStack Suite Teardown
     ...    and deleted. As other global cleanup tasks are needed, they can be added here and the suites will all
     ...    benefit automatically.
     OpenStack Cleanup All
+    OpenStackOperations.Validate Resources
     OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
     SSHLibrary.Close All Connections
 
