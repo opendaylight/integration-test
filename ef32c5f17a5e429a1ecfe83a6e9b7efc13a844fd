@@ -22,6 +22,30 @@
       "revId": "ef32c5f17a5e429a1ecfe83a6e9b7efc13a844fd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f48e309_90d93f3a",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2029
+      },
+      "writtenOn": "2018-02-08T14:42:22Z",
+      "side": 1,
+      "message": "I don\u0027t see this being logged in the KW, so leaving it in.",
+      "parentUuid": "8f817be9_eada4ee2",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 20
+      },
+      "revId": "ef32c5f17a5e429a1ecfe83a6e9b7efc13a844fd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
