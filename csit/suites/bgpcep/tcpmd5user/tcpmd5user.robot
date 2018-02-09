@@ -80,7 +80,7 @@ Topology_Intercondition
     [Documentation]    Compare pcep-topology/path-computation-client to filled one, which includes a tunnel from pcc-mock.
     ...    For oxygen compares full pcep-topology including pcep-session-state
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on    ${mapping}    ${CONFIG_SESSION}
+    Run Keyword And Ignore Error    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on    ${mapping}    ${CONFIG_SESSION}
     ...    verify=True
     CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}
     ...    ${CONFIG_SESSION}    verify=True
@@ -117,7 +117,7 @@ Topology_Intercondition_2
     [Documentation]    Compare pcep-topology/path-computation-client to filled one, which includes a tunnel from pcc-mock.
     ...    For oxygen compares full pcep-topology including pcep-session-state
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on    ${mapping}    ${CONFIG_SESSION}
+    Run Keyword And Ignore Error    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on    ${mapping}    ${CONFIG_SESSION}
     ...    verify=True
     CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}
     ...    ${CONFIG_SESSION}    verify=True
@@ -133,7 +133,7 @@ Topology_Updated
     ...    For oxygen compares full pcep-topology including pcep-session-state
     [Tags]    critical
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_updated    ${mapping}    ${CONFIG_SESSION}
+    Run Keyword And Ignore Error    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_updated    ${mapping}    ${CONFIG_SESSION}
     ...    verify=True
     CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_updated_state    ${mapping}
     ...    ${CONFIG_SESSION}    verify=True
