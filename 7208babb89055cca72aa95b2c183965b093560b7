@@ -52,6 +52,24 @@
       "revId": "7208babb89055cca72aa95b2c183965b093560b7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0470469e_4e921cbe",
+        "filename": "csit/testplans/genius-genius.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-02-09T05:28:55Z",
+      "side": 1,
+      "message": "Plan to refactor it in subsequent patches.",
+      "parentUuid": "6826df68_cf808712",
+      "revId": "7208babb89055cca72aa95b2c183965b093560b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
