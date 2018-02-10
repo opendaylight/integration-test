@@ -16,6 +16,24 @@
       "revId": "1ea2f94ebbd03f827d0b6b04d83f21b790ff988a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3d163a9_c7674cfb",
+        "filename": "csit/testplans/aaa-authn.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-10T00:16:24Z",
+      "side": 1,
+      "message": "yeah, but it requires some tweaks in our run-tests script. I don\u0027t have it quite figured out, but no reason it\u0027s not possible. not working on it anymore until we decide this is\nwhat we want to do.",
+      "parentUuid": "6777faec_a953e8e6",
+      "revId": "1ea2f94ebbd03f827d0b6b04d83f21b790ff988a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
