@@ -1,0 +1,302 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1dd795ce_a231e434",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "Seems inconsistent these commands have OVS in the name and the others don\u0027t. Might as well just remove it since these are in the ovsdb lib",
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f93b543_a1902a5b",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "add space : } \u003d\n\nUse Run Command On Remote System And Log\n\nWhat if multiple controllers are in use?",
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa14af27_f57d6e98",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "Should the manager to delete be used - it\u0027s possible the ovsdb node has multiple managers.",
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f49d9460_1b673d1a",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "might as well use bridge",
+      "range": {
+        "startLine": 232,
+        "startChar": 32,
+        "endLine": 232,
+        "endChar": 34
+      },
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47b5ae71_9f701d5c",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "is the output a group or just a response? If just a response just change this to ${output}. or simply remove the assignment since it looks like this is just logged and the And Log keyword does that.",
+      "range": {
+        "startLine": 234,
+        "startChar": 6,
+        "endLine": 234,
+        "endChar": 13
+      },
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ffc6fe2_b932028a",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be just  ${port}?",
+      "range": {
+        "startLine": 250,
+        "startChar": 101,
+        "endLine": 250,
+        "endChar": 114
+      },
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d075ff27_12d11277",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "should this just be OpenStack Suite Setup - and you can remove the SutupUtils since that is part of it also.",
+      "range": {
+        "startLine": 5,
+        "startChar": 18,
+        "endLine": 5,
+        "endChar": 69
+      },
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff9120e4_64eeadf6",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "uppercase. Maybe name it BRINT",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 8
+      },
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "935bf59c_4afc859f",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "why only flows on the control node and not all the Get info from br-int?",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 26
+      },
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "330c2043_86f35be1",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "Can we make a keyword that runs the OVSDB keyword? Have it take ${ips} and pass in OS_ALL_IPS, then loop over that and call the command.",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 92
+      },
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "464b4c60_0b142a9f",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "really nothing else we can do to be deterministic? Is there a restconf read or something?",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "011c49d3_00fe00ae",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "Has this been working OK? I wonder if there should be a restconf check for stuff just to make sure everything has been written correctly. It\u0027s possible everything has not finished wiring. Though, I guess if the Get VM IPs finished we should be good.",
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8be4fabe_996a324e",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "first letter of each word is caps",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 20
+      },
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af4fa313_ac657324",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "copy the file to the openstack control node? Or did you mean to copy to the robot node?\n\nShould include the suite name in the file names. look at Copy DHCP Files From Control Node for how the suite_ is created.",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 130,
+        "endChar": 67
+      },
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
