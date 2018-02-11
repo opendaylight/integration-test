@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a51c5be5_fda09e39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T16:44:46Z",
+      "side": 1,
+      "message": "karaf.log is saved. if only journal and snapshot are deleted, then does the data/log survive?",
+      "parentUuid": "c7e7c9cc_0113856b",
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c06a0c66_089fa80b",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 16
