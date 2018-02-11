@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84b6edee_7111a3de",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T14:57:18Z",
+      "side": 1,
+      "message": "space here and use OpenStackOperations to qualify Get Net Id",
+      "revId": "fa57da9b8c186601e25be4445e4c962d31cdac82",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5f82309_a9f0c168",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-11T14:57:18Z",
+      "side": 1,
+      "message": "qualify these keywords also",
+      "revId": "fa57da9b8c186601e25be4445e4c962d31cdac82",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
