@@ -70,7 +70,7 @@ Stop Packet Capture on Node
     SSHLibrary. Close Connection
 
 Start Packet Capture on Nodes
-    [Arguments]    ${tag}=${EMPTY}    ${filter}=${EMPTY}    ${ips}=@{EMPTY}
+    [Arguments]    ${tag}=${EMPTY}    ${filter}=${EMPTY}    @{ips}=@{EMPTY}
     [Documentation]    Start packet captures on the given list of node ips.
     ...    The captures will be named with the tag and ip.
     @{conn_ids} =    BuiltIn.Create List    @{EMPTY}

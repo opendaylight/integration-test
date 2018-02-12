@@ -1066,7 +1066,7 @@ Start Packet Capture On Nodes
     ...    but ${EMPTY} can be used for the tag and filter.
     ${suite_} =    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","_").replace("/","_").replace(".","_")
     ${tag_} =    BuiltIn.Catenate    SEPARATOR=__    ${tag}    ${suite_}
-    @{conn_ids} =    Tcpdump.Start Packet Capture on Nodes    tag=${tag_}    filter=${filter}    ips=${ips}
+    @{conn_ids} =    Tcpdump.Start Packet Capture on Nodes    tag=${tag_}    filter=${filter}    ips=@{ips}
     [Return]    @{conn_ids}
 
 Stop Packet Capture On Nodes
