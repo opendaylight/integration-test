@@ -16,6 +16,23 @@
       "revId": "fe05860cfe37143dfaa65c30d23ace373282809f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a162d542_7ee0ef6b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-12T20:58:23Z",
+      "side": 1,
+      "message": "is the problem you are still seeing ${EMPTY} in the list? If so, then there must be a bug in the OS_ALL_IPS. That keyword is wrong right now since it is writing OS_COMPUTE_1_IP into the list. Maybe that is where the extra empty is coming from. So maybe just fix that there in DevstackUtils in the control+compute path.",
+      "revId": "fe05860cfe37143dfaa65c30d23ace373282809f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
