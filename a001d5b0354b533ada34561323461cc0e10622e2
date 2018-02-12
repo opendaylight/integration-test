@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf213150_ec5e94c5",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-12T15:45:24Z",
+      "side": 1,
+      "message": "use this form: Create Vm Instance On Compute Node instead",
+      "range": {
+        "startLine": 92,
+        "startChar": 24,
+        "endLine": 92,
+        "endChar": 43
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
