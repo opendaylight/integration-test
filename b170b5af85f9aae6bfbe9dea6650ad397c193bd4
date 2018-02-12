@@ -99,6 +99,29 @@
     },
     {
       "key": {
+        "uuid": "1615e048_f017813b",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-12T15:51:51Z",
+      "side": 1,
+      "message": "use OpenStack CLI Get List to get a list and nto need to do conversions.\n\nAlso don\u0027t run a command on the remote here. You already have the list of ports, so just need it in a list now.",
+      "range": {
+        "startLine": 242,
+        "startChar": 64,
+        "endLine": 242,
+        "endChar": 95
+      },
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ffc6fe2_b932028a",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 22
