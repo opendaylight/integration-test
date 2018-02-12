@@ -2,6 +2,138 @@
   "comments": [
     {
       "key": {
+        "uuid": "6d8ce129_8aebdb58",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-12T21:28:39Z",
+      "side": 1,
+      "message": "I think you want two lines here.\n${ports} \u003d    Run Command On Remote System    ${node}    sudo ovs-vsctl list-ports ${br} | grep \"${type}\"\n${port_list} \u003d    Convert To List    ${ports}\n\nthat\u0027s assuming what you get back in ${ports} is what you think it is. Also, note I removed the $() command substitution stuff\nin the ovs-vsctl command. you don\u0027t need it.",
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed8a852e_8245dc20",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-12T21:28:39Z",
+      "side": 1,
+      "message": "${br} and not that it\u0027s also filtering on ${type}",
+      "range": {
+        "startLine": 248,
+        "startChar": 41,
+        "endLine": 248,
+        "endChar": 47
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "782f45b1_173247e9",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-12T21:28:39Z",
+      "side": 1,
+      "message": "I think I mentioned it before, but we have the starting/stopping keywords in the clustermanagement library. Might as well use those\nas they are probably going to give you extra functionality/checks/etc",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 81
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be1108f7_684cde35",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-12T21:28:39Z",
+      "side": 1,
+      "message": "same comment as above",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 1
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfb4e2eb_9367a7c0",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-12T21:28:39Z",
+      "side": 1,
+      "message": "can\u0027t have sleeps. we need to poll on something. Is there a specific log message we can search for in ODL?",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 23
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6247debe_1e97a925",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-12T21:28:39Z",
+      "side": 1,
+      "message": "this should have been cleaned up by the above OpenStack Cleanup All",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 51
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf213150_ec5e94c5",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 26
@@ -22,6 +154,69 @@
       "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f014da5_7b12775a",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-12T21:28:39Z",
+      "side": 1,
+      "message": "[Documentation]",
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae7ca0e8_3cb8dd1c",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-12T21:28:39Z",
+      "side": 1,
+      "message": "I think you have duplicates in here.",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 89
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73008b76_b97add24",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-12T21:28:39Z",
+      "side": 1,
+      "message": "... and log it to ${log_file}",
+      "range": {
+        "startLine": 116,
+        "startChar": 23,
+        "endLine": 116,
+        "endChar": 103
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
