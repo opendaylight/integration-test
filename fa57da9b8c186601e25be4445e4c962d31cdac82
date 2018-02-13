@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "797a1135_2d63bbcf",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-02-13T10:04:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84b6edee_7111a3de",
+      "revId": "fa57da9b8c186601e25be4445e4c962d31cdac82",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5f82309_a9f0c168",
         "filename": "csit/suites/openstack/connectivity/security_group.robot",
         "patchSetId": 16
@@ -30,6 +48,24 @@
       "writtenOn": "2018-02-11T14:57:18Z",
       "side": 1,
       "message": "qualify these keywords also",
+      "revId": "fa57da9b8c186601e25be4445e4c962d31cdac82",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38837baa_c6c7acce",
+        "filename": "csit/suites/openstack/connectivity/security_group.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-02-13T10:04:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5f82309_a9f0c168",
       "revId": "fa57da9b8c186601e25be4445e4c962d31cdac82",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
