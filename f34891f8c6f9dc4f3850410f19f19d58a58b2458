@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "442f5947_cb4942b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-13T19:59:44Z",
+      "side": 1,
+      "message": "what Sam is saying is that at the end of our CSIT jobs we pull the karaf.log and archive it for debugging. if we are\ngoing to be deleting the data/ dir in the middle of the tests then we are going to lose whatever logs were there up\nto that point.",
+      "parentUuid": "3b46fcf6_36cd5ba2",
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c06a0c66_089fa80b",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 16
@@ -742,6 +760,30 @@
       "side": 1,
       "message": "This is the simplest solution currently.",
       "parentUuid": "f874e91d_87d783dd",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 12
+      },
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccbbc630_4e9d95be",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-13T19:59:44Z",
+      "side": 1,
+      "message": "we won\u0027t be merging this with a sleep though. keep it for now as you are getting things dialed in, but we need to find a polling mechanism. I can help. My first guess (which I think you said is not possible) is that someone (nodl, or netvirt, etc) will be logging something when the sync is done.\n\nactually, after chatting with Sam, we should be able to do this. Grab the data that exists in the neutron NB data models initially, like where you are saving the flows. Then here we can poll (maybe every 5s for up to 35s) to see if the current data models are the same as the initial.",
+      "parentUuid": "8d08de3e_707179b5",
       "range": {
         "startLine": 80,
         "startChar": 4,
