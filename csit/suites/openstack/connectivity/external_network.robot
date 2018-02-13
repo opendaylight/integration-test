@@ -13,6 +13,7 @@ Resource          ../../../libraries/DataModels.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    l3_ext_sg
@@ -30,8 +31,6 @@ ${EXTERNAL_PNF}    10.10.10.253
 ${EXTERNAL_SUBNET}    10.10.10.0/24
 ${EXTERNAL_SUBNET_ALLOCATION_POOL}    start=10.10.10.2,end=10.10.10.249
 ${EXTERNAL_INTERNET_ADDR}    10.9.9.9
-${EXTERNAL_NET_NAME}    external-net
-${EXTERNAL_SUBNET_NAME}    external-subnet
 
 *** Test Cases ***
 Create All Controller Sessions
