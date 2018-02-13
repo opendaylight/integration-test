@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "d3b552e9_304793f8",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "grep on list-ports is in format as below\ntun1\ntun2\n\nI want to make this iterable so I am trying to convert it to a list (from string) on all controller and compute nodes",
+      "parentUuid": "7376cb88_63b7d01d",
+      "range": {
+        "startLine": 223,
+        "startChar": 4,
+        "endLine": 223,
+        "endChar": 108
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a33262d_1750457d",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 11
@@ -93,6 +117,30 @@
       "writtenOn": "2017-12-13T19:46:54Z",
       "side": 1,
       "message": "I vote to use \"upgrade\" over \"up\"",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6325e901_3a11aa95",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94c5bd79_cf685a6f",
       "range": {
         "startLine": 25,
         "startChar": 21,
@@ -151,6 +199,30 @@
     },
     {
       "key": {
+        "uuid": "52b9bb34_7b3f813d",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "I added this as separate test case just to make it a new \"step\" in upgrade process.",
+      "parentUuid": "b355f6c8_8386409e",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 110
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fea4e07_84176bfd",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 11
@@ -162,6 +234,30 @@
       "writtenOn": "2017-12-13T19:46:54Z",
       "side": 1,
       "message": "wont Cleanup All get rid of router_1 anyway?",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 50
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa305de5_cc2a9705",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "CleanUp All doesnot delete routers I believe. I did check it before will recheck",
+      "parentUuid": "8fea4e07_84176bfd",
       "range": {
         "startLine": 70,
         "startChar": 4,
@@ -208,6 +304,30 @@
       "writtenOn": "2017-12-13T19:46:54Z",
       "side": 1,
       "message": "we shouldn\u0027t use sleeps. what\u0027s the intention here?\n\nwe just started ODL and unblock the ports. (btw, maybe we\nshould unblock the ports first?)\n\nnext we need to wait until ODL is up and ready right? we have some things we can poll on for that.\n\nand, actually to be specific for this suite, we should write a wrapper keyword do \"compare flows after upgrade\" that will\npass or fail if the flows are as expected. Then we can\nwrap that keyword in a WUKS. after some time ODL should be up and the flows should be right. maybe 2-3m? if not, we fail.",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 15
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03006d14_df84273d",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "we need to sleep to wait for full sync from n-odl. This will be triggered automatically every 30 secs becasue maintainance_interval will be set to 30 secs in local.conf file",
+      "parentUuid": "79908d68_0df98568",
       "range": {
         "startLine": 91,
         "startChar": 4,
