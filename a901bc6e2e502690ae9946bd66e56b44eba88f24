@@ -270,6 +270,30 @@
     },
     {
       "key": {
+        "uuid": "fe72a3b4_8017fbf4",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-13T19:59:44Z",
+      "side": 1,
+      "message": "I just checked. it does:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OpenStackOperations.robot#L993",
+      "parentUuid": "fa305de5_cc2a9705",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 50
+      },
+      "revId": "a901bc6e2e502690ae9946bd66e56b44eba88f24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72620f6b_569b7c7b",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 11
