@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7a497c90_730982c3",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "It was 2 lines in the previous patchset. Convert To List seems to be needing user to ssh as it was showing error in sandbox. So I made this change to see how it behaves in sandbox. It still complains for ssh failing for user \u0027\u0027.",
+      "parentUuid": "6d8ce129_8aebdb58",
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed8a852e_8245dc20",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 26
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "4dd1db94_1d6c5537",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed8a852e_8245dc20",
+      "range": {
+        "startLine": 248,
+        "startChar": 41,
+        "endLine": 248,
+        "endChar": 47
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "782f45b1_173247e9",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 26
@@ -53,6 +95,30 @@
       "writtenOn": "2018-02-12T21:28:39Z",
       "side": 1,
       "message": "I think I mentioned it before, but we have the starting/stopping keywords in the clustermanagement library. Might as well use those\nas they are probably going to give you extra functionality/checks/etc",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 81
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "190de4af_cc0203c5",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "Yes. I did. Included ClusterManagement.robot and used the keyword from that. Ahh, you meant the whole start/sto function. DOne",
+      "parentUuid": "782f45b1_173247e9",
       "range": {
         "startLine": 42,
         "startChar": 0,
@@ -111,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "dbb1fa03_49f08c19",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "Not yet. There are some issues with full-sync which needs further work. Until then, we will be sleeping",
+      "parentUuid": "dfb4e2eb_9367a7c0",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 23
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6247debe_1e97a925",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 26
@@ -134,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "8a259772_2b06b10a",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6247debe_1e97a925",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 51
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf213150_ec5e94c5",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 26
@@ -145,6 +259,30 @@
       "writtenOn": "2018-02-12T15:45:24Z",
       "side": 1,
       "message": "use this form: Create Vm Instance On Compute Node instead",
+      "range": {
+        "startLine": 92,
+        "startChar": 24,
+        "endLine": 92,
+        "endChar": 43
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fee907d_18ec05ba",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf213150_ec5e94c5",
       "range": {
         "startLine": 92,
         "startChar": 24,
@@ -197,6 +335,30 @@
     },
     {
       "key": {
+        "uuid": "39e0ca96_5315d031",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "Ping 2 VMs in the same net and 1 from another net.\ni.e. from net1 -\u003e VM1, VM2 on net1 and VM1 on net2 (1st 3 lines)\nfrom net2 -\u003e VM1, VM2 on net2 and VM1 on net1 (last 3 lines)",
+      "parentUuid": "ae7ca0e8_3cb8dd1c",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 89
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73008b76_b97add24",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 26
@@ -208,6 +370,30 @@
       "writtenOn": "2018-02-12T21:28:39Z",
       "side": 1,
       "message": "... and log it to ${log_file}",
+      "range": {
+        "startLine": 116,
+        "startChar": 23,
+        "endLine": 116,
+        "endChar": 103
+      },
+      "revId": "a001d5b0354b533ada34561323461cc0e10622e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0d06503_d25290d0",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-13T08:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73008b76_b97add24",
       "range": {
         "startLine": 116,
         "startChar": 23,
