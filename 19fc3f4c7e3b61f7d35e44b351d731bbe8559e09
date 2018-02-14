@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "350c087d_ab84ba8d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-14T18:54:03Z",
+      "side": 1,
+      "message": "would be great if somehow this failure was made known as the exception failure - so we could easily spot it.",
+      "revId": "19fc3f4c7e3b61f7d35e44b351d731bbe8559e09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
