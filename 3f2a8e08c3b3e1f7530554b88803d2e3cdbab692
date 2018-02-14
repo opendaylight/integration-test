@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8de90bdc_4489905b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-14T19:20:29Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 713,
+        "startChar": 41,
+        "endLine": 713,
+        "endChar": 46
+      },
+      "revId": "3f2a8e08c3b3e1f7530554b88803d2e3cdbab692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20631409_2eb8e7fb",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-14T19:20:29Z",
+      "side": 1,
+      "message": "First question I have is if we can just take the logic here and put it in to the already similar \"external_network.robot\" suite?\n\nI think the setup is nearly identical right?\n\nsome other comments about this block:\n\na) remove the sleeps. we shouldn\u0027t need those. if the napt migration takes some incremental amount of time, we can write a local keyword to handle it with a WUKS\n\nb) put the traffic block/allow stuff in to [Setup] and [Teardown] sections of the \"Verify Migration\" keyword. those aren\u0027t really test cases anyway. I can give an example\nif needed",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 109
+      },
+      "revId": "3f2a8e08c3b3e1f7530554b88803d2e3cdbab692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f1c788e_e107287a",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-14T19:20:29Z",
+      "side": 1,
+      "message": "we aren\u0027t using docker in ODL upstream CSIT, so we need a way to toggle this to do what works in upstream CSIT.",
+      "range": {
+        "startLine": 137,
+        "startChar": 4,
+        "endLine": 137,
+        "endChar": 178
+      },
+      "revId": "3f2a8e08c3b3e1f7530554b88803d2e3cdbab692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
