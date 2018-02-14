@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "64f02c0b_ba6fa602",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-14T16:33:35Z",
+      "side": 1,
+      "message": "I think you missed my point.\n\nadd\nResource     Variables.robot\n\nat the top of this file (it\u0027s not there now) and you don\u0027t need this line.",
+      "parentUuid": "10ea8d19_467cf98f",
+      "range": {
+        "startLine": 789,
+        "startChar": 0,
+        "endLine": 789,
+        "endChar": 81
+      },
+      "revId": "c03ab3cfad875529ffbea86d199c4a27eafffee0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15570c37_551b78c0",
         "filename": "csit/libraries/DevstackUtils.robot",
         "patchSetId": 1
