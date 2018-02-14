@@ -16,6 +16,24 @@
       "revId": "19fc3f4c7e3b61f7d35e44b351d731bbe8559e09",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef2efb78_ffcde684",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-14T18:59:19Z",
+      "side": 1,
+      "message": "the only way I can think of to make this visible at the top level of a robot summary is to copy paste a test case just to do this in between every other test case we have.\n\nlet\u0027s see what it looks like. The problem (that you are pointing out) is that we will see something like \"ping from 1 to 2\" test case failed, and we\u0027ll have to drill down a \nbit to realize it failed because of an exception, not necessarily because of a connectivity failure.",
+      "parentUuid": "350c087d_ab84ba8d",
+      "revId": "19fc3f4c7e3b61f7d35e44b351d731bbe8559e09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
