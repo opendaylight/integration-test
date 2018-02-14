@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72a739fd_f01be9b5",
+        "filename": "csit/suites/l2gw/01_Configure_verify_l2gateway.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-14T19:28:44Z",
+      "side": 1,
+      "message": "I need to save these three lines in a wiki to point people to for how to deal with these pains.",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 107
+      },
+      "revId": "9602e36c11b6774f0be5384fb1b19b2003a429db",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
