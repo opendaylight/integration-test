@@ -101,7 +101,7 @@ class Changes(object):
         self.verbose = verbose
         self.projects = {}
         self.set_log_level(verbose)
-        self.regex_changeid = re.compile(r'\bI([a-f0-9]{40})\b|\bI([a-f0-9]{8})\b')
+        self.regex_changeid = re.compile(r'Change-Id.*: \bI([a-f0-9]{40})\b|\bI([a-f0-9]{8})\b')
         # self.regex_shortmsg = re.compile(r'"([^"]*)"|(git.commit.message.short=(.*))')
         self.regex_shortmsg1 = re.compile(r'(git.commit.message.short=.*"([^"]*)")')
         self.regex_shortmsg2 = re.compile(r'(git.commit.message.short=(.*))')
@@ -274,7 +274,7 @@ class Changes(object):
 
         logger.info("did not find Change-Id from git.properties in %s, trying commitid", project)
 
-        # match a 40 or 8 char Change-Id hash. both start with I
+        # match a git commit id
         commitid = self.regex_commitid.search(pfile)
         if commitid and commitid.group(2):
             logger.info("trying commitid from git.properties in %s: %s", project, commitid.group(2))
