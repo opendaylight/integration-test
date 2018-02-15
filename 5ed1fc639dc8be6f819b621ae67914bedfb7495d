@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05b243fa_3948e7c4",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-15T18:38:02Z",
+      "side": 1,
+      "message": "remove this line. ${AUTH} is set exactly to this in Variables.robot. if you change it there or on the command line it will be what you expect here.",
+      "range": {
+        "startLine": 810,
+        "startChar": 4,
+        "endLine": 810,
+        "endChar": 81
+      },
+      "revId": "5ed1fc639dc8be6f819b621ae67914bedfb7495d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
