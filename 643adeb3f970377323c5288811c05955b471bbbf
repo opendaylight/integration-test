@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ca19394_1c4e136b",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-15T06:24:19Z",
+      "side": 1,
+      "message": "Should I add logic to preserve karaf log (as being discussed in the upgrdae patch) in this keyword itself?",
+      "range": {
+        "startLine": 467,
+        "startChar": 1,
+        "endLine": 467,
+        "endChar": 48
+      },
+      "revId": "643adeb3f970377323c5288811c05955b471bbbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
