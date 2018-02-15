@@ -237,6 +237,23 @@
     },
     {
       "key": {
+        "uuid": "88b2ca82_435e393c",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-15T01:07:43Z",
+      "side": 1,
+      "message": "This is the wrong usage - this api needs ODL member indexes, not os node ips. Need to decide what odl nodes to run this on, as you can do all the nodes or just specific ones.",
+      "revId": "b170b5af85f9aae6bfbe9dea6650ad397c193bd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "464b4c60_0b142a9f",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 22
