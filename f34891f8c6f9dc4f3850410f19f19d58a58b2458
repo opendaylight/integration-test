@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "08e4b127_a5c1f484",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6464
+      },
+      "writtenOn": "2018-02-15T06:18:59Z",
+      "side": 1,
+      "message": "Ahh, yes. I will update this once the delete data patch is merged.",
+      "parentUuid": "d5d918bc_89646bce",
+      "revId": "f34891f8c6f9dc4f3850410f19f19d58a58b2458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c06a0c66_089fa80b",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 16
