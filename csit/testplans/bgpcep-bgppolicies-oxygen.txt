@@ -1,0 +1,1 @@
+integration/test/csit/suites/bgpcep/bgppolicies/bgp_policies_default.robot
