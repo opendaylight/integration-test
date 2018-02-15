@@ -15,8 +15,10 @@ Documentation     Robot keyword library (Resource) for handling the ExaBgp tool.
 Library           SSHLibrary
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/RemoteBash.robot
+Resource          ${CURDIR}/BGPcliKeywords.robot
 
 *** Variables ***
+${EXABGP_KILL_COMMAND}    ps axf | grep exabgp | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 ${CMD}            env exabgp.tcp.port=1790 exabgp --debug
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
 
@@ -39,6 +41,13 @@ Stop_ExaBgp
     ${output}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${output}
     SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
+
+Stop_All_ExaBgps
+    [Documentation]    Sends kill command to stop all exabgps running
+    ${output}    SSHLibrary.Read
+    BuiltIn.Log    ${output}
+    ${output}    SSHLibrary.Write    ${EXABGP_KILL_COMMAND}
+    BuiltIn.Log    ${output}
 
 Start_ExaBgp_And_Verify_Connected
     [Arguments]    ${cfg_file}    ${session}    ${exabgp_ip}    ${connection_retries}=${3}

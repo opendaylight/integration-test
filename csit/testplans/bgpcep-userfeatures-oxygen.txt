@@ -1,0 +1,22 @@
+# Copyright (c) 2018 Cisco Systems, Inc. and others. All rights reserved.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License v1.0 which accompanies this distribution,
+# and is available at http://www.eclipse.org/legal/epl-v10.html
+
+# Place the suites in run order:
+integration/test/csit/suites/bgpcep/bgpfunct/050_bmp_basic.robot
+integration/test/csit/suites/bgpcep/pcepuser/pcepuser.robot
+integration/test/csit/suites/bgpcep/bgpfunct/bgp_functional_md5.robot
+integration/test/csit/suites/bgpcep/bgpuser/basic.robot
+integration/test/csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot
+integration/test/csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot
+integration/test/csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot
+integration/test/csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot
+integration/test/csit/suites/bgpcep/bgpuser/ibgp_peer_lsp.robot
+integration/test/csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot
+integration/test/csit/suites/bgpcep/bgpfunct/030_bgp_functional_evpn.robot
+integration/test/csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot
+integration/test/csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot
+integration/test/csit/suites/bgpcep/bgpfunct/bgp_policies_default.robot
+integration/test/csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot
