@@ -59,7 +59,7 @@ Add Vtep Manager And Verify
     ${output}=    Exec Command    ${conn_id}    ${NETSTAT}
     Should Contain    ${output}    ${OVSDBPORT}
     @{list_to_check}=    Create List    ${odl_ip}
-    Utils.Check For Elements At URI    ${HWVTEP_NETWORK_TOPOLOGY}    ${list_to_check}    session
+    Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements At URI    ${HWVTEP_NETWORK_TOPOLOGY}    ${list_to_check}    session
 
 Create Verify L2Gateway
     [Arguments]    ${bridge_name}    ${intf_name}    ${gw_name}
