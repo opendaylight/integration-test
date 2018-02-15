@@ -100,11 +100,10 @@ Reconfigure_ODL_To_Accept_Connections
     : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY}+1
     \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
     \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
-    \    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    HOLDTIME=${HOLDTIME_PREFIX_COUNT_MANY}
+    \    &{mapping}    Create Dictionary    BGP_NAME=${peer_name}    IP=${peer_ip}
     \    ...    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     \    ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     \    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
-    # FIXME: Add testcase to change bgpcep and protocol log levels, when a Keyword that does it without messing with current connection is ready.
 
 Change_Karaf_Logging_Levels
     [Documentation]    We may want to set more verbose logging here after configuration is done.
