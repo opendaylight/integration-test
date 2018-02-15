@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8499ef2f_21a5c107",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-15T19:56:03Z",
+      "side": 1,
+      "message": "I would leave this work outside of this keyword. others might want to save journal or snapshots too, for some reason. I dunno.",
+      "revId": "bc186e0ed69af66aeed380e097e47b9ee22cc9e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
