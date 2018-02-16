@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flow xmlns="urn:opendaylight:flow:inventory">
+    <strict>false</strict>
+    <flow-name>FooXf21</flow-name>
+    <id>18</id>
+    <cookie_mask>255</cookie_mask>
+    <cookie>22</cookie>
+    <table_id>87</table_id>
+    <priority>24</priority>
+    <installHw>false</installHw>
+    <instructions>
+        <instruction>
+            <order>0</order>
+            <apply-actions>
+                <action>
+                    <order>0</order>
+                    <dec-nw-ttl/>
+                </action>
+            </apply-actions>
+        </instruction>
+    </instructions>
+    <match>
+        <ethernet-match>
+            <ethernet-type>
+                <type>34525</type>
+            </ethernet-type>
+        </ethernet-match>
+        <metadata>
+            <metadata>12355</metadata>
+        </metadata>
+        <in-port>3</in-port>
+    </match>
+</flow>
