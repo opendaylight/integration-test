@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<group xmlns="urn:opendaylight:flow:inventory">
+    <group-type>group-all</group-type>
+    <buckets>
+        <bucket>
+            <action>
+                <pop-vlan-action/>
+                <order>0</order>
+            </action>
+            <bucket-id>12</bucket-id>
+        </bucket>
+        <bucket>
+            <bucket-id>13</bucket-id>
+        </bucket>
+    </buckets>
+    <barrier>false</barrier>
+    <group-name>Foo</group-name>
+    <group-id>1</group-id>
+</group>
+
