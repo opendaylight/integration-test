@@ -206,6 +206,7 @@ TC19 Ping Verification From Namespace Tap To Ovs Vm
     Wait Until Keyword Succeeds    30s    5s    L2GatewayOperations.Verify Ping In Namespace Extra Timeout    ${HWVTEP_NS1}    ${port_mac_list[4]}    ${port_ip_list[0]}
 
 TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
+    [Tags]    skip_if_stable/ocata    skip_if_stable/pike
     L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME1}
     L2GatewayOperations.Delete L2Gateway Connection    ${L2GW_NAME2}
     L2GatewayOperations.Delete L2Gateway    ${L2GW_NAME1}
@@ -216,11 +217,11 @@ TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     OpenStackOperations.Delete Port    ${OVS_PORT_2}
     OpenStackOperations.Delete Port    ${HWVTEP_PORT_1}
     OpenStackOperations.Delete Port    ${HWVTEP_PORT_2}
-    OpenStackOperations.Delete Port    ${HWVTEP_PORT_3}
     OpenStackOperations.Delete SubNet    ${SUBNET_1}
     OpenStackOperations.Delete SubNet    ${SUBNET_2}
     OpenStackOperations.Delete Network    ${NET_1}
     OpenStackOperations.Delete Network    ${NET_2}
+    Cleanup L2GW Optional Resources
 
 *** Keywords ***
 Basic Suite Setup
