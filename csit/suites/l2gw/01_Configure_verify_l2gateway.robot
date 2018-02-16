@@ -216,11 +216,11 @@ TC99 Cleanup L2Gateway Connection Itm Tunnel Port Subnet And Network
     OpenStackOperations.Delete Port    ${OVS_PORT_2}
     OpenStackOperations.Delete Port    ${HWVTEP_PORT_1}
     OpenStackOperations.Delete Port    ${HWVTEP_PORT_2}
-    OpenStackOperations.Delete Port    ${HWVTEP_PORT_3}
     OpenStackOperations.Delete SubNet    ${SUBNET_1}
     OpenStackOperations.Delete SubNet    ${SUBNET_2}
     OpenStackOperations.Delete Network    ${NET_1}
     OpenStackOperations.Delete Network    ${NET_2}
+    Cleanup L2GW Optional Resources
 
 *** Keywords ***
 Basic Suite Setup

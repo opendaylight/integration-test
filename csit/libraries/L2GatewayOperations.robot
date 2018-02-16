@@ -294,3 +294,11 @@ Verify Elan Flow Entries
     Should Contain    ${flow_output}    table=52
     ${sMac_output} =    Get Lines Containing String    ${flow_output}    table=52
     Log    ${sMac_output}
+
+Cleanup L2GW Optional Resources
+    [Documentation]    Cleanup resources that are only allocated on certain combos...
+    [Tags]    skip_if_stable/ocata    skip_if_stable/pike
+    BuiltIn.Pass_Execution_If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}    Not supported in Ocata/Pike
+    CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
+    OpenStackOperations.Delete Port    ${HWVTEP_PORT_3}
+
