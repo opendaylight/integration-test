@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flow xmlns="urn:opendaylight:flow:inventory">
+    <strict>false</strict>
+    <hard-timeout>0</hard-timeout>
+    <idle-timeout>0</idle-timeout>
+    <instructions>
+        <instruction>
+            <order>0</order>
+            <apply-actions>
+                <action>
+                    <group-action>
+                        <group-id>2</group-id>
+                    </group-action>
+                    <order>0</order>
+                </action>
+            </apply-actions>
+        </instruction>
+    </instructions>
+    <table_id>15</table_id>
+    <id>85</id>
+    <match>
+        <ethernet-match>
+            <ethernet-type>
+                <type>2048</type>
+            </ethernet-type>
+        </ethernet-match>
+    </match>
+    <priority>6</priority>
+</flow>
+
