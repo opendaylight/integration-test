@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efdd4181_daa84c4c",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-16T13:58:58Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "0ae96df2d3b252ee4c6ecac50241400a9fe8f34a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f1e6a54_f8709398",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-16T13:58:58Z",
+      "side": 1,
+      "message": "most of these logs are just noise. the commands are logged so should get an idea what is happening.",
+      "revId": "0ae96df2d3b252ee4c6ecac50241400a9fe8f34a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f59c78e_c0b5d00d",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-16T13:58:58Z",
+      "side": 1,
+      "message": "make these lowercase since they are local",
+      "range": {
+        "startLine": 150,
+        "startChar": 15,
+        "endLine": 150,
+        "endChar": 20
+      },
+      "revId": "0ae96df2d3b252ee4c6ecac50241400a9fe8f34a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "428cc0b9_13f85a0e",
+        "filename": "csit/variables/xmls/f278.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-16T13:58:58Z",
+      "side": 1,
+      "message": "I think there was an effort to keep variables local to the suites. like these could be in the openflow suite dir.",
+      "revId": "0ae96df2d3b252ee4c6ecac50241400a9fe8f34a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
