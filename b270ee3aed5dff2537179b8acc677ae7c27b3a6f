@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cd52d9e_34e89e31",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-18T18:41:20Z",
+      "side": 1,
+      "message": "these keywords are already there in OpenstackOperations. can we just enhance those to give you want you want? Then the benefit will be for everyone and not just genius",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 138
+      },
+      "revId": "b270ee3aed5dff2537179b8acc677ae7c27b3a6f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
