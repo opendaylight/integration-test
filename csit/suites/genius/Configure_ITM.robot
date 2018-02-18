@@ -2,7 +2,7 @@
 Documentation     Test Suite for ITM
 Suite Setup       Genius Suite Setup
 Suite Teardown    Genius Suite Teardown
-Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
+Test Teardown     Genius Test Teardown    ${data_models}
 Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
