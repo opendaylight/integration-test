@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     This suite is a common keywordis file for genius project.
+Documentation     This suite is a common keywords file for genius project.
 Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -9,6 +9,7 @@ Library           string
 Resource          KarafKeywords.robot
 Resource          Utils.robot
 Resource          ../variables/Variables.robot
+Resource          OVS.robot
 
 *** Variables ***
 
@@ -150,3 +151,9 @@ Delete All Vteps
     Log    ${output}
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Log    ${output}
+
+Get Test Teardown Debugs
+    [Arguments]    ${data_models}
+    OVS.Get DumpFlows And Ovsconfig    ${conn_id_1}    BR1
+    OVS.Get DumpFlows And Ovsconfig    ${conn_id_2}    BR2
+    BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
