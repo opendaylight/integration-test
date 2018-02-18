@@ -150,3 +150,20 @@ Delete All Vteps
     Log    ${output}
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Log    ${output}
+
+Get Test Teardown Debugs
+    [Arguments]    ${data_models}
+    Get DumpFlows And Ovsconfig    ${conn_id_1}    BR1
+    Get DumpFlows And Ovsconfig    ${conn_id_2}    BR2
+    BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
+
+Get DumpFlows And Ovsconfig
+    [Arguments]    ${conn_id}    ${bridge}
+    [Documentation]    Get the OvsConfig and Flow entries from OVS from the Openstack Node
+    SSHLibrary.Switch Connection    ${conn_id}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-vsctl show    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-vsctl list Open_vSwitch    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl show ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
