@@ -7,6 +7,7 @@ Library           ipaddress
 Resource          Utils.robot
 Resource          ClusterManagement.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
+Resource          ../variables/Variables.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
@@ -216,3 +217,14 @@ Reset OVS Logging
     [Documentation]    Reset the OVS logging
     SSHLibrary.Switch Connection    ${conn_id}
     ${output} =    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set :file:info    ${DEFAULT_LINUX_PROMPT_STRICT}
+
+Get DumpFlows And Ovsconfig
+    [Arguments]    ${conn_id}    ${bridge}
+    [Documentation]    Get the OvsConfig and Flow entries from OVS
+    SSHLibrary.Switch Connection    ${conn_id}
+    Write Commands Until Expected Prompt    sudo ovs-vsctl show    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-vsctl list Open_vSwitch    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-ofctl show ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
