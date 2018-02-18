@@ -2,7 +2,7 @@
 Documentation     Test Suite for Interface manager
 Suite Setup       Genius Suite Setup
 Suite Teardown    Genius Suite Teardown
-Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
+Test Teardown     Get Test Teardown Debugs    ${data_models}
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary

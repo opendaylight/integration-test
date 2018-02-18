@@ -331,3 +331,14 @@ Suite Teardown
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
     OVSDB.Log Config And Operational Topology
     RequestsLibrary.Delete All Sessions
+
+Get DumpFlows And Ovsconfig
+    [Arguments]    ${conn_id}    ${bridge}
+    [Documentation]    Get the OvsConfig and Flow entries from OVS
+    SSHLibrary.Switch Connection    ${conn_id}
+    Write Commands Until Expected Prompt    sudo ovs-vsctl show    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-vsctl list Open_vSwitch    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-ofctl show ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats ${bridge} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
