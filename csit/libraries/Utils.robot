@@ -98,22 +98,31 @@ Check For Specific Number Of Elements At URI
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.content}    ${element}    ${expected_count}
 
+Log Content
+    [Arguments]    ${resp_content}
+    ${resp_json} =    BuiltIn.Run Keyword If    '''${resp_content}''' != '${EMPTY}'    RequestsLibrary.To Json    ${resp_content}    pretty_print=True
+    ...    ELSE    BuiltIn.Set Variable    ${EMPTY}
+    BuiltIn.Log    ${resp_json}
+    [Return]    ${resp_json}
+
 Check For Elements At URI
-    [Arguments]    ${uri}    ${elements}    ${session}=session
+    [Arguments]    ${uri}    ${elements}    ${session}=session    ${pretty_print_json}=False
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to exist in the response
     ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
-    Log    ${resp.content}
+    BuiltIn.Run Keyword If    "${pretty_print_json}" == "True"    Log Content    ${resp.content}
+    ...    ELSE    BuiltIn.Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
     \    Should Contain    ${resp.content}    ${i}
 
 Check For Elements Not At URI
-    [Arguments]    ${uri}    ${elements}    ${session}=session
+    [Arguments]    ${uri}    ${elements}    ${session}=session    ${pretty_print_json}=False
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to NOT exist in the response
     ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
-    Log    ${resp.content}
+    BuiltIn.Run Keyword If    "${pretty_print_json}" == "True"    Log Content    ${resp.content}
+    ...    ELSE    BuiltIn.Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
     \    Should Not Contain    ${resp.content}    ${i}
