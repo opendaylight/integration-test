@@ -14,7 +14,7 @@ Check Shards Status Before Fail
 
 Start OVS Multiple Connections
     [Documentation]    Connect OVS to all cluster instances.
-    ${ovsdb_uuid}    Ovsdb.Add Multiple Managers to OVS
+    ${ovsdb_uuid}    OVSDB.Add Multiple Managers to OVS
     Set Suite Variable    ${ovsdb_uuid}
 
 Check Entity Owner Status And Find Owner and Candidate Before Fail
