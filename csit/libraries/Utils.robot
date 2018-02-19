@@ -108,12 +108,34 @@ Check For Elements At URI
     : FOR    ${i}    IN    @{elements}
     \    Should Contain    ${resp.content}    ${i}
 
+Check For Elements At URI And Print
+    [Arguments]    ${uri}    ${elements}    ${session}=session
+    [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
+    ...    ${elements} is verified to exist in the response
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
+    ${resp_json} =    To Json    ${resp.content}    pretty_print=True
+    BuiltIn.Log    ${resp_json}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${i}    IN    @{elements}
+    \    Should Contain    ${resp.content}    ${i}
+
 Check For Elements Not At URI
     [Arguments]    ${uri}    ${elements}    ${session}=session
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to NOT exist in the response
     ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
     Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${i}    IN    @{elements}
+    \    Should Not Contain    ${resp.content}    ${i}
+
+Check For Elements Not At URI And Print
+    [Arguments]    ${uri}    ${elements}    ${session}=session
+    [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
+    ...    ${elements} is verified to NOT exist in the response
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
+    ${resp_json} =    To Json    ${resp.content}    pretty_print=True
+    BuiltIn.Log    ${resp_json}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
     \    Should Not Contain    ${resp.content}    ${i}
