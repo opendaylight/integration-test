@@ -1,17 +1,18 @@
 *** Settings ***
 Documentation     Test suite for running tempest tests. It is assumed that the test environment
 ...               is already deployed and ready.
-Suite Setup       DevstackUtils.Suite Setup
+Suite Setup       Tempest.Suite Setup
 Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     BuiltIn.Run Keywords    OpenStackOperations.Get Test Teardown Debugs
-Test Template     DevstackUtils.Run Tempest Tests
+Test Teardown     OpenStackOperations.Get Test Teardown Debugs
+Test Template     Tempest.Run Tempest Tests
 Library           OperatingSystem
 Library           SSHLibrary
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/Tempest.robot
 Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
