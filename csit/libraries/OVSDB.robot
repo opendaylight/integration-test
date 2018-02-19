@@ -1,11 +1,11 @@
 *** Settings ***
+Library           Collections
+Library           ipaddress
+Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
-Library           Collections
-Library           RequestsLibrary
-Library           ipaddress
-Resource          Utils.robot
 Resource          ClusterManagement.robot
+Resource          Utils.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
 Variables         ../variables/Variables.py
 
@@ -24,13 +24,13 @@ Connect To Ovsdb Node
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}    data=${body}
     BuiltIn.Log    ${resp.content}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Disconnect From Ovsdb Node
     [Arguments]    ${mininet_ip}
     [Documentation]    This request will disconnect the OVSDB node from the controller
     ${resp}    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Bridge To Ovsdb Node
     [Arguments]    ${mininet_ip}    ${bridge_num}    ${datapath_id}
@@ -45,18 +45,18 @@ Add Bridge To Ovsdb Node
     BuiltIn.Log    data: ${body}
     ${resp} =    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}    data=${body}
     BuiltIn.Log    ${resp.content}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Delete Bridge From Ovsdb Node
     [Arguments]    ${mininet_ip}    ${bridge_num}
     [Documentation]    This request will delete the bridge node from the OVSDB
     ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Vxlan To Bridge
     [Arguments]    ${mininet_ip}    ${bridge_num}    ${vxlan_port}    ${remote_ip}    ${custom_port}=create_port.json
     [Documentation]    This request will create vxlan port for vxlan tunnel and attach it to the specific bridge
-    Add Termination Point    ${mininet_ip}:${OVSDB_PORT}    ${bridge_num}    ${vxlan_port}    ${remote_ip}
+    OVSDB.Add Termination Point    ${mininet_ip}:${OVSDB_PORT}    ${bridge_num}    ${vxlan_port}    ${remote_ip}
 
 Add Termination Point
     [Arguments]    ${node_id}    ${bridge_name}    ${tp_name}    ${remote_ip}=${TOOLS_SYSTEM_IP}
@@ -66,9 +66,9 @@ Add Termination Point
     ${body} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port.json
     ${body} =    String.Replace String    ${body}    192.168.0.21    ${remote_ip}
     ${body} =    String.Replace String    ${body}    vxlanport    ${tp_name}
-    ${uri} =    Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${node_id}%2Fbridge%2F${bridge_name}
+    ${uri} =    BuiltIn.Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${node_id}%2Fbridge%2F${bridge_name}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}/termination-point/${tp_name}/    data=${body}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Verify OVS Reports Connected
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
@@ -81,10 +81,10 @@ Verify Ovs-vsctl Output
     [Documentation]    A wrapper keyword to make it easier to validate ovs-vsctl output, and gives an easy
     ...    way to check this output in a WUKS. The argument ${should_match} can control if the match should
     ...    exist (True} or not (False) or don't care (anything but True or False). ${should_match} is True by default
-    ${output}=    Utils.Run Command On Mininet    ${ovs_system}    sudo ovs-vsctl ${vsctl_args}
+    ${output} =    Utils.Run Command On Mininet    ${ovs_system}    sudo ovs-vsctl ${vsctl_args}
     BuiltIn.Log    ${output}
-    Run Keyword If    "${should_match}"=="True"    Should Contain    ${output}    ${expected_output}
-    Run Keyword If    "${should_match}"=="False"    Should Not Contain    ${output}    ${expected_output}
+    BuiltIn.Run Keyword If    "${should_match}" == "True"    BuiltIn.Should Contain    ${output}    ${expected_output}
+    BuiltIn.Run Keyword If    "${should_match}" == "False"    BuiltIn.Should Not Contain    ${output}    ${expected_output}
     [Return]    ${output}
 
 Get OVSDB UUID
@@ -95,11 +95,11 @@ Get OVSDB UUID
     ${uuid} =    Set Variable    ${EMPTY}
     ${resp} =    RequestsLibrary.Get Request    ${controller_http_session}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1
     BuiltIn.Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp_json} =    To Json    ${resp.content}
-    ${topologies} =    Get From Dictionary    ${resp_json}    topology
-    ${topology} =    Get From List    ${topologies}    0
-    ${node_list} =    Get From Dictionary    ${topology}    node
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp_json} =    RequestsLibrary.To Json    ${resp.content}
+    ${topologies} =    CollectionsGet From Dictionary    ${resp_json}    topology
+    ${topology} =    CollectionsGet From List    ${topologies}    0
+    ${node_list} =    CollectionsGet From Dictionary    ${topology}    node
     BuiltIn.Log    ${node_list}
     # Since bridges are also listed as nodes, but will not have the extra "ovsdb:connection-info data,
     # we need to use "Run Keyword And Ignore Error" below.
@@ -157,47 +157,47 @@ Add Multiple Managers to OVS
     ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
     BuiltIn.Log    Clear any existing mininet
     Utils.Clean Mininet System    ${tools_system}
-    ${ovs_opt} =    Set Variable
+    ${ovs_opt} =    BuiltIn.Set Variable
     : FOR    ${index}    IN    @{index_list}
-    \    ${ovs_opt} =    Catenate    ${ovs_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ovs_mgr_port}
+    \    ${ovs_opt} =    BuiltIn.Catenate    ${ovs_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ovs_mgr_port}
     \    BuiltIn.Log    ${ovs_opt}
     BuiltIn.Log    Configure OVS Managers in the OVS
     Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-manager ${ovs_opt}
     BuiltIn.Log    Check OVS configuration
-    ${output} =    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${tools_system}
+    ${output} =    BuiltIn.Wait Until Keyword Succeeds    5s    1s    BuiltIn.Verify OVS Reports Connected    ${tools_system}
     BuiltIn.Log    ${output}
     ${controller_index} =    Collections.Get_From_List    ${index_list}    0
     ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${controller_index}
-    ${ovsdb_uuid} =    Wait Until Keyword Succeeds    30s    2s    Get OVSDB UUID    controller_http_session=${session}
+    ${ovsdb_uuid} =    BuiltIn.Wait Until Keyword Succeeds    30s    2s    Get OVSDB UUID    controller_http_session=${session}
     [Return]    ${ovsdb_uuid}
 
 Get DPID
     [Arguments]    ${ip}
     [Documentation]    Returns the dpnid from the system at the given ip address using ovs-ofctl assuming br-int is present.
-    ${output} =    Run Command On Remote System    ${ip}    sudo ovs-ofctl show -O Openflow13 br-int | head -1 | awk -F "dpid:" '{print $2}'
-    ${dpnid} =    Convert To Integer    ${output}    16
+    ${output} =    Builtin.Run Command On Remote System    ${ip}    sudo ovs-ofctl show -O Openflow13 br-int | head -1 | awk -F "dpid:" '{print $2}'
+    ${dpnid} =    BuiltIn.Convert To Integer    ${output}    16
     BuiltIn.Log    ${dpnid}
     [Return]    ${dpnid}
 
 Get Subnet
     [Arguments]    ${ip}
     [Documentation]    Return the subnet from the system at the given ip address and interface
-    ${output} =    Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d' ' -f6
+    ${output} =    Utils.Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d' ' -f6
     ${interface} =    ipaddress.ip_interface    ${output}
-    ${network} =    Set Variable    ${interface.network.__str__()}
+    ${network} =    BuiltIn.Set Variable    ${interface.network.__str__()}
     [Return]    ${network}
 
 Get Ethernet Adapter
     [Arguments]    ${ip}
     [Documentation]    Returns the ethernet adapter name from the system at the given ip address using ip addr show.
-    ${adapter} =    Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d " " -f 11
+    ${adapter} =    Builtin.Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d " " -f 11
     BuiltIn.Log    ${adapter}
     [Return]    ${adapter}
 
 Get Default Gateway
     [Arguments]    ${ip}
     [Documentation]    Returns the default gateway at the given ip address using route command.
-    ${gateway} =    Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
+    ${gateway} =    Builtin.Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
     BuiltIn.Log    ${gateway}
     [Return]    ${gateway}
 
@@ -208,11 +208,11 @@ Add OVS Logging
     @{modules} =    BuiltIn.Create List    bridge:file:dbg    connmgr:file:dbg    inband:file:dbg    ofp_actions:file:dbg    ofp_errors:file:dbg
     ...    ofp_msgs:file:dbg    ovsdb_error:file:dbg    rconn:file:dbg    tunnel:file:dbg    vconn:file:dbg
     : FOR    ${module}    IN    @{modules}
-    \    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set ${module}    ${DEFAULT_LINUX_PROMPT_STRICT}
-    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/list    ${DEFAULT_LINUX_PROMPT_STRICT}
+    \    Utils.Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set ${module}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Utils.Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/list    ${DEFAULT_LINUX_PROMPT_STRICT}
 
 Reset OVS Logging
     [Arguments]    ${conn_id}
     [Documentation]    Reset the OVS logging
     SSHLibrary.Switch Connection    ${conn_id}
-    ${output} =    Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set :file:info    ${DEFAULT_LINUX_PROMPT_STRICT}
+    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ovs-appctl --target ovs-vswitchd vlog/set :file:info    ${DEFAULT_LINUX_PROMPT_STRICT}
