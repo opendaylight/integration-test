@@ -73,7 +73,7 @@ Release a block of IDs allocated using releaseIds RPC
     ${respjson}    RequestsLibrary.To Json    ${get_resp.content}    pretty_print=True
     Log    ${respjson}
     Should Be Equal As Strings    ${get_resp.status_code}    200
-    ${child-pool-name}    Should Match Regexp    ${get_resp.content}    ${pool-name}\.[0-9]+
+    ${child-pool-name}    Should Match Regexp    ${get_resp.content}    ${pool-name}\.[-]?[0-9]+
     log    ${child-pool-name}
     ${get_releasedIds}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${child-pool-name}/released-ids-holder/
     ${respjson}    RequestsLibrary.To Json    ${get_releasedIds.content}    pretty_print=True
