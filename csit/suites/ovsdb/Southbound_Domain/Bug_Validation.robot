@@ -6,24 +6,26 @@ Documentation     Collection of test cases to validate OVSDB projects bugs.
 ...               suite. Also it was suggested that using bug ids for test case names was not ideal
 ...               this to-do is written in case it's decided to refactor all of these test cases out
 ...               of this suite and/or to rename the test cases at a later time.
-Suite Setup       OVSDB Connection Manager Suite Setup
-Suite Teardown    OVSDB Connection Manager Suite Teardown
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Suite Setup       Suite Setup
+Suite Teardown    Suite Teardown
+Test Setup        Test Setup
+Test Teardown     Test Teardown
 Force Tags        Southbound
 Library           OperatingSystem
-Library           String
 Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/WaitForFailure.robot
+Library           String
+Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/OVSDB.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/WaitForFailure.robot
+Resource          ../../../variables/Variables.robot
+Resource          ../Ovsdb.robot
 
 *** Variables ***
-${OVSDB_PORT}     6634
-${BRIDGE}         ovsdb-csit-bug-validation
-${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
-${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
+${BRIDGE}         ovsbug_br
+${OVSDB_UUID}     ${EMPTY}
+${OVSDB_UUID2}    ${EMPTY}
 
 *** Test Cases ***
 Bug 7414 Same Endpoint Name
@@ -32,32 +34,28 @@ Bug 7414 Same Endpoint Name
     ...    If the bug happens, the request would be accepted, but internally the two creations are seen as the
     ...    same and there is a conflict such that neither ovs will receive the port create.
     [Tags]    7414
-    [Setup]    Run Keywords    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
-    ...    AND    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
+    ${bridge} =    BuiltIn.Set Variable    ovsbug_br_7414
     # connect two ovs
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_2_IP}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected    ${TOOLS_SYSTEM_2_IP}
     # add brtest to both
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${BRIDGE}
-    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl add-br ${BRIDGE}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${bridge}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl add-br ${bridge}
     # send one rest request to create a TP endpoint on each ovs (same name)
-    ${body}=    Modify Multi Port Body    vtep1    vtep1
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}    data=${body}
-    Log    ${resp.content}
+    ${body} =    OVSDB.Modify Multi Port Body    vtep1    vtep1    ${bridge}
     # check that each ovs has the correct endpoint
-    ${ovs_1_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
-    Log    ${ovs_1_output}
-    ${ovs_2_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl show
-    Log    ${ovs_2_output}
-    Should Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
-    Should Not Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    Should Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    Should Not Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
-    [Teardown]    Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
-    ...    AND    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
-    ...    AND    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
+    ${ovs_1_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    BuiltIn.Log    ${ovs_1_output}
+    ${ovs_2_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl show
+    BuiltIn.Log    ${ovs_2_output}
+    BuiltIn.Should Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
+    BuiltIn.Should Not Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
+    BuiltIn.Should Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
+    BuiltIn.Should Not Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
+    [Teardown]    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
+    ...    AND    Test Teardown
 
 Bug 7414 Different Endpoint Name
     [Documentation]    This test case is supplemental to the other test case for bug 7414. Even when the other
@@ -68,53 +66,51 @@ Bug 7414 Different Endpoint Name
     ...    case where the other test case were to fail this would also help understand if this symptom is still
     ...    happening
     [Tags]    7414
-    [Setup]    Clean OVSDB Test Environment
+    ${bridge} =    BuiltIn.Set Variable    ovsbug_br_7414
     # connect two ovs
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_2_IP}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected    ${TOOLS_SYSTEM_2_IP}
     # add brtest to both
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${BRIDGE}
-    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl add-br ${BRIDGE}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${bridge}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl add-br ${bridge}
     # send one rest request to create a TP endpoint on each ovs (different name)
-    ${body}=    Modify Multi Port Body    vtep1    vtep2
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}    data=${body}
-    Log    ${resp.content}
+    ${body} =    OVSDB.Modify Multi Port Body    vtep1    vtep2    ${bridge}
     # check that each ovs has the correct endpoint
-    ${ovs_1_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
-    Log    ${ovs_1_output}
-    ${ovs_2_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl show
-    Log    ${ovs_2_output}
-    Should Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
-    Should Not Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    Should Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    Should Not Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
-    [Teardown]    Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
-    ...    AND    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
-    ...    AND    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
+    ${ovs_1_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    BuiltIn.Log    ${ovs_1_output}
+    ${ovs_2_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl show
+    BuiltIn.Log    ${ovs_2_output}
+    BuiltIn.Should Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
+    BuiltIn.Should Not Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
+    BuiltIn.Should Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
+    BuiltIn.Should Not Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
+    [Teardown]    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
+    ...    AND    Test Teardown
 
 Bug 5221
     [Documentation]    In the case that an ovs node is rebooted, or the ovs service is
     ...    otherwise restarted, a controller initiated connection should reconnect when
     ...    the ovs is ready and available.
-    [Setup]    Clean OVSDB Test Environment
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDB_PORT}
-    Connect Controller To OVSDB Node
-    @{list}    Create List    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
-    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
-    Create Bridge    ${TOOLS_SYSTEM_IP}:6634    ${BRIDGE}
-    @{list}    Create List    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_PORT}/bridge/${BRIDGE}
-    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
-    Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
+    [Tags]    5221
+    ${bridge} =    BuiltIn.Set Variable    ovsbug_br_5221
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDB_NODE_PORT}
+    OVSDB.Connect To OVSDB Node    ${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected
+    @{list} =    BuiltIn.Create List    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI And Print    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
+    OVSDB.Add Bridge To Ovsdb Node    ${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}    ${TOOLS_SYSTEM_IP}    ${bridge}    0000000000005221
+    @{list} =    BuiltIn.Create List    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}/bridge/${bridge}
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI And Print    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI And Print    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
     # Depending on when the retry timers are firing, it may take some 10s of seconds to reconnect, so setting to 30 to cover that.
-    Wait Until Keyword Succeeds    30s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
-    [Teardown]    Run Keywords    Clean OVSDB Test Environment
-    ...    AND    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634%2Fbridge%2F${BRIDGE}
+    BuiltIn.Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements At URI And Print    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
+    [Teardown]    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634%2Fbridge%2F${bridge}
     ...    AND    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634
-    ...    AND    Report_Failure_Due_To_Bug    5221
+    ...    AND    Test Teardown
 
 Bug 5177
     [Documentation]    This test case will recreate the bug using the same basic steps as
@@ -122,38 +118,42 @@ Bug 5177
     ...    1) create bridge in config using the UUID determined in Suite Setup
     ...    2) connect ovs (vsctl set-manager)
     ...    3) Fail if node is not discovered in Operational Store
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
-    ${ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
-    # Suite teardown wants this ${ovsdb_uuid} variable for it's best effort cleanup, so making it visible at suite level.
-    Set Suite Variable    ${ovsdb_uuid}
-    ${node}    Set Variable    uuid/${ovsdb_uuid}
-    Create Bridge    ${node}    ${BRIDGE}
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
-    Should Contain    ${resp.content}    ${node}/bridge/${BRIDGE}
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    @{list}    Create List    ${BRIDGE}
-    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
-    [Teardown]    Run Keywords    Clean OVSDB Test Environment
-    ...    AND    Report_Failure_Due_To_Bug    5177
+    [Tags]    5177
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected
+    ${OVSDB_UUID} =    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    # Suite teardown wants this ${OVSDB_UUID} variable for it's best effort cleanup, so making it visible at suite level.
+    BuiltIn.Set Suite Variable    ${OVSDB_UUID}
+    ${node} =    BuiltIn.Set Variable    uuid/${OVSDB_UUID}
+    OVSDB.Add Bridge To Ovsdb Node    ${node}    ${TOOLS_SYSTEM_IP}    ${BRIDGE}    0000000000005177
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    OVSDB.Log Request    ${resp.content}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    BuiltIn.Should Contain    ${resp.content}    ${node}/bridge/${BRIDGE}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    @{list} =    BuiltIn.Create List    ${BRIDGE}
+    BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements At URI And Print    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
+    # Do not cleanup as the next test requires the steps done in this test
+    [Teardown]    BuiltIn.Run Keywords    Utils.Report_Failure_Due_To_Bug    5177
+    ...    AND    OVSDB.Log Config And Operational Topology
 
 Bug 4794
     [Documentation]    This test is dependent on the work done in the Bug 5177 test case so should
     ...    always be executed immediately after.
     ...    1) delete bridge in config
     ...    2) Poll and Fail if exception is seen in karaf.log
-    ${node}    Set Variable    ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${BRIDGE}
-    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    [Tags]    4794
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    ${node_id} =    BuiltIn.Set Variable    uuid%2F${OVSDB_UUID}
+    Delete Bridge From Ovsdb Node    ${node_id}    ${BRIDGE}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
     # If the exception is seen in karaf.log within 10s, the following line will FAIL, which is the point.
-    Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    Shard.*shard-topology-operational An exception occurred while preCommitting transaction
+    Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Utils.Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    Shard.*shard-topology-operational An exception occurred while preCommitting transaction
     # TODO: Bug 5178
-    [Teardown]    Run Keywords    Clean OVSDB Test Environment
-    ...    AND    Report_Failure_Due_To_Bug    4794
+    [Teardown]    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${node_id}%2Fbridge%2F${BRIDGE}
+    ...    AND    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${node_id}
+    ...    AND    Test Teardown
 
 Bug 8280
     [Documentation]    Any config created for a bridge (e.g. added ports) should be reconciled when a bridge is
@@ -162,150 +162,94 @@ Bug 8280
     ...    will be manually removed. The bridge will be reconnected and the 2nd port should be re-added to the
     ...    bridge. If not, then bug 8280 will be found and the test case will fail
     [Tags]    8280
-    [Setup]    Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    ...    AND    Clean OVSDB Test Environment
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
-    ${ovs_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
-    Create Bridge    uuid/${ovs_uuid}    ${BRIDGE}
-    Add Termination Point    uuid%2F${ovs_uuid}    ${BRIDGE}    port1
-    Add Termination Point    uuid%2F${ovs_uuid}    ${BRIDGE}    port2
-    ${config_store_elements}    Create List    ${BRIDGE}    port1    port2
-    Check For Elements At URI    ${CONFIG_TOPO_API}    ${config_store_elements}
-    ${ovs_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
-    Log    ${ovs_output}
-    ${ovs_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
-    ${ovs_output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-port ${BRIDGE} port2
-    Verify Ovs-vsctl Output    show    Port "port2"    ${TOOLS_SYSTEM_IP}    False
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
-    Check For Elements At URI    ${CONFIG_TOPO_API}    ${config_store_elements}
-    Wait Until Keyword Succeeds    5s    1s    Verify Ovs-vsctl Output    show    Port "port2"
-    [Teardown]    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovs_uuid}%2Fbridge%2F${BRIDGE}
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
+    ${OVSDB_UUID2} =    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
+    BuiltIn.Set Suite Variable    ${OVSDB_UUID2}
+    OVSDB.Add Bridge To Ovsdb Node    uuid/${OVSDB_UUID2}    ${TOOLS_SYSTEM_IP}    ${BRIDGE}    0000000000008280
+    OVSDB.Add Termination Point    uuid/${OVSDB_UUID2}    ${BRIDGE}    port1
+    OVSDB.Add Termination Point    uuid/${OVSDB_UUID2}    ${BRIDGE}    port2
+    ${config_store_elements} =    BuiltIn.Create List    ${BRIDGE}    port1    port2
+    Utils.Check For Elements At URI And Print    ${CONFIG_TOPO_API}    ${config_store_elements}
+    ${ovs_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    BuiltIn.Log    ${ovs_output}
+    ${ovs_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    ${ovs_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-port ${BRIDGE} port2
+    OVSDB.Verify Ovs-vsctl Output    show    Port "port2"    ${TOOLS_SYSTEM_IP}    False
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected    ${TOOLS_SYSTEM_IP}
+    Utils.Check For Elements At URI And Print    ${CONFIG_TOPO_API}    ${config_store_elements}
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    Verify Ovs-vsctl Output    show    Port "port2"
+    [Teardown]    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}uuid%2F${OVSDB_UUID2}%2Fbridge%2F${BRIDGE}
+    ...    AND    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}uuid%2F${OVSDB_UUID2}
+    ...    AND    Test Teardown
 
 Bug 7160
     [Documentation]    If this bug is reproduced, it's possible that the operational store will be
     ...    stuck with leftover nodes and further system tests could fail. It's advised to run this
     ...    test last if possible. See the bug description for high level steps to reproduce
     ...    https://bugs.opendaylight.org/show_bug.cgi?id=7160#c0
-    [Setup]    Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    ...    AND    Clean OVSDB Test Environment
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDB_PORT}
-    Connect Controller To OVSDB Node
-    ${QOS}=    Set Variable    QOS-1
-    ${QUEUE}=    Set Variable    QUEUE-1
-    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_node.json
-    ${sample1}    Replace String    ${sample}    127.0.0.1    ${TOOLS_SYSTEM_IP}
-    ${body}    Replace String    ${sample1}    61644    ${OVSDB_PORT}
-    ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1    data=${body}
-    Log Config And Operational Topology
-    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_qos.json
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/    data=${body}
-    Log Config And Operational Topology
-    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_queue.json
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${QUEUE}/    data=${body}
-    Log Config And Operational Topology
-    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/bug_7160/create_qoslinkedqueue.json
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1    data=${body}
-    Log Config And Operational Topology
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/queue-list/0/
-    Log Config And Operational Topology
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/
-    Log Config And Operational Topology
-    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${QUEUE}/
-    Log Config And Operational Topology
+    [Tags]    7160
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDB_NODE_PORT}
+    OVSDB.Connect To OVSDB Node    ${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected
+    ${qos} =    BuiltIn.Set Variable    QOS-1
+    ${queue} =    BuiltIn.Set Variable    QUEUE-1
+    OVSDB.Create Ovsdb Node    ${TOOLS_SYSTEM_IP}
+    OVSDB.Log Config And Operational Topology
+    OVSDB.Create Qos    ${qos}
+    OVSDB.Log Config And Operational Topology
+    OVSDB.Create Qos Linked Queue
+    OVSDB.Log Config And Operational Topology
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${qos}/queue-list/0/
+    OVSDB.Log Config And Operational Topology
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${qos}/
+    OVSDB.Log Config And Operational Topology
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${queue}/
+    OVSDB.Log Config And Operational Topology
     ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1
-    Log Config And Operational Topology
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
-    ${node}    Set Variable    ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
+    OVSDB.Log Config And Operational Topology
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    ${node}    BuiltIn.Set Variable    ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
     RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
-    Log Config And Operational Topology
-    Wait Until Keyword Succeeds    5s    1s    Config and Operational Topology Should Be Empty
-    [Teardown]    Run Keywords    Clean OVSDB Test Environment
-    ...    AND    Report_Failure_Due_To_Bug    7160
+    OVSDB.Log Config And Operational Topology
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Config and Operational Topology Should Be Empty
 
 *** Keywords ***
-OVSDB Connection Manager Suite Setup
+Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    Open Controller Karaf Console On Background
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    KarafKeywords.Open Controller Karaf Console On Background
+    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Clean All Ovs Nodes
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    BuiltIn.Wait Until Keyword Succeeds    5s    1s    OVSDB.Verify OVS Reports Connected
+    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    OVSDB.Log Config And Operational Topology
 
-OVSDB Connection Manager Suite Teardown
+Suite Teardown
     [Documentation]    Cleans up test environment, close existing sessions.
-    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
+    Clean All Ovs Nodes
     # Best effort to clean config store, by deleting all the types of nodes that are used in this suite
-    ${node}    Set Variable    ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
-    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
+    ${node} =    BuiltIn.Set Variable    ovsdb:%2F%2Fuuid%2F${OVSDB_UUID}
     RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${BRIDGE}
-    ${node}    Set Variable    ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
     RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
+    ${node} =    BuiltIn.Set Variable    ovsdb:%2F%2Fuuid%2F${OVSDB_UUID2}
     RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${BRIDGE}
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    Log    ${resp.content}
+    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
+    ${node} =    BuiltIn.Set Variable    ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
+    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${BRIDGE}
+    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}
+    OVSDB.Log Config And Operational Topology
     Delete All Sessions
-    # TODO: both Create Bridge and Connect Controller To OVSDB Node keywords below should be moved to a library
-    #    and all the suites using this kind of work can move to using the library instead of
-    #    doing all this work each time.
 
-Create Bridge
-    [Arguments]    ${node_string}    ${bridge}
-    [Documentation]    This will create bridge on the specified OVSDB node.
-    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
-    ${body}    Replace String    ${body}    ovsdb://127.0.0.1:61644    ovsdb://${node_string}
-    ${body}    Replace String    ${body}    tcp:127.0.0.1:6633    tcp:${ODL_SYSTEM_IP}:6633
-    ${body}    Replace String    ${body}    127.0.0.1    ${TOOLS_SYSTEM_IP}
-    ${body}    Replace String    ${body}    br01    ${bridge}
-    ${body}    Replace String    ${body}    61644    ${OVSDB_PORT}
-    ${node_string}    Replace String    ${node_string}    /    %2F
-    ${uri}=    Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${node_string}%2Fbridge%2F${bridge}
-    Log    URL is ${uri}
-    Log    data: ${body}
-    ${resp}    RequestsLibrary.Put Request    session    ${uri}    data=${body}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+Test Setup
+    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 
-Connect Controller To OVSDB Node
-    [Documentation]    Initiate the connection to OVSDB node from controller
-    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/connect.json
-    ${sample1}    Replace String    ${sample}    127.0.0.1    ${TOOLS_SYSTEM_IP}
-    ${body}    Replace String    ${sample1}    61644    ${OVSDB_PORT}
-    Log    data: ${body}
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}    data=${body}
-    Log    ${resp.content}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
+Test Teardown
+    Clean All Ovs Nodes
+    OVSDB.Log Config And Operational Topology
+    Utils.Report_Failure_Due_To_Bug    ${TEST_TAGS}
 
-Log Config And Operational Topology
-    [Documentation]    For debugging purposes, this will log both config and operational topo data stores
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    Log    ${resp.content}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log    ${resp.content}
-
-Config and Operational Topology Should Be Empty
-    [Documentation]    This will check that only the expected output is there for both operational and config
-    ...    topology data stores. Empty probably means that only ovsdb:1 is there.
-    ${config_resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
-    ${operational_resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Should Contain    ${config_resp.content}    {"topology-id":"ovsdb:1"}
-    Should Contain    ${operational_resp.content}    {"topology-id":"ovsdb:1"}
-
-Modify Multi Port Body
-    [Arguments]    ${ovs_1_port_name}    ${ovs_2_port_name}
-    [Documentation]    these steps are needed multiple times in bug reproductions above.
-    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/bug_7414/create_multiple_ports.json
-    ${ovs_1_ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
-    ${ovs_2_ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_2_IP}
-    ${body}    Replace String    ${body}    OVS_1_UUID    ${ovs_1_ovsdb_uuid}
-    ${body}    Replace String    ${body}    OVS_2_UUID    ${ovs_2_ovsdb_uuid}
-    ${body}    Replace String    ${body}    OVS_1_BRIDGE_NAME    ${BRIDGE}
-    ${body}    Replace String    ${body}    OVS_2_BRIDGE_NAME    ${BRIDGE}
-    ${body}    Replace String    ${body}    OVS_1_IP    ${TOOLS_SYSTEM_IP}
-    ${body}    Replace String    ${body}    OVS_2_IP    ${TOOLS_SYSTEM_2_IP}
-    ${body}    Replace String    ${body}    OVS_1_PORT_NAME    ${ovs_1_port_name}
-    ${body}    Replace String    ${body}    OVS_2_PORT_NAME    ${ovs_2_port_name}
-    Log    ${body}
-    [Return]    ${body}
+Clean All Ovs Nodes
+    OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
+    OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
