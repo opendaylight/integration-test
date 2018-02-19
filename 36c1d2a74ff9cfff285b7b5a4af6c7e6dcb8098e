@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bb76954_b35cc2b4",
+        "filename": "csit/libraries/OVS.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-19T12:19:04Z",
+      "side": 1,
+      "message": "Would this be better in the existing OVSDB, OPenStackOperations or DevstackUtils robot files? OVS does imply the switch rather than OVSDB but I think between these three files ovs was covered.",
+      "revId": "36c1d2a74ff9cfff285b7b5a4af6c7e6dcb8098e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84fc1fa0_97ecc102",
+        "filename": "csit/libraries/OVS.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-19T12:19:04Z",
+      "side": 1,
+      "message": "A very similar keyword in in OpenStackOperations and is used in all the NetVirt suites. We should stay with that if possible.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 27
+      },
+      "revId": "36c1d2a74ff9cfff285b7b5a4af6c7e6dcb8098e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
