@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9334781_69542612",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-02-20T22:14:59Z",
+      "side": 1,
+      "message": "I think this library is for KWs that do something with karaf console. This KW and following do not seem to fall in this category. I see some KWs like this in Utils.robot, maybe it is time to create a new library for all that is related to karaf log?",
+      "revId": "99ee108dd434f4062d81ccc76cf6ddfc2eddc8b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
