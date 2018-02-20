@@ -1,6 +1,7 @@
 *** Settings ***
 Library           Collections
 Library           ipaddress
+Library           OperatingSystem
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
@@ -11,52 +12,67 @@ Variables         ../variables/Variables.py
 
 *** Variables ***
 ${OVSDB_CONFIG_DIR}    ../variables/ovsdb
+${OVSDB_PORT}     6634
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F
 
 *** Keywords ***
 Connect To Ovsdb Node
-    [Arguments]    ${mininet_ip}
+    [Arguments]    ${node_ip}    ${port}=${OVSDB_PORT}
     [Documentation]    This will Initiate the connection to OVSDB node from controller
-    ${sample} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/connect.json
-    ${sample1} =    String.Replace String    ${sample}    127.0.0.1    ${mininet_ip}
-    ${body} =    String.Replace String    ${sample1}    61644    ${OVSDB_PORT}
-    BuiltIn.Log    URL is ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}
+    ${body} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/connect.json
+    ${body} =    String.Replace String    ${body}    127.0.0.1    ${node_ip}
+    ${body} =    String.Replace String    ${body}    61644    ${port}
+    ${url} =    BuiltIn.Set Variable    ${SOUTHBOUND_CONFIG_API}${node_ip}:${port}
+    BuiltIn.Log    URL is ${url}
     BuiltIn.Log    data: ${body}
-    ${resp} =    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}    data=${body}
+    ${resp} =    RequestsLibrary.Put Request    session    ${url}    data=${body}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Disconnect From Ovsdb Node
-    [Arguments]    ${mininet_ip}
+    [Arguments]    ${node_ip}    ${port}=${OVSDB_PORT}
     [Documentation]    This request will disconnect the OVSDB node from the controller
-    ${resp}    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}
+    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${node_ip}:${port}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Bridge To Ovsdb Node
-    [Arguments]    ${mininet_ip}    ${bridge_num}    ${datapath_id}
+    [Arguments]    ${node_ip}    ${bridge}    ${datapath_id}    ${port}=${OVSDB_PORT}
     [Documentation]    This will create a bridge and add it to the OVSDB node.
-    ${sample} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
-    ${sample1} =    String.Replace String    ${sample}    tcp:127.0.0.1:6633    tcp:${ODL_SYSTEM_IP}:6633
-    ${sample2} =    String.Replace String    ${sample1}    127.0.0.1    ${mininet_ip}
-    ${sample3} =    String.Replace String    ${sample2}    br01    ${bridge_num}
-    ${sample4} =    String.Replace String    ${sample3}    61644    ${OVSDB_PORT}
-    ${body}    String.Replace String    ${sample4}    0000000000000001    ${datapath_id}
-    BuiltIn.Log    URL is ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}
+    ${body} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
+    ${body} =    String.Replace String    ${body}    tcp:127.0.0.1:6633    tcp:${ODL_SYSTEM_IP}:6633
+    ${body} =    String.Replace String    ${body}    127.0.0.1    ${node_ip}
+    ${body} =    String.Replace String    ${body}    br01    ${bridge}
+    ${body} =    String.Replace String    ${body}    61644    ${port}
+    ${body}    String.Replace String    ${body}    0000000000000001    ${datapath_id}
+    ${url} =    BuiltIn.Set Variable    ${SOUTHBOUND_CONFIG_API}${node_ip}:${port}%2Fbridge%2F${bridge}
+    BuiltIn.Log    URL is ${url}
     BuiltIn.Log    data: ${body}
-    ${resp} =    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}    data=${body}
+    ${resp} =    RequestsLibrary.Put Request    session    ${url}    data=${body}
+    BuiltIn.Log    ${resp.content}
+    BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
+Add Bridge To Ovsdb Node With NodeId
+    [Arguments]    ${node_id}    ${node_ip}    ${bridge}    ${datapath_id}    ${port}=${OVSDB_PORT}
+    [Documentation]    This will create a bridge and add it to the OVSDB node.
+    ${body} =    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
+    ${body} =    String.Replace String    ${body}    ovsdb://127.0.0.1:61644    ovsdb://${node_ip}
+    ${body} =    String.Replace String    ${body}    tcp:127.0.0.1:6633    tcp:${node_ip}:6633
+    ${body} =    String.Replace String    ${body}    127.0.0.1    ${node_ip}
+    ${body} =    String.Replace String    ${body}    br01    ${bridge}
+    ${body} =    String.Replace String    ${body}    61644    ${port}
+    ${body} =    String.Replace String    ${body}    0000000000000001    ${datapath_id}
+    ${url} =    BuiltIn.Set Variable    ${SOUTHBOUND_CONFIG_API}${node_id}%2Fbridge%2F${bridge}
+    BuiltIn.Log    URL is ${url}
+    BuiltIn.Log    data: ${body}
+    ${resp} =    RequestsLibrary.Put Request    session    ${url}    data=${body}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Delete Bridge From Ovsdb Node
-    [Arguments]    ${mininet_ip}    ${bridge_num}
+    [Arguments]    ${node_ip}    ${bridge}    ${port}=${OVSDB_PORT}
     [Documentation]    This request will delete the bridge node from the OVSDB
-    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}
+    ${resp} =    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${node_ip}:${port}%2Fbridge%2F${bridge}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
-
-Add Vxlan To Bridge
-    [Arguments]    ${mininet_ip}    ${bridge_num}    ${vxlan_port}    ${remote_ip}    ${custom_port}=create_port.json
-    [Documentation]    This request will create vxlan port for vxlan tunnel and attach it to the specific bridge
-    OVSDB.Add Termination Point    ${mininet_ip}:${OVSDB_PORT}    ${bridge_num}    ${vxlan_port}    ${remote_ip}
 
 Add Termination Point
     [Arguments]    ${node_id}    ${bridge_name}    ${tp_name}    ${remote_ip}=${TOOLS_SYSTEM_IP}
@@ -69,6 +85,11 @@ Add Termination Point
     ${uri} =    BuiltIn.Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${node_id}%2Fbridge%2F${bridge_name}
     ${resp} =    RequestsLibrary.Put Request    session    ${uri}/termination-point/${tp_name}/    data=${body}
     BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
+Add Vxlan To Bridge
+    [Arguments]    ${node_ip}    ${bridge}    ${vxlan_port}    ${remote_ip}    ${custom_port}=create_port.json    ${port}=${OVSDB_PORT}
+    [Documentation]    This request will create vxlan port for vxlan tunnel and attach it to the specific bridge
+    OVSDB.Add Termination Point    ${node_ip}:${port}    ${bridge}    ${vxlan_port}    ${remote_ip}
 
 Verify OVS Reports Connected
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
@@ -97,9 +118,9 @@ Get OVSDB UUID
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     ${resp_json} =    RequestsLibrary.To Json    ${resp.content}
-    ${topologies} =    CollectionsGet From Dictionary    ${resp_json}    topology
-    ${topology} =    CollectionsGet From List    ${topologies}    0
-    ${node_list} =    CollectionsGet From Dictionary    ${topology}    node
+    ${topologies} =    Collections.Get From Dictionary    ${resp_json}    topology
+    ${topology} =    Collections.Get From List    ${topologies}    0
+    ${node_list} =    Collections.Get From Dictionary    ${topology}    node
     BuiltIn.Log    ${node_list}
     # Since bridges are also listed as nodes, but will not have the extra "ovsdb:connection-info data,
     # we need to use "Run Keyword And Ignore Error" below.
@@ -200,6 +221,38 @@ Get Default Gateway
     ${gateway} =    Builtin.Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
     BuiltIn.Log    ${gateway}
     [Return]    ${gateway}
+
+Log Config And Operational Topology
+    [Documentation]    For debugging purposes, this will log both config and operational topo data stores
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    BuiltIn.Log    ${resp.content}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    BuiltIn.Log    ${resp.content}
+
+Config and Operational Topology Should Be Empty
+    [Documentation]    This will check that only the expected output is there for both operational and config
+    ...    topology data stores. Empty probably means that only ovsdb:1 is there.
+    ${config_resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    ${operational_resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    BuiltIn.Should Contain    ${config_resp.content}    {"topology-id":"ovsdb:1"}
+    BuiltIn.Should Contain    ${operational_resp.content}    {"topology-id":"ovsdb:1"}
+
+Modify Multi Port Body
+    [Arguments]    ${ovs_1_port_name}    ${ovs_2_port_name}
+    [Documentation]    these steps are needed multiple times in bug reproductions above.
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/bug_7414/create_multiple_ports.json
+    ${ovs_1_ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
+    ${ovs_2_ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_2_IP}
+    ${body}    Replace String    ${body}    OVS_1_UUID    ${ovs_1_ovsdb_uuid}
+    ${body}    Replace String    ${body}    OVS_2_UUID    ${ovs_2_ovsdb_uuid}
+    ${body}    Replace String    ${body}    OVS_1_BRIDGE_NAME    ${BRIDGE}
+    ${body}    Replace String    ${body}    OVS_2_BRIDGE_NAME    ${BRIDGE}
+    ${body}    Replace String    ${body}    OVS_1_IP    ${TOOLS_SYSTEM_IP}
+    ${body}    Replace String    ${body}    OVS_2_IP    ${TOOLS_SYSTEM_2_IP}
+    ${body}    Replace String    ${body}    OVS_1_PORT_NAME    ${ovs_1_port_name}
+    ${body}    Replace String    ${body}    OVS_2_PORT_NAME    ${ovs_2_port_name}
+    BuiltIn.Log    ${body}
+    [Return]    ${body}
 
 Add OVS Logging
     [Arguments]    ${conn_id}
