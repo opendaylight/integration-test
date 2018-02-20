@@ -15,7 +15,6 @@ Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_S
 Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***

@@ -23,7 +23,6 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${HOLDTIME}       180
@@ -124,7 +123,7 @@ Configure_Path_Selection_And_App_Peer_And_Connect_Peer
 
 Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    CompareStream.Run_Keyword_If_At_Least_Carbon    TemplatedRequests.Delete_Templated    ${MULT_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Delete_Templated    ${MULT_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
     Deconfigure_App_Peer
     ExaBgpLib.Stop_ExaBgp
     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
