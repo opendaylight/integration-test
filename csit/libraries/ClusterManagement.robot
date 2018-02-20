@@ -36,6 +36,7 @@ Resource          ${CURDIR}/KarafKeywords.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot    # for Get_As_Json_From_Uri
 Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
+Resource          ${CURDIR}/Variables.robot
 
 *** Variables ***
 ${ENTITY_OWNER_URI}    restconf/operational/entity-owners:entity-owners
