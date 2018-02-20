@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c8db979_3982c311",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-02-20T10:29:43Z",
+      "side": 1,
+      "message": "Janki, when this wipe off is done, and when you restart ODL, who reinstalls odl-netvirt-openstack feature in karaf?",
+      "revId": "1f3abf2388cca93440f6dc34c0b893f793e8ecd3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
