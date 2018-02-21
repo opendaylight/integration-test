@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd597381_d3f13ff2",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-02-21T08:50:57Z",
+      "side": 1,
+      "message": "This was added as BFD suite was randomly failing due to timings",
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34d1614b_790b8239",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-02-21T08:50:57Z",
+      "side": 1,
+      "message": "\"ITM is being rearchitectured\"\n\nThis test suite tests the new itm-scalability feature by enabling the itm-scalability flag",
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0aaffa7_9fcd134b",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-02-21T08:50:57Z",
+      "side": 1,
+      "message": "These keywords are already present in the existing ITM test suite. please reuse",
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
