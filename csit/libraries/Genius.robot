@@ -11,6 +11,14 @@ Resource          Utils.robot
 Resource          ../variables/Variables.robot
 
 *** Variables ***
+${TEP_SHOW}       tep:show
+${TUNNEL_MONITOR_ON}    Tunnel Monitoring (for VXLAN tunnels): On
+@{itm_created}    TZA
+${genius_config_dir}    ${CURDIR}/../variables/genius
+${Bridge-1}       BR1
+${Bridge-2}       BR2
+${TEP_SHOW_STATE}    tep:show-state
+${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
 
 *** Keywords ***
 Genius Suite Setup
@@ -150,3 +158,53 @@ Delete All Vteps
     Log    ${output}
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Log    ${output}
+
+ITM Direct Tunnels Start Suite
+    [Documentation]    start suite for itm scalability
+    ClusterManagement.ClusterManagement_Setup
+    ClusterManagement.Stop_Members_From_List_Or_All
+    ClusterManagement.Clean_Journals_Data_And_Snapshots_On_List_Or_All
+    Run Command On Remote System And Log    ${ODL_SYSTEM_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
+    ClusterManagement.Start_Members_From_List_Or_All
+    Genius Suite Setup
+
+ITM Direct Tunnels Stop Suite
+    Run Command On Remote System And Log    ${ODL_SYSTEM_IP}    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
+    Genius Suite Teardown
+
+Verify Tunnel Monitoring is on
+    [Documentation]    This keyword will get tep:show output and verify tunnel monitoring status
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
+    Log    ${output}
+    Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
+
+Ovs Verification For 2 Dpn
+    [Arguments]    ${connection_id}    ${local}    ${remote-1}    ${tunnel}    ${tunnel-type}
+    [Documentation]    Checks whether the created Interface is seen on OVS or not.
+    Switch Connection    ${connection_id}
+    Log    ${connection_id}
+    ${check}    Execute Command    sudo ovs-vsctl show
+    Log    ${check}
+    Should Contain    ${check}    local_ip="${local}"    remote_ip="${remote-1}"    ${tunnel}
+    Should Contain    ${check}    ${tunnel-type}
+    [Return]    ${check}
+
+Get ITM
+    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}
+    ...    ${TOOLS_SYSTEM_2_IP}
+    [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
+    Log    ${itm_created[0]},${subnet}, ${vlan}, ${Dpn_id_1},${TOOLS_SYSTEM_IP}, ${Dpn_id_2}, ${TOOLS_SYSTEM_2_IP}
+    @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${Bridge-1}-eth1
+    ...    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${Bridge-2}-eth1    ${TOOLS_SYSTEM_2_IP}
+    Check For Elements At URI    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
+
+Check Tunnel Delete On OVS
+    [Arguments]    ${connection-id}    ${tunnel}
+    [Documentation]    Verifies the Tunnel is deleted from OVS
+    Log    ${tunnel}
+    Switch Connection    ${connection-id}
+    Log    ${connection-id}
+    ${return}    Execute Command    sudo ovs-vsctl show
+    Log    ${return}
+    Should Not Contain    ${return}    ${tunnel}
+    [Return]    ${return}

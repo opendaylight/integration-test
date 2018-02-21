@@ -43,10 +43,10 @@ Create and Verify VTEP -No Vlan
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
     Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
-    Wait Until Keyword Succeeds    40    10    Ovs Verification 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
+    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
     ...    ${tunnel-1}    ${tunnel-type}
     Log    >>>>OVS Validation in Switch 2 for Tunnel Created<<<<<
-    Wait Until Keyword Succeeds    40    10    Ovs Verification 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
+    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     ...    ${tunnel-2}    ${tunnel-type}
     Log    >>>> Getting Network Topology Operational <<<<<<
     ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
@@ -107,10 +107,10 @@ Create and Verify VTEP IPv6 - No Vlan
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/    headers=${ACCEPT_XML}
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/    headers=${ACCEPT_XML}
     Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
-    Wait Until Keyword Succeeds    40    10    Ovs Verification 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
+    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
     ...    ${tunnel-1}    ${tunnel-type}
     Log    >>>>OVS Validation in Switch 2 for Tunnel Created<<<<<
-    Wait Until Keyword Succeeds    40    10    Ovs Verification 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
+    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     ...    ${tunnel-2}    ${tunnel-type}
     Log    >>>> Getting Network Topology Operational <<<<<<
     ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
@@ -143,10 +143,10 @@ Create and Verify VTEP-Vlan
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
     Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
-    Wait Until Keyword Succeeds    40    10    Ovs Verification 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
+    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
     ...    ${tunnel-3}    ${tunnel-type}
     Log    >>>>OVS Validation in Switch 2 for Tunnel Created<<<<<
-    Wait Until Keyword Succeeds    40    10    Ovs Verification 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
+    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     ...    ${tunnel-4}    ${tunnel-type}
     Log    >>>>> Checking Network opertional Topology <<<<<<
     ${url_2}    set variable    ${OPERATIONAL_API}/network-topology:network-topology/
@@ -203,10 +203,10 @@ Create VTEP - Vlan and Gateway
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
     Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
-    ${check-1}    Wait Until Keyword Succeeds    40    10    Ovs Verification 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}
+    ${check-1}    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}
     ...    ${TOOLS_SYSTEM_2_IP}    ${tunnel-5}    ${tunnel-type}
     Log    ${check-1}
-    ${check-2}    Wait Until Keyword Succeeds    40    10    Ovs Verification 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}
+    ${check-2}    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}
     ...    ${TOOLS_SYSTEM_IP}    ${tunnel-6}    ${tunnel-type}
     Log    ${check-2}
     ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
@@ -316,17 +316,6 @@ Check Table0 Entry for 2 Dpn
     ${check}    Execute Command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${Bridgename}
     Log    ${check}
     Should Contain    ${check}    in_port=${port-num1}
-    [Return]    ${check}
-
-Ovs Verification 2 Dpn
-    [Arguments]    ${connection_id}    ${local}    ${remote-1}    ${tunnel}    ${tunnel-type}
-    [Documentation]    Checks whether the created Interface is seen on OVS or not.
-    Switch Connection    ${connection_id}
-    Log    ${connection_id}
-    ${check}    Execute Command    sudo ovs-vsctl show
-    Log    ${check}
-    Should Contain    ${check}    local_ip="${local}"    remote_ip="${remote-1}"    ${tunnel}
-    Should Contain    ${check}    ${tunnel-type}
     [Return]    ${check}
 
 Get ITM
