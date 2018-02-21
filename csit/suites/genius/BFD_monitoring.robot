@@ -45,12 +45,10 @@ BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
     [Documentation]    Create ITM between DPNs Verify_BFD_Enablement
     ${Dpn_id_1}    Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Get Dpn Ids    ${conn_id_2}
-    Set Global Variable    ${Dpn_id_1}
-    Set Global Variable    ${Dpn_id_2}
     ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
-    Create Vteps    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
-    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Status as UP
+    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
 
 BFD_TC01 Verify by default BFD monitoring is enabled on Controller
     [Documentation]    Verify by default BFD monitoring is enabled on Controller
@@ -148,12 +146,6 @@ Verify Config Ietf Interface Output
     Should Contain    ${respjson}    ${state}
     Should Contain    ${respjson}    ${interval}
     Should Contain    ${respjson}    ${proto}
-
-Verify Tunnel Monitoring Is On
-    [Documentation]    This keyword will get tep:show output and verify tunnel monitoring status
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
-    Log    ${output}
-    Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
 
 Ovs Tunnel Get
     [Arguments]    ${bridge}
