@@ -150,3 +150,28 @@ Delete All Vteps
     Log    ${output}
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Log    ${output}
+
+ITM Direct Tunnels Start Suite
+    [Documentation]    start suite for itm scalability
+    log    shutdown the controller
+    ClusterManagement.ClusterManagement_Setup
+    ClusterManagement.Stop_Members_From_List_Or_All
+    ClusterManagement.Clean_Journals_Data_And_Snapshots_On_List_Or_All
+    ${conn_id_3}=    Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    ${file content}    set variable    ${KARAF_HOME}/etc/opendaylight/datastore/initial/config/genius-ifm-config.xml
+    ${flag}    Execute Command    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${file content}
+    log    start the controller
+    ClusterManagement.Start_Members_From_List_Or_All
+    ${check}    Wait Until Keyword Succeeds    30    10    Install_A_Feature    odl-genius-rest
+    log    ${check}
+    Start Suite
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=5
+
+ITM Direct Tunnels Stop Suite
+    ${conn_id_3}=    Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    ${file content}    set variable    ${KARAF_HOME}/etc/opendaylight/datastore/initial/config/genius-ifm-config.xml
+    ${flag}    Execute Command    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${file content}
+    Delete All Sessions
+    Stop Suite

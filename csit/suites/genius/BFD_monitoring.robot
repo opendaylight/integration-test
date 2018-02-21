@@ -50,7 +50,7 @@ BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
     ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
     Create Vteps    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
-    Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    30s    2s    Verify Tunnel Status as UP
 
 BFD_TC01 Verify by default BFD monitoring is enabled on Controller
     [Documentation]    Verify by default BFD monitoring is enabled on Controller
