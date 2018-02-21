@@ -131,6 +131,30 @@
       "revId": "23c5c10268bf2c67ad5bc3c0ceb93c6857277d22",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40403ba8_ace82aa7",
+        "filename": "csit/suites/l2gw/02_Dynamic_Node_Addition_Multi_Segment_Network.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "don\u0027t you have exactly the same lines of code in the two suites of this patch for these things like \"Basic Suite Setup\"?\n\nwhen that happens, you should move the entire keyword to a shared location like your l2gw lib. Then you only have\nto maintain that single keyword. less duplication is better.",
+      "parentUuid": "578966fa_8ab5f06a",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 1
+      },
+      "revId": "23c5c10268bf2c67ad5bc3c0ceb93c6857277d22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
