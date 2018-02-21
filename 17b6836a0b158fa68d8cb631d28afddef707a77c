@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b29b5568_96fe91ab",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "add docs",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a831fc9_1a42cb7e",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "is this what you want? if there was 99% packet loss, this keyword would still pass.",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 41
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdcda4c8_9f403b69",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "we have these vars, so you don\u0027t have to redo things:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/netvirt/Variables.robot#L25-L26",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 81
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08769d76_b9677553",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "does setting this flag enable controller dhcp on the fly, or do we have to restart. if we have to restart you should add that functionality in this keyword",
+      "range": {
+        "startLine": 379,
+        "startChar": 1,
+        "endLine": 381,
+        "endChar": 68
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b1a831c_bf77bb6e",
+        "filename": "csit/libraries/L2gwUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "remove. we can figure out what ${conn_id} is in the logs without this. it will certainly be printed because you are [Return]ing it",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e243d40d_e58d9a4e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "we can\u0027t use the openstack cli as well?",
+      "range": {
+        "startLine": 1200,
+        "startChar": 44,
+        "endLine": 1200,
+        "endChar": 51
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "477c3289_ba99ab93",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1202,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "either way, the main point of wrapping your call in \"OpenStack CLI\" is to not have to do this work as well. it\u0027s done there.",
+      "range": {
+        "startLine": 1201,
+        "startChar": 0,
+        "endLine": 1202,
+        "endChar": 36
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f25464f0_30ac56b0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "we aren\u0027t running with newton any longer, so unless you know of another deployment that needs newton we can remove this complexity",
+      "range": {
+        "startLine": 1207,
+        "startChar": 33,
+        "endLine": 1207,
+        "endChar": 72
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e65fb149_6d94b006",
+        "filename": "csit/suites/l2gw/01_L2gateway_Single_Segment_Network.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "there is no fail-safe way to know, but neither of these log statements are going to be needed. the keywords before them\nwill be logging the relevant info. this is just creating duplicate logs and noisier test code. We\u0027ve also hit infra problems in\nthe past when our log file sizes get out of control (which is why I try to call them out in reviews)",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 1
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0612030b_c7a2d86f",
+        "filename": "csit/suites/l2gw/02_Dynamic_Node_Addition_Multi_Segment_Network.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "anything like that that you are sharing across suites, you can put once in the variables file.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 49
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fca670cc_da009288",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T20:50:11Z",
+      "side": 1,
+      "message": "does the one here work instead:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/netvirt/Variables.robot#L25-L26",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
