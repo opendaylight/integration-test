@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "380d2dd9_725ab14f",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-02-21T00:27:33Z",
+      "side": 1,
+      "message": "Do we need OpenStack for this and the other tests? would not be simpler to just use mininet in the tools VM? Also remember OpenFlow test suites only use OpenFlow features (no netvirt, ovsdb, etc..).",
+      "revId": "49e708ff4a544d0b2bb83ba68cef8340f9e3aa36",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
