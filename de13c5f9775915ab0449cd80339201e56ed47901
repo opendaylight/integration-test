@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "818a6371_e8fd8673",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T22:01:39Z",
+      "side": 1,
+      "message": "why not use this:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Utils.robot#L174\n\nline 161 still needs to be here, but all this work of open connection, execute command, etc is done (and more) in that keyword in the link above.\n\nI think ${file_content} could have a better name like ${genius_ifm_config_file} and maybe even make it ${GENIUS_IFM_CONFIG_FILE} and put it above\nin the variables section. I see you use it below too. that saves you duplication and extra lines.",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 116
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53535146_5a95f46d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T22:01:39Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 31
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cf93ec4_92bc61c1",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T22:01:39Z",
+      "side": 1,
+      "message": "this is likely to have trouble with oxygen. loading features outside of featuresBoot has troubles",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 95
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "046c8257_80c13dc2",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 1
@@ -100,6 +169,144 @@
     },
     {
       "key": {
+        "uuid": "44b77997_288b3f2b",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T22:01:39Z",
+      "side": 1,
+      "message": "remove this line. Variables.py is no longer used/supported",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 46
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c823532_7772fa9b",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T22:01:39Z",
+      "side": 1,
+      "message": "I am guessing some, if not all, of these vars are defined somewhere else. source them from there.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 86
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "962a24b1_36b1015a",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T22:01:39Z",
+      "side": 1,
+      "message": "instead of using Globals which can be dangerous, maybe remove that Set Global here and just do another Get_Tunnel in the\nbelow test cases when you want to know what tunnel-x is.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3cb4592_600298ef",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T22:01:39Z",
+      "side": 1,
+      "message": "remove these Log statements unless they provide substantial value. The keyword below should be human\nreadable enough to not need these extra Log statements.",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 65
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c63af95_87b1f8b9",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T22:01:39Z",
+      "side": 1,
+      "message": "what about making a list of tunnel-1 and tunnel-2 and using the \"Check For Elements Not At URI\" keyword.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 63
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4df78812_9addc2e4",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T22:01:39Z",
+      "side": 1,
+      "message": "you are logging this here. you are also logging it in the keyword. remove the extra stuff. it makes it easier to read as an added benefit.",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 23
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0aaffa7_9fcd134b",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 1
@@ -117,6 +324,29 @@
     },
     {
       "key": {
+        "uuid": "7f77c50f_986c454e",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T22:01:39Z",
+      "side": 1,
+      "message": "+1 to what Faseela said. Also, this specific command is there as a var in the l2gw vars file.",
+      "range": {
+        "startLine": 97,
+        "startChar": 37,
+        "endLine": 97,
+        "endChar": 127
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e7309fb_5009cdef",
         "filename": "csit/testplans/genius-genius.txt",
         "patchSetId": 1
@@ -128,6 +358,24 @@
       "writtenOn": "2018-02-21T12:02:18Z",
       "side": 1,
       "message": "This should go into tdd-wip. Idea is all new suites go in there early on, esp while feature still is new and being fixed. Once feature and CSIT are both stable, we\u0027ll move them here.",
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "511f5646_d2da0831",
+        "filename": "csit/testplans/genius-genius.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-21T22:01:39Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "3e7309fb_5009cdef",
       "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
