@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "906ac729_65fc23b6",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2029
+      },
+      "writtenOn": "2018-02-21T21:29:45Z",
+      "side": 1,
+      "message": "Maybe add a Documentation keyword here?",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4205662f_6dc9e869",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 2029
+      },
+      "writtenOn": "2018-02-21T21:29:45Z",
+      "side": 1,
+      "message": "This config doesn\u0027t change, but we collect it every time. Would be better to collect this just once, maybe at the suite setup?",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b29b5568_96fe91ab",
         "filename": "csit/libraries/L2GatewayOperations.robot",
         "patchSetId": 5
@@ -62,6 +96,40 @@
       "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d9bca2f_d0782389",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 2029
+      },
+      "writtenOn": "2018-02-21T21:29:45Z",
+      "side": 1,
+      "message": "Consider making this shorted description, or split into two lines (if possible)",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16ad7421_6a325eb1",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 2029
+      },
+      "writtenOn": "2018-02-21T21:29:45Z",
+      "side": 1,
+      "message": "Wonder if we should also check replication-mode for the logical switch, which should be source_node?",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
@@ -200,6 +268,23 @@
       "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e593fd4f_50ed0472",
+        "filename": "csit/suites/l2gw/01_L2gateway_Single_Segment_Network.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2029
+      },
+      "writtenOn": "2018-02-21T21:29:45Z",
+      "side": 1,
+      "message": "So, the default is neutron dhcp, and here, you are changing it to be ODL DHCP. It should (does) work both ways, why are you setting this to be ODL DHCP? \n\nI\u0027m really thinking, it would be good to run some tests with both configurations, spin up some VMs with ODL DHCP, and verify, then repeat with neutron dhcp (default). \n\nWhat are your thoughts on this?",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     },
     {
       "key": {
