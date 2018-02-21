@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "046c8257_80c13dc2",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-02-21T12:02:18Z",
+      "side": 1,
+      "message": "Just use Genius Start Suite",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 169,
+        "endChar": 123
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1c06c5e_29a7dcbb",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-02-21T12:02:18Z",
+      "side": 1,
+      "message": "same as above, but for delete",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 177,
+        "endChar": 14
+      },
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd597381_d3f13ff2",
         "filename": "csit/suites/genius/BFD_monitoring.robot",
         "patchSetId": 1
@@ -13,6 +59,24 @@
       "writtenOn": "2018-02-21T08:50:57Z",
       "side": 1,
       "message": "This was added as BFD suite was randomly failing due to timings",
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0698ed9b_945e7fd3",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-02-21T12:02:18Z",
+      "side": 1,
+      "message": "YEah, it can take some time to come up. Make it 30s 5s so we retry every 5 seconds instead of every 2.",
+      "parentUuid": "cd597381_d3f13ff2",
       "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -47,6 +111,23 @@
       "writtenOn": "2018-02-21T08:50:57Z",
       "side": 1,
       "message": "These keywords are already present in the existing ITM test suite. please reuse",
+      "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e7309fb_5009cdef",
+        "filename": "csit/testplans/genius-genius.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-02-21T12:02:18Z",
+      "side": 1,
+      "message": "This should go into tdd-wip. Idea is all new suites go in there early on, esp while feature still is new and being fixed. Once feature and CSIT are both stable, we\u0027ll move them here.",
       "revId": "de13c5f9775915ab0449cd80339201e56ed47901",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
