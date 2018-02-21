@@ -318,17 +318,6 @@ Check Table0 Entry for 2 Dpn
     Should Contain    ${check}    in_port=${port-num1}
     [Return]    ${check}
 
-Ovs Verification 2 Dpn
-    [Arguments]    ${connection_id}    ${local}    ${remote-1}    ${tunnel}    ${tunnel-type}
-    [Documentation]    Checks whether the created Interface is seen on OVS or not.
-    Switch Connection    ${connection_id}
-    Log    ${connection_id}
-    ${check}    Execute Command    sudo ovs-vsctl show
-    Log    ${check}
-    Should Contain    ${check}    local_ip="${local}"    remote_ip="${remote-1}"    ${tunnel}
-    Should Contain    ${check}    ${tunnel-type}
-    [Return]    ${check}
-
 Get ITM
     [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}
     ...    ${TOOLS_SYSTEM_2_IP}

@@ -6,11 +6,13 @@ data_models = [
     'config/itm-config:tunnel-monitor-interval',
     'config/itm-config:tunnel-monitor-params',
     'config/itm-state:dpn-endpoints',
+    'config/itm-state:dpn-teps-state/ |python -m json.tool',
     'config/itm-state:external-tunnel-list',
     'config/itm-state:tunnel-list',
     'config/network-topology:network-topology/topology/ovsdb:1',
     'config/odl-interface-meta:bridge-interface-info',
     'config/odl-interface-meta:interface-child-info',
+    'config/odl-itm-meta:bridge-tunnel-info/ |python -m json.tool',
     'config/opendaylight-inventory:nodes',
     'operational/ietf-interfaces:interfaces-state',
     'operational/interface-service-bindings:bound-services-state-list',
@@ -22,6 +24,9 @@ data_models = [
     'operational/odl-interface-meta:bridge-ref-info',
     'operational/odl-interface-meta:dpn-to-interface-list',
     'operational/odl-interface-meta:if-indexes-interface-map',
+    'operational/odl-itm-meta:dpn-to-interface-list/ |python -m json.tool',
+    'operational/odl-itm-meta:if-indexes-tunnel-map/ |python -m json.tool',
+    'operational/odl-itm-meta:ovs-bridge-ref-info/ |python -m json.tool',
     'operational/opendaylight-inventory:nodes',
 ]
 

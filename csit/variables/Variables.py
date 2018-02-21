@@ -167,6 +167,9 @@ NEUTRON_PORTS_API = NEUTRON_NB_API + '/' + 'ports'
 NEUTRON_ROUTERS_API = NEUTRON_NB_API + '/' + 'routers'
 OSREST = '/v2.0/networks'
 
+# Genius
+GENIUS_IFM_CONFIG_FLAG = '${KARAF_HOME}/etc/opendaylight/datastore/initial/config/genius-ifm-config.xml'
+
 # Openstack System Prompt
 OS_SYSTEM_PROMPT = '$'
 
