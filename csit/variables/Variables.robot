@@ -83,6 +83,7 @@ ${GBP_REGEP_API}    /restconf/operations/endpoint:register-endpoint    # FIXME: 
 ${GBP_TENANTS_API}    /restconf/config/policy:tenants    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${GBP_TUNNELS_API}    /restconf/config/opendaylight-inventory:nodes    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${GBP_UNREGEP_API}    /restconf/operations/endpoint:unregister-endpoint    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
+${GENIUS_IFM_CONFIG_FLAG}    ${KARAF_HOME}/etc/opendaylight/datastore/initial/config/genius-ifm-config.xml
 ${GET_CONFIGURATION_URI}    /restconf/operational/configuration:configurationRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${GET_DASHBOARDRECORD}    /restconf/operational/dashboardrule:dashboardRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${GET_INTENTS_URI}    /retconf/config/intent:intents    # FIXME: Move to a separate Nemo-related Resource and add description.
