@@ -4,4 +4,4 @@
 #
 # Place the suites in run order:
 integration/test/csit/suites/genius/dummy.robot
-
+integration/test/csit/suites/genius/ITM_Direct_Tunnels.robot
