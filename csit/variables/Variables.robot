@@ -203,3 +203,4 @@ ${VTNS}           vtns    # A shorthand. FIXME: Find who uses this and eliminate
 ${VTNS_CREATE}    vtns.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VTNWEBAPI}      /vtn-webapi    # Directory part of URI used when sending HTTP requests to VTN Coordinator. TODO: Move to a VTN-specific Resource.
 # Keep this list sorted alphabetically.
+${GENIUS_IFM_CONFIG_FLAG}    ${KARAF_HOME}/etc/opendaylight/datastore/initial/config/genius-ifm-config.xml
