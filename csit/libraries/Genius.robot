@@ -10,8 +10,14 @@ Resource          KarafKeywords.robot
 Resource          Utils.robot
 Resource          ../variables/Variables.robot
 Resource          OVSDB.robot
+Resource          ../variables/netvirt/Variables.robot
 
 *** Variables ***
+@{itm_created}    TZA
+${genius_config_dir}    ${CURDIR}/../variables/genius
+${Bridge-1}       BR1
+${Bridge-2}       BR2
+${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
 
 *** Keywords ***
 Genius Suite Setup
@@ -92,7 +98,7 @@ Check Service Status
     \    Should Contain    ${var}    ${service_state}
 
 Create Vteps
-    [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     [Documentation]    This keyword creates VTEPs between ${TOOLS_SYSTEM_IP} and ${TOOLS_SYSTEM_2_IP}
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
     ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
@@ -101,7 +107,8 @@ Create Vteps
     Set Global Variable    ${subnet}
     ${vlan}=    Set Variable    ${vlan}
     ${gateway-ip}=    Set Variable    ${gateway-ip}
-    ${body}    Set Json    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}    ${subnet}
+    ${body}    Genius.Set Json    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}
+    ...    ${gateway-ip}    ${subnet}
     ${vtep_body}    Set Variable    ${body}
     Set Global Variable    ${vtep_body}
     ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/itm:transport-zones/    data=${body}
@@ -109,7 +116,8 @@ Create Vteps
     should be equal as strings    ${resp.status_code}    204
 
 Set Json
-    [Arguments]    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}    ${subnet}
+    [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    ...    ${subnet}
     [Documentation]    Sets Json with the values passed for it.
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
     ${body}    replace string    ${body}    1.1.1.1    ${subnet}
@@ -157,3 +165,48 @@ Genius Test Teardown
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_1}    BR1
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_2}    BR2
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
+
+ITM Direct Tunnels Start Suite
+    [Documentation]    start suite for itm scalability
+    ClusterManagement.ClusterManagement_Setup
+    ClusterManagement.Stop_Members_From_List_Or_All
+    ClusterManagement.Clean_Journals_Data_And_Snapshots_On_List_Or_All
+    Run Command On Remote System And Log    ${ODL_SYSTEM_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
+    ClusterManagement.Start_Members_From_List_Or_All
+    Genius Suite Setup
+
+ITM Direct Tunnels Stop Suite
+    Run Command On Remote System And Log    ${ODL_SYSTEM_IP}    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
+    Genius Suite Teardown
+
+Verify Tunnel Monitoring is on
+    [Documentation]    This keyword will get tep:show output and verify tunnel monitoring status
+    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
+    Should Contain    ${output}    ${TUNNEL_MONITOR_ON}
+
+Ovs Verification For 2 Dpn
+    [Arguments]    ${connection_id}    ${local}    ${remote-1}    ${tunnel}    ${tunnel-type}
+    [Documentation]    Checks whether the created Interface is seen on OVS or not.
+    Switch Connection    ${connection_id}
+    ${check}    Execute Command    sudo ovs-vsctl show
+    Log    ${check}
+    Should Contain    ${check}    local_ip="${local}"    remote_ip="${remote-1}"    ${tunnel}    ${tunnel-type}
+    [Return]    ${check}
+
+Get ITM
+    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}
+    ...    ${TOOLS_SYSTEM_2_IP}
+    [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
+    Log    ${itm_created[0]},${subnet}, ${vlan}, ${Dpn_id_1},${TOOLS_SYSTEM_IP}, ${Dpn_id_2}, ${TOOLS_SYSTEM_2_IP}
+    @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${Bridge-1}-eth1
+    ...    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${Bridge-2}-eth1    ${TOOLS_SYSTEM_2_IP}
+    Check For Elements At URI    ${TUNNEL_TRANSPORTZONE}/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
+
+Check Tunnel Delete On OVS
+    [Arguments]    ${connection-id}    ${tunnel}
+    [Documentation]    Verifies the Tunnel is deleted from OVS
+    Switch Connection    ${connection-id}
+    ${return}    Execute Command    sudo ovs-vsctl show
+    Log    ${return}
+    Should Not Contain    ${return}    ${tunnel}
+    [Return]    ${return}
