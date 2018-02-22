@@ -164,8 +164,7 @@ TC16 Verify L2Gateway Connection
     [Tags]    skip_if_stable/ocata    skip_if_stable/pike
     BuiltIn.Pass_Execution_If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}    Not supported in Ocata/Pike
     CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
-    ${output}=    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Create Verify L2Gateway Connection    ${L2GW_NAME1}    ${NET_1}
-    Log    ${output}
+    Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify L2Gateway Connection    ${L2GW_NAME1}    ${NET_1}
     Wait Until Keyword Succeeds    30s    2s    L2GatewayOperations.Verify Ovs Tunnel    ${HWVTEP_IP}    ${OVS_IP}
     ${output}=    ITM Get Tunnels
     Log    ${output}
@@ -190,7 +189,7 @@ TC18 Verify Ping From Compute Node Vm To Hwvtep Port 2
     [Tags]    skip_if_stable/ocata    skip_if_stable/pike
     BuiltIn.Pass_Execution_If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}    Not supported in Ocata/Pike
     CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
-    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[4]}
+    ${output}=    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${NET_1}    ${port_ip_list[0]}
     ...    ping -c 3 ${port_ip_list[4]}
     Log    ${output}
     Should Not Contain    ${output}    ${PACKET_LOSS}
