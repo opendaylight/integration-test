@@ -43,6 +43,7 @@ Run Tempest Tests Without Debug
     Tempest.Tempest Conf Modify Pause On Test Teardown    False
     SSHLibrary.Set Client Configuration    timeout=${timeout}
     # There are tons of deprecation error messages when we use ostestr in our CSIT environment (openstack via devstack)
+    DevstackUtils.Write Commands Until Prompt And Log    pip install os-testr>=1.0.0    timeout=60s
     # The robot log files are very large and one culprit is all these deprecation warnings. If we redirect stderr to
     # /dev/null we should be able to ignore them. We will miss any other errors, however.
     ${output} =    DevstackUtils.Write Commands Until Prompt And Log    ostestr --regex ${tempest_regex} 2>/dev/null    timeout=${timeout}
