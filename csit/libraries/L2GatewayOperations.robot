@@ -116,7 +116,6 @@ Verify L2Gateway Connection
     Should Contain    ${output}    ${l2gw_id}
     @{list_to_check}=    Create List    ${l2gw_id}
     Utils.Check For Elements At URI    ${L2GW_CONN_LIST_REST_URL}    ${list_to_check}    session
-    [Return]    ${l2gw_output}
 
 Delete L2Gateway Connection
     [Arguments]    ${gw_name}
