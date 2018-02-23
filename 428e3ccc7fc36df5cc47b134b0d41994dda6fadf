@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52336909_b50b88d8",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 437
+      },
+      "writtenOn": "2018-02-23T08:52:47Z",
+      "side": 1,
+      "message": "In subsequent patches, you could add more test cases such as\n1. Checking for UNKNOWN state when a DPN is disconnected\n2. Add and delete a third tep. I hope you can have 3 switches in your setup.",
+      "revId": "428e3ccc7fc36df5cc47b134b0d41994dda6fadf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
