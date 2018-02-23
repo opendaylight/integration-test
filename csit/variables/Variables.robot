@@ -57,12 +57,15 @@ ${CREATE_VLAN_TOPOLOGY_FILE}    vlan_vtn_test.py    # A shorthand. FIXME: Find w
 ${CREATE_VLAN_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_VLAN_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CUSTOMPROP}     /tmp/${BUNDLEFOLDER}/etc/custom.properties    # Full path of custom.properties file
 ${DEFAULT_LINUX_PROMPT}    >    # Generic *_SYSTEM prompt for SSHLibrary.Read_Unti_Prompt. Current value is there for historic reasons. FIXME: Add -v to releng/builder and change this value to more common "$" (without quotes, with backslash). TODO: Replace usage with the strict version.
-${DEFAULT_LINUX_PROMPT_STRICT}    ]>    # A more strict prompt substring, this only matches Bash prompt, not Mininet prompt.
+#${DEFAULT_LINUX_PROMPT_STRICT}    ]>    # A more strict prompt substring, this only matches Bash prompt, not Mininet prompt.
+${DEFAULT_LINUX_PROMPT_STRICT}    >    # A more strict prompt substring, this only matches Bash prompt, not Mininet prompt.
 ${DEFAULT_BGPCEP_LOG_LEVEL}    ${DEFAULT_ODL_LOG_LEVEL}    # Fallback Karaf log level specific to org.opendaylight.bgpcep.
 ${DEFAULT_ODL_LOG_LEVEL}    INFO    # Some suites allow to change overall Karaf log level, this is the default value to set or fall back.
-${DEFAULT_PASSWORD}    ${EMPTY}    # Generic *_SYSTEM linux password. If empty, SSHLibrary.Login_With_Public_Key is attempted instead of SSHLibrary.Login. TODO: Rename to DEFAULT_LINUX_PASSWORD.
+#${DEFAULT_PASSWORD}    ${EMPTY}    # Generic *_SYSTEM linux password. If empty, SSHLibrary.Login_With_Public_Key is attempted instead of SSHLibrary.Login. TODO: Rename to DEFAULT_LINUX_PASSWORD.
+${DEFAULT_PASSWORD}    openstack    # Generic *_SYSTEM linux password. If empty, SSHLibrary.Login_With_Public_Key is attempted instead of SSHLibrary.Login. TODO: Rename to DEFAULT_LINUX_PASSWORD.
 ${DEFAULT_PROTOCOL_LOG_LEVEL}    ${DEFAULT_ODL_LOG_LEVEL}    # Fallback Karaf log level specific to org.opendaylight.protocol.
-${DEFAULT_USER}    jenkins    # Generic *_SYSTEM linux user name name. TODO: Rename to DEFUALT_LINUX_USER. FIXME: Add -v to releng/builder and change the value to something more common, e.g. "vagrant".
+#${DEFAULT_USER}    jenkins    # Generic *_SYSTEM linux user name name. TODO: Rename to DEFUALT_LINUX_USER. FIXME: Add -v to releng/builder and change the value to something more common, e.g. "vagrant".
+${DEFAULT_USER}    openstack    # Generic *_SYSTEM linux user name name. TODO: Rename to DEFUALT_LINUX_USER. FIXME: Add -v to releng/builder and change the value to something more common, e.g. "vagrant".
 ${DEFAULT_TIMEOUT}    30s    # Generic *_SYSTEM SSH.Login timeout. Some systems are slow to authenticate.
 ${DEFAULT_TIMEOUT_HTTP}    5    # Used for HTTP connections
 ${DELETE_DASHBOARDRECORD}    /restconf/operations/dashboardrule:delete-dashboard    # FIXME: Move to a separate Centinel-related Resource and add description.
@@ -130,10 +133,12 @@ ${ODL_OF_PORT_6633}    6633    # Port number ODL communicates using OpenFlow pro
 ${ODL_OF_PORT_6653}    6653    # Port number ODL communicates using OpenFlow protocol on.
 ${ODL_RESTCONF_USER}    admin    # Username for basic HTTP authentication used by requests against ODL RESTCONF server.
 ${ODL_RESTCONF_PASSWORD}    admin    # Plaintext password for basic HTTP authentication used by requests against ODL RESTCONF server.
-${ODL_SYSTEM_1_IP}    127.0.0.1    # IP address of system hosting member 1 od ODL cluster.
+#${ODL_SYSTEM_1_IP}    127.0.0.1    # IP address of system hosting member 1 od ODL cluster.
+${ODL_SYSTEM_1_IP}    192.168.56.105    # IP address of system hosting member 1 od ODL cluster.
 ${ODL_SYSTEM_2_IP}    127.0.0.2    # IP address of system hosting member 2 od ODL cluster.
 ${ODL_SYSTEM_3_IP}    127.0.0.3    # IP address of system hosting member 3 od ODL cluster.
-${ODL_SYSTEM_IP}    ${ODL_SYSTEM_1_IP}    # IP address of system hosting ODL for SSHLibrary to connect to. First node if ODL is a cluster.
+${ODL_SYSTEM_IP}    192.168.56.105    # IP address of system hosting ODL for SSHLibrary to connect to. First node if ODL is a cluster.
+#${ODL_SYSTEM_IP}    ${ODL_SYSTEM_1_IP}    # IP address of system hosting ODL for SSHLibrary to connect to. First node if ODL is a cluster.
 @{ODL_SYSTEM_IP_LIST}    ${ODL_SYSTEM_1_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}    # Deprecated. List of ODL cluster member IP addresses. See ClusterManagement.robot for alternatives.
 ${ODL_SYSTEM_USER}    ${DEFAULT_USER}    # Linux username specific for ODL systems.
 ${ODL_SYSTEM_PASSWORD}    ${DEFAULT_PASSWORD}    # Linux password (or empty to use public key) specific for ODL systems.
@@ -185,9 +190,12 @@ ${SW}             switches    # A shorthand. FIXME: Find who uses this and elimi
 ${TOOLS_SYSTEM_1_IP}    127.0.0.1    # IP address of first system hosting testing tools.
 ${TOOLS_SYSTEM_2_IP}    127.0.0.2    # IP address of second system hosting testing tools.
 ${TOOLS_SYSTEM_3_IP}    127.0.0.3    # IP address of third system hosting testing tools.
-${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}    # IP address of primary system hosting testing tools.
-${TOOLS_SYSTEM_USER}    ${DEFAULT_USER}    # Linux user name specific for tools systems.
-${TOOLS_SYSTEM_PASSWORD}    ${DEFAULT_PASSWORD}    # Linux password specific for tools systems.
+#${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_1_IP}    # IP address of primary system hosting testing tools.
+${TOOLS_SYSTEM_IP}    192.168.56.103    # IP address of primary system hosting testing tools.
+#${TOOLS_SYSTEM_USER}    ${DEFAULT_USER}    # Linux user name specific for tools systems.
+${TOOLS_SYSTEM_USER}    mininet    # Linux user name specific for tools systems.
+#${TOOLS_SYSTEM_PASSWORD}    ${DEFAULT_PASSWORD}    # Linux password specific for tools systems.
+${TOOLS_SYSTEM_PASSWORD}    mininet    # Linux password specific for tools systems.
 ${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}    # Bash prompt substring specific for tools systems.
 ${TOPO_TREE_DEPTH}    3    # Part of Mininet configuration? FIXME: Find who uses this and eliminate, or at least add a good description.
 ${TOPO_TREE_FANOUT}    2    # Part of Mininet configuration? FIXME: Find who uses this and eliminate, or at least add a good description.
@@ -208,3 +216,15 @@ ${VTNS}           vtns    # A shorthand. FIXME: Find who uses this and eliminate
 ${VTNS_CREATE}    vtns.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VTNWEBAPI}      /vtn-webapi    # Directory part of URI used when sending HTTP requests to VTN Coordinator. TODO: Move to a VTN-specific Resource.
 # Keep this list sorted alphabetically.
+${OS_CONTROL_NODE_IP}    192.168.56.100
+${USER_HOME}      /root/
+${OS_COMPUTE_1_IP}    192.168.56.100
+${OS_USER}        openstack
+${DEVSTACK_SYSTEM_PASSWORD}    openstack
+${DEVSTACK_DEPLOY_PATH}    /home/openstack/devstack
+${OS_COMPUTE_2_IP}    192.168.56.101
+${NUM_OS_SYSTEM}    3
+${NUM_ODL_SYSTEM}    1
+${WORKSPACE}      /home/openstack
+${BUNDLEFOLDER}    karaf-0.7.2
+${OPENSTACK_BRANCH}    stable/newton

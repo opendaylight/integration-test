@@ -21,6 +21,7 @@ Resource          ../../../variables/Variables.robot
 Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
+${ODL_SYSTEM_IP}    192.168.56.105
 ${SECURITY_GROUP}    vpn_sg_dualstack
 @{NETWORKS}       vpn_net_1_dualstack    vpn_net_2_dualstack
 @{SUBNETS4}       vpn_net_ipv4_1_dualstack    vpn_net_ipv4_2_dualstack

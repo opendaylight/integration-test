@@ -17,7 +17,7 @@ ${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
 Start Quagga Processes On ODL
     [Arguments]    ${odl_ip}
     [Documentation]    To start the zrpcd processes on ODL VM
-    ${conn_id}=    Open_Connection_To_ODL_System    ip_address=${odl_ip}
+    ${conn_id} =    Open_Connection_To_ODL_System    ip_address=${odl_ip}
     Switch Connection    ${conn_id}
     Write Commands Until Expected Prompt    cd /opt/quagga/etc/    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo cp zebra.conf.sample zebra.conf    ${DEFAULT_LINUX_PROMPT_STRICT}
@@ -59,7 +59,7 @@ Show Quagga Configuration On ODL
 Create Quagga Telnet Session
     [Arguments]    ${ip}    ${user}    ${password}
     [Documentation]    Create telnet session for Quagga
-    ${conn_id}=    Open_Connection_To_Tools_System    ip_address=${ip}
+    ${conn_id} =    Open_Connection_To_Tools_System    ip_address=${ip}
     Switch Connection    ${conn_id}
     ${output} =    Write    telnet localhost ${user}
     ${output} =    Read Until    Password:
@@ -200,7 +200,7 @@ Teardown_Everything
 Check_Example_Bgp_Rib_Content
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
     [Documentation]    Check the example-bgp-rib content for string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
+    ${response} =    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${substr}    ${error_message}    values=False
@@ -208,7 +208,7 @@ Check_Example_Bgp_Rib_Content
 Check_Example_Bgp_Rib_Does_Not_Contain
     [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} found, but not expected.
     [Documentation]    Check the example-bgp-rib does not contain the string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
+    ${response} =    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${substr}    ${error_message}    values=False
@@ -216,7 +216,7 @@ Check_Example_Bgp_Rib_Does_Not_Contain
 Check_Example_IPv4_Topology_Content
     [Arguments]    ${session}    ${string_to_check}=${EMPTY}
     [Documentation]    Check the example-ipv4-topology content for string
-    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
+    ${response} =    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${string_to_check}
@@ -243,3 +243,36 @@ Bmp_Monitor_Postcondition
     ${output}    BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_DIR}    mapping=${mapping}
     ...    session=${session}    verify=True
     BuiltIn.Log    ${output}
+
+Restart bgp Processes On ODL
+    [Arguments]    ${odl_ip}
+    [Documentation]    To restart the bgpd , qthriftd processes on ODL VM
+    ${conn_id} =    Open_Connection_To_ODL_System    ip_address=${odl_ip}
+    Switch Connection    ${conn_id}
+    Write Commands Until Expected Prompt    sudo pkill -f bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    cd /opt/quagga/etc/    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo cp zebra.conf.sample zebra.conf    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo /opt/quagga/etc/init.d/zrpcd -N ${odl_ip}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    ps -ef | grep zrpcd    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    netstat -nap | grep 7644    ${DEFAULT_LINUX_PROMPT_STRICT}
+
+Restart BGP Processes On DCGW
+    [Arguments]    ${dcgw_ip}
+    [Documentation]    To Restart the zrpcd, bgpd,and zebra processes on DCGW
+    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
+    Switch Connection    ${dcgw_conn_id}
+    Write Commands Until Expected Prompt    sudo pkill -f bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    cd /opt/quagga/etc/    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo cp zebra.conf.sample zebra.conf    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo /opt/quagga/etc/init.d/zrpcd start    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    ps -ef | grep zrpcd    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    cd /opt/quagga/sbin/    ${DEFAULT_LINUX_PROMPT_STRICT}
+    ${output} =    Write    sudo ./bgpd &
+    ${output} =    Read Until    pid
+    Log    ${output}
+    ${output} =    Write    sudo ./zebra &
+    ${output} =    Read
+    Log    ${output}
+    Write Commands Until Expected Prompt    ps -ef | grep bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    ps -ef | grep thrift    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    netstat -nap | grep 179    ${DEFAULT_LINUX_PROMPT_STRICT}

@@ -537,7 +537,7 @@ Show Debugs
     OpenStackOperations.Get ControlNode Connection
     ${output} =    DevstackUtils.Write Commands Until Prompt And Log    sudo ip netns list
     : FOR    ${index}    IN    @{vm_indices}
-    \    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    nova show ${index}
+    \    ${rc}    ${output} =    Run And Return Rc And Output    nova show ${index}
     \    BuiltIn.Log    ${output}
     OpenStackOperations.List Nova VMs
     OpenStackOperations.List Routers
@@ -645,7 +645,7 @@ Neutron Security Group Rule Create Legacy Cli
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${cmd} =    BuiltIn.Run Keyword If    '${remote_ip_prefix}'!='None'    BuiltIn.Catenate    ${cmd}    --remote_ip_prefix ${remote_ip_prefix}
     ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output} =    Run And Return Rc And Output    ${cmd}
     ${rule_id} =    BuiltIn.Should Match Regexp    ${output}    ${REGEX_UUID}
     BuiltIn.Log    ${rule_id}
     BuiltIn.Should Be True    '${rc}' == '0'
@@ -679,7 +679,7 @@ Create Allow All SecurityGroup
 Create Neutron Port With Additional Params
     [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
     [Documentation]    Create Port With given additional parameters
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    neutron -v port-create ${network_name} --name ${port_name} ${additional_args}
+    ${rc}    ${output} =    Run And Return Rc And Output    neutron -v port-create ${network_name} --name ${port_name} ${additional_args}
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
     ${port_id} =    BuiltIn.Should Match Regexp    ${OUTPUT}    ${REGEX_UUID}
@@ -713,7 +713,7 @@ Get Port Mac
 Create L2Gateway
     [Arguments]    ${bridge_name}    ${intf_name}    ${gw_name}
     [Documentation]    Keyword to create an L2 Gateway ${gw_name} for bridge ${bridge_name} connected to interface ${intf_name} (Using Neutron CLI).
-    ${rc}    ${l2gw_output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_CREATE} name=${bridge_name},interface_names=${intf_name} ${gw_name}
+    ${rc}    ${l2gw_output} =    Run And Return Rc And Output    ${L2GW_CREATE} name=${bridge_name},interface_names=${intf_name} ${gw_name}
     BuiltIn.Log    ${l2gw_output}
     [Return]    ${l2gw_output}
 
@@ -727,27 +727,27 @@ Update L2Gateway
 Create L2Gateway Connection
     [Arguments]    ${gw_name}    ${net_name}
     [Documentation]    Keyword would create a new L2 Gateway Connection for ${gw_name} to ${net_name} (Using Neutron CLI).
-    ${rc}    ${l2gw_output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_CONN_CREATE} ${gw_name} ${net_name}
+    ${rc}    ${l2gw_output} =    Run And Return Rc And Output    ${L2GW_CONN_CREATE} ${gw_name} ${net_name}
     BuiltIn.Log    ${l2gw_output}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${l2gw_output}
 
 Get All L2Gateway
     [Documentation]    Keyword to return all the L2 Gateways available (Using Neutron CLI).
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_GET_YAML}
+    ${rc}    ${output} =    Run And Return Rc And Output    ${L2GW_GET_YAML}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Get All L2Gateway Connection
     [Documentation]    Keyword to return all the L2 Gateway connections available (Using Neutron CLI).
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_GET_CONN_YAML}
+    ${rc}    ${output} =    Run And Return Rc And Output    ${L2GW_GET_CONN_YAML}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
 Get L2Gateway
     [Arguments]    ${gw_id}
     [Documentation]    Keyword to check if the ${gw_id} is available in the L2 Gateway list (Using Neutron CLI).
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_SHOW} ${gw_id}
+    ${rc}    ${output} =    Run And Return Rc And Output    ${L2GW_SHOW} ${gw_id}
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
@@ -755,7 +755,7 @@ Get L2Gateway
 Get L2gw Id
     [Arguments]    ${l2gw_name}
     [Documentation]    Keyword to retrieve the L2 Gateway ID for the ${l2gw_name} (Using Neutron CLI).
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_GET} | grep "${l2gw_name}" | awk '{print $2}'
+    ${rc}    ${output} =    Run And Return Rc And Output    ${L2GW_GET} | grep "${l2gw_name}" | awk '{print $2}'
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
     ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
@@ -766,7 +766,7 @@ Get L2gw Connection Id
     [Arguments]    ${l2gw_name}
     [Documentation]    Keyword to retrieve the L2 Gateway Connection ID for the ${l2gw_name} (Using Neutron CLI).
     ${l2gw_id} =    OpenStackOperations.Get L2gw Id    ${l2gw_name}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_GET_CONN} | grep "${l2gw_id}" | awk '{print $2}'
+    ${rc}    ${output} =    Run And Return Rc And Output    ${L2GW_GET_CONN} | grep "${l2gw_id}" | awk '{print $2}'
     BuiltIn.Should Be True    '${rc}' == '0'
     ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
     ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
@@ -940,7 +940,7 @@ OpenStack CLI Get List
 OpenStack CLI
     [Arguments]    ${cmd}
     [Documentation]    Run the given OpenStack ${cmd} and log the output.
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output} =    Run And Return Rc And Output    ${cmd}
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
@@ -948,7 +948,7 @@ OpenStack CLI
 OpenStack CLI With No Log
     [Arguments]    ${cmd}
     [Documentation]    Run the given OpenStack ${cmd} and do not log the output.
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${rc}    ${output} =    Run And Return Rc And Output    ${cmd}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
 
@@ -994,8 +994,8 @@ OpenStack Suite Setup
     @{loggers} =    BuiltIn.Create List    org.apache.karaf.shell.support.ShellUtil
     Setuputils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    OFF    ${loggers}
     DevstackUtils.Devstack Suite Setup
-    @{tcpdump_port_6653_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_port_6653    port 6653    @{OS_ALL_IPS}
-    BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
+    #    @{tcpdump_port_6653_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_port_6653    port 6653    @{OS_ALL_IPS}
+    #    BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
     BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
 
@@ -1051,3 +1051,46 @@ Start Packet Capture On Nodes
 Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+
+List Projects
+    [Documentation]    List projects and return output
+    ${output} =    OpenStack CLI    openstack project list
+    [Return]    ${output}
+
+VM Creation Quota Update
+    [Arguments]    ${num_instances}
+    [Documentation]    Update VM Creation Quota
+    ${output} =    OpenStackOperations.List Projects
+    ${split_output} =    String.Split String    ${output}
+    ${index} =    Collections.Get Index From List    ${split_output}    admin
+    ${output} =    OpenStack CLI    openstack quota set --instances ${num_instances} ${split_output[${index-2}]}
+    [Return]    ${output}
+
+Source Password
+    [Arguments]    ${force}=no    ${source_pwd}=yes
+    [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
+    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
+    #Get ControlNode Connection
+    #    SSHLibrary.Switch Connection    ${OS_CNTL_CONN_ID}
+    #    Source Password    force=yes
+    #    [Return]    ${OS_CNTL_CONN_ID}
+
+Get DevStack Nodes Data
+    [Documentation]    Assign global variables for DevStack nodes
+    BuiltIn.Set Suite Variable    ${OS_CNTL_IP}    ${OS_CONTROL_NODE_IP}
+    BuiltIn.Run Keyword If    ${NUM_OS_SYSTEM} == 1    DevstackUtils.Set Node Data For AllinOne Setup
+    ...    ELSE IF    ${NUM_OS_SYSTEM} == 2    DevstackUtils.Set Node Data For Control And Compute Node Setup
+    ...    ELSE IF    ${NUM_OS_SYSTEM} == 3    DevstackUtils.Set Node Data For Control Only Node Setup
+    Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    DevstackUtils.Get DevStack Hostnames
+
+Run And Return Rc And Output
+    [Arguments]    ${cmd}
+    #Get ControlNode Connection
+    DevstackUtils.Open Connection    ${OS_CMP1_CONN_ID}    ${OS_COMPUTE_1_IP}
+    Source Password    force=yes
+    ${output}=    Write Commands Until Prompt    ${cmd}
+    Log    ${output}
+    ${out}=    Evaluate    "Command Returns 0" in """${output}"""
+    ${rc} =    Set Variable If    ${out} == 'True'    ${1}    ${0}
+    [Return]    ${rc}    ${output}
