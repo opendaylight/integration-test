@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "2312b1b3_5d2df771",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-23T19:32:47Z",
+      "side": 1,
+      "message": "what about this idea (I\u0027m always trying to find ways to reduce duplication)  ;-)\n\nmake the \"Check For Elements At Uri\" [Return] ${resp.content} then have this keyword just call that\none and do the pretty print it.\n\n-or- (not sure which is better), add a flag to the original keyword like ${pretty_print_json}\u003dFlase\nthen conditionally do the pretty stuff.",
+      "parentUuid": "84f22ee1_298dab5c",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 50
+      },
+      "revId": "ee27cc118f8cc6f9cd7344fe87c4e891df146c67",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75add007_a852fcbe",
         "filename": "csit/suites/ovsdb/Ovsdb.robot",
         "patchSetId": 32
@@ -219,6 +243,24 @@
       "side": 1,
       "message": "These are keywords used for the ovsdb suite only so it didn\u0027t make sense to be in the OVSDB.lib.",
       "parentUuid": "75add007_a852fcbe",
+      "revId": "ee27cc118f8cc6f9cd7344fe87c4e891df146c67",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33ce8184_31d3d2d9",
+        "filename": "csit/suites/ovsdb/Ovsdb.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-23T19:32:47Z",
+      "side": 1,
+      "message": "I don\u0027t know... this file file is a library. And OVSDB.robot in the libraries folder is just for keywords used by the ovsdb suites (mostly) I still think these should just go in the main OVSDB lib or if there is a real need to keep them in their own file, make a csit/libraries/ovsdb/ folder and put it there. We don\u0027t have library files under the suites/ folder anywhere else afaik.",
+      "parentUuid": "feece312_ea46bdd3",
       "revId": "ee27cc118f8cc6f9cd7344fe87c4e891df146c67",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
