@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dad27b5_76013f93",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-02-23T14:27:09Z",
+      "side": 1,
+      "message": "Can we make this run only in Oxygen?",
+      "revId": "086b991519415b0bcf4cc03250868e7b067ff419",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
