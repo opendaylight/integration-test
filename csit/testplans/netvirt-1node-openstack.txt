@@ -8,3 +8,5 @@ integration/test/csit/suites/netvirt/vpnservice/vpn_basic.robot
 integration/test/csit/suites/netvirt/vpnservice/vpn_basic_ipv6.robot
 integration/test/csit/suites/netvirt/elan/elan.robot
 integration/test/csit/suites/netvirt/vpnservice/arp_learning.robot
+integration/test/csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot
+
