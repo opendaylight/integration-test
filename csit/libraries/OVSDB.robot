@@ -15,6 +15,7 @@ ${OVSDB_CONFIG_DIR}    ${CURDIR}/../variables/ovsdb
 ${OVSDB_NODE_PORT}    6634
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F
 ${SOUTHBOUND_NODE_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
+${OVSDB_STATE}    state=ACTIVE
 
 *** Keywords ***
 Log Request
@@ -355,3 +356,10 @@ Stop OVS
     [Documentation]    Stop the OVS node.
     ${output} =    Utils.Run Command On Mininet    ${ovs_ip}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
     BuiltIn.Log    ${output}
+
+Get Ovsdb State
+    [Arguments]    ${dpn_ip}
+    [Documentation]    Get Ovsdb State for the DPNs
+    ${output_dpn1} =    Utils.Run Command On Remote System    ${dpn_ip}    sudo ovsdb-client dump -f list Open_vSwitch Controller | grep state
+    BuiltIn.Log    ${output_dpn1}
+    BuiltIn.Should Contain    ${output_dpn1}    ${OVSDB_STATE}
