@@ -1,11 +1,14 @@
 *** Settings ***
 Documentation     Test suite for Ovsdb Southbound Cluster - Owner failover and recover
-Suite Setup       ClusterManagement Setup
+Suite Setup       Suite Setup
 Suite Teardown    Delete All Sessions
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Library           Collections
 Library           RequestsLibrary
-Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
-Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/ClusterOvsdb.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../variables/Variables.robot
 
 *** Test Cases ***
 Check Shards Status Before Fail
@@ -19,11 +22,11 @@ Start OVS Multiple Connections
 
 Check Entity Owner Status And Find Owner and Candidate Before Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${original_owner}    ${original_candidate_list}    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
-    ${original_candidate}=    Get From List    ${original_candidate_list}    0
-    Set Suite Variable    ${original_owner}
-    Set Suite Variable    ${original_candidate_list}
-    Set Suite Variable    ${original_candidate}
+    ${original_owner}    ${original_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    ${original_candidate} =    Collections.Get From List    ${original_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_candidate_list}
+    BuiltIn.Set Suite Variable    ${original_candidate}
 
 Create Bridge Manually and Verify Before Fail
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -72,7 +75,7 @@ Delete Bridge In Owner And Verify Before Fail
 Kill Owner Instance
     [Documentation]    Kill Owner Instance and verify it is dead
     ClusterManagement.Kill Single Member    ${original_owner}
-    Set Suite Variable    ${new_cluster_list}    ${original_candidate_list}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}    ${original_candidate_list}
 
 Check Shards Status After Fail
     [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
@@ -80,10 +83,10 @@ Check Shards Status After Fail
 
 Check Entity Owner Status And Find Owner and Candidate After Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidate_list}    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_candidate}    ${new_cluster_list}
-    ${new_candidate}=    Get From List    ${new_candidate_list}    0
-    Set Suite Variable    ${new_owner}
-    Set Suite Variable    ${new_candidate}
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_candidate}    ${new_cluster_list}
+    ${new_candidate} =    Collections.Get From List    ${new_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_candidate}
 
 Create Bridge Manually and Verify After Fail
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -131,8 +134,8 @@ Check Shards Status After Recover
 
 Check Entity Owner Status After Recover
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidate_list}    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
-    Set Suite Variable    ${new_owner}
+    ${new_owner}    ${new_candidate_list} =    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    1
+    BuiltIn.Set Suite Variable    ${new_owner}
 
 Create Bridge Manually and Verify After Recover
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -193,3 +196,8 @@ Delete Bridge In Old Owner And Verify After Recover
 Cleans Up Test Environment For Next Suite
     [Documentation]    Cleans up test environment, close existing sessions in teardown.
     ClusterOvsdb.Configure Exit OVSDB Connection
+
+*** Keywords ***
+Suite Setup
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    ClusterManagement.ClusterManagement Setup
