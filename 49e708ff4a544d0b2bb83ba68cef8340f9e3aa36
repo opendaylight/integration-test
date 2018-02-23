@@ -16,6 +16,24 @@
       "revId": "49e708ff4a544d0b2bb83ba68cef8340f9e3aa36",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffc73124_213caca7",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-02-23T10:22:52Z",
+      "side": 1,
+      "message": "Hi Luis,\nWe do not need openstack.suite has been executed on plain vm with just ovs installed and karaf distribution with odl-openflowplugin-flow-services-rest installed.\n\nWe had issues in testing with mininet vm wherein we couldn\u0027t see the bundle messages in ovs.That\u0027s the reason we had tested on plain vm with only ovs installed.",
+      "parentUuid": "380d2dd9_725ab14f",
+      "revId": "49e708ff4a544d0b2bb83ba68cef8340f9e3aa36",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
