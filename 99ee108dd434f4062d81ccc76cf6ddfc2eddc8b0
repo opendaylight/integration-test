@@ -34,6 +34,24 @@
       "revId": "99ee108dd434f4062d81ccc76cf6ddfc2eddc8b0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3212ebe_5aa5fb53",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-24T04:38:49Z",
+      "side": 1,
+      "message": "I took this file as a karaf lib - so anything dealing with karaf, and not a KarafCli.robot. Most of it is exercised with karaf cli, but in many cases the functionality created deals with more than the cli, like the above keywords modifying the logs or the other log keywords down below that were already here.\n\nA new file for just logging specific might be ok, but it will be karaf log specific right? That might end up confusing where to put some of the keywords - here or in the new KarafLogging.robot.",
+      "parentUuid": "6c5261d1_42086b22",
+      "revId": "99ee108dd434f4062d81ccc76cf6ddfc2eddc8b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
