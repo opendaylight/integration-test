@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ea0b89a_994ce613",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 41
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-24T04:27:55Z",
+      "side": 1,
+      "message": "add space, i.e } \u003d . We have some cleanup coming and that will be the pattern. Do that for all the new code below.",
+      "range": {
+        "startLine": 222,
+        "startChar": 13,
+        "endLine": 222,
+        "endChar": 15
+      },
+      "revId": "ddc6509848371caa53a5f461d7aaa3a984001d66",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a6e59eb_b4affc36",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 41
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-24T04:27:55Z",
+      "side": 1,
+      "message": "fully qualify these keywords, this should be Utils.Run Command on Remote System. Do the same for all the new code. Also since you are logging this anyways, just use the Utils.Run Command On Remote System And Log keyword so you can remove the Log.",
+      "range": {
+        "startLine": 228,
+        "startChar": 18,
+        "endLine": 228,
+        "endChar": 48
+      },
+      "revId": "ddc6509848371caa53a5f461d7aaa3a984001d66",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05e86aab_06178db7",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 41
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-24T04:27:55Z",
+      "side": 1,
+      "message": "there is usually a  ClusterManagement.ClusterManagement Setup for 3node tests . is that not needed?",
+      "revId": "ddc6509848371caa53a5f461d7aaa3a984001d66",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
