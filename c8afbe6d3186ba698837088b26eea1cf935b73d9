@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc35fa4e_f8086800",
+        "filename": "csit/suites/openstack/deploy/README.md",
+        "patchSetId": 74
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-26T21:24:05Z",
+      "side": 1,
+      "message": "Add a clear message here at the top that indicates this is an initial and/or beta version of things that is in development. a link to your jira as well.",
+      "revId": "c8afbe6d3186ba698837088b26eea1cf935b73d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
