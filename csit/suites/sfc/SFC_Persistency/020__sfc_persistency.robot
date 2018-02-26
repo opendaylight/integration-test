@@ -10,6 +10,7 @@ Library           HttpLibrary.HTTP
 Library           ../../../libraries/SFC/SfcUtils.py
 Resource          ../../../libraries/SFC/SfcKeywords.robot
 Resource          ../../../libraries/ClusterOpenFlow.robot
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/Utils.robot
@@ -29,7 +30,7 @@ ${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFC1-100","nam
 
 *** Test Cases ***
 Add SFC Elements and restart cluster
-    [Documentation]    Add SFC Elements and restart the cluster. Next, it is queried the RSP wich returns a 404 error code.
+    [Documentation]    Add SFC Elements, restart the cluster and check that persisted resources are present
     Add SFC Elements
     ${session} =    Resolve Http Session for Controller
     Kill_Members_From_List_Or_All
@@ -41,7 +42,10 @@ Add SFC Elements and restart cluster
     Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_CHAINS_URI}
     Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${SERVICE_FUNCTION_PATHS_URI}
     Wait until Keyword succeeds    2min    5 sec    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False
-    Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session    ${OPERATIONAL_RSPS_URI}
+    # From oxygen, RSPs are persisted between reboots
+    Run_Keyword_If_At_Least_Else    oxygen    Wait until Keyword succeeds    2min    5 sec    Get Data From URI    session
+    ...    ${OPERATIONAL_RSPS_URI}
+    ...    ELSE    No Content From URI    session    ${OPERATIONAL_RSPS_URI}
     [Teardown]    Remove SFC Elements
 
 *** Keywords ***
