@@ -161,7 +161,7 @@ supported decoding for these elements."
     parser.add_argument("--skipattr", default=False, action="store_true", help=str_help)
     arguments = parser.parse_args()
     if arguments.multiplicity < 1:
-        print "Multiplicity", arguments.multiplicity, "is not positive."
+        print ("Multiplicity"), arguments.multiplicity, "is not positive."
         raise SystemExit(1)
     # TODO: Are sanity checks (such as asnumber>=0) required?
     return arguments
@@ -1935,7 +1935,7 @@ def threaded_job(arguments):
         for t in thread_args:
             thread.start_new_thread(job, (t, rpcqueue, storage))
     except Exception:
-        print "Error: unable to start thread."
+        print ("Error: unable to start thread.")
         raise SystemExit(2)
 
     rpcserver = SimpleXMLRPCServer((arguments.myip.compressed, 8000), allow_none=True)
