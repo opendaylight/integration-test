@@ -222,6 +222,20 @@ Run Command On Controller
     [Documentation]    Call Run Comand On Remote System, but with default values suitable for Controller machine.
     BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    ${user}    ${password}    prompt=${prompt}
 
+Run Command On Existing Connection
+    [Arguments]    ${conn_id}=${EMPTY}    ${cmd}=echo    ${return_stdout}=True    ${return_stderr}=False
+    [Documentation]    Switch to and run command on an already existing SSH connection and switch back
+    Run Keyword If    "${return_stdout}"!="True" and "${return_stderr}"!="True"    Fail    At least one of {return_stdout} or {return_stderr} args should be set to True
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    BuiltIn.Log    Attempting to execute command "${cmd}" on existing connection "${conn_id}
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
+    Log    ${stderr}
+    Run Keyword If    "${return_stdout}"!="True"    Return From Keyword    ${stderr}
+    Run Keyword If    "${return_stderr}"!="True"    Return From Keyword    ${stdout}
+    [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
+    [Return]    ${stdout}    ${stderr}
+
 Verify File Exists On Remote System
     [Arguments]    ${system}    ${file}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=5s
     [Documentation]    Will create connection with public key and will PASS if the given ${file} exists,
