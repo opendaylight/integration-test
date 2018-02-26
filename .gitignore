@@ -27,3 +27,6 @@ report.html
 .tox/
 *.egg-info/
 .*.marks
+**/*.log
+**/*.csv
+**/*.out
