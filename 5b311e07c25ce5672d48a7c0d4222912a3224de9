@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4589a823_73d6597b",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-02-27T13:31:26Z",
+      "side": 1,
+      "message": "We should make this a single keyword and cover all versions by passing in the branch so we don\u0027t have to keep adding branch specific keywords. That can be taken up in another patch",
+      "revId": "5b311e07c25ce5672d48a7c0d4222912a3224de9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
