@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fef4c110_5f249454",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-27T06:14:32Z",
+      "side": 1,
+      "message": "need to add flourine here too.",
+      "revId": "4a870d0f91de2484b8646cdb848a8920db39dfe6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
