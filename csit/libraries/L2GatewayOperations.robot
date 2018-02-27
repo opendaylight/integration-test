@@ -173,7 +173,7 @@ Verify Ping In Namespace Extra Timeout
     ${output}=    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ping -c3 ${vm_ip}    30s
     Log    ${output}
     Should Not Contain    ${output}    ${PACKET_LOSS}
-    Wait Until Keyword Succeeds    30s    2s    Verify Mcas Local Table While Ping    ${ns_port_mac}    ${conn_id}
+    Wait Until Keyword Succeeds    30s    2s    Verify Macs Local Table While Ping    ${ns_port_mac}    ${conn_id}
 
 Verify Ping Fails In Namespace
     [Arguments]    ${ns_name}    ${ns_port_mac}    ${vm_ip}    ${conn_id}=${hwvtep_conn_id}    ${hwvtep_ip}=${HWVTEP_IP}
@@ -182,7 +182,7 @@ Verify Ping Fails In Namespace
     Log    ${output}
     Should Contain    ${output}    ${PACKET_LOSS}
 
-Verify Mcas Local Table While Ping
+Verify Macs Local Table While Ping
     [Arguments]    ${mac}    ${conn_id}
     [Documentation]    Keyword to check if ${mac} is available under UCAST_MACS_LOCALE_TABLE of HWVTEP dump table.
     Verify Vtep List    ${conn_id}    ${UCAST_MACS_LOCALE_TABLE}    ${mac}
