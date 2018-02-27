@@ -171,11 +171,11 @@ TC16 Verify L2Gateway Connection
     Should Contain    ${output}    physicalswitch/${HWVTEP_BRIDGE}
     Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${hwvtep_conn_id}    ${TUNNEL_TABLE}    enable="true"
     ${phy_port_out}=    Get Vtep List    ${PHYSICAL_PORT_TABLE}
-    Validate Regexp In String    ${phy_port_out}    ${VLAN_BINDING_REGEX}    1
+    Validate Regexp In String    ${phy_port_out}    ${VLAN_BINDING_REGEX}    3
     ${list}=    Create List    ${OVS_IP}    ${HWVTEP_IP}
     Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${hwvtep_conn_id}    ${PHYSICAL_LOCATOR_TABLE}    @{list}
     Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${hwvtep_conn_id}    ${UCAST_MACS_REMOTE_TABLE}    ${port_mac_list[0]}
-    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${hwvtep_conn_id}    ${UCAST_MACS_REMOTE_TABLE}    ${port_mac_list[4]}
+    Wait Until Keyword Succeeds    30s    1s    L2GatewayOperations.Verify Vtep List    ${hwvtep_conn_id}    ${UCAST_MACS_REMOTE_TABLE}    ${port_mac_list[2]}
 
 TC17 Dhcp Ip Allocation For Hwvtep Tap Port
     [Documentation]    Verify the 2nd HWVTEP port was able to get an IP address
