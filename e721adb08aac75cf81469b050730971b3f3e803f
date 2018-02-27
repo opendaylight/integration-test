@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52fedc2e_ef06afc8",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-27T01:54:04Z",
+      "side": 1,
+      "message": "this reminded me of some complex stuff Vratko did. Wondering if you can just make use of that instead?\n\nlike this keyword:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/SSHKeywords.robot#L65\n\nexample of it being used:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/ClusterManagement.robot#L547",
+      "revId": "e721adb08aac75cf81469b050730971b3f3e803f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
