@@ -34,6 +34,24 @@
       "revId": "4a870d0f91de2484b8646cdb848a8920db39dfe6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3abeb209_199a023a",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-27T18:31:44Z",
+      "side": 1,
+      "message": "yeah, the internals below are just doing fancy math like is 7 \u003e 8, and we need to assign a number to flourine :)",
+      "parentUuid": "1a5046e4_cdd35e18",
+      "revId": "4a870d0f91de2484b8646cdb848a8920db39dfe6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
