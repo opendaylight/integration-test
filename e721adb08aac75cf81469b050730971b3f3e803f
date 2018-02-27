@@ -16,6 +16,24 @@
       "revId": "e721adb08aac75cf81469b050730971b3f3e803f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2091f135_ef1e1017",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2018-02-27T11:09:38Z",
+      "side": 1,
+      "message": "Found the function and considered using it.\n\nDecided against it because Run_Keyword_preserve_connection is mostly used in ClusterManagement, which is built around ODL cluster and controllers. And eventually calls Run Command on Controller, which calls Run Command on Remote system, which creates a temporary SSH connection. \n\nThe problem with this solution was, that it doesn\u0027t allow me to easily execute commands on computes, as they are not part of the cluster, and don\u0027t have a member index. This is because ClusterManagement and OpenstackOperations+DevStackUtils handle SSHConnections and execution of commands in a different fashion.\n\nSo I figured it would be a good idea to reuse connections to computes established in DevstackUtils.Setup, instead of hacking around ClusterManagement.",
+      "parentUuid": "52fedc2e_ef06afc8",
+      "revId": "e721adb08aac75cf81469b050730971b3f3e803f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
