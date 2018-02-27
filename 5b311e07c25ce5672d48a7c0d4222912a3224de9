@@ -16,6 +16,24 @@
       "revId": "5b311e07c25ce5672d48a7c0d4222912a3224de9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f87535f_d72a2d9e",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-27T18:31:44Z",
+      "side": 1,
+      "message": "we could, but there is also some value in having these really easy to read keywords with specific versions in their name.\n\nwhich reminds me of a robot feature to embed arguments in the keyword name. for example:\n\nSet Variable If At Most ${release_ver}\n    \u003cdo whatever with ${release_ver}\u003e\n\nthen you call it like this:\n\nSet Variable If At Most Flourine\n\nanyway, like you say, in another patch maybe. low priority",
+      "parentUuid": "4589a823_73d6597b",
+      "revId": "5b311e07c25ce5672d48a7c0d4222912a3224de9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
