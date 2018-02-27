@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "348e0d4d_2fbbdb3d",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-27T01:56:18Z",
+      "side": 1,
+      "message": "put these variables in the netvirt variables file. same as the display vars below.\n\nthat\u0027s probably the only project that will care about it.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 56
+      },
+      "revId": "12eb5e7bba62aaf77bd0c5b12097450413f4bf49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
