@@ -7,4 +7,4 @@ integration/test/csit/suites/openstack/securitygroup/neutron_security_group.robo
 integration/test/csit/suites/netvirt/vpnservice/vpn_basic.robot
 integration/test/csit/suites/netvirt/vpnservice/vpn_basic_ipv6.robot
 integration/test/csit/suites/netvirt/elan/elan.robot
-integration/test/csit/suites/netvirt/vpnservice/arp_learning.robot
+integration/test/csit/suites/netvirt/L2L3_GatewayMac_ARP.robot
