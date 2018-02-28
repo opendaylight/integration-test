@@ -214,16 +214,35 @@ Get Subnet
 Get Ethernet Adapter
     [Arguments]    ${ip}
     [Documentation]    Returns the ethernet adapter name from the system at the given ip address using ip addr show.
-    ${adapter} =    Builtin.Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d " " -f 11
+    ${adapter} =    Utils.Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d " " -f 11
     BuiltIn.Log    ${adapter}
     [Return]    ${adapter}
 
 Get Default Gateway
     [Arguments]    ${ip}
     [Documentation]    Returns the default gateway at the given ip address using route command.
-    ${gateway} =    Builtin.Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
+    ${gateway} =    Utils.Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
     BuiltIn.Log    ${gateway}
     [Return]    ${gateway}
+
+Get Port Number
+    [Arguments]    ${portname}    ${ip_addr}
+    [Documentation]    Get the port number for given portname
+    ${command_1}    Set Variable    sudo ovs-ofctl -O OpenFlow13 show br-int | grep ${portname} | awk '{print$1}'
+    BuiltIn.Log    sudo ovs-ofctl -O OpenFlow13 show br-int | grep ${portname} | awk '{print$1}'
+    ${num} =    Utils.Run Command On Remote System    ${ip_addr}    ${command_1}
+    ${port_number}    Should Match Regexp    ${num}    [0-9]+
+    [Return]    ${port_number}
+
+Get Metadata
+    [Arguments]    ${ip_addr}    ${port}
+    [Documentation]    Get the Metadata for a given port
+    ${cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int| grep table=0 | grep in_port=${port}
+    ${output}    Utils.Run Command On Remote System    ${ip_addr}    ${cmd}
+    @{list_any_matches} =    String.Get_Regexp_Matches    ${output}    metadata:(\\w{12})    1
+    ${metadata1}    Convert To String    @{list_any_matches}
+    ${output}    Get Substring    ${metadata1}    2
+    [Return]    ${output}
 
 Log Config And Operational Topology
     [Documentation]    For debugging purposes, this will log both config and operational topo data stores
