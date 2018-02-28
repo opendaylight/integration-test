@@ -214,14 +214,14 @@ Get Subnet
 Get Ethernet Adapter
     [Arguments]    ${ip}
     [Documentation]    Returns the ethernet adapter name from the system at the given ip address using ip addr show.
-    ${adapter} =    Builtin.Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d " " -f 11
+    ${adapter} =    Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d " " -f 11
     BuiltIn.Log    ${adapter}
     [Return]    ${adapter}
 
 Get Default Gateway
     [Arguments]    ${ip}
     [Documentation]    Returns the default gateway at the given ip address using route command.
-    ${gateway} =    Builtin.Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
+    ${gateway} =    Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
     BuiltIn.Log    ${gateway}
     [Return]    ${gateway}
 
