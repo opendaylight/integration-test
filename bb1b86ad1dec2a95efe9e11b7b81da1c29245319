@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1afe77a1_496acf20",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-28T16:39:12Z",
+      "side": 1,
+      "message": "use .robot",
+      "range": {
+        "startLine": 18,
+        "startChar": 47,
+        "endLine": 18,
+        "endChar": 49
+      },
+      "revId": "bb1b86ad1dec2a95efe9e11b7b81da1c29245319",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
