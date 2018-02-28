@@ -171,6 +171,15 @@ Get Port Id
     ${port_id} =    Collections.Get from List    ${splitted_output}    0
     [Return]    ${port_id}
 
+Get Sub Port Id
+    [Arguments]    ${portname}
+    [Documentation]    Retrieve the first 10 chars of the UUID for the given port name
+    ${port_id} =    OpenStackOperations.Get Port Id    ${portname}
+    ${output} =    String.Get Regexp Matches    ${port_id}    \\w{8}-\\w{2}
+    ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
+    ${subport_id} =    Collections.Get from List    ${splitted_output}    0
+    [Return]    ${subport_id}
+
 Get Router Id
     [Arguments]    ${router1}
     [Documentation]    Retrieve the router id for the given router name
@@ -709,6 +718,14 @@ Get Port Mac
     ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
     ${port_mac} =    Collections.Get from List    ${splitted_output}    0
     [Return]    ${port_mac}
+
+Get Default Gateway Mac Addr
+    [Arguments]    ${default_gw_ip}
+    [Documentation]    Retrieve the gateway mac address for the given default gateway ip
+    ${output} =    OpenStack CLI    openstack port list | grep -w ${default_gw_ip} | awk '{print $5}'
+    ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
+    ${gw_mac_addr} =    Collections.Get from List    ${splitted_output}    0
+    [Return]    ${gw_mac_addr}
 
 Create L2Gateway
     [Arguments]    ${bridge_name}    ${intf_name}    ${gw_name}
