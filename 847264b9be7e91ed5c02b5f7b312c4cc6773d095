@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "262f7460_e782f8e0",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-28T05:41:41Z",
+      "side": 1,
+      "message": "this is there in multiple places already. We should just have it in one place. I see it in variables/netvirt/Variables.robot for one example. This probably applies to some (if not all) of\nthe variables below.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "847264b9be7e91ed5c02b5f7b312c4cc6773d095",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82f46f51_5587a70a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-28T05:41:41Z",
+      "side": 1,
+      "message": "this Logging is handled in the karaf keyword itself. no need to duplicate it here.",
+      "range": {
+        "startLine": 178,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 20
+      },
+      "revId": "847264b9be7e91ed5c02b5f7b312c4cc6773d095",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41ac0471_a52b9c51",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-28T05:41:41Z",
+      "side": 1,
+      "message": "doesn\u0027t it work to just add this as another item in your list on the above line?\n\nalso, just FYI, we have this keyword too, although your method with \"should contain\" and a list of 3+ elements is a little more efficient than calling this keyword 3+ times:\n\n   OVSDB.Verify Ovs-vsctl Output",
+      "range": {
+        "startLine": 189,
+        "startChar": 34,
+        "endLine": 189,
+        "endChar": 48
+      },
+      "revId": "847264b9be7e91ed5c02b5f7b312c4cc6773d095",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00067ca2_1671db13",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-28T05:41:41Z",
+      "side": 1,
+      "message": "don\u0027t need this, do you?",
+      "range": {
+        "startLine": 126,
+        "startChar": 4,
+        "endLine": 126,
+        "endChar": 19
+      },
+      "revId": "847264b9be7e91ed5c02b5f7b312c4cc6773d095",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ada7b0c3_6ccdef33",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-28T05:41:41Z",
+      "side": 1,
+      "message": "don\u0027t need this.\n\napplies elsewhere. just remove any Log calls that you don\u0027t absolutely have to have. Robot is pretty verbose as it is.",
+      "range": {
+        "startLine": 137,
+        "startChar": 4,
+        "endLine": 137,
+        "endChar": 20
+      },
+      "revId": "847264b9be7e91ed5c02b5f7b312c4cc6773d095",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8595162e_9515434b",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-28T05:41:41Z",
+      "side": 1,
+      "message": "please don\u0027t edit or use tihs file. just use Variables.robot, not the .py version.",
+      "revId": "847264b9be7e91ed5c02b5f7b312c4cc6773d095",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52aee1dd_30b6590d",
+        "filename": "csit/variables/genius/Modules.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-02-28T05:41:41Z",
+      "side": 1,
+      "message": "is this stuff ok? I don\u0027t follow it? I know what python - m json.tool does, but why is it here in a list of data models we want to poll on.",
+      "range": {
+        "startLine": 9,
+        "startChar": 36,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "847264b9be7e91ed5c02b5f7b312c4cc6773d095",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
