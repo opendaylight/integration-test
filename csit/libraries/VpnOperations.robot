@@ -49,6 +49,16 @@ VPN Get L3VPN
     Log    ${resp}
     [Return]    ${resp}
 
+VPN Get L3VPN ID
+    [Arguments]    ${vrf_id}
+    [Documentation]    Check that sub interface ip has been learnt after ARP request
+    ${resp} =    RequestsLibrary.Get Request    session    ${VPN_REST}
+    BuiltIn.Log    ${resp.content}
+    @{list_any_matches} =    String.Get_Regexp_Matches    ${resp.content}    \"vpn-instance-name\":\"${VPN_INSTANCE_ID}\",.*"vrf-id":"${vrf_id}",\"vpn-id\":(\\d+)    1
+    ${result} =    Evaluate    ${list_any_matches[0]} * 2
+    ${vpn_id_hex} =    BuiltIn.Convert To Hex    ${result}
+    [Return]    ${vpn_id_hex.lower()}
+
 Associate L3VPN To Network
     [Arguments]    &{Kwargs}
     [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
