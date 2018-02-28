@@ -2,8 +2,8 @@
 Documentation     Test suite to validate elan service functionality in ODL environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       Elan Suite Setup
-Suite Teardown    Elan Suite Teardown
+Suite Setup       OpenStackOperations.OpenStack Suite Setup
+Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     OpenStackOperations.Get Test Teardown Debugs
 Library           OperatingSystem
@@ -124,16 +124,6 @@ Verify Datapath for Multiple ELAN with Multiple DPN
     ...    AND    MultipleElan Testsuite Cleanup
 
 *** Keywords ***
-Elan Suite Setup
-    [Documentation]    Elan suite setup
-    OpenStackOperations.OpenStack Suite Setup
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius.mdsalutil.internal.MDSALManager
-
-Elan Suite Teardown
-    [Documentation]    Elan suite teardown
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO org.opendaylight.genius.mdsalutil.internal.MDSALManager
-    OpenStackOperations.OpenStack Suite Teardown
-
 MultipleElan Testsuite Setup
     [Documentation]    Create additional ELAN for multipleElan with Multiple DPN test
     OpenStackOperations.Create Network    @{NETWORKS}[1]
