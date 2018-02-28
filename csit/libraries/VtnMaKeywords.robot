@@ -14,8 +14,7 @@ Resource          ./TemplatedRequests.robot
 Resource          DataModels.robot
 
 *** Variables ***
-${vlan_topo_10}    --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow10
-${vlan_topo_13}    --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
+${vlan_topo}      --custom vlan_vtn_test.py --topo vlantopo
 ${VERSION_VTN}    controller/nb/v2/vtn/version
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
 ${ENTITY_OWNERS}    restconf/operational/entity-owners:entity-owners
@@ -39,8 +38,7 @@ ${vlanmap_bridge2}    300
 @{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge2_vlan"
 ${out_before_pathpolicy}    output:2
 ${out_after_pathpolicy}    output:3
-${pathpolicy_topo_13}    --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
-${pathpolicy_topo_10}    --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow10
+${pathpolicy_topo}    --custom topo-3sw-2host_multipath.py --topo pathpolicytopo
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
 ${policy_id}      1
 ${in_port}        1
@@ -155,12 +153,12 @@ Verify Data Flows
 Start PathSuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite and Mininet
     Start SuiteVtnMaTest
-    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo_13}    ${custom}
+    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo}    ${custom}    ofversion=13
 
 Start PathSuiteVtnMaTestOF10
     [Documentation]    Start VTN Manager Test Suite and Mininet in Open Flow 10 Specification
     Start SuiteVtnMaTest
-    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo_10}    ${custom}
+    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo}    ${custom}    ofversion=10
 
 Stop PathSuiteVtnMaTest
     [Documentation]    Cleanup/Shutdown work at the completion of all tests.
@@ -252,9 +250,10 @@ Start vlan_topo
     [Arguments]    ${OF}
     [Documentation]    Create custom topology for vlan functionality
     Install Package On Ubuntu System    vlan
-    Run Keyword If    '${OF}' == 'OF13'    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo_13}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
-    ...    ELSE IF    '${OF}' == 'OF10'    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo_10}
-    ...    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    Run Keyword If    '${OF}' == 'OF13'    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    ...    ofversion=13
+    ...    ELSE IF    '${OF}' == 'OF10'    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo}
+    ...    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}    ofversion=10
 
 Get flow
     [Arguments]    ${vtn_name}
