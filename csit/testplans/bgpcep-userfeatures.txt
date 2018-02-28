@@ -9,6 +9,7 @@ integration/test/csit/suites/bgpcep/bgpfunct/050_bmp_basic.robot
 integration/test/csit/suites/bgpcep/pcepuser/pcepuser.robot
 integration/test/csit/suites/bgpcep/bgpfunct/bgp_functional_md5.robot
 integration/test/csit/suites/bgpcep/bgpuser/basic.robot
+integration/test/csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot
 integration/test/csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot
 integration/test/csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot
 integration/test/csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot
