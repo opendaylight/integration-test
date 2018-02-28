@@ -171,6 +171,14 @@ Get Port Id
     ${port_id} =    Collections.Get from List    ${splitted_output}    0
     [Return]    ${port_id}
 
+Get Sub Port Id
+    [Arguments]    ${portname}
+    [Documentation]    Get the Sub Port ID
+    ${port_id}    OpenStackOperations.Get Port Id    ${portname}
+    Should Match Regexp    ${port_id}    \\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}
+    @{output}    Get Regexp Matches    ${port_id}    (\\w{8}-\\w{2})
+    [Return]    ${output[0]}
+
 Get Router Id
     [Arguments]    ${router1}
     [Documentation]    Retrieve the router id for the given router name
@@ -709,6 +717,14 @@ Get Port Mac
     ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
     ${port_mac} =    Collections.Get from List    ${splitted_output}    0
     [Return]    ${port_mac}
+
+Get Default Mac Addr
+    [Arguments]    ${default_gw_ip}
+    [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
+    ${output}=    OpenStack CLI    openstack port list | grep -w ${default_gw_ip} | awk '{print $5}'
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${gw_mac_addr}=    Get from List    ${splitted_output}    0
+    [Return]    ${gw_mac_addr}
 
 Create L2Gateway
     [Arguments]    ${bridge_name}    ${intf_name}    ${gw_name}
