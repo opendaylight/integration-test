@@ -146,6 +146,7 @@ ${OS_SYSTEM_PROMPT}    \$    # Prompt substring specific to OpenStack systems.
 ${OS_CMD_SUCCESS}    Command Returns 0
 ${OSREST}         /v2.0/networks    # FIXME: Move to a separate Neutron-related Resource and add description.
 ${OVSDBPORT}      6640    # Port number ODL uses for OVSDB protocol communication. TODO: Move to OVSDB-specific Resource.
+${OVS_FLOWS_REGEX}    \'s/cookie=\\S\\+\\s\\+duration=\\S\\+\\s\\+\\(.*\\)n_packets=\\S\\+\\s\\+n_bytes=\\S\\+\\s\\(.*\\)/\\1 \\2/g\'
 ${PASSWORD}       ${DEFAULT_PASSWORD}    # Deprecated. FIXME: Eradicate.
 ${PORTMAP_CREATE}    portmap.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${PORT}           8080    # Deprecated. Generic HTTP port. FIXME: Eradicate.

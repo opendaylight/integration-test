@@ -3,6 +3,7 @@ Documentation     Library to provide ovsdb access to mininet topologies
 Library           SSHLibrary
 Library           ${CURDIR}/VsctlListParser.py
 Library           Collections
+Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
 ${SH_BR_CMD}      ovs-vsctl list Bridge
@@ -206,3 +207,11 @@ OvsManager__Enable_Slaves_For_Switch
     \    ${role}=    Collections.Get From Dictionary    ${cntl_value}    role
     \    ${connected}=    Collections.Get From Dictionary    ${cntl_value}    is_connected
     \    Run Keyword If    ${connected}==${False}    Reconnect Switch To Controller And Verify Connected    ${switch}    ${cntl_id}    verify_connected=${verify_connected}
+
+Get OVS Flows
+    [Arguments]    ${ovs_ip}    ${log_flows}=False    ${bridge}=br-int
+    [Documentation]    Get the flows of ${bridge} bridge using ovs-ofctl dump-flows, using a regex to exclude all the non-fixed ones (such as n_bytes)
+    ${flow_output} =    Utils.Run Command On Remote System    ${ovs_ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridge} | sed ${OVS_FLOWS_REGEX} | grep -v idle_timeout
+    BuiltIn.Run Keyword If    ${log_flows} == True    BuiltIn.Log    ${flow_output}
+    BuiltIn.Should Not Be Empty    ${flow_output}
+    [Return]    ${flow_output}
