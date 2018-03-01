@@ -206,3 +206,11 @@ OvsManager__Enable_Slaves_For_Switch
     \    ${role}=    Collections.Get From Dictionary    ${cntl_value}    role
     \    ${connected}=    Collections.Get From Dictionary    ${cntl_value}    is_connected
     \    Run Keyword If    ${connected}==${False}    Reconnect Switch To Controller And Verify Connected    ${switch}    ${cntl_id}    verify_connected=${verify_connected}
+
+Get OVS Flows
+    [Arguments]    ${ovs_ip}    ${log_flows}=False    ${bridge}=br-int
+    [Documentation]    Get the flows of br-int bridge using ovs-ofctl dump-flows, using a regex to exclude all the non-fixed ones (such as n_bytes)
+    ${flow_output} =    Run Command On Remote System    ${ovs_ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridge} |sed 's/cookie=\\S\\+\\s\\+duration=\\S\\+\\s\\+\\(.*\\)n_packets=\\S\\+\\s\\+n_bytes=\\S\\+\\s\\(.*\\)/\\1 \\2/g'|grep -v idle_timeout
+    Run Keyword If    ${log_flows} == True    Log    ${flow_output}
+    Should Not Be Empty    ${flow_output}
+    [Return]    ${flow_output}
