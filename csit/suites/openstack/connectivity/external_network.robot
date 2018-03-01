@@ -31,6 +31,8 @@ ${EXTERNAL_PNF}    10.10.10.253
 ${EXTERNAL_SUBNET}    10.10.10.0/24
 ${EXTERNAL_SUBNET_ALLOCATION_POOL}    start=10.10.10.2,end=10.10.10.249
 ${EXTERNAL_INTERNET_ADDR}    10.9.9.9
+@{OS_NODES}       ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}    ${ODL_SYSTEM_1_IP}    #${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}
+&{OS_NODES_FLOWS}
 
 *** Test Cases ***
 Create All Controller Sessions
@@ -90,6 +92,13 @@ Add Interfaces To Router
     [Documentation]    Add Interfaces
     : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
     \    OpenStackOperations.Add Router Interface    ${router}    ${interface}
+
+Save Flows Before Router Gateway Set
+    [Documentation]    Save Flows to verify flows cleanup in later phase
+    BuiltIn.Set Suite Variable    &{OS_NODES_FLOWS}
+    : FOR    ${node}    IN    @{OS_NODES}
+    \    ${flows} =    Run Keyword    DataModels.Save Flows    ${node}
+    \    Set To Dictionary    ${OS_NODES_FLOWS}    ${node}    ${flows}
 
 Add Router Gateway To Router
     [Documentation]    OpenStackOperations.Add Router Gateway
@@ -168,6 +177,11 @@ Delete Router Interfaces
     : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
     \    OpenStackOperations.Remove Interface    ${router}    ${interface}
 
+Verify Flows Cleanup After Router Cleanup
+    [Documentation]    Save Flows
+    : FOR    ${node}    IN    @{OS_NODES}
+    \    Wait Until Keyword Succeeds    20s    5s    Verify Flows Cleanup    ${node}
+
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
     : FOR    ${router}    IN    @{ROUTERS}
@@ -193,3 +207,9 @@ Delete Security Group
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
     DataModels.Verify Flows Are Cleaned Up On All OpenStack Nodes
+
+*** Keywords ***
+Verify Flows Cleanup
+    [Arguments]    ${node}
+    ${flows} =    Run Keyword    DataModels.Save Flows    ${node}
+    Should Be Equal    ${flows}    &{OS_NODES_FLOWS}[${node}]

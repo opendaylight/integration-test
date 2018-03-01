@@ -28,6 +28,13 @@ Verify No Ingress Dispatcher Non-Default Flow Entries
     Log    ${flow_output}
     #Should Not Contain    ${flow_output}    table=${DISPATCHER_TABLE} # Skipping test verification until bug 7451 is resolved
 
+Save Flows
+    [Arguments]    ${ovs_ip}
+    [Documentation]    Save Flows
+    ${flow_output} =    Run Command On Remote System    ${ovs_ip}    ovs-ofctl -O OpenFlow13 dump-flows br-int |sed 's/cookie=\S\+\s\+duration=\S\+\s\+\(.*\)n_packets=\S\+\s\+n_bytes=\S\+\s\(.*\)/\1 \2/g'|grep -v idle_timeout
+    Log    ${flow_output}
+    [Return]    ${flow_output}
+
 Verify Flows Are Cleaned Up On All OpenStack Nodes
     [Documentation]    Verify flows are cleaned up from all OpenStack nodes
     Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_CONTROL_NODE_IP}
