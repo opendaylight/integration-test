@@ -1,0 +1,7 @@
+kube:
+    config: ~/.kube/config
+odl:
+    host: http://odlip:8181
+    user: admin
+    password: admin
+
