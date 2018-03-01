@@ -16,6 +16,24 @@
       "revId": "c8afbe6d3186ba698837088b26eea1cf935b73d9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b08e886a_8b7a91c4",
+        "filename": "csit/suites/openstack/deploy/README.md",
+        "patchSetId": 74
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-03-01T01:25:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc35fa4e_f8086800",
+      "revId": "c8afbe6d3186ba698837088b26eea1cf935b73d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
