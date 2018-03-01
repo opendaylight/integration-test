@@ -72,3 +72,4 @@ netvirt_sfc_data_models = [
     'config/sfc-of-renderer:sfc-of-renderer-config',
     'operational/rendered-service-path:rendered-service-path'
 ]
+/home/mininet/test/csit/variables/coe/Modules.py/home/mininet/test/csit/variables/coe/Modules.py
