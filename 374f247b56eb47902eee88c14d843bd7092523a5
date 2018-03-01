@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0eca58bc_a25cfd28",
+        "filename": "csit/libraries/DataModels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-01T22:59:42Z",
+      "side": 1,
+      "message": "This belongs in a differnt file, not Models.robot\n\nProbably better to be \"Get OVS Flows\"\n\nput the bridge as an additional argument\n\nmodify docs to say more about the internals of the keyword, and not just a duplication of the keyword name. maybe mentioning that it\u0027s of-ctl dump-flows and what the regex is all about\n\nmaybe skip the flow logging and let the caller determine if they want to output it (which could be large)",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "374f247b56eb47902eee88c14d843bd7092523a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
