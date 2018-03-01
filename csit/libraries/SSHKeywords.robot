@@ -250,3 +250,18 @@ Flexible_Controller_Login
     [Arguments]    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${delay}=0.5s
     [Documentation]    Call Flexible SSH Login, but with default values suitable for Controller machine.
     BuiltIn.Run Keyword And Return    Flexible SSH Login    user=${user}    password=${password}    delay=${delay}
+
+Move_File_To_Remote_System
+    [Arguments]    ${system}    ${source}    ${destination}=./    ${user}=${DEFAULT_USER}    ${password}=${DEFAULT_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    ...    ${prompt_timeout}=5s
+    SSHKeywords.Run_Keyword_Preserve_Connection    Unsafe_Move_File_To_Remote_System    ${system}    ${source}    ${destination}    ${user}    ${password}
+    ...    ${prompt}    ${prompt_timeout}
+
+Unsafe_Move_File_To_Remote_System
+    [Arguments]    ${system}    ${source}    ${destination}=./    ${user}=${DEFAULT_USER}    ${password}=${DEFAULT_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    ...    ${prompt_timeout}=5s
+    SSHLibrary.Open_Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Flexible_SSH_Login    ${user}    ${password}
+    SSHLibrary.Put File    ${source}    ${destination}
+    OperatingSystem.Remove File    ${source}
+    SSHLibrary.Close Connection
