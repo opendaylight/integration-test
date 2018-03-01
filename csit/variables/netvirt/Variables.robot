@@ -6,6 +6,7 @@ Documentation     Variables for Netvirt Test Suites
 ${CIRROS_stable/newton}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/ocata}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/pike}    cirros-0.3.5-x86_64-disk
+${CIRROS_stable/queens}    cirros-0.3.5-x86_64-disk
 ${CIRROS_master}    cirros-0.3.5-x86_64-disk
 ${PRE_CLEAN_OPENSTACK_ALL}    False
 ${EXTERNAL_NET_NAME}    external-net
