@@ -135,6 +135,12 @@ Delete Floating IP
     [Documentation]    Delete floating ip with neutron request.
     ${output} =    OpenStack CLI    openstack floating ip delete ${fip}
 
+Delete Floating IPs
+    [Arguments]    @{fip_list}
+    [Documentation]    Delete all the Floating IPs given as a list
+    : FOR    ${fip}    IN    @{fip_list}
+    \    OpenStackOperations.Delete Floating IP    ${fip}
+
 Delete SubNet
     [Arguments]    ${subnet}
     [Documentation]    Delete SubNet for the Network with neutron request.
