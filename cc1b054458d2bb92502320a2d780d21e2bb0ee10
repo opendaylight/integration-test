@@ -155,6 +155,40 @@
     },
     {
       "key": {
+        "uuid": "b1ed5e6e_ff236460",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T06:11:55Z",
+      "side": 1,
+      "message": "you need to copy worker.conf to /etc/cni/net.d on both the minion nodes before doing kubeadm join",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fbbc996_fb424202",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T06:11:55Z",
+      "side": 1,
+      "message": "check kubectl get nodes and see 3 nodes are listed down in output and all of them are \"Ready\" bfore proceeding with the test",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9788d267_d1bb8058",
         "filename": "csit/suites/coe/POD_connectivity.txt",
         "patchSetId": 1
