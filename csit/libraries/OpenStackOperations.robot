@@ -135,6 +135,12 @@ Delete Floating IP
     [Documentation]    Delete floating ip with neutron request.
     ${output} =    OpenStack CLI    openstack floating ip delete ${fip}
 
+Delete Floating IPs
+    [Arguments]    ${fip_list}
+    [Documentation]    Delete all the Floating IPs given as a list
+    : FOR    ${fip}    IN    @{fip_list}
+    \    OpenStackOperations.Delete Floating IP    ${fip}
+
 Delete SubNet
     [Arguments]    ${subnet}
     [Documentation]    Delete SubNet for the Network with neutron request.
@@ -470,7 +476,7 @@ Remove Interface
 Remove Gateway
     [Arguments]    ${router_name}
     [Documentation]    Remove external gateway from the router.
-    BuiltIn.Log    openstack router unset ${router_name} --external-gateway
+    ${output} =    OpenStack CLI    openstack router unset ${router_name} --external-gateway
 
 Update Router
     [Arguments]    ${router_name}    ${cmd}
