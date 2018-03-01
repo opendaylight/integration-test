@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec4df95a_8ae09501",
+        "filename": "csit/variables/coe/busy-box.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T05:50:59Z",
+      "side": 1,
+      "message": "Rename the file as busy-box-1.yaml",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b179ecb_63a34699",
+        "filename": "csit/variables/coe/master.odlovs-cni.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T05:50:59Z",
+      "side": 1,
+      "message": "what are these many entries in this file????\nThe actual master.conf in coe repo, if you check has only one section..",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
