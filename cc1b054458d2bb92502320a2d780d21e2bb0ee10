@@ -121,6 +121,40 @@
     },
     {
       "key": {
+        "uuid": "71c52c80_558a7700",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T06:08:48Z",
+      "side": 1,
+      "message": "Add a Keyword \"Start Kubernetes Master\", and do till line `68 inside that",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37729b10_7d4a7ce0",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T06:08:48Z",
+      "side": 1,
+      "message": "Add a keyword \"Start K8S Minion\" and call that twice from here with the respective IPs",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9788d267_d1bb8058",
         "filename": "csit/suites/coe/POD_connectivity.txt",
         "patchSetId": 1
