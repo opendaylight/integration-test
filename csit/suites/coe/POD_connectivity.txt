@@ -1,0 +1,104 @@
+*** Settings ***
+Suite Setup       Start suite
+Suite Teardown    Close All Connections
+Library           SSH Library
+Resource          ../../libraries/SSHKeywords.robot
+Resource          ../../libraries/Utils.robot
+Resource          ../../variables/Variables.robot
+Library           String \
+Library           BuiltIn
+
+*** Variables ***
+${BUSY_BOX_1}     /home/mininet/test/csit/variables/coe/busy-box.yaml
+${BUSY_BOX_2}     /home/mininet/test/csit/variables/coe/busy-box-2.yaml
+${MASTER_CONFIG_PATH_L}    /home/mininet/test/csit/variables/coe/master.odlovs-cni.conf
+${MASTER_CONFIG_PATH_R}    /etc/cni/net.d
+${K8s_MASTER_IP}    192.168.56.101
+${K8s_MINION1_IP}    ${EMPTY}
+${K8s_MINION2_IP}    ${EMPTY}
+${CNI_BINARY_PATH}    /opt/cni/bin/odlovs-cni
+${WATCHER_PATH}    go/src/git.opendaylight.org/gerrit/p/coe.git/watcher
+${HOME}           /home/faseela
+${PORT}           6443
+${MINION1_USER}    ${EMPTY}
+${MINION1_PASSWORD}    ${EMPTY}
+${MINION2_USER}    ${EMPTY}
+${MINION2_PASSWORD}    ${EMPTY}
+${CNI_PATH_1}     $GOPATH/src/git.opendaylight.org/gerrit/p/coe.git/odlCNIPlugin/odlovs-cni/bin/odlovs-cni
+${CNI_PATH_2}     /opt/cni/bin
+${PING REGEX}     0% packet loss
+
+*** Test Cases ***
+ping
+    Open Connection    ${K8s_MINION1_IP}
+    Login    ${MINION1_USER}    ${MINION1_PASSWORD}
+    Write    kubectl create -f ${BUSY_BOX_1}
+    Open Connection    ${K8s_MINION2_IP}
+    Login    ${MINION2_USER}    ${MINION2_PASSWORD}
+    Write    kubectl create -f ${BUSY_BOX_2}
+    Open Connection    ${K8s_MASTER_IP}
+    Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    Write    kubectl get pods -o wide
+    ${pods}=    Read Until Prompt
+    Should Contain X Times    ${pods}    Running    2
+    ${pod_line}=    Get Line    ${pods}    2
+    ${POD2_IP}=    Should Match Regexp    ${pod_line}=    \\d+.\\d+.\\d+.\\d+
+    ${ping}=    Execute Command    kubectl exec -it busybox1 -- ping -c 3 ${POD2_IP}
+    Should Contain    ${ping}    ${PING REGEX}
+
+*** Keywords ***
+Start suite
+    Open Connection    ${K8s_MASTER_IP}
+    Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    Kube_reset
+    ${file}=    OperatingSystem.Get File    ${MASTER_CONFIG_PATH_L}
+    ${file}=    Replace String    ${file}    1.1.1.1    ${K8s_MASTER_IP}
+    Append To File    ${MASTER_CONFIG_PATH_L}    ${file}
+    Write    sudo mkdir -p ${MASTER_CONFIG_PATH_R}
+    Copy_File_To_Remote_System    ${K8s_MASTER_IP}    ${MASTER_CONFIG_PATH_L}    ${MASTER_CONFIG_PATH_R}
+    Open Connection    ${K8s_MASTER_IP}
+    Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    Write    sudo cp ${CNI_PATH_1} ${CNI_PATH_2}
+    Write    ${DEFAULT_PASSWORD}
+    Verify File Exists On Remote System    ${K8s_MASTER_IP}    ${CNI_BINARY_PATH}    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}    ${DEFAULT_LINUX_PROMPT}
+    Kube_init
+    Write    sudo kubectl get nodes
+    ${get_node}=    Read Until Prompt
+    Should Contain    ${get_node}    Ready
+    watcher
+    Write    sudo kubeadm token list
+    ${init_token}=    Read Until    ${DEFAULT_LINUX_PROMPT}
+    ${TOKEN}=    Should Match Regexp    ${init_token}    [\\d\\w]{6}.[\\d\\w]{16}
+    Open Connection    ${K8s_MINION1_IP}
+    Login    ${MINION1_USER}    ${MINION1_PASSWORD}
+    Write    sudo kubeadm join --token ${TOKEN} ${K8s_MASTER_IP}:${PORT}
+    Write    ${MINION1_PASSWORD}
+    Open Connection    ${K8s_MINION2_IP}
+    Login    ${MINION2_USER}    ${MINION2_PASSWORD}
+    Write    sudo kubeadm join --token ${TOKEN} ${K8s_MASTER_IP}:${PORT}
+    Write    ${MINION2_PASSWORD}
+
+Kube_reset
+    Write    sudo kubeadm reset
+    Write    ${DEFAULT_PASSWORD}
+    Set Client Configuration    prompt=${DEFAULT_LINUX_PROMPT}
+    ${kube}=    Read Until Prompt
+    Should Contain    ${kube}    Stopping the kubelet service.
+
+Kube_init
+    Open Connection    ${K8s_MASTER_IP}
+    Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    Write    sudo swapoff --a
+    Write    ${DEFAULT_PASSWORD}
+    Write    sudo kubeadm init --apiserver-advertise-address=${K8s_MASTER_IP}
+    Wait Until Keyword Succeeds    50s    5s    Read Until Regexp    .*@.*:
+    Write    mkdir -p ${HOME}/.kube
+    ${status}=    Run Keyword And Return Status    Verify File Exists On Remote System    ${K8s_MASTER_IP}    ${HOME}/.kube/config    ${TOOLS_SYSTEM_USER}    ${TOOLS_SYSTEM_PASSWORD}
+    ...    ${DEFAULT_LINUX_PROMPT}
+    Run Keyword If    '${status}' == 'False'    Write    sudo cp -i /etc/kubernetes/admin.conf ${HOME}/.kube/config
+    Write    sudo chown $(id -u):$(id -g) ${HOME}/.kube/config
+
+watcher
+    Write    cd
+    Write    cd ${WATCHER_PATH}
+    Write    nohup ./watcher odl &
