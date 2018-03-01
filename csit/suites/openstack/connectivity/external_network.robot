@@ -12,6 +12,7 @@ Library           RequestsLibrary
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/DataModels.robot
 Resource          ../../../libraries/OpenStackOperations.robot
+Resource          ../../../libraries/OvsManager.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../variables/netvirt/Variables.robot
@@ -53,6 +54,39 @@ Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
     OpenStackOperations.Create Allow All SecurityGroup    ${SECURITY_GROUP}
 
+Create External Network And Subnet
+    OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
+    OpenStackOperations.Update Network    ${EXTERNAL_NET_NAME}    --external
+    OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
+
+Create Routers
+    [Documentation]    Create Router and Add Interface to the subnets.
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    OpenStackOperations.Create Router    ${router}
+
+Add Interfaces To Router
+    [Documentation]    Add Interfaces
+    : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
+    \    OpenStackOperations.Add Router Interface    ${router}    ${interface}
+
+Save Flows Before Router Gateway Set
+    [Documentation]    Save Flows to verify flows cleanup in later phase
+    : FOR    ${node}    IN    @{OS_ALL_IPS}
+    \    ${flows} =    Run Keyword    OvsManager.Get OVS Flows    ovs_ip=${node}    log_flows=${LOG_FLOWS}
+    \    Collections.Set To Dictionary    ${OS_NODES_FLOWS}    ${node}    ${flows}
+
+Add Router Gateway To Router
+    [Documentation]    OpenStackOperations.Add Router Gateway
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    OpenStackOperations.Add Router Gateway    ${router}    ${EXTERNAL_NET_NAME}
+
+Verify Created Routers
+    [Documentation]    Check created routers using northbound rest calls
+    ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
+    BuiltIn.Log    ${data}
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    Should Contain    ${data}    ${router}
+
 Create Vm Instances
     [Documentation]    Create VM instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
@@ -76,33 +110,6 @@ Check Vm Instances Have Ip Address
     BuiltIn.Should Not Contain    ${NET2_SNAT_DHCP_IP}    None
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET1_FIP_VMS}    @{SNAT_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
-
-Create External Network And Subnet
-    OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
-    OpenStackOperations.Update Network    ${EXTERNAL_NET_NAME}    --external
-    OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
-
-Create Routers
-    [Documentation]    Create Router and Add Interface to the subnets.
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    OpenStackOperations.Create Router    ${router}
-
-Add Interfaces To Router
-    [Documentation]    Add Interfaces
-    : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
-    \    OpenStackOperations.Add Router Interface    ${router}    ${interface}
-
-Add Router Gateway To Router
-    [Documentation]    OpenStackOperations.Add Router Gateway
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    OpenStackOperations.Add Router Gateway    ${router}    ${EXTERNAL_NET_NAME}
-
-Verify Created Routers
-    [Documentation]    Check created routers using northbound rest calls
-    ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
-    BuiltIn.Log    ${data}
-    : FOR    ${router}    IN    @{ROUTERS}
-    \    Should Contain    ${data}    ${router}
 
 Initial Ping To External Network PNF from Vm Instance 1
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
@@ -234,6 +241,20 @@ Delete Vm Instances
     : FOR    ${vm}    IN    @{SNAT_VMS}
     \    OpenStackOperations.Delete Vm Instance    ${vm}
 
+Delete All Floating IPs
+    [Documentation]    Delete all Floating IPs
+    OpenStackOperations.Delete Floating IPs    ${VM_FLOATING_IPS}
+
+Remove Routers Gateway
+    [Documentation]    OpenStackOperations.Add Router Gateway
+    : FOR    ${router}    IN    @{ROUTERS}
+    \    OpenStackOperations.Remove Gateway    ${router}
+
+Verify Flows Cleanup After Router Gateway Cleanup
+    [Documentation]    Verify that that we the same flows as before the gateway set
+    : FOR    ${node}    IN    @{OS_ALL_IPS}
+    \    Verify Node Flows Cleanup    ${node}
+
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
     : FOR    ${router}    ${interface}    IN ZIP    ${ROUTERS}    ${SUBNETS}
@@ -264,3 +285,10 @@ Delete Security Group
 Verify Flows Cleanup
     [Documentation]    Verify that flows have been cleaned up properly after removing all neutron configurations
     DataModels.Verify Flows Are Cleaned Up On All OpenStack Nodes
+
+*** Keywords ***
+Verify Node Flows Cleanup
+    [Arguments]    ${node}
+    [Documentation]    Compare the current flows with the ones saved for each node to make sure no stale flows exist.
+    ${flows} =    BuiltIn.Run Keyword    OvsManager.Get OVS Flows    ${node}    log_flows=${LOG_FLOWS}
+    BuiltIn.Should Be Equal    ${flows}    &{OS_NODES_FLOWS}[${node}]
