@@ -36,6 +36,108 @@
     },
     {
       "key": {
+        "uuid": "dab0ef5b_8adddd92",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T06:04:26Z",
+      "side": 1,
+      "message": "Put proper title for test case.\n\n\"Verify L2 connectivity between pods on same node\"",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0000668d_8f98efbe",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T06:04:26Z",
+      "side": 1,
+      "message": "I think I asked you to create keywords for all these, and use those keywords here.\n\nAdd Keywords like \"Create Pod\"",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7575e929_53a5e78a",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T06:04:26Z",
+      "side": 1,
+      "message": "Add Keyword \"Verify Pod Creation\" and use that here",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a7b0be8_5a0e868a",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T06:04:26Z",
+      "side": 1,
+      "message": "Add Keyword \"Ping Pods\"",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3a8fd0c_286a6b44",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T06:04:26Z",
+      "side": 1,
+      "message": "Wasn\u0027t there some library already available which was doing similar verification? Can\u0027t we reuse the same, instead of adding our own local variable?",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9788d267_d1bb8058",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T06:04:26Z",
+      "side": 1,
+      "message": "Start Watcher",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46260ee6_84f45f68",
         "filename": "csit/suites/coe/__init__.robot",
         "patchSetId": 1
