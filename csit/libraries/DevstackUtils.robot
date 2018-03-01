@@ -83,11 +83,24 @@ Set Node Data For Control Only Node Setup
     BuiltIn.Set Suite Variable    @{OS_ALL_IPS}    ${OS_CNTL_IP}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
     BuiltIn.Set Suite Variable    @{OS_CMP_IPS}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
 
+Set Node Data For 3 Control Nodes And 2 Compute Nodes Setup
+    [Documentation]    Assign global variables for DevStack nodes where we have 3 control nodes and 2 compute nodes
+    BuiltIn.Set Suite Variable    ${OS_CMP1_IP}    ${OS_COMPUTE_1_IP}
+    BuiltIn.Set Suite Variable    ${OS_CMP2_IP}    ${OS_COMPUTE_2_IP}
+    BuiltIn.Set Suite Variable    ${OS_CNTL_1_IP}    ${OS_CONTROL_NODE_1_IP}
+    BuiltIn.Set Suite Variable    ${OS_CNTL_2_IP}    ${OS_CONTROL_NODE_2_IP}
+    BuiltIn.Set Suite Variable    ${OS_CNTL_3_IP}    ${OS_CONTROL_NODE_3_IP}
+    BuiltIn.Set Suite Variable    ${OS_CNTL_IP}    ${OS_CONTROL_NODE_1_IP}
+    BuiltIn.Set Suite Variable    @{OS_CMP_IPS}    ${OS_CMP1_IP}    ${OS_CMP2_IP}
+    BuiltIn.Set Suite Variable    @{OS_CNTL_IPS}    ${OS_CNTL_1_IP}    ${OS_CNTL_2_IP}    ${OS_CNTL_3_IP}
+    BuiltIn.Set Suite Variable    @{OS_ALL_IPS}    @{OS_CNTL_IPS}    @{OS_CMP_IPS}
+
 Get DevStack Nodes Data
     [Documentation]    Assign global variables for DevStack nodes
     BuiltIn.Set Suite Variable    ${OS_CNTL_IP}    ${OS_CONTROL_NODE_IP}
     BuiltIn.Run Keyword If    ${NUM_OS_SYSTEM} == 1    DevstackUtils.Set Node Data For AllinOne Setup
     ...    ELSE IF    ${NUM_OS_SYSTEM} == 2    DevstackUtils.Set Node Data For Control And Compute Node Setup
     ...    ELSE IF    ${NUM_OS_SYSTEM} == 3    DevstackUtils.Set Node Data For Control Only Node Setup
+    ...    ELSE IF    ${NUM_OS_SYSTEM} == 5    DevstackUtils.Set Node Data For 3 Control Nodes And 2 Compute Nodes Setup
     DevstackUtils.Get DevStack Hostnames
     DevstackUtils.Log Devstack Nodes Data
