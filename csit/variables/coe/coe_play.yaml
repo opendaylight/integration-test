@@ -1,0 +1,19 @@
+---
+
+- hosts: coe-master
+  tasks:
+    - name: list
+      shell: ls
+      become: true
+
+- hosts: coe-minion1
+  tasks:
+    - name: list
+      shell: ls
+      become: true
+
+- hosts: coe-minion2
+  tasks:
+    - name: list
+      shell: ls
+      become: true
