@@ -1,0 +1,14 @@
+---
+
+- hosts: coe-master:coe-minion1:coe-minion2
+  tasks:
+    - name: Make CNI config directory
+      file:
+        path: /etc/cni/net.d
+        state: directory
+      become: true
+    - name: Generate cni config
+      template:
+        src: confpath
+        dest: /etc/cni/net.d/odlovs-cni.conf
+      become: true
