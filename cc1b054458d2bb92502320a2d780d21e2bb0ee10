@@ -67,6 +67,24 @@
       "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea704242_b8fe4708",
+        "filename": "csit/variables/coe/master.odlovs-cni.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-01T05:53:22Z",
+      "side": 1,
+      "message": "Instead of copying this into variables folder, can we download the file from github, directly to the master and minion vms?",
+      "parentUuid": "7b179ecb_63a34699",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
