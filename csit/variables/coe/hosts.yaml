@@ -1,0 +1,10 @@
+coe-master:
+  hosts:
+    master_ip:
+coe-minion1:
+  hosts:
+    minion1_ip:
+coe-minion2:
+  hosts:
+    minion2_ip:
+
