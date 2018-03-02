@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9dd6d936_83bcdd93",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-02T01:07:01Z",
+      "side": 1,
+      "message": "rename this to use .robot extension",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90549dd9_454aa289",
         "filename": "csit/suites/coe/POD_connectivity.txt",
         "patchSetId": 1
@@ -64,6 +81,29 @@
       "writtenOn": "2018-03-01T06:04:26Z",
       "side": 1,
       "message": "I think I asked you to create keywords for all these, and use those keywords here.\n\nAdd Keywords like \"Create Pod\"",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69c2148c_f2d55ece",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-02T01:07:01Z",
+      "side": 1,
+      "message": "you forgot to close the connection, but why not use our\nlibrary keywords that wrap all of this stuff up.\n\ne.g. \"Run Command On Remote System\" from Utils.robot.",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 44
+      },
       "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
