@@ -553,6 +553,8 @@ Get Test Teardown Debugs
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     BuiltIn.run Keyword And Ignore Error    ODLTools.Get EOS    ${HA_PROXY_IP}
     Run Keyword If    "${FAIL_ON_EXCEPTIONS}"=="True"    KarafKeywords.Fail If Exceptions Found During Test    ${test_name}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Issue_Command_On_Karaf_Console    trace:transactions    ${ODL_SYSTEM_${i+1}_IP}
 
 Get Test Teardown Debugs For SFC
     [Arguments]    ${test_name}=${TEST_NAME}
@@ -998,6 +1000,8 @@ OpenStack Suite Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     @{loggers} =    BuiltIn.Create List    org.apache.karaf.shell.support.ShellUtil    org.apache.sshd.server.session.ServerSessionImpl
     Setuputils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    OFF    ${loggers}
+    @{loggers} =    BuiltIn.Create List    org.opendaylight.mdsal.binding.dom.codec.gen.impl.AbstractStreamWriterGenerator
+    Setuputils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    TRACE    ${loggers}
     DevstackUtils.Devstack Suite Setup
     @{tcpdump_port_6653_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_port_6653    port 6653    @{OS_ALL_IPS}
     BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
@@ -1013,6 +1017,8 @@ OpenStack Suite Teardown
     ...    benefit automatically.
     OpenStack Cleanup All
     OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Issue_Command_On_Karaf_Console    trace:transactions    ${ODL_SYSTEM_${i+1}_IP}
     SSHLibrary.Close All Connections
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    KarafKeywords.Issue Command On Karaf Console    threads --list | wc -l    ${ODL_SYSTEM_${i+1}_IP}
