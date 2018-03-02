@@ -10,6 +10,7 @@ Resource          ../variables/Variables.robot
 @{stable/newton_EXCLUSION_REGEXES}    ${EMPTY}
 @{stable/ocata_EXCLUSION_REGEXES}    ${EMPTY}
 @{stable/pike_EXCLUSION_REGEXES}    ${EMPTY}
+@{stable/queens_EXCLUSION_REGEXES}    ${EMPTY}
 @{master_EXCLUSION_REGEXES}    ${EMPTY}
 ${BLACKLIST_FILE}    /tmp/blacklist.txt
 ${TEMPEST_DIR}    /opt/stack/tempest
