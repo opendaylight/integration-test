@@ -523,6 +523,8 @@ Get Test Teardown Debugs
     [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}
     OpenStackOperations.Get OvsDebugInfo
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Issue_Command_On_Karaf_Console    trace:transactions    ${ODL_SYSTEM_${i+1}_IP}
     KarafKeywords.Get Karaf Log Events From Test Start    ${test_name}
     Run Keyword If    "${FAIL_ON_EXCEPTIONS}"=="True"    Fail If Exceptions Found During Test    ${test_name}    ${NETVIRT_EXCEPTIONS_WHITELIST}
 
@@ -1003,6 +1005,8 @@ OpenStack Suite Teardown
     ...    benefit automatically.
     OpenStack Cleanup All
     OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Issue_Command_On_Karaf_Console    trace:transactions    ${ODL_SYSTEM_${i+1}_IP}
     SSHLibrary.Close All Connections
 
 Copy DHCP Files From Control Node
