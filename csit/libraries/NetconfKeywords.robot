@@ -22,6 +22,7 @@ Resource          SSHKeywords.robot
 Resource          TemplatedRequests.robot
 Resource          Utils.robot
 Resource          RemoteBash.robot
+Resource          CompareStream.robot
 
 *** Variables ***
 ${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G -XX:MaxPermSize=256M -Dorg.apache.sshd.registerBouncyCastle=false
@@ -29,6 +30,7 @@ ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
 ${DEVICE_NAME_BASE}    netconf-scaling-device
+${TESTTOOL_DEFAULT_URL}    https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/netconf/netconf-testtool/1.3.2/netconf-testtool-1.3.2-executable.jar
 ${TESTTOOL_BOOT_TIMEOUT}    60s
 ${ENABLE_NETCONF_TEST_TIMEOUT}    ${ENABLE_GLOBAL_TEST_DEADLINES}
 
@@ -159,7 +161,9 @@ Install_And_Start_Testtool
     ...    for the additional schemas is deleted on the remote machine and
     ...    the additional schemas argument is left out.
     # Install test tool on the machine.
-    ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool
+    # Note that after nitrogen we have to use nitrogen release version because tool is broken in oxygen onwards.
+    ${explicit_url}=    CompareStream.Set_Variable_If_At_Most_Nitrogen    ${EMPTY}    ${TESTTOOL_DEFAULT_URL}
+    ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    explicit_url=${explicit_url}
     ${schemas_option}=    NetconfKeywords__Deploy_Additional_Schemas    ${schemas}
     # Start the testtool
     ${command}=    NexusKeywords.Compose_Full_Java_Command    ${java_options} -jar ${filename} ${tool_options} --device-count ${device-count} --debug ${debug} ${schemas_option} --md-sal ${mdsal}
