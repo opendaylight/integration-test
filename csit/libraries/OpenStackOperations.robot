@@ -1004,6 +1004,8 @@ OpenStack Suite Teardown
     OpenStack Cleanup All
     OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
     SSHLibrary.Close All Connections
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Issue_Command_On_Karaf_Console    threads --list | wc -l    ${ODL_SYSTEM_${i+1}_IP}
 
 Copy DHCP Files From Control Node
     [Documentation]    Copy the current DHCP files to the robot vm. The keyword must be called
