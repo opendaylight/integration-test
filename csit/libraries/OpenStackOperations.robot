@@ -544,6 +544,8 @@ Get Test Teardown Debugs
     OpenStackOperations.Get OvsDebugInfo
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     OpenStackOperations.Get Karaf Log Events From Test Start    ${test_name}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Issue_Command_On_Karaf_Console    trace:transactions    ${ODL_SYSTEM_${i+1}_IP}
 
 Get Test Teardown Debugs For SFC
     [Arguments]    ${test_name}=${TEST_NAME}
@@ -1022,6 +1024,8 @@ OpenStack Suite Teardown
     ...    benefit automatically.
     OpenStack Cleanup All
     OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Issue_Command_On_Karaf_Console    trace:transactions    ${ODL_SYSTEM_${i+1}_IP}
     SSHLibrary.Close All Connections
 
 Copy DHCP Files From Control Node
