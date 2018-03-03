@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa092971_1eb467d5",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-03T18:53:21Z",
+      "side": 1,
+      "message": "you probably want to make this an argument eventually, so new suites can come in with different names if they want.",
+      "range": {
+        "startLine": 157,
+        "startChar": 57,
+        "endLine": 157,
+        "endChar": 60
+      },
+      "revId": "614b5775b52cce81c8e89434fd0e2d308b25925b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
