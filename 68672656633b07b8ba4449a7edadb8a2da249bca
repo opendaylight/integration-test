@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d730c9b_ea88c89b",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-03T01:15:59Z",
+      "side": 1,
+      "message": "do you want to qualify this here like GENIUS.Get Test Teardown Debugs?\n\nWe have the same exact keyword name in OpenStackOperations, so I think it\u0027s better to be explicit.",
+      "revId": "68672656633b07b8ba4449a7edadb8a2da249bca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
