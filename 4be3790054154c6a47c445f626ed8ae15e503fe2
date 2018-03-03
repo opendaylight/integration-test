@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aefb8da_40fc4b68",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-03T01:12:39Z",
+      "side": 1,
+      "message": "please search this code for all the extraneous \"Log\" statements. Robot itself is very verbose and unless we really\ncannot see the info in a standard run, or it\u0027s VERY important to be able to obviously see, it just adds to the noise\nand make reading the test code harder.",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 25
+      },
+      "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54cf4b26_147e0e18",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-03T01:12:39Z",
+      "side": 1,
+      "message": "remove. don\u0027t see the need for this.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca599ab3_8b2c082c",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-03T01:12:39Z",
+      "side": 1,
+      "message": "capitalize to keep standard formatting",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfdde2e4_e4045b43",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-03T01:12:39Z",
+      "side": 1,
+      "message": "remove. if you need it in other test cases, you can do a Get_Tunnel there. If that\u0027s not feasible, then use Set Suite Variable is a last resort",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 38
+      },
+      "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b488554_d5eddba8",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-03T01:12:39Z",
+      "side": 1,
+      "message": "another example. do we need this Log?",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 27
+      },
+      "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01e579f2_055ec0b4",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-03T01:12:39Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 94,
+        "startChar": 52,
+        "endLine": 94,
+        "endChar": 53
+      },
+      "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f327c276_30b9d49e",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-03T01:12:39Z",
+      "side": 1,
+      "message": "don\u0027t need this, I don\u0027t think.",
+      "range": {
+        "startLine": 97,
+        "startChar": 1,
+        "endLine": 97,
+        "endChar": 86
+      },
+      "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
