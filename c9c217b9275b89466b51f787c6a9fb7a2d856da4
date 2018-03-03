@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "940cb6db_e95c9e93",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "Is this used?",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94e60ce3_47cb5942",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "What about this and Devstack? please clean up unused libraries.",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "06e5b8bb_ba399f12",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "where is this used?",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "211a341e_b57f68f3",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "So then Why we need OS_CONTROL_NODE_IP here? could this just be the TOOLS_SYSTEM_IP we use in other OF tests?",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b529d131_f7c96468",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "Please add library when you use KW that is not in this file. e.g. Utils.Run Command On Remote System. This comment is also for other KWs in this file.",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7bac057a_e484c314",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "For this check, if you run mininet, you have MininetKeywords.Check _Flows_In_Mininet KW.",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d04464c_b7d79821",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "Same comment, why do not use ODL_SYSTEM_IP here?",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81b4a357_32aede03",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "This is confusing,  ${GROUP_ID} is a global variable defined in the topo section, as such it should not change and here you should use local variable like ${group_id}.",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7edd18b4_7d73dc42",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "This is con",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6afd5c3_476818f6",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "Are you using these connections anywhere in the test?",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b26bac0a_77e070ba",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "Why do not use KarafKeywords.Check_Karaf_Log_Has_Messages? Also this KW expects 2 arguments but I can only see 1 above in the test.",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b59d446_7db9e5e4",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "I do not get this KW, if you want to push a flow in controller why do not use ODL_SYSTEM_IP straight as argument? Cannot just you use FlowLib.Add_Flow_To_Controller_And_Verify?",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e395f113_9df02e45",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-03T01:20:55Z",
+      "side": 1,
+      "message": "If you were using Mininet, this and the next would be just 1 KW: MininetKeywords.Stop_Mininet_And_Exit :)",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
