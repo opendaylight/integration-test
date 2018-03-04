@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "d5492139_4b0b535a",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-04T18:18:40Z",
+      "side": 1,
+      "message": "yes, we have a pretty extensive doc about guidelines:\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Keyword_Naming\n\nit\u0027s hard to enforce and remember, but it\u0027s a good place to refer back to. but yeah, we want to Capitalize The Beginning Of Each Word In A Test Case Or Keyword",
+      "parentUuid": "017177dc_1be95a99",
+      "range": {
+        "startLine": 146,
+        "startChar": 6,
+        "endLine": 146,
+        "endChar": 10
+      },
+      "revId": "6e829a7bb82f39dc550f1e66efe22466cbbec8cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aab61d66_8940a16a",
         "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
         "patchSetId": 4
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "really want a csit/suites/netvirt/blah.robot file rather than over in the variables dir. I prefer everything closer to the code itself rather than in a variables dir that doesn\u0027t relate to the netvirt dir. If the vars need to be accessed outside netvirt then they move up to a higher level file.",
       "parentUuid": "e559d397_5b0b65ec",
+      "range": {
+        "startLine": 176,
+        "startChar": 85,
+        "endLine": 176,
+        "endChar": 89
+      },
+      "revId": "6e829a7bb82f39dc550f1e66efe22466cbbec8cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77552199_c55b5623",
+        "filename": "csit/suites/openstack/clustering/ha_l3_block_port.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-04T18:18:40Z",
+      "side": 1,
+      "message": "let\u0027s make this a goal for some future cleanup.\n\nalthough this 2550 variable does not fit in to your idea anyway. It would have to be in csit/variables/clustering/Variables.robot since I\u0027d expect it to be used across\nall ODL projects.",
+      "parentUuid": "8a1482e9_2aeb7b76",
       "range": {
         "startLine": 176,
         "startChar": 85,
