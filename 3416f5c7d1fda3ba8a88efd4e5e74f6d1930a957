@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "398c73c5_3a5074ad",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-06T13:19:46Z",
+      "side": 1,
+      "message": "Probably yes.\nJust wondering how.",
+      "parentUuid": "82b285a6_bb19bdf6",
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92b7ae40_11067c17",
         "filename": "csit/libraries/OvsManager.robot",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2018-03-06T00:43:43Z",
       "side": 1,
       "message": "is this a var defined somewhere else?",
+      "range": {
+        "startLine": 211,
+        "startChar": 64,
+        "endLine": 211,
+        "endChar": 70
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de34f88a_a4df0d68",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-06T13:19:46Z",
+      "side": 1,
+      "message": "There is OVS_BRIDGE at csit/variables/l2gw/Variables.robot.\nDo you want to have one in csit/variables/netvirt/Variables.robot?",
+      "parentUuid": "92b7ae40_11067c17",
       "range": {
         "startLine": 211,
         "startChar": 64,
