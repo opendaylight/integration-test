@@ -29,13 +29,15 @@ Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../variables/Variables.robot
 
 *** Variables ***
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
 ${device_name}    netconf-test-device
-${device_type}    full-uri-device
 ${device_type_rpc}    rpc-device
+${device_type_rpc_create}    rpc-create-device
+${device_type_rpc_delete}    rpc-delete-device
 ${USE_NETCONF_CONNECTOR}    ${False}
 ${delete_location}    delete_location
 
@@ -52,7 +54,7 @@ Check_Device_Is_Not_Configured_At_Beginning
 Configure_Device_On_Netconf
     [Documentation]    Make request to configure a testtool device on Netconf connector.
     [Tags]    critical
-    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type_rpc}    http_timeout=2    http_method=post
+    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type}    http_timeout=2    http_method=post
 
 Check_ODL_Has_Netconf_Connector_For_Device
     [Documentation]    Get the list of configured devices and search for our device there. Fail if not found.
@@ -93,7 +95,8 @@ Deconfigure_Device_From_Netconf_Temporarily
     ...    data was really stored in the device.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    NetconfKeywords.Remove_Device_From_Netconf    ${device_name}    location=${delete_location}
+    CompareStream.Run_Keyword_If_At_Most_Nitrogen    NetconfKeywords.Remove_Device_From_Netconf    ${device_name}    location=${delete_location}
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type_rpc_delete}    http_timeout=2    http_method=post
 
 Wait_For_Device_To_Be_Gone
     [Documentation]    Wait for the device to completely disappear.
@@ -103,7 +106,7 @@ Configure_The_Device_Back
     [Documentation]    Configure the device again.
     ...    This is the second step of the device configuration.
     [Tags]    critical
-    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type_rpc}    http_method=post
+    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type}    http_timeout=2    http_method=post
 
 Wait_For_Device_To_Reconnect
     [Documentation]    Wait until the device becomes available through Netconf.
@@ -203,7 +206,8 @@ Deconfigure_Device_From_Netconf
     [Documentation]    Make request to deconfigure the testtool device on Netconf connector.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    NetconfKeywords.Remove_Device_From_Netconf    ${device_name}    location=${delete_location}
+    CompareStream.Run_Keyword_If_At_Most_Nitrogen    NetconfKeywords.Remove_Device_From_Netconf    ${device_name}    location=${delete_location}
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type_rpc_delete}    http_timeout=2    http_method=post
 
 Check_Device_Going_To_Be_Gone_After_Deconfiguring
     [Documentation]    Check that the device is really going to be gone. Fail
@@ -225,7 +229,8 @@ Setup_Everything
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     NetconfKeywords.Setup_Netconf_Keywords
     ${device_type_rpc}=    BuiltIn.Set_Variable_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    default    ${device_type_rpc}
-    BuiltIn.Set_Suite_Variable    ${device_type_rpc}
+    ${device_type}    CompareStream.Set_Variable_If_At_Most_Nitrogen    ${device_type_rpc}    ${device_type_rpc_create}
+    BuiltIn.Set_Suite_Variable    ${device_type}
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
