@@ -1,6 +1,5 @@
 <input xmlns="urn:opendaylight:netconf-node-topology">
    <node-id>$DEVICE_NAME</node-id>
-   <encrypt>true</encrypt>
    <host>$DEVICE_IP</host>
    <port>$DEVICE_PORT</port>
    <username>$DEVICE_USER</username>
