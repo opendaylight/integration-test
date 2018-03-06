@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82b285a6_bb19bdf6",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-06T00:43:43Z",
+      "side": 1,
+      "message": "Wonder if this should be more generic and take the regex as a param? As it is the name should probably change to reflect that a regex is used.",
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92b7ae40_11067c17",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-06T00:43:43Z",
+      "side": 1,
+      "message": "is this a var defined somewhere else?",
+      "range": {
+        "startLine": 211,
+        "startChar": 64,
+        "endLine": 211,
+        "endChar": 70
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d264e304_cc59474f",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-06T00:43:43Z",
+      "side": 1,
+      "message": "use ${bridge} here",
+      "range": {
+        "startLine": 212,
+        "startChar": 40,
+        "endLine": 212,
+        "endChar": 46
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38e6d090_930cde00",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-06T00:43:43Z",
+      "side": 1,
+      "message": "fully qualify the keywords, use Builtin. and other lib prefixes",
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2297ec2e_15c2eacd",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-06T00:43:43Z",
+      "side": 1,
+      "message": "Did you intend to include the ODL IPs in the list? I think you wanted to just ovs nodes right? If so, this list is also missing the openstack control node which has ovs on it. There are vars already in DevstackUtils like OS_ALL_IPS and OS_CMP_IPS that have the different ips.",
+      "range": {
+        "startLine": 36,
+        "startChar": 62,
+        "endLine": 36,
+        "endChar": 117
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b92031b3_7d091e7c",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-06T00:43:43Z",
+      "side": 1,
+      "message": "I like this pattern to include suite vars in the variables section - helps us know these are suite vars since we sometimes miss the later Set Suite Variable keyword buried in the tests.",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5586fb35_5a21570e",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-06T00:43:43Z",
+      "side": 1,
+      "message": "we have the same",
+      "range": {
+        "startLine": 183,
+        "startChar": 23,
+        "endLine": 183,
+        "endChar": 83
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8d19827_e4b63b8e",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-06T00:43:43Z",
+      "side": 1,
+      "message": "fully qualify all keywords",
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
