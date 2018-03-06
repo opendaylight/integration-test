@@ -45,10 +45,10 @@ Setup_NetconfKeywords
 
 Configure_Device_In_Netconf
     [Arguments]    ${device_name}    ${device_type}=default    ${device_port}=${FIRST_TESTTOOL_PORT}    ${device_address}=${TOOLS_SYSTEM_IP}    ${device_user}=admin    ${device_password}=topsecret
-    ...    ${session}=default    ${schema_directory}=/tmp/schema    ${http_timeout}=${EMPTY}    ${http_method}=put
+    ...    ${device_key}=device-key    ${session}=default    ${schema_directory}=/tmp/schema    ${http_timeout}=${EMPTY}    ${http_method}=put
     [Documentation]    Tell Netconf about the specified device so it can add it into its configuration.
     ${mapping}=    BuiltIn.Create_dictionary    DEVICE_IP=${device_address}    DEVICE_NAME=${device_name}    DEVICE_PORT=${device_port}    DEVICE_USER=${device_user}    DEVICE_PASSWORD=${device_password}
-    ...    SCHEMA_DIRECTORY=${schema_directory}
+    ...    DEVICE_KEY=${device_key}    SCHEMA_DIRECTORY=${schema_directory}
     # TODO: Is it possible to use &{kwargs} as a mapping directly?
     Run Keyword if    '${http_method}'=='post'    TemplatedRequests.Post_As_Xml_Templated    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    mapping=${mapping}    session=${session}    http_timeout=${http_timeout}
     ...    ELSE    TemplatedRequests.Put_As_Xml_Templated    folder=${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    mapping=${mapping}    session=${session}    http_timeout=${http_timeout}
