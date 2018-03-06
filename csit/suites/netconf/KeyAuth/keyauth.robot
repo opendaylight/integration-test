@@ -10,16 +10,19 @@ Resource          ../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../variables/Variables.robot
 
 *** Variables ***
+${directory_with_keyauth_template}    ${CURDIR}/../../../variables/netconf/KeyAuth
 ${pkPassphrase}    topsecret
-${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
 ${device_name}    netconf-test-device
-${device_type}    full-uri-device
+${device_type_passw}    full-uri-device
+${device_type_key}    full-uri-device-key
 ${netopeer_port}    830
 ${netopeer_user}    root
 ${netopeer_pwd}    wrong
+${netopeer_key}    device-key
 ${USE_NETCONF_CONNECTOR}    ${False}
 
 *** Test Cases ***
@@ -31,6 +34,7 @@ Configure_Device_On_Netconf
     [Documentation]    Make request to configure netconf netopeer with wrong password. Correct auth is root/root
     ...    ODL should connect to device using public key auth as password auth will fail.
     NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type}    http_timeout=2    device_user=${netopeer_user}    device_password=${netopeer_pwd}    device_port=${netopeer_port}
+    ...    device_key=${netopeer_key}
 
 Wait_For_Device_To_Become_Connected
     [Documentation]    Wait until the device becomes available through Netconf.
@@ -76,6 +80,11 @@ Configure ODL with Key config
     Log    ${stdout}
     Restart Controller
 
+Add Netconf Key
+    [Documentation]    Add Netconf Southbound key containing details about device private key and passphrase
+    ${mapping}=    BuiltIn.Create_dictionary    DEVICE_KEY=${netopeer_key}
+    TemplatedRequests.Post_As_Xml_Templated    folder=${directory_with_keyauth_template}    mapping=${mapping}
+
 Restart Controller
     [Documentation]    Controller restart is needed in order the new shiro.ini config takes effect
     ClusterManagement.ClusterManagement_Setup
@@ -90,13 +99,6 @@ Get Controller Modules
     BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
     BuiltIn.Should_Contain    ${resp.content}    ietf-restconf
 
-Prepare for public key auth
-    [Documentation]    Mount the netopeer server which trusts the ODL SB's public key using key based auth.
-    # Create the configuration file for netconf sb keypair
-    # Place the public key so it can be mounted to netopeer docker container
-    Run Netopeer Docker Container
-    Configure ODL with Key config
-
 Suite Teardown
     [Documentation]    Tearing down the setup.
     RequestsLibrary.Delete_All_Sessions
@@ -106,6 +108,9 @@ Suite Setup
     [Documentation]    Get the suite ready for callhome test cases.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
-    ${device_type}=    BuiltIn.Set_Variable_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    default    ${device_type}
+    ${device_type_passw}=    BuiltIn.Set_Variable_If    """${USE_NETCONF_CONNECTOR}""" == """True"""    default    ${device_type_passw}
+    ${device_type}    CompareStream.Set_Variable_If_At_Most_Nitrogen    ${device_type_passw}    ${device_type_key}
     BuiltIn.Set_Suite_Variable    ${device_type}
-    Prepare for public key auth
+    Run Netopeer Docker Container
+    CompareStream.Run_Keyword_If_At_Most_Nitrogen    Configure ODL with Key config
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    Add Netconf Key
