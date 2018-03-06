@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "3f4964bb_f16dc9a5",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-06T09:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d264e304_cc59474f",
+      "range": {
+        "startLine": 212,
+        "startChar": 40,
+        "endLine": 212,
+        "endChar": 46
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38e6d090_930cde00",
         "filename": "csit/libraries/OvsManager.robot",
         "patchSetId": 2
@@ -82,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "66634aaa_8491ff3c",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-06T09:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38e6d090_930cde00",
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2297ec2e_15c2eacd",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 2
@@ -93,6 +135,30 @@
       "writtenOn": "2018-03-06T00:43:43Z",
       "side": 1,
       "message": "Did you intend to include the ODL IPs in the list? I think you wanted to just ovs nodes right? If so, this list is also missing the openstack control node which has ovs on it. There are vars already in DevstackUtils like OS_ALL_IPS and OS_CMP_IPS that have the different ips.",
+      "range": {
+        "startLine": 36,
+        "startChar": 62,
+        "endLine": 36,
+        "endChar": 117
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d31d652_ae01fa9e",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-06T09:58:17Z",
+      "side": 1,
+      "message": "Yes. I want to include all the ovs nodes. OS_ALL_IPS includes at most 1 controller and 2 compute nodes - what about a case of 3 controllers and 2 computes? I can probably add a case for 5 nodes in there - but there may be a better way. What do you think?",
+      "parentUuid": "2297ec2e_15c2eacd",
       "range": {
         "startLine": 36,
         "startChar": 62,
@@ -128,6 +194,30 @@
     },
     {
       "key": {
+        "uuid": "1dd974ac_272b555e",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-06T09:58:17Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand - It\u0027s already there.",
+      "parentUuid": "b92031b3_7d091e7c",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5586fb35_5a21570e",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 2
@@ -151,6 +241,30 @@
     },
     {
       "key": {
+        "uuid": "05a70ab0_8a82f4de",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-06T09:58:17Z",
+      "side": 1,
+      "message": "@Sam Are you referring to DataModles.Verify Flows Are Cleaned Up On All OpenStack Node?",
+      "parentUuid": "5586fb35_5a21570e",
+      "range": {
+        "startLine": 183,
+        "startChar": 23,
+        "endLine": 183,
+        "endChar": 83
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8d19827_e4b63b8e",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 2
@@ -162,6 +276,24 @@
       "writtenOn": "2018-03-06T00:43:43Z",
       "side": 1,
       "message": "fully qualify all keywords",
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1abda3ea_1ec7317c",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-06T09:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8d19827_e4b63b8e",
       "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
