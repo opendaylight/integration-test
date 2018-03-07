@@ -1,0 +1,5 @@
+project_cfg: opendaylight
+project: ODL Integration/Test
+version: master
+copyright: 2017, Luis Gomez, Jamo Luhrsen, Daniel Farrell, Vratko Polak, Venkatrangan Govindarajan
+author: Luis Gomez, Jamo Luhrsen, Daniel Farrell, Vratko Polak, Venkatrangan Govindarajan
