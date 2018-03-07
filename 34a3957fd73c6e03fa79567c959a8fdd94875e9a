@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "74e335f5_95a9839b",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-07T13:35:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bba8ac57_e460676f",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 214,
+        "endChar": 260
+      },
+      "revId": "34a3957fd73c6e03fa79567c959a8fdd94875e9a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "903aaf87_89f3e2bb",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-07T01:47:55Z",
       "side": 1,
       "message": "like in the other patch,  you can merge the --external arg in to the Create Network line if you want.",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 76
+      },
+      "revId": "34a3957fd73c6e03fa79567c959a8fdd94875e9a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d9b4c4b_82a8163f",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-07T13:35:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "903aaf87_89f3e2bb",
       "range": {
         "startLine": 57,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4be4d681_0498c193",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-07T13:35:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52a10da8_7adf7d60",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 26
+      },
+      "revId": "34a3957fd73c6e03fa79567c959a8fdd94875e9a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9014a504_5e33e4f6",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2018-03-07T01:47:55Z",
       "side": 1,
       "message": "this is a long time. do we have a real upper limit that we know? Sam, any idea?",
+      "range": {
+        "startLine": 184,
+        "startChar": 48,
+        "endLine": 184,
+        "endChar": 52
+      },
+      "revId": "34a3957fd73c6e03fa79567c959a8fdd94875e9a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa6419b7_5e2f4ea3",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-07T13:35:59Z",
+      "side": 1,
+      "message": "I\u0027ll remove it and we\u0027ll see.",
+      "parentUuid": "9014a504_5e33e4f6",
       "range": {
         "startLine": 184,
         "startChar": 48,
