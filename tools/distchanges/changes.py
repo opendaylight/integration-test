@@ -101,7 +101,7 @@ class Changes(object):
         self.verbose = verbose
         self.projects = {}
         self.set_log_level(verbose)
-        self.regex_changeid = re.compile(r'Change-Id.*: \bI([a-f0-9]{40})\b|\bI([a-f0-9]{8})\b')
+        self.regex_changeid = re.compile(r'(Change-Id.*: \bI([a-f0-9]{40})\b|\bI([a-f0-9]{8})\b)')
         # self.regex_shortmsg = re.compile(r'"([^"]*)"|(git.commit.message.short=(.*))')
         self.regex_shortmsg1 = re.compile(r'(git.commit.message.short=.*"([^"]*)")')
         self.regex_shortmsg2 = re.compile(r'(git.commit.message.short=(.*))')
@@ -255,19 +255,19 @@ class Changes(object):
         logger.info("trying Change-Id from git.properties in %s", project)
         # match a 40 or 8 char Change-Id hash. both start with I
         changeid = self.regex_changeid.search(pfile)
-        if changeid:
-            logger.info("trying Change-Id from git.properties as merged in %s: %s", project, changeid.group())
+        if changeid and changeid.group(2):
+            logger.info("trying Change-Id from git.properties as merged in %s: %s", project, changeid.group(2))
 
-            gerrits = self.gerritquery.get_gerrits(project, changeid.group(), 1, None, status="merged")
+            gerrits = self.gerritquery.get_gerrits(project, changeid.group(2), 1, None, status="merged")
             if gerrits:
                 logger.info("found Change-Id from git.properties as merged in %s", project)
-                return ChangeId(changeid.group(), True)
+                return ChangeId(changeid.group(2), True)
 
             # Maybe this is a patch that has not merged yet
             logger.info("did not find Change-Id from git.properties as merged in %s, trying as unmerged: %s",
-                        project, changeid.group())
+                        project, changeid.group(2))
 
-            gerrits = self.gerritquery.get_gerrits(project, changeid.group(), 1, None, status=None, comments=True)
+            gerrits = self.gerritquery.get_gerrits(project, changeid.group(2), 1, None, status=None, comments=True)
             if gerrits:
                 logger.info("found Change-Id from git.properties as unmerged in %s", project)
                 return ChangeId(gerrits[0]["id"], False)
