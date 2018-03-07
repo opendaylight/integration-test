@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "041fb538_5386325c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "p",
+      "range": {
+        "startLine": 713,
+        "startChar": 45,
+        "endLine": 713,
+        "endChar": 46
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24808be6_260ce727",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "all these should now be there in variables/netvirt/Variables.robot. If it\u0027s not there, add it, and we can remove these lines.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da9b7d28_05ddd370",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "Several comments on this.\n\n1) the work done here is not really a test case. put what you need in the suite setup maybe.\n\n2) do you need the ODL HOSTNAME Vars? I don\u0027t see where you are using them. If this is no, then you can probably get what you need from DevStackUtils.Get DevStack Hostnames",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "516d195f_fbbe31fa",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "you can put --external in to your create command above and skip this Update Network step. That was added to catch a corner case bug, and it\u0027s there in the external_network suite already. just a small optimization if you want.",
+      "range": {
+        "startLine": 67,
+        "startChar": 1,
+        "endLine": 67,
+        "endChar": 76
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cee3a62_ed1c6802",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "I know this is the pattern of other suites, but I\u0027m not against collapsing all this work in to a single test case (or even suite setup) as these are not really the things we are concerned with. Sam had a reason\nto keep things split out like this though, so let\u0027s let him chime in as well.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 84
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9939dda1_1d5702ae",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "Launch An Instance",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 18
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ded2dcb5_2ed71b75",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "instead of doing this, it\u0027s usually better and easier to follow if you pass what you need around as arguments. otherwise, we end up looking at test code and not understanding where some variable even came from, not realizing it was made as a global or suite var in some test case somewhere else. also, if this becomes too common the risk of mistakenly updating a variable in one place, but expecting it as something else goes up.",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 51
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "875912a8_29b893bf",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "for example... why did you make this a suite var?",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 49
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36fcb07d_aa9108d4",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "maybe a new name that specifies that we are blocking \"Openflow\" traffic coming From the compute? same would apply below. it just makes reading the test cases in the robot log a little easier to digest.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 33
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "011867ac_6ebce9c7",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "${ODL_OF_PORT_6653} which comes from variables/Variables.robot",
+      "range": {
+        "startLine": 121,
+        "startChar": 116,
+        "endLine": 121,
+        "endChar": 120
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62c9578d_7bd9cde8",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "don\u0027t think this is needed",
+      "range": {
+        "startLine": 126,
+        "startChar": 4,
+        "endLine": 126,
+        "endChar": 30
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e85da2d6_5affa233",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "you could just replace ${command} on the next line with this somewhat short command and save a line. it should still be readable enough. nbd though",
+      "range": {
+        "startLine": 127,
+        "startChar": 44,
+        "endLine": 127,
+        "endChar": 86
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68a67426_95e7e2f1",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "not needed, right?",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 134,
+        "endChar": 30
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "543287ef_5a48239b",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "I think this line could deserve a comment to show an example of what we are trying to match on. just because it\u0027s a little\ncryptic to read that regex as is. ---for me :)",
+      "range": {
+        "startLine": 137,
+        "startChar": 4,
+        "endLine": 137,
+        "endChar": 98
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9c30070_854a3870",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "use the var.",
+      "range": {
+        "startLine": 156,
+        "startChar": 87,
+        "endLine": 156,
+        "endChar": 91
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9099c227_304942e6",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:14:46Z",
+      "side": 1,
+      "message": "wondering why we need the docker command here. It seems like the Safe_Issue_Command_On_Karaf_Console should still work, even if ODL is deployed in a container.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 185
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
