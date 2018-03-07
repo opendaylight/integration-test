@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8edc7a7_05c4428a",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-07T13:35:59Z",
+      "side": 1,
+      "message": "@Sam - Need your answer regarding my comment in an the former patch",
+      "revId": "714191ac1292535f7508acd62b523462b96f91ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
