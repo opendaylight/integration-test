@@ -213,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f8a32da0_9c31863f",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:47:55Z",
+      "side": 1,
+      "message": "there is no OVS happening on the ODL nodes here. Just worry about the CONTROL and COMPUTE nodes. In some setups, ODL may end up on the COMPUTE node, but that won\u0027t matter here.",
+      "parentUuid": "8d31d652_ae01fa9e",
+      "range": {
+        "startLine": 36,
+        "startChar": 62,
+        "endLine": 36,
+        "endChar": 117
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b92031b3_7d091e7c",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 2
@@ -260,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "a8d1daf4_5562a8a0",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:47:55Z",
+      "side": 1,
+      "message": "I think Sam is saying \"good idea\" on what you have here.\n\nthis makes the Suite Variable more clear, other than hiding their creation down in the Xth test case. We should avoid suite and global variables as much as\npossible, but in this case where you populate this variable in the middle of the suite, but need it at the end of the suite, it makes sense.",
+      "parentUuid": "1dd974ac_272b555e",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5586fb35_5a21570e",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 2
@@ -295,6 +343,30 @@
       "side": 1,
       "message": "@Sam Are you referring to DataModles.Verify Flows Are Cleaned Up On All OpenStack Node?",
       "parentUuid": "5586fb35_5a21570e",
+      "range": {
+        "startLine": 183,
+        "startChar": 23,
+        "endLine": 183,
+        "endChar": 83
+      },
+      "revId": "3416f5c7d1fda3ba8a88efd4e5e74f6d1930a957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0eeeca7d_b11bb7ad",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:47:55Z",
+      "side": 1,
+      "message": "change the text to say \"verify that we have the same ...\"\n\nSam\u0027s just pointing out a typo",
+      "parentUuid": "05a70ab0_8a82f4de",
       "range": {
         "startLine": 183,
         "startChar": 23,
