@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bba8ac57_e460676f",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:47:55Z",
+      "side": 1,
+      "message": "put a space after the pipes leading to the sed and grep (for clarity)\n\nI wonder if it makes more sense to put this complicated regex above in the Variables section so it\u0027s easier to find? worried that future OVS versions will have slightly different\nformats and we\u0027ll have to tweak.",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 214,
+        "endChar": 260
+      },
+      "revId": "34a3957fd73c6e03fa79567c959a8fdd94875e9a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "903aaf87_89f3e2bb",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:47:55Z",
+      "side": 1,
+      "message": "like in the other patch,  you can merge the --external arg in to the Create Network line if you want.",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 76
+      },
+      "revId": "34a3957fd73c6e03fa79567c959a8fdd94875e9a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52a10da8_7adf7d60",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:47:55Z",
+      "side": 1,
+      "message": "remove. the Get Data From URI already does that logging",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 26
+      },
+      "revId": "34a3957fd73c6e03fa79567c959a8fdd94875e9a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9014a504_5e33e4f6",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:47:55Z",
+      "side": 1,
+      "message": "this is a long time. do we have a real upper limit that we know? Sam, any idea?",
+      "range": {
+        "startLine": 184,
+        "startChar": 48,
+        "endLine": 184,
+        "endChar": 52
+      },
+      "revId": "34a3957fd73c6e03fa79567c959a8fdd94875e9a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
