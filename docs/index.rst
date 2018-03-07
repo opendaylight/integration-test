@@ -19,4 +19,4 @@ External resources:
 * `Test Code Guidelines <https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines>`_.
 * `Test Case Expectations <https://wiki.opendaylight.org/view/Integration/Test/Test_Case_Expectations>`_.
 * `Boron Test Requirements <https://wiki.opendaylight.org/view/CrossProject:Integration_Group:Boron_Traditional_Release_Project_Integration_Requirements>`_.
-* `Robot API docs <http://docs.opendaylight.org/en/latest/_static/integration/robot/index.html>`_.
+* `Robot API docs <_static/integration/robot/index.html>`_.
