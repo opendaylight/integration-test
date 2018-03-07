@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e1d7afb_bd640755",
+        "filename": "tools/deployment/openstack_ha/deploy/README.md",
+        "patchSetId": 77
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T01:55:36Z",
+      "side": 1,
+      "message": "lots of tabs and whitespaces to clean up.",
+      "revId": "16efe384f34513aa4b278450e345e58ee152dd5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
