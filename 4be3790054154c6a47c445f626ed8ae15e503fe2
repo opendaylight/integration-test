@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "83106796_5572e76e",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T19:52:08Z",
+      "side": 1,
+      "message": "I mean, you don\u0027t need to do anything special here, do you?\nwhy even Suite Variable? You are creating the variable here\nin this test case, and the only place I see it used is below\nin this same test case. Suite/Global variables should be\navoided when possible.",
+      "parentUuid": "a82285f4_bd012236",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca599ab3_8b2c082c",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 7
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "87a8075a_01770dd7",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T19:52:08Z",
+      "side": 1,
+      "message": "Set Variable",
+      "parentUuid": "3541df00_b86d58d5",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dfdde2e4_e4045b43",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 7
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "dfdde2e4_e4045b43",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 38
+      },
+      "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f733035d_73be445e",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T19:52:08Z",
+      "side": 1,
+      "message": "no, you just changed it to Suite variable.\n\nremove these lines altogether. Then down when you want to\nuse it again (line 69) just do a \"Get_Tunnel\" before you\ndelete to find the name.",
+      "parentUuid": "c9c2fc4e_8996caa7",
       "range": {
         "startLine": 37,
         "startChar": 4,
@@ -328,6 +400,29 @@
       "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f423739_e7bebadb",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T19:52:08Z",
+      "side": 1,
+      "message": "what about this one? oh, and I see one above in line 123.\n\nI don\u0027t catch everything like this on each review, so hoping\nyou also are finding and removing things like this too.",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 27
+      },
+      "revId": "4be3790054154c6a47c445f626ed8ae15e503fe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
