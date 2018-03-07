@@ -1,3 +1,5 @@
+.. _integration-test-guide:
+
 Integration Testing Guide
 =========================
 
