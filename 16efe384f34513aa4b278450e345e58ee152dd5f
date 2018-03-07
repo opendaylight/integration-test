@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9d9ca480_4a1fe331",
+        "filename": "tools/deployment/openstack_ha/deploy/00_initial_setup.robot",
+        "patchSetId": 77
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-07T02:04:16Z",
+      "side": 1,
+      "message": "we need to get away from this ugliness of doing things to each node. we need to loop over the X number of nodes. This is just scary to\nlook at, and wont scale nicely when someone wants to use it with different numbers of computes, etc.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 97
+      },
+      "revId": "16efe384f34513aa4b278450e345e58ee152dd5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e1d7afb_bd640755",
         "filename": "tools/deployment/openstack_ha/deploy/README.md",
         "patchSetId": 77
