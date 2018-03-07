@@ -101,7 +101,7 @@ class Changes(object):
         self.verbose = verbose
         self.projects = {}
         self.set_log_level(verbose)
-        self.regex_changeid = re.compile(r'(Change-Id.*: \bI([a-f0-9]{40})\b|\bI([a-f0-9]{8})\b)')
+        self.regex_changeid = re.compile(r'(Change-Id.*: (\bI[a-f0-9]{40})\b|\bI([a-f0-9]{8})\b)')
         # self.regex_shortmsg = re.compile(r'"([^"]*)"|(git.commit.message.short=(.*))')
         self.regex_shortmsg1 = re.compile(r'(git.commit.message.short=.*"([^"]*)")')
         self.regex_shortmsg2 = re.compile(r'(git.commit.message.short=(.*))')
