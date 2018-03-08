@@ -39,8 +39,7 @@ Create Network
 Update Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update Network with neutron request.
-    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v net-update ${network_name} ${additional_args}    openstack network set ${network_name} ${additional_args}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${output} =    OpenStack CLI    openstack network set ${network_name} ${additional_args}
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
@@ -74,8 +73,7 @@ Create SubNet
 Update SubNet
     [Arguments]    ${subnet_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update subnet with neutron request.
-    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v subnet-update ${subnet_name} ${additional_args}    openstack subnet set ${subnet_name} ${additional_args}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${output} =    OpenStack CLI    openstack subnet set ${subnet_name} ${additional_args}
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
@@ -92,11 +90,9 @@ Create Port
     # if allowed_address_pairs is not empty we need to create the arguments to pass to the port create command. They are
     # in a different format with the neutron vs openstack cli.
     ${address_pair_length} =    BuiltIn.Get Length    ${allowed_address_pairs}
-    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton' and '${address_pair_length}'=='2'    --allowed-address-pairs type=dict list=true ip_address=@{allowed_address_pairs}[0] ip_address=@{allowed_address_pairs}[1]
-    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'!='stable/newton' and '${address_pair_length}'=='2'    --allowed-address ip-address=@{allowed_address_pairs}[0] --allowed-address ip-address=@{allowed_address_pairs}[1]    ${allowed_pairs_argv}
     ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${address_pair_length}'=='0'    ${EMPTY}    ${allowed_pairs_argv}
-    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v port-create ${network_name} --name ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}    openstack port create --network ${network_name} ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${address_pair_length}'=='2'    --allowed-address ip-address=@{allowed_address_pairs}[0] --allowed-address ip-address=@{allowed_address_pairs}[1]    ${allowed_pairs_argv}
+    ${output} =    OpenStack CLI    openstack port create --network ${network_name} ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
 
@@ -470,8 +466,7 @@ Show Router Interface
 
 Add Router Gateway
     [Arguments]    ${router_name}    ${external_network_name}
-    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v router-gateway-set ${router_name} ${external_network_name}    openstack router set ${router_name} --external-gateway ${external_network_name}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${output} =    OpenStack CLI    openstack router set ${router_name} --external-gateway ${external_network_name}
     BuiltIn.Should Be True    '${rc}' == '0'
 
 Remove Interface
@@ -641,41 +636,6 @@ Neutron Security Group Rule Create
     ${cmd} =    BuiltIn.Run Keyword If    '${remote_group_id}'!='None'    BuiltIn.Catenate    ${cmd}    --remote-group ${remote_group_id}
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${cmd} =    BuiltIn.Run Keyword If    '${remote_ip_prefix}'!='None'    BuiltIn.Catenate    ${cmd}    --src-ip ${remote_ip_prefix}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
-    ${rule_id} =    BuiltIn.Should Match Regexp    ${output}    ${REGEX_UUID}
-    BuiltIn.Log    ${rule_id}
-    BuiltIn.Should Be True    '${rc}' == '0'
-    [Return]    ${output}    ${rule_id}
-
-Neutron Security Group Rule Create Legacy Cli
-    [Arguments]    ${Security_group_name}    &{Kwargs}
-    [Documentation]    Creates neutron security rule with neutron request with or without optional params, here security group name is mandatory args, rule with optional params can be created by passing the optional args values ex: direction=${INGRESS_EGRESS}, Then these optional params are BuiltIn.Catenated with mandatory args, example of usage: "OpenStack Neutron Security Group Rule Create ${SGP_SSH} direction=${RULE_PARAMS[0]} ethertype=${RULE_PARAMS[1]} ..."
-    BuiltIn.Run Keyword If    ${Kwargs}    BuiltIn.Log    ${Kwargs}
-    ${description}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    description    default=${None}
-    ${direction}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    direction    default=${None}
-    ${ethertype}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    ethertype    default=${None}
-    ${port_range_max}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    port_range_max    default=${None}
-    ${port_range_min}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    port_range_min    default=${None}
-    ${protocol}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    protocol    default=${None}
-    ${remote_group_id}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote_group_id    default=${None}
-    ${remote_ip_prefix}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote_ip_prefix    default=${None}
-    ${cmd} =    BuiltIn.Set Variable    neutron security-group-rule-create ${Security_group_name}
-    ${cmd} =    BuiltIn.Run Keyword If    '${description}'!='None'    BuiltIn.Catenate    ${cmd}    --description ${description}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${direction}'!='None'    BuiltIn.Catenate    ${cmd}    --direction ${direction}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${ethertype}'!='None'    BuiltIn.Catenate    ${cmd}    --ethertype ${ethertype}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${port_range_max}'!='None'    BuiltIn.Catenate    ${cmd}    --port_range_max ${port_range_max}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${port_range_min}'!='None'    BuiltIn.Catenate    ${cmd}    --port_range_min ${port_range_min}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${protocol}'!='None'    BuiltIn.Catenate    ${cmd}    --protocol ${protocol}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${remote_group_id}'!='None'    BuiltIn.Catenate    ${cmd}    --remote_group_id ${remote_group_id}
-    ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${remote_ip_prefix}'!='None'    BuiltIn.Catenate    ${cmd}    --remote_ip_prefix ${remote_ip_prefix}
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
     ${rule_id} =    BuiltIn.Should Match Regexp    ${output}    ${REGEX_UUID}
