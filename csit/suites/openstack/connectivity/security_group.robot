@@ -81,8 +81,8 @@ No Ping From Vm Instance2 To Vm Instance1
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}    ping_should_succeed=False
 
 Add Ping Allow Rules With Remote SG (only between VMs)
-    OpenStackOperations.Neutron Security Group Rule Create Legacy Cli    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_group_id=${SECURITY_GROUP}
-    OpenStackOperations.Neutron Security Group Rule Create Legacy Cli    ${SECURITY_GROUP}    direction=egress    protocol=icmp    remote_group_id=${SECURITY_GROUP}
+    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=ingress    protocol=icmp    remote_group_id=${SECURITY_GROUP}
+    OpenStackOperations.Neutron Security Group Rule Create    ${SECURITY_GROUP}    direction=egress    protocol=icmp    remote_group_id=${SECURITY_GROUP}
     OpenStackOperations.Neutron Security Group Show    ${SECURITY_GROUP}
 
 Verify No Ping From DHCP To Vm Instance1
@@ -126,15 +126,6 @@ Repeat Ping From Vm Instance2 To Vm Instance1 With a Router
     ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}[0]
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${vm_ips}
 
-Add Additional Security Group To VMs
-    [Documentation]    Add an additional security group to the VMs - this is done to test a different logic put in place for ports with multiple SGs
-    OpenStackOperations.Security Group Create Without Default Security Rules    additional-sg
-    #TODO Remove this after the Newton jobs are removed, Openstack CLI with Newton lacks support to configure rule with remote_ip_prefix
-    OpenStackOperations.Neutron Security Group Rule Create Legacy Cli    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=${NET_1_DHCP_IP}/32
-    OpenStackOperations.Neutron Security Group Show    additional-sg
-    : FOR    ${vm}    IN    @{NET_1_VMS}
-    \    OpenStackOperations.Add Security Group To VM    ${vm}    additional-sg
-
 Ping From DHCP To Vm Instance1
     [Documentation]    Check reachability of vm instances by pinging to them from DHCP.
     OpenStackOperations.Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]
@@ -172,9 +163,6 @@ No Ping From DHCP To Vm Instance1 With Additional Security Group Rules Removed
 No Ping From DHCP To Vm Instance2 With Additional Security Group Rules Removed
     [Documentation]    Check non-reachability of vm instances by pinging to them.
     OpenStackOperations.Ping From DHCP Should Not Succeed    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]
-
-Add The Rules To Additional Security Group Again
-    OpenStackOperations.Neutron Security Group Rule Create Legacy Cli    additional-sg    direction=ingress    protocol=icmp    remote_ip_prefix=${NET_1_DHCP_IP}/32
 
 Ping From DHCP To Vm Instance1 After Rules Are Added Again
     [Documentation]    Check reachability of vm instances by pinging to them from DHCP.
