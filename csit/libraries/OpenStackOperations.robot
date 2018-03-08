@@ -39,8 +39,7 @@ Create Network
 Update Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update Network with neutron request.
-    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v net-update ${network_name} ${additional_args}    openstack network set ${network_name} ${additional_args}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${output} =    OpenStack CLI    openstack network set ${network_name} ${additional_args}
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
@@ -74,8 +73,7 @@ Create SubNet
 Update SubNet
     [Arguments]    ${subnet_name}    ${additional_args}=${EMPTY}
     [Documentation]    Update subnet with neutron request.
-    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v subnet-update ${subnet_name} ${additional_args}    openstack subnet set ${subnet_name} ${additional_args}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${output} =    OpenStack CLI    openstack subnet set ${subnet_name} ${additional_args}
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${output}
@@ -92,11 +90,9 @@ Create Port
     # if allowed_address_pairs is not empty we need to create the arguments to pass to the port create command. They are
     # in a different format with the neutron vs openstack cli.
     ${address_pair_length} =    BuiltIn.Get Length    ${allowed_address_pairs}
-    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton' and '${address_pair_length}'=='2'    --allowed-address-pairs type=dict list=true ip_address=@{allowed_address_pairs}[0] ip_address=@{allowed_address_pairs}[1]
-    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'!='stable/newton' and '${address_pair_length}'=='2'    --allowed-address ip-address=@{allowed_address_pairs}[0] --allowed-address ip-address=@{allowed_address_pairs}[1]    ${allowed_pairs_argv}
     ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${address_pair_length}'=='0'    ${EMPTY}    ${allowed_pairs_argv}
-    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v port-create ${network_name} --name ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}    openstack port create --network ${network_name} ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${allowed_pairs_argv} =    BuiltIn.Set Variable If    '${address_pair_length}'=='2'    --allowed-address ip-address=@{allowed_address_pairs}[0] --allowed-address ip-address=@{allowed_address_pairs}[1]    ${allowed_pairs_argv}
+    ${output} =    OpenStack CLI    openstack port create --network ${network_name} ${port_name} --security-group ${sg} ${additional_args} ${allowed_pairs_argv}
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
 
@@ -470,8 +466,7 @@ Show Router Interface
 
 Add Router Gateway
     [Arguments]    ${router_name}    ${external_network_name}
-    ${cmd} =    BuiltIn.Set Variable If    '${OPENSTACK_BRANCH}'=='stable/newton'    neutron -v router-gateway-set ${router_name} ${external_network_name}    openstack router set ${router_name} --external-gateway ${external_network_name}
-    ${rc}    ${output} =    OperatingSystem.Run And Return Rc And Output    ${cmd}
+    ${output} =    OpenStack CLI    openstack router set ${router_name} --external-gateway ${external_network_name}
     BuiltIn.Should Be True    '${rc}' == '0'
 
 Remove Interface

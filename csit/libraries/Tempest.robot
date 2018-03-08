@@ -7,7 +7,6 @@ Resource          SSHKeywords.robot
 Resource          ../variables/Variables.robot
 
 *** Variables ***
-@{stable/newton_EXCLUSION_REGEXES}    ${EMPTY}
 @{stable/ocata_EXCLUSION_REGEXES}    ${EMPTY}
 @{stable/pike_EXCLUSION_REGEXES}    ${EMPTY}
 @{stable/queens_EXCLUSION_REGEXES}    ${EMPTY}
