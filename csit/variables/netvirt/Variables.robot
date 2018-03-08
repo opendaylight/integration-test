@@ -3,7 +3,6 @@ Documentation     Variables for Netvirt Test Suites
 
 *** Variables ***
 @{legacy_feature_list}    odl-vtn-manager-neutron    odl-ovsdb-openstack
-${CIRROS_stable/newton}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/ocata}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/pike}    cirros-0.3.5-x86_64-disk
 ${CIRROS_stable/queens}    cirros-0.3.5-x86_64-disk
