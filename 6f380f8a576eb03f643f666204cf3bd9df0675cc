@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46879b9b_0ff1b95a",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-09T21:16:25Z",
+      "side": 1,
+      "message": "two things:\n\n1) you want to get the tunnels before you delete them, so you can know what *not* to expect in the result of operational\n\n2) you don\u0027t need to do the WUKS here. the tunnels are already expected to be there. it makes sense in the first test case, because you are creating them there.",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 102
+      },
+      "revId": "6f380f8a576eb03f643f666204cf3bd9df0675cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
