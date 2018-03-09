@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "99f3c8b5_eb83df3d",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-09T11:08:28Z",
+      "side": 1,
+      "message": "Not used.. Have removec it",
+      "parentUuid": "940cb6db_e95c9e93",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94e60ce3_47cb5942",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "6432726f_43a8f382",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-09T11:08:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94e60ce3_47cb5942",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06e5b8bb_ba399f12",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 8
@@ -47,6 +83,24 @@
       "writtenOn": "2018-03-03T01:20:55Z",
       "side": 1,
       "message": "where is this used?",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b53b78eb_b9e0fb37",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-09T11:08:28Z",
+      "side": 1,
+      "message": "Have used in all TC01,02,03.\nShould Not Contain    ${Ovs1Flow}    ${STATIC_FLOW}\nTo check if static flow pushed is not present in ovs after switch restart",
+      "parentUuid": "06e5b8bb_ba399f12",
       "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -81,6 +135,24 @@
       "writtenOn": "2018-03-03T01:20:55Z",
       "side": 1,
       "message": "Please add library when you use KW that is not in this file. e.g. Utils.Run Command On Remote System. This comment is also for other KWs in this file.",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d16fb8c_1911dd3e",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-09T11:08:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b529d131_f7c96468",
       "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -138,6 +210,24 @@
     },
     {
       "key": {
+        "uuid": "95c931b5_0692a6d6",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-09T11:08:28Z",
+      "side": 1,
+      "message": "I have modified the script accordingly such that the global variable declared is not modified",
+      "parentUuid": "81b4a357_32aede03",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7edd18b4_7d73dc42",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 8
@@ -149,6 +239,24 @@
       "writtenOn": "2018-03-03T01:20:55Z",
       "side": 1,
       "message": "This is con",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e207db6_6d5112d0",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-09T11:08:28Z",
+      "side": 1,
+      "message": "Couldn\u0027t understand the comment",
+      "parentUuid": "7edd18b4_7d73dc42",
       "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -172,6 +280,24 @@
     },
     {
       "key": {
+        "uuid": "dba085f3_2a257d2b",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-09T11:08:28Z",
+      "side": 1,
+      "message": "Open Connection is just a prerequisite check wherein I check if the connections to my ips are fine in the Startup.\nIts not mandatory..May be will remove it",
+      "parentUuid": "b6afd5c3_476818f6",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b26bac0a_77e070ba",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 8
@@ -189,6 +315,24 @@
     },
     {
       "key": {
+        "uuid": "4e1f5c12_ef2ce53d",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-09T11:08:28Z",
+      "side": 1,
+      "message": "KarafKeywords.Check_Karaf_Log_Has_Messages just checks if message is present.\nHere in our case after every restart,\"Completing Bundle-based Reconcilation\" message gets logged.so need to check if message is present n number of times.",
+      "parentUuid": "b26bac0a_77e070ba",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b59d446_7db9e5e4",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 8
@@ -200,6 +344,24 @@
       "writtenOn": "2018-03-03T01:20:55Z",
       "side": 1,
       "message": "I do not get this KW, if you want to push a flow in controller why do not use ODL_SYSTEM_IP straight as argument? Cannot just you use FlowLib.Add_Flow_To_Controller_And_Verify?",
+      "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38893263_449a4d45",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-09T11:08:28Z",
+      "side": 1,
+      "message": "Hi Luis,\n\nEven I have used Flowlib.Add Flow Via Restconf.\nAs this needs to be called 2-3 times, I have created a local routing with Flowlib.Add Flow Via Restconf and check config,operational.",
+      "parentUuid": "2b59d446_7db9e5e4",
       "revId": "c9c217b9275b89466b51f787c6a9fb7a2d856da4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
