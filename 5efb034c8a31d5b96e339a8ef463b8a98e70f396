@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8fe4526_a1a4a478",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-09T10:19:03Z",
+      "side": 1,
+      "message": "Verify Tunnel Up??\n\nAnd where is this keyword? why is Verify Tunnel Down alone here? Can we move both of them to the library?",
+      "revId": "5efb034c8a31d5b96e339a8ef463b8a98e70f396",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
