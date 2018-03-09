@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "106ad4a1_98c5f958",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-09T17:26:33Z",
+      "side": 1,
+      "message": "when this is ready, remove this.\n\nalso, can you write here why we are moving to a 30 count? is this to overcome some timing issue? Are we working around a bug?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "1ccf7cf107a0964d739623b2f3d8e7894aa14bfd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
