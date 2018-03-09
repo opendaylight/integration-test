@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16d7481b_95e175ed",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-09T17:01:42Z",
+      "side": 1,
+      "message": "the CLI prints output by default",
+      "revId": "a5c3f9bac5551cd8c0b2ab8bb4d20061e85b4f69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
