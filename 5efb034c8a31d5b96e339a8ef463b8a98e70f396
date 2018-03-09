@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "8d7f34c1_9962d133",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-09T17:59:05Z",
+      "side": 1,
+      "message": "delete this line.\n\nin the test case below (Delete and Verify VTEP) add the call to Get_Tunnel to again grab the ${tunnel-1} value.\n\ndo the same for ${tunnel-2}\n\nUNLESS, this call to Get_Tunnel is very expensive, it will prevent issues in the future that may crop up. Using a suite variable like this is\nnot unheard of in our code, but if we can avoid, we should. As an example, let\u0027s say some unrelated project in ODL CSIT comes in and\nupdates a common keyword (just for fun, say they update \"Get Data From URI\" and inside there, they use what they think is a local\nvariable ${tunnel-1} and give it some value). Now, since you made it a suite variable here, that could change it and now in your\nnext test cases it wont be what you expect. We\u0027ll end up seeing this show up as some random failure in genius CSIT and someone will\nhave to go digging to figure out what happened.\n\nI know it sounds rare, and maybe it\u0027ll never hurt us, but no reason not to be defensive about it if we can.",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "5efb034c8a31d5b96e339a8ef463b8a98e70f396",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe937edc_e6f75ac0",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-09T17:59:05Z",
+      "side": 1,
+      "message": "do we get the output of this pretty print from this keyword itself? if so, delete the Log line below. if not, leave the Log line.",
+      "range": {
+        "startLine": 47,
+        "startChar": 19,
+        "endLine": 47,
+        "endChar": 42
+      },
+      "revId": "5efb034c8a31d5b96e339a8ef463b8a98e70f396",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "738e7979_2e966999",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-09T17:59:05Z",
+      "side": 1,
+      "message": "same question as above (and below maybe) :)",
+      "range": {
+        "startLine": 80,
+        "startChar": 19,
+        "endLine": 80,
+        "endChar": 42
+      },
+      "revId": "5efb034c8a31d5b96e339a8ef463b8a98e70f396",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8fe4526_a1a4a478",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 13
