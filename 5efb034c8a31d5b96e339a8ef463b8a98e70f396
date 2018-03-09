@@ -16,6 +16,24 @@
       "revId": "5efb034c8a31d5b96e339a8ef463b8a98e70f396",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "686e4aed_f88db560",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-09T10:33:41Z",
+      "side": 1,
+      "message": "Verify tunnel status as UP is in VpnOperations.robot I used from that.",
+      "parentUuid": "f8fe4526_a1a4a478",
+      "revId": "5efb034c8a31d5b96e339a8ef463b8a98e70f396",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
