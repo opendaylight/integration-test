@@ -24,6 +24,14 @@ Genius Suite Teardown
     Delete All Sessions
     Stop Suite
 
+Genius Idmanager Suite Setup
+    [Documentation]    IdManager Suite Setup - Create Rest Session to http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=5
+
+Genius Idmanager Suite Teardown
+    [Documentation]    IdManager Suite Teardown - Delete all sessions
+    Delete All Sessions
+
 Start Suite
     [Documentation]    Initial setup for Genius test suites
     Run_Keyword_If_At_Least_Oxygen    Check Service Status    ACTIVE    OPERATIONAL
