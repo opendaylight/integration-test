@@ -19,6 +19,42 @@
     },
     {
       "key": {
+        "uuid": "0e187dcf_7a5f6f95",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-09T04:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa62bc87_08a2f062",
+      "revId": "8b68881bde8f2de0e050104fa0ba5ce3ea138ccc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74258236_4379b65f",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-09T04:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa62bc87_08a2f062",
+      "revId": "8b68881bde8f2de0e050104fa0ba5ce3ea138ccc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c70369a_b93c9dc8",
         "filename": "csit/suites/genius/Configure_ITM.robot",
         "patchSetId": 10
@@ -30,6 +66,24 @@
       "writtenOn": "2018-03-08T18:01:24Z",
       "side": 1,
       "message": "should be common",
+      "revId": "8b68881bde8f2de0e050104fa0ba5ce3ea138ccc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3b1d953_e5ee2d3a",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-09T04:09:55Z",
+      "side": 1,
+      "message": "This cannot be common because in line 314 we are checking in_port which won\u0027t be there in ITM_Direct_Tunnels. so I made separate keyword.",
+      "parentUuid": "5c70369a_b93c9dc8",
       "revId": "8b68881bde8f2de0e050104fa0ba5ce3ea138ccc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "365834d5_71fb7cf4",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-09T04:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11ef10aa_ccf3f3a9",
+      "revId": "8b68881bde8f2de0e050104fa0ba5ce3ea138ccc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d0a823a_1c3dd378",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 10
@@ -64,6 +136,24 @@
       "writtenOn": "2018-03-08T18:01:24Z",
       "side": 1,
       "message": "why is this here? Isn\u0027t this again common for configure ITM as well? Could you plese scan the script properly to make sure there are no such duplicates anymore.",
+      "revId": "8b68881bde8f2de0e050104fa0ba5ce3ea138ccc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc53b955_1e5d50e6",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-09T04:09:55Z",
+      "side": 1,
+      "message": "This is different to the other test case in Configure ITM.",
+      "parentUuid": "3d0a823a_1c3dd378",
       "revId": "8b68881bde8f2de0e050104fa0ba5ce3ea138ccc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "8994dd65_6efe835e",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-09T04:09:55Z",
+      "side": 1,
+      "message": "This is different to another test case.",
+      "parentUuid": "e2ef8b74_15e9801a",
+      "revId": "8b68881bde8f2de0e050104fa0ba5ce3ea138ccc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ff21d1f_6771c3af",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 10
@@ -98,6 +206,24 @@
       "writtenOn": "2018-03-08T18:01:24Z",
       "side": 1,
       "message": "Stop switch should be a separate keyword. You might have to check if such a keyword already exists in other libraries. Verify should just check for the tunnel state.",
+      "revId": "8b68881bde8f2de0e050104fa0ba5ce3ea138ccc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1750a93_849ea6a0",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-09T04:09:55Z",
+      "side": 1,
+      "message": "Should I change the Name of the keyword?",
+      "parentUuid": "8ff21d1f_6771c3af",
       "revId": "8b68881bde8f2de0e050104fa0ba5ce3ea138ccc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
