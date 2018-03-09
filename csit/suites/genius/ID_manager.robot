@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test Suite for IdManager
-Suite Setup       Genius Suite Setup
-Suite Teardown    Genius Suite Teardown
+Suite Setup       Genius Idmanager Suite Setup
+Suite Teardown    Genius Idmanager Suite Teardown
 Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${idmanager_data_models}
 Library           OperatingSystem
 Library           String
