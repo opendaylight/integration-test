@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9459ca97_85ad6dee",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-09T19:05:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d7f34c1_9962d133",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "5efb034c8a31d5b96e339a8ef463b8a98e70f396",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe937edc_e6f75ac0",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 13
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4eb6664f_3889ad42",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-09T19:05:03Z",
+      "side": 1,
+      "message": "We are getting the output.\nDeleted the log.",
+      "parentUuid": "fe937edc_e6f75ac0",
+      "range": {
+        "startLine": 47,
+        "startChar": 19,
+        "endLine": 47,
+        "endChar": 42
+      },
+      "revId": "5efb034c8a31d5b96e339a8ef463b8a98e70f396",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "738e7979_2e966999",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 13
@@ -59,6 +107,30 @@
       "writtenOn": "2018-03-09T17:59:05Z",
       "side": 1,
       "message": "same question as above (and below maybe) :)",
+      "range": {
+        "startLine": 80,
+        "startChar": 19,
+        "endLine": 80,
+        "endChar": 42
+      },
+      "revId": "5efb034c8a31d5b96e339a8ef463b8a98e70f396",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3017d937_3b059d13",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-09T19:05:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "738e7979_2e966999",
       "range": {
         "startLine": 80,
         "startChar": 19,
