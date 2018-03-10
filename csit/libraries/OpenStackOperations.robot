@@ -493,6 +493,7 @@ Show Router
     [Arguments]    ${router_name}    ${options}
     [Documentation]    Show information of a given router. Router name and optional fields should be sent as arguments.
     ${output} =    OpenStack CLI    openstack router show ${router_name}
+    [Return]    ${output}
 
 Delete Router
     [Arguments]    ${router_name}
