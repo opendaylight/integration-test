@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "21f82a4e_987800e9",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8de90bdc_4489905b",
+      "range": {
+        "startLine": 713,
+        "startChar": 41,
+        "endLine": 713,
+        "endChar": 46
+      },
+      "revId": "3f2a8e08c3b3e1f7530554b88803d2e3cdbab692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20631409_2eb8e7fb",
         "filename": "csit/suites/openstack/connectivity/snat.robot",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "149a229c_403a7555",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "My thinking is that I want to start from a clean state.\nIt\u0027s already complicated when a router is migrated and I don\u0027t want to have instances on the node that has the NAPT switch\n\na) Done\nb) Done",
+      "parentUuid": "20631409_2eb8e7fb",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 109
+      },
+      "revId": "3f2a8e08c3b3e1f7530554b88803d2e3cdbab692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f1c788e_e107287a",
         "filename": "csit/suites/openstack/connectivity/snat.robot",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-02-14T19:20:29Z",
       "side": 1,
       "message": "we aren\u0027t using docker in ODL upstream CSIT, so we need a way to toggle this to do what works in upstream CSIT.",
+      "range": {
+        "startLine": 137,
+        "startChar": 4,
+        "endLine": 137,
+        "endChar": 178
+      },
+      "revId": "3f2a8e08c3b3e1f7530554b88803d2e3cdbab692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ab2c282_61fcedbe",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f1c788e_e107287a",
       "range": {
         "startLine": 137,
         "startChar": 4,
