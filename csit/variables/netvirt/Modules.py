@@ -1,4 +1,5 @@
 netvirt_data_models = [
+    'config/ebgp:bgp',
     'config/elan:elan-instances',
     'config/elan:elan-interfaces',
     'config/id-manager:id-pools',
@@ -40,7 +41,7 @@ netvirt_data_models = [
     'operational/interface-service-bindings:bound-services-state-list',
     'operational/itm-state:tunnels_state',
     'operational/l3nexthop:l3nexthop',
-    'operational/l3vpn:vpn-interfaces',
+    'operational/l3vpn:vpn-interfaces'
     'operational/network-topology:network-topology/topology/ovsdb:1',
     'operational/neutron:neutron/neutron:ports',
     'operational/odl-fib:label-route-map',
@@ -50,6 +51,7 @@ netvirt_data_models = [
     'operational/odl-l3vpn:prefix-to-interface',
     'operational/odl-l3vpn:subnet-op-data',
     'operational/odl-l3vpn:vpn-instance-op-data',
+    'operational/odl-l3vpn:vpn-interface-op-data',
     'operational/odl-l3vpn:vpn-to-extraroute',
     'operational/odl-nat:external-ips-counter',
     'operational/odl-nat:floating-ip-info',
