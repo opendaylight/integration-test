@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a73238ca_d7c5a714",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:44:11Z",
+      "side": 1,
+      "message": "@Sam @Jamo - This is probably needs to be done in DevstackUtils - what do you think?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 12
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00165fa3_e78f0c3a",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:44:11Z",
+      "side": 1,
+      "message": "Will lower this one",
+      "range": {
+        "startLine": 99,
+        "startChar": 50,
+        "endLine": 99,
+        "endChar": 54
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
