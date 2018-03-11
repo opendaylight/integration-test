@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "669097f0_212d4d95",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "041fb538_5386325c",
+      "range": {
+        "startLine": 713,
+        "startChar": 45,
+        "endLine": 713,
+        "endChar": 46
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24808be6_260ce727",
         "filename": "csit/suites/openstack/connectivity/snat.robot",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-07T01:14:46Z",
       "side": 1,
       "message": "all these should now be there in variables/netvirt/Variables.robot. If it\u0027s not there, add it, and we can remove these lines.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9da4794a_74d06247",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24808be6_260ce727",
       "range": {
         "startLine": 27,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4ee459dd_6657f981",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "1)Done. I\u0027ll need to change it - maybe put it in DevstackUtils?\n2)I need it - You can take a look at the use of OS_NODES",
+      "parentUuid": "da9b7d28_05ddd370",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "516d195f_fbbe31fa",
         "filename": "csit/suites/openstack/connectivity/snat.robot",
         "patchSetId": 8
@@ -82,6 +154,30 @@
       "writtenOn": "2018-03-07T01:14:46Z",
       "side": 1,
       "message": "you can put --external in to your create command above and skip this Update Network step. That was added to catch a corner case bug, and it\u0027s there in the external_network suite already. just a small optimization if you want.",
+      "range": {
+        "startLine": 67,
+        "startChar": 1,
+        "endLine": 67,
+        "endChar": 76
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "603d957f_de7f03b2",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "516d195f_fbbe31fa",
       "range": {
         "startLine": 67,
         "startChar": 1,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d4271dfb_e9a333b0",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "OK , let\u0027s wait",
+      "parentUuid": "9cee3a62_ed1c6802",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 84
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9939dda1_1d5702ae",
         "filename": "csit/suites/openstack/connectivity/snat.robot",
         "patchSetId": 8
@@ -128,6 +248,30 @@
       "writtenOn": "2018-03-07T01:14:46Z",
       "side": 1,
       "message": "Launch An Instance",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 18
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d699d85_29a01493",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9939dda1_1d5702ae",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "d9ffd915_047d880f",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done. Let me know what you think in the next patch.",
+      "parentUuid": "ded2dcb5_2ed71b75",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 51
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "875912a8_29b893bf",
         "filename": "csit/suites/openstack/connectivity/snat.robot",
         "patchSetId": 8
@@ -174,6 +342,30 @@
       "writtenOn": "2018-03-07T01:14:46Z",
       "side": 1,
       "message": "for example... why did you make this a suite var?",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 49
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a00bb353_264fd54e",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Will change",
+      "parentUuid": "875912a8_29b893bf",
       "range": {
         "startLine": 105,
         "startChar": 4,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "ef735619_0c868a75",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36fcb07d_aa9108d4",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 33
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "011867ac_6ebce9c7",
         "filename": "csit/suites/openstack/connectivity/snat.robot",
         "patchSetId": 8
@@ -220,6 +436,30 @@
       "writtenOn": "2018-03-07T01:14:46Z",
       "side": 1,
       "message": "${ODL_OF_PORT_6653} which comes from variables/Variables.robot",
+      "range": {
+        "startLine": 121,
+        "startChar": 116,
+        "endLine": 121,
+        "endChar": 120
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bbfd47f_e74cc4a0",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "011867ac_6ebce9c7",
       "range": {
         "startLine": 121,
         "startChar": 116,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "b4edc73b_ce2297ca",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62c9578d_7bd9cde8",
+      "range": {
+        "startLine": 126,
+        "startChar": 4,
+        "endLine": 126,
+        "endChar": 30
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e85da2d6_5affa233",
         "filename": "csit/suites/openstack/connectivity/snat.robot",
         "patchSetId": 8
@@ -266,6 +530,30 @@
       "writtenOn": "2018-03-07T01:14:46Z",
       "side": 1,
       "message": "you could just replace ${command} on the next line with this somewhat short command and save a line. it should still be readable enough. nbd though",
+      "range": {
+        "startLine": 127,
+        "startChar": 44,
+        "endLine": 127,
+        "endChar": 86
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a43ca50_9383b906",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e85da2d6_5affa233",
       "range": {
         "startLine": 127,
         "startChar": 44,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "02ce3420_da6a06f1",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68a67426_95e7e2f1",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 134,
+        "endChar": 30
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "543287ef_5a48239b",
         "filename": "csit/suites/openstack/connectivity/snat.robot",
         "patchSetId": 8
@@ -312,6 +624,30 @@
       "writtenOn": "2018-03-07T01:14:46Z",
       "side": 1,
       "message": "I think this line could deserve a comment to show an example of what we are trying to match on. just because it\u0027s a little\ncryptic to read that regex as is. ---for me :)",
+      "range": {
+        "startLine": 137,
+        "startChar": 4,
+        "endLine": 137,
+        "endChar": 98
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "207c84ee_c0d0beae",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "543287ef_5a48239b",
       "range": {
         "startLine": 137,
         "startChar": 4,
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "6c3ee992_bbd0acc8",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9c30070_854a3870",
+      "range": {
+        "startLine": 156,
+        "startChar": 87,
+        "endLine": 156,
+        "endChar": 91
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9099c227_304942e6",
         "filename": "csit/variables/netvirt/Variables.robot",
         "patchSetId": 8
@@ -358,6 +718,30 @@
       "writtenOn": "2018-03-07T01:14:46Z",
       "side": 1,
       "message": "wondering why we need the docker command here. It seems like the Safe_Issue_Command_On_Karaf_Console should still work, even if ODL is deployed in a container.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 185
+      },
+      "revId": "b42472fb18be33c19c95241360376c81092d3700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19ef5b43_2127bd20",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-03-11T15:34:02Z",
+      "side": 1,
+      "message": "How do you access the container?",
+      "parentUuid": "9099c227_304942e6",
       "range": {
         "startLine": 11,
         "startChar": 0,
