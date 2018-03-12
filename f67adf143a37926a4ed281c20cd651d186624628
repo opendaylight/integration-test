@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5df6d44_2f0dc554",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-12T16:50:32Z",
+      "side": 1,
+      "message": "Would you mind to change variable name member_index to cluster_index, this way we can clearly differentiate between test member_index (always 1,2,3) and cluster configured member index (depends on installation).",
+      "revId": "f67adf143a37926a4ed281c20cd651d186624628",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
