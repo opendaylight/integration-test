@@ -136,6 +136,10 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     OpenStackOperations.Show Router    ${ROUTER}    -D
     ${vm_ips} =    BuiltIn.Create List    @{EXTRA_NW_SUBNET}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ips}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ip a
+    Log    ${output}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]    ip a
+    Log    ${output}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    @{NET_2_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[1]
