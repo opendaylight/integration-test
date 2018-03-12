@@ -20,7 +20,7 @@ ${SECURITY_GROUP}    l3_ext_sg
 @{NETWORKS}       l3_ext_net_1    l3_ext_net_2
 @{SUBNETS}        l3_ext_sub_1    l3_ext_sub_2
 @{ROUTERS}        l3_ext_router_1    l3_ext_router_2
-@{NET1_FIP_VMS}    l3_ext_net_1_fip_vm_1    l3_ext_net_1_fip_vm_2
+@{NET1_FIP_VMS}    l3_ext_net_1_fip_vm_1    l3_ext_net_1_fip_vm_2    l3_ext_net_1_fip_vm_3
 @{NET1_SNAT_VMS}    l3_ext_net_1_snat_vm_1    l3_ext_net_1_snat_vm_2
 @{NET2_SNAT_VMS}    l3_ext_net_2_snat_vm_3
 @{SNAT_VMS}       @{NET1_SNAT_VMS}    @{NET2_SNAT_VMS}
@@ -56,6 +56,7 @@ Create Vm Instances
     [Documentation]    Create VM instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[1]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
+    OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET1_FIP_VMS}[2]    ${OS_CMP2_HOSTNAME}
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_SNAT_VMS}[0]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[0]    @{NET_1_SNAT_VMS}[1]    ${OS_CMP1_HOSTNAME}    sg=${SECURITY_GROUP}
     OpenStackOperations.Create Vm Instance On Compute Node    @{NETWORKS}[1]    @{NET_2_SNAT_VMS}[0]    ${OS_CMP2_HOSTNAME}    sg=${SECURITY_GROUP}
@@ -126,6 +127,11 @@ Ping Vm Instance2 Floating IP From Vm Instance1 With Floating IP (Hairpinning)
     [Documentation]    Check reachability of VM instance floating IP from another VM instance with FIP (with ttl=1 to make sure no router hops)
     ${dst_ip}=    BuiltIn.Create List    @{VM_FLOATING_IPS}[1]
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[0]    ${dst_ip}    ttl=1
+
+Ping Vm Instance2 Floating IP From Vm Instance3 With Floating IP (FIP-FIP in the same compute node)
+    [Documentation]    Check reachability of VM instance floating IP from another VM instance with FIP (FIP-FIP in the same compute node)
+    ${dst_ip} =    BuiltIn.Create List    @{VM_FLOATING_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[2]    ${dst_ip}
 
 Ping External Network PNF from Vm Instance 1
     [Documentation]    Check reachability of External Network PNF from VM instance (with ttl=1 to make sure no router hops)
