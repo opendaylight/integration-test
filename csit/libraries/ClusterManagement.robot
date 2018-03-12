@@ -54,6 +54,7 @@ ${SINGLETON_BGPCEP_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-e
 ${SINGLETON_BGPCEP_DEVICE_ID_SUFFIX}    -service-group']
 ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
+${NODE_ROLE_INDEX_START}    1
 ${NODE_START_COMMAND}    ${KARAF_HOME}/bin/start
 ${NODE_STOP_COMMAND}    ${KARAF_HOME}/bin/stop
 ${NODE_KARAF_COUNT_COMMAND}    ps axf | grep org.apache.karaf | grep -v grep | wc -l
@@ -151,7 +152,8 @@ Get_Raft_Property_From_Shard_Member
     # TODO: Does the used URI tend to generate large data which floods log.html?
     BuiltIn.Run_Keyword_If    ${verify_restconf}    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False    http_timeout=${http_timeout}
     ${type_class} =    Resolve_Shard_Type_Class    shard_type=${shard_type}
-    ${uri} =    BuiltIn.Set_Variable    ${JOLOKIA_READ_URI}:Category=Shards,name=member-${member_index}-shard-${shard_name}-${shard_type},type=${type_class}
+    ${cluster_index} =    Evaluate    ${member_index}+${NODE_ROLE_INDEX_START}-1
+    ${uri} =    BuiltIn.Set_Variable    ${JOLOKIA_READ_URI}:Category=Shards,name=member-${cluster_index}-shard-${shard_name}-${shard_type},type=${type_class}
     ${data_text} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${uri}    session=${session}    http_timeout=${http_timeout}
     ${data_object} =    RequestsLibrary.To_Json    ${data_text}
     ${value} =    Collections.Get_From_Dictionary    ${data_object}    value
