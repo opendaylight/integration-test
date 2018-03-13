@@ -33,7 +33,8 @@ ${SUBNET_ADDITIONAL_ARGS}    --ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-
 @{NET_2_VM_INSTANCES}    vpn_net_2_vm_1_dualstack    vpn_net_2_vm_2_dualstack
 @{EXTRA_NW_IPV4}    76.1.1.2    77.1.1.2
 @{EXTRA_NW_IPV6}    3001:db9:cafe:d::10    3001:db9:abcd:d::20
-@{EXTRA_NW_SUBNET}    76.1.1.0/24    77.1.1.0/24    3001:db9:cafe:d::/64    3001:db9:abcd:d::/64
+@{EXTRA_NW_SUBNET_IPv4}    76.1.1.0/24    77.1.1.0/24
+@{EXTRA_NW_SUBNET_IPv6}    3001:db9:cafe:d::/64    3001:db9:abcd:d::/64
 ${ROUTER}         vpn_router_dualstack
 ${UPDATE_NETWORK}    UpdateNetwork_dualstack
 ${UPDATE_SUBNET}    UpdateSubnet_dualstack
@@ -102,7 +103,7 @@ Create Allow All Security Group IPv4+IPv6
 
 Create Neutron Ports
     [Documentation]    Create 2 ports in previously created IPv4 subnets and 2 ports in previously created IPv6 subnets.
-    ${allowed_address_pairs_args} =    BuiltIn.Set Variable    --allowed-address ip-address=${EXTRA_NW_SUBNET[0]} --allowed-address ip-address=${EXTRA_NW_SUBNET[1]} --allowed-address ip-address=${EXTRA_NW_SUBNET[2]} --allowed-address ip-address=${EXTRA_NW_SUBNET[3]}
+    ${allowed_address_pairs_args} =    BuiltIn.Set Variable    --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV4}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV4}[1] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV6}[0] --allowed-address ip-address=@{EXTRA_NW_SUBNET_IPV6}[1]
     OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[0]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
     OpenStackOperations.Create Port    @{NETWORKS}[0]    @{PORTS}[1]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
     OpenStackOperations.Create Port    @{NETWORKS}[1]    @{PORTS}[2]    sg=${SECURITY_GROUP}    additional_args=${allowed_address_pairs_args}
@@ -191,41 +192,42 @@ Check L3_Datapath Traffic Across Networks With Router
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation.
     BuiltIn.Log    Add extraroutes to VM
-    : FOR    ${VM}    IN    @{NET_1_VM_IPV4}
-    \    ${CONFIG_EXTRA_ROUTE_IP1} =    BuiltIn.Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IPV4}[0] netmask 255.255.255.0 up
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM}    ${CONFIG_EXTRA_ROUTE_IP1}
-    \    ${CONFIG_EXTRA_ROUTE_IP2} =    BuiltIn.Catenate    sudo ifconfig eth0:2 @{EXTRA_NW_IPV4}[1] netmask 255.255.255.0 up
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM}    ${CONFIG_EXTRA_ROUTE_IP2}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM}    ip a
-    ${ext_rt1} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET[0]},gateway=${NET_1_VM_IPV4[0]}
-    ${ext_rt2} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET[1]},gateway=${NET_1_VM_IPV4[0]}
+    : FOR    ${EXTRA_NW_IPV4}    IN    @{EXTRA_NW_IPV4}
+    \    ${cmd} =    BuiltIn.Catenate    sudo ip addr add ${EXTRA_NW_IPV4}/24 dev eth0
+    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    ${cmd}
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    ip a
+    \    BuiltIn.Should Contain    ${output}    ${EXTRA_NW_IPV4}/24
+    ${ext_rt1} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET_IPV4[0]},gateway=${NET_1_VM_IPV4[0]}
+    ${ext_rt2} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET_IPV4[1]},gateway=${NET_1_VM_IPV4[0]}
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt1}    ${RT_OPTIONS}    ${ext_rt2}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
     OpenStackOperations.Show Router    ${ROUTER}    -D
-    : FOR    ${VM}    IN    @{NET_1_VM_IPV6}
-    \    ${CONFIG_EXTRA_ROUTE_IP3} =    BuiltIn.Catenate    sudo ip -6 addr add ${EXTRA_NW_IPV6[0]}/64 dev eth0
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM}    ${CONFIG_EXTRA_ROUTE_IP3}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM}    ip -6 a
-    \    ${CONFIG_EXTRA_ROUTE_IP4} =    BuiltIn.Catenate    sudo ip -6 addr add ${EXTRA_NW_IPV6[0]}/64 dev eth0
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[0]}    ${CONFIG_EXTRA_ROUTE_IP4}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[0]}    ip -6 a
-    ${ext_rt3} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET[2]},gateway=${NET_1_VM_IPV6[0]}
-    ${ext_rt4} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET[3]},gateway=${NET_1_VM_IPV6[0]}
+    : FOR    ${EXTRA_NW_IPV6}    IN    @{EXTRA_NW_IPV6}
+    \    ${cmd} =    BuiltIn.Catenate    sudo ip -6 addr add ${EXTRA_NW_IPV6}/64 dev eth0
+    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    ${cmd}
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    ip -6 a
+    \    BuiltIn.Should Contain    ${output}    ${EXTRA_NW_IPV6}/64
+    ${ext_rt3} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET_IPV6[0]},gateway=${NET_1_VM_IPV6[0]}
+    ${ext_rt4} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET_IPV6[1]},gateway=${NET_1_VM_IPV6[0]}
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt3}    ${RT_OPTIONS}    ${ext_rt4}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
     OpenStackOperations.Show Router    ${ROUTER}    -D
     BuiltIn.Log    Verify FIB table
-    ${vm_instances} =    BuiltIn.Create List    @{EXTRA_NW_SUBNET}
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_instances}
-    : FOR    ${EXTRA_NW_IP}    IN    @{EXTRA_NW_IPV4}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[0]}    ping -c 3 ${EXTRA_NW_IP}
+    ${vm_ips} =    BuiltIn.Create List    @{EXTRA_NW_SUBNET_IPV4}    @{EXTRA_NW_SUBNET_IPV6}
+    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ips}
+    : FOR    ${EXTRA_NW_IPV4}    IN    @{EXTRA_NW_IPV4}
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[1]}    ping -c 3 ${EXTRA_NW_IPV4}
     \    BuiltIn.Should Contain    ${output}    64 bytes
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[1]}    ping -c 3 ${EXTRA_NW_IP}
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV4[0]}    ping -c 3 ${EXTRA_NW_IPV4}
     \    BuiltIn.Should Contain    ${output}    64 bytes
-    : FOR    ${EXTRA_NW_IP}    IN    @{EXTRA_NW_IPV6}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[0]}    ping6 -c 3 ${EXTRA_NW_IP}
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV4[1]}    ping -c 3 ${EXTRA_NW_IPV4}
     \    BuiltIn.Should Contain    ${output}    64 bytes
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[1]}    ping6 -c 3 ${EXTRA_NW_IP}
+    : FOR    ${EXTRA_NW_IPV6}    IN    @{EXTRA_NW_IPV6}
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[1]}    ping6 -c 3 ${EXTRA_NW_IPV6}
+    \    BuiltIn.Should Contain    ${output}    64 bytes
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[0]}    ping6 -c 3 ${EXTRA_NW_IPV6}
+    \    BuiltIn.Should Contain    ${output}    64 bytes
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[1]}    ping6 -c 3 ${EXTRA_NW_IPV6}
     \    BuiltIn.Should Contain    ${output}    64 bytes
 
 Delete And Recreate Extra Route
@@ -234,27 +236,31 @@ Delete And Recreate Extra Route
     BuiltIn.Log    Delete all extra routes
     OpenStackOperations.Update Router    ${ROUTER}    ${RT_CLEAR}
     OpenStackOperations.Show Router    ${ROUTER}    -D
-    BuiltIn.Log    Adding extra route to VM
-    ${CONFIG_EXTRA_ROUTE_IPV4}=    BuiltIn.Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IPV4}[0] netmask 255.255.255.0 up
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[0]}    ${CONFIG_EXTRA_ROUTE_IPV4}
-    ${ext_rt_ipv4} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET[0]},gateway=${NET_1_VM_IPV4[0]}
+    ${cmd}=    BuiltIn.Catenate    sudo ip addr add @{EXTRA_NW_IPV4}[0]/24 dev eth0
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[0]}    ${cmd}
+    ${ext_rt_ipv4} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET_IPV4[0]},gateway=${NET_1_VM_IPV4[0]}
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt_ipv4}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
     OpenStackOperations.Show Router    ${ROUTER}    -D
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[1]}    ping -c 3 @{EXTRA_NW_IPV4}[0]
     BuiltIn.Should Contain    ${output}    64 bytes
-    ${CONFIG_EXTRA_ROUTE_IPV6} =    BuiltIn.Catenate    sudo ip -6 addr add ${EXTRA_NW_IPV6[0]}/64 dev eth0
-    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[1]}    ${CONFIG_EXTRA_ROUTE_IPV6}
-    ${ext_rt2} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET[2]},gateway=${NET_1_VM_IPV6[1]}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV4[0]}    ping -c 3 @{EXTRA_NW_IPV4}[0]
+    BuiltIn.Should Contain    ${output}    64 bytes
+    ${cmd} =    BuiltIn.Catenate    sudo ip -6 addr add @{EXTRA_NW_IPV6}[0]/64 dev eth0
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[0]}    ${cmd}
+    ${ext_rt2} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET_IPV6[0]},gateway=${NET_1_VM_IPV6[0]}
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt2}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
     OpenStackOperations.Show Router    ${ROUTER}    -D
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[1]}    ping6 -c 3 @{EXTRA_NW_IPV6}[0]
     BuiltIn.Should Contain    ${output}    64 bytes
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[0]}    ping6 -c 3 @{EXTRA_NW_IPV6}[0]
+    BuiltIn.Should Contain    ${output}    64 bytes
     # clear off extra-routes before the next set of tests
     OpenStackOperations.Update Router    ${ROUTER}    ${RT_CLEAR}
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Update Router    ${ROUTER}    ${RT_CLEAR}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
+    ...    AND    OpenStackOperations.Show Router ${ROUTER} -D
 
 Create L3VPN
     ${net_id} =    OpenStackOperations.Get Net Id    @{NETWORKS}[0]
