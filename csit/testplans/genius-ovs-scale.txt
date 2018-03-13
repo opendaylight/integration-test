@@ -1,0 +1,3 @@
+# Place the suites in run order:
+integration/test/csit/suites/genius/TZ_scale.robot
+
