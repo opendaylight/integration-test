@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5059a47b_9df6a173",
+        "filename": "csit/suites/openstack/additional/API/OPENSTACK_CLI_BASED_TESTS_1.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-03-13T11:25:58Z",
+      "side": 1,
+      "message": "Please rename the file as 01_openstack_cli_tests.robot. It sounds more appropriate",
+      "revId": "82f3907d8d4e94dde83e364aabb1437c433e73e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6119129_f4578188",
+        "filename": "csit/suites/openstack/additional/API/OPENSTACK_CLI_BASED_TESTS_1.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-03-13T11:25:58Z",
+      "side": 1,
+      "message": "Please add information on what is tested and what are verified",
+      "revId": "82f3907d8d4e94dde83e364aabb1437c433e73e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
