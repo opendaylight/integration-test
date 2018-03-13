@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "695f596b_d5c14f71",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-13T09:01:42Z",
+      "side": 1,
+      "message": "Please split this as two TCs",
+      "revId": "12bc9fa804bef3c974433199e64578769b35e96f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
