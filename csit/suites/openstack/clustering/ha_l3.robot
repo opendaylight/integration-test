@@ -34,6 +34,12 @@ Create All Controller Sessions
     [Documentation]    Create sessions for all three contorllers.
     ClusterManagement.ClusterManagement Setup
 
+Take Down Leader Of Default Shard
+    [Documentation]    Kill the karaf on ODL cluster leader
+    ${cluster_leader}    ${followers} =    ClusterManagement.Get Leader And Followers For Shard    shard_type=config
+    BuiltIn.Set Suite Variable    ${cluster_leader}
+    ClusterManagement.Kill Single Member    ${cluster_leader}
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS}
@@ -46,6 +52,10 @@ Create Subnets For net_1
 Create Subnets For net_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    @{NETWORKS}[1]    @{SUBNETS}[1]    @{SUBNET_CIDRS}[1]
+
+Bring Up Leader Of Default Shard
+    [Documentation]    Bring up on cluster leader
+    ClusterManagement.Start Single Member    ${cluster_leader}
 
 Add Ssh Allow All Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -196,6 +206,14 @@ Connectivity Tests From Vm Instance3 In net_2
 Bring Up ODL2 and ODL3
     [Documentation]    Bring up ODL2 and ODL3 again.
     ClusterManagement.Start Members From List Or All    ${ODL_2_AND_3_DOWN}
+
+Take Down All Instances
+    [Documentation]    Stop karaf on all controllers
+    ClusterManagement.Kill Members From List Or All
+
+Bring Up All Instances
+    [Documentation]    Bring up all controllers
+    ClusterManagement.Start Members From List Or All
 
 Delete Vm Instances In net_1
     [Documentation]    Delete Vm instances using instance names in net_1.
