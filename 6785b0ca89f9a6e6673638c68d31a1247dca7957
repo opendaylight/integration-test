@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c997065_390b9294",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-03-13T20:45:16Z",
+      "side": 1,
+      "message": "Don\u0027t mix tabs and spaces (convert all tabs to spaces)",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 12,
+        "endChar": 2
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "313a1314_5c617ae0",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-03-13T20:45:16Z",
+      "side": 1,
+      "message": "Please avoid trailing whitespace",
+      "range": {
+        "startLine": 22,
+        "startChar": 37,
+        "endLine": 22,
+        "endChar": 51
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66d1390e_6f471221",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-03-13T20:45:16Z",
+      "side": 1,
+      "message": "These are what the verify job is failing on\n\n[ ERROR ] Error in file \u0027/w/workspace/integration-test-tox-verify-master/csit/suites/acl/ACL_Enchancement_Suite1.robot\u0027: Non-existing setting \u0027Suite Setup\u0027.\n[ ERROR ] Error in file \u0027/w/workspace/integration-test-tox-verify-master/csit/suites/acl/ACL_Enchancement_Suite1.robot\u0027: Non-existing setting \u0027Suite Teardown\u0027.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 28
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
