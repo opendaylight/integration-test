@@ -33,6 +33,24 @@
       "revId": "82f3907d8d4e94dde83e364aabb1437c433e73e8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8084fb14_c11a1c39",
+        "filename": "csit/suites/openstack/additional/API/OPENSTACK_CLI_BASED_TESTS_1.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-03-13T11:27:08Z",
+      "side": 1,
+      "message": "\u003e Please add information on what is tested and what are verified\n\nThe same comment for all the tests. Since these will be additional tests, the information would help other community members to use them when needed.",
+      "parentUuid": "a6119129_f4578188",
+      "revId": "82f3907d8d4e94dde83e364aabb1437c433e73e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
