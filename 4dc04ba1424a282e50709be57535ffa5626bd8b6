@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9596145b_79a32d99",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-13T19:36:52Z",
+      "side": 1,
+      "message": "Fix trailing space",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f471b2fd_21e5925e",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-13T19:36:52Z",
+      "side": 1,
+      "message": "Please add test documentation",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dda407b9_656dcb0e",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-13T19:36:52Z",
+      "side": 1,
+      "message": "It is not very clear where ${switch_idx} is coming from. Can you create 2 KWs below: \"Get_Switch_ID\" to extract switch ID from ${OS_CONTROL_NODE_IP}. This could run as part of the setup. A second KW \"Push_Flow_Via_Restcall\" using Switch ID and flowfile as arguments. Also the RESYNCDONE_MSG definition could be part of the test setup.",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a21f6d26_a6b0396b",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-13T19:36:52Z",
+      "side": 1,
+      "message": "Same as with flow, why do not create a KW \"Push_Group_Via_Restcall\" that does all this stuff?",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ca45d78_42bf5f1b",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-13T19:36:52Z",
+      "side": 1,
+      "message": "Same comment as above",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8241319f_04a72007",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-13T19:36:52Z",
+      "side": 1,
+      "message": "trail space",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27e3804d_ac2517cc",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-13T19:36:52Z",
+      "side": 1,
+      "message": "Why do not just simply do DELETE on config inventory?",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3531880a_64b1014f",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-13T19:36:52Z",
+      "side": 1,
+      "message": "I guess you mean Add Flow in the DPN specified by the IP?",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
