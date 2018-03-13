@@ -191,24 +191,21 @@ Check L3_Datapath Traffic Across Networks With Router
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation.
     BuiltIn.Log    Add extraroutes to VM
-    : FOR    ${VM}    IN    @{NET_1_VM_IPV4}
-    \    ${CONFIG_EXTRA_ROUTE_IP1} =    BuiltIn.Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IPV4}[0] netmask 255.255.255.0 up
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM}    ${CONFIG_EXTRA_ROUTE_IP1}
-    \    ${CONFIG_EXTRA_ROUTE_IP2} =    BuiltIn.Catenate    sudo ifconfig eth0:2 @{EXTRA_NW_IPV4}[1] netmask 255.255.255.0 up
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM}    ${CONFIG_EXTRA_ROUTE_IP2}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM}    ip a
+    ${CONFIG_EXTRA_ROUTE_IP1} =    BuiltIn.Catenate    sudo ip addr add @{EXTRA_NW_IPV4}[0]/24 dev eth0
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    ${CONFIG_EXTRA_ROUTE_IP1}
+    ${CONFIG_EXTRA_ROUTE_IP2} =    BuiltIn.Catenate    sudo ip addr add @{EXTRA_NW_IPV4}[1]/24 dev eth0
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    ${CONFIG_EXTRA_ROUTE_IP2}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV4}[0]    ip a
     ${ext_rt1} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET[0]},gateway=${NET_1_VM_IPV4[0]}
     ${ext_rt2} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET[1]},gateway=${NET_1_VM_IPV4[0]}
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt1}    ${RT_OPTIONS}    ${ext_rt2}
     OpenStackOperations.Update Router    ${ROUTER}    ${cmd}
     OpenStackOperations.Show Router    ${ROUTER}    -D
-    : FOR    ${VM}    IN    @{NET_1_VM_IPV6}
-    \    ${CONFIG_EXTRA_ROUTE_IP3} =    BuiltIn.Catenate    sudo ip -6 addr add ${EXTRA_NW_IPV6[0]}/64 dev eth0
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM}    ${CONFIG_EXTRA_ROUTE_IP3}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM}    ip -6 a
-    \    ${CONFIG_EXTRA_ROUTE_IP4} =    BuiltIn.Catenate    sudo ip -6 addr add ${EXTRA_NW_IPV6[0]}/64 dev eth0
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[0]}    ${CONFIG_EXTRA_ROUTE_IP4}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[0]}    ip -6 a
+    ${CONFIG_EXTRA_ROUTE_IP3} =    BuiltIn.Catenate    sudo ip -6 addr add ${EXTRA_NW_IPV6[0]}/64 dev eth0
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    ${CONFIG_EXTRA_ROUTE_IP3}
+    ${CONFIG_EXTRA_ROUTE_IP4} =    BuiltIn.Catenate    sudo ip -6 addr add ${EXTRA_NW_IPV6[1]}/64 dev eth0
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    ${CONFIG_EXTRA_ROUTE_IP4}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPV6}[0]    ip -6 a
     ${ext_rt3} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET[2]},gateway=${NET_1_VM_IPV6[0]}
     ${ext_rt4} =    BuiltIn.Set Variable    destination=${EXTRA_NW_SUBNET[3]},gateway=${NET_1_VM_IPV6[0]}
     ${cmd} =    BuiltIn.Catenate    ${RT_OPTIONS}    ${ext_rt3}    ${RT_OPTIONS}    ${ext_rt4}
@@ -218,14 +215,18 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     ${vm_instances} =    BuiltIn.Create List    @{EXTRA_NW_SUBNET}
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_instances}
     : FOR    ${EXTRA_NW_IP}    IN    @{EXTRA_NW_IPV4}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[0]}    ping -c 3 ${EXTRA_NW_IP}
-    \    BuiltIn.Should Contain    ${output}    64 bytes
     \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[1]}    ping -c 3 ${EXTRA_NW_IP}
     \    BuiltIn.Should Contain    ${output}    64 bytes
-    : FOR    ${EXTRA_NW_IP}    IN    @{EXTRA_NW_IPV6}
-    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[0]}    ping6 -c 3 ${EXTRA_NW_IP}
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV4[0]}    ping -c 3 ${EXTRA_NW_IP}
     \    BuiltIn.Should Contain    ${output}    64 bytes
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV4[1]}    ping -c 3 ${EXTRA_NW_IP}
+    \    BuiltIn.Should Contain    ${output}    64 bytes
+    : FOR    ${EXTRA_NW_IP}    IN    @{EXTRA_NW_IPV6}
     \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV6[1]}    ping6 -c 3 ${EXTRA_NW_IP}
+    \    BuiltIn.Should Contain    ${output}    64 bytes
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[0]}    ping6 -c 3 ${EXTRA_NW_IP}
+    \    BuiltIn.Should Contain    ${output}    64 bytes
+    \    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[1]    ${NET_2_VM_IPV6[1]}    ping6 -c 3 ${EXTRA_NW_IP}
     \    BuiltIn.Should Contain    ${output}    64 bytes
 
 Delete And Recreate Extra Route
