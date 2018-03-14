@@ -90,20 +90,24 @@ Change_Karaf_Logging_Levels
     [Documentation]    We may want to set more verbose logging here after configuration is done.
     KarafKeywords.Set_Bgpcep_Log_Levels    bgpcep_level=${KARAF_BGPCEP_LOG_LEVEL}    protocol_level=${KARAF_PROTOCOL_LOG_LEVEL}
 
+
 Start_Talking_BGP_Speaker
     [Documentation]    Start Python speaker to connect to ODL.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT_SINGLE} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
+    Get_Sysstat_Results
+    BGPSpeaker.Start_BGP_Speaker    --amount 1000000 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
 
 Wait_For_Stable_Talking_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking stability of prefix count.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=0
+    BuiltIn.Sleep    600s
+    #PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=0
 
 Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT_SINGLE}
+    #PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT_SINGLE}
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
@@ -111,78 +115,80 @@ Kill_Talking_BGP_Speaker
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
+    Get_Sysstat_Results
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
-Store_Results_For_Talking_BGP_Speaker
-    [Documentation]    Store results for plotting
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    totals-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    performance-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    prefixcount-talking-totals-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    prefixcount-talking-performance-${RESULTS_FILE_NAME}
-
-Wait_For_Stable_Ipv4_Topology_After_Talking
-    [Documentation]    Wait until example-ipv4-topology becomes stable again.
-    [Tags]    critical
-    # TODO: Is is possible to have failed at Check_Talking_Ipv4_Topology_Count and still have initial period of constant count?
-    # FIXME: If yes, do count here to get the initial value and use it (if nonzero).
-    # TODO: If yes, decide whether access to the FailFast state should have keyword or just variable name.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=${COUNT_PREFIX_COUNT_SINGLE}
-
-Check_For_Empty_Ipv4_Topology_After_Talking
-    [Documentation]    Example-ipv4-topology should be empty now.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Is_Empty
-
-Start_Listening_BGP_Speaker
-    [Documentation]    Start Python speaker in listening mode.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT_SINGLE} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
-
-Reconfigure_ODL_To_Initiate_Connection
-    [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME_PREFIX_COUNT_SINGLE}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=true    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
-
-Wait_For_Stable_Listening_Ipv4_Topology
-    [Documentation]    Wait until example-ipv4-topology becomes stable.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=0
-
-Check_Listening_Ipv4_Topology_Count
-    [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT_SINGLE}
-
-Kill_Listening_BGP_Speaker
-    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-
-Store_Results_For_Listening_BGP_Speaker
-    [Documentation]    Store results for plotting
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    totals-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    performance-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    prefixcount-listening-totals-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    prefixcount-listening-performance-${RESULTS_FILE_NAME}
-
-Wait_For_Stable_Ipv4_Topology_After_Listening
-    [Documentation]    Wait until example-ipv4-topology becomes stable again.
-    [Tags]    critical
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=${COUNT_PREFIX_COUNT_SINGLE}
-
-Check_For_Empty_Ipv4_Topology_After_Listening
-    [Documentation]    Example-ipv4-topology should be empty now.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Is_Empty
+#Store_Results_For_Talking_BGP_Speaker
+#    [Documentation]    Store results for plotting
+#    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+#    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    totals-${RESULTS_FILE_NAME}
+#    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    performance-${RESULTS_FILE_NAME}
+#    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    prefixcount-talking-totals-${RESULTS_FILE_NAME}
+#    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    prefixcount-talking-performance-${RESULTS_FILE_NAME}
+#
+#Wait_For_Stable_Ipv4_Topology_After_Talking
+#    [Documentation]    Wait until example-ipv4-topology becomes stable again.
+#    [Tags]    critical
+#    # TODO: Is is possible to have failed at Check_Talking_Ipv4_Topology_Count and still have initial period of constant count?
+#    # FIXME: If yes, do count here to get the initial value and use it (if nonzero).
+#    # TODO: If yes, decide whether access to the FailFast state should have keyword or just variable name.
+#    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=${COUNT_PREFIX_COUNT_SINGLE}
+#
+#Check_For_Empty_Ipv4_Topology_After_Talking
+#    [Documentation]    Example-ipv4-topology should be empty now.
+#    [Tags]    critical
+#    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+#    PrefixCounting.Check_Ipv4_Topology_Is_Empty
+#
+#Start_Listening_BGP_Speaker
+#    [Documentation]    Start Python speaker in listening mode.
+#    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT_SINGLE} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
+#
+#Reconfigure_ODL_To_Initiate_Connection
+#    [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
+#    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME_PREFIX_COUNT_SINGLE}    PEER_PORT=${BGP_TOOL_PORT}
+#    ...    INITIATE=true    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+#    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
+#
+#Wait_For_Stable_Listening_Ipv4_Topology
+#    [Documentation]    Wait until example-ipv4-topology becomes stable.
+#    #BuiltIn.Sleep    900s
+#    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=0
+#
+#Check_Listening_Ipv4_Topology_Count
+#    [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
+#    [Tags]    critical
+#    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+#    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT_SINGLE}
+#
+#Kill_Listening_BGP_Speaker
+#    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+#    [Tags]    critical
+#    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+#    BGPSpeaker.Kill_BGP_Speaker
+#    FailFast.Do_Not_Fail_Fast_From_Now_On
+#    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
+#    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+#
+#Store_Results_For_Listening_BGP_Speaker
+#    [Documentation]    Store results for plotting
+#    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+#    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    totals-${RESULTS_FILE_NAME}
+#    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    performance-${RESULTS_FILE_NAME}
+#    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    prefixcount-listening-totals-${RESULTS_FILE_NAME}
+#    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    prefixcount-listening-performance-${RESULTS_FILE_NAME}
+#
+#Wait_For_Stable_Ipv4_Topology_After_Listening
+#    [Documentation]    Wait until example-ipv4-topology becomes stable again.
+#    [Tags]    critical
+#    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=${COUNT_PREFIX_COUNT_SINGLE}
+#
+#Check_For_Empty_Ipv4_Topology_After_Listening
+#    [Documentation]    Example-ipv4-topology should be empty now.
+#    [Tags]    critical
+#    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+#    PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
 Restore_Karaf_Logging_Levels
     [Documentation]    Set logging on bgpcep and protocol to the global value.
@@ -205,7 +211,7 @@ Setup_Everything
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
     # Both TODOs would probably need to update every suite relying on current Variables.
-    SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
+    SSHLibrary.Set_Default_Configuration    prompt=${ODL_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     SSHKeywords.Flexible_Mininet_Login
     SSHKeywords.Require_Python
@@ -220,6 +226,7 @@ Setup_Everything
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
     # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
+    Get_Sysstat_Results
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
@@ -231,3 +238,30 @@ Store_File_To_Workspace
     ${output_log}=    SSHLibrary.Execute_Command    cat ${src_file_name}
     BuiltIn.Log    ${output_log}
     Create File    ${dst_file_name}    ${output_log}
+
+Get_Sysstat_Results
+    [Arguments]    ${ip_address}=${ODL_SYSTEM_IP}
+    [Documentation]    Store current connection index, run keyword returning its result, restore connection in teardown.
+    ...    Note that in order to avoid "got positional argument after named arguments", it is safer to use positional (not named) arguments on call.
+    ${current_connection}=    SSHLibrary.Get_Connection
+
+    SSHKeywords.Open_Connection_To_ODL_System    ${ip_address}
+    # Not using Teardown, to avoid a call to close if the previous line fails.
+
+    ${status}    ${output}    Run_Keyword_And_Ignore_Error    SSHLibrary.Write    ls /var/log/sysstat
+    Log    ${output}
+    ${status}    ${output}    Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
+    Log    ${output}
+
+    ${status}    ${output}    Run_Keyword_And_Ignore_Error    SSHLibrary.Write    ls /var/log
+    Log    ${output}
+    ${status}    ${output}    Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
+    Log    ${output}
+
+    ${status}    ${output}    Run_Keyword_And_Ignore_Error    SSHLibrary.Write    sar -A -f /var/log/sysstat/sa*
+    Log    ${output}
+    ${status}    ${output}    Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
+    Log    ${output}
+
+    SSHLibrary.Close_Connection
+    [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_connection.index}
