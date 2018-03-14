@@ -93,7 +93,7 @@ Change_Karaf_Logging_Levels
 Start_Talking_BGP_Speaker
     [Documentation]    Start Python speaker to connect to ODL.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT_SINGLE} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
+    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_CHANGE_COUNT_SINGLE} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
 
 Wait_For_Stable_Talking_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking stability of prefix count.
@@ -148,6 +148,7 @@ Reconfigure_ODL_To_Initiate_Connection
 
 Wait_For_Stable_Listening_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable.
+    #BuiltIn.Sleep    900s
     PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=0
 
 Check_Listening_Ipv4_Topology_Count
@@ -231,3 +232,18 @@ Store_File_To_Workspace
     ${output_log}=    SSHLibrary.Execute_Command    cat ${src_file_name}
     BuiltIn.Log    ${output_log}
     Create File    ${dst_file_name}    ${output_log}
+
+Get_Sysstat_Results
+    [Arguments]    ${ip_address}=${ODL_SYSTEM_IP}
+    [Documentation]    Store current connection index, open new connection to ip_address. Run command to get sysstat results from script,
+    ...    which is running on all children nodes. Returns cpu, network, memory usage statistics from the node for each 10 minutes
+    ...    that node was running. Used for debug purposes.
+    ${current_connection}=    SSHLibrary.Get_Connection
+    SSHKeywords.Open_Connection_To_ODL_System    ${ip_address}
+    ${output}    SSHLibrary.Write    sar -A -f /var/log/sa/sa*
+    BuiltIn.Log    ${output}
+    ${output}    Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
+    BuiltIn.Log    ${output}
+    SSHLibrary.Close_Connection
+    [Return]    ${output}
+    [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_connection.index}
