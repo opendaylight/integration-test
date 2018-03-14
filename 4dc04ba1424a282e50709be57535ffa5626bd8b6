@@ -247,6 +247,24 @@
     },
     {
       "key": {
+        "uuid": "88cb0a87_f79914b1",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "This is just 1 line command:\nRequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}",
+      "parentUuid": "1f298f4f_e80db0c5",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3531880a_64b1014f",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 9
@@ -276,6 +294,24 @@
       "side": 1,
       "message": "Rest API:\nhttp://10.164.225.202:8181/restconf/config/opendaylight-inventory:nodes/node/openflow:204796248506179/table/86/flow/17\nHere 204796248506179 is the DPNID of my switch.\nHence have given the description as DPN specified",
       "parentUuid": "3531880a_64b1014f",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ccbf93b2_c020c479",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "OK so you mean \"Adds Flow in specified DPN\" rather than \"DPN specified via Restcall\" because the second seems to infer you get the DPN from the REST URL while in reality you get that from argument,",
+      "parentUuid": "6b0a2377_51798fce",
       "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
