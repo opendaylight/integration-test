@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "22caaa79_3c697ebd",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-14T10:36:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9596145b_79a32d99",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f471b2fd_21e5925e",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2018-03-13T19:36:52Z",
       "side": 1,
       "message": "Please add test documentation",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ed71569_7bb4a2c9",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-14T10:36:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f471b2fd_21e5925e",
       "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "abd0ab88_e2219d2d",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-14T10:36:02Z",
+      "side": 1,
+      "message": "Have fetched the ${switch_idx} as part of TC and passed as argument.\nRESYNCDONE_MSG varies if the dpn id varies as we have 2 Dpn.That\u0027s why defining the msg as part of TC.",
+      "parentUuid": "dda407b9_656dcb0e",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a21f6d26_a6b0396b",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 9
@@ -64,6 +118,24 @@
       "writtenOn": "2018-03-13T19:36:52Z",
       "side": 1,
       "message": "Same as with flow, why do not create a KW \"Push_Group_Via_Restcall\" that does all this stuff?",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3795d40f_cc202eab",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-14T10:36:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a21f6d26_a6b0396b",
       "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "200b4ab6_49d48e2c",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-14T10:36:02Z",
+      "side": 1,
+      "message": "Replied to the prior comment.\nthe same applies here too",
+      "parentUuid": "6ca45d78_42bf5f1b",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8241319f_04a72007",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 9
@@ -98,6 +188,24 @@
       "writtenOn": "2018-03-13T19:36:52Z",
       "side": 1,
       "message": "trail space",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d855a98a_afa2da54",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-14T10:36:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8241319f_04a72007",
       "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "1f298f4f_e80db0c5",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-14T10:36:02Z",
+      "side": 1,
+      "message": "Luis,Did not find an api doing a delete on inventory.\nDelete Flow and Delte group also does delete on config inventory.\nnot sure if I have understood your comment correctly.",
+      "parentUuid": "27e3804d_ac2517cc",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3531880a_64b1014f",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 9
@@ -132,6 +258,24 @@
       "writtenOn": "2018-03-13T19:36:52Z",
       "side": 1,
       "message": "I guess you mean Add Flow in the DPN specified by the IP?",
+      "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b0a2377_51798fce",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-14T10:36:02Z",
+      "side": 1,
+      "message": "Rest API:\nhttp://10.164.225.202:8181/restconf/config/opendaylight-inventory:nodes/node/openflow:204796248506179/table/86/flow/17\nHere 204796248506179 is the DPNID of my switch.\nHence have given the description as DPN specified",
+      "parentUuid": "3531880a_64b1014f",
       "revId": "4dc04ba1424a282e50709be57535ffa5626bd8b6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
