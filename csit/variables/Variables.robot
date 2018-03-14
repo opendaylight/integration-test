@@ -93,6 +93,7 @@ ${GET_INTENTS_URI}    /retconf/config/intent:intents    # FIXME: Move to a separ
 ${KARAF_PROMPT_LOGIN}    opendaylight-user    # This is used for karaf console login.
 ${ICMP_TYPE}      135
 ${KARAF_DETAILED_PROMPT}    @${ESCAPE_CHARACTER}[0m${ESCAPE_CHARACTER}[34mroot${ESCAPE_CHARACTER}[0m>    # Larger substring of Karaf prompt, shorter ones may result in false positives.
+${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}    # Karaf directory path with snapshot version.
 ${KARAF_PASSWORD}    karaf    # Plaintext password to authenticate to Karaf console.
 ${KARAF_PROMPT}    opendaylight-user.*root.*>    # This is used for interactive read until prompt in regexp format.
 ${KARAF_SHELL_PORT}    8101    # ODL provides SSH access to Karaf consoleon this port.
