@@ -527,3 +527,17 @@ Modify Iptables On Remote System
     Utils.Run Command On Remote System    ${remote_system_ip}    sudo /sbin/iptables ${iptables_rule}    ${user}    ${password}    prompt=${prompt}
     ${output} =    Utils.Run Command On Remote System    ${remote_system_ip}    ${list_iptables_command}    ${user}    ${password}    prompt=${prompt}
     BuiltIn.Log    ${output}
+
+Get_Sysstat_Statistics
+    [Arguments]    ${ip_address}=${ODL_SYSTEM_IP}
+    [Documentation]    Store current connection index, open new connection to ip_address. Run command to get sysstat results from script,
+    ...    which is running on all children nodes. Returns cpu, network, memory usage statistics from the node for each 10 minutes
+    ...    that node was running. Used for debug purposes. Returns whole output of sysstat.
+    ${current_connection}=    SSHLibrary.Get_Connection
+    SSHKeywords.Open_Connection_To_ODL_System    ${ip_address}
+    SSHLibrary.Write    sar -A -f /var/log/sa/sa*
+    ${output}    SSHLibrary.Read_Until_Prompt
+    BuiltIn.Log    ${output}
+    SSHLibrary.Close_Connection
+    [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_connection.index}
+    [Return]    ${output}
