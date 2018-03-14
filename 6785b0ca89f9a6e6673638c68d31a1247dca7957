@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "f9e962da_c7a92cf1",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "- Move this suite into the csit/suites/openstack/securitygroup directory.\n- Rename it acl.robot. We can add more to the name if we add further acl suites.",
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af81779f_d7de6080",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "do we use this script header template anywhere? Might as well just remove all this. The git log will dump all this data.",
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c997065_390b9294",
         "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
         "patchSetId": 1
@@ -48,6 +82,23 @@
     },
     {
       "key": {
+        "uuid": "01d0f1ec_2b69fe6a",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "for most openstack jobs this would be OpenStackOperations.Start Suite. the setup gets everything ready for devstack and other utils that are used.",
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66d1390e_6f471221",
         "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
         "patchSetId": 1
@@ -63,6 +114,379 @@
         "startLine": 43,
         "startChar": 0,
         "endLine": 44,
+        "endChar": 28
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffb47fb3_fc8a0b6f",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "no need to include BuiltIn.",
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9bbd3d69_4ac2a05e",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "what is the DebugLibrary? I don\u0027t see that in our repos.",
+      "range": {
+        "startLine": 49,
+        "startChar": 18,
+        "endLine": 49,
+        "endChar": 30
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d58ecad6_b17e41fe",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "put things in alphabetical order",
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee7bdd08_62f99ba1",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "make all these uppercase to distinguish them",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 15
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73100977_2f006e5f",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "use PORTS. look at some of the other suites in the netvirt dir for naming conventions. Typically, name the networks and subnets, then ports and vms so they are all related. This makes it easier to debug.",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 11
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bcceeae_546bba70",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "these are not needed, the test case starts are already logged. the keywords themselves are typically self-documenting",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db79e64d_1ea92f0a",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "probably don\u0027t need these vars and they add noise. If the test is not expected to change then it is fine to not pass these values around.",
+      "range": {
+        "startLine": 97,
+        "startChar": 25,
+        "endLine": 97,
+        "endChar": 46
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37e12c2d_cc7ef25c",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "keep this Get Vm ip address with the create vms. But also look at the other ssuites are creating and getting ip addresses. use that same pattern rather than creating custom keywords.",
+      "range": {
+        "startLine": 98,
+        "startChar": 76,
+        "endLine": 98,
+        "endChar": 77
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb9b7f74_7fdddc3f",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "same thing, follow examples in other suites for aap on ports, look at the vpn_basic.robot",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 106,
+        "endChar": 11
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "243dd0f0_62ac9aa9",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "break this out to an initial test. this acl stuff probably looks closes to the security_group.robot.",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 16
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9480ba5c_f7a3cd72",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "these are not needed. the apis do this already",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 53
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d6499b0_6124740a",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "lowercase for test vars",
+      "range": {
+        "startLine": 182,
+        "startChar": 15,
+        "endLine": 182,
+        "endChar": 18
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0785e77f_d557a284",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "keep these as tests since they are significant. Do these tests need higher ping counts than 3 which are in the existing test utils? If so, we have a patch to allow the callers to pass in higher counts. We should use that rather than creating custom keywords.",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 6
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee1bfd51_4ddafa52",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "looks like these would be good to have in the DevStackUtils or OVSDB libs.",
+      "range": {
+        "startLine": 239,
+        "startChar": 1,
+        "endLine": 239,
+        "endChar": 22
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60bd3350_71faa6c9",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "vm_ip, not sure if the \"1\" adds value",
+      "range": {
+        "startLine": 240,
+        "startChar": 35,
+        "endLine": 240,
+        "endChar": 41
+      },
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84608caa_1df4cf83",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "add \" \u003d\" between vars and the assignment keywords.\nfully qualify all keywords, so BuiltIn.Set Variable.",
+      "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f447b8f_c9b3b078",
+        "filename": "csit/suites/acl/ACL_Enchancement_Suite1.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-14T17:55:59Z",
+      "side": 1,
+      "message": "lowercase, do the same for all the code in this file",
+      "range": {
+        "startLine": 263,
+        "startChar": 21,
+        "endLine": 263,
         "endChar": 28
       },
       "revId": "6785b0ca89f9a6e6673638c68d31a1247dca7957",
