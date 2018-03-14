@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2cc4c8e1_b9db86bd",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 58
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-03-14T18:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e75f5c49_c4f84f8b",
+      "range": {
+        "startLine": 2,
+        "startChar": 83,
+        "endLine": 2,
+        "endChar": 86
+      },
+      "revId": "28048685e0670383d4963d56fa0595a9958f2bbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccf8467a_20133c11",
         "filename": "csit/libraries/MultiPathOperations.robot",
         "patchSetId": 58
@@ -36,6 +60,30 @@
       "writtenOn": "2018-01-25T23:33:54Z",
       "side": 1,
       "message": "this is already there in a variables file as ${L3_TABLE}",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "28048685e0670383d4963d56fa0595a9958f2bbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a6f5bd6_fb6f3878",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 58
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-03-14T18:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccf8467a_20133c11",
       "range": {
         "startLine": 11,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "65cbfd24_61491c1d",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 58
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-03-14T18:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9015f706_a4a8bfe4",
+      "range": {
+        "startLine": 19,
+        "startChar": 79,
+        "endLine": 19,
+        "endChar": 87
+      },
+      "revId": "28048685e0670383d4963d56fa0595a9958f2bbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a606e045_20f46802",
         "filename": "csit/libraries/MultiPathOperations.robot",
         "patchSetId": 58
@@ -82,6 +154,30 @@
       "writtenOn": "2018-01-25T23:33:54Z",
       "side": 1,
       "message": "I think both Verify_VM_Mac and Get_VM_Mac are keywords more generic and should be in OpenStackOperations.\n\nalso, using the OpenStack CLI keyword can replace lines 91,92,94 above.\n\nboth of these things are fine in an update patch later (for me, at least)",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 32
+      },
+      "revId": "28048685e0670383d4963d56fa0595a9958f2bbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0477779e_02afa025",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 58
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-03-14T18:16:17Z",
+      "side": 1,
+      "message": "Have moved Get_VM_Mac to OpenStackOperations.robot since Verify_VM_Mac is specific to multipath feature.\nHave used OpenStack CLI",
+      "parentUuid": "a606e045_20f46802",
       "range": {
         "startLine": 71,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "79f30e58_43cb0500",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 58
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-03-14T18:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f698d07_40ae6590",
+      "range": {
+        "startLine": 4,
+        "startChar": 18,
+        "endLine": 4,
+        "endChar": 27
+      },
+      "revId": "28048685e0670383d4963d56fa0595a9958f2bbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4fc382dc_3c4fbf23",
         "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
         "patchSetId": 58
@@ -128,6 +248,30 @@
       "writtenOn": "2018-01-25T23:33:54Z",
       "side": 1,
       "message": "change to multipath. this helps in the cases when we end up with leftovers (because of bugs, for example) to know\nwhich suite created it.",
+      "range": {
+        "startLine": 26,
+        "startChar": 21,
+        "endLine": 26,
+        "endChar": 27
+      },
+      "revId": "28048685e0670383d4963d56fa0595a9958f2bbf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19e20df2_ec84da1d",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 58
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-03-14T18:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fc382dc_3c4fbf23",
       "range": {
         "startLine": 26,
         "startChar": 21,
