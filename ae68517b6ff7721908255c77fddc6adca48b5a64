@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c99b51f5_03f06fe5",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "is dumy.xml used?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd5bb6c0_a89d5380",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "why this list size does not match the above?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b93a6ca_1a92229b",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "If this is changing test to test, why does it need to be exported to the suite? Also use lower case for local variables.",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "563d4d7b_308270c2",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "Why you need this line?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "627e510a_9c7d6003",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "Is this not the same as ${switch_idx} already at the top of the test?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28747d93_316a4e1e",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "I do not think you are using ${ip} argument right?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df08216b_d54b4bb8",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "why you need this?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4b1173d_fe504a4c",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "why you need this?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d320233_4a8614b4",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "if you need ${switch-idx} why not pass this straight as argument? similar to Push_Flow_Via_Restconf.",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e30136ce_e1f347b2",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "why you need this?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4a6b050_dc44f9cd",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-14T21:08:23Z",
+      "side": 1,
+      "message": "why you need this?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
