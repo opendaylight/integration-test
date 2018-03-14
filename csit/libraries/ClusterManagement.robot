@@ -45,7 +45,6 @@ ${JAVA_HOME}      ${EMPTY}    # releng/builder scripts should provide correct va
 ${JOLOKIA_CONF_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
 ${JOLOKIA_OPER_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-operational,type=DistributedOperationalDatastore
 ${JOLOKIA_READ_URI}    jolokia/read/org.opendaylight.controller
-${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}    # TODO: Migrate to Variables.robot
 # Bug 9044 workaround: delete etc/host.key before restart.
 @{ODL_DEFAULT_DATA_PATHS}    tmp/    data/    cache/    snapshots/    journal/    etc/opendaylight/current/    etc/host.key
 ${RESTCONF_MODULES_DIR}    ${CURDIR}/../variables/restconf/modules
