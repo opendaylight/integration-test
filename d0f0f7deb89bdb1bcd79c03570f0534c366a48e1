@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd75d2ff_ee16e1b4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-15T02:40:51Z",
+      "side": 1,
+      "message": "use the OpenStack CLI keyword in lieu of these three lines.",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 36
+      },
+      "revId": "d0f0f7deb89bdb1bcd79c03570f0534c366a48e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
