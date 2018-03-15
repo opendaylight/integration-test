@@ -33,6 +33,24 @@
       "revId": "80485b91a21fdfa4063c4dadb6257791f82dfced",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "019af4c7_413f644b",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-15T01:43:00Z",
+      "side": 1,
+      "message": "Or else please do showSvcStatus karaf CLI before checking for tunnels",
+      "parentUuid": "ab54ace9_c590b21b",
+      "revId": "80485b91a21fdfa4063c4dadb6257791f82dfced",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
