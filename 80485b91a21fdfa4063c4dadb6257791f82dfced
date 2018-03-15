@@ -16,6 +16,23 @@
       "revId": "80485b91a21fdfa4063c4dadb6257791f82dfced",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab54ace9_c590b21b",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-15T00:05:01Z",
+      "side": 1,
+      "message": "you probably want to add the argument:\n  wait_for_sync\u003dTrue\n\nthat will wait until the controller is up and sets some internal state to True. It\u0027s intended for cluster tests, but it should do the job here as well.",
+      "revId": "80485b91a21fdfa4063c4dadb6257791f82dfced",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
