@@ -69,6 +69,24 @@
       "revId": "80485b91a21fdfa4063c4dadb6257791f82dfced",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74434c41_b04f960b",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-03-15T09:34:36Z",
+      "side": 1,
+      "message": "I think we  need a keyword to wait till showSvcStatus shows all services as operational, and then use that here. This suite itself we will make to run only for Fluorine, and hence no need for checking if Oxygen",
+      "parentUuid": "6e274601_741a3724",
+      "revId": "80485b91a21fdfa4063c4dadb6257791f82dfced",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
