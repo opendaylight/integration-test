@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e921dd5_bc52e63f",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-15T00:39:17Z",
+      "side": 1,
+      "message": "use the form @{EXTRA_NW_SUBNET_IPV4}[0]. follow that pattern in the other places in this file.",
+      "range": {
+        "startLine": 106,
+        "startChar": 92,
+        "endLine": 106,
+        "endChar": 118
+      },
+      "revId": "7b7bc924e4e887499356db8537a14f563afd5caf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbb0c2ff_7d5c6bca",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-15T00:39:17Z",
+      "side": 1,
+      "message": "leave these as lowercase if they are not needed outside this test. in this case just name the var ${cmd}. That pattern is used all over and makes it easy to understand in the Execute Command line what is intended. I will cleanup the other vpn suites to do the same.",
+      "range": {
+        "startLine": 195,
+        "startChar": 6,
+        "endLine": 195,
+        "endChar": 28
+      },
+      "revId": "7b7bc924e4e887499356db8537a14f563afd5caf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0871bc2b_1122d81f",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-15T00:39:17Z",
+      "side": 1,
+      "message": "check the output success, typically by adding: BuiltIn.Should Contain    ${output}    \"expected output\"",
+      "range": {
+        "startLine": 196,
+        "startChar": 6,
+        "endLine": 196,
+        "endChar": 12
+      },
+      "revId": "7b7bc924e4e887499356db8537a14f563afd5caf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "163c3f60_2bd366fa",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-15T00:39:17Z",
+      "side": 1,
+      "message": "vm_ips",
+      "range": {
+        "startLine": 216,
+        "startChar": 6,
+        "endLine": 216,
+        "endChar": 18
+      },
+      "revId": "7b7bc924e4e887499356db8537a14f563afd5caf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adf21ca4_c7ea5543",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-15T00:39:17Z",
+      "side": 1,
+      "message": "the other vpn suites do not do this initial clear, should we update those to do the same or is this something unique to this suite?",
+      "revId": "7b7bc924e4e887499356db8537a14f563afd5caf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8eb08f6_ab4441de",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-15T00:39:17Z",
+      "side": 1,
+      "message": "just remove the logs. the commands themselves are documentation.",
+      "revId": "7b7bc924e4e887499356db8537a14f563afd5caf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9651bfcb_98473d98",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-15T00:39:17Z",
+      "side": 1,
+      "message": "add \"...    AND    OpenStackOperations.Show Router    ${ROUTER}    -D\" to match the other vpn suites",
+      "revId": "7b7bc924e4e887499356db8537a14f563afd5caf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
