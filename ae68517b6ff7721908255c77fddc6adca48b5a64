@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "df0c3190_ac4887ca",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-15T11:16:30Z",
+      "side": 1,
+      "message": "Not used. Have removed and updated",
+      "parentUuid": "c99b51f5_03f06fe5",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd5bb6c0_a89d5380",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 10
@@ -30,6 +48,24 @@
       "writtenOn": "2018-03-14T21:08:23Z",
       "side": 1,
       "message": "why this list size does not match the above?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3bf4f86f_50c51411",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-15T11:16:30Z",
+      "side": 1,
+      "message": "Now. It matches. I have corrected",
+      "parentUuid": "fd5bb6c0_a89d5380",
       "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "8ac4a226_1e2826a9",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-15T11:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b93a6ca_1a92229b",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "563d4d7b_308270c2",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 10
@@ -64,6 +118,24 @@
       "writtenOn": "2018-03-14T21:08:23Z",
       "side": 1,
       "message": "Why you need this line?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "881ce543_cafe636b",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-15T11:16:30Z",
+      "side": 1,
+      "message": "Modified Suite Variable to Test Variable.\nIt need not be Suite Variable.\n$data gets overrided for each flows\nHence copying it to an array and later traversing the array to check its presence in Operational Datastore",
+      "parentUuid": "563d4d7b_308270c2",
       "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "8bd38386_afe2f97a",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-15T11:16:30Z",
+      "side": 1,
+      "message": "yes.corrected",
+      "parentUuid": "627e510a_9c7d6003",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28747d93_316a4e1e",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 10
@@ -98,6 +188,24 @@
       "writtenOn": "2018-03-14T21:08:23Z",
       "side": 1,
       "message": "I do not think you are using ${ip} argument right?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8c51bf7_65b9f707",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-15T11:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28747d93_316a4e1e",
       "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "e4a12017_fceb36e5",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-15T11:16:30Z",
+      "side": 1,
+      "message": "It need to be set as suite variable,as the Flow presence in Config Store API in Flowlib.robot expects ${switch_idx} to be suite variable  \n\n\"Flow Presence In Config Store\n    [Arguments]    ${expvalue}\n    [Documentation]    Checks the config store for given flow. Returns True if present, otherwise returns False\n    ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}\"",
+      "parentUuid": "df08216b_d54b4bb8",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4b1173d_fe504a4c",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 10
@@ -132,6 +258,24 @@
       "writtenOn": "2018-03-14T21:08:23Z",
       "side": 1,
       "message": "why you need this?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6620b8e1_e2ed50db",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-15T11:16:30Z",
+      "side": 1,
+      "message": "Not needed. Removed",
+      "parentUuid": "b4b1173d_fe504a4c",
       "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "7a0507d2_83b75a29",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-15T11:16:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d320233_4a8614b4",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e30136ce_e1f347b2",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 10
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "34651f31_e34d74b5",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-15T11:16:30Z",
+      "side": 1,
+      "message": "Have removed Delete Flows.Delete Groups and replaced with \nAPI you mentioned \"RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}\"",
+      "parentUuid": "e30136ce_e1f347b2",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4a6b050_dc44f9cd",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 10
@@ -183,6 +363,24 @@
       "writtenOn": "2018-03-14T21:08:23Z",
       "side": 1,
       "message": "why you need this?",
+      "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3388cdb_006bfbf8",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-15T11:16:30Z",
+      "side": 1,
+      "message": "Have removed Delete Flows.Delete Groups and replaced with \nAPI you mentioned \"RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}\"",
+      "parentUuid": "c4a6b050_dc44f9cd",
       "revId": "ae68517b6ff7721908255c77fddc6adca48b5a64",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
