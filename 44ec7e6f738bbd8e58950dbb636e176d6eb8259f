@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59852006_61cf27b8",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-15T02:38:10Z",
+      "side": 1,
+      "message": "I think this is not right.",
+      "range": {
+        "startLine": 87,
+        "startChar": 22,
+        "endLine": 87,
+        "endChar": 108
+      },
+      "revId": "44ec7e6f738bbd8e58950dbb636e176d6eb8259f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
