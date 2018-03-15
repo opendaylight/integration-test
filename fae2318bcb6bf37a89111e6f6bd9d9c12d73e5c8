@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58cbccea_abbf9399",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-15T23:35:20Z",
+      "side": 1,
+      "message": "Can you swap the 2 arguments so this KW looks more like the KW Push_Groups_Via_Restcall?",
+      "revId": "fae2318bcb6bf37a89111e6f6bd9d9c12d73e5c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a41e34d0_996ed591",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-15T23:35:20Z",
+      "side": 1,
+      "message": "Only requirement for Check_Config_Flow is that the variable exists and that is guaranteed because it is an argument. So this line is not needed unless I am missing something here.",
+      "revId": "fae2318bcb6bf37a89111e6f6bd9d9c12d73e5c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
