@@ -51,6 +51,24 @@
       "revId": "80485b91a21fdfa4063c4dadb6257791f82dfced",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e274601_741a3724",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-15T09:21:02Z",
+      "side": 1,
+      "message": "I will do both. and should I check showSvcStatus only if its oxygen?",
+      "parentUuid": "019af4c7_413f644b",
+      "revId": "80485b91a21fdfa4063c4dadb6257791f82dfced",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
     }
   ]
 }
