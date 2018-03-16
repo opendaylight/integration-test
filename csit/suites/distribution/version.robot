@@ -42,7 +42,7 @@ Distribution_Version
     # ${BUNDLEFOLDER} typically looks like this: karaf-0.8.0-SNAPSHOT
     ${filename_prefix} =    StreamDistro.Compose_Zip_Filename_Prefix
     ${version} =    BuiltIn.Evaluate    """${BUNDLEFOLDER}"""[len("""${filename_prefix}-"""):]
-    BuiltIn.Wait_Until_Keyword_Succeeds    30x    3s    TemplatedRequests.Get_As_Json_Templated    folder=${VERSION_VARDIR}    mapping={"VERSION":"${version}"}    verify=True
+    BuiltIn.Wait_Until_Keyword_Succeeds    60x    3s    TemplatedRequests.Get_As_Json_Templated    folder=${VERSION_VARDIR}    mapping={"VERSION":"${version}"}    verify=True
 
 *** Keywords ***
 Suite_Setup
