@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7220644e_7d7e1452",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-16T08:58:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58cbccea_abbf9399",
+      "revId": "fae2318bcb6bf37a89111e6f6bd9d9c12d73e5c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a41e34d0_996ed591",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2018-03-15T23:35:20Z",
       "side": 1,
       "message": "Only requirement for Check_Config_Flow is that the variable exists and that is guaranteed because it is an argument. So this line is not needed unless I am missing something here.",
+      "revId": "fae2318bcb6bf37a89111e6f6bd9d9c12d73e5c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed6b8daf_f245f819",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-03-16T08:58:43Z",
+      "side": 1,
+      "message": "Switch_idx is not an argument.and the variable Switch_idx is expected to be available in the \"Flow Presence In Config Store\" Called via \"Check Config Flow\" Api\n\nFlow Presence In Config Store\n    [Arguments]    ${expvalue}\n    [Documentation]    Checks the config store for given flow. Returns True if present, otherwise returns False\n    ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}\n\n\nThe suite fails if I don\u0027t declare it as suite variable for the reason ${Switch_idx} variable not found.",
+      "parentUuid": "a41e34d0_996ed591",
       "revId": "fae2318bcb6bf37a89111e6f6bd9d9c12d73e5c8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
