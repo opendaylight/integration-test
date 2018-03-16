@@ -1,0 +1,2 @@
+# Place the scripts in run order:
+integration/test/csit/scripts/set_bundle_resync.sh
