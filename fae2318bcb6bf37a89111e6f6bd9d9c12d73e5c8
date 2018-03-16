@@ -69,6 +69,24 @@
       "revId": "fae2318bcb6bf37a89111e6f6bd9d9c12d73e5c8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e73540a3_4488cd28",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-16T16:31:08Z",
+      "side": 1,
+      "message": "OK, I see now, can you change then to Set_Test_Variable? that should work without leaking the variable to the entire suite.",
+      "parentUuid": "ed6b8daf_f245f819",
+      "revId": "fae2318bcb6bf37a89111e6f6bd9d9c12d73e5c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
