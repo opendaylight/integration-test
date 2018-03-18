@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48c06108_7bbf27d0",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-18T14:07:06Z",
+      "side": 1,
+      "message": "is this doc right?",
+      "revId": "79daa17ee3dd9f47f43fa6081462d8703dac5e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd550ac4_d8fc7fe5",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-18T14:07:06Z",
+      "side": 1,
+      "message": "put in alpha order",
+      "revId": "79daa17ee3dd9f47f43fa6081462d8703dac5e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d04ed0f7_fdffc50d",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-18T14:07:06Z",
+      "side": 1,
+      "message": "remove if nothing here",
+      "revId": "79daa17ee3dd9f47f43fa6081462d8703dac5e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36c1d9b9_86ab19bf",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-18T14:07:06Z",
+      "side": 1,
+      "message": "shouldn\u0027t need to change the default",
+      "range": {
+        "startLine": 21,
+        "startChar": 54,
+        "endLine": 21,
+        "endChar": 61
+      },
+      "revId": "79daa17ee3dd9f47f43fa6081462d8703dac5e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f8723ab_9d542be2",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-18T14:07:06Z",
+      "side": 1,
+      "message": "add space",
+      "revId": "79daa17ee3dd9f47f43fa6081462d8703dac5e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3513ef01_9a67e201",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-18T14:07:06Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 5
+      },
+      "revId": "79daa17ee3dd9f47f43fa6081462d8703dac5e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b92e1acd_4f9c605e",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-18T14:07:06Z",
+      "side": 1,
+      "message": "what is the goal with this test? nc is on the robot vm, so you could run it there pr does it have to be on the odl vm?",
+      "revId": "79daa17ee3dd9f47f43fa6081462d8703dac5e63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
