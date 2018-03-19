@@ -22,3 +22,8 @@ linkcheck_ignore = [
 ]
 
 nitpicky = True
+
+import platform
+if platform.system() != 'Windows':
+    import subprocess
+    subprocess.call(["./build-integration-robot-libdoc.sh"])

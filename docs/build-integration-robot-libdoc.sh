@@ -10,9 +10,9 @@
 # http://www.eclipse.org/legal/epl-v10.html
 ##############################################################################
 
-CSIT_DIR="csit/libraries"
-ROBOT_DIR="$(pwd)/docs/_static/integration/robot"
-TMP_ROBOT_DIR="$(pwd)/docs/_build/robot"
+CSIT_DIR="../csit/libraries"
+ROBOT_DIR="$(pwd)/_static/integration/robot"
+TMP_ROBOT_DIR="$(pwd)/_build/robot"
 
 mkdir -p "$ROBOT_DIR" "$TMP_ROBOT_DIR"
 
