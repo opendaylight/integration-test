@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "972b514e_dd2c449b",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-19T15:17:46Z",
+      "side": 1,
+      "message": "Apply to the whole file:\n- remove whitespace, eol\u0027s, etc\n- look at the other robot files and mimic the style. elan.robot is s start but needs some work. the l2 and l3.robot files are good examples.\n  - don\u0027t number the tests\n  - use the same naming conventions found in the example test suites, name the values specific to the suite, helps in debugging or isolating the suite",
+      "revId": "d4dfa00a413aa6f6ab815d998b0fed573e6b627d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
