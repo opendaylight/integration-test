@@ -45,7 +45,7 @@ Create Token with Client Authorization
 Token Authentication In REST Request
     [Documentation]    Use a token to make a successful REST transaction
     ${auth_token}=    Get Token And Verify
-    [Teardown]    Report_Failure_Due_To_Bug    5838
+    [Teardown]    Report_Failure_Due_To_Bug    AAA-101
 
 Revoke Token And Verify Transaction Fails
     [Documentation]    negative test to revoke valid token and check that REST transaction fails
