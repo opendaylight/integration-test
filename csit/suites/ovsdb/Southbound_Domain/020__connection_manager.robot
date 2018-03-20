@@ -124,7 +124,7 @@ Trunk And Vlan Tag Is Removed From Operational
     OVSDB.Collect OVSDB Debugs
     BuiltIn.Wait Until Keyword Succeeds    8s    2s    Utils.Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
     [Teardown]    Builtin.Run Keywords    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
-    ...    AND    Utils.Report_Failure_Due_To_Bug    8529
+    ...    AND    Utils.Report_Failure_Due_To_Bug    OVSDB-413
 
 Check For Bug 4756
     [Documentation]    bug 4756 has been seen in the OVSDB Southbound suites. This test case should be one of the last test
