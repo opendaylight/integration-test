@@ -52,6 +52,24 @@
       "revId": "99ee108dd434f4062d81ccc76cf6ddfc2eddc8b0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b60dea5_b9948001",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-20T01:11:13Z",
+      "side": 1,
+      "message": "If you look at the resource documentation you can see the current scope of this library. I am fine to expand the original scope to anything that is Karaf related if it is more clear this way. If we do so we should also update the documentation at the top of this file.",
+      "parentUuid": "f3212ebe_5aa5fb53",
+      "revId": "99ee108dd434f4062d81ccc76cf6ddfc2eddc8b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
