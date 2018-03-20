@@ -35,6 +35,7 @@ Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
@@ -50,6 +51,7 @@ ${KARAF_LOG_LEVEL}    INFO
 ${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
 ${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
 ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}    10
+${PEER_GROUP}    internal-neighbors
 ${REPETITIONS_PREFIX_COUNT_MANY_RRC}    10
 ${TEST_DURATION_MULTIPLIER}    1
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY_RRC}    ${TEST_DURATION_MULTIPLIER}
@@ -66,14 +68,17 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connections
     [Documentation]    Configure BGP peer modules with initiate-connection set to false.
+    ...    In Versions Fluorine and above, it sets peer-group as template, and than sets all neighbors using it.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    Configure_Peer_Group
     : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}+1
     \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
     \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
     \    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${peer_name}    IP=${peer_ip}    HOLDTIME=${HOLDTIME_PREFIX_COUNT_MANY_RRC}
     \    ...    PEER_PORT=${BGP_TOOL_PORT}    PEER_ROLE=rr-client    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true
-    \    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    RR_CLIENT=true
-    \    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}
+    \    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    RR_CLIENT=true    PEER_GROUP_NAME=${PEER_GROUP}
+    \    CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}
+    \    CompareStream.Run_Keyword_If_Less_Than_Fluorine    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
 Start_Talking_BGP_Manager
     [Documentation]    Start Python manager to connect speakers to ODL.
@@ -130,7 +135,9 @@ Delete_Bgp_Peer_Configuration
     \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
     \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
     \    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${peer_name}    IP=${peer_ip}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    \    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}
+    \    ...    PEER_GROUP_NAME=${PEER_GROUP}
+    \    CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}
+    \    CompareStream.Run_Keyword_If_Less_Than_Fluorine    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
 *** Keywords ***
 Setup_Everything
@@ -192,3 +199,13 @@ Check_File_For_Occurence
     ${count}=    Convert To Integer    ${output_log}
     BuiltIn.Should_Be_True    ${count} >= ${threshold}
     [Return]    ${count}
+
+Configure_Peer_Group
+    [Documentation]    Configures peer group which is template for all the neighbors which are going
+    ...    to be configured. Also after POST, this case verifies presence of peer group within
+    ...    peer-groups. This case is specific to versions Fluorine and above.
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_MANY}
+    ...    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=true
+    TemplatedRequests.Post_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}peer_group    mapping=${mapping}
+    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}verify_peer_group    mapping=${mapping}    verify=True
