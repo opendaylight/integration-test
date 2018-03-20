@@ -1,0 +1,11 @@
+{
+  "peer-groups": {
+    "peer-group": {
+      "peer-group-name": "internal-neighbors",
+      "state": {
+        "total-paths": "0",
+        "total-prefixes": "0"
+      }
+    }
+  }
+}
