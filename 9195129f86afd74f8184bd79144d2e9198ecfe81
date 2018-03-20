@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "477b40a3_283f03d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-20T20:44:12Z",
+      "side": 1,
+      "message": "ok.\nyou\u0027ll need a partner patch in releng/builder to make the relevant jobs use this testplan.",
+      "revId": "9195129f86afd74f8184bd79144d2e9198ecfe81",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
