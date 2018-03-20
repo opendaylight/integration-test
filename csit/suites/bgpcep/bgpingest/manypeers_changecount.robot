@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     BGP performance of ingesting from many iBGP peers, data change counter is used.
 ...
-...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
+...               Copyright (c) 2018 Cisco Systems, Inc. and others. All rights reserved.
 ...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -61,6 +61,8 @@ Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
+Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
@@ -81,6 +83,7 @@ ${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
 ${MULTIPLICITY}    2    # May be increased after Bug 4488 is fixed.
 ${MULTIPLICITY_CHANGE_COUNT}    ${MULTIPLICITY}
 ${MULTIPLICITY_CHANGE_COUNT_MANY}    ${MULTIPLICITY_CHANGE_COUNT}
+${PEER_GROUP}     custom-group
 ${REPETITIONS}    1    # Should be increased depending on multiplicity.
 ${REPETITIONS_CHANGE_COUNT}    ${REPETITIONS}
 ${REPETITIONS_CHANGE_COUNT_MANY}    ${REPETITIONS_CHANGE_COUNT}
@@ -102,13 +105,16 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connections
     [Documentation]    Configure BGP peer modules with initiate-connection set to false.
+    ...    In Versions Fluorine and above, it sets peer-group as template, and than sets all neighbors using it.
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    Configure_Peer_Group
     : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_CHANGE_COUNT_MANY}+1
     \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
     \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
     \    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_MANY}
     \    ...    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    \    ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    \    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
+    \    ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
+    \    CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}
+    \    CompareStream.Run_Keyword_If_Less_Than_Fluorine    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
     # FIXME: Add testcase to change bgpcep and protocol log levels, when a Keyword that does it without messing with current connection is ready.
 
 Reconfigure_Data_Change_Counter
@@ -144,6 +150,7 @@ Kill_Talking_BGP_Speakers
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     Store_Change_Count
     BGPSpeaker.Kill_BGP_Speaker
+    BGPcliKeywords.Store_File_To_Workspace    play.py.out    mp_cc_play.log
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
@@ -176,7 +183,10 @@ Delete_Bgp_Peer_Configuration
     \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
     \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
     \    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    \    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
+    \    ...    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
+    \    CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}
+    \    CompareStream.Run_Keyword_If_Less_Than_Fluorine    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    Deconfigure_Peer_Group
 
 *** Keywords ***
 Setup_Everything
@@ -216,3 +226,19 @@ Store_Change_Count
     [Documentation]    Get the count of changes from BGP change counter. Ignore error or store the value.
     ${status}    ${count} =    BuiltIn.Run_Keyword_And_Ignore_Error    ChangeCounter.Get_Change_Count
     BuiltIn.Run_Keyword_If    '${status}' == 'PASS'    BuiltIn.Set_Suite_Variable    ${last_change_count_many}    ${count}
+
+Configure_Peer_Group
+    [Documentation]    Configures peer group which is template for all the neighbors which are going
+    ...    to be configured. Also after PUT, this case verifies presence of peer group within
+    ...    peer-groups. This test case is specific to versions Fluorine and above.
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_MANY}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}peer_group    mapping=${mapping}
+    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}verify_peer_group    mapping=${mapping}    verify=True
+
+Deconfigure_Peer_Group
+    [Documentation]    Deconfigures peer group which is template for all the neighbors.
+    ...    This test case is specific to versions Fluorine and above.
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_MANY}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}peer_group    mapping=${mapping}
