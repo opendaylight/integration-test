@@ -180,9 +180,9 @@ Delete and Verify VTEP -Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
-    Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
-    ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
-    ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
+    Should Not Contain    ${resp.content}    ${tunnel-3}    ${tunnel-4}
+    ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-3}
+    ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-4}
 
 Create VTEP - Vlan and Gateway
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs with VLAN and Gateway configured in Json.
@@ -245,9 +245,9 @@ Delete VTEP -Vlan and gateway
     [Documentation]    This testcase deletes the ITM tunnel created between 2 dpns.
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
-    Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
-    ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
-    ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
+    Should Not Contain    ${resp.content}    ${tunnel-5}    ${tunnel-6}
+    ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-5}
+    ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-6}
 
 *** Keywords ***
 Create Vteps IPv6
