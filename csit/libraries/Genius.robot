@@ -220,3 +220,9 @@ Check Table0 Entry For 2 Dpn
     Log    ${check}
     Should Contain    ${check}    in_port=${port-num1}
     [Return]    ${check}
+
+Check ITM Tunnel State
+    [Arguments]    ${tunnel1}    ${tunnel2}
+    [Documentation]    Verifies the Tunnel is deleted from datastore
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
+    Should Not Contain    ${resp.content}    ${tunnel1}    ${tunnel2}
