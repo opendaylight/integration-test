@@ -32,7 +32,7 @@ Genius Suite Teardown
 
 Start Suite
     [Documentation]    Initial setup for Genius test suites
-    Run_Keyword_If_At_Least_Oxygen    Check Service Status    ACTIVE    OPERATIONAL
+    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    10    1    Check Service Status    ACTIVE    OPERATIONAL
     Log    Start the tests
     ${conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${conn_id_1}
