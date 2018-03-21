@@ -58,7 +58,6 @@ BFD_TC01 Verify by default BFD monitoring is enabled on Controller
 BFD_TC02 Verify that BFD tunnel monitoring interval is set with appropriate default value i.e.,1000
     [Documentation]    This will verify BFD tunnel monitoring default interval
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
-    Log    ${output}
     Should Contain    ${output}    ${DEFAULT_MONITORING_INTERVAL}
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
 
@@ -70,11 +69,9 @@ BFD_TC04 Verify that in controller tunnel status is up when ITM tunnel interface
 
 BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     [Documentation]    Verify BFD tunnel monitoring interval can be changed.
-    Log    "Value of BFD monitoring interval before updating with new value"
     ${oper_int}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
     ${respjson}    RequestsLibrary.To Json    ${oper_int.content}    pretty_print=True
     Log    ${respjson}
-    Log    "Value of BFD monitoring interval is getting updated"
     ${oper_int}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
     ${Bfd_updated_value}=    Create List    5000
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
@@ -93,18 +90,14 @@ BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
 
 BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     [Documentation]    Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
-    Log    ${output}
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
-    Log    ${output}
+    Issue Command On Karaf Console    ${TEP_SHOW}
+    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     SSHLibrary.Switch Connection    ${conn_id_1}
     Execute Command    sudo ovs-vsctl del-controller BR1
     SSHLibrary.Switch Connection    ${conn_id_2}
     Execute Command    sudo ovs-vsctl del-controller BR2
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
-    Log    ${output}
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
-    Log    ${output}
+    Issue Command On Karaf Console    ${TEP_SHOW}
+    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UNKNOWN
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
     SSHLibrary.Switch Connection    ${conn_id_1}
@@ -112,10 +105,8 @@ BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     SSHLibrary.Switch Connection    ${conn_id_2}
     Execute Command    sudo ovs-vsctl set-controller BR2 tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
     Log    "After connecting CSS with controller"
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
-    Log    ${output}
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
-    Log    ${output}
+    Issue Command On Karaf Console    ${TEP_SHOW}
+    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UP
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
 
@@ -125,12 +116,9 @@ BFD_TC07 Verify that BFD monitoring is disabled on Controller
     Should Be Equal As Strings    ${resp.status_code}    201
     Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_FALSE}
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
-    Log    ${output}
     Should Contain    ${output}    ${TUNNEL_MONITOR_OFF}
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_FALSE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
-    Log    "Verifying tunnel is UP after BFD is disabled"
     Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UP
-    Log    "Enabling tunnel monitoring once again"
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${ENABLE_MONITORING}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_TRUE}
