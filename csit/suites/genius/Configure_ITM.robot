@@ -33,42 +33,31 @@ Create and Verify VTEP -No Vlan
     ${type}    set variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ...    ${type}
-    Set Global Variable    ${tunnel-1}
     ${tunnel-2}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
     ...    ${type}
-    Set Global Variable    ${tunnel-2}
     ${tunnel-type}=    Set Variable    type: vxlan
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
-    Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
     Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
     ...    ${tunnel-1}    ${tunnel-type}
-    Log    >>>>OVS Validation in Switch 2 for Tunnel Created<<<<<
     Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     ...    ${tunnel-2}    ${tunnel-type}
-    Log    >>>> Getting Network Topology Operational <<<<<<
     ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
     ...    ${tunnel-1}    ${tunnel-2}    ${OPERATIONAL_TOPO_API}
-    Log    >>>>Validating Interface 1 & 2 states<<<<
     ${return}    Validate interface state    ${tunnel-1}    ${Dpn_id_1}    ${tunnel-2}    ${Dpn_id_2}
     log    ${return}
     ${lower-layer-if-1}    Get from List    ${return}    0
     ${port-num-1}    Get From List    ${return}    1
     ${lower-layer-if-2}    Get from List    ${return}    2
     ${port-num-2}    Get From List    ${return}    3
-    Log    >>>>>Verify Oper data base of Interface state<<<<<
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Log    ${respjson}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
     Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
-    Log    >>>>> Checking Entry in table 0 on OVS 1<<<<<
-    ${check-3}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge-1}
-    ...    ${port-num-1}
-    Log    >>>>> Checking Entry in table 0 on OVS 2<<<<<
-    ${check-4}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}
-    ...    ${port-num-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge-1}    ${port-num-1}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}    ${port-num-2}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Log    ${respjson}
@@ -77,11 +66,16 @@ Create and Verify VTEP -No Vlan
 
 Delete and Verify VTEP -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
+    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
+    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${type}    set variable    odl-interface:tunnel-type-vxlan
+    ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
+    ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
-    ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
-    ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
 
 Create and Verify VTEP IPv6 - No Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs without VLAN and Gateway configured in Json.
@@ -97,30 +91,30 @@ Create and Verify VTEP IPv6 - No Vlan
     ${type}    set variable    odl-interface:tunnel-type-vxlan
     ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ...    ${type}
-    Set Global Variable    ${tunnel-1}
     ${tunnel-2}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
     ...    ${type}
-    Set Global Variable    ${tunnel-2}
     ${tunnel-type}=    Set Variable    type: vxlan
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/    headers=${ACCEPT_XML}
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/    headers=${ACCEPT_XML}
-    Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
     Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
     ...    ${tunnel-1}    ${tunnel-type}
-    Log    >>>>OVS Validation in Switch 2 for Tunnel Created<<<<<
     Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     ...    ${tunnel-2}    ${tunnel-type}
-    Log    >>>> Getting Network Topology Operational <<<<<<
     ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
     ...    ${tunnel-1}    ${tunnel-2}    ${OPERATIONAL_TOPO_API}
 
 Delete and Verify VTEP IPv6 -No Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
+    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
+    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${type}    set variable    odl-interface:tunnel-type-vxlan
+    ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
+    ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
-    ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
-    ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
 
 Create and Verify VTEP-Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs with VLAN and \ without Gateway configured in Json.
@@ -133,42 +127,32 @@ Create and Verify VTEP-Vlan
     ...    ${vlan}    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     Log    ${get}
     ${type}    set variable    odl-interface:tunnel-type-vxlan
-    ${tunnel-3}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
+    ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ...    ${type}
-    log    ${tunnel-3}
-    Set Global Variable    ${tunnel-3}
-    ${tunnel-4}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
+    ${tunnel-2}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
     ...    ${type}
-    log    ${tunnel-4}
-    Set Global Variable    ${tunnel-4}
     ${tunnel-type}=    Set Variable    type: vxlan
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
-    Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
     Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
-    ...    ${tunnel-3}    ${tunnel-type}
-    Log    >>>>OVS Validation in Switch 2 for Tunnel Created<<<<<
+    ...    ${tunnel-1}    ${tunnel-type}
     Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
-    ...    ${tunnel-4}    ${tunnel-type}
-    Log    >>>>> Checking Network opertional Topology <<<<<<
+    ...    ${tunnel-2}    ${tunnel-type}
     ${url_2}    set variable    ${OPERATIONAL_API}/network-topology:network-topology/
-    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}    ${tunnel-3}
-    ...    ${tunnel-4}    ${url_2}
-    ${return}    Validate interface state    ${tunnel-3}    ${Dpn_id_1}    ${tunnel-4}    ${Dpn_id_2}
+    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}    ${tunnel-1}
+    ...    ${tunnel-2}    ${url_2}
+    ${return}    Validate interface state    ${tunnel-1}    ${Dpn_id_1}    ${tunnel-2}    ${Dpn_id_2}
     log    ${return}
     ${lower-layer-if-1}    Get from List    ${return}    0
     ${port-num-1}    Get From List    ${return}    1
     ${lower-layer-if-2}    Get from List    ${return}    2
     ${port-num-2}    Get From List    ${return}    3
-    Log    >>>>>Verify Oper data base of Interface state<<<<<
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Log    ${respjson}
-    Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-3}
-    Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-4}
-    Log    >>>>> Checking Entry in table 0 on OVS 1<<<<<
+    Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
+    Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge-1}    ${port-num-1}
-    Log    >>>>> Checking Entry in table 0 on OVS \ 2<<<<<
     Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}    ${port-num-2}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
@@ -178,10 +162,15 @@ Create and Verify VTEP-Vlan
 
 Delete and Verify VTEP -Vlan
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
+    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
+    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${type}    set variable    odl-interface:tunnel-type-vxlan
+    ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
+    ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
-    Wait Until Keyword Succeeds    40    10    Genius.Check ITM Tunnel State    ${tunnel-3}    ${tunnel-4}
-    ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-3}
-    ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-4}
+    Wait Until Keyword Succeeds    40    10    Genius.Check ITM Tunnel State    ${tunnel-1}    ${tunnel-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
 
 Create VTEP - Vlan and Gateway
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs with VLAN and Gateway configured in Json.
@@ -196,28 +185,21 @@ Create VTEP - Vlan and Gateway
     Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     ${type}    set variable    odl-interface:tunnel-type-vxlan
-    ${tunnel-5}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
+    ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ...    ${type}
-    log    ${tunnel-5}
-    Set Global Variable    ${tunnel-5}
-    ${tunnel-6}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
+    ${tunnel-2}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
     ...    ${type}
-    log    ${tunnel-6}
-    Set Global Variable    ${tunnel-6}
     ${tunnel-type}=    Set Variable    type: vxlan
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
-    Log    >>>>OVS Validation in Switch 1 for Tunnel Created<<<<<
-    ${check-1}    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}
-    ...    ${TOOLS_SYSTEM_2_IP}    ${tunnel-5}    ${tunnel-type}
-    Log    ${check-1}
-    ${check-2}    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}
-    ...    ${TOOLS_SYSTEM_IP}    ${tunnel-6}    ${tunnel-type}
-    Log    ${check-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
+    ...    ${tunnel-1}    ${tunnel-type}
+    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
+    ...    ${tunnel-2}    ${tunnel-type}
     ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
-    ...    ${tunnel-5}    ${tunnel-6}    ${OPERATIONAL_TOPO_API}
+    ...    ${tunnel-1}    ${tunnel-2}    ${OPERATIONAL_TOPO_API}
     Log    ${resp}
-    ${return}    Validate interface state    ${tunnel-5}    ${Dpn_id_1}    ${tunnel-6}    ${Dpn_id_2}
+    ${return}    Validate interface state    ${tunnel-1}    ${Dpn_id_1}    ${tunnel-2}    ${Dpn_id_2}
     log    ${return}
     ${lower-layer-if-1}    Get from List    ${return}    0
     ${port-num-1}    Get From List    ${return}    1
@@ -226,14 +208,10 @@ Create VTEP - Vlan and Gateway
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Log    ${respjson}
-    Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-5}
-    Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-6}
-    ${check-3}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge-1}
-    ...    ${port-num-1}
-    Log    ${check-3}
-    ${check-4}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}
-    ...    ${port-num-2}
-    Log    ${check-4}
+    Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
+    Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge-1}    ${port-num-1}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}    ${port-num-2}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Log    ${respjson}
@@ -242,10 +220,15 @@ Create VTEP - Vlan and Gateway
 
 Delete VTEP -Vlan and gateway
     [Documentation]    This testcase deletes the ITM tunnel created between 2 dpns.
+    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
+    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${type}    set variable    odl-interface:tunnel-type-vxlan
+    ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}    ${type}
+    ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}    ${type}
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
-    Wait Until Keyword Succeeds    40    10    Genius.Check ITM Tunnel State    ${tunnel-5}    ${tunnel-6}
-    ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-5}
-    ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-6}
+    Wait Until Keyword Succeeds    40    10    Genius.Check ITM Tunnel State    ${tunnel-1}    ${tunnel-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
 
 *** Keywords ***
 Create Vteps IPv6
