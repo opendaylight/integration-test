@@ -59,11 +59,11 @@ Download VtnCo Distribution
     # TODO: https://trello.com/c/fDiIUFMv/431-remove-hardcoded-versions-of-vtn-coordinator-in-libraries-vtncokeywords-robot
     SSHLibrary.Execute Command    wget "${vtn_coordinator_nexus_path}/maven-metadata.xml"
     SSHLibrary.Get_file    maven-metadata.xml
-    ${carbon_version}=    XML.Get Element Text    maven-metadata.xml    xpath=.//versions/version[2]
+    ${carbon_version}=    XML.Get Element Text    maven-metadata.xml    xpath=.//versions/version[1]
     ${carbon_version_val}=    SSHLibrary.Execute Command    echo ${carbon_version} | awk -F"-" '{print $1}'
-    ${nitrogen_version}=    XML.Get Element Text    maven-metadata.xml    xpath=.//versions/version[4]
+    ${nitrogen_version}=    XML.Get Element Text    maven-metadata.xml    xpath=.//versions/version[2]
     ${nitrogen_version_val}=    SSHLibrary.Execute Command    echo ${nitrogen_version} | awk -F"-" '{print $1}'
-    ${oxygen_version}=    XML.Get Element Text    maven-metadata.xml    xpath=.//versions/version[5]
+    ${oxygen_version}=    XML.Get Element Text    maven-metadata.xml    xpath=.//versions/version[3]
     ${oxygen_version_val}=    SSHLibrary.Execute Command    echo ${oxygen_version} | awk -F"-" '{print $1}'
     SSHLibrary.Execute Command    sudo mv maven-metadata.xml old-maven-metadata.xml
     CompareStream.Run_Keyword_If_Equals    carbon    SSHLibrary.Execute Command    wget "${vtn_coordinator_nexus_path}/${carbon_version}/maven-metadata.xml"
