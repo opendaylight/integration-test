@@ -30,19 +30,19 @@ Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Library           ${CURDIR}/../../../libraries/norm_json.py
-Variables         ${CURDIR}/../../../variables/Variables.py
-Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
-Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
-Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
+Library           ../../../libraries/norm_json.py
+Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
+Resource          ../../../variables/Variables.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/FailFast.robot
+Resource          ../../../libraries/KillPythonTool.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/WaitForFailure.robot
+Resource          ../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${ACTUAL_RESPONSES_FOLDER}    ${TEMPDIR}/actual
@@ -54,6 +54,7 @@ ${BGP_TOOL_LOG_LEVEL}    info
 ${ODL_LOG_LEVEL}    INFO
 ${ODL_BGP_LOG_LEVEL}    DEFAULT
 ${CONFIG_SESSION}    session
+${PEER_GROUP}     internal-neighbors
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
@@ -99,6 +100,38 @@ Check_For_Empty_Topology_After_Resetting
     [Documentation]    See example-ipv4-topology empty after resetting session (Oxygen only)
     [Tags]    critical
     CompareStream.Run_Keyword_If_At_Least_Oxygen    Wait_For_Topology_To_Change_To    ${empty_json}    030_Empty.json
+
+Reconfigure_ODL_With_Peer_Group_To_Accept_Connection
+    [Documentation]    Configure BGP peer module with initiate-connection set to false.
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    Configure_Peer_Group
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    PEER_GROUP_NAME=${PEER_GROUP}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}    session=${CONFIG_SESSION}
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
+TC_PG_Check_Talking_Topology_Is_Filled
+    [Documentation]    See new routes in example-ipv4-topology as a proof that synchronization was correct.
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    Wait_For_Topology_To_Change_To    ${filled_json}    021_Filled.json
+
+Reconfigure_ODL_With_Peer_Group_Without_Ipv4_Unicast
+    [Documentation]    Configure BGP peer module with initiate-connection set to false.
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    Configure_Peer_Group    peer_group=peer_group_without_ipv4
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
+Check_For_Empty_Topology_After_Deconfiguration
+    [Documentation]    See example-ipv4-topology empty after resetting session (Fluorine only)
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    Wait_For_Topology_To_Change_To    ${empty_json}    031_Empty.json
+
+TC_PG_Reconfigure_ODL_To_Accept_Connection
+    [Documentation]    Configure BGP peer module with initiate-connection set to false.
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    PEER_GROUP_NAME=${PEER_GROUP}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    Deconfigure_Peer_Group
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
@@ -302,3 +335,20 @@ Check_Number_Of_Speaker_Connections
     [Documentation]    Run netstat in mininet machine and parse it for number of established connections. Check it is ${howmany}.
     ${output}=    SSHKeywords.Count_Port_Occurences    17900    ESTABLISHED    python
     BuiltIn.Should_Be_Equal_As_Strings    ${output}    ${howmany}
+
+Configure_Peer_Group
+    [Arguments]    ${peer_group}=peer_group
+    [Documentation]    Configures peer group which is template for all the neighbors which are going
+    ...    to be configured. Also after PUT, this case verifies presence of peer group within
+    ...    peer-groups. This case is specific to versions Fluorine and above.
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}${peer_group}    mapping=${mapping}
+    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}verify_peer_group    mapping=${mapping}    verify=True
+
+Deconfigure_Peer_Group
+    [Documentation]    Deconfigures peer group which is template for all the neighbors
+    ...    This test case is specific to versions Fluorine and above.
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}peer_group    mapping=${mapping}
