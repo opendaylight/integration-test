@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "cbd1b581_0235ed79",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7592
+      },
+      "writtenOn": "2018-03-22T13:24:49Z",
+      "side": 1,
+      "message": "No, Removed it.",
+      "parentUuid": "0cbad30a_eacce9e9",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 48
+      },
+      "revId": "2d4d8da212b2a2fc6612499dfd8ec3dcc58d61f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "394cecc8_402a4ec6",
         "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
         "patchSetId": 5
@@ -59,6 +83,30 @@
       "writtenOn": "2018-03-15T00:41:13Z",
       "side": 1,
       "message": "figure out what you have here that you don\u0027t need. I know for sure the external-net stuff is going to come for free\nfrom variables/Netvirt/Variables.robot.  probably a lot of other stuff is like that. Maybe some of these things aren\u0027t\neven used below and are just copy/paste relics?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 42
+      },
+      "revId": "2d4d8da212b2a2fc6612499dfd8ec3dcc58d61f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e69dac6d_07b2cd56",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7592
+      },
+      "writtenOn": "2018-03-22T13:24:49Z",
+      "side": 1,
+      "message": "I have used Netvirt/Variables.robot for external network related variables and removed unused variables.",
+      "parentUuid": "394cecc8_402a4ec6",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "dfb14dc8_95b78804",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7592
+      },
+      "writtenOn": "2018-03-22T13:24:49Z",
+      "side": 1,
+      "message": "I am getting one default security group if there are multiple default security groups. I think it is not needed so I removed it.",
+      "parentUuid": "736ea42a_fb01daa3",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 35
+      },
+      "revId": "2d4d8da212b2a2fc6612499dfd8ec3dcc58d61f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f52fdcc_0a189e4e",
         "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
         "patchSetId": 5
@@ -105,6 +177,30 @@
       "writtenOn": "2018-03-15T00:41:13Z",
       "side": 1,
       "message": "I think you want: ${CIRROS_${OPENSTACK_BRANCH}} for image and don\u0027t worry about the flavor. I\u0027m pretty sure we don\u0027t have a \"cirros\" flavor in our upstream CSIT.",
+      "range": {
+        "startLine": 69,
+        "startChar": 60,
+        "endLine": 69,
+        "endChar": 89
+      },
+      "revId": "2d4d8da212b2a2fc6612499dfd8ec3dcc58d61f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4391b5ec_727214a4",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7592
+      },
+      "writtenOn": "2018-03-22T13:24:49Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "5f52fdcc_0a189e4e",
       "range": {
         "startLine": 69,
         "startChar": 60,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "e9d51f2f_884e1d17",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7592
+      },
+      "writtenOn": "2018-03-22T13:24:49Z",
+      "side": 1,
+      "message": "Yes, I removed all the redundant cases similar to this.",
+      "parentUuid": "9bdca16e_666aa3c2",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 1
+      },
+      "revId": "2d4d8da212b2a2fc6612499dfd8ec3dcc58d61f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14132541_b5a0e2d2",
         "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
         "patchSetId": 5
@@ -151,6 +271,30 @@
       "writtenOn": "2018-03-15T00:41:13Z",
       "side": 1,
       "message": "I\u0027m fine with having this as it\u0027s own test case. it makes failures easy to figure out, but I\u0027m also fine if you just want to add the single \"Should Contain\" line\nto the above test case.\n\nBTW, double check your style. We want to have Should Contain (caps on first letter) instead of Should contain.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 54
+      },
+      "revId": "2d4d8da212b2a2fc6612499dfd8ec3dcc58d61f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01771d1f_1a9324e3",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7592
+      },
+      "writtenOn": "2018-03-22T13:24:49Z",
+      "side": 1,
+      "message": "Changed according to check style.",
+      "parentUuid": "14132541_b5a0e2d2",
       "range": {
         "startLine": 94,
         "startChar": 0,
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "b8e5f3d6_7747c244",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7592
+      },
+      "writtenOn": "2018-03-22T13:24:49Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "aca8904d_4bba0441",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 53
+      },
+      "revId": "2d4d8da212b2a2fc6612499dfd8ec3dcc58d61f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a1f98e2_b8418aca",
         "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
         "patchSetId": 5
@@ -197,6 +365,30 @@
       "writtenOn": "2018-03-15T00:41:13Z",
       "side": 1,
       "message": "I have a strong feeling you don\u0027t need most (if not all) of your \"Set Suite Variable\" lines. Please remove them wherever possible",
+      "range": {
+        "startLine": 620,
+        "startChar": 4,
+        "endLine": 621,
+        "endChar": 35
+      },
+      "revId": "2d4d8da212b2a2fc6612499dfd8ec3dcc58d61f6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f42fe185_d35cdfb7",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 7592
+      },
+      "writtenOn": "2018-03-22T13:24:49Z",
+      "side": 1,
+      "message": "Yes, Removed all Set Suit Variables.",
+      "parentUuid": "3a1f98e2_b8418aca",
       "range": {
         "startLine": 620,
         "startChar": 4,
