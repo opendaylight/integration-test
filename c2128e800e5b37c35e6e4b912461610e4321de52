@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a5cf0fb_8a20f046",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-22T20:14:27Z",
+      "side": 1,
+      "message": "Set Variable\n\ncapitalize first letter of each word",
+      "range": {
+        "startLine": 167,
+        "startChar": 15,
+        "endLine": 167,
+        "endChar": 27
+      },
+      "revId": "c2128e800e5b37c35e6e4b912461610e4321de52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
