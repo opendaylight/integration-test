@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cc155eb_bb11d1d1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T05:01:27Z",
+      "side": 1,
+      "message": "so you have to be careful here. If the ping fails, you wont get the ${count} and you wont be returning any ${compute_ip} from this keyword. just fyi.",
+      "range": {
+        "startLine": 1095,
+        "startChar": 23,
+        "endLine": 1095,
+        "endChar": 269
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd13af56_56a840ee",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T05:01:27Z",
+      "side": 1,
+      "message": "use OpenStackOperations.OpenStack Suite Setup",
+      "range": {
+        "startLine": 3,
+        "startChar": 42,
+        "endLine": 3,
+        "endChar": 76
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6b059e8_3b1ff0fd",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T05:01:27Z",
+      "side": 1,
+      "message": "not sure I follow the WUKS here. you are just trying to do an ifconfig down on an instance\u0027s eth0:0 right?",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 222
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b743f8b_ba8040d7",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T05:01:27Z",
+      "side": 1,
+      "message": "having these log statements are only needed if the robot code directly following it is not self explanatory. Here I think you\ncan safely remove the Log. Probably applies elsewhere.",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 60
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01756552_e5577ade",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 61
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T05:01:27Z",
+      "side": 1,
+      "message": "we need to know this is a healthy and reliably passing suite before we can add it to this testplan.\n\nyou could stick it in the tdd-wip testplan if this isn\u0027t going to be the case, and the failures/bugs can\nget resolved using that job.\n\nfyi.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 71
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
