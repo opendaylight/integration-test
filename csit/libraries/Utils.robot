@@ -11,7 +11,7 @@ Library           OperatingSystem
 Library           ${CURDIR}/UtilLibrary.py
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
-Variables         ${CURDIR}/../variables/Variables.py
+Resource          ${CURDIR}/../variables/Variables.robot
 
 *** Variables ***
 # TODO: Introduce ${tree_size} and use instead of 1 in the next line.

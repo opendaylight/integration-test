@@ -113,7 +113,7 @@ Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
 Library           ${CURDIR}/norm_json.py
-Variables         ${CURDIR}/../variables/Variables.py
+Resource          ${CURDIR}/../variables/Variables.robot
 
 *** Variables ***
 # TODO: Make the following list more narrow when streams without Bug 2594 fix (up to beryllium) are no longer used.
