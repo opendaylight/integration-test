@@ -1065,3 +1065,89 @@ Start Packet Capture On Nodes
 Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+
+Verify VM Boot Status
+    [Arguments]    ${vm_name}
+    [Documentation]    Run these commands to check whether the created vm instance is ready to login.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack console log show ${vm_name} | grep "login:"
+    Log    ${output}
+    Should Not Be True    ${rc}
+    Should Contain    ${output}    login:
+
+Poll VM Boot Status
+    [Arguments]    ${vm_name}    ${retry}=300s    ${retry_interval}=5s
+    [Documentation]    Run these commands to check whether the created vm instance is active or not.
+    Wait Until Keyword Succeeds    ${retry}    ${retry_interval}    Verify VM Boot Status    ${vm_name}
+
+Test Netcat Operations Between Vm Instance
+    [Arguments]    ${net_src}    ${vm_src}    ${net_dest}    ${dest_ip}    ${port}=1234    ${nc_should_succeed}=True
+    ...    ${additional_args}=${EMPTY}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Use Netcat to test TCP/UDP connections between Vm instances
+    ${client_data}    Set Variable    Test Client Data
+    ${server_data}    Set Variable    Test Server Data
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    Log    ${vm_src} ${dest_ip}
+    ${net_id}=    Get Net Id    ${net_src}
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${vm_src} -o UserKnownHostsFile=/dev/null    password:
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
+    ${output}=    Write    ( ( echo "${server_data}" | sudo nc -l ${additional_args} -p ${port} ) & )
+    Log    ${output}
+    #${output}=    Write Commands Until Prompt    sudo netstat -nla | grep ${port}
+    #Log    ${output}
+    ${nc_output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${vm_src} ${port}
+    Log    ${nc_output}
+    ${output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo route -n
+    Log    ${output}
+    ${output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo arp -an
+    Log    ${output}
+    Run Keyword If    "${nc_should_succeed}" == "True"    Should Match Regexp    ${nc_output}    ${server_data}
+    ...    ELSE    Should Not Match Regexp    ${nc_output}    ${server_data}
+
+Clear L2_Network
+    [Documentation]    This test case will clear all the Network and VM instances
+    ...    including SG and Router Attached to the Network.
+    ${rc}    ${router_output}=    Run And Return Rc And Output    openstack router list -cID -fvalue
+    Log    ${router_output}
+    @{routers}=    Split String    ${router_output}    \n
+    ${rc}    ${subnet_output}=    Run And Return Rc And Output    openstack subnet list -cID -fvalue
+    Log    ${subnet_output}
+    @{subnets}=    Split String    ${subnet_output}    \n
+    : FOR    ${router}    IN    @{routers}
+    \    Run Keyword And Ignore Error    Remove Interfaces    ${router}    ${subnets}
+    : FOR    ${router}    IN    @{routers}
+    \    Run Keyword And Ignore Error    Delete Router    ${router}
+    ${rc}    ${server_output}=    Run And Return Rc And Output    openstack server list -cID -fvalue
+    Log    ${server_output}
+    @{servers}=    Split String    ${server_output}    \n
+    : FOR    ${server}    IN    @{servers}
+    \    Run    openstack server delete ${server}
+    ${rc}    ${port_output}=    Run And Return Rc And Output    openstack port list -cID -fvalue
+    Log    ${port_output}
+    @{ports}=    Split String    ${port_output}    \n
+    : FOR    ${port}    IN    @{ports}
+    \    Run    openstack port delete ${port}
+    ${rc}    ${sg_output}=    Run And Return Rc And Output    openstack security group list -cID -fvalue
+    Log    ${sg_output}
+    @{sgs}=    Split String    ${sg_output}    \n
+    : FOR    ${sg}    IN    @{sgs}
+    \    Run    openstack security group delete ${sg}
+    ${rc}    ${subnet_output}=    Run And Return Rc And Output    openstack subnet list -cID -fvalue
+    Log    ${subnet_output}
+    @{subnets}=    Split String    ${subnet_output}    \n
+    : FOR    ${subnet}    IN    @{subnets}
+    \    Run    openstack subnet delete ${subnet}
+    ${rc}    ${network_output}=    Run And Return Rc And Output    openstack network list -cID -fvalue
+    Log    ${network_output}
+    @{networks}=    Split String    ${network_output}    \n
+    : FOR    ${network}    IN    @{networks}
+    \    Run    openstack network delete ${network}
+
+Remove Interfaces
+    [Arguments]    ${router_name}    ${subnet_names}
+    [Documentation]    Remove Interface to the subnets.
+    : FOR    ${subnet_name}    IN    @{subnet_names}
+    \    Run    openstack router remove subnet ${router_name} ${subnet_name}
