@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "884d8f60_1ecb031a",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T04:46:26Z",
+      "side": 1,
+      "message": "use OpenStackOperations.OpenStack Suite Setup\n\nit\u0027s better.",
+      "range": {
+        "startLine": 5,
+        "startChar": 25,
+        "endLine": 5,
+        "endChar": 59
+      },
+      "revId": "28e586c0566a9c747b3333f718c2c4cb8a439752",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56d2b469_a08477a3",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T04:46:26Z",
+      "side": 1,
+      "message": "use OpenStackOperations.OpenStack Suite Teardown",
+      "range": {
+        "startLine": 6,
+        "startChar": 18,
+        "endLine": 6,
+        "endChar": 39
+      },
+      "revId": "28e586c0566a9c747b3333f718c2c4cb8a439752",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7ac03b0_7b7ca555",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T04:46:26Z",
+      "side": 1,
+      "message": "I don\u0027t think we have this file.",
+      "range": {
+        "startLine": 12,
+        "startChar": 40,
+        "endLine": 12,
+        "endChar": 69
+      },
+      "revId": "28e586c0566a9c747b3333f718c2c4cb8a439752",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9b3714b_7a8437bf",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T04:46:26Z",
+      "side": 1,
+      "message": "this is in test/tools/deployment/openstack_ha/libraries/OpenStackInstallUtils.robot\n\nBUT, do you need it at all?",
+      "range": {
+        "startLine": 15,
+        "startChar": 40,
+        "endLine": 15,
+        "endChar": 67
+      },
+      "revId": "28e586c0566a9c747b3333f718c2c4cb8a439752",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b38e8bed_f04df72f",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T04:46:26Z",
+      "side": 1,
+      "message": "extract all these specific ip addresses to variables above. then use those variables here and below.\nmakes thing much easier to maintain and update.",
+      "range": {
+        "startLine": 96,
+        "startChar": 82,
+        "endLine": 96,
+        "endChar": 90
+      },
+      "revId": "28e586c0566a9c747b3333f718c2c4cb8a439752",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4869519_3dc35706",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T04:46:26Z",
+      "side": 1,
+      "message": "need a validation check after this update.",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 17
+      },
+      "revId": "28e586c0566a9c747b3333f718c2c4cb8a439752",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c0a0805_ae610348",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T04:46:26Z",
+      "side": 1,
+      "message": "use the var",
+      "range": {
+        "startLine": 149,
+        "startChar": 35,
+        "endLine": 149,
+        "endChar": 45
+      },
+      "revId": "28e586c0566a9c747b3333f718c2c4cb8a439752",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "213bbbaf_a0cdb28e",
+        "filename": "csit/suites/openstack/additional/API/01_openstack_cli_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T04:46:26Z",
+      "side": 1,
+      "message": "use the var",
+      "range": {
+        "startLine": 191,
+        "startChar": 39,
+        "endLine": 191,
+        "endChar": 42
+      },
+      "revId": "28e586c0566a9c747b3333f718c2c4cb8a439752",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
