@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe6c4279_8b01ddd5",
+        "filename": "csit/testplans/bgpcep-userfeatures-fluorine.txt",
+        "patchSetId": 39
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-23T16:37:37Z",
+      "side": 1,
+      "message": "is this the exact same file as the other oxygen test plan?",
+      "revId": "6ac897a23b25590b1651b51b7ebb514e697a710c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
