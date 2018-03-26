@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5de1ff45_a7b06f4b",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-26T21:52:58Z",
+      "side": 1,
+      "message": "one reason for the -verfiy is these commented lines, but I assume you\u0027ll be removing the comments in the end anyway.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 81
+      },
+      "revId": "bc2a4394eac5b22e27ac6f36a4876ffbec9b3279",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "202f66ef_00a3ed5b",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-26T21:52:58Z",
+      "side": 1,
+      "message": "too many spaces. come on!!! it\u0027s pretty obvious.",
+      "range": {
+        "startLine": 18,
+        "startChar": 12,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "bc2a4394eac5b22e27ac6f36a4876ffbec9b3279",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af635756_acfa8693",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-26T21:52:58Z",
+      "side": 1,
+      "message": "one too many spaces on each side of the 0",
+      "range": {
+        "startLine": 23,
+        "startChar": 33,
+        "endLine": 23,
+        "endChar": 45
+      },
+      "revId": "bc2a4394eac5b22e27ac6f36a4876ffbec9b3279",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b364ce02_b620c5f4",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-26T21:52:58Z",
+      "side": 1,
+      "message": "before this goes in, we\u0027ll have to get rid of this and add some polling. I can help get that figured out.",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "bc2a4394eac5b22e27ac6f36a4876ffbec9b3279",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    }
+  ]
+}
