@@ -92,12 +92,18 @@ Delete L2Gateway
     ${output}=    Exec Command    ${OS_CNTL_CONN_ID}    ${L2GW_DELETE} ${gw_name}
     Log    ${output}
     @{list_to_check}=    Create List    ${gw_name}
-    Utils.Check For Elements Not At URI    ${L2GW_LIST_REST_URL}    ${list_to_check}    session
+    BuiltIn.Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements Not At URI    ${L2GW_LIST_REST_URL}    ${list_to_check}    session
+
+Delete All L2Gateway
+    [Documentation]    Keywords to delete all L2 Gateways (using Neutron CLI).
+    @{l2gw_id_list}=    OpenStackOperations.Get L2gw Id List    -c id -f value
+    : FOR    ${l2gw_id}    IN    @{l2gw_id_list}
+    \    L2GatewayOperations.Delete L2Gateway    ${l2gw_id}
 
 Create Verify L2Gateway Connection
-    [Arguments]    ${gw_name}    ${net_name}
+    [Arguments]    ${gw_name}    ${net_name}    ${additional_args}=${EMPTY}
     [Documentation]    Keyword to create a new L2 Gateway Connection for ${gw_name} to ${net_name} (Using Neutron CLI).
-    ${l2gw_output}=    OpenStackOperations.Create L2Gateway Connection    ${gw_name}    ${net_name}
+    ${l2gw_output}=    OpenStackOperations.Create L2Gateway Connection    ${gw_name}    ${net_name}    ${additional_args}
     Log    ${l2gw_output}
     ${l2gw_id}=    OpenStackOperations.Get L2gw Id    ${gw_name}
     ${output}=    OpenStackOperations.Get All L2Gateway Connection
@@ -123,8 +129,14 @@ Delete L2Gateway Connection
     ${l2gw_conn_id}=    OpenStackOperations.Get L2gw Connection Id    ${gw_name}
     ${output}=    Exec Command    ${OS_CNTL_CONN_ID}    ${L2GW_CONN_DELETE} ${l2gw_conn_id}
     @{list_to_check}=    Create List    ${l2gw_conn_id}
-    Utils.Check For Elements Not At URI    ${L2GW_CONN_LIST_REST_URL}    ${list_to_check}    session
+    BuiltIn.Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements Not At URI    ${L2GW_CONN_LIST_REST_URL}    ${list_to_check}    session
     Log    ${output}
+
+Delete All L2Gateway Connection
+    [Documentation]    Keywords to delete all L2 Gateway Connections (using Neutron CLI).
+    @{l2gw_id_list}=    OpenStackOperations.Get L2gw Id List    -c id -f value
+    : FOR    ${l2gw_id}    IN    @{l2gw_id_list}
+    \    L2GatewayOperations.Delete L2Gateway Connection    ${l2gw_id}
 
 Update Port For Hwvtep
     [Arguments]    ${port_name}
@@ -151,6 +163,23 @@ Attach Port To Hwvtep Namespace
     Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF} ${tap_name} ${HW_ETHER} ${port_mac}
     ${output}=    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
     Should Contain    ${output}    ${port_mac}
+
+SetIP Port To Hwvtep Namespace
+    [Arguments]    ${ns_name}    ${tap_name}    ${port_ip}    ${conn_id}
+    [Documentation]    Set IP to the interface of namespace.
+    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF} ${tap_name} ${port_ip}
+    ${output}=    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
+    Should Contain    ${output}    ${port_ip}
+
+Attach Port To Hwvtep Namespace With IP And VLAN
+    [Arguments]    ${port_mac}    ${ns_name}    ${tap_name}    ${port_ip}    ${vlan}    ${conn_id}=${hwvtep_conn_id}
+    [Documentation]    Keyword to assign the ${port_mac} to the tap port ${tap_name} in namespace ${ns_name}.
+    ${if_name}=    Run Keyword IF    "${vlan}"!="${EMPTY}"    Catenate    SEPARATOR=.    ${tap_name}    ${vlan}
+    ...    ELSE    Set Variable    ${tap_name}
+    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF} ${if_name} ${HW_ETHER} ${port_mac}
+    ${output}=    Exec Command    ${conn_id}    ${NETNS_EXEC} ${ns_name} ${IFCONF}
+    Should Contain    ${output}    ${port_mac}
+    Run Keyword If    '${port_ip}'!='${EMPTY}'    SetIP Port To Hwvtep Namespace    ${ns_name}    ${if_name}    ${port_ip}    ${conn_id}
 
 Namespace Dhclient Verify
     [Arguments]    ${ns_name}    ${ns_tap}    ${ns_port_ip}    ${conn_id}=${hwvtep_conn_id}    ${hwvtep_ip}=${HWVTEP_IP}
@@ -299,3 +328,87 @@ Cleanup L2GW Optional Resources
     BuiltIn.Pass_Execution_If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}    Not supported in Ocata/Pike
     CompareStream.Run_Keyword_If_At_Most_Nitrogen    BuiltIn.Pass_Execution    Only run on oxygen and later
     OpenStackOperations.Delete Port    ${HWVTEP_PORT_3}
+
+Verify L2GW Node PhysicalSwitch
+    [Arguments]    ${conn_id}    ${ovs_bridge}    ${ovs_port_name}    ${vid}
+    [Documentation]    Verify L2GW Node PhysicalSwitch ${ovs_bridge}.
+    ${bridge_block_line}=    Get Bridge Block    ${conn_id}    ${ovs_bridge}
+    Log    ${bridge_block_line}
+    ${vid_pad}=    Vlan Zero Pad    ${vid}
+    Should Contain    ${bridge_block_line}    Port "${vid_pad}-${ovs_port_name}-p"
+
+Verify L2GW Node LogicalSwitch
+    [Arguments]    ${conn_id}    ${ovs_bridge}    ${ovs_port_name}    ${vid}    ${vni}    ${number}
+    [Documentation]    Verify L2GW Node LogicalSwitch ${ovs_bridge}_vtep_ls${number}.
+    ${bridge_block_line}=    Get Bridge Block    ${conn_id}    ${ovs_bridge}_vtep_ls${number}
+    Log    ${bridge_block_line}
+    Should Not Be Equal    ${bridge_block_line}    ${None}
+    ${vid_pad}=    Vlan Zero Pad    ${vid}
+    Should Contain    ${bridge_block_line}    Port "${vid_pad}-${ovs_port_name}-l"
+    Should Contain    ${bridge_block_line}    Port "vx
+    Should Contain    ${bridge_block_line}    options: {key="${vni}", remote_ip="
+
+Verify L2GW Node
+    [Arguments]    ${conn_id}    ${ovs_bridge}    ${ovs_port_name}    ${number}    ${vni}    ${vid}
+    [Documentation]    Verify PhysicalSwitch and LogicalSwitch of L2GW node.
+    Switch Connection    ${conn_id}
+    Wait Until Keyword Succeeds    120s    4s    Verify L2GW Node PhysicalSwitch    ${conn_id}    ${ovs_bridge}    ${ovs_port_name}
+    ...    ${vid}
+    Wait Until Keyword Succeeds    120s    4s    Verify L2GW Node LogicalSwitch    ${conn_id}    ${ovs_bridge}    ${ovs_port_name}
+    ...    ${vid}    ${vni}    ${number}
+
+Get Bridge List
+    [Arguments]    ${conn_id}
+    [Documentation]    Create bridge list of OVS
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SHOW}
+    Log    ${output}
+    @{bridge_blocks}=    Split Bridge    ${output}
+    @{bridge_list}=    Create List
+    : FOR    ${bridge_block}    IN    @{bridge_blocks}
+    \    @{bridge_line}=    Get Regexp Matches    ${bridge_block}    Bridge \"*[0-9a-zA-Z_-]+\"*
+    \    Continue For Loop If    @{bridge_line}==@{EMPTY}
+    \    @{splitted_bridge_line}=    Split String    @{bridge_line}[0]    ${SPACE}
+    \    ${bridge}=    Replace String    @{splitted_bridge_line}[1]    "    ${EMPTY}
+    \    Append To List    @{bridge_list}    ${bridge}
+    [Return]    @{bridge_list}
+
+Get Bridge Block
+    [Arguments]    ${conn_id}    ${target_bridge}
+    [Documentation]    Get bridge information specified by ${target_bridge}.
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SHOW}
+    Log    ${output}
+    @{bridge_blocks}=    Split Bridge    ${output}
+    : FOR    ${bridge_block}    IN    @{bridge_blocks}
+    \    @{bridge_line}=    Get Regexp Matches    ${bridge_block}    Bridge \"*[0-9a-zA-Z_-]+\"*
+    \    Continue For Loop If    @{bridge_line}==@{EMPTY}
+    \    @{splitted_bridge_line}=    Split String    @{bridge_line}[0]    ${SPACE}
+    \    ${bridge}=    Replace String    @{splitted_bridge_line}[1]    "    ${EMPTY}
+    \    Run Keyword If    '${bridge}'=='${target_bridge}'    Return From Keyword    ${bridge_block}
+    [Return]    ${None}
+
+Split Bridge
+    [Arguments]    ${output}
+    [Documentation]    Split the contents of ${output} with bridge.
+    ${bridges}=    Create List    @{EMPTY}
+    @{lines}=    Split String    ${output}    \n
+    ${tmp}=    Set Variable    ${EMPTY}
+    : FOR    ${line}    IN    @{lines}
+    \    @{match}=    Get Regexp Matches    ${line}    Bridge
+    \    ${length}=    Get Length    ${match}
+    \    Run Keyword If    ${length} >= 1    Append To List    ${bridges}    ${tmp}
+    \    ${tmp}=    Run Keyword If    ${length} >= 1    Set Variable    ${EMPTY}
+    \    ...    ELSE    Catenate    ${tmp}
+    \    ${tmp}=    Catenate    SEPARATOR=    ${tmp}    ${line}
+    Append To List    ${bridges}    ${tmp}
+    [Return]    @{bridges}
+
+Vlan Zero Pad
+    [Arguments]    ${vid}
+    [Documentation]    Zero pad the VLAN ID.
+    ${vid_str}=    Convert To String    ${vid}
+    ${length}=    Get Length    ${vid_str}
+    ${result}=    Run Keyword If    ${length}==1    Catenate    SEPARATOR=    000    ${vid}
+    ...    ELSE IF    ${length}==2    Catenate    SEPARATOR=    00    ${vid}
+    ...    ELSE IF    ${length}==3    Catenate    SEPARATOR=    0    ${vid}
+    ...    ELSE    Catenate    SEPARATOR=    ${vid}
+    [Return]    ${result}
