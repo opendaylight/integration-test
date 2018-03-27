@@ -63,6 +63,13 @@ Delete Network
     [Documentation]    Delete Network with neutron request.
     ${output} =    OpenStack CLI    openstack network delete ${network_name}
 
+Delete All Network
+    [Documentation]    Delete all Network.
+    ${output} =    OpenStack CLI    openstack network list -cID -fvalue
+    @{id_list}=    String.Get Regexp Matches    ${output}    ${NEUTRON_UUID}
+    : FOR    ${id}    IN    @{id_list}
+    \    Delete Network    ${id}
+
 Create SubNet
     [Arguments]    ${network_name}    ${subnet_name}    ${range_ip}    ${additional_args}=${EMPTY}
     [Documentation]    Create SubNet for the Network with neutron request.
@@ -145,6 +152,13 @@ Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names.
     ${output} =    OpenStack CLI    openstack server delete ${vm_name}
 
+Delete All Vm Instance
+    [Documentation]    Delete All Vm instances.
+    ${output} =    OpenStack CLI    openstack server list -cID -fvalue
+    @{id_list}=    String.Get Regexp Matches    ${output}    ${NEUTRON_UUID}
+    : FOR    ${id}    IN    @{id_list}
+    \    Delete Vm Instance    ${id}
+
 Get Net Id
     [Arguments]    ${network_name}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
@@ -185,6 +199,14 @@ Create Vm Instances
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
     : FOR    ${vm}    IN    @{vm_instance_names}
     \    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${vm} --security-group ${sg} --min ${min} --max ${max}
+
+Create Vm Instance
+    [Arguments]    ${net_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default    ${min}=1
+    ...    ${max}=1
+    [Documentation]    Create Vm Instance with the net id of the Netowrk.
+    ${image}    BuiltIn.Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
+    ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
+    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${vm_instance_name} --security-group ${sg} --min ${min} --max ${max}
 
 Create Vm Instance On Compute Node
     [Arguments]    ${net_name}    ${vm_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
@@ -381,7 +403,7 @@ Check Metadata Access
 
 Execute Command on VM Instance
     [Arguments]    ${net_name}    ${vm_ip}    ${cmd}    ${user}=cirros    ${password}=cubswin:)
-    [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
+    [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the output.
     OpenStackOperations.Get ControlNode Connection
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
     ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    password:
@@ -390,6 +412,23 @@ Execute Command on VM Instance
     ${output} =    BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}
     [Teardown]    Exit From Vm Console
     [Return]    ${output}
+
+Execute Command on VM Instance Session
+    [Arguments]    ${vm_conn_id}    ${cmd}
+    [Documentation]    Executes a command inside the VM and returns the output.
+    Switch Connection    ${vm_conn_id}
+    ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance
+    ${output} =    BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}
+    [Return]    ${output}
+
+Create VM Instance Session
+    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Login to the VM instance using ssh in the network.
+    ${conn_id} =    OpenStackOperations.New ControlNode Connection
+    ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
+    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    password:
+    ${output} =    Utils.Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    [Return]    ${conn_id}
 
 Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)    ${ttl}=64
@@ -532,6 +571,12 @@ Get Karaf Log Events From Test Start
 Get ControlNode Connection
     SSHLibrary.Switch Connection    ${OS_CNTL_CONN_ID}
     [Return]    ${OS_CNTL_CONN_ID}
+
+New ControlNode Connection
+    ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${OS_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=30s
+    [Return]    ${control_conn_id}
 
 Get OvsDebugInfo
     [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
@@ -735,6 +780,13 @@ Create L2Gateway
     BuiltIn.Log    ${l2gw_output}
     [Return]    ${l2gw_output}
 
+Delete L2Gateway
+    [Arguments]    ${gw_name}
+    [Documentation]    Keyword to delete an L2 Gateway ${gw_name} (Using Neutron CLI).
+    ${rc}    ${l2gw_output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_DELETE} ${gw_name}
+    BuiltIn.Log    ${l2gw_output}
+    [Return]    ${l2gw_output}
+
 Update L2Gateway
     [Arguments]    ${bridge_name}    ${gw_name}    ${intf_name_1}    ${intf_name_2}
     [Documentation]    Keyword to add {intf_name_list} to an existing L2 Gateway ${gw_name} (Using Neutron CLI).
@@ -743,9 +795,17 @@ Update L2Gateway
     [Return]    ${l2gw_output}
 
 Create L2Gateway Connection
-    [Arguments]    ${gw_name}    ${net_name}
+    [Arguments]    ${gw_name}    ${net_name}    ${additional_args}=${EMPTY}
     [Documentation]    Keyword would create a new L2 Gateway Connection for ${gw_name} to ${net_name} (Using Neutron CLI).
-    ${rc}    ${l2gw_output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_CONN_CREATE} ${gw_name} ${net_name}
+    ${rc}    ${l2gw_output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_CONN_CREATE} ${gw_name} ${net_name} ${additional_args}
+    BuiltIn.Log    ${l2gw_output}
+    BuiltIn.Should Be True    '${rc}' == '0'
+    [Return]    ${l2gw_output}
+
+Delete L2Gateway Connection
+    [Arguments]    ${l2gw_conn_id}
+    [Documentation]    Keyword would delete a L2 Gateway Connection for ${gw_name} (Using Neutron CLI).
+    ${rc}    ${l2gw_output} =    OperatingSystem.Run And Return Rc And Output    ${L2GW_CONN_DELETE} ${l2gw_conn_id}
     BuiltIn.Log    ${l2gw_output}
     BuiltIn.Should Be True    '${rc}' == '0'
     [Return]    ${l2gw_output}
@@ -780,6 +840,15 @@ Get L2gw Id
     ${l2gw_id} =    Collections.Get from List    ${splitted_output}    0
     [Return]    ${l2gw_id}
 
+Get L2gw Id List
+    [Arguments]    ${opts}=${EMPTY}
+    [Documentation]    Keyword to retrieve the L2 Gateway ID List (Using Neutron CLI).
+    ${rc}    ${output}=    OperatingSystem.Run And Return Rc And Output    ${L2GW_GET} ${opts}
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Be True    '${rc}' == '0'
+    @{l2gw_id_list}=    String.Get Regexp Matches    ${output}    ${NEUTRON_UUID}
+    [Return]    ${l2gw_id_list}
+
 Get L2gw Connection Id
     [Arguments]    ${l2gw_name}
     [Documentation]    Keyword to retrieve the L2 Gateway Connection ID for the ${l2gw_name} (Using Neutron CLI).
@@ -790,6 +859,14 @@ Get L2gw Connection Id
     ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
     ${l2gw_conn_id} =    Collections.Get from List    ${splitted_output}    0
     [Return]    ${l2gw_conn_id}
+
+Get L2gw Connection Id List
+    [Arguments]    ${opts}=${EMPTY}
+    [Documentation]    Keyword to retrieve the L2 Gateway Connection ID List (Using Neutron CLI).
+    ${rc}    ${output}=    OperatingSystem.Run And Return Rc And Output    ${L2GW_GET_CONN} ${opts}
+    BuiltIn.Should Be True    '${rc}' == '0'
+    @{l2gw_id_list}=    String.Get Regexp Matches    ${output}    ${NEUTRON_UUID}
+    [Return]    ${l2gw_id_list}
 
 Neutron Port List Rest
     [Documentation]    Keyword to get all ports details in Neutron (Using REST).
