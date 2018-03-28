@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92154718_a70d40f1",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-28T21:04:09Z",
+      "side": 1,
+      "message": "does this still work with the SUITE being included in the log above? I like having the suite in the name since some tests are named the same so it is difficult to pick the right suite test.",
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69b1cac_1e1290c8",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-28T21:04:09Z",
+      "side": 1,
+      "message": "use var name like exception or even ex, since this really isn\u0027t and index",
+      "range": {
+        "startLine": 249,
+        "startChar": 15,
+        "endLine": 249,
+        "endChar": 16
+      },
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4dc21d64_45a31eac",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-28T21:04:09Z",
+      "side": 1,
+      "message": "this will punt on the first match to a whitelist, but I think you want to check if any of the whitelist exceptions are in there and remove those from the list. If anything is left then we fail.",
+      "range": {
+        "startLine": 250,
+        "startChar": 21,
+        "endLine": 250,
+        "endChar": 28
+      },
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1b581f3_7229183b",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-03-28T21:04:09Z",
+      "side": 1,
+      "message": "it would be nice if this could be reformatted with each exception is on a different line so that we could easily see the individual exceptions. Maybe use a concatenate so that they would be individuals.",
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
