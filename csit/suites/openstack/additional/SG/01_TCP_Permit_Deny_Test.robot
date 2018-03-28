@@ -35,8 +35,8 @@ Create Network1 Components
     Create SubNet    @{NETWORKS_NAME}[0]    @{SUBNETS_NAME}[0]    @{SUBNETS_RANGE}[0]
     Neutron Security Group Create    @{SECURITY_GROUP}[3]
     Delete All Security Group Rules    @{SECURITY_GROUP}[3]
-    Create Vm Instances    @{NETWORKS_NAME}[0]    ${NET_1_VM_INSTANCES}    sg=@{SECURITY_GROUP}[3]    min=1    max=1    image=cirros    flavor=cirros
-
+    Create Vm Instances    @{NETWORKS_NAME}[0]    ${NET_1_VM_INSTANCES}    sg=@{SECURITY_GROUP}[3]    min=1    max=1    image=cirros
+    ...    flavor=cirros
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}
     \    Poll VM Is ACTIVE    ${vm}
     #${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    300s    5s    Collect VM IP Addresses
@@ -56,73 +56,58 @@ Create Network1 Components
     \    Poll VM Boot Status    ${vm}
     ${LOOP_COUNT}    Get Length    ${NET1_DHCP_IP}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    Neutron Security Group Rule Create    @{SECURITY_GROUP}[3]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=@{NET1_DHCP_IP}[${index}]/32
+    \    Neutron Security Group Rule Create    @{SECURITY_GROUP}[3]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
+    \    ...    remote_ip_prefix=@{NET1_DHCP_IP}[${index}]/32
 
 TCP Communication Test_1
     [Documentation]    Check TCP Communication with ingress/egress
     ...    allow rules on Both side (Sender/Receiver)
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[1]
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111
-
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
     \    Remove Security Group From VM    ${VmElement}    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
-
 
 TCP Communication Test_2
     [Documentation]    Check TCP Communication with ingress/egress
     ...    allow rules on Sender only egress on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-
-   Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
-   Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
-
+    Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
+    Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
     [Teardown]    Run Keywords    Get Test Teardown Debugs
 
-
 TCP Communication Test_3
     [Documentation]    Check TCP Communication with ingress/egress
     ...    allow rules on Sender only ingress on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
     [Teardown]    Run Keywords    Get Test Teardown Debugs
@@ -130,308 +115,230 @@ TCP Communication Test_3
 TCP Communication Test_4
     [Documentation]    Check TCP Communication with ingress/egress
     ...    allow rules on Sender No rules on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
-
 
 TCP Communication Test_5
     [Documentation]    Check TCP Communication with egress
-    ...    allow rule on Sender  ingress/egress on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    allow rule on Sender ingress/egress on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 TCP Communication Test_6
     [Documentation]    Check TCP Communication with egress
-    ...    allow rule on Sender  egress on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    allow rule on Sender egress on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
-
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 TCP Communication Test_7
     [Documentation]    Check TCP Communication with egress
-    ...    allow rule on Sender  ingress on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    allow rule on Sender ingress on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 TCP Communication Test_8
     [Documentation]    Check TCP Communication with egress
-    ...    allow rule on Sender  No rules on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    allow rule on Sender No rules on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 TCP Communication Test_9
     [Documentation]    Check TCP Communication with ingress
-    ...    allow rule on Sender  ingress/egress on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    allow rule on Sender ingress/egress on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 TCP Communication Test_10
     [Documentation]    Check TCP Communication with ingress
-    ...    allow rule on Sender  egress on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    allow rule on Sender egress on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
-
 
 TCP Communication Test_11
     [Documentation]    Check TCP Communication with ingress
-    ...    allow rule on Sender  ingress on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    allow rule on Sender ingress on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 TCP Communication Test_12
     [Documentation]    Check TCP Communication with ingress
-    ...    allow rule on Sender  no rules on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    allow rule on Sender no rules on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 TCP Communication Test_13
     [Documentation]    Check TCP Communication with no rules
-    ...    on Sender  ingress/egress on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    on Sender ingress/egress on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 TCP Communication Test_14
     [Documentation]    Check TCP Communication with no rules
-    ...    on Sender  egress rule on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    on Sender egress rule on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
-
 
 TCP Communication Test_15
     [Documentation]    Check TCP Communication with no rules
-    ...    on Sender  ingress rule on Receiver
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    on Sender ingress rule on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[2]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 TCP Communication Test_16
     [Documentation]    Check TCP Communication with no rules
-    ...    on Sender  no rule on Receiver
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    ...    on Sender no rule on Receiver
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-    Neutron Security Group Create   @{SECURITY_GROUP}[2]
+    Neutron Security Group Create    @{SECURITY_GROUP}[2]
     Delete All Security Group Rules    @{SECURITY_GROUP}[2]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Remove Security Group From VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[2]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     Delete SecurityGroup    @{SECURITY_GROUP}[2]
-
     [Teardown]    Run Keywords    Get Test Teardown Debugs
     ...    AND    Clear L2_Network
-

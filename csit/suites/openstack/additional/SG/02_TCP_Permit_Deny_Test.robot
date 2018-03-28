@@ -28,7 +28,6 @@ Resource          ../../../../libraries/KarafKeywords.robot
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 
 *** Test Cases ***
-
 Create Network1 Components
     [Documentation]    Create Single Network and Two VM instances
     ...    add Sg rule login to the VM instance from DHCP Namespace
@@ -36,8 +35,8 @@ Create Network1 Components
     Create SubNet    @{NETWORKS_NAME}[0]    @{SUBNETS_NAME}[0]    @{SUBNETS_RANGE}[0]
     Neutron Security Group Create    @{SECURITY_GROUP}[3]
     Delete All Security Group Rules    @{SECURITY_GROUP}[3]
-    Create Vm Instances    @{NETWORKS_NAME}[0]    ${NET_1_VM_INSTANCES}    sg=@{SECURITY_GROUP}[3]    min=1    max=1    image=cirros    flavor=cirros
-
+    Create Vm Instances    @{NETWORKS_NAME}[0]    ${NET_1_VM_INSTANCES}    sg=@{SECURITY_GROUP}[3]    min=1    max=1    image=cirros
+    ...    flavor=cirros
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}
     \    Poll VM Is ACTIVE    ${vm}
     ${status}    ${message}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    300s    5s    Collect VM IP Addresses
@@ -57,83 +56,62 @@ Create Network1 Components
     \    Poll VM Boot Status    ${vm}
     ${LOOP_COUNT}    Get Length    ${NET1_DHCP_IP}
     : FOR    ${index}    IN RANGE    0    ${LOOP_COUNT}
-    \    Neutron Security Group Rule Create    @{SECURITY_GROUP}[3]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=@{NET1_DHCP_IP}[${index}]/32
+    \    Neutron Security Group Rule Create    @{SECURITY_GROUP}[3]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp
+    \    ...    remote_ip_prefix=@{NET1_DHCP_IP}[${index}]/32
 
 TCP Communication Security Group Changes_1
     [Documentation]    Check that dynamic changes in security group are reflected
     ...    Permit to Deny
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[0]    @{SECURITY_GROUP}[1]
     Add Security Group To VM    @{NET_1_VM_INSTANCES}[1]    @{SECURITY_GROUP}[1]
-
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111
-
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
-    \    Remove Security Group From VM    ${VmElement}    @{SECURITY_GROUP}[1] 
-
+    \    Remove Security Group From VM    ${VmElement}    @{SECURITY_GROUP}[1]
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     [Teardown]    Run Keywords    Get Test Teardown Debugs
-
-
 
 TCP Communication Security Group Changes_2
     [Documentation]    Check that dynamic changes in security group are reflected
     ...    Deny to Permit
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
-
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
     \    Add Security Group To VM    ${VmElement}    @{SECURITY_GROUP}[1]
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111
-
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
     \    Remove Security Group From VM    ${VmElement}    @{SECURITY_GROUP}[1]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     [Teardown]    Run Keywords    Get Test Teardown Debugs
-
-
 
 TCP Communication Security Group Rule Changes_3
     [Documentation]    Check that dynamic changes in security group Rules are reflected
     ...    Permit to Deny
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
     \    Add Security Group To VM    ${VmElement}    @{SECURITY_GROUP}[1]
-
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
-
-
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
     \    Remove Security Group From VM    ${VmElement}    @{SECURITY_GROUP}[1]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     [Teardown]    Run Keywords    Get Test Teardown Debugs
 
 TCP Communication Security Group Rules Changes_4
     [Documentation]    Check that dynamic changes in security group rules are reflected
     ...    Deny to Permit
-
-    Neutron Security Group Create   @{SECURITY_GROUP}[1]
+    Neutron Security Group Create    @{SECURITY_GROUP}[1]
     Delete All Security Group Rules    @{SECURITY_GROUP}[1]
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111    nc_should_succeed=False
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
@@ -141,10 +119,8 @@ TCP Communication Security Group Rules Changes_4
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    @{SECURITY_GROUP}[1]    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Test Netcat Operations Between Vm Instance    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[1]    @{NETWORKS_NAME}[0]    @{NET1_VM_IPS}[0]    port=1111
-
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
     \    Remove Security Group From VM    ${VmElement}    @{SECURITY_GROUP}[1]
-
     Delete SecurityGroup    @{SECURITY_GROUP}[1]
     [Teardown]    Run Keywords    Get Test Teardown Debugs
     ...    AND    Clear L2_Network

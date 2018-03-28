@@ -3,7 +3,7 @@ Documentation     Library to use common Linux Commands and also some configurati
 Library           Collections
 Library           SSHLibrary
 Library           OperatingSystem
-Resource          SSHKeywords.robot
+Resource          ../../../../csit/libraries/SSHKeywords.robot
 
 *** Keywords ***
 Install Rpm Package

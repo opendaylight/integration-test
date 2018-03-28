@@ -179,12 +179,12 @@ Get Router Id
 
 Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default    ${min}=1
-    ...    ${max}=1
+    ...    ${max}=1   ${additional_args}=${EMPTY}
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     ${image}    BuiltIn.Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
     : FOR    ${vm}    IN    @{vm_instance_names}
-    \    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${vm} --security-group ${sg} --min ${min} --max ${max}
+    \    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${vm} --security-group ${sg} --min ${min} --max ${max} ${additional_args}
 
 Create Vm Instance On Compute Node
     [Arguments]    ${net_name}    ${vm_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
