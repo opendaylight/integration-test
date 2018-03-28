@@ -14,11 +14,7 @@ Resource          ../variables/Variables.robot
 Resource          ../variables/netvirt/Variables.robot
 Variables         ../variables/netvirt/Modules.py
 
-
 *** Keywords ***
-
-
-
 Collect VM IP Addresses
     [Arguments]    ${fail_on_none}    @{vm_list}
     [Documentation]    Using the console-log on the provided ${vm_list} to search for the string "obtained" which
@@ -62,10 +58,10 @@ Verify VM UP Status
     [Documentation]    Run these commands to check whether the created vm instance is ready to login.
     ${output}=    Run And Return Rc And Output    openstack console log show ${vm_name}
     #${status}=    encode('utf-8').${output}
-    #${status}=    Decode Bytes To String    ${output}   UTF-8
+    #${status}=    Decode Bytes To String    ${output}    UTF-8
     #Log    ${status}
     #Should Contain    ${status}    finished at
-    Sleep   500s
+    Sleep    500s
 
 Poll VM UP Boot Status
     [Arguments]    ${vm_name}    ${retry}=1800s    ${retry_interval}=5s
@@ -107,13 +103,12 @@ Ssh From VM Instance Should Not Succeed
     Should Contain Any    ${output}    Connection timed out    No route to host
     Log    ${output}
 
-
 Ssh From VM Instance
     [Arguments]    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)    ${first_login}=True
     [Documentation]    Login to the vm instance using ssh from another VM instance
     Log    ${vm_ip}
     ${output} =    Run Keyword If    "${first_login}" == "True"    Write Commands Until Expected Prompt    ssh ${user}@${vm_ip}    (y/n)
-    ...   ELSE    Write Commands Until Expected Prompt    ssh ${user}@${vm_ip}    password:
+    ...    ELSE    Write Commands Until Expected Prompt    ssh ${user}@${vm_ip}    password:
     Log    ${output}
     ${output} =    Run Keyword If    "${first_login}" == "True"    Write Commands Until Expected Prompt    y    password:
     Log    ${output}
@@ -123,4 +118,195 @@ Ssh From VM Instance
     ${output} =    Write Commands Until Expected Prompt    ifconfig    $
     Should Contain    ${output}    ${vm_ip}
     ${output} =    Write Commands Until Expected Prompt    exit    $
+    [Return]    ${output}
+
+Get ControlNode Connection By IP
+    [Arguments]    ${OS_CONTROL_NODE_IP}
+    ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=30s
+    Switch Connection    ${control_conn_id}
+
+TCP connection timed out
+    [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    TCP communication check fail.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    Log    ${src_ip}
+    ${net_id}=    Get Net Id    ${net_name}
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    Connection timed out
+
+Kill ovs-vswitchd in compute node
+    [Arguments]    ${OS_COMPUTE_IP}
+    [Documentation]    Kill ovsdb-server in compute node
+    ${output}=    Get ComputeNode Connection    ${OS_COMPUTE_IP}
+    Log    ${output}
+    ${Output}=    Write Commands Until Prompt    ifconfig
+    ${Output}=    Write Commands Until Prompt    ps -ef | grep ovs-vswitchd | awk '{print$2}'
+    ${split}=    Split String    ${Output}    \n
+    ${length}=    Get Length    ${split}
+    Log    @{split}[0]
+    Log    @{split}[1]
+    ${Output}=    Write Commands Until Prompt    sudo kill -15 @{split}[0]
+    ${Output}=    Write Commands Until Prompt    sudo kill -15 @{split}[1]
+
+Kill ovsdb-server in compute node
+    [Arguments]    ${OS_COMPUTE_IP}
+    [Documentation]    Kill ovsdb-server in compute node1
+    ${output}=    Get ComputeNode Connection    ${OS_COMPUTE_IP}
+    Log    ${output}
+    ${Output}=    Write Commands Until Prompt    ifconfig
+    ${Output}=    Write Commands Until Prompt    ps -ef | grep ovsdb-server | awk '{print$2}'
+    ${split}=    Split String    ${Output}    \n
+    ${length}=    Get Length    ${split}
+    Log    @{split}[0]
+    Log    @{split}[1]
+    ${Output}=    Write Commands Until Prompt    kill -15 @{split}[0]
+    ${Output}=    Write Commands Until Prompt    kill -15 @{split}[1]
+
+Kill ovs-vswitchd in control node
+    [Arguments]    ${OS_CONTROL_NODE_IP}
+    [Documentation]    Kill ovs-vswitchd in control node
+    ${output}=    Get ControlNode Connection by IP    ${OS_CONTROL_NODE_IP}
+    Log    ${output}
+    ${Output}=    Write Commands Until Prompt    ifconfig
+    ${Output}=    Write Commands Until Prompt    ps -ef | grep ovs-vswitchd | awk '{print$2}'
+    ${split}=    Split String    ${Output}    \n
+    ${length}=    Get Length    ${split}
+    Log    @{split}[0]
+    Log    @{split}[1]
+    ${Output}=    Write Commands Until Prompt    kill -15 @{split}[0]
+    ${Output}=    Write Commands Until Prompt    kill -15 @{split}[1]
+
+Kill ovsdb-server in control node
+    [Arguments]    ${OS_CONTROL_NODE_IP}
+    [Documentation]    Kill ovsdb-server in control node
+    ${output}=    Get ControlNode Connection by IP    ${OS_CONTROL_NODE_IP}
+    Log    ${output}
+    ${Output}=    Write Commands Until Prompt    ifconfig
+    ${Output}=    Write Commands Until Prompt    ps -ef | grep ovsdb-server | awk '{print$2}'
+    ${split}=    Split String    ${Output}    \n
+    ${length}=    Get Length    ${split}
+    Log    @{split}[0]
+    Log    @{split}[1]
+    ${Output}=    Write Commands Until Prompt    kill -15 @{split}[0]
+    ${Output}=    Write Commands Until Prompt    kill -15 @{split}[1]
+
+Server Remove Floating ip
+    [Arguments]    ${vm_name}    ${floating_ip}
+    [Documentation]    Remove floating ip from server with neutron request.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server remove floating ip ${vm_name} ${floating_ip}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Floating ip Delete
+    [Arguments]    ${floating_ip}
+    [Documentation]    Delete floating ip's and return output with neutron client.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack floating ip delete ${floating_ip}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Router Unset
+    [Arguments]    ${router_name}    ${cmd}
+    [Documentation]    Update the router with the command. Router name and command should be passed as argument.
+    ${rc}    ${output} =    Run And Return Rc And Output    openstack router unset ${router_name} ${cmd}
+    Should Not Be True    ${rc}
+
+Test Netcat Operations Internal to external
+    [Arguments]    ${pnf_prompt}    ${vm_src}    ${net_dest}    ${dest_ip}    ${port}=1234    ${nc_should_succeed}=True
+    ...    ${additional_args}=${EMPTY}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Use Netcat to test TCP/UDP connections between Vm instances
+    ${client_data}    Set Variable    Test Client Data
+    ${server_data}    Set Variable    Test Server Data
+    #Copy To VM Instance    ${net_dest}    ${dest_ip}
+    ${nc_output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${vm_src} ${port}
+    Log    ${nc_output}
+    Run    sudo python /tmp/udp_server.py ${vm_src} ${port} > /tmp/data_dump.txt &
+    ${nc_output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${vm_src} ${port}
+    Log    ${nc_output}
+    ${nc_l_output}=    Run    cat /tmp/data_dump.txt
+    Should Match Regexp    ${nc_l_output}    ${client_data}
+    ${rc}    ${output}=    Run And Return Rc And Output    rm -rf /tmp/data_dump.txt
+
+Test Netcat Operations Internal to external TCP
+    [Arguments]    ${pnf_prompt}    ${vm_src}    ${net_dest}    ${dest_ip}    ${port}=1234    ${nc_should_succeed}=True
+    ...    ${additional_args}=${EMPTY}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Use Netcat to test TCP/UDP connections between Vm instances
+    ${client_data}    Set Variable    Test Client Data
+    ${server_data}    Set Variable    Test Server Data
+    #Copy To VM Instance    ${net_dest}    ${dest_ip}
+    ${nc_output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${vm_src} ${port}
+    Log    ${nc_output}
+    Run    sudo python /tmp/tcp_server.py ${vm_src} ${port} > /tmp/data_dump.txt &
+    ${nc_output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${vm_src} ${port}
+    Log    ${nc_output}
+    ${nc_l_output}=    Run    cat /tmp/data_dump.txt
+    Should Match Regexp    ${nc_l_output}    ${client_data}
+    ${rc}    ${output}=    Run And Return Rc And Output    rm -rf /tmp/data_dump.txt
+
+Test Netcat Operations Internal to external VLAN
+    [Arguments]    ${pnf_prompt}    ${vm_src}    ${net_dest}    ${dest_ip}    ${port}=1234    ${nc_should_succeed}=True
+    ...    ${additional_args}=${EMPTY}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Use Netcat to test TCP/UDP connections between Vm instances
+    ${client_data}    Set Variable    Test Client Data
+    ${server_data}    Set Variable    Test Server Data
+    #Copy To VM Instance    ${net_dest}    ${dest_ip}
+    ${nc_output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${vm_src} ${port}
+    Log    ${nc_output}
+    Run    sudo ip netns exec vlantest python /tmp/udp_server.py ${vm_src} ${port} > /tmp/data_dump.txt &
+    ${nc_output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${vm_src} ${port}
+    Log    ${nc_output}
+    ${nc_l_output}=    Run    cat /tmp/data_dump.txt
+    Should Match Regexp    ${nc_l_output}    ${client_data}
+    ${rc}    ${output}=    Run And Return Rc And Output    rm -rf /tmp/data_dump.txt
+
+Test Netcat Operations Internal to external TCP VLAN
+    [Arguments]    ${pnf_prompt}    ${vm_src}    ${net_dest}    ${dest_ip}    ${port}=1234    ${nc_should_succeed}=True
+    ...    ${additional_args}=${EMPTY}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Use Netcat to test TCP/UDP connections between Vm instances
+    ${client_data}    Set Variable    Test Client Data
+    ${server_data}    Set Variable    Test Server Data
+    #Copy To VM Instance    ${net_dest}    ${dest_ip}
+    ${nc_output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${vm_src} ${port}
+    Log    ${nc_output}
+    Run    sudo ip netns exec vlantest python /tmp/tcp_server.py ${vm_src} ${port} > /tmp/data_dump.txt &
+    ${nc_output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${vm_src} ${port}
+    Log    ${nc_output}
+    ${nc_l_output}=    Run    cat /tmp/data_dump.txt
+    Should Match Regexp    ${nc_l_output}    ${client_data}
+    ${rc}    ${output}=    Run And Return Rc And Output    rm -rf /tmp/data_dump.txt
+
+Floating ip List
+    [Documentation]    List floating ip's and return output with neutron client.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack floating ip list
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Create Floating IPs
+    [Arguments]    ${external_net}    ${additional_args}=${EMPTY}
+    [Documentation]    Create floating IPs with nova request
+    ${ip_list}=    Create List    @{EMPTY}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack floating ip create ${external_net} ${additional_args}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    @{ip}    Get Regexp Matches    ${output}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+    ${ip_length}    Get Length    ${ip}
+    Run Keyword If    ${ip_length}>0    Append To List    ${ip_list}    @{ip}[0]
+    ...    ELSE    Append To List    ${ip_list}    None
+    [Return]    ${ip_list}
+
+Associate Floating ip to VM
+    [Arguments]    ${vm_name}    ${ip}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server add floating ip ${vm_name} ${ip}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Server Show
+    [Arguments]    ${vm_name}
+    [Documentation]    Show server with neutron request.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server show ${vm_name}
+    Log    ${output}
+    Should Not Be True    ${rc}
     [Return]    ${output}
