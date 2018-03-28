@@ -12,7 +12,7 @@ NETVIRT_PROJECTS = ["controller", "dlux", "dluxapps", "genius", "infrautils", "m
                     "neutron", "odlparent", "openflowplugin", "ovsdb", "sfc", "yangtools"]
 PROJECT_NAMES = NETVIRT_PROJECTS
 DISTRO_PATH = "/tmp/distribution-karaf"
-BRANCH = 'stable/nitrogen'
+BRANCH = 'master'
 LIMIT = 10
 QLIMIT = 50
 
@@ -29,7 +29,7 @@ class TestChanges(unittest.TestCase):
         changes.pretty_print_projects(projects)
 
     def test_run_cmd_single(self):
-        project_names = ['odlparent']
+        project_names = ['netvirt']
         branch = BRANCH
         self.run_cmd(branch, DISTRO_PATH, LIMIT, QLIMIT, project_names, REMOTE_URL, logging.INFO)
 
