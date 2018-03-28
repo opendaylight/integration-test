@@ -43,3 +43,84 @@ Collect VM IP Addresses
     Run Keyword If    '${fail_on_none}' == 'true'    Should Not Contain    ${dhcp_ip}    None
     Return From Keyword If    ${dhcp_length}==0    ${ip_list}    ${EMPTY}
     [Return]    ${ip_list}    ${dhcp_ip}
+
+Collect IP
+    [Arguments]    ${VM_Name}
+    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack server list | grep -i "${VM_Name}"
+    ${vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+    [Return]    ${vm_ip}
+
+Get ComputeNode Connection
+    [Arguments]    ${compute_ip}
+    ${compute_conn_id}=    SSHLibrary.Open Connection    ${compute_ip}    prompt=]>
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=30s
+    [Return]    ${compute_conn_id}
+
+Verify VM UP Status
+    [Arguments]    ${vm_name}
+    [Documentation]    Run these commands to check whether the created vm instance is ready to login.
+    ${output}=    Run And Return Rc And Output    openstack console log show ${vm_name}
+    #${status}=    encode('utf-8').${output}
+    #${status}=    Decode Bytes To String    ${output}   UTF-8
+    #Log    ${status}
+    #Should Contain    ${status}    finished at
+    Sleep   500s
+
+Poll VM UP Boot Status
+    [Arguments]    ${vm_name}    ${retry}=1800s    ${retry_interval}=5s
+    [Documentation]    Run these commands to check whether the created vm instance is active or not.
+    Wait Until Keyword Succeeds    ${retry}    ${retry_interval}    Verify VM UP Status    ${vm_name}
+
+Create ANY SecurityGroup Rule
+    [Arguments]    ${sg_name}    ${dir}    ${ether_type}=IPv4    ${additional_args}=${EMPTY}
+    [Documentation]    Create Security Group Rule without Protocol
+    ${rc}    ${output}=    Run And Return Rc And Output    neutron security-group-rule-create ${sg_name} --direction ${dir} ${additional_args}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Create Availabilityzone
+    [Arguments]    ${hypervisor_ip}    ${zone_name}    ${aggregate_name}
+    [Documentation]    Creates the Availabilityzone for given host IP
+    ${hostname}=    Get Hypervisor Hostname From IP    ${hypervisor_ip}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack aggregate create --zone ${zone_name} ${aggregate_name}
+    Log    ${output}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack aggregate add host ${aggregate_name} ${hostname}
+    Should Not Be True    ${rc}
+    [Return]    ${zone_name}
+
+Delete Availabilityzone
+    [Arguments]    ${hypervisor_ip}    ${aggregate_name}
+    [Documentation]    Removes the Availabilityzone for given host IP
+    ${hostname}=    Get Hypervisor Hostname From IP    ${hypervisor_ip}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack aggregate remove host ${aggregate_name} ${hostname}
+    Log    ${output}
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack aggregate delete ${aggregate_name}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Ssh From VM Instance Should Not Succeed
+    [Arguments]    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Login to the vm instance using ssh from another VM instance
+    Log    ${vm_ip}
+    ${output}=    Write Commands Until Expected Prompt    ssh ${user}@${vm_ip}    ${OS_SYSTEM_PROMPT}    timeout=90s
+    Should Contain Any    ${output}    Connection timed out    No route to host
+    Log    ${output}
+
+
+Ssh From VM Instance
+    [Arguments]    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)    ${first_login}=True
+    [Documentation]    Login to the vm instance using ssh from another VM instance
+    Log    ${vm_ip}
+    ${output} =    Run Keyword If    "${first_login}" == "True"    Write Commands Until Expected Prompt    ssh ${user}@${vm_ip}    (y/n)
+    ...   ELSE    Write Commands Until Expected Prompt    ssh ${user}@${vm_ip}    password:
+    Log    ${output}
+    ${output} =    Run Keyword If    "${first_login}" == "True"    Write Commands Until Expected Prompt    y    password:
+    Log    ${output}
+    ${output} =    Write Commands Until Expected Prompt    ${password}    $
+    Log    ${output}
+    ${rcode} =    Run Keyword And Return Status    Check If Console Is VmInstance
+    ${output} =    Write Commands Until Expected Prompt    ifconfig    $
+    Should Contain    ${output}    ${vm_ip}
+    ${output} =    Write Commands Until Expected Prompt    exit    $
+    [Return]    ${output}
