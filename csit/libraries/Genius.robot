@@ -226,3 +226,25 @@ Check ITM Tunnel State
     [Documentation]    Verifies the Tunnel is deleted from datastore
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp.content}    ${tunnel1}    ${tunnel2}
+
+Get Tunnel
+    [Arguments]    ${src}    ${dst}    ${type}
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
+    log    ${resp.content}
+    Log    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/
+    ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
+    Log    ${respjson}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    ${src}    ${dst}
+    ${json}=    evaluate    json.loads('''${resp.content}''')    json
+    log to console    \nOriginal JSON:\n${json}
+    ${return}    Run Keyword And Return Status    Should contain    ${resp.content}    tunnel-interface-names
+    log    ${return}
+    ${ret}    Run Keyword If    '${return}'=='True'    Check Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
+    [Return]    ${ret}
+
+Check Interface Name
+    [Arguments]    ${json}    ${expected_tunnel_interface_name}
+    ${Tunnels}    Collections.Get From Dictionary    ${json}    ${expected_tunnel_interface_name}
+    Log    ${Tunnels}
+    [Return]    ${Tunnels[0]}
