@@ -379,6 +379,43 @@ class Changes(object):
             logger.warn("Could not find a git.properties file for %s", project)
         return ChangeId(None, False)
 
+    def get_taglist(self):
+        """
+        Read a taglist.log file into memory
+
+        :return taglist: The taglist.log file read into memory
+        """
+        tagfile = os.path.join(self.distro_path, "taglist.log")
+        taglist = None
+        # Ensure the file exists and then read it
+        if os.path.isfile(tagfile):
+            with open(tagfile, 'r') as fp:
+                taglist = fp.read()
+        return taglist
+
+    def find_project_commit_changeid(self, taglist, project):
+        """
+        Find a commit id for the given project
+
+        :param str taglist: the taglist.log file read into memory
+        :param str project: The project to search
+        :return ChangeId: The Change-Id with a valid Change-Id or None if not found
+        """
+        # break the regex up since {} is a valid regex element but we need it for the format project
+        re1 = r'({0} '.format(project)
+        re1 = re1 + r'(\b[a-f0-9]{40})\b|\b([a-f0-9]{8})\b' + r')'
+        commitid = re.search(re1, taglist)
+        if commitid and commitid.group(2):
+            logger.info("trying commitid from taglist.log in %s: %s", project, commitid.group(2))
+
+            gerrits = self.gerritquery.get_gerrits(project, commitid=commitid.group(2))
+            if gerrits:
+                logger.info("found Change-Id from taglist.log as merged in %s", project)
+                return ChangeId(gerrits[0]["id"], True)
+
+        logger.warn("did not find Change-Id from commitid from taglist.log in %s", project)
+        return ChangeId(None, False)
+
     def init(self):
         self.gerritquery = gerritquery.GerritQuery(self.remote_url, self.branch, self.qlimit, self.verbose)
         self.set_projects(self.project_names)
@@ -409,6 +446,19 @@ class Changes(object):
         if self.distro_url is not None:
             self.download_distro()
 
+        logger.info("Checking if this is an autorelease build by looking for taglist.log")
+        taglist = self.get_taglist()
+        if taglist is not None:
+            for project in sorted(self.projects):
+                logger.info("Processing %s using taglist.log", project)
+                changeid = self.find_project_commit_changeid(taglist, project)
+                if changeid.changeid:
+                    self.projects[project]['commit'] = changeid.changeid
+                    self.projects[project]["includes"] = \
+                        self.get_includes(project, changeid.changeid, msg=None, merged=changeid.merged)
+            return self.projects
+
+        logger.info("This is not an autorelease build, continuing as integration distribution")
         for project in sorted(self.projects):
             logger.info("Processing %s", project)
             changeid = self.find_distro_changeid(project)
