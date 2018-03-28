@@ -226,3 +226,39 @@ Check ITM Tunnel State
     [Documentation]    Verifies the Tunnel is deleted from datastore
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp.content}    ${tunnel1}    ${tunnel2}
+
+Get Tunnel
+    [Arguments]    ${src}    ${dst}    ${type}
+    [Documentation]    This Keyword Gets the Tunnel /Interface name which has been created between 2 DPNS by passing source , destination DPN Ids along with the type of tunnel which is configured.
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
+    log    ${resp.content}
+    Log    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/
+    ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
+    Log    ${respjson}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    ${src}    ${dst}
+    Log    ${src}
+    ${json}=    evaluate    json.loads('''${resp.content}''')    json
+    log to console    \nOriginal JSON:\n${json}
+    ${return}    Run Keyword And Return Status    Should contain    ${resp.content}    tunnel-interface-names
+    log    ${return}
+    ${ret}    Run Keyword If    '${return}'=='True'    Check Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
+    [Return]    ${ret}
+
+Check Interface Name
+    [Arguments]    ${json}    ${expected_tunnel_interface_name}
+    [Documentation]    This keyword Checks the Tunnel interface name is tunnel-interface-names in the output or not .
+    ${Tunnels}    Collections.Get From Dictionary    ${json}    ${expected_tunnel_interface_name}
+    Log    ${Tunnels}
+    [Return]    ${Tunnels[0]}
+
+SRM Start Suit
+    [Documentation]    Start suit for service recovery.
+    Genius Suite Setup
+    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
+    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${vlan}=    Set Variable    0
+    ${gateway-ip}=    Set Variable    0.0.0.0
+    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    ${type}    Set Variable    odl-interface:tunnel-type-vxlan
+    Wait Until Keyword Succeeds    30s    10s    Verify Tunnel Status as UP
