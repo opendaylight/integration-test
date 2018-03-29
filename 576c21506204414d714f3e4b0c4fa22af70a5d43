@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f389d4ad_c9a67466",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-29T05:34:53Z",
+      "side": 1,
+      "message": "Documentation",
+      "revId": "576c21506204414d714f3e4b0c4fa22af70a5d43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d7a493e_a9352168",
+        "filename": "csit/suites/genius/ServiceRecovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-29T05:34:53Z",
+      "side": 1,
+      "message": "you missed Documentation. \nAdd this to the test cases and keywords",
+      "revId": "576c21506204414d714f3e4b0c4fa22af70a5d43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45fb8e37_88a87006",
+        "filename": "csit/suites/genius/ServiceRecovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-03-29T05:34:53Z",
+      "side": 1,
+      "message": "i think so its not required",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "576c21506204414d714f3e4b0c4fa22af70a5d43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
