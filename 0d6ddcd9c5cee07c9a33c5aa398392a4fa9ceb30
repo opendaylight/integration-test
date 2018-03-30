@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00d1d4fa_a9ff0ac0",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-30T03:39:52Z",
+      "side": 1,
+      "message": "In general, have you consider using SSHLibrary.Execute_Command instead of SSHLibrary.Write? among other things, the log you have below will be meaningful (stdout) as SSHLibrary.Write normally requires SSHLibrary.Read_Until_Prompt to produce similar output.",
+      "revId": "0d6ddcd9c5cee07c9a33c5aa398392a4fa9ceb30",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa88f95d_3cfc6be2",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-03-30T03:39:52Z",
+      "side": 1,
+      "message": "This also may not be required if you use SSHLibrary.Execute_Command",
+      "revId": "0d6ddcd9c5cee07c9a33c5aa398392a4fa9ceb30",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
