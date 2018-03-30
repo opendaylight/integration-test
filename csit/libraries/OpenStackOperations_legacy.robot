@@ -351,3 +351,296 @@ TCP connection refused
     Log    ${src_ip}
     ${net_id}=    Get Net Id    ${net_name}
     ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    Connection refused
+
+Test Netcat Operations Between IPV6_Vm Instance
+    [Arguments]    ${net_src}    ${vm_src}    ${net_dest}    ${dest_ip}    ${port}=1234    ${nc_should_succeed}=True
+    ...    ${additional_args}=${EMPTY}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Use Netcat to test TCP/UDP connections between Vm instances
+    ${client_data}    Set Variable    Test Client Data
+    ${server_data}    Set Variable    Test Server Data
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    Log    ${vm_src} ${dest_ip}
+    ${net_id}=    Get Net Id    ${net_src}
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -6 -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${vm_src} -o UserKnownHostsFile=/dev/null    password:
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
+    ${output}=    Write    ( ( echo "${server_data}" | sudo nc -l ${additional_args} -p ${port} ) & )
+    Log    ${output}
+    #${output}=    Write Commands Until Prompt    sudo netstat -nla | grep ${port}
+    #Log    ${output}
+    ${nc_output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${vm_src} ${port}
+    Log    ${nc_output}
+    ${output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo route -n
+    Log    ${output}
+    ${output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo arp -an
+    Log    ${output}
+    Run Keyword If    "${nc_should_succeed}" == "True"    Should Match Regexp    ${nc_output}    ${server_data}
+    ...    ELSE    Should Not Match Regexp    ${nc_output}    ${server_data
+
+Test Operations From IPV6_Vm Instance
+    [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)    ${ttl}=64
+    ...    ${ping_should_succeed}=True    ${check_metadata}=True
+    [Documentation]    Login to the vm instance using ssh in the network.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    Log    ${src_ip}
+    ${net_id}=    Get Net Id    ${net_name}
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -6 -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    password:
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route -n    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route -A inet6    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ip -6 neigh    ${OS_SYSTEM_PROMPT}
+    : FOR    ${dest_ip}    IN    @{dest_ips}
+    \    Log    ${dest_ip}
+    \    ${string_empty}=    Run Keyword And Return Status    Should Be Empty    ${dest_ip}
+    \    Run Keyword If    ${string_empty}    Continue For Loop
+    \    Run Keyword If    ${rcode} and "${ping_should_succeed}" == "True"    Check Ping    ${dest_ip}    ttl=${ttl}
+    \    ...    ELSE    Check No Ping    ${dest_ip}    ttl=${ttl}
+    ${ethertype}=    Get Regexp Matches    ${src_ip}    ${IP_REGEX}
+    Run Keyword If    ${rcode} and "${check_metadata}" and ${ethertype} == "True"    Check Metadata Access
+    [Teardown]    Exit From Vm Console
+
+Collect IPV6
+    [Arguments]    @{vm_list}
+    : FOR    ${vm}    IN    @{vm_list}
+    \    Log    ${vm}
+    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack server list | grep -i "${vm}" | awk {'print $8'} | cut -d'=' -f2
+    \    Log    ${vm_ip_line}
+    [Return]    ${vm_ip_line}
+
+Collect Fedora_IPV6
+    [Arguments]    @{vm_list}
+    : FOR    ${vm}    IN    @{vm_list}
+    \    Log    ${vm}
+    \    ${rc}    ${vm_ip_line}=    Run And Return Rc And Output    openstack server list | grep -i "${vm}" | awk {'print $9'} | cut -d'=' -f2
+    \    Log    ${vm_ip_line}
+    [Return]    ${vm_ip_line}
+
+Create Fedora VM for dhcpv6-stateful
+    [Arguments]    ${net1_name}    ${net2_name}    ${vm_instance_names}    ${image}    ${flavor}    ${sg}
+    [Documentation]    To create a Fedora Vm in dhcpv6-stateful mode using two nic cards
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net1_name} --nic net-id=${net2_name} --security-group ${sg} --key-name vm_keys ${vm_instance_names}
+    Sleep    40s
+    ${vm_instance_name}=    Create List    ${vm_instance_names}
+    : FOR    ${vm}    IN    @{vm_instance_name}
+    \    Poll VM Is ACTIVE    ${vm}
+    ${NET1_VM_IPS}    Collect IP    @{vm_instance_name}[0]
+    Set Suite Variable    ${NET1_VM_IPS}
+    Should Not Contain    ${NET1_VM_IPS}    None
+    : FOR    ${vm}    IN    @{vm_instance_name}
+    \    Poll VM UP Boot Status    ${vm}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    ${net_id}=    Get Net Id    ${net1_name}
+    Log    ${net_id}
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i ~/vm_key -o ConnectTimeout=10 -o StrictHostKeyChecking=no fedora@@{NET1_VM_IPS}[0] -o UserKnownHostsFile=/dev/null    $
+    Log    ${output}
+    ${MAC_Line}=    Write Commands Until Expected Prompt    ip link show eth1 | awk '/ether/ {print $2}'    $
+    ${MAC}    Split String    ${MAC_Line}    \n
+    Log    @{MAC}[0]
+    ${output}=    Write Commands Until Expected Prompt    sudo cat <<EOF >ifcfg-eth1    >
+    ${output}=    Write Commands Until Expected Prompt    BOOTPROTO=dhcpv6    >
+    ${output}=    Write Commands Until Expected Prompt    DEVICE=eth1    >
+    ${output}=    Write Commands Until Expected Prompt    ONBOOT=yes    >
+    ${output}=    Write Commands Until Expected Prompt    TYPE=Ethernet    >
+    ${output}=    Write Commands Until Expected Prompt    USERCTL=no    >
+    ${output}=    Write Commands Until Expected Prompt    DHCPV6C=yes    >
+    ${output}=    Write Commands Until Expected Prompt    EOF    $
+    ${output}=    Write Commands Until Expected Prompt    sudo cp ifcfg-eth1 /etc/sysconfig/network-scripts/.    $
+    ${output}=    Write Commands Until Expected Prompt    sudo cat /etc/sysconfig/network-scripts/ifcfg-eth1    $
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    sudo ifup eth1    $
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    ping6 2004:db9:cafe:e::2    $
+    Log    ${output}
+    Should Contain    ${output}    64 bytes
+    Write    exit
+
+Test Operations From Fedora IPV6_Vm Instance
+    [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=fedora    ${ttl}=64    ${ping_should_succeed}=True
+    ...    ${check_metadata}=True
+    [Documentation]    Login to the vm instance using ssh in the network.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    Log    ${src_ip}
+    ${net_id}=    Get Net Id    ${net_name}
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -6 i ~/vm_key -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip} -o UserKnownHostsFile=/dev/null    $
+    Log    ${output}
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route -n    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route -A inet6    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ip -6 neigh    ${OS_SYSTEM_PROMPT}
+    : FOR    ${dest_ip}    IN    @{dest_ips}
+    \    Log    ${dest_ip}
+    \    ${string_empty}=    Run Keyword And Return Status    Should Be Empty    ${dest_ip}
+    \    Run Keyword If    ${string_empty}    Continue For Loop
+    \    Run Keyword If    ${rcode} and "${ping_should_succeed}" == "True"    Check Ping    ${dest_ip}    ttl=${ttl}
+    \    ...    ELSE    Check No Ping    ${dest_ip}    ttl=${ttl}
+    ${ethertype}=    Get Regexp Matches    ${src_ip}    ${IP_REGEX}
+    Run Keyword If    ${rcode} and "${check_metadata}" and ${ethertype} == "True"    Check Metadata Access
+    [Teardown]    Exit From Vm Console
+
+Test Netcat Operations Between Fedora_IPV6_Vm Instance
+    [Arguments]    ${net_src}    ${vm_src}    ${net_dest}    ${dest_ip}    ${port}=1234    ${nc_should_succeed}=True
+    ...    ${additional_args}=${EMPTY}    ${user}=fedora    ${password}=cubswin:)
+    [Documentation]    Use Netcat to test TCP/UDP connections between Vm instances
+    ${client_data}    Set Variable    Test Client Data
+    ${server_data}    Set Variable    Test Server Data
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    Log    ${vm_src} ${dest_ip}
+    ${net_id}=    Get Net Id    ${net_src}
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -6 i ~/vm_key -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${vm_src} -o UserKnownHostsFile=/dev/null    $
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
+    ${output}=    Write    ( ( echo "${server_data}" | sudo nc -l ${additional_args} -p ${port} ) & )
+    Log    ${output}
+    #${output}=    Write Commands Until Prompt    sudo netstat -nla | grep ${port}
+    #Log    ${output}
+    ${nc_output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo echo "${client_data}" | nc -v -w 5 ${additional_args} ${vm_src} ${port}
+    Log    ${nc_output}
+    ${output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo route -n
+    Log    ${output}
+    ${output}=    Execute Command on VM Instance    ${net_dest}    ${dest_ip}    sudo arp -an
+    Log    ${output}
+    Run Keyword If    "${nc_should_succeed}" == "True"    Should Match Regexp    ${nc_output}    ${server_data}
+    ...    ELSE    Should Not Match Regexp    ${nc_output}    ${server_data}
+
+Enable Live Migration In A Node
+    [Arguments]    ${compute_cxn}
+    Switch Connection    ${compute_cxn}
+    Crudini Edit    ${compute_cxn}    /etc/libvirt/libvirtd.conf    ''    listen_tls    0
+    Crudini Edit    ${compute_cxn}    /etc/libvirt/libvirtd.conf    ''    listen_tcp    0
+    Crudini Edit    ${compute_cxn}    /etc/libvirt/libvirtd.conf    ''    auth_tcp    '"none"'
+    Crudini Edit    ${compute_cxn}    /etc/sysconfig/libvirtd    ''    LIBVIRTD_ARGS    '"--listen"'
+    Crudini Edit    ${compute_cxn}    /etc/nova/nova.conf    DEFAULT    instances_path    '/var/lib/nova/instances_live_migration'
+    Restart Service    ${compute_cxn}    openstack-nova-compute libvirtd
+
+Enable Live Migration In All Compute Nodes
+    [Documentation]    Enables Live Migration in all computes
+    ${compute_1_cxn}=    Get ComputeNode Connection    ${OS_COMPUTE_1_IP}
+    Enable Live Migration In A Node    ${compute_1_cxn}
+    ${compute_2_cxn}=    Get ComputeNode Connection    ${OS_COMPUTE_2_IP}
+    Enable Live Migration In A Node    ${compute_2_cxn}
+
+Disable Live Migration In All Compute Nodes
+    [Documentation]    Disables Live Migration in all computes
+    ${compute_1_cxn}=    Get ComputeNode Connection    ${OS_COMPUTE_1_IP}
+    Disable Live Migration In A Node    ${compute_1_cxn}
+    ${compute_2_cxn}=    Get ComputeNode Connection    ${OS_COMPUTE_2_IP}
+    Disable Live Migration In A Node    ${compute_2_cxn}
+
+Disable Live Migration In A Node
+    [Arguments]    ${compute_cxn}
+    Switch Connection    ${compute_cxn}
+    Crudini Delete    ${compute_cxn}    /etc/libvirt/libvirtd.conf    ''    listen_tls
+    Crudini Delete    ${compute_cxn}    /etc/libvirt/libvirtd.conf    ''    listen_tcp
+    Crudini Delete    ${compute_cxn}    /etc/libvirt/libvirtd.conf    ''    auth_tcp
+    Crudini Delete    ${compute_cxn}    /etc/sysconfig/libvirtd    ''    LIBVIRTD_ARGS
+    Crudini Delete    ${compute_cxn}    /etc/nova/nova.conf    DEFAULT    instances_path
+    Restart Service    ${compute_cxn}    openstack-nova-compute libvirtd
+
+Server Migrate
+    [Arguments]    ${vm_instance_name}    ${additional_args}=${EMPTY}
+    [Documentation]    server migrate
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server migrate ${vm_instance_name} ${additional_args}
+    Should Not Be True    ${rc}
+    Log    ${output}
+
+Create Vm Instances V4Fixed-IP
+    [Arguments]    ${net_name}    ${vm}    ${fixed}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
+    ...    ${min}=1    ${max}=1
+    [Documentation]    Create X Vm Instance with the net id of the Netowrk.
+    ${image}    Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
+    ${net_id}=    Get Net Id    ${net_name}
+    : FOR    ${VmElement}    IN    @{vm}
+    \    ${rc}    ${output}=    Run And Return Rc And Output    openstack server create --image ${image} --flavor ${flavor} --nic net-id=${net_id}${fixed} ${VmElement} --security-group ${sg} --min ${min} --max ${max}
+    \    Should Not Be True    ${rc}
+    \    Log    ${output}
+
+Server Remove Fixed ip
+    [Arguments]    ${fixed_ip}    ${vm_name}    ${network_name}
+    [Documentation]    Remove fixed ip to server with neutron request.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server remove fixed ip ${vm_name} ${fixed_ip}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Server Remove Port
+    [Arguments]    ${vm}    ${port}
+    [Documentation]    Remove the port to the given VM.
+    ${output}=    Run And Return Rc And Output    openstack server remove port ${vm} ${port}
+    Log    ${output}
+
+Unset SubNet
+    [Arguments]    ${subnet_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Unset subnet with neutron request.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet unset ${subnet_name} ${additional_args}
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Unset Port
+    [Arguments]    ${port_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Unset port with neutron request.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack port unset ${port_name} ${additional_args}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Crudini Edit
+    [Arguments]    ${os_node_cxn}    ${conf_file}    ${section}    ${key}    ${value}
+    [Documentation]    Crudini edit on a configuration file
+    Switch Connection    ${os_node_cxn}
+    ${output}    ${rc}=    Execute Command    sudo crudini --verbose --set --inplace ${conf_file} ${section} ${key} ${value}    return_rc=True    return_stdout=True
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+Restart Service
+    [Arguments]    ${os_node_cxn}    ${service}
+    [Documentation]    Restart a service in CentOs
+    Switch Connection    ${os_node_cxn}
+    ${output}    ${rc}=    Execute Command    sudo systemctl restart ${service}    return_rc=True    return_stdout=True
+    Log    ${output}
+    Should Not Be True    ${rc}
+    [Return]    ${output}
+
+SubNet Set
+    [Arguments]    ${subnet}    ${additional_args}
+    [Documentation]    unset SubNet for the Network with neutron request.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack subnet set ${additional_args} ${subnet}
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Server Add Port
+    [Arguments]    ${vm}    ${port}
+    [Documentation]    Remove the port to the given VM.
+    ${output}=    Run And Return Rc And Output    openstack server add port ${vm} ${port}
+    Log    ${output}
+
+Get DumpFlows
+    [Arguments]    ${openstack_node_ip}
+    SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    ${output}=    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-int -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}    90s
+    Close Connection
+    [Return]    ${output}
+
+Server Add Fixed ip
+    [Arguments]    ${fixed_ip}    ${vm_name}    ${network_name}
+    [Documentation]    Add fixed ip to server with neutron request.
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server add fixed ip --fixed-ip-address ${fixed_ip} ${vm_name} ${network_name}
+    Log    ${output}
+    Should Not Be True    ${rc}
