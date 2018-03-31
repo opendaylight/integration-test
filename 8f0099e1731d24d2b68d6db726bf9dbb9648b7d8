@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39794d07_c4fb657c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-31T06:12:57Z",
+      "side": 1,
+      "message": "shoot, we missed docs here.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 32
+      },
+      "revId": "8f0099e1731d24d2b68d6db726bf9dbb9648b7d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e73ed13_62c85891",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-03-31T06:12:57Z",
+      "side": 1,
+      "message": "2",
+      "range": {
+        "startLine": 187,
+        "startChar": 51,
+        "endLine": 187,
+        "endChar": 52
+      },
+      "revId": "8f0099e1731d24d2b68d6db726bf9dbb9648b7d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
