@@ -43,13 +43,13 @@ Start Suite
     Log    ${conn_id_1}
     Execute Command    sudo ovs-vsctl add-br BR1
     Execute Command    sudo ovs-vsctl set bridge BR1 protocols=OpenFlow13
-    Execute Command    sudo ovs-vsctl set-controller BR1 tcp:${ODL_SYSTEM_IP}:6633
+    Execute Command    sudo ovs-vsctl set-controller BR1 tcp:${ODL_SYSTEM_IP}:6653
     Execute Command    sudo ifconfig BR1 up
     Execute Command    sudo ovs-vsctl add-port BR1 tap8ed70586-6c -- set Interface tap8ed70586-6c type=tap
     Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     ${output_1}    Execute Command    sudo ovs-vsctl show
     Log    ${output_1}
-    ${check}    Wait Until Keyword Succeeds    30    10    check establishment    ${conn_id_1}    6633
+    ${check}    Wait Until Keyword Succeeds    30    10    check establishment    ${conn_id_1}    6653
     log    ${check}
     ${check_2}    Wait Until Keyword Succeeds    30    10    check establishment    ${conn_id_1}    6640
     log    ${check_2}
@@ -60,7 +60,7 @@ Start Suite
     Log    ${conn_id_2}
     Execute Command    sudo ovs-vsctl add-br BR2
     Execute Command    sudo ovs-vsctl set bridge BR2 protocols=OpenFlow13
-    Execute Command    sudo ovs-vsctl set-controller BR2 tcp:${ODL_SYSTEM_IP}:6633
+    Execute Command    sudo ovs-vsctl set-controller BR2 tcp:${ODL_SYSTEM_IP}:6653
     Execute Command    sudo ifconfig BR2 up
     Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     ${output_2}    Execute Command    sudo ovs-vsctl show
@@ -226,3 +226,39 @@ Check ITM Tunnel State
     [Documentation]    Verifies the Tunnel is deleted from datastore
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp.content}    ${tunnel1}    ${tunnel2}
+
+Get Tunnel
+    [Arguments]    ${src}    ${dst}    ${type}
+    [Documentation]    This Keyword Gets the Tunnel /Interface name which has been created between 2 DPNS by passing source , destination DPN Ids along with the type of tunnel which is configured.
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
+    log    ${resp.content}
+    Log    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/
+    ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
+    Log    ${respjson}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    ${src}    ${dst}
+    Log    ${src}
+    ${json}=    evaluate    json.loads('''${resp.content}''')    json
+    log to console    \nOriginal JSON:\n${json}
+    ${return}    Run Keyword And Return Status    Should contain    ${resp.content}    tunnel-interface-names
+    log    ${return}
+    ${ret}    Run Keyword If    '${return}'=='True'    Check Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
+    [Return]    ${ret}
+
+Check Interface Name
+    [Arguments]    ${json}    ${expected_tunnel_interface_name}
+    [Documentation]    This keyword Checks the Tunnel interface name is tunnel-interface-names in the output or not .
+    ${Tunnels}    Collections.Get From Dictionary    ${json}    ${expected_tunnel_interface_name}
+    Log    ${Tunnels}
+    [Return]    ${Tunnels[0]}
+
+SRM Start Suit
+    [Documentation]    Start suit for service recovery.
+    Genius Suite Setup
+    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
+    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${vlan}=    Set Variable    0
+    ${gateway-ip}=    Set Variable    0.0.0.0
+    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    ${type}    Set Variable    odl-interface:tunnel-type-vxlan
+    Wait Until Keyword Succeeds    30s    10s    Verify Tunnel Status as UP
