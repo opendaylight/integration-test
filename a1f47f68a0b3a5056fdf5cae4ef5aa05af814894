@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c0fd2d9_8efea034",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-03T22:15:49Z",
+      "side": 1,
+      "message": "better documentation.\n\nwhat happens when you don\u0027t give any additional_args?\n\nuse the OpenStack CLI keyword wrapper",
+      "range": {
+        "startLine": 1069,
+        "startChar": 0,
+        "endLine": 1074,
+        "endChar": 19
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f35c257_1c670fc4",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-03T22:15:49Z",
+      "side": 1,
+      "message": "is this relevant any more, or an accidental copy/paste relic?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 89
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2d0540f_b8391844",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-03T22:15:49Z",
+      "side": 1,
+      "message": "make sure to call the OpenStackOperations.Suite Setup and Teardown in here too. Those will give extra cleanup \nand setup tcpdump, etc.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 39
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fac3876_7a9de52e",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-03T22:15:49Z",
+      "side": 1,
+      "message": "Test Teardown goes on it\u0027s own line.\n\nwe don\u0027t have transparent anymore, so do you need the skip_ip\nstuff?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 94
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "527ca107_15f9221a",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-03T22:15:49Z",
+      "side": 1,
+      "message": "give these vars some sort of prefix that would be unique\nto this suite. maybe like migration_sg and migration_instance_1, etc",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 64
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56c9eba1_56258d0c",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-03T22:15:49Z",
+      "side": 1,
+      "message": "check OpenStackOperations for a keyword that does this\nalready. if not there, make one and use that here.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 63
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fc85a03_152f0f6c",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-03T22:15:49Z",
+      "side": 1,
+      "message": "no need for this suite variable. you are only using\nthis hypervisor_list in this one test case",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 44
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78416669_3df073d8",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-03T22:15:49Z",
+      "side": 1,
+      "message": "make a new keyword for Server Show and use the OpenStack CLI inside of it. then use that new keyword here to get the\n${output}. it will apply below as well. Gives us some extra\nchecks and maintainability.",
+      "range": {
+        "startLine": 60,
+        "startChar": 59,
+        "endLine": 60,
+        "endChar": 80
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "424e5cd0_146197d5",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-03T22:15:49Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 20
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
