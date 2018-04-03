@@ -225,6 +225,12 @@ Get Hypervisor Hostname From IP
     ${hostname} =    OpenStack CLI    openstack hypervisor list -f value | grep "${hypervisor_ip} " | cut -d" " -f 2
     [Return]    ${hostname}
 
+Get Hypervisor HostName
+    [Documentation]    Returns the List of Hostname available in the hypervisor list
+    ${hypervisors} =    OpenStack CLI    openstack hypervisor list -c "Hypervisor Hostname" -fvalue
+    ${hypervisor_list}=    Split String    ${hypervisors}    \n
+    [Return]    ${hypervisor_list}
+
 Create Nano Flavor
     [Documentation]    Create a nano flavor
     ${output} =    OpenStack CLI    openstack flavor create m1.nano --id auto --ram 64 --disk 0 --vcpus 1
@@ -1051,3 +1057,38 @@ Start Packet Capture On Nodes
 Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+
+Server Migrate
+    [Arguments]    ${vm_instance_name}    ${additional_args}=${EMPTY}
+    [Documentation]    server migrate the instance from one host to other host
+    ...    additional_agrs is to select particular migration(live/shared-migration/block-migration)
+    ...    if the additional_agrs is not given default migration(shared-migration) will happen
+    ${output} =    OpenStack CLI    openstack server migrate ${vm_instance_name} ${additional_args}
+
+Server Show
+    [Arguments]    ${vm_name}
+    [Documentation]    Show server with neutron request.
+    ${output} =    OpenStack CLI    openstack server show ${vm_name}
+    [Return]    ${output}
+
+Check If Migration Is Complete
+    [Arguments]    ${vm_name}
+    [Documentation]    Show server and verify if task_state is not migrating
+    ${output} =    OpenStack CLI    openstack server show ${vm_name} | grep "OS-EXT-STS:task_state"
+    BuiltIn.Should Not Contain    ${output}    migrating
+
+Modify OpenStack Configuration File
+    [Arguments]    ${conn_id}    ${file_name}    ${section}    ${key}    ${value}
+    [Documentation]    Use crudini to modify any parameter in any Openstack configuration File
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output}    ${rc}=    Execute Command    sudo crudini --verbose --set --inplace ${file_name} ${section} ${key} ${value}    return_rc=True    return_stdout=True
+    Log    ${output}
+    Should Not Be True    ${rc}
+
+Restart DevStack Service
+    [Arguments]    ${conn_id}    ${service_name}
+    [Documentation]    Restart the Openstack Service
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output}    ${rc}=    Execute Command    sudo systemctl restart devstack@${service_name}.service    return_rc=True    return_stdout=True
+    Log    ${output}
+    Should Not Be True    ${rc}
