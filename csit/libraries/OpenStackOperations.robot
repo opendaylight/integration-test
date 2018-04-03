@@ -1066,3 +1066,38 @@ Start Packet Capture On Nodes
 Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+
+Server Live Migrate
+    [Arguments]    ${vm_instance_name}
+    [Documentation]    Keyword for live migration of VM instance
+    ...    additional_agrs is to select particular migration(live/shared-migration/block-migration)
+    ...    if the additional_agrs is not given default migration(shared-migration) will happen
+    ${output} =    OpenStackOperations.OpenStack CLI    nova live-migration ${vm_instance_name}
+
+Get Hypervisor Host Of Vm
+    [Arguments]    ${vm_name}
+    [Documentation]    Show server with neutron request.
+    ${output} =    OpenStackOperations.OpenStack CLI    openstack server show -f value -c OS-EXT-SRV-ATTR:host ${vm_name}
+    [Return]    ${output}
+
+Check If Migration Is Complete
+    [Arguments]    ${vm_name}
+    [Documentation]    Show server and verify if task_state is not migrating
+    ${output} =    OpenStackOperations.OpenStack CLI    openstack server show ${vm_name} | grep "OS-EXT-STS:task_state"
+    BuiltIn.Should Not Contain    ${output}    migrating
+
+Modify OpenStack Configuration File
+    [Arguments]    ${conn_id}    ${file_name}    ${section}    ${key}    ${value}
+    [Documentation]    Use crudini to modify any parameter in any Openstack configuration File
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output}    ${rc} =    SSHLibrary.Execute Command    sudo crudini --verbose --set --inplace ${file_name} ${section} ${key} ${value}    return_rc=True    return_stdout=True
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Be True    '${rc}' == '0'
+
+Restart DevStack Service
+    [Arguments]    ${conn_id}    ${service_name}
+    [Documentation]    Restart the Openstack Service
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output}    ${rc} =    SSHLibrary.Execute Command    sudo systemctl restart devstack@${service_name}.service    return_rc=True    return_stdout=True
+    BuiltIn.Log    ${output}
+    BuiltIn.Should Be True    '${rc}' == '0'
