@@ -1065,3 +1065,10 @@ Start Packet Capture On Nodes
 Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+
+Server Migrate
+    [Arguments]    ${vm_instance_name}    ${additional_args}=${EMPTY}
+    [Documentation]    server migrate
+    ${rc}    ${output}=    Run And Return Rc And Output    openstack server migrate ${vm_instance_name} ${additional_args}
+    Should Not Be True    ${rc}
+    Log    ${output
