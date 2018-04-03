@@ -2,6 +2,7 @@ integration/test/csit/suites/openstack/connectivity/l2.robot
 integration/test/csit/suites/openstack/connectivity/l3.robot
 integration/test/csit/suites/openstack/connectivity/external_network.robot
 integration/test/csit/suites/openstack/connectivity/security_group.robot
+integration/test/csit/suites/openstack/connectivity/live_migration.robot
 integration/test/csit/suites/openstack/clustering/ha_l2.robot
 integration/test/csit/suites/openstack/clustering/ha_l3.robot
 # Disable this test until https://bugzilla.redhat.com/show_bug.cgi?id=1488907 gets resolved and then reflect changes in healthcheck in haproxy
