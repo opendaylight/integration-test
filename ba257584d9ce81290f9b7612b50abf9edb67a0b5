@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7689a375_17330639",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-04T22:34:14Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 229,
+        "startChar": 63,
+        "endLine": 229,
+        "endChar": 64
+      },
+      "revId": "ba257584d9ce81290f9b7612b50abf9edb67a0b5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cff027b_2eb23173",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-04T22:34:14Z",
+      "side": 1,
+      "message": "don\u0027t need this. comes for free in the OpenStack CLI keyword",
+      "range": {
+        "startLine": 1081,
+        "startChar": 4,
+        "endLine": 1081,
+        "endChar": 20
+      },
+      "revId": "ba257584d9ce81290f9b7612b50abf9edb67a0b5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7da4036d_b363ae01",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-04T22:34:14Z",
+      "side": 1,
+      "message": "just Suite Setup here.\n\nthen add the Teardown version to the Suite Teardown \nline below.",
+      "range": {
+        "startLine": 6,
+        "startChar": 45,
+        "endLine": 6,
+        "endChar": 69
+      },
+      "revId": "ba257584d9ce81290f9b7612b50abf9edb67a0b5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
