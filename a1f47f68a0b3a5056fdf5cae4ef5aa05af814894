@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "78f7bfc7_8455a339",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-04-04T09:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c0fd2d9_8efea034",
+      "range": {
+        "startLine": 1069,
+        "startChar": 0,
+        "endLine": 1074,
+        "endChar": 19
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f35c257_1c670fc4",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-03T22:15:49Z",
       "side": 1,
       "message": "is this relevant any more, or an accidental copy/paste relic?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 89
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5952e43f_8e114be9",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-04-04T09:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f35c257_1c670fc4",
       "range": {
         "startLine": 4,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d7de3dd3_84bf4af3",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-04-04T09:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2d0540f_b8391844",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 39
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fac3876_7a9de52e",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "3783051d_f44681a2",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-04-04T09:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fac3876_7a9de52e",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 94
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "527ca107_15f9221a",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 2
@@ -105,6 +201,30 @@
       "writtenOn": "2018-04-03T22:15:49Z",
       "side": 1,
       "message": "give these vars some sort of prefix that would be unique\nto this suite. maybe like migration_sg and migration_instance_1, etc",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 64
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42363138_a652f53e",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-04-04T09:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "527ca107_15f9221a",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "f84507bb_5594ba9d",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-04-04T09:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fc85a03_152f0f6c",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 44
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78416669_3df073d8",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 2
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "ca7584b2_1cd33442",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-04-04T09:51:28Z",
+      "side": 1,
+      "message": "here i need only the hypervisor hostname belongs to the instance ,Now i used Openstack CLI instead of Run And Return Rc And Output. also added Server Show Ketword in OpenstackOperations.robot file to use it below.",
+      "parentUuid": "78416669_3df073d8",
+      "range": {
+        "startLine": 60,
+        "startChar": 59,
+        "endLine": 60,
+        "endChar": 80
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "424e5cd0_146197d5",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 2
@@ -197,6 +365,30 @@
       "writtenOn": "2018-04-03T22:15:49Z",
       "side": 1,
       "message": "remove",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 20
+      },
+      "revId": "a1f47f68a0b3a5056fdf5cae4ef5aa05af814894",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "614fdc6d_52186cb4",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 869
+      },
+      "writtenOn": "2018-04-04T09:51:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "424e5cd0_146197d5",
       "range": {
         "startLine": 62,
         "startChar": 4,
