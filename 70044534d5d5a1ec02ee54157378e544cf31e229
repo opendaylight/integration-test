@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbe58178_1b3e50fa",
+        "filename": "csit/suites/bgpcep/bgpfunct/bgp_ipv6_basic.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-04T22:38:47Z",
+      "side": 1,
+      "message": "aren\u0027t you defining these in the variables section?",
+      "range": {
+        "startLine": 141,
+        "startChar": 53,
+        "endLine": 142,
+        "endChar": 106
+      },
+      "revId": "70044534d5d5a1ec02ee54157378e544cf31e229",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
