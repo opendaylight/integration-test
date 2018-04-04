@@ -18,13 +18,15 @@ Test Setup        Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without
 ...               AND    Verify Test Preconditions
 Library           RequestsLibrary
 Library           SSHLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
+Library           String
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${HOLDTIME}       180
@@ -39,6 +41,8 @@ ${CONFIG_SESSION}    config-session
 ${EVPN_VARIABLES_DIR}    ${CURDIR}/../../../variables/bgpfunctional/l2vpn_evpn
 ${BGP_TOOL_LOG_LEVEL}    debug
 ${PLAY_SCRIPT}    ${CURDIR}/../../../../tools/fastbgp/play.py
+${PATH_ID_XML}    "path-id": 0,${\n}${SPACE}${SPACE}${SPACE}${SPACE}"route-key"
+${PATH_ID_XML}    </route-key>${\n}${SPACE}${SPACE}${SPACE}${SPACE}<path-id>0</path-id>
 
 *** Test Cases ***
 Configure_App_Peer
@@ -340,6 +344,7 @@ Odl_To_Play_Template
     ${data_json}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.json
     ${announce_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/announce_${totest}.hex
     ${withdraw_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/withdraw_${totest}.hex
+    ${data_xml}    CompareStream.Run_Keyword_If_At_Least_Fluorine    String.Replace_String    ${data_xml}    </router-id>    ${PATH_ID_XML}
     BuiltIn.Log    ${data_xml}
     BuiltIn.Log    ${data_json}
     BuiltIn.Log    ${announce_hex}
@@ -366,6 +371,7 @@ Play_To_Odl_Template
     ${announce_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/announce_${totest}.hex
     ${withdraw_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/withdraw_${totest}.hex
     ${empty_routes}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/empty_routes.json
+    ${data_json}    CompareStream.Run_Keyword_If_At_Least_Fluorine    String.Replace_String    ${data_json}    "route-key"    ${PATH_ID_JSON}
     BuiltIn.Set_Suite_Variable    ${withdraw_hex}
     BuiltIn.Set_Suite_Variable    ${empty_routes}
     BuiltIn.Log    ${data_xml}
