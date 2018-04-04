@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1823f44c_f23ce3b9",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-04T07:17:36Z",
+      "side": 1,
+      "message": "remove this log?",
+      "revId": "681328cae590b666b6106eb2a7d95ec8839bb1c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef67afca_fc186e5a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-04T07:17:36Z",
+      "side": 1,
+      "message": "SRM Start Suite",
+      "revId": "681328cae590b666b6106eb2a7d95ec8839bb1c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8793e99c_c0e71591",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-04T07:17:36Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "681328cae590b666b6106eb2a7d95ec8839bb1c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5d02c40_b0cc525d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-04T07:17:36Z",
+      "side": 1,
+      "message": "Add Stop Suite to delete the tunnels",
+      "revId": "681328cae590b666b6106eb2a7d95ec8839bb1c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "faeafcc7_10bc2fcb",
+        "filename": "csit/suites/genius/ServiceRecovery.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-04T07:17:36Z",
+      "side": 1,
+      "message": "tunnel\u0027s ip address",
+      "revId": "681328cae590b666b6106eb2a7d95ec8839bb1c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0505a0a0_2384d59f",
+        "filename": "csit/suites/genius/ServiceRecovery.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-04T07:17:36Z",
+      "side": 1,
+      "message": "recovers",
+      "revId": "681328cae590b666b6106eb2a7d95ec8839bb1c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "781e74b6_4a4d2d3c",
+        "filename": "csit/suites/genius/ServiceRecovery.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-04T07:17:36Z",
+      "side": 1,
+      "message": "recovers ITM service",
+      "revId": "681328cae590b666b6106eb2a7d95ec8839bb1c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "318fef25_77690ac8",
+        "filename": "csit/suites/genius/ServiceRecovery.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-04T07:17:36Z",
+      "side": 1,
+      "message": "recovers tunnel interface instance using interface name",
+      "revId": "681328cae590b666b6106eb2a7d95ec8839bb1c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61555966_5ee15416",
+        "filename": "csit/suites/genius/ServiceRecovery.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-04T07:17:36Z",
+      "side": 1,
+      "message": "recovers interfacemanager service",
+      "revId": "681328cae590b666b6106eb2a7d95ec8839bb1c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "faba4f4d_5b5d690f",
+        "filename": "csit/suites/genius/ServiceRecovery.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-04T07:17:36Z",
+      "side": 1,
+      "message": "Delete Tunnel On Switch?",
+      "revId": "681328cae590b666b6106eb2a7d95ec8839bb1c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1d9e57a_559700c5",
+        "filename": "csit/suites/genius/ServiceRecovery.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-04T07:17:36Z",
+      "side": 1,
+      "message": "why can\u0027t we move lines 56 to 58 inside Get Tunnel, see a lot of repitition..",
+      "revId": "681328cae590b666b6106eb2a7d95ec8839bb1c7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
