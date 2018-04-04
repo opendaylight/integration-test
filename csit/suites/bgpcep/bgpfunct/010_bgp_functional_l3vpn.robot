@@ -16,12 +16,13 @@ Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
@@ -37,7 +38,9 @@ ${DEFAUTL_EXA_CFG}    exa.cfg
 ${L3VPN_EXA_CFG}    bgp-l3vpn-ipv4.cfg
 ${L3VPN_RSPEMPTY}    ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4-empty.json
 ${L3VPN_RSP}      ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4.json
+${L3VPN_RSP_PATH}    ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4-path.json
 ${L3VPN_URL}      /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/bgp-types:ipv4-address-family/bgp-types:mpls-labeled-vpn-subsequent-address-family/bgp-vpn-ipv4:vpn-ipv4-routes
+${L3VPN_EXP}      ${BGP_L3VPN_DIR}/route_expected/exa-expected.json
 ${CONFIG_SESSION}    config-session
 ${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
@@ -59,7 +62,8 @@ Reconfigure_ODL_To_Accept_Connection
 L3vpn_Ipv4_To_Odl
     [Documentation]    Testing mpls vpn ipv4 routes reported to odl from exabgp
     [Setup]    Setup_Testcase    ${L3VPN_EXA_CFG}
-    BuiltIn.Wait_Until_Keyword_Succeeds    15s    1s    Verify Reported Data    ${L3VPN_URL}    ${L3VPN_RSP}
+    ${L3VPN_RESPONSE}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${L3VPN_RSP_PATH}    ${L3VPN_RSP}
+    BuiltIn.Wait_Until_Keyword_Succeeds    15s    1s    Verify Reported Data    ${L3VPN_URL}    ${L3VPN_RESPONSE}
     [Teardown]    Teardown_Simple
 
 L3vpn_Ipv4_From_Odl
@@ -67,8 +71,9 @@ L3vpn_Ipv4_From_Odl
     [Setup]    Setup_Testcase    ${DEFAUTL_EXA_CFG}
     BgpRpcClient.exa_clean_update_message
     &{mapping}    BuiltIn.Create_Dictionary    BGP_PEER_IP=${TOOLS_SYSTEM_IP}    APP_PEER_IP=${ODL_SYSTEM_IP}
-    TemplatedRequests.Post_As_Xml_Templated    ${BGP_L3VPN_DIR}/route    mapping=${mapping}    session=${CONFIG_SESSION}
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Update    ${BGP_L3VPN_DIR}/route_expected/exa-expected.json
+    ${BGP_L3VPN_DIR_ROUTE}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${BGP_L3VPN_DIR}/route-path    ${BGP_L3VPN_DIR}/route
+    TemplatedRequests.Post_As_Xml_Templated    ${BGP_L3VPN_DIR_ROUTE}    mapping=${mapping}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Update    ${L3VPN_EXP}
     [Teardown]    Teardowm_With_Remove_Route
 
 Delete_Bgp_Peer_Configuration
