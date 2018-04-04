@@ -18,13 +18,15 @@ Test Setup        Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without
 ...               AND    Verify Test Preconditions
 Library           RequestsLibrary
 Library           SSHLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
+Library           String
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${HOLDTIME}       180
@@ -39,6 +41,8 @@ ${CONFIG_SESSION}    config-session
 ${EVPN_VARIABLES_DIR}    ${CURDIR}/../../../variables/bgpfunctional/l2vpn_evpn
 ${BGP_TOOL_LOG_LEVEL}    debug
 ${PLAY_SCRIPT}    ${CURDIR}/../../../../tools/fastbgp/play.py
+${PATH_ID_JSON}    "path-id": 0,${\n}${SPACE}${SPACE}${SPACE}${SPACE}"route-key"
+${PATH_ID_XML}    <path-id>0</path-id>${\n}${SPACE}${SPACE}${SPACE}${SPACE}<route-key>
 
 *** Test Cases ***
 Configure_App_Peer
@@ -340,12 +344,14 @@ Odl_To_Play_Template
     ${data_json}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.json
     ${announce_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/announce_${totest}.hex
     ${withdraw_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/withdraw_${totest}.hex
-    BuiltIn.Log    ${data_xml}
+    ${data_path_xml}    CompareStream.Run_Keyword_If_At_Least_Fluorine    String.Replace_String    ${data_xml}    <route-key>    ${PATH_ID_XML}
+    ${post_data_xml}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${data_path_xml}    ${data_xml}
+    BuiltIn.Log    ${post_data_xml}
     BuiltIn.Log    ${data_json}
     BuiltIn.Log    ${announce_hex}
     BuiltIn.Log    ${withdraw_hex}
     BgpRpcClient.play_clean
-    ${resp}=    RequestsLibrary.Post_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    data=${data_xml}    headers=${HEADERS_XML}
+    ${resp}=    RequestsLibrary.Post_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    data=${post_data_xml}    headers=${HEADERS_XML}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    204
     ${resp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS_XML}
     BuiltIn.Log    ${resp.content}
@@ -366,16 +372,18 @@ Play_To_Odl_Template
     ${announce_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/announce_${totest}.hex
     ${withdraw_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/withdraw_${totest}.hex
     ${empty_routes}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/empty_routes.json
+    ${data_path_json}    CompareStream.Run_Keyword_If_At_Least_Fluorine    String.Replace_String    ${data_json}    "route-key"    ${PATH_ID_JSON}
+    ${data_json_exp}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${data_path_json}    ${data_json}
     BuiltIn.Set_Suite_Variable    ${withdraw_hex}
     BuiltIn.Set_Suite_Variable    ${empty_routes}
     BuiltIn.Log    ${data_xml}
-    BuiltIn.Log    ${data_json}
+    BuiltIn.Log    ${data_json_exp}
     BuiltIn.Log    ${announce_hex}
     BuiltIn.Log    ${withdraw_hex}
     BuiltIn.Log    ${empty_routes}
     BgpRpcClient.play_clean
     BgpRpcClient.play_send    ${announce_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Loc_Rib_Presnece    ${data_json}
+    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Loc_Rib_Presnece    ${data_json_exp}
     BgpRpcClient.play_send    ${withdraw_hex}
     BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Loc_Rib_Presnece    ${empty_routes}
     [Teardown]    Withdraw_Route_And_Verify    ${withdraw_hex}
