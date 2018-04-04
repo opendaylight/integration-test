@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5fa5e12a_6b158a92",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-04T23:07:27Z",
+      "side": 1,
+      "message": "wait, no. I take that back.\n\nthese keywords are no different than what\u0027s already\nthere in OpenStackOperations.robot\n\nthis is not my addition. I\u0027m just moving the karaf log\nkeywords from OpenStackOperations to this KarafKeywords\nlib.\n\ndoes your question still apply?",
+      "parentUuid": "709d3143_41e1ee70",
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b69b1cac_1e1290c8",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 27
