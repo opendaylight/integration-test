@@ -16,12 +16,13 @@ Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
@@ -38,6 +39,7 @@ ${L3VPN_EXA_CFG}    bgp-l3vpn-ipv4.cfg
 ${L3VPN_RSPEMPTY}    ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4-empty.json
 ${L3VPN_RSP}      ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4.json
 ${L3VPN_URL}      /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/bgp-types:ipv4-address-family/bgp-types:mpls-labeled-vpn-subsequent-address-family/bgp-vpn-ipv4:vpn-ipv4-routes
+${L3VPN_EXP}    ${BGP_L3VPN_DIR}/route_expected/exa-expected.json
 ${CONFIG_SESSION}    config-session
 ${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
@@ -68,7 +70,7 @@ L3vpn_Ipv4_From_Odl
     BgpRpcClient.exa_clean_update_message
     &{mapping}    BuiltIn.Create_Dictionary    BGP_PEER_IP=${TOOLS_SYSTEM_IP}    APP_PEER_IP=${ODL_SYSTEM_IP}
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_L3VPN_DIR}/route    mapping=${mapping}    session=${CONFIG_SESSION}
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Update    ${BGP_L3VPN_DIR}/route_expected/exa-expected.json
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Update    ${L3VPN_EXP}
     [Teardown]    Teardowm_With_Remove_Route
 
 Delete_Bgp_Peer_Configuration
