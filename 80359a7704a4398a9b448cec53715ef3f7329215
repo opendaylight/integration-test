@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "709d3143_41e1ee70",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-04T23:03:13Z",
+      "side": 1,
+      "message": "frick. because this sat around so long, the keyword was\nchanged in the OpenStackOperations library and now I\ndon\u0027t know. rebase never would have helped in that case.",
+      "parentUuid": "92154718_a70d40f1",
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b69b1cac_1e1290c8",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 27
@@ -30,6 +48,30 @@
       "writtenOn": "2018-03-28T21:04:09Z",
       "side": 1,
       "message": "use var name like exception or even ex, since this really isn\u0027t and index",
+      "range": {
+        "startLine": 249,
+        "startChar": 15,
+        "endLine": 249,
+        "endChar": 16
+      },
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00f8e958_2bcedb11",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-04T23:03:13Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "b69b1cac_1e1290c8",
       "range": {
         "startLine": 249,
         "startChar": 15,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "19bd1d7c_6b4d1800",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-04T23:03:13Z",
+      "side": 1,
+      "message": "not following this comment.\n\nthis keyword is getting a real exception from the karaf log.\n\nit\u0027s taking that exception and looking through the whitelist.\n\nas soon as we know that exception matches one in the\nwhitelist, we know we should ignore it, so we jump \nout and move on with things.\n\nam I missing something?",
+      "parentUuid": "4dc21d64_45a31eac",
+      "range": {
+        "startLine": 250,
+        "startChar": 21,
+        "endLine": 250,
+        "endChar": 28
+      },
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1b581f3_7229183b",
         "filename": "csit/variables/netvirt/Variables.robot",
         "patchSetId": 27
@@ -76,6 +142,24 @@
       "writtenOn": "2018-03-28T21:04:09Z",
       "side": 1,
       "message": "it would be nice if this could be reformatted with each exception is on a different line so that we could easily see the individual exceptions. Maybe use a concatenate so that they would be individuals.",
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e06399a_f848efb3",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-04T23:03:13Z",
+      "side": 1,
+      "message": "I\u0027ll try to find a prettier and easier way to have\nthese.",
+      "parentUuid": "d1b581f3_7229183b",
       "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
