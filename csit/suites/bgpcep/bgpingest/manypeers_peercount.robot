@@ -41,7 +41,7 @@ ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_PEERS_LOG_FILE_NAME}    bgp_peer.log
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${CHECK_PERIOD_PREFIX_COUNT_MANY_RRC}    10
-${COUNT}          100000    # With AdjRibsOut, the amount of data present is on the same scale as 1M ingest with single peer.
+${COUNT}          60000    # With AdjRibsOut, the amount of data present is on the same scale as 1M ingest with single peer.
 ${COUNT_PREFIX_COUNT_MANY_RRC}    ${COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
 ${HOLDTIME}       180
@@ -161,6 +161,7 @@ Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
     # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
+    BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Get_Sysstat_Statistics
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
