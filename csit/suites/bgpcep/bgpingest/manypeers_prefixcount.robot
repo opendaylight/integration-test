@@ -61,10 +61,10 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${CHECK_PERIOD}    1    # ${MULTIPLICITY*2} recommended for this suite, but keeping the common default.
+${CHECK_PERIOD}    60    # ${MULTIPLICITY*2} recommended for this suite, but keeping the common default.
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${CHECK_PERIOD_PREFIX_COUNT_MANY}    ${CHECK_PERIOD_PREFIX_COUNT}
-${COUNT}          1000000
+${COUNT}          600000
 ${COUNT_PREFIX_COUNT}    ${COUNT}
 ${COUNT_PREFIX_COUNT_MANY}    ${COUNT_PREFIX_COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
@@ -74,7 +74,7 @@ ${HOLDTIME_PREFIX_COUNT_MANY}    ${HOLDTIME_PREFIX_COUNT}
 ${KARAF_LOG_LEVEL}    INFO
 ${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
 ${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
-${MULTIPLICITY}    2    # May be increased after Bug 4488 is fixed.
+${MULTIPLICITY}    2    # Increased in releng-builder to 600
 ${MULTIPLICITY_PREFIX_COUNT}    ${MULTIPLICITY}
 ${MULTIPLICITY_PREFIX_COUNT_MANY}    ${MULTIPLICITY_PREFIX_COUNT}
 ${REPETITIONS}    1
@@ -190,5 +190,6 @@ Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
     # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
+    BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Get_Sysstat_Statistics
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
