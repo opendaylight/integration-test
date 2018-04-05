@@ -33,15 +33,17 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_T
 Force Tags        critical
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Resource          ${CURDIR}/../../../variables/Variables.robot
-Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/FailFast.robot
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/KillPythonTool.robot
+Resource          ../../../libraries/PrefixCounting.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
@@ -50,7 +52,7 @@ ${HOLDTIME_APP_PEER_PREFIX_COUNT}    ${HOLDTIME}
 ${COUNT}          200000
 ${PREFILL}        100000
 ${COUNT_APP_PEER_PREFIX_COUNT}    ${COUNT}
-${CHECK_PERIOD}    1
+${CHECK_PERIOD}    10
 ${CHECK_PERIOD_APP_PEER_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${REPETITIONS_APP_PEER_PREFIX_COUNT}    1
 ${BGP_PEER_LOG_LEVEL}    info
