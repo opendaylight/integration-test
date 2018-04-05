@@ -39,6 +39,30 @@
       "revId": "6d78a27e4c721438aea145b2c0075a9b5e15b630",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "476086aa_7f6615bc",
+        "filename": "csit/variables/netvirt/Exceptions_Whitelist.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-05T21:13:42Z",
+      "side": 1,
+      "message": "it\u0027s deleted vs created",
+      "parentUuid": "e74911d0_e8349cc5",
+      "range": {
+        "startLine": 4,
+        "startChar": 5,
+        "endLine": 4,
+        "endChar": 44
+      },
+      "revId": "6d78a27e4c721438aea145b2c0075a9b5e15b630",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
