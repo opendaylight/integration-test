@@ -122,39 +122,46 @@ Create a new file and modify the values according to your project::
 
   vim jjb/$project/$project-csit-$functionality.yaml
 
-It should look like this::
+For a Managed project it should look like this::
 
   ---
   - project:
       name: openflowplugin-csit-flow-services
       jobs:
-        - '{project}-csit-1node-{functionality}-{install}-{stream}'
+        - inttest-csit-1node
 
       # The project name
       project: 'openflowplugin'
 
       # The functionality under test
-      functionality: 'flow-services'
+      functionality:
+        - flow-services
+        - gate-flow-services
 
       # Project branches
       stream:
-        - carbon:
+        - fluorine:
             branch: 'master'
-            jre: 'openjdk8'
+        - oxygen:
+            branch: 'stable/oxygen'
+        - nitrogen:
+            branch: 'stable/nitrogen'
+        - carbon:
+            branch: 'stable/carbon'
+            karaf-version: 'karaf3'
 
       install:
-        - only:
-            scope: 'only'
         - all:
             scope: 'all'
 
       # Features to install
       install-features: >
-          odl-openflowplugin-flow-services-ui,
-          odl-openflowplugin-app-bulk-o-matic
+          odl-openflowplugin-flow-services-rest,
+          odl-openflowplugin-app-table-miss-enforcer,
+          odl-openflowplugin-nxm-extensions
 
       # Robot custom options
-      robot-options: '-v ODL_OF_PLUGIN:lithium'
+      robot-options: ''
 
 Explanation:
 
@@ -173,6 +180,45 @@ Explanation:
   by comma.
 * robot-options: robot option you want to pass to the test separated by space.
 
+For Unmanaged project, we need 2 extra parameters:
+
+* trigger-jobs: Unmanaged CSIT will run after succesful project merge, so just
+  fill with '{project}-merge-{stream}'.
+* bundle-url: Unmanaged CSIT uses project local distribution, you can get the
+  local distribution URL from the Jenkins merge job itself (see example below).
+
+So in this case it should look like this::
+
+  ---
+  - project:
+      name: usc-csit-channel
+      jobs:
+        - inttest-csit-1node
+
+      # The project name
+      project: 'usc'
+
+      # The functionality under test
+      functionality: 'channel'
+
+      # Project branches
+      stream:
+        - fluorine:
+            branch: 'master'
+            trigger-jobs: '{project}-merge-{stream}'
+            # yamllint disable-line rule:line-length
+            bundle-url: 'https://jenkins.opendaylight.org/releng/view/usc/job/usc-merge-fluorine/lastBuild/org.opendaylight.usc$usc-karaf/artifact/org.opendaylight.usc/usc-karaf/1.6.0-SNAPSHOT/usc-karaf-1.6.0-SNAPSHOT.zip'
+
+      install:
+        - all:
+            scope: 'all'
+
+      # Features to install
+      install-features: 'odl-restconf,odl-mdsal-apidocs,odl-usc-channel-ui'
+
+      # Robot custom options
+      robot-options: ''
+
 Save the changes and exit editor.
 
 Optional: Change default tools image
@@ -187,39 +233,43 @@ For a list of available images see images-list_::
   - project:
       name: openflowplugin-csit-flow-services
       jobs:
-        - '{project}-csit-1node-{functionality}-{install}-{stream}'
+        - inttest-csit-1node
 
       # The project name
       project: 'openflowplugin'
 
       # The functionality under test
-      functionality: 'flow-services'
+      functionality:
+        - flow-services
+        - gate-flow-services
 
       # Project branches
       stream:
-        - carbon:
+        - fluorine:
             branch: 'master'
-            jre: 'openjdk8'
+        - oxygen:
+            branch: 'stable/oxygen'
+        - nitrogen:
+            branch: 'stable/nitrogen'
+        - carbon:
+            branch: 'stable/carbon'
+            karaf-version: 'karaf3'
 
       install:
-        - only:
-            scope: 'only'
         - all:
             scope: 'all'
 
-      # Job images (optional)
-      tools_system_count: 1
-      tools_system_flavor: 2 GB General Purpose v1
-      tools_system_image: Ubuntu 14.04 - mininet - 20170210-0439
+      # Job images
+      tools_system_image: 'ZZCI - Ubuntu 16.04 - mininet-ovs-28 - 20180301-1041'
 
       # Features to install
       install-features: >
-          odl-openflowplugin-flow-services-ui,
-          odl-openflowplugin-app-bulk-o-matic
+          odl-openflowplugin-flow-services-rest,
+          odl-openflowplugin-app-table-miss-enforcer,
+          odl-openflowplugin-nxm-extensions
 
       # Robot custom options
-      robot-options: '-v ODL_OF_PLUGIN:lithium'
-
+      robot-options: ''
 
 Optional: Plot a graph from your job
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -231,34 +281,40 @@ For that you can add the plot configuration like in this example below::
 
   ---
   - project:
-      name: openflowplugin-csit-cbench-performance
+      name: openflowplugin-csit-cbench
       jobs:
-        - '{project}-csit-1node-{functionality}-{install}-{stream}'
+        - inttest-csit-1node
 
       # The project name
       project: 'openflowplugin'
 
       # The functionality under test
-      functionality: 'cbench-performance'
+      functionality: 'cbench'
 
       # Project branches
       stream:
-        - carbon:
+        - fluorine:
             branch: 'master'
-            jre: 'openjdk8'
-        - boron:
-            branch: 'stable/boron'
-            jre: 'openjdk8'
+        - oxygen:
+            branch: 'stable/oxygen'
+        - nitrogen:
+            branch: 'stable/nitrogen'
+        - carbon:
+            branch: 'stable/carbon'
+            karaf-version: 'karaf3'
 
       install:
         - only:
             scope: 'only'
 
+      # Job images
+      tools_system_image: 'ZZCI - Ubuntu 16.04 - mininet-ovs-28 - 20180301-1041'
+
       # Features to install
-      install-features: 'odl-openflowplugin-flow-services-ui,odl-openflowplugin-drop-test'
+      install-features: 'odl-openflowplugin-flow-services-rest,odl-openflowplugin-drop-test'
 
       # Robot custom options
-      robot-options: '-v throughput_threshold:20000 -v latency_threshold:5000'
+      robot-options: '-v duration_in_secs:60 -v throughput_threshold:20000 -v latency_threshold:5000'
 
       # Plot Info
       01-plot-title: 'Throughput Mode'
@@ -308,37 +364,47 @@ Fill the information as below::
   - project:
       name: openflowplugin-patch-test
       jobs:
-          - '{project}-patch-test-{feature}-{stream}'
+        - inttest-patch-test
 
       # The project name
       project: 'openflowplugin'
 
       # Project branches
       stream:
-          - carbon:
-              branch: 'master'
-              jdk: 'openjdk8'
-          - boron:
-              branch: 'stable/boron'
-              jdk: 'openjdk8'
+        - fluorine:
+            branch: 'master'
+            os-branch: 'queens'
+        - oxygen:
+            branch: 'stable/oxygen'
+            os-branch: 'queens'
+        - nitrogen:
+            branch: 'stable/nitrogen'
+            os-branch: 'pike'
+        - carbon:
+            branch: 'stable/carbon'
+            os-branch: 'ocata'
+            karaf-version: 'karaf3'
+
+      jdk: 'openjdk8'
 
       feature:
-          - core:
-              csit-list: >
-                  openflowplugin-csit-1node-flow-services-only-{stream},
-                  openflowplugin-csit-1node-flow-services-all-{stream},
-                  openflowplugin-csit-1node-scalability-only-{stream},
-                  openflowplugin-csit-1node-cbench-performance-only-{stream},
-                  openflowplugin-csit-1node-config-performance-only-{stream},
-                  openflowplugin-csit-3node-clustering-only-{stream}
+        - core:
+            csit-list: >
+                openflowplugin-csit-1node-gate-flow-services-all-{stream},
+                openflowplugin-csit-1node-gate-scale-only-{stream},
+                openflowplugin-csit-1node-gate-perf-stats-collection-only-{stream},
+                openflowplugin-csit-1node-gate-perf-bulkomatic-only-{stream},
+                openflowplugin-csit-3node-gate-clustering-only-{stream},
+                openflowplugin-csit-3node-gate-clustering-bulkomatic-only-{stream},
+                openflowplugin-csit-3node-gate-clustering-perf-bulkomatic-only-{stream}
 
-          - netvirt:
-              csit-list: >
-                  netvirt-csit-1node-openstack-mitaka-gate-transparent-{stream}
+        - netvirt:
+            csit-list: >
+                netvirt-csit-1node-openstack-{os-branch}-gate-stateful-{stream}
 
-          - cluster-netvirt:
-              csit-list: >
-                  netvirt-csit-3node-openstack-mitaka-gate-transparent-{stream}
+        - cluster-netvirt:
+            csit-list: >
+                netvirt-csit-3node-openstack-{os-branch}-gate-stateful-{stream}
 
 Explanation:
 
