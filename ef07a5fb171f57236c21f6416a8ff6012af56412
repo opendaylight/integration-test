@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f86f57c_65e7b93f",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-05T20:50:54Z",
+      "side": 1,
+      "message": "change this to Resource",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "ef07a5fb171f57236c21f6416a8ff6012af56412",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34c4ddbf_8d5603cf",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-05T20:50:54Z",
+      "side": 1,
+      "message": "we have a similar command already in KarafKeywords.robot\n\nwhy not reuse that instead of writing a new one?",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 55
+      },
+      "revId": "ef07a5fb171f57236c21f6416a8ff6012af56412",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57f0a91d_bc762512",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-05T20:50:54Z",
+      "side": 1,
+      "message": "this will apply everywhere, but robotframework is already\nvery verbose and gives good logs. This keyword will very\nclearly be detailed in the log that it\u0027s \"Push Static Flow\"\nit\u0027s not really needed to also add this Log statement \nwhich is just duplicating the idea that we are adding a \nstatic flow. removing it makes the code cleaner, the logs\nsmaller and everything easier to maintain (in the grand\nscheme of things)",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 26
+      },
+      "revId": "ef07a5fb171f57236c21f6416a8ff6012af56412",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
