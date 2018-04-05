@@ -33,9 +33,6 @@ tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.t
     ${TEST_NAME}    debug=True
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_stop_start
-    [Tags]    exclude
-    # Excluding this test case until the openstack nova bug is merged which will make this passing again
-    # https://review.openstack.org/#/c/553817/
     ${TEST_NAME}    debug=True
 
 tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_suspend_resume
