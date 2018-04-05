@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "75b4de3a_2552a743",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-05T21:01:28Z",
+      "side": 1,
+      "message": "Up above this was added: Starting test ${SUITE_NAME}.${TEST_NAME} \n\nso now the log has SUITE_NAME.TEST_NAME rather than just TEST_NAME, so wasn\u0027t sure if this sed still matches.",
+      "parentUuid": "5fa5e12a_6b158a92",
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b69b1cac_1e1290c8",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 27
@@ -137,6 +155,30 @@
       "side": 1,
       "message": "not following this comment.\n\nthis keyword is getting a real exception from the karaf log.\n\nit\u0027s taking that exception and looking through the whitelist.\n\nas soon as we know that exception matches one in the\nwhitelist, we know we should ignore it, so we jump \nout and move on with things.\n\nam I missing something?",
       "parentUuid": "4dc21d64_45a31eac",
+      "range": {
+        "startLine": 250,
+        "startChar": 21,
+        "endLine": 250,
+        "endChar": 28
+      },
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "542c62a9_31ca7769",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-05T21:01:28Z",
+      "side": 1,
+      "message": "Ok, so the exception_line is a single exception that is checked against all the whitelist. That works. I mistakenly thought the exception_line was all the exceptions found in this test and not just one in the list.",
+      "parentUuid": "19bd1d7c_6b4d1800",
       "range": {
         "startLine": 250,
         "startChar": 21,
