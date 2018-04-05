@@ -15,7 +15,7 @@ Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -23,6 +23,7 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${HOLDTIME}       180
@@ -138,7 +139,8 @@ Configure_Path_Selection_Mode
     [Arguments]    ${psm}
     [Documentation]    Configure path selection mode and get rib information for potential debug purposes
     &{mapping}    BuiltIn.Create_Dictionary    PATHSELMODE=${psm}
-    TemplatedRequests.Get_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    TemplatedRequests.Get_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Get_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib_policies    mapping=${mapping}    session=${CONFIG_SESSION}
     TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/module_psm    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Configure_Odl_Peer_With_Path_Selection_Mode
