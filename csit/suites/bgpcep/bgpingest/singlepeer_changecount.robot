@@ -39,23 +39,25 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Resource          ${CURDIR}/../../../variables/Variables.robot
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/ChangeCounter.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/ChangeCounter.robot
+Resource          ../../../libraries/FailFast.robot
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/KillPythonTool.robot
+Resource          ../../../libraries/PrefixCounting.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${CHECK_PERIOD}    1
+${CHECK_PERIOD}    60
 ${CHECK_PERIOD_CHANGE_COUNT}    ${CHECK_PERIOD}
 ${CHECK_PERIOD_CHANGE_COUNT_SINGLE}    ${CHECK_PERIOD_CHANGE_COUNT}
-${COUNT}          1000000
+${COUNT}          600000
 ${COUNT_CHANGE_COUNT}    ${COUNT}
 ${COUNT_CHANGE_COUNT_SINGLE}    ${COUNT_CHANGE_COUNT}
 ${HOLDTIME}       180
@@ -80,7 +82,7 @@ ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 # TODO: Option names can be better.
-${last_change_count_single}    -1
+${last_change_count_single}    1
 
 *** Test Cases ***
 Check_For_Empty_Ipv4_Topology_Before_Talking
@@ -246,6 +248,7 @@ Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
     # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
+    BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Get_Sysstat_Statistics
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
