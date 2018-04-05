@@ -40,16 +40,18 @@ Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${CHECK_PERIOD}    1
+${CHECK_PERIOD}    30
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    ${CHECK_PERIOD_PREFIX_COUNT}
 ${COUNT}          1000000
 ${COUNT_PREFIX_COUNT}    ${COUNT}
-${COUNT_PREFIX_COUNT_SINGLE}    ${COUNT_PREFIX_COUNT}
+${COUNT_POLICIES}    500000
 ${HOLDTIME}       180
 ${HOLDTIME_PREFIX_COUNT}    ${HOLDTIME}
 ${HOLDTIME_PREFIX_COUNT_SINGLE}    ${HOLDTIME_PREFIX_COUNT}
@@ -211,6 +213,9 @@ Setup_Everything
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
+    # Change fluorine prefix count due to additional features.
+    ${COUNT_PREFIX_COUNT_SINGLE}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${COUNT_POLICIES}    ${COUNT_PREFIX_COUNT}
+    BuiltIn.Set_Suite_Variable    ${COUNT_PREFIX_COUNT_SINGLE}
     # Calculate the timeout value based on how many routes are going to be pushed
     # TODO: Replace 20 with some formula from period and repetitions.
     ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_SINGLE} * (${COUNT_PREFIX_COUNT_SINGLE} * 9.0 / 10000 + 20)
@@ -221,6 +226,7 @@ Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
     # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
+    Utils.Get_Sysstat_Statistics
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
