@@ -25,6 +25,54 @@
     },
     {
       "key": {
+        "uuid": "40396ab4_7ca4ccb9",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-04-05T12:58:25Z",
+      "side": 1,
+      "message": "Yes, you are correct.\nif the ping fails, user will know that the ping failed. hence count is not returned.",
+      "parentUuid": "1cc155eb_bb11d1d1",
+      "range": {
+        "startLine": 1095,
+        "startChar": 23,
+        "endLine": 1095,
+        "endChar": 269
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "216c5bce_8dda73cf",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-04-05T12:58:25Z",
+      "side": 1,
+      "message": "Yes, you are correct.\nif ping fails, user will know about ping failure and hence count will not be returned.",
+      "parentUuid": "1cc155eb_bb11d1d1",
+      "range": {
+        "startLine": 1095,
+        "startChar": 23,
+        "endLine": 1095,
+        "endChar": 269
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd13af56_56a840ee",
         "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
         "patchSetId": 61
@@ -36,6 +84,30 @@
       "writtenOn": "2018-03-23T05:01:27Z",
       "side": 1,
       "message": "use OpenStackOperations.OpenStack Suite Setup",
+      "range": {
+        "startLine": 3,
+        "startChar": 42,
+        "endLine": 3,
+        "endChar": 76
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "514ad24b_1c90ce07",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-04-05T12:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd13af56_56a840ee",
       "range": {
         "startLine": 3,
         "startChar": 42,
@@ -71,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "c10791c7_51c05a0e",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-04-05T12:58:25Z",
+      "side": 1,
+      "message": "in few runs on Sandbox, i have noticed that the ifconfig was failing with timeout exception.\nHence, i put WUKS to make sure the action is complete.",
+      "parentUuid": "e6b059e8_3b1ff0fd",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 222
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b743f8b_ba8040d7",
         "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
         "patchSetId": 61
@@ -94,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "50af9cf7_3c23c924",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-04-05T12:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b743f8b_ba8040d7",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 60
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01756552_e5577ade",
         "filename": "csit/testplans/netvirt-1node-openstack.txt",
         "patchSetId": 61
@@ -105,6 +225,30 @@
       "writtenOn": "2018-03-23T05:01:27Z",
       "side": 1,
       "message": "we need to know this is a healthy and reliably passing suite before we can add it to this testplan.\n\nyou could stick it in the tdd-wip testplan if this isn\u0027t going to be the case, and the failures/bugs can\nget resolved using that job.\n\nfyi.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 71
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5968b167_1815afdd",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 61
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-04-05T12:58:25Z",
+      "side": 1,
+      "message": "Done.\nThanks for your suggestion.\nhave removed the entry and updated in tdd-wip.txt file for runs.",
+      "parentUuid": "01756552_e5577ade",
       "range": {
         "startLine": 11,
         "startChar": 0,
