@@ -48,11 +48,12 @@ Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${CHECK_PERIOD}    1
+${CHECK_PERIOD}    60
 ${CHECK_PERIOD_CHANGE_COUNT}    ${CHECK_PERIOD}
 ${CHECK_PERIOD_CHANGE_COUNT_SINGLE}    ${CHECK_PERIOD_CHANGE_COUNT}
 ${COUNT}          1000000
@@ -235,7 +236,6 @@ Setup_Everything
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
-    # Calculate the timeout value based on how many routes are going to be pushed
     # TODO: Unify formulas with other suites in this directory.
     ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT_SINGLE} * (${COUNT_CHANGE_COUNT_SINGLE} * 9.0 / 10000 + 20)
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
@@ -246,6 +246,7 @@ Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
     # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
+    BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Get_Sysstat_Statistics
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
