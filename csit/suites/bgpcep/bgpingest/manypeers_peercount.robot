@@ -27,21 +27,23 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_T
 Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
-Resource          ${CURDIR}/../../../variables/Variables.robot
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/FailFast.robot
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/KillPythonTool.robot
+Resource          ../../../libraries/PrefixCounting.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_PEERS_LOG_FILE_NAME}    bgp_peer.log
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${CHECK_PERIOD_PREFIX_COUNT_MANY_RRC}    10
-${COUNT}          100000    # With AdjRibsOut, the amount of data present is on the same scale as 1M ingest with single peer.
+${CHECK_PERIOD_PREFIX_COUNT_MANY_RRC}    60
+${COUNT}          300000    # With AdjRibsOut, the amount of data present is on the same scale as 600k ingest with single peer.
 ${COUNT_PREFIX_COUNT_MANY_RRC}    ${COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
 ${HOLDTIME}       180
@@ -49,8 +51,8 @@ ${HOLDTIME_PREFIX_COUNT_MANY_RRC}    ${HOLDTIME}
 ${KARAF_LOG_LEVEL}    INFO
 ${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
 ${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
-${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}    10
-${REPETITIONS_PREFIX_COUNT_MANY_RRC}    10
+${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}    2
+${REPETITIONS_PREFIX_COUNT_MANY_RRC}    2
 ${TEST_DURATION_MULTIPLIER}    1
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY_RRC}    ${TEST_DURATION_MULTIPLIER}
 ${RIB_INSTANCE}    example-bgp-rib
@@ -161,6 +163,7 @@ Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
     # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
+    BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Get_Sysstat_Statistics
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
