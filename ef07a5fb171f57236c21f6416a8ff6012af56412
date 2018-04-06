@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1c718b84_615bc0fb",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-06T06:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f86f57c_65e7b93f",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "ef07a5fb171f57236c21f6416a8ff6012af56412",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34c4ddbf_8d5603cf",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 21
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "46caf949_764b324e",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-06T06:28:35Z",
+      "side": 1,
+      "message": "Check_Karaf_Log_Has_Messages  API in KarafKeywords.robot checks if the message is available in karaf.log.\nMy requirement is to check the no. of times the message exists in karaf.log.Hence have written API accordingly here",
+      "parentUuid": "34c4ddbf_8d5603cf",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 55
+      },
+      "revId": "ef07a5fb171f57236c21f6416a8ff6012af56412",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57f0a91d_bc762512",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 21
@@ -59,6 +107,30 @@
       "writtenOn": "2018-04-05T20:50:54Z",
       "side": 1,
       "message": "this will apply everywhere, but robotframework is already\nvery verbose and gives good logs. This keyword will very\nclearly be detailed in the log that it\u0027s \"Push Static Flow\"\nit\u0027s not really needed to also add this Log statement \nwhich is just duplicating the idea that we are adding a \nstatic flow. removing it makes the code cleaner, the logs\nsmaller and everything easier to maintain (in the grand\nscheme of things)",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 26
+      },
+      "revId": "ef07a5fb171f57236c21f6416a8ff6012af56412",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd2489a4_4f77c74e",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-06T06:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57f0a91d_bc762512",
       "range": {
         "startLine": 89,
         "startChar": 4,
