@@ -75,7 +75,7 @@ Enable Access to Rabbitmq vhost
     [Arguments]    ${os_node_cxn}    ${rabbit_user}
     [Documentation]    Add a user to Rabbit MQ
     Switch Connection    ${os_node_cxn}
-    ${output}    ${rc}=    Execute Command    rabbitmqctl set_permissions ${rabbit_user} ".*" ".*" ".*"    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo rabbitmqctl set_permissions ${rabbit_user} ".*" ".*" ".*"    return_rc=True    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
     [Return]    ${output}
@@ -84,7 +84,7 @@ Stop RabbitMQ
     [Arguments]    ${os_node_cxn}
     [Documentation]    Stop the RabbitMQ user
     Switch Connection    ${os_node_cxn}
-    ${output}    ${rc}=    Execute Command    rabbitmqctl stop_app    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo rabbitmqctl stop_app    return_rc=True    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
     [Return]    ${output}
@@ -93,14 +93,14 @@ Get RabbitMQ Cookie File
     [Arguments]    ${os_node_cxn}
     [Documentation]    Get the Cookie file from the primary node
     Switch Connection    ${os_node_cxn}
-    ${output}    ${rc}=    Execute Command    rabbitmqctl stop_app    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo rabbitmqctl stop_app    return_rc=True    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
     SSHLibrary.Get File    /var/lib/rabbitmq/.erlang.cookie    /tmp/
-    ${output}    ${rc}=    Execute Command    rabbitmqctl start_app    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo rabbitmqctl start_app    return_rc=True    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
-    ${output}    ${rc}=    Execute Command    rabbitmqctl cluster_status    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo rabbitmqctl cluster_status    return_rc=True    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
 
@@ -109,24 +109,24 @@ Copy RabbitMQ Cookie File
     [Documentation]    Copy the rabbit cookie file to other servers to join the cluster
     Switch Connection    ${os_node_cxn}
     SSHLibrary.Put File    /tmp/.erlang.cookie    /var/lib/rabbitmq/.erlang.cookie
-    ${output}    ${rc}=    Execute Command    chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie    return_rc=True    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
-    ${output}    ${rc}=    Execute Command    chmod 400 /var/lib/rabbitmq/.erlang.cookie    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo chmod 400 /var/lib/rabbitmq/.erlang.cookie    return_rc=True    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
     Enable Service    ${os_node_cxn}    rabbitmq-server
     Start Service    ${os_node_cxn}    rabbitmq-server
-    ${output}    ${rc}=    Execute Command    rabbitmqctl stop_app    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo rabbitmqctl stop_app    return_rc=True    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
-    ${output}    ${rc}=    Execute Command    rabbitmqctl join_cluster --ram ${rabbit_user}@${src_hostname}    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo rabbitmqctl join_cluster --ram ${rabbit_user}@${src_hostname}    return_rc=True    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
-    ${output}    ${rc}=    Execute Command    rabbitmqctl start_app    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo rabbitmqctl start_app    return_rc=True    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
-    ${output}    ${rc}=    Execute Command    rabbitmqctl cluster_status    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo rabbitmqctl cluster_status    return_rc=True    return_stdout=True
     Log    ${output}
     Should Not Be True    ${rc}
     Run Command    ${os_node_cxn}    sudo rabbitmqctl set_policy ha-all '^(?!amq\.).*' '{"ha-mode": "all"}'
