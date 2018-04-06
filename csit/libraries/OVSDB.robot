@@ -354,3 +354,9 @@ Stop OVS
     [Documentation]    Stop the OVS node.
     ${output} =    Utils.Run Command On Mininet    ${ovs_ip}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
     BuiltIn.Log    ${output}
+
+Get Bridge UUID
+    ${Result}    Execute Command    sudo ovs-vsctl show
+    ${UUID}    Get Line    ${Result}    0
+    log    ${UUID}
+    [Return]    ${UUID}
