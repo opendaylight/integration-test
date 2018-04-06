@@ -14,51 +14,12 @@ Resource          ../libraries/Utils.robot
 Configure External Networks For Testing
     Local Install Rpm Package    openvswitch
     Run Command In Local Node    sudo systemctl start openvswitch
-    Setup External Network In Robot VM    flat1    101.0.0.2/24    101.0.0.1/24
-    Install Configure OvsSwitch    ${OS_CONTROL_1_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Install Configure OvsSwitch    ${OS_CONTROL_2_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Install Configure OvsSwitch    ${OS_CONTROL_3_IP}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Install Configure OvsSwitch    ${OS_CONTROL_4_IP}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Install Configure OvsSwitch    ${OS_CONTROL_5_IP}
-    Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Install Configure OvsSwitch    ${OS_COMPUTE_1_IP}
-    Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Install Configure OvsSwitch    ${OS_COMPUTE_2_IP}
-    Create External Network For CSIT    flat1    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_IP}    9786
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    flat1    ${OS_CONTROL_2_IP}    ${OS_CONTROL_2_IP}    9786
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    flat1    ${OS_CONTROL_3_IP}    ${OS_CONTROL_3_IP}    9786
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    flat1    ${OS_CONTROL_4_IP}    ${OS_CONTROL_4_IP}    9786
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    flat1    ${OS_CONTROL_5_IP}    ${OS_CONTROL_5_IP}    9786
-    Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Create External Network For CSIT    flat1    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_1_IP}    9786
-    Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Create External Network For CSIT    flat1    ${OS_COMPUTE_2_IP}    ${OS_COMPUTE_2_IP}    9786
-    Setup External Network In Robot VM    flat2    102.0.0.2/24    102.0.0.1/24
-    Create External Network For CSIT    flat2    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_IP}    9787
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    flat2    ${OS_CONTROL_2_IP}    ${OS_CONTROL_2_IP}    9787
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    flat2    ${OS_CONTROL_3_IP}    ${OS_CONTROL_3_IP}    9787
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    flat2    ${OS_CONTROL_4_IP}    ${OS_CONTROL_4_IP}    9787
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    flat2    ${OS_CONTROL_5_IP}    ${OS_CONTROL_5_IP}    9787
-    Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Create External Network For CSIT    flat2    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_1_IP}    9787
-    Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Create External Network For CSIT    flat2    ${OS_COMPUTE_2_IP}    ${OS_COMPUTE_2_IP}    9787
     Setup External Network In Robot VM    physnet1    10.10.10.253/24    10.10.10.250/24
-    Create External Network For CSIT    physnet1    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_IP}    9788
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    physnet1    ${OS_CONTROL_2_IP}    ${OS_CONTROL_2_IP}    9788
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    physnet1    ${OS_CONTROL_3_IP}    ${OS_CONTROL_3_IP}    9788
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    physnet1    ${OS_CONTROL_4_IP}    ${OS_CONTROL_4_IP}    9788
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    physnet1    ${OS_CONTROL_5_IP}    ${OS_CONTROL_5_IP}    9788
-    Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Create External Network For CSIT    physnet1    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_1_IP}    9788
-    Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Create External Network For CSIT    physnet1    ${OS_COMPUTE_2_IP}    ${OS_COMPUTE_2_IP}    9788
+    Create External Network For CSIT    physnet1    ${OS_NEUTRON_1_IP}    ${OS_NEUTRON_1_IP}    9788
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Create External Network For CSIT    physnet1    ${OS_NEUTRON_2_IP}    ${OS_NEUTRON_2_IP}    9788
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Create External Network For CSIT    physnet1    ${OS_NEUTRON_3_IP}    ${OS_NEUTRON_3_IP}    9788
     Run Command In Local Node    sudo ip tuntap add dev internet_tap mode tap
     Run Command In Local Node    sudo ifconfig internet_tap up 10.9.9.9/24
-    Run Command In Local Node    sudo ip netns add vlantest
-    Run Command In Local Node    sudo ovs-vsctl add-br br-vlantest
-    Local Install Rpm Package    vconfig
-    Setup External Network with Vlan    vlantest    28    105.0.0.2/24    vlantest1
-    Setup External Network with Vlan    vlantest    29    106.0.0.2/24    vlantest2
-    Create External Network For CSIT    vlantest    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_IP}    9789
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    vlantest    ${OS_CONTROL_2_IP}    ${OS_CONTROL_2_IP}    9789
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    vlantest    ${OS_CONTROL_3_IP}    ${OS_CONTROL_3_IP}    9789
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    vlantest    ${OS_CONTROL_4_IP}    ${OS_CONTROL_4_IP}    9789
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Create External Network For CSIT    vlantest    ${OS_CONTROL_5_IP}    ${OS_CONTROL_5_IP}    9789
-    Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Create External Network For CSIT    vlantest    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_1_IP}    9789
-    Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Create External Network For CSIT    vlantest    ${OS_COMPUTE_2_IP}    ${OS_COMPUTE_2_IP}    9789
 
 *** Keywords ***
 Install Configure OvsSwitch
