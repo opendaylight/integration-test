@@ -11,6 +11,8 @@ Resource          Utils.robot
 Resource          ../variables/Variables.robot
 Resource          OVSDB.robot
 Resource          ../variables/netvirt/Variables.robot
+Resource          VpnOperations.robot
+Resource          DataModels.robot
 
 *** Variables ***
 @{itm_created}    TZA
@@ -19,6 +21,8 @@ ${Bridge-1}       BR1
 ${Bridge-2}       BR2
 ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
 @{DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE
+${vlan}           0
+${gateway-ip}     0.0.0.0
 
 *** Keywords ***
 Genius Suite Setup
@@ -152,13 +156,10 @@ BFD Suite Stop
 Delete All Vteps
     [Documentation]    This will delete vtep.
     ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_API}/itm:transport-zones/    data=${vtep_body}
-    Log    ${resp.status_code}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    "Before disconnecting CSS with controller"
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
-    Log    ${output}
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
-    Log    ${output}
+    ${output} =    Issue Command On Karaf Console    ${TEP_SHOW}
+    BuiltIn.Wait Until Keyword Succeeds    30    5    Tunnel chek
 
 Genius Test Teardown
     [Arguments]    ${data_models}
@@ -204,10 +205,9 @@ Get ITM
 
 Check Tunnel Delete On OVS
     [Arguments]    ${connection-id}    ${tunnel}
-    [Documentation]    Verifies the Tunnel is deleted from OVS
+    [Documentation]    Verifies the Tunnel is deleted from OVS.
     Switch Connection    ${connection-id}
-    ${return}    Execute Command    sudo ovs-vsctl show
-    Log    ${return}
+    ${return} =    Execute Command    sudo ovs-vsctl show
     Should Not Contain    ${return}    ${tunnel}
     [Return]    ${return}
 
@@ -226,3 +226,41 @@ Check ITM Tunnel State
     [Documentation]    Verifies the Tunnel is deleted from datastore
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp.content}    ${tunnel1}    ${tunnel2}
+
+Get Tunnel
+    [Arguments]    ${src}    ${dst}    ${type}
+    [Documentation]    This keyword returns Tunnel interface name. This Tunnel is being created between source DPN and destination DPN along with type of tunnel.
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    ${src}
+    Should Contain    ${resp.content}    ${dst}
+    ${json} =    evaluate    json.loads('''${resp.content}''')    json
+    log to console    \nOriginal JSON:\n${json}
+    ${tunnel_Availability}    Run Keyword And Return Status    Should contain    ${resp.content}    tunnel-interface-names
+    ${list_Of_Tunnels}    Run Keyword If    '${tunnel_Availability}'=='True'    Get Tunnel Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
+    [Return]    ${list_Of_Tunnels}
+
+Get Tunnel Interface Name
+    [Arguments]    ${json}    ${expected_tunnel_interface_name}
+    [Documentation]    This keyword Checks the Tunnel interface name is tunnel-interface-names in the output or not .
+    ${tunnels}    Collections.Get From Dictionary    ${json}    ${expected_tunnel_interface_name}
+    [Return]    ${tunnels[0]}
+
+Verify Tunnel Status as UP
+    [Documentation]    Verify that the number of tunnels are UP
+    ${No_of_Teps}    Issue_Command_On_Karaf_Console    ${TEP_SHOW}
+    ${Lines_of_TZA}    Get Lines Containing String    ${No_of_Teps}    TZA
+    ${Expected_Node_Count}    Get Line Count    ${Lines_of_TZA}
+    ${no_of_tunnels}    Issue_Command_On_Karaf_Console    ${TEP_SHOW_STATE}
+    ${lines_of_VXLAN}    Get Lines Containing String    ${no_of_tunnels}    VXLAN
+    Should Contain    ${no_of_tunnels}    ${STATE_UP}
+    Should Not Contain    ${no_of_tunnels}    ${STATE_DOWN}
+    Should Not Contain    ${no_of_tunnels}    ${STATE_UNKNOWN}
+    ${Actual_Tunnel_Count}    Get Line Count    ${lines_of_VXLAN}
+    ${Expected_Tunnel_Count}    Set Variable    ${Expected_Node_Count*${Expected_Node_Count - 1}}
+    Should Be Equal As Strings    ${Actual_Tunnel_Count}    ${Expected_Tunnel_Count}
+
+Tunnel check
+    [Documentation]    This keyword confirms that tunnels are not present by giving command from karaf console.
+    ${output} =    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
+    Should Not Contain    ${output}    tun
