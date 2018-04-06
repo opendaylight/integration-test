@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e6e1797_639eeb74",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-06T14:46:23Z",
+      "side": 1,
+      "message": "whitespace causing -verify",
+      "range": {
+        "startLine": 141,
+        "startChar": 168,
+        "endLine": 141,
+        "endChar": 171
+      },
+      "revId": "3a01cc601318a0d67e61bf898918bf0373b3a0a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
