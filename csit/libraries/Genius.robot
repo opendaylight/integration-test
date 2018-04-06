@@ -12,6 +12,7 @@ Resource          ../variables/Variables.robot
 Resource          OVSDB.robot
 Resource          ../variables/netvirt/Variables.robot
 Resource          VpnOperations.robot
+Resource          DataModels.robot
 
 *** Variables ***
 @{itm_created}    TZA
@@ -20,6 +21,8 @@ ${Bridge-1}       BR1
 ${Bridge-2}       BR2
 ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
 @{DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE
+${vlan}           0
+${gateway-ip}     0.0.0.0
 
 *** Keywords ***
 Genius Suite Setup
@@ -153,13 +156,10 @@ BFD Suite Stop
 Delete All Vteps
     [Documentation]    This will delete vtep.
     ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_API}/itm:transport-zones/    data=${vtep_body}
-    Log    ${resp.status_code}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    "Before disconnecting CSS with controller"
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
-    Log    ${output}
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
-    Log    ${output}
+    ${output} =    Issue Command On Karaf Console    ${TEP_SHOW}
+    BuiltIn.Wait Until Keyword Succeeds    30    5    Verify All Tunnel Delete on DS
 
 Genius Test Teardown
     [Arguments]    ${data_models}
@@ -205,11 +205,11 @@ Get ITM
 
 Check Tunnel Delete On OVS
     [Arguments]    ${connection-id}    ${tunnel}
-    [Documentation]    Verifies the Tunnel is deleted from OVS
+    [Documentation]    Verifies the Tunnel is deleted from OVS.
     Switch Connection    ${connection-id}
-    ${return}    Execute Command    sudo ovs-vsctl show
-    Log    ${return}
+    ${return} =    Execute Command    sudo ovs-vsctl show
     Should Not Contain    ${return}    ${tunnel}
+    log    ${return}
     [Return]    ${return}
 
 Check Table0 Entry For 2 Dpn
@@ -269,3 +269,47 @@ Get Tunnels On OVS
     \    Collections.Append To List    ${tunnel_names}    ${tun_list}
     ${items_in_list} =    BuiltIn.Get Length    ${tunnel_names}
     [Return]    ${Tunnel_Names}
+
+Get Tunnel
+    [Arguments]    ${src}    ${dst}    ${type}
+    [Documentation]    This keyword returns tunnel interface name between source DPN and destination DPN.
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    BuiltIn.Should Contain    ${resp.content}    ${src}
+    BuiltIn.Should Contain    ${resp.content}    ${dst}
+    ${json} =    Utils.Json Parse From String    ${resp.content}
+    ${tunnel_availability} =    BuiltIn.Run Keyword And Return Status    Should contain    ${resp.content}    tunnel-interface-names
+    ${tunnel} =    BuiltIn.Run Keyword If    '${tunnel_availability}' == 'True'    Get Tunnel Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
+    [Return]    ${tunnel}
+
+Get Tunnel Interface Name
+    [Arguments]    ${json}    ${expected_tunnel_interface_name}
+    [Documentation]    This keyword extracts tunnel interface name from json given as input.
+    ${tunnels} =    Collections.Get From Dictionary    ${json}    ${expected_tunnel_interface_name}
+    [Return]    ${tunnels}[0]
+
+Verify All Tunnel Delete on DS
+    [Documentation]    This keyword confirms that tunnels are not present by giving command from karaf console.
+    ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
+    BuiltIn.Should Not Contain    ${output}    tun
+
+Verify Tunnel Delete on DS
+    [Arguments]    ${tunnel}
+    [Documentation]    This keyword confirms that specified tunnel is not present by giving command from karaf console.
+    ${output} =    KarafKeywords.Issue Command On Karaf Console    ${TEP_SHOW_STATE}
+    BuiltIn.Should Not Contain    ${output}    ${tunnel}
+
+SRM Start Suite
+    [Documentation]    Start suite for service recovery.
+    Genius Suite Setup
+    ${dpn_Id_1} =    Genius.Get Dpn Ids    ${conn_id_1}
+    ${dpn_Id_2} =    Genius.Get Dpn Ids    ${conn_id_2}
+    Genius.Create Vteps    ${dpn_Id_1}    ${dpn_Id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    ${tunnel} =    BuiltIn.Wait Until Keyword Succeeds    40    20    Genius.Get Tunnel    ${dpn_Id_1}    ${dpn_Id_2}
+    ...    odl-interface:tunnel-type-vxlan
+    BuiltIn.Wait Until Keyword Succeeds    60s    5s    Genius.Verify Tunnel Status as UP    TZA
+
+SRM Stop Suite
+    [Documentation]    Stop suite for service recovery.
+    Delete All Vteps
+    Genius Suite Teardown
