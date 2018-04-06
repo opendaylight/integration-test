@@ -210,7 +210,7 @@ Install Configure Nova Compute
     Start Service    ${os_node_cxn}    rpcbind
     Run Command    ${os_node_cxn}    sudo mkdir -p /var/lib/nova/instances_live_migration
     Run Keyword If    2 < ${NUM_CONTROL_NODES}    Run Command    ${os_node_cxn}    sudo mount -t nfs ${HAPROXY_IP}:/instances /var/lib/nova/instances_live_migration
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Run Command    ${os_node_cxn}    sudo mount -t nfs ${ROBOT_VM_IP}:/instances /var/lib/nova/instances_live_migration
+    #Run Keyword If    2 > ${NUM_CONTROL_NODES}    Run Command    ${os_node_cxn}    sudo mount -t nfs ${ROBOT_VM_IP}:/instances /var/lib/nova/instances_live_migration
     Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    placement    username    placement
     Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    placement    password    placement
     Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    libvirt    virt_type    qemu
