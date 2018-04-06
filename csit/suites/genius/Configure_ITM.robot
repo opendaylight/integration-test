@@ -31,9 +31,9 @@ Create and Verify VTEP -No Vlan
     Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
-    ${tunnel-1}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
+    ${tunnel-1}    Wait Until Keyword Succeeds    40    20    Genius.Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ...    ${type}
-    ${tunnel-2}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
+    ${tunnel-2}    Wait Until Keyword Succeeds    40    20    Genius.Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
     ...    ${type}
     ${tunnel-type}=    Set Variable    type: vxlan
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
@@ -89,9 +89,9 @@ Create and Verify VTEP IPv6 - No Vlan
     Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
-    ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
+    ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Genius.Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ...    ${type}
-    ${tunnel-2}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
+    ${tunnel-2}    Wait Until Keyword Succeeds    40    10    Genius.Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
     ...    ${type}
     ${tunnel-type}=    Set Variable    type: vxlan
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/    headers=${ACCEPT_XML}
@@ -127,9 +127,9 @@ Create and Verify VTEP-Vlan
     ...    ${vlan}    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     Log    ${get}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
-    ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
+    ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Genius.Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ...    ${type}
-    ${tunnel-2}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
+    ${tunnel-2}    Wait Until Keyword Succeeds    40    10    Genius.Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
     ...    ${type}
     ${tunnel-type}=    Set Variable    type: vxlan
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
@@ -185,9 +185,9 @@ Create VTEP - Vlan and Gateway
     Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
     ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
-    ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
+    ${tunnel-1}    Wait Until Keyword Succeeds    40    10    Genius.Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
     ...    ${type}
-    ${tunnel-2}    Wait Until Keyword Succeeds    40    10    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
+    ${tunnel-2}    Wait Until Keyword Succeeds    40    10    Genius.Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
     ...    ${type}
     ${tunnel-type}=    Set Variable    type: vxlan
     Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
@@ -244,23 +244,6 @@ Create Vteps IPv6
     ${body}    Genius.Set Json    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}
     ...    ${gateway-ip}    ${subnet}
     Post Log Check    ${CONFIG_API}/itm:transport-zones/    ${body}    204
-
-Get Tunnel
-    [Arguments]    ${src}    ${dst}    ${type}
-    [Documentation]    This Keyword Gets the Tunnel /Interface name which has been created between 2 DPNS by passing source , destination DPN Ids along with the type of tunnel which is configured.
-    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/${type}/
-    log    ${resp.content}
-    Log    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${src}/${dst}/
-    ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
-    Log    ${respjson}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    ${src}    ${dst}
-    ${json}=    evaluate    json.loads('''${resp.content}''')    json
-    log to console    \nOriginal JSON:\n${json}
-    ${return}    Run Keyword And Return Status    Should contain    ${resp.content}    tunnel-interface-names
-    log    ${return}
-    ${ret}    Run Keyword If    '${return}'=='True'    Check Interface Name    ${json["internal-tunnel"][0]}    tunnel-interface-names
-    [Return]    ${ret}
 
 Validate interface state
     [Arguments]    ${tunnel-1}    ${dpid-1}    ${tunnel-2}    ${dpid-2}
@@ -352,10 +335,3 @@ Verify Data Base after Delete
     Wait Until Keyword Succeeds    40    10    Get Network Topology without Tunnel    ${OPERATIONAL_TOPO_API}    ${tunnel-1}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Validate interface state Delete    ${tunnel-1}
     Wait Until Keyword Succeeds    40    10    Validate interface state Delete    ${tunnel-2}
-
-Check Interface Name
-    [Arguments]    ${json}    ${expected_tunnel_interface_name}
-    [Documentation]    This keyword Checks the Tunnel interface name is tunnel-interface-names in the output or not .
-    ${Tunnels}    Collections.Get From Dictionary    ${json}    ${expected_tunnel_interface_name}
-    Log    ${Tunnels}
-    [Return]    ${Tunnels[0]}
