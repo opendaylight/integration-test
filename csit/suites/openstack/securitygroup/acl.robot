@@ -144,7 +144,7 @@ TC3_Verify ARP request Valid MAC and Valid IP for the VM Egress Table
     @{VM_IP_DPN3}    Wait Until Keyword Succeeds    240 sec    60 sec    Get VM IP Address    ${OS_CMP1_CONN_ID}    ${VM_NAMES[2]}
     Set Global Variable    @{VM_IP_DPN1}
     Set Global Variable    @{VM_IP_DPN3}
-    Set Global Variable    @{VM_IP_DPN2SIT_ACL_Enhancement
+    Set Global Variable    @{VM_IP_DPN2}
     ${VM1_Port}    In Port VM    ${OS_CMP1_CONN_ID}    ${br_name}    ${PORT_LIST[0]}
     ${VM2_Port}    In Port VM    ${OS_CMP2_CONN_ID}    ${br_name}    ${PORT_LIST[2]}
     ${VM3_Port}    In Port VM    ${OS_CMP1_CONN_ID}    ${br_name}    ${PORT_LIST[4]}
@@ -208,321 +208,321 @@ TC4_Verify ARP request generated from spoofed IP for the VM
     Should Be Equal As Numbers    ${pkt_diff_arp_drop}    ${packet_count}
 
 
-TC5_Verify ARP request generated from spoofed MAC for the VM
-    Switch Connection    ${OS_CMP1_CONN_ID}
-    Log     Change the Mac Address of eth1
-    ${cmd}    Set Variable    sudo ifconfig eth0 down
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN1[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo ifconfig eth0 hw ether ${spoof_mac_address[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN1[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo ifconfig eth0 up  
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN1[1]}    ${cmd}
-    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
-    ${ovs1_output}    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    ${vm1_metadata}|grep arp_sha
-    ${get_arp_drop_pkt_before}    Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    arp|grep drop 
-    ${cmd}    Set Variable    sudo arping -I eth0 -c ${packet_count} \ ${random_ip}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN1[1]}    ${cmd}
-    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
-    ${ovs1_output}    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    ${vm1_metadata}|grep arp_sha
-    ${get_arp_drop_pkt_after}    Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    arp|grep drop
-    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
-    ${pkt_diff_arp_drop}    Evaluate    int(${get_arp_drop_pkt_after})-int(${get_arp_drop_pkt_before})
-    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
-    Should Be Equal As Numbers    ${pkt_diff_arp_drop}    ${packet_count}
-
-TC6_Verify ARP request generated from spoofed IP and spoofed MAC for the VM
-    Switch Connection    ${OS_CMP1_CONN_ID}
-    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
-    ${ovs1_output}    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    ${vm1_metadata}|grep arp_sha
-    ${get_arp_drop_pkt_before}    Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    arp|grep drop
-    ${cmd}    Set Variable    sudo arping -s ${spoof[0]} -c ${packet_count} \ ${random_ip}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN1[1]}    ${cmd}
-    ${ovs1_output}    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    ${vm1_metadata}|grep arp_sha
-    ${get_arp_drop_pkt_after}    Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    arp|grep drop
-    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
-    ${pkt_diff_arp_drop}    Evaluate    int(${get_arp_drop_pkt_after})-int(${get_arp_drop_pkt_before})
-    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
-    Should Be Equal As Numbers    ${pkt_diff_arp_drop}    ${packet_count}
-    Log    Get the vm mac address and put back the original 
-    ${cmd}    Set Variable    sudo ifconfig eth0 down
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN1[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo ifconfig eth0 hw ether ${spoof_mac_address[1]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN1[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo ifconfig eth0 ${VM_IP_DPN1[0]}/24 up
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN1[1]}    ${cmd}
-
-TC7_ Verify Ping - Valid MAC and Valid IP for the VM by clearing the ARP Cache
-    Switch Connection    ${OS_CMP2__CONN_ID}
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    @{arp_ip}    Get Regexp Matches    ${output}    [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+
-    ${cmd}    Set Variable    sudo arp -d ${arp_ip[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo arp -d ${arp_ip[1]}    
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo arp -d ${VM_IP_DPN1[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo arp -d ${VM_IP_DPN3[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Sleep    180
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int 
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
-    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
-    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
-    ${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
-    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count}
-    Should Not Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
-    
-TC8_Verify IPv4 unicast traffic with MAC Address and IP Address (Valid MAC + Valid IP)
-    Switch Connection    ${OS_CMP2__CONN_ID}    
-    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int 
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    #${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
-    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
-    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count}
-    #Should Not Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
-
-TC9_ Verify Ping - Spoofed IP and Valid Mac for the VM by clearing the ARP cache 
-    Switch Connection    ${OS_CMP2__CONN_ID}
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    @{arp_ip}    Get Regexp Matches    ${output}    [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+
-    : FOR    ${item}    IN    @{arp_ip}
-    \    ${cmd}    Set Variable    sudo arp -d ${item}
-    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}
-    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}
-    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}    
-    ${cmd}    Set Variable    sudo ifconfig eth0:1 ${spoof[0]} netmask ${netmask} up
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo arp -d ${VM_IP_DPN1[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo arp -d ${VM_IP_DPN3[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Sleep    10
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
-    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Should Contain    ${output}    ${INCOMPLETE}
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
-    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
-    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
-    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
-    #Should Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
-    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
-    
-TC10_ Verify IPv4 unicast traffic by spoofing IP Address (Invalid IP + Valid MAC)
-    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
-    #${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
-    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
-    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
-    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
-    
-TC11_ Verify Ping - Vaild IP and Spoofed Mac for the VM by clearing the ARP cache 
-    Switch Connection    ${OS_CMP2__CONN_ID}
-    #${cmd}    Set Variable    sudo ifconfig eth0 ${VM_IP_DPN2[0]} up
-    #${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    #...    ${VM_IP_DPN2[1]}    ${cmd} 
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    @{arp_ip}    Get Regexp Matches    ${output}    [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+
-    : FOR    ${item}    IN    @{arp_ip}
-    \    ${cmd}    Set Variable    sudo arp -d ${item}
-    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}
-    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}
-    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo ifconfig eth0 down
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN1[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo ifconfig eth0 hw ether ${spoof_mac_address[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN1[1]}    ${cmd}
-    ${cmd}    Set Variable    sudo ifconfig eth0 up
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN1[1]}    ${cmd}
-    Sleep    10
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    #Should Not Contain    ${output}    eth0
-    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
-    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Should Contain    ${output}    100% packet loss
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Should Contain    ${output}    eth0
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
-    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
-    ${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
-    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
-    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
-    Should Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
-    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
-
-TC12_ Verify IPv4 unicast traffic by spoofing MAC Address (Invalid MAC + Valid IP)
-    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Should Contain    ${output}    100% packet loss
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
-    #${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
-    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
-    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
-    #Should Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
-    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
-
-TC13_ Verify Ping - Spoofed IP and Spoofed Mac for the VM by clearing the ARP cache
-    Switch Connection    ${OS_CMP2__CONN_ID}
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Should Contain    ${output}    eth0
-    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
-    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Should Contain    ${output}    100% packet loss
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Should Contain    ${output}    eth0
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
-    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
-    ${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
-    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
-    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
-    Should Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
-    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
-    
-TC14_ Verify IPv4 unicast traffic by spoofing MAC Address and IP Address After port security enabled false
-    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    #${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
-    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Should Contain    ${output}    100% packet loss
-    ${cmd}    Set Variable    sudo arp -a
-    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
-    ...    ${VM_IP_DPN2[1]}    ${cmd}
-    Should Contain    ${output}    eth0
-    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
-    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
-    #${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
-    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
-    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
-    #${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
-    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
-    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
-    #Should Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
-    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
-    [Teardown]    Delete Setup
+#TC5_Verify ARP request generated from spoofed MAC for the VM
+#    Switch Connection    ${OS_CMP1_CONN_ID}
+#    Log     Change the Mac Address of eth1
+#    ${cmd}    Set Variable    sudo ifconfig eth0 down
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN1[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo ifconfig eth0 hw ether ${spoof_mac_address[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN1[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo ifconfig eth0 up  
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN1[1]}    ${cmd}
+#    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
+#    ${ovs1_output}    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    ${vm1_metadata}|grep arp_sha
+#    ${get_arp_drop_pkt_before}    Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    arp|grep drop 
+#    ${cmd}    Set Variable    sudo arping -I eth0 -c ${packet_count} \ ${random_ip}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN1[1]}    ${cmd}
+#    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
+#    ${ovs1_output}    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    ${vm1_metadata}|grep arp_sha
+#    ${get_arp_drop_pkt_after}    Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    arp|grep drop
+#    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
+#    ${pkt_diff_arp_drop}    Evaluate    int(${get_arp_drop_pkt_after})-int(${get_arp_drop_pkt_before})
+#    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
+#    Should Be Equal As Numbers    ${pkt_diff_arp_drop}    ${packet_count}
+#
+#TC6_Verify ARP request generated from spoofed IP and spoofed MAC for the VM
+#    Switch Connection    ${OS_CMP1_CONN_ID}
+#    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
+#    ${ovs1_output}    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    ${vm1_metadata}|grep arp_sha
+#    ${get_arp_drop_pkt_before}    Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    arp|grep drop
+#    ${cmd}    Set Variable    sudo arping -s ${spoof[0]} -c ${packet_count} \ ${random_ip}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN1[1]}    ${cmd}
+#    ${ovs1_output}    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    ${vm1_metadata}|grep arp_sha
+#    ${get_arp_drop_pkt_after}    Get Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${table_no}    arp|grep drop
+#    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
+#    ${pkt_diff_arp_drop}    Evaluate    int(${get_arp_drop_pkt_after})-int(${get_arp_drop_pkt_before})
+#    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
+#    Should Be Equal As Numbers    ${pkt_diff_arp_drop}    ${packet_count}
+#    Log    Get the vm mac address and put back the original 
+#    ${cmd}    Set Variable    sudo ifconfig eth0 down
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN1[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo ifconfig eth0 hw ether ${spoof_mac_address[1]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN1[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo ifconfig eth0 ${VM_IP_DPN1[0]}/24 up
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN1[1]}    ${cmd}
+#
+#TC7_ Verify Ping - Valid MAC and Valid IP for the VM by clearing the ARP Cache
+#    Switch Connection    ${OS_CMP2__CONN_ID}
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    @{arp_ip}    Get Regexp Matches    ${output}    [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+
+#    ${cmd}    Set Variable    sudo arp -d ${arp_ip[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo arp -d ${arp_ip[1]}    
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo arp -d ${VM_IP_DPN1[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo arp -d ${VM_IP_DPN3[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Sleep    180
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int 
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
+#    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
+#    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
+#    ${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
+#    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count}
+#    Should Not Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
+#    
+#TC8_Verify IPv4 unicast traffic with MAC Address and IP Address (Valid MAC + Valid IP)
+#    Switch Connection    ${OS_CMP2__CONN_ID}    
+#    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int 
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    #${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
+#    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
+#    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count}
+#    #Should Not Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
+#
+#TC9_ Verify Ping - Spoofed IP and Valid Mac for the VM by clearing the ARP cache 
+#    Switch Connection    ${OS_CMP2__CONN_ID}
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    @{arp_ip}    Get Regexp Matches    ${output}    [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+
+#    : FOR    ${item}    IN    @{arp_ip}
+#    \    ${cmd}    Set Variable    sudo arp -d ${item}
+#    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}
+#    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}
+#    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}    
+#    ${cmd}    Set Variable    sudo ifconfig eth0:1 ${spoof[0]} netmask ${netmask} up
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo arp -d ${VM_IP_DPN1[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo arp -d ${VM_IP_DPN3[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Sleep    10
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
+#    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Should Contain    ${output}    ${INCOMPLETE}
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
+#    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
+#    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
+#    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
+#    #Should Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
+#    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
+#    
+#TC10_ Verify IPv4 unicast traffic by spoofing IP Address (Invalid IP + Valid MAC)
+#    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
+#    #${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
+#    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
+#    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
+#    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
+#    
+#TC11_ Verify Ping - Vaild IP and Spoofed Mac for the VM by clearing the ARP cache 
+#    Switch Connection    ${OS_CMP2__CONN_ID}
+#    #${cmd}    Set Variable    sudo ifconfig eth0 ${VM_IP_DPN2[0]} up
+#    #${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    #...    ${VM_IP_DPN2[1]}    ${cmd} 
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    @{arp_ip}    Get Regexp Matches    ${output}    [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+
+#    : FOR    ${item}    IN    @{arp_ip}
+#    \    ${cmd}    Set Variable    sudo arp -d ${item}
+#    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}
+#    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}
+#    \    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}    ${VM_IP_DPN2[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo ifconfig eth0 down
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN1[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo ifconfig eth0 hw ether ${spoof_mac_address[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN1[1]}    ${cmd}
+#    ${cmd}    Set Variable    sudo ifconfig eth0 up
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN1[1]}    ${cmd}
+#    Sleep    10
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    #Should Not Contain    ${output}    eth0
+#    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
+#    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Should Contain    ${output}    100% packet loss
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Should Contain    ${output}    eth0
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
+#    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
+#    ${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
+#    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
+#    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
+#    Should Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
+#    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
+#
+#TC12_ Verify IPv4 unicast traffic by spoofing MAC Address (Invalid MAC + Valid IP)
+#    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Should Contain    ${output}    100% packet loss
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
+#    #${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
+#    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
+#    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
+#    #Should Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
+#    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
+#
+#TC13_ Verify Ping - Spoofed IP and Spoofed Mac for the VM by clearing the ARP cache
+#    Switch Connection    ${OS_CMP2__CONN_ID}
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Should Contain    ${output}    eth0
+#    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
+#    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Should Contain    ${output}    100% packet loss
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Should Contain    ${output}    eth0
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    ${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
+#    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
+#    ${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
+#    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
+#    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
+#    Should Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
+#    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
+#    
+#TC14_ Verify IPv4 unicast traffic by spoofing MAC Address and IP Address After port security enabled false
+#    ${flow_dump_cmd}    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_before_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    #${get_pkt_count_before_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
+#    ${get_pkt_drop_before_arp}      Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${cmd}    Set Variable    ping -c 5 ${VM_IP_DPN3[0]} -I ${spoof[0]}
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Should Contain    ${output}    100% packet loss
+#    ${cmd}    Set Variable    sudo arp -a
+#    ${output}    Wait Until Keyword Succeeds    60s    10s    Execute Command on VM Instance    ${REQ_NETWORKS[1]}
+#    ...    ${VM_IP_DPN2[1]}    ${cmd}
+#    Should Contain    ${output}    eth0
+#    Capture Flows    ${OS_CMP1_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    Capture Flows    ${OS_CMP2_CONN_ID}    ${br_name}    ${flow_dump_cmd}
+#    ${get_pkt_count_after_arp_nw_src}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep nw_src
+#    #${get_pkt_count_after_arp}     Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep arp_sha
+#    ${get_pkt_drop_after_arp}       Get Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${table_no}    ${vm2_metadata}|grep drop|grep actions
+#    ${pkt_diff}    Evaluate    int(${get_pkt_count_after_arp_nw_src})-int(${get_pkt_count_before_arp_nw_src})
+#    #${pkt_diff_arp_sha}    Evaluate    int(${get_pkt_count_after_arp})-int(${get_pkt_count_before_arp})
+#    ${pkt_diff_drop}    Evaluate    int(${get_pkt_drop_after_arp})-int(${get_pkt_drop_before_arp})
+#    Should Be Equal As Numbers    ${pkt_diff}    ${packet_count_zero}
+#    #Should Be Equal As Numbers    ${pkt_diff_arp_sha}    ${packet_count_zero}
+#    Should Not Be Equal As Numbers     ${pkt_diff_drop}    ${packet_count}
+#    [Teardown]    Delete Setup
 
 
 
