@@ -1,0 +1,2 @@
+integration/test/csit/suites/openstack/connectivity/l2.robot
+integration/test/csit/suites/openstack/connectivity/l3.robot
