@@ -4,9 +4,9 @@ Library           Collections
 Library           SSHLibrary
 Library           OperatingSystem
 Resource          SystemUtils.robot
-Resource          ../variables/Variables.robot
-Resource          ../variables/netvirt/Variables.robot
-Variables         ../variables/netvirt/Modules.py
+Resource          ../../../../csit/variables/Variables.robot
+Resource          ../../../../csit/variables/netvirt/Variables.robot
+Variables         ../../../../csit/variables/netvirt/Modules.py
 
 *** Keywords ***
 Setup Basic Ssh
@@ -18,14 +18,14 @@ Setup Basic Ssh
 
 Get All Ssh Connections
     [Documentation]    Open All SSH Connections.
-    Run Keyword If    0 < ${NUM_CONTROL_NODES}    Setup Basic Ssh    ${OS_CONTROL_1_IP}    ${OS_USER}    ${OS_USER_PASSWORD}    ${OS_NODE_PROMPT}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Setup basic Ssh    ${OS_CONTROL_2_IP}    ${OS_USER}    ${OS_USER_PASSWORD}    ${OS_NODE_PROMPT}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Setup basic Ssh    ${OS_CONTROL_3_IP}    ${OS_USER}    ${OS_USER_PASSWORD}    ${OS_NODE_PROMPT}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Setup basic Ssh    ${OS_CONTROL_4_IP}    ${OS_USER}    ${OS_USER_PASSWORD}    ${OS_NODE_PROMPT}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Setup basic Ssh    ${OS_CONTROL_5_IP}    ${OS_USER}    ${OS_USER_PASSWORD}    ${OS_NODE_PROMPT}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Setup basic Ssh    ${HAPROXY_IP}    ${OS_USER}    ${OS_USER_PASSWORD}    ${OS_NODE_PROMPT}
-    Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Setup basic Ssh    ${OS_COMPUTE_1_IP}    ${OS_USER}    ${OS_USER_PASSWORD}    ${OS_NODE_PROMPT}
-    Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Setup basic Ssh    ${OS_COMPUTE_2_IP}    ${OS_USER}    ${OS_USER_PASSWORD}    ${OS_NODE_PROMPT}
+    Run Keyword If    0 < ${NUM_CONTROL_NODES}    Setup Basic Ssh    ${OS_CONTROL_1_IP}    ${OS_USER}    ${OS_USER_PASSWORD}     ']>'
+    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Setup basic Ssh    ${OS_CONTROL_2_IP}    ${OS_USER}    ${OS_USER_PASSWORD}     ']>'
+    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Setup basic Ssh    ${OS_CONTROL_3_IP}    ${OS_USER}    ${OS_USER_PASSWORD}     ']>'
+    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Setup basic Ssh    ${OS_CONTROL_4_IP}    ${OS_USER}    ${OS_USER_PASSWORD}     ']>'
+    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Setup basic Ssh    ${OS_CONTROL_5_IP}    ${OS_USER}    ${OS_USER_PASSWORD}     ']>'
+    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Setup basic Ssh    ${HAPROXY_IP}    ${OS_USER}    ${OS_USER_PASSWORD}      ']>'
+    Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Setup basic Ssh    ${OS_COMPUTE_1_IP}    ${OS_USER}    ${OS_USER_PASSWORD}    ']>'
+    Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Setup basic Ssh    ${OS_COMPUTE_2_IP}    ${OS_USER}    ${OS_USER_PASSWORD}	 ']>'
 
 Enable Live Migration In A Node
     [Arguments]    ${compute_cxn}

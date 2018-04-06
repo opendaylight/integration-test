@@ -9,17 +9,6 @@ Resource          ../libraries/SystemUtils.robot
 Resource          ../libraries/OpendaylightInstallUtils.robot
 
 *** Test Cases ***
-Stop Firewall
-    [Documentation]    Stop Firewalld and disable
-    Stop And Disable Firewall    ${OS_CONTROL_1_IP}
-    Run Keyword If    1 < ${NUM_CONTROL_NODES}    Stop And Disable Firewall    ${OS_CONTROL_2_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Stop And Disable Firewall    ${OS_CONTROL_3_IP}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Stop And Disable Firewall    ${OS_CONTROL_4_IP}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Stop And Disable Firewall    ${OS_CONTROL_5_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Stop And Disable Firewall    ${HAPROXY_IP}
-    Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Stop And Disable Firewall    ${OS_COMPUTE_1_IP}
-    Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Stop And Disable Firewall    ${OS_COMPUTE_2_IP}
-
 Create Etc Hosts Entries
     [Documentation]    Create Etc Hosts Entries
     Create Etc Hosts    ${OS_CONTROL_1_IP}
@@ -233,7 +222,6 @@ Install ODL From Local Rpm
 Create Etc Hosts
     [Arguments]    ${os_node_cxn}
     [Documentation]    Create a hosts file
-    Write To File    ${os_node_cxn}    /etc/hosts    "127.0.0.1 localhost"
     Append To File    ${os_node_cxn}    /etc/hosts    "${OS_CONTROL_1_IP} ${OS_CONTROL_1_HOSTNAME}"
     Run Keyword If    1 < ${NUM_CONTROL_NODES}    Append To File    ${os_node_cxn}    /etc/hosts    "${OS_CONTROL_2_IP} ${OS_CONTROL_2_HOSTNAME}"
     Run Keyword If    2 < ${NUM_CONTROL_NODES}    Append To File    ${os_node_cxn}    /etc/hosts    "${OS_CONTROL_3_IP} ${OS_CONTROL_3_HOSTNAME}"
@@ -242,10 +230,10 @@ Create Etc Hosts
     Run Keyword If    2 < ${NUM_CONTROL_NODES}    Append To File    ${os_node_cxn}    /etc/hosts    "${HAPROXY_IP} ${HAPROXY_HOSTNAME}"
     Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Append To File    ${os_node_cxn}    /etc/hosts    "${OS_COMPUTE_1_IP} ${OS_COMPUTE_1_HOSTNAME}"
     Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Append To File    ${os_node_cxn}    /etc/hosts    "${OS_COMPUTE_2_IP} ${OS_COMPUTE_2_HOSTNAME}"
+    ${output}    ${rc}=    Execute Command    sudo cat /etc/hosts    return_rc=True    return_stdout=True
 
 Create Etc Hosts In RobotVM
     [Documentation]    Create a hosts file
-    Write To Local File    /etc/hosts    "127.0.0.1 localhost"
     Append To Local File    /etc/hosts    "${OS_CONTROL_1_IP} ${OS_CONTROL_1_HOSTNAME}"
     Run Keyword If    1 < ${NUM_CONTROL_NODES}    Append To Local File    /etc/hosts    "${OS_CONTROL_2_IP} ${OS_CONTROL_2_HOSTNAME}"
     Run Keyword If    2 < ${NUM_CONTROL_NODES}    Append To Local File    /etc/hosts    "${OS_CONTROL_3_IP} ${OS_CONTROL_3_HOSTNAME}"
