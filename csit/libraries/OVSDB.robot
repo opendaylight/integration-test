@@ -375,3 +375,10 @@ Stop OVS
     [Documentation]    Stop the OVS node.
     ${output} =    Utils.Run Command On Mininet    ${ovs_ip}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
     BuiltIn.Log    ${output}
+
+Get Bridge Data
+    [Documentation]    This keyword returns first bridge name and UUID from list of bridges.
+    ${result} =    SSHLibrary.Execute Command    sudo ovs-vsctl show
+    ${uuid} =    String.Get Line    ${result}    0
+    ${line}    ${bridge_name}    Builtin.Should Match Regexp    ${result}    Bridge "(\\w+)"
+    [Return]    ${uuid}    ${bridge_name}
