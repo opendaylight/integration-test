@@ -14,43 +14,34 @@ Resource          ../libraries/SystemUtils.robot
 *** Test Cases ***
 Get ODL
     [Documentation]    Get ODL from Nexus or Install from rpm
-    Run Keyword If    '${ODL_INSTALL_MODE}' == 'RPM'    Install ODL From RPM In All ODL Nodes    ${ODL_RPM}
-    Run Keyword If    '${ODL_INSTALL_MODE}' == 'ZIP'    Install ODL From ZIP In All ODL Nodes    ${ACTUAL_BUNDLE_URL}    ${BUNDLEFOLDER}
+    Install Rpm Package    ${OS_CONTROL_IP}    ${ODL_RPM}
 
 Configure Netvirt Feature as Boot
     [Documentation]    Install Netvirt feature
-    Install ODL Feature In All ODL Nodes    odl-netvirt-openstack
-
-Configure Clustering
-    Run Keyword If    2 < ${NUM_ODL_NODES}    Configure ODL Clustering
+     Install Feature as Boot    ${OS_CONTROL_1_IP}    odl-netvirt-openstack
 
 Configure SNAT Mode
     [Documentation]    Configure SNAT Mode as Required
-    Configure SNAT Mode In All ODL Nodes    ${ODL_NAME_MODE}
+    Configure SNAT MODE In Odl    ${OS_CONTROL_1_IP}
 
 Start ODL In All Nodes
     [Documentation]    Start ODL Service
-    Start ODL In All ODL Nodes
+    Start Service    ${OS_CONTROL_1_IP}    opendaylight
 
 Check If Netvirt Is Up And Running
     [Documentation]    Check If ODL Is Running and Active
-    Check If ODL Is Running In All Nodes    operational/network-topology:network-topology/topology/netvirt:1
-    Print All Active Ports
+    
 
 *** Keywords ***
-Set SNAT Mode
+Configure SNAT MODE In Odl
     [Arguments]    ${os_node_cxn}
-    [Documentation]    Configure SNAT Mode for Netvirt
-    Add Element    ${XML}    <natservice-config></natservice-config>
-    Set Element Attribute    ${XML}    xmlns    urn:opendaylight:netvirt:natservice:config    xpath=natservice-config
-    Add Element    ${XML}    <nat-mode></nat-mode>    xpath=natservice-config
-    Set Element Text    ${XML}    ${ODL_SNAT_MODE}    xpath=nat-mode
-    Save Xml    ${XML}    /tmp/netvirt-natservice-config.xml
+    Run Command    ${os_node_cxn}    sudo mkdir -p /opt/opendaylight/etc/opendaylight/datastore/initial/config/
+    Touch File    ${os_node_cxn}    /opt/opendaylight/etc/opendaylight/datastore/initial/config/netvirt-natservice-config.xml
+    Write To File    ${os_node_cxn}    /opt/opendaylight/etc/opendaylight/datastore/initial/config/netvirt-natservice-config.xml    '<natservice-config xmlns="urn:opendaylight:netvirt:natservice:config">'
+    Append To File    ${os_node_cxn}    /opt/opendaylight/etc/opendaylight/datastore/initial/config/netvirt-natservice-config.xml    '<nat-mode>${ODL_NETVIRT_SNAT_MODE}</nat-mode>'
+    Append To File    ${os_node_cxn}    /opt/opendaylight/etc/opendaylight/datastore/initial/config/netvirt-natservice-config.xml    '</natservice-config>'
+    Run Command    ${os_node_cxn}    sudo chown -R odl:odl /opt/opendaylight/
 
-Configure SNAT Mode In All ODL Nodes
-    [Documentation]    Configure SNAT Mode for Netvirt In All ODL Nodes
-    Set SNAT Mode    ${ODL_1_IP}
-    Run Keyword If    1 < ${NUM_ODL_NODES}    Set SNAT Mode    ${ODL_2_IP}
-    Run Keyword If    2 < ${NUM_ODL_NODES}    Set SNAT Mode    ${ODL_3_IP}
-    Run Keyword If    3 < ${NUM_ODL_NODES}    Set SNAT Mode    ${ODL_4_IP}
-    Run Keyword If    4 < ${NUM_ODL_NODES}    Set SNAT Mode    ${ODL_5_IP}
+Check If Ports Are Up
+    [Arguments]    ${os_node_cxn}
+    
