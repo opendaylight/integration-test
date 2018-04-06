@@ -88,6 +88,9 @@ Start Keystone
     [Arguments]    ${os_node_cxn}
     Enable Service    ${os_node_cxn}    httpd
     Start Service    ${os_node_cxn}    httpd
+    ${output}    ${rc}=    Execute Command    sudo systemctl status httpd -l    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo cat /var/log/httpd/httpd.log    return_rc=True    return_stdout=True
+    ${output}    ${rc}=    Execute Command    sudo cat /var/log/keystone/keystone.log    return_rc=True    return_stdout=True
 
 Set Admin Token
     [Arguments]    ${os_node_cxn}    ${token}
@@ -113,6 +116,7 @@ Create stackrc
     Append To Local File    /tmp/stackrc    "export OS_AUTH_URL=http://${haproxy_ip}:35357/v3"
     Append To Local File    /tmp/stackrc    "export OS_IDENTITY_API_VERSION=3"
     Append To Local File    /tmp/stackrc    "export OS_IMAGE_API_VERSION=2"
+    Append To Local File    /tmp/stackrc    "unset OS_CLOUD"
 
 Create Project Service
     Create Project    default    "ServiceProject"    service    rc_file=/tmp/stackrc

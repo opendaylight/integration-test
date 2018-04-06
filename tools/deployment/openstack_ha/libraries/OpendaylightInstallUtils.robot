@@ -4,9 +4,9 @@ Library           Collections
 Library           SSHLibrary
 Library           OperatingSystem
 Resource          SystemUtils.robot
-Resource          ../variables/Variables.robot
-Resource          ../variables/netvirt/Variables.robot
-Variables         ../variables/netvirt/Modules.py
+Resource          ../../../../csit/variables/Variables.robot
+Resource          ../../../../csit/variables/netvirt/Variables.robot
+Variables         ../../../../csit/variables/netvirt/Modules.py
 
 *** Keywords ***
 Install Feature as Boot

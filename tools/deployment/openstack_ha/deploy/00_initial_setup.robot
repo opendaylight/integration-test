@@ -20,17 +20,17 @@ Stop Firewall
     Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Stop And Disable Firewall    ${OS_COMPUTE_1_IP}
     Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Stop And Disable Firewall    ${OS_COMPUTE_2_IP}
 
-Create Etc Hosts Entries
-    [Documentation]    Create Etc Hosts Entries
-    Create Etc Hosts    ${OS_CONTROL_1_IP}
-    Run Keyword If    1 < ${NUM_CONTROL_NODES}    Create Etc Hosts    ${OS_CONTROL_2_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create Etc Hosts    ${OS_CONTROL_3_IP}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Create Etc Hosts    ${OS_CONTROL_4_IP}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Create Etc Hosts    ${OS_CONTROL_5_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create Etc Hosts    ${HAPROXY_IP}
-    Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Create Etc Hosts    ${OS_COMPUTE_1_IP}
-    Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Create Etc Hosts    ${OS_COMPUTE_2_IP}
-    Create Etc Hosts In RobotVM
+#Create Etc Hosts Entries
+#    [Documentation]    Create Etc Hosts Entries
+#    Create Etc Hosts    ${OS_CONTROL_1_IP}
+#    Run Keyword If    1 < ${NUM_CONTROL_NODES}    Create Etc Hosts    ${OS_CONTROL_2_IP}
+#    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create Etc Hosts    ${OS_CONTROL_3_IP}
+#    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Create Etc Hosts    ${OS_CONTROL_4_IP}
+#    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Create Etc Hosts    ${OS_CONTROL_5_IP}
+#    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create Etc Hosts    ${HAPROXY_IP}
+#    Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Create Etc Hosts    ${OS_COMPUTE_1_IP}
+#    Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Create Etc Hosts    ${OS_COMPUTE_2_IP}
+#    Create Etc Hosts In RobotVM
 
 Update the Distro
     [Documentation]    Always Better to run yum update first :-)
