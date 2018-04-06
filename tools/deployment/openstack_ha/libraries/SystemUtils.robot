@@ -3,7 +3,7 @@ Documentation     Library to use common Linux Commands and also some configurati
 Library           Collections
 Library           SSHLibrary
 Library           OperatingSystem
-Resource          SSHKeywords.robot
+Resource          ../../../../csit/libraries/SSHKeywords.robot
 
 *** Keywords ***
 Install Rpm Package
@@ -205,7 +205,7 @@ Rsync Directory
     [Arguments]    ${os_node_cxn}    ${dst_node_ip}    ${src_dir}    ${dst_dir}
     Switch Connection    ${os_node_cxn}
     Write Commands Until Expected Prompt    sudo rsync -e "ssh -o StrictHostKeyChecking=no" -avz ${src_dir} ${dst_node_ip}:${dst_dir}    d:    30s
-    Write Commands Until Expected Prompt    ${OS_USER_PASSWORD}    ${OS_NODE_PROMPT}    30s
+    Write Commands Until Expected Prompt    ${OS_USER_PASSWORD}    ']>'    30s
 
 Grant Privileges To Mysql Database
     [Arguments]    ${os_node_cxn}    ${mysql_user}    ${mysql_pass}    ${db_name}    ${db_user}    ${host_name}
@@ -306,7 +306,7 @@ Run Command In Local Node
     Should Not Be True    ${rc}
 
 Generic HAProxy Entry
-    [Arguments]    ${os_node_cxn}    ${haproxy_ip}    ${port_to_listen}    ${proxy_entry}
+    [Arguments]    ${os_node_cxn}    ${haproxy_ip}    ${port_to_listen}    ${proxy_entry}    ${application_port}      ${node1}       ${node2}      ${node3}
     [Documentation]    Add an entry in haproxy.cfg for the service
     Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    ' '
     Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    frontend vip-${proxy_entry}
@@ -316,11 +316,9 @@ Generic HAProxy Entry
     Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    ' '
     Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    backend ${proxy_entry}
     Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    ' 'balance roundrobin
-    Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    ' 'server ${proxy_entry}_controller1 ${OS_CONTROL_1_IP}:${port_to_listen} check inter 1s
-    Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    ' 'server ${proxy_entry}_controller2 ${OS_CONTROL_2_IP}:${port_to_listen} check inter 1s
-    Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    ' 'server ${proxy_entry}_controller3 ${OS_CONTROL_3_IP}:${port_to_listen} check inter 1s
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    ' 'server ${proxy_entry}_controller4 ${OS_CONTROL_4_IP}:${port_to_listen} check inter 1s
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    ' 'server ${proxy_entry}_controller5 ${OS_CONTROL_5_IP}:${port_to_listen} check inter 1s
+    Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    ' 'server ${proxy_entry}_controller1 ${node1}:${application_port} check inter 1s
+    Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    ' 'server ${proxy_entry}_controller2 ${node2}:${application_port} check inter 1s
+    Append To File    ${os_node_cxn}    /etc/haproxy/haproxy.cfg    ' 'server ${proxy_entry}_controller3 ${node3}:${application_port} check inter 1s
     Restart Service    ${os_node_cxn}    haproxy
 
 Cat File
@@ -340,7 +338,7 @@ Disable SeLinux Tempororily
 
 Get Ssh Connection
     [Arguments]    ${os_ip}    ${os_user}    ${os_password}    ${prompt}
-    ${conn_id}=    SSHLibrary.Open Connection    ${os_ip}    prompt=${prompt}    timeout=1 hour    alias=${os_ip}
+    ${conn_id}=    SSHLibrary.Open Connection    ${os_ip}        timeout=1 hour    alias=${os_ip}
     SSHKeywords.Flexible SSH Login    ${os_user}    password=${os_password}
     SSHLibrary.Set Client Configuration    timeout=1 hour
     [Return]    ${conn_id}

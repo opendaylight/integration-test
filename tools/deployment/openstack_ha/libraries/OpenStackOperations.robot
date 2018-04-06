@@ -5,17 +5,17 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
-Resource          DataModels.robot
-Resource          DevstackUtils.robot
-Resource          L2GatewayOperations.robot
-Resource          OVSDB.robot
-Resource          SetupUtils.robot
-Resource          SSHKeywords.robot
-Resource          Tcpdump.robot
-Resource          Utils.robot
-Resource          ../variables/Variables.robot
-Resource          ../variables/netvirt/Variables.robot
-Variables         ../variables/netvirt/Modules.py
+Resource          ../../../../csit/libraries/DataModels.robot
+Resource          ../../../../csit/libraries/DevstackUtils.robot
+Resource          ../../../../csit/libraries/L2GatewayOperations.robot
+Resource          ../../../../csit/libraries/OVSDB.robot
+Resource          ../../../../csit/libraries/SetupUtils.robot
+Resource          ../../../../csit/libraries/SSHKeywords.robot
+Resource          ../../../../csit/libraries/Tcpdump.robot
+Resource          ../../../../csit/libraries/Utils.robot
+Resource          ../../../../csit/variables/Variables.robot
+Resource          ../../../../csit/variables/netvirt/Variables.robot
+Variables         ../../../../csit/variables/netvirt/Modules.py
 
 *** Keywords ***
 Get Tenant ID From Security Group

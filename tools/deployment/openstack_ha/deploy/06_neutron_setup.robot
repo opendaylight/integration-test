@@ -12,39 +12,25 @@ Resource          ../libraries/Utils.robot
 
 *** Test Cases ***
 Install Neutron
-    Create And Configure Neutron Db    ${OS_CONTROL_1_IP}    root    mysql    ${OS_CONTROL_1_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create And Configure Neutron Db Other Nodes    ${OS_CONTROL_2_IP}    root    mysql    ${OS_CONTROL_2_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create And Configure Neutron Db Other Nodes    ${OS_CONTROL_3_IP}    root    mysql    ${OS_CONTROL_3_HOSTNAME}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Create And Configure Neutron Db Other Nodes    ${OS_CONTROL_4_IP}    root    mysql    ${OS_CONTROL_4_HOSTNAME}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Create And Configure Neutron Db Other Nodes    ${OS_CONTROL_5_IP}    root    mysql    ${OS_CONTROL_5_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Create Openstack Elements    ${HAPROXY_HOSTNAME}
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Create Openstack Elements    ${OS_CONTROL_1_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Install Configure Neutron    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_IP}    ${HAPROXY_HOSTNAME}
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Install Configure Neutron    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Install Configure Neutron    ${OS_CONTROL_2_IP}    ${OS_CONTROL_2_IP}    ${HAPROXY_HOSTNAME}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Install Configure Neutron    ${OS_CONTROL_3_IP}    ${OS_CONTROL_3_IP}    ${HAPROXY_HOSTNAME}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Install Configure Neutron    ${OS_CONTROL_4_IP}    ${OS_CONTROL_3_IP}    ${HAPROXY_HOSTNAME}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Install Configure Neutron    ${OS_CONTROL_5_IP}    ${OS_CONTROL_3_IP}    ${HAPROXY_HOSTNAME}
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Sync Db    ${OS_CONTROL_1_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Sync Db    ${OS_CONTROL_1_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Sync Db    ${OS_CONTROL_2_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Sync Db    ${OS_CONTROL_3_IP}
-    Run Keyword If    3 < ${NUM_CONTROL_NODES}    Sync Db    ${OS_CONTROL_4_IP}
-    Run Keyword If    4 < ${NUM_CONTROL_NODES}    Sync Db    ${OS_CONTROL_5_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Generic HAProxy Entry    ${HAPROXY_IP}    ${HAPROXY_IP}    9696    neutron_server
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Add ODL As Ovs Manager    ${OS_CONTROL_1_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Add ODL As Ovs Manager    ${OS_CONTROL_1_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Add ODL As Ovs Manager    ${OS_CONTROL_2_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Add ODL As Ovs Manager    ${OS_CONTROL_3_IP}
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Start Neutron Service    ${OS_CONTROL_1_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Start Neutron Service    ${OS_CONTROL_1_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Start Neutron Service    ${OS_CONTROL_2_IP}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Start Neutron Service    ${OS_CONTROL_3_IP}
-    Run Keyword If    1 > ${NUM_COMPUTE_NODES}    Install Configure Neutron Compute    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_IP}    ${OS_CONTROL_1_IP}
-    Run Keyword If    0 < ${NUM_COMPUTE_NODES} and 2 < ${NUM_CONTROL_NODES}    Install Configure Neutron Compute    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_1_IP}    ${HAPROXY_HOSTNAME}
-    Run Keyword If    1 < ${NUM_COMPUTE_NODES} and 2 < ${NUM_CONTROL_NODES}    Install Configure Neutron Compute    ${OS_COMPUTE_2_IP}    ${OS_COMPUTE_2_IP}    ${HAPROXY_HOSTNAME}
-    Run Keyword If    0 < ${NUM_COMPUTE_NODES} and 2 > ${NUM_CONTROL_NODES}    Install Configure Neutron Compute    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_1_IP}    ${OS_CONTROL_1_HOSTNAME}
-    Run Keyword If    1 < ${NUM_COMPUTE_NODES} and 2 > ${NUM_CONTROL_NODES}    Install Configure Neutron Compute    ${OS_COMPUTE_2_IP}    ${OS_COMPUTE_2_IP}    ${OS_CONTROL_1_HOSTNAME}
+    Create And Configure Neutron Db    ${OS_NEUTRON_1_IP}    root    mysql    ${OS_NEUTRON_1_HOSTNAME}
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Create And Configure Neutron Db Other Nodes    ${OS_CONTROL_2_IP}    root    mysql    ${OS_CONTROL_2_HOSTNAME}
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Create And Configure Neutron Db Other Nodes    ${OS_CONTROL_3_IP}    root    mysql    ${OS_CONTROL_3_HOSTNAME}
+    Create Openstack Elements    ${HAPROXY_HOSTNAME}
+    Install Configure Neutron    ${OS_NEUTRON_1_IP}    ${OS_NEUTRON_1_IP}    ${HAPROXY_HOSTNAME}
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Install Configure Neutron    ${OS_NEUTRON_2_IP}    ${OS_NEUTRON_2_IP}    ${HAPROXY_HOSTNAME}
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Install Configure Neutron    ${OS_NEUTRON_3_IP}    ${OS_NEUTRON_3_IP}    ${HAPROXY_HOSTNAME}
+    Sync Db    ${OS_NEUTRON_1_IP}
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Sync Db    ${OS_NEUTRON_2_IP}
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Sync Db    ${OS_NEUTRON_3_IP}
+    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Generic HAProxy Entry    ${HAPROXY_IP}    ${HAPROXY_IP}    9796    neutron_server    9696      ${OS_NEUTRON_1_IP}    ${OS_NEUTRON_2_IP}     ${OS_NEUTRON_3_IP}
+    Add ODL As Ovs Manager    ${OS_NEUTRON_1_IP}
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Add ODL As Ovs Manager    ${OS_NEUTRON_2_IP}
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Add ODL As Ovs Manager    ${OS_NEUTRON_3_IP}
+    Start Neutron Service    ${OS_NEUTRON_1_IP}
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Start Neutron Service    ${OS_NEUTRON_2_IP}
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Start Neutron Service    ${OS_NEUTRON_3_IP}
+    Run Keyword If    0 < ${NUM_COMPUTE_NODES}    Install Configure Neutron Compute    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_1_IP}    ${HAPROXY_HOSTNAME}
+    Run Keyword If    1 < ${NUM_COMPUTE_NODES}    Install Configure Neutron Compute    ${OS_COMPUTE_2_IP}    ${OS_COMPUTE_2_IP}    ${HAPROXY_HOSTNAME}
 
 *** Keywords ***
 Create And Configure Neutron Db
@@ -167,8 +153,6 @@ Install Configure Neutron Compute
     Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    auth_type    password
     Run Keyword If    2 > ${NUM_CONTROL_NODES}    Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    auth_url
     ...    http://${host_name}:35357
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    auth_url
-    ...    http://${HAPROXY_HOSTNAME}:35357
     Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    username    neutron
     Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    password    neutron
     Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    user_domain_name    Default
@@ -176,9 +160,9 @@ Install Configure Neutron Compute
     Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    project_name    service
     Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    auth_strategy    keystone
     Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    region_name    RegionOne
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    url
+    Run Keyword If    2 > ${NUM_NEUTRON_NODES}    Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    url
     ...    http://${host_name}:9696
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    url
+    Run Keyword If    2 < ${NUM_NEUTRON_NODES}    Crudini Edit    ${os_node_cxn}    /etc/nova/nova.conf    neutron    url
     ...    http://${HAPROXY_HOSTNAME}:9696
     Restart Service    ${os_node_cxn}    libvirtd.service openstack-nova-compute.service
     Install OVS And Configure    ${os_node_cxn}    ${host_ip}
@@ -193,5 +177,5 @@ Install OVS And Configure
 
 Add ODL As Ovs Manager
     [Arguments]    ${os_node_cxn}
-    Run Keyword If    2 < ${NUM_CONTROL_NODES}    Run Command    ${os_node_cxn}    sudo ovs-vsctl set-manager tcp:${OS_CONTROL_1_IP}:6640 tcp:${OS_CONTROL_2_IP}:6640 tcp:${OS_CONTROL_3_IP}:6640
-    Run Keyword If    2 > ${NUM_CONTROL_NODES}    Run Command    ${os_node_cxn}    sudo ovs-vsctl set-manager tcp:${OS_CONTROL_1_IP}:6640
+    Run Keyword If    2 < ${NUM_ODL_NODES}    Run Command    ${os_node_cxn}    sudo ovs-vsctl set-manager tcp:${OS_ODL_1_IP}:6640 tcp:${OS_ODL_2_IP}:6640 tcp:${OS_ODL_3_IP}:6640
+    Run Keyword If    2 > ${NUM_ODL_NODES}    Run Command    ${os_node_cxn}    sudo ovs-vsctl set-manager tcp:${OS_ODL_1_IP}:6640
