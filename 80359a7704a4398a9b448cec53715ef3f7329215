@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "1ec1aab4_9f022cbc",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-08T04:36:57Z",
+      "side": 1,
+      "message": "I double checked the sandbox. seems to work right,\nand also put a note in OpenStackOperations.robot to\nmake it more clear. I had to double check myself.",
+      "parentUuid": "75b4de3a_2552a743",
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b69b1cac_1e1290c8",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 27
@@ -184,6 +202,29 @@
         "startChar": 21,
         "endLine": 250,
         "endChar": 28
+      },
+      "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d707df5d_da6da42f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-08T04:36:57Z",
+      "side": 1,
+      "message": "Sam,\n\nhere is why it works. ${test_name} which is percolated\nthrough all those keywords is set here with \n${SUITE_NAME}.${TEST_NAME}",
+      "range": {
+        "startLine": 522,
+        "startChar": 4,
+        "endLine": 522,
+        "endChar": 58
       },
       "revId": "80359a7704a4398a9b448cec53715ef3f7329215",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
