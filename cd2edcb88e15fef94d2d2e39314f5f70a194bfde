@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f230d65a_4a8531ba",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 86
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-08T15:00:19Z",
+      "side": 1,
+      "message": "this should be easy to query when connected. Thought for sure we already had such helper keywords",
+      "revId": "cd2edcb88e15fef94d2d2e39314f5f70a194bfde",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23d8e05c_9fdfd461",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 86
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-08T15:00:19Z",
+      "side": 1,
+      "message": "gt in the habit of adding a space",
+      "revId": "cd2edcb88e15fef94d2d2e39314f5f70a194bfde",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6759e76_2a2accf3",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 86
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-08T15:00:19Z",
+      "side": 1,
+      "message": "change to output? seems more like other usages.",
+      "range": {
+        "startLine": 30,
+        "startChar": 11,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "cd2edcb88e15fef94d2d2e39314f5f70a194bfde",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a835dd9_840ee88a",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 86
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-08T15:00:19Z",
+      "side": 1,
+      "message": "maybe wrap all this in a keyword and loop over that keyword.",
+      "revId": "cd2edcb88e15fef94d2d2e39314f5f70a194bfde",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "753c5ba1_4bfb6152",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 86
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-08T15:00:19Z",
+      "side": 1,
+      "message": "fully qualify this and all other keywords",
+      "revId": "cd2edcb88e15fef94d2d2e39314f5f70a194bfde",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0c0946d_c797ad42",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 86
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-08T15:00:19Z",
+      "side": 1,
+      "message": "where is this defined? Should make it all caps if possible, unless this is already defined and we can change in a different patch",
+      "range": {
+        "startLine": 47,
+        "startChar": 29,
+        "endLine": 47,
+        "endChar": 38
+      },
+      "revId": "cd2edcb88e15fef94d2d2e39314f5f70a194bfde",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "289da5e7_e7cc44f4",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 86
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-08T15:00:19Z",
+      "side": 1,
+      "message": "this is usually in a suite setup",
+      "range": {
+        "startLine": 48,
+        "startChar": 18,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "cd2edcb88e15fef94d2d2e39314f5f70a194bfde",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8602d40a_70a9966c",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 86
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-08T15:00:19Z",
+      "side": 1,
+      "message": "is this a full pull every time? If so we should find a way to keep this local or maybe have it already built into the image.",
+      "revId": "cd2edcb88e15fef94d2d2e39314f5f70a194bfde",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da79c3c6_9b662fc0",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 86
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-08T15:00:19Z",
+      "side": 1,
+      "message": "better to have a docker exec or whatever to poll the container and know when it is ready",
+      "revId": "cd2edcb88e15fef94d2d2e39314f5f70a194bfde",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
