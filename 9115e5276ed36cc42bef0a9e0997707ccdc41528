@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "72b955b4_bf436a0d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-09T17:35:16Z",
+      "side": 1,
+      "message": "I\u0027m referring to ${compute_ip} not ${count}.\n\nif this keyword has trouble (e.g. the ping fails, or ${count}\nis always !\u003d 0, then ${compute_ip} is not going to get \nset and who knows what this keyword is going to return.",
+      "parentUuid": "40396ab4_7ca4ccb9",
+      "range": {
+        "startLine": 1095,
+        "startChar": 23,
+        "endLine": 1095,
+        "endChar": 269
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd13af56_56a840ee",
         "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
         "patchSetId": 61
