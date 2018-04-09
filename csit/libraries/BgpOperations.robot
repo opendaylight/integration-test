@@ -4,6 +4,7 @@ Library           SSHLibrary
 Resource          Utils.robot
 Resource          ../variables/Variables.robot
 Resource          TemplatedRequests.robot
+Resource          KillPythonTool.robot
 
 *** Variables ***
 ${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
