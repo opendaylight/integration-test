@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "fccd747f_efdc3819",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-09T17:28:55Z",
+      "side": 1,
+      "message": "see here:\n\nhttps://git.opendaylight.org/gerrit/#/c/69555/3/csit/suites/netvirt/elan/elan_bundle_resync.robot@177",
+      "parentUuid": "46caf949_764b324e",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 55
+      },
+      "revId": "ef07a5fb171f57236c21f6416a8ff6012af56412",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57f0a91d_bc762512",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 21
