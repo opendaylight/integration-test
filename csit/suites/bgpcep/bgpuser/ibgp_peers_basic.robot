@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Basic tests for iBGP peers.
 ...
-...               Copyright (c) 2015-2016 Cisco Systems, Inc. and others. All rights reserved.
+...               Copyright (c) 2015-2018 Cisco Systems, Inc. and others. All rights reserved.
 ...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -19,11 +19,13 @@ Documentation     Basic tests for iBGP peers.
 ...               Test Case 3: Two iBGP RR non-client peers introduce prefixes
 ...               Expected result: controller does not forward any update towards peers
 ...
+...               Test Case 4: Two iBGP RR-client peers configured with route-reflector-cluster-id.
+...               Each of them introduces prefixes.
+...               Expected result: controller forwards updates towards both peers and each of the
+...               routes contains their respective cluster-ids.
+...
 ...               For polices see: https://wiki.opendaylight.org/view/BGP_LS_PCEP:BGP
 ...
-...               Covered bugs:
-...               Bug 4791 - BGPSessionImpl: Failed to send message Update logged even all UPDATE mesages received by iBGP peer
-...               Bug 4819 - No routes advertised to one of newly configured iBGP RR-client peer
 Suite Setup       Setup_Everything
 Suite Teardown    BgpOperations.Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -31,18 +33,15 @@ Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           DateTime
-Variables         ${CURDIR}/../../../variables/Variables.py
-Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
-Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
-Resource          ${CURDIR}/../../../libraries/BgpOperations.robot
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
-Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
+Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
+Resource          ../../../variables/Variables.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/BgpOperations.robot
+Resource          ../../../libraries/FailFast.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
@@ -93,55 +92,52 @@ TC1_Connect_BGP_Peer1
     [Documentation]    Connect BGP peer
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
-    Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
+    BGPCliKeywords.Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC1_Connect_BGP_Peer2
     [Documentation]    Connect BGP peer
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
-    Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
+    BGPCliKeywords.Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC1_BGP_Peer1_Check_Log_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    nlri_prefix_received:    ${BGP_PEER2_PREFIX_COUNT}
-    Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    nlri_prefix_received: ${BGP_PEER2_FIRST_PREFIX_IP}/${BGP_PEER2_PREFIX_LEN}    1
-    Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    withdrawn_prefix_received:    0
-    [Teardown]    Report_Failure_Due_To_Bug    4819
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    nlri_prefix_received:    ${BGP_PEER2_PREFIX_COUNT}
+    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    nlri_prefix_received: ${BGP_PEER2_FIRST_PREFIX_IP}/${BGP_PEER2_PREFIX_LEN}    1
+    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    withdrawn_prefix_received:    0
 
 TC1_BGP_Peer2_Check_Log_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    nlri_prefix_received:    ${BGP_PEER1_PREFIX_COUNT}
-    Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    nlri_prefix_received: ${BGP_PEER1_FIRST_PREFIX_IP}/${BGP_PEER1_PREFIX_LEN}    1
-    Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received:    0
-    [Teardown]    Report_Failure_Due_To_Bug    4819
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    nlri_prefix_received:    ${BGP_PEER1_PREFIX_COUNT}
+    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    nlri_prefix_received: ${BGP_PEER1_FIRST_PREFIX_IP}/${BGP_PEER1_PREFIX_LEN}    1
+    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received:    0
 
 TC1_Disconnect_BGP_Peer1
     [Documentation]    Stop BGP peer & store logs
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
-    Stop_Console_Tool
-    Store_File_To_Workspace    ${BGP_PEER1_LOG_FILE}    tc1_${BGP_PEER1_LOG_FILE}
+    BGPCliKeywords.Stop_Console_Tool
+    BGPCliKeywords.Store_File_To_Workspace    ${BGP_PEER1_LOG_FILE}    tc1_${BGP_PEER1_LOG_FILE}
 
 TC1_BGP_Peer2_Check_Log_For_Withdrawn_Prefixes
     [Documentation]    Check incomming updates for withdrawn routes
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received:    ${BGP_PEER1_PREFIX_COUNT}
-    Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received: ${BGP_PEER1_FIRST_PREFIX_IP}/${BGP_PEER1_PREFIX_LEN}    1
-    [Teardown]    Report_Failure_Due_To_Bug    4819
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received:    ${BGP_PEER1_PREFIX_COUNT}
+    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received: ${BGP_PEER1_FIRST_PREFIX_IP}/${BGP_PEER1_PREFIX_LEN}    1
 
 TC1_Disconnect_BGP_Peer2
     [Documentation]    Stop BGP peer & store logs
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
-    Stop_Console_Tool
-    Store_File_To_Workspace    ${BGP_PEER2_LOG_FILE}    tc1_${BGP_PEER2_LOG_FILE}
+    BGPCliKeywords.Stop_Console_Tool
+    BGPCliKeywords.Store_File_To_Workspace    ${BGP_PEER2_LOG_FILE}    tc1_${BGP_PEER2_LOG_FILE}
 
 TC_1_Check_for_Empty_IPv4_Topology
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix
@@ -170,53 +166,52 @@ TC2_Connect_BGP_Peer1
     [Documentation]    Connect BGP peer
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
-    Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
+    BGPCliKeywords.Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC2_Connect_BGP_Peer2
     [Documentation]    Connect BGP peer
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
-    Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
+    BGPCliKeywords.Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC2_BGP_Peer1_Check_Log_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    nlri_prefix_received:    ${BGP_PEER2_PREFIX_COUNT}
-    Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    nlri_prefix_received: ${BGP_PEER2_FIRST_PREFIX_IP}/${BGP_PEER2_PREFIX_LEN}    1
-    Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    withdrawn_prefix_received:    0
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    nlri_prefix_received:    ${BGP_PEER2_PREFIX_COUNT}
+    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    nlri_prefix_received: ${BGP_PEER2_FIRST_PREFIX_IP}/${BGP_PEER2_PREFIX_LEN}    1
+    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    withdrawn_prefix_received:    0
 
 TC2_BGP_Peer2_Check_Log_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    nlri_prefix_received:    ${BGP_PEER1_PREFIX_COUNT}
-    Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    nlri_prefix_received: ${BGP_PEER1_FIRST_PREFIX_IP}/${BGP_PEER1_PREFIX_LEN}    1
-    Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received:    0
-    [Teardown]    Report_Failure_Due_To_Bug    4791
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    nlri_prefix_received:    ${BGP_PEER1_PREFIX_COUNT}
+    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    nlri_prefix_received: ${BGP_PEER1_FIRST_PREFIX_IP}/${BGP_PEER1_PREFIX_LEN}    1
+    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received:    0
 
 TC2_Disconnect_BGP_Peer1
     [Documentation]    Stop BGP peer & store logs
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
-    Stop_Console_Tool
-    Store_File_To_Workspace    ${BGP_PEER1_LOG_FILE}    tc2_${BGP_PEER1_LOG_FILE}
+    BGPCliKeywords.Stop_Console_Tool
+    BGPCliKeywords.Store_File_To_Workspace    ${BGP_PEER1_LOG_FILE}    tc2_${BGP_PEER1_LOG_FILE}
 
 TC2_BGP_Peer2_Check_Log_For_Withdrawn_Prefixes
     [Documentation]    Check incomming updates for withdrawn routes
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received:    ${BGP_PEER1_PREFIX_COUNT}
-    Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received: ${BGP_PEER1_FIRST_PREFIX_IP}/${BGP_PEER1_PREFIX_LEN}    1
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received:    ${BGP_PEER1_PREFIX_COUNT}
+    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    withdrawn_prefix_received: ${BGP_PEER1_FIRST_PREFIX_IP}/${BGP_PEER1_PREFIX_LEN}    1
 
 TC2_Disconnect_BGP_Peer2
     [Documentation]    Stop BGP peer & store logs
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
-    Stop_Console_Tool
-    Store_File_To_Workspace    ${BGP_PEER2_LOG_FILE}    tc2_${BGP_PEER2_LOG_FILE}
+    BGPCliKeywords.Stop_Console_Tool
+    BGPCliKeywords.Store_File_To_Workspace    ${BGP_PEER2_LOG_FILE}    tc2_${BGP_PEER2_LOG_FILE}
 
 TC_2_Check_for_Empty_IPv4_Topology
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix
@@ -245,42 +240,42 @@ TC3_Connect_BGP_Peer1
     [Documentation]    Connect BGP peer
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
-    Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
+    BGPCliKeywords.Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC3_Connect_BGP_Peer2
     [Documentation]    Connect BGP peer
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
-    Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
+    BGPCliKeywords.Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC3_BGP_Peer1_Check_Log_For_No_Updates
     [Documentation]    Check for no updates received by iBGP peer No. 1
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    total_received_update_message_counter: 0    2
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_LOG_CHECK_TIMEOUT}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER1_LOG_FILE}    total_received_update_message_counter: 0    2
 
 TC3_Disconnect_BGP_Peer1
     [Documentation]    Stop BGP peer & store logs
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
-    Stop_Console_Tool
-    Store_File_To_Workspace    ${BGP_PEER1_LOG_FILE}    tc3_${BGP_PEER1_LOG_FILE}
+    BGPCliKeywords.Stop_Console_Tool
+    BGPCliKeywords.Store_File_To_Workspace    ${BGP_PEER1_LOG_FILE}    tc3_${BGP_PEER1_LOG_FILE}
 
 TC3_BGP_Peer2_Check_Log_For_No_Updates
     [Documentation]    Consequent check for no updates received by iBGP peer No. 2
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
     ${log_check_timeout}=    DateTime.Convert_Time    ${DEFAULT_LOG_CHECK_TIMEOUT}    result_format=number
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${log_check_timeout*2}    ${DEFAULT_LOG_CHECK_PERIOD}    Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    total_received_update_message_counter: 0    4
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${log_check_timeout*2}    ${DEFAULT_LOG_CHECK_PERIOD}    BGPCliKeywords.Check_File_For_Word_Count    ${BGP_PEER2_LOG_FILE}    total_received_update_message_counter: 0    4
 
 TC3_Disconnect_BGP_Peer2
     [Documentation]    Stop BGP peer & store logs
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
-    Stop_Console_Tool
-    Store_File_To_Workspace    ${BGP_PEER2_LOG_FILE}    tc3_${BGP_PEER2_LOG_FILE}
+    BGPCliKeywords.Stop_Console_Tool
+    BGPCliKeywords.Store_File_To_Workspace    ${BGP_PEER2_LOG_FILE}    tc3_${BGP_PEER2_LOG_FILE}
 
 TC_3_Check_for_Empty_IPv4_Topology
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix
@@ -292,6 +287,68 @@ TC3_Delete_BGP_Peers_Configuration
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}    session=${CONFIG_SESSION}
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer2    IP=${BGP_PEER2_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}    session=${CONFIG_SESSION}
+
+TC4_Configure_Two_iBGP_RR_Clients_With_Cluster_Id
+    [Documentation]    Configure two iBGP peers as routing reflector clients with cluster-id argument.
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${BGP_PEER1_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    RR_CLIENT=true
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}cluster_id/ibgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${BGP_PEER1_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    RR_CLIENT=true
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}cluster_id/ibgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+
+TC4_Connect_BGP_Peers
+    [Documentation]    Connect BGP peer
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution
+    BuiltIn.Set_Suite_Variable    ${PREFIX_COUNT}    1
+    SSHLibrary.Switch Connection    bgp_peer1_console
+    BGPCliKeywords.Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
+    SSHLibrary.Switch Connection    bgp_peer2_console
+    BGPCliKeywords.Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
+
+TC4_BGP_Peer1_Check_Log_For_Introduced_Prefixes
+    [Documentation]    Check incomming updates for new routes
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${BGP_PEER1_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}cluster_id/peer_rib_out    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
+
+TC4_BGP_Peer2_Check_Log_For_Introduced_Prefixes
+    [Documentation]    Check incomming updates for new routes
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${BGP_PEER2_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}cluster_id/peer_rib_out    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
+
+TC4_Disconnect_BGP_Peer1
+    [Documentation]    Stop BGP peer & store logs
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution
+    SSHLibrary.Switch Connection    bgp_peer1_console
+    BGPCliKeywords.Stop_Console_Tool
+    BGPCliKeywords.Store_File_To_Workspace    ${BGP_PEER1_LOG_FILE}    tc4_${BGP_PEER1_LOG_FILE}
+    SSHLibrary.Switch Connection    bgp_peer2_console
+    BGPCliKeywords.Stop_Console_Tool
+    BGPCliKeywords.Store_File_To_Workspace    ${BGP_PEER2_LOG_FILE}    tc4_${BGP_PEER2_LOG_FILE}
+
+TC4_Check_for_Empty_IPv4_Topology
+    [Documentation]    Checks for empty topology after
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix
+
+TC4_Delete_BGP_Peers_Configuration
+    [Documentation]    Delete all previously configured BGP peers.
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${BGP_PEER1_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}cluster_id/ibgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${BGP_PEER2_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}cluster_id/ibgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
 Setup_Everything
