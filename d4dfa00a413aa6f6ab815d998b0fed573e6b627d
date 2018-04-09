@@ -16,6 +16,24 @@
       "revId": "d4dfa00a413aa6f6ab815d998b0fed573e6b627d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "947bb54f_a24cad51",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-09T14:00:57Z",
+      "side": 1,
+      "message": "Have addressed  all the comments and uploaded the patch",
+      "parentUuid": "972b514e_dd2c449b",
+      "revId": "d4dfa00a413aa6f6ab815d998b0fed573e6b627d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
