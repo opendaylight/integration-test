@@ -59,6 +59,13 @@ VPN Get L3VPN ID
     ${vpn_id_hex} =    BuiltIn.Convert To Hex    ${result}
     [Return]    ${vpn_id_hex.lower()}
 
+Verify L3VPN On ODL
+    [Arguments]    @{vpns}
+    [Documentation]    To verify L3VPN on ODL for given vpn ids
+    : FOR    ${vpn}    IN    @{vpns}
+    \    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${vpn}
+    \    BuiltIn.Should Contain    ${resp}    ${vpn}
+
 Associate L3VPN To Network
     [Arguments]    &{Kwargs}
     [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
