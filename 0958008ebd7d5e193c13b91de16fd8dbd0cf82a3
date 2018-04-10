@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d39de7ae_b2ecd99b",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-04-10T18:17:01Z",
+      "side": 1,
+      "message": "Is it possible to add the library (e.g. String) for these KWs?",
+      "revId": "0958008ebd7d5e193c13b91de16fd8dbd0cf82a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
