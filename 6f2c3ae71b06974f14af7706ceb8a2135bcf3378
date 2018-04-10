@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3ee44da_16b01697",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-04-10T07:42:57Z",
+      "side": 1,
+      "message": "I think, this keyword just collects the value and not check. If ys can we modify the comment?",
+      "revId": "6f2c3ae71b06974f14af7706ceb8a2135bcf3378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
