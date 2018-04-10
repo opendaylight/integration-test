@@ -79,6 +79,15 @@ Check_Karaf_Log_Has_Messages
     \    BuiltIn.Should_Contain    ${output}    ${message}
     [Return]    ${output}
 
+Check_Karaf_Log_Message_Count
+    [Arguments]    ${message}    ${count}
+    [Documentation]    Verifies that the ${message} exists in the karaf.log, and checks
+    ...    that it appears ${count} number of times.
+    ${output} =    Issue_Command_On_Karaf_Console    log:display | grep ${message} | wc -l
+    ${line} =    Get Line    ${output}    0
+    ${stripped} =    Strip String    ${line}
+    Should Be Equal As Strings   ${stripped}    ${count}
+
 Install_A_Feature
     [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=180
     [Documentation]    Will Install the given ${feature_name}
