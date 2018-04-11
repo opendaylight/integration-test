@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "b0aa32c5_2db3e691",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:46:34Z",
+      "side": 1,
+      "message": "check the path once again",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 71
+      },
+      "revId": "229a348be521431b90805c9e14e477710e5001b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2014ab3_f09b32c7",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:46:34Z",
+      "side": 1,
+      "message": "check in variables.robot and try to resue",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 26
+      },
+      "revId": "229a348be521431b90805c9e14e477710e5001b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b78457aa_b364da6d",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 6
@@ -13,6 +59,86 @@
       "writtenOn": "2018-04-11T06:35:04Z",
       "side": 1,
       "message": "remove commented out lines",
+      "revId": "229a348be521431b90805c9e14e477710e5001b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32e87c70_e0d24b48",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:46:34Z",
+      "side": 1,
+      "message": "use the existing keyword",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 27
+      },
+      "revId": "229a348be521431b90805c9e14e477710e5001b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f87acf1_3d2f946a",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:46:34Z",
+      "side": 1,
+      "message": "you can make it single line and try to use existing keyword",
+      "revId": "229a348be521431b90805c9e14e477710e5001b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07943d7a_1050a20b",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:46:34Z",
+      "side": 1,
+      "message": "import external resource",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 32
+      },
+      "revId": "229a348be521431b90805c9e14e477710e5001b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3329ba9_ef0e7571",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:46:34Z",
+      "side": 1,
+      "message": "documentation",
       "revId": "229a348be521431b90805c9e14e477710e5001b8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
