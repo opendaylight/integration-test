@@ -1,4 +1,5 @@
   <ipv4-route xmlns="urn:opendaylight:params:xml:ns:yang:bgp-inet">
+   <route-key>1.1.1.1/32</route-key>
    <prefix>1.1.1.1/32</prefix>
    <path-id>$PATHID</path-id>
    <attributes>
