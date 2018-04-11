@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6e3fcde_a76e8510",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-11T11:55:55Z",
+      "side": 1,
+      "message": "Use the for with out the underscores. Seems like more users use it that way, though both are in use right now. We can clean that up to be consistent later.\n\nAlso qualify it with KarafKeywords. Need to include it above as a Resource and keep them in alpha order.",
+      "range": {
+        "startLine": 1008,
+        "startChar": 9,
+        "endLine": 1008,
+        "endChar": 39
+      },
+      "revId": "7def05b0d04a2c7adf7606dd7bb9a16afd0a6fdc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
