@@ -22,6 +22,30 @@
       "revId": "7def05b0d04a2c7adf7606dd7bb9a16afd0a6fdc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b2c7650_84a4e24b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-11T21:11:03Z",
+      "side": 1,
+      "message": "spaces or underscores is pain in my a$$\n\nI don\u0027t care, but others sure seem to care one way or the other. I updated to use spaces. hopefully Vratko wont come\nyelling at me :)",
+      "parentUuid": "c6e3fcde_a76e8510",
+      "range": {
+        "startLine": 1008,
+        "startChar": 9,
+        "endLine": 1008,
+        "endChar": 39
+      },
+      "revId": "7def05b0d04a2c7adf7606dd7bb9a16afd0a6fdc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
