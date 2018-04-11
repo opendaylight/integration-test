@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "b78457aa_b364da6d",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-11T06:35:04Z",
+      "side": 1,
+      "message": "remove commented out lines",
+      "revId": "229a348be521431b90805c9e14e477710e5001b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "194fe8cf_cae893fd",
         "filename": "csit/variables/netvirt/Modules.py",
         "patchSetId": 6
