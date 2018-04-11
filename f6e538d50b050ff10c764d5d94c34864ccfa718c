@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e79ec3f2_87f85418",
+        "filename": "csit/suites/openflowplugin/Flows_Additional_TCs/Stat_Manager_extended/010_SM_add_upd_del_flows.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-11T18:52:36Z",
+      "side": 1,
+      "message": "no big deal, but changing this to a python builtin variable\nTrue, you are losing the ability to use -v check_id:False\non the pybot command line. not that it was ever used that\nway. merging the patch, just fyi.",
+      "range": {
+        "startLine": 48,
+        "startChar": 48,
+        "endLine": 48,
+        "endChar": 55
+      },
+      "revId": "f6e538d50b050ff10c764d5d94c34864ccfa718c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
