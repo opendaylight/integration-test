@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "2f99dea9_0001bb33",
+        "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-11T07:10:15Z",
+      "side": 1,
+      "message": "Have added the API in KarafKeywords.robot and raised a patch for the same - https://git.opendaylight.org/gerrit/#/c/70714/\nModified the script accordingly.",
+      "parentUuid": "fccd747f_efdc3819",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 55
+      },
+      "revId": "ef07a5fb171f57236c21f6416a8ff6012af56412",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57f0a91d_bc762512",
         "filename": "csit/suites/openflowplugin/Bundlebased_Reconciliation/010_bundle_resync.robot",
         "patchSetId": 21
