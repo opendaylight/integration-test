@@ -22,6 +22,30 @@
       "revId": "f6e538d50b050ff10c764d5d94c34864ccfa718c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "833b77eb_e5ad3ddb",
+        "filename": "csit/suites/openflowplugin/Flows_Additional_TCs/Stat_Manager_extended/010_SM_add_upd_del_flows.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-04-11T23:55:31Z",
+      "side": 1,
+      "message": "The variable was used a while back when an older version of ODL did not support proper id matching for some flows, this workaround is hopefully no more required.",
+      "parentUuid": "e79ec3f2_87f85418",
+      "range": {
+        "startLine": 48,
+        "startChar": 48,
+        "endLine": 48,
+        "endChar": 55
+      },
+      "revId": "f6e538d50b050ff10c764d5d94c34864ccfa718c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
