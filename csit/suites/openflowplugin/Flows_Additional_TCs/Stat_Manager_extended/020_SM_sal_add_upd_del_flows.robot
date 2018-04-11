@@ -520,5 +520,6 @@ Test Is Flow 220 Deleted
 Initialization Phase
     [Documentation]    Initiate tcp connection with controller
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    BuiltIn.Wait Until Keyword Succeeds    5x    1s    FlowLib.Check Switches In Inventory    ${1}
     Write    dpctl dump-flows -O OpenFlow13
     Read Until    mininet>
