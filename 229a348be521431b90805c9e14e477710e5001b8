@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "194fe8cf_cae893fd",
+        "filename": "csit/variables/netvirt/Modules.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-11T06:33:24Z",
+      "side": 1,
+      "message": "It should be the other way around. coe\u0027s Modules.py should include this one. and what is this path hard-coded here? /home/mininet????",
+      "revId": "229a348be521431b90805c9e14e477710e5001b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
