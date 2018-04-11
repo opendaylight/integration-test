@@ -45,175 +45,175 @@ Test Add Flows Group 0
     Read Until    mininet>
 
 Test Is Flow 1 Added
-    f1.xml    ${True}    ${True}    ${False}    ${check_id}
+    f1.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 2 Added
-    f2.xml    ${True}    ${True}    ${False}    ${check_id}
+    f2.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 3 Added
-    f3.xml    ${True}    ${True}    ${False}    ${check_id}
+    f3.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 4 Added
-    f4.xml    ${True}    ${True}    ${False}    ${check_id}
+    f4.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 5 Added
-    f5.xml    ${True}    ${True}    ${False}    ${check_id}
+    f5.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 6 Added
-    f6.xml    ${True}    ${True}    ${False}    ${check_id}
+    f6.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 7 Added
-    f7.xml    ${True}    ${True}    ${False}    ${check_id}
+    f7.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 8 Added
-    f8.xml    ${True}    ${True}    ${False}    ${check_id}
+    f8.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 9 Added
-    f9.xml    ${True}    ${True}    ${False}    ${check_id}
+    f9.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 10 Added
-    f10.xml    ${True}    ${True}    ${False}    ${check_id}
+    f10.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 11 Added
-    f11.xml    ${True}    ${True}    ${False}    ${check_id}
+    f11.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 14 Added
-    f14.xml    ${True}    ${True}    ${False}    ${check_id}
+    f14.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 15 Added
-    f15.xml    ${True}    ${True}    ${False}    ${check_id}
+    f15.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 16 Added
-    f16.xml    ${True}    ${True}    ${False}    ${check_id}
+    f16.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 17 Added
-    f17.xml    ${True}    ${True}    ${False}    ${check_id}
+    f17.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 18 Added
-    f18.xml    ${True}    ${True}    ${False}    ${check_id}
+    f18.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 19 Added
-    f19.xml    ${True}    ${True}    ${False}    ${check_id}
+    f19.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 20 Added
-    f20.xml    ${True}    ${True}    ${False}    ${check_id}
+    f20.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 21 Added
-    f21.xml    ${True}    ${True}    ${False}    ${check_id}
+    f21.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 22 Added
-    f22.xml    ${True}    ${True}    ${False}    ${check_id}
+    f22.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 23 Added
-    f23.xml    ${True}    ${True}    ${False}    ${check_id}
+    f23.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 24 Added
-    f24.xml    ${True}    ${True}    ${False}    ${check_id}
+    f24.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 25 Added
-    f25.xml    ${True}    ${True}    ${False}    ${check_id}
+    f25.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 31 Added
-    f31.xml    ${True}    ${True}    ${False}    ${check_id}
+    f31.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 36 Added
-    f36.xml    ${True}    ${True}    ${False}    ${check_id}
+    f36.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 38 Added
-    f38.xml    ${True}    ${True}    ${False}    ${check_id}
+    f38.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 43 Added
-    f43.xml    ${True}    ${True}    ${False}    ${check_id}
+    f43.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 45 Added
-    f45.xml    ${True}    ${True}    ${False}    ${check_id}
+    f45.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 101 Added
-    f101.xml    ${True}    ${True}    ${False}    ${check_id}
+    f101.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 102 Added
-    f102.xml    ${True}    ${True}    ${False}    ${check_id}
+    f102.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 103 Added
-    f103.xml    ${True}    ${True}    ${False}    ${check_id}
+    f103.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 104 Added
-    f104.xml    ${True}    ${True}    ${False}    ${check_id}
+    f104.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 105 Added
-    f105.xml    ${True}    ${True}    ${False}    ${check_id}
+    f105.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 106 Added
-    f106.xml    ${True}    ${True}    ${False}    ${check_id}
+    f106.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 107 Added
-    f107.xml    ${True}    ${True}    ${False}    ${check_id}
+    f107.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 108 Added
-    f108.xml    ${True}    ${True}    ${False}    ${check_id}
+    f108.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 109 Added
-    f109.xml    ${True}    ${True}    ${False}    ${check_id}
+    f109.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 110 Added
-    f110.xml    ${True}    ${True}    ${False}    ${check_id}
+    f110.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 113 Added
-    f113.xml    ${True}    ${True}    ${False}    ${check_id}
+    f113.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 156 Added
-    f156.xml    ${True}    ${True}    ${False}    ${check_id}
+    f156.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 201 Added
-    f201.xml    ${True}    ${True}    ${False}    ${check_id}
+    f201.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 202 Added
-    f202.xml    ${True}    ${True}    ${False}    ${check_id}
+    f202.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 203 Added
-    f203.xml    ${True}    ${True}    ${False}    ${check_id}
+    f203.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 204 Added
-    f204.xml    ${True}    ${True}    ${False}    ${check_id}
+    f204.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 205 Added
-    f205.xml    ${True}    ${True}    ${False}    ${check_id}
+    f205.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 206 Added
-    f206.xml    ${True}    ${True}    ${False}    ${check_id}
+    f206.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 209 Added
-    f209.xml    ${True}    ${True}    ${False}    ${check_id}
+    f209.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 214 Added
-    f214.xml    ${True}    ${True}    ${False}    ${check_id}
+    f214.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 218 Added
-    f218.xml    ${True}    ${True}    ${False}    ${check_id}
+    f218.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 219 Added
-    f219.xml    ${True}    ${True}    ${False}    ${check_id}
+    f219.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 220 Added
-    f220.xml    ${True}    ${True}    ${False}    ${check_id}
+    f220.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 221 Added
-    f221.xml    ${True}    ${True}    ${False}    ${check_id}
+    f221.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 222 Added
-    f222.xml    ${True}    ${True}    ${False}    ${check_id}
+    f222.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 223 Added
-    f223.xml    ${True}    ${True}    ${False}    ${check_id}
+    f223.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 224 Added
-    f224.xml    ${True}    ${True}    ${False}    ${check_id}
+    f224.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 225 Added
-    f225.xml    ${True}    ${True}    ${False}    ${check_id}
+    f225.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Is Flow 550 Added
-    f550.xml    ${True}    ${True}    ${False}    ${check_id}
+    f550.xml    ${True}    ${True}    ${False}    ${True}
 
 Test Update Flows Group 0
     [Documentation]    Update all flows and waits for SM to collect data
@@ -229,175 +229,175 @@ Test Update Flows Group 0
     Read Until    mininet>
 
 Test Is Flow 1 Updated
-    f1.xml    ${True}    ${True}    ${True}    ${check_id}
+    f1.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 2 Updated
-    f2.xml    ${True}    ${True}    ${True}    ${check_id}
+    f2.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 3 Updated
-    f3.xml    ${True}    ${True}    ${True}    ${check_id}
+    f3.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 4 Updated
-    f4.xml    ${True}    ${True}    ${True}    ${check_id}
+    f4.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 5 Updated
-    f5.xml    ${True}    ${True}    ${True}    ${check_id}
+    f5.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 6 Updated
-    f6.xml    ${True}    ${True}    ${True}    ${check_id}
+    f6.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 7 Updated
-    f7.xml    ${True}    ${True}    ${True}    ${check_id}
+    f7.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 8 Updated
-    f8.xml    ${True}    ${True}    ${True}    ${check_id}
+    f8.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 9 Updated
-    f9.xml    ${True}    ${True}    ${True}    ${check_id}
+    f9.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 10 Updated
-    f10.xml    ${True}    ${True}    ${True}    ${check_id}
+    f10.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 11 Updated
-    f11.xml    ${True}    ${True}    ${True}    ${check_id}
+    f11.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 14 Updated
-    f14.xml    ${True}    ${True}    ${True}    ${check_id}
+    f14.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 15 Updated
-    f15.xml    ${True}    ${True}    ${True}    ${check_id}
+    f15.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 16 Updated
-    f16.xml    ${True}    ${True}    ${True}    ${check_id}
+    f16.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 17 Updated
-    f17.xml    ${True}    ${True}    ${True}    ${check_id}
+    f17.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 18 Updated
-    f18.xml    ${True}    ${True}    ${True}    ${check_id}
+    f18.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 19 Updated
-    f19.xml    ${True}    ${True}    ${True}    ${check_id}
+    f19.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 20 Updated
-    f20.xml    ${True}    ${True}    ${True}    ${check_id}
+    f20.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 21 Updated
-    f21.xml    ${True}    ${True}    ${True}    ${check_id}
+    f21.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 22 Updated
-    f22.xml    ${True}    ${True}    ${True}    ${check_id}
+    f22.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 23 Updated
-    f23.xml    ${True}    ${True}    ${True}    ${check_id}
+    f23.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 24 Updated
-    f24.xml    ${True}    ${True}    ${True}    ${check_id}
+    f24.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 25 Updated
-    f25.xml    ${True}    ${True}    ${True}    ${check_id}
+    f25.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 31 Updated
-    f31.xml    ${True}    ${True}    ${True}    ${check_id}
+    f31.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 36 Updated
-    f36.xml    ${True}    ${True}    ${True}    ${check_id}
+    f36.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 38 Updated
-    f38.xml    ${True}    ${True}    ${True}    ${check_id}
+    f38.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 43 Updated
-    f43.xml    ${True}    ${True}    ${True}    ${check_id}
+    f43.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 45 Updated
-    f45.xml    ${True}    ${True}    ${True}    ${check_id}
+    f45.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 101 Updated
-    f101.xml    ${True}    ${True}    ${True}    ${check_id}
+    f101.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 102 Updated
-    f102.xml    ${True}    ${True}    ${True}    ${check_id}
+    f102.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 103 Updated
-    f103.xml    ${True}    ${True}    ${True}    ${check_id}
+    f103.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 104 Updated
-    f104.xml    ${True}    ${True}    ${True}    ${check_id}
+    f104.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 105 Updated
-    f105.xml    ${True}    ${True}    ${True}    ${check_id}
+    f105.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 106 Updated
-    f106.xml    ${True}    ${True}    ${True}    ${check_id}
+    f106.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 107 Updated
-    f107.xml    ${True}    ${True}    ${True}    ${check_id}
+    f107.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 108 Updated
-    f108.xml    ${True}    ${True}    ${True}    ${check_id}
+    f108.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 109 Updated
-    f109.xml    ${True}    ${True}    ${True}    ${check_id}
+    f109.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 110 Updated
-    f110.xml    ${True}    ${True}    ${True}    ${check_id}
+    f110.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 113 Updated
-    f113.xml    ${True}    ${True}    ${True}    ${check_id}
+    f113.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 156 Updated
-    f156.xml    ${True}    ${True}    ${True}    ${check_id}
+    f156.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 201 Updated
-    f201.xml    ${True}    ${True}    ${True}    ${check_id}
+    f201.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 202 Updated
-    f202.xml    ${True}    ${True}    ${True}    ${check_id}
+    f202.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 203 Updated
-    f203.xml    ${True}    ${True}    ${True}    ${check_id}
+    f203.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 204 Updated
-    f204.xml    ${True}    ${True}    ${True}    ${check_id}
+    f204.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 205 Updated
-    f205.xml    ${True}    ${True}    ${True}    ${check_id}
+    f205.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 206 Updated
-    f206.xml    ${True}    ${True}    ${True}    ${check_id}
+    f206.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 209 Updated
-    f209.xml    ${True}    ${True}    ${True}    ${check_id}
+    f209.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 214 Updated
-    f214.xml    ${True}    ${True}    ${True}    ${check_id}
+    f214.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 218 Updated
-    f218.xml    ${True}    ${True}    ${True}    ${check_id}
+    f218.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 219 Updated
-    f219.xml    ${True}    ${True}    ${True}    ${check_id}
+    f219.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 220 Updated
-    f220.xml    ${True}    ${True}    ${True}    ${check_id}
+    f220.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 221 Updated
-    f221.xml    ${True}    ${True}    ${True}    ${check_id}
+    f221.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 222 Updated
-    f222.xml    ${True}    ${True}    ${True}    ${check_id}
+    f222.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 223 Updated
-    f223.xml    ${True}    ${True}    ${True}    ${check_id}
+    f223.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 224 Updated
-    f224.xml    ${True}    ${True}    ${True}    ${check_id}
+    f224.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 225 Updated
-    f225.xml    ${True}    ${True}    ${True}    ${check_id}
+    f225.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Is Flow 550 Updated
-    f550.xml    ${True}    ${True}    ${True}    ${check_id}
+    f550.xml    ${True}    ${True}    ${True}    ${True}
 
 Test Delete Flows Group 0
     [Documentation]    Delete all flows and waits for SM to collect data
@@ -586,8 +586,7 @@ Test Is Flow 550 Deleted
 *** Keywords ***
 Initialization Phase
     [Documentation]    Initiate tcp connection with controller
-    ${check_id} =    Set Variable    ${True}
-    Set Suite Variable    ${check_id}
+    BuiltIn.Wait Until Keyword Succeeds    5x    1s    FlowLib.Check Switches In Inventory    1
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     Write    dpctl dump-flows -O OpenFlow13
     Read Until    mininet>
