@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f169526d_8f79494a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:56:55Z",
+      "side": 1,
+      "message": "you can remove log here",
+      "revId": "51c1f61ebafd75724678651d30dde204854f4370",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c307851d_82bbacd4",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:56:55Z",
+      "side": 1,
+      "message": "make it 60s 10s",
+      "revId": "51c1f61ebafd75724678651d30dde204854f4370",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d3d3a2c_978693c6",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:56:55Z",
+      "side": 1,
+      "message": "I think in line 273 itself you will get a count. if so you can remove this log",
+      "revId": "51c1f61ebafd75724678651d30dde204854f4370",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6afeeb77_8071fb64",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:56:55Z",
+      "side": 1,
+      "message": "same as above",
+      "revId": "51c1f61ebafd75724678651d30dde204854f4370",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84447c6f_a17ae360",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:56:55Z",
+      "side": 1,
+      "message": "same as above",
+      "revId": "51c1f61ebafd75724678651d30dde204854f4370",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b018e4c_d18f93a0",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:56:55Z",
+      "side": 1,
+      "message": "time 60s 10s or else 30s 10s",
+      "revId": "51c1f61ebafd75724678651d30dde204854f4370",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "311aab35_802cffb0",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:56:55Z",
+      "side": 1,
+      "message": "same as above",
+      "revId": "51c1f61ebafd75724678651d30dde204854f4370",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c2adfda_0fb279e2",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-11T10:56:55Z",
+      "side": 1,
+      "message": "same as above",
+      "revId": "51c1f61ebafd75724678651d30dde204854f4370",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
