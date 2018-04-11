@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf24e647_5509d67f",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-11T11:49:01Z",
+      "side": 1,
+      "message": "add space, also in below keywords",
+      "range": {
+        "startLine": 134,
+        "startChar": 12,
+        "endLine": 134,
+        "endChar": 14
+      },
+      "revId": "9ac8eed2855b04c83fe5a53253c287cb75b50d14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8375c6b_6b502da5",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-11T11:49:01Z",
+      "side": 1,
+      "message": "does using just @{VM_FLOATING_IPS}[0] work so we don\u0027t need BuiltIn.Create List? Guess not since we use this pattern all over the place. Don\u0027t worry about this comment. We will fix that in another patch if it is possible across all the suites.",
+      "range": {
+        "startLine": 135,
+        "startChar": 106,
+        "endLine": 135,
+        "endChar": 112
+      },
+      "revId": "9ac8eed2855b04c83fe5a53253c287cb75b50d14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7995739_27e684b8",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-11T11:49:01Z",
+      "side": 1,
+      "message": "BuiltIn.Create List, same in other keywords",
+      "range": {
+        "startLine": 141,
+        "startChar": 18,
+        "endLine": 141,
+        "endChar": 24
+      },
+      "revId": "9ac8eed2855b04c83fe5a53253c287cb75b50d14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
