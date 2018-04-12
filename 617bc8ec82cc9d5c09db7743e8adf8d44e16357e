@@ -2,6 +2,189 @@
   "comments": [
     {
       "key": {
+        "uuid": "446745b2_a18218b4",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "is this only going to be a snat migration suite? If so, maybe change the name of the file to be snat_migration.",
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d71a1d5d_9cb95940",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "put in alpha order",
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "782a4a98_1c11c1db",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "move down so in alpha order",
+      "range": {
+        "startLine": 12,
+        "startChar": 37,
+        "endLine": 12,
+        "endChar": 50
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b87577b_034d28d2",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "guessing this would be in DevStackUtils",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df3cb7fa_cf6e5d4c",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "name this like l3_snat_ (or l3_snatm to include migration)  since l3_ext is already used",
+      "range": {
+        "startLine": 23,
+        "startChar": 18,
+        "endLine": 23,
+        "endChar": 33
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "703f43cc_ee1ebc58",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "this should be a local variable defined above rather than in the netvirt/variables",
+      "range": {
+        "startLine": 30,
+        "startChar": 70,
+        "endLine": 30,
+        "endChar": 84
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4e55041_8302a184",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "maybe add this to OpenStackOperations since this exact same block of code is used in Tempest.robot. Push another patch to migrate Tempest.robot to the new keyword.",
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "618aa102_150cd9db",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "these should all be local to the suite",
+      "range": {
+        "startLine": 39,
+        "startChar": 44,
+        "endLine": 39,
+        "endChar": 51
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55df694c_a29a38bd",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "BuiltIn., though I don\u0027t think you need the Run Keywords since there is a single keyword called\n\nShould also add debug keywords as this overwrites the normal test teardown which would collect all the test debugging info. In that case you need to keep the BuiltIn.Run Keywords.",
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a73238ca_d7c5a714",
         "filename": "csit/suites/openstack/connectivity/snat.robot",
         "patchSetId": 9
@@ -25,6 +208,81 @@
     },
     {
       "key": {
+        "uuid": "b08305af_c444d730",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "Yeah, this should be over there. Extend the existing Get DevStack Nodes Data to include the extra pieces, since it builds on what is there already.",
+      "parentUuid": "a73238ca_d7c5a714",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 12
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2bee4f5_279c3ef1",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "I am confused on the need for this variable. It comes from the two other global variables, so why can\u0027t we just use those variables?",
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb74ac73_13c88c31",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "Collections.",
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04bd66ad_78e0fdfc",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "related to question about using existing variables, but why can\u0027t we just use OS_CMP_N_HOSTNAME here?",
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00165fa3_e78f0c3a",
         "filename": "csit/suites/openstack/connectivity/snat.robot",
         "patchSetId": 9
@@ -41,6 +299,115 @@
         "startChar": 50,
         "endLine": 99,
         "endChar": 54
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfb64553_5538ef29",
+        "filename": "csit/suites/openstack/connectivity/snat.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "Some of this looks like it could be a global variable in devstackutils since it is building on the os nodes data. We should look at doing something generic.",
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01554711_934495c7",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "are these used by other suites? Otherwise leave in the suite.robot file itself.",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7b4e44d_a8d69104",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "this one shouldn\u0027t be here if the l3_ext_sg should be specific to your new snat suite.",
+      "range": {
+        "startLine": 77,
+        "startChar": 21,
+        "endLine": 77,
+        "endChar": 30
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b55b6fdd_a75030ef",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "same thought, if this is only in that suite then leave it in the suite.",
+      "range": {
+        "startLine": 78,
+        "startChar": 18,
+        "endLine": 78,
+        "endChar": 30
+      },
+      "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61422390_b71ca983",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-12T14:14:41Z",
+      "side": 1,
+      "message": "these variables are already in this file, so maybe rebase to pick up latest changes",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 12
       },
       "revId": "617bc8ec82cc9d5c09db7743e8adf8d44e16357e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
