@@ -80,13 +80,27 @@ Check_Karaf_Log_Has_Messages
     [Return]    ${output}
 
 Check_Karaf_Log_Message_Count
+    [Arguments]    ${message}    ${count}    ${use_console}=False
+    [Documentation]    Verifies that the ${message} exists specified number of times in
+    ...    karaf console log or Karaf Log Folder based on the arg ${use_console}.
+    Run Keyword If    ${use_console} == False    Check_Karaf_Log_File    ${message}    ${count}
+    ...    ELSE    Check_Karaf_Log_From_Console    ${message}    ${count}
+
+Check_Karaf_Log_From_Console
     [Arguments]    ${message}    ${count}
-    [Documentation]    Verifies that the ${message} exists in the karaf.log, and checks
-    ...    that it appears ${count} number of times.
+    [Documentation]    Verifies that the ${message} exists in the Karaf Console log:display and checks
+    ...    that it appears ${count} number of times
     ${output} =    Issue_Command_On_Karaf_Console    log:display | grep ${message} | wc -l
-    ${line} =    String.Get Line    ${output}    0
-    ${stripped} =    String.Strip String    ${line}
+    ${line} =    Get Line    ${output}    0
+    ${stripped} =    Strip String    ${line}
     Should Be Equal As Strings    ${stripped}    ${count}
+
+Check_Karaf_Log_File
+    [Arguments]    ${message}    ${count}
+    [Documentation]    Verifies that the ${message} exists in the Karaf Log Folder and checks
+    ...    that it appears ${count} number of times
+    ${output}    Run Command On Controller    ${ODL_SYSTEM_IP}    grep -o ${message} ${WORKSPACE}/${BUNDLEFOLDER}/data/log/* | wc -l
+    Should Be Equal As Strings    ${output}    ${count}
 
 Install_A_Feature
     [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=180
