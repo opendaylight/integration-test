@@ -26,10 +26,11 @@ Documentation     Robot keyword library (Resource) for handling the BGP speaker 
 Library           SSHLibrary
 Library           RequestsLibrary
 Resource          RemoteBash.robot
+Resource          ../variables/Variables.robot
 
 *** Variables ***
 ${BGPSpeaker__OUTPUT_LOG}    play.py.out
-${PEER_URL}       /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+${PEER_URL}       restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
 
 *** Keywords ***
 Start_BGP_Speaker
