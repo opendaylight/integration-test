@@ -47,7 +47,7 @@ Start_BGP_Speaker_And_Verify_Connected
     [Documentation]    Start the BGP speaker python utility, and verifies it's connection.
     ...    We can change connected variable to false to verify Speaker did not connect.
     Start_BGP_Speaker    ${arguments}
-    ${message}    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_BGP_Speaker_Connection    ${session}    ${speaker_ip}
+    ${message}    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    Verify_BGP_Speaker_Connection    ${session}    ${speaker_ip}
     ...    ${connected}
     [Return]    ${message}
 
