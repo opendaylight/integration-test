@@ -21,13 +21,20 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...               test session-reset functionality.
 ...               Resets the session, and than verifies that example-ipv4-topology is empty again.
 ...
-...               For versions Fluorine and further, there are TC_PG (test case peer group) which
-...               test configuration and reconfiguration of peer-groups and neighbors configured by them.
+...               For versions Fluorine and further, there are test cases:
+...               TC_PG (test case peer group) which
+...               tests configuration and reconfiguration of peer-groups and neighbors configured by them.
 ...               - configure peer-group, and assign neighbor to this peer-group
 ...               - check filled topology
 ...               - reconfigure peer-group without ipv4 unicast afi-safi
 ...               - check empty topology
 ...               - reconfigre neighbor without peer-group, delete peer-group
+...
+...               TC_LA (test case local address)
+...               test configuration of internal peer with local-address configured
+...               - configure peer with local-address and connect bgp-speaker to it
+...               with tools_system_ip
+...               - check filled topology
 ...
 ...               Brief description how to perform BGP functional test:
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:Lithium_Feature_Tests#How_to_test_2
@@ -43,34 +50,34 @@ Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           ../../../libraries/norm_json.py
-Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
-Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/BGPcliKeywords.robot
 Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/FailFast.robot
 Resource          ../../../libraries/KillPythonTool.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/WaitForFailure.robot
-Resource          ../../../libraries/CompareStream.robot
+Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 
 *** Variables ***
 ${ACTUAL_RESPONSES_FOLDER}    ${TEMPDIR}/actual
-${EXPECTED_RESPONSES_FOLDER}    ${TEMPDIR}/expected
-${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
-${HOLDTIME}       180
+${BGP_PEER_NAME}    example-bgp-peer
 ${BGP_TOOL_LOG_LEVEL}    info
-${ODL_LOG_LEVEL}    INFO
-${ODL_BGP_LOG_LEVEL}    DEFAULT
+${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${CONFIG_SESSION}    session
+${DEVICE_NAME}    controller-config
+${EXPECTED_RESPONSES_FOLDER}    ${TEMPDIR}/expected
+${HOLDTIME}       180
+${ODL_BGP_LOG_LEVEL}    DEFAULT
+${ODL_LOG_LEVEL}    INFO
 ${PEER_GROUP}     internal-neighbors
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
-${DEVICE_NAME}    controller-config
-${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
+${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -241,7 +248,7 @@ Check_For_Empty_Topology_After_Listening_Case_2
     Wait_For_Topology_To_Change_To    ${empty_json}    060_Empty.json
 
 Start_Listening_BGP_Speaker_Case_3
-    [Documentation]    BGP Speaker introduces 3 prefixes while the first one occures again in the withdrawn list (to be ignored bu controller)
+    [Documentation]    BGP Speaker introduces 3 prefixes while the first one occures again in the withdrawn list (to be ignored by controller)
     BGPSpeaker.Start_BGP_Speaker    --amount 2 --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --prefill=0 --insert=3 --withdraw=1 --updates=single --${BGP_TOOL_LOG_LEVEL}
     Read_And_Fail_If_Prompt_Is_Seen
 
@@ -273,7 +280,44 @@ Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
-    # TODO: Do we need to check something else?
+
+TC_LA_Reconfigure_Odl_To_Initiate_Connection
+    [Documentation]    Configure ibgp peer with local-address.
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    LOCAL=${ODL_SYSTEM_IP}    INITIATE=true
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_local_address    mapping=${mapping}    session=${CONFIG_SESSION}
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
+TC_LA_Start_Bgp_Speaker_And_Verify_Connected
+    [Documentation]    Verify that peer is present in odl's rib under local-address ip.
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    ${speaker_args}    BuiltIn.Set_Variable    --amount 3 --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --${BGP_TOOL_LOG_LEVEL}
+    ${output}    BGPSpeaker.Start_BGP_Speaker_And_Verify_Connected    ${speaker_args}    session=${CONFIG_SESSION}    speaker_ip=${TOOLS_SYSTEM_IP}
+    BuiltIn.Log    ${output}
+
+TC_LA_Kill_Bgp_Speaker
+    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+    [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    #DEBUGGGING
+    ${rib}    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}../bgpfunctional/bgppolicies/rib_state    session=${CONFIG_SESSION}
+    BuiltIn.Log    ${rib}
+    Check_Speaker_Is_Connected
+    #ENDDEBUGGING
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    BGPSpeaker.Kill_BGP_Speaker
+    FailFast.Do_Not_Fail_Fast_From_Now_On
+    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
+    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+
+TC_LA_Delete_Bgp_Peer_Configuration
+    [Documentation]    Delete peer configuration.
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_local_address    mapping=${mapping}    session=${CONFIG_SESSION}
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 *** Keywords ***
 Setup_Everything

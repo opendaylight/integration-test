@@ -43,6 +43,7 @@ Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/CompareStream.robot
+Resource          ../../../libraries/BGPSpeaker.robot
 
 *** Variables ***
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
@@ -355,6 +356,44 @@ TC4_Delete_BGP_Peers_Configuration
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}cluster_id/ibgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
     &{mapping}    BuiltIn.Create_Dictionary    IP=${BGP_PEER2_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}    session=${CONFIG_SESSION}
+
+TC_LA_Reconfigure_Odl_To_Accept_Connection
+    [Documentation]    Configure ibgp peer with local-address.
+    SSHLibrary.Switch Connection    bgp_peer1_console
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    &{mapping}    Create Dictionary    IP=127.0.0.10    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    LOCAL=127.0.0.11
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_local_address    mapping=${mapping}    session=${CONFIG_SESSION}
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
+TC_LA_Start_Bgp_Speaker_And_Verify_Connected
+    [Documentation]    Verify that peer is present in odl's rib under local-address ip.
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    ${speaker_args}    BuiltIn.Set_Variable    --amount 1 --listen --myip=127.0.0.10 --myport=${BGP_TOOL_PORT} --debug
+    ${output}    BGPSpeaker.Start_BGP_Speaker_And_Verify_Connected    ${speaker_args}    ${CONFIG_SESSION}    speaker_ip=127.0.0.10
+    BuiltIn.Log    ${output}
+
+TC_LA_Kill_Bgp_Speaker
+    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+    [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    #DEBUGGGING
+    ${rib}    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}../bgpfunctional/bgppolicies/rib_state    session=${CONFIG_SESSION}
+    BuiltIn.Log    ${rib}
+    #ENDDEBUGGING
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    BGPSpeaker.Kill_BGP_Speaker
+    FailFast.Do_Not_Fail_Fast_From_Now_On
+    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
+    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+
+TC_LA_Delete_Bgp_Peer_Configuration
+    [Documentation]    Delete peer configuration.
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    &{mapping}    Create Dictionary    IP=127.0.0.10    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_local_address    mapping=${mapping}    session=${CONFIG_SESSION}
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 *** Keywords ***
 Setup_Everything
