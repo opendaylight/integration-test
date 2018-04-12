@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ad12de3a_3e49e4f6",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-12T06:14:50Z",
+      "side": 1,
+      "message": "do this instead https://github.com/opendaylight/integration-test/blob/master/csit/libraries/OVSDB.robot#L149",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 61
+      },
+      "revId": "0f9617262945a443f945e922c49e1b6f6651c9f7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fd87f1d_a2954ae8",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 65
