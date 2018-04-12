@@ -24,10 +24,13 @@ Documentation     Robot keyword library (Resource) for handling the BGP speaker 
 ...               want to make the assumption that an SSH connection was already open.
 ...               alternative TODO: Explain that it is not worth to perform separate SSH logins.
 Library           SSHLibrary
-Resource          ${CURDIR}/RemoteBash.robot
+Library           RequestsLibrary
+Resource          RemoteBash.robot
+
 
 *** Variables ***
 ${BGPSpeaker__OUTPUT_LOG}    play.py.out
+${PEER_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
 
 *** Keywords ***
 Start_BGP_Speaker
@@ -39,6 +42,23 @@ Start_BGP_Speaker
     ${command} =    BuiltIn.Set_Variable    python play.py ${arguments} &> ${BGPSpeaker__OUTPUT_LOG}
     BuiltIn.Log    ${command}
     ${output} =    SSHLibrary.Write    ${command}
+
+Start_BGP_Speaker_And_Verify_Connected
+    [Arguments]    ${arguments}    ${session}    ${speaker_ip}=${TOOLS_SYSTEM_IP}    ${connected}=${True}
+    [Documentation]    Start the BGP speaker python utility, and verifies it's connection.
+    ...    We can change connected variable to false to verify Speaker did not connect.
+    Start_BGP_Speaker    ${arguments}
+    ${message}    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_BGP_Speaker_Connection    ${session}    ${speaker_ip}    ${connected}
+    [Return]    ${message}
+
+Verify_BGP_Speaker_Connection
+    [Documentation]    Verifies peer's presence in bgp rib.
+    [Arguments]    ${session}    ${ip}    ${connected}=${True}
+    ${exp_status_code}    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
+    ${url}    BuiltIn.Set_Variable    ${PEER_URL}${ip}
+    ${response}    RequestsLibrary.Get_Request    ${session}    ${url}
+    BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${response.status_code}
+    [Return]    ${response.content}
 
 Start_BGP_Manager
     [Arguments]    ${arguments}
