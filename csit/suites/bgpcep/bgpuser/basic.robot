@@ -29,6 +29,12 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...               - check empty topology
 ...               - reconfigre neighbor without peer-group, delete peer-group
 ...
+...               TC_LAS ( test case local AS )
+...               test configuration of ebgp with local-as
+...               - configure peer with local-as and connect bgp-speaker to it with peer-as
+...               - check empty topology
+...               - reconfigure bgp-speaker with local-as, and check filled topology
+...
 ...               Brief description how to perform BGP functional test:
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:Lithium_Feature_Tests#How_to_test_2
 ...
@@ -43,34 +49,34 @@ Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           ../../../libraries/norm_json.py
-Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
-Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/BGPcliKeywords.robot
 Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/FailFast.robot
 Resource          ../../../libraries/KillPythonTool.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/WaitForFailure.robot
-Resource          ../../../libraries/CompareStream.robot
+Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 
 *** Variables ***
 ${ACTUAL_RESPONSES_FOLDER}    ${TEMPDIR}/actual
-${EXPECTED_RESPONSES_FOLDER}    ${TEMPDIR}/expected
-${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
-${HOLDTIME}       180
+${BGP_PEER_NAME}    example-bgp-peer
 ${BGP_TOOL_LOG_LEVEL}    info
-${ODL_LOG_LEVEL}    INFO
-${ODL_BGP_LOG_LEVEL}    DEFAULT
+${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${CONFIG_SESSION}    session
+${DEVICE_NAME}    controller-config
+${EXPECTED_RESPONSES_FOLDER}    ${TEMPDIR}/expected
+${HOLDTIME}       180
+${ODL_BGP_LOG_LEVEL}    DEFAULT
+${ODL_LOG_LEVEL}    INFO
 ${PEER_GROUP}     internal-neighbors
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
-${DEVICE_NAME}    controller-config
-${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
+${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
