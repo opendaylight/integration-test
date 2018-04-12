@@ -14,6 +14,12 @@ Documentation     Basic tests for eBGP application peers.
 ...               Bug 4834 - ODL controller announces the same route twice (two eBGP scenario aka HA)
 ...               Bug 4835 - Routes not withdrawn when eBGP peers are disconnected (the same prefixes announced)
 ...
+...               For versions Fluorine and above, there are test cases:
+...               TC_LAS (test case local AS)
+...               - configuration of ebgp with local-as and ibgp without local-as
+...               - connect bgp speakers (play.py) to both peers and check their connection
+...               - check adj-rib-out on both peers, expecting local-as in as-sequence on both peers.
+...
 ...               TODO: Extend testsuite by tests dedicated to path selection algorithm
 ...               TODO: Choose keywords used by more than one test suite to be placed in a common place.
 Suite Setup       Setup_Everything
@@ -23,17 +29,18 @@ Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
-Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
-Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
-Resource          ${CURDIR}/../../../libraries/BgpOperations.robot
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/BgpOperations.robot
+Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/CompareStream.robot
+Resource          ../../../libraries/FailFast.robot
+Resource          ../../../libraries/KillPythonTool.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../variables/Variables.robot
+Resource          ../../../libraries/WaitForFailure.robot
+Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 
 *** Variables ***
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
@@ -77,6 +84,9 @@ ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    1s
 ${RIB_INSTANCE}    example-bgp-rib
 ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${DEVICE_NAME}    controller-config
+${DEFAULT_AS}     64496
+${LOCAL_AS}       65432
+${eBGP_AS}        64497
 
 *** Test Cases ***
 Configure_BGP_Peers
@@ -193,6 +203,81 @@ Delete_BGP_Peers_Configuration
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ebgp_peers    mapping=${mapping}
     Collections.Set To Dictionary    ${mapping}    NAME=example-ebgp-peer2    IP=${eBGP_PEER2_IP}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ebgp_peers    mapping=${mapping}
+
+TC_LAS_Reconfigure_Odl_To_Accept_Connection
+    [Documentation]    Configure neighbors. One ibgp and one ebgp neighbor with local-as configured.
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    &{mapping}    Create Dictionary    IP=${iBGP_PEER1_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
+    &{mapping}    Create Dictionary    IP=${eBGP_PEER1_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    AS_NUMBER=${LOCAL_AS}    PEER_AS=${eBGP_AS}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}local_as/ebgp_peer    mapping=${mapping}
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
+TC_LAS_Start_iBgp_Speaker_And_Verify_Connected
+    [Documentation]    Verify that peer is present in odl's rib. Peer is configured with local-as.
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    SSHLibrary.Switch Connection    ibgp_peer1_console
+    ${speaker_args}    BuiltIn.Set_Variable    --firstprefix ${iBGP_PEER1_FIRST_PREFIX_IP} --prefixlen ${PREFIX_LEN} --amount 1 --myip=${iBGP_PEER1_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --debug
+    ${output}    BGPSpeaker.Start_BGP_Speaker_And_Verify_Connected    ${speaker_args}    session=default    speaker_ip=${iBGP_PEER1_IP}
+    BuiltIn.Log    ${output}
+
+TC_LAS_Start_eBgp_Speaker_And_Verify_Connected
+    [Documentation]    Verify that peer is present in odl's rib. Peer is configured with local-as.
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    SSHLibrary.Switch Connection    ebgp_peer1_console
+    ${speaker_args}    BuiltIn.Set_Variable    --firstprefix ${eBGP_PEER1_FIRST_PREFIX_IP} --prefixlen ${PREFIX_LEN} --amount 1 --asnumber=${eBGP_AS} --myip=${eBGP_PEER1_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --debug
+    ${output}    BGPSpeaker.Start_BGP_Speaker_And_Verify_Connected    ${speaker_args}    session=default    speaker_ip=${eBGP_PEER1_IP}
+    BuiltIn.Log    ${output}
+
+TC_LAS_Verify_iBGP_Rib_Out
+    [Documentation]    Verifies iBGP's adj-rib-out output. Expects local-as, and ebgp peer-as presence.
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    &{mapping}    Create Dictionary    IP=${iBGP_PEER1_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    AS_NUMBER=${LOCAL_AS}    PEER_AS=${eBGP_AS}    PREFIXLEN=${eBGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}local_as/adj_rib_out    mapping=${mapping}    verify=True
+
+TC_LAS_Verify_eBGP_Rib_Out
+    [Documentation]    Verifies eBGP's adj-rib-out output. Expects local-as, and ibgp peer-as presence.
+    [Tags]    critical
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    &{mapping}    Create Dictionary    IP=${eBGP_PEER1_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    AS_NUMBER=${LOCAL_AS}    PEER_AS=${DEFAULT_AS}    PREFIXLEN=${iBGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}local_as/adj_rib_out    mapping=${mapping}    verify=True
+
+TC_LAS_Kill_iBgp_Speaker_After_Talking
+    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+    [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    SSHLibrary.Switch Connection    ibgp_peer1_console
+    BGPSpeaker.Kill_BGP_Speaker
+    FailFast.Do_Not_Fail_Fast_From_Now_On
+    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
+    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+
+TC_LAS_Kill_eBgp_Speaker_After_Talking
+    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+    [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    SSHLibrary.Switch Connection    ebgp_peer1_console
+    BGPSpeaker.Kill_BGP_Speaker
+    FailFast.Do_Not_Fail_Fast_From_Now_On
+    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
+    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+
+TC_LAS_Delete_Bgp_Peer_Configurations
+    [Documentation]    Delete peer configuration.
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    &{mapping}    Create Dictionary    IP=${iBGP_PEER1_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
+    &{mapping}    Create Dictionary    IP=${eBGP_PEER1_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}local_as/ebgp_peer    mapping=${mapping}
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 *** Keywords ***
 Setup_Everything
