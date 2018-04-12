@@ -29,6 +29,12 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...               - check empty topology
 ...               - reconfigre neighbor without peer-group, delete peer-group
 ...
+...               TC_LAS ( test case local AS )
+...               test configuration of ebgp with local-as
+...               - configure peer with local-as and connect bgp-speaker to it with peer-as
+...               - check empty topology
+...               - reconfigure bgp-speaker with local-as, and check filled topology
+...
 ...               Brief description how to perform BGP functional test:
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:Lithium_Feature_Tests#How_to_test_2
 ...
@@ -43,34 +49,36 @@ Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           ../../../libraries/norm_json.py
-Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
-Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/BGPcliKeywords.robot
 Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/FailFast.robot
 Resource          ../../../libraries/KillPythonTool.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/WaitForFailure.robot
-Resource          ../../../libraries/CompareStream.robot
+Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 
 *** Variables ***
 ${ACTUAL_RESPONSES_FOLDER}    ${TEMPDIR}/actual
-${EXPECTED_RESPONSES_FOLDER}    ${TEMPDIR}/expected
-${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
-${HOLDTIME}       180
-${BGP_TOOL_LOG_LEVEL}    info
-${ODL_LOG_LEVEL}    INFO
-${ODL_BGP_LOG_LEVEL}    DEFAULT
-${CONFIG_SESSION}    session
-${PEER_GROUP}     internal-neighbors
-${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
-${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
+${BGP_TOOL_LOG_LEVEL}    info
+${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
+${CONFIG_SESSION}    session
+${DEVICE_NAME}    controller-config
+${EXPECTED_RESPONSES_FOLDER}    ${TEMPDIR}/expected
+${HOLDTIME}       180
+${LOCAL_AS}    65432
+${ODL_BGP_LOG_LEVEL}    DEFAULT
+${ODL_LOG_LEVEL}    INFO
+${PEER_GROUP}     internal-neighbors
+${PEER_AS}    64496
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${RIB_INSTANCE}    example-bgp-rib
+${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -274,6 +282,44 @@ Delete_Bgp_Peer_Configuration
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
     # TODO: Do we need to check something else?
+
+TC_LAS_Reconfigure_Odl_To_Accept_Connection
+    [Documentation]    Configure neighbor with local-address equal to loopback on controller.
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    AUTONOMOUS=${LOCAL_AS}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ebgp_local_as    mapping=${mapping}    session=${CONFIG_SESSION}
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
+TC_LAS_Start_Bgp_Speaker_And_Verify_Connected
+    [Documentation]    Verify that peer is not present in odl's rib. Peer is configured with local-address
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    ${speaker_args}    BuiltIn.Set_Variable    --amount 1 --asnumber=64496 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_TOOL_LOG_LEVEL}
+    # DEBUG
+    ${rib}    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}../bgpfunctional/bgppolicies/rib_state    session=${CONFIG_SESSION}
+    BuiltIn.Log    ${rib}
+    ${output}    BGPSpeaker.Start_BGP_Speaker_And_Verify_Connected    ${speaker_args}    ${CONFIG_SESSION}
+    BuiltIn.Log    ${output}
+    # DEBUG
+    ${rib}    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}../bgpfunctional/bgppolicies/rib_state    session=${CONFIG_SESSION}
+    BuiltIn.Log    ${rib}
+
+TC_LAS_Kill_Bgp_Speaker_After_Talking
+    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+    [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    BGPSpeaker.Kill_BGP_Speaker
+    FailFast.Do_Not_Fail_Fast_From_Now_On
+    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
+    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+
+TC_LAS_Delete_Bgp_Peer_Configuration
+    [Documentation]    Delete peer configuration.
+    CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ebgp_local_as    mapping=${mapping}    session=${CONFIG_SESSION}
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 *** Keywords ***
 Setup_Everything
