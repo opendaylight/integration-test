@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ac19f31_971b8177",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-13T00:09:56Z",
+      "side": 1,
+      "message": "I\u0027d default this to True or False so callers don\u0027t normally\nhave to worry about it.",
+      "range": {
+        "startLine": 83,
+        "startChar": 45,
+        "endLine": 83,
+        "endChar": 59
+      },
+      "revId": "1d85ca128c33ddbe41d9a60c802c628148877bb9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "583d84aa_c9fcbb0e",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-13T00:09:56Z",
+      "side": 1,
+      "message": "I\u0027m fine doing it this way, but you could also just\nextract the Issue_Command_* logic in each of the\nkeywords below and put them here, thus removing the\ntwo keywords below, entirely.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 67
+      },
+      "revId": "1d85ca128c33ddbe41d9a60c802c628148877bb9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e49a7f8_58ffc2f2",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-13T00:09:56Z",
+      "side": 1,
+      "message": "Check_Karaf_Log_From_Console",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 23
+      },
+      "revId": "1d85ca128c33ddbe41d9a60c802c628148877bb9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9b08c77_a7b599ee",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-13T00:09:56Z",
+      "side": 1,
+      "message": "File",
+      "range": {
+        "startLine": 98,
+        "startChar": 16,
+        "endLine": 98,
+        "endChar": 22
+      },
+      "revId": "1d85ca128c33ddbe41d9a60c802c628148877bb9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
