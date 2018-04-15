@@ -184,8 +184,7 @@ For Unmanaged project, we need 2 extra parameters:
 
 * trigger-jobs: Unmanaged CSIT will run after succesful project merge, so just
   fill with '{project}-merge-{stream}'.
-* bundle-url: Unmanaged CSIT uses project local distribution, you can get the
-  local distribution URL from the Jenkins merge job itself (see example below).
+* repo-url: Unmanaged project feature repository maven URL (see example below).
 
 So in this case it should look like this::
 
@@ -207,7 +206,7 @@ So in this case it should look like this::
             branch: 'master'
             trigger-jobs: '{project}-merge-{stream}'
             # yamllint disable-line rule:line-length
-            bundle-url: 'https://jenkins.opendaylight.org/releng/view/usc/job/usc-merge-fluorine/lastBuild/org.opendaylight.usc$usc-karaf/artifact/org.opendaylight.usc/usc-karaf/1.6.0-SNAPSHOT/usc-karaf-1.6.0-SNAPSHOT.zip'
+            repo-url: 'mvn:org.opendaylight.usc/usc-features/1.6.0-SNAPSHOT/xml/features'
 
       install:
         - all:
