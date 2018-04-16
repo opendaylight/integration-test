@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c6b17676_f5caa234",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "906ac729_65fc23b6",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4205662f_6dc9e869",
         "filename": "csit/libraries/L2GatewayOperations.robot",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2018-02-21T21:29:45Z",
       "side": 1,
       "message": "This config doesn\u0027t change, but we collect it every time. Would be better to collect this just once, maybe at the suite setup?",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "512b9240_3793f336",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Made it part of start suite in init file. So it gets executed once. Done",
+      "parentUuid": "4205662f_6dc9e869",
       "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "115b003c_268e42d8",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b29b5568_96fe91ab",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a831fc9_1a42cb7e",
         "filename": "csit/libraries/L2GatewayOperations.robot",
         "patchSetId": 5
@@ -64,6 +118,30 @@
       "writtenOn": "2018-02-21T20:50:11Z",
       "side": 1,
       "message": "is this what you want? if there was 99% packet loss, this keyword would still pass.",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 41
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fef9051_6317316a",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Changed it to use 0% packet loss and using existing regex as suggested. Done",
+      "parentUuid": "0a831fc9_1a42cb7e",
       "range": {
         "startLine": 279,
         "startChar": 0,
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "605eaed9_5a92f897",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdcda4c8_9f403b69",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 81
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d9bca2f_d0782389",
         "filename": "csit/libraries/L2GatewayOperations.robot",
         "patchSetId": 5
@@ -110,6 +212,24 @@
       "writtenOn": "2018-02-21T21:29:45Z",
       "side": 1,
       "message": "Consider making this shorted description, or split into two lines (if possible)",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d054d5e9_1414f601",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d9bca2f_d0782389",
       "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "57b4e5ef_58788960",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16ad7421_6a325eb1",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08769d76_b9677553",
         "filename": "csit/libraries/L2GatewayOperations.robot",
         "patchSetId": 5
@@ -144,6 +282,30 @@
       "writtenOn": "2018-02-21T20:50:11Z",
       "side": 1,
       "message": "does setting this flag enable controller dhcp on the fly, or do we have to restart. if we have to restart you should add that functionality in this keyword",
+      "range": {
+        "startLine": 379,
+        "startChar": 1,
+        "endLine": 381,
+        "endChar": 68
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea1c1074_14076477",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Added the restart part.Done",
+      "parentUuid": "08769d76_b9677553",
       "range": {
         "startLine": 379,
         "startChar": 1,
@@ -179,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "071b1071_66cfb806",
+        "filename": "csit/libraries/L2gwUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b1a831c_bf77bb6e",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e243d40d_e58d9a4e",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 5
@@ -190,6 +376,30 @@
       "writtenOn": "2018-02-21T20:50:11Z",
       "side": 1,
       "message": "we can\u0027t use the openstack cli as well?",
+      "range": {
+        "startLine": 1200,
+        "startChar": 44,
+        "endLine": 1200,
+        "endChar": 51
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1cefc42_1c5915d6",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Checked with Victor. The CLI is present in openstack queens. I will have to verify manually and incorporate it. Will need more time for this. Not Done",
+      "parentUuid": "e243d40d_e58d9a4e",
       "range": {
         "startLine": 1200,
         "startChar": 44,
@@ -225,6 +435,30 @@
     },
     {
       "key": {
+        "uuid": "578f09d4_8cc31da4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1202,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "477c3289_ba99ab93",
+      "range": {
+        "startLine": 1201,
+        "startChar": 0,
+        "endLine": 1202,
+        "endChar": 36
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f25464f0_30ac56b0",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 5
@@ -236,6 +470,30 @@
       "writtenOn": "2018-02-21T20:50:11Z",
       "side": 1,
       "message": "we aren\u0027t running with newton any longer, so unless you know of another deployment that needs newton we can remove this complexity",
+      "range": {
+        "startLine": 1207,
+        "startChar": 33,
+        "endLine": 1207,
+        "endChar": 72
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ada8d30_3fc445e5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Removed it. Done",
+      "parentUuid": "f25464f0_30ac56b0",
       "range": {
         "startLine": 1207,
         "startChar": 33,
@@ -271,6 +529,30 @@
     },
     {
       "key": {
+        "uuid": "a11f58a5_3f30e2ab",
+        "filename": "csit/suites/l2gw/01_L2gateway_Single_Segment_Network.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e65fb149_6d94b006",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 1
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e593fd4f_50ed0472",
         "filename": "csit/suites/l2gw/01_L2gateway_Single_Segment_Network.robot",
         "patchSetId": 5
@@ -282,6 +564,24 @@
       "writtenOn": "2018-02-21T21:29:45Z",
       "side": 1,
       "message": "So, the default is neutron dhcp, and here, you are changing it to be ODL DHCP. It should (does) work both ways, why are you setting this to be ODL DHCP? \n\nI\u0027m really thinking, it would be good to run some tests with both configurations, spin up some VMs with ODL DHCP, and verify, then repeat with neutron dhcp (default). \n\nWhat are your thoughts on this?",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9eecca8_0caee1a7",
+        "filename": "csit/suites/l2gw/01_L2gateway_Single_Segment_Network.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "There is design in ODL controller to handle the DHCP requests coming from SR-IOV VMs behind the TOR. To test that part we need ODL to act as DHCP server. So now i have only enabled ODL DHCP in second suite which will satisfy your suggestion to have combination. Done.Hope this is fine",
+      "parentUuid": "e593fd4f_50ed0472",
       "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -311,6 +611,30 @@
     },
     {
       "key": {
+        "uuid": "23fe5f23_14b032ec",
+        "filename": "csit/suites/l2gw/02_Dynamic_Node_Addition_Multi_Segment_Network.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Made these as part of variables/l2gw/Variables.robot. Done",
+      "parentUuid": "0612030b_c7a2d86f",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 49
+      },
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fca670cc_da009288",
         "filename": "csit/variables/l2gw/Variables.robot",
         "patchSetId": 5
@@ -322,6 +646,24 @@
       "writtenOn": "2018-02-21T20:50:11Z",
       "side": 1,
       "message": "does the one here work instead:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/netvirt/Variables.robot#L25-L26",
+      "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baac72e1_2b5d72bd",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-16T12:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fca670cc_da009288",
       "revId": "17b6836a0b158fa68d8cb631d28afddef707a77c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": true
