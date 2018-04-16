@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0702e86b_9662aff0",
+        "filename": "csit/suites/l2gw/__init__.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-16T22:23:31Z",
+      "side": 1,
+      "message": "is this stuff being used anywhere?",
+      "revId": "88ecf2bdce593f75710b7582f876d963a8107835",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
