@@ -2,6 +2,108 @@
   "comments": [
     {
       "key": {
+        "uuid": "11e3848d_10f6af0f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:19:32Z",
+      "side": 1,
+      "message": "remove the duplicated keyword from itm-direct-tunnels suite",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c589737d_b603e2eb",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:19:32Z",
+      "side": 1,
+      "message": "can we split this long line to two?\n\nAlso remove the \"/\" in between",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fa96af7_edb34569",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:19:32Z",
+      "side": 1,
+      "message": "remove this log",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a1f2d85_30f18e37",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:19:32Z",
+      "side": 1,
+      "message": "remove this log",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94c67e33_5b9dc8ce",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:19:32Z",
+      "side": 1,
+      "message": "Can you remove the duplication of this keyword from itm-direct-tunnels suite?\n\nAlso rename this as Get Tunnel Interface Name?",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3deea60_ec9533aa",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:19:32Z",
+      "side": 1,
+      "message": "suite",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a0466a1_8f2c79c4",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 11
@@ -19,6 +121,91 @@
         "endLine": 266,
         "endChar": 20
       },
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2693f6d6_36967238",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:19:32Z",
+      "side": 1,
+      "message": "Verify Tunnels Are Up",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7131000_6a43c6c2",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:19:32Z",
+      "side": 1,
+      "message": "noOfNodes*noOfNodes - 1 ?",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b3388c2_b3eaa862",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:19:32Z",
+      "side": 1,
+      "message": "Suite",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "367112b7_3dbc9e9c",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:19:32Z",
+      "side": 1,
+      "message": "remove, this is not used",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "503d19d5_65ded1a7",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:19:32Z",
+      "side": 1,
+      "message": "68-70 lines are repeated in all TCs. Can we add a keyword for this in OVSDB.robot and use that?",
       "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
