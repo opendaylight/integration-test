@@ -312,22 +312,22 @@ TC4_Connect_BGP_Peers
     BGPCliKeywords.Start_Console_Tool    ${BGP_PEER2_COMMAND} --cluster=${BGP_PEER2_IP}    ${BGP_PEER2_OPTIONS}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
-TC4_BGP_Peer1_Check_Log_For_Introduced_Prefixes
+TC4_BGP_Peer1_Check_Rib_Out_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes and respective cluster-ids
     ...    on first peer which should contain default-cluster id from global config reflected
     ...    from the second peer equal to router-id.
     [Tags]    critical
     CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid for version fluorine and above.
     &{mapping}    BuiltIn.Create_Dictionary    IP=${BGP_PEER1_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    PEER_NUMBER=2    CLUSTER_ID=${BGP_PEER2_IP}    DEFAULT_ID=${default_cluster_id}
-    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}cluster_id/peer_rib_out    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}cluster_id/peer_rib_out    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
 
-TC4_BGP_Peer2_Check_Log_For_Introduced_Prefixes
+TC4_BGP_Peer2_Check_Rib_Out_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes and respective cluster-ids
     ...    in second peer which has local route-reflector-cluster-id
     [Tags]    critical
     CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid for version fluorine and above.
     &{mapping}    BuiltIn.Create_Dictionary    IP=${BGP_PEER2_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    PEER_NUMBER=1    CLUSTER_ID=${BGP_PEER1_IP}    DEFAULT_ID=${peer1_cluster_id}
-    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}cluster_id/peer_rib_out    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}cluster_id/peer_rib_out    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
 
 TC4_Disconnect_BGP_Peers
     [Documentation]    Stop BGP peer & store logs
