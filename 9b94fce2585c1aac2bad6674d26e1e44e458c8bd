@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a0466a1_8f2c79c4",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-17T05:40:10Z",
+      "side": 1,
+      "message": "you can remove this",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 20
+      },
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
