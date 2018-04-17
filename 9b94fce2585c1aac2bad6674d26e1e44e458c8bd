@@ -178,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "b395e0fc_066a89ee",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:22:40Z",
+      "side": 1,
+      "message": "Can we give a link to our test plan in the Documentation?",
+      "parentUuid": "3b3388c2_b3eaa862",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "367112b7_3dbc9e9c",
         "filename": "csit/suites/genius/Service_Recovery.robot",
         "patchSetId": 11
@@ -195,6 +213,23 @@
     },
     {
       "key": {
+        "uuid": "5b46342a_7077d580",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:22:40Z",
+      "side": 1,
+      "message": "Add a keyword in OVSDB.robot to get the bridge UUID",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "503d19d5_65ded1a7",
         "filename": "csit/suites/genius/Service_Recovery.robot",
         "patchSetId": 11
@@ -206,6 +241,23 @@
       "writtenOn": "2018-04-17T06:19:32Z",
       "side": 1,
       "message": "68-70 lines are repeated in all TCs. Can we add a keyword for this in OVSDB.robot and use that?",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df34c59b_359c8106",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-17T06:22:40Z",
+      "side": 1,
+      "message": "this is a keyword, not a test case.\n\n\"Deletes a tunnel interface .....\"",
       "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
