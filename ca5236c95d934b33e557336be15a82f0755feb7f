@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fc407a8_6a8e1d18",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-17T10:39:52Z",
+      "side": 1,
+      "message": "set it under the usage",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "ca5236c95d934b33e557336be15a82f0755feb7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db785787_891dd06a",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-17T10:39:52Z",
+      "side": 1,
+      "message": "check manually by adding -y and then try run command on remote system",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 14
+      },
+      "revId": "ca5236c95d934b33e557336be15a82f0755feb7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f21ed2c_4ea20080",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-17T10:39:52Z",
+      "side": 1,
+      "message": "you can remove this",
+      "range": {
+        "startLine": 190,
+        "startChar": 4,
+        "endLine": 190,
+        "endChar": 43
+      },
+      "revId": "ca5236c95d934b33e557336be15a82f0755feb7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b9d21dd_6a12af12",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-17T10:39:52Z",
+      "side": 1,
+      "message": "rename",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 8
+      },
+      "revId": "ca5236c95d934b33e557336be15a82f0755feb7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
