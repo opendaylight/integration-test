@@ -16,6 +16,24 @@
       "revId": "88ecf2bdce593f75710b7582f876d963a8107835",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bdf2a05_8c024b91",
+        "filename": "csit/suites/l2gw/__init__.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3659
+      },
+      "writtenOn": "2018-04-17T12:10:38Z",
+      "side": 1,
+      "message": "It is used in init file suite setup and suite teardown to set debugs .",
+      "parentUuid": "0702e86b_9662aff0",
+      "revId": "88ecf2bdce593f75710b7582f876d963a8107835",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
