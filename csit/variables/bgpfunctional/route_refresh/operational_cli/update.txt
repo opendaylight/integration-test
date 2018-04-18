@@ -1,8 +1,8 @@
-Messages state         |                 \r
-====================== |                 \r
-Messages Received      |                 \r
-NOTIFICATION           | 0               \r
-UPDATE                 | $COUNT               \r
-Messages Sent          |                 \r
-NOTIFICATION           | 0               \r
-UPDATE                 | 4
+Messages state         $DIVIDER
+====================== $DIVIDER
+Messages Received      $DIVIDER
+NOTIFICATION           $DIVIDER $NOT_COUNT
+UPDATE                 $DIVIDER $UPD_COUNT
+Messages Sent          $DIVIDER
+NOTIFICATION           $DIVIDER 0
+UPDATE                 $DIVIDER 4
