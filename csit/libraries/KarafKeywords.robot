@@ -257,6 +257,8 @@ Verify Exception Logging In Controller
     ${exceptions}=    Get Karaf Log Type From Test Start    ${controller_ip}    ${test_name}    Exception
     @{log_lines}=    Split String    ${exceptions}    ${\n}
     ${num_log_entries}    Get Length    ${log_lines}
+    # https://jira.opendaylight.org/browse/ODLPARENT-152
+    Run Keyword And Return If    ${num_log_entries} == ${2}    Ignore ODLPARENT-152    @{log_lines}
     Return From Keyword If    ${num_log_entries} == ${0}    No Exceptions found.
     : FOR    ${log_message}    IN    @{log_lines}
     \    Check Against White List    ${log_message}    ${exceptions_white_list}
@@ -272,6 +274,13 @@ Check Against White List
     : FOR    ${exception}    IN    @{exceptions_white_list}
     \    Return From Keyword If    "${exception}" in "${exception_line}"    Exceptions found, but whitelisted: ${\n}${exception_line}${\n}
     Fail    Exceptions Found: ${\n}${exception_line}${\n}
+
+Ignore ODLPARENT-152
+    [Arguments]    @{log_lines}
+    [Documentation]    This will ignore exceptions in @{log_lines} if they match the Exception pattern found in the list
+    ...    variable @{ODLPARENT_152}. Everything else will result in this keyword Failing.
+    Return From Keyword If    "@{ODLPARENT_152}[1]" in "@{log_lines}[0]" and "@{ODLPARENT_152}[1]" in "@{log_lines}[1]"
+    Fail    Exceptions found and not in the whitelist to ignore
 
 Wait_For_Karaf_Log
     [Arguments]    ${message}    ${timeout}=60    ${member_index}=${1}
