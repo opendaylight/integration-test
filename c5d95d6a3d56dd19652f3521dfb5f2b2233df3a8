@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b507086a_bab74568",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-04-18T13:00:08Z",
+      "side": 1,
+      "message": "Add Documentation here.\n\nPossibly think about using arguments? I don\u0027t see much of netvirt/variables.robot arguments in the whole openstackoperations.robot but I guess it\u0027s fine like this.",
+      "revId": "c5d95d6a3d56dd19652f3521dfb5f2b2233df3a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
