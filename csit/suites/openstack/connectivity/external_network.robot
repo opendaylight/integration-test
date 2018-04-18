@@ -78,9 +78,7 @@ Check Vm Instances Have Ip Address
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
 Create External Network And Subnet
-    OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
-    OpenStackOperations.Update Network    ${EXTERNAL_NET_NAME}    --external
-    OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
+    OpenStackOperations.Create External Network And Subnet
 
 Create Routers
     [Documentation]    Create Router and Add Interface to the subnets.

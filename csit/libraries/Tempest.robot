@@ -88,8 +88,7 @@ Log In To Tempest Executor And Setup Test Environment
     ...    and pushed to the tempest executor.
     Tempest.Create Blacklist File
     # Tempest tests need an existing external network in order to create routers.
-    OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --external --default --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
-    OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
+    OpenStackOperations.Create External Network And Subnet
     OpenStackOperations.List Networks
     ${control_node_conn_id} =    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}
