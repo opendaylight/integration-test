@@ -19,27 +19,27 @@ Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/ExaBgpLib.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/SSHKeywords.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/CompareStream.robot
 Library           ../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
+Resource          ../../../libraries/CompareStream.robot
+Resource          ../../../libraries/ExaBgpLib.robot
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${HOLDTIME}       180
-${DEVICE_NAME}    controller-config
-${BGP_PEER_NAME}    example-bgp-peer
-${RIB_INSTANCE}    example-bgp-rib
-${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${APP_PEER_NAME}    example-bgp-peer-app
-${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
-${BGP_RR_VAR_FOLDER}    ${BGP_VAR_FOLDER}/route_refresh
 ${BGP_CFG_NAME}    exa.cfg
+${BGP_PEER_NAME}    example-bgp-peer
+${BGP_RR_VAR_FOLDER}    ${BGP_VAR_FOLDER}/route_refresh
+${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
 ${CONFIG_SESSION}    config-session
+${DEVICE_NAME}    controller-config
 ${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
+${HOLDTIME}       180
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
+${RIB_INSTANCE}    example-bgp-rib
 
 *** Test Cases ***
 Configure_App_Peer
@@ -146,13 +146,16 @@ Verify_Odl_Received_Updates
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    COUNT=${expcount}
     ${ret}=    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_RR_VAR_FOLDER}/operational_updates    mapping=${mapping}
     ...    session=${CONFIG_SESSION}    verify=True
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Received_Updates_Cli    ${expcount}
+    BuiltIn.Log    ${ret}
+    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Test case valid only for versions oxygen and above.
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Received_Updates_Cli    ${expcount}
 
 Verify_Odl_Received_Updates_Cli
     [Arguments]    ${expcount}
     [Documentation]    Compares sent information with given expected count using odl-bgpcep-bgp-cli
     [Tags]    critical
-    ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    ${output}    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
+    BuiltIn.Log    ${output}
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    COUNT=${expcount}
     ${expstate}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/operational_cli/    file_name=update.txt    mapping=${mapping}
     ${expstate_ipv4}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/operational_cli/    file_name=update_ipv4.txt    mapping=${mapping}
@@ -173,13 +176,15 @@ Verify_Odl_Received_Route_Refresh
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    COUNT=${expcount}
     ${ret}=    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_RR_VAR_FOLDER}/operational_route_refresh    mapping=${mapping}
     ...    session=${CONFIG_SESSION}    verify=True
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Received_Route_Refresh_Cli    ${expcount}
+    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Test case valid only for versions oxygen and above.
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    5s    Verify_Odl_Received_Route_Refresh_Cli    ${expcount}
 
 Verify_Odl_Received_Route_Refresh_Cli
     [Arguments]    ${expcount}
-    [Documentation]    Compares expected count of messages on odl using odl-bgpcep-bgp-cli
+    [Documentation]    Verifies message count on odl using odl-bgpcep-bgp-cli. TC for oxygen and above.
     [Tags]    critical
     ${output}=    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    COUNT=${expcount}
     ${expstate}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/operational_cli/    file_name=route_refresh.txt    mapping=${mapping}
+    BuiltIn.Log    ${expstate}
     BuiltIn.Should_Contain    ${output}    ${expstate}
