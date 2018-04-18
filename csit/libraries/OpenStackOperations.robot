@@ -676,6 +676,14 @@ Create Allow All SecurityGroup
     OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=udp
     OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=udp
 
+Create External Network And Subnet
+    [Arguments]    ${ext_net_name}=${EXTERNAL_NET_NAME}    ${ext_net_type}=${EXTERNAL_NET_TYPE}    ${ext_net_physical_net}=${PUBLIC_PHYSICAL_NETWORK}    ${ext_net_segid}=${EXTERNAL_NET_SEGMENTATION_ID}    ${ext_subnet_name}=${EXTERNAL_SUBNET_NAME}    ${ext_subnet}=${EXTERNAL_SUBNET}
+    ...    ${ext_subnet_pool_allocation}=${EXTERNAL_SUBNET_ALLOCATION_POOL}    ${ext_net_gateway}=${EXTERNAL_GATEWAY}
+    [Documentation]    Create an external network and an external subnet
+    Run Keyword If    '${ext_net_type}' == 'vlan'    OpenStackOperations.Create Network    ${ext_net_name} --provider-network-type ${ext_net_type} --provider-physical-network ${ext_net_physical_net} --provider-segment=${ext_net_segid} --external
+    ...    ELSE    OpenStackOperations.Create Network    ${ext_net_name}=${EXTERNAL_NET_NAME}    --provider-network-type ${ext_net_type} --provider-physical-network ${ext_net_physical_net} --external
+    OpenStackOperations.Create SubNet    ${ext_net_name}    ${ext_subnet_name}    ${ext_subnet}    --gateway ${ext_net_gateway} --allocation-pool ${ext_subnet_pool_allocation}
+
 Create Neutron Port With Additional Params
     [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
     [Documentation]    Create Port With given additional parameters
