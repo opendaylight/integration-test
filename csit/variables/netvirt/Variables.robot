@@ -10,6 +10,8 @@ ${CIRROS_stable/queens}    cirros-0.3.5-x86_64-disk
 ${CIRROS_master}    cirros-0.3.5-x86_64-disk
 ${PRE_CLEAN_OPENSTACK_ALL}    False
 ${EXTERNAL_NET_NAME}    external-net
+${EXTERNAL_NET_TYPE}    flat
+${EXTERNAL_NET_SEGMENTATION_ID}    ${EMPTY}
 ${EXTERNAL_SUBNET_NAME}    external-subnet
 ${EXTERNAL_GATEWAY}    10.10.10.250
 ${EXTERNAL_SUBNET}    10.10.10.0/24
