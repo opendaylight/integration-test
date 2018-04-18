@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ea6c176b_8fed7903",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Have added the below line\nResource          ../../../variables/netvirt/Variables.robot\n\nRemoved the ${TEP_SHOW_STATE}    tep:show-state",
+      "parentUuid": "a83102d2_957a95e6",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 35
+      },
+      "revId": "07759ff23ec7cb71be24911c0e420b3fa1747823",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc919605_3edc3b1f",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 3
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "33711e87_75ff06a3",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Have removed the variable. I understand that its passed as argument in pybot -V .and hence things works as expected.",
+      "parentUuid": "bc919605_3edc3b1f",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "07759ff23ec7cb71be24911c0e420b3fa1747823",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e021aeef_389ee405",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 3
@@ -83,6 +131,30 @@
       "writtenOn": "2018-04-09T16:40:55Z",
       "side": 1,
       "message": "remove. it\u0027s pretty clear what\u0027s going on just by reading the actual code below",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 57
+      },
+      "revId": "07759ff23ec7cb71be24911c0e420b3fa1747823",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac8ef60f_bc7e4ab8",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e021aeef_389ee405",
       "range": {
         "startLine": 39,
         "startChar": 4,
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "19578b10_353f9a6a",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Its not required here.Removed",
+      "parentUuid": "4c5b81fd_5ed5269e",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 101
+      },
+      "revId": "07759ff23ec7cb71be24911c0e420b3fa1747823",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54c22529_a47aca56",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 3
@@ -129,6 +225,30 @@
       "writtenOn": "2018-04-09T16:40:55Z",
       "side": 1,
       "message": "If it\u0027s not too expensive (e.g. time consuming) you should\navoid using Suite Variable and just do a \"Get\" in each\ncase that you need this value.\n\nIf it\u0027s really needed to use a Suite Variable do it as\nclose to the beginning of the test suite as possible\n(preferably in the Suite Setup) and use ALL CAPS for the\nvar name.\n\nUsing suite/global variables cause a lot of headaches,\nespecially for future maintainers. Better to avoid if\npossible.",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 36
+      },
+      "revId": "07759ff23ec7cb71be24911c0e420b3fa1747823",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c6aa14f_b79cf6f9",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Have removed for the @{VM_IPS} and used in the routins Veriy Elan Traffic.\nFor other three variables,it needs to be set as suite variable, or else we would need to fetch the value of 3 variables in al 4 Tcs.",
+      "parentUuid": "54c22529_a47aca56",
       "range": {
         "startLine": 85,
         "startChar": 4,
@@ -164,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "16bc76bd_09807582",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de8275e4_fe3da8d7",
+      "range": {
+        "startLine": 144,
+        "startChar": 4,
+        "endLine": 144,
+        "endChar": 51
+      },
+      "revId": "07759ff23ec7cb71be24911c0e420b3fa1747823",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a483db6_f1ee60f8",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 3
@@ -175,6 +319,30 @@
       "writtenOn": "2018-04-09T16:40:55Z",
       "side": 1,
       "message": "replace with:\n  OpenStackOperations.OpenStack Suite Setup",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 24
+      },
+      "revId": "07759ff23ec7cb71be24911c0e420b3fa1747823",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f9e606f_e92c91e5",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a483db6_f1ee60f8",
       "range": {
         "startLine": 164,
         "startChar": 4,
@@ -204,6 +372,24 @@
     },
     {
       "key": {
+        "uuid": "40375f00_7d6d07a9",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f1c6629_594f1500",
+      "revId": "07759ff23ec7cb71be24911c0e420b3fa1747823",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8058e74f_2d466d28",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 3
@@ -215,6 +401,30 @@
       "writtenOn": "2018-04-09T16:40:55Z",
       "side": 1,
       "message": "remove this keyword from this file.\n\nadd a new keyword in KarafKeywords.robot something like this:\n\nCheck Karaf Log Message Count\n    [Arguments]    ${message}    ${count}\n    [Documentation]    Verifies that the ${message} exists in the karaf.log, and checks\n    ...    that it appears ${count} number of times.\n    ${output}    Check Karaf Log Has Messages    ${message}\n    # Verify count of ${output}\n\nThis lets you take advantage of the already existing keyword to check the\nlog, and it also provides a new and useful keyword to our KarafKeywords\nlibrary for others to take advantage of.",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 55
+      },
+      "revId": "07759ff23ec7cb71be24911c0e420b3fa1747823",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69cc4540_fcca25f9",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Updated KarafKeywords.robot for new API and modified the script accordingly",
+      "parentUuid": "8058e74f_2d466d28",
       "range": {
         "startLine": 173,
         "startChar": 0,
