@@ -261,6 +261,23 @@
       "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ec42197_2ba825de",
+        "filename": "csit/testplans/genius-genius.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-18T11:08:05Z",
+      "side": 1,
+      "message": "add separate file for oxygen and above test plans and add this there",
+      "revId": "9b94fce2585c1aac2bad6674d26e1e44e458c8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
