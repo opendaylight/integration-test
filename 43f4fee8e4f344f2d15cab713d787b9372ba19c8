@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "75e678bc_bb79cedc",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "$(SGP_ID} is used in the Create Port TC.If not set as Suite variable,It fails for the reason Variable \u0027${SGP_ID}\u0027 not found in the Create Port TC.",
+      "parentUuid": "3657cad0_2991f628",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 35
+      },
+      "revId": "43f4fee8e4f344f2d15cab713d787b9372ba19c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40636642_c339dd00",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-13T22:31:18Z",
       "side": 1,
       "message": ": FOR    ${port}    IN    @{PORT_LIST}",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "43f4fee8e4f344f2d15cab713d787b9372ba19c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33bf932a_fff38ef3",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40636642_c339dd00",
       "range": {
         "startLine": 53,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "08f07a80_2383c651",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1068d18_459cef51",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 89
+      },
+      "revId": "43f4fee8e4f344f2d15cab713d787b9372ba19c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad00f9f5_855f5384",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2018-04-13T22:31:18Z",
       "side": 1,
       "message": "${OS_CMP1_HOSTNAME} is available instead",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 86
+      },
+      "revId": "43f4fee8e4f344f2d15cab713d787b9372ba19c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c04d525e_c06ded03",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad00f9f5_855f5384",
       "range": {
         "startLine": 70,
         "startChar": 4,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "60b8879b_76bcc34a",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3e4ed0c_91a3ce3d",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 13
+      },
+      "revId": "43f4fee8e4f344f2d15cab713d787b9372ba19c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69549c22_0bbb89ee",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 9
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "444f3d10_6b2ab5d1",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Have updated.Please check if its fine.",
+      "parentUuid": "69549c22_0bbb89ee",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 68
+      },
+      "revId": "43f4fee8e4f344f2d15cab713d787b9372ba19c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f033526_a9272adb",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 9
@@ -151,6 +295,30 @@
       "writtenOn": "2018-04-13T22:31:18Z",
       "side": 1,
       "message": "might want to rethink how you do this ${count} stuff.\nif the test cases before get out of sync/fail and \nthe log messages are not accurate, even this test case\nwould fail even though it could functioning properly.\n\nin other words, if the log count before this test case\nended up at 3 (because of a bug) but this test case\ncorrectly created 4 more messages, it would fail because\nyou are starting the ${count} at 6.",
+      "range": {
+        "startLine": 123,
+        "startChar": 4,
+        "endLine": 123,
+        "endChar": 33
+      },
+      "revId": "43f4fee8e4f344f2d15cab713d787b9372ba19c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5c25c2f_e7e2b611",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-04-18T09:41:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f033526_a9272adb",
       "range": {
         "startLine": 123,
         "startChar": 4,
