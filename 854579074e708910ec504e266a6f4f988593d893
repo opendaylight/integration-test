@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48101394_188dcb34",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-19T06:24:24Z",
+      "side": 1,
+      "message": "add description",
+      "revId": "854579074e708910ec504e266a6f4f988593d893",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2f5b577_d98f99cc",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-19T06:24:24Z",
+      "side": 1,
+      "message": "no need to log",
+      "revId": "854579074e708910ec504e266a6f4f988593d893",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
