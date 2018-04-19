@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6804e59c_c89ce73c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "do you need this? does the To Json keyword log it\ninside of that keyword?",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 22
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "510a1f82_73bd327c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "I didn\u0027t know this worked to pass multiple items (src and dst)\nto check they are in resp.content.",
+      "range": {
+        "startLine": 238,
+        "startChar": 4,
+        "endLine": 238,
+        "endChar": 57
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e55345c1_729747ba",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "better varname?",
+      "range": {
+        "startLine": 241,
+        "startChar": 6,
+        "endLine": 241,
+        "endChar": 12
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dce0e0c6_279bb4a6",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "better varname?",
+      "range": {
+        "startLine": 242,
+        "startChar": 6,
+        "endLine": 242,
+        "endChar": 9
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e74ae44_61c5c08d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "what will be ${ret} if the above ${return} is not True?",
+      "range": {
+        "startLine": 243,
+        "startChar": 17,
+        "endLine": 243,
+        "endChar": 22
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f9ad39a_35a7a1bb",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "extra space",
+      "range": {
+        "startLine": 247,
+        "startChar": 115,
+        "endLine": 247,
+        "endChar": 116
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ccc7cd3a_04a59cc4",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "lowercase",
+      "range": {
+        "startLine": 248,
+        "startChar": 6,
+        "endLine": 248,
+        "endChar": 13
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26516440_86c06cc5",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "put these in the *** Variables *** section of the suite\nitself. If they need to be available across multiple\nsuites (in the future) you can move them to a variables\nfile. doing this here is pretty hidden.",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 45
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3316111e_78c58cbe",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "tunnel_type\n\nOR, since it\u0027s not that long of a string, just remove this and\nuse the full string in the line below.",
+      "range": {
+        "startLine": 261,
+        "startChar": 6,
+        "endLine": 261,
+        "endChar": 10
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd64690b_8f9986e8",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "use_all_lower_case_and_underscores_for_local_vars\n\nnotCamelCase",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 21
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9dbf2f76_1b0f5671",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "put these lines up right after you get ${output} so if they\nfail, the keyword will bail at that point. Otherwise, if\nsomething was really wrong in ${output} it\u0027ll be less obvious\nto figure out.",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 55
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dea9af51_23f285a4",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T21:46:10Z",
+      "side": 1,
+      "message": "where are you using this?\n\nwhich system will this run on?\n\nno docs.",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 23
+      },
+      "revId": "eaa4693c69d688bac804bbf70165933db25ed49b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
