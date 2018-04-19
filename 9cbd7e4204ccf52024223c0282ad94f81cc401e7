@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cba333a6_c1c7e008",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-19T12:29:41Z",
+      "side": 1,
+      "message": "This assumes these are the only two lines captured for the test right? So if another exception pops up during the test we won\u0027t skip the ssh one right? This is better than what we have and maybe we won\u0027t hit the use case with extra exceptions often.",
+      "revId": "9cbd7e4204ccf52024223c0282ad94f81cc401e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
