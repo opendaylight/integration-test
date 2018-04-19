@@ -16,6 +16,24 @@
       "revId": "9cbd7e4204ccf52024223c0282ad94f81cc401e7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b1ec22b_7b2abc3b",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-19T20:43:55Z",
+      "side": 1,
+      "message": "yeah, you are right. if we got 3 exceptions where two were\nmatching ODLPARENT-152 and the other was another whitelisted\nexception, this would fail... but, we\u0027d want to skip it.\n\n...sigh...\n\nanyway, I guess this is probably better than nothing at\nthis point.\n\nideally, all exceptions are gone and anything that shows\nup is an alarm and we get it fixed.",
+      "parentUuid": "cba333a6_c1c7e008",
+      "revId": "9cbd7e4204ccf52024223c0282ad94f81cc401e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
