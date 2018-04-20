@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5bdd3d6_30ab517c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-20T20:28:40Z",
+      "side": 1,
+      "message": "can you add why (what use case) this is needed?",
+      "revId": "55d06bcb96272ac195f1d9689378e21801a1a470",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
