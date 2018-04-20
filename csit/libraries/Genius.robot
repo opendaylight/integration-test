@@ -18,6 +18,7 @@ ${genius_config_dir}    ${CURDIR}/../variables/genius
 ${Bridge-1}       BR1
 ${Bridge-2}       BR2
 ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
+@{DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE
 
 *** Keywords ***
 Genius Suite Setup
@@ -93,9 +94,8 @@ Check Service Status
     [Documentation]    Issues the karaf shell command showSvcStatus to verify the ready and service states are the same as the arguments passed
     ${service_status_output}    Issue_Command_On_Karaf_Console    showSvcStatus    ${ODL_SYSTEM_IP}    8101
     Should Contain    ${service_status_output}    ${system_ready_state}
-    @{split}    Split To Lines    ${service_status_output}    3    7
-    : FOR    ${var}    IN    @{split}
-    \    Should Contain    ${var}    ${service_state}
+    : FOR    ${service}    IN    @{DIAG_SERVICES}
+    \    Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
 
 Create Vteps
     [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
