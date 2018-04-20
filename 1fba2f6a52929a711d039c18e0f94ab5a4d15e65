@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8650e45b_1161d45a",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-04-20T07:11:16Z",
+      "side": 1,
+      "message": "Deleted the Log statement.",
+      "parentUuid": "c9bd9374_02e95c60",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 28
+      },
+      "revId": "1fba2f6a52929a711d039c18e0f94ab5a4d15e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12e27ae3_b4188b25",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-19T22:01:29Z",
       "side": 1,
       "message": "don\u0027t need this",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 50
+      },
+      "revId": "1fba2f6a52929a711d039c18e0f94ab5a4d15e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f70147e_f3a120ab",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-04-20T07:11:16Z",
+      "side": 1,
+      "message": "Deleted the Log statement.",
+      "parentUuid": "12e27ae3_b4188b25",
       "range": {
         "startLine": 255,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7b491158_adb45053",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-04-20T07:11:16Z",
+      "side": 1,
+      "message": "Replaced the same with ${PORT_URL}.",
+      "parentUuid": "c603af17_2d805046",
+      "range": {
+        "startLine": 258,
+        "startChar": 76,
+        "endLine": 258,
+        "endChar": 112
+      },
+      "revId": "1fba2f6a52929a711d039c18e0f94ab5a4d15e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c6c70f3_1989be3b",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2018-04-19T22:01:29Z",
       "side": 1,
       "message": "why are you setting a suite var here?",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 35
+      },
+      "revId": "1fba2f6a52929a711d039c18e0f94ab5a4d15e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61007341_ae8b0b7f",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-04-20T07:11:16Z",
+      "side": 1,
+      "message": "Deleted the suite variable as it is not required.",
+      "parentUuid": "9c6c70f3_1989be3b",
       "range": {
         "startLine": 263,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b763a73d_d8c69f86",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-04-20T07:11:16Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e846ad7a_a9f1a629",
+      "range": {
+        "startLine": 272,
+        "startChar": 19,
+        "endLine": 272,
+        "endChar": 102
+      },
+      "revId": "1fba2f6a52929a711d039c18e0f94ab5a4d15e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4bc3d99_61b53a86",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
         "patchSetId": 4
@@ -128,6 +248,30 @@
       "writtenOn": "2018-04-19T22:01:29Z",
       "side": 1,
       "message": "don\u0027t need",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 20
+      },
+      "revId": "1fba2f6a52929a711d039c18e0f94ab5a4d15e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd964456_7788c5ac",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-04-20T07:11:16Z",
+      "side": 1,
+      "message": "Deleted the Log statement.",
+      "parentUuid": "d4bc3d99_61b53a86",
       "range": {
         "startLine": 279,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "6bbefea0_3feffa55",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-04-20T07:11:16Z",
+      "side": 1,
+      "message": "Deleted the Log statement.",
+      "parentUuid": "4cd63aba_2fb94da1",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 34
+      },
+      "revId": "1fba2f6a52929a711d039c18e0f94ab5a4d15e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5392390f_984b0c1b",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
         "patchSetId": 4
@@ -174,6 +342,30 @@
       "writtenOn": "2018-04-19T22:01:29Z",
       "side": 1,
       "message": "don\u0027t need.",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 298,
+        "endChar": 46
+      },
+      "revId": "1fba2f6a52929a711d039c18e0f94ab5a4d15e65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ac06679_f435335a",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-04-20T07:11:16Z",
+      "side": 1,
+      "message": "Deleted the Log statement.",
+      "parentUuid": "5392390f_984b0c1b",
       "range": {
         "startLine": 298,
         "startChar": 0,
