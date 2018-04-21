@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c680a0f_eb4f0855",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-21T04:47:28Z",
+      "side": 1,
+      "message": "Thanks Jamo for this :)",
+      "revId": "056dccee2fcd331a1148d0f9fd7e12604cb09c9c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
