@@ -16,6 +16,24 @@
       "revId": "056dccee2fcd331a1148d0f9fd7e12604cb09c9c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd3ef21e_c0f77bb0",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-21T04:49:13Z",
+      "side": 1,
+      "message": "I had a concern in this script that this actually is not verifying things properly in 3 node CSIT. this checks the output only once. for a 3 node, the CLI actually prints the output for all 3 nodes separately. But ofcourse, I will ask Sathwik to take care of that separately",
+      "parentUuid": "0c680a0f_eb4f0855",
+      "revId": "056dccee2fcd331a1148d0f9fd7e12604cb09c9c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
