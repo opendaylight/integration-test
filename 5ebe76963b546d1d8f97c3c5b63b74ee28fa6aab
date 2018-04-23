@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7cfb650_bfad3c3d",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 7689
+      },
+      "writtenOn": "2018-04-23T17:17:33Z",
+      "side": 1,
+      "message": "I am not sure if this is the best way to go about this. In new fluorine cli output there is different character used as diveder which is not from 128 ascii characters, and therefore could cause some problems. I could leave it as is, or add python functionality to normalize all cli outputs, and test with should be equal instead of should contain for better diff view.",
+      "range": {
+        "startLine": 166,
+        "startChar": 69,
+        "endLine": 166,
+        "endChar": 70
+      },
+      "revId": "5ebe76963b546d1d8f97c3c5b63b74ee28fa6aab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
