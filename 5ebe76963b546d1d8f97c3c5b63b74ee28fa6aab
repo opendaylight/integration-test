@@ -46,6 +46,30 @@
       "revId": "5ebe76963b546d1d8f97c3c5b63b74ee28fa6aab",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f31dd148_03499554",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 3443
+      },
+      "writtenOn": "2018-04-23T19:44:59Z",
+      "side": 1,
+      "message": "Is the result of migrate deprecated karaf ShellTable[0]. I would expect similar change in a close future for others projects.\n\n\n[0] https://git.opendaylight.org/gerrit/#/c/70645/3/bgp/cli/src/main/java/org/opendaylight/protocol/bgp/cli/utils/GlobalStateCliUtils.java",
+      "parentUuid": "8232036f_408e9aa3",
+      "range": {
+        "startLine": 166,
+        "startChar": 69,
+        "endLine": 166,
+        "endChar": 70
+      },
+      "revId": "5ebe76963b546d1d8f97c3c5b63b74ee28fa6aab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
