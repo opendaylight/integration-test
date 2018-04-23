@@ -41,7 +41,7 @@ netvirt_data_models = [
     'operational/interface-service-bindings:bound-services-state-list',
     'operational/itm-state:tunnels_state',
     'operational/l3nexthop:l3nexthop',
-    'operational/l3vpn:vpn-interfaces'
+    'operational/l3vpn:vpn-interfaces',
     'operational/network-topology:network-topology/topology/ovsdb:1',
     'operational/neutron:neutron/neutron:ports',
     'operational/odl-fib:label-route-map',
