@@ -22,6 +22,30 @@
       "revId": "5ebe76963b546d1d8f97c3c5b63b74ee28fa6aab",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8232036f_408e9aa3",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-23T18:54:35Z",
+      "side": 1,
+      "message": "is the new divider in the output coming from karaf itself,\nor from some ODL project. We could file a bug against an\nodl project to make that divider more consumable for our\nautomation.\n\nor, what about matching with regex?",
+      "parentUuid": "d7cfb650_bfad3c3d",
+      "range": {
+        "startLine": 166,
+        "startChar": 69,
+        "endLine": 166,
+        "endChar": 70
+      },
+      "revId": "5ebe76963b546d1d8f97c3c5b63b74ee28fa6aab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
