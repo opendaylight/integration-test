@@ -76,6 +76,12 @@ Update SubNet
     ${output} =    OpenStack CLI    openstack subnet set ${subnet_name} ${additional_args}
     [Return]    ${output}
 
+Unset SubNet
+    [Arguments]    ${subnet_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Update subnet with openstack request
+    ${output} =    OpenStack CLI    openstack subnet unset ${subnet_name} ${additional_args}
+    [Return]    ${output}
+
 Show SubNet
     [Arguments]    ${subnet_name}
     [Documentation]    Show subnet with neutron request.
@@ -288,6 +294,15 @@ Get VM IPs
     \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    BuiltIn.Log    ${vm_console_output}
     OpenStackOperations.Copy DHCP Files From Control Node
     [Return]    @{vm_ips}    ${ips_and_console_log[1]}
+
+Get Subnet Gateway Ip
+    [Arguments]    ${subnet_name}
+    [Documentation]    Show information of a subnet and grep for subnet gateway ip address
+    ${output} =    OpenStackOperations.OpenStack CLI    openstack subnet show ${subnet_name} | grep gateway_ip | awk '{print $4}'
+    ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
+    ${matches} =    Collections.Get Matches    ${splitted_output}    regexp=(\\d\.)+
+    ${ip}    String.Strip String    ${matches[0]}    characters=','
+    [Return]    ${ip}
 
 Collect VM IPv6 SLAAC Addresses
     [Arguments]    ${fail_on_none}    ${vm_list}    ${network}    ${subnet}
