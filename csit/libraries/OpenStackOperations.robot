@@ -76,6 +76,12 @@ Update SubNet
     ${output} =    OpenStack CLI    openstack subnet set ${subnet_name} ${additional_args}
     [Return]    ${output}
 
+Unset SubNet
+    [Arguments]    ${subnet_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Update subnet with openstack request
+    ${output} =    OpenStack CLI    openstack subnet unset ${subnet_name} ${additional_args}
+    [Return]    ${output}
+
 Show SubNet
     [Arguments]    ${subnet_name}
     [Documentation]    Show subnet with neutron request.
