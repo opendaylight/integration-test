@@ -35,7 +35,7 @@ ${BMP_LOG_FILE}    bmpmock.log
 Verify BMP Feature
     [Documentation]    Verifies if feature is up
     &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
-    BuiltIn.Wait_Until_Keyword_Succeeds    6x    10s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_FEAT_DIR}    mapping=${mapping}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    180s    5s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_FEAT_DIR}    mapping=${mapping}    session=${CONFIG_SESSION}
     ...    verify=True
 
 Start_Bmp_Mock
