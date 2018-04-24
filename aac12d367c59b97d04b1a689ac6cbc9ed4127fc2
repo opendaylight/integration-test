@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d517f00_2e971211",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T22:20:23Z",
+      "side": 1,
+      "message": "is this an old patch? I think it needs to be rebased as this change here was fixed a couple weeks ago.",
+      "revId": "aac12d367c59b97d04b1a689ac6cbc9ed4127fc2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e80bab5b_f62da0a5",
+        "filename": "csit/suites/genius/OFTunnel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T22:20:23Z",
+      "side": 1,
+      "message": "put in alpha order",
+      "revId": "aac12d367c59b97d04b1a689ac6cbc9ed4127fc2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91598d28_c4ff07b6",
+        "filename": "csit/suites/genius/OFTunnel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T22:20:23Z",
+      "side": 1,
+      "message": "These tests are really long, it would be better to break them down into smaller steps.",
+      "revId": "aac12d367c59b97d04b1a689ac6cbc9ed4127fc2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72fc871e_0bee1232",
+        "filename": "csit/suites/genius/OFTunnel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T22:20:23Z",
+      "side": 1,
+      "message": "user lowercase for local vars. Some of these it looks like you are adding as globals so make those all uppercase. Try to lower the scope down to Suite or Test if possible. And also put the variable up in the Variables with a none/empty default  section so we know they are intended to no be local.",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "aac12d367c59b97d04b1a689ac6cbc9ed4127fc2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a40caeb0_14f3eb0f",
+        "filename": "csit/suites/genius/OFTunnel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T22:20:23Z",
+      "side": 1,
+      "message": "whitespace, also in other places",
+      "range": {
+        "startLine": 40,
+        "startChar": 53,
+        "endLine": 40,
+        "endChar": 57
+      },
+      "revId": "aac12d367c59b97d04b1a689ac6cbc9ed4127fc2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8cab8e9_fc679b92",
+        "filename": "csit/suites/genius/OFTunnel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T22:20:23Z",
+      "side": 1,
+      "message": "fully qualify the keywords",
+      "revId": "aac12d367c59b97d04b1a689ac6cbc9ed4127fc2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "979eb155_80f398e0",
+        "filename": "csit/suites/genius/OFTunnel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T22:20:23Z",
+      "side": 1,
+      "message": "add space, so \" \u003d\"",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 12
+      },
+      "revId": "aac12d367c59b97d04b1a689ac6cbc9ed4127fc2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89187ca1_4a786dd2",
+        "filename": "csit/suites/genius/OFTunnel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T22:20:23Z",
+      "side": 1,
+      "message": "try to remove the sleeps in place of a rest query or some other more deterministic method",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 14
+      },
+      "revId": "aac12d367c59b97d04b1a689ac6cbc9ed4127fc2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da04f4f7_472d2702",
+        "filename": "csit/suites/genius/OFTunnel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T22:20:23Z",
+      "side": 1,
+      "message": "add \" \u003d\" for all variables assigned",
+      "revId": "aac12d367c59b97d04b1a689ac6cbc9ed4127fc2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
