@@ -180,11 +180,11 @@ Explanation:
   by comma.
 * robot-options: robot option you want to pass to the test separated by space.
 
-For Unmanaged project, we need 2 extra parameters:
+For Self-Managed project, we need 2 extra parameters:
 
-* trigger-jobs: Unmanaged CSIT will run after succesful project merge, so just
+* trigger-jobs: Self-Managed CSIT will run after succesful project merge, so just
   fill with '{project}-merge-{stream}'.
-* repo-url: Unmanaged project feature repository maven URL (see example below).
+* repo-url: Self-Managed project feature repository maven URL (see example below).
 
 So in this case it should look like this::
 
