@@ -1,0 +1,485 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40e89775_ba1c058b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "are these global - make them all uppercase if so.",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 6
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e413ddf6_34cd8162",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "just leave this as output to be consistent with most usages of this keyword",
+      "range": {
+        "startLine": 161,
+        "startChar": 6,
+        "endLine": 161,
+        "endChar": 16
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af4d05e5_ce2e144e",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "Add \"BuiltIn.\". Do the same for all other places that the patch adds keyword call. This file needs cleanup like that which we will do in a different patch.",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a6bf0c0_4a8dd0de",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "add a \" \u003d\" between the var and the keyword. Do the same for all variables set. This file needs cleanup like that which we will do in a different patch.",
+      "range": {
+        "startLine": 234,
+        "startChar": 6,
+        "endLine": 234,
+        "endChar": 10
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f27e0061_812a9998",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "is this used anywhere?",
+      "range": {
+        "startLine": 235,
+        "startChar": 6,
+        "endLine": 235,
+        "endChar": 14
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b6bda1a_f33bc4ff",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "Most modules use the below form. They use the ALLOWED_STATUS_CODES from the TemplatedRequests library.\n\nBuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}",
+      "range": {
+        "startLine": 236,
+        "startChar": 57,
+        "endLine": 236,
+        "endChar": 60
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c34ad8b_0b09815a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "OVSDB.Log Request has a good keyword for logging json stuff. Look at making a copy of that and using here. We should eventually move the keyword to a common lib but we will do that ina different patch",
+      "range": {
+        "startLine": 240,
+        "startChar": 4,
+        "endLine": 240,
+        "endChar": 46
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f165ac11_4a35ae28",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "Is this expected or is this an error condition?",
+      "range": {
+        "startLine": 243,
+        "startChar": 62,
+        "endLine": 243,
+        "endChar": 65
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23f8fb0d_0e0fc8c8",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "This Log likely isn\u0027t needed as the Get From Dictionary probably logs the output.",
+      "range": {
+        "startLine": 250,
+        "startChar": 4,
+        "endLine": 250,
+        "endChar": 7
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c934bf42_336f5019",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "if this is only called in the SRM suite then move these keywords there. Put the keywords and data closest to where it is used and only move things up if needed by multiple modules.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 15
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c75a10a_9724c08f",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "fully qualify these keywords, add \" \u003d\"",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ff6ff1d_0fabdfec",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "I wonder if a regexp for uuid would be better? the regexp should match the first instance of the uuid which would be the very first line in the output.",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad8f0d72_9f03b9ba",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "Is this used? typically we only return the match, but I guess you are looking for the group match to go into bridge_name. So maybe change line to match?",
+      "range": {
+        "startLine": 362,
+        "startChar": 6,
+        "endLine": 362,
+        "endChar": 10
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5dbe4a9_5d8eb111",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "BuiltIn.Log. These Logs probably are not needed as the keywords above log simple output normally.",
+      "range": {
+        "startLine": 363,
+        "startChar": 4,
+        "endLine": 363,
+        "endChar": 7
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44dccbe1_596f6293",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "these should be local to this suite",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae95ecca_6c535d4a",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "remove this if not used?",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "586de478_60bc0853",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "remove this?",
+      "range": {
+        "startLine": 20,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8c7dde2_64be47c6",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "fully qualify all keywords",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "894e95e2_f6c98be0",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "Should these be constants?\n\nAlso, should the values be the same - I see 30, 60, 90",
+      "range": {
+        "startLine": 23,
+        "startChar": 35,
+        "endLine": 23,
+        "endChar": 38
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "349850ef_e0d827c8",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "leave all lowercase for local vars. add \" \u003d\". do the same for all other places.",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 14
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "552c48be_8350ecc5",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "not needed if logged in calling keyword before",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 7
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2733838c_f93002a7",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "look at moving the majority of this block of code into a keyword. Looks the same as the above test, except the uri (pass in the uri) to check and the Switch Connection (this can likely be done in the other call also, or see if this is even needed)",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a56c32ef_6a64e727",
+        "filename": "csit/testplans/genius-upstream-oxygen.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T11:55:18Z",
+      "side": 1,
+      "message": "we should look at fixing these testplans in another patch. Seems weird that they are all the exact same, so we should be able to use a single plan.",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
