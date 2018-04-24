@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98eb304a_cab316e5",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T14:44:18Z",
+      "side": 1,
+      "message": "*** this comment applies to all the new code added in this gerrit\n- add space, \" \u003d\"\n- just name the var ${output} to be consistent with other calls like this\n- fully qualify the keyword\n- check if the Log is needed, usually the run keyword logs the output of the command so an explicit Log is not needed\n** if you do need the log, the use the Run Command On Remote System  And Log variant of the keyword instead. Typically the keyword logs simple out like return or status, so you only need to log more verbose things like a flow dump.",
+      "revId": "2db18a18686b9e548ccee3d2011ba8581dae4f1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2fe779d_82924025",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T14:44:18Z",
+      "side": 1,
+      "message": "Builtin.Log",
+      "range": {
+        "startLine": 362,
+        "startChar": 4,
+        "endLine": 362,
+        "endChar": 7
+      },
+      "revId": "2db18a18686b9e548ccee3d2011ba8581dae4f1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
