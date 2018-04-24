@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a6076f7_45b69c53",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 87
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T12:32:58Z",
+      "side": 1,
+      "message": "put in alpha order",
+      "revId": "1286e2db2062ba5209f06a522cf74396753fb9ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "855fe730_7eef96da",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 87
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T12:32:58Z",
+      "side": 1,
+      "message": "we should make this a variable that passes in from the job yamls. Can do that in another patch.",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "1286e2db2062ba5209f06a522cf74396753fb9ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dbfa5ec_14da52af",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 87
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T12:32:58Z",
+      "side": 1,
+      "message": "did we find a way to remove the sleeps? We should be able to query when the nodes are connected. We might already have such a keyword.",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "1286e2db2062ba5209f06a522cf74396753fb9ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e8f6f56_db387c4a",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 87
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T12:32:58Z",
+      "side": 1,
+      "message": "same question here. I think there should be a deterministic method to check the status. An easy way would be to get the ovsdb topology, loop through all the nodes looking for connected. Put that in a keyword and loop over that keyword a few times. If that fails, fail the test. otherwise go to the next step looking for the tunnels.",
+      "range": {
+        "startLine": 28,
+        "startChar": 20,
+        "endLine": 28,
+        "endChar": 23
+      },
+      "revId": "1286e2db2062ba5209f06a522cf74396753fb9ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b517424a_8964da72",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 87
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T12:32:58Z",
+      "side": 1,
+      "message": "add space, \" \u003d\"",
+      "revId": "1286e2db2062ba5209f06a522cf74396753fb9ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13f1bf5c_5dcf7ed2",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 87
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T12:32:58Z",
+      "side": 1,
+      "message": "this is a var in Variables.robot as CONFIG_TOPO_API",
+      "range": {
+        "startLine": 41,
+        "startChar": 88,
+        "endLine": 41,
+        "endChar": 138
+      },
+      "revId": "1286e2db2062ba5209f06a522cf74396753fb9ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "293fb335_f0acb843",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 87
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T12:32:58Z",
+      "side": 1,
+      "message": "there is a keyword in OVSDB.Log Config And Operational Topology that you can use instead of this and the curl.",
+      "revId": "1286e2db2062ba5209f06a522cf74396753fb9ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2345fdc_c155e001",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 87
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T12:32:58Z",
+      "side": 1,
+      "message": "make sure this doesn\u0027t clash with anything since I thought conn_id_1 was already used. This should also be a uppercase.",
+      "range": {
+        "startLine": 48,
+        "startChar": 29,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "1286e2db2062ba5209f06a522cf74396753fb9ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c2a5637_69aa531a",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 87
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-24T12:32:58Z",
+      "side": 1,
+      "message": "does this download every time or just once and then all the other run\u0027s use the same image? we should look at getting this locally",
+      "range": {
+        "startLine": 60,
+        "startChar": 112,
+        "endLine": 60,
+        "endChar": 120
+      },
+      "revId": "1286e2db2062ba5209f06a522cf74396753fb9ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
