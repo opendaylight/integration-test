@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1592e78b_3218abbc",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:29:58Z",
+      "side": 1,
+      "message": "node_ip or ovs_ip to be consistent with other keywords in\nthis file. Although, looking through it seems we need\nto clean it up some.",
+      "range": {
+        "startLine": 359,
+        "startChar": 21,
+        "endLine": 359,
+        "endChar": 25
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d4e3ef8_b40d1d57",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:29:58Z",
+      "side": 1,
+      "message": "is there a good default you can give to ${type} so that\nwe don\u0027t need to include it in most cases?",
+      "range": {
+        "startLine": 384,
+        "startChar": 39,
+        "endLine": 384,
+        "endChar": 46
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33b3c384_b200e5e8",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:29:58Z",
+      "side": 1,
+      "message": "instead of this keyword, wherever you are calling it,\nyou could do:\n\n    ${conn_id} \u003d SSHLibrary.Open Connection    ${openstack_node_ip}    prompt\u003d${DEFAULT_LINUX_PROMPT}\n    OpenStackOperations.Get DumpFlows And Ovsconfig    ${conn_id}\n    SSHLibrary.Close Connection\n\nyou\u0027ll get a lot more out of it and saves all this code",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 27
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89aaa37c_085f2275",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:29:58Z",
+      "side": 1,
+      "message": "upgrade_router_1",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 26
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb2fe15b_b4d1b7ee",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:29:58Z",
+      "side": 1,
+      "message": "does it have to be this? can it be upgrade_tun?",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 21
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a74025d_95131251",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:29:58Z",
+      "side": 1,
+      "message": "gotta get rid of this.\n\nin fluorine we can poll on /diagstatus with REST for\n418 to know ODL is ok. That wait_for_sync\u003dTrue is already\nthere as well. The maintenance interval is going to be\n30seconds, maybe there is a karaf.log message we can grep\nfor to know when the sync is done.\n\nOtherwise, I think one initial idea is to hit the right data model before we stop/wipe odl and count the number of flows. Then poll (below in the right test case) on\nthat data model again, and move on when the number\nof flows matches.",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 24
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4059981f_1098e08a",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:29:58Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 23
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46022343_eaff96aa",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:29:58Z",
+      "side": 1,
+      "message": "don\u0027t need this. it\u0027s done in Suite Teardown, and more\nreliable there as well.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 45
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d480a8af_9d3bb17b",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:29:58Z",
+      "side": 1,
+      "message": "is this needed?",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 42
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
