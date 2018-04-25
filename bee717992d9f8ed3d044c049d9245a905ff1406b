@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c50a4f08_97ce8ac2",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:37:23Z",
+      "side": 1,
+      "message": "add a space between ${output} and \u0027\u003d\u0027 sign. applies in a \nfew other places.",
+      "revId": "bee717992d9f8ed3d044c049d9245a905ff1406b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
