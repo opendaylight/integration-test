@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "adc8d9e9_c9d30156",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40e89775_ba1c058b",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 6
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e413ddf6_34cd8162",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 15
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-24T11:55:18Z",
       "side": 1,
       "message": "just leave this as output to be consistent with most usages of this keyword",
+      "range": {
+        "startLine": 161,
+        "startChar": 6,
+        "endLine": 161,
+        "endChar": 16
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e971659c_b216acef",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e413ddf6_34cd8162",
       "range": {
         "startLine": 161,
         "startChar": 6,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "d996a7ac_729cd16d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af4d05e5_ce2e144e",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a6bf0c0_4a8dd0de",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 15
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "24399be3_21278705",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a6bf0c0_4a8dd0de",
+      "range": {
+        "startLine": 234,
+        "startChar": 6,
+        "endLine": 234,
+        "endChar": 10
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f27e0061_812a9998",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 15
@@ -99,6 +189,30 @@
       "writtenOn": "2018-04-24T11:55:18Z",
       "side": 1,
       "message": "is this used anywhere?",
+      "range": {
+        "startLine": 235,
+        "startChar": 6,
+        "endLine": 235,
+        "endChar": 14
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1665e02_a8bd6e6e",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "the previous line before respjson it will be printed in a paragraph format. where as respjson will display the content in a format like json format. so this is used just to log the json",
+      "parentUuid": "f27e0061_812a9998",
       "range": {
         "startLine": 235,
         "startChar": 6,
@@ -180,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "51b23377_ba0b3829",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "it is expected as error condition as tunnels are not available.",
+      "parentUuid": "f165ac11_4a35ae28",
+      "range": {
+        "startLine": 243,
+        "startChar": 62,
+        "endLine": 243,
+        "endChar": 65
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23f8fb0d_0e0fc8c8",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 15
@@ -191,6 +329,30 @@
       "writtenOn": "2018-04-24T11:55:18Z",
       "side": 1,
       "message": "This Log likely isn\u0027t needed as the Get From Dictionary probably logs the output.",
+      "range": {
+        "startLine": 250,
+        "startChar": 4,
+        "endLine": 250,
+        "endChar": 7
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3b0f545_dafb6e9e",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23f8fb0d_0e0fc8c8",
       "range": {
         "startLine": 250,
         "startChar": 4,
@@ -226,6 +388,30 @@
     },
     {
       "key": {
+        "uuid": "8b856848_52d889ea",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c934bf42_336f5019",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 15
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c75a10a_9724c08f",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 15
@@ -237,6 +423,24 @@
       "writtenOn": "2018-04-24T11:55:18Z",
       "side": 1,
       "message": "fully qualify these keywords, add \" \u003d\"",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c06c864_443cf915",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c75a10a_9724c08f",
       "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -283,6 +487,30 @@
     },
     {
       "key": {
+        "uuid": "f4e8d734_3734a2de",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "yes it is not used. I am just saving line with regexp match in line variable and from the the line variable i am extracting bridge name.",
+      "parentUuid": "ad8f0d72_9f03b9ba",
+      "range": {
+        "startLine": 362,
+        "startChar": 6,
+        "endLine": 362,
+        "endChar": 10
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5dbe4a9_5d8eb111",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 15
@@ -294,6 +522,30 @@
       "writtenOn": "2018-04-24T11:55:18Z",
       "side": 1,
       "message": "BuiltIn.Log. These Logs probably are not needed as the keywords above log simple output normally.",
+      "range": {
+        "startLine": 363,
+        "startChar": 4,
+        "endLine": 363,
+        "endChar": 7
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "371093e2_a6542cce",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5dbe4a9_5d8eb111",
       "range": {
         "startLine": 363,
         "startChar": 4,
@@ -323,6 +575,24 @@
     },
     {
       "key": {
+        "uuid": "6ae36ee7_df6172c7",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44dccbe1_596f6293",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae95ecca_6c535d4a",
         "filename": "csit/suites/genius/Service_Recovery.robot",
         "patchSetId": 15
@@ -340,6 +610,24 @@
     },
     {
       "key": {
+        "uuid": "3e9f86aa_7851a793",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae95ecca_6c535d4a",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "586de478_60bc0853",
         "filename": "csit/suites/genius/Service_Recovery.robot",
         "patchSetId": 15
@@ -351,6 +639,30 @@
       "writtenOn": "2018-04-24T11:55:18Z",
       "side": 1,
       "message": "remove this?",
+      "range": {
+        "startLine": 20,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7fc43e27_b648b9c2",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "586de478_60bc0853",
       "range": {
         "startLine": 20,
         "startChar": 5,
@@ -403,6 +715,30 @@
     },
     {
       "key": {
+        "uuid": "5b18d8d0_763a76b2",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "894e95e2_f6c98be0",
+      "range": {
+        "startLine": 23,
+        "startChar": 35,
+        "endLine": 23,
+        "endChar": 38
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "349850ef_e0d827c8",
         "filename": "csit/suites/genius/Service_Recovery.robot",
         "patchSetId": 15
@@ -414,6 +750,30 @@
       "writtenOn": "2018-04-24T11:55:18Z",
       "side": 1,
       "message": "leave all lowercase for local vars. add \" \u003d\". do the same for all other places.",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 14
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6fa52e93_953a1aee",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "349850ef_e0d827c8",
       "range": {
         "startLine": 33,
         "startChar": 6,
@@ -449,6 +809,30 @@
     },
     {
       "key": {
+        "uuid": "ec0ed1c5_a17d0533",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "552c48be_8350ecc5",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 7
+      },
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2733838c_f93002a7",
         "filename": "csit/suites/genius/Service_Recovery.robot",
         "patchSetId": 15
@@ -466,6 +850,24 @@
     },
     {
       "key": {
+        "uuid": "3138088a_953cce55",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2733838c_f93002a7",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a56c32ef_6a64e727",
         "filename": "csit/testplans/genius-upstream-oxygen.txt",
         "patchSetId": 15
@@ -477,6 +879,24 @@
       "writtenOn": "2018-04-24T11:55:18Z",
       "side": 1,
       "message": "we should look at fixing these testplans in another patch. Seems weird that they are all the exact same, so we should be able to use a single plan.",
+      "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "140598a1_838cf42e",
+        "filename": "csit/testplans/genius-upstream-oxygen.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-25T17:29:30Z",
+      "side": 1,
+      "message": "yes.",
+      "parentUuid": "a56c32ef_6a64e727",
       "revId": "e10675d0e283b4602f896c863b45937a1575c47c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
