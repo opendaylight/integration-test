@@ -7,7 +7,7 @@
                     {
                         "name": "dpi-dpl",
                         "interface-name": "eccb57ae-5a2e-467f-823e-45d7bb2a6a9a",
-                        "transport": "service-locator:eth-nsh",
+                        "transport": "service-locator:mac",
                         "service-function-forwarder": "sfflogical1"
                     }
                 ]
