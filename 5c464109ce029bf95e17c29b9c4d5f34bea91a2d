@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc714f42_278472e3",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 90
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T17:48:01Z",
+      "side": 1,
+      "message": "instead of this, why don\u0027t you poll on the tologoy and\nmake sure we got ${NUM_NODES} connected.\n\nwell, no sleep will be allowed anyway, but also with the\nlatest debugging of the docker exec hangs we probably don\u0027t\nwant to continue and risk the hanging in CSIT if the\ndocker exec locks up on us.\n\nAlso, we saw in live debugging that doing a docker restart\non the containers that had trouble seemed to bring things\nback.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 23
+      },
+      "revId": "5c464109ce029bf95e17c29b9c4d5f34bea91a2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "faa354bb_0b8241e3",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 90
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T17:48:01Z",
+      "side": 1,
+      "message": "one of these docker exec commands is where it hangs. I\u0027m\nsurprised it\u0027s not timing out. I see two Open Connections\nbelow with timeouts of 30 and 20 seconds. Neither is used.\nI can\u0027t explain that yet.\n\nI know this is the most efficient way to do this, but maybe\nwe can try to run every docker command on it\u0027s own new\nssh connection. So like maybe use that Run Command On\nRemote System keyword, or whatever else we might have that\nwraps it all and gives a timeout.",
+      "range": {
+        "startLine": 37,
+        "startChar": 21,
+        "endLine": 37,
+        "endChar": 62
+      },
+      "revId": "5c464109ce029bf95e17c29b9c4d5f34bea91a2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "734963d5_e9934462",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 90
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T17:48:01Z",
+      "side": 1,
+      "message": "this is ovs 2.5.1. maybe we can get something newer?",
+      "range": {
+        "startLine": 60,
+        "startChar": 46,
+        "endLine": 60,
+        "endChar": 76
+      },
+      "revId": "5c464109ce029bf95e17c29b9c4d5f34bea91a2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
