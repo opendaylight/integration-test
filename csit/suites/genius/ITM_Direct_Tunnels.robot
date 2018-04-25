@@ -2,7 +2,7 @@
 Documentation     This test suite is to by-pass interface manager and create/delete the tunnels between the switches directly inorder for ITM to scale and build mesh among more number of switches.
 Suite Setup       ITM Direct Tunnels Start Suite
 Suite Teardown    ITM Direct Tunnels Stop Suite
-Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${data_models}
+Test Teardown     Genius Test Teardown    ${data_models}
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
