@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f6daf92_2615145d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:54:29Z",
+      "side": 1,
+      "message": "some basic things to apply everywhere.\n\nput a space between variables being assigned. so ${resp} \u003d , not ${resp}\u003d\n\n${all_lower_cammel_case_for_local_vars}\n\nremove all Log To Console lines, and most (if not all) Log\nlines unless you have a real need for them.",
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3281dc4a_0a19652b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:54:29Z",
+      "side": 1,
+      "message": "you don\u0027t need the connection-id stuff. the karaf console\nkeyword below will go to the IP address you give as\nthe ${CONTROLLER_IP} argument, or if no argument given\nit just goes to the default controller ip.\n\nprobably this patter was wrongly used before, and you\ncopied it from there. you can clean this up in other places\ntoo (e.g., line 162)",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 41
+      },
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52eb8432_752f0749",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:54:29Z",
+      "side": 1,
+      "message": "why not bridge_name too?\n\nI\u0027d do:\n\nBuiltIn.Log    UUID: ${uuid}\\nBridge: ${bridge_name}",
+      "range": {
+        "startLine": 363,
+        "startChar": 4,
+        "endLine": 363,
+        "endChar": 18
+      },
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ce59175_12169152",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:54:29Z",
+      "side": 1,
+      "message": "fully qualify",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aad88048_19f88691",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:54:29Z",
+      "side": 1,
+      "message": "space",
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2c42812_c8a88c1e",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:54:29Z",
+      "side": 1,
+      "message": "Source the OVSDB.robot lib and you can use ${SOUTHBOUND_CONFIG_API} here",
+      "range": {
+        "startLine": 48,
+        "startChar": 45,
+        "endLine": 48,
+        "endChar": 98
+      },
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a590187b_4ecc63a3",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-25T18:54:29Z",
+      "side": 1,
+      "message": "do these below, or maybe already there, in some genius\nlib?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
