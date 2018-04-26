@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c35ea242_7459ce3f",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T11:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1592e78b_3218abbc",
+      "range": {
+        "startLine": 359,
+        "startChar": 21,
+        "endLine": 359,
+        "endChar": 25
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d4e3ef8_b40d1d57",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 74
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-25T18:29:58Z",
       "side": 1,
       "message": "is there a good default you can give to ${type} so that\nwe don\u0027t need to include it in most cases?",
+      "range": {
+        "startLine": 384,
+        "startChar": 39,
+        "endLine": 384,
+        "endChar": 46
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4a656cc_358590b4",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T11:25:50Z",
+      "side": 1,
+      "message": "I don\u0027t thing there\u0027s a default that makes sense. Instead, I changed the method name to \"Delete Ports By Type\" to make it sound more like it requires a type arg.",
+      "parentUuid": "2d4e3ef8_b40d1d57",
       "range": {
         "startLine": 384,
         "startChar": 39,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "49713414_fd58a4ef",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T11:25:50Z",
+      "side": 1,
+      "message": "I tried the lines you gave and then failed so I reverted them in the mean time. Can you please check out [0] and let me know if you happen to know what the issue is there?\n\nhttps://logs.opendaylight.org/sandbox/vex-yul-odl-jenkins-2/janki-netvirt-csit-1node-openstack-queens-upstream-stateful-oxygen-upgrade/11/robot-plugin/log_full.html.gz",
+      "parentUuid": "33b3c384_b200e5e8",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 27
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89aaa37c_085f2275",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 74
@@ -82,6 +154,30 @@
       "writtenOn": "2018-04-25T18:29:58Z",
       "side": 1,
       "message": "upgrade_router_1",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 26
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "127168af_dc298b8d",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T11:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89aaa37c_085f2275",
       "range": {
         "startLine": 30,
         "startChar": 18,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f89ec1da_78690197",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T11:25:50Z",
+      "side": 1,
+      "message": "Yeah, we don\u0027t decide what that is. It\u0027s the prefix to the tun ports that genius adds to br-int.",
+      "parentUuid": "cb2fe15b_b4d1b7ee",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 21
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a74025d_95131251",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 74
@@ -128,6 +248,30 @@
       "writtenOn": "2018-04-25T18:29:58Z",
       "side": 1,
       "message": "gotta get rid of this.\n\nin fluorine we can poll on /diagstatus with REST for\n418 to know ODL is ok. That wait_for_sync\u003dTrue is already\nthere as well. The maintenance interval is going to be\n30seconds, maybe there is a karaf.log message we can grep\nfor to know when the sync is done.\n\nOtherwise, I think one initial idea is to hit the right data model before we stop/wipe odl and count the number of flows. Then poll (below in the right test case) on\nthat data model again, and move on when the number\nof flows matches.",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 24
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b66b52be_4c923648",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T11:25:50Z",
+      "side": 1,
+      "message": "Can we leave it like this in the mean time? I think someone should come up with a reusable, generic way to do this and I prefer that not hold up this CSIT.",
+      "parentUuid": "6a74025d_95131251",
       "range": {
         "startLine": 63,
         "startChar": 4,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "99f418d9_a89e12ef",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T11:25:50Z",
+      "side": 1,
+      "message": "Technically, there is a way to trigger it (send a signal to a certain neutron proc) but last time I checked it was broken. And then we would need to poll ODL to get a good guest-imation of when the sync is done. As such,this is not a trivial fix. \n\nI think we really need to get this test running because I am worried about the fact that we are moving forward with development with no guarantee against breakage. Aside from issues like this comment, there is some functionality that still needs to have tests, like upgrade w/ FIP and vlan tunnels. As such, I\u0027d like to recommend that we open Jiras for all this stuff and move this CSIT in as quick as possible. Opinion?",
+      "parentUuid": "4059981f_1098e08a",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 23
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46022343_eaff96aa",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 74
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "7d6cf161_74134bdf",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T11:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46022343_eaff96aa",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 45
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d480a8af_9d3bb17b",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 74
@@ -197,6 +389,30 @@
       "writtenOn": "2018-04-25T18:29:58Z",
       "side": 1,
       "message": "is this needed?",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 42
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7839366_8a780caa",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T11:25:50Z",
+      "side": 1,
+      "message": "Apparently yes. I tried a run with this line commented out and it failed to spin up the VMs ;-)",
+      "parentUuid": "d480a8af_9d3bb17b",
       "range": {
         "startLine": 101,
         "startChar": 4,
