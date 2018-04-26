@@ -48,7 +48,7 @@ BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
     ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
     Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
-    Wait Until Keyword Succeeds    30s    5s    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    30s    5s    Genius.Verify Tunnel Status as UP
 
 BFD_TC01 Verify by default BFD monitoring is enabled on Controller
     [Documentation]    Verify by default BFD monitoring is enabled on Controller
@@ -64,7 +64,7 @@ BFD_TC02 Verify that BFD tunnel monitoring interval is set with appropriate defa
 BFD_TC04 Verify that in controller tunnel status is up when ITM tunnel interface is brought up.
     [Documentation]    Verify that in controller tunnel status is up when ITM tunnel interface is brought up.
     Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Is On
-    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status as UP
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
@@ -107,7 +107,7 @@ BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     Log    "After connecting CSS with controller"
     Issue Command On Karaf Console    ${TEP_SHOW}
     Issue Command On Karaf Console    ${TEP_SHOW_STATE}
-    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status as UP
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC07 Verify that BFD monitoring is disabled on Controller
@@ -118,7 +118,7 @@ BFD_TC07 Verify that BFD monitoring is disabled on Controller
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Should Contain    ${output}    ${TUNNEL_MONITOR_OFF}
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_FALSE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
-    Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status as UP
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${ENABLE_MONITORING}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_TRUE}
