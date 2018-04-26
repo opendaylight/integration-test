@@ -57,13 +57,13 @@ Verify Tunnels By Enabling BFD
     [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
     ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
     Run Keyword If    '${result}' == 'False'    Enable_Tunnel_monitoring
-    Verify Tunnel State    ${TOOLS_SYSTEM_1_IP}
-    Verify Tunnel State    ${TOOLS_SYSTEM_2_IP}
+    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_IP}
+    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_2_IP}
 
 Verify VTEP After Restarting OVS
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting OVS
     Verify Tunnel Status as UP
-    OVSDB.Restart OVSDB    ${TOOLS_SYSTEM_1_IP}
+    OVSDB.Restart OVSDB    ${TOOLS_SYSTEM_IP}
     Wait Until Keyword Succeeds    30    3    Verify Tunnel Status as UP
 
 Verify VTEP After Restarting Controller
@@ -112,7 +112,7 @@ Enable_Tunnel_Monitoring
     [Documentation]    In this we will enable tunnel monitoring by tep:enable command running in karaf console
     ${output}    Issue_Command_On_Karaf_Console    tep:enable-tunnel-monitor true
 
-Verify Tunnel State
+Verify Tunnel State After OVS Restart
     [Arguments]    ${TOOLS_SYSTEM_IP}
     [Documentation]    In this we will Verify Tunnel State by Stopping/Starting Switch
     OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
