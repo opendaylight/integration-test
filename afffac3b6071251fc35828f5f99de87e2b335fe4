@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46de3d77_ad2a8091",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-26T10:24:41Z",
+      "side": 1,
+      "message": "why is this needed?",
+      "revId": "afffac3b6071251fc35828f5f99de87e2b335fe4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74bcdea3_6e10d0e1",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-26T10:24:41Z",
+      "side": 1,
+      "message": "is this not used in Configure_ITM suite? dont we have to refactor there as well?",
+      "revId": "afffac3b6071251fc35828f5f99de87e2b335fe4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
