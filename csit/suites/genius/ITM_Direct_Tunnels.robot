@@ -62,17 +62,17 @@ Verify Tunnels By Enabling BFD
 
 Verify VTEP After Restarting OVS
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting OVS
-    Verify Tunnel Status as UP
+    Genius.Verify Tunnel Status as UP
     OVSDB.Restart OVSDB    ${TOOLS_SYSTEM_1_IP}
-    Wait Until Keyword Succeeds    30    3    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
 
 Verify VTEP After Restarting Controller
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting CONTROLLER
-    Verify Tunnel Status as UP
+    Genius.Verify Tunnel Status as UP
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
     Wait Until Keyword Succeeds    10    2    Check Service Status    ACTIVE    OPERATIONAL
-    Wait Until Keyword Succeeds    30    3    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
 
 Delete and Verify VTEP
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
@@ -118,7 +118,7 @@ Verify Tunnel State
     OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
     Wait Until Keyword Succeeds    2min    20 sec    Verify Tunnel Down
     OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    2min    20 sec    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    2min    20 sec    Genius.Verify Tunnel Status as UP
 
 Verify Tunnel Down
     [Documentation]    In this we will check whether tunnel is in down or not

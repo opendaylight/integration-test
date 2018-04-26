@@ -11,6 +11,7 @@ Resource          Utils.robot
 Resource          ../variables/Variables.robot
 Resource          OVSDB.robot
 Resource          ../variables/netvirt/Variables.robot
+Resource          VpnOperations.robot
 
 *** Variables ***
 @{itm_created}    TZA
@@ -226,3 +227,17 @@ Check ITM Tunnel State
     [Documentation]    Verifies the Tunnel is deleted from datastore
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     Should Not Contain    ${resp.content}    ${tunnel1}    ${tunnel2}
+
+Verify Tunnel Status as UP
+    [Documentation]    Verify that the number of tunnels are UP
+    ${No_of_Teps}    Issue_Command_On_Karaf_Console    ${TEP_SHOW}
+    ${Lines_of_TZA}    Get Lines Containing String    ${No_of_Teps}    TZA
+    ${Expected_Node_Count}    Get Line Count    ${Lines_of_TZA}
+    ${no_of_tunnels}    Issue_Command_On_Karaf_Console    ${TEP_SHOW_STATE}
+    ${lines_of_VXLAN}    Get Lines Containing String    ${no_of_tunnels}    VXLAN
+    Should Contain    ${no_of_tunnels}    ${STATE_UP}
+    Should Not Contain    ${no_of_tunnels}    ${STATE_DOWN}
+    Should Not Contain    ${no_of_tunnels}    ${STATE_UNKNOWN}
+    ${Actual_Tunnel_Count}    Get Line Count    ${lines_of_VXLAN}
+    ${Expected_Tunnel_Count}    Set Variable    ${Expected_Node_Count*${Expected_Node_Count - 1}}
+    Should Be Equal As Strings    ${Actual_Tunnel_Count}    ${Expected_Tunnel_Count}
