@@ -82,8 +82,9 @@ Topology_Intercondition
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}
     BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on    ${mapping}    ${CONFIG_SESSION}
     ...    verify=True
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}
-    ...    ${CONFIG_SESSION}    verify=True
+    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Rest of the test case valid only for versions oxygen and above.
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}    ${CONFIG_SESSION}
+    ...    verify=True
 
 Stop_Pcc_Mock_1
     [Documentation]    Stops First instance of pcc-mock.
@@ -119,8 +120,9 @@ Topology_Intercondition_2
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}
     BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on    ${mapping}    ${CONFIG_SESSION}
     ...    verify=True
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}
-    ...    ${CONFIG_SESSION}    verify=True
+    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Rest of the test case valid only for versions oxygen and above.
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_state    ${mapping}    ${CONFIG_SESSION}
+    ...    verify=True
 
 Update_Delegated
     [Documentation]    Perform update-lsp on the mocked tunnel, check response is success.
@@ -135,8 +137,9 @@ Topology_Updated
     &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    CODE=${pcc_name_code}    NAME=${pcc_name}    IP_ODL=${ODL_SYSTEM_IP}
     BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_updated    ${mapping}    ${CONFIG_SESSION}
     ...    verify=True
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_updated_state    ${mapping}
-    ...    ${CONFIG_SESSION}    verify=True
+    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Rest of the test case valid only for versions oxygen and above.
+    BuiltIn.Wait_Until_Keyword_Succeeds    30s    1s    TemplatedRequests.Get_As_Json_Templated    ${DIR_WITH_TEMPLATES}${/}default_on_updated_state    ${mapping}    ${CONFIG_SESSION}
+    ...    verify=True
 
 Unset_Password
     [Documentation]    De-configure password for pcep dispatcher for client with Mininet IP address.
