@@ -991,6 +991,8 @@ Cleanup Router
 OpenStack Suite Setup
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    @{loggers} =    BuiltIn.Create List    org.apache.karaf.shell.support.ShellUtil
+    Setuputils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    OFF    ${loggers}
     DevstackUtils.Devstack Suite Setup
     @{tcpdump_port_6653_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_port_6653    port 6653    @{OS_ALL_IPS}
     BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
