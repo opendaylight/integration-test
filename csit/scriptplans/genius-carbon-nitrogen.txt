@@ -2,7 +2,7 @@
 
 cat > ${WORKSPACE}/system2-ovs-restart.sh <<EOF
 
-sudo rm -rf /etc/openvswitch/conf.db 
+sudo rm -rf /etc/openvswitch/conf.db
 sudo service openvswitch-switch restart
 
 EOF
