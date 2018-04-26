@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "773edcc1_c17d51eb",
+        "filename": "csit/scriptplans/genius-carbon-nitrogen.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-26T10:42:48Z",
+      "side": 1,
+      "message": "i have created all symbolic links using ln -s command. But somehow everything showing as if they are all new files with script copy pasted!! :( Is this correct?",
+      "revId": "a04195759398bbccdbf80aaab05fc20a5387ee4a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
