@@ -221,6 +221,7 @@ Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
     # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
+    ${status}    ${output}    BuiltIn.Run_Keyword_And_Ignore_Error    Utils.Get_Sysstat_Statistics
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
