@@ -156,6 +156,24 @@
       "revId": "afffac3b6071251fc35828f5f99de87e2b335fe4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5feb1c0_fcb39998",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-04-26T10:50:14Z",
+      "side": 1,
+      "message": "we are not using this keyword in Configure_ITM suite.",
+      "parentUuid": "74bcdea3_6e10d0e1",
+      "revId": "afffac3b6071251fc35828f5f99de87e2b335fe4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
