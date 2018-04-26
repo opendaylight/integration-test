@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69a427ae_68eb1e19",
+        "filename": "csit/scriptplans/genius-tdd-wip.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-26T04:27:59Z",
+      "side": 1,
+      "message": "do we have to add a similar script plan for carbon-nitrogen project refactoring we added as well? currently only two script plans are available, genius-gate.txt and genius-upstream.txt",
+      "revId": "747e4d56cf03ea4ca915135c049e8814cb3432dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
