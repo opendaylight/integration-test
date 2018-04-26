@@ -30,7 +30,6 @@ Get Controller Modules
     Should Contain    ${resp.content}    ietf-restconf
 
 Verify REST Command Add, Update and Remove
-    REST Delete All Intents
     : FOR    ${intent}    IN    @{all_intents_bad}
     \    ${intent_id}=    REST Add Intent    @{intent}
     \    Append To List    ${all_intents_ids}    ${intent_id}
