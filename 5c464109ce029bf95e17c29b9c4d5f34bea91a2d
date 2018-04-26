@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a64d5ac_767771c5",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 90
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T09:55:28Z",
+      "side": 1,
+      "message": "Yeah, agree. My philosophy here has been to get the test working and then go back and code it right. Eventually that will be replaced with polling.",
+      "parentUuid": "fc714f42_278472e3",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 23
+      },
+      "revId": "5c464109ce029bf95e17c29b9c4d5f34bea91a2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "faa354bb_0b8241e3",
         "filename": "csit/suites/genius/TZ_scale.robot",
         "patchSetId": 90
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f7c8ad47_ca295f90",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 90
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T09:55:28Z",
+      "side": 1,
+      "message": "Do you mean to do each command on a separate connection to try and help _diagnose_ or for the purpose of _working_ _around_ the freeze issue? That freezing thing should really not be happening and I don\u0027t think we can hack around it. Something very fundamental is wrong with the environment. So I\u0027m game for an experiment to perhaps learn something new about the problem but I think it\u0027s a mistake to try and work around it.",
+      "parentUuid": "faa354bb_0b8241e3",
+      "range": {
+        "startLine": 37,
+        "startChar": 21,
+        "endLine": 37,
+        "endChar": 62
+      },
+      "revId": "5c464109ce029bf95e17c29b9c4d5f34bea91a2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "734963d5_e9934462",
         "filename": "csit/suites/genius/TZ_scale.robot",
         "patchSetId": 90
@@ -59,6 +107,30 @@
       "writtenOn": "2018-04-25T17:48:01Z",
       "side": 1,
       "message": "this is ovs 2.5.1. maybe we can get something newer?",
+      "range": {
+        "startLine": 60,
+        "startChar": 46,
+        "endLine": 60,
+        "endChar": 76
+      },
+      "revId": "5c464109ce029bf95e17c29b9c4d5f34bea91a2d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c1642b7_f519b8b2",
+        "filename": "csit/suites/genius/TZ_scale.robot",
+        "patchSetId": 90
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-26T09:55:28Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s worth a try. Might take me a little while to get that running but I think it can\u0027t hurt.",
+      "parentUuid": "734963d5_e9934462",
       "range": {
         "startLine": 60,
         "startChar": 46,
