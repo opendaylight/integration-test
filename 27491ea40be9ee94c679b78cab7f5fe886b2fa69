@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "31f3ae23_ccc619e9",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-26T13:33:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f6daf92_2615145d",
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7066aa7a_5d8191da",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 17
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "30d53e24_e38f9290",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-26T13:33:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7066aa7a_5d8191da",
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3281dc4a_0a19652b",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 17
@@ -47,6 +83,30 @@
       "writtenOn": "2018-04-25T18:54:29Z",
       "side": 1,
       "message": "you don\u0027t need the connection-id stuff. the karaf console\nkeyword below will go to the IP address you give as\nthe ${CONTROLLER_IP} argument, or if no argument given\nit just goes to the default controller ip.\n\nprobably this patter was wrongly used before, and you\ncopied it from there. you can clean this up in other places\ntoo (e.g., line 162)",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 41
+      },
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe01d49f_176d9f74",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-26T13:33:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3281dc4a_0a19652b",
       "range": {
         "startLine": 266,
         "startChar": 0,
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "c8ed30a2_6d2072e7",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-26T13:33:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52eb8432_752f0749",
+      "range": {
+        "startLine": 363,
+        "startChar": 4,
+        "endLine": 363,
+        "endChar": 18
+      },
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ce59175_12169152",
         "filename": "csit/suites/genius/Service_Recovery.robot",
         "patchSetId": 17
@@ -93,6 +177,30 @@
       "writtenOn": "2018-04-25T18:54:29Z",
       "side": 1,
       "message": "fully qualify",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "094e0fb1_4cb748f8",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-26T13:33:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ce59175_12169152",
       "range": {
         "startLine": 18,
         "startChar": 4,
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "6221a920_df3d894e",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-26T13:33:28Z",
+      "side": 1,
+      "message": "it is coming by default. i have not given any space. and even i am not able tp remove the space.",
+      "parentUuid": "aad88048_19f88691",
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2c42812_c8a88c1e",
         "filename": "csit/suites/genius/Service_Recovery.robot",
         "patchSetId": 17
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "21bb7133_6ecfc5a7",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-26T13:33:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2c42812_c8a88c1e",
+      "range": {
+        "startLine": 48,
+        "startChar": 45,
+        "endLine": 48,
+        "endChar": 98
+      },
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a590187b_4ecc63a3",
         "filename": "csit/suites/genius/Service_Recovery.robot",
         "patchSetId": 17
@@ -156,6 +306,30 @@
       "writtenOn": "2018-04-25T18:54:29Z",
       "side": 1,
       "message": "do these below, or maybe already there, in some genius\nlib?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "27491ea40be9ee94c679b78cab7f5fe886b2fa69",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a63a4f38_8c33aa34",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-04-26T13:33:28Z",
+      "side": 1,
+      "message": "previously this keywords were in genius.robot but Sam asked to move it where it is being used if no other test suite is using this. so i moved it to SRM.",
+      "parentUuid": "a590187b_4ecc63a3",
       "range": {
         "startLine": 54,
         "startChar": 0,
