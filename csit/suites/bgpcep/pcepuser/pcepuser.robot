@@ -43,8 +43,9 @@ Start_Pcc_Mock
 Configure_Speaker_Entity_Identifier
     [Documentation]    Additional PCEP Speaker configuration for at least oxygen streams.
     ...    Allows PCEP speaker to determine if state synchronization can be skipped when a PCEP session is restarted.
+    CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Test case valid only for versions oxygen and above.
     &{mapping}    BuiltIn.Create_Dictionary    IP=${ODL_SYSTEM_IP}
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    TemplatedRequests.Put_As_Xml_Templated    ${PCEP_VARIABLES_FOLDER}${/}node_speaker_entity_identifier    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Put_As_Xml_Templated    ${PCEP_VARIABLES_FOLDER}${/}node_speaker_entity_identifier    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Topology_Default
     [Documentation]    Compare pcep-topology to default_json, which includes a tunnel from pcc-mock.
