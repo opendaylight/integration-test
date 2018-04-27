@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2a3b994_42199d11",
+        "filename": "csit/suites/bgpcep/bgpuser/basic.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-27T17:36:41Z",
+      "side": 1,
+      "message": "can you figure out how to get what you need by using the\nVariables.robot file only.\n\nwe have this very old task to completely move off and remove\nVariables.py. I need to make some more progress on it\nactually:\n\nhttps://jira.opendaylight.org/browse/INTTEST-31",
+      "range": {
+        "startLine": 64,
+        "startChar": 1,
+        "endLine": 64,
+        "endChar": 96
+      },
+      "revId": "3e6e0f0b8a405ed86efe6fc441c22d85cd7668e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
