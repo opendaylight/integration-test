@@ -541,3 +541,13 @@ Get_Sysstat_Statistics
     SSHLibrary.Close_Connection
     [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_connection.index}
     [Return]    ${output}
+
+Check Diagstatus
+    [Arguments]    ${ip_address}=${ODL_SYSTEM_IP}    ${check_status}=True    ${expected_status}=${200}
+    [Documentation]    GET http://${ip_address}:${RESTCONFPORT}/diagstatus and return the response. ${check_status}
+    ...    and ${expected_status_code} can be used to ignore the status code, or validate any status code value.
+    ...    By default, this keyword will pass if the status code returned is 200, and fail otherwise.
+    RequestsLibrary.Create Session    diagstatus_session    http://${ip_address}:${RESTCONFPORT}
+    ${resp}    RequestsLibrary.Get Request    diagstatus_session    /diagstatus
+    Run Keyword If    "${check_status}" == "True"    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${expected_status}
+    [Return]    ${resp}
