@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f83e9b5d_d1d2f99b",
+        "filename": "csit/scriptplans/genius-carbon-nitrogen.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2018-04-27T10:55:00Z",
+      "side": 1,
+      "message": "Why does this file have flag A [0] (instead of W) when \"file mode\" and content is the same as in the two other W files?\nAlso comparison to patch set 2 [1] behaves as if this file was deleted.\n\nI guess Gerrit developers do not test thoroughly what happens when (a previously nonexistent) file is added as an ordinary file (patch set 2) and then changes to a symlink (patch set 5).\n\n[0] https://git.opendaylight.org/gerrit/#/c/71414/5\n[1] https://git.opendaylight.org/gerrit/#/c/71414/2..5/csit/scriptplans/genius-carbon-nitrogen.txt",
+      "revId": "9bdf5ea77a9ab7a17b0badb32ef6248a7f1c3306",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
