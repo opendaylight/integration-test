@@ -16,6 +16,23 @@
       "revId": "9bdf5ea77a9ab7a17b0badb32ef6248a7f1c3306",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5e88d98_4e52ddc2",
+        "filename": "csit/scriptplans/genius-upstream.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-27T11:23:25Z",
+      "side": 1,
+      "message": "Something is wrong here. This file should be pointing to a testplan and not the script that gets ran.",
+      "revId": "9bdf5ea77a9ab7a17b0badb32ef6248a7f1c3306",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
