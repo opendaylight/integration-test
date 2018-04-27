@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3c7d1ca_acaa6b79",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-27T21:37:08Z",
+      "side": 1,
+      "message": "put a space between var and \u0027\u003d\u0027\n\nWe are trying to keep this consistent now. applies below",
+      "revId": "17c42d5f2adef32d47bf188c41b258cf5933dd7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ef12ba6_f7b2fb00",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-27T21:37:08Z",
+      "side": 1,
+      "message": "since we will get another patch, might as well use lower\ncase here like other suites will do. just for consistency",
+      "range": {
+        "startLine": 18,
+        "startChar": 21,
+        "endLine": 18,
+        "endChar": 22
+      },
+      "revId": "17c42d5f2adef32d47bf188c41b258cf5933dd7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
