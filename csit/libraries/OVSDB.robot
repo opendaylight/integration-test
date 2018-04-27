@@ -321,6 +321,7 @@ Suite Setup
     KarafKeywords.Open Controller Karaf Console On Background
     RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     OVSDB.Log Config And Operational Topology
+    Utils.Check Diagstatus
 
 Suite Teardown
     [Arguments]    ${uris}=@{EMPTY}
