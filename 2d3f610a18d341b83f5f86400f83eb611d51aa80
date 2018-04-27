@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "fa22138e_3dc3442d",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-27T22:02:24Z",
+      "side": 1,
+      "message": "yeah, instead of SSHLibrary.Open Connection, use DevstackUtils.Open Connection. the sshlib version just opens the tcp connection, but doesn\u0027t log in to the VM. the DevstackUtils version (named the same, which is confusing) (what\u0027s that called again, overloading or something) will\ndo the sshlib open connection + login to the vm. That\u0027s\nall that\u0027s missing I think. my bad for giving you the wrong\ninfo.",
+      "parentUuid": "49713414_fd58a4ef",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 27
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89aaa37c_085f2275",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 74
@@ -284,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "088189b6_86530317",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-27T22:02:24Z",
+      "side": 1,
+      "message": "no, I can\u0027t (in good faith) let it in with a sleep. That\u0027s\nbecome my mantra since the beginning and I\u0027ll win the\nhypocrite of the year trophy if so.\n\nI\u0027ll help you figure out the right thing here. I can probably\nwrite a keyword that will go poll on diagstatus that we can\nthrow in here. Still... the wait_for_sync\u003dTrue above is \nprobably good enough anyway, or really close if not.",
+      "parentUuid": "b66b52be_4c923648",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 24
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4059981f_1098e08a",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 74
@@ -319,6 +367,30 @@
       "side": 1,
       "message": "Technically, there is a way to trigger it (send a signal to a certain neutron proc) but last time I checked it was broken. And then we would need to poll ODL to get a good guest-imation of when the sync is done. As such,this is not a trivial fix. \n\nI think we really need to get this test running because I am worried about the fact that we are moving forward with development with no guarantee against breakage. Aside from issues like this comment, there is some functionality that still needs to have tests, like upgrade w/ FIP and vlan tunnels. As such, I\u0027d like to recommend that we open Jiras for all this stuff and move this CSIT in as quick as possible. Opinion?",
       "parentUuid": "4059981f_1098e08a",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 23
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27f391ea_ccdb2882",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-27T22:02:24Z",
+      "side": 1,
+      "message": "I don\u0027t want that trophy. see above :)\n\nwhat are we really checking in this suite after this any\nway? looks like it\u0027s just that \"Check Resource Connectivity\"\nkeyword in line 87 right? this port list and set-manager are\nnot failing kinds of things.\n\nso, let\u0027s do:\n\nNew Fancy Keyword\n    port list rest\n    set manager\n    check resource connectivity\n\nThen remove all the test cases below, and here, instead\nof the sleep we do a WUKS on this New Fancy Keyword, maybe\nat 5s intervals for up to X seconds? I see 50s here\nand 180s below, so if those are well reasoned then we can\nhave X \u003d 230s. if not well reasoned, then we need to do\nthat reasoning.",
+      "parentUuid": "99f418d9_a89e12ef",
       "range": {
         "startLine": 75,
         "startChar": 4,
@@ -413,6 +485,30 @@
       "side": 1,
       "message": "Apparently yes. I tried a run with this line commented out and it failed to spin up the VMs ;-)",
       "parentUuid": "d480a8af_9d3bb17b",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 42
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60a0abaf_b8a296cd",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-27T22:02:24Z",
+      "side": 1,
+      "message": "ack. I forget when/why we need this but sometimes we don\u0027t.\n\nSam will remember, but doesn\u0027t matter here.",
+      "parentUuid": "a7839366_8a780caa",
       "range": {
         "startLine": 101,
         "startChar": 4,
