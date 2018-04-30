@@ -1,7 +1,1 @@
-# Place the suites in run order:
-integration/test/csit/suites/genius/Interface_manager.robot
-integration/test/csit/suites/genius/ID_manager.robot
-integration/test/csit/suites/genius/Configure_ITM.robot
-integration/test/csit/suites/genius/BFD_monitoring.robot
-
-# Add new suites for oxygen or higher here:
+genius-genius.txt
