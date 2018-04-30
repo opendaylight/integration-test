@@ -162,8 +162,6 @@ Verify_Cli_Output_Count
     ...    odl-bgpcep-bgp-cli is only avaiable on versions oxygen and above.
     ${output}    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    bgp:operational-state -rib example-bgp-rib -neighbor ${TOOLS_SYSTEM_IP}
     BuiltIn.Log    ${output}
-    # cli output in karaf has changed in fluorine with different divider between results.
-    ${divider}    CompareStream.Set_Variable_If_At_Least_Fluorine    │    |
-    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    NOT_COUNT=${notification_count}    UPD_COUNT=${update_count}    DIVIDER=${divider}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    NOT_COUNT=${notification_count}    UPD_COUNT=${update_count}
     ${expstate}    TemplatedRequests.Resolve_Text_From_Template_File    folder=${BGP_RR_VAR_FOLDER}/operational_cli    file_name=update.txt    mapping=${mapping}
     BuiltIn.Should_Contain    ${output}    ${expstate}
