@@ -34,6 +34,24 @@
       "revId": "910d1f89d6b578a77e37f82cf4cec9f2f495caa8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c23322f4_fe8b6f0a",
+        "filename": "csit/testplans/genius-verify.txt",
+        "patchSetId": 25
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-30T17:50:57Z",
+      "side": 1,
+      "message": "yes, as of now Oxygen and Fluorine test suites are same. But I am not able to do the same using ln -s. Whenever I push the patch doing that, genius-verify file is showing as deleted.",
+      "parentUuid": "314bafd2_7735372f",
+      "revId": "910d1f89d6b578a77e37f82cf4cec9f2f495caa8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
