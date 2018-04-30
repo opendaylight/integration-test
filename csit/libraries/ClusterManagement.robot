@@ -831,3 +831,9 @@ Return_Member_IP
     ${member_int} =    BuiltIn.Convert_To_Integer    ${member_index}
     ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_int}
     [Return]    ${member_ip}
+
+Check Diagstatus On Cluster
+    [Arguments]    @{controller_indexes}
+    : FOR    ${controller_index}    IN    @{controller_indexes}
+    \    ${controller_ip} =    ClusterManagement.Return Member Ip    ${controller_index}
+    \    Utils.Check Diagstatus    ${controller_ip}
