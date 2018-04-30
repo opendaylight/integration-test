@@ -22,6 +22,30 @@
       "revId": "3e6e0f0b8a405ed86efe6fc441c22d85cd7668e7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f9c50c9_5a96e1f2",
+        "filename": "csit/suites/bgpcep/bgpuser/basic.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-30T16:39:30Z",
+      "side": 1,
+      "message": "yeah, I totally missed that this was bgpuser/variables.py.\nsorry.\n\nbtw, and just fyi, anything that comes in from a .py variables\nfile cannot be overridden on the pybot commmand line with\na -v VAR:VALUE option. that ends up causing hard to figure\nout problems for us from time to time, thus the reason we\nare trying to get away from it.",
+      "parentUuid": "e2a3b994_42199d11",
+      "range": {
+        "startLine": 64,
+        "startChar": 1,
+        "endLine": 64,
+        "endChar": 96
+      },
+      "revId": "3e6e0f0b8a405ed86efe6fc441c22d85cd7668e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
