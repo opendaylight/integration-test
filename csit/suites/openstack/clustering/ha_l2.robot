@@ -67,6 +67,7 @@ Take Down ODL1
     [Documentation]    Kill the karaf in First Controller
     ${new_cluster_list} =    ClusterManagement.Kill Single Member    1
     BuiltIn.Set Suite Variable    ${new_cluster_list}
+    Wait Until Keyword Succeeds    60s    5s    ClusterManagement.Check Diagstatus On Cluster    2    3
 
 Create Bridge Manually and Verify After Fail
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -83,6 +84,7 @@ Delete the Bridge Manually and Verify After Fail
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
     ClusterManagement.Start Single Member    1
+    Wait Until Keyword Succeeds    60s    5s    ClusterManagement.Check Diagstatus On Cluster    1    2    3
 
 Create Bridge Manually and Verify After Recover
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -99,6 +101,7 @@ Delete the Bridge Manually and Verify After Recover
 Take Down ODL2
     [Documentation]    Kill the karaf in Second Controller
     ClusterManagement.Kill Single Member    2
+    Wait Until Keyword Succeeds    60s    5s    ClusterManagement.Check Diagstatus On Cluster    1    3
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -127,6 +130,7 @@ Check Vm Instances Have Ip Address
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
     ClusterManagement.Start Single Member    2
+    Wait Until Keyword Succeeds    60s    5s    ClusterManagement.Check Diagstatus On Cluster    1    2    3
 
 Ping Vm Instance1 In net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -155,6 +159,7 @@ Ping Vm Instance3 In net_2
 Take Down ODL3
     [Documentation]    Kill the karaf in Third Controller
     ClusterManagement.Kill Single Member    3
+    Wait Until Keyword Succeeds    60s    5s    ClusterManagement.Check Diagstatus On Cluster    1    2
 
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -171,10 +176,12 @@ Connectivity Tests From Vm Instance3 In net_1
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
     ClusterManagement.Start Single Member    3
+    Wait Until Keyword Succeeds    60s    5s    ClusterManagement.Check Diagstatus On Cluster    1    2    3
 
 Take Down ODL1 and ODL2
     [Documentation]    Kill the karaf in First and Second Controller
     ClusterManagement.Kill Members From List Or All    ${CLUSTER_DOWN_LIST}
+    Wait Until Keyword Succeeds    60s    5s    ClusterManagement.Check Diagstatus On Cluster    3
 
 Connectivity Tests From Vm Instance1 In net_2
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -191,6 +198,7 @@ Connectivity Tests From Vm Instance3 In net_2
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again.
     ClusterManagement.Start Members From List Or All    ${CLUSTER_DOWN_LIST}
+    Wait Until Keyword Succeeds    60s    5s    ClusterManagement.Check Diagstatus On Cluster    1    2    3
 
 Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names. Also remove the VM from the
