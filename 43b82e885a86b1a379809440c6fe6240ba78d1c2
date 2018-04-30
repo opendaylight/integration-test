@@ -22,6 +22,30 @@
       "revId": "43b82e885a86b1a379809440c6fe6240ba78d1c2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81f1ef7e_57c01686",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-30T17:20:01Z",
+      "side": 1,
+      "message": "no, it\u0027s 418 if operational status is not good, 200 if it is good, and we have the other default codes we might get like 500 and 401.\n\nMichael gave more details here:\nhttps://jira.opendaylight.org/browse/INFRAUTILS-33?focusedCommentId\u003d62555\u0026page\u003dcom.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-62555",
+      "parentUuid": "3c29f65e_8da5d666",
+      "range": {
+        "startLine": 546,
+        "startChar": 98,
+        "endLine": 546,
+        "endChar": 101
+      },
+      "revId": "43b82e885a86b1a379809440c6fe6240ba78d1c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
