@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c29f65e_8da5d666",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-30T10:41:34Z",
+      "side": 1,
+      "message": "is 200 the only valid code or do other 2xx codes pass such that we could use the constant? similar to how we check more more than 200 in other restconf queries.",
+      "range": {
+        "startLine": 546,
+        "startChar": 98,
+        "endLine": 546,
+        "endChar": 101
+      },
+      "revId": "43b82e885a86b1a379809440c6fe6240ba78d1c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
