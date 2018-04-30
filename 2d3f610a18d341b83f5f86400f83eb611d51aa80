@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "2517b8b8_6359e756",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-30T07:46:54Z",
+      "side": 1,
+      "message": "Still not working:\nhttps://logs.opendaylight.org/sandbox/vex-yul-odl-jenkins-2/janki-netvirt-csit-1node-openstack-queens-upstream-stateful-oxygen-upgrade/11/robot-plugin/log_full.html.gz\n\nI assume it\u0027s still something stupid. Little help?",
+      "parentUuid": "fa22138e_3dc3442d",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 27
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89aaa37c_085f2275",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 74
@@ -356,6 +380,30 @@
     },
     {
       "key": {
+        "uuid": "af3bf731_ca0aa320",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-30T07:46:54Z",
+      "side": 1,
+      "message": "I rebased on top of that one and used it here. No more sleep.",
+      "parentUuid": "b223b858_0321c088",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 24
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4059981f_1098e08a",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 74
@@ -421,6 +469,47 @@
         "endLine": 75,
         "endChar": 23
       },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5212227_bb32aa7a",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-30T07:46:54Z",
+      "side": 1,
+      "message": "Done. I added a \"Wait until\" the ports show up. In the future we can trigger the sync as well but we\u0027d still need to wait till it succeeds.",
+      "parentUuid": "27f391ea_ccdb2882",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 23
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5153ca0_0673b186",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-30T07:46:54Z",
+      "side": 1,
+      "message": "@Jamo, you missed this one but I got rid of it as well. I coded so that it would wait until there were multiple flows in table\u003d220 on each OVS. The honest truth is that we really do not have a good way of understanding when the OVS instances finish getting re-programmed with the new flows. This table\u003d220 business is certainly not a deterministic check but it seems to be working. The plan for actual upgrade is actually to sleep some period multiplied by the number of OVS nodes!\n\nAnyway, for here I made it not a sleep.",
       "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
