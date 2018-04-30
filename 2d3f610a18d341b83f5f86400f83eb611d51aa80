@@ -679,6 +679,30 @@
       "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e799be3b_25a3325d",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-04-30T07:52:25Z",
+      "side": 1,
+      "message": "I just checked the local.conf and looks like tempest is not being installed which makes sense since we are not running it.",
+      "parentUuid": "0095f8c8_dd8153dd",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 42
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
