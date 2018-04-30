@@ -52,6 +52,24 @@
       "revId": "910d1f89d6b578a77e37f82cf4cec9f2f495caa8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13f1267e_297b9c47",
+        "filename": "csit/testplans/genius-verify.txt",
+        "patchSetId": 25
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-30T23:11:48Z",
+      "side": 1,
+      "message": "I think this might be a bug in how gerrit is displaying the\nfile. if you pull the review locally, the symlink comes\nwith it and it looks ok.",
+      "parentUuid": "c23322f4_fe8b6f0a",
+      "revId": "910d1f89d6b578a77e37f82cf4cec9f2f495caa8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
