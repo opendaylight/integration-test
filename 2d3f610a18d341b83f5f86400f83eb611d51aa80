@@ -542,6 +542,30 @@
       "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0095f8c8_dd8153dd",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-04-30T02:12:45Z",
+      "side": 1,
+      "message": "nano is usually created by tempest install during devstack so you should have it or is this not a devstack vm?",
+      "parentUuid": "60a0abaf_b8a296cd",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 42
+      },
+      "revId": "2d3f610a18d341b83f5f86400f83eb611d51aa80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
