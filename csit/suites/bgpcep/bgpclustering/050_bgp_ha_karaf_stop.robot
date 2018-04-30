@@ -19,13 +19,13 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
 Resource          ../../../libraries/ClusterManagement.robot
+Resource          ../../../libraries/ExaBgpLib.robot
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
-Resource          ../../../libraries/BGPcliKeywords.robot
-Resource          ../../../libraries/ExaBgpLib.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpclustering

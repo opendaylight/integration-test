@@ -20,17 +20,17 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/PrefixcountKeywords.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/ClusterManagement.robot
+Resource          ../../../libraries/FailFast.robot
+Resource          ../../../libraries/KillPythonTool.robot
+Resource          ../../../libraries/PrefixCounting.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          PrefixcountKeywords.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${COUNT}          300000

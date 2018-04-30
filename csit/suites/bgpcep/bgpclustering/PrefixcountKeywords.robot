@@ -11,18 +11,18 @@ Documentation     BGP performance of ingesting from 1 iBGP peer, data change cou
 ...               It should point to http://<ip-addr>:${RESTCONFPORT}.
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
-Resource          ${CURDIR}/../../../libraries/ShardStability.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/ClusterAdmin.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/ClusterAdmin.robot
+Resource          ../../../libraries/ClusterManagement.robot
+Resource          ../../../libraries/FailFast.robot
+Resource          ../../../libraries/KillPythonTool.robot
+Resource          ../../../libraries/PrefixCounting.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/ShardStability.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
