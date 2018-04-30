@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1000873_a7781dae",
+        "filename": "csit/testplans/genius-verify.txt",
+        "patchSetId": 25
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-04-30T05:18:03Z",
+      "side": 1,
+      "message": "Jamo, this file was not sym-linked in the bunch of exerices we did during the refactoring. \nhttps://git.opendaylight.org/gerrit/#/c/71414/\n\nI tried doing a sym-link, somehow when i push the patch it says file deleted, please take a look at patchset 23 or 24.  And hence I am just adding the new suite manually to the file",
+      "revId": "910d1f89d6b578a77e37f82cf4cec9f2f495caa8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
