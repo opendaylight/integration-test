@@ -20,12 +20,12 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           Collections
 Library           OperatingSystem
-Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/SetupUtils.robot
-Resource          ../../../libraries/ClusterManagement.robot
-Resource          ../../../libraries/NexusKeywords.robot
 Resource          ../../../libraries/BGPcliKeywords.robot
 Resource          ../../../libraries/BgpOperations.robot
+Resource          ../../../libraries/ClusterManagement.robot
+Resource          ../../../libraries/NexusKeywords.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${HOLDTIME}       180

@@ -13,9 +13,9 @@ Documentation     Robot keyword library (Resource) for handling the BGP speaker 
 ...               TODO: RemoteBash.robot contains logic which could be reused here.
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Variables         ${CURDIR}/../variables/Variables.py
-Resource          ${CURDIR}/RemoteBash.robot
-Resource          ${CURDIR}/NexusKeywords.robot
+Resource          ../variables/Variables.robot
+Resource          RemoteBash.robot
+Resource          NexusKeywords.robot
 
 *** Keywords ***
 Start_Console_Tool

@@ -10,12 +10,12 @@ Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           RequestsLibrary
 Library           SSHLibrary
-Variables         ${CURDIR}/../../../variables/Variables.py
-Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
-Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
+Resource          ../../../libraries/ExaBgpLib.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${HOLDTIME}       180

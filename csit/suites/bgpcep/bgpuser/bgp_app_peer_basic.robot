@@ -54,18 +54,18 @@ Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Library           ${CURDIR}/../../../libraries/norm_json.py
-Variables         ${CURDIR}/../../../variables/Variables.py
-Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
-Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
+Library           ../../../libraries/norm_json.py
+Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/CompareStream.robot
+Resource          ../../../libraries/FailFast.robot
+Resource          ../../../libraries/KillPythonTool.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/WaitForFailure.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${ACTUAL_RESPONSES_FOLDER}    ${TEMPDIR}/actual
