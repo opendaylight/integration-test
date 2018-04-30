@@ -16,6 +16,24 @@
       "revId": "910d1f89d6b578a77e37f82cf4cec9f2f495caa8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "314bafd2_7735372f",
+        "filename": "csit/testplans/genius-verify.txt",
+        "patchSetId": 25
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-04-30T16:33:21Z",
+      "side": 1,
+      "message": "Faseela, I\u0027m confused.\n\ndo we want genius-verify.txt to be a symlink to\ngenius-genius.txt ?",
+      "parentUuid": "e1000873_a7781dae",
+      "revId": "910d1f89d6b578a77e37f82cf4cec9f2f495caa8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
