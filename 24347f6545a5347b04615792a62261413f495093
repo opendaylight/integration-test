@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7a7a330_8497d056",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T00:08:51Z",
+      "side": 1,
+      "message": "add Utils.",
+      "revId": "24347f6545a5347b04615792a62261413f495093",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6824638a_db349e5b",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T00:08:51Z",
+      "side": 1,
+      "message": "double check these.\n\nare some already available? are some used in a different\nsuite and we should put them in a common variable file?\netc.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 55
+      },
+      "revId": "24347f6545a5347b04615792a62261413f495093",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "941bc3b0_80e5e31f",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T00:08:51Z",
+      "side": 1,
+      "message": "put a space in between the vars and the \u0027\u003d\u0027\n\nso, ${flow_output} \u003d",
+      "revId": "24347f6545a5347b04615792a62261413f495093",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b295bc55_83c2656a",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T00:08:51Z",
+      "side": 1,
+      "message": "I\u0027m not sure, but check if \"Get Regexp Matches\" will actually\ndisplay this output anyway. If so, remove this Log line.",
+      "range": {
+        "startLine": 117,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 33
+      },
+      "revId": "24347f6545a5347b04615792a62261413f495093",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29f234af_519ffdc8",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T00:08:51Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed. I don\u0027t see these variables\nused anywhere else. Generally, it\u0027s not a good idea to\nuse Suite Variables (or Global) anyway. But, if we have\nto, then make SUITE VARIABLES ALL CAPS.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 40
+      },
+      "revId": "24347f6545a5347b04615792a62261413f495093",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5f21921_e7604b95",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T00:08:51Z",
+      "side": 1,
+      "message": "some of these keywords probably belong in libraries.\nlike the of-ctl keywords can go in the OvsManager.robot\nlib. maybe there is a good lib for the VPN Get L3VPN ID\nkeyword? Maybe there are already keywords in those libs\nthat can give you what you want with a little enhancements?",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 37
+      },
+      "revId": "24347f6545a5347b04615792a62261413f495093",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
