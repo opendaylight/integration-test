@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3dfb5d6_2cf9ebf2",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 89
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T19:04:36Z",
+      "side": 1,
+      "message": "I\u0027m confused now. How is diagstatus getting installed and\nworking?\n\nhere it is working:\n https://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/builder-copy-sandbox-logs/51/janki-netvirt-csit-1node-openstack-queens-upstream-stateful-oxygen-upgrade/14/robot-plugin/log_full.html.gz#s1-t5-k4-k1-k2",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 71
+      },
+      "revId": "f9d99aa5999fd5b666cf112c215c1e43d3fa0303",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f9c1e26_0233e468",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 89
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T19:04:36Z",
+      "side": 1,
+      "message": "this is sort of a noop/unnecessary. the diagstatus check\nabove will not work if 8181 is not there.\n\nif we need this line, then we need to use the RESTCONFPORT\nvariable and not 8181 hardcoded",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 91
+      },
+      "revId": "f9d99aa5999fd5b666cf112c215c1e43d3fa0303",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71fa8df9_3b0fb5e9",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 89
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T19:04:36Z",
+      "side": 1,
+      "message": "make this a variable",
+      "range": {
+        "startLine": 82,
+        "startChar": 118,
+        "endLine": 82,
+        "endChar": 122
+      },
+      "revId": "f9d99aa5999fd5b666cf112c215c1e43d3fa0303",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
