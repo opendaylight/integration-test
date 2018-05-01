@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f261f06a_fadf6591",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T00:21:07Z",
+      "side": 1,
+      "message": "Suite",
+      "range": {
+        "startLine": 2,
+        "startChar": 23,
+        "endLine": 2,
+        "endChar": 27
+      },
+      "revId": "33def48aa05f34d7de75b329fa6e8a4c67d5ecce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55271d3c_0d92b9dd",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T00:21:07Z",
+      "side": 1,
+      "message": "can you prepend the var names with something like\nacl_sr_ (the ones that aren\u0027t table ids or ip addresses).\n\nex: acl_sr_net_1\n\nthis gives us some uniqueness when we run multiple suites\nback to back. makes log parsing easier.",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 13
+      },
+      "revId": "33def48aa05f34d7de75b329fa6e8a4c67d5ecce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8da782af_68688eeb",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T00:21:07Z",
+      "side": 1,
+      "message": "need [Documentation] and make it a little more\ndescriptive of the overall idea of the test case.\nApplies below, where your [documentation] block\nis almost just a copy/paste of the test case name.",
+      "revId": "33def48aa05f34d7de75b329fa6e8a4c67d5ecce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0563abc_9adfefec",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-01T00:21:07Z",
+      "side": 1,
+      "message": "you can remove this and replace with OpenStackOperations.Suite Teardown\n\nit\u0027ll do all the work for you.",
+      "range": {
+        "startLine": 131,
+        "startChar": 18,
+        "endLine": 131,
+        "endChar": 44
+      },
+      "revId": "33def48aa05f34d7de75b329fa6e8a4c67d5ecce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
