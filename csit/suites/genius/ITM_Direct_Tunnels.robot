@@ -53,18 +53,11 @@ Create and Verify VTEP
     ${check-4}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}
     ...    ${Port_num2}
 
-Verify Tunnels By Enabling BFD
-    [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
-    ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
-    Run Keyword If    '${result}' == 'False'    Enable_Tunnel_monitoring
-    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_IP}
-    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_2_IP}
-
 Verify VTEP After Restarting OVS
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting OVS
-    Verify Tunnel Status as UP
+    Genius.Verify Tunnel Status as UP
     OVSDB.Restart OVSDB    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    30    3    Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
 
 Verify VTEP After Restarting Controller
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting CONTROLLER
@@ -85,6 +78,13 @@ Delete and Verify VTEP
     Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
     ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
     ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
+
+Verify Tunnels By Enabling BFD
+    [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
+    ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
+    Run Keyword If    '${result}' == 'False'    Enable_Tunnel_monitoring
+    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_IP}
+    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_2_IP}
 
 *** Keywords ***
 Get_Tunnel
