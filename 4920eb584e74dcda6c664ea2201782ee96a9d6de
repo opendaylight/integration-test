@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1720fec_a0b3268e",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-02T18:50:26Z",
+      "side": 1,
+      "message": "Tunnel check",
+      "revId": "4920eb584e74dcda6c664ea2201782ee96a9d6de",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
