@@ -71,6 +71,78 @@
     },
     {
       "key": {
+        "uuid": "f8ed8143_cc452bc9",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-05-02T14:44:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91cce2dd_bd6a0b3d",
+      "range": {
+        "startLine": 683,
+        "startChar": 220,
+        "endLine": 683,
+        "endChar": 224
+      },
+      "revId": "421eb0fe5e199b40e28870b97f939be5f62b6dd1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c8f2d22_6d0bb632",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-05-02T14:44:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3385a7b2_8b29d102",
+      "range": {
+        "startLine": 683,
+        "startChar": 259,
+        "endLine": 683,
+        "endChar": 263
+      },
+      "revId": "421eb0fe5e199b40e28870b97f939be5f62b6dd1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5aad52d_ab068e3f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-05-02T14:44:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27f48422_4158711a",
+      "range": {
+        "startLine": 683,
+        "startChar": 22,
+        "endLine": 683,
+        "endChar": 37
+      },
+      "revId": "421eb0fe5e199b40e28870b97f939be5f62b6dd1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8742fc8_3c8c4c29",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 4
@@ -105,6 +177,54 @@
       "writtenOn": "2018-05-02T13:29:37Z",
       "side": 1,
       "message": "there should be 4 spaces here",
+      "range": {
+        "startLine": 684,
+        "startChar": 7,
+        "endLine": 684,
+        "endChar": 8
+      },
+      "revId": "421eb0fe5e199b40e28870b97f939be5f62b6dd1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a5be231_826e9cbc",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-05-02T14:44:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8742fc8_3c8c4c29",
+      "range": {
+        "startLine": 684,
+        "startChar": 188,
+        "endLine": 684,
+        "endChar": 195
+      },
+      "revId": "421eb0fe5e199b40e28870b97f939be5f62b6dd1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "419732b2_166a5f13",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 7872
+      },
+      "writtenOn": "2018-05-02T14:44:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ef61e93_fd1e17c8",
       "range": {
         "startLine": 684,
         "startChar": 7,
