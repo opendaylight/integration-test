@@ -64,7 +64,7 @@ Verify VTEP After Restarting Controller
     Genius.Verify Tunnel Status as UP
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
-    Wait Until Keyword Succeeds    10    2    Check Service Status    ACTIVE    OPERATIONAL
+    Wait Until Keyword Succeeds    60    3    Check Service Status    ACTIVE    OPERATIONAL
     Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
 
 Delete and Verify VTEP
