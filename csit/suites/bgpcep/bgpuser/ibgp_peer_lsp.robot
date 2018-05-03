@@ -17,18 +17,14 @@ Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           DateTime
-Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
-Resource          ${CURDIR}/../../../variables/Variables.robot
-Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
-Resource          ${CURDIR}/../../../libraries/BgpOperations.robot
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
-Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/BgpOperations.robot
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../libraries/WaitForFailure.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
@@ -62,13 +58,13 @@ TC1_Check_Example_Bgp_Rib_Is_Empty
     [Documentation]    Check RIB for none linkstate-routes
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer_console
-    BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain    ${JSONKEYSTR}
+    BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain    ${JSONKEYSTR}    ${CONFIG_SESSION}
 
 TC1_Connect_BGP_Peer
     [Documentation]    Connect BGP peer with advertising the routes without mandatory params like LOC_PREF.
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer_console
-    Log_Message_To_Controller_Karaf    Error = WELL_KNOWN_ATTR_MISSING is EXPECTED in this test case, and should be thrown when missing mandatory attributes.
+    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Log_Message_To_Controller_Karaf    Error = WELL_KNOWN_ATTR_MISSING is EXPECTED in this test case, and should be thrown when missing mandatory attributes.
     BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND} ${SKIP_PARAMS}    ${BGP_PEER_OPTIONS}
     BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
 
@@ -76,7 +72,7 @@ TC1_Check_Example_Bgp_Rib
     [Documentation]    Check RIB for not containig linkstate-route(s), because update messages were not good.
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer_console
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain    ${JSONKEYSTR}
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain    ${JSONKEYSTR}    ${CONFIG_SESSION}
 
 TC1_Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer & store logs
@@ -100,7 +96,7 @@ TC2_Check_Example_Bgp_Rib_Is_Empty
     [Documentation]    Check RIB for none linkstate-routes
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer_console
-    BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain    ${JSONKEYSTR}
+    BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain    ${JSONKEYSTR}    ${CONFIG_SESSION}
 
 TC2_Connect_BGP_Peer
     [Documentation]    Connect BGP peer
@@ -113,7 +109,7 @@ TC2_Check_Example_Bgp_Rib
     [Documentation]    Check RIB for linkstate-route(s)
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    BgpOperations.Check_Example_Bgp_Rib_Content    ${JSONKEYSTR}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    BgpOperations.Check_Example_Bgp_Rib_Content    ${JSONKEYSTR}    session=${CONFIG_SESSION}
 
 TC2_Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer & store logs
@@ -138,7 +134,6 @@ Setup_Everything
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
-    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     KarafKeywords.Setup_Karaf_Keywords
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
