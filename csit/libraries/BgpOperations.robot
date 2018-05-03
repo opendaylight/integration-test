@@ -7,9 +7,11 @@ Resource          TemplatedRequests.robot
 Resource          KillPythonTool.robot
 
 *** Variables ***
-${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
 ${BGP_BMP_DIR}    ${CURDIR}/../variables/bgpfunctional/bmp_basic/filled_structure
 ${BGP_BMP_FEAT_DIR}    ${CURDIR}/../variables/bgpfunctional/bmp_basic/empty_structure
+${BGP_RIB_URI}    ${OPERATIONAL_API}/bgp-rib:bgp-rib/rib/example-bgp-rib
+${BGP_TOPOLOGY_URI}    ${OPERATIONAL_API}/topology/example-ipv4-topology
+${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
 
 *** Keywords ***
 Start Quagga Processes On ODL
@@ -196,33 +198,33 @@ Teardown_Everything
     SSHLibrary.Close_All_Connections
 
 Check_Example_Bgp_Rib_Content
-    [Arguments]    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
+    [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
     [Documentation]    Check the example-bgp-rib content for string
-    ${response}=    RequestsLibrary.Get Request    operational    bgp-rib:bgp-rib/rib/example-bgp-rib
+    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${substr}    ${error_message}    values=False
 
 Check_Example_Bgp_Rib_Does_Not_Contain
-    [Arguments]    ${substr}    ${error_message}=${JSONKEYSTR} found, but not expected.
+    [Arguments]    ${session}    ${substr}    ${error_message}=${JSONKEYSTR} found, but not expected.
     [Documentation]    Check the example-bgp-rib does not contain the string
-    ${response}=    RequestsLibrary.Get Request    operational    bgp-rib:bgp-rib/rib/example-bgp-rib
+    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_RIB_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${substr}    ${error_message}    values=False
 
 Check_Example_IPv4_Topology_Content
-    [Arguments]    ${string_to_check}=${EMPTY}
+    [Arguments]    ${session}    ${string_to_check}=${EMPTY}
     [Documentation]    Check the example-ipv4-topology content for string
-    ${response}=    RequestsLibrary.Get Request    operational    topology/example-ipv4-topology
+    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Contain    ${response.text}    ${string_to_check}
 
 Check_Example_IPv4_Topology_Does_Not_Contain
-    [Arguments]    ${string_to_check}
+    [Arguments]    ${session}    ${string_to_check}
     [Documentation]    Check the example-ipv4-topology does not contain the string
-    ${response}=    RequestsLibrary.Get Request    operational    topology/example-ipv4-topology
+    ${response}=    RequestsLibrary.Get Request    ${session}    ${BGP_TOPOLOGY_URI}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Not_Contain    ${response.text}    ${string_to_check}
