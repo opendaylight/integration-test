@@ -34,18 +34,16 @@ Resource          ../../../libraries/BgpOperations.robot
 Resource          ../../../libraries/BGPSpeaker.robot
 Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/FailFast.robot
-Resource          ../../../libraries/KillPythonTool.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../variables/Variables.robot
-Resource          ../../../libraries/WaitForFailure.robot
-Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 
 *** Variables ***
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${HOLDTIME}       180
 ${BGP_PEER_LOG_LEVEL}    debug
+${CONFIG_SESSION}    config-session
+${HOLDTIME}       180
 ${ODL_LOG_LEVEL}    INFO
 ${ODL_BGP_LOG_LEVEL}    DEFAULT
 ${iBGP_PEER1_IP}    127.0.0.1
@@ -111,7 +109,7 @@ Connect_iBGP_Peer1
     SSHLibrary.Switch Connection    ibgp_peer1_console
     Start_Console_Tool    ${iBGP_PEER1_COMMAND}    ${iBGP_PEER1_OPTIONS}
     Read_And_Fail_If_Prompt_Is_Seen
-    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix
+    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix    ${CONFIG_SESSION}
 
 Connect_eBGP_Peer1
     [Documentation]    Connect BGP peer
@@ -122,8 +120,8 @@ Connect_eBGP_Peer1
 
 Check_IPv4_Topology_For_First_Path
     [Documentation]    The IPv4 topology shall contain the route announced by the first eBGP
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    "node-id":"${eBGP_PEER1_NEXT_HOP}"
-    BgpOperations.Check_Example_IPv4_Topology_Content    "prefix":"${eBGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    "node-id":"${eBGP_PEER1_NEXT_HOP}"    ${CONFIG_SESSION}
+    BgpOperations.Check_Example_IPv4_Topology_Content    "prefix":"${eBGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"    ${CONFIG_SESSION}
 
 iBGP_Check_Log_For_Introduced_Prefixes
     [Documentation]    Check incomming updates for introduced routes
@@ -152,8 +150,8 @@ Disconnect_eBGP_Peer1
 
 Check_IPv4_Topology_For_Second_Path
     [Documentation]    The IPv4 topology shall contain the route announced by the second eBGP now
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    "node-id":"${eBGP_PEER2_NEXT_HOP}"
-    BgpOperations.Check_Example_IPv4_Topology_Content    "prefix":"${eBGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Content    "node-id":"${eBGP_PEER2_NEXT_HOP}"    ${CONFIG_SESSION}
+    BgpOperations.Check_Example_IPv4_Topology_Content    "prefix":"${eBGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"    ${CONFIG_SESSION}
 
 iBGP_Check_Log_For_Updated_Prefixes
     [Documentation]    Check incomming updates for updated routes
@@ -176,7 +174,7 @@ Disconnect_eBGP_Peer2
 
 Check_For_Empty_IPv4_Topology
     [Documentation]    The IPv4 topology shall be empty
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    BgpOperations.Check_Example_IPv4_Topology_Does_Not_Contain    prefix    ${CONFIG_SESSION}
     [Teardown]    Report_Failure_Due_To_Bug    4835
 
 iBGP_Check_Log_For_Withdrawn_Prefixes
@@ -294,7 +292,7 @@ Setup_Everything
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
-    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
+    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     TemplatedRequests.Create_Default_Session
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
