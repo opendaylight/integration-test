@@ -54,11 +54,7 @@ Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Library           ../../../libraries/norm_json.py
-Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ../../../libraries/BGPcliKeywords.robot
-Resource          ../../../libraries/BGPSpeaker.robot
-Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/FailFast.robot
 Resource          ../../../libraries/KillPythonTool.robot
 Resource          ../../../libraries/TemplatedRequests.robot
@@ -68,8 +64,6 @@ Resource          ../../../libraries/WaitForFailure.robot
 Resource          ../../../variables/Variables.robot
 
 *** Variables ***
-${ACTUAL_RESPONSES_FOLDER}    ${TEMPDIR}/actual
-${EXPECTED_RESPONSES_FOLDER}    ${TEMPDIR}/expected
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${HOLDTIME}       180
@@ -94,6 +88,7 @@ ${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
+${SCRIPT_URI_OPT}    --uri config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
 
 *** Test Cases ***
 Reconfigure_ODL_To_Accept_BGP_Peer_Connection
@@ -112,20 +107,20 @@ Reconfigure_ODL_To_Accept_BGP_Application_Peer
 Check_For_Empty_Example-IPv4-Topology
     [Documentation]    Sanity check example-ipv4-topology is up but empty.
     [Tags]    critical
-    Wait_For_Topology_To_Change_To    ${empty_json}    000_Empty.json    timeout=120s
+    Wait_For_Topology_To_Change_To    empty_topology    timeout=180s
 
 TC1_BGP_Application_Peer_Post_3_Initial_Routes
     [Documentation]    Start BGP application peer tool and give it ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_POST_COMMAND} ${scritp_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    ${BGP_APP_PEER_POST_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_initial_post_tc1.log
 
 TC1_Check_Example-IPv4-Topology_Is_Filled_With_3_Routes
     [Documentation]    See new routes in example-ipv4-topology as a proof that synchronization was correct.
     [Tags]    critical
-    Wait_For_Topology_To_Change_To    ${filled_json}    010_Filled.json
+    Wait_For_Topology_To_Change_To    filled_topology
 
 TC1_Connect_BGP_Peer
     [Documentation]    Start BGP peer tool
@@ -149,14 +144,14 @@ TC1_BGP_Application_Peer_Delete_3_Initial_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_DELETE_COMMAND} ${scritp_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    ${BGP_APP_PEER_DELETE_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_delete_tc1.log
 
 TC1_Check_Example-IPv4-Topology_Is_Empty
     [Documentation]    See new routes are deleted.
     [Tags]    critical
-    Wait_For_Topology_To_Change_To    ${empty_json}    011_Empty.json
+    Wait_For_Topology_To_Change_To    empty_topology
 
 TC1_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes
     [Documentation]    Check incomming updates for new routes
@@ -189,14 +184,14 @@ TC2_BGP_Application_Peer_Put_3_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND} ${scritp_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_put_tc2.log
 
 TC2_Check_Example-IPv4-Topology_Is_Filled_With_3_Routes
     [Documentation]    See new routes in example-ipv4-topology as a proof that synchronization was correct.
     [Tags]    critical
-    Wait_For_Topology_To_Change_To    ${filled_json}    020_Filled.json
+    Wait_For_Topology_To_Change_To    filled_topology
 
 TC2_BGP_Peer_Check_Incomming_Updates_For_3_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes
@@ -212,14 +207,14 @@ TC2_BGP_Application_Peer_Delete_All_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${scritp_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_delete_all_tc2.log
 
 TC2_Check_Example-IPv4-Topology_Is_Empty
     [Documentation]    See new routes are deleted.
     [Tags]    critical
-    Wait_For_Topology_To_Change_To    ${empty_json}    021_Empty.json
+    Wait_For_Topology_To_Change_To    empty_topology
 
 TC2_BGP_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes
     [Documentation]    Check incomming updates for new routes
@@ -242,14 +237,14 @@ TC3_BGP_Application_Peer_Put_3_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND} ${scritp_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_put_tc3.log
 
 TC3_Check_Example-IPv4-Topology_Is_Filled_With_3_Routes
     [Documentation]    See new routes in example-ipv4-topology as a proof that synchronization was correct.
     [Tags]    critical
-    Wait_For_Topology_To_Change_To    ${filled_json}    030_Filled.json
+    Wait_For_Topology_To_Change_To    filled_topology
 
 TC3_Reconnect_BGP_Peer_And_Check_Incomming_Updates_For_3_Introduced_Prefixes
     [Documentation]    Start BGP peer tool
@@ -268,14 +263,14 @@ TC3_BGP_Application_Peer_Delete_All_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${scritp_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${SCRIPT_URI_OPT}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_delete_all_tc3.log
 
 TC3_Check_Example-IPv4-Topology_Is_Empty
     [Documentation]    See new routes are deleted.
     [Tags]    critical
-    Wait_For_Topology_To_Change_To    ${empty_json}    031_Empty.json
+    Wait_For_Topology_To_Change_To    empty_topology
 
 TC3_BGP_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes
     [Documentation]    Check incomming updates for new routes
@@ -309,34 +304,24 @@ Delete_Bgp_Application_Peer_Configuration
 *** Keywords ***
 Setup_Everything
     [Documentation]    Initialize SetupUtils. SSH-login to mininet machine, create HTTP session,
-    ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
+    ...    put Python tool to mininet machine, setup imported resources.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     Open_BGP_Peer_Console
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
-    Open_BGP_Aplicationp_Peer_Console
+    Open_BGP_Aplication_Peer_Console
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/bgp_app_peer.py
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/ipv4-routes-template.xml*
-    OperatingSystem.Remove_Directory    ${EXPECTED_RESPONSES_FOLDER}    recursive=True
-    OperatingSystem.Remove_Directory    ${ACTUAL_RESPONSES_FOLDER}    recursive=True
-    # The previous suite may have been using the same directories.
-    OperatingSystem.Create_Directory    ${EXPECTED_RESPONSES_FOLDER}
-    OperatingSystem.Create_Directory    ${ACTUAL_RESPONSES_FOLDER}
-    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_BGP_LOG_LEVEL} org.opendaylight.protocol
-    ${scritp_uri_opt}=    Set Variable    --uri config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
-    BuiltIn.Set_Suite_Variable    ${scritp_uri_opt}
 
 Teardown_Everything
-    [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
+    [Documentation]    Make sure Python tool was killed.
     ...    Tear down imported Resources.
-    ${diff}=    OperatingSystem.Run    diff -dur ${EXPECTED_RESPONSES_FOLDER} ${ACTUAL_RESPONSES_FOLDER}
-    BuiltIn.Log    ${diff}
     KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
     KillPythonTool.Search_And_Kill_Remote_Python    'bgp_app_peer\.py'
     RequestsLibrary.Delete_All_Sessions
@@ -347,7 +332,7 @@ Open_BGP_Peer_Console
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=bgp_peer_console
     SSHKeywords.Flexible_Mininet_Login
 
-Open_BGP_Aplicationp_Peer_Console
+Open_BGP_Aplication_Peer_Console
     [Documentation]    Create a session for BGP peer.
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=bgp_app_peer_console
     SSHKeywords.Flexible_Mininet_Login
@@ -359,35 +344,16 @@ Switch_To_BGP_Application_Peer_Console
     SSHLibrary.Switch Connection    bgp_app_peer_console
 
 Wait_For_Topology_To_Change_To
-    [Arguments]    ${json_topology}    ${filename}    ${timeout}=10s    ${refresh}=1s
-    [Documentation]    Normalize the expected json topology and save it to ${EXPECTED_RESPONSES_FOLDER}.
-    ...    Wait until Compare_Topology matches. ${ACTUAL_RESPONSES_FOLDER} will hold its last result.
-    ${topology_normalized}=    Normalize_And_Save_Expected_Json    ${json_topology}    ${filename}    ${EXPECTED_RESPONSES_FOLDER}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${refresh}    Compare_Topology    ${topology_normalized}    ${filename}
+    [Arguments]    ${folder_name}    ${timeout}=10s    ${refresh}=1s
+    [Documentation]    Wait until Compare_Topology matches expected result.
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${refresh}    Compare_Topology    ${folder_name}
 
 Verify_That_Topology_Does_Not_Change_From
-    [Arguments]    ${json_topology}    ${filename}    ${timeout}=10s    ${refresh}=1s
-    [Documentation]    Normalize the expected json topology and save it to ${EXPECTED_RESPONSES_FOLDER}.
-    ...    Verify that Compare_Topology keeps passing. ${ACTUAL_RESPONSES_FOLDER} will hold its last result.
-    ${topology_normalized}=    Normalize_And_Save_Expected_Json    ${json_topology}    ${filename}    ${EXPECTED_RESPONSES_FOLDER}
-    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${timeout}    ${refresh}    Compare_Topology    ${topology_normalized}    ${filename}
+    [Arguments]    ${folder_name}    ${timeout}=10s    ${refresh}=1s
+    [Documentation]    Verify that Compare_Topology keeps passing, it will hold its last result.
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${timeout}    ${refresh}    Compare_Topology    ${folder_name}
 
 Compare_Topology
-    [Arguments]    ${expected_normalized}    ${filename}
-    [Documentation]    Get current example-ipv4-topology as json, normalize it, save to ${ACTUAL_RESPONSES_FOLDER}.
-    ...    Check that status code is 200, check that normalized jsons match exactly.
-    ${response}=    RequestsLibrary.Get Request    operational    topology/example-ipv4-topology
-    BuiltIn.Log    ${response.status_code}
-    BuiltIn.Log    ${response.text}
-    ${actual_normalized}=    Normalize_And_Save_Expected_Json    ${response.text}    ${filename}    ${ACTUAL_RESPONSES_FOLDER}
-    BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
-    BuiltIn.Should_Be_Equal    ${expected_normalized}    ${actual_normalized}
-
-Normalize_And_Save_Expected_Json
-    [Arguments]    ${json_text}    ${filename}    ${directory}
-    [Documentation]    Normalize given json using norm_json library. Log and save the result to given filename under given directory.
-    ${json_normalized}=    norm_json.normalize_json_text    ${json_text}
-    BuiltIn.Log    ${json_normalized}
-    OperatingSystem.Create_File    ${directory}${/}${filename}    ${json_normalized}
-    # TODO: Should we prepend .json to the filename? When we detect it is not already prepended?
-    [Return]    ${json_normalized}
+    [Arguments]    ${folder_name}
+    [Documentation]    Get current example-ipv4-topology as json, and compare it to expected result.
+    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}${folder_name}    session=${CONFIG_SESSION}    verify=True
