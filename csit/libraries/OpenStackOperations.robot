@@ -1005,7 +1005,7 @@ OpenStack Suite Teardown
     ...    and deleted. As other global cleanup tasks are needed, they can be added here and the suites will all
     ...    benefit automatically.
     OpenStack Cleanup All
-    OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
+    #OpenStackOperations.Stop Packet Capture On Nodes    ${tcpdump_port_6653_conn_ids}
     SSHLibrary.Close All Connections
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    KarafKeywords.Issue Command On Karaf Console    threads --list | wc -l    ${ODL_SYSTEM_${i+1}_IP}
