@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8aee62e_e6af9e19",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-03T17:33:11Z",
+      "side": 1,
+      "message": "It is \"Verify Tunnel Delete on OVS\" in Genius.robot",
+      "revId": "7ae75baa04f40fe9105e31256e634d6937f6e3f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
