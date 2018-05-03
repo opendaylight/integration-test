@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90915a68_21cbb5d5",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-03T14:42:24Z",
+      "side": 1,
+      "message": "You sure it\u0027s needed here. in most cases, \u0027Start Suite\u0027 is done first and in our jobs that means the controller has\nalready been verified to be up.",
+      "range": {
+        "startLine": 37,
+        "startChar": 69,
+        "endLine": 37,
+        "endChar": 71
+      },
+      "revId": "394bd1b835c00d8ae1e9f954e00e06828280d648",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
