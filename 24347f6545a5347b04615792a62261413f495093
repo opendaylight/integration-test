@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "1e13fc81_45f1429c",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-05-04T10:14:06Z",
+      "side": 1,
+      "message": "Checked the variables.Deleted the variables which are not being used in this current suite or used in netvirt/Variables.robot.",
+      "parentUuid": "6824638a_db349e5b",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 55
+      },
+      "revId": "24347f6545a5347b04615792a62261413f495093",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "941bc3b0_80e5e31f",
         "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
         "patchSetId": 59
@@ -59,6 +83,24 @@
     },
     {
       "key": {
+        "uuid": "52d002d0_d05436c2",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-05-04T10:14:06Z",
+      "side": 1,
+      "message": "I have put space in between the vars and the \u0027\u003d\u0027 in all the places wherever required.",
+      "parentUuid": "941bc3b0_80e5e31f",
+      "revId": "24347f6545a5347b04615792a62261413f495093",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b295bc55_83c2656a",
         "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
         "patchSetId": 59
@@ -70,6 +112,30 @@
       "writtenOn": "2018-05-01T00:08:51Z",
       "side": 1,
       "message": "I\u0027m not sure, but check if \"Get Regexp Matches\" will actually\ndisplay this output anyway. If so, remove this Log line.",
+      "range": {
+        "startLine": 117,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 33
+      },
+      "revId": "24347f6545a5347b04615792a62261413f495093",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c2e52fc_a494c023",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-05-04T10:14:06Z",
+      "side": 1,
+      "message": "Get Regexp Matches doesn\u0027t display the output.\nBut as the log statement is not needed, so deleted the same.",
+      "parentUuid": "b295bc55_83c2656a",
       "range": {
         "startLine": 117,
         "startChar": 4,
@@ -105,6 +171,30 @@
     },
     {
       "key": {
+        "uuid": "f33497bf_e86bdb87",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-05-04T10:14:06Z",
+      "side": 1,
+      "message": "These variables are not being used in suite.So deleted the same.",
+      "parentUuid": "29f234af_519ffdc8",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 40
+      },
+      "revId": "24347f6545a5347b04615792a62261413f495093",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5f21921_e7604b95",
         "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
         "patchSetId": 59
@@ -116,6 +206,30 @@
       "writtenOn": "2018-05-01T00:08:51Z",
       "side": 1,
       "message": "some of these keywords probably belong in libraries.\nlike the of-ctl keywords can go in the OvsManager.robot\nlib. maybe there is a good lib for the VPN Get L3VPN ID\nkeyword? Maybe there are already keywords in those libs\nthat can give you what you want with a little enhancements?",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 37
+      },
+      "revId": "24347f6545a5347b04615792a62261413f495093",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62c862ec_0f3d46ca",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 8002
+      },
+      "writtenOn": "2018-05-04T10:14:06Z",
+      "side": 1,
+      "message": "- Added \"Get Port Number\" and \"Get Metadata\" keywords in OVSDB.robot\n- Added \"Get Default Mac Addr\" keyword in OpenstackOperations.robot\n- \"VPN Get L3VPN ID\" is not being used in any other library file or any suite. The keyword \"VPN Get L3VPN\" is present in VpnOperations.robot file.\n  So, added the \"VPN Get L3VPN ID\" keyword in VpnOperations.robot file.",
+      "parentUuid": "e5f21921_e7604b95",
       "range": {
         "startLine": 261,
         "startChar": 0,
