@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22899b91_91bae1e8",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-04T21:23:29Z",
+      "side": 1,
+      "message": "sort the Library and Resource lines",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "fe7cc22ff12f7d08575ea464643e8a6841a91081",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "489d8fcc_8cc6f3b7",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-04T21:23:29Z",
+      "side": 1,
+      "message": "if we want to plan for making this scalable, I would only\nhave a single busybox yaml. you can replace the specific\nstrings with unique names at runtime. We do that in other\nsuites.\n\nlike this keyword:\nhttps://git.opendaylight.org/gerrit/gitweb?p\u003dintegration/test.git;a\u003dblob;f\u003dcsit/libraries/OVSDB.robot;h\u003d6fb18fcfe80a90db9577f7cffedc572f76fd361a;hb\u003d11c74ccf959c00522eb1407e46bd339ab2a661ab#l27\n\nthat takes a file like this:\n\nhttps://git.opendaylight.org/gerrit/gitweb?p\u003dintegration/test.git;a\u003dblob;f\u003dcsit/variables/ovsdb/create_node.json;h\u003d8625705a0e13e297d94ecafcd0232c8d1f1713c8;hb\u003d11c74ccf959c00522eb1407e46bd339ab2a661ab\n\nand does a Replace on some strings to make it work.\n\nthis would let you easily spin up 1,2,3... 1000 busybox\nthings without needing an individual file for each.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 60
+      },
+      "revId": "fe7cc22ff12f7d08575ea464643e8a6841a91081",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fd4fc6c_48a6fa5f",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-04T21:23:29Z",
+      "side": 1,
+      "message": "the steps are ok to have, but not really needed because\nof how human readable the robot code is.\n\nline 28 literally says \"Create_Pod_L2\" and lines 29-30\nare very clear as well.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "fe7cc22ff12f7d08575ea464643e8a6841a91081",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cea3d4d_e6a2408f",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-04T21:23:29Z",
+      "side": 1,
+      "message": "let\u0027s figure out a more generic keyword. maybe something like\n\"Create Pod\"\n\nhave it take in two variables for K8S_MASTER_IP and MASTER_HOME and a third @{list} variable which will be\na list of the \"names\" you want for your busybox things.\n\nthen just loop over the list of names and create them.\n\nthis will work well with the other idea of just having\na single busybox yaml where you do a replace on whatever\nstrings you need to make them have the right name.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 158
+      },
+      "revId": "fe7cc22ff12f7d08575ea464643e8a6841a91081",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71c09104_2790d85b",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-04T21:23:29Z",
+      "side": 1,
+      "message": "put a space between the ${var} and the \u0027\u003d\u0027 sign, so it looks like\n\n  ${var} \u003d\n\nalso, qualify all the keywords. in this case, it would\nbe Utils.Run Command On Remote System\n\nboth comments apply everywhere",
+      "range": {
+        "startLine": 62,
+        "startChar": 9,
+        "endLine": 62,
+        "endChar": 49
+      },
+      "revId": "fe7cc22ff12f7d08575ea464643e8a6841a91081",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
