@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e44827e9_3bc723a1",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-06T21:18:21Z",
+      "side": 1,
+      "message": "BuiltIn.Log",
+      "range": {
+        "startLine": 362,
+        "startChar": 4,
+        "endLine": 362,
+        "endChar": 7
+      },
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bbbcc3c_3702b78c",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-06T21:18:21Z",
+      "side": 1,
+      "message": "this should be something else right?",
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45f0af66_faa390f9",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-06T21:18:21Z",
+      "side": 1,
+      "message": "more than four spaces",
+      "range": {
+        "startLine": 41,
+        "startChar": 31,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62b35e23_6cce3fde",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-06T21:18:21Z",
+      "side": 1,
+      "message": "Jamo, this is really goofy to have a doc tag when the name of the test is more than enough",
+      "range": {
+        "startLine": 44,
+        "startChar": 23,
+        "endLine": 44,
+        "endChar": 31
+      },
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05232384_d71eaeed",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-06T21:18:21Z",
+      "side": 1,
+      "message": "what\u0027s the scoop with the \\ - is this setting the var in the variable ClusterManagement__hase_setup_run",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51e3f020_40933d1a",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-06T21:18:21Z",
+      "side": 1,
+      "message": "this is very noisy debug, we need to make sure it is disabled at the end of this suite",
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdc1a7be_74f25fbd",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-06T21:18:21Z",
+      "side": 1,
+      "message": "does this really indicate the sync is done?",
+      "range": {
+        "startLine": 74,
+        "startChar": 68,
+        "endLine": 74,
+        "endChar": 90
+      },
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71f68728_9f2a5420",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-06T21:18:21Z",
+      "side": 1,
+      "message": "how does this make it easier to debug? The dumps are taken in the tests so you have that annotation already? Seems the same lookup to scroll up to see what test you are in compared to scrolling up to a log.\n\nIf we do keep this, might as well move it over to the OpenStackOperations",
+      "range": {
+        "startLine": 134,
+        "startChar": 12,
+        "endLine": 134,
+        "endChar": 15
+      },
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d0fe7b9_ec02656a",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-06T21:18:21Z",
+      "side": 1,
+      "message": "move the log outside the connections",
+      "range": {
+        "startLine": 137,
+        "startChar": 25,
+        "endLine": 137,
+        "endChar": 30
+      },
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
