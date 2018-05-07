@@ -10,7 +10,6 @@ Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           RequestsLibrary
 Library           SSHLibrary
-Variables         ../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ../../../libraries/ExaBgpLib.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
@@ -68,12 +67,8 @@ Start Suite
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
     Builtin.Set Suite Variable    ${mininet_conn_id}
     SSHKeywords.Flexible Mininet Login    ${TOOLS_SYSTEM_USER}
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    ls    return_stdout=True    return_stderr=True
-    ...    return_rc=True
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo apt-get install -y python-pip    return_stdout=True    return_stderr=True
-    ...    return_rc=True
-    ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo pip install exabgp    return_stdout=True    return_stderr=True
-    ...    return_rc=True
+    SSHKeywords.Virtual_Env_Create
+    SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
     RequestsLibrary.Create Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload Config Files    ${CURDIR}/../../../variables/bgpflowspec/
 
