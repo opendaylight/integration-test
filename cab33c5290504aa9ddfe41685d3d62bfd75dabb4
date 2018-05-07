@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a04a1490_5ba5bec2",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-07T16:41:13Z",
+      "side": 1,
+      "message": "add this to your \u0027Test Setup\u0027 section above. use the \nRun Keywords trick you\u0027ll see in other suites to run multiple\nkeywords. I noticed you are doing this at the start of\nevery test case, so it makes sense to move it there.",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 73
+      },
+      "revId": "cab33c5290504aa9ddfe41685d3d62bfd75dabb4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a6b11c5_148a0c7c",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-07T16:41:13Z",
+      "side": 1,
+      "message": "I would say this step is not totally neccessary. you\u0027ll\nhave output in the robot log already because of\nthe test setup keyword I commented on above. You just\nwant have the | grep part, but unless that\u0027s critical I\nthink it\u0027s better to remove it to make for a cleaner\ntest case to read.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 152
+      },
+      "revId": "cab33c5290504aa9ddfe41685d3d62bfd75dabb4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "210c561b_a17eb457",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-07T16:41:13Z",
+      "side": 1,
+      "message": "these 3 lines seem to be repeated a few times. Make a\nlocal keyword to do this and have it return the count.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 49
+      },
+      "revId": "cab33c5290504aa9ddfe41685d3d62bfd75dabb4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e57d313_0497e4b9",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-07T16:41:13Z",
+      "side": 1,
+      "message": "is this needed? you already did it above in line 37?",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 54
+      },
+      "revId": "cab33c5290504aa9ddfe41685d3d62bfd75dabb4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66d51b38_3b389274",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-07T16:41:13Z",
+      "side": 1,
+      "message": "needed?",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 54
+      },
+      "revId": "cab33c5290504aa9ddfe41685d3d62bfd75dabb4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d2b2a4e_99f91053",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-07T16:41:13Z",
+      "side": 1,
+      "message": "an example of where you\u0027ll be able to use your new local\nkeyword I suggested above.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 48
+      },
+      "revId": "cab33c5290504aa9ddfe41685d3d62bfd75dabb4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
