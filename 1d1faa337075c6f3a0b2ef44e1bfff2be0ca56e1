@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecc39eee_8261db11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 40
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-08T12:14:08Z",
+      "side": 1,
+      "message": "nit: Testsuite..",
+      "revId": "1d1faa337075c6f3a0b2ef44e1bfff2be0ca56e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea5964a8_c41bcf3c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 40
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-08T12:14:08Z",
+      "side": 1,
+      "message": "Do we need to return this?",
+      "revId": "1d1faa337075c6f3a0b2ef44e1bfff2be0ca56e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
