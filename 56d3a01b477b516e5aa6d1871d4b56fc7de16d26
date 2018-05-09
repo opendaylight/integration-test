@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1161ac19_e8d61812",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-09T21:26:14Z",
+      "side": 1,
+      "message": "put a space between the ${var} and \u003d sign.",
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e992e3c_a2194910",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-09T21:26:14Z",
+      "side": 1,
+      "message": "are these duplicate lines?",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 100
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7ef9091_31a4fcfb",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-09T21:26:14Z",
+      "side": 1,
+      "message": "seems like a keyword that belongs in the ovsdb lib",
+      "range": {
+        "startLine": 265,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 62
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9776dfc5_ae756952",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-09T21:26:14Z",
+      "side": 1,
+      "message": "I think \"List Networks\" does the Logging for you. might\napply elsewhere.",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 30
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34195377_0a0cd0d2",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-09T21:26:14Z",
+      "side": 1,
+      "message": "this logic is hard for me to understand. is there a \nmore simple way to write it? If I got stuck debugging\na failure and ended up in this code path, it could be\nconfusing.",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 141
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8cc66736_cd65b10c",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-09T21:26:14Z",
+      "side": 1,
+      "message": "does it make sense to put this in VpnOperations?",
+      "range": {
+        "startLine": 533,
+        "startChar": 0,
+        "endLine": 543,
+        "endChar": 63
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9f1b53c_484f8d73",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-09T21:26:14Z",
+      "side": 1,
+      "message": "rewrite this inside OpenStackOperations and use the\nOpenstack CLI wrapper. Also, add a \"project list\" keyword\n(if there is not one already) and use that inside\nthis.",
+      "range": {
+        "startLine": 545,
+        "startChar": 0,
+        "endLine": 556,
+        "endChar": 25
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
