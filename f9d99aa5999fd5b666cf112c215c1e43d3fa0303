@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "439ab121_d1204ec7",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 89
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-05-10T13:10:53Z",
+      "side": 1,
+      "message": "Because genius has a dependency on it",
+      "parentUuid": "e3dfb5d6_2cf9ebf2",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 71
+      },
+      "revId": "f9d99aa5999fd5b666cf112c215c1e43d3fa0303",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f9c1e26_0233e468",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 89
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ed3cace1_a9beb22e",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 89
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-05-10T13:10:53Z",
+      "side": 1,
+      "message": "now it\u0027s gone",
+      "parentUuid": "6f9c1e26_0233e468",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 91
+      },
+      "revId": "f9d99aa5999fd5b666cf112c215c1e43d3fa0303",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71fa8df9_3b0fb5e9",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 89
@@ -59,6 +107,30 @@
       "writtenOn": "2018-05-01T19:04:36Z",
       "side": 1,
       "message": "make this a variable",
+      "range": {
+        "startLine": 82,
+        "startChar": 118,
+        "endLine": 82,
+        "endChar": 122
+      },
+      "revId": "f9d99aa5999fd5b666cf112c215c1e43d3fa0303",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0200fbc9_c0d091bf",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 89
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-05-10T13:10:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71fa8df9_3b0fb5e9",
       "range": {
         "startLine": 82,
         "startChar": 118,
