@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7ca3cff_13ba7cc2",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:57:23Z",
+      "side": 1,
+      "message": "why not just \"command\" the _1 seems unneeded.",
+      "range": {
+        "startLine": 231,
+        "startChar": 6,
+        "endLine": 231,
+        "endChar": 15
+      },
+      "revId": "b6058c333499e02efeb24f09562c852409a5f6ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df81ccfd_1a3ce03a",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:57:23Z",
+      "side": 1,
+      "message": "shouldn\u0027t this by \"port_number\"?",
+      "range": {
+        "startLine": 233,
+        "startChar": 6,
+        "endLine": 233,
+        "endChar": 9
+      },
+      "revId": "b6058c333499e02efeb24f09562c852409a5f6ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f97d4a7_c212ae7d",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:57:23Z",
+      "side": 1,
+      "message": "is this syntax right?",
+      "range": {
+        "startLine": 234,
+        "startChar": 4,
+        "endLine": 234,
+        "endChar": 61
+      },
+      "revId": "b6058c333499e02efeb24f09562c852409a5f6ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "146fb249_308bf53b",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:57:23Z",
+      "side": 1,
+      "message": "Get Port Metadata",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 12
+      },
+      "revId": "b6058c333499e02efeb24f09562c852409a5f6ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d0ad0bb_8343f898",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:57:23Z",
+      "side": 1,
+      "message": "use the syntax:\n  ${cmd} \u003d\n\nspace between variable and equal sign. applies everywhere.",
+      "range": {
+        "startLine": 240,
+        "startChar": 4,
+        "endLine": 240,
+        "endChar": 10
+      },
+      "revId": "b6058c333499e02efeb24f09562c852409a5f6ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1c0f4e3_dff0f1ed",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:57:23Z",
+      "side": 1,
+      "message": "why metadata1 and not just metadata?",
+      "range": {
+        "startLine": 243,
+        "startChar": 6,
+        "endLine": 243,
+        "endChar": 15
+      },
+      "revId": "b6058c333499e02efeb24f09562c852409a5f6ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4480678_83073003",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:57:23Z",
+      "side": 1,
+      "message": "add space.",
+      "revId": "b6058c333499e02efeb24f09562c852409a5f6ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af97eb2c_ee831373",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:57:23Z",
+      "side": 1,
+      "message": "qualify this with the library it comes from.",
+      "range": {
+        "startLine": 58,
+        "startChar": 22,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "b6058c333499e02efeb24f09562c852409a5f6ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fab26685_c65e0cf8",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:57:23Z",
+      "side": 1,
+      "message": "example of missing space \u0027\u003d\u0027",
+      "range": {
+        "startLine": 58,
+        "startChar": 19,
+        "endLine": 58,
+        "endChar": 20
+      },
+      "revId": "b6058c333499e02efeb24f09562c852409a5f6ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
