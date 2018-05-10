@@ -178,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "ce576a60_5dbf751c",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:47:59Z",
+      "side": 1,
+      "message": "yeah, because this is not a test case really. it\u0027s just a\nstep without any verifications. normally I agrue to move\nthese kinds of steps in to a test case before or after, but\nNBD.",
+      "parentUuid": "62b35e23_6cce3fde",
+      "range": {
+        "startLine": 44,
+        "startChar": 23,
+        "endLine": 44,
+        "endChar": 31
+      },
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05232384_d71eaeed",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 99
@@ -225,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "cac703b4_c66b61a0",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:47:59Z",
+      "side": 1,
+      "message": "it\u0027s some magic Vratko came up with. I think it has something\nto do with this variable being a Suite Variable set in the\nclustermanagement lib.",
+      "parentUuid": "76d09fef_0e748a0d",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51e3f020_40933d1a",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 99
@@ -254,6 +302,24 @@
       "side": 1,
       "message": "Wait. Does karaf get reused for other tests??",
       "parentUuid": "51e3f020_40933d1a",
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8792b5b_c22e3fb4",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-10T17:47:59Z",
+      "side": 1,
+      "message": "it\u0027s possible. maybe we\u0027ll run this suite before and/or\nafter some other suites.\n\nno reason not to turn it off in the suite teardown.",
+      "parentUuid": "4ad73a53_433cbfd7",
       "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
