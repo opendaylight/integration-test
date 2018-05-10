@@ -67,6 +67,19 @@ Verify VTEP After Restarting Controller
     Wait Until Keyword Succeeds    60    3    Check Service Status    ACTIVE    OPERATIONAL
     Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
 
+Verify Tunnels By Disabling BFD
+    [Documentation]    This test case will verify tunnels after disabling BFD.
+    ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
+    Run Keyword If    '${result}' == 'True'    Disable_Tunnel_Monitoring
+    Genius.Verify Tunnel Status as UP
+
+Verify Tunnels By Enabling BFD
+    [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
+    ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
+    Run Keyword If    '${result}' == 'False'    Enable_Tunnel_monitoring
+    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_IP}
+    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_2_IP}
+
 Delete and Verify VTEP
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
     ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
@@ -78,13 +91,6 @@ Delete and Verify VTEP
     Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
     ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
     ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
-
-Verify Tunnels By Enabling BFD
-    [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
-    ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
-    Run Keyword If    '${result}' == 'False'    Enable_Tunnel_monitoring
-    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_IP}
-    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_2_IP}
 
 *** Keywords ***
 Get_Tunnel
@@ -137,3 +143,7 @@ Get Port Number
     ${port_num}    Get From List    ${port}    0
     Should Contain    ${check-1}    ${port_num}
     [Return]    ${port_num}
+
+Disable_Tunnel_Monitoring
+    [Documentation]    In this we will disable tunnel monitoring by tep:enable command running in karaf console
+    ${output}    Issue_Command_On_Karaf_Console    tep:enable-tunnel-monitor false
