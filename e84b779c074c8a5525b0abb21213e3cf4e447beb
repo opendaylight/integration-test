@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fbf71af_11dfb59e",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7602
+      },
+      "writtenOn": "2018-05-10T06:39:42Z",
+      "side": 1,
+      "message": "remove the spaces , I see many spaces , run tox for the same.",
+      "revId": "e84b779c074c8a5525b0abb21213e3cf4e447beb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "990ab9f1_5abdb7b6",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7602
+      },
+      "writtenOn": "2018-05-10T06:39:42Z",
+      "side": 1,
+      "message": "Always call keyword as Lib.Keyword.Use corresponding library for the keyword,",
+      "revId": "e84b779c074c8a5525b0abb21213e3cf4e447beb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ca5458a_efcaed31",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7602
+      },
+      "writtenOn": "2018-05-10T06:39:42Z",
+      "side": 1,
+      "message": "Remove sleep",
+      "revId": "e84b779c074c8a5525b0abb21213e3cf4e447beb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2834eda_50969ac2",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7602
+      },
+      "writtenOn": "2018-05-10T06:39:42Z",
+      "side": 1,
+      "message": "check if global var are used else remove from global.",
+      "revId": "e84b779c074c8a5525b0abb21213e3cf4e447beb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34de048e_209e061e",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 7602
+      },
+      "writtenOn": "2018-05-10T06:39:42Z",
+      "side": 1,
+      "message": "you can use OpenStackOperations.Create Allow All SecurityGroup  which creates security group and add rules for it.Kindly look into it.",
+      "revId": "e84b779c074c8a5525b0abb21213e3cf4e447beb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b4515fb_397daa51",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 7602
+      },
+      "writtenOn": "2018-05-10T06:39:42Z",
+      "side": 1,
+      "message": "remove commented code.",
+      "revId": "e84b779c074c8a5525b0abb21213e3cf4e447beb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
