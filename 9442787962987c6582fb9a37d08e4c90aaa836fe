@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "100a87cd_fe9ecfde",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-12T23:51:42Z",
+      "side": 1,
+      "message": "That will actually have an effect on other suites, to have a shared directory for instances. Now, I am thinking If I can move the entire configuration for Live Migration here.",
+      "parentUuid": "768e7569_8422b12e",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 79
+      },
+      "revId": "9442787962987c6582fb9a37d08e4c90aaa836fe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1287b87_b7143ea1",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 20
@@ -82,6 +106,30 @@
     },
     {
       "key": {
+        "uuid": "402408ee_911dca98",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-12T23:51:42Z",
+      "side": 1,
+      "message": "The communication should be continuous. \nhttps://www.mirantis.com/blog/block-live-migration-openstack-environment/, I wanted to chak witgh Sam, If we need to fail the case f the communication is slightly affected.",
+      "parentUuid": "a1287b87_b7143ea1",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 41
+      },
+      "revId": "9442787962987c6582fb9a37d08e4c90aaa836fe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "383f515a_0dbb4b2a",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 20
@@ -93,6 +141,30 @@
       "writtenOn": "2018-05-11T20:38:13Z",
       "side": 1,
       "message": "is this just for debugging? I don\u0027t think you are doing\nanything with ${rc} or ${hypervisors} so even if it\u0027s just\nfor debugging, you can remove those.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 121
+      },
+      "revId": "9442787962987c6582fb9a37d08e4c90aaa836fe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ebf17e8_57b14660",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-12T23:51:42Z",
+      "side": 1,
+      "message": "This is ti know the hypervisor details for initiating live migration, I will replace the command with novacommand which autmatically chooses the hypervisor.",
+      "parentUuid": "383f515a_0dbb4b2a",
       "range": {
         "startLine": 61,
         "startChar": 0,
@@ -139,6 +211,30 @@
       "writtenOn": "2018-05-11T20:38:13Z",
       "side": 1,
       "message": "I don\u0027t think you need this as you did it above already.",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 44
+      },
+      "revId": "9442787962987c6582fb9a37d08e4c90aaa836fe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff977da8_7b6a834a",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-12T23:51:42Z",
+      "side": 1,
+      "message": "On repeated testing, this seems to be necessary for some reason, Let me test it once more.",
+      "parentUuid": "5cdf6fc4_9646f360",
       "range": {
         "startLine": 75,
         "startChar": 4,
