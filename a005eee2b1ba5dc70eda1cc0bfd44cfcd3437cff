@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "d9728f2c_fc519de3",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-12T05:10:52Z",
+      "side": 1,
+      "message": "why do we need all these now? The VM is coming up with required files right?",
+      "revId": "a005eee2b1ba5dc70eda1cc0bfd44cfcd3437cff",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58e78dab_732587c0",
         "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
         "patchSetId": 12
