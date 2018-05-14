@@ -16,6 +16,7 @@ Get Tools System Nodes Data
     \    Collections.Append To List    ${TOOLS_SYSTEM_ALL_IPS}    ${ip}
     \    ${conn_id} =    SSHLibrary.Open Connection    ${ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     \    Collections.Append To List    ${TOOLS_SYSTEM_ALL_CONN_IDS}    ${conn_id}
+    BuiltIn.Log    NUM_TOOLS_SYSTEM: ${NUM_TOOLS_SYSTEM}, TOOLS_SYSTEM_ALL_IPS: @{TOOLS_SYSTEM_ALL_IPS}
 
 Run Command On All Tools Systems
     [Arguments]    ${cmd}
