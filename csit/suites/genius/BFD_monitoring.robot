@@ -43,12 +43,14 @@ ${TUNNEL_MONI_PROTO}    tunnel-monitoring-type-bfd
 *** Test Cases ***
 BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
     [Documentation]    Create ITM between DPNs Verify_BFD_Enablement
-    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
-    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
     ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
-    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
-    Wait Until Keyword Succeeds    30s    5s    Genius.Verify Tunnel Status as UP    TZA
+    Genius.Create Vteps    ${vlan}    ${gateway-ip}
+    Comment    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_3}    ${TOOLS_SYSTEM_1_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}
+    ...    ${gateway-ip}
+    Comment    Genius.Create Vteps    ${Dpn_id_2}    ${Dpn_id_3}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}
+    ...    ${gateway-ip}
+    Wait Until Keyword Succeeds    30s    5s    Genius.Verify Tunnel Status as UP
 
 BFD_TC01 Verify by default BFD monitoring is enabled on Controller
     [Documentation]    Verify by default BFD monitoring is enabled on Controller
@@ -64,7 +66,7 @@ BFD_TC02 Verify that BFD tunnel monitoring interval is set with appropriate defa
 BFD_TC04 Verify that in controller tunnel status is up when ITM tunnel interface is brought up.
     [Documentation]    Verify that in controller tunnel status is up when ITM tunnel interface is brought up.
     Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Is On
-    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status as UP
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
@@ -83,22 +85,26 @@ BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     [Documentation]    Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
     Issue Command On Karaf Console    ${TEP_SHOW}
     Issue Command On Karaf Console    ${TEP_SHOW_STATE}
-    SSHLibrary.Switch Connection    ${conn_id_1}
-    Execute Command    sudo ovs-vsctl del-controller BR1
-    SSHLibrary.Switch Connection    ${conn_id_2}
-    Execute Command    sudo ovs-vsctl del-controller BR2
+    Comment    SSHLibrary.Switch Connection    ${conn_id_1}
+    Comment    Execute Command    sudo ovs-vsctl del-controller BR1
+    Comment    SSHLibrary.Switch Connection    ${conn_id_2}
+    Comment    Execute Command    sudo ovs-vsctl del-controller BR2
+    : FOR    ${i}    INRANGE    ${NUM_TOOLS_SYSTEM}
+    \    Run Command On Remote System    ${TOOLS_SYSTEM_LIST[${i}]}    sudo ovs-vsctl del-controller ${Bridge_List[${i}]}
     Issue Command On Karaf Console    ${TEP_SHOW}
     Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Wait Until Keyword Succeeds    10s    1s    Verify Tunnel Status as UNKNOWN
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
-    SSHLibrary.Switch Connection    ${conn_id_1}
-    Execute Command    sudo ovs-vsctl set-controller BR1 tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
-    SSHLibrary.Switch Connection    ${conn_id_2}
-    Execute Command    sudo ovs-vsctl set-controller BR2 tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
-    Log    "After connecting CSS with controller"
+    Comment    SSHLibrary.Switch Connection    ${conn_id_1}
+    Comment    Execute Command    sudo ovs-vsctl set-controller BR1 tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
+    Comment    SSHLibrary.Switch Connection    ${conn_id_2}
+    Comment    Execute Command    sudo ovs-vsctl set-controller BR2 tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
+    Comment    Log    "After connecting CSS with controller"
+    : FOR    ${bridge}    IN    @{Bridge_List}
+    \    Execute Command    sudo ovs-vsctl set-controller ${bridge} tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
     Issue Command On Karaf Console    ${TEP_SHOW}
     Issue Command On Karaf Console    ${TEP_SHOW_STATE}
-    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status as UP
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC07 Verify that BFD monitoring is disabled on Controller
@@ -109,7 +115,7 @@ BFD_TC07 Verify that BFD monitoring is disabled on Controller
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
     Should Contain    ${output}    ${TUNNEL_MONITOR_OFF}
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_FALSE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
-    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    10s    1s    Genius.Verify Tunnel Status as UP
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-params/    data=${ENABLE_MONITORING}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    10s    2s    Verify Tunnel Monitoring Params    ${TUNNEL_MONI_PARAMS_TRUE}
