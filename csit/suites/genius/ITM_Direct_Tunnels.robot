@@ -71,7 +71,9 @@ Verify Tunnels By Disabling BFD
     [Documentation]    This test case will verify tunnels after disabling BFD.
     ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
     Run Keyword If    '${result}' == 'True'    Disable_Tunnel_Monitoring
+    OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
     Genius.Verify Tunnel Status as UP
+    OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
 
 Verify Tunnels By Enabling BFD
     [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
