@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42a2066f_d03f3db7",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-14T22:58:19Z",
+      "side": 1,
+      "message": "I don\u0027t think robot can do these nested for loops",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 95
+      },
+      "revId": "3390df7c3e589a318054f2e1bae724aa00af111c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
