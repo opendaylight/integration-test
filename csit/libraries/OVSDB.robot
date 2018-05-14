@@ -490,3 +490,9 @@ Verify Vni Packet Count After Traffic
     BuiltIn.Should Be True    ${diff_count_ingress_port1} >= ${DEFAULT_PING_COUNT}
     BuiltIn.Should Be True    ${diff_count_egress_port2} >= ${DEFAULT_PING_COUNT}
     BuiltIn.Should Be True    ${diff_count_ingress_port2} >= ${DEFAULT_PING_COUNT}
+
+Run_Command_On_All_Tools_Systems
+    [Arguments]    ${TOOLS_SYSTEM_LIST}    ${cmd}
+    [Documentation]    Run command on all OVS
+    : FOR    ${tools_ip}    INRANGE    ${TOOLS_SYSTEM_LIST}
+    \    Utils.Run Command On Remote System    ${tools_ip}    ${cmd}
