@@ -50,6 +50,23 @@
       "revId": "49038042c269f70e2eb8e9e9536d229089e69d19",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e027990_a3031ebb",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-05-14T09:42:28Z",
+      "side": 1,
+      "message": "why cant this keyword goes to OpenstackOperations.robot?",
+      "revId": "49038042c269f70e2eb8e9e9536d229089e69d19",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
