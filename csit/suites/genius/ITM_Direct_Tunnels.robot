@@ -64,14 +64,17 @@ Verify VTEP After Restarting Controller
     Genius.Verify Tunnel Status as UP
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
-    Wait Until Keyword Succeeds    60    3    Check Service Status    ACTIVE    OPERATIONAL
+    Wait Until Keyword Succeeds    60    3    Genius.Check System Status
     Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
 
 Verify Tunnels By Disabling BFD
     [Documentation]    This test case will verify tunnels after disabling BFD.
     ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
     Run Keyword If    '${result}' == 'True'    Disable_Tunnel_Monitoring
-    Genius.Verify Tunnel Status as UP
+    OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
+    Genius.Verify Tunnel Status    ${TOOLS_SYSTEM_IP}    UNKNOWN
+    Comment    Verify Tunnel Unknown
+    OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
 
 Verify Tunnels By Enabling BFD
     [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
@@ -147,3 +150,8 @@ Get Port Number
 Disable_Tunnel_Monitoring
     [Documentation]    In this we will disable tunnel monitoring by tep:enable command running in karaf console
     ${output}    Issue_Command_On_Karaf_Console    tep:enable-tunnel-monitor false
+
+Verify Tunnel Unknown
+    [Documentation]    In this we will check whether tunnel is in Unknown or not
+    ${output} =    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
+    Should Contain    ${output}    UNKNOWN
