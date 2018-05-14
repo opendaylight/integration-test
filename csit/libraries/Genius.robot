@@ -42,7 +42,6 @@ Start Suite
     ${karaf_debug_enabled}    BuiltIn.Get_Variable_Value    ${KARAF_DEBUG}    ${False}
     BuiltIn.run_keyword_if    ${karaf_debug_enabled}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Log    ${conn_id_1}
     Execute Command    sudo ovs-vsctl add-br BR1
     Execute Command    sudo ovs-vsctl set bridge BR1 protocols=OpenFlow13
     Execute Command    sudo ovs-vsctl set-controller BR1 tcp:${ODL_SYSTEM_IP}:6633
@@ -59,7 +58,6 @@ Start Suite
     ${conn_id_2}=    Open Connection    ${TOOLS_SYSTEM_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${conn_id_2}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Log    ${conn_id_2}
     Execute Command    sudo ovs-vsctl add-br BR2
     Execute Command    sudo ovs-vsctl set bridge BR2 protocols=OpenFlow13
     Execute Command    sudo ovs-vsctl set-controller BR2 tcp:${ODL_SYSTEM_IP}:6633
@@ -67,6 +65,16 @@ Start Suite
     Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     ${output_2}    Execute Command    sudo ovs-vsctl show
     Log    ${output_2}
+    ${conn_id_3} =    Open Connection    ${TOOLS_SYSTEM_3_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Set Global Variable    ${conn_id_3}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Execute Command    sudo ovs-vsctl add-br BR3
+    Execute Command    sudo ovs-vsctl set bridge BR3 protocols=OpenFlow13
+    Execute Command    sudo ovs-vsctl set-controller BR3 tcp:${ODL_SYSTEM_IP}:6633
+    Execute Command    sudo ifconfig BR3 up
+    Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    ${output_3}    Execute Command    sudo ovs-vsctl show
+    Log    ${output_3}
 
 Stop Suite
     Log    Stop the tests
@@ -79,6 +87,12 @@ Stop Suite
     Switch Connection    ${conn_id_2}
     Log    ${conn_id_2}
     Execute Command    sudo ovs-vsctl del-br BR2
+    Execute Command    sudo ovs-vsctl del-manager
+    Write    exit
+    close connection
+    Switch Connection    ${conn_id_3}
+    Log    ${conn_id_3}
+    Execute Command    sudo ovs-vsctl del-br BR3
     Execute Command    sudo ovs-vsctl del-manager
     Write    exit
     close connection
@@ -99,7 +113,7 @@ Check Service Status
     \    Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
 
 Create Vteps
-    [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    [Arguments]    ${Dpn_id1}    ${Dpn_id2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
     [Documentation]    This keyword creates VTEPs between ${TOOLS_SYSTEM_IP} and ${TOOLS_SYSTEM_2_IP}
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
     ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
@@ -108,7 +122,7 @@ Create Vteps
     Set Global Variable    ${subnet}
     ${vlan}=    Set Variable    ${vlan}
     ${gateway-ip}=    Set Variable    ${gateway-ip}
-    ${body}    Genius.Set Json    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}
+    ${body}    Genius.Set Json    ${Dpn_id1}    ${Dpn_id2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}
     ...    ${gateway-ip}    ${subnet}
     ${vtep_body}    Set Variable    ${body}
     Set Global Variable    ${vtep_body}

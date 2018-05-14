@@ -45,9 +45,12 @@ BFD_TC00 Create ITM between DPNs Verify_BFD_Enablement
     [Documentation]    Create ITM between DPNs Verify_BFD_Enablement
     ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
     ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${Dpn_id_3}    Genius.Get Dpn Ids    ${conn_id_3}
     ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
     Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_3}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}
+    Genius.Create Vteps    ${Dpn_id_2}    ${Dpn_id_3}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}
     Wait Until Keyword Succeeds    30s    5s    Genius.Verify Tunnel Status as UP
 
 BFD_TC01 Verify by default BFD monitoring is enabled on Controller
