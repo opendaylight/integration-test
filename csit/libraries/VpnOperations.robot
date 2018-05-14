@@ -176,7 +176,7 @@ Verify ARP REQUEST in groupTable
     CompareStream.Run_Keyword_If_At_Most_Oxygen    BuiltIn.Should Match Regexp    ${arp_group}    ${ARP_REQUEST_GROUP_REGEX}
     CompareStream.Run_Keyword_If_At_Least_Fluorine    BuiltIn.Should Match Regexp    ${arp_group}    ${ARP_REQUEST_GROUP_REGEX_FLUORINE}
 
-Verify Tunnel Status as UP
+Verify Tunnel Status As Up
     [Documentation]    Verify that the tunnels are UP
     ${output}=    Issue Command On Karaf Console    ${TEP_SHOW_STATE}
     Log    ${output}
