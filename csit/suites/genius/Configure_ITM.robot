@@ -23,28 +23,43 @@ ${Bridge-2}       BR2
 *** Test Cases ***
 Create and Verify VTEP -No Vlan
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs without VLAN and Gateway configured in Json.
-    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
-    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    Comment    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
+    Comment    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
     ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
-    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    Genius.Create Vteps    ${vlan}    ${gateway-ip}
+    Comment    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}
+    ...    ${gateway-ip}
     Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
-    ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
-    ${tunnel-1}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
-    ...    ${type}
-    ${tunnel-2}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
-    ...    ${type}
+    ${k}    Set Variable    0
+    Set Suite Variable    ${k}
+    Get Tunnel Between DPN's    ${type}
+    Comment    : FOR    ${i}    INRANGE    ${NUM_TOOLS_SYSTEM}
+    Comment    \    Get Tunnel Between DPN's
+    Comment    ${tunnel-1}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_1}
+    ...    ${Dpn_id_2}    ${type}
+    Comment    ${tunnel-2}    Wait Until Keyword Succeeds    40    20    Get Tunnel    ${Dpn_id_2}
+    ...    ${Dpn_id_1}    ${type}
     ${tunnel-type}=    Set Variable    type: vxlan
-    Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
-    Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
-    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
-    ...    ${tunnel-1}    ${tunnel-type}
-    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
-    ...    ${tunnel-2}    ${tunnel-type}
-    ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${Bridge-1}    ${Bridge-2}
-    ...    ${tunnel-1}    ${tunnel-2}    ${OPERATIONAL_TOPO_API}
-    ${return}    Validate interface state    ${tunnel-1}    ${Dpn_id_1}    ${tunnel-2}    ${Dpn_id_2}
+    : FOR    ${i}    INRANGE    ${NUM_TOOLS_SYSTEM}
+    \    Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_List[${i}]}/
+    Comment    Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
+    Comment    Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
+    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification between Dpn
+    Comment    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}
+    ...    ${TOOLS_SYSTEM_IP}    ${tunnel-2}    ${tunnel-type}
+    Wait Until Keyword Succeeds    30    10    Genius.Verify Tunnel Status as UP
+    ${all_tunnels}    Genius.Get Tunnels List
+    @{network_topology_list}    Create List    ${OPERATIONAL_TOPO_API}
+    @{network_topology_list}    Combine Lists    ${network_topology_list}    ${Bridge_List}
+    @{network_topology_list}    Combine Lists    ${network_topology_list}    ${all_tunnels}
+    ${resp}    Wait Until Keyword Succeeds    40    10    Get Network Topology with Tunnel    ${OPERATIONAL_TOPO_API}    ${network_topology_list}
+    log    >>>>> update this section <<<<<<
+    : FOR    ${br}    IN    @{Bridge_List}
+    \    ${check} =    sudo ovs-ofctl -O OpenFlow13 show ${br}
+    \    log    ${check}
+    ${return}    Validate interface state    ${all-tunnels-list}
     log    ${return}
     ${lower-layer-if-1}    Get from List    ${return}    0
     ${port-num-1}    Get From List    ${return}    1
@@ -54,8 +69,12 @@ Create and Verify VTEP -No Vlan
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Log    ${respjson}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
-    Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
+    : FOR    ${dpn}    IN    @{Dpn_id_List}
+    \    Should Contain    ${resp.content}    ${dpn}
+    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_LIST}
+    \    Should Contain    ${resp.content}    ${tools_ip}
+    Comment    Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
+    Comment    Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
     Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge-1}    ${port-num-1}
     Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}    ${port-num-2}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/opendaylight-inventory:nodes/
@@ -263,29 +282,27 @@ Get Tunnel
     [Return]    ${ret}
 
 Validate interface state
-    [Arguments]    ${tunnel-1}    ${dpid-1}    ${tunnel-2}    ${dpid-2}
+    [Arguments]    ${all-tunnels-list}
     [Documentation]    Validates the created Interface Tunnel by checking its Operational status as UP/DOWN from the dump.
-    Log    ${tunnel-1},${dpid-1},${tunnel-2},${dpid-2}
-    ${data1-2}    Wait Until Keyword Succeeds    40    10    Check Interface Status    ${tunnel-1}    ${dpid-1}
-    ${data2-1}    Wait Until Keyword Succeeds    40    10    Check Interface Status    ${tunnel-2}    ${dpid-2}
-    @{data}    combine lists    ${data1-2}    ${data2-1}
-    log    ${data}
+    Comment    Log    ${tunnel-1},${dpid-1},${tunnel-2},${dpid-2}
+    ${data}    Wait Until Keyword Succeeds    40    10    Check Interface Status    ${all-tunnels-list}
+    Comment    ${data2-1}    Wait Until Keyword Succeeds    40    10    Check Interface Status    ${tunnel-2}
+    Comment    @{data}    combine lists    ${data1-2}    ${data2-1}
+    Comment    log    ${data}
     [Return]    ${data}
 
 Get ITM
-    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}
-    ...    ${TOOLS_SYSTEM_2_IP}
+    [Arguments]    ${itm_created[0]}    ${subnet}    ${vlan}
     [Documentation]    It returns the created ITM Transport zone with the passed values during the creation is done.
-    Log    ${itm_created[0]},${subnet}, ${vlan}, ${Dpn_id_1},${TOOLS_SYSTEM_IP}, ${Dpn_id_2}, ${TOOLS_SYSTEM_2_IP}
-    @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}    ${Dpn_id_1}    ${Bridge-1}-eth1
-    ...    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${Bridge-2}-eth1    ${TOOLS_SYSTEM_2_IP}
+    Log    ${itm_created[0]},${subnet}, ${vlan}
+    @{Itm-no-vlan}    Create List    ${itm_created[0]}    ${subnet}    ${vlan}
+    @{Itm-no-vlan}    Collections.Combine Lists    @{Itm-no-vlan}    ${data}
     Check For Elements At URI    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}    ${Itm-no-vlan}
 
 Get Network Topology with Tunnel
-    [Arguments]    ${Bridge-1}    ${Bridge-2}    ${tunnel-1}    ${tunnel-2}    ${url}
+    [Arguments]    ${url}    ${network_topology_list}
     [Documentation]    Returns the Network topology with Tunnel info in it.
-    @{bridges}    Create List    ${Bridge-1}    ${Bridge-2}    ${tunnel-1}    ${tunnel-2}
-    Check For Elements At URI    ${url}    ${bridges}
+    Check For Elements At URI    ${url}    @{network_topology_list}
 
 Get Network Topology without Tunnel
     [Arguments]    ${url}    ${tunnel-1}    ${tunnel-2}
@@ -315,18 +332,23 @@ check-Tunnel-delete-on-ovs
     [Return]    ${return}
 
 Check Interface Status
-    [Arguments]    ${tunnel}    ${dpid}
+    [Arguments]    ${all-tunnels-list}
     [Documentation]    Verifies the operational state of the interface .
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
-    Log    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
+    ${a}    Set Variable    0
+    : FOR    ${a}    INRANGE    ${NUM_TOOLS_SYSTEM} -1
+    \    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${all-tunnels-list[${a}]}/
+    \    Log    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${all-tunnels-list[${a}]}/
+    \    Should Contain    ${resp.content}    ${all-tunnel-list[${a}]}    up    up
+    ${a}    Evaluate    ${a} +(${NUM_TOOLS_SYSTEM} -1)
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Log    ${respjson}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should not contain    ${resp.content}    down
-    Should Contain    ${resp.content}    ${tunnel}    up    up
+    Comment    Should Contain    ${resp.content}    ${tunnel}    up    up
     ${result-1}    re.sub    <.*?>    ,    ${resp.content}
     Log    ${result-1}
-    ${lower_layer_if}    Should Match Regexp    ${result-1}    openflow:${dpid}:[0-9]+
+    : FOR    ${dpn}    IN    @{Dpn_id_List}
+    \    ${lower_layer_if}    Should Match Regexp    ${result-1}    openflow:${dpn}:[0-9]+
     log    ${lower_layer_if}
     @{resp_array}    Split String    ${lower_layer_if}    :
     ${port-num}    Get From List    ${resp_array}    2
@@ -359,3 +381,26 @@ Check Interface Name
     ${Tunnels}    Collections.Get From Dictionary    ${json}    ${expected_tunnel_interface_name}
     Log    ${Tunnels}
     [Return]    ${Tunnels[0]}
+
+Get Tunnel Between DPN's
+    [Arguments]    ${type}
+    Comment    @{tunnel-list}    Create List
+    : FOR    ${i}    INRANGE    ${NUM_TOOLS_SYSTEM}
+    \    @{Dpn_id_updated_list}    Create List    @{Dpn_id_List}
+    \    Remove Values From List    ${Dpn_id_updated_list}    ${Dpn_id_List[${i}]}
+    \    Log Many    ${Dpn_id_updated_list}
+    \    Set Suite Variable    ${Dpn_id_updated_list}
+    \    Get All Tunnels    ${type}
+    \    Comment    log    ${all_tunnels}
+
+Get All Tunnels
+    [Arguments]    ${type}
+    Comment    @{tunnel-list}    Create List
+    : FOR    ${i}    INRANGE    ${NUM_TOOLS_SYSTEM} -1
+    \    ${tunnel}    Wait Until Keyword Succeeds    30    10    Get Tunnel    ${Dpn_id_List[${k}]}
+    \    ...    ${Dpn_id_updated_list[${i}]}    ${type}
+    \    Comment    @{tunnel-list}    Create List
+    \    Comment    Append To List    @{tunnel-list}    ${tunnel}
+    \    Comment    Log Many    @{tunnel-list}
+    ${k}    Evaluate    ${k} +1
+    Set Suite Variable    ${k}
