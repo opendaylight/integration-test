@@ -34,7 +34,7 @@ Genius Suite Teardown
 
 Start Suite
     [Documentation]    Initial setup for Genius test suites
-    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    Check Service Status    ACTIVE    OPERATIONAL
+    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    Check Cluster Status    ${ODL_SYSTEM_IP}
     Log    Start the tests
     ${conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${conn_id_1}
@@ -91,9 +91,9 @@ check establishment
     [Return]    ${check_establishment}
 
 Check Service Status
-    [Arguments]    ${system_ready_state}    ${service_state}
+    [Arguments]    ${odl_ip}    ${system_ready_state}    ${service_state}
     [Documentation]    Issues the karaf shell command showSvcStatus to verify the ready and service states are the same as the arguments passed
-    ${service_status_output}    Issue_Command_On_Karaf_Console    showSvcStatus    ${ODL_SYSTEM_IP}    8101
+    ${service_status_output}    Issue_Command_On_Karaf_Console    showSvcStatus    ${odl_ip}    8101
     Should Contain    ${service_status_output}    ${system_ready_state}
     : FOR    ${service}    IN    @{DIAG_SERVICES}
     \    Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
@@ -241,3 +241,9 @@ Verify Tunnel Status as UP
     ${Actual_Tunnel_Count}    Get Line Count    ${lines_of_VXLAN}
     ${Expected_Tunnel_Count}    Set Variable    ${Expected_Node_Count*${Expected_Node_Count - 1}}
     Should Be Equal As Strings    ${Actual_Tunnel_Count}    ${Expected_Tunnel_Count}
+
+Check Cluster Status
+    [Arguments]    ${ODL_SYSTEM_IP}
+    [Documentation]    This keyword will verify the check service status runs for 1node as well as 3node
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL
