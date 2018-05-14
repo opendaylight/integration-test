@@ -24,77 +24,92 @@ Resource          ../../libraries/OVSDB.robot
 *** Test Cases ***
 Create and Verify VTEP
     [Documentation]    This testcase creates a Internal Transport Manager - ITM tunnel between 2 DPNs
-    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
-    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    Comment    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
+    Comment    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
     ${vlan}=    Set Variable    0
     ${gateway-ip}=    Set Variable    0.0.0.0
-    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
-    Wait Until Keyword Succeeds    40    10    Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
-    ...    ${Dpn_id_1}    ${TOOLS_SYSTEM_IP}    ${Dpn_id_2}    ${TOOLS_SYSTEM_2_IP}
+    Genius.Create Vteps    ${vlan}    ${gateway-ip}
+    Comment    Genius.Create Vteps    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}
+    ...    ${gateway-ip}
+    Wait Until Keyword Succeeds    40    10    Genius.Get ITM    ${itm_created[0]}    ${subnet}    ${vlan}
     ${type}    Set Variable    odl-interface:tunnel-type-vxlan
-    ${tunnel-1}    Wait Until Keyword Succeeds    40    20    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
-    ${tunnel-2}    Wait Until Keyword Succeeds    40    20    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
+    ${k}    Set Variable    0
+    Set Suite Variable    ${k}
+    Get Tunnel Between DPN's
+    Comment    ${tunnel-1}    Wait Until Keyword Succeeds    40    20    Get_Tunnel    ${Dpn_id_1}
+    ...    ${Dpn_id_2}
+    Comment    ${tunnel-2}    Wait Until Keyword Succeeds    40    20    Get_Tunnel    ${Dpn_id_2}
+    ...    ${Dpn_id_1}
     ${tunnel-type}=    Set Variable    type: vxlan
-    Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_1}/
-    Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
-    Wait Until Keyword Succeeds    40    10    Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
-    ...    ${tunnel-1}    ${tunnel-type}
-    Wait Until Keyword Succeeds    40    10    Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
-    ...    ${tunnel-2}    ${tunnel-type}
+    : FOR    ${i}    IN    ${NUM_TOOLS_SYSTEM}
+    \    Wait Until Keyword Succeeds    40    5    Utils.Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_List[${i}]}/
+    Comment    Wait Until Keyword Succeeds    40    5    Get Data From URI    session    ${CONFIG_API}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn_id_2}/
+    Wait Until Keyword Succeeds    40    10    Genius.Ovs Verification between Dpn    @{TOOLS_SYSTEM_LIST}
+    Comment    Wait Until Keyword Succeeds    40    10    Ovs Verification For 2 Dpn    ${conn_id_1}    ${TOOLS_SYSTEM_IP}
+    ...    ${TOOLS_SYSTEM_2_IP}    ${tunnel-1}    ${tunnel-type}
+    Comment    Wait Until Keyword Succeeds    40    10    Ovs Verification For 2 Dpn    ${conn_id_2}    ${TOOLS_SYSTEM_2_IP}
+    ...    ${TOOLS_SYSTEM_IP}    ${tunnel-2}    ${tunnel-type}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
     ${respjson}    RequestsLibrary.To Json    ${resp.content}    pretty_print=True
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
-    Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
-    ${Port_num1}    Get Port Number    ${conn_id_1}    ${Bridge-1}    ${tunnel-1}
-    ${Port_num2}    Get Port Number    ${conn_id_2}    ${Bridge-2}    ${tunnel-2}
-    ${check-3}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}    ${Bridge-1}
-    ...    ${Port_num1}
-    ${check-4}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}    ${Bridge-2}
-    ...    ${Port_num2}
+    Wait Until Keyword Succeeds    60    5    Genius.Verify Tunnel Status as UP
+    Comment    Should Contain    ${resp.content}    ${Dpn_id_1}    ${tunnel-1}
+    Comment    Should Contain    ${resp.content}    ${Dpn_id_2}    ${tunnel-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Get Port Number
+    Comment    ${Port_num1}    Get Port Number    ${conn_id_1}    ${Bridge-1}    ${tunnel-1}
+    Comment    ${Port_num2}    Get Port Number    ${conn_id_2}    ${Bridge-2}    ${tunnel-2}
+    Comment    ${check-3}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_1}
+    ...    ${Bridge-1}    ${Port_num1}
+    Comment    ${check-4}    Wait Until Keyword Succeeds    40    10    Genius.Check Table0 Entry For 2 Dpn    ${conn_id_2}
+    ...    ${Bridge-2}    ${Port_num2}
 
 Verify VTEP After Restarting OVS
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting OVS
-    Wait Until Keyword Succeeds    20    2    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    20    2    Genius.Verify Tunnel Status as UP
     OVSDB.Restart OVSDB    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    20    2    Genius.Verify Tunnel Status as UP    TZA
 
 Verify VTEP After Restarting Controller
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting CONTROLLER
-    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
     Wait Until Keyword Succeeds    60    3    Genius.Check System Status
-    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
 
 Verify Tunnels By Disabling BFD
     [Documentation]    This test case will verify tunnels after disabling BFD and verifies tunnel status as unknown after stopping OVS.
     ${result} =    Run Keyword And Return Status    Verify Tunnel Monitoring is on
     Run Keyword If    '${result}' == 'True'    Disable_Tunnel_Monitoring
-    ${tunnels_on_OVS} =    Genius.Get Tunnels On OVS    ${conn_id_1}
+    ${tunnels_on_OVS} =    Genius.Get Tunnels On OVS    ${conn_id_list[0]}
     OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
     Genius.Verify Tunnel Status    ${tunnels_on_OVS}    UNKNOWN
     OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    20    2    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    20    2    Genius.Verify Tunnel Status as UP
 
 Verify Tunnels By Enabling BFD
     [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
     ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
     Run Keyword If    '${result}' == 'False'    Enable_Tunnel_monitoring
-    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_IP}
-    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_2_IP}
+    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_LIST}
+    \    Verify Tunnel State After OVS Restart    ${tools_ip}
+    Comment    Verify Tunnel State After OVS Restart    ${TOOLS_SYSTEM_2_IP}
 
 Delete and Verify VTEP
     [Documentation]    This Delete testcase , deletes the ITM tunnel created between 2 dpns.
-    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
-    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
-    ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
-    ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
+    Comment    ${Dpn_id_1}    Genius.Get Dpn Ids    ${conn_id_1}
+    Comment    ${Dpn_id_2}    Genius.Get Dpn Ids    ${conn_id_2}
+    ${tunnel-list}    Genius.Get Tunnels List
+    Comment    ${tunnel-1}    Get_Tunnel    ${Dpn_id_1}    ${Dpn_id_2}
+    Comment    ${tunnel-2}    Get_Tunnel    ${Dpn_id_2}    ${Dpn_id_1}
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-state:tunnels_state/
-    Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
-    ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}    ${tunnel-1}
-    ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}    ${tunnel-2}
+    Wait Until Keyword Succeeds    40    10    Genius.verify Deleted Tunnels on OVS    ${tunnel-list}    ${resp}
+    Comment    Should Not Contain    ${resp}    ${tunnel-1}    ${tunnel-2}
+    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${tunnel-list}
+    Comment    ${Ovs-del-1}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_1}
+    ...    ${tunnel-1}
+    Comment    ${Ovs-del-2}    Wait Until Keyword Succeeds    40    10    Genius.Check Tunnel Delete On OVS    ${conn_id_2}
+    ...    ${tunnel-2}
 
 *** Keywords ***
 Get_Tunnel
@@ -128,7 +143,7 @@ Verify Tunnel State After OVS Restart
     OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
     Wait Until Keyword Succeeds    2min    20 sec    Verify Tunnel Down
     OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    2min    20 sec    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    2min    20 sec    Genius.Verify Tunnel Status as UP
 
 Verify Tunnel Down
     [Documentation]    In this we will check whether tunnel is in down or not
@@ -151,3 +166,18 @@ Get Port Number
 Disable_Tunnel_Monitoring
     [Documentation]    In this we will disable tunnel monitoring by tep:enable command running in karaf console
     ${output}    Issue_Command_On_Karaf_Console    tep:enable-tunnel-monitor false
+
+Get Tunnel Between DPN's
+    : FOR    ${i}    INRANGE    ${NUM_TOOLS_SYSTEM}
+    \    @{Dpn_id_updated_list}    Create List    @{Dpn_id_List}
+    \    Remove Values From List    ${Dpn_id_updated_list}    ${Dpn_id_List[${i}]}
+    \    Log Many    ${Dpn_id_updated_list}
+    \    Set Suite Variable    ${Dpn_id_updated_list}
+    \    Get All Tunnels
+
+Get All Tunnels
+    : FOR    ${i}    INRANGE    ${NUM_TOOLS_SYSTEM} -1
+    \    ${tunnel}    Wait Until Keyword Succeeds    30    10    Get_Tunnel    ${Dpn_id_List[${k}]}
+    \    ...    ${Dpn_id_updated_list[${i}]}
+    ${k}    Evaluate    ${k} +1
+    Set Suite Variable    ${k}
