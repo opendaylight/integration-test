@@ -446,3 +446,9 @@ Verify Dump Flows For Specific Table
     : FOR    ${matching_str}    IN    @{matching_paras}
     \    BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${flow_output}    ${matching_str}
     \    ...    ELSE    BuiltIn.Should Not Contain    ${flow_output}    ${matching_str}
+
+Run_Command_On_All_Tools_Systems
+    [Arguments]    ${TOOLS_SYSTEM_LIST}    ${cmd}
+    [Documentation]    Run command on all OVS
+    :FOR    ${tools_ip}    INRANGE    ${TOOLS_SYSTEM_LIST}
+    \    Utils.Run Command On Remote System    ${tools_ip}    ${cmd}
