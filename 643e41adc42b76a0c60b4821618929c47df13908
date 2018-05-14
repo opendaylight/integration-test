@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a085987a_6aeff85e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-05-14T17:20:48Z",
+      "side": 1,
+      "message": "take care of this when you send for external review.",
+      "revId": "643e41adc42b76a0c60b4821618929c47df13908",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "422131ad_7e2c320b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-05-14T17:20:48Z",
+      "side": 1,
+      "message": "Can we update the existing keyword \"update subnet\" with this requirement ??based on some flag(which will be by default set to \"subnet set\")\njust a suggestion.",
+      "revId": "643e41adc42b76a0c60b4821618929c47df13908",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8daf1b4_5abc164d",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-05-14T17:20:48Z",
+      "side": 1,
+      "message": "cant we club \"verify nostroutes in subnet\" and this keyword?",
+      "revId": "643e41adc42b76a0c60b4821618929c47df13908",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e554c37_8a95b162",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-05-14T17:20:48Z",
+      "side": 1,
+      "message": "this can go in OpenStackOperations as well.",
+      "revId": "643e41adc42b76a0c60b4821618929c47df13908",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
