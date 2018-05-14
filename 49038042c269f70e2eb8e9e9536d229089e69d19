@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a83a4636_a6caa5a4",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-14T14:57:34Z",
+      "side": 1,
+      "message": "Script changed in such a way that calls keyword using LibraryName.\n\nhttps://jenkins.opendaylight.org/sandbox/view/netvirt-csit/job/netvirt-csit-3node-openstack-pike-gate-tdd-wip-oxygen/3/robot/",
+      "parentUuid": "fff46a8d_feda4d05",
+      "revId": "49038042c269f70e2eb8e9e9536d229089e69d19",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0668f585_a381d2eb",
         "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-14T09:37:35Z",
       "side": 1,
       "message": "I think the suite variable ${SUBNET_GW_IP} is not being used anywhere in the suite.\nPlease check. If it is not used, then delete this line.",
+      "revId": "49038042c269f70e2eb8e9e9536d229089e69d19",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ace71039_d0574ade",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-14T14:57:34Z",
+      "side": 1,
+      "message": "Variable is used TC-2 (Line number 36 / Line Number 38 in new commit)",
+      "parentUuid": "0668f585_a381d2eb",
       "revId": "49038042c269f70e2eb8e9e9536d229089e69d19",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "73367581_8aa6e883",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-14T14:57:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63b9a796_91f67d6c",
+      "revId": "49038042c269f70e2eb8e9e9536d229089e69d19",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e027990_a3031ebb",
         "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2018-05-14T09:42:28Z",
       "side": 1,
       "message": "why cant this keyword goes to OpenstackOperations.robot?",
+      "revId": "49038042c269f70e2eb8e9e9536d229089e69d19",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3254ced4_12ba82f3",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-14T14:57:34Z",
+      "side": 1,
+      "message": "Moved this keyword to OpenStackOperation.\n\nPass log : https://jenkins.opendaylight.org/sandbox/view/netvirt-csit/job/netvirt-csit-3node-openstack-pike-gate-tdd-wip-oxygen/3/robot/",
+      "parentUuid": "5e027990_a3031ebb",
       "revId": "49038042c269f70e2eb8e9e9536d229089e69d19",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
