@@ -20,6 +20,7 @@ ${Bridge-1}       BR1
 ${Bridge-2}       BR2
 ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
 @{DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE
+@{Brideg_list}    BR1    BR2    BR3
 
 *** Keywords ***
 Genius Suite Setup
@@ -35,38 +36,62 @@ Genius Suite Teardown
 Start Suite
     [Documentation]    Initial setup for Genius test suites
     Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    Check System Status
-    Log    Start the tests
-    ${conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
-    Set Global Variable    ${conn_id_1}
     KarafKeywords.Setup_Karaf_Keywords
+    ${TOOLS_SYSTEM_LIST}    Create List
+    : FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM} +1
+    \    Append To List    ${TOOLS_SYSTEM_LIST}    ${TOOLS_SYSTEM_${i}_IP}
+    \    log    ${TOOLS_SYSTEM_LIST}
+    ${conn_id}    Create List
+    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_LIST}
+    \    ${conn_id} =    Open Connection    ${tools_ip}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    \    Append To List    ${conn_id}
+    Comment    ${conn_id_1} =    Open Connection    ${TOOLS_SYSTEM_1_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Comment    Set Global Variable    ${conn_id_1}
     ${karaf_debug_enabled}    BuiltIn.Get_Variable_Value    ${KARAF_DEBUG}    ${False}
     BuiltIn.run_keyword_if    ${karaf_debug_enabled}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Log    ${conn_id_1}
-    Execute Command    sudo ovs-vsctl add-br BR1
-    Execute Command    sudo ovs-vsctl set bridge BR1 protocols=OpenFlow13
-    Execute Command    sudo ovs-vsctl set-controller BR1 tcp:${ODL_SYSTEM_IP}:6633
-    Execute Command    sudo ifconfig BR1 up
-    Execute Command    sudo ovs-vsctl add-port BR1 tap8ed70586-6c -- set Interface tap8ed70586-6c type=tap
-    Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    ${output_1}    Execute Command    sudo ovs-vsctl show
-    Log    ${output_1}
-    ${check}    Wait Until Keyword Succeeds    30    10    check establishment    ${conn_id_1}    6633
+    ${Bridge_List}    Create List
+    : FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM} +1
+    \    Append To List    ${Bridge_List}    BR${i}
+    \    log    ${Bridge_List}
+    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_LIST}
+    \    Genius.Set Bridge    ${tools_ip}
+    Comment    : FOR    ${bridge}    IN    @{Bridge_List}
+    Comment    \    Set Bridge    ${NUM_TOOLS_SYSTEM}    ${bridge}
+    Comment    : FOR    ${i}    INRANGE    ${NUM_TOOLS_SYSTEM}
+    Comment    \    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Comment    \    Execute Command    sudo ovs-vsctl add-br BR${i}
+    Comment    \    Execute Command    sudo ovs-vsctl set bridge BR${i} protocols=OpenFlow13
+    Comment    \    Execute Command    sudo ovs-vsctl set-controller BR${i} tcp:${ODL_SYSTEM_IP}:6633
+    Comment    \    Execute Command    sudo ifconfig BR${i} up
+    Comment    \    Execute Command    sudo ovs-vsctl add-port BR${i} tap8ed70586-6c -- set Interface tap8ed70586-6c type=tap
+    Comment    \    Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Comment    \    Execute Command    sudo ovs-vsctl show
+    Comment    Log    ${output_1}
+    ${check}    Wait Until Keyword Succeeds    30    10    check establishment    ${conn_id[0]}    6633
     log    ${check}
-    ${check_2}    Wait Until Keyword Succeeds    30    10    check establishment    ${conn_id_1}    6640
+    ${check_2}    Wait Until Keyword Succeeds    30    10    check establishment    ${conn_id[0]}    6640
     log    ${check_2}
-    Log    >>>>>Switch 2 configuration <<<<<
-    ${conn_id_2}=    Open Connection    ${TOOLS_SYSTEM_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
-    Set Global Variable    ${conn_id_2}
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Log    ${conn_id_2}
-    Execute Command    sudo ovs-vsctl add-br BR2
-    Execute Command    sudo ovs-vsctl set bridge BR2 protocols=OpenFlow13
-    Execute Command    sudo ovs-vsctl set-controller BR2 tcp:${ODL_SYSTEM_IP}:6633
-    Execute Command    sudo ifconfig BR2 up
-    Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    ${output_2}    Execute Command    sudo ovs-vsctl show
-    Log    ${output_2}
+    Comment    Log    >>>>>Switch 2 configuration <<<<<
+    Comment    ${conn_id_2} =    Open Connection    ${TOOLS_SYSTEM_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Comment    Set Global Variable    ${conn_id_2}
+    Comment    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Comment    Execute Command    sudo ovs-vsctl add-br BR2
+    Comment    Execute Command    sudo ovs-vsctl set bridge BR2 protocols=OpenFlow13
+    Comment    Execute Command    sudo ovs-vsctl set-controller BR2 tcp:${ODL_SYSTEM_IP}:6633
+    Comment    Execute Command    sudo ifconfig BR2 up
+    Comment    Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Comment    ${output_2}    Execute Command    sudo ovs-vsctl show
+    Comment    Log    ${output_2}
+    Comment    ${conn_id_3} =    Open Connection    ${TOOLS_SYSTEM_3_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Comment    Set Global Variable    ${conn_id_3}
+    Comment    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Comment    Execute Command    sudo ovs-vsctl add-br BR3
+    Comment    Execute Command    sudo ovs-vsctl set bridge BR3 protocols=OpenFlow13
+    Comment    Execute Command    sudo ovs-vsctl set-controller BR3 tcp:${ODL_SYSTEM_IP}:6633
+    Comment    Execute Command    sudo ifconfig BR3 up
+    Comment    Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Comment    ${output_3}    Execute Command    sudo ovs-vsctl show
+    Comment    Log    ${output_3}
 
 Stop Suite
     Log    Stop the tests
@@ -79,6 +104,12 @@ Stop Suite
     Switch Connection    ${conn_id_2}
     Log    ${conn_id_2}
     Execute Command    sudo ovs-vsctl del-br BR2
+    Execute Command    sudo ovs-vsctl del-manager
+    Write    exit
+    close connection
+    Switch Connection    ${conn_id_3}
+    Log    ${conn_id_3}
+    Execute Command    sudo ovs-vsctl del-br BR3
     Execute Command    sudo ovs-vsctl del-manager
     Write    exit
     close connection
@@ -99,17 +130,18 @@ Check Service Status
     \    Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
 
 Create Vteps
-    [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
+    [Arguments]    ${Dpn_id1}    ${Dpn_id2}    ${Dpn_id3}    ${TOOLS_SYSTEM_IP_1}    ${TOOLS_SYSTEM_IP_2}    ${TOOLS_SYSTEM_IP_3}
+    ...    ${vlan}    ${gateway-ip}
     [Documentation]    This keyword creates VTEPs between ${TOOLS_SYSTEM_IP} and ${TOOLS_SYSTEM_2_IP}
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
-    ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
+    ${substr}    Should Match Regexp    ${TOOLS_SYSTEM_1_IP}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
     ${subnet}    Catenate    ${substr}0
     Log    ${subnet}
     Set Global Variable    ${subnet}
-    ${vlan}=    Set Variable    ${vlan}
-    ${gateway-ip}=    Set Variable    ${gateway-ip}
-    ${body}    Genius.Set Json    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}
-    ...    ${gateway-ip}    ${subnet}
+    ${vlan} =    Set Variable    ${vlan}
+    ${gateway-ip} =    Set Variable    ${gateway-ip}
+    ${body}    Genius.Set Json    ${Dpn_id1}    ${Dpn_id2}    ${Dpn_id3}    ${TOOLS_SYSTEM_1_IP}    ${TOOLS_SYSTEM_2_IP}
+    ...    ${TOOLS_SYSTEM_3_IP}    ${vlan}    ${gateway-ip}    ${subnet}
     ${vtep_body}    Set Variable    ${body}
     Set Global Variable    ${vtep_body}
     ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/itm:transport-zones/    data=${body}
@@ -117,15 +149,17 @@ Create Vteps
     should be equal as strings    ${resp.status_code}    204
 
 Set Json
-    [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
-    ...    ${subnet}
+    [Arguments]    ${Dpn_id1}    ${Dpn_id2}    ${Dpn_id3}    ${TOOLS_SYSTEM_IP_1}    ${TOOLS_SYSTEM_IP_2}    ${TOOLS_SYSTEM_IP_3}
+    ...    ${vlan}    ${gateway-ip}    ${subnet}
     [Documentation]    Sets Json with the values passed for it.
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/Itm_creation_no_vlan.json
     ${body}    replace string    ${body}    1.1.1.1    ${subnet}
-    ${body}    replace string    ${body}    "dpn-id": 101    "dpn-id": ${Dpn_id_1}
-    ${body}    replace string    ${body}    "dpn-id": 102    "dpn-id": ${Dpn_id_2}
-    ${body}    replace string    ${body}    "ip-address": "2.2.2.2"    "ip-address": "${TOOLS_SYSTEM_IP}"
-    ${body}    replace string    ${body}    "ip-address": "3.3.3.3"    "ip-address": "${TOOLS_SYSTEM_2_IP}"
+    ${body}    replace string    ${body}    "dpn-id": 101    "dpn-id": ${Dpn_id1}
+    ${body}    replace string    ${body}    "dpn-id": 102    "dpn-id": ${Dpn_id2}
+    ${body}    replace string    ${body}    "dpn-id": 103    "dpn-id": ${Dpn_id3}
+    ${body}    replace string    ${body}    "ip-address": "2.2.2.2"    "ip-address": "${TOOLS_SYSTEM_IP_1}"
+    ${body}    replace string    ${body}    "ip-address": "3.3.3.3"    "ip-address": "${TOOLS_SYSTEM_IP_2}"
+    ${body}    replace string    ${body}    "ip-address": "4.4.4.4"    "ip-address": "${TOOLS_SYSTEM_IP_3}"
     ${body}    replace string    ${body}    "vlan-id": 0    "vlan-id": ${vlan}
     ${body}    replace string    ${body}    "gateway-ip": "0.0.0.0"    "gateway-ip": "${gateway-ip}"
     Log    ${body}
@@ -269,3 +303,16 @@ Get Tunnels On OVS
     \    Collections.Append To List    ${tunnel_names}    ${tun_list}
     ${items_in_list} =    BuiltIn.Get Length    ${tunnel_names}
     [Return]    ${Tunnel_Names}
+
+Set Bridge
+    [Arguments]    ${tools_ip}
+    Open Connection    ${tools_ip}
+    : FOR    ${i}    INRANGE    1    ${NUM_TOOLS_SYSTEM} +1
+    \    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    \    Execute Command    sudo ovs-vsctl add-br BR${i}
+    \    Execute Command    sudo ovs-vsctl set bridge BR${i} protocols=OpenFlow13
+    \    Execute Command    sudo ovs-vsctl set-controller BR${i} tcp:${ODL_SYSTEM_IP}:6633
+    \    Execute Command    sudo ifconfig BR${i} up
+    \    Execute Command    sudo ovs-vsctl add-port BR${i} tap${i}ed70586-6c -- set Interface tap8ed70586-6c type=tap
+    \    Execute Command    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    \    Execute Command    sudo ovs-vsctl show
