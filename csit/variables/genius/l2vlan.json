@@ -4,7 +4,7 @@
                 "name": "l2vlan-trunk",
                 "type": "iana-if-type:l2vlan",
                 "l2vlan-mode":"trunk",
-                "odl-interface:parent-interface": "tap8ed70586-6c",
+                "odl-interface:parent-interface": "tap0ed70586-6c",
                 "enabled": "true"
             }
         ]
