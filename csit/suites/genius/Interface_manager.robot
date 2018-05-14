@@ -28,7 +28,7 @@ Create l2vlan transparent interface
     @{l2vlan}    create list    l2vlan-trunk    l2vlan    transparent    l2vlan    true
     Check For Elements At URI    ${CONFIG_API}/ietf-interfaces:interfaces/    ${l2vlan}
     Wait Until Keyword Succeeds    50    5    get operational interface    ${interface_name}
-    Wait Until Keyword Succeeds    40    10    table0 entry    ${conn_id_1}    ${bridgename}
+    Wait Until Keyword Succeeds    40    10    table0 entry    ${TOOLS_SYSTEM_1_IP}
 
 Delete l2vlan transparent interface
     [Documentation]    This testcase deletes the l2vlan transparent interface created between 2 dpns.
@@ -42,7 +42,7 @@ Create l2vlan trunk interface
     @{l2vlan}    create list    l2vlan-trunk    l2vlan    trunk    tap8ed70586-6c    true
     Check For Elements At URI    ${CONFIG_API}/ietf-interfaces:interfaces/    ${l2vlan}
     Wait Until Keyword Succeeds    50    5    get operational interface    ${interface_name}
-    Wait Until Keyword Succeeds    30    10    table0 entry    ${conn_id_1}    ${bridgename}
+    Wait Until Keyword Succeeds    30    10    table0 entry    ${TOOLS_SYSTEM_1_IP}
 
 Create l2vlan Trunk member interface
     [Documentation]    This testcase creates a l2vlan Trunk member interface for the l2vlan trunk interface created in 1st testcase.
@@ -55,7 +55,7 @@ Create l2vlan Trunk member interface
     ...    true
     Check For Elements At URI    ${CONFIG_API}/ietf-interfaces:interfaces/    ${l2vlan}
     Wait Until Keyword Succeeds    10    5    get operational interface    ${l2vlan[0]}
-    Wait Until Keyword Succeeds    40    10    ovs check for member interface creation    ${conn_id_1}    ${bridgename}
+    Wait Until Keyword Succeeds    40    10    ovs check for member interface creation    ${TOOLS_SYSTEM_1_IP}
 
 Bind service on Interface
     [Documentation]    This testcase binds service to the interface created .
@@ -108,46 +108,33 @@ get operational interface
 table entry
     [Arguments]    ${command}
     [Documentation]    Checks for tables entry wrt the service the Interface is binded.
-    switch connection    ${conn_id_1}
-    ${result}    execute command    ${command}
-    log    ${result}
+    ${result}    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_1_IP}    ${command}
     should contain    ${result}    table=17
     should contain    ${result}    goto_table:21
     should contain    ${result}    goto_table:50
 
 no table0 entry
     [Documentation]    After Deleting trunk interface, checking for absence of table 0 in the flow dumps
-    switch connection    ${conn_id_1}
-    ${bridgename}    Set Variable    BR1
-    ${ovs-check}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
-    log    ${ovs-check}
+    ${ovs-check}    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_1_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${Bridge_List[1]}
     should not contain    ${ovs-check}    table=0
     should not contain    ${ovs-check}    goto_table:17
 
 no goto_table entry
     [Arguments]    ${table-id}
     [Documentation]    Checks for absence of no goto_table after unbinding the service on the interface.
-    switch connection    ${conn_id_1}
-    ${ovs-check1}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
-    Log    ${ovs-check1}
+    ${ovs-check1}    Utils.Run Command On Remote System And Log    ${TOOLS_SYSTEM_1_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${Bridge_List[1]}
     should not contain    ${ovs-check1}    goto_table:${table-id}
 
 table0 entry
-    [Arguments]    ${connection-id}    ${bridgename}
+    [Arguments]    ${tools_ip}
     [Documentation]    After Creating the trunk interface , checking for table 0 entry exist in the flow dumps
-    switch connection    ${connection-id}
-    log    switch connection
-    ${ovs-check}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
-    log    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
-    log    ${ovs-check}
+    ${ovs-check}    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${Bridge_List[1]}
     should contain    ${ovs-check}    table=0
 
 ovs check for member interface creation
-    [Arguments]    ${connection-id}    ${bridgename}
+    [Arguments]    ${tools_ip}
     [Documentation]    This keyword verifies the member interface created on OVS by checking the table0 ,vlan and action=pop_vlan entries
-    switch connection    ${connection-id}
-    ${ovs-check}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
-    log    ${ovs-check}
+    ${ovs-check}    Utils.Run Command On Remote System And Log    ${tools_ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${Bridge_List[1]}
     should contain    ${ovs-check}    table=0
     should contain    ${ovs-check}    dl_vlan=1000
     should contain    ${ovs-check}    actions=pop_vlan
