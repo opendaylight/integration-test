@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fff46a8d_feda4d05",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-05-14T09:37:35Z",
+      "side": 1,
+      "message": "qualify this with the library it comes from.\ne.g, BuiltIn.Create List\nCollections.Append To List\nString.Strip String\n\nApply the same, wherever is needed.",
+      "revId": "49038042c269f70e2eb8e9e9536d229089e69d19",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0668f585_a381d2eb",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-05-14T09:37:35Z",
+      "side": 1,
+      "message": "I think the suite variable ${SUBNET_GW_IP} is not being used anywhere in the suite.\nPlease check. If it is not used, then delete this line.",
+      "revId": "49038042c269f70e2eb8e9e9536d229089e69d19",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63b9a796_91f67d6c",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-05-14T09:37:35Z",
+      "side": 1,
+      "message": "Give one space between ${splitted_output} and \"\u003d\".\nApply the same elsewhere.",
+      "revId": "49038042c269f70e2eb8e9e9536d229089e69d19",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
