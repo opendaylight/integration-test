@@ -380,7 +380,7 @@ Get Bridge Data
     [Documentation]    This keyword returns first bridge name and UUID from list of bridges.
     ${result} =    SSHLibrary.Execute Command    sudo ovs-vsctl show
     ${uuid} =    String.Get Line    ${result}    0
-    ${line}    ${bridge_name}    Builtin.Should Match Regexp    ${result}    Bridge "(\\w+)"
+    ${line}    ${bridge_name}    Builtin.Should Match Regexp    ${result}    Bridge (\\w.*)
     [Return]    ${uuid}    ${bridge_name}
 
 Delete OVS Controller
@@ -491,3 +491,9 @@ Verify Vni Packet Count After Traffic
     BuiltIn.Should Be True    ${diff_count_ingress_port1} >= ${DEFAULT_PING_COUNT}
     BuiltIn.Should Be True    ${diff_count_egress_port2} >= ${DEFAULT_PING_COUNT}
     BuiltIn.Should Be True    ${diff_count_ingress_port2} >= ${DEFAULT_PING_COUNT}
+
+Run_Command_On_All_Tools_Systems
+    [Arguments]    ${TOOLS_SYSTEM_LIST}    ${cmd}
+    [Documentation]    Run command on all OVS
+    : FOR    ${tools_ip}    IN    @{TOOLS_SYSTEM_LIST}
+    \    Utils.Run Command On Remote System    ${tools_ip}    ${cmd}
