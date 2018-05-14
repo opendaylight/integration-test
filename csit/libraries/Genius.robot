@@ -94,9 +94,10 @@ Check Service Status
     [Arguments]    ${system_ready_state}    ${service_state}
     [Documentation]    Issues the karaf shell command showSvcStatus to verify the ready and service states are the same as the arguments passed
     ${service_status_output}    Issue_Command_On_Karaf_Console    showSvcStatus    ${ODL_SYSTEM_IP}    8101
-    Should Contain    ${service_status_output}    ${system_ready_state}
-    : FOR    ${service}    IN    @{DIAG_SERVICES}
-    \    Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
+    : FOR    ${i}    IN    ${NUM_ODL_SYSTEM}
+    \    Should Contain    ${service_status_output}    ${system_ready_state}
+    \    : FOR    ${service}    IN    @{DIAG_SERVICES}
+    \    \    Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
 
 Create Vteps
     [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
