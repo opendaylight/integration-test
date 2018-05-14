@@ -246,3 +246,20 @@ Check System Status
     [Documentation]    This keyword will verify whether all the services are in operational and all nodes are active based on the number of odl systems
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL
+
+Verify Tunnel Status
+    [Arguments]    ${connection_id}    ${Tunnel_Status}
+    [Documentation]    Will verify tunnel status as UP/DOWN/UNKNOWN state
+    Open_Connection_To_Tools_System    ${connection_id}
+    ${Ovs_Result}    Execute Command    sudo ovs-vsctl show
+    ${Tunnel_Names}    Create List
+    ${Tunnels}    Get Lines Matching Regexp    ${Ovs_Result}    Interface "tun.*"    True
+    ${Tunnels_List}    Split To Lines    ${Tunnels}
+    : FOR    ${Tun}    IN    ${Tunnels_List}
+    \    ${Tun_List}    Should Match Regexp    ${Tun}    tun.*\\w
+    \    Append To List    ${Tunnel_Names}    ${Tun_List}
+    ${Items_In_List}    Get Length    ${Tunnel_Names}
+    ${Tep_Result}    Issue_Command_On_Karaf_Console    ${TEP_SHOW_STATE}
+    : FOR    ${i}    IN    @{Tunnel_Names}
+    \    ${Tep_Output}    Get Lines Containing String    ${Tep_Result}    ${i}
+    \    Should Contain    ${Tep_Output}    ${Tunnel_Status}
