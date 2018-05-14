@@ -16,6 +16,11 @@
                             "dpn-id": 102,
                             "ip-address": "3.3.3.3",
                             "portname": "BR2-eth1"
+                        },
+                        {
+                            "dpn-id": 103,
+                            "ip-address": "4.4.4.4",
+                            "portname": "BR3-eth1"
                         }
                     ]
                 }
