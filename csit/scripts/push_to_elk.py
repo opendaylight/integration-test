@@ -95,7 +95,8 @@ else:
     for f in csv_files:
         key = (f.split('/')[-1])[:-4]
         BODY['plots'][key] = {}
-        lines = open(f).readlines()
+        with open(f) as file:
+            lines = file.readlines()
         props = lines[0].strip().split(',')
         vals = lines[1].strip().split(',')
         BODY['plots'][key][props[0]] = float(vals[0])
