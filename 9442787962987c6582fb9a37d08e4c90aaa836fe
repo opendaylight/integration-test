@@ -130,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "152551ce_d45e6cfa",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-15T20:04:26Z",
+      "side": 1,
+      "message": "yeah, we need to figure this out. looks like that mirantis\nlink you gave implies we should have no connectivity loss\nduring migration.\n\nthat\u0027s not the case in the sandbox runs. Maybe we have a bug,\nor more likely we haven\u0027t implemented the functionality?",
+      "parentUuid": "402408ee_911dca98",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 41
+      },
+      "revId": "9442787962987c6582fb9a37d08e4c90aaa836fe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "383f515a_0dbb4b2a",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 20
