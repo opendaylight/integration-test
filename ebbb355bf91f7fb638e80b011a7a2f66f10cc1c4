@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0344c4cb_b55f9621",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-05-15T06:53:02Z",
+      "side": 1,
+      "message": "Is this documentation correct?",
+      "revId": "ebbb355bf91f7fb638e80b011a7a2f66f10cc1c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
