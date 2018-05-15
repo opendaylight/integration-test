@@ -106,10 +106,11 @@ TC2_Connect_BGP_Peer
     BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
 
 TC2_Check_Example_Bgp_Rib
-    [Documentation]    Check RIB for linkstate-route(s)
+    [Documentation]    Check RIB for linkstate-route(s) and check all of their attributes.
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    BgpOperations.Check_Example_Bgp_Rib_Content    ${CONFIG_SESSION}    ${JSONKEYSTR}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}/lsp/effective_rib_in    session=${CONFIG_SESSION}
+    ...    verify=True
 
 TC2_Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer & store logs
