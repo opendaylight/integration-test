@@ -57,13 +57,11 @@ TC1_Configure_iBGP_Peer
 TC1_Check_Example_Bgp_Rib_Is_Empty
     [Documentation]    Check RIB for none linkstate-routes
     [Tags]    critical
-    SSHLibrary.Switch Connection    bgp_peer_console
     BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain    ${CONFIG_SESSION}    ${JSONKEYSTR}
 
 TC1_Connect_BGP_Peer
     [Documentation]    Connect BGP peer with advertising the routes without mandatory params like LOC_PREF.
     [Tags]    critical
-    SSHLibrary.Switch Connection    bgp_peer_console
     BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Log_Message_To_Controller_Karaf    Error = WELL_KNOWN_ATTR_MISSING is EXPECTED in this test case, and should be thrown when missing mandatory attributes.
     BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND} ${SKIP_PARAMS}    ${BGP_PEER_OPTIONS}
     BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
@@ -71,13 +69,11 @@ TC1_Connect_BGP_Peer
 TC1_Check_Example_Bgp_Rib
     [Documentation]    Check RIB for not containig linkstate-route(s), because update messages were not good.
     [Tags]    critical
-    SSHLibrary.Switch Connection    bgp_peer_console
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain    ${CONFIG_SESSION}    ${JSONKEYSTR}
 
 TC1_Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer & store logs
     [Tags]    critical
-    SSHLibrary.Switch Connection    bgp_peer_console
     BGPcliKeywords.Stop_Console_Tool
     BGPcliKeywords.Store_File_To_Workspace    ${BGP_PEER_LOG_FILE}    tc1_${BGP_PEER_LOG_FILE}
 
@@ -95,26 +91,23 @@ TC2_Configure_iBGP_Peer
 TC2_Check_Example_Bgp_Rib_Is_Empty
     [Documentation]    Check RIB for none linkstate-routes
     [Tags]    critical
-    SSHLibrary.Switch Connection    bgp_peer_console
     BgpOperations.Check_Example_Bgp_Rib_Does_Not_Contain    ${CONFIG_SESSION}    ${JSONKEYSTR}
 
 TC2_Connect_BGP_Peer
     [Documentation]    Connect BGP peer
     [Tags]    critical
-    SSHLibrary.Switch Connection    bgp_peer_console
     BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
     BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
 
 TC2_Check_Example_Bgp_Rib
-    [Documentation]    Check RIB for linkstate-route(s)
+    [Documentation]    Check RIB for linkstate-route(s) and check all of their attributes.
     [Tags]    critical
-    SSHLibrary.Switch Connection    bgp_peer_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    BgpOperations.Check_Example_Bgp_Rib_Content    ${CONFIG_SESSION}    ${JSONKEYSTR}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}/lsp/effective_rib_in    session=${CONFIG_SESSION}    verify=True
 
 TC2_Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer & store logs
     [Tags]    critical
-    SSHLibrary.Switch Connection    bgp_peer_console
     BGPcliKeywords.Stop_Console_Tool
     BGPcliKeywords.Store_File_To_Workspace    ${BGP_PEER_LOG_FILE}    tc2_${BGP_PEER_LOG_FILE}
 
@@ -129,7 +122,7 @@ Setup_Everything
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
-    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=bgp_peer_console
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     SSHKeywords.Flexible_Mininet_Login
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
