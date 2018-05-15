@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bb5b781b_b6d2de49",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22899b91_91bae1e8",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "fe7cc22ff12f7d08575ea464643e8a6841a91081",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "489d8fcc_8cc6f3b7",
         "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-04T21:23:29Z",
       "side": 1,
       "message": "if we want to plan for making this scalable, I would only\nhave a single busybox yaml. you can replace the specific\nstrings with unique names at runtime. We do that in other\nsuites.\n\nlike this keyword:\nhttps://git.opendaylight.org/gerrit/gitweb?p\u003dintegration/test.git;a\u003dblob;f\u003dcsit/libraries/OVSDB.robot;h\u003d6fb18fcfe80a90db9577f7cffedc572f76fd361a;hb\u003d11c74ccf959c00522eb1407e46bd339ab2a661ab#l27\n\nthat takes a file like this:\n\nhttps://git.opendaylight.org/gerrit/gitweb?p\u003dintegration/test.git;a\u003dblob;f\u003dcsit/variables/ovsdb/create_node.json;h\u003d8625705a0e13e297d94ecafcd0232c8d1f1713c8;hb\u003d11c74ccf959c00522eb1407e46bd339ab2a661ab\n\nand does a Replace on some strings to make it work.\n\nthis would let you easily spin up 1,2,3... 1000 busybox\nthings without needing an individual file for each.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 60
+      },
+      "revId": "fe7cc22ff12f7d08575ea464643e8a6841a91081",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e7c1fe0_1c8d4d5e",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "489d8fcc_8cc6f3b7",
       "range": {
         "startLine": 16,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1f3d001d_83699166",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fd4fc6c_48a6fa5f",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "fe7cc22ff12f7d08575ea464643e8a6841a91081",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cea3d4d_e6a2408f",
         "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
         "patchSetId": 9
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "a9807cc7_ba8018b4",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cea3d4d_e6a2408f",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 158
+      },
+      "revId": "fe7cc22ff12f7d08575ea464643e8a6841a91081",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71c09104_2790d85b",
         "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
         "patchSetId": 9
@@ -105,6 +201,30 @@
       "writtenOn": "2018-05-04T21:23:29Z",
       "side": 1,
       "message": "put a space between the ${var} and the \u0027\u003d\u0027 sign, so it looks like\n\n  ${var} \u003d\n\nalso, qualify all the keywords. in this case, it would\nbe Utils.Run Command On Remote System\n\nboth comments apply everywhere",
+      "range": {
+        "startLine": 62,
+        "startChar": 9,
+        "endLine": 62,
+        "endChar": 49
+      },
+      "revId": "fe7cc22ff12f7d08575ea464643e8a6841a91081",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa21dd90_44bd099b",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71c09104_2790d85b",
       "range": {
         "startLine": 62,
         "startChar": 9,
