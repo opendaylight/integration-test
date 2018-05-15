@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "f4d39d66_3970ed6b",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90549dd9_454aa289",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf3dfa8d_729f53ba",
         "filename": "csit/suites/coe/POD_connectivity.txt",
         "patchSetId": 1
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "aa99f9de_696759a7",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf3dfa8d_729f53ba",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dab0ef5b_8adddd92",
         "filename": "csit/suites/coe/POD_connectivity.txt",
         "patchSetId": 1
@@ -64,6 +100,24 @@
       "writtenOn": "2018-03-01T06:04:26Z",
       "side": 1,
       "message": "Put proper title for test case.\n\n\"Verify L2 connectivity between pods on same node\"",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65b39b48_9f82ebea",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dab0ef5b_8adddd92",
       "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -110,6 +164,48 @@
     },
     {
       "key": {
+        "uuid": "eb8096cc_10925a22",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69c2148c_f2d55ece",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 44
+      },
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d7c2cb_c8346198",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0000668d_8f98efbe",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7575e929_53a5e78a",
         "filename": "csit/suites/coe/POD_connectivity.txt",
         "patchSetId": 1
@@ -127,6 +223,24 @@
     },
     {
       "key": {
+        "uuid": "9fed5765_567d0aa2",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7575e929_53a5e78a",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a7b0be8_5a0e868a",
         "filename": "csit/suites/coe/POD_connectivity.txt",
         "patchSetId": 1
@@ -138,6 +252,24 @@
       "writtenOn": "2018-03-01T06:04:26Z",
       "side": 1,
       "message": "Add Keyword \"Ping Pods\"",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1054f768_e3a9b616",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a7b0be8_5a0e868a",
       "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -178,6 +310,24 @@
     },
     {
       "key": {
+        "uuid": "837f4b96_5b1c241e",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71c52c80_558a7700",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38cefaec_654229d0",
         "filename": "csit/suites/coe/POD_connectivity.txt",
         "patchSetId": 1
@@ -189,6 +339,24 @@
       "writtenOn": "2018-03-01T06:12:45Z",
       "side": 1,
       "message": "Add keyword to \"Get K8s Nodes\"",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "195f7e22_f910025b",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38cefaec_654229d0",
       "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -212,6 +380,24 @@
     },
     {
       "key": {
+        "uuid": "fa4be8ba_ee5785a3",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37729b10_7d4a7ce0",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1ed5e6e_ff236460",
         "filename": "csit/suites/coe/POD_connectivity.txt",
         "patchSetId": 1
@@ -223,6 +409,24 @@
       "writtenOn": "2018-03-01T06:11:55Z",
       "side": 1,
       "message": "you need to copy worker.conf to /etc/cni/net.d on both the minion nodes before doing kubeadm join",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1baaac69_08d7b5be",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1ed5e6e_ff236460",
       "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -246,6 +450,24 @@
     },
     {
       "key": {
+        "uuid": "8a81df2f_6872edad",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fbbc996_fb424202",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9788d267_d1bb8058",
         "filename": "csit/suites/coe/POD_connectivity.txt",
         "patchSetId": 1
@@ -263,6 +485,24 @@
     },
     {
       "key": {
+        "uuid": "39e1a8be_3a7cfacb",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9788d267_d1bb8058",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d5b9882_35f6b98b",
         "filename": "csit/suites/coe/POD_connectivity.txt",
         "patchSetId": 1
@@ -274,6 +514,24 @@
       "writtenOn": "2018-03-01T06:14:02Z",
       "side": 1,
       "message": "Add All the common keywords which will be used multiple times under a file called Coe.robot under csit/libraries folder",
+      "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42944cd0_f2669708",
+        "filename": "csit/suites/coe/POD_connectivity.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-05-15T04:21:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d5b9882_35f6b98b",
       "revId": "cc1b054458d2bb92502320a2d780d21e2bb0ee10",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
