@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "972c3940_0ecec3e4",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-16T17:20:33Z",
+      "side": 1,
+      "message": "Why do we need separate keywords for each verification.. Why can\u0027t we have a keyword Verify Tunnel Status and accept expected status as an argument? This can be then used for checking any tunnel status",
+      "revId": "afc36e22067d49a7c3c6f65c737e4ce54de847bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
