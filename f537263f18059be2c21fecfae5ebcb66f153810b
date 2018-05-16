@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "765da5f9_d1f6ba27",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-16T17:22:00Z",
+      "side": 1,
+      "message": "I think you want these as Variables lines in the *** Settings *** section.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 60
+      },
+      "revId": "f537263f18059be2c21fecfae5ebcb66f153810b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b622404_64f433cd",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-16T17:22:00Z",
+      "side": 1,
+      "message": "Get Connection IDs",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 7
+      },
+      "revId": "f537263f18059be2c21fecfae5ebcb66f153810b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "682f7abd_7cf05488",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-16T17:22:00Z",
+      "side": 1,
+      "message": "make Suite Variables ALL CAPS",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 15
+      },
+      "revId": "f537263f18059be2c21fecfae5ebcb66f153810b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2620d48_4456e240",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-16T17:22:00Z",
+      "side": 1,
+      "message": "not a big deal, but probably not necessary. we can get\nthis info from the pybot command line, etc.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "f537263f18059be2c21fecfae5ebcb66f153810b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a97225e_4dd5098b",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-16T17:22:00Z",
+      "side": 1,
+      "message": "you can now use TOOLS_SYSTEM_1_IP\n\nand, it might make sense to pass in a variable for\nNUM_TOOLS_SYSTEMS and make it 3 for now. Then do\nthis work in a loop on that value.\n\nthat will let this scale to X number of nodes in\nthe future without much work.\n\nfine to leave this idea for later, if ever. just\na thought.",
+      "range": {
+        "startLine": 47,
+        "startChar": 49,
+        "endLine": 47,
+        "endChar": 67
+      },
+      "revId": "f537263f18059be2c21fecfae5ebcb66f153810b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd0246bb_87b03f2d",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-16T17:22:00Z",
+      "side": 1,
+      "message": "don\u0027t need to give these variables as they are already the\ndefault values in the keyword itself.\n\napplies above obviously.",
+      "range": {
+        "startLine": 49,
+        "startChar": 73,
+        "endLine": 49,
+        "endChar": 162
+      },
+      "revId": "f537263f18059be2c21fecfae5ebcb66f153810b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cea0dcbb_9979bf34",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-16T17:22:00Z",
+      "side": 1,
+      "message": "don\u0027t need these if they are already the default values in\nthe keywords.",
+      "range": {
+        "startLine": 65,
+        "startChar": 95,
+        "endLine": 65,
+        "endChar": 137
+      },
+      "revId": "f537263f18059be2c21fecfae5ebcb66f153810b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c485db7b_1b7aaa79",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-16T17:22:00Z",
+      "side": 1,
+      "message": "don\u0027t prepend with Coe_  when you call the keyword,\nyou\u0027re gonna do Coe.Tear_Down anyway to qualify it. If\nanything make the keyword name more clear. Like\n\"Test Case Cleanup And Debug Output\"",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 4
+      },
+      "revId": "f537263f18059be2c21fecfae5ebcb66f153810b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15b0929b_d11e6028",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-16T17:22:00Z",
+      "side": 1,
+      "message": "something wrong with just using the Get Model Dump\nkeyword from the DataModels.robot lib?",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 49
+      },
+      "revId": "f537263f18059be2c21fecfae5ebcb66f153810b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "452f3079_5ec8f78f",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-16T17:22:00Z",
+      "side": 1,
+      "message": "make these args in lower_case",
+      "range": {
+        "startLine": 147,
+        "startChar": 19,
+        "endLine": 147,
+        "endChar": 64
+      },
+      "revId": "f537263f18059be2c21fecfae5ebcb66f153810b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3eda98e6_744b478a",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-16T17:22:00Z",
+      "side": 1,
+      "message": "this will be trying to remove the file on the local system,\nno the system you are ssh\u0027d in to.",
+      "range": {
+        "startLine": 266,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 44
+      },
+      "revId": "f537263f18059be2c21fecfae5ebcb66f153810b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
