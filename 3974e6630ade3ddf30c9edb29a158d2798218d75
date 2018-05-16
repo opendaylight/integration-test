@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89b09a28_1e04575a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-16T09:42:05Z",
+      "side": 1,
+      "message": "Does this run for 1 node also? If so, Can we name it as Check System Status?",
+      "revId": "3974e6630ade3ddf30c9edb29a158d2798218d75",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb259b0d_e15fdff1",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-16T09:42:05Z",
+      "side": 1,
+      "message": "The argument is not necessary",
+      "revId": "3974e6630ade3ddf30c9edb29a158d2798218d75",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
