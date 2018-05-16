@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "80aedc76_d1e7ff96",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-16T03:52:39Z",
+      "side": 1,
+      "message": "Done\nI was also worried about the usage of big word for simple operation",
+      "parentUuid": "6a430413_240142dc",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 12
+      },
+      "revId": "f67d7c5dd212b5965ea1cc1f7bf47d814a050119",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7dc9e77f_be5cadf8",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 14
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "1df4cdfc_a973e18b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-16T03:52:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7dc9e77f_be5cadf8",
+      "revId": "f67d7c5dd212b5965ea1cc1f7bf47d814a050119",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c1891c2_df756a85",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 14
@@ -53,6 +95,24 @@
       "writtenOn": "2018-05-15T14:22:40Z",
       "side": 1,
       "message": "add space",
+      "revId": "f67d7c5dd212b5965ea1cc1f7bf47d814a050119",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "512b5629_e2e4f875",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-16T03:52:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c1891c2_df756a85",
       "revId": "f67d7c5dd212b5965ea1cc1f7bf47d814a050119",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "0241d505_9cd8e072",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-16T03:52:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "090cf840_7e0b33e6",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 6
+      },
+      "revId": "f67d7c5dd212b5965ea1cc1f7bf47d814a050119",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28568f77_377831bd",
         "filename": "csit/suites/openstack/connectivity/external_network.robot",
         "patchSetId": 14
@@ -93,6 +177,24 @@
       "writtenOn": "2018-05-15T14:22:40Z",
       "side": 1,
       "message": "space",
+      "revId": "f67d7c5dd212b5965ea1cc1f7bf47d814a050119",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ce4692b_bb3e41c5",
+        "filename": "csit/suites/openstack/connectivity/external_network.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-16T03:52:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28568f77_377831bd",
       "revId": "f67d7c5dd212b5965ea1cc1f7bf47d814a050119",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
