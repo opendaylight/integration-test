@@ -1,0 +1,429 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2198e9c_6a5f3b92",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "leave lowerase n to match the other places we use Hostname",
+      "range": {
+        "startLine": 228,
+        "startChar": 15,
+        "endLine": 228,
+        "endChar": 23
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad2e7608_682916f1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "add space, do the same for other places\nUse BuiltIn.Split String",
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0823366f_83767df3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "These logs can be removed as OpenStack CLI already logs the output",
+      "range": {
+        "startLine": 1072,
+        "startChar": 4,
+        "endLine": 1072,
+        "endChar": 11
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d168530_6f0886d1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "space\nSSHLibrary.Execute Command",
+      "range": {
+        "startLine": 1085,
+        "startChar": 21,
+        "endLine": 1085,
+        "endChar": 23
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a70870af_0c3edca2",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 1093,
+        "startChar": 21,
+        "endLine": 1093,
+        "endChar": 23
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f53d3e5_cc5c76c7",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "move below Requests to keep in alpha order",
+      "range": {
+        "startLine": 8,
+        "startChar": 18,
+        "endLine": 8,
+        "endChar": 28
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20924743_bc66afc5",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "move up above OpenstackOperations to keep alpha order",
+      "range": {
+        "startLine": 16,
+        "startChar": 37,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1076682a_58ff54ce",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "Use something like 130 as 30 range is already used by the l3 suite",
+      "range": {
+        "startLine": 23,
+        "startChar": 20,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6fe12e8_d359ebab",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "maybe a constant?",
+      "range": {
+        "startLine": 28,
+        "startChar": 85,
+        "endLine": 28,
+        "endChar": 86
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b851991c_109f02a7",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "Use the OpenStackOperations.Create Vm Instance On Compute Node form so we control where the vm is placed",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 10
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20882047_580a8589",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "257dfbc3_8cb812cf",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "SSHLibary.  , OpenStackOperations.",
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "857c14f4_3fbe3c30",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "reuse OpenStackOperations.Ping Vm From DHCP Namespace",
+      "range": {
+        "startLine": 64,
+        "startChar": 28,
+        "endLine": 64,
+        "endChar": 32
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02aa7358_174de914",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "lowercase if local",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 13
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd042919_6870d1fc",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "qualify",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 10
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "198d8369_883a9843",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "vms",
+      "range": {
+        "startLine": 67,
+        "startChar": 6,
+        "endLine": 67,
+        "endChar": 9
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3686e875_f80147b7",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "qualify, same for all the other places that need to be qualified",
+      "range": {
+        "startLine": 69,
+        "startChar": 61,
+        "endLine": 69,
+        "endChar": 66
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b3e631_fc48fc51",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 10
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d0d4dd2_8b47f2d2",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-16T23:44:32Z",
+      "side": 1,
+      "message": "vm",
+      "range": {
+        "startLine": 81,
+        "startChar": 15,
+        "endLine": 81,
+        "endChar": 24
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
