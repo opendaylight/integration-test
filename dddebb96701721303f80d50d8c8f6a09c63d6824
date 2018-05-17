@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f82e560_cc8ca228",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-17T05:39:49Z",
+      "side": 1,
+      "message": "SSHLibrary.",
+      "revId": "dddebb96701721303f80d50d8c8f6a09c63d6824",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
