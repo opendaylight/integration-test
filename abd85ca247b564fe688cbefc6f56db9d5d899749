@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc6789e5_86b57ec1",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-17T05:55:39Z",
+      "side": 1,
+      "message": "\u003d",
+      "revId": "abd85ca247b564fe688cbefc6f56db9d5d899749",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5559337f_20db8bf6",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-17T05:55:39Z",
+      "side": 1,
+      "message": "\u003d",
+      "revId": "abd85ca247b564fe688cbefc6f56db9d5d899749",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab70294a_fd718bd7",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-17T05:55:39Z",
+      "side": 1,
+      "message": "question (mostly just curious):\n\n you are deleting an icmp flow from table 244 above right?\n that leaves table 244 with 8 flows (I looked at the sandbox\n logs), then you invoke the srm:recover which should put\n the flow back, making it 9 which is what you check for\n here and it works. I follow that. I\u0027m wondering why you\n are also not checking for that specific icmp flow to be\n the one that is added back as well, just to be more\n strict with the check.\n\nanyway, just looking closely at things and that caught\nmy eye.",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 109
+      },
+      "revId": "abd85ca247b564fe688cbefc6f56db9d5d899749",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4921bf93_2114ecc8",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-17T05:55:39Z",
+      "side": 1,
+      "message": "\u003d",
+      "revId": "abd85ca247b564fe688cbefc6f56db9d5d899749",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cddfa49e_f79c4be8",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-17T05:55:39Z",
+      "side": 1,
+      "message": "\u003d",
+      "revId": "abd85ca247b564fe688cbefc6f56db9d5d899749",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a40d89f_8fa8421e",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 28
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-17T05:55:39Z",
+      "side": 1,
+      "message": "uncomment.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 67
+      },
+      "revId": "abd85ca247b564fe688cbefc6f56db9d5d899749",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
