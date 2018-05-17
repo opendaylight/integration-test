@@ -203,6 +203,29 @@
     },
     {
       "key": {
+        "uuid": "abd8b7cc_a5726b7e",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-17T00:28:08Z",
+      "side": 1,
+      "message": "let\u0027s put this live migration config in to a suite\nsetup step.\n\nlet\u0027s also remove/reset this config in the suite\nteardown. That will let us keep things clean\nfor any suites that might run after.\n\nVenkat had mentioned over email that there may\nbe some nova bugs when creating multiple instances in the\nsame shared directory, so we probably want to eliminate\nthat chance.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 79
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b851991c_109f02a7",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 25
