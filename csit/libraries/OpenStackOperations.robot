@@ -924,7 +924,7 @@ Wait For Routes To Propogate
     \    ${is_ipv6} =    String.Get Regexp Matches    @{subnets}[${INDEX}]    ${IP6_REGEX}
     \    ${length} =    BuiltIn.Get Length    ${is_ipv6}
     \    ${cmd} =    BuiltIn.Set Variable If    ${length} == 0    ip route    ip -6 route
-    \    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ]>
+    \    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
     \    BuiltIn.Should Contain    ${output}    @{subnets}[${INDEX}]
 
 Neutron Cleanup
