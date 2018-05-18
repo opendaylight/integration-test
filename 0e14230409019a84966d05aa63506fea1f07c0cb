@@ -507,6 +507,30 @@
     },
     {
       "key": {
+        "uuid": "e80582db_cabfd3a9",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T15:47:27Z",
+      "side": 1,
+      "message": "Undestood it can be on any compute. The reason to use the other keyword is during troubleshooting. The debugging is much easier if we know where the vm is placed. The test is still the same - but now we know where the vms will be placed so it is easier to debug.",
+      "parentUuid": "33b52c0c_e7c59c64",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 10
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20882047_580a8589",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 25
