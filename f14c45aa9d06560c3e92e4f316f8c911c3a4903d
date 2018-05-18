@@ -1,0 +1,314 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44f7fb10_f9cabbb3",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "BRINT - this might already be defined in a Variables file",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 8
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e98f8fa0_08d4e63b",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "COE_PATH or MODULES? All the PATH vars seem weird, but maybe it is OK. They are not really paths as much as they are files",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 10
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af02c8c1_e8c502dd",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "remove the _\u0027s.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 11
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80e0285a_9d7460dc",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "Use the Run Command On Remote System And Log form so you don\u0027t need the extra log. You can skip the return output, which typically we name ${output}. if you do use a log somewhere else, make it BuiltIn.Log",
+      "range": {
+        "startLine": 25,
+        "startChar": 20,
+        "endLine": 25,
+        "endChar": 48
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ec3ddef8_4e0350e9",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 33
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2b725d5_a2465040",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "Similar to comments below, These names don\u0027t convey what the keyword is doing, so look at adding a verb or something more readable to the names.",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 11
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03a03c99_02305113",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "I believe you can use the ${Coe.Pod_Status} here. Same for other keywords in the Documentation section",
+      "range": {
+        "startLine": 123,
+        "startChar": 45,
+        "endLine": 123,
+        "endChar": 59
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5de35948_3428a266",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "Check Pod Status, Check All Pod Status. would be good to name it such that it makes sense with the Verify Pod Status above. Maybe this one could be Check pod Status",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 10
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f82dd2e5_cdb842e2",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "add \" \u003d\"",
+      "range": {
+        "startLine": 163,
+        "startChar": 11,
+        "endLine": 163,
+        "endChar": 15
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0726eaa_9ab3be7d",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "\" \u003d\"",
+      "range": {
+        "startLine": 169,
+        "startChar": 21,
+        "endLine": 169,
+        "endChar": 25
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb69798_589a3b9c",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "add \" \"",
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9beb98bc_1bea1746",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "\" \u003d\"",
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f75934a5_6f15b5af",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "BuiltIn.Log",
+      "range": {
+        "startLine": 182,
+        "startChar": 4,
+        "endLine": 182,
+        "endChar": 7
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb10b1ec_3ccd915e",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T11:58:01Z",
+      "side": 1,
+      "message": "Does this do anything beyond wrap the other keyword. Maybe just remove this keyword",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 26
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
