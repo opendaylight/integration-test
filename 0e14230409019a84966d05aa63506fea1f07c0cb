@@ -660,6 +660,30 @@
     },
     {
       "key": {
+        "uuid": "88f81bd4_1a0c259b",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-18T15:49:26Z",
+      "side": 1,
+      "message": "Sounds good",
+      "parentUuid": "cc3fb45b_e9804bb7",
+      "range": {
+        "startLine": 64,
+        "startChar": 28,
+        "endLine": 64,
+        "endChar": 32
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02aa7358_174de914",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 25
