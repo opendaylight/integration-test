@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dcc08f09_34aa6faf",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "REmoved this keyword as it was used to identify the host where the guest is running. Now we are using a differnt comamnd for live migration which will automatically determine that.",
+      "parentUuid": "f2198e9c_6a5f3b92",
+      "range": {
+        "startLine": 228,
+        "startChar": 15,
+        "endLine": 228,
+        "endChar": 23
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad2e7608_682916f1",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 25
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "1377cdd8_d69122c9",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "This keyword is removed now. Qualified all the Keywords used in this file",
+      "parentUuid": "ad2e7608_682916f1",
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0823366f_83767df3",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 25
@@ -53,6 +95,30 @@
       "writtenOn": "2018-05-16T23:44:32Z",
       "side": 1,
       "message": "These logs can be removed as OpenStack CLI already logs the output",
+      "range": {
+        "startLine": 1072,
+        "startChar": 4,
+        "endLine": 1072,
+        "endChar": 11
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28c5b93c_e81eac87",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0823366f_83767df3",
       "range": {
         "startLine": 1072,
         "startChar": 4,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "010b2fb9_0dffd813",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d168530_6f0886d1",
+      "range": {
+        "startLine": 1085,
+        "startChar": 21,
+        "endLine": 1085,
+        "endChar": 23
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a70870af_0c3edca2",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 25
@@ -99,6 +189,30 @@
       "writtenOn": "2018-05-16T23:44:32Z",
       "side": 1,
       "message": "space",
+      "range": {
+        "startLine": 1093,
+        "startChar": 21,
+        "endLine": 1093,
+        "endChar": 23
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e89dcf45_25a9d0fe",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a70870af_0c3edca2",
       "range": {
         "startLine": 1093,
         "startChar": 21,
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "e0331c5e_24a227c3",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f53d3e5_cc5c76c7",
+      "range": {
+        "startLine": 8,
+        "startChar": 18,
+        "endLine": 8,
+        "endChar": 28
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20924743_bc66afc5",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 25
@@ -145,6 +283,30 @@
       "writtenOn": "2018-05-16T23:44:32Z",
       "side": 1,
       "message": "move up above OpenstackOperations to keep alpha order",
+      "range": {
+        "startLine": 16,
+        "startChar": 37,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0a29afa_7392245a",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20924743_bc66afc5",
       "range": {
         "startLine": 16,
         "startChar": 37,
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "b5479989_b439716d",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1076682a_58ff54ce",
+      "range": {
+        "startLine": 23,
+        "startChar": 20,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6fe12e8_d359ebab",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 25
@@ -191,6 +377,30 @@
       "writtenOn": "2018-05-16T23:44:32Z",
       "side": 1,
       "message": "maybe a constant?",
+      "range": {
+        "startLine": 28,
+        "startChar": 85,
+        "endLine": 28,
+        "endChar": 86
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2e788cf_0163f23d",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Keyword Moved to libraries",
+      "parentUuid": "a6fe12e8_d359ebab",
       "range": {
         "startLine": 28,
         "startChar": 85,
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "7825f518_18b51492",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Moved to libraries now as well as tested that the keywords are able to unset the configuration made for live migration",
+      "parentUuid": "abd8b7cc_a5726b7e",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 79
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b851991c_109f02a7",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 25
@@ -237,6 +471,30 @@
       "writtenOn": "2018-05-16T23:44:32Z",
       "side": 1,
       "message": "Use the OpenStackOperations.Create Vm Instance On Compute Node form so we control where the vm is placed",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 10
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33b52c0c_e7c59c64",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "This is not required as the instances can be created in any compute node. The command will migrate to other node. The same is validated in a test case",
+      "parentUuid": "b851991c_109f02a7",
       "range": {
         "startLine": 47,
         "startChar": 4,
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "4fb46f8d_7770b65d",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20882047_580a8589",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "257dfbc3_8cb812cf",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 25
@@ -289,6 +571,24 @@
     },
     {
       "key": {
+        "uuid": "8da7541d_ae9bdfb4",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "257dfbc3_8cb812cf",
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "857c14f4_3fbe3c30",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 25
@@ -300,6 +600,30 @@
       "writtenOn": "2018-05-16T23:44:32Z",
       "side": 1,
       "message": "reuse OpenStackOperations.Ping Vm From DHCP Namespace",
+      "range": {
+        "startLine": 64,
+        "startChar": 28,
+        "endLine": 64,
+        "endChar": 32
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc3fb45b_e9804bb7",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "This needs to keep running until the migration is over to understand the status of the ping during migration. Hence did not reuse that keyword, Also we may need to stop the Ping after a while. I will try to use \"Process\" library to do the same. Can I do that as a seperate patch?",
+      "parentUuid": "857c14f4_3fbe3c30",
       "range": {
         "startLine": 64,
         "startChar": 28,
@@ -335,6 +659,30 @@
     },
     {
       "key": {
+        "uuid": "1ef6664a_c6af311c",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02aa7358_174de914",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 13
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd042919_6870d1fc",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 25
@@ -346,6 +694,30 @@
       "writtenOn": "2018-05-16T23:44:32Z",
       "side": 1,
       "message": "qualify",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 10
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e22471e4_f94ce39d",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Reworked entire file to qualify whereever applciable",
+      "parentUuid": "bd042919_6870d1fc",
       "range": {
         "startLine": 66,
         "startChar": 4,
@@ -381,6 +753,30 @@
     },
     {
       "key": {
+        "uuid": "e98e7b74_9d10d24c",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "198d8369_883a9843",
+      "range": {
+        "startLine": 67,
+        "startChar": 6,
+        "endLine": 67,
+        "endChar": 9
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3686e875_f80147b7",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 25
@@ -392,6 +788,30 @@
       "writtenOn": "2018-05-16T23:44:32Z",
       "side": 1,
       "message": "qualify, same for all the other places that need to be qualified",
+      "range": {
+        "startLine": 69,
+        "startChar": 61,
+        "endLine": 69,
+        "endChar": 66
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad0df233_0740cf75",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3686e875_f80147b7",
       "range": {
         "startLine": 69,
         "startChar": 61,
@@ -427,6 +847,30 @@
     },
     {
       "key": {
+        "uuid": "5eae351b_3cbb3389",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2b3e631_fc48fc51",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 10
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d0d4dd2_8b47f2d2",
         "filename": "csit/suites/openstack/connectivity/live_migration.robot",
         "patchSetId": 25
@@ -438,6 +882,30 @@
       "writtenOn": "2018-05-16T23:44:32Z",
       "side": 1,
       "message": "vm",
+      "range": {
+        "startLine": 81,
+        "startChar": 15,
+        "endLine": 81,
+        "endChar": 24
+      },
+      "revId": "0e14230409019a84966d05aa63506fea1f07c0cb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f366663_46d893b7",
+        "filename": "csit/suites/openstack/connectivity/live_migration.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-18T12:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d0d4dd2_8b47f2d2",
       "range": {
         "startLine": 81,
         "startChar": 15,
