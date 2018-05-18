@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9b32abb_08a36ddf",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 69
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-18T18:04:27Z",
+      "side": 0,
+      "message": "I think this was an accident to remove the arp_learning\nsuite?",
+      "range": {
+        "startLine": 10,
+        "startChar": 38,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "a8fb0779a68736f9669a8e2ff095a3940df6337a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

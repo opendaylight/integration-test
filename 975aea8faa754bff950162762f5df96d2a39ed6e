@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d88bfe3a_3e1aa4b2",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 69
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-18T18:04:27Z",
+      "side": 1,
+      "message": "this is sort of meaningless, as is. it\u0027s just a copy\npaste of the keyword name. Maybe you can explain here\nwhat a \"sub port id\" is and how it\u0027s retrieved. I don\u0027t\nreally know. I have to read the code and it looks like\nmaybe you are taking the first 10 characters of the full\nport id?",
+      "range": {
+        "startLine": 176,
+        "startChar": 23,
+        "endLine": 176,
+        "endChar": 42
+      },
+      "revId": "975aea8faa754bff950162762f5df96d2a39ed6e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c84da3b2_3f1bcb19",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 69
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-18T18:04:27Z",
+      "side": 1,
+      "message": "- change all relevant variable values to be lower case and \nprepend a string that indicates the suite they are coming\nfrom. examples:\n  l2l3_gw_mac_arp_vm1\n  l2l3_gw_mac_arp_port1\n  l2l3_gw_mac_arp_subnet1\n\n- check if there is not already a keyword that does\nthe work like dump flows and group flows. I think there\nmust be.\n\n- check if other variables are already existing in our\ncommon variables file. we have at least two in variables/Variables.robot and variables/netvirt/Variables.robot (if not more)",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 65
+      },
+      "revId": "975aea8faa754bff950162762f5df96d2a39ed6e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39190633_1af9738c",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 69
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-18T18:04:27Z",
+      "side": 1,
+      "message": "what\u0027s going on here?\n\nthe first loop is creating:\n  NET1/PORT1\n  NET2/PORT2\n\nthe second loop is creating:\n  NET1/PORT3\n  NET2/PORT4\n\ndo this instead, maybe:\n\n    : FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_HOST}\n    \\    OpenStackOperations.Create Port    @{REQ_NETWORKS}[${index}]    @{PORT_LIST}[${index}]    sg\u003d${SECURITY_GROUP}\n \\    OpenStackOperations.Create Port    @{REQ_NETWORKS}[${index}]    @{PORT_LIST}[${index + 1}]    sg\u003d${SECURITY_GROUP}",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 119
+      },
+      "revId": "975aea8faa754bff950162762f5df96d2a39ed6e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
