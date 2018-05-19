@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "cbea9650_a5d97d38",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-19T00:01:30Z",
+      "side": 1,
+      "message": "I think I\u0027d rework this whole thing.\n\nMaybe use a dictionary of computes and their before and\nafter packet counts. make this keyword just do the ping\nand populate that dict, and return that dict.\n\nthen write a new keyword that will parse that dict\nlooking for which compute node has after+count - before \u003d\u003d 0\nand return that compute node. So that it\u0027s own keyword\njust doing one thing. Initialize (in that keyword) compute_node to ${None}.\n\nfinally, in your suite, it\u0027ll look something like:\n\n    ${packet_count_dict} \u003d Send Ping And Return Packet Counts\n    ${compute_node} \u003d    Get Compute Node That Sourced Traffic    ${packet_count_dict}\n    Should Not Be Equal    ${compute_node}    ${None}\n\nsomething like that, at least.",
+      "parentUuid": "2a9b8bf2_79e1f71d",
+      "range": {
+        "startLine": 1095,
+        "startChar": 23,
+        "endLine": 1095,
+        "endChar": 269
+      },
+      "revId": "9115e5276ed36cc42bef0a9e0997707ccdc41528",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd13af56_56a840ee",
         "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
         "patchSetId": 61
