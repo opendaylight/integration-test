@@ -1,0 +1,282 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6387ee21_97b94d33",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "Please import Libraries/Resource files in alphabetic order.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b8422d0_ac34552c",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "make vars prepend with something specific to this suite. maybe multi_path_network_1, etc.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ede26017_cb631afc",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "Please check fib-show is declared already in some Variables file, if not can we add these variables to netvirt/Variables.robot so that everyone can reuse.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1582193d_8c5063c8",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "These variables can be avoided - since you are looping over all the elements of list.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bf944fb_e0201de0",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "Can\u0027t we directly use ODL_SYSTEM_IP? Please remove if you  think it can be avoided.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7fe78d6_9d2baa05",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "CSC -\u003e ODL\n\nChange wherever applicable.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb727d48_07c6d71b",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "Do we really need this keyword? we can use for loop to create all networks right? Ask someone who has wide knowledge on this.\n\nChange wherever needed.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8fc291d_feb92c09",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "I think we already created HTTP session during Create Setup, do we really need to create one more HTTP session to controller? Please remove this line",
+      "range": {
+        "startLine": 172,
+        "startChar": 4,
+        "endLine": 172,
+        "endChar": 11
+      },
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1189454_79f14a0c",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "${output} \u003d \n\nchange wherever required.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f85a49f_5ee2691e",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "Put all the config commands and a list and iterate through the list to configure.\n\nChange wherever required.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e9b9e2b_743441ea",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "change to lower case wherever required.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3878d708_c9251635",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "Sleep?",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b376ac1_0299ed5b",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "Can we close the existing SSH connection in Teardown part? so that we will always make sure the connection gets closed even the above step fails.\n\nApply wherever required \n[Teardown]    SSHLibrary.Close connection",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d9781ef_87b90c6e",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "Documentation can be improved i think, check with someone else also.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca6d603b_c629b965",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "{enable}\n\nApply wherever required",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d06bbf0_855aecf0",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 8001
+      },
+      "writtenOn": "2018-05-20T08:20:30Z",
+      "side": 1,
+      "message": "${resp} \u003d\n\nApplies to all local vars",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
