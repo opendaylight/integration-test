@@ -231,10 +231,19 @@ Create Vm Instance With Ports
 
 Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
-    [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
+    [Documentation]    Create One VM instance using given ${port_name} and for given ${node_hostname}
     ${image} =    BuiltIn.Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
     ${port_id} =    OpenStackOperations.Get Port Id    ${port_name}
     ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${node_hostname} ${vm_instance_name}
+
+Create Vm Instance With Ports On Compute Node
+    [Arguments]    ${port1_name}    ${port2_name}    ${vm_instance_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano
+    ...    ${sg}=default
+    [Documentation]    Create One VM instance using given ${port1_name}, ${port2_name} and for given ${node_hostname}
+    ${image} =    BuiltIn.Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
+    ${port1_id} =    OpenStackOperations.Get Port Id    ${port1_name}
+    ${port2_id} =    OpenStackOperations.Get Port Id    ${port2_name}
+    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port1_id} --nic port-id=${port2_id} --security-group ${sg} --availability-zone nova:${node_hostname} ${vm_instance_name}
 
 Get Hypervisor Hostname From IP
     [Arguments]    ${hypervisor_ip}
