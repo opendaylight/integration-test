@@ -218,23 +218,25 @@ Create Vm Instance With Port
     [Arguments]    ${port_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image} =    BuiltIn.Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
-    ${port_id} =    OpenStackOperations.Get Port Id    ${port_name}
-    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-group ${sg}
+    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --port ${port_name} --security-group ${sg} ${vm_instance_name}
 
 Create Vm Instance With Ports
-    [Arguments]    ${port_name}    ${port2_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
+    [Arguments]    ${port1_name}    ${port2_name}    ${vm_instance_name}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
+    ...    ${keyname}=odltestkey
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image}    BuiltIn.Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
-    ${port_id} =    OpenStackOperations.Get Port Id    ${port_name}
-    ${port2_id} =    OpenStackOperations.Get Port Id    ${port2_name}
-    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-group ${sg}
+    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --port ${port1_name} --port ${port2_name} ${vm_instance_name} --security-group ${sg} --key-name ${keyname}
 
 Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${image} =    BuiltIn.Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
-    ${port_id} =    OpenStackOperations.Get Port Id    ${port_name}
-    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --security-group ${sg} --availability-zone nova:${node_hostname} ${vm_instance_name}
+    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --port ${port_name} --security-group ${sg} --availability-zone nova:${node_hostname} ${vm_instance_name}
+
+Remove Security Group From Vm Instance
+    [Arguments]    ${vm_instance_name}    ${security_group}
+    [Documentation]    Delete the Security Group from the VM Instance.
+    ${output} =    OpenStack CLI    openstack server remove security group ${vm_instance_name} ${security_group}
 
 Get Hypervisor Hostname From IP
     [Arguments]    ${hypervisor_ip}
@@ -282,6 +284,25 @@ Get VM IP
     BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    BuiltIn.Should Not Contain    ${vm_ip}    None
     BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    BuiltIn.Should Not Contain    ${dhcp_ip}    None
     [Return]    ${vm_ip}    ${dhcp_ip}    ${vm_console_output}
+
+Verify If Instance Is Arpingable From DHCP Agent
+    [Arguments]    ${net_name}    ${mac}    ${ip}
+    [Documentation]    Get the Port IP and check the console log of Centos to understand if the IP gets assigned.
+    OpenStackOperations.Get ControlNode Connection
+    ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
+    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} arping ${ip} -c3    ${DEFAULT_LINUX_PROMPT_STRICT}    timeout=60s
+    ${mac_uppercase} =    String.Convert To Upper Case    ${mac}
+    BuiltIn.Should Contain    ${output}    [${mac_uppercase}]
+
+Check If NonCirros Instance Is Ready For Ssh Login
+    [Arguments]    ${net_name}    ${vm_ip}    ${user}=centos
+    ${output} =    Execute Command on NonCirros VM Instance    ${net_name}    ${vm_ip}    ifconfig    user=${user}
+    BuiltIn.Should Contain    ${output}    ${vm_ip}
+
+Check If Cirros Instance Is Ready For Ssh Login
+    [Arguments]    ${net_name}    ${vm_ip}    ${user}=cirros
+    ${output} =    Execute Command on VM Instance    ${net_name}    ${vm_ip}    ifconfig
+    BuiltIn.Should Contain    ${output}    ${vm_ip}
 
 Get VM IPs
     [Arguments]    @{vms}
@@ -383,11 +404,12 @@ Check If Console Is VmInstance
     [Arguments]    ${console}=cirros
     [Documentation]    Check if the session has been able to login to the VM instance
     ${output} =    Utils.Write Commands Until Expected Prompt    id    ${OS_SYSTEM_PROMPT}
-    BuiltIn.Should Contain    ${output}    ${console}
+    BuiltIn.Should Not Contain    ${output}    jenkins
 
 Exit From Vm Console
+    [Arguments]    ${console}=cirros
     [Documentation]    Check if the session has been able to login to the VM instance and exit the instance
-    ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance    cirros
+    ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance    console=${console}
     BuiltIn.Run Keyword If    ${rcode}    DevstackUtils.Write Commands Until Prompt    exit
 
 Check Ping
@@ -420,6 +442,25 @@ Execute Command on VM Instance
     ${output} =    BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}
     [Teardown]    Exit From Vm Console
     [Return]    ${output}
+
+Execute Command on NonCirros VM Instance
+    [Arguments]    ${net_name}    ${vm_ip}    ${cmd}    ${user}=centos    ${idfile}=/tmp/odlkey
+    [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
+    OpenStackOperations.Get ControlNode Connection
+    ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
+    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i ${idfile} ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    prompt=${OS_SYSTEM_PROMPT}    timeout=60s
+    ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance    console=ubuntu
+    ${output} =    BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}
+    [Teardown]    Exit From Vm Console    console=ubuntu
+    [Return]    ${output}
+
+Copy File To NonCirros VM Instance
+    [Arguments]    ${net_name}    ${vm_ip}    ${file_to_copy}    ${user}=centos    ${idfile}=/tmp/odlkey
+    [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
+    OpenStackOperations.Get ControlNode Connection
+    ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
+    ${rc} =    SSHLibrary.Execute Command    sudo ip netns exec qdhcp-${net_id} scp -i ${idfile} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${file_to_copy} ${user}@${vm_ip}:/tmp/    return_stdout=False    return_rc=True
+    BuiltIn.Should Be True    '${rc}' == '0'
 
 Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${dest_ips}    ${user}=cirros    ${password}=cubswin:)    ${ttl}=64
@@ -832,9 +873,9 @@ Remove Security Group From VM
     ${output} =    OpenStack CLI    openstack server remove security group ${vm} ${sg}
 
 Create SFC Flow Classifier
-    [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${dest_port}    ${neutron_src_port}
+    [Arguments]    ${name}    ${src_ip}    ${dest_ip}    ${protocol}    ${neutron_src_port}    ${args}=${EMPTY}
     [Documentation]    Create a flow classifier for SFC
-    ${output} =    OpenStack CLI    openstack sfc flow classifier create --ethertype IPv4 --source-ip-prefix ${src_ip}/32 --destination-ip-prefix ${dest_ip}/32 --protocol ${protocol} --destination-port ${dest_port}:${dest_port} --logical-source-port ${neutron_src_port} ${name}
+    ${output} =    OpenStack CLI    openstack sfc flow classifier create --ethertype IPv4 --source-ip-prefix ${src_ip}/32 --destination-ip-prefix ${dest_ip}/32 --protocol ${protocol} --logical-source-port ${neutron_src_port} ${args} ${name}
     BuiltIn.Should Contain    ${output}    ${name}
     [Return]    ${output}
 
@@ -881,10 +922,22 @@ Delete SFC Port Pair Group
     [Return]    ${output}
 
 Create SFC Port Chain
-    [Arguments]    ${name}    ${pg1}    ${pg2}    ${fc}
+    [Arguments]    ${name}    ${args}=${EMPTY}
     [Documentation]    Creates a port pair chain with two port groups and a singel classifier.
-    ${output} =    OpenStack CLI    openstack sfc port chain create --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc} ${name}
+    ${output} =    OpenStack CLI    openstack sfc port chain create ${name} ${args}
     BuiltIn.Should Contain    ${output}    ${name}
+    [Return]    ${output}
+
+Update SFC Port Chain With A New Flow Classifier
+    [Arguments]    ${name}    ${fc}
+    [Documentation]    Adds a Flow Classifier to a Port Chain
+    ${output} =    OpenStack CLI    openstack sfc port chain set ${name} --flow-classifier ${fc}
+    [Return]    ${output}
+
+Update SFC Port Chain Removing A Flow Classifier
+    [Arguments]    ${name}    ${fc}
+    [Documentation]    Adds a Flow Classifier to a Port Chain
+    ${output} =    OpenStack CLI    openstack sfc port chain unset ${name} --flow-classifier ${fc}
     [Return]    ${output}
 
 Delete SFC Port Chain
@@ -1009,7 +1062,6 @@ OpenStack Suite Setup
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
     Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{NETVIRT_DIAG_SERVICES}
     ClusterManagement.Dump_Local_Shards_For_Each_Member
-    Verify Expected Default Tables On Nodes
 
 OpenStack Suite Teardown
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
