@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<mvpn-route xmlns="urn:opendaylight:params:xml:ns:yang:bgp:mvpn:ipv4">
+    <route-key>flow2</route-key>
+    <path-id>4</path-id>
+    <c-multicast>
+        <route-distinguisher>5:3</route-distinguisher>
+        <multicast-group>
+            <cg-address>10.1.1.3</cg-address>
+        </multicast-group>
+        <multicast-source-rd>
+            <route-distinguisher>6:3</route-distinguisher>
+            <multicast-source>10.1.1.5</multicast-source>
+        </multicast-source-rd>
+        <source-as>64495</source-as>
+    </c-multicast>
+    <attributes>
+        <ipv4-next-hop>
+            <global>199.20.166.41</global>
+        </ipv4-next-hop>
+        <as-path/>
+        <origin>
+            <value>igp</value>
+        </origin>
+        <local-pref>
+            <pref>100</pref>
+        </local-pref>
+    </attributes>
+</mvpn-route>
