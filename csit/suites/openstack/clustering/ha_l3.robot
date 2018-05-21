@@ -215,6 +215,18 @@ Bring Up All Instances
     [Documentation]    Bring up all controllers
     ClusterManagement.Start Members From List Or All
 
+Connectivity Tests From Vm Instance2 In net_2 after recovering all nodes
+    [Documentation]    ssh to the VM instance and test operations.
+    ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[1]    ${dst_list}
+    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+
+Connectivity Tests From Vm Instance3 In net_2 after recovering all nodes
+    [Documentation]    ssh to the VM instance and test operations.
+    ${dst_list} =    BuiltIn.Create List    @{NET_2_L3_VM_IPS}    @{NET_1_L3_VM_IPS}
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[1]    @{NET_2_L3_VM_IPS}[2]    ${dst_list}
+    [Teardown]    OpenStackOperations.Get OvsDebugInfo
+
 Delete Vm Instances In net_1
     [Documentation]    Delete Vm instances using instance names in net_1.
     : FOR    ${vm}    IN    @{NET_1_VMS}
