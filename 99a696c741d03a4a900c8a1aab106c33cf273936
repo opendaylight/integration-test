@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84252cf8_70ea4b32",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-21T22:25:51Z",
+      "side": 1,
+      "message": "what?!?! you didn\u0027t want to write this in robot?\n\nLOL",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 95,
+        "endChar": 16
+      },
+      "revId": "99a696c741d03a4a900c8a1aab106c33cf273936",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
