@@ -7,6 +7,7 @@ Documentation     Karaf library. General utility keywords for interacting with t
 ...               If this gets initialized, ClusterManagement gets initialized as well.
 Library           SSHLibrary
 Library           OperatingSystem
+Library           ${CURDIR}/netvirt/excepts.py
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 Variables         ${CURDIR}/../variables/Variables.py
@@ -216,35 +217,37 @@ Set_Bgpcep_Log_Levels
     \    Execute_Controller_Karaf_Command_On_Background    log:set ${bgpcep_level} org.opendaylight.bgpcep    member_index=${index}
     \    Execute_Controller_Karaf_Command_On_Background    log:set ${protocol_level} org.opendaylight.protocol    member_index=${index}
 
-Get Karaf Log Type From Test Start
-    [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
+Get and Verify Exceptions
+    [Arguments]    ${lines}
+    ${exlist}    ${matchlist} =    verify exceptions    ${lines}
+    Collections.Log List    ${exlist}
+    Collections.Log List    ${matchlist}
+    [Return]    ${exlist}
+
+Get Karaf Log Lines From Test Start
+    [Arguments]    ${ip}    ${test_name}    ${cmd}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
     ...    ${log_file}=${KARAF_LOG}
     [Documentation]    Scrapes all log messages that match regexp ${type} which fall after a point given by a log message that
     ...    contains ${test_name}. This is useful if your test cases are marking karaf.log with a message indicating when
     ...    that test case has started; such that you can easily pull out any extra log messsages to parse/log/etc in the
     ...    test logic itself. For example, you can grab all ERRORS that occur during your test case.
-    ${cmd}    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file} | grep '${type}'
-    ${output}    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
-    [Return]    ${output}
-
-Get Karaf Log Types From Test Start
-    [Arguments]    ${ip}    ${test_name}    ${types}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
-    ...    ${log_file}=${KARAF_LOG}
-    [Documentation]    A wrapper keyword for "Get Karaf Log Type From Test Start" so that we can parse for multiple types
-    ...    of log messages. For example, we can grab all messages of type WARN and ERROR
-    : FOR    ${type}    IN    @{types}
-    \    Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ${type}    ${user}    ${password}
-    \    ...    ${prompt}    ${log_file}
-
-Get Karaf Log Events From Test Start
-    [Arguments]    ${test_name}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
-    [Documentation]    Wrapper for the wrapper "Get Karaf Log Types From Test Start" so that we can easily loop over
-    ...    any number of controllers to analyze karaf.log for ERROR, WARN and Exception log messages
-    ${log_types} =    Create List    ERROR    WARN    Exception
-    : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
-    \    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${log_types}
+    ${output} =    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
+    @{log_lines} =    Split String    ${output}    ${\n}
+    ${numlines} =    BuiltIn.Get Length    ${log_lines}
+    [Return]    ${log_lines}
 
 Fail If Exceptions Found During Test
+    [Arguments]    ${test_name}    ${log_file}=${KARAF_LOG}
+    [Documentation]    Create a failure if an Exception is found in the karaf.log that has not been whitelisted.
+    ...    Will work for single controller jobs as well as 3node cluster jobs
+    : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
+    \    ${cmd} =    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file}
+    \    ${output} =    Get Karaf Log Lines From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${cmd}
+    \    ${exlist} =    Get and Verify Exceptions    ${output}
+    \    ${listlength} =    BuiltIn.Get Length    ${exlist}
+    \    BuiltIn.Run Keyword If    ${listlength} != 0    BuiltIn.Fail    New exceptions found: ${listlength}
+
+2Fail If Exceptions Found During Test
     [Arguments]    ${test_name}    ${exceptions_white_list}=${EMPTY}
     [Documentation]    Create a failure if an Exception is found in the karaf.log. Will work for single controller jobs
     ...    as well as 3node cluster jobs
