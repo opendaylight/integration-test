@@ -268,6 +268,14 @@ Get Match
     BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    @{matches}[${index}]
     [Return]    ${OS_MATCH}
 
+Check VM IP
+    [Arguments]    ${fail_on_none}    ${vm}    ${ip}
+    [Documentation]    Get the vm ip address and nameserver by scraping the vm's console log.
+    ...    Get VM IP returns three values: [0] the vm IP, [1] the DHCP IP and [2] the vm console log.
+    ${vm_console_output} =    OpenStack CLI With No Log    openstack console log show ${vm}
+    ${vm_ip} =    OpenStackOperations.Get Match    ${vm_console_output}    ${ip}
+    BuiltIn.Run Keyword If    '${fail_on_none}' == 'true'    BuiltIn.Should Not Contain    ${vm_ip}    None
+
 Get VM IP
     [Arguments]    ${fail_on_none}    ${vm}
     [Documentation]    Get the vm ip address and nameserver by scraping the vm's console log.
@@ -883,6 +891,16 @@ Create SFC Port Chain
     ${output} =    OpenStack CLI    openstack sfc port chain create --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc} ${name}
     BuiltIn.Should Contain    ${output}    ${name}
     [Return]    ${output}
+
+Modify SFC Port Chain Remove Flow Classifier
+    [Arguments]    ${name}    ${fc}
+    [Documentation]    Creates a port pair chain with two port groups and a singel classifier.
+    OpenStack CLI    openstack sfc port chain unset --flow-classifier ${fc} ${name}
+
+Modify SFC Port Chain Add Flow Classifier
+    [Arguments]    ${name}    ${fc}
+    [Documentation]    Creates a port pair chain with two port groups and a singel classifier.
+    OpenStack CLI    openstack sfc port chain set --flow-classifier ${fc} ${name}
 
 Delete SFC Port Chain
     [Arguments]    ${name}
