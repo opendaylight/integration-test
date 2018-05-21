@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation     Test suite to verify SFC configuration and packet flows.
 Suite Setup       OpenStackOperations.OpenStack Suite Setup
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     BuiltIn.Run Keywords    OpenStackOperations.Get Test Teardown Debugs
 ...               AND    OpenStackOperations.Get Test Teardown Debugs For SFC
@@ -18,10 +17,9 @@ Resource          ../../../libraries/KarafKeywords.robot
 ${SECURITY_GROUP}    sg-sfc
 @{NETWORKS}       network_1
 @{SUBNETS}        l2_subnet_1
-@{NET_1_VMS}      sf1    sf2    sf3    source_vm    dest_vm
+@{NET_1_VMS}      sf1    sf2    sf3    sourcevm    destvm
 @{SUBNET_CIDRS}    30.0.0.0/24
-@{PORTS}          p1in    p1out    p2in    p2out    p3in    p3out    source_vm_port
-...               dest_vm_port
+@{PORTS}          p1in    p1out    source_vm_port   dest_vm_port
 
 *** Test Cases ***
 Create VXLAN Network net_1
@@ -40,63 +38,93 @@ Create Neutron Ports
     [Documentation]    Precreate neutron ports to be used for SFC VMs
     : FOR    ${port}    IN    @{PORTS}
     \    OpenStackOperations.Create Port    @{NETWORKS}[0]    ${port}    sg=${SECURITY_GROUP}
+    Update Port     p1in     additional_args=--no-security-group
+    Update Port     p1in     additional_args=--disable-port-security
+    Update Port     p1out    additional_args=--no-security-group
+    Update Port     p1out     additional_args=--disable-port-security
 
 Create Vm Instances
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instance With Ports    p1in    p1out    sf1    sg=${SECURITY_GROUP}
-    Create Vm Instance With Ports    p2in    p2out    sf2    sg=${SECURITY_GROUP}
-    Create Vm Instance With Ports    p3in    p3out    sf3    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port    source_vm_port    source_vm    sg=${SECURITY_GROUP}
-    Create Vm Instance With Port    dest_vm_port    dest_vm    sg=${SECURITY_GROUP}
+    Create Vm Instance With Ports    p1in    p1out    sf1        image=centos7    flavor=ds4G     sg=${SECURITY_GROUP}
+    Create Vm Instance With Port And Key    source_vm_port    sourcevm    sg=${SECURITY_GROUP}     image=centos7    flavor=ds4G
+    Create Vm Instance With Port And Key    dest_vm_port    destvm    sg=${SECURITY_GROUP}     image=centos7     flavor=ds4G
 
 Check Vm Instances Have Ip Address
-    @{NET1_VM_IPS}    ${NET1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
+    ${SFC1_MAC}     OpenStackOperations.Get Port Mac     p1in 
+    ${SFC1_IP}     OpenStackOperations.Get Port Ip     p1in 
+    BuiltIn.Wait Until Keyword Succeeds    500s    10s       OpenStackOperations.Get CentOs Instance IP     sf1    ${SFC1_MAC}     ${SFC1_IP}
+    BuiltIn.Set Suite Variable     ${SFC1_IP}
+    ${SRC_MAC}     OpenStackOperations.Get Port Mac     source_vm_port
+    ${SRC_IP}     OpenStackOperations.Get Port Ip      source_vm_port
+    BuiltIn.Wait Until Keyword Succeeds    500s    10s       OpenStackOperations.Get CentOs Instance IP     sourcevm     ${SRC_MAC}     ${SRC_IP}
+    ${DEST_MAC}     OpenStackOperations.Get Port Mac     dest_vm_port
+    ${DEST_IP}     OpenStackOperations.Get Port Ip      dest_vm_port
+    BuiltIn.Wait Until Keyword Succeeds    500s    10s       OpenStackOperations.Get CentOs Instance IP     destvm     ${DEST_MAC}     ${DEST_IP}
+    ${NET1_VM_IPS}    BuiltIn.Create List       ${SRC_IP}     ${DEST_IP}
     BuiltIn.Set Suite Variable    @{NET1_VM_IPS}
     BuiltIn.Should Not Contain    ${NET1_VM_IPS}    None
-    BuiltIn.Should Not Contain    ${NET1_DHCP_IP}    None
     [Teardown]    BuiltIn.Run Keywords    OpenStackOperations.Show Debugs    @{NET_1_VMS}
     ...    AND    OpenStackOperations.Get Test Teardown Debugs
 
 Create Flow Classifiers
     [Documentation]    Create SFC Flow Classifier for TCP traffic between source VM and destination VM
-    OpenStackOperations.Create SFC Flow Classifier    FC_http    @{NET1_VM_IPS}[3]    @{NET1_VM_IPS}[4]    tcp    80    source_vm_port
+    OpenStackOperations.Create SFC Flow Classifier    FC_80    @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]    tcp    80    source_vm_port
+    OpenStackOperations.Create SFC Flow Classifier    FC_81      @{NET1_VM_IPS}[1]    @{NET1_VM_IPS}[0]    tcp    81    source_vm_port
+    OpenStackOperations.Create SFC Flow Classifier    FC_82      @{NET1_VM_IPS}[0]    @{NET1_VM_IPS}[1]    tcp    82    source_vm_port
+    OpenStackOperations.Create SFC Flow Classifier    FC_83      @{NET1_VM_IPS}[1]    @{NET1_VM_IPS}[0]    tcp    85    source_vm_port
 
 Create Port Pairs
     [Documentation]    Create SFC Port Pairs
-    OpenStackOperations.Create SFC Port Pair    PP1    p1in    p1out
-    OpenStackOperations.Create SFC Port Pair    PP2    p2in    p2out
-    OpenStackOperations.Create SFC Port Pair    PP3    p3in    p3out
+    OpenStackOperations.Create SFC Port Pair    SFPP1    p1in    p1out
 
 Create Port Pair Groups
     [Documentation]    Create SFC Port Pair Groups
-    OpenStackOperations.Create SFC Port Pair Group With Two Pairs    PG1    PP1    PP2
-    OpenStackOperations.Create SFC Port Pair Group    PG2    PP3
+    OpenStackOperations.Create SFC Port Pair Group    SFPPG1     SFPP1
 
 Create Port Chain
     [Documentation]    Create SFC Port Chain using two port groups an classifier created previously
-    OpenStackOperations.Create SFC Port Chain    PC1    PG1    PG2    FC_http
+    OpenStackOperations.Create SFC Port Chain    SFPC1    SFPPG1    FC_80    FC_81
+
+Check If Instances Are Ready For Test
+    BuiltIn.Wait Until Keyword Succeeds    100s    5s       OpenStackOperations.Check CentOS Instance Is Ready For Login     sf1
+    BuiltIn.Wait Until Keyword Succeeds    100s    5s       OpenStackOperations.Check CentOS Instance Is Ready For Login     sourcevm
+    BuiltIn.Wait Until Keyword Succeeds    100s    5s       OpenStackOperations.Check CentOS Instance Is Ready For Login     destvm
 
 Start Web Server On Destination VM
     [Documentation]    Start a simple web server on the destination VM
-    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[4]    while true; do echo -e "HTTP/1.0 200 OK\r\nContent-Length: 21\r\n\r\nWelcome to web-server" | sudo nc -l -p 80 ; done &
+    OpenStackOperations.Execute Command on CentOS VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    nohup sudo python -m SimpleHTTPServer 80 &
+    OpenStackOperations.Execute Command on CentOS VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    nohup sudo python -m SimpleHTTPServer 81 &
+    OpenStackOperations.Execute Command on CentOS VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    nohup sudo python -m SimpleHTTPServer 82 &
+    OpenStackOperations.Execute Command on CentOS VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[1]    nohup sudo python -m SimpleHTTPServer 83 &
+    OpenStackOperations.Execute Command on CentOS VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    nohup sudo python -m SimpleHTTPServer 80 &
+    OpenStackOperations.Execute Command on CentOS VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    nohup sudo python -m SimpleHTTPServer 81 &
+    OpenStackOperations.Execute Command on CentOS VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    nohup sudo python -m SimpleHTTPServer 82 &
+    OpenStackOperations.Execute Command on CentOS VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    nohup sudo python -m SimpleHTTPServer 83 &
 
-Add Static Routing On Service Function VMs
+Configure Service Function VMs
     [Documentation]    Enable eth1 and add static routing between the ports on the SF VMs
-    : FOR    ${index}    IN RANGE    0    2
-    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[${index}]    sudo sh -c 'echo "auto eth1" >> /etc/network/interfaces'
-    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[${index}]    sudo sh -c 'echo "iface eth1 inet dhcp" >> /etc/network/interfaces'
-    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[${index}]    sudo /etc/init.d/S40network restart
-    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[${index}]    sudo sh -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'
-    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[${index}]    sudo ip route add @{NET1_VM_IPS}[3] dev eth0
-    \    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[${index}]    sudo ip route add @{NET1_VM_IPS}[4] dev eth1
+    Copy File To CentOS VM Instance      @{NETWORKS}[0]     ${SFC1_IP}     /tmp/vxlan_tool.py
+    Execute Command on CentOS VM Instance    @{NETWORKS}[0]     ${SFC1_IP}    sudo ifconfig eth1 up;sudo tc qdisc add dev eth1 root netem delay 600ms
+    Execute Command on CentOS VM Instance    @{NETWORKS}[0]     ${SFC1_IP}    nohup sudo python /tmp/vxlan_tool.py --do forward --interface eth0 --output eth1 --verbose off &
 
+*** Commented Cases ***
+  
 Connectivity Tests From Vm Instance1 In net_1
     [Documentation]    Login to the source VM instance, and send a HTTP GET using curl to the destination VM instance
     # FIXME need to somehow verify it goes through SFs (flows?)
-    ${DEST_VM_LIST}    BuiltIn.Create List    @{NET1_VM_IPS}[4]
-    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[3]    ${DEST_VM_LIST}
-    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[3]    curl http://@{NET1_VM_IPS}[4]
-
+    ${DEST_VM_LIST}    BuiltIn.Create List    @{NET1_VM_IPS}[1]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    ${DEST_VM_LIST}
+    ${curl_resp_with_time}      OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    time -f "time taken is %e" curl http://@{NET1_VM_IPS}[1]
+    BuiltIn.Should Contain    ${curl_resp_with_time}    200
+    ${last_line}        String.Get Lines Containing String      ${curl_resp_with_time}       "Time taken is"
+    ${time_value}        String.Remove String      ${last_line}       "Time taken is "
+    BuiltIn.Should Be True      ${time_value} >= 1
+    ${curl_resp_with_time}      OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[0]    time -f "time taken is %e" curl http://@{NET1_VM_IPS}[1]:81
+    BuiltIn.Should Contain    ${curl_resp_with_time}    200
+    ${last_line}        String.Get Lines Containing String      ${curl_resp_with_time}       "Time taken is"
+    ${time_value}        String.Remove String      ${last_line}       "Time taken is "
+    BuiltIn.Should Be True      ${time_value} < 1
+    
 Delete Configurations
     [Documentation]    Delete all elements that were created in the test case section. These are done
     ...    in a local keyword so this can be called as part of the Suite Teardown. When called as part
@@ -105,13 +133,13 @@ Delete Configurations
     ...    to leave the test environment as clean as possible upon completion of this suite.
     : FOR    ${vm}    IN    @{NET_1_VMS}
     \    OpenStackOperations.Delete Vm Instance    ${vm}
-    OpenStackOperations.Delete SFC Port Chain    PC1
-    OpenStackOperations.Delete SFC Port Pair Group    PG1
-    OpenStackOperations.Delete SFC Port Pair Group    PG2
-    OpenStackOperations.Delete SFC Port Pair    PP1
-    OpenStackOperations.Delete SFC Port Pair    PP2
-    OpenStackOperations.Delete SFC Port Pair    PP3
-    OpenStackOperations.Delete SFC Flow Classifier    FC_http
+    OpenStackOperations.Delete SFC Port Chain    SFPC1
+    OpenStackOperations.Delete SFC Port Pair Group    SFPPG1
+    OpenStackOperations.Delete SFC Port Pair    SFPP1
+    OpenStackOperations.Delete SFC Flow Classifier    FC_80
+    OpenStackOperations.Delete SFC Flow Classifier    FC_81
+    OpenStackOperations.Delete SFC Flow Classifier    FC_82
+    OpenStackOperations.Delete SFC Flow Classifier    FC_83
     : FOR    ${port}    IN    @{PORTS}
     \    OpenStackOperations.Delete Port    ${port}
     OpenStackOperations.Delete SubNet    l2_subnet_1
