@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3143429e_d08e90b9",
+        "filename": "csit/suites/openstack/clustering/ha_l3.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-21T17:34:18Z",
+      "side": 1,
+      "message": "make these have a unique name, otherwise we get an annoying\nwarning message in the robot html report. maybe just\nadd \"after bringing up all nodes\" to the end of each\ntest case.",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 54
+      },
+      "revId": "ec870eb7afb3973cefe1b998c68a17d875576ea1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
