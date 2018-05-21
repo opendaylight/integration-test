@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "034705ab_8a19a239",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-21T17:40:20Z",
+      "side": 1,
+      "message": "can you rename these to:\n\nRemove SFC Port Chain Flow Classifier\nAdd SFC Port Chain Flow Classifier\n\nthat\u0027s more intuitive to me.",
+      "range": {
+        "startLine": 898,
+        "startChar": 0,
+        "endLine": 906,
+        "endChar": 131
+      },
+      "revId": "13b1223dbcd18ff24f6a9667b28fdbb68d36c00b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e38e3441_dfe8b449",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-21T17:40:20Z",
+      "side": 1,
+      "message": "I have never looked closely at these test cases, but looking\nnow and I\u0027m wondering what this \"curl\" step is doing? how\ndo we know that it worked?",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 126
+      },
+      "revId": "13b1223dbcd18ff24f6a9667b28fdbb68d36c00b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
