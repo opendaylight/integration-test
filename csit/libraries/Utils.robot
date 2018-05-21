@@ -561,3 +561,9 @@ Check Diagstatus
     ${resp}    RequestsLibrary.Get Request    diagstatus_session    /diagstatus
     Run Keyword If    "${check_status}" == "True"    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${expected_status}
     [Return]    ${resp}
+
+Download File On Openstack Node
+    [Arguments]    ${conn_id}    ${save_file_name}    ${url}
+    [Documentation]    Download a file from web to the node. the input will be a session ID with established SSH connection.
+    SSHLibrary.Switch Connection    ${conn_id}
+    Utils.Write Commands Until Expected Prompt    wget -O /tmp/${save_file_name} ${url}    ${DEFAULT_LINUX_PROMPT_STRICT}
