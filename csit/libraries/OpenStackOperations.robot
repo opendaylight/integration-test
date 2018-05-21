@@ -889,9 +889,23 @@ Delete SFC Port Pair Group
     [Return]    ${output}
 
 Create SFC Port Chain
+    [Arguments]    ${name}    ${pg1}    ${pg2}    ${fc1}    ${fc2}
+    [Documentation]    Creates a port pair chain with two port groups and a singel classifier.
+    ${output} =    OpenStack CLI    openstack sfc port chain create --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc1} --flow-classifier ${fc2} ${name}
+    BuiltIn.Should Contain    ${output}    ${name}
+    [Return]    ${output}
+
+Modify SFC Port Chain Remove Flow Classifiers
+    [Arguments]    ${name}    ${pg1}    ${pg2}
+    [Documentation]    Creates a port pair chain with two port groups and a singel classifier.
+    ${output} =    OpenStack CLI    openstack sfc port chain set --port-pair-group ${pg1} --port-pair-group ${pg2} --no-flow-classifier ${name}
+    BuiltIn.Should Contain    ${output}    ${name}
+    [Return]    ${output}
+
+Modify SFC Port Chain Add Flow Classifier
     [Arguments]    ${name}    ${pg1}    ${pg2}    ${fc}
     [Documentation]    Creates a port pair chain with two port groups and a singel classifier.
-    ${output} =    OpenStack CLI    openstack sfc port chain create --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc} ${name}
+    ${output} =    OpenStack CLI    openstack sfc port chain set --port-pair-group ${pg1} --port-pair-group ${pg2} --flow-classifier ${fc} ${name}
     BuiltIn.Should Contain    ${output}    ${name}
     [Return]    ${output}
 
