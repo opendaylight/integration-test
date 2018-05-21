@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ad7c2cf_f7c2a155",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "OK, Will check and change it if needed.",
+      "parentUuid": "b6c1997e_941048c1",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 4,
+        "endChar": 56
+      },
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6387ee21_97b94d33",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -36,6 +60,24 @@
       "writtenOn": "2018-05-20T08:20:30Z",
       "side": 1,
       "message": "Please import Libraries/Resource files in alphabetic order.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1d5efb3_bf8ffa4a",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "OK",
+      "parentUuid": "6387ee21_97b94d33",
       "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "9f6e0747_39091aa5",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "using it in subsequent scripts as of now only 5 TCs sent for review out of 15 TCs.",
+      "parentUuid": "194f322c_55be0d9f",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e19f75b6_7a45a79d",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -70,6 +130,30 @@
       "writtenOn": "2018-05-21T04:39:47Z",
       "side": 1,
       "message": "Unused variable?",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 15
+      },
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ca94220_38e65ef6",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "using it in subsequent scripts as of now only 5 TCs sent for review out of 15 TCs.",
+      "parentUuid": "e19f75b6_7a45a79d",
       "range": {
         "startLine": 38,
         "startChar": 2,
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "be25e46d_1590b6e4",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok, will use above one.",
+      "parentUuid": "2a607bd2_d36940aa",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 38
+      },
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b8422d0_ac34552c",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "a2386406_64b3a6c8",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok fine",
+      "parentUuid": "7b8422d0_ac34552c",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ede26017_cb631afc",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -133,6 +259,24 @@
       "writtenOn": "2018-05-20T08:20:30Z",
       "side": 1,
       "message": "Please check fib-show is declared already in some Variables file, if not can we add these variables to netvirt/Variables.robot so that everyone can reuse.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d77c92a0_c8282e5b",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok, will check it in netvirt var file",
+      "parentUuid": "ede26017_cb631afc",
       "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -162,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "b2826bad_857476e4",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "yes, its possible, using it in TC8,11,12 to create multiple import RT values..",
+      "parentUuid": "2fb545be_51d62636",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 40
+      },
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1582193d_8c5063c8",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -173,6 +341,24 @@
       "writtenOn": "2018-05-20T08:20:30Z",
       "side": 1,
       "message": "These variables can be avoided - since you are looping over all the elements of list.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "407fe879_d4ed5a83",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "OK",
+      "parentUuid": "1582193d_8c5063c8",
       "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -196,6 +382,24 @@
     },
     {
       "key": {
+        "uuid": "f87962c7_fde39819",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "OK. will change it.",
+      "parentUuid": "8bf944fb_e0201de0",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7fe78d6_9d2baa05",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -213,6 +417,24 @@
     },
     {
       "key": {
+        "uuid": "3f43c3cd_332f1777",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "OK.",
+      "parentUuid": "a7fe78d6_9d2baa05",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9f2e09f_d40fc39c",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -224,6 +446,30 @@
       "writtenOn": "2018-05-21T04:39:47Z",
       "side": 1,
       "message": "Documentation is same as the testcase name?",
+      "range": {
+        "startLine": 80,
+        "startChar": 23,
+        "endLine": 80,
+        "endChar": 82
+      },
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad747c9_dcfa3b6b",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok. will check with other members how they define docs part",
+      "parentUuid": "c9f2e09f_d40fc39c",
       "range": {
         "startLine": 80,
         "startChar": 23,
@@ -259,6 +505,30 @@
     },
     {
       "key": {
+        "uuid": "b2b7c57b_82e74bfa",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "Copy pasted from Testplan docs. will check it",
+      "parentUuid": "38755fb8_a820637b",
+      "range": {
+        "startLine": 92,
+        "startChar": 30,
+        "endLine": 92,
+        "endChar": 83
+      },
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f895065c_81424dfa",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -270,6 +540,30 @@
       "writtenOn": "2018-05-21T04:39:47Z",
       "side": 1,
       "message": "required to log it here? better to remove..",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 39
+      },
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9ac95d9_08cc79fd",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "yeah, i have put it intentionally. some time i do not get 3rd DC gateway IP, will remove it later.",
+      "parentUuid": "f895065c_81424dfa",
       "range": {
         "startLine": 155,
         "startChar": 4,
@@ -299,6 +593,24 @@
     },
     {
       "key": {
+        "uuid": "db868daa_28a802fe",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "I\u0027ll check with others and remove it if not required.",
+      "parentUuid": "cb727d48_07c6d71b",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8fc291d_feb92c09",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -310,6 +622,30 @@
       "writtenOn": "2018-05-20T08:20:30Z",
       "side": 1,
       "message": "I think we already created HTTP session during Create Setup, do we really need to create one more HTTP session to controller? Please remove this line",
+      "range": {
+        "startLine": 172,
+        "startChar": 4,
+        "endLine": 172,
+        "endChar": 11
+      },
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "665622ad_33093bf3",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "a8fc291d_feb92c09",
       "range": {
         "startLine": 172,
         "startChar": 4,
@@ -339,6 +675,24 @@
     },
     {
       "key": {
+        "uuid": "df6515ee_e232515f",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "c1189454_79f14a0c",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ceef13c4_d13bddb5",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -350,6 +704,30 @@
       "writtenOn": "2018-05-21T04:39:47Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 200,
+        "startChar": 23,
+        "endLine": 200,
+        "endChar": 58
+      },
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35303395_44ba136b",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "will change it :-)",
+      "parentUuid": "ceef13c4_d13bddb5",
       "range": {
         "startLine": 200,
         "startChar": 23,
@@ -379,6 +757,24 @@
     },
     {
       "key": {
+        "uuid": "e8459ecc_bffbdd0d",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "will check with others and change it",
+      "parentUuid": "3f85a49f_5ee2691e",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e9b9e2b_743441ea",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -390,6 +786,24 @@
       "writtenOn": "2018-05-20T08:20:30Z",
       "side": 1,
       "message": "change to lower case wherever required.",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f20c40f0_dd66af41",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "3e9b9e2b_743441ea",
       "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -413,6 +827,24 @@
     },
     {
       "key": {
+        "uuid": "d045588f_3c1f7799",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "yeah, i have put temporary, will check stability of script without sleep and remove it",
+      "parentUuid": "3878d708_c9251635",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b376ac1_0299ed5b",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -424,6 +856,24 @@
       "writtenOn": "2018-05-20T08:20:30Z",
       "side": 1,
       "message": "Can we close the existing SSH connection in Teardown part? so that we will always make sure the connection gets closed even the above step fails.\n\nApply wherever required \n[Teardown]    SSHLibrary.Close connection",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75148e96_ece5b59e",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "8b376ac1_0299ed5b",
       "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -447,6 +897,24 @@
     },
     {
       "key": {
+        "uuid": "1037ee0f_fa4c6e6f",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "1d9781ef_87b90c6e",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca6d603b_c629b965",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -458,6 +926,24 @@
       "writtenOn": "2018-05-20T08:20:30Z",
       "side": 1,
       "message": "{enable}\n\nApply wherever required",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20515c3b_883c411b",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "ca6d603b_c629b965",
       "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -487,6 +973,30 @@
     },
     {
       "key": {
+        "uuid": "320f195f_594777c5",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "003e9956_749749d3",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 71
+      },
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d06bbf0_855aecf0",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 35
@@ -498,6 +1008,24 @@
       "writtenOn": "2018-05-20T08:20:30Z",
       "side": 1,
       "message": "${resp} \u003d\n\nApplies to all local vars",
+      "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f8828c4_5c2e5cf4",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-21T05:22:09Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "1d06bbf0_855aecf0",
       "revId": "8ffe09052afdae8f9d7ba6cc2065f05679db237b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
