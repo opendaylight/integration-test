@@ -60,6 +60,7 @@ Check Vm Instances Have Ip Address
 Create Flow Classifiers
     [Documentation]    Create SFC Flow Classifier for TCP traffic between source VM and destination VM
     OpenStackOperations.Create SFC Flow Classifier    FC_http    @{NET1_VM_IPS}[3]    @{NET1_VM_IPS}[4]    tcp    80    source_vm_port
+    OpenStackOperations.Create SFC Flow Classifier    FC_http_alt    @{NET1_VM_IPS}[3]    @{NET1_VM_IPS}[4]    tcp    82    source_vm_port
 
 Create Port Pairs
     [Documentation]    Create SFC Port Pairs
@@ -74,11 +75,12 @@ Create Port Pair Groups
 
 Create Port Chain
     [Documentation]    Create SFC Port Chain using two port groups an classifier created previously
-    OpenStackOperations.Create SFC Port Chain    PC1    PG1    PG2    FC_http
+    OpenStackOperations.Create SFC Port Chain    PC1    PG1    PG2    FC_http    FC_http_alt
 
 Start Web Server On Destination VM
-    [Documentation]    Start a simple web server on the destination VM
+    [Documentation]    Start a simple web servers on the destination VM
     OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[4]    while true; do echo -e "HTTP/1.0 200 OK\r\nContent-Length: 21\r\n\r\nWelcome to web-server" | sudo nc -l -p 80 ; done &
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[4]    while true; do echo -e "HTTP/1.0 200 OK\r\nContent-Length: 21\r\n\r\nWelcome to web-server" | sudo nc -l -p 82 ; done &
 
 Add Static Routing On Service Function VMs
     [Documentation]    Enable eth1 and add static routing between the ports on the SF VMs
@@ -96,6 +98,19 @@ Connectivity Tests From Vm Instance1 In net_1
     ${DEST_VM_LIST}    BuiltIn.Create List    @{NET1_VM_IPS}[4]
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[3]    ${DEST_VM_LIST}
     OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[3]    curl http://@{NET1_VM_IPS}[4]
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[3]    curl http://@{NET1_VM_IPS}[4]:82
+
+Modify Port Chain
+    OpenStackOperations. Modify SFC Port Chain Remove Flow Classifiers    PC1    PG1    PG2
+    OpenStackOperations. Modify SFC Port Chain Add Flow Classifier    PC1    PG1    PG2    FC_http_alt
+
+Connectivity Tests From Vm Instance1 In net_1 After Modifying Port Chain
+    [Documentation]    Login to the source VM instance, and send a HTTP GET using curl to the destination VM instance
+    # FIXME need to somehow verify it goes through SFs (flows?)
+    ${DEST_VM_LIST}    BuiltIn.Create List    @{NET1_VM_IPS}[4]
+    OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[3]    ${DEST_VM_LIST}
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[3]    curl http://@{NET1_VM_IPS}[4]
+    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET1_VM_IPS}[3]    curl http://@{NET1_VM_IPS}[4]:82
 
 Delete Configurations
     [Documentation]    Delete all elements that were created in the test case section. These are done
