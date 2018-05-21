@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9db0098d_a8a2ca9b",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 63
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-21T23:36:41Z",
+      "side": 1,
+      "message": "is this on accident?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 51
+      },
+      "revId": "b21589ee2cd972451941542b037d1f09db93ebf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
