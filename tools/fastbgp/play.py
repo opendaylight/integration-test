@@ -156,6 +156,10 @@ def parse_arguments():
 Enabling this flag makes the script not decoding the update mesage, because of not\
 supported decoding for these elements."
     parser.add_argument("--evpn", default=False, action="store_true", help=str_help)
+    str_help = "Open message includes Multicast in MPLS/BGP IP VPNs arguments.\
+    Enabling this flag makes the script not decoding the update mesage, because of not\
+    supported decoding for these elements."
+    parser.add_argument("--mvpn", default=False, action="store_true", help=str_help)
     parser.add_argument("--wfr", default=10, type=int, help="Wait for read timeout")
     str_help = "Skipping well known attributes for update message"
     parser.add_argument("--skipattr", default=False, action="store_true", help=str_help)
