@@ -156,6 +156,10 @@ def parse_arguments():
 Enabling this flag makes the script not decoding the update mesage, because of not\
 supported decoding for these elements."
     parser.add_argument("--evpn", default=False, action="store_true", help=str_help)
+    str_help = "Open message includes Multicast in MPLS/BGP IP VPNs arguments.\
+    Enabling this flag makes the script not decoding the update mesage, because of not\
+    supported decoding for these elements."
+    parser.add_argument("--mvpn", default=False, action="store_true", help=str_help)
     parser.add_argument("--wfr", default=10, type=int, help="Wait for read timeout")
     str_help = "Skipping well known attributes for update message"
     parser.add_argument("--skipattr", default=False, action="store_true", help=str_help)
@@ -820,6 +824,18 @@ class MessageGenerator(object):
                 "\x00\x19"  # AFI (L2-VPN)
                 "\x00"  # (reserved)
                 "\x46"  # SAFI (EVPN)
+            )
+            optional_parameters_hex += optional_parameter_hex
+
+        if self.mvpn:
+            optional_parameter_hex = (
+                "\x02"  # Param type ("Capability Ad")
+                "\x06"  # Length (6 bytes)
+                "\x01"  # Multiprotocol extetension capability,
+                "\x04"  # Capability value length
+                "\x00\x01"  # AFI (IPV4)
+                "\x00"  # (reserved)
+                "\x05"  # SAFI (MVPN)
             )
             optional_parameters_hex += optional_parameter_hex
 
