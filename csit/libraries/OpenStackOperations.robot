@@ -545,7 +545,8 @@ Get Test Teardown Debugs
     OpenStackOperations.Get OvsDebugInfo
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
     KarafKeywords.Get Karaf Log Events From Test Start    ${test_name}
-    Run Keyword If    "${FAIL_ON_EXCEPTIONS}"=="True"    Fail If Exceptions Found During Test    ${test_name}    ${NETVIRT_EXCEPTIONS_WHITELIST}
+    # Run Keyword If    "${FAIL_ON_EXCEPTIONS}"=="True"    Fail If Exceptions Found During Test    ${test_name}    ${NETVIRT_EXCEPTIONS_WHITELIST}
+    KarafKeywords.Fail If Exceptions Found During Test    ${test_name}
 
 Get Test Teardown Debugs For SFC
     [Arguments]    ${test_name}=${TEST_NAME}

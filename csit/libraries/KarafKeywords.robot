@@ -7,6 +7,7 @@ Documentation     Karaf library. General utility keywords for interacting with t
 ...               If this gets initialized, ClusterManagement gets initialized as well.
 Library           SSHLibrary
 Library           OperatingSystem
+Library           ${CURDIR}/netvirt/excepts.py
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 Variables         ${CURDIR}/../variables/Variables.py
@@ -216,6 +217,41 @@ Set_Bgpcep_Log_Levels
     \    Execute_Controller_Karaf_Command_On_Background    log:set ${bgpcep_level} org.opendaylight.bgpcep    member_index=${index}
     \    Execute_Controller_Karaf_Command_On_Background    log:set ${protocol_level} org.opendaylight.protocol    member_index=${index}
 
+Get and Verify Exceptions
+    [Arguments]    ${lines}
+    @{exlist} =    verify exceptions    ${lines}
+    Collections.Log List    ${exlist}
+    [Return]    ${exlist}
+
+Get Karaf Log Lines From Test Start
+    [Arguments]    ${ip}    ${test_name}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}    ${log_file}=${KARAF_LOG}    ${cmd}="echo hi"
+    [Documentation]    Scrapes all log messages that match regexp ${type} which fall after a point given by a log message that
+    ...    contains ${test_name}. This is useful if your test cases are marking karaf.log with a message indicating when
+    ...    that test case has started; such that you can easily pull out any extra log messsages to parse/log/etc in the
+    ...    test logic itself. For example, you can grab all ERRORS that occur during your test case.
+    ${output} =    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
+    @{log_lines} =    Split String    ${output}    ${\n}
+    Builtin.Log List    ${log_lines}
+    [Return]    ${log_lines}
+
+Fail If Exceptions Found During Test
+    [Arguments]    ${test_name}
+    [Documentation]    Create a failure if an Exception is found in the karaf.log. Will work for single controller jobs
+    ...    as well as 3node cluster jobs
+    : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
+    \    ${cmd} =    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file} | grep "| WARN  |\|| ERROR |"
+    \    ${output} =    Get Karaf Log Lines From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    cmd=${cmd}
+    \    ${cmd} =    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file} | grep "WARN\|ERROR"
+    \    ${linelength} =    BuiltIn.Get Length    ${output}
+    \    ${output} =    BuiltIn.Run Keyword If    ${linelength} == 0    Get Karaf Log Lines From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    cmd=${cmd}
+    \    ${cmd} =    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file}
+    \    ${linelength} =    BuiltIn.Get Length    ${output}
+    \    ${output} =    BuiltIn.Run Keyword If    ${linelength} == 0    Get Karaf Log Lines From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    cmd=${cmd}
+    \    @{exlist} =    Get and Verify Exceptions    ${output}
+    \    Builtin.Log    ${exlist}
+    \    ${exlength} =    BuiltIn.Get Length    ${exlist}
+    \    BuiltIn.Run Keyword If    ${exlength} != 0    BuiltIn.Fail    Exceptions Found: ${\n}${exlist}${\n}
+
 Get Karaf Log Type From Test Start
     [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
     ...    ${log_file}=${KARAF_LOG}
@@ -244,7 +280,7 @@ Get Karaf Log Events From Test Start
     : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
     \    Get Karaf Log Types From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${log_types}
 
-Fail If Exceptions Found During Test
+2Fail If Exceptions Found During Test
     [Arguments]    ${test_name}    ${exceptions_white_list}=${EMPTY}
     [Documentation]    Create a failure if an Exception is found in the karaf.log. Will work for single controller jobs
     ...    as well as 3node cluster jobs
