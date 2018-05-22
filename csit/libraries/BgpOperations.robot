@@ -43,6 +43,14 @@ Restart BGP Processes On ODL
     Write Commands Until Expected Prompt    sudo pkill -f bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
     Start Quagga Processes On ODL    ${odl_ip}
 
+Stop BGP Processes On ODL
+    [Arguments]    ${odl_ip}
+    [Documentation]    To stop the bgpd , qthriftd processes on ODL VM
+    ${conn_id} =    Open_Connection_To_ODL_System    ip_address=${odl_ip}
+    Switch Connection    ${conn_id}
+    Write Commands Until Expected Prompt    sudo pkill -f bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo pkill -f zrpcd    ${DEFAULT_LINUX_PROMPT_STRICT}
+
 Start Quagga Processes On DCGW
     [Arguments]    ${dcgw_ip}
     [Documentation]    To start the zrpcd, bgpd,and zebra processes on DCGW
@@ -65,11 +73,19 @@ Start Quagga Processes On DCGW
 
 Restart BGP Processes On DCGW
     [Arguments]    ${dcgw_ip}
-    [Documentation]    To Restart the zrpcd, bgpd,and zebra processes on DCGW
+    [Documentation]    To Restart the zrpcd, bgpd and zebra processes on DCGW
     ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
     Switch Connection    ${dcgw_conn_id}
     Write Commands Until Expected Prompt    sudo pkill -f bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
     Start Quagga Processes On DCGW    ${dcgw_ip}
+
+Stop BGP Processes On DCGW
+    [Arguments]    ${dcgw_ip}
+    [Documentation]    To stop the zrpcd and bgpd processes on DCGW
+    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
+    Switch Connection    ${dcgw_conn_id}
+    Write Commands Until Expected Prompt    sudo pkill -f zrpcd    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    sudo pkill -f bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
 
 Show Quagga Configuration On ODL
     [Arguments]    ${odl_ip}    ${rd}
