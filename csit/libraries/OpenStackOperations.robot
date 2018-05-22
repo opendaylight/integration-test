@@ -1071,3 +1071,18 @@ Start Packet Capture On Nodes
 Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+
+List Projects
+    [Documentation]    List projects and return output
+    ${output} =    OpenStack CLI    openstack project list
+    [Return]    ${output}
+
+VM Creation Quota Update
+    [Arguments]    ${num_instances}
+    [Documentation]    Update VM Creation Quota
+    ${output} =    OpenStackOperations.List Projects
+    ${split_output} =    String.Split String    ${output}
+    ${index} =    Collections.Get Index From List    ${split_output}    admin
+    ${output} =    OpenStack CLI    openstack quota set --instances ${num_instances} ${split_output[${index-2}]}
+    [Return]    ${output}
+
