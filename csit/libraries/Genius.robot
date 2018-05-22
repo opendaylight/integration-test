@@ -229,9 +229,10 @@ Check ITM Tunnel State
     Should Not Contain    ${resp.content}    ${tunnel1}    ${tunnel2}
 
 Verify Tunnel Status as UP
+    [Arguments]    ${Transport_zone}
     [Documentation]    Verify that the number of tunnels are UP
     ${No_of_Teps}    Issue_Command_On_Karaf_Console    ${TEP_SHOW}
-    ${Lines_of_TZA}    Get Lines Containing String    ${No_of_Teps}    TZA
+    ${Lines_of_TZA}    Get Lines Containing String    ${No_of_Teps}    ${Transport_zone}
     ${Expected_Node_Count}    Get Line Count    ${Lines_of_TZA}
     ${no_of_tunnels}    Issue_Command_On_Karaf_Console    ${TEP_SHOW_STATE}
     ${lines_of_VXLAN}    Get Lines Containing String    ${no_of_tunnels}    VXLAN
