@@ -55,23 +55,23 @@ Create and Verify VTEP
 
 Verify VTEP After Restarting OVS
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting OVS
-    Genius.Verify Tunnel Status as UP
+    Genius.Verify Tunnel Status as UP    TZA
     OVSDB.Restart OVSDB    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP    TZA
 
 Verify VTEP After Restarting Controller
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting CONTROLLER
-    Genius.Verify Tunnel Status as UP
+    Genius.Verify Tunnel Status as UP    TZA
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
     Wait Until Keyword Succeeds    60    3    Check Service Status    ACTIVE    OPERATIONAL
-    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP    TZA
 
 Verify Tunnels By Disabling BFD
     [Documentation]    This test case will verify tunnels after disabling BFD.
     ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
     Run Keyword If    '${result}' == 'True'    Disable_Tunnel_Monitoring
-    Genius.Verify Tunnel Status as UP
+    Genius.Verify Tunnel Status as UP    TZA
 
 Verify Tunnels By Enabling BFD
     [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
@@ -124,7 +124,7 @@ Verify Tunnel State After OVS Restart
     OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
     Wait Until Keyword Succeeds    2min    20 sec    Verify Tunnel Down
     OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    2min    20 sec    Genius.Verify Tunnel Status as UP
+    Wait Until Keyword Succeeds    2min    20 sec    Genius.Verify Tunnel Status as UP    TZA
 
 Verify Tunnel Down
     [Documentation]    In this we will check whether tunnel is in down or not
