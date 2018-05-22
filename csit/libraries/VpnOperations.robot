@@ -54,6 +54,15 @@ Associate L3VPN To Network
     [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
     TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/assoc_l3vpn    mapping=${Kwargs}    session=default    http_timeout=${SESSION_TIMEOUT}
 
+Associate L3VPN To Multiple Networks
+    [Arguments]    ${NUM_OF_NET}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
+    [Documentation]    Associates L3VPN to multiple networks and verify the same
+    : FOR    ${index}    IN RANGE    0    ${NUM_OF_NET}
+    \    ${network_id} =    Get Net Id    ${REQ_NETWORKS[${index}]}
+    \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${VPN_INSTANCE_ID[0]}
+    \    ${resp} =    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
+    \    BuiltIn.Should Contain    ${resp}    ${network_id}
+
 Dissociate L3VPN From Networks
     [Arguments]    &{Kwargs}
     [Documentation]    Disssociate the already associated networks from L3VPN
