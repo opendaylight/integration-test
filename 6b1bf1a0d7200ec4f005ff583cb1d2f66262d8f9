@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f1d208a_70f7faa6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-22T17:50:13Z",
+      "side": 1,
+      "message": "Add Revert of Revert of 1233456blah so that we can have the history.\n\nAlso add some text describing the change in this patch from the previous that fixes the issue.",
+      "revId": "6b1bf1a0d7200ec4f005ff583cb1d2f66262d8f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
