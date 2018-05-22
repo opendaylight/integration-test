@@ -57,6 +57,7 @@ ${LLDP}           lldp
 ${TEP_SHOW}       tep:show
 ${TEP_SHOW_STATE}    tep:show-state
 ${VXLAN_SHOW}     vxlan:show
+${RUN_CONFIG}     show running-config
 ${MONITOR_INTERVAL_NEW}    ${CONFIG_API}/itm-config:tunnel-monitor-interval/
 ${INTERVAL_50}    {"tunnel-monitor-interval":{"interval":50}}
 ${INTERVAL_0}     {"tunnel-monitor-interval":{"interval":0}}
