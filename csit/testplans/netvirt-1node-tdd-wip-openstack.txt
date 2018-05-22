@@ -5,3 +5,4 @@ integration/test/csit/suites/netvirt/vpnservice/vpn_basic_dualstack_one_router.r
 integration/test/csit/suites/netvirt/host_route/host_route_handling.robot
 integration/test/csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot
 integration/test/csit/suites/integration/Create_JVM_Plots.robot
+integration/test/csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot
