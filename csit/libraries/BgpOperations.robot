@@ -65,11 +65,17 @@ Start Quagga Processes On DCGW
 
 Restart BGP Processes On DCGW
     [Arguments]    ${dcgw_ip}
-    [Documentation]    To Restart the zrpcd, bgpd,and zebra processes on DCGW
+    [Documentation]    To Restart the zrpcd, bgpd and zebra processes on DCGW
     ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
     Switch Connection    ${dcgw_conn_id}
     Write Commands Until Expected Prompt    sudo pkill -f bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
     Start Quagga Processes On DCGW    ${dcgw_ip}
+
+Stop BGP Processes On Node
+    [Arguments]    ${node_ip}
+    [Documentation]    To stop the bgpd , qthriftd processes on specific node given by user.
+    Utils.Run Command On Remote System    ${node_ip}    sudo pkill -f bgpd
+    Utils.Run Command On Remote System    ${node_ip}    sudo pkill -f zrpcd
 
 Show Quagga Configuration On ODL
     [Arguments]    ${odl_ip}    ${rd}
