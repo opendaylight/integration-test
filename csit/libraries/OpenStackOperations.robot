@@ -1059,6 +1059,8 @@ Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
 
+<<<<<<< HEAD
+
 Server Live Migrate
     [Arguments]    ${vm_instance_name}
     [Documentation]    Keyword for live migration of VM instance
@@ -1093,3 +1095,22 @@ Restart DevStack Service
     ${output}    ${rc} =    SSHLibrary.Execute Command    sudo systemctl restart devstack@${service_name}.service    return_rc=True    return_stdout=True
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
+
+=======
+
+Get Admin Id From Projects
+    [Documentation]    Returns admin ID by reading it from existing project list
+    ${output} =    OpenStack CLI    openstack project list
+    ${split_output} =    String.Split String    ${output}
+    ${index} =    Collections.Get Index From List    ${split_output}    admin
+    ${id} =    BuiltIn.Set Variable    ${split_output[${index-2}]}
+    [Return]    ${id}
+
+Set Instance Quota
+    [Arguments]    ${num_instances}
+    [Documentation]    Set quota for the created instances using admin id
+    ${admin_id} =    OpenStackOperations.Get Admin Id From Projects
+    ${output} =    OpenStack CLI    openstack quota set --instances ${num_instances} ${admin_id}
+    [Return]    ${output}
+
+>>>>>>> Add Subnet And Multicast Suite.
