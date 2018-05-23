@@ -309,6 +309,23 @@
       "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c489e3d2_70cb6db6",
+        "filename": "csit/variables/coe/coe_play.yaml",
+        "patchSetId": 27
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "remove all ODL related tasks",
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
