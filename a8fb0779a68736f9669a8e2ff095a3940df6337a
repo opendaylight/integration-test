@@ -22,6 +22,30 @@
       "revId": "a8fb0779a68736f9669a8e2ff095a3940df6337a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "177d2389_2cda25d1",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 69
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-05-23T11:47:43Z",
+      "side": 0,
+      "message": "Yes. By mistakenly it was done.\nReverted back the change.",
+      "parentUuid": "a9b32abb_08a36ddf",
+      "range": {
+        "startLine": 10,
+        "startChar": 38,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "a8fb0779a68736f9669a8e2ff095a3940df6337a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }

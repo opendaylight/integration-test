@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4e1b7269_a4548b42",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 69
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-05-23T11:47:43Z",
+      "side": 1,
+      "message": "Documented the keyword with a proper explanation now.",
+      "parentUuid": "d88bfe3a_3e1aa4b2",
+      "range": {
+        "startLine": 176,
+        "startChar": 23,
+        "endLine": 176,
+        "endChar": 42
+      },
+      "revId": "975aea8faa754bff950162762f5df96d2a39ed6e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c84da3b2_3f1bcb19",
         "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
         "patchSetId": 69
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8328f31c_c9cc23e1",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 69
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-05-23T11:47:43Z",
+      "side": 1,
+      "message": "Changed all the relevant variables to lower case and prepend them with the suite name.\n\nIn this script,the dump flows and group flows are specific to fetch based on the table numbers,metadata,group id or vpn id.\n\nThere is no such keyword in library files which satisfies the above requirement.",
+      "parentUuid": "c84da3b2_3f1bcb19",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 65
+      },
+      "revId": "975aea8faa754bff950162762f5df96d2a39ed6e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39190633_1af9738c",
         "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
         "patchSetId": 69
@@ -59,6 +107,30 @@
       "writtenOn": "2018-05-18T18:04:27Z",
       "side": 1,
       "message": "what\u0027s going on here?\n\nthe first loop is creating:\n  NET1/PORT1\n  NET2/PORT2\n\nthe second loop is creating:\n  NET1/PORT3\n  NET2/PORT4\n\ndo this instead, maybe:\n\n    : FOR    ${index}    IN RANGE    0    ${NUM_OF_PORTS_PER_HOST}\n    \\    OpenStackOperations.Create Port    @{REQ_NETWORKS}[${index}]    @{PORT_LIST}[${index}]    sg\u003d${SECURITY_GROUP}\n \\    OpenStackOperations.Create Port    @{REQ_NETWORKS}[${index}]    @{PORT_LIST}[${index + 1}]    sg\u003d${SECURITY_GROUP}",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 119
+      },
+      "revId": "975aea8faa754bff950162762f5df96d2a39ed6e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b37e0076_ec8f04a9",
+        "filename": "csit/suites/netvirt/L2L3_GatewayMac_ARP.robot",
+        "patchSetId": 69
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-05-23T11:47:43Z",
+      "side": 1,
+      "message": "Changed the code as per your suggestion.",
+      "parentUuid": "39190633_1af9738c",
       "range": {
         "startLine": 139,
         "startChar": 0,
