@@ -339,6 +339,23 @@
       "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1978dc3_605d327f",
+        "filename": "csit/variables/coe/odlovs-cni.conf.j2",
+        "patchSetId": 49
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:09:16Z",
+      "side": 1,
+      "message": "is this file already copied to all the VMs as part of the VM build up?",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
