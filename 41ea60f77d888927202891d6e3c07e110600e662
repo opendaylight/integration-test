@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "caa0ae9d_bea7a3d4",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-05-23T12:52:48Z",
+      "side": 1,
+      "message": "Yes.Debug message is set here to log the \"Completing bundle based reconciliation\" in karaf.log.This debug is required to log the start and stop of the reconciliation in karaf.log which we have greped for at the end of each TC.Hence only that is been set.",
+      "parentUuid": "beb61d16_7e295964",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "41ea60f77d888927202891d6e3c07e110600e662",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abf7f1f3_1df421f6",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 49
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "aff8a477_617343a0",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-05-23T12:52:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abf7f1f3_1df421f6",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "41ea60f77d888927202891d6e3c07e110600e662",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eac6547d_89c5855e",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 49
@@ -59,6 +107,30 @@
       "writtenOn": "2018-05-16T17:04:57Z",
       "side": 1,
       "message": "what are you trying to create here? I don\u0027t see port\nnumbers, but is this supposed to be an allow-all type\nof SG? if so, can you use OpenStackOperations.Create Allow All SecurityGroup\n\nalso, you are doing nothing with the OUTPUT and RULE_ID\nvariables. So if you do need to keep these lines, you\ncan remove those variable assignments.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 133
+      },
+      "revId": "41ea60f77d888927202891d6e3c07e110600e662",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0bd59b85_13cbe218",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-05-23T12:52:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eac6547d_89c5855e",
       "range": {
         "startLine": 33,
         "startChar": 0,
