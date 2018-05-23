@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f66a9e7_0dfed6d1",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "Verify watcher is running",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eab7b15d_2d84a761",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "remove all underscores in the documentation",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3c9a8cd_7c2ed619",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "Label Nodes",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df084ffa_ec6b9fc6",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "Move it to start suite",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69664f91_16b0abd2",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "why do we have to do it here?",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aee64371_0ed12980",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "is this needed in tear down?",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09f1c330_a685e807",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "just concatenate the two lists, instead of doing this",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48113063_bcbe3574",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "don\u0027t set it as global variable.. use it wherever needed only",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0c6bbda_caca1a88",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "Why two verify node status? how is this different from line 61?",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e021aab2_f12e7853",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "remove underscores",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05a0d4f8_ab4366e8",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "Check If Pods Are Terminated",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c9245b7_309c2525",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "you should do this at the end of the suite .. if you copy it in the beginning, this will have no logs",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d52cebb_e846bfc9",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "Dump COE Config",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1ca7c38_02472206",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "Collect Watcher log",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44644574_cbed2c5b",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:01:46Z",
+      "side": 1,
+      "message": "Collect Journalctl",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
