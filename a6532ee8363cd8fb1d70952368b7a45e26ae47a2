@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e507ceff_112d4c1b",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "643b6a46_627a3aae",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a74f6422_710f230d",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 56
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-18T09:35:23Z",
       "side": 1,
       "message": "use ${NO_PING_REGEXP} from netvirt/Variables.robot",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 45
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5fa4cad_159aeb4d",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a74f6422_710f230d",
       "range": {
         "startLine": 52,
         "startChar": 0,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "f914f3ff_53a79471",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Moved this variable to OVSDB.robot file as it is used in Get Ovsdb State keyword.",
+      "parentUuid": "d056f8a1_a265d087",
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "765eda02_208ace65",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 56
@@ -76,6 +142,30 @@
       "writtenOn": "2018-05-18T09:35:23Z",
       "side": 1,
       "message": "can we use ALLOWED_IP list for these 3 variables",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 47
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5948cdea_36312d21",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "These lists are the subset of allowed ip address list which is used for port creation in 3 networks respectively.\n\nSo, we should use the variables in this way.",
+      "parentUuid": "765eda02_208ace65",
       "range": {
         "startLine": 58,
         "startChar": 0,
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "1f8d87d0_eefb036b",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Modified the documentation.",
+      "parentUuid": "73178846_f1c67160",
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d05b8bd0_1a36f2fe",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 56
@@ -116,6 +224,30 @@
       "writtenOn": "2018-05-18T09:35:23Z",
       "side": 1,
       "message": "Is this required?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 50
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f7fa223_112f90bc",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Deleted this line.",
+      "parentUuid": "d05b8bd0_1a36f2fe",
       "range": {
         "startLine": 91,
         "startChar": 0,
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "a6bceb35_752e96a9",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Deleted the same.",
+      "parentUuid": "f1c96ff3_7a5a86ca",
+      "range": {
+        "startLine": 95,
+        "startChar": 4,
+        "endLine": 95,
+        "endChar": 27
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62c1fdd5_66876c78",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 56
@@ -162,6 +318,30 @@
       "writtenOn": "2018-05-18T09:35:23Z",
       "side": 1,
       "message": "use Command or fib_cmd instaed of cmd1",
+      "range": {
+        "startLine": 135,
+        "startChar": 6,
+        "endLine": 135,
+        "endChar": 7
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30be5064_1fbc310a",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62c1fdd5_66876c78",
       "range": {
         "startLine": 135,
         "startChar": 6,
@@ -191,6 +371,24 @@
     },
     {
       "key": {
+        "uuid": "52d31dbc_d449ddd9",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Deleted the same.",
+      "parentUuid": "986116c6_9ffd04e7",
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eba7d67a_214824ec",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 56
@@ -202,6 +400,30 @@
       "writtenOn": "2018-05-18T09:35:23Z",
       "side": 1,
       "message": "Single multiple?",
+      "range": {
+        "startLine": 147,
+        "startChar": 84,
+        "endLine": 147,
+        "endChar": 99
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1bae54_0ed56d6e",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Modified the same.",
+      "parentUuid": "eba7d67a_214824ec",
       "range": {
         "startLine": 147,
         "startChar": 84,
@@ -237,6 +459,53 @@
     },
     {
       "key": {
+        "uuid": "8caa0ad0_b2f8080b",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94f3c018_cf9d37ef",
+      "range": {
+        "startLine": 169,
+        "startChar": 4,
+        "endLine": 169,
+        "endChar": 62
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a596bc9_5e65f87a",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Deleted the same.",
+      "range": {
+        "startLine": 193,
+        "startChar": 76,
+        "endLine": 194,
+        "endChar": 87
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81ffe29b_5560b389",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 56
@@ -248,6 +517,30 @@
       "writtenOn": "2018-05-18T09:35:23Z",
       "side": 1,
       "message": "Hope we can get the required information from the previous line itself. why we need this line?",
+      "range": {
+        "startLine": 199,
+        "startChar": 4,
+        "endLine": 199,
+        "endChar": 44
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f3d43ab_64a82e37",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Deleted this line.",
+      "parentUuid": "81ffe29b_5560b389",
       "range": {
         "startLine": 199,
         "startChar": 4,
@@ -283,6 +576,30 @@
     },
     {
       "key": {
+        "uuid": "cd451ecd_29112411",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Deleted the same.",
+      "parentUuid": "2ee7853d_985ab579",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 48
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0e83738_6a8c561e",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 56
@@ -294,6 +611,30 @@
       "writtenOn": "2018-05-18T09:35:23Z",
       "side": 1,
       "message": "Why not Documentation?",
+      "range": {
+        "startLine": 332,
+        "startChar": 4,
+        "endLine": 332,
+        "endChar": 62
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8cd1f2be_7a0b373e",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Put this statement in documentation.",
+      "parentUuid": "d0e83738_6a8c561e",
       "range": {
         "startLine": 332,
         "startChar": 4,
@@ -329,6 +670,30 @@
     },
     {
       "key": {
+        "uuid": "166dfeff_c64717e4",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Deleted.",
+      "parentUuid": "bca74bf0_45679885",
+      "range": {
+        "startLine": 351,
+        "startChar": 4,
+        "endLine": 351,
+        "endChar": 35
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06bbe4bb_0b644e8d",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 56
@@ -340,6 +705,30 @@
       "writtenOn": "2018-05-18T09:35:23Z",
       "side": 1,
       "message": "OpenstackOperations.Get Net Id  ??",
+      "range": {
+        "startLine": 358,
+        "startChar": 19,
+        "endLine": 358,
+        "endChar": 29
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e42f4ac_fdb84b5b",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06bbe4bb_0b644e8d",
       "range": {
         "startLine": 358,
         "startChar": 19,
@@ -375,6 +764,30 @@
     },
     {
       "key": {
+        "uuid": "2a7dddb5_04c9b98d",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f634348_6eff352b",
+      "range": {
+        "startLine": 375,
+        "startChar": 4,
+        "endLine": 375,
+        "endChar": 28
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6d78fd8_21123a65",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 56
@@ -386,6 +799,30 @@
       "writtenOn": "2018-05-18T09:35:23Z",
       "side": 1,
       "message": "remove this",
+      "range": {
+        "startLine": 384,
+        "startChar": 4,
+        "endLine": 384,
+        "endChar": 28
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "717a06e5_18d02cb7",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6d78fd8_21123a65",
       "range": {
         "startLine": 384,
         "startChar": 4,
@@ -421,6 +858,30 @@
     },
     {
       "key": {
+        "uuid": "2eb6c132_b9ad6fa0",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7b08fbb_71dad7c1",
+      "range": {
+        "startLine": 386,
+        "startChar": 4,
+        "endLine": 386,
+        "endChar": 28
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "630a5e64_f066fc38",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 56
@@ -444,6 +905,30 @@
     },
     {
       "key": {
+        "uuid": "1bcc2384_19f72c95",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "630a5e64_f066fc38",
+      "range": {
+        "startLine": 394,
+        "startChar": 4,
+        "endLine": 398,
+        "endChar": 28
+      },
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a078af6_d1e21ec2",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 56
@@ -455,6 +940,24 @@
       "writtenOn": "2018-05-18T09:35:23Z",
       "side": 1,
       "message": "unused variable",
+      "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95c3afd4_1a217a01",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Deleted the same.",
+      "parentUuid": "0a078af6_d1e21ec2",
       "revId": "a6532ee8363cd8fb1d70952368b7a45e26ae47a2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
