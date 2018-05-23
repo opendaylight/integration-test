@@ -189,6 +189,23 @@
     },
     {
       "key": {
+        "uuid": "6da24235_73f9fade",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:03:43Z",
+      "side": 1,
+      "message": "Add log collection to archives here",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c9245b7_309c2525",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 49
