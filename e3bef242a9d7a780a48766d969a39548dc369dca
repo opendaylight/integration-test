@@ -291,6 +291,23 @@
     },
     {
       "key": {
+        "uuid": "72f08b0f_d4944d77",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:04:11Z",
+      "side": 1,
+      "message": "you can add Test Teardown here instead of adding to to each TC",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60b23b9c_c9ef9e2d",
         "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
         "patchSetId": 49
