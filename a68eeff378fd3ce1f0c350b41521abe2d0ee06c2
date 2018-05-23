@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9d00d033_9b532ae7",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Used the different command to kill the bgpd process.",
+      "parentUuid": "4e7d6155_86bcbf98",
+      "revId": "a68eeff378fd3ce1f0c350b41521abe2d0ee06c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c04ad04_5e483cdd",
         "filename": "csit/libraries/BgpOperations.robot",
         "patchSetId": 48
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d9ca1b46_d71df30d",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c04ad04_5e483cdd",
+      "revId": "a68eeff378fd3ce1f0c350b41521abe2d0ee06c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9aaa9f28_f2cb01e1",
         "filename": "csit/libraries/BgpOperations.robot",
         "patchSetId": 48
@@ -47,6 +83,24 @@
       "writtenOn": "2018-05-08T11:59:48Z",
       "side": 1,
       "message": "what is this magic number 7644? Can you please add to some Variables file?",
+      "revId": "a68eeff378fd3ce1f0c350b41521abe2d0ee06c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86e3e00c_3668ebd2",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "7644 is the TCP port for bgp connection.\nThis port number is already being used in the existing keyword in library.",
+      "parentUuid": "9aaa9f28_f2cb01e1",
       "revId": "a68eeff378fd3ce1f0c350b41521abe2d0ee06c2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
