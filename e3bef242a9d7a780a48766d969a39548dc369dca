@@ -271,6 +271,23 @@
       "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60b23b9c_c9ef9e2d",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-23T09:02:44Z",
+      "side": 1,
+      "message": "do we still need all these?",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
