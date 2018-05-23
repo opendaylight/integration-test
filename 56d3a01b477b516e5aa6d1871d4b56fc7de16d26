@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b22c6165_cc4ddd9d",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1161ac19_e8d61812",
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e992e3c_a2194910",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 53
@@ -30,6 +48,30 @@
       "writtenOn": "2018-05-09T21:26:14Z",
       "side": 1,
       "message": "are these duplicate lines?",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 100
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1225f26_a84aa20e",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "yes. Deleted the duplicate line.",
+      "parentUuid": "5e992e3c_a2194910",
       "range": {
         "startLine": 94,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "5b9e5751_95b99420",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Put this keyword in OVSDB.robot library file as it was not present in this library.",
+      "parentUuid": "b7ef9091_31a4fcfb",
+      "range": {
+        "startLine": 265,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 62
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9776dfc5_ae756952",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 53
@@ -76,6 +142,30 @@
       "writtenOn": "2018-05-09T21:26:14Z",
       "side": 1,
       "message": "I think \"List Networks\" does the Logging for you. might\napply elsewhere.",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 30
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5860803e_42c1a9b4",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Deleted the same.",
+      "parentUuid": "9776dfc5_ae756952",
       "range": {
         "startLine": 278,
         "startChar": 4,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "cabd5153_99af1f3a",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "I have rewritten this keyword in simplified way now with single For loop.\n\nThis For loop will create ports for 3 different networks with different sets of allowed address pair.",
+      "parentUuid": "34195377_0a0cd0d2",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 141
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cc66736_cd65b10c",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 53
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "83a2801b_b3c4a2ef",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "This keyword is for dissociating L3VPN from multiple networks.Added the same in VpnOperations.robot file.",
+      "parentUuid": "8cc66736_cd65b10c",
+      "range": {
+        "startLine": 533,
+        "startChar": 0,
+        "endLine": 543,
+        "endChar": 63
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9f1b53c_484f8d73",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 53
@@ -145,6 +283,30 @@
       "writtenOn": "2018-05-09T21:26:14Z",
       "side": 1,
       "message": "rewrite this inside OpenStackOperations and use the\nOpenstack CLI wrapper. Also, add a \"project list\" keyword\n(if there is not one already) and use that inside\nthis.",
+      "range": {
+        "startLine": 545,
+        "startChar": 0,
+        "endLine": 556,
+        "endChar": 25
+      },
+      "revId": "56d3a01b477b516e5aa6d1871d4b56fc7de16d26",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65fc763a_3e7bf106",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-05-23T09:23:16Z",
+      "side": 1,
+      "message": "Wrote keyword for project list and used the same in VM creation quota update keyword.\nPut these keywords in OpenstackOperations.robot file.",
+      "parentUuid": "e9f1b53c_484f8d73",
       "range": {
         "startLine": 545,
         "startChar": 0,
