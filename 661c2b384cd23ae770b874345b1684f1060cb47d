@@ -2,6 +2,184 @@
   "comments": [
     {
       "key": {
+        "uuid": "0bae7fb1_cec98825",
+        "filename": "csit/scripts/set_coe_host.sh",
+        "patchSetId": 51
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T23:51:59Z",
+      "side": 1,
+      "message": "what\u0027s the significance of this \u00272\u0027 ?",
+      "range": {
+        "startLine": 3,
+        "startChar": 25,
+        "endLine": 3,
+        "endChar": 26
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c89c7dfc_7c17e8c8",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T23:51:59Z",
+      "side": 1,
+      "message": "s",
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35223d8f_b4d2dcb1",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T23:51:59Z",
+      "side": 1,
+      "message": "don\u0027t need this. you are forcing a Coe.Tear Down from\nthe *** Settings *** section anyway",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73460100_fc8992db",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T23:51:59Z",
+      "side": 1,
+      "message": "can you explain a little more here how this is doing it on\na different node? to me, the test case is identical to the\none above, except that I see a label of ssl vs ssd.\n\nbtw, I\u0027m really new to k8s and pods vs nodes vs whatever, so\nexcuse the beginner questions.",
+      "range": {
+        "startLine": 31,
+        "startChar": 23,
+        "endLine": 31,
+        "endChar": 105
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0582497_6468fc73",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T23:51:59Z",
+      "side": 1,
+      "message": "can this be ${pod_name} or ${pod_label} or whatever it really\nis, instead of ${pod_1} which I don\u0027t understand fully?",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 11
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "303db194_cb8d52ca",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T23:51:59Z",
+      "side": 1,
+      "message": "I bet these lines 50-52 are going to be useful/common as\nthings grow, even when not doing \"ping\" work. just fyi\nso you can think about extracting it to a more general\nkeyword later. nothing now, just thinking out loud.",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 66
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e06bcf8_901bd581",
+        "filename": "csit/testplans/coe-container-networking.txt",
+        "patchSetId": 51
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T23:51:59Z",
+      "side": 1,
+      "message": "how about lower case?",
+      "range": {
+        "startLine": 2,
+        "startChar": 33,
+        "endLine": 2,
+        "endChar": 49
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49f391df_c4a55fc7",
+        "filename": "csit/variables/coe/coe.yaml",
+        "patchSetId": 51
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T23:51:59Z",
+      "side": 1,
+      "message": "hmmmm.... how can we make this a variable?\n\nI know when COE becomes more and more popular (I\u0027m expecting\nit too) other teams/companies might want to run these \ngood CSIT tests in their deployments. And, I know this 8181\nchanges sometimes. Best if we can use ${RESTCONFPORT}, but\nI don\u0027t know if that works in this .yaml\n\nany ideas?",
+      "range": {
+        "startLine": 4,
+        "startChar": 23,
+        "endLine": 4,
+        "endChar": 27
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d8d791a_2b9bba96",
         "filename": "csit/variables/coe/coe_play.yaml",
         "patchSetId": 51
@@ -13,6 +191,29 @@
       "writtenOn": "2018-05-23T12:45:19Z",
       "side": 1,
       "message": "This would probably be better off in /etc rather than /usr/local/bin. If it doesn\u0027t find the config file in /etc then that\u0027s a bug we need to fix.",
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa7b25e0_192f4ada",
+        "filename": "csit/variables/coe/hosts.yaml",
+        "patchSetId": 51
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T23:51:59Z",
+      "side": 1,
+      "message": "along the lines from my other comment on port 8181, if we \nfigure out how to extract as a variable, we can use the\nopenflow vars we have. same for ovsdb above.",
+      "range": {
+        "startLine": 13,
+        "startChar": 21,
+        "endLine": 13,
+        "endChar": 25
+      },
       "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
