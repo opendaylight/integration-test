@@ -22,6 +22,30 @@
       "revId": "b21589ee2cd972451941542b037d1f09db93ebf1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e604e927_23520d9b",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 63
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-05-24T17:44:13Z",
+      "side": 1,
+      "message": "got this after rebase",
+      "parentUuid": "9db0098d_a8a2ca9b",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 51
+      },
+      "revId": "b21589ee2cd972451941542b037d1f09db93ebf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
