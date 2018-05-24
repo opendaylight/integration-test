@@ -148,6 +148,35 @@ Delete BGP Config On Quagga
     Execute Command On Quagga Telnet Session    exit
     [Return]    ${output}
 
+Create L3VPN on DCGW
+    [Arguments]    ${dcgw_ip}    ${as_id}    ${vpn_name}    ${rd}
+    [Documentation]    Create L3VPN on DCGW
+    BgpOperations.Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
+    BgpOperations.Execute Command On Quagga Telnet Session    configure terminal
+    BgpOperations.Execute Command On Quagga Telnet Session    router bgp ${as_id}
+    BgpOperations.Execute Command On Quagga Telnet Session    vrf ${vpn_name}
+    BgpOperations.Execute Command On Quagga Telnet Session    rd ${rd}
+    BgpOperations.Execute Command On Quagga Telnet Session    rt export ${rd}
+    BgpOperations.Execute Command On Quagga Telnet Session    rt import ${rd}
+    BgpOperations.Execute Command On Quagga Telnet Session    end
+
+Verify L3VPN On DCGW
+    [Arguments]    ${dcgw_ip}    ${vpn_name}    ${rd}
+    [Documentation]    Verify L3VPN vrf name and rd value on DCGW
+    \    ${output} =    BgpOperations.Execute Show Command On Quagga    ${dcgw_ip}    show running-config
+    \    BuiltIn.Should Contain    ${output}    vrf ${vpn_name}    rd ${rd}
+    \    BuiltIn.Should Contain    ${output}    rd ${rd}
+
+Add Routes On DCGW
+    [Arguments]    ${dcgw_ip}    ${rd}    ${network_ip}    ${label}
+    [Documentation]    Add routes on DCGW
+    BgpOperations.Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
+    BgpOperations.Execute Command On Quagga Telnet Session    configure terminal
+    BgpOperations.Execute Command On Quagga Telnet Session    router bgp ${AS_ID}
+    BgpOperations.Execute Command On Quagga Telnet Session    address-family vpnv4 unicast
+    BgpOperations.Execute Command On Quagga Telnet Session    network ${network_ip}/32 rd ${rd} tag ${label}
+    BgpOperations.Execute Command On Quagga Telnet Session    end
+
 Create BGP Configuration On ODL
     [Arguments]    &{Kwargs}
     [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
