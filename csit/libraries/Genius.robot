@@ -247,3 +247,25 @@ Check System Status
     [Documentation]    This keyword will verify whether all the services are in operational and all nodes are active based on the number of odl systems
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL
+
+Verify Tunnel Status
+    [Arguments]    ${tunnel_names}    ${tunnel_status}
+    [Documentation]    Verifies if all tunnels in the input, has the expected status(UP/DOWN/UNKNOWN)
+    ${tep_result} =    KarafKeywords.Issue_Command_On_Karaf_Console    ${TEP_SHOW_STATE}
+    : FOR    ${tunnel}    IN    @{tunnel_names}
+    \    ${tep_output} =    String.Get Lines Containing String    ${tep_result}    ${tunnel}
+    \    BuiltIn.Should Contain    ${tep_output}    ${tunnel_status}
+
+Get Tunnels On OVS
+    [Arguments]    ${connection_id}
+    [Documentation]    Retrieves the list of tunnel ports present on OVS
+    SSHLibrary.Switch Connection    ${connection_id}
+    ${ovs_result} =    Utils.Write Commands Until Expected Prompt    sudo ovs-vsctl show    ${DEFAULT_LINUX_PROMPT_STRICT}
+    ${tunnel_names}    BuiltIn.Create List
+    ${tunnels} =    String.Get Lines Matching Regexp    ${ovs_result}    Interface "tun.*"    True
+    @{tunnels_list} =    String.Split To Lines    ${tunnels}
+    : FOR    ${tun}    IN    @{tunnels_list}
+    \    ${tun_list}    BuiltIn.Should Match Regexp    @{tunnels_list}    tun.*\\w
+    \    Collections.Append To List    ${tunnel_names}    ${tun_list}
+    ${items_in_list} =    BuiltIn.Get Length    ${tunnel_names}
+    [Return]    ${Tunnel_Names}
