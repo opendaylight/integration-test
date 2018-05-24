@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ec4e4a69_08bc6eee",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-24T22:26:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b9b702f_8f06bb35",
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72c1d337_1040cc24",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 24
@@ -30,6 +48,30 @@
       "writtenOn": "2018-05-24T22:01:22Z",
       "side": 1,
       "message": "for consistency, use Verify Exceptions\n\nrobot doesn\u0027t care about capitalization or spaces vs _ so it will be ok",
+      "range": {
+        "startLine": 222,
+        "startChar": 35,
+        "endLine": 222,
+        "endChar": 52
+      },
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6f394fb_4fcf0121",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-24T22:26:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72c1d337_1040cc24",
       "range": {
         "startLine": 222,
         "startChar": 35,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "72153c7b_055116de",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-24T22:26:30Z",
+      "side": 1,
+      "message": "Added back the missing keyword. The ha deployment libs use them",
+      "parentUuid": "cbb9afd2_cca47127",
+      "range": {
+        "startLine": 227,
+        "startChar": 14,
+        "endLine": 227,
+        "endChar": 19
+      },
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8342777_96291c5f",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 24
@@ -76,6 +142,30 @@
       "writtenOn": "2018-05-24T22:01:22Z",
       "side": 1,
       "message": "what\u0027s the point of this?",
+      "range": {
+        "startLine": 236,
+        "startChar": 4,
+        "endLine": 236,
+        "endChar": 55
+      },
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "836f2426_ae796281",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-24T22:26:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8342777_96291c5f",
       "range": {
         "startLine": 236,
         "startChar": 4,
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "99c59260_f26ed7f0",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-24T22:26:30Z",
+      "side": 1,
+      "message": "Sure, we can move this out in another patch. I was actually planning to add this excepts into odltools since it has some other stuff that is useful. Then any project can use it.",
+      "parentUuid": "ced1147f_5f01e248",
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f9f281c_ffafa400",
         "filename": "csit/libraries/netvirt/excepts.py",
         "patchSetId": 24
@@ -116,6 +224,30 @@
       "writtenOn": "2018-05-24T22:01:22Z",
       "side": 1,
       "message": "you mean the actual URL alpha? if so, it\u0027s not in order\nas NETVIRT comes before OFP",
+      "range": {
+        "startLine": 6,
+        "startChar": 19,
+        "endLine": 6,
+        "endChar": 63
+      },
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d85573fb_4bd2eff1",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-24T22:26:30Z",
+      "side": 1,
+      "message": "hmm, no idea who thought o was before n...",
+      "parentUuid": "9f9f281c_ffafa400",
       "range": {
         "startLine": 6,
         "startChar": 19,
@@ -162,6 +294,30 @@
       "writtenOn": "2018-05-24T22:01:22Z",
       "side": 1,
       "message": "there\u0027s never the case where we want following lines\nto help give the context?",
+      "range": {
+        "startLine": 69,
+        "startChar": 75,
+        "endLine": 69,
+        "endChar": 84
+      },
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45d93b28_80d15422",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-24T22:26:30Z",
+      "side": 1,
+      "message": "Easy enough to update the WARN | ERROR regex to include INFO (or whatever else). I purposefully did not include INFO because there are many extra lines that are not useful. So far all the exceptions we have all have a WARN or ERROR.",
+      "parentUuid": "5acfb8ed_82292526",
       "range": {
         "startLine": 69,
         "startChar": 75,

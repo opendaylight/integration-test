@@ -22,6 +22,30 @@
       "revId": "8b33f2bd87d509cb5b6b0b859acbe8f10a2a0176",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db977cd2_a0bf020b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-24T22:26:30Z",
+      "side": 0,
+      "message": "The function can be updated to take a list. Currently the list is just a var in excepts.py, so we just pass it in. We can do that in a following patch if needed.",
+      "parentUuid": "3bb7baac_0da42cb6",
+      "range": {
+        "startLine": 548,
+        "startChar": 109,
+        "endLine": 548,
+        "endChar": 144
+      },
+      "revId": "8b33f2bd87d509cb5b6b0b859acbe8f10a2a0176",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
