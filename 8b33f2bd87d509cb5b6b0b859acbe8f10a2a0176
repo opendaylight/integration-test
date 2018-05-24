@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3bb7baac_0da42cb6",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T22:01:22Z",
+      "side": 0,
+      "message": "so, if we can\u0027t pass a specific whitelist to this keyword,\nit makes it a little harder for other projects to use\nit with their own custom whitelist right?",
+      "range": {
+        "startLine": 548,
+        "startChar": 109,
+        "endLine": 548,
+        "endChar": 144
+      },
+      "revId": "8b33f2bd87d509cb5b6b0b859acbe8f10a2a0176",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

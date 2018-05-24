@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b9b702f_8f06bb35",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T22:01:22Z",
+      "side": 1,
+      "message": "documentation? so like, what is gonna happen here? we\u0027re\ngonna get some output for matchlist, but I don\u0027t know what\nthat is. exlist is going to be the list of \"found\" exceptions\nin the karaf.log?",
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72c1d337_1040cc24",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T22:01:22Z",
+      "side": 1,
+      "message": "for consistency, use Verify Exceptions\n\nrobot doesn\u0027t care about capitalization or spaces vs _ so it will be ok",
+      "range": {
+        "startLine": 222,
+        "startChar": 35,
+        "endLine": 222,
+        "endChar": 52
+      },
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbb9afd2_cca47127",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T22:01:22Z",
+      "side": 1,
+      "message": "did you hunt down anywhere this keyword was used to\nchange those?",
+      "range": {
+        "startLine": 227,
+        "startChar": 14,
+        "endLine": 227,
+        "endChar": 19
+      },
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8342777_96291c5f",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T22:01:22Z",
+      "side": 1,
+      "message": "what\u0027s the point of this?",
+      "range": {
+        "startLine": 236,
+        "startChar": 4,
+        "endLine": 236,
+        "endChar": 55
+      },
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ced1147f_5f01e248",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T22:01:22Z",
+      "side": 1,
+      "message": "so... if we want other projects to take advantage of this\nlibrary they\u0027ll be stuck sourcing it from netvirt. I know\nwe are the only project doing it, but if we could somehow\nsplit out the whitelist specifics to be in netvirt, but\nleave the exception checking logic (which should be\ngeneric) then it will be easy.\n\nkind of like how we did that DataModel lib.",
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f9f281c_ffafa400",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T22:01:22Z",
+      "side": 1,
+      "message": "you mean the actual URL alpha? if so, it\u0027s not in order\nas NETVIRT comes before OFP",
+      "range": {
+        "startLine": 6,
+        "startChar": 19,
+        "endLine": 6,
+        "endChar": 63
+      },
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af999180_1fe96fc5",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T22:01:22Z",
+      "side": 1,
+      "message": "do these have to be cryptic? the re is fine, but what does\nts stand for?\n\noh. timestamp. and we below is warning|error\n\nok, but still cryptic-ish",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 6
+      },
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5acfb8ed_82292526",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T22:01:22Z",
+      "side": 1,
+      "message": "there\u0027s never the case where we want following lines\nto help give the context?",
+      "range": {
+        "startLine": 69,
+        "startChar": 75,
+        "endLine": 69,
+        "endChar": 84
+      },
+      "revId": "66de1a0b039b6eb087f983bd93cc12c0c217fc99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
