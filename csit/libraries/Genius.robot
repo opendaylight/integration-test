@@ -169,11 +169,11 @@ Genius Test Teardown
 
 ITM Direct Tunnels Start Suite
     [Documentation]    start suite for itm scalability
-    ClusterManagement.ClusterManagement_Setup
-    ClusterManagement.Stop_Members_From_List_Or_All
-    ClusterManagement.Clean_Journals_Data_And_Snapshots_On_List_Or_All
-    Run Command On Remote System And Log    ${ODL_SYSTEM_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
-    ClusterManagement.Start_Members_From_List_Or_All
+    Comment    ClusterManagement.ClusterManagement_Setup
+    Comment    ClusterManagement.Stop_Members_From_List_Or_All
+    Comment    ClusterManagement.Clean_Journals_Data_And_Snapshots_On_List_Or_All
+    Comment    Run Command On Remote System And Log    ${ODL_SYSTEM_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
+    Comment    ClusterManagement.Start_Members_From_List_Or_All
     Genius Suite Setup
 
 ITM Direct Tunnels Stop Suite
@@ -247,3 +247,21 @@ Check System Status
     [Documentation]    This keyword will verify whether all the services are in operational and all nodes are active based on the number of odl systems
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL
+
+Verify Tunnel Status
+    [Arguments]    ${connection_id}    ${Tunnel_Status}
+    [Documentation]    Will verify tunnel status as UP/DOWN/UNKNOWN state
+    Open_Connection_To_Tools_System    ${connection_id}
+    ${Ovs_Result}    Write Commands Until Expected Prompt    sudo ovs-vsctl show    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Log    ${Ovs_Result}
+    ${Tunnel_Names}    Create List
+    ${Tunnels}    Get Lines Matching Regexp    ${Ovs_Result}    Interface "tun.*"    True
+    ${Tunnels_List}    Split To Lines    ${Tunnels}
+    : FOR    ${Tun}    IN    ${Tunnels_List}
+    \    ${Tun_List}    Should Match Regexp    ${Tun}    tun.*\\w
+    \    Append To List    ${Tunnel_Names}    ${Tun_List}
+    ${Items_In_List}    Get Length    ${Tunnel_Names}
+    ${Tep_Result}    Issue_Command_On_Karaf_Console    ${TEP_SHOW_STATE}
+    : FOR    ${i}    IN    @{Tunnel_Names}
+    \    ${Tep_Output}    Get Lines Containing String    ${Tep_Result}    ${i}
+    \    Should Contain    ${Tep_Output}    ${Tunnel_Status}
