@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4b57d966_141c15d0",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-24T05:43:35Z",
+      "side": 1,
+      "message": "what I meant was just to change the name of the variable from\nDEBUG_MSG to DEBUG_MODULE. That just more accurately reflects\nwhat it is. you are going to set that openflowplugin module\nto DEBUG level.\n\nActually, along those lines, you could then change FLAG_MSG\nto DEBUG_MSG since that\u0027s actually the message you will be\nlooking for in the DEBUG logs",
+      "parentUuid": "caa0ae9d_bea7a3d4",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "41ea60f77d888927202891d6e3c07e110600e662",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abf7f1f3_1df421f6",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 49
