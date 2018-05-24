@@ -19,26 +19,22 @@ Test Setup        Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
-Resource          ${CURDIR}/../../../variables/Variables.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
-Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
+Library           ../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
+Resource          ../../../libraries/BGPcliKeywords.robot
+Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/CompareStream.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/SSHKeywords.robot
+Resource          ../../../libraries/TemplatedRequests.robot
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${HOLDTIME}       180
-${DEVICE_NAME}    controller-config
-${BGP_PEER_NAME}    example-bgp-peer
-${RIB_INSTANCE}    example-bgp-rib
-${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
-${APP_PEER_NAME}    example-bgp-peer-app
-${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
+${RIB_NAME}    example-bgp-rib
+${BGP_DIR}    ${CURDIR}/../../../variables/bgpfunctional
 ${DEFAUTL_RPC_CFG}    exa.cfg
 ${CONFIG_SESSION}    config-session
-${EVPN_VARIABLES_DIR}    ${CURDIR}/../../../variables/bgpfunctional/l2vpn_evpn
+${EVPN_DIR}    ${CURDIR}/../../../variables/bgpfunctional/l2vpn_evpn
 ${BGP_TOOL_LOG_LEVEL}    debug
 ${PLAY_SCRIPT}    ${CURDIR}/../../../../tools/fastbgp/play.py
 ${SS}             ${SPACE}${SPACE}${SPACE}${SPACE}
@@ -49,16 +45,14 @@ ${PATH_ID_XML}    ${SS}<path-id>0</path-id>${\n}
 Configure_App_Peer
     [Documentation]    Configures bgp application peer. Openconfig is used for carbon and above.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    ...    IP=${ODL_SYSTEM_IP}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    BGP_RIB_OPENCONFIG=${RIB_NAME}    IP=${ODL_SYSTEM_IP}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_DIR}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    PASSIVE_MODE=true
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB_OPENCONFIG=${RIB_NAME}    PASSIVE_MODE=true
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_DIR}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Start_Bgp_Peer
     [Documentation]    Start Python speaker to connect to ODL. We need to do WUKS until odl really starts to accept incomming bgp connection. The failure happens if the incomming connection comes too quickly after configuring the peer in the previous test case.
@@ -297,22 +291,63 @@ Play_To_Odl_route_mac_rou
     [Template]    Play_To_Odl_Template
     route_mac_rou
 
+Odl_To_Play_pmsi_rsvp_te_p2mp_lsp
+    [Template]    Odl_To_Play_Template
+    pmsi_rsvp_te_p2mp_lsp
+
+Play_To_Odl_pmsi_rsvp_te_p2mp_lsp
+    [Template]    Play_To_Odl_Template
+    pmsi_rsvp_te_p2mp_lsp
+
+Odl_To_Play_pmsi_mldp_p2mp_lsp
+    [Template]    Odl_To_Play_Template
+    pmsi_mldp_p2mp_lsp
+
+Play_To_Odl_pmsi_mldp_p2mp_lsp
+    [Template]    Play_To_Odl_Template
+    pmsi_mldp_p2mp_lsp
+
+Odl_To_Play_pmsi_pim_ssm_tree
+    [Template]    Odl_To_Play_Template
+    pmsi_pim_ssm_tree
+
+Play_To_Odl_pmsi_pim_ssm_tree
+    [Template]    Play_To_Odl_Template
+    pmsi_pim_ssm_tree
+
+Odl_To_Play_pmsi_pim_sm_tree
+    [Template]    Odl_To_Play_Template
+    pmsi_pim_sm_tree
+
+Play_To_Odl_pmsi_pim_sm_tree
+    [Template]    Play_To_Odl_Template
+    pmsi_pim_sm_tree
+
+Odl_To_Play_pmsi_bidir_pim_tree
+    [Template]    Odl_To_Play_Template
+    pmsi_bidir_pim_tree
+
+Play_To_Odl_pmsi_bidir_pim_tree
+    [Template]    Play_To_Odl_Template
+    pmsi_bidir_pim_tree
+
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BGPSpeaker.Kill_BGP_Speaker
+    BGPcliKeywords.Store_File_To_Workspace    play.py.out    evpn_play.log
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${RIB_NAME}
+    TemplatedRequests.Delete_Templated    ${BGP_DIR}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Deconfigure_App_Peer
     [Documentation]    Revert the BGP configuration to the original state: without application peer
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    IP=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
-    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${RIB_NAME}
+    TemplatedRequests.Delete_Templated    ${BGP_DIR}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
 Start_Suite
@@ -324,10 +359,10 @@ Start_Suite
     RequestsLibrary.Create Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     SSHLibrary.Put File    ${PLAY_SCRIPT}    .
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
-    ${app_rib}=    Set Variable    ${ODL_SYSTEM_IP}
-    ${bgp_rib}=    Set Variable    example-bgp-rib
-    BuiltIn.Set_Suite_Variable    ${EVPN_CONF_URL}    /restconf/config/bgp-rib:application-rib/${app_rib}/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes/
-    BuiltIn.Set_Suite_Variable    ${EVPN_LOC_RIB_OPER_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/${bgp_rib}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
+    BuiltIn.Set_Suite_Variable    ${EVPN_CONF_URL}    /restconf/config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes/
+    BuiltIn.Set_Suite_Variable    ${EVPN_LOC_RIB_OPER_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/${RIB_NAME}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
+    ${EMPTY_ROUTES} =    OperatingSystem.Get_File    ${EVPN_DIR}/empty_routes/empty_routes.json
+    BuiltIn.Set_Suite_Variable    ${EMPTY_ROUTES}
 
 Stop_Suite
     [Documentation]    Suite teardown keyword
@@ -341,10 +376,12 @@ Start_Bgp_Peer
 
 Odl_To_Play_Template
     [Arguments]    ${totest}
-    ${data_xml}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.xml
-    ${data_json}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.json
-    ${announce_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/announce_${totest}.hex
-    ${withdraw_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/withdraw_${totest}.hex
+    ${data_xml} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/${totest}.xml
+    ${data_json} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/${totest}.json
+    ${announce_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/announce_${totest}.hex
+    ${announce_hex} =    String.Remove_String    ${announce_hex}    \n
+    ${withdraw_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/withdraw_${totest}.hex
+    ${withdraw_hex} =    String.Remove_String    ${withdraw_hex}    \n
     ${data_path_xml}    CompareStream.Run_Keyword_If_Less_Than_Fluorine    String.Replace_String    ${data_xml}    ${PATH_ID_XML}    ${EMPTY}
     ${post_data_xml}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${data_xml}    ${data_path_xml}
     BuiltIn.Log    ${post_data_xml}
@@ -352,75 +389,71 @@ Odl_To_Play_Template
     BuiltIn.Log    ${announce_hex}
     BuiltIn.Log    ${withdraw_hex}
     BgpRpcClient.play_clean
-    ${resp}=    RequestsLibrary.Post_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    data=${post_data_xml}    headers=${HEADERS_XML}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    204
-    ${resp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS_XML}
+    ${resp} =    RequestsLibrary.Post_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    data=${post_data_xml}    headers=${HEADERS_XML}
     BuiltIn.Log    ${resp.content}
-    ${aupdate}=    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content
+    BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    204
+    ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS_XML}
+    BuiltIn.Log    ${resp.content}
+    ${aupdate} =    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content
     BuiltIn.Log    ${aupdate}
     BuiltIn.Should_Be_Equal_As_Strings    ${aupdate}    ${announce_hex}
     BgpRpcClient.play_clean
     Remove_Configured_Routes
-    ${wupdate}=    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content
+    ${wupdate} =    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Get_Update_Content
     BuiltIn.Log    ${wupdate}
     BuiltIn.Should Be Equal As Strings    ${wupdate}    ${withdraw_hex}
     [Teardown]    Remove_Configured_Routes
 
 Play_To_Odl_Template
     [Arguments]    ${totest}
-    ${data_xml}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.xml
-    ${data_json}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.json
-    ${announce_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/announce_${totest}.hex
-    ${withdraw_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/withdraw_${totest}.hex
-    ${empty_routes}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/empty_routes.json
+    ${data_xml} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/${totest}.xml
+    ${data_json} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/${totest}.json
+    ${announce_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/announce_${totest}.hex
+    ${withdraw_hex} =    OperatingSystem.Get_File    ${EVPN_DIR}/${totest}/withdraw_${totest}.hex
     ${data_path_json}    CompareStream.Run_Keyword_If_Less_Than_Fluorine    String.Replace_String    ${data_json}    ${PATH_ID_JSON}    ${EMPTY}
     ${data_json_exp}    CompareStream.Set_Variable_If_At_Least_Fluorine    ${data_json}    ${data_path_json}
-    BuiltIn.Set_Suite_Variable    ${withdraw_hex}
-    BuiltIn.Set_Suite_Variable    ${empty_routes}
     BuiltIn.Log    ${data_xml}
     BuiltIn.Log    ${data_json_exp}
     BuiltIn.Log    ${announce_hex}
     BuiltIn.Log    ${withdraw_hex}
-    BuiltIn.Log    ${empty_routes}
     BgpRpcClient.play_clean
     BgpRpcClient.play_send    ${announce_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Loc_Rib_Presnece    ${data_json_exp}
+    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Loc_Rib_Presence    ${data_json_exp}
     BgpRpcClient.play_send    ${withdraw_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Loc_Rib_Presnece    ${empty_routes}
+    BuiltIn.Wait_Until_Keyword_Succeeds    4x    2s    Loc_Rib_Presence    ${EMPTY_ROUTES}
     [Teardown]    Withdraw_Route_And_Verify    ${withdraw_hex}
 
 Verify_Test_Preconditions
-    ${resp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
+    ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    404
-    ${empty_routes}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/empty_routes.json
-    Loc_Rib_Presnece    ${empty_routes}
+    Loc_Rib_Presence    ${EMPTY_ROUTES}
 
 Remove_Configured_Routes
     [Documentation]    Removes the route if present. First GET is for debug purposes.
-    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB_OPER_URL}    headers=${HEADERS}
+    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB_OPER_URL}    headers=${HEADERS}
     Log    ${rsp.content}
-    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS}
+    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS}
     Log    ${rsp.content}
-    BuiltIn.Return_From_Keyword_If    "${rsp.status_code}"=="404"
-    ${resp}=    RequestsLibrary.Delete_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
+    BuiltIn.Return_From_Keyword_If    "${rsp.status_code}" == "404"
+    ${resp} =    RequestsLibrary.Delete_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    200
 
 Withdraw_Route_And_Verify
     [Arguments]    ${withdraw_hex}
     [Documentation]    Sends withdraw update message from exabgp and verifies route removal from odl's rib
     BgpRpcClient.play_send    ${withdraw_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Loc Rib Presnece    ${empty_routes}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Loc_Rib_Presence    ${EMPTY_ROUTES}
 
 Get_Update_Content
     [Documentation]    Gets received data from odl's peer
-    ${resp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB_OPER_URL}    headers=${HEADERS_XML}
+    ${resp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB_OPER_URL}    headers=${HEADERS_XML}
     BuiltIn.Log    ${resp.content}
-    ${update}=    BgpRpcClient.play_get
+    ${update} =    BgpRpcClient.play_get
     BuiltIn.Should_Not_Be_Equal    ${update}    ${Empty}
     [Return]    ${update}
 
-Loc_Rib_Presnece
+Loc_Rib_Presence
     [Arguments]    ${exp_content}
     [Documentation]    Verifies if loc-rib contains expected data
-    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB_OPER_URL}    headers=${HEADERS}
+    ${rsp} =    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB_OPER_URL}    headers=${HEADERS}
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp_content}    ${rsp.content}
