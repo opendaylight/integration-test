@@ -64,14 +64,17 @@ Verify VTEP After Restarting Controller
     Genius.Verify Tunnel Status as UP    TZA
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
-    Wait Until Keyword Succeeds    60    3    Check Service Status    ACTIVE    OPERATIONAL
+    Wait Until Keyword Succeeds    60    3    Genius.Check System Status
     Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP    TZA
 
 Verify Tunnels By Disabling BFD
     [Documentation]    This test case will verify tunnels after disabling BFD.
-    ${result}    Run Keyword And Return Status    Verify Tunnel Monitoring is on
+    ${result} =    Run Keyword And Return Status    Verify Tunnel Monitoring is on
     Run Keyword If    '${result}' == 'True'    Disable_Tunnel_Monitoring
-    Genius.Verify Tunnel Status as UP    TZA
+    ${tunnels_on_OVS} =    Genius.Get Tunnels On OVS    ${conn_id_1}
+    OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
+    Genius.Verify Tunnel Status    ${tunnels_on_OVS}    UNKNOWN
+    OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
 
 Verify Tunnels By Enabling BFD
     [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
