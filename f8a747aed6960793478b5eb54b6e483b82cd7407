@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b669bf6_ba8a40ed",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-25T18:30:31Z",
+      "side": 1,
+      "message": "I just noticed these lines. I don\u0027t think you need to keep\nsetting COUNT as a suite variable over and over. Setting\nit once is good enough. That will clean up some noise \nin every test case I think.",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 42
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e35e4574_0597bf0e",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-25T18:30:31Z",
+      "side": 1,
+      "message": "qualify this everywhere you are calling it. so:\n\n    KarafKeywords.Check_Karaf_Log_Message_Count",
+      "range": {
+        "startLine": 135,
+        "startChar": 9,
+        "endLine": 135,
+        "endChar": 38
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
