@@ -12,7 +12,7 @@ _whitelist = [
          "Optimistic lock failed for path /(urn:opendaylight:inventory?revision=2013-08-19)nodes/node/node" +
          "[{(urn:opendaylight:inventory?revision=2013-08-19)id=openflow",
          "table/table[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=21}]/flow/flow" +
-         "[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=L3."
+         "[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=L3.",
          "Conflicting modification for path /(urn:opendaylight:inventory?revision=2013-08-19)nodes/node/node" +
          "[{(urn:opendaylight:inventory?revision=2013-08-19)id=",
          "table/table[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=21}]/flow/flow" +
