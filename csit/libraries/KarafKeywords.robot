@@ -247,6 +247,7 @@ Fail If Exceptions Found During Test
     \    ${cmd} =    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file}
     \    ${output} =    Get Karaf Log Lines From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${cmd}
     \    ${exlist} =    Get and Verify Exceptions    ${output}
+    \    Write Exceptions    ${SUITE_NAME}.${TEST_NAME}    /tmp/odl${i}_exceptions.txt
     \    ${listlength} =    BuiltIn.Get Length    ${exlist}
     \    BuiltIn.Run Keyword If    ${listlength} != 0    BuiltIn.Fail    New exceptions found: ${listlength}
 
