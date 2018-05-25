@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fd7a570_0b3f7550",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-25T19:20:29Z",
+      "side": 1,
+      "message": "add space, \" \u003d\"\nFully qualify all keywords, OpenStackOperations.",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 14
+      },
+      "revId": "209fe6c666054aa2c7ace7160d94fcd7d97ef15c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5972afe_42d5d399",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-25T19:20:29Z",
+      "side": 1,
+      "message": "same comment, also other places in the whole patch, add the space and fully qualify everything",
+      "revId": "209fe6c666054aa2c7ace7160d94fcd7d97ef15c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8aa24302_f34fe43f",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-25T19:20:29Z",
+      "side": 1,
+      "message": "what is this keyword for? All the config files should be copied at the end of the job so there isn\u0027t a need to dump them in the tests",
+      "range": {
+        "startLine": 427,
+        "startChar": 4,
+        "endLine": 427,
+        "endChar": 15
+      },
+      "revId": "209fe6c666054aa2c7ace7160d94fcd7d97ef15c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
