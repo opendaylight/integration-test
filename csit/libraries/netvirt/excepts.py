@@ -66,7 +66,7 @@ _whitelist = [
      "id": "ConflictingModificationAppliedException",
      "context": [
          "Node was deleted by other transaction",
-         "OptimisticLockFailedException: Optimistic lock failed."
+         "OptimisticLockFailedException: Optimistic lock failed.",
          "Conflicting modification for path /(urn:opendaylight:netvirt:elan?revision=2015-06-02)elan-" +
          "forwarding-tables/mac-table/mac-table[{(urn:opendaylight:netvirt:elan?revision=2015-06-02)" +
          "elan-instance-name="
@@ -109,7 +109,14 @@ _whitelist = [
          "Node was deleted by other transaction",
          "Optimistic lock failed for path /(urn:opendaylight:neutron?revision=2015-07-12)" +
          "neutron/networks/network/network[{(urn:opendaylight:neutron?revision=2015-07-12)uuid=",
-         "Got OptimisticLockFailedException"
+         "Conflicting modification for path /(urn:opendaylight:neutron?revision=2015-07-12)" +
+         "neutron/networks/network/network[{(urn:opendaylight:neutron?revision=2015-07-12)uuid="
+     ]},
+    {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
+     "id": "ConflictingModificationAppliedException",
+     "context": [
+         "Got OptimisticLockFailedException", "NeutronNetwork [networkUUID=",
+         "AbstractTranscriberInterface"
      ]},
     # oxygen
     {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
@@ -117,7 +124,6 @@ _whitelist = [
      "context": [
          "Node was deleted by other transaction",
          "OptimisticLockFailedException: Optimistic lock failed.",
-         "Got OptimisticLockFailedException",
          "Conflicting modification for path /(urn:opendaylight:neutron?revision=2015-07-12)" +
          "neutron/networks/network/network[{(urn:opendaylight:neutron?revision=2015-07-12)uuid=",
      ]},
