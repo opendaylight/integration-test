@@ -210,6 +210,24 @@
       "revId": "aa0c4c451b4249c8b78b8af2dc8aa5041cba68cc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7da169d3_94738d7d",
+        "filename": "csit/testplans/netvirt-bundle-based-reconciliation.txt",
+        "patchSetId": 57
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-25T18:30:31Z",
+      "side": 1,
+      "message": "you are running this suite in the sandbox as part of our normal\nnetvirt job, like netvirt-csit-1node-openstack-pike-upstream-stateful-oxygen\n\nthat job uses this testplan:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/testplans/netvirt-1node-openstack.txt\n\nthere is no job that uses a testplan called netvirt-bundle-based-reconciliation.txt\n\nthis is working in the sandbox, because you have hardcoded the job to use\nthis file, but once merged the normal job will not run your suite.\n\nmake sense?",
+      "parentUuid": "a9a300aa_013d3412",
+      "revId": "aa0c4c451b4249c8b78b8af2dc8aa5041cba68cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
