@@ -226,6 +226,7 @@ Get and Verify Exceptions
     ${exlist}    ${matchlist} =    Verify Exceptions    ${lines}
     Collections.Log List    ${exlist}
     Collections.Log List    ${matchlist}
+    Write Exceptions    ${SUITE_NAME}.${TEST_NAME}    "/tmp/exceptions.txt"
     [Return]    ${exlist}
 
 Get Karaf Log Lines From Test Start

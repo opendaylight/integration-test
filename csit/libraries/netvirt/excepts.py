@@ -1,5 +1,7 @@
 import collections
+import errno
 import logging
+import os
 import re
 
 # Make sure to have unique matches in different lines
@@ -241,3 +243,25 @@ def verify_exceptions(lines):
         return
     get_exceptions(lines)
     return check_exceptions()
+
+
+def write_exceptions(testname, filename, append="a+"):
+    try:
+        os.makedirs(os.path.dirname(filename))
+    except OSError as exception:
+        if exception.errno != errno.EEXIST:
+            raise
+
+    if append:
+        mode = "a+"
+    else:
+        mode = "w+"
+
+    with open(filename, mode) as fp:
+        fp.write("Starting test: {}\n".format(testname))
+        fp.write("{}\n".format("-"*40))
+        for ex_idx, ex in _ex_map.items():
+            for exwe_index in ex.get("warnerr_list"):
+                for line in _ts_list[exwe_index]:
+                    fp.write(line)
+            fp.writelines(ex.get("lines"))
