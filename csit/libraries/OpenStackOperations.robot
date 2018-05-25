@@ -17,7 +17,6 @@ Resource          Utils.robot
 Resource          ../variables/Variables.robot
 Resource          ../variables/netvirt/Variables.robot
 Variables         ../variables/netvirt/Modules.py
-Variables         ../variables/netvirt/Exceptions_Whitelist.py
 
 *** Keywords ***
 Get Tenant ID From Security Group
