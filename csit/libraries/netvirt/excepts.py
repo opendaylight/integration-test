@@ -1,5 +1,7 @@
 import collections
+import errno
 import logging
+import os
 import re
 
 # Make sure to have unique matches in different lines
@@ -156,7 +158,7 @@ def get_exceptions(lines):
     The lines are parsed to create a list where all lines related to a timestamp
     are aggregated. Timestamped lines with exception (case insensitive) are copied
     to the exception map keyed to the index of the timestamp line. Each exception value
-    also has a 3 element list containing the last three WARN and ERROR lines.
+    also has a list containing WARN and ERROR lines proceeding the exception.
 
     :param list lines:
     :return OrderedDict _ex_map: map of exceptions
@@ -243,3 +245,32 @@ def verify_exceptions(lines):
         return
     get_exceptions(lines)
     return check_exceptions()
+
+
+def write_exceptions_map_to_file(testname, filename, mode="a+"):
+    """
+    Write the exceptions map to a file under the testname header. The output
+    will include all lines in the exception itself as well as any previous
+    contextual warning or error lines. The output will be appended or overwritten
+    depending on the mode parameter. It is assumed that the caller has called
+    verify_exceptions() earlier to populate the exceptions map, otherwise only
+    the testname and header will be printed to the file.
+
+    :param str testname: The name of the test
+    :param str filename: The file to open for writing
+    :param str mode: Append (a+) or overwrite (w+)
+    """
+    try:
+        os.makedirs(os.path.dirname(filename))
+    except OSError as exception:
+        if exception.errno != errno.EEXIST:
+            raise
+
+    with open(filename, mode) as fp:
+        fp.write("Starting test: {}\n".format(testname))
+        fp.write("{}\n".format("-" * 40))
+        for ex_idx, ex in _ex_map.items():
+            for exwe_index in ex.get("warnerr_list"):
+                for line in _ts_list[exwe_index]:
+                    fp.write(line)
+            fp.writelines(ex.get("lines"))
