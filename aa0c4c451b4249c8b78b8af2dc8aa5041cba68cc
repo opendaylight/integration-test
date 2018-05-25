@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1fb494ad_6c33c75f",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 57
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-05-25T02:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a09015a3_99ad11ea",
+      "revId": "aa0c4c451b4249c8b78b8af2dc8aa5041cba68cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4a72540_3c8dd3da",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 57
@@ -30,6 +48,30 @@
       "writtenOn": "2018-05-24T05:43:35Z",
       "side": 1,
       "message": "remove this test case entirely and the idea of using a \nsuite variable. those should be avoided whenever possible.\n\nthe Get DPID keyword is only taking 1s to execute. Just\nrun it in any test case that you need to use it. So, for\nexample, add right before line 91 below.\n\nuse lower case ${dpn1_id} when you do that.\n\nYour ${COUNT} variable is probably a reasonable example\nof something you need to keep as a Suite Variable, btw.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 38
+      },
+      "revId": "aa0c4c451b4249c8b78b8af2dc8aa5041cba68cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03159b6c_e207ff84",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 57
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-05-25T02:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4a72540_3c8dd3da",
       "range": {
         "startLine": 68,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "9b00a4ae_217bcbb3",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 57
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-05-25T02:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cec30fdf_30037f26",
+      "range": {
+        "startLine": 141,
+        "startChar": 4,
+        "endLine": 141,
+        "endChar": 37
+      },
+      "revId": "aa0c4c451b4249c8b78b8af2dc8aa5041cba68cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d65725b6_84c85f6c",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 57
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "a9878a16_560e33cb",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 57
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-05-25T02:23:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d65725b6_84c85f6c",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 20
+      },
+      "revId": "aa0c4c451b4249c8b78b8af2dc8aa5041cba68cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ea767bc_83616a23",
         "filename": "csit/testplans/netvirt-bundle-based-reconciliation.txt",
         "patchSetId": 57
@@ -99,6 +189,24 @@
       "writtenOn": "2018-05-24T05:43:35Z",
       "side": 1,
       "message": "I don\u0027t think you want this new testplan do you? are you\nplanning to create a whole new job or just add this suite\nto the existing netvirt csit jobs? I\u0027m guessing it\u0027s the\nlatter. So, just append this to that testplan.\n\nAlso, when you run in the sandbox, when you think you are\nclose it\u0027s good to run the entire suite so we can be doubly\nsure it will not adversely affect the other suites.\n\nWhen you have a solid sandbox run, do a copy-logs: comment\nin gerrit so they are saved and aren\u0027t deleted over the\nweekend when the sandbox is purged.",
+      "revId": "aa0c4c451b4249c8b78b8af2dc8aa5041cba68cc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9a300aa_013d3412",
+        "filename": "csit/testplans/netvirt-bundle-based-reconciliation.txt",
+        "patchSetId": 57
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-05-25T02:23:33Z",
+      "side": 1,
+      "message": "I have a configplan file part of this review to set the bundle_based_reconciliation_enabled \u003d True in the /etc/org.opendaylight.openflowplugin.cfg file.\n\nAs per the Jenkins sanbox run, it invokes and executes the config plan in the same name as the test plan. That\u0027s the reason I have added separate test plan.\n\nPlease let me know if there is any means to do the same by adding this testplan as part of the netvirt-suite.",
+      "parentUuid": "8ea767bc_83616a23",
       "revId": "aa0c4c451b4249c8b78b8af2dc8aa5041cba68cc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
