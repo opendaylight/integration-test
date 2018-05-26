@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4172c40c_b729fc81",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T17:07:36Z",
+      "side": 1,
+      "message": "BuiltIn.\nAlso does this need to be global or just BuiltIn.Set Suite Variable. I am thinking suite level is fine,",
+      "revId": "22a281a9918daff01a70f7a770119dd5dd7bb897",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f0481bc_d883b33d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T17:07:36Z",
+      "side": 1,
+      "message": "just leave this as ${output} \u003d , there is no need for three output vars",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 14
+      },
+      "revId": "22a281a9918daff01a70f7a770119dd5dd7bb897",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "214042e1_f1eff05a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T17:07:36Z",
+      "side": 1,
+      "message": "use a loop",
+      "revId": "22a281a9918daff01a70f7a770119dd5dd7bb897",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b3b2ee7_9dd3c2ba",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T17:07:36Z",
+      "side": 1,
+      "message": "remove, the switch connection likely shows the conn_id used",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 7
+      },
+      "revId": "22a281a9918daff01a70f7a770119dd5dd7bb897",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
