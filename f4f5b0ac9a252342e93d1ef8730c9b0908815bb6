@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b64c40c_ca8c640f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:56:44Z",
+      "side": 1,
+      "message": "lowercase as these are local, applies all through this patch",
+      "range": {
+        "startLine": 252,
+        "startChar": 21,
+        "endLine": 252,
+        "endChar": 33
+      },
+      "revId": "f4f5b0ac9a252342e93d1ef8730c9b0908815bb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc75d211_0165a3aa",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:56:44Z",
+      "side": 1,
+      "message": "lowercase, add \" \u003d\", applies all through this patch",
+      "range": {
+        "startLine": 254,
+        "startChar": 6,
+        "endLine": 254,
+        "endChar": 16
+      },
+      "revId": "f4f5b0ac9a252342e93d1ef8730c9b0908815bb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b1f0746_7bc63a7d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:56:44Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "revId": "f4f5b0ac9a252342e93d1ef8730c9b0908815bb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14384252_ec373fc9",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:56:44Z",
+      "side": 1,
+      "message": "qualify",
+      "revId": "f4f5b0ac9a252342e93d1ef8730c9b0908815bb6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
