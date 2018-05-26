@@ -22,6 +22,30 @@
       "revId": "68d47b72885691e975aa0f17f0ef50a79551ab29",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3ad8bec_65820b7f",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T12:57:30Z",
+      "side": 1,
+      "message": "Not really... look at all the robot framework libraries - they are all python code. So even RF uses python to do the real work. Debugging libraries should not be an ongoing effort. You create the lib, test it and commit. Then it sits there untouched and not needing debugging. It actually creates a better separation between the tests and the libraries. What happens today is RF is limited and cooky so you end up adapting your tests to work within RF limitations. This also allows us to share this code outside of csit.",
+      "parentUuid": "7840d02e_258133b6",
+      "range": {
+        "startLine": 229,
+        "startChar": 4,
+        "endLine": 229,
+        "endChar": 20
+      },
+      "revId": "68d47b72885691e975aa0f17f0ef50a79551ab29",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
