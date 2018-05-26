@@ -2,6 +2,338 @@
   "comments": [
     {
       "key": {
+        "uuid": "922efd61_7f4bbcb7",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "put in alpha order",
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40492acf_e65ce277",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "make it _1, eg. elan uses elan_net_1_port_1, also just name it PORTS",
+      "range": {
+        "startLine": 18,
+        "startChar": 32,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2058fad_af830d63",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "NETWORK",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 7
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bdb1e787_d9ea118a",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "SUBNET",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 13
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66f79f16_a054fc39",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "use a different rang that isn\u0027t already used, like 120.",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c26283ac_6746807c",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "SECURITY_GROUP",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 5
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d59324dd_a548fff8",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "look at the l2.robot or l3, etc, to see the flow in those suites, create network, subnet, security group. use the same naming and flow",
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50d70cff_1966e692",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "lowercase as this is local",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18c42609_e4c2ed9a",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "add this up above in the variables with default @{EMPTY}. This helps readers see that there will be a suite var somewhere.",
+      "range": {
+        "startLine": 51,
+        "startChar": 36,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96a44cdd_ef233179",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "all locals lowercase",
+      "range": {
+        "startLine": 52,
+        "startChar": 15,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e31920d_f89b6830",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "fully qualify, OpenStackOperations. Do the same for all keyword calls",
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bf882df_56729697",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "maybe throw this whole block in a keyword since it is the same exact code as the previous test",
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2ae6de2_0beab1fa",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "change name to say restart ovs1, since the next test says restart both",
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c19de231_0d7a0ab1",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "\u003d, comment applies all through this file",
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05f7813d_bd1e179c",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "remove, log doesn\u0027t add much value and is just distracting",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 7
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "516157f8_1d031f63",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "move this var up to the top variables and use it, since it is also in the next test",
+      "range": {
+        "startLine": 84,
+        "startChar": 6,
+        "endLine": 84,
+        "endChar": 20
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b669bf6_ba8a40ed",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 61
@@ -25,6 +357,23 @@
     },
     {
       "key": {
+        "uuid": "6dfccf48_e02d569a",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "seems like all thee tests are also candidates for a keyword, something taking in a list of nodes and what to restart",
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e35e4574_0597bf0e",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 61
@@ -41,6 +390,69 @@
         "startChar": 9,
         "endLine": 135,
         "endChar": 38
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a086690_bbe2a0b8",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "there is OpenStackOperations.Neutron Cleanup which you can likely use to cleanup everything",
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "299726e6_59729b73",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "remove is unused",
+      "range": {
+        "startLine": 161,
+        "startChar": 6,
+        "endLine": 161,
+        "endChar": 12
+      },
+      "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dfa71c2_783a83f4",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T16:53:46Z",
+      "side": 1,
+      "message": "qualify and remove _",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 33
       },
       "revId": "f8a747aed6960793478b5eb54b6e483b82cd7407",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
