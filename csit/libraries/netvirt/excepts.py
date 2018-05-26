@@ -94,7 +94,7 @@ _whitelist = [
     {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1270",
      "id": "ExecutionException",
      "context": [
-         "OptimisticLockFailedException: Optimistic lock failed.",
+         "OptimisticLockFailedException: Optimistic lock failed",
          "ConflictingModificationAppliedException: Node children was modified by other transaction",
          "removeOrUpdateVpnToDpnList: Error removing from dpnToVpnList for vpn "
      ]},
