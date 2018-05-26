@@ -92,7 +92,7 @@ _whitelist = [
     {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1270",
      "id": "ExecutionException",
      "context": [
-         "OptimisticLockFailedException: Optimistic lock failed.",
+         "OptimisticLockFailedException: Optimistic lock failed",
          "ConflictingModificationAppliedException: Node children was modified by other transaction",
          "removeOrUpdateVpnToDpnList: Error removing from dpnToVpnList for vpn "
      ]},
@@ -117,6 +117,18 @@ _whitelist = [
      "context": [
          "Got OptimisticLockFailedException", "NeutronNetwork [networkUUID=",
          "AbstractTranscriberInterface"
+     ]},
+    {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
+     "id": "ConflictingModificationAppliedException",
+     "context": [
+         "Got OptimisticLockFailedException",
+         "AbstractTranscriberInterface"
+     ]},
+    {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
+     "id": "ConflictingModificationAppliedException",
+     "context": [
+         "Node was created by other transaction",
+         "Optimistic lock failed for path /(urn:opendaylight:neutron?revision=2015-07-12)neutron"
      ]},
     # oxygen
     {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
