@@ -46,6 +46,30 @@
       "revId": "68d47b72885691e975aa0f17f0ef50a79551ab29",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "064c854d_6de9137d",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-26T14:14:08Z",
+      "side": 1,
+      "message": "The other reason for using the lib here is that the function is using data from the lib. We would need to expose all those private variables to RF which doesn\u0027t make sense.",
+      "parentUuid": "c3ad8bec_65820b7f",
+      "range": {
+        "startLine": 229,
+        "startChar": 4,
+        "endLine": 229,
+        "endChar": 20
+      },
+      "revId": "68d47b72885691e975aa0f17f0ef50a79551ab29",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
