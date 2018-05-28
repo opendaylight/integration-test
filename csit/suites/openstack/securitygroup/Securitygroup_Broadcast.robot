@@ -130,7 +130,6 @@ Start Suite
     Create Setup
 
 Create Setup
-    OpenStackOperations.Create Nano Flavor
     : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Create Network    ${network}
     : FOR    ${i}    IN RANGE    2
@@ -289,7 +288,7 @@ Get Port Number
     ${pnum} =     Get Sub Port Id    ${portname}    ${connec_id}
     Sleep    30
     ${command_1} =    Set Variable    sudo ovs-ofctl dump-ports-desc br-int -OOPenflow13 | grep ${pnum} | awk '{print$1}'
-    ${num} =   Utils.Write Commands Until Expected Prompt    ${command_1}    $
+    ${num} =   Utils.Write Commands Until Expected Prompt    ${command_1}    ${DEFAULT_LINUX_PROMPT}
     log    ${num}
     ${port_number} =     BuiltIn.Should Match Regexp    ${num}    [0-9]+
     log    ${port_number}
@@ -327,7 +326,6 @@ Get Metadata
 Stop Suite
     [Documentation]    Delete the created VMs, ports, subnet and networks
     SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
-    OpenStackOperations.OpenStack CLI    openstack flavor delete m1.nano
     OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[0]
     OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[1]
     OpenStackOperations.Delete Router    ${ROUTER}
