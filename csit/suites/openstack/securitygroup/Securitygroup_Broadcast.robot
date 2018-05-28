@@ -130,7 +130,6 @@ Start Suite
     Create Setup
 
 Create Setup
-    OpenStackOperations.Create Nano Flavor
     : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Create Network    ${network}
     : FOR    ${i}    IN RANGE    2
@@ -151,9 +150,9 @@ Create Setup
     @{VMS}=    Create List    @{NET_1_VMS}[0]    @{NET_1_VMS}[1]    @{NET_1_VMS}[2]    @{NET_2_VMS}[0]    @{NET_2_VMS}[1]
     @{NODES}=    Create List    ${OS_CMP1_HOSTNAME}    ${OS_CMP1_HOSTNAME}    ${OS_CMP2_HOSTNAME}    ${OS_CMP1_HOSTNAME}    ${OS_CMP2_HOSTNAME}
     : FOR    ${port}    ${vm}    ${node}    IN ZIP    ${PORTS}    ${VMS}    ${NODES}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${port}    ${vm}    ${node}
+    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${port}    ${vm}    ${node}    sg=@{SECURITY_GROUP}[0]
 
-    sleep    300
+#    sleep    300
 
 #    Log    Code for CSIT
 #    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
@@ -165,36 +164,43 @@ Create Setup
 #    ${VM3_NET1_DPN2_IP_Address}    ${dhcp_ip}    ${vm_console_output} =    Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Get VM IP    true     @{NET_1_VMS}[2]
 #    @{NET_1_VM_IPS}    ${ips_and_console_log[1]} =    Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
 
-
-    ${VM1_NET1_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_1_VMS}[0]
-    ${VM2_NET1_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_1_VMS}[1]
-    ${VM3_NET1_DPN2_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_1_VMS}[2]
-    ${VM1_NET2_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_2_VMS}[0]
-    ${VM2_NET2_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_2_VMS}[1]
-
-    BuiltIn.Set Suite Variable    ${VM1_NET1_DPN1_IP_Address}
-    BuiltIn.Set Suite Variable    ${VM2_NET1_DPN1_IP_Address}
-    BuiltIn.Set Suite Variable    ${VM3_NET1_DPN2_IP_Address}
-    BuiltIn.Set Suite Variable    ${VM1_NET2_DPN1_IP_Address}
-    BuiltIn.Set Suite Variable    ${VM2_NET2_DPN1_IP_Address}
-
-    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_1_VMS}[0]
-    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_1_VMS}[1]
-    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_1_VMS}[2]
-    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_2_VMS}[0]
-    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_2_VMS}[1]
+    @{VMS}=    Create List   @{NET_1_VMS}    @{NET_2_VMS}
+    @{VM_IPS}=    Create List    VM1_NET1_DPN1_IP_Address    VM2_NET1_DPN1_IP_Address    VM3_NET1_DPN1_IP_Address    VM1_NET2_DPN1_IP_Address    VM2_NET2_DPN1_IP_Address
+    : FOR    ${vm_ips}    ${vms}     IN ZIP    ${VM_IPS}    ${VMS}
+    \    ${temp}    ${ips_and_console_log[1]} =   BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Get VM IPs     ${vms}
+    \    BuiltIn.Set Suite Variable    ${${vm_ips}}    ${temp}
+    \    log     ${${vm_ips}}
 
 
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_1_VMS}[0]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_1_VMS}[0]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_1_VMS}[1]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_1_VMS}[1]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_1_VMS}[2]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_1_VMS}[2]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_2_VMS}[0]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_2_VMS}[0]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_2_VMS}[1]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_2_VMS}[1]
+#    ${VM1_NET1_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_1_VMS}[0]
+#    ${VM2_NET1_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_1_VMS}[1]
+#    ${VM3_NET1_DPN2_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_1_VMS}[2]
+#    ${VM1_NET2_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_2_VMS}[0]
+#    ${VM2_NET2_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_2_VMS}[1]
+
+#    BuiltIn.Set Suite Variable    ${VM1_NET1_DPN1_IP_Address}
+#    BuiltIn.Set Suite Variable    ${VM2_NET1_DPN1_IP_Address}
+#    BuiltIn.Set Suite Variable    ${VM3_NET1_DPN2_IP_Address}
+#    BuiltIn.Set Suite Variable    ${VM1_NET2_DPN1_IP_Address}
+#    BuiltIn.Set Suite Variable    ${VM2_NET2_DPN1_IP_Address}
+
+#    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_1_VMS}[0]
+#    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_1_VMS}[1]
+#    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_1_VMS}[2]
+#    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_2_VMS}[0]
+#    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_2_VMS}[1]
+
+
+#    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_1_VMS}[0]
+#    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_1_VMS}[0]
+#    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_1_VMS}[1]
+#    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_1_VMS}[1]
+#    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_1_VMS}[2]
+#    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_1_VMS}[2]
+#    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_2_VMS}[0]
+#    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_2_VMS}[0]
+#    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_2_VMS}[1]
+#    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_2_VMS}[1]
 
     @{VMPORTS}=    Create List   VM1_Port    VM2_Port    VM3_Port    VM4_Port    VM5_Port
     @{CONN_IDS}=    Create List    ${OS_CMP1_CONN_ID}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}
@@ -218,7 +224,7 @@ Create Setup
     \    ${temp} =    Get Metadata    ${conn_id}    ${vmport}
     \    BuiltIn.Set Suite Variable    ${${vm_metadata}}    ${temp}
     \    log   ${${vm_metadata}}
-    ${VM1_DPN1_Enable_Bcast}    Wait Until Keyword Succeeds    60s    10s    Enable Broadcast Pings On VM    ${NETWORKS[0]}    ${VM1_NET1_DPN1_IP_Address}    ${CIRROS_USER}    ${CIRRIOS_PASSWORD}
+    ${VM1_DPN1_Enable_Bcast} =     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Enable Broadcast Pings On VM    ${NETWORKS[0]}    ${VM1_NET1_DPN1_IP_Address}    ${CIRROS_USER}    ${CIRRIOS_PASSWORD}
 
 Get VM IP
     [Documentation]    Show information of a given VM and grep for ip address. VM name should be sent as arguments.
@@ -237,7 +243,8 @@ Enable Broadcast Pings On VM
     ${output} =    Utils.Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Utils.Write Commands Until Expected Prompt    sudo -s    ${OS_SYSTEM_PROMPT}
     Utils.Write Commands Until Expected Prompt    echo "0" > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts    ${OS_SYSTEM_PROMPT}
-    [Teardown]    Close Vm Instance
+    Utils.Write Commands Until Expected Prompt    exit && exit    ${OS_SYSTEM_PROMPT}
+    #[Teardown]    Close Vm Instance
 
 Bcast Packetcount
     [Arguments]    ${conn_id}    ${br_name}    ${TABLE_NO}   ${BCAST_IP}
@@ -289,7 +296,7 @@ Get Port Number
     ${pnum} =     Get Sub Port Id    ${portname}    ${connec_id}
     Sleep    30
     ${command_1} =    Set Variable    sudo ovs-ofctl dump-ports-desc br-int -OOPenflow13 | grep ${pnum} | awk '{print$1}'
-    ${num} =   Utils.Write Commands Until Expected Prompt    ${command_1}    $
+    ${num} =   Utils.Write Commands Until Expected Prompt    ${command_1}    ${DEFAULT_LINUX_PROMPT}
     log    ${num}
     ${port_number} =     BuiltIn.Should Match Regexp    ${num}    [0-9]+
     log    ${port_number}
@@ -327,7 +334,6 @@ Get Metadata
 Stop Suite
     [Documentation]    Delete the created VMs, ports, subnet and networks
     SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
-    OpenStackOperations.OpenStack CLI    openstack flavor delete m1.nano
     OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[0]
     OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[1]
     OpenStackOperations.Delete Router    ${ROUTER}
