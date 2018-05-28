@@ -130,7 +130,6 @@ Start Suite
     Create Setup
 
 Create Setup
-    OpenStackOperations.Create Nano Flavor
     : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Create Network    ${network}
     : FOR    ${i}    IN RANGE    2
@@ -327,7 +326,6 @@ Get Metadata
 Stop Suite
     [Documentation]    Delete the created VMs, ports, subnet and networks
     SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
-    OpenStackOperations.OpenStack CLI    openstack flavor delete m1.nano
     OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[0]
     OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[1]
     OpenStackOperations.Delete Router    ${ROUTER}
