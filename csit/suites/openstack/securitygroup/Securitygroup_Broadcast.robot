@@ -28,15 +28,26 @@ ${ROUTER}    sg_router
 @{NET_1_VMS}    net_1_sg1_vm_1    net_1_sg1_vm_2    net_1_sg1_vm_3
 @{NET_2_VMS}    net_2_sg1_vm_1    net_2_sg1_vm_2
 ${ACL_Anti_Spoofing_Table}    table=240
-${ether_type}    IPv4
-${CIRROS_USER}     cirros
-${CIRRIOS_PASSWORD}    cubswin:)
+#${CIRROS_USER}     cirros
+#${CIRRIOS_PASSWORD}    cubswin:)
 ${DUMP_FLOW}    sudo ovs-ofctl dump-flows br-int -OOPenflow13
+${DUMP_PORT_DESC}    sudo ovs-ofctl dump-ports-desc br-int -OOPenflow13
 ${br_name}    br-int
 ${PACKET_COUNT}    5
 ${BCAST_IP}    255.255.255.255
 ${SUBNET1_BCAST_IP}    10.0.0.255
 ${SUBNET2_BCAST_IP}    20.0.0.255
+${INGRESS_DISPATURE_TABLE}    table=220
+${Enable_Bcast}    sudo -s && echo "0" > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+
+#@{PORTS}    @{PORTS_NET1}[0]    @{PORTS_NET1}[1]    @{PORTS_NET1}[2]    @{PORTS_NET2}[0]    @{PORTS_NET2}[1]
+#@{VMS}    @{NET_1_VMS}[0]    @{NET_1_VMS}[1]    @{NET_1_VMS}[2]    @{NET_2_VMS}[0]    @{NET_2_VMS}[1]
+#@{NODES}    ${OS_CMP1_HOSTNAME}    ${OS_CMP1_HOSTNAME}    ${OS_CMP2_HOSTNAME}    ${OS_CMP1_HOSTNAME}   ${OS_CMP2_HOSTNAME}
+#@{VM_IPS}   VM1_NET1_DPN1_IP_Address    VM2_NET1_DPN1_IP_Address    VM3_NET1_DPN1_IP_Address    VM1_NET2_DPN1_IP_Address    VM2_NET2_DPN1_IP_Address
+#@{VMPORTS}    VM1_Port    VM2_Port    VM3_Port    VM4_Port    VM5_Port
+#@{CONN_IDS}    ${OS_CMP1_CONN_ID}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}
+#@{VMS_METADATA}   vm1_metadata    vm2_metadata    vm3_metadata    vm4_metadata    vm5_metadata
+
 
 *** Test case ***
 Verify Network Broadcast traffic between the VMs hosted on same compute node in Single Network
@@ -81,69 +92,61 @@ Verify Network Broadcast traffic between the VMs hosted on Different compute nod
 
 Verify Subnet Broadcast traffic between the VMs hosted on same compute node in Single Network
     [Documentation]      Verify L3-Subnet Broadcast traffic between the VMs hosted on same compute node in Single Network
-    ${VM2_SUBMETA} =    Get Substring    ${vm2_metadata}   0    7
-    ${get_pkt_count_before_bcast} =    SubnetBcast Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${ACL_Anti_Spoofing_Table}    ${SUBNET1_BCAST_IP}   ${VM2_SUBMETA}
+    ${get_pkt_count_before_bcast} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    SubnetBcast Packetcount     ${OS_COMPUTE_1_IP}     ${ACL_Anti_Spoofing_Table}    ${SUBNET1_BCAST_IP}   ${VM2_SUBMETA}
     ${output} =    Wait Until Keyword Succeeds    180s    10s     OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM1_NET1_DPN1_IP_Address}    ping -c 5 ${SUBNET1_BCAST_IP}
     BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
     ${bcast_egress} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_1_IP}    ${DUMP_FLOW} | grep ${ACL_Anti_Spoofing_Table} | grep ${SUBNET1_BCAST_IP}| grep ${VM2_SUBMETA}
-    ${get_pkt_count_after_bcast} =    SubnetBcast Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${ACL_Anti_Spoofing_Table}    ${SUBNET1_BCAST_IP}    ${VM2_SUBMETA}
+    ${get_pkt_count_after_bcast} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    SubnetBcast Packetcount    ${OS_COMPUTE_1_IP}      ${ACL_Anti_Spoofing_Table}    ${SUBNET1_BCAST_IP}    ${VM2_SUBMETA}
     ${pkt_diff} =    Evaluate    int(${get_pkt_count_after_bcast})-int(${get_pkt_count_before_bcast})
     Should Be Equal As Numbers    ${pkt_diff}    ${PACKET_COUNT}
 
 Verify Subnet Broadcast traffic between the VMs hosted on Different compute node in Single Network
     [Documentation]      Verify L3-Subnet Broadcast traffic between the VMs hosted on same compute node in Single Network
-    ${VM3_SUBMETA}    Get Substring    ${vm3_metadata}   0    7
-    ${get_pkt_count_before_bcast} =    SubnetBcast Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${ACL_Anti_Spoofing_Table}    ${SUBNET1_BCAST_IP}   ${VM3_SUBMETA}
+    ${get_pkt_count_before_bcast} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    SubnetBcast Packetcount    ${OS_COMPUTE_2_IP}      ${ACL_Anti_Spoofing_Table}    ${SUBNET1_BCAST_IP}   ${VM3_SUBMETA}
     ${output} =    Wait Until Keyword Succeeds    180s    10s     OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM1_NET1_DPN1_IP_Address}    ping -c 5 ${SUBNET1_BCAST_IP}
     BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
     ${bcast_egress} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_2_IP}    ${DUMP_FLOW} | grep ${ACL_Anti_Spoofing_Table} | grep ${SUBNET1_BCAST_IP}| grep ${VM3_SUBMETA}
-    ${get_pkt_count_after_bcast} =    SubnetBcast Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${ACL_Anti_Spoofing_Table}    ${SUBNET1_BCAST_IP}    ${VM3_SUBMETA}
+    ${get_pkt_count_after_bcast} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    SubnetBcast Packetcount    ${OS_COMPUTE_2_IP}      ${ACL_Anti_Spoofing_Table}    ${SUBNET1_BCAST_IP}    ${VM3_SUBMETA}
     ${pkt_diff} =    Evaluate    int(${get_pkt_count_after_bcast})-int(${get_pkt_count_before_bcast})
     Should Be Equal As Numbers    ${pkt_diff}    ${PACKET_COUNT}
 
 Verify Subnet Broadcast traffic between the VMs hosted on same compute node in Multi Network
     [Documentation]      Verify L3-Subnet Broadcast traffic between the VMs hosted on same compute node in Multi Network
-    ${VM4_SUBMETA} =    Get Substring    ${vm4_metadata}   0    7
-    ${get_pkt_count_before_bcast} =    SubnetBcast Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${ACL_Anti_Spoofing_Table}    ${SUBNET2_BCAST_IP}   ${VM4_SUBMETA}
+    ${get_pkt_count_before_bcast} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    SubnetBcast Packetcount    ${OS_COMPUTE_1_IP}     ${ACL_Anti_Spoofing_Table}    ${SUBNET2_BCAST_IP}   ${VM4_SUBMETA}
     ${output} =    Wait Until Keyword Succeeds    180s    10s     OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM1_NET1_DPN1_IP_Address}    ping -c 5 ${SUBNET2_BCAST_IP}
     ${bcast_egress} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_1_IP}    ${DUMP_FLOW} | grep ${ACL_Anti_Spoofing_Table} | grep ${SUBNET2_BCAST_IP}| grep ${VM4_SUBMETA}
-    ${get_pkt_count_after_bcast} =    SubnetBcast Packetcount    ${OS_CMP1_CONN_ID}    ${br_name}    ${ACL_Anti_Spoofing_Table}    ${SUBNET2_BCAST_IP}    ${VM4_SUBMETA}
+    ${get_pkt_count_after_bcast} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    SubnetBcast Packetcount    ${OS_COMPUTE_1_IP}      ${ACL_Anti_Spoofing_Table}    ${SUBNET2_BCAST_IP}    ${VM4_SUBMETA}
     ${pkt_diff} =    Evaluate    int(${get_pkt_count_after_bcast})-int(${get_pkt_count_before_bcast})
     Should Be True    ${pkt_diff}==0
 
 Verify Subnet Broadcast traffic between the VMs hosted on Different compute node in Multi Network
     [Documentation]      Verify L3-Subnet Broadcast traffic between the VMs hosted on Different compute node in Multi Network
-    ${VM5_SUBMETA}    Get Substring    ${vm5_metadata}   0    7
-    ${get_pkt_count_before_bcast} =    SubnetBcast Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${ACL_Anti_Spoofing_Table}    ${SUBNET2_BCAST_IP}   ${VM5_SUBMETA}
+    ${get_pkt_count_before_bcast} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    SubnetBcast Packetcount    ${OS_COMPUTE_2_IP}      ${ACL_Anti_Spoofing_Table}    ${SUBNET2_BCAST_IP}   ${VM5_SUBMETA}
     ${output} =    Wait Until Keyword Succeeds    180s    10s     OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${VM1_NET1_DPN1_IP_Address}    ping -c 5 ${SUBNET2_BCAST_IP}
     ${bcast_egress} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_2_IP}    ${DUMP_FLOW} | grep ${ACL_Anti_Spoofing_Table} | grep ${SUBNET2_BCAST_IP}| grep ${VM5_SUBMETA}
-    ${get_pkt_count_after_bcast} =    SubnetBcast Packetcount    ${OS_CMP2_CONN_ID}    ${br_name}    ${ACL_Anti_Spoofing_Table}    ${SUBNET2_BCAST_IP}    ${VM5_SUBMETA}
+    ${get_pkt_count_after_bcast} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    SubnetBcast Packetcount    ${OS_COMPUTE_2_IP}      ${ACL_Anti_Spoofing_Table}    ${SUBNET2_BCAST_IP}    ${VM5_SUBMETA}
     ${pkt_diff} =    Evaluate    int(${get_pkt_count_after_bcast})-int(${get_pkt_count_before_bcast})
     Should Be True    ${pkt_diff}==0
 
 *** Keywords ***
 
 Start Suite
-    [Documentation]    Test Suite for CR156-Security Group Broadcast
+    [Documentation]    Test Suite for Network and Subnet Broadcast with security group
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     DevstackUtils.Devstack Suite Setup
     Create Setup
 
 Create Setup
-    OpenStackOperations.Create Nano Flavor
     : FOR    ${network}    IN    @{NETWORKS}
     \    OpenStackOperations.Create Network    ${network}
     : FOR    ${i}    IN RANGE    2
     \    OpenStackOperations.Create SubNet    ${NETWORKS[${i}]}    ${SUBNETS[${i}]}    ${SUBNET_CIDRS[${i}]}
-
-    OpenStackOperations.Create Allow All SecurityGroup    @{SECURITY_GROUP}[0]    ${ether_type}
+    OpenStackOperations.Create Allow All SecurityGroup    @{SECURITY_GROUP}[0]
     OpenStackOperations.Create Router       ${ROUTER}
     : FOR    ${interface}    IN    @{SUBNETS}
     \    OpenStackOperations.Add Router Interface    ${ROUTER}    ${interface}
-
     : FOR    ${port_net1}    IN    @{PORTS_NET1}
     \    OpenStackOperations.Create Port    @{NETWORKS}[0]    ${port_net1}    sg=@{SECURITY_GROUP}[0]
-
     : FOR    ${port_net2}    IN    @{PORTS_NET2}
     \    OpenStackOperations.Create Port    @{NETWORKS}[1]    ${port_net2}    sg=@{SECURITY_GROUP}[0]
 
@@ -151,50 +154,14 @@ Create Setup
     @{VMS}=    Create List    @{NET_1_VMS}[0]    @{NET_1_VMS}[1]    @{NET_1_VMS}[2]    @{NET_2_VMS}[0]    @{NET_2_VMS}[1]
     @{NODES}=    Create List    ${OS_CMP1_HOSTNAME}    ${OS_CMP1_HOSTNAME}    ${OS_CMP2_HOSTNAME}    ${OS_CMP1_HOSTNAME}    ${OS_CMP2_HOSTNAME}
     : FOR    ${port}    ${vm}    ${node}    IN ZIP    ${PORTS}    ${VMS}    ${NODES}
-    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${port}    ${vm}    ${node}
+    \    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${port}    ${vm}    ${node}    sg=@{SECURITY_GROUP}[0]
 
-    sleep    300
-
-#    Log    Code for CSIT
-#    @{NET_1_VM_IPS}    ${NET_1_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
-#    @{NET_2_VM_IPS}    ${NET_2_DHCP_IP} =    OpenStackOperations.Get VM IPs    @{NET_2_VMS}
-#    BuiltIn.Set Suite Variable    @{NET_1_VM_IPS}
-#    BuiltIn.Set Suite Variable    @{NET_2_VM_IPS}
-#    ${VM1_NET1_DPN1_IP_Address}    ${dhcp_ip}    ${vm_console_output} =    Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Get VM IP    true     @{NET_1_VMS}[0]
-#    ${VM2_NET1_DPN1_IP_Address}    ${dhcp_ip}    ${vm_console_output} =    Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Get VM IP    true     @{NET_1_VMS}[1]
-#    ${VM3_NET1_DPN2_IP_Address}    ${dhcp_ip}    ${vm_console_output} =    Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Get VM IP    true     @{NET_1_VMS}[2]
-#    @{NET_1_VM_IPS}    ${ips_and_console_log[1]} =    Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Get VM IPs    @{NET_1_VMS}
-
-
-    ${VM1_NET1_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_1_VMS}[0]
-    ${VM2_NET1_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_1_VMS}[1]
-    ${VM3_NET1_DPN2_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_1_VMS}[2]
-    ${VM1_NET2_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_2_VMS}[0]
-    ${VM2_NET2_DPN1_IP_Address} =    Wait Until Keyword Succeeds    240s    10s    Get VM IP    @{NET_2_VMS}[1]
-
-    BuiltIn.Set Suite Variable    ${VM1_NET1_DPN1_IP_Address}
-    BuiltIn.Set Suite Variable    ${VM2_NET1_DPN1_IP_Address}
-    BuiltIn.Set Suite Variable    ${VM3_NET1_DPN2_IP_Address}
-    BuiltIn.Set Suite Variable    ${VM1_NET2_DPN1_IP_Address}
-    BuiltIn.Set Suite Variable    ${VM2_NET2_DPN1_IP_Address}
-
-    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_1_VMS}[0]
-    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_1_VMS}[1]
-    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_1_VMS}[2]
-    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_2_VMS}[0]
-    Wait Until Keyword Succeeds    60s    10s    Verify VM Is ACTIVE    @{NET_2_VMS}[1]
-
-
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_1_VMS}[0]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_1_VMS}[0]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_1_VMS}[1]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_1_VMS}[1]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_1_VMS}[2]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_1_VMS}[2]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_2_VMS}[0]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_2_VMS}[0]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack server show @{NET_2_VMS}[1]
-    ${output} =    BuiltIn.Wait Until Keyword Succeeds    420s    10s    OpenStack CLI    openstack console log show @{NET_2_VMS}[1]
+    @{VMS}=    Create List   @{NET_1_VMS}    @{NET_2_VMS}
+    @{VM_IPS}=    Create List    VM1_NET1_DPN1_IP_Address    VM2_NET1_DPN1_IP_Address    VM3_NET1_DPN1_IP_Address    VM1_NET2_DPN1_IP_Address    VM2_NET2_DPN1_IP_Address
+    : FOR    ${vm_ips}    ${vms}     IN ZIP    ${VM_IPS}    ${VMS}
+    \    ${temp}    ${ips_and_console_log[1]} =   BuiltIn.Wait Until Keyword Succeeds    60s    10s    OpenStackOperations.Get VM IPs     ${vms}
+    \    BuiltIn.Set Suite Variable    ${${vm_ips}}    ${temp}
+    \    log     ${${vm_ips}}
 
     @{VMPORTS}=    Create List   VM1_Port    VM2_Port    VM3_Port    VM4_Port    VM5_Port
     @{CONN_IDS}=    Create List    ${OS_CMP1_CONN_ID}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}
@@ -209,8 +176,7 @@ Create Setup
     ${output} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Check In Port    ${VM3_Port}    ${OS_CMP2_CONN_ID}
     ${output} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Check In Port    ${VM4_Port}    ${OS_CMP1_CONN_ID}
     ${output} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Check In Port    ${VM5_Port}    ${OS_CMP2_CONN_ID}
-
-
+    
     @{VMS_METADATA}=    Create List   vm1_metadata    vm2_metadata    vm3_metadata    vm4_metadata    vm5_metadata
     @{CONN_IDS}=    Create List    ${OS_CMP1_CONN_ID}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}
     @{VMPORTS}=    Create List   ${VM1_Port}    ${VM2_Port}    ${VM3_Port}    ${VM4_Port}    ${VM5_Port}
@@ -218,7 +184,43 @@ Create Setup
     \    ${temp} =    Get Metadata    ${conn_id}    ${vmport}
     \    BuiltIn.Set Suite Variable    ${${vm_metadata}}    ${temp}
     \    log   ${${vm_metadata}}
-    ${VM1_DPN1_Enable_Bcast}    Wait Until Keyword Succeeds    60s    10s    Enable Broadcast Pings On VM    ${NETWORKS[0]}    ${VM1_NET1_DPN1_IP_Address}    ${CIRROS_USER}    ${CIRRIOS_PASSWORD}
+ 
+    ${output1} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-ports-desc br-int -OOPenflow13
+    ${output2} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-flows br-int -OOPenflow13
+
+    ${VM1_DPN1_Enable_Bcast} =    Execute Command on VM Instance    ${NETWORKS[0]}    ${VM1_NET1_DPN1_IP_Address}    ${Enable_Bcast}
+
+    #${VM1_DPN1_Enable_Bcast} =     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Enable Broadcast Pings On VM    ${NETWORKS[0]}    ${VM1_NET1_DPN1_IP_Address}   ${user}=cirros    ${password}=cubswin:)
+
+    ${VM1_In_Port}   ${VM1_META} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    ${VM1_Port}    ${OS_COMPUTE_1_IP}
+    ${VM2_In_Port}   ${VM2_META} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    ${VM2_Port}    ${OS_COMPUTE_1_IP}
+    ${VM3_In_Port}   ${VM3_META} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    ${VM3_Port}    ${OS_COMPUTE_2_IP}
+    ${VM4_In_Port}   ${VM4_META} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    ${VM4_Port}    ${OS_COMPUTE_1_IP}
+    ${VM5_In_Port}   ${VM5_META} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    ${VM5_Port}    ${OS_COMPUTE_2_IP}
+    BuiltIn.Set Suite Variable    ${VM1_In_Port}   ${VM1_META}
+    BuiltIn.Set Suite Variable    ${VM2_In_Port}   ${VM2_META}
+    BuiltIn.Set Suite Variable    ${VM3_In_Port}   ${VM3_META}
+    BuiltIn.Set Suite Variable    ${VM4_In_Port}   ${VM4_META}
+    BuiltIn.Set Suite Variable    ${VM5_In_Port}   ${VM5_META}
+
+    Log Many    ${VM1_In_Port}   ${VM1_META}
+    Log Many    ${VM2_In_Port}   ${VM2_META}
+    Log Many    ${VM3_In_Port}   ${VM3_META}
+    Log Many    ${VM4_In_Port}   ${VM4_META}
+    Log Many    ${VM5_In_Port}   ${VM5_META}
+
+    ${VM1_SUBMETA} =    Get Submetadata   ${vm1_metadata}
+    ${VM2_SUBMETA} =    Get Submetadata   ${vm2_metadata}
+    ${VM3_SUBMETA} =    Get Submetadata   ${vm3_metadata}
+    ${VM4_SUBMETA} =    Get Submetadata   ${vm4_metadata}
+    ${VM5_SUBMETA} =    Get Submetadata   ${vm5_metadata}
+
+    BuiltIn.Set Suite Variable    ${VM1_SUBMETA}
+    BuiltIn.Set Suite Variable    ${VM2_SUBMETA}
+    BuiltIn.Set Suite Variable    ${VM3_SUBMETA}
+    BuiltIn.Set Suite Variable    ${VM4_SUBMETA}
+    BuiltIn.Set Suite Variable    ${VM5_SUBMETA}
+
 
 Get VM IP
     [Documentation]    Show information of a given VM and grep for ip address. VM name should be sent as arguments.
@@ -237,7 +239,8 @@ Enable Broadcast Pings On VM
     ${output} =    Utils.Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Utils.Write Commands Until Expected Prompt    sudo -s    ${OS_SYSTEM_PROMPT}
     Utils.Write Commands Until Expected Prompt    echo "0" > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts    ${OS_SYSTEM_PROMPT}
-    [Teardown]    Close Vm Instance
+    Utils.Write Commands Until Expected Prompt    exit && exit    ${OS_SYSTEM_PROMPT}
+    #[Teardown]    Close Vm Instance
 
 Bcast Packetcount
     [Arguments]    ${conn_id}    ${br_name}    ${TABLE_NO}   ${BCAST_IP}
@@ -251,11 +254,17 @@ Bcast Packetcount
     [Return]    ${count}
 
 SubnetBcast Packetcount
-    [Arguments]    ${conn_id}    ${br_name}    ${TABLE_NO}   ${SUBNET_BCAST_IP}    ${VM_SUBMETA}
+    [Arguments]    ${OS_COMPUTE_IP}    ${TABLE_NO}   ${SUBNET_BCAST_IP}    ${VM_SUBMETA}
     [Documentation]    Capture packetcount for subnet broadcast request
-    Switch Connection    ${conn_id}
-    ${output} =    Execute Command    sudo ovs-ofctl dump-flows -O Openflow13 ${br_name} | grep ${TABLE_NO} | grep ${SUBNET_BCAST_IP}| grep ${VM_SUBMETA}
-    @{output_list} =    String.Split String    ${output}    \r\n
+    #Switch Connection    ${conn_id}
+    #${cmd} =   Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 ${br_name} | grep ${TABLE_NO} | grep ${SUBNET_BCAST_IP}| grep ${VM_SUBMETA}
+    #${output} =    OpenStackOperations.OpenStack CLI    ${cmd}
+    #${output} =    DevstackUtils.Write Commands Until Prompt And Log    sudo ovs-ofctl dump-flows -O Openflow13 ${br_name} | grep ${TABLE_NO} | grep ${SUBNET_BCAST_IP}| grep ${VM_SUBMETA}    20s
+    #log    ${output}
+
+    ${flow_output1} =    Run Command On Remote System And Log    ${OS_COMPUTE_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep ${TABLE_NO} | grep ${SUBNET_BCAST_IP}| grep ${VM_SUBMETA}
+    log    ${flow_output1}
+    @{output_list} =    String.Split String    ${flow_output1}    \r\n
     ${flow} =    Collections.Get From List    ${output_list}     0
     ${packetcount_list} =    Get Regexp Matches    ${flow}    n_packets=([0-9]+)     1
     ${count} =    Collections.Get From List    ${packetcount_list}    0
@@ -289,7 +298,7 @@ Get Port Number
     ${pnum} =     Get Sub Port Id    ${portname}    ${connec_id}
     Sleep    30
     ${command_1} =    Set Variable    sudo ovs-ofctl dump-ports-desc br-int -OOPenflow13 | grep ${pnum} | awk '{print$1}'
-    ${num} =   Utils.Write Commands Until Expected Prompt    ${command_1}    $
+    ${num} =   Utils.Write Commands Until Expected Prompt    ${command_1}    ${DEFAULT_LINUX_PROMPT}
     log    ${num}
     ${port_number} =     BuiltIn.Should Match Regexp    ${num}    [0-9]+
     log    ${port_number}
@@ -324,10 +333,45 @@ Get Metadata
     log    ${only_meta}
     [Return]    ${only_meta}
 
+Get Submetadata
+    [Arguments]    ${vm_Full_metadata}
+    [Documentation]    Get the submetadata of the VM
+    ${cmd1} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE1_IP}    ${DUMP_FLOW} | grep ${INGRESS_DISPATURE_TABLE} | grep write_metadata:
+    Log    ${cmd1}
+    ${output1} =    String.Get Regexp Matches    ${cmd1}    reg6=(\\w+)    1
+    ${cmd2} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE2_IP}    ${DUMP_FLOW} | grep ${INGRESS_DISPATURE_TABLE} | grep write_metadata:
+    log    ${cmd2}
+    ${output2} =    String.Get Regexp Matches    ${cmd2}    reg6=(\\w+)    1
+    ${metalist} =    Combine Lists     ${output1}    ${output2}
+    : FOR    ${meta}    IN     @{metalist}
+    \   ${metadata_check_status} =    Run Keyword And Return Status    should contain    ${vm_Full_metadata}    ${meta}
+    \    Return From Keyword if    ${metadata_check_status} == True    ${meta}
+
+Get VMs Metadata and In Port
+    [Arguments]    ${portname}    ${OS_COMPUTE_IP}
+    [Documentation]    This keyword is to get the VM metadata and the in_port Id of the VM
+    ${port_id} =    OpenStackOperations.Get Port Id    ${portname}
+    BuiltIn.Should Match Regexp    ${port_id}    \\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}
+    @{subport} =    String.Get Regexp Matches    ${port_id}    (\\w{8}-\\w{2})
+#    ${subport} =    OpenStackOperations.Get Sub Port Id    ${portname} 
+#    ${get_vm_in_port} =    OpenStack CLI    ${DUMP_PORT_DESC} | grep ${subport} | awk '{print$1}'
+#    ${get_vm_in_port} =    OpenStack CLI    ${DUMP_PORT_DESC} | grep @{subport}[0] | awk '{print$1}'
+ 
+    ${get_vm_in_port} =    Utils.Write Commands Until Expected Prompt    ${DUMP_PORT_DESC} | grep @{subport}[0] | awk '{print$1}'    ${DEFAULT_LINUX_PROMPT_STRICT}
+    ${vms_in_port} =     BuiltIn.Should Match Regexp    ${get_vm_in_port}    [0-9]+
+    ${grep_metadata} =    Utils.Write Commands Until Expected Prompt    ${OS_COMPUTE_IP}    ${DUMP_FLOW} | grep table=0 | grep in_port=${vms_in_port} | awk '{print$7}'    ${DEFAULT_LINUX_PROMPT_STRICT}
+    log    ${grep_metadata}
+    @{metadata} =    String.Split string    ${grep_metadata}    ,
+    ${get_write_metadata} =    Collections.get from list    ${metadata}    0
+    @{complete_metadata} =    Split string    ${get_write_metadata}    :
+    ${extract_metadata} =    Collections.get from list    ${complete_metadata}    1
+    @{split_metadata} =    String.Split string    ${extract_metadata}    /
+    ${vm_metadata} =    Collections.get from list    ${split_metadata}    0
+    [Return]   ${vms_in_port}    ${vm_metadata}
+
 Stop Suite
     [Documentation]    Delete the created VMs, ports, subnet and networks
     SSHLibrary.Switch Connection    ${OS_CMP1_CONN_ID}
-    OpenStackOperations.OpenStack CLI    openstack flavor delete m1.nano
     OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[0]
     OpenStackOperations.Remove Interface    ${ROUTER}    @{SUBNETS}[1]
     OpenStackOperations.Delete Router    ${ROUTER}
