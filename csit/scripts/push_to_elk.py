@@ -56,6 +56,7 @@ import time
 import xml.etree.ElementTree as ET
 
 # 3rd party lib
+from elasticsearch import Elasticsearch, RequestsHttpConnection, exceptions
 import yaml
 
 # ELK DB host and port to be passed as ':' separated argument
@@ -72,6 +73,17 @@ else:
 # Construct json body
 
 BODY = {}
+
+try:
+    es = Elasticsearch(
+        hosts=[{'host': ELK_DB_HOST, 'port': int(ELK_DB_PORT)}],
+        connection_class=RequestsHttpConnection
+    )
+except Exception as e:
+    print('Unexpected Error Occurred. Exiting')
+    print(e)
+
+print(es.info())
 
 ts = time.time()
 formatted_ts = \
@@ -124,28 +136,22 @@ elap_time = datetime.strptime(endtime, '%Y%m%d %H:%M:%S.%f') \
     - datetime.strptime(starttime, '%Y%m%d %H:%M:%S.%f')
 BODY['duration'] = str(elap_time)
 
-# Parse JSON BODY to construct PUT_URL
-
-PUT_URL_INDEX = '/{}-{}'.format(BODY['project'], BODY['subject'])
-PUT_URL_TYPE = '/{}'.format(BODY['test-type'])
-PUT_URL_ID = '/{}-{}'.format(BODY['test-name'], BODY['test-run'])
-PUT_URL = 'https://{}:{}{}{}{}'.format(ELK_DB_HOST, ELK_DB_PORT, PUT_URL_INDEX, PUT_URL_TYPE, PUT_URL_ID)
-print(PUT_URL)
-
 print(json.dumps(BODY, indent=4))
 
 # Try to send request to ELK DB.
 
 try:
-    r = requests.put(PUT_URL, json=BODY)
-    print(r.status_code)
-    print(json.dumps(json.loads(r.content), indent=4))
-except:
+    index = '{}-{}'.format(BODY['project'], BODY['subject'])
+    ES_ID = '{}-{}'.format(BODY['test-name'], BODY['test-run'])
+    res = es.index(index=index, doc_type=BODY['test-type'], id=ES_ID, body=BODY)
+    print(json.dumps(res, indent=4))
+except Exception as e:
+    print(e)
     print('Unable to push data to ElasticSearch')
-
 
 # Function to convert JSON object to string.
 # Python puts 'true' as 'True' etc. which need handling.
+
 
 def JSONToString(jobj):
     retval = str(jobj)
@@ -314,28 +320,27 @@ if BODY['test-type'] == 'performance':
             fieldlist.append('plots.' + key + '.' + subkey)
         vis = getVisualization(BODY['test-name'], fieldlist, key)
         vis_ids.append(BODY['test-name'] + '-' + key)
-        PUT_URL = \
-            'https://{}:{}/.kibana/visualization/{}-{}'.format(ELK_DB_HOST, ELK_DB_PORT, BODY['test-name'], key)
-        print(PUT_URL)
         print(json.dumps(vis, indent=4))
         try:
-            r = requests.put(PUT_URL, json=vis)
-            print(r.status_code)
-            print(json.dumps(json.loads(r.content), indent=4))
-        except:
+            ES_ID = '{}-{}'.format(BODY['test-name'], key)
+            res = es.index(index='.kibana', doc_type='visualization', id=ES_ID, body=BODY)
+            print(json.dumps(res, indent=4))
+        except Exception as e:
+            print(e)
             print('Unable to push visualization to Kibana')
+
 
 vis = getVisualization(BODY['test-name'],
                        ['pass-tests', 'failed-tests'])
 vis_ids.append(BODY['test-name'])
-PUT_URL = 'https://{}:{}/.kibana/visualization/{}'.format(ELK_DB_HOST, ELK_DB_PORT, BODY['test-name'])
-print(PUT_URL)
+
 print(json.dumps(vis, indent=4))
 try:
-    r = requests.put(PUT_URL, json=vis)
-    print(r.status_code)
-    print(json.dumps(json.loads(r.content), indent=4))
-except:
+    ES_ID = BODY['test-name']
+    res = es.index(index='.kibana', doc_type='visualization', id=ES_ID, body=vis)
+    print(json.dumps(res, indent=4))
+except Exception as e:
+    print(e)
     print('Unable to push dashboard to Kibana')
 
 # Create dashboard and add above created visualizations to it
@@ -356,16 +361,24 @@ dashboard['kibanaSavedObjectMeta'] = {
 
 # Check if visualizations already present in dashboard. If present, don't add, else, add at end
 
-GET_URL = 'https://{}:{}/.kibana/dashboard/{}'.format(ELK_DB_HOST, ELK_DB_PORT, DASHBOARD_NAME)
-r = requests.get(GET_URL)
-response = json.loads(r.content)
-dashboard_found = response['found']
+ES_ID = DASHBOARD_NAME
+try:
+    res = es.get(index='.kibana', doc_type='dashboard', id=ES_ID)
+    print(json.dumps(res, indent=4))
+    # No exeception occured means dashboard found
+    dashboard_found = True
+except exceptions.NotFoundError as e:
+    print('No visualizations found')
+    dashboard_found = False
+except Exception as e:
+    print(e)
+    print('Error Occurred')
+
 vis_ids_present = set()
 panelsJSON = []
 
-print json.dumps(response, indent=4)
 if dashboard_found:
-    panelsJSON = yaml.safe_load(response['_source']['panelsJSON'])
+    panelsJSON = yaml.safe_load(res['_source']['panelsJSON'])
     for vis in panelsJSON:
         vis_ids_present.add(vis['id'])
 
@@ -393,9 +406,15 @@ for (i, vis_id) in enumerate(vis_ids):
         print('visualization ' + vis_id + ' already present in dashboard')
 
 dashboard['panelsJSON'] = JSONToString(panelsJSON)
-PUT_URL = 'https://{}:{}/.kibana/dashboard/{}'.format(ELK_DB_HOST, ELK_DB_PORT, DASHBOARD_NAME)
-print(PUT_URL)
+
 print(json.dumps(dashboard, indent=4))
-r = requests.put(PUT_URL, json=dashboard)
-print(r.status_code)
-print(json.dumps(json.loads(r.content), indent=4))
+try:
+    ES_ID = DASHBOARD_NAME
+    res = es.index(index='.kibana', doc_type='dashboard', id=ES_ID, body=dashboard)
+    print(json.dumps(res, indent=4))
+except exceptions.TransportError as et:
+    print(et)
+    print('Elasticsearch returned an error')
+except Exception as e:
+    print(e)
+    print('Unexpected error occurred. Unable to push dashboard to Kibana')
