@@ -229,9 +229,8 @@ def check_exceptions():
                     exwe_str = "__".join(_ts_list[exwe_index])
                     if whitelist_context in exwe_str:
                         num_context_matches += 1
-                        break
             # Mark this exception as a known issue if all the context's matched
-            if num_context_matches == len(whitelist_contexts):
+            if num_context_matches >= len(whitelist_contexts):
                 ex["issue"] = whitelist.get("issue")
                 _match.append(ex)
                 logging.info("known exception was seen: {}".format(ex["issue"]))
