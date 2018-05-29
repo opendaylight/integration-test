@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "b6806cd9_be00cd55",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-29T07:12:06Z",
+      "side": 1,
+      "message": "OK, got it",
+      "parentUuid": "b616c814_17e398ca",
+      "revId": "65c42a29bb0a5672ce13383a31a67beb6a06b763",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00f9e54a_0ad1de69",
         "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
         "patchSetId": 9
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "I have discussed about this with hema. she said no need.",
       "parentUuid": "00f9e54a_0ad1de69",
+      "revId": "65c42a29bb0a5672ce13383a31a67beb6a06b763",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "913773d9_f7028665",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-29T07:12:06Z",
+      "side": 1,
+      "message": "I think we should do it, else going to the subsequent testcase, without waiting for tunnels to be UP can cause other troubles",
+      "parentUuid": "d733f76e_f693d7d0",
       "revId": "65c42a29bb0a5672ce13383a31a67beb6a06b763",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
