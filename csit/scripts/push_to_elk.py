@@ -139,7 +139,7 @@ print(json.dumps(BODY, indent=4))
 try:
     r = requests.put(PUT_URL, json=BODY)
     print(r.status_code)
-    print(json.dumps(json.loads(r.content), indent=4))
+    print(json.dumps(r.json(), indent=4))
 except:
     print('Unable to push data to ElasticSearch')
 
@@ -321,7 +321,7 @@ if BODY['test-type'] == 'performance':
         try:
             r = requests.put(PUT_URL, json=vis)
             print(r.status_code)
-            print(json.dumps(json.loads(r.content), indent=4))
+            print(json.dumps(r.json(), indent=4))
         except:
             print('Unable to push visualization to Kibana')
 
@@ -334,7 +334,7 @@ print(json.dumps(vis, indent=4))
 try:
     r = requests.put(PUT_URL, json=vis)
     print(r.status_code)
-    print(json.dumps(json.loads(r.content), indent=4))
+    print(json.dumps(r.json(), indent=4))
 except:
     print('Unable to push dashboard to Kibana')
 
@@ -358,12 +358,12 @@ dashboard['kibanaSavedObjectMeta'] = {
 
 GET_URL = 'https://{}:{}/.kibana/dashboard/{}'.format(ELK_DB_HOST, ELK_DB_PORT, DASHBOARD_NAME)
 r = requests.get(GET_URL)
-response = json.loads(r.content)
+response = r.json()
 dashboard_found = response['found']
 vis_ids_present = set()
 panelsJSON = []
 
-print json.dumps(response, indent=4)
+print(json.dumps(response, indent=4))
 if dashboard_found:
     panelsJSON = yaml.safe_load(response['_source']['panelsJSON'])
     for vis in panelsJSON:
@@ -398,4 +398,4 @@ print(PUT_URL)
 print(json.dumps(dashboard, indent=4))
 r = requests.put(PUT_URL, json=dashboard)
 print(r.status_code)
-print(json.dumps(json.loads(r.content), indent=4))
+print(json.dumps(r.json(), indent=4))
