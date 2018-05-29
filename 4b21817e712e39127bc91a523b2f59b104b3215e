@@ -45,6 +45,29 @@
       "revId": "4b21817e712e39127bc91a523b2f59b104b3215e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83e132d0_cbd50d89",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-29T18:57:26Z",
+      "side": 1,
+      "message": "btw, this is not going to be there until the\nabove get_exceptions() is run. is that a problem? I think\nthe robot keyword would just barf and the test author\nwould realize it and fix their flow. stupid globals",
+      "range": {
+        "startLine": 263,
+        "startChar": 27,
+        "endLine": 263,
+        "endChar": 34
+      },
+      "revId": "4b21817e712e39127bc91a523b2f59b104b3215e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
