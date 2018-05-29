@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a11fd17f_1f2d546e",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-29T19:22:29Z",
+      "side": 1,
+      "message": "you mean write_exceptions_to_file(). And yes, forgot to add the doc so I will add that.\n\n_ex_map is a map of exceptions indexed with a line# that is the index into the whole list of lines from a log dump. Each exception is only in one line and that is the index. The map also has a pointer to the context lines. The idea was to minimize the amount of data copied into ex_map, and just point back to the full log list which has every line in a list.",
+      "parentUuid": "5911f435_36d4420b",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 54
+      },
+      "revId": "4b21817e712e39127bc91a523b2f59b104b3215e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e1d77da_5b1b9165",
         "filename": "csit/libraries/netvirt/excepts.py",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0fc64356_c1f38869",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-29T19:22:29Z",
+      "side": 1,
+      "message": "append or overwrite. a for append or w for write, the + just says create file if not already there. the normal mode is append since we want to keep writing to the file, adding exceptions and context, as this function is called for each test. I guess the param should be mode rather than append.",
+      "parentUuid": "2e1d77da_5b1b9165",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 19
+      },
+      "revId": "4b21817e712e39127bc91a523b2f59b104b3215e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83e132d0_cbd50d89",
         "filename": "csit/libraries/netvirt/excepts.py",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2018-05-29T18:57:26Z",
       "side": 1,
       "message": "btw, this is not going to be there until the\nabove get_exceptions() is run. is that a problem? I think\nthe robot keyword would just barf and the test author\nwould realize it and fix their flow. stupid globals",
+      "range": {
+        "startLine": 263,
+        "startChar": 27,
+        "endLine": 263,
+        "endChar": 34
+      },
+      "revId": "4b21817e712e39127bc91a523b2f59b104b3215e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcb7288e_1488770e",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-29T19:22:29Z",
+      "side": 1,
+      "message": "You would get nothing in this case as the map is {}, so it would look just like a case where no exceptions were found. Yes, if you wanted real data, then the user would have needed to run verify_exceptions() to get the list. Python is a little different in that a class is weak, so many times they view the module itself as the class. in that way this isn\u0027t global - this is local to the excepts module.",
+      "parentUuid": "83e132d0_cbd50d89",
       "range": {
         "startLine": 263,
         "startChar": 27,
