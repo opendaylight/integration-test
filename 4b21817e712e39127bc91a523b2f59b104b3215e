@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "275cd4f3_54c087a3",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-29T23:10:13Z",
+      "side": 1,
+      "message": "well, isn\u0027t it \"Write Exception Map To File\"\n\nand not I\u0027m not sure I fully get what the end result is. is\nit a file with each exception and it\u0027s surrounding context\nlines, or just the exception?",
+      "parentUuid": "a11fd17f_1f2d546e",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 54
+      },
+      "revId": "4b21817e712e39127bc91a523b2f59b104b3215e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e1d77da_5b1b9165",
         "filename": "csit/libraries/netvirt/excepts.py",
         "patchSetId": 2
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "27f18133_cb981b0e",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-29T23:10:13Z",
+      "side": 1,
+      "message": "if we don\u0027t call it with anything for the variable append,\nit defaults to a+\n\noh, yeah, can\u0027t we just call the variable mode and default\nit to a+ and remove this whole block?",
+      "parentUuid": "0fc64356_c1f38869",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 19
+      },
+      "revId": "4b21817e712e39127bc91a523b2f59b104b3215e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83e132d0_cbd50d89",
         "filename": "csit/libraries/netvirt/excepts.py",
         "patchSetId": 2
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "You would get nothing in this case as the map is {}, so it would look just like a case where no exceptions were found. Yes, if you wanted real data, then the user would have needed to run verify_exceptions() to get the list. Python is a little different in that a class is weak, so many times they view the module itself as the class. in that way this isn\u0027t global - this is local to the excepts module.",
       "parentUuid": "83e132d0_cbd50d89",
+      "range": {
+        "startLine": 263,
+        "startChar": 27,
+        "endLine": 263,
+        "endChar": 34
+      },
+      "revId": "4b21817e712e39127bc91a523b2f59b104b3215e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5282fe28_1b41f6df",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-29T23:10:13Z",
+      "side": 1,
+      "message": "ok. got it.",
+      "parentUuid": "bcb7288e_1488770e",
       "range": {
         "startLine": 263,
         "startChar": 27,
