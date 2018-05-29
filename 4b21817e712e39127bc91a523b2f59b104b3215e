@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5911f435_36d4420b",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-29T18:47:58Z",
+      "side": 1,
+      "message": "is there a better more intuitive name for this function\nso it makes more sense at the robot level what we are\ndoing?\n\nalong those lines, add the docs here so we don\u0027t have to\nread the code to get the high level idea. I did that, and\nI\u0027m understanding this to be going through the whole \nglobal _ex_map dict and then only printing the things\nthat are warning or error. with the pretty print stuff\nlike \"starting test...\".  Is that right? And we want this\nbecause otherwise if we just tried to print all of _ex_map\nwe\u0027d end up with a lot of INFO level stuff?",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 54
+      },
+      "revId": "4b21817e712e39127bc91a523b2f59b104b3215e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e1d77da_5b1b9165",
+        "filename": "csit/libraries/netvirt/excepts.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-29T18:47:58Z",
+      "side": 1,
+      "message": "is this better?\n\n  if !append:\n      mode \u003d \"w+\"\n\nor are you protecting from some garbage input as well?",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 19
+      },
+      "revId": "4b21817e712e39127bc91a523b2f59b104b3215e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
