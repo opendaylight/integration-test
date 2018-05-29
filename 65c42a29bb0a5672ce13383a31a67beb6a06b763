@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00f9e54a_0ad1de69",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-29T06:42:40Z",
+      "side": 1,
+      "message": "After OVS start, shouldn\u0027t we be checking if tunnels are UP?",
+      "revId": "65c42a29bb0a5672ce13383a31a67beb6a06b763",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
