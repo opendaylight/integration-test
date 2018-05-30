@@ -113,13 +113,7 @@ _whitelist = [
          "neutron/networks/network/network[{(urn:opendaylight:neutron?revision=2015-07-12)uuid="
      ]},
     {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
-     "id": "ConflictingModificationAppliedException",
-     "context": [
-         "Got OptimisticLockFailedException", "NeutronNetwork [networkUUID=",
-         "AbstractTranscriberInterface"
-     ]},
-    {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
-     "id": "ConflictingModificationAppliedException",
+     "id": "OptimisticLockFailedException",
      "context": [
          "Got OptimisticLockFailedException",
          "AbstractTranscriberInterface"
