@@ -4,9 +4,13 @@ set -o xtrace
 set -o nounset #Do not allow for unset variables
 #set -e #Exit script if a command fails
 
-# bootstrap_centos
 WORK_DIR=`pwd`
-if sudo yum install -y "kernel-devel-uname-r == $(uname -r)"; then
+
+# bootstrap_centos
+EL_VERSION=$(grep -oP '\d+\.\d+' /etc/centos-release)
+K_VERSION=$(uname -r)
+APT="sudo yum install -y --enablerepo=C${EL_VERSION}-base  --enablerepo=C${EL_VERSION}-updates kernel-devel-${K_VERSION} kernel-debug-devel-${K_VERSION} kernel-headers-${K_VERSION}"
+if $APT; then
    echo "Kernel-devel installed correctly"
 else
    echo "Warning: Errors issued when installing kernel-devel"
@@ -43,7 +47,7 @@ git am ../ovs_nsh_patches/v2.6.1/*.patch
 
 #compile ovs
 ./boot.sh
-./configure --with-linux=/lib/modules/`uname -r`/build --prefix=/usr/local
+./configure --with-linux=/lib/modules/${K_VERSION}/build --prefix=/usr/local
 make rpm-fedora RPMBUILD_OPT="--without check --without libcapng"
 make DESTDIR=$WORK_DIR/ovs_install/openvswitch_2.6.1 install
 
