@@ -206,3 +206,13 @@ OvsManager__Enable_Slaves_For_Switch
     \    ${role}=    Collections.Get From Dictionary    ${cntl_value}    role
     \    ${connected}=    Collections.Get From Dictionary    ${cntl_value}    is_connected
     \    Run Keyword If    ${connected}==${False}    Reconnect Switch To Controller And Verify Connected    ${switch}    ${cntl_id}    verify_connected=${verify_connected}
+
+Get Dump Flows Count
+    [Arguments]    ${conn_id}    ${acl_sr_table_id}    ${port_mac}=""
+    [Documentation]    Count the number of dump flows for a given table id
+    ...    and grep with port_mac if provided
+    ${cmd} =    BuiltIn.Set Variable    sudo ovs-ofctl dump-flows br-int -OOpenFlow13 | grep table=${acl_sr_table_id} | grep ${port_mac} | wc -l
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output} =    Utils.Write Commands Until Expected Prompt    ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    @{list} =    String.Split String    ${output}
+    [Return]    ${list[0]}
