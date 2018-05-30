@@ -4,21 +4,19 @@ set -o xtrace
 set -o nounset #Do not allow for unset variables
 #set -e #Exit script if a command fails
 
-# bootstrap_centos
 WORK_DIR=`pwd`
-if sudo yum install -y "kernel-devel-uname-r == $(uname -r)"; then
-   echo "Kernel-devel installed correctly"
-else
-   echo "Warning: Errors issued when installing kernel-devel"
-fi
 
-APT="sudo yum install -y git kernel-debug-devel kernel-headers python-devel vim autoconf automake libtool systemd-units rpm-build openssl openssl-devel groff graphviz selinux-policy-devel python python-twisted-core python-zope-interface python-twisted-web PyQt4 python-six desktop-file-utils procps-ng wget"
-if $APT; then
-  echo "Pacakges installed correctly"
-else
-  echo "Installation of packages failed"
-  exit 1
-fi
+# bootstrap_centos
+EL_VERSION=$(grep -oP '\d+\.\d+.\d+' /etc/centos-release)
+K_VERSION=$(uname -r)
+APT="sudo yum update -y centos-release"
+$APT || (echo "Failed to update centos release info" && exit 1)
+
+APT="sudo yum install -y --enablerepo=C${EL_VERSION}-base  --enablerepo=C${EL_VERSION}-updates kernel-devel-${K_VERSION} kernel-debug-devel-${K_VERSION} kernel-headers-${K_VERSION}"
+$APT || (echo "Failed to install kernel devel packages" && exit 1)
+
+APT="sudo yum install -y git python-devel vim autoconf automake libtool systemd-units rpm-build openssl openssl-devel groff graphviz selinux-policy-devel python python-twisted-core python-zope-interface python-twisted-web PyQt4 python-six desktop-file-utils procps-ng wget"
+$APT || (echo "Failed to install ovs requirement packages" && exit 1)
 
 cd $WORK_DIR
 [ -e configure-ovs.sh ] || \
@@ -43,7 +41,7 @@ git am ../ovs_nsh_patches/v2.6.1/*.patch
 
 #compile ovs
 ./boot.sh
-./configure --with-linux=/lib/modules/`uname -r`/build --prefix=/usr/local
+./configure --with-linux=/lib/modules/${K_VERSION}/build --prefix=/usr/local
 make rpm-fedora RPMBUILD_OPT="--without check --without libcapng"
 make DESTDIR=$WORK_DIR/ovs_install/openvswitch_2.6.1 install
 
