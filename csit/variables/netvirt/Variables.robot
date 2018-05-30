@@ -8,6 +8,7 @@ ${CIRROS_stable/ocata}    cirros-0.3.4-x86_64-uec
 ${CIRROS_stable/pike}    cirros-0.3.5-x86_64-disk
 ${CIRROS_stable/queens}    cirros-0.3.5-x86_64-disk
 ${CIRROS_master}    cirros-0.3.5-x86_64-disk
+${DEFAULT_PING_COUNT}    3
 ${PRE_CLEAN_OPENSTACK_ALL}    False
 ${EXTERNAL_NET_NAME}    external-net
 ${EXTERNAL_SUBNET_NAME}    external-subnet
@@ -78,6 +79,7 @@ ${LEARNT_VIP}     ${OPERATIONAL_API}/odl-l3vpn:learnt-vpn-vip-to-port-data/
 ${DISPATCHER_TABLE}    17
 ${GWMAC_TABLE}    19
 ${L3_TABLE}       21
+${INTERNAL_TUNNEL_TABLE}    36
 ${IPV6_TABLE}     45
 ${ELAN_BASETABLE}    48
 ${ELAN_SMACTABLE}    50
