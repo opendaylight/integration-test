@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a87fbdb_41248e82",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 102
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-30T13:22:53Z",
+      "side": 1,
+      "message": "create a keyword that takes the level as input, then you can also call this keyword in the suite teardown to ensure the logging is moved back to INFO.",
+      "revId": "a7691e4b9680b885db603b2dd21b97163128b500",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "797ed14b_3dfa1efb",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 102
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-30T13:22:53Z",
+      "side": 1,
+      "message": "still can\u0027t believe we can\u0027t find a deterministic method to know when the sync is done. Here we have two things combined - a random restconf call and a 20s sleep. There isn\u0027t anything between networking-odl and neutron northbound that can be read?",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "a7691e4b9680b885db603b2dd21b97163128b500",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7575af44_4130825c",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 102
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-30T13:22:53Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "revId": "a7691e4b9680b885db603b2dd21b97163128b500",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
