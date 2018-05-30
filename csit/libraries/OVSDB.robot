@@ -417,3 +417,23 @@ Delete Ports On Bridge By Type
     \    BuiltIn.Log    ${del-ports}
     ${ports_present_after_delete} =    Get Ports From Bridge By Type    ${ovs_ip}    ${br}    ${type}
     BuiltIn.Log    ${ports_present_after_delete}
+
+Get Tunnel Id And Packet Count
+    [Arguments]    ${conn_id}    ${table_id}    ${direction}    ${tun_id}    ${dst_mac}=""
+    [Documentation]    Get tunnel id and packet count from specified table id and destination port mac address
+    ${tun_id} =    BuiltIn.Convert To Hex    ${tun_id}    prefix=0x    lowercase=yes
+    ${base_cmd} =    BuiltIn.Set Variable    sudo ovs-ofctl dump-flows br-int -OOpenFlow13 | grep table=${table_id} | grep ${tun_id}
+    ${full_cmd} =    BuiltIn.Run Keyword If    "${direction}" == "Egress"    BuiltIn.Catenate    ${base_cmd}    | grep ${dst_mac} | awk '{split($7,a,"[:-]"); print a[2]}'
+    ...    ELSE    BuiltIn.Catenate    ${base_cmd} | awk '{split($6,a,"[,=]"); {print a[4]}}'
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output} =    Utils.Write Commands Until Expected Prompt    ${full_cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    @{list} =    String.Split String    ${output}
+    ${output} =    Set Variable    @{list}[0]
+    ${tunnel_id} =    Convert To Integer    ${output}    16
+    ${full_cmd} =    BuiltIn.Run Keyword If    "${direction}" == "Egress"    BuiltIn.Catenate    ${base_cmd}    | grep ${dst_mac} | awk '{split($4,a,"[=,]"); {print a[2]}}'
+    ...    ELSE    BuiltIn.Catenate    ${base_cmd} | awk '{split($4,a,"[=,]"); {print a[2]}}'
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output} =    Utils.Write Commands Until Expected Prompt    ${full_cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    @{list} =    String.Split String    ${output}
+    ${packet_count} =    Set Variable    @{list}[0]
+    [Return]    ${tunnel_id}    ${packet_count}
