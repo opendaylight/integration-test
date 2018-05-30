@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa297e59_84a9fbe9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-30T20:13:54Z",
+      "side": 1,
+      "message": "What I meant was add some context here of what is reverted. So the final line would have been:\n\nRevert \"Revert \"ACL Service Recovery\"\"\n\nThis reverts commit 9867ba066f5ec284908b4b94aa005442aa8d0330.\n\nThat way we can track the history of the patches.",
+      "range": {
+        "startLine": 7,
+        "startChar": 20,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "78195509aaeb4223f66bc6099f8cd77e89074d53",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
