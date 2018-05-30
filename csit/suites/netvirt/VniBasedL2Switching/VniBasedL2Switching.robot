@@ -18,7 +18,6 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Library           String
 Resource          ../../../libraries/DevstackUtils.robot
-Resource          ../../../libraries/Genius.robot
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../variables/netvirt/Variables.robot
 Resource          ../../../libraries/OVSDB.robot
