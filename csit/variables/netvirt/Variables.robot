@@ -77,7 +77,8 @@ ${TUNNEL_INTERFACES}    ${CONFIG_API}/ietf-interfaces:interfaces/
 ${LEARNT_VIP}     ${OPERATIONAL_API}/odl-l3vpn:learnt-vpn-vip-to-port-data/
 ${DISPATCHER_TABLE}    17
 ${GWMAC_TABLE}    19
-${L3_TABLE}       21
+${L3_FIB_TABLE}    21
+${INTERNAL_TUNNEL_TABLE}    36
 ${IPV6_TABLE}     45
 ${ELAN_BASETABLE}    48
 ${ELAN_SMACTABLE}    50
