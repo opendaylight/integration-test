@@ -1085,3 +1085,10 @@ Start Packet Capture On Nodes
 Stop Packet Capture On Nodes
     [Arguments]    ${conn_ids}=@{EMPTY}
     Tcpdump.Stop Packet Capture on Nodes    ${conn_ids}
+
+Get Network Segmentation Id
+    [Arguments]    ${conn_id}    ${network_name}
+    [Documentation]    Returns network segmentation id for the given network name.
+    ${output} =    OpenStack CLI    openstack network show ${network_name} | grep segmentation_id | awk '{print $4}'
+    @{list} =    String.Split String    ${output}
+    [Return]    ${list[0]}
