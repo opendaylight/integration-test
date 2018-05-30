@@ -326,6 +326,24 @@
     },
     {
       "key": {
+        "uuid": "ecf9ec1a_b60e6935",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 99
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-30T13:22:53Z",
+      "side": 1,
+      "message": "Yeah, karaf is started once and all tests are ran, so if this upgrade suite is combined with another suite it will have an impact.",
+      "parentUuid": "c8792b5b_c22e3fb4",
+      "revId": "880794321997e15f82d0137a2ce64a1afd21385f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdc1a7be_74f25fbd",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 99
