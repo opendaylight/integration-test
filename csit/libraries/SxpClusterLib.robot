@@ -4,6 +4,7 @@ Library           RequestsLibrary
 Library           ./Sxp.py
 Resource          ./SxpLib.robot
 Resource          ./ClusterManagement.robot
+Resource          ./SetupUtils.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
@@ -12,6 +13,8 @@ Variables         ../variables/Variables.py
 ${DEVICE_SESSION}    device_1
 ${DEVICE_NODE_ID}    1.1.1.1
 ${CLUSTER_NODE_ID}    2.2.2.2
+${LOG_LEVEL}      INFO
+@{SXP_PACKAGE}    org.opendaylight.sxp
 
 *** Keywords ***
 Setup SXP Cluster Session
@@ -23,6 +26,8 @@ Setup SXP Cluster Session
     \    Wait Until Keyword Succeeds    120    10    Prepare SSH Keys On Karaf    ${ODL_SYSTEM_${i+1}_IP}
     \    Setup SXP Session    controller${i+1}    ${ODL_SYSTEM_${i+1}_IP}
     ClusterManagement_Setup
+    Setup_Utils_For_Setup_And_Teardown
+    Setup_Logging_For_Debug_Purposes_On_List_Or_All    ${LOG_LEVEL}    ${SXP_PACKAGE}
 
 Clean SXP Cluster Session
     [Documentation]    Clean sessions asociated with SXP cluster setup
@@ -30,6 +35,7 @@ Clean SXP Cluster Session
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    Wait Until Keyword Succeeds    240    1    Sync_Status_Should_Be_True    ${i+1}
     Clean SXP Session
+    Setup_Logging_For_Debug_Purposes_On_List_Or_All    INFO    ${SXP_PACKAGE}
 
 Check Shards Status
     [Documentation]    Check Status for all shards in SXP application.
