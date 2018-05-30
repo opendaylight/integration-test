@@ -106,20 +106,13 @@ _whitelist = [
     {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
      "id": "ConflictingModificationAppliedException",
      "context": [
-         "Node was deleted by other transaction",
          "Optimistic lock failed for path /(urn:opendaylight:neutron?revision=2015-07-12)" +
          "neutron/networks/network/network[{(urn:opendaylight:neutron?revision=2015-07-12)uuid=",
          "Conflicting modification for path /(urn:opendaylight:neutron?revision=2015-07-12)" +
          "neutron/networks/network/network[{(urn:opendaylight:neutron?revision=2015-07-12)uuid="
      ]},
     {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
-     "id": "ConflictingModificationAppliedException",
-     "context": [
-         "Got OptimisticLockFailedException", "NeutronNetwork [networkUUID=",
-         "AbstractTranscriberInterface"
-     ]},
-    {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
-     "id": "ConflictingModificationAppliedException",
+     "id": "OptimisticLockFailedException",
      "context": [
          "Got OptimisticLockFailedException",
          "AbstractTranscriberInterface"
@@ -127,14 +120,12 @@ _whitelist = [
     {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
      "id": "ConflictingModificationAppliedException",
      "context": [
-         "Node was created by other transaction",
          "Optimistic lock failed for path /(urn:opendaylight:neutron?revision=2015-07-12)neutron"
      ]},
     # oxygen
     {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
      "id": "ConflictingModificationAppliedException",
      "context": [
-         "Node was deleted by other transaction",
          "OptimisticLockFailedException: Optimistic lock failed.",
          "Conflicting modification for path /(urn:opendaylight:neutron?revision=2015-07-12)" +
          "neutron/networks/network/network[{(urn:opendaylight:neutron?revision=2015-07-12)uuid=",
