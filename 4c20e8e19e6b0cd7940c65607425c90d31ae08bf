@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c7032ed_f72357e7",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-30T11:49:20Z",
+      "side": 1,
+      "message": "\\ node \\ status ? why is it like this?",
+      "revId": "4c20e8e19e6b0cd7940c65607425c90d31ae08bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf876b73_7b71f532",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-30T11:49:20Z",
+      "side": 1,
+      "message": "I think we should do this list generation only once in start suite and set it as a global variable. Else we have to do this iteration for each TC, right?",
+      "revId": "4c20e8e19e6b0cd7940c65607425c90d31ae08bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46303ab3_b96a915e",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-30T11:49:20Z",
+      "side": 1,
+      "message": "Accept the status to be checked as an Argument, and compare against that instead of hardcoding \"Ready\"",
+      "revId": "4c20e8e19e6b0cd7940c65607425c90d31ae08bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56268f02_5ab02ad7",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-30T11:49:20Z",
+      "side": 1,
+      "message": "can we define a global varaible K8S_MASTER_IP and set it to TOOLS_SYSTEM_1_IP? It becomes more readable, when we have variables like MASTER_IP and MINION_IP",
+      "revId": "4c20e8e19e6b0cd7940c65607425c90d31ae08bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26224671_75828242",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-30T11:49:20Z",
+      "side": 1,
+      "message": "Don\u0027t hardcode \"Running\", accept the status to be verified as an argument, and reuse the same keyword to check for all status.",
+      "revId": "4c20e8e19e6b0cd7940c65607425c90d31ae08bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5e72566_6996e149",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-30T11:49:20Z",
+      "side": 1,
+      "message": "Remove this keyword, and resuse the Verify Pod Status itself by passing in \"No resources\"",
+      "revId": "4c20e8e19e6b0cd7940c65607425c90d31ae08bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ecac240_0d0827aa",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-30T11:49:20Z",
+      "side": 1,
+      "message": "Coe Configuration Playbook",
+      "revId": "4c20e8e19e6b0cd7940c65607425c90d31ae08bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a267d4fd_ca0a2056",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-30T11:49:20Z",
+      "side": 1,
+      "message": "which does all basic configuration for kubernetes nodes",
+      "revId": "4c20e8e19e6b0cd7940c65607425c90d31ae08bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c36b7478_7b5693d0",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-05-30T11:49:20Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "revId": "4c20e8e19e6b0cd7940c65607425c90d31ae08bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
