@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e92e022_2bdc642f",
+        "filename": "csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-05-30T20:15:24Z",
+      "side": 1,
+      "message": "name this file in lowercase, so aclservicerecovery.robot and name the directory lowercase.",
+      "revId": "ee111231896318618dc07d3bea4e58bc90d824d5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
