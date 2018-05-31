@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83d88a41_ab507da3",
+        "filename": "csit/suites/sxp/basic/040_SSL_Passwords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-31T09:13:38Z",
+      "side": 1,
+      "message": "Can you please resolve the KEywords used in the newly added lines for now?\neg. Evaluate is BuiltIn.Evaluate",
+      "revId": "c2aa7ea2b5e5df0ad93c1a4c3713744f4f5eb8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
