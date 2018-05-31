@@ -16,6 +16,23 @@
       "revId": "c2aa7ea2b5e5df0ad93c1a4c3713744f4f5eb8bd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a72bc772_6a58799b",
+        "filename": "csit/suites/sxp/filtering/040_Peer_Sequence_filtering.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-05-31T23:49:01Z",
+      "side": 1,
+      "message": "we are deprecating variables Variables.py in favor of resource Variables.robot, can you give a try with the later to see if that works for you?",
+      "revId": "c2aa7ea2b5e5df0ad93c1a4c3713744f4f5eb8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
