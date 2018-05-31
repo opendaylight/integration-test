@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9059cce_f6cd8613",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-31T07:07:11Z",
+      "side": 1,
+      "message": "Please resolve the Keywords with \u003cLibrary\u003e.Keyword in all the places.\n\nfor eg BuiltIn. or OpenstackOperations.",
+      "revId": "6e42a8c6e8af2f26c7d926459f027b3acdaa5a1c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "824625d6_79244b3c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-31T07:07:11Z",
+      "side": 1,
+      "message": "Can we write tunnel_name instead of \"i\",. Makes it easier to understand the test",
+      "revId": "6e42a8c6e8af2f26c7d926459f027b3acdaa5a1c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd3d6903_fb8a8fbf",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-31T07:07:11Z",
+      "side": 1,
+      "message": "Same comment as erlier please resolve all the Keyworods used\nfor eg SshLibrary.Switch Connection.",
+      "revId": "6e42a8c6e8af2f26c7d926459f027b3acdaa5a1c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32367d54_7a9e2846",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-31T07:07:11Z",
+      "side": 1,
+      "message": "I think now this test also stops OVs, Can we add it to documentation?",
+      "revId": "6e42a8c6e8af2f26c7d926459f027b3acdaa5a1c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f76e28b_de96c711",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-05-31T07:07:11Z",
+      "side": 1,
+      "message": "Just to understand: Is conn_id_1 established during suite setup?",
+      "revId": "6e42a8c6e8af2f26c7d926459f027b3acdaa5a1c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
