@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b46d58e2_36f493e0",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-05-31T23:50:47Z",
+      "side": 1,
+      "message": "Please add Library in front of the KW for example: SetupUtils.Setup_Utils_For_Setup_And_Teardown\n\nSame comment for the other KWs",
+      "revId": "8abd2d975ddce02d8b1c506ff01bd27d233988a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
