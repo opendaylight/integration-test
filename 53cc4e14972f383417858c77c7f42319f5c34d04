@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f75a36e4_ff9c7d28",
+        "filename": "csit/scriptplans/netvirt-1node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-31T09:43:41Z",
+      "side": 1,
+      "message": "Removed this file itself, does not require testplan",
+      "parentUuid": "a4d7a8da_1f91afec",
+      "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab08d9cb_baef663c",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-29T07:10:24Z",
       "side": 1,
       "message": "Is this executed in a new image created in builder?\nDon\u0027t you need a differnt yum repo for these rpms?",
+      "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c59e8d44_c6736224",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-31T09:43:41Z",
+      "side": 1,
+      "message": "yeah, its created in new builder, do not need different yum repo",
+      "parentUuid": "ab08d9cb_baef663c",
       "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "649eebc9_cb4d2d60",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-31T09:43:41Z",
+      "side": 1,
+      "message": "yes, no need yum for this command",
+      "parentUuid": "425f25cc_bfa478ad",
+      "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca39a60d_87a28814",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2018-05-29T07:10:24Z",
       "side": 1,
       "message": "Please remove this whitespace",
+      "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e89e7e7b_01fff38e",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-31T09:43:41Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "ca39a60d_87a28814",
       "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "1607b9b6_4ebc13b9",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-31T09:43:41Z",
+      "side": 1,
+      "message": "Start suite and other keywords are related to my suite only, moved necessary keywords to respective library files.",
+      "parentUuid": "623c992e_22a9f43a",
+      "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f25afb98_05c24a57",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 1
@@ -104,6 +194,93 @@
     },
     {
       "key": {
+        "uuid": "e9198c2d_58643927",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-31T09:43:41Z",
+      "side": 1,
+      "message": "Moved this keyword to BgpOperations.robot file and taken the reference from existing keywords in same file",
+      "parentUuid": "f25afb98_05c24a57",
+      "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3dabf6d_d3e0447d",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-31T09:43:41Z",
+      "side": 1,
+      "message": "Moved this keyword to BgpOperations.robot file",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 18
+      },
+      "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95ac1cd7_97bce2b9",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-31T09:43:41Z",
+      "side": 1,
+      "message": "Moved this keyword to VpnOperations.robot file",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 19
+      },
+      "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70a5f7cd_f578e4d2",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-31T09:43:41Z",
+      "side": 1,
+      "message": "Moved this keyword to BgpOperations.robot file",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 20
+      },
+      "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b13c585_fcc707a5",
         "filename": "csit/testplans/netvirt-1node-openstack.txt",
         "patchSetId": 1
@@ -115,6 +292,24 @@
       "writtenOn": "2018-05-29T07:10:24Z",
       "side": 1,
       "message": "nit: Please remove this blank line, though it has no impact",
+      "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc2e6a72_a2bfeaf6",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-05-31T09:43:41Z",
+      "side": 1,
+      "message": "This file does not have blank line in End of file. i think it is text file so showing in Gerrit. No impact",
+      "parentUuid": "1b13c585_fcc707a5",
       "revId": "53cc4e14972f383417858c77c7f42319f5c34d04",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
