@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1ec434b3_10f22c89",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 102
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-31T03:49:36Z",
+      "side": 1,
+      "message": "yes, good point about making sure to turn this off. if we\nonly care about this in this test case, then do it in a \ntest teardown here, not the suite teardown.\n\nI don\u0027t see a huge need to make a new keyword to run \na single line of robot code though. do this one line\nto set it to DEBUG level, then the same line wherever\nelse later to set it to INFO level.",
+      "parentUuid": "6a87fbdb_41248e82",
+      "revId": "a7691e4b9680b885db603b2dd21b97163128b500",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "797ed14b_3dfa1efb",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 102
@@ -30,6 +48,30 @@
       "writtenOn": "2018-05-30T13:22:53Z",
       "side": 1,
       "message": "still can\u0027t believe we can\u0027t find a deterministic method to know when the sync is done. Here we have two things combined - a random restconf call and a 20s sleep. There isn\u0027t anything between networking-odl and neutron northbound that can be read?",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "a7691e4b9680b885db603b2dd21b97163128b500",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b4d5d54_0d1096a6",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 102
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-05-31T03:49:36Z",
+      "side": 1,
+      "message": "yeah, so what is the WUKS doing in line 69 anyway? that\nkeyword is just checking that we get a 200 response code\nand that will work on the first try given that we must\nhave already been fine enough to get past the \"Start ODL\"\ntest case.\n\nso, as for not using sleeps, can\u0027t we poll the ovs\nflow count? we can get it before the \"upgrade\", then\nsince we wipe it, shouldn\u0027t the resync be populating\nwith the same number of flows? we can wrap a WUKS around\nthat logic.\n\nI\u0027m willing to help here, since I know it\u0027s hard, but\nI also think it\u0027s worth it.\n\nwait wait... what is that 180s WUKS below. what is this\nsleep for? waiting for the br-int to get created?\n\nI\u0027m now lost.",
+      "parentUuid": "797ed14b_3dfa1efb",
       "range": {
         "startLine": 70,
         "startChar": 12,
