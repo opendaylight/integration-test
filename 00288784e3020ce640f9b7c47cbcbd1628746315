@@ -22,6 +22,30 @@
       "revId": "00288784e3020ce640f9b7c47cbcbd1628746315",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32504ba8_5d73750e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-01T17:54:45Z",
+      "side": 1,
+      "message": "it is a bug, but we don\u0027t need those steps in genius CSIT, which revealed the bug though :)",
+      "parentUuid": "3931db99_a4b9c396",
+      "range": {
+        "startLine": 11,
+        "startChar": 23,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "00288784e3020ce640f9b7c47cbcbd1628746315",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
