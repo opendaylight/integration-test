@@ -3,6 +3,7 @@ Documentation     Openstack library. This library is useful for tests to create 
 Library           SSHLibrary
 Resource          Utils.robot
 Resource          TemplatedRequests.robot
+Resource          CompareStream.robot
 Resource          KarafKeywords.robot
 Resource          ../variables/Variables.robot
 Library           Collections
@@ -62,12 +63,14 @@ Dissociate L3VPN From Networks
 Associate VPN to Router
     [Arguments]    &{Kwargs}
     [Documentation]    Associate the created L3VPN to a router-id received as argument
-    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/assoc_router_l3vpn    mapping=${Kwargs}    session=default    http_timeout=${SESSION_TIMEOUT}
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/assoc_two_router_l3vpn    mapping=${Kwargs}    session=default    http_timeout=${SESSION_TIMEOUT}
+    CompareStream.Run_Keyword_If_At_Most_Oxygen    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/assoc_router_l3vpn    mapping=${Kwargs}    session=default    http_timeout=${SESSION_TIMEOUT}
 
 Dissociate VPN to Router
     [Arguments]    &{Kwargs}
     [Documentation]    Dissociate the already associated routers from L3VPN
-    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/dissoc_router_l3vpn    mapping=${Kwargs}    session=default    http_timeout=${SESSION_TIMEOUT}
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/dissoc_two_router_l3vpn    mapping=${Kwargs}    session=default    http_timeout=${SESSION_TIMEOUT}
+    CompareStream.Run_Keyword_If_At_Most_Oxygen    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/dissoc_router_l3vpn    mapping=${Kwargs}    session=default    http_timeout=${SESSION_TIMEOUT}
 
 VPN Delete L3VPN
     [Arguments]    &{Kwargs}

@@ -1,0 +1,10 @@
+{
+   "input":{
+      "vpn-id":"$vpnid",
+      "router-ids":[
+              {
+               "router-id:"$routerid"
+              }
+       ]
+   }
+}
