@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b4e6da3b_f50180c5",
+        "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-01T23:48:02Z",
+      "side": 1,
+      "message": "It\u0027s OK to pass in a list with a single vm in it. We do the same in other places. We should change this to use Get Vm Ips in a later patch since this has been merged already, so that we can keep the code consistent.",
+      "parentUuid": "d0e2823f_fa0f7308",
+      "range": {
+        "startLine": 285,
+        "startChar": 4,
+        "endLine": 286,
+        "endChar": 15
+      },
+      "revId": "00120fdc3b6e37999d26e11e2444b18d89560190",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23bcbfb1_10aecda8",
         "filename": "csit/suites/netvirt/vpnservice/vpn_basic.robot",
         "patchSetId": 24
