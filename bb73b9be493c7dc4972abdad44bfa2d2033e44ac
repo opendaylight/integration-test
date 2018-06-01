@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "04374dbf_0d212839",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61cd0f4b_94718b71",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 247,
+        "endChar": 11
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "695e7431_a242adb2",
         "filename": "csit/libraries/BgpOperations.robot",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "remove the ODL-ness of this keyword. make it generic for\nany ${ip} that is passed in as an [Argument]. Also add a\nnew argument like ${additional_args}. Then, see below...",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 102
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4c3b417_55c8a473",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "695e7431_a242adb2",
       "range": {
         "startLine": 248,
         "startChar": 0,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "5c75fe36_5d7d8560",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45809ec3_c27a13b4",
+      "range": {
+        "startLine": 1080,
+        "startChar": 0,
+        "endLine": 1080,
+        "endChar": 24
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0da28dcc_e2aad682",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 3
@@ -105,6 +177,30 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "the work you are doing here and using index-2 below\nis what you can sort of explain in your [Documentation]. I\ndon\u0027t fully know what\u0027s going on here, and the documentation\nshouldn\u0027t just be a copy/paste (essentially) of the keyword\nname.",
+      "range": {
+        "startLine": 1084,
+        "startChar": 4,
+        "endLine": 1085,
+        "endChar": 77
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dcd608c_a570c10d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Documented the same in a more suitable way.",
+      "parentUuid": "0da28dcc_e2aad682",
       "range": {
         "startLine": 1084,
         "startChar": 4,
@@ -163,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "2848bd98_aea95048",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "874f50ff_5492a43a",
+      "range": {
+        "startLine": 58,
+        "startChar": 21,
+        "endLine": 58,
+        "endChar": 31
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "823df3a9_892bd516",
         "filename": "csit/libraries/VpnOperations.robot",
         "patchSetId": 3
@@ -174,6 +294,30 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "not sure you can count on this being available. perhaps you\nshould pass this list as an arg?\n\nsame applies to VPN_INSTANCE_ID",
+      "range": {
+        "startLine": 61,
+        "startChar": 44,
+        "endLine": 61,
+        "endChar": 56
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b2bb607_e90838c0",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Changed the code and passing the list as an argument.",
+      "parentUuid": "823df3a9_892bd516",
       "range": {
         "startLine": 61,
         "startChar": 44,
@@ -209,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "fecd7883_99bce309",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9eca7ae2_f0982849",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 10
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f6582b5_5ff69312",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 3
@@ -220,6 +388,30 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "same comment as above",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 42
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b14355b_5958311b",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f6582b5_5ff69312",
       "range": {
         "startLine": 40,
         "startChar": 0,
@@ -255,6 +447,30 @@
     },
     {
       "key": {
+        "uuid": "5d4f2d1e_2ed570cb",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "efe0c60b_65fad357",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 16
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e511f8f1_9a02df91",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 3
@@ -266,6 +482,30 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "this provides no real value. it\u0027s the same as the suite\nname.",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 46
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f75c3bb2_f8214c81",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Changed the documentation with proper explanation now.",
+      "parentUuid": "e511f8f1_9a02df91",
       "range": {
         "startLine": 2,
         "startChar": 18,
@@ -301,6 +541,30 @@
     },
     {
       "key": {
+        "uuid": "1a271d40_a5aed672",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "The _1 indicates that vm is of DPN1 and _2 indicates vm is of DPN2.",
+      "parentUuid": "69e185d0_86bfa140",
+      "range": {
+        "startLine": 33,
+        "startChar": 41,
+        "endLine": 33,
+        "endChar": 44
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e29839f_4213a033",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 3
@@ -312,6 +576,30 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "multicast_vpn1",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 22
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be00a034_87150ccc",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e29839f_4213a033",
       "range": {
         "startLine": 42,
         "startChar": 18,
@@ -347,6 +635,30 @@
     },
     {
       "key": {
+        "uuid": "dbba52d5_e91b8810",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69d11f63_9eec7f25",
+      "range": {
+        "startLine": 43,
+        "startChar": 20,
+        "endLine": 43,
+        "endChar": 26
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a6e688b_eaa383fc",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 3
@@ -364,6 +676,24 @@
     },
     {
       "key": {
+        "uuid": "30c1f66b_b57fc750",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Can you please elaborate on this comment?",
+      "parentUuid": "6a6e688b_eaa383fc",
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56ff212a_11efaa75",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 3
@@ -375,6 +705,30 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "not sure what this variable is meant for. It says *_PORT\nbut the values are IP addresses.",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b16a2fb3_6fe0bb67",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Changed the variable name and removed the @{ALLOWED_IP_PORT1}, @{ALLOWED_IP_PORT2} variables and replaced this witha single list now.",
+      "parentUuid": "56ff212a_11efaa75",
       "range": {
         "startLine": 46,
         "startChar": 2,
@@ -427,6 +781,30 @@
     },
     {
       "key": {
+        "uuid": "d884cb17_145b360e",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Changed the same.",
+      "parentUuid": "02660e5c_5802b91e",
+      "range": {
+        "startLine": 50,
+        "startChar": 52,
+        "endLine": 50,
+        "endChar": 62
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7fc0ce4_998c1298",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 3
@@ -438,6 +816,30 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "the _down part of this keyword confused me. what is\nthis doing? I understood up to that point that it was\ngoing to Configure an IP On a SubInterface",
+      "range": {
+        "startLine": 65,
+        "startChar": 61,
+        "endLine": 65,
+        "endChar": 95
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac252a9b_a7099777",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "_down indicates the sub interface state to make the interface up or down.\n\nSo, now merged both the keywords to a single keyword and passing the interface state as the argument.",
+      "parentUuid": "d7fc0ce4_998c1298",
       "range": {
         "startLine": 65,
         "startChar": 61,
@@ -473,6 +875,30 @@
     },
     {
       "key": {
+        "uuid": "65cc3f6e_fe83f419",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Removed the same.",
+      "parentUuid": "aa4895fc_21468f74",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 42
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee97f8d3_272329f4",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 3
@@ -484,6 +910,30 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "where did this magic number come from? better to get\nthese kinds of things from a list length or wherever\nit really is coming from.",
+      "range": {
+        "startLine": 129,
+        "startChar": 37,
+        "endLine": 129,
+        "endChar": 39
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ebcd328a_eaeade55",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Modified the code using get length keyword to fetch the number of ports.",
+      "parentUuid": "ee97f8d3_272329f4",
       "range": {
         "startLine": 129,
         "startChar": 37,
@@ -553,6 +1003,24 @@
     },
     {
       "key": {
+        "uuid": "6c8a7007_e67ae7c7",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cc74a90_371df72c",
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77e9dfe3_498b6182",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 3
@@ -564,6 +1032,30 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "you just want this to be the integer 1 right? if so,\nyou can delete line 164 and use ${1} here",
+      "range": {
+        "startLine": 165,
+        "startChar": 22,
+        "endLine": 165,
+        "endChar": 37
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e64fc3d2_d4c8f033",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77e9dfe3_498b6182",
       "range": {
         "startLine": 165,
         "startChar": 22,
@@ -599,6 +1091,30 @@
     },
     {
       "key": {
+        "uuid": "f800f6f2_11c9c899",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8c2da05_4cbfdae6",
+      "range": {
+        "startLine": 173,
+        "startChar": 43,
+        "endLine": 173,
+        "endChar": 52
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9035820_1b48397b",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 3
@@ -622,6 +1138,30 @@
     },
     {
       "key": {
+        "uuid": "686a7245_0f626573",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "VPN Create L3VPN and VPN Get L3VPN keywords are present in VpnOperations.robot file.But these keywords are not taking care of the validation of the same.\n\nBut Create L3VPN keyword is creating L3VPN based on number of L3VPNs and validating wheather L3VPN is created with correct L3VPN ID, export rt and import rt.",
+      "parentUuid": "b9035820_1b48397b",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 12
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cac1f97a_f504d0d1",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 3
@@ -633,6 +1173,30 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "lots of repeated lines with only a variable or two changing.\nanyway to put this in a loop to make it easier to read and\nmaintain?",
+      "range": {
+        "startLine": 258,
+        "startChar": 1,
+        "endLine": 322,
+        "endChar": 51
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb6c3fe8_cc8a0257",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-01T06:40:12Z",
+      "side": 1,
+      "message": "Optimized the code now.",
+      "parentUuid": "cac1f97a_f504d0d1",
       "range": {
         "startLine": 258,
         "startChar": 1,
