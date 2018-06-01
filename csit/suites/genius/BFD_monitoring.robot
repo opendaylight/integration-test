@@ -69,18 +69,12 @@ BFD_TC04 Verify that in controller tunnel status is up when ITM tunnel interface
 
 BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     [Documentation]    Verify BFD tunnel monitoring interval can be changed.
-    ${oper_int}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
-    ${respjson}    RequestsLibrary.To Json    ${oper_int.content}    pretty_print=True
-    Log    ${respjson}
     ${oper_int}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
     ${Bfd_updated_value}=    Create List    5000
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
     SSHLibrary.Switch Connection    ${conn_id_1}
-    Execute Command    sudo ovs-vsctl del-port ${Bridge-1} tap8ed70586-6c
-    ${ovs_1}    Execute Command    sudo ovs-vsctl show
-    log    ${ovs_1}
     ${tun_name}    Wait Until Keyword Succeeds    20    5    Ovs Tunnel Get    ${Bridge-1}
     Wait Until Keyword Succeeds    20s    5    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    5000    ovs_system=${TOOLS_SYSTEM_IP}
     SSHLibrary.Switch Connection    ${conn_id_2}
