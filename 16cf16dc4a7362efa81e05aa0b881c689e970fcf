@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43e507f3_af4ce477",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-01T20:30:28Z",
+      "side": 1,
+      "message": "here\u0027s our JIRA for it. this came with the karaf\nupgrade recently. it will be fixed in another karaf\nupgrade, but that wont come until Neon I think.\n\nhttps://jira.opendaylight.org/browse/ODLPARENT-152",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 41
+      },
+      "revId": "16cf16dc4a7362efa81e05aa0b881c689e970fcf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6472c2e6_2f17a674",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-01T20:30:28Z",
+      "side": 1,
+      "message": "locally, I\u0027ve noticed that logout can take some time,\nbut maybe that is when it\u0027s only from the original karaf\nshell which actually stops ODL. this is just logging\nout of the ssh session.\n\neither way, can you put this patch in the sandbox with\na job that uses it. I want to compare the time it takes\nwith and without this logout.",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 30
+      },
+      "revId": "16cf16dc4a7362efa81e05aa0b881c689e970fcf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
