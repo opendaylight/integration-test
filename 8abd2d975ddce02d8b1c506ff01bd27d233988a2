@@ -16,6 +16,24 @@
       "revId": "8abd2d975ddce02d8b1c506ff01bd27d233988a2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6cf30b0c_7f0bb3b0",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2018-06-01T08:10:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b46d58e2_36f493e0",
+      "revId": "8abd2d975ddce02d8b1c506ff01bd27d233988a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
