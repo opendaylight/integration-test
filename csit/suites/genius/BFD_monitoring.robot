@@ -69,9 +69,6 @@ BFD_TC04 Verify that in controller tunnel status is up when ITM tunnel interface
 
 BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     [Documentation]    Verify BFD tunnel monitoring interval can be changed.
-    ${oper_int}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/
-    ${respjson}    RequestsLibrary.To Json    ${oper_int.content}    pretty_print=True
-    Log    ${respjson}
     ${oper_int}    RequestsLibrary.Put Request    session    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    data=${INTERVAL_5000}
     ${Bfd_updated_value}=    Create List    5000
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
