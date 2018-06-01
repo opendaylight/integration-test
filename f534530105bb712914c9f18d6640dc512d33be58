@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "362b6fad_a4cfe6db",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 45
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-01T21:22:50Z",
+      "side": 1,
+      "message": "[Documentation] blocks missing.",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 25
+      },
+      "revId": "f534530105bb712914c9f18d6640dc512d33be58",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
