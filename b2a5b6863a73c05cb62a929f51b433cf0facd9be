@@ -22,6 +22,30 @@
       "revId": "b2a5b6863a73c05cb62a929f51b433cf0facd9be",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2780ef82_98ae55bc",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2018-06-01T12:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c72e2077_45e1740e",
+      "range": {
+        "startLine": 109,
+        "startChar": 48,
+        "endLine": 109,
+        "endChar": 49
+      },
+      "revId": "b2a5b6863a73c05cb62a929f51b433cf0facd9be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
