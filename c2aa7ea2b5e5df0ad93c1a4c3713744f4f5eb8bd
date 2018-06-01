@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d8e66812_bdf022e2",
+        "filename": "csit/suites/sxp/basic/040_SSL_Passwords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2018-06-01T11:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83d88a41_ab507da3",
+      "revId": "c2aa7ea2b5e5df0ad93c1a4c3713744f4f5eb8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a72bc772_6a58799b",
         "filename": "csit/suites/sxp/filtering/040_Peer_Sequence_filtering.robot",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-31T23:49:01Z",
       "side": 1,
       "message": "we are deprecating variables Variables.py in favor of resource Variables.robot, can you give a try with the later to see if that works for you?",
+      "revId": "c2aa7ea2b5e5df0ad93c1a4c3713744f4f5eb8bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3478db9_a0b49aa3",
+        "filename": "csit/suites/sxp/filtering/040_Peer_Sequence_filtering.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2018-06-01T11:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a72bc772_6a58799b",
       "revId": "c2aa7ea2b5e5df0ad93c1a4c3713744f4f5eb8bd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
