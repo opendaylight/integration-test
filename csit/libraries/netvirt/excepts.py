@@ -14,11 +14,7 @@ _whitelist = [
          "Optimistic lock failed for path /(urn:opendaylight:inventory?revision=2013-08-19)nodes/node/node" +
          "[{(urn:opendaylight:inventory?revision=2013-08-19)id=openflow",
          "table/table[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=21}]/flow/flow" +
-         "[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=L3.",
-         "Conflicting modification for path /(urn:opendaylight:inventory?revision=2013-08-19)nodes/node/node" +
-         "[{(urn:opendaylight:inventory?revision=2013-08-19)id=",
-         "table/table[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=21}]/flow/flow" +
-         "[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=L3.", ".21.", ".42."
+         "[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=L3."
      ]},
     # oxygen
     {"issue": "https://jira.opendaylight.org/browse/NETVIRT-972",
@@ -37,10 +33,6 @@ _whitelist = [
          "Node was created by other transaction",
          "Optimistic lock failed for path /(urn:opendaylight:inventory?revision=2013-08-19)nodes/node/node" +
          "[{(urn:opendaylight:inventory?revision=2013-08-19)id=openflow:",
-         "Conflicting modification for path /(urn:opendaylight:inventory?revision=2013-08-19)nodes/node/node" +
-         "[{(urn:opendaylight:inventory?revision=2013-08-19)id=openflow:",
-         "table/table[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=47}]/flow/flow" +
-         "[{(urn:opendaylight:flow:inventory?revision=2013-08-19)id=SNAT.", ".47."
      ]},
     # oxygen
     {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1135",
@@ -59,9 +51,6 @@ _whitelist = [
          "Optimistic lock failed for path /(urn:opendaylight:netvirt:elan?revision=2015-06-02)elan-" +
          "forwarding-tables/mac-table/mac-table[{(urn:opendaylight:netvirt:elan?revision=2015-06-02)" +
          "elan-instance-name=",
-         "Conflicting modification for path /(urn:opendaylight:netvirt:elan?revision=2015-06-02)elan-" +
-         "forwarding-tables/mac-table/mac-table[{(urn:opendaylight:netvirt:elan?revision=2015-06-02)" +
-         "elan-instance-name="
      ]},
     # oxygen version of NETVIRT-1136
     {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1136",
@@ -79,8 +68,6 @@ _whitelist = [
          "Node was deleted by other transaction",
          "Optimistic lock failed for path /(urn:ietf:params:xml:ns:yang:ietf-interfaces?revision=2014-05-08)" +
          "interfaces/interface/interface[{(urn:ietf:params:xml:ns:yang:ietf-interfaces?revision=2014-05-08)name=",
-         "Conflicting modification for path /(urn:ietf:params:xml:ns:yang:ietf-interfaces?revision=2014-05-08)" +
-         "interfaces/interface/interface[{(urn:ietf:params:xml:ns:yang:ietf-interfaces?revision=2014-05-08)name="
      ]},
     {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1270",
      "id": "ConflictingModificationAppliedException",
