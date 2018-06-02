@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6825ccf_a1577bd2",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-02T01:14:02Z",
+      "side": 0,
+      "message": "in the future, if you do want to print out json, there is a Utils.Log Content keyword that you just pass the content to and it will print. Does some safety checks before printing.",
+      "revId": "e6abdfd3e63ef03a9c1c9491720eae622c642275",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
