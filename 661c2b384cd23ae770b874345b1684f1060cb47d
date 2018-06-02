@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "eec45799_eeddac7a",
+        "filename": "csit/scripts/set_coe_host.sh",
+        "patchSetId": 51
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-02T00:10:04Z",
+      "side": 1,
+      "message": "This is an existing script, we are just using it.. Since we were not so sure, where and all it is used, just kept it as is",
+      "parentUuid": "fadee697_a245e380",
+      "range": {
+        "startLine": 3,
+        "startChar": 25,
+        "endLine": 3,
+        "endChar": 26
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c89c7dfc_7c17e8c8",
         "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
         "patchSetId": 51
