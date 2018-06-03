@@ -42,7 +42,6 @@ Issue_Command_On_Karaf_Console
     SSHLibrary.Write    ${cmd}
     ${output}    SSHLibrary.Read_Until_Regexp    ${KARAF_PROMPT}
     SSHLibrary.Write    logout
-    SSHLibrary.Close_Connection
     BuiltIn.Log    ${output}
     [Return]    ${output}
 
@@ -141,7 +140,6 @@ Open_Controller_Karaf_Console_On_Background
     ${status}    ${old_connection_index} =    BuiltIn.Run_Keyword_And_Ignore_Error    Get From Dictionary    ${connection_index_dict}    ${member_index}
     BuiltIn.Run_Keyword_If    '${status}'=='PASS'    BuiltIn.Run_Keywords    SSHLibrary.Switch_Connection    ${old_connection_index}
     ...    AND    SSHLibrary.Write    logout
-    ...    AND    SSHLibrary.Close_Connection
     ${odl_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    ${member_index}
     SSHLibrary.Open_Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT_LOGIN}    timeout=${timeout}
     ${karaf_connection_object} =    SSHLibrary.Get_Connection
@@ -325,7 +323,6 @@ Wait_For_Karaf_Log
     SSHLibrary.Write    log:tail
     SSHLibrary.Read_Until    ${message}
     SSHLibrary.Write    logout
-    SSHLibrary.Close_Connection
 
 Restart_Bundle
     [Arguments]    ${bundle_id}
