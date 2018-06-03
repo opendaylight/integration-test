@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44983a01_55329985",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-03T22:39:36Z",
+      "side": 1,
+      "message": "I wonder if we have a slightly better way to check this.\n\nafter count should be at least 3 higher right, since ping\ncount was 3. I\u0027m assuming there may be other reasons the\npacket count could go up. My point is that if the packet\ncount diff was just 1, that means something is probably\nwrong since we expect at least 3 or more. could we do\na check that after \u003e\u003d 3+before?",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 59
+      },
+      "revId": "e1a2f8f41413a0165763f0ee6118cc760605c205",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bc41af9_cfaacfa2",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-03T22:39:36Z",
+      "side": 1,
+      "message": "need documentation. you can include some details about\nthat complicated looking ofctl command so a new person\ncan understand what\u0027s it really doing.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 41
+      },
+      "revId": "e1a2f8f41413a0165763f0ee6118cc760605c205",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81d9c5cf_607f8995",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-03T22:39:36Z",
+      "side": 1,
+      "message": "can we find a way to only have one keyword that we can\nuse to get either ingress or egress? these two keywords\nare just a copy paste of each other with the only differences\nbeing the split() command.\n\nwell, how about this. make one keyword called: \"Get Tunnel Id And Packet Count\" and have it\u0027s args be ${conn_id} ${table_id} and ${tunnel_field}. make that keyword\nhave all this logic and just substitute the split() args\nwith what is passed in with tunnel_field.\n\nnext, keep these two keywords and you\u0027ll end up with\nsomething like:\n\nGet Tunnel Id And Packet Count For Ingress \n    Get Tunnel Id And Packet Count    ${conn_id}    ${table_id}    6\n\n-and-\n\nGet Tunnel Id And Packet Count For Egress\n    Get Tunnel Id And Packet Count    ${conn_id}    ${table_id}    7",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 47
+      },
+      "revId": "e1a2f8f41413a0165763f0ee6118cc760605c205",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d5953f2_df7c06ea",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-03T22:39:36Z",
+      "side": 1,
+      "message": "this is missing docs. it also belongs in the OpenStackOperations lib. It might be a little better to\nname it \"Get Network Segmentation Id\"",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 25
+      },
+      "revId": "e1a2f8f41413a0165763f0ee6118cc760605c205",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04f2863f_a14ea547",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-03T22:39:36Z",
+      "side": 1,
+      "message": "let us know more the intention here which seems to be to\ncreate VMs with connectivity.\n\nbtw, personally I like having all of these steps in the \nsuite setup because they really are not \"test cases\" and\njust a requirement to do the real test cases. If something\nhere fails (e.g. VMs don\u0027t get IP addresses) robot will\nnot even bother running the test cases. That saves resources\nand is a good thing, imho. I\u0027m pointing this out for those\nthat might review this and comment otherwise to break these in to their own test cases like we have in other suites.",
+      "range": {
+        "startLine": 105,
+        "startChar": 23,
+        "endLine": 105,
+        "endChar": 35
+      },
+      "revId": "e1a2f8f41413a0165763f0ee6118cc760605c205",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c67c2b41_49fd4861",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-03T22:39:36Z",
+      "side": 1,
+      "message": "you don\u0027t need to do this. when you are running your job\nin the sandbox, you\u0027ll see a SUITES parameter where you\ncan tweak which suite(s) will run. just fyi.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 67
+      },
+      "revId": "e1a2f8f41413a0165763f0ee6118cc760605c205",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
