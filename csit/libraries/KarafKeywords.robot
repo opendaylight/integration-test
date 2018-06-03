@@ -219,17 +219,6 @@ Set_Bgpcep_Log_Levels
     \    Execute_Controller_Karaf_Command_On_Background    log:set ${bgpcep_level} org.opendaylight.bgpcep    member_index=${index}
     \    Execute_Controller_Karaf_Command_On_Background    log:set ${protocol_level} org.opendaylight.protocol    member_index=${index}
 
-Get and Verify Exceptions
-    [Arguments]    ${lines}
-    [Documentation]    Get a list of exceptions from the given lines from a karaf log and then verify them against a
-    ...    an exception whitelist. Verify Exceptions is a python function that will return the list of unmatched
-    ...    exceptions in exlist and return the matched exceptions in matchlist. Both lists will be logged to aid
-    ...    with troubleshooting the exceptions.
-    ${exlist}    ${matchlist} =    Verify Exceptions    ${lines}
-    Collections.Log List    ${exlist}
-    Collections.Log List    ${matchlist}
-    [Return]    ${exlist}
-
 Get Karaf Log Lines From Test Start
     [Arguments]    ${ip}    ${test_name}    ${cmd}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
     ...    ${log_file}=${KARAF_LOG}
@@ -248,10 +237,18 @@ Fail If Exceptions Found During Test
     : FOR    ${i}    IN RANGE    1    ${NUM_ODL_SYSTEM} + 1
     \    ${cmd} =    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file}
     \    ${output} =    Get Karaf Log Lines From Test Start    ${ODL_SYSTEM_${i}_IP}    ${test_name}    ${cmd}
-    \    ${exlist} =    Get and Verify Exceptions    ${output}
+    \    ${exlist}    ${matchlist} =    Verify Exceptions    ${output}
     \    Write Exceptions Map To File    ${SUITE_NAME}.${TEST_NAME}    /tmp/odl${i}_exceptions.txt
     \    ${listlength} =    BuiltIn.Get Length    ${exlist}
-    \    BuiltIn.Run Keyword If    ${listlength} != 0    BuiltIn.Fail    New exceptions found: ${listlength}
+    \    BuiltIn.Run Keyword If    ${listlength} != 0    Log And Fail Exceptions    ${exlist}    ${listlength}
+    \    ...    ELSE    Collections.Log List    ${matchlist}
+
+Log And Fail Exceptions
+    [Arguments]    ${exlist}    ${listlength}
+    [Documentation]    Print the list of failed exceptions and fail the test
+    Collections.Log List    ${exlist}
+    ${exstr} =    BuiltIn.Catenate    ${exlist}
+    BuiltIn.Fail    New exceptions found: ${listlength}\n${exstr}
 
 Get Karaf Log Type From Test Start
     [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}

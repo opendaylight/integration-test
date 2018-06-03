@@ -253,10 +253,16 @@ def write_exceptions_map_to_file(testname, filename, mode="a+"):
             raise
 
     with open(filename, mode) as fp:
+        fp.write("{}\n".format("=" * 60))
         fp.write("Starting test: {}\n".format(testname))
-        fp.write("{}\n".format("-" * 40))
         for ex_idx, ex in _ex_map.items():
-            for exwe_index in ex.get("warnerr_list"):
+            fp.write("{}\n".format("-" * 40))
+            if "issue" in ex:
+                fp.write("Exception was matched to: {}\n".format(ex.get("issue")))
+            else:
+                fp.write("Exception is new\n")
+            for exwe_index in ex.get("warnerr_list")[:-1]:
                 for line in _ts_list[exwe_index]:
                     fp.write(line)
             fp.writelines(ex.get("lines"))
+            fp.write("\n")
