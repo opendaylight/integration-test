@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e4894f7_97ab9a6b",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-03T22:51:42Z",
+      "side": 1,
+      "message": "put a space and \u003d sign. like:\n\n   ${match}    ${group_id} \u003d\n\napplies everywhere. even on the keywords assigning only a single variable.",
+      "revId": "ca9a7f19da5346e9d76a35435ac82eca6b5d8846",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0eba2e01_b2c94552",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-03T22:51:42Z",
+      "side": 1,
+      "message": "these dont really fit in this lib. Maybe the OVS lib\nis better?",
+      "range": {
+        "startLine": 1075,
+        "startChar": 0,
+        "endLine": 1091,
+        "endChar": 46
+      },
+      "revId": "ca9a7f19da5346e9d76a35435ac82eca6b5d8846",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc6ce02f_acedd81c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 1097,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-03T22:51:42Z",
+      "side": 1,
+      "message": "this is a good keyword. I was surprised to not find an\nalready existing one. thanks!",
+      "range": {
+        "startLine": 1093,
+        "startChar": 0,
+        "endLine": 1097,
+        "endChar": 67
+      },
+      "revId": "ca9a7f19da5346e9d76a35435ac82eca6b5d8846",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ac493b2_70e014b8",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-03T22:51:42Z",
+      "side": 1,
+      "message": "there is another patch in progress looking to do something\nsimilar:\n\nhttps://git.opendaylight.org/gerrit/#/c/68860/80/csit/libraries/OpenStackOperations.robot\n\nwondering if we need to have both or one way is fine?",
+      "range": {
+        "startLine": 1116,
+        "startChar": 0,
+        "endLine": 1123,
+        "endChar": 32
+      },
+      "revId": "ca9a7f19da5346e9d76a35435ac82eca6b5d8846",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
