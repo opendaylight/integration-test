@@ -65,7 +65,6 @@ _whitelist = [
     {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1260",
      "id": "ConflictingModificationAppliedException",
      "context": [
-         "Node was deleted by other transaction",
          "Optimistic lock failed for path /(urn:ietf:params:xml:ns:yang:ietf-interfaces?revision=2014-05-08)" +
          "interfaces/interface/interface[{(urn:ietf:params:xml:ns:yang:ietf-interfaces?revision=2014-05-08)name=",
      ]},
