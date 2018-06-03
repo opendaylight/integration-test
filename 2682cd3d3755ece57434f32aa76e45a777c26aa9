@@ -1,0 +1,319 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d18ed19_fb8f27a9",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "${RESP_CODE_200}",
+      "range": {
+        "startLine": 254,
+        "startChar": 65,
+        "endLine": 254,
+        "endChar": 68
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c0e5e55_2afb5678",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee91eea0_539443f5",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "There is a Utils.Json Parse From String that might be more readable",
+      "range": {
+        "startLine": 257,
+        "startChar": 17,
+        "endLine": 257,
+        "endChar": 63
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3c08588_ba043e84",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "BuiltIn.\n\nDo we really want this logged to the console? If we just want this logged to the log, then can use Utils.Log Content",
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18adcd1c_f4426bbd",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "all lowercase",
+      "range": {
+        "startLine": 259,
+        "startChar": 6,
+        "endLine": 259,
+        "endChar": 25
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a6c014b_1e0f12b0",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "BuiltIn. and applies everywhere else in the files. All keywords should be qualified. Some existing keywords are not int eh file, but we are actvely working to clean that up. Any new code should be qualified.",
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df4828f2_108808ea",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "@{tunnels} \u003d   Run...\nlowercase",
+      "range": {
+        "startLine": 260,
+        "startChar": 6,
+        "endLine": 260,
+        "endChar": 21
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e331b59d_1c400481",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "\u0027 \u003d\u003d \u0027",
+      "range": {
+        "startLine": 260,
+        "startChar": 66,
+        "endLine": 260,
+        "endChar": 71
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b594ea7_8ff93f17",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "@{tunnels} \u003d",
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2168891f_08398674",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "@{tunnels}[0]",
+      "range": {
+        "startLine": 267,
+        "startChar": 16,
+        "endLine": 267,
+        "endChar": 29
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9de82560_ac94a58d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "same comment, qualify the keywords, with KarafKeywords.. More than just this line, do for all in this patch for lines that are new and changed.",
+      "range": {
+        "startLine": 276,
+        "startChar": 19,
+        "endLine": 276,
+        "endChar": 50
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f1e6553_ea9180bc",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "this log likely is not needed as the two previous lines will print the output. Try to reduce duplicate logging as it just bloats the already large files",
+      "range": {
+        "startLine": 364,
+        "startChar": 3,
+        "endLine": 364,
+        "endChar": 15
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ed4fe5f_ba7c653f",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "put in alpha order",
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "381ff894_6becc2a9",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "Data",
+      "range": {
+        "startLine": 48,
+        "startChar": 47,
+        "endLine": 48,
+        "endChar": 51
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f8fdb63_0abe4961",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-03T20:06:51Z",
+      "side": 1,
+      "message": "not an issue in this patch, but these vars should have been UPPERCASE to indicate they are global. We will also fix that later.",
+      "range": {
+        "startLine": 58,
+        "startChar": 45,
+        "endLine": 58,
+        "endChar": 54
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
