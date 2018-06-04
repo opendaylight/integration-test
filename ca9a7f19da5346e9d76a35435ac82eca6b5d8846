@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a540d31_bb46f1ac",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-06-04T09:08:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e4894f7_97ab9a6b",
+      "revId": "ca9a7f19da5346e9d76a35435ac82eca6b5d8846",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0eba2e01_b2c94552",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 64
@@ -30,6 +48,30 @@
       "writtenOn": "2018-06-03T22:51:42Z",
       "side": 1,
       "message": "these dont really fit in this lib. Maybe the OVS lib\nis better?",
+      "range": {
+        "startLine": 1075,
+        "startChar": 0,
+        "endLine": 1091,
+        "endChar": 46
+      },
+      "revId": "ca9a7f19da5346e9d76a35435ac82eca6b5d8846",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35642e63_3184adef",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-06-04T09:08:13Z",
+      "side": 1,
+      "message": "Hi Jamo,\n\nAs per your suggestion in earlier patches, i had moved these keywords to OpenStackOperations.robot\n\nRegards,\nBharath",
+      "parentUuid": "0eba2e01_b2c94552",
       "range": {
         "startLine": 1075,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "16e1e2c0_58744d31",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 1097,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-06-04T09:08:13Z",
+      "side": 1,
+      "message": "Thanks for your comment",
+      "parentUuid": "cc6ce02f_acedd81c",
+      "range": {
+        "startLine": 1093,
+        "startChar": 0,
+        "endLine": 1097,
+        "endChar": 67
+      },
+      "revId": "ca9a7f19da5346e9d76a35435ac82eca6b5d8846",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ac493b2_70e014b8",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 64
@@ -76,6 +142,30 @@
       "writtenOn": "2018-06-03T22:51:42Z",
       "side": 1,
       "message": "there is another patch in progress looking to do something\nsimilar:\n\nhttps://git.opendaylight.org/gerrit/#/c/68860/80/csit/libraries/OpenStackOperations.robot\n\nwondering if we need to have both or one way is fine?",
+      "range": {
+        "startLine": 1116,
+        "startChar": 0,
+        "endLine": 1123,
+        "endChar": 32
+      },
+      "revId": "ca9a7f19da5346e9d76a35435ac82eca6b5d8846",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d84631cc_4b75fe9c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 64
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-06-04T09:08:13Z",
+      "side": 1,
+      "message": "hi Jamo,\n\nmy keyword greps for PORT_NAME and returns corresponding MAC iterating over a list of PORT Names.\nThe later keyword is for single value operation and it operates on given IP address.\n\ni feel passing PORT_NAME to get mac is more precise.\nlet me know your suggestion\n\nRegards,\nBharath",
+      "parentUuid": "9ac493b2_70e014b8",
       "range": {
         "startLine": 1116,
         "startChar": 0,
