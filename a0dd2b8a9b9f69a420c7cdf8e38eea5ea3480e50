@@ -2,6 +2,137 @@
   "comments": [
     {
       "key": {
+        "uuid": "f6bc5cc7_0ebefc1f",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-04T21:37:44Z",
+      "side": 1,
+      "message": "is there a reason this is indented over so far? As well as the echo line not indented to line up with the rest of the code in this here doc.",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "182436d0_119f9bca",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-04T21:37:44Z",
+      "side": 1,
+      "message": "not sure if anyone cares, but most scripts use {}\u0027s around the variables. Not sure if we enforce it or what the reasoning was.",
+      "range": {
+        "startLine": 7,
+        "startChar": 90,
+        "endLine": 7,
+        "endChar": 104
+      },
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1421bffa_b37c3f0b",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-04T21:37:44Z",
+      "side": 1,
+      "message": "any reason not to use just hostname?",
+      "range": {
+        "startLine": 8,
+        "startChar": 20,
+        "endLine": 8,
+        "endChar": 26
+      },
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e078dc8_90ed40b6",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-04T21:37:44Z",
+      "side": 1,
+      "message": "both of the lines needed?",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37cc674a_66faf0b4",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-04T21:37:44Z",
+      "side": 1,
+      "message": "keep the four space indent",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96a1b885_7b539c11",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-04T21:37:44Z",
+      "side": 1,
+      "message": "would it be better to say, Quagga is not needed on devstack nodes? The current message seems like a failure.",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f931792_69eb07fa",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-04T21:37:44Z",
+      "side": 1,
+      "message": "comment just repeats what the echo above says, so it can be removed. For consistency, might want to add a similar echo under the builder case",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fca6e59_ac7196bd",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 2
@@ -19,6 +150,23 @@
         "endLine": 58,
         "endChar": 16
       },
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f9d091c_49b10323",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-04T21:37:44Z",
+      "side": 1,
+      "message": "why not create two scripts and remove the case? That would be more readable and modular.",
       "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
