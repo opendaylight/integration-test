@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "feaf6e73_45aadc09",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 57
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-04T22:15:00Z",
+      "side": 1,
+      "message": "NODE_IPS",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 10
+      },
+      "revId": "9a0665710a3e2c59e12f71b05d088bc94adee71c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
