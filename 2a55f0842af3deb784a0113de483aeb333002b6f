@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74064740_9dafa39d",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 63
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-04T01:23:19Z",
+      "side": 1,
+      "message": "lowercase, \u003d\n\nUse the same throughout the file, local vars are lowercase. ALL CAPS are only for suite and globals",
+      "range": {
+        "startLine": 52,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "2a55f0842af3deb784a0113de483aeb333002b6f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "737f61d2_ff3abb7c",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 63
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-04T01:23:19Z",
+      "side": 1,
+      "message": "lowercase as these are local",
+      "range": {
+        "startLine": 175,
+        "startChar": 6,
+        "endLine": 175,
+        "endChar": 12
+      },
+      "revId": "2a55f0842af3deb784a0113de483aeb333002b6f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
