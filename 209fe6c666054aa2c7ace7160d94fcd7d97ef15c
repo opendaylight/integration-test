@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "feb3ca22_716de6c8",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-04T17:27:18Z",
+      "side": 1,
+      "message": "Should there be a space? The rest of the file follows this no-space format. If so, maybe a different patch, to keep this change clear.",
+      "parentUuid": "2fd7a570_0b3f7550",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 14
+      },
+      "revId": "209fe6c666054aa2c7ace7160d94fcd7d97ef15c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5972afe_42d5d399",
         "filename": "csit/libraries/L2GatewayOperations.robot",
         "patchSetId": 26
@@ -59,6 +83,23 @@
         "endLine": 427,
         "endChar": 15
       },
+      "revId": "209fe6c666054aa2c7ace7160d94fcd7d97ef15c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a627950_cc7a49e4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-04T17:27:18Z",
+      "side": 1,
+      "message": "This formatting is wrong, is failing robot tidy linting",
       "revId": "209fe6c666054aa2c7ace7160d94fcd7d97ef15c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
