@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ff8c369_edf298f1",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-04T21:11:25Z",
+      "side": 1,
+      "message": "whitespace.\nAnd while here, can we add u to the options? I alway use -punta, the u adds udp to the output.",
+      "revId": "f59cac73d8542e86ff2fe0b62a3e78dfe50c899a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
