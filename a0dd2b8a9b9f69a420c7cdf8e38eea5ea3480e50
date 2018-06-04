@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fca6e59_ac7196bd",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-04T18:52:31Z",
+      "side": 1,
+      "message": "this seems hacky. is it really that fragile with debian?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 16
+      },
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc73d746_d81053a1",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-04T18:52:31Z",
+      "side": 1,
+      "message": "you probably want to use OpenStackOperations.Openstack Suite Setup and the accompanying\nSuite Teardown in your local setup and teardown keywords. it\u0027s gives you a few nice\nthings for free",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75b32614_32329f07",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-04T18:52:31Z",
+      "side": 1,
+      "message": "do you want to add the debugging collection we have? check\nout the suites already running in the netvirt csit jobs.\nthey are collecting data models, ovs debugs, etc etc.\n\nmaybe it\u0027s not important here, but wanted to bring it up\nin case.",
+      "range": {
+        "startLine": 111,
+        "startChar": 1,
+        "endLine": 122,
+        "endChar": 144
+      },
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd24c754_3a8d41c4",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-04T18:52:31Z",
+      "side": 1,
+      "message": "probably a cleaner way is to have it be \"Configure Multipath On Odl\" and pass in the ${setting} as enable or disable and\nthen just have one line like:\n\n  KarafKeywords.Issue_Command_On_Karaf_Console    odl:multipath -f ${VPNV4_ADDR_FAMILY} ${setting}\n\nsame logic looks like it applies to below Verify Multipath\nkeyword.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 112
+      },
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
