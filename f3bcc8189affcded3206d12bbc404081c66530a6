@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9a10481_ad1fdcfb",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-04T21:51:50Z",
+      "side": 1,
+      "message": "still a few places like this that are missing the space and \u003d for the variable assignments.",
+      "revId": "f3bcc8189affcded3206d12bbc404081c66530a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42af7de1_8450b0ba",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-04T21:51:50Z",
+      "side": 1,
+      "message": "doesn\u0027t this need to be @ ?",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 5
+      },
+      "revId": "f3bcc8189affcded3206d12bbc404081c66530a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
