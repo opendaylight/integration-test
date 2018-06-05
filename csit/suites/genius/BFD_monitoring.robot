@@ -74,15 +74,15 @@ BFD_TC05 Verify BFD tunnel monitoring interval can be changed.
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Wait Until Keyword Succeeds    30s    10s    Check For Elements At Uri    ${CONFIG_API}/itm-config:tunnel-monitor-interval/    ${Bfd_updated_value}
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_5000}    ${TUNNEL_MONI_PROTO}
-    SSHLibrary.Switch Connection    ${conn_id_1}
-    Execute Command    sudo ovs-vsctl del-port ${Bridge-1} tap8ed70586-6c
-    ${ovs_1}    Execute Command    sudo ovs-vsctl show
-    log    ${ovs_1}
-    ${tun_name}    Wait Until Keyword Succeeds    20    5    Ovs Tunnel Get    ${Bridge-1}
-    Wait Until Keyword Succeeds    20s    5    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    5000    ovs_system=${TOOLS_SYSTEM_IP}
-    SSHLibrary.Switch Connection    ${conn_id_2}
-    ${ovs_2}    Execute Command    sudo ovs-vsctl show
-    ${tun_name}    Wait Until Keyword Succeeds    20    5    Ovs Tunnel Get    ${Bridge-2}
+    Comment    SSHLibrary.Switch Connection    ${conn_id_1}
+    Comment    Execute Command    sudo ovs-vsctl del-port ${Bridge-1} tap8ed70586-6c
+    Comment    ${ovs_1}    Execute Command    sudo ovs-vsctl show
+    Comment    log    ${ovs_1}
+    ${tun_name}    Wait Until Keyword Succeeds    20    5    Ovs Tunnel Get    ${TOOLS_SYSTEM_1_IP}
+    Wait Until Keyword Succeeds    20s    5    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    5000    ovs_system=${TOOLS_SYSTEM_1_IP}
+    Comment    SSHLibrary.Switch Connection    ${conn_id_2}
+    Comment    ${ovs_2}    Execute Command    sudo ovs-vsctl show
+    ${tun_name}    Wait Until Keyword Succeeds    20    5    Ovs Tunnel Get    ${TOOLS_SYSTEM_2_IP}
     Wait Until Keyword Succeeds    20s    5    OVSDB.Verify Ovs-vsctl Output    list interface ${tun_name}    5000    ovs_system=${TOOLS_SYSTEM_2_IP}
 
 BFD_TC06 Verify that the tunnel state goes to UNKNOWN when DPN is disconnected
@@ -133,9 +133,10 @@ Verify Config Ietf Interface Output
     Should Contain    ${respjson}    ${proto}
 
 Ovs Tunnel Get
-    [Arguments]    ${bridge}
-    log    sudo ovs-vsctl list-ports ${bridge}
-    ${tun_name}    Execute Command    sudo ovs-vsctl list-ports ${bridge}
+    [Arguments]    ${tools_ip}
+    Open_Connection_To_Tools_System    ${tools_ip}
+    ${list_interface}    Execute Command    sudo ovs-vsctl list interface
+    ${tun_line}    ${tun_name}    Should Match Regexp    ${list_interface}    name\s+: "(tun.*)"
     log    ${tun_name}
     Should Not Be Empty    ${tun_name}
     [Return]    ${tun_name}
