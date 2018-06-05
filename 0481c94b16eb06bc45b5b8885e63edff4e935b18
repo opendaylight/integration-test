@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "12a2414d_fc05a9c2",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "799750b7_310728cd",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 13
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99c69b39_61d93930",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 55
@@ -59,6 +83,30 @@
       "writtenOn": "2018-06-01T19:29:21Z",
       "side": 1,
       "message": "POD_RUNNING_STATUS",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 12
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4690ff31_f41a2b44",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99c69b39_61d93930",
       "range": {
         "startLine": 27,
         "startChar": 2,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "828f68c7_55e0f012",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4ef40be_2bfd99d1",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 13
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "716cdfbe_da12e269",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 55
@@ -105,6 +177,30 @@
       "writtenOn": "2018-06-01T19:29:21Z",
       "side": 1,
       "message": "Suite instead of Global",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 22
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01de23d8_5dc9ee45",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "716cdfbe_da12e269",
       "range": {
         "startLine": 67,
         "startChar": 16,
@@ -164,6 +260,54 @@
     },
     {
       "key": {
+        "uuid": "9df6a61f_3b1f0e17",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e97b511_74ae64b2",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 16
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2d32ec1_936072cd",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a4c5094_e0daea00",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 16
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09148c54_87b836cd",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 55
@@ -175,6 +319,30 @@
       "writtenOn": "2018-06-01T19:29:21Z",
       "side": 1,
       "message": "put this in a [Teardown] line so it will always run even if\nthe WUKS in line 93 failed. Most likely that\u0027s when you\u0027ll\nwant to see the output of this kubectl get nodes, but robot\nstops executing lines in the keyword on the first failure\n*unless* it\u0027s in a [Teardown] section.",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 163
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93fe42a0_373355df",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09148c54_87b836cd",
       "range": {
         "startLine": 94,
         "startChar": 4,
@@ -210,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "c188539b_998f9435",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebad99be_9bca7a9d",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 17
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1eac5eaf_cdd7c2f8",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 55
@@ -227,6 +419,24 @@
     },
     {
       "key": {
+        "uuid": "e33b5fef_2585c417",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eac5eaf_cdd7c2f8",
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe643944_05aed1dc",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 55
@@ -238,6 +448,30 @@
       "writtenOn": "2018-06-01T19:29:21Z",
       "side": 1,
       "message": "where\u0027s the original Open Connection?",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 31
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53627b6b_5f1f7257",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Keyword modified",
+      "parentUuid": "fe643944_05aed1dc",
       "range": {
         "startLine": 103,
         "startChar": 4,
@@ -273,6 +507,30 @@
     },
     {
       "key": {
+        "uuid": "f7b3425b_b09789df",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54b4bf50_ff04e642",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 17
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9358dc0f_a5c9ab92",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 55
@@ -284,6 +542,30 @@
       "writtenOn": "2018-06-01T19:29:21Z",
       "side": 1,
       "message": "where\u0027s the Close Connection?",
+      "range": {
+        "startLine": 123,
+        "startChar": 15,
+        "endLine": 123,
+        "endChar": 30
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce28a825_3a735d93",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "keyword modified",
+      "parentUuid": "9358dc0f_a5c9ab92",
       "range": {
         "startLine": 123,
         "startChar": 15,
@@ -319,6 +601,30 @@
     },
     {
       "key": {
+        "uuid": "f5ee3a00_5313f8d8",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8385eab0_09d38fe8",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 16
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97fbee13_0aa850d0",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 55
@@ -330,6 +636,30 @@
       "writtenOn": "2018-06-01T19:29:21Z",
       "side": 1,
       "message": "I think this is better combined as one keyword. And use\nline 126 in a [Teardown] step",
+      "range": {
+        "startLine": 121,
+        "startChar": 17,
+        "endLine": 135,
+        "endChar": 31
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "401158d1_46e02a1a",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97fbee13_0aa850d0",
       "range": {
         "startLine": 121,
         "startChar": 17,
@@ -365,6 +695,30 @@
     },
     {
       "key": {
+        "uuid": "fc0024bc_f7b57898",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "we have other few tasks also performed following your latest comments..hence this name wouldnt be suitable",
+      "parentUuid": "1960ef0f_26567dae",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 9
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7652073_9c19e471",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 55
@@ -376,6 +730,30 @@
       "writtenOn": "2018-06-01T19:29:21Z",
       "side": 1,
       "message": "Dump Config File On All Nodes ?\n\npass in a list of nodes to cat the config file on and run in a loop. that will make it easier to scale in the future.",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 89
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24e145cd_e132fd3f",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7652073_9c19e471",
       "range": {
         "startLine": 161,
         "startChar": 0,
@@ -411,6 +789,30 @@
     },
     {
       "key": {
+        "uuid": "1bc45802_35394e72",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "426ba59f_d94c08c4",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 31
+      },
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92fd9324_50be6ac3",
         "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
         "patchSetId": 55
@@ -422,6 +824,24 @@
       "writtenOn": "2018-06-01T19:29:21Z",
       "side": 1,
       "message": "can we have a lowercase filename?",
+      "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d9e45d7_860114e8",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 55
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92fd9324_50be6ac3",
       "revId": "0481c94b16eb06bc45b5b8885e63edff4e935b18",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
