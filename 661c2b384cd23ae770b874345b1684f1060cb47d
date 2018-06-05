@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "8ba6a5af_0f58c631",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c89c7dfc_7c17e8c8",
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35223d8f_b4d2dcb1",
         "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
         "patchSetId": 51
@@ -101,6 +119,30 @@
       "writtenOn": "2018-05-24T23:51:59Z",
       "side": 1,
       "message": "don\u0027t need this. you are forcing a Coe.Tear Down from\nthe *** Settings *** section anyway",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58e5e9e4_3d00c2f3",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35223d8f_b4d2dcb1",
       "range": {
         "startLine": 28,
         "startChar": 0,
@@ -136,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "336ee545_89572063",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73460100_fc8992db",
+      "range": {
+        "startLine": 31,
+        "startChar": 23,
+        "endLine": 31,
+        "endChar": 105
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0582497_6468fc73",
         "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
         "patchSetId": 51
@@ -159,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "13bc4a87_b2b35c3f",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0582497_6468fc73",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 11
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "303db194_cb8d52ca",
         "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
         "patchSetId": 51
@@ -170,6 +260,30 @@
       "writtenOn": "2018-05-24T23:51:59Z",
       "side": 1,
       "message": "I bet these lines 50-52 are going to be useful/common as\nthings grow, even when not doing \"ping\" work. just fyi\nso you can think about extracting it to a more general\nkeyword later. nothing now, just thinking out loud.",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 66
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e414780_f1a88179",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "303db194_cb8d52ca",
       "range": {
         "startLine": 50,
         "startChar": 4,
@@ -216,6 +330,30 @@
       "writtenOn": "2018-05-24T23:51:59Z",
       "side": 1,
       "message": "hmmmm.... how can we make this a variable?\n\nI know when COE becomes more and more popular (I\u0027m expecting\nit too) other teams/companies might want to run these \ngood CSIT tests in their deployments. And, I know this 8181\nchanges sometimes. Best if we can use ${RESTCONFPORT}, but\nI don\u0027t know if that works in this .yaml\n\nany ideas?",
+      "range": {
+        "startLine": 4,
+        "startChar": 23,
+        "endLine": 4,
+        "endChar": 27
+      },
+      "revId": "661c2b384cd23ae770b874345b1684f1060cb47d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea45d40f_b57698e9",
+        "filename": "csit/variables/coe/coe.yaml",
+        "patchSetId": 51
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "yes,possible when we edit the file through csit",
+      "parentUuid": "49f391df_c4a55fc7",
       "range": {
         "startLine": 4,
         "startChar": 23,
