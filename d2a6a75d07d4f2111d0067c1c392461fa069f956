@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0e73fab_211704bf",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-05T10:05:53Z",
+      "side": 0,
+      "message": "why are these logs removed?",
+      "revId": "d2a6a75d07d4f2111d0067c1c392461fa069f956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

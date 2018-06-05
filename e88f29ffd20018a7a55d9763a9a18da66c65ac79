@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3df7ee67_19f8b53e",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-05T10:05:53Z",
+      "side": 1,
+      "message": "This keyword returns tunnel interface name between source DPN and destination DPN",
+      "revId": "e88f29ffd20018a7a55d9763a9a18da66c65ac79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2127474_c6eb907e",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-05T10:05:53Z",
+      "side": 1,
+      "message": "where is tunnel-interface-names defined?",
+      "revId": "e88f29ffd20018a7a55d9763a9a18da66c65ac79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29bd6a9d_afff4d95",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-05T10:05:53Z",
+      "side": 1,
+      "message": "documentation is not clear",
+      "revId": "e88f29ffd20018a7a55d9763a9a18da66c65ac79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3c6306d_2f3d78cd",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-05T10:05:53Z",
+      "side": 1,
+      "message": "There is another Get Tunnel in Genius.robot..what are the diffs between all these?",
+      "revId": "e88f29ffd20018a7a55d9763a9a18da66c65ac79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
