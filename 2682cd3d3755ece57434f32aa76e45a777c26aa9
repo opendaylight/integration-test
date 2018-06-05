@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eb891fb0_8813767c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d18ed19_fb8f27a9",
+      "range": {
+        "startLine": 254,
+        "startChar": 65,
+        "endLine": 254,
+        "endChar": 68
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c0e5e55_2afb5678",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 46
@@ -36,6 +60,24 @@
       "writtenOn": "2018-06-03T20:06:51Z",
       "side": 1,
       "message": "BuiltIn.",
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43c97fc4_b94251ab",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c0e5e55_2afb5678",
       "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "2dda930a_85ffcf91",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee91eea0_539443f5",
+      "range": {
+        "startLine": 257,
+        "startChar": 17,
+        "endLine": 257,
+        "endChar": 63
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3c08588_ba043e84",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 46
@@ -76,6 +142,24 @@
       "writtenOn": "2018-06-03T20:06:51Z",
       "side": 1,
       "message": "BuiltIn.\n\nDo we really want this logged to the console? If we just want this logged to the log, then can use Utils.Log Content",
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6dc5832_931473d5",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3c08588_ba043e84",
       "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -122,6 +206,48 @@
     },
     {
       "key": {
+        "uuid": "253a7c8f_a259ad0a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18adcd1c_f4426bbd",
+      "range": {
+        "startLine": 259,
+        "startChar": 6,
+        "endLine": 259,
+        "endChar": 25
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "692dd2ab_322565da",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a6c014b_1e0f12b0",
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df4828f2_108808ea",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 46
@@ -161,6 +287,54 @@
         "startChar": 66,
         "endLine": 260,
         "endChar": 71
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0b96f41_311a98f8",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e331b59d_1c400481",
+      "range": {
+        "startLine": 260,
+        "startChar": 66,
+        "endLine": 260,
+        "endChar": 71
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8715fa81_5498426b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df4828f2_108808ea",
+      "range": {
+        "startLine": 260,
+        "startChar": 6,
+        "endLine": 260,
+        "endChar": 21
       },
       "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
@@ -231,6 +405,30 @@
     },
     {
       "key": {
+        "uuid": "d9e5d0d0_0f064248",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9de82560_ac94a58d",
+      "range": {
+        "startLine": 276,
+        "startChar": 19,
+        "endLine": 276,
+        "endChar": 50
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f1e6553_ea9180bc",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 46
@@ -242,6 +440,30 @@
       "writtenOn": "2018-06-03T20:06:51Z",
       "side": 1,
       "message": "this log likely is not needed as the two previous lines will print the output. Try to reduce duplicate logging as it just bloats the already large files",
+      "range": {
+        "startLine": 364,
+        "startChar": 3,
+        "endLine": 364,
+        "endChar": 15
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01ab55f8_ea6608ea",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f1e6553_ea9180bc",
       "range": {
         "startLine": 364,
         "startChar": 3,
@@ -271,6 +493,24 @@
     },
     {
       "key": {
+        "uuid": "d7a3beb5_647f5260",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ed4fe5f_ba7c653f",
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "381ff894_6becc2a9",
         "filename": "csit/suites/genius/Service_Recovery.robot",
         "patchSetId": 46
@@ -282,6 +522,30 @@
       "writtenOn": "2018-06-03T20:06:51Z",
       "side": 1,
       "message": "Data",
+      "range": {
+        "startLine": 48,
+        "startChar": 47,
+        "endLine": 48,
+        "endChar": 51
+      },
+      "revId": "2682cd3d3755ece57434f32aa76e45a777c26aa9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fda60f63_ca77e562",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T09:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "381ff894_6becc2a9",
       "range": {
         "startLine": 48,
         "startChar": 47,
