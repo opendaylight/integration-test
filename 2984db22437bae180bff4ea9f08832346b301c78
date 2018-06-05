@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ce60737_1195699b",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 103
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-05T18:13:49Z",
+      "side": 1,
+      "message": "put this in the suite teardown instead of it\u0027s own\ntest case.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 44
+      },
+      "revId": "2984db22437bae180bff4ea9f08832346b301c78",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
