@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e95949c3_1c2542e9",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44f7fb10_f9cabbb3",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 8
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e98f8fa0_08d4e63b",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 27
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-18T11:58:01Z",
       "side": 1,
       "message": "COE_PATH or MODULES? All the PATH vars seem weird, but maybe it is OK. They are not really paths as much as they are files",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 10
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a45b4e7e_d54c85da",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e98f8fa0_08d4e63b",
       "range": {
         "startLine": 15,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e42e2bbd_0296bb7d",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af02c8c1_e8c502dd",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 11
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80e0285a_9d7460dc",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 27
@@ -82,6 +154,30 @@
       "writtenOn": "2018-05-18T11:58:01Z",
       "side": 1,
       "message": "Use the Run Command On Remote System And Log form so you don\u0027t need the extra log. You can skip the return output, which typically we name ${output}. if you do use a log somewhere else, make it BuiltIn.Log",
+      "range": {
+        "startLine": 25,
+        "startChar": 20,
+        "endLine": 25,
+        "endChar": 48
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ce7aa5f_764f7eab",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80e0285a_9d7460dc",
       "range": {
         "startLine": 25,
         "startChar": 20,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "60b3b283_78bfb806",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec3ddef8_4e0350e9",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 33
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2b725d5_a2465040",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 27
@@ -128,6 +248,30 @@
       "writtenOn": "2018-05-18T11:58:01Z",
       "side": 1,
       "message": "Similar to comments below, These names don\u0027t convey what the keyword is doing, so look at adding a verb or something more readable to the names.",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 11
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed1c3a5d_870241d3",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2b725d5_a2465040",
       "range": {
         "startLine": 113,
         "startChar": 0,
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "7c931a34_892e39a6",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5de35948_3428a266",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 10
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f82dd2e5_cdb842e2",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 27
@@ -197,6 +365,30 @@
       "writtenOn": "2018-05-18T11:58:01Z",
       "side": 1,
       "message": "add \" \u003d\"",
+      "range": {
+        "startLine": 163,
+        "startChar": 11,
+        "endLine": 163,
+        "endChar": 15
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3e82595_553a0ae9",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f82dd2e5_cdb842e2",
       "range": {
         "startLine": 163,
         "startChar": 11,
@@ -232,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "dc9ea76b_cb6c0c94",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0726eaa_9ab3be7d",
+      "range": {
+        "startLine": 169,
+        "startChar": 21,
+        "endLine": 169,
+        "endChar": 25
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcb69798_589a3b9c",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 27
@@ -243,6 +459,24 @@
       "writtenOn": "2018-05-18T11:58:01Z",
       "side": 1,
       "message": "add \" \"",
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ea3d280_efe46ef0",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcb69798_589a3b9c",
       "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -266,6 +500,24 @@
     },
     {
       "key": {
+        "uuid": "6f8fa3db_27a55f96",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9beb98bc_1bea1746",
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f75934a5_6f15b5af",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 27
@@ -277,6 +529,30 @@
       "writtenOn": "2018-05-18T11:58:01Z",
       "side": 1,
       "message": "BuiltIn.Log",
+      "range": {
+        "startLine": 182,
+        "startChar": 4,
+        "endLine": 182,
+        "endChar": 7
+      },
+      "revId": "f14c45aa9d06560c3e92e4f316f8c911c3a4903d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c06bb7e2_b5b265d7",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f75934a5_6f15b5af",
       "range": {
         "startLine": 182,
         "startChar": 4,
