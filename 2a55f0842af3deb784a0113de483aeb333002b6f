@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "de2cda5f_ce787402",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 63
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-06-05T12:52:20Z",
+      "side": 1,
+      "message": "Have used \u003d.But this is not a local variable.\nI have assigned the list to a scalar variable\nand later accessed it as list variable.\nAnyways I have modified now.",
+      "parentUuid": "74064740_9dafa39d",
+      "range": {
+        "startLine": 52,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "2a55f0842af3deb784a0113de483aeb333002b6f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "737f61d2_ff3abb7c",
         "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
         "patchSetId": 63
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-04T01:23:19Z",
       "side": 1,
       "message": "lowercase as these are local",
+      "range": {
+        "startLine": 175,
+        "startChar": 6,
+        "endLine": 175,
+        "endChar": 12
+      },
+      "revId": "2a55f0842af3deb784a0113de483aeb333002b6f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aec43824_10ea0749",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 63
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 7800
+      },
+      "writtenOn": "2018-06-05T12:52:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "737f61d2_ff3abb7c",
       "range": {
         "startLine": 175,
         "startChar": 6,
