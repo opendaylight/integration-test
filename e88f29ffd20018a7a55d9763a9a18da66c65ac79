@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "51e1ad3a_3dba158a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T12:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29bd6a9d_afff4d95",
+      "revId": "e88f29ffd20018a7a55d9763a9a18da66c65ac79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3c6306d_2f3d78cd",
         "filename": "csit/suites/genius/Service_Recovery.robot",
         "patchSetId": 52
@@ -100,6 +118,24 @@
       "writtenOn": "2018-06-05T10:05:53Z",
       "side": 1,
       "message": "There is another Get Tunnel in Genius.robot..what are the diffs between all these?",
+      "revId": "e88f29ffd20018a7a55d9763a9a18da66c65ac79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72ab47ba_858ab0e2",
+        "filename": "csit/suites/genius/Service_Recovery.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7622
+      },
+      "writtenOn": "2018-06-05T12:51:16Z",
+      "side": 1,
+      "message": "Get Tunnel will read from datastore and return a json, from which we will extract tunnel name.\nwhere as this Get Tunnel name will use Get Tunnel keyword which will directly return a tunnel name between specific source and destination.",
+      "parentUuid": "e3c6306d_2f3d78cd",
       "revId": "e88f29ffd20018a7a55d9763a9a18da66c65ac79",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
