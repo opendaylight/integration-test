@@ -47,6 +47,7 @@ Start Quagga Processes On DCGW
     ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
     Switch Connection    ${dcgw_conn_id}
     Write Commands Until Expected Prompt    cd /opt/quagga/etc/    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Write Commands Until Expected Prompt    ls /opt/quagga/etc/    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo cp zebra.conf.sample zebra.conf    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    sudo /opt/quagga/etc/init.d/zrpcd start    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    ps -ef | grep zrpcd    ${DEFAULT_LINUX_PROMPT_STRICT}
