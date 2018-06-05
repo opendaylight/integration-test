@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1d7c73e2_e1c440fa",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f66a9e7_0dfed6d1",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eab7b15d_2d84a761",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 49
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-23T09:01:46Z",
       "side": 1,
       "message": "remove all underscores in the documentation",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97d4ebc1_645f9a54",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eab7b15d_2d84a761",
       "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9cf3d8bc_0ef63dbe",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c9a8cd_7c2ed619",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df084ffa_ec6b9fc6",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 49
@@ -64,6 +118,24 @@
       "writtenOn": "2018-05-23T09:01:46Z",
       "side": 1,
       "message": "Move it to start suite",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "011510dd_0f478f4e",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df084ffa_ec6b9fc6",
       "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "d288adba_68ad80ff",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69664f91_16b0abd2",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aee64371_0ed12980",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 49
@@ -98,6 +188,24 @@
       "writtenOn": "2018-05-23T09:01:46Z",
       "side": 1,
       "message": "is this needed in tear down?",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03025ec3_f2cc6770",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aee64371_0ed12980",
       "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "9a4debb9_8c0e6f99",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09f1c330_a685e807",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48113063_bcbe3574",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 49
@@ -132,6 +258,24 @@
       "writtenOn": "2018-05-23T09:01:46Z",
       "side": 1,
       "message": "don\u0027t set it as global variable.. use it wherever needed only",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24bea053_c568de7f",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48113063_bcbe3574",
       "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "8e81b42c_026dd5c9",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0c6bbda_caca1a88",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e021aab2_f12e7853",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 49
@@ -166,6 +328,24 @@
       "writtenOn": "2018-05-23T09:01:46Z",
       "side": 1,
       "message": "remove underscores",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ed4b921_66c764ce",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e021aab2_f12e7853",
       "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "f59661dd_0debc409",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05a0d4f8_ab4366e8",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6da24235_73f9fade",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 49
@@ -200,6 +398,24 @@
       "writtenOn": "2018-05-23T09:03:43Z",
       "side": 1,
       "message": "Add log collection to archives here",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3de295ff_ccd9f610",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6da24235_73f9fade",
       "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "dd66d125_1395d4ef",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c9245b7_309c2525",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d52cebb_e846bfc9",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 49
@@ -234,6 +468,24 @@
       "writtenOn": "2018-05-23T09:01:46Z",
       "side": 1,
       "message": "Dump COE Config",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4316a5e7_c5549af7",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d52cebb_e846bfc9",
       "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "1f54c63d_021854ab",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1ca7c38_02472206",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44644574_cbed2c5b",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 49
@@ -268,6 +538,24 @@
       "writtenOn": "2018-05-23T09:01:46Z",
       "side": 1,
       "message": "Collect Journalctl",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12f1db3b_61690088",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44644574_cbed2c5b",
       "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -308,6 +596,24 @@
     },
     {
       "key": {
+        "uuid": "4facb2a7_d9922bbc",
+        "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72f08b0f_d4944d77",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60b23b9c_c9ef9e2d",
         "filename": "csit/suites/coe/POD_CONNECTIVITY.robot",
         "patchSetId": 49
@@ -336,6 +642,24 @@
       "writtenOn": "2018-05-23T09:08:17Z",
       "side": 1,
       "message": "remove whitespace?",
+      "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6af35e3_258f2a73",
+        "filename": "csit/variables/coe/hosts.yaml",
+        "patchSetId": 49
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-05T11:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e32bb62b_7d7d8900",
       "revId": "e3bef242a9d7a780a48766d969a39548dc369dca",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
