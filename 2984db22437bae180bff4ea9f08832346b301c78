@@ -22,6 +22,30 @@
       "revId": "2984db22437bae180bff4ea9f08832346b301c78",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c2d9144_3c6a1cd5",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 103
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-06-06T10:03:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ce60737_1195699b",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 44
+      },
+      "revId": "2984db22437bae180bff4ea9f08832346b301c78",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
