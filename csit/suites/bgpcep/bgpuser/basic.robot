@@ -67,8 +67,7 @@ ${HOLDTIME}       180
 ${ODL_BGP_LOG_LEVEL}    DEFAULT
 ${ODL_LOG_LEVEL}    INFO
 ${PEER_GROUP}     internal-neighbors
-${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
-${RIB_INSTANCE}    example-bgp-rib
+${RIB_NAME}       example-bgp-rib
 ${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 
 *** Test Cases ***
@@ -80,7 +79,7 @@ Check_For_Empty_Topology_Before_Talking
 TC_LA_Reconfigure_Odl_To_Initiate_Connection
     [Documentation]    Configure ibgp peer with local-address.
     CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
-    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${RIB_NAME}
     ...    LOCAL=${ODL_SYSTEM_IP}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_local_address    mapping=${mapping}    session=${CONFIG_SESSION}
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
@@ -106,13 +105,13 @@ TC_LA_Kill_Bgp_Speaker
 TC_LA_Delete_Bgp_Peer_Configuration
     [Documentation]    Delete peer configuration.
     CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
-    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${RIB_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_local_address    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    ...    INITIATE=false    BGP_RIB=${RIB_NAME}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_NAME}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
@@ -136,7 +135,7 @@ TC_R_Reset_Bgp_Peer_Session
     [Documentation]    Reset Peer Session
     [Tags]    Critical
     CompareStream.Run_Keyword_If_Less_Than_Oxygen    BuiltIn.Pass_Execution    Test case valid only for versions oxygen and above.
-    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    RIB_INSTANCE_NAME=${RIB_NAME}
     TemplatedRequests.Post_As_Xml_Templated    folder=${BGP_VARIABLES_FOLDER}${/}peer_session/restart    mapping=${mapping}    session=${CONFIG_SESSION}
 
 TC_R_Check_For_Empty_Topology_After_Resetting
@@ -148,11 +147,11 @@ TC_R_Check_For_Empty_Topology_After_Resetting
 TC_PG_Reconfigure_ODL_With_Peer_Group_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${RIB_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
     Configure_Peer_Group
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    PEER_GROUP_NAME=${PEER_GROUP}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    ...    PEER_GROUP_NAME=${PEER_GROUP}    INITIATE=false    BGP_RIB=${RIB_NAME}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_NAME}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}    session=${CONFIG_SESSION}
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
@@ -186,7 +185,7 @@ TC_PG_Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false. (Fluorine only)
     CompareStream.Run_Keyword_If_Less_Than_Fluorine    BuiltIn.Pass_Execution    Test case valid only for versions fluorine and above.
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    PEER_GROUP_NAME=${PEER_GROUP}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    ...    PEER_GROUP_NAME=${PEER_GROUP}    INITIATE=false    BGP_RIB=${RIB_NAME}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer_group    mapping=${mapping}    session=${CONFIG_SESSION}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
     Deconfigure_Peer_Group
@@ -223,7 +222,7 @@ Check_For_Empty_Topology_Before_Listening
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=true    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    ...    INITIATE=true    BGP_RIB=${RIB_NAME}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${RIB_NAME}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Check_Listening_Connection_Is_Established
@@ -307,7 +306,7 @@ Check_For_Empty_Topology_After_Listening_Case_3
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${RIB_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
@@ -366,16 +365,16 @@ Configure_Peer_Group
     [Documentation]    Configures peer group which is template for all the neighbors which are going
     ...    to be configured. Also after PUT, this case verifies presence of peer group within
     ...    peer-groups. This case is specific to versions Fluorine and above.
-    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
-    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_NAME}
+    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_NAME}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}${peer_group_folder}    mapping=${mapping}    session=${CONFIG_SESSION}
     TemplatedRequests.Get_As_Json_Templated    ${BGP_VARIABLES_FOLDER}${/}verify_${peer_group_folder}    mapping=${mapping}    session=${CONFIG_SESSION}    verify=True
 
 Deconfigure_Peer_Group
     [Documentation]    Deconfigures peer group which is template for all the neighbors
     ...    This test case is specific to versions Fluorine and above.
-    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
-    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_NAME}
+    ...    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${RIB_NAME}    PEER_GROUP_NAME=${PEER_GROUP}    RR_CLIENT=false
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}peer_group    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Restart_Talking_BGP_Speaker
