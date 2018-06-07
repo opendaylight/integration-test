@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2385f4e3_b463c723",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T21:00:17Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "revId": "02e57661dc3c2bf423d45597768eb94969d399b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64925a38_8bd266e8",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T21:00:17Z",
+      "side": 1,
+      "message": "Use the form without spaces.",
+      "range": {
+        "startLine": 140,
+        "startChar": 33,
+        "endLine": 140,
+        "endChar": 63
+      },
+      "revId": "02e57661dc3c2bf423d45597768eb94969d399b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da62b2f7_c4bb1553",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T21:00:17Z",
+      "side": 1,
+      "message": "\u003d    BuiltIn.Catenate",
+      "range": {
+        "startLine": 147,
+        "startChar": 22,
+        "endLine": 147,
+        "endChar": 26
+      },
+      "revId": "02e57661dc3c2bf423d45597768eb94969d399b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79087de7_f0eb43d0",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T21:00:17Z",
+      "side": 1,
+      "message": "ha, didn\u0027t know this worked. Learn something new.",
+      "range": {
+        "startLine": 156,
+        "startChar": 22,
+        "endLine": 156,
+        "endChar": 42
+      },
+      "revId": "02e57661dc3c2bf423d45597768eb94969d399b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
