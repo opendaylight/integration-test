@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9abfc365_20c126fe",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "fixed indentation properly with four spaces",
+      "parentUuid": "f6bc5cc7_0ebefc1f",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "182436d0_119f9bca",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2018-06-04T21:37:44Z",
       "side": 1,
       "message": "not sure if anyone cares, but most scripts use {}\u0027s around the variables. Not sure if we enforce it or what the reasoning was.",
+      "range": {
+        "startLine": 7,
+        "startChar": 90,
+        "endLine": 7,
+        "endChar": 104
+      },
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "800a144d_48b852e8",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "now using {} braces for all variables",
+      "parentUuid": "182436d0_119f9bca",
       "range": {
         "startLine": 7,
         "startChar": 90,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "8add0a38_969c0394",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "removed unnecessary factor",
+      "parentUuid": "1421bffa_b37c3f0b",
+      "range": {
+        "startLine": 8,
+        "startChar": 20,
+        "endLine": 8,
+        "endChar": 26
+      },
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e078dc8_90ed40b6",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 2
@@ -76,6 +142,24 @@
       "writtenOn": "2018-06-04T21:37:44Z",
       "side": 1,
       "message": "both of the lines needed?",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fcc9400_65a47bf6",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "2e078dc8_90ed40b6",
       "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "e7d5c58f_69555e29",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "fixed indentation with four spcaes",
+      "parentUuid": "37cc674a_66faf0b4",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96a1b885_7b539c11",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 2
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "3107a4fe_3f2dda5d",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "Added suggested log message.",
+      "parentUuid": "96a1b885_7b539c11",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f931792_69eb07fa",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 2
@@ -127,6 +247,24 @@
       "writtenOn": "2018-06-04T21:37:44Z",
       "side": 1,
       "message": "comment just repeats what the echo above says, so it can be removed. For consistency, might want to add a similar echo under the builder case",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aba60048_7c169a07",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "removed comments",
+      "parentUuid": "2f931792_69eb07fa",
       "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -156,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "267ed926_b644e233",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "Removed first 2 line and sleep function.\n        pkill -f dpkg\n        sudo rm /var/lib/dpkg/lock\n        sudo dpkg --configure -a\nbuild failed continuously without these 3 lines with below error so added it.Please let us know if any alternative sugession\n\ndpkg: error: dpkg status database is locked by another process\ndpkg: error: dpkg status database is locked by another process\nBuild step \u0027Execute shell\u0027 marked build as failure",
+      "parentUuid": "7fca6e59_ac7196bd",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 16
+      },
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f9d091c_49b10323",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 2
@@ -173,6 +335,24 @@
     },
     {
       "key": {
+        "uuid": "5e9574a8_d5e083a0",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "There are 3 types of nodes odl (builder), compute (devstack) and tool system nodes and i need to install quagga software only in odl and tool system to run QBGP process. odl and tool system required rpm and debian packages respectively and compute does not need any packages. that\u0027s why i have put cases for each. we need to have same check even if we split it in multiple scripts.",
+      "parentUuid": "6f9d091c_49b10323",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc73d746_d81053a1",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 2
@@ -184,6 +364,24 @@
       "writtenOn": "2018-06-04T18:52:31Z",
       "side": 1,
       "message": "you probably want to use OpenStackOperations.Openstack Suite Setup and the accompanying\nSuite Teardown in your local setup and teardown keywords. it\u0027s gives you a few nice\nthings for free",
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fb79a04_ea7fd0cd",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "Implemented OpenStackOperations.Openstack Suite Setup and creating local setup as per suite requirements.",
+      "parentUuid": "cc73d746_d81053a1",
       "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -213,6 +411,30 @@
     },
     {
       "key": {
+        "uuid": "d0192380_b1f44811",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "Added OpenStackOperations.Test Teardown Debugs in teardown and few are related to testcase since i need different vpn and route for different testcases",
+      "parentUuid": "75b32614_32329f07",
+      "range": {
+        "startLine": 111,
+        "startChar": 1,
+        "endLine": 122,
+        "endChar": 144
+      },
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd24c754_3a8d41c4",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 2
@@ -224,6 +446,30 @@
       "writtenOn": "2018-06-04T18:52:31Z",
       "side": 1,
       "message": "probably a cleaner way is to have it be \"Configure Multipath On Odl\" and pass in the ${setting} as enable or disable and\nthen just have one line like:\n\n  KarafKeywords.Issue_Command_On_Karaf_Console    odl:multipath -f ${VPNV4_ADDR_FAMILY} ${setting}\n\nsame logic looks like it applies to below Verify Multipath\nkeyword.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 112
+      },
+      "revId": "a0dd2b8a9b9f69a420c7cdf8e38eea5ea3480e50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6805245e_0e256591",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-07T06:29:18Z",
+      "side": 1,
+      "message": "implemented as per your suggestion.",
+      "parentUuid": "bd24c754_3a8d41c4",
       "range": {
         "startLine": 124,
         "startChar": 0,
