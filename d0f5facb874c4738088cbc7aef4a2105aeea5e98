@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0bf85999_164860f9",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 70
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T12:29:32Z",
+      "side": 1,
+      "message": "use the \"\" to be consistent",
+      "range": {
+        "startLine": 17,
+        "startChar": 19,
+        "endLine": 17,
+        "endChar": 20
+      },
+      "revId": "d0f5facb874c4738088cbc7aef4a2105aeea5e98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe2cae69_1103b271",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 70
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T12:29:32Z",
+      "side": 1,
+      "message": "use something like 85.1.1.0/24. The elan suite uses 81-83 so this puts in the elan area.",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 29
+      },
+      "revId": "d0f5facb874c4738088cbc7aef4a2105aeea5e98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fee6fac4_3874fda4",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 70
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T12:29:32Z",
+      "side": 1,
+      "message": "instance_id    vm_ip",
+      "range": {
+        "startLine": 55,
+        "startChar": 28,
+        "endLine": 55,
+        "endChar": 33
+      },
+      "revId": "d0f5facb874c4738088cbc7aef4a2105aeea5e98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87654aa5_6da3c342",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 70
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T12:29:32Z",
+      "side": 1,
+      "message": "use this form: @{PORTS}[$index]",
+      "range": {
+        "startLine": 57,
+        "startChar": 61,
+        "endLine": 57,
+        "endChar": 79
+      },
+      "revId": "d0f5facb874c4738088cbc7aef4a2105aeea5e98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db6220c5_d1109eb2",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 70
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T12:29:32Z",
+      "side": 1,
+      "message": "instance_id    vm_ip",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 21
+      },
+      "revId": "d0f5facb874c4738088cbc7aef4a2105aeea5e98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adb38497_ece813e6",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 70
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T12:29:32Z",
+      "side": 1,
+      "message": "dmac_list, also in all the other places since I don\u0027t think think this is a suite or global variable",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 15
+      },
+      "revId": "d0f5facb874c4738088cbc7aef4a2105aeea5e98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d4359a5_3b85447c",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 70
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T12:29:32Z",
+      "side": 1,
+      "message": "dpn2_id",
+      "range": {
+        "startLine": 90,
+        "startChar": 6,
+        "endLine": 90,
+        "endChar": 13
+      },
+      "revId": "d0f5facb874c4738088cbc7aef4a2105aeea5e98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b29132b_cd99f434",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 70
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T12:29:32Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "revId": "d0f5facb874c4738088cbc7aef4a2105aeea5e98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a2b1d7f_1b8214e2",
+        "filename": "csit/suites/netvirt/elan/elan_bundle_resync.robot",
+        "patchSetId": 70
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T12:29:32Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "range": {
+        "startLine": 115,
+        "startChar": 9,
+        "endLine": 115,
+        "endChar": 13
+      },
+      "revId": "d0f5facb874c4738088cbc7aef4a2105aeea5e98",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
