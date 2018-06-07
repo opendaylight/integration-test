@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6ca35525_46688f53",
+        "filename": "csit/libraries/BgpOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-07T06:37:43Z",
+      "side": 1,
+      "message": "I have modified both the restart keywords as below :\n\"Start Quagga Processes On ODL\" is called inside \"Restart BGP Processes On ODL\"\nand \"Start Quagga Processes On DCGW\" is called inside \"Restart BGP Processes On DCGW\".",
+      "parentUuid": "fe25da27_3c982441",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 267,
+        "endChar": 117
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45809ec3_c27a13b4",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 3
@@ -969,6 +993,30 @@
     },
     {
       "key": {
+        "uuid": "578e38ab_614d09fc",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-07T06:37:43Z",
+      "side": 1,
+      "message": "Modified the code.",
+      "parentUuid": "86bcf56d_f78966df",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 57
+      },
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a53ee3b_86b1f2fd",
         "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
         "patchSetId": 3
@@ -980,6 +1028,24 @@
       "writtenOn": "2018-05-24T00:37:56Z",
       "side": 1,
       "message": "S",
+      "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5258d5e9_86e0bbe2",
+        "filename": "csit/suites/netvirt/subnet_routing/Subnet_Routing_And_Multicast_csit.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-07T06:37:43Z",
+      "side": 1,
+      "message": "I am not getting this point.\nCan you please elaborate more on this ?",
+      "parentUuid": "9a53ee3b_86b1f2fd",
       "revId": "bb73b9be493c7dc4972abdad44bfa2d2033e44ac",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
