@@ -2,6 +2,184 @@
   "comments": [
     {
       "key": {
+        "uuid": "8ce68942_fc9261de",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_port.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:44:29Z",
+      "side": 1,
+      "message": "please remove 96.2; also please run it in tox once",
+      "range": {
+        "startLine": 2,
+        "startChar": 48,
+        "endLine": 2,
+        "endChar": 52
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02780e91_b8f69337",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_port.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:44:29Z",
+      "side": 1,
+      "message": "remove this space",
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0588826_1d14ee5a",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_port.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:44:29Z",
+      "side": 1,
+      "message": "should be followed with suite info",
+      "range": {
+        "startLine": 18,
+        "startChar": 15,
+        "endLine": 18,
+        "endChar": 29
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e3e69f0_2ac961e3",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_port.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:44:29Z",
+      "side": 1,
+      "message": "lowercase please",
+      "range": {
+        "startLine": 19,
+        "startChar": 16,
+        "endLine": 19,
+        "endChar": 39
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81883265_1e780565",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_port.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:44:29Z",
+      "side": 1,
+      "message": "use the existing keyword available in OpenstackOerations",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 56
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1952be5_0a28d435",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_port.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:44:29Z",
+      "side": 1,
+      "message": "use the existing keyword available in OpenstackOerations; also please change the variable name to meaningful one. applicable for following similar statements",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 52
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "071d0fc8_32f86013",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_port.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:44:29Z",
+      "side": 1,
+      "message": "remove this log message; redundant",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ede4f77_d632ee94",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_port.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:44:29Z",
+      "side": 1,
+      "message": "use the keyword available in Openstackoperations",
+      "range": {
+        "startLine": 74,
+        "startChar": 69,
+        "endLine": 74,
+        "endChar": 86
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90e23259_f9d26b61",
         "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
         "patchSetId": 4
