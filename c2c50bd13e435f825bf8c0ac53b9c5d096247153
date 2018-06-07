@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a4e090c_05e10cc7",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T20:48:51Z",
+      "side": 1,
+      "message": "\u003d.\nDoes this need an initial value like @{EMPTY}",
+      "revId": "c2c50bd13e435f825bf8c0ac53b9c5d096247153",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "deb1c40e_c6591e74",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T20:48:51Z",
+      "side": 1,
+      "message": "USe the form without spaces. Do the same all throughout file.",
+      "range": {
+        "startLine": 68,
+        "startChar": 18,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "c2c50bd13e435f825bf8c0ac53b9c5d096247153",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69f6787b_9235fdff",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-07T20:48:51Z",
+      "side": 1,
+      "message": "Use a range up near the 110.x,like 111.x to keep all the multipatch stuff related.",
+      "range": {
+        "startLine": 25,
+        "startChar": 18,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "c2c50bd13e435f825bf8c0ac53b9c5d096247153",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
