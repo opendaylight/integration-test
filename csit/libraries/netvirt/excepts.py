@@ -263,6 +263,6 @@ def write_exceptions_map_to_file(testname, filename, mode="a+"):
                 fp.write("Exception is new\n")
             for exwe_index in ex.get("warnerr_list")[:-1]:
                 for line in _ts_list[exwe_index]:
-                    fp.write(line)
+                    fp.write("{}\n".format(line))
             fp.writelines(ex.get("lines"))
             fp.write("\n")
