@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90e23259_f9d26b61",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:35:15Z",
+      "side": 1,
+      "message": "please remove 96.2",
+      "range": {
+        "startLine": 2,
+        "startChar": 48,
+        "endLine": 2,
+        "endChar": 52
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cff1c83e_fc85d0e6",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:35:15Z",
+      "side": 1,
+      "message": "please use all the variable prefixed with suite info; ex: acl_reboot_sg1 or scl_sg1 ; applicable for all the variables created here",
+      "range": {
+        "startLine": 19,
+        "startChar": 21,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f23b35c1_86dab17a",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:35:15Z",
+      "side": 1,
+      "message": "Should be lowercase",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 20
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b45fbc8_84b6050f",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:35:15Z",
+      "side": 1,
+      "message": "lowercase please",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bbdac265_f4c1aaf0",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:35:15Z",
+      "side": 1,
+      "message": "follow common pattern for variable declaration here.",
+      "range": {
+        "startLine": 25,
+        "startChar": 1,
+        "endLine": 27,
+        "endChar": 14
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7980552f_2c32eb0b",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:35:15Z",
+      "side": 1,
+      "message": "Extra spaces need to be removed",
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51eb695d_872febc7",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:35:15Z",
+      "side": 1,
+      "message": "get this from create section and use it",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 25
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a25d861_1ab54c31",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:35:15Z",
+      "side": 1,
+      "message": "Give a proper name instead of abc;applicable for all the below variable as well",
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22ae0589_d0d833a5",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:35:15Z",
+      "side": 1,
+      "message": "please use the OpenstackOperatios keyword here instead of creating an extra local keyword?",
+      "range": {
+        "startLine": 94,
+        "startChar": 69,
+        "endLine": 94,
+        "endChar": 86
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d1ae453_929a56fb",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:35:15Z",
+      "side": 1,
+      "message": "same command as above",
+      "range": {
+        "startLine": 96,
+        "startChar": 69,
+        "endLine": 96,
+        "endChar": 85
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c787a60_ab885a2b",
+        "filename": "csit/suites/netvirt/ACL_E/ACL_reboot.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-07T06:35:15Z",
+      "side": 1,
+      "message": "please use the existing keyword available in OpenstackOperations.robot",
+      "range": {
+        "startLine": 114,
+        "startChar": 41,
+        "endLine": 116,
+        "endChar": 53
+      },
+      "revId": "5f9fb476fa02926d9d773556b65954e121dcd735",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
