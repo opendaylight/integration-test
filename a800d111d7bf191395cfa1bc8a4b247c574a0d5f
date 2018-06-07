@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3be93b33_68d4b253",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-07T06:37:43Z",
+      "side": 1,
+      "message": "As the keyword of this library file is not being used in this suite, so deleted the line.",
+      "parentUuid": "65f76c26_2cd1bcc1",
+      "revId": "a800d111d7bf191395cfa1bc8a4b247c574a0d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c475724_7d5d098c",
         "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
         "patchSetId": 18
@@ -30,6 +48,24 @@
       "writtenOn": "2018-06-01T14:15:38Z",
       "side": 1,
       "message": "OpenStackOperations.Create Vm Instance With Port On Compute Node ?",
+      "revId": "a800d111d7bf191395cfa1bc8a4b247c574a0d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6356992f_10c2d723",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-07T06:37:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c475724_7d5d098c",
       "revId": "a800d111d7bf191395cfa1bc8a4b247c574a0d5f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "67dc2b79_dcf138a6",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-07T06:37:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35469639_f3a3e2f7",
+      "revId": "a800d111d7bf191395cfa1bc8a4b247c574a0d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86bce34e_2dc4d141",
         "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
         "patchSetId": 18
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "875802b6_dec8d184",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-07T06:37:43Z",
+      "side": 1,
+      "message": "Deleted the same.",
+      "parentUuid": "86bce34e_2dc4d141",
+      "revId": "a800d111d7bf191395cfa1bc8a4b247c574a0d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3be2b872_bd09ec07",
         "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
         "patchSetId": 18
@@ -81,6 +153,24 @@
       "writtenOn": "2018-06-01T14:15:38Z",
       "side": 1,
       "message": "Redundant; add it to the documentation if anything extra",
+      "revId": "a800d111d7bf191395cfa1bc8a4b247c574a0d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51e5983a_13902998",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-07T06:37:43Z",
+      "side": 1,
+      "message": "Deleted this line as it is already mentioned in documentation part.",
+      "parentUuid": "3be2b872_bd09ec07",
       "revId": "a800d111d7bf191395cfa1bc8a4b247c574a0d5f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
