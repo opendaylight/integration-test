@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "106a2470_f083417f",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-08T05:19:21Z",
+      "side": 1,
+      "message": "this will work now, but the moment you add more switches to genius CSIT, it will not work, but I think you can add that to your new work of cleaning up genius CSIT to add 3rd switch.",
+      "revId": "d9c7b18cfbad4174aa75afeb7c720e04082f7f18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
