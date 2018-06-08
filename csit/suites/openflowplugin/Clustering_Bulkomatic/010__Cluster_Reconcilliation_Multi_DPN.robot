@@ -47,7 +47,7 @@ Get Inventory Follower and Leader Before Cluster Restart
 
 Start Mininet Connect To Follower Node1
     [Documentation]    Start mininet with connection to Follower Node1.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Follower_Node_1}_IP}    --topo linear,${switch_count} --switch ovsk,protocols=OpenFlow13
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Follower_Node_1}_IP}    --topo linear,${switch_count}
     Set Suite Variable    ${mininet_conn_id}
 
 Add Bulk Flow From Follower
@@ -69,7 +69,7 @@ Stop Mininet Connected To Follower Node1 and Exit
 
 Start Mininet Reconnect To Follower Node1
     [Documentation]    Start mininet with reconnection to follower node1.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Follower_Node_1}_IP}    --topo linear,${switch_count} --switch ovsk,protocols=OpenFlow13
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Follower_Node_1}_IP}    --topo linear,${switch_count}
     Set Suite Variable    ${mininet_conn_id}
 
 Verify Flows In Switch Reconnected To Follower Node1
@@ -83,7 +83,7 @@ Stop Mininet Connected To Follower Node1
 
 Start Mininet Connect To Follower Node2
     [Documentation]    Start mininet with connection to follower node2.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Follower_Node_2}_IP}    --topo linear,${switch_count} --switch ovsk,protocols=OpenFlow13
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Follower_Node_2}_IP}    --topo linear,${switch_count}
     Set Suite Variable    ${mininet_conn_id}
 
 Verify Flows In Switch Connected To Follower Node2
@@ -97,7 +97,7 @@ Stop Mininet Connected To Follower Node2
 
 Start Mininet Connect To Inventory Leader
     [Documentation]    Start mininet with connection to inventroy leader.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Inventory_Leader}_IP}    --topo linear,${switch_count} --switch ovsk,protocols=OpenFlow13
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Inventory_Leader}_IP}    --topo linear,${switch_count}
     Set Suite Variable    ${mininet_conn_id}
 
 Verify Flows In Switch Connected To Leader

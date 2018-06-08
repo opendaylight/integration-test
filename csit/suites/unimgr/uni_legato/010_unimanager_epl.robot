@@ -13,7 +13,7 @@ Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${UniMgr_variables_DIR}    ${CURDIR}/../../../variables/unimgr
-${options}        --topo single,2 --switch ovsk,protocols=OpenFlow13
+${options}        --topo single,2
 
 *** Test Cases ***
 Check no connectivity before creating service
