@@ -437,3 +437,12 @@ Get Tunnel Id And Packet Count
     @{list} =    String.Split String    ${output}
     ${packet_count} =    Set Variable    @{list}[0]
     [Return]    ${tunnel_id}    ${packet_count}
+
+Verify Dump Flows For Specific Table
+    [Arguments]    ${compute_ip}    ${table_num}    ${flag}    ${additional_args}=${EMPTY}    @{matching_paras}
+    [Documentation]    To Verify flows are present for the corresponding table Number
+    ${flow_output} =    Utils.Run Command On Remote System    ${compute_ip}    ${DUMP_FLOWS}|grep table=${table_num} ${additional_args}
+    Log    ${flow_output}
+    : FOR    ${matching_str}    IN    @{matching_paras}
+    \    BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${flow_output}    ${matching_str}
+    \    ...    ELSE    BuiltIn.Should Not Contain    ${flow_output}    ${matching_str}
