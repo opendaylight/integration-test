@@ -233,6 +233,8 @@ Verify GWMAC Flow Entry On Flow Table
     Should Contain    ${gwmac_table}    actions=resubmit(,17)
     #Verify ARP_CHECK_TABLE - 43
     #arp request and response
+    ${arppunt_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_PUNT_TABLE}
+    Should Match Regexp    ${arpchk_table}    ${ARP_LEARN_REGEX}
     ${arpchk_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_CHECK_TABLE}
     Should Match Regexp    ${arpchk_table}    ${ARP_RESPONSE_REGEX}
     ${match} =    Should Match Regexp    ${arpchk_table}    ${ARP_REQUEST_REGEX}
