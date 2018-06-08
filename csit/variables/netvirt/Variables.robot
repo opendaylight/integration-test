@@ -29,8 +29,11 @@ ${NO_PING_REGEXP}    , 100% packet loss
 ${RT_OPTIONS}     --route
 ${RT_CLEAR}       --no-route
 ${ARP_RESPONSE_REGEX}    arp,arp_op=2 actions=CONTROLLER:65535,resubmit\\(,${ELAN_BASETABLE}\\)
+${ARP_RESPONSE_REGEX_1}    arp,arp_op=2 actions=resubmit\\(,${ARP_PUNT_TABLE}\\),resubmit\\(,${ARP_LEARN_TABLE}\\),resubmit\\(,${ELAN_BASETABLE}\\)
+${ARP_RESPONSE_REGEX_2}    arp actions=CONTROLLER:65535,learn
 ${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
 ${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${ELAN_BASETABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
+${ARP_REQUEST_GROUP_REGEX_1}    actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
 # Values passed for BFD Tunnel monitoring
 ${TUNNEL_MONITOR_ON}    Tunnel Monitoring (for VXLAN tunnels): On
 ${TUNNEL_MONITOR_OFF}    Tunnel Monitoring (for VXLAN tunnels): Off
@@ -70,6 +73,8 @@ ${LEARNT_VIP}     ${OPERATIONAL_API}/odl-l3vpn:learnt-vpn-vip-to-port-data/
 ${DISPATCHER_TABLE}    17
 ${GWMAC_TABLE}    19
 ${ARP_CHECK_TABLE}    43
+${ARP_PUNT_TABLE}    195
+${ARP_LEARN_TABLE}    196
 ${ARP_RESPONSE_TABLE}    81
 ${IPV6_TABLE}     45
 ${L3_TABLE}       21
