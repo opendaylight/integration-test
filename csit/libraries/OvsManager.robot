@@ -216,3 +216,13 @@ Get Dump Flows Count
     ${output} =    Utils.Write Commands Until Expected Prompt    ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
     @{list} =    String.Split String    ${output}
     [Return]    ${list[0]}
+
+Get Packet Count From Table
+    [Arguments]    ${system_ip}    ${br_name}    ${table_no}    ${addtioanal_args}=${EMPTY}
+    [Documentation]    Return packet count for the specific table no.
+    ${flow_output} =    Utils.Run Command On Remote System    ${system_ip}    sudo ovs-ofctl dump-flows -O Openflow13 ${br_name} | grep ${table_no} ${addtioanal_args}
+    @{output} =    String.Split String    ${flow_output}    \r\n
+    ${flow} =    Collections.Get From List    ${output}    0
+    ${packetcountlist} =    String.Get Regexp Matches    ${flow}    n_packets=([0-9]+),    1
+    ${packetcount} =    Collections.Get From List    ${packetcountlist}    0
+    [Return]    ${packetcount}
