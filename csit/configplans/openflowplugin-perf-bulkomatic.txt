@@ -1,3 +1,4 @@
 # Place the suites in run order:
 integration/test/csit/scripts/set_persistence_off.sh
 integration/test/csit/scripts/set_openflow_tls.sh
+integration/test/csit/scripts/increase_of_stats_interval.sh

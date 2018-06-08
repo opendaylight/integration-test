@@ -21,12 +21,14 @@ Start Mininet Single Controller
     [Documentation]    Start Mininet with custom topology and connect to controller.
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
-    ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System
+    ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System    ip_address=${mininet}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Log    Start mininet ${options} to ${controller}
     SSHLibrary.Write    sudo mn --controller 'remote,ip=${controller},port=${ofport}' ${options} --switch ovsk,protocols=OpenFlow${ofversion}
     SSHLibrary.Read Until    mininet>
+    Write    sh x=`sudo ovs-vsctl --columns=_uuid list Controller | awk '{print $NF}'`; for i in $x; do sudo ovs-vsctl set Controller $i inactivity_probe=0; done
+    Read Until    mininet>
     Log    Check OVS configuratiom
     SSHLibrary.Write    sh ovs-vsctl show
     SSHLibrary.Read Until    mininet>
@@ -39,7 +41,7 @@ Start Mininet Multiple Controllers
     ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
-    ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System
+    ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System    ip_address=${mininet}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Run Keyword If    '${protocol}' == 'ssl'    Install Certificates In Mininet
@@ -60,6 +62,7 @@ Start Mininet Multiple Controllers
     \    ${bridge}=    SSHLibrary.Execute Command    sudo ovs-vsctl show | grep Bridge | cut -c 12- | sort | head -${i} | tail -1
     \    SSHLibrary.Execute Command    sudo ovs-vsctl set bridge ${bridge} protocols=OpenFlow${ofversion}
     \    SSHLibrary.Execute Command    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
+    SSHLibrary.Execute Command    x=`sudo ovs-vsctl --columns=_uuid list Controller | awk '{print $NF}'`; for i in $x; do sudo ovs-vsctl set Controller $i inactivity_probe=0; done
     Log    Check OVS configuratiom
     ${output}=    SSHLibrary.Execute Command    sudo ovs-vsctl show
     Log    ${output}
