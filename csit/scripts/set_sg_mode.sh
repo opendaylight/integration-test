@@ -18,6 +18,6 @@ do
 
         echo "Setting security group mode to ${SECURITY_GROUP_MODE} on ${!CONTROLLERIP}"
         scp ${WORKSPACE}/set_sg_mode.sh ${!CONTROLLERIP}:/tmp/
-        ssh ${!CONTROLLERIP} 'bash /tmp/set_sg_mode.sh'
+        ssh ${!CONTROLLERIP} 'bash -x /tmp/set_sg_mode.sh'
 
 done
