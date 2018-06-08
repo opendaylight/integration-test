@@ -65,7 +65,7 @@ Check Shard Status For Leader After PreLeader Shutdown
 
 Start Mininet Connect To Follower Node1
     [Documentation]    Start mininet with connection to Follower Node1
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Follower_Node_1}_IP}    --topo linear,${switch_count} --switch ovsk,protocols=OpenFlow13
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Follower_Node_1}_IP}    --topo linear,${switch_count}
     Set Suite Variable    ${mininet_conn_id}
 
 Add Bulk Flow From Follower
@@ -136,7 +136,7 @@ Check Shards Status After Follower Shutdown
 
 Start Mininet Connect To Follower Node
     [Documentation]    Start mininet with connection to Follower Node1.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Follower_Node_1}_IP}    --topo linear,${switch_count} --switch ovsk,protocols=OpenFlow13
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${Follower_Node_1}_IP}    --topo linear,${switch_count}
     Set Suite Variable    ${mininet_conn_id}
 
 Add Bulk Flow From Follower Node1
