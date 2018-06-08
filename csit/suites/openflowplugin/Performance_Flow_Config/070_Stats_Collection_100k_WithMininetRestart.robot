@@ -24,7 +24,7 @@ ${start_cmd}      sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,
 ${getf_cmd}       sh ./get-total-found.sh
 ${getr_cmd}       sh ./get-total-reported.sh
 ${iperiod}        1s
-${imonitor}       600s
+${imonitor}       60s
 ${ichange}        450s
 ${ratefile}       stats_rate.csv
 ${timefile}       stats_time.csv
@@ -99,6 +99,8 @@ Connect Switches
     Execute Command    sudo mn -c
     Write    ${start_cmd}
     Read Until    mininet>
+    #Write    sh x=`sudo ovs-vsctl --columns=_uuid list Controller | awk '{print $NF}'`; for i in $x; do sudo ovs-vsctl set Controller $i inactivity_probe=0; done
+    #Read Until    mininet>
     Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
 
 Create Http Session And Upload Files
