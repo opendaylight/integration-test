@@ -25,6 +25,8 @@ ${REQ_NUM_SUBNET}    2
 ${REQ_NUM_OF_PORTS}    4
 ${REQ_NUM_OF_VMS_PER_DPN}    2
 ${NUM_OF_PORTS_PER_HOST}    2
+${BRIDGE_INTERFACE}    br-int
+${NEXTHOP}        0.0.0.0
 @{REQ_NETWORKS}    l2l3_gw_mac_arp_net1    l2l3_gw_mac_arp_net2
 @{VM_NAMES}       l2l3_gw_mac_arp_vm1    l2l3_gw_mac_arp_vm2    l2l3_gw_mac_arp_vm3    l2l3_gw_mac_arp_vm4
 @{NET_1_VMS}      l2l3_gw_mac_arp_vm1    l2l3_gw_mac_arp_vm2
@@ -83,6 +85,56 @@ Verify that table miss entry for table 17 should not point to table 81 arp table
     ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${DUMP_FLOWS} | grep table=${DISPATCHER_TABLE} |grep priority=0
     BuiltIn.Should Not Contain    ${flow_output}    goto_table:${ARP_RESPONSE_TABLE}
 
+Verify that Multiple GWMAC entries in GWMAC table points to FIB table 21 (L3VPN pipeline)
+    [Documentation]    To Verify the one or more default gateway mac enteries on the table=19 flows that points to FIB table 21
+    ${gw_mac_addr_1} =    OpenStackOperations.Get Port Mac Address From Ip    ${DEFAULT_GATEWAY_IPS[0]}
+    ${gw_mac_addr_2} =    OpenStackOperations.Get Port Mac Address From Ip    ${DEFAULT_GATEWAY_IPS[1]}
+    ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${dump_flows} |grep table=${GWMAC_TABLE}
+    BuiltIn.Should Contain    ${flow_output}    dl_dst=${gw_mac_addr_1}    actions=goto_table:${L3VPN_TABLE}
+    BuiltIn.Should Contain    ${flow_output}    dl_dst=${gw_mac_addr_2}    actions=goto_table:${L3VPN_TABLE}
+    ${pkt_count_before_ping} =    OpenStackOperations.Get Packetcount    ${BRIDGE_INTERFACE}    ${OS_COMPUTE_1_IP}    table=${GWMAC_TABLE} |grep dl_dst=${gw_mac_addr_1}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 8 @{NET_2_VM_IPS}[1]
+    BuiltIn.Should Contain    ${output}    64 bytes
+    ${pkt_count_after_ping} =    OpenStackOperations.Get Packetcount    ${BRIDGE_INTERFACE}    ${OS_COMPUTE_1_IP}    table=${GWMAC_TABLE} |grep dl_dst=${gw_mac_addr_1}
+    ${pkt_diff} =    Evaluate    int(${pkt_count_after_ping})-int(${pkt_count_before_ping})
+    BuiltIn.Should Be True    ${pkt_diff} > 0
+    ${pkt_count_before_ping} =    OpenStackOperations.Get Packetcount    ${BRIDGE_INTERFACE}    ${OS_COMPUTE_2_IP}    table=${GWMAC_TABLE} |grep dl_dst=${gw_mac_addr_1}
+    ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[0]    @{NET_2_VM_IPS}[0]    ping -c 8 @{NET_1_VM_IPS}[1]
+    BuiltIn.Should Contain    ${output}    64 bytes
+    ${pkt_count_after_ping} =    OpenStackOperations.Get Packetcount    ${BRIDGE_INTERFACE}    ${OS_COMPUTE_2_IP}    table=${GWMAC_TABLE} |grep dl_dst=${gw_mac_addr_1}
+    ${pkt_diff}    Evaluate    int(${pkt_count_after_ping})-int(${pkt_count_before_ping})
+    BuiltIn.Should Be True    ${pkt_diff} > 0
+
+Verify table miss entry of ARP responder table points to drop actions
+    [Documentation]    To Verify the default flow entry of table=81 drops when openflow controller connected to compute node
+    ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${dump_flows}|grep table=${ARP_RESPONSE_TABLE}|grep priority=0
+    BuiltIn.Should Contain    ${flow_output}    actions=drop
+
+Verify ARP eth_type entries and actions for ARP request and ARP response are populated on GWMAC table
+    [Documentation]    To Verify the entry of ARP request(arp=1) and ARP response(arp=2) in table=19
+    ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${dump_flows}|grep table=${GWMAC_table}
+    BuiltIn.Should Contain    ${flow_output}    ${arp_request}    actions=${resubmit_value}
+    BuiltIn.Should Contain    ${flow_output}    ${arp_response}    actions=${resubmit_value}
+
+Verify GWMAC entires are populated with port MAC address for network with vpn dissociation from router in GWMAC table
+    [Documentation]    To Verify gateway mac entires are populated with port mac address for network with vpn dissociation from router
+    VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID}
+    ${gw_mac_addr_2} =    OpenStackOperations.Get Port Mac Address From Ip    ${DEFAULT_GATEWAY_IPS[1]}
+    ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${dump_flows}|grep table=${GWMAC_TABLE}
+    BuiltIn.Should Contain    ${flow_output}    dl_dst=${gw_mac_addr_2}    actions=goto_table:${L3VPN_TABLE}
+    ${output} =    VpnOperations.Get Fib Entries    session
+    OpenStackOperations.Verify IP And Uuid In Fib Entry    ${output}    ${rtr_id}    @{DEFAULT_GATEWAY_IPS}[1]    ${NEXTHOP}
+
+Verify GWMAC entires are populated with port MAC address for network with vpn association to router in GWMAC table
+    [Documentation]    To Verify gateway mac entires are populated with port MAC address for network with vpn association to router
+    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID}
+    ${gw_mac_addr_2} =    OpenStackOperations.Get Port Mac Address From Ip    ${DEFAULT_GATEWAY_IPS[1]}
+    ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${dump_flows}|grep table=${GWMAC_TABLE}
+    BuiltIn.Should Contain    ${flow_output}    dl_dst=${gw_mac_addr_2}    actions=goto_table:${L3VPN_TABLE}
+    ${output} =    VpnOperations.Get Fib Entries    session
+    OpenStackOperations.Verify RD And Subnet In Fib Entry    ${output}    ${L3VPN_RD}    ${REQ_SUBNET_CIDR[0]}
+    OpenStackOperations.Verify RD And Subnet In Fib Entry    ${output}    ${L3VPN_RD}    ${REQ_SUBNET_CIDR[1]}
+
 *** Keywords ***
 Start Suite
     [Documentation]    Test Suite for Gateway mac based L2L3 seggragation
@@ -137,8 +189,9 @@ Create Setup
     Add Interfaces To Routers
     Create Nova VMs    ${REQ_NUM_OF_VMS_PER_DPN}
     ${router_id} =    OpenStackOperations.Get Router Id    ${REQ_ROUTER}
+    Builtin.Set Suite Variable    ${router_id}
     VpnOperations.VPN Create L3VPN    vpnid=${VPN_INSTANCE_ID}    name=${VPN_NAME}    rd=${L3VPN_RD}    exportrt=${L3VPN_RD}    importrt=${L3VPN_RD}
-    Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID}
+    VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID}
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID}
 
 Add Interfaces To Routers
