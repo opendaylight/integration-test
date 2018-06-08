@@ -11,6 +11,7 @@ Resource          ../../../libraries/ClusterOpenFlow.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
+${enable_openflow_tls}    True
 ${operation_timeout}    250s
 ${oper_ds_timeout}    400s
 ${mininet_timeout}    120s
@@ -37,10 +38,14 @@ Initialize Variables
     BuiltIn.Set Suite Variable    ${temp_json_config_del}
 
 Start Mininet And verify Switches
-    [Documentation]    Start mininet.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    --topo linear,${switch_count} --switch ovsk,protocols=OpenFlow13
+    [Documentation]    Start mininet, controller OF port 6653 should be enabled for TLS while port 6633 should be for TCP.
+    ${ofport}    Set Variable If    '${enable_openflow_tls}' == 'True'    6653    6633
+    ${protocol}    Set Variable If    '${enable_openflow_tls}' == 'True'    ssl    tcp
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Multiple Controllers    options=--topo linear,${switch_count}    ofport=${ofport}    protocol=${protocol}
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     BuiltIn.Wait Until Keyword Succeeds    ${mininet_timeout}    2s    ClusterOpenFlow.Verify_Switch_Connections_Running_On_Member    ${switch_count}    1
+    Comment    Fail the entire suite if switches cannot connect
+    [Teardown]    Run Keyword If Test Failed    Fatal Error
 
 Add Bulk Flow
     [Documentation]    100K Flows (1K Flows per DPN) in 100 DPN added and verify it gets applied.
