@@ -13,8 +13,8 @@ Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 @{NODE_LIST}      ${OVSDB_NODE_PORT}    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}    ${TOOLS_SYSTEM_IP}    ${OVSDB_NODE_PORT}    ovsdb://${TOOLS_SYSTEM_2_IP}:${OVSDB_NODE_PORT}    ${TOOLS_SYSTEM_2_IP}
-${MN_OPTS_S1}     --switch=ovsk,protocols=OpenFlow13 --custom ovsdb.py --topo host,1
-${MN_OPTS_S2}     --switch=ovsk,protocols=OpenFlow13 --custom ovsdb.py --topo host,2
+${MN_OPTS_S1}     --custom ovsdb.py --topo host,1
+${MN_OPTS_S2}     --custom ovsdb.py --topo host,2
 
 *** Test Cases ***
 Make the OVS instance to listen for connection

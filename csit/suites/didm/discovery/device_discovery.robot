@@ -92,7 +92,7 @@ Setup DIDM Environment
     Wait For Karaf Log    ${message}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Log    Start device
-    ${mininet_topo_opt}=    Set Variable    --topo linear,1 --switch ovsk,protocols=OpenFlow13
+    ${mininet_topo_opt}=    Set Variable    --topo linear,1
     ${mininet_conn_id}=    Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${mininet_topo_opt}
     Wait Until Keyword Succeeds    11s    1s    Check DIDM Registered With Device
     Set Suite Variable    ${mininet_conn_id}
