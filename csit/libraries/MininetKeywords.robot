@@ -21,7 +21,7 @@ Start Mininet Single Controller
     [Documentation]    Start Mininet with custom topology and connect to controller.
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
-    ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System
+    ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System    ip_address=${mininet}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Log    Start mininet ${options} to ${controller}
@@ -39,7 +39,7 @@ Start Mininet Multiple Controllers
     ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
-    ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System
+    ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System    ip_address=${mininet}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Run Keyword If    '${protocol}' == 'ssl'    Install Certificates In Mininet
