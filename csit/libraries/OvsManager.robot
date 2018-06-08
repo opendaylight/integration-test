@@ -206,3 +206,17 @@ OvsManager__Enable_Slaves_For_Switch
     \    ${role}=    Collections.Get From Dictionary    ${cntl_value}    role
     \    ${connected}=    Collections.Get From Dictionary    ${cntl_value}    is_connected
     \    Run Keyword If    ${connected}==${False}    Reconnect Switch To Controller And Verify Connected    ${switch}    ${cntl_id}    verify_connected=${verify_connected}
+
+Get Packet Count From Table
+    [Arguments]    ${system_ip}    ${br_name}    ${table_no}    ${addtioanal_args}=${EMPTY}
+    [Documentation]    Return packet count for the specific table no.
+    ${flow_output} =    Utils.Run Command On Remote System    ${system_ip}    sudo ovs-ofctl dump-flows -O Openflow13 ${br_name} | grep ${table_no} ${addtioanal_args}
+    @{output} =    String.Split String    ${flow_output}    \r\n
+    ${flow} =    Collections.Get From List    ${output}    0
+    ${packetcountlist} =    String.Get Regexp Matches    ${flow}    n_packets=([0-9]+),    1
+    ${packetcount} =    Collections.Get From List    ${packetcountlist}    0
+    [Return]    ${packetcount}
+
+
+
+
