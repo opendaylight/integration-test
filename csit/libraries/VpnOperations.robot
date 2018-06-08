@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           SSHLibrary
+Resource          CompareStream.robot
 Resource          Utils.robot
 Resource          TemplatedRequests.robot
 Resource          KarafKeywords.robot
@@ -234,7 +235,10 @@ Verify GWMAC Flow Entry On Flow Table
     #Verify ARP_CHECK_TABLE - 43
     #arp request and response
     ${arpchk_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_CHECK_TABLE}
-    Should Match Regexp    ${arpchk_table}    ${ARP_RESPONSE_REGEX}
+    CompareStream.Run_Keyword_If_At_Most_Oxygen    Should Match Regexp    ${arpchk_table}    ${ARP_RESPONSE_REGEX}
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    Should Match Regexp    ${arpchk_table}    ${ARP_RESPONSE_REGEX_1}
+    ${arppunt_table} =    Get Lines Containing String    ${flow_output}    table=${ARP_PUNT_TABLE}
+    CompareStream.Run_Keyword_If_At_Least_Fluorine    Should Match Regexp    ${arppunt_table}    ${ARP_RESPONSE_REGEX_2}
     ${match} =    Should Match Regexp    ${arpchk_table}    ${ARP_REQUEST_REGEX}
     ${groupID} =    Split String    ${match}    separator=:
     BuiltIn.Run Keyword If    '${ipv}' == 'ipv4'    Verify IPv4 GWMAC Flow Entry On Flow Table    ${group_output}    ${group_id}    ${flow_output}
