@@ -15,7 +15,7 @@
 This script is used to parse logs, construct JSON BODY and push
 it to ELK DB.
 
-Usage: python construct_json.py host:port
+Usage: python push_to_elk.py <ip/hostname> <port number>
 
 JSON body similar to following is constructed from robot files, jenkins environment
 and plot files available in workspace available post-build.
@@ -46,12 +46,12 @@ and plot files available in workspace available post-build.
 """
 
 # stdlib
+import argparse
 from datetime import datetime
 import glob
 import json
 import os
 import requests
-import sys
 import time
 import xml.etree.ElementTree as ET
 
@@ -60,14 +60,13 @@ import yaml
 
 # ELK DB host and port to be passed as ':' separated argument
 
-if len(sys.argv) > 1:
-    if ':' in sys.argv[1]:
-        ELK_DB_HOST = sys.argv[1].split(':')[0]
-        ELK_DB_PORT = sys.argv[1].split(':')[1]
-else:
-    print('Usage: python push_to_elk.py host:port')
-    print('Unable to publish data to ELK. Exiting.')
-    sys.exit()
+parser = argparse.ArgumentParser("description=Push CSIT job results to Elastic")
+parser.add_argument("host", help="IP/Hostname of Elastic host")
+parser.add_argument("port", help="Port where Elastic is listening")
+args = parser.parse_args()
+
+ELK_DB_HOST = args.host
+ELK_DB_PORT = args.port
 
 # Construct json body
 
