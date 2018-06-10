@@ -16,6 +16,24 @@
       "revId": "0bb6630870c69ea0a394a4792d6b4d0526cbea96",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7dec7490_4dfcee32",
+        "filename": "csit/scripts/set_itm_direct_tunnels.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-10T13:34:40Z",
+      "side": 1,
+      "message": "add the piece to use the ENABLE_ITM_DIRECT_TUNNELS parameter",
+      "parentUuid": "98329f0d_c850c396",
+      "revId": "0bb6630870c69ea0a394a4792d6b4d0526cbea96",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
