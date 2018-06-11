@@ -33,6 +33,52 @@
       "revId": "0718e01a932acc173cbf601f8e25f7d368a62dcc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f1fc885_e71f7e75",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-11T17:11:38Z",
+      "side": 1,
+      "message": "can we name these better than _1 and _2 ? is _2 supposed to be for fluorine?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 61
+      },
+      "revId": "0718e01a932acc173cbf601f8e25f7d368a62dcc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a09760f6_4c169602",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-11T17:11:38Z",
+      "side": 1,
+      "message": "can we get these all up with the other ARP_* vars?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 27
+      },
+      "revId": "0718e01a932acc173cbf601f8e25f7d368a62dcc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
