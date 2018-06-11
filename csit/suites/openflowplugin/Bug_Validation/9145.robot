@@ -26,7 +26,7 @@ Check Entity Owner Status And Find Owner and Successor
 
 Stop Mininet
     [Documentation]    Stop Mininet.
-    MininetKeywords.Stop Mininet And Exit
+    MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
 
 *** Keywords ***
 Initialization Phase
