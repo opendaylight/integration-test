@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27fc7d71_d5d06030",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 106
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-11T20:28:05Z",
+      "side": 1,
+      "message": "There is a keyword that takes a list of loggers that might be better to use and it works for clusters. Setup_Logging_For_Debug_Purposes_On_List_Or_All",
+      "revId": "1c5388f1534423244c8ac60c6d841ac6ccc2807f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c11ff8c_eadfd40f",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 106
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-11T20:28:05Z",
+      "side": 1,
+      "message": "better keyword... Upgrade Suite Teardown?",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 11
+      },
+      "revId": "1c5388f1534423244c8ac60c6d841ac6ccc2807f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
