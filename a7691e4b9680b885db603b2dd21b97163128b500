@@ -126,6 +126,30 @@
     },
     {
       "key": {
+        "uuid": "b6a62743_b7be87bb",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 102
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-11T20:23:41Z",
+      "side": 1,
+      "message": "We need to make sure we don\u0027t have stupid failures... sleeps are notorious for wasted debugging cycles.",
+      "parentUuid": "e9d161fa_e481ab23",
+      "range": {
+        "startLine": 70,
+        "startChar": 12,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "a7691e4b9680b885db603b2dd21b97163128b500",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7575af44_4130825c",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 102
