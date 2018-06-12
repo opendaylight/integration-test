@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31f5157d_c5ce62ad",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 64
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-12T20:32:09Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 1
+      },
+      "revId": "01b35ebefcdf542bf53039ce13e654f04f0ceb23",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
