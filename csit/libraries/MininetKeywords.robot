@@ -52,14 +52,16 @@ Start Mininet Multiple Controllers
     \    ${controller_opt}=    Catenate    ${controller_opt}    ${SPACE}${protocol}:${ODL_SYSTEM_${index}_IP}:${ofport}
     \    Log    ${controller_opt}
     Log    Open extra SSH connection to configure the OVS bridges
-    SSHKeywords.Open_Connection_To_Tools_System
+    SSHKeywords.Open_Connection_To_Tools_System    ip_address=${mininet}    timeout=${timeout}
     ${num_bridges}    SSHLibrary.Execute Command    sudo ovs-vsctl show | grep Bridge | wc -l
     ${num_bridges}=    Convert To Integer    ${num_bridges}
     Log    Configure OVS controllers ${controller_opt} in all bridges
+    ${bridges}=    Create List
     : FOR    ${i}    IN RANGE    1    ${num_bridges+1}
     \    ${bridge}=    SSHLibrary.Execute Command    sudo ovs-vsctl show | grep Bridge | cut -c 12- | sort | head -${i} | tail -1
-    \    SSHLibrary.Execute Command    sudo ovs-vsctl set bridge ${bridge} protocols=OpenFlow${ofversion}
-    \    SSHLibrary.Execute Command    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
+    \    Collections.Append To List    ${bridges}    ${bridge}
+    : FOR    ${bridge}    IN    @{bridges}
+    \    SSHLibrary.Execute Command    sudo ovs-vsctl set bridge ${bridge} protocols=OpenFlow${ofversion} && sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
     Log    Check OVS configuratiom
     ${output}=    SSHLibrary.Execute Command    sudo ovs-vsctl show
     Log    ${output}
@@ -112,7 +114,7 @@ Send Mininet Command Multiple Sessions
     ${output_list}=    Create List
     : FOR    ${mininet_conn}    IN    @{mininet_conn_list}
     \    ${output}=    Utils.Send Mininet Command    ${mininet_conn}    ${cmd}
-    \    Append To List    ${output_list}    ${output}
+    \    Collections.Append To List    ${output_list}    ${output}
     [Return]    ${output_list}
 
 Stop Mininet And Exit
@@ -199,7 +201,7 @@ Get Mininet Hosts
     @{words}=    String.Split String    ${out}    ${SPACE}
     : FOR    ${item}    IN    @{words}
     \    ${h}=    String.Get Lines Matching Regexp    ${item}    h[0-9]*
-    \    Run Keyword If    '${h}' != '${EMPTY}'    Append To List    ${host_list}    ${h}
+    \    Run Keyword If    '${h}' != '${EMPTY}'    Collections.Append To List    ${host_list}    ${h}
     [Return]    ${host_list}
 
 Install Certificates In Mininet
