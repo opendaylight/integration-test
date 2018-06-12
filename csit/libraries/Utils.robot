@@ -551,3 +551,10 @@ Check Diagstatus
     ${resp}    RequestsLibrary.Get Request    diagstatus_session    /diagstatus
     Run Keyword If    "${check_status}" == "True"    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${expected_status}
     [Return]    ${resp}
+
+Get JSON Elements From URI
+    [Arguments]    ${uri}
+    [Documentation]    Returns elements from JSON Get Request
+    ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    ${value}    RequestsLibrary.To Json    ${resp.content}
+    [Return]    ${value}
