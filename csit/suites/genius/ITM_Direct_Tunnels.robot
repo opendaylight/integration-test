@@ -55,17 +55,17 @@ Create and Verify VTEP
 
 Verify VTEP After Restarting OVS
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting OVS
-    Genius.Verify Tunnel Status as UP    TZA
+    Genius.Verify Tunnel Status as UP
     OVSDB.Restart OVSDB    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
 
 Verify VTEP After Restarting Controller
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting CONTROLLER
-    Genius.Verify Tunnel Status as UP    TZA
+    Genius.Verify Tunnel Status as UP
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
     Wait Until Keyword Succeeds    60    3    Genius.Check System Status
-    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP
 
 Verify Tunnels By Disabling BFD
     [Documentation]    This test case will verify tunnels after disabling BFD and verifies tunnel status as unknown after stopping OVS.
@@ -75,7 +75,7 @@ Verify Tunnels By Disabling BFD
     OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
     Genius.Verify Tunnel Status    ${tunnels_on_OVS}    UNKNOWN
     OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
-    Genius.Verify Tunnel Status as UP    TZA
+    Genius.Verify Tunnel Status as UP
 
 Verify Tunnels By Enabling BFD
     [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
@@ -128,7 +128,7 @@ Verify Tunnel State After OVS Restart
     OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
     Wait Until Keyword Succeeds    2min    20 sec    Verify Tunnel Down
     OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    2min    20 sec    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    2min    20 sec    Genius.Verify Tunnel Status as UP
 
 Verify Tunnel Down
     [Documentation]    In this we will check whether tunnel is in down or not

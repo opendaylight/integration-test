@@ -229,19 +229,12 @@ Check ITM Tunnel State
     Should Not Contain    ${resp.content}    ${tunnel1}    ${tunnel2}
 
 Verify Tunnel Status as UP
-    [Arguments]    ${Transport_zone}
     [Documentation]    Verify that the number of tunnels are UP
-    ${No_of_Teps}    Issue_Command_On_Karaf_Console    ${TEP_SHOW}
-    ${Lines_of_TZA}    Get Lines Containing String    ${No_of_Teps}    ${Transport_zone}
-    ${Expected_Node_Count}    Get Line Count    ${Lines_of_TZA}
-    ${no_of_tunnels}    Issue_Command_On_Karaf_Console    ${TEP_SHOW_STATE}
-    ${lines_of_VXLAN}    Get Lines Containing String    ${no_of_tunnels}    VXLAN
-    Should Contain    ${no_of_tunnels}    ${STATE_UP}
-    Should Not Contain    ${no_of_tunnels}    ${STATE_DOWN}
-    Should Not Contain    ${no_of_tunnels}    ${STATE_UNKNOWN}
-    ${Actual_Tunnel_Count}    Get Line Count    ${lines_of_VXLAN}
-    ${Expected_Tunnel_Count}    Set Variable    ${Expected_Node_Count*${Expected_Node_Count - 1}}
-    Should Be Equal As Strings    ${Actual_Tunnel_Count}    ${Expected_Tunnel_Count}
+    ${no_of_tunnels}    KarafKeywords.Issue_Command_On_Karaf_Console    ${TEP_SHOW_STATE}
+    ${lines_of_VXLAN}    String.Get Lines Containing String    ${no_of_tunnels}    ${STATE_UP}
+    ${Actual_Tunnel_Count}    String.Get Line Count    ${lines_of_VXLAN}
+    ${Expected_Tunnel_Count}    BuiltIn.Evaluate    ${NUM_TOOLS_SYSTEM}*(${NUM_TOOLS_SYSTEM}-1)
+    BuiltIn.Should Be Equal As Strings    ${Actual_Tunnel_Count}    ${Expected_Tunnel_Count}
 
 Check System Status
     [Documentation]    This keyword will verify whether all the services are in operational and all nodes are active based on the number of odl systems
