@@ -417,3 +417,16 @@ Delete Ports On Bridge By Type
     \    BuiltIn.Log    ${del-ports}
     ${ports_present_after_delete} =    Get Ports From Bridge By Type    ${ovs_ip}    ${br}    ${type}
     BuiltIn.Log    ${ports_present_after_delete}
+
+Get OVS External Ids Configuration
+    [Arguments]    ${conn_id}    ${node_ip}
+    [Documentation]    Returns the nodes OVS External Ids
+    ${ovsuuid} =    OVSDB.Get OVSDB UUID    ${node_ip}
+    BuiltIn.Set Suite Variable    ${ovsuuid}
+    ${cmd} =    Set Variable    sudo ovs-vsctl get Open_vSwitch ${ovsuuid} external_ids
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output} =    Write Commands Until Expected Prompt    ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    @{list} =    Split String    ${output}
+    @{list1} =    Get Slice From List    ${list}    0    -1
+    ${external_id_output} =    BuiltIn.Catenate    @{list1}
+    [Return]    ${external_id_output}
