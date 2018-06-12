@@ -89,3 +89,4 @@ ${INGRESS_ACL_REMOTE_ACL_TABLE}    211
 ${EGRESS_ACL_TABLE}    240
 ${EGRESS_LPORT_DISPATCHER_TABLE}    220
 ${EGRESS_LEARN_ACL_FILTER_TABLE}    244
+${NUETRON_HOSTCONFIG_URI}    restconf/operational/neutron:neutron/hostconfigs/hostconfig

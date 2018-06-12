@@ -437,3 +437,16 @@ Get Tunnel Id And Packet Count
     @{list} =    String.Split String    ${output}
     ${packet_count} =    Set Variable    @{list}[0]
     [Return]    ${tunnel_id}    ${packet_count}
+
+Get OVS External Ids Configuration
+    [Arguments]    ${conn_id}    ${node_ip}
+    [Documentation]    Returns the nodes OVS External Ids
+    ${ovsuuid} =    OVSDB.Get OVSDB UUID    ${node_ip}
+    BuiltIn.Set Suite Variable    ${ovsuuid}
+    ${cmd} =    Set Variable    sudo ovs-vsctl get Open_vSwitch ${ovsuuid} external_ids
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output} =    Write Commands Until Expected Prompt    ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    @{list} =    Split String    ${output}
+    @{list1} =    Get Slice From List    ${list}    0    -1
+    ${external_id_output} =    BuiltIn.Catenate    @{list1}
+    [Return]    ${external_id_output}
