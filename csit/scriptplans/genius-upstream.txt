@@ -1,2 +1,2 @@
 # Place the scripts in run order:
-integration/test/csit/scripts/set_genius_host.sh
+integration/test/csit/scripts/set_unique_node_uuid.sh
