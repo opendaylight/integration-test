@@ -38,8 +38,8 @@ ${RIB_INSTANCE}    example-bgp-rib
 *** Test Cases ***
 Get_Example_Bgp_Rib_Owner
     [Documentation]    Find an odl node which is able to accept incomming connection.
-    ${rib_owner}    ${rib_candidates}=    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    example-bgp-rib
-    ...    org.opendaylight.mdsal.ServiceEntityType    1
+    ${rib_owner}    ${rib_candidates}=    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ClusterManagement.Get_Owner_And_Successors_For_Device    example-bgp-rib
+    ...    Bgpcep    1
     BuiltIn.Set Suite variable    ${rib_owner}
     BuiltIn.Log    ${ODL_SYSTEM_${rib_owner}_IP}
     BuiltIn.Set Suite variable    ${rib_candidates}
@@ -57,11 +57,11 @@ Reconfigure_ODL_To_Accept_Connection
 Start_ExaBgp_Peer
     [Documentation]    Starts exabgp
     SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
-    BGPcliKeywords.Start_Console_Tool    ${EXA_CMD}    ${DEFAULT_EXA_CFG}
+    BGPcliKeywords.Start_Console_Tool    ${EXA_CMD}    ${DEFAULT_EXA_CFG} > exa_ha_stop.log 2>&1
 
 Verify_ExaBgp_Connected
     [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Stop_Current_Owner_Member
     [Documentation]    Stopping karaf which is connected with exabgp.
@@ -75,11 +75,11 @@ Stop_Current_Owner_Member
 
 Verify_New_Rib_Owner
     [Documentation]    Verifies if new owner of example-bgp-rib is elected.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_New_Rib_Owner_Elected    ${old_rib_owner}    ${living_node}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    Verify_New_Rib_Owner_Elected    ${old_rib_owner}    ${living_node}
 
 Verify_ExaBgp_Reconnected
     [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Start_Stopped_Member
     [Documentation]    Starting stopped node
@@ -91,11 +91,12 @@ Verify_New_Candidate
 
 Verify_ExaBgp_Still_Connected
     [Documentation]    Verifies exabgp's presence in operational ds
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Stop_ExaBgp_Peer
     [Documentation]    Stops exabgp tool by sending ctrl+c
     BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    BGPcliKeywords.Store_File_To_Workspace    exa_ha_stop.log    exa_ha_stop.log
     SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
 
 Delete_Bgp_Peer_Configuration
@@ -124,11 +125,11 @@ Teardown_Everything
 Verify_New_Rib_Owner_Elected
     [Arguments]    ${old_owner}    ${node_to_ask}
     [Documentation]    Verifies new owner was elected
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    Bgpcep    ${node_to_ask}
     BuiltIn.Should_Not_Be_Equal    ${old_owner}    ${owner}
 
 Verify_New_Rib_Candidate_Present
     [Arguments]    ${candidate}    ${node_to_ask}
     [Documentation]    Verifies candidate's presence.
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    Bgpcep    ${node_to_ask}
     BuiltIn.Should_Contain    ${candidates}    ${candidate}
