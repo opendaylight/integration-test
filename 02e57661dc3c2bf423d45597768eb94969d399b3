@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "297d80c9_c39bdf46",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-12T06:47:35Z",
+      "side": 1,
+      "message": "added",
+      "parentUuid": "2385f4e3_b463c723",
+      "revId": "02e57661dc3c2bf423d45597768eb94969d399b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64925a38_8bd266e8",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2018-06-07T21:00:17Z",
       "side": 1,
       "message": "Use the form without spaces.",
+      "range": {
+        "startLine": 140,
+        "startChar": 33,
+        "endLine": 140,
+        "endChar": 63
+      },
+      "revId": "02e57661dc3c2bf423d45597768eb94969d399b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "773d0917_87440813",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-12T06:47:35Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "64925a38_8bd266e8",
       "range": {
         "startLine": 140,
         "startChar": 33,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "82dc5f22_a1a3665a",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-12T06:47:35Z",
+      "side": 1,
+      "message": "removed catenate and used set variable",
+      "parentUuid": "da62b2f7_c4bb1553",
+      "range": {
+        "startLine": 147,
+        "startChar": 22,
+        "endLine": 147,
+        "endChar": 26
+      },
+      "revId": "02e57661dc3c2bf423d45597768eb94969d399b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79087de7_f0eb43d0",
         "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
         "patchSetId": 3
@@ -76,6 +142,30 @@
       "writtenOn": "2018-06-07T21:00:17Z",
       "side": 1,
       "message": "ha, didn\u0027t know this worked. Learn something new.",
+      "range": {
+        "startLine": 156,
+        "startChar": 22,
+        "endLine": 156,
+        "endChar": 42
+      },
+      "revId": "02e57661dc3c2bf423d45597768eb94969d399b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "965f3449_e067bb08",
+        "filename": "csit/suites/netvirt/bgpmultipath/l3vpn_bgp_multipath.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-06-12T06:47:35Z",
+      "side": 1,
+      "message": ":-)",
+      "parentUuid": "79087de7_f0eb43d0",
       "range": {
         "startLine": 156,
         "startChar": 22,
