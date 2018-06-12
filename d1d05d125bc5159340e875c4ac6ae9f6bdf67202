@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c63dd2bc_9ec1b195",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-12T19:53:22Z",
+      "side": 1,
+      "message": "turn this in to a variable like ${PING_COUNT} in the\n*** Variables *** section. Then you can use it below in\nyour Should Be True lines.",
+      "range": {
+        "startLine": 54,
+        "startChar": 129,
+        "endLine": 54,
+        "endChar": 130
+      },
+      "revId": "d1d05d125bc5159340e875c4ac6ae9f6bdf67202",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd28e04c_62282010",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-12T19:53:22Z",
+      "side": 1,
+      "message": "more than just a table id right? it\u0027s looking a specific \nflow withing a specific table? how is that figured out?\n\nI mean, I can meticulously go through each line here and\ntry to figure it out, but normally I\u0027d rather just read\nthe docs to get an idea and only pour over the awk|grep|dump-flows stuff if something is broken.",
+      "range": {
+        "startLine": 74,
+        "startChar": 69,
+        "endLine": 74,
+        "endChar": 77
+      },
+      "revId": "d1d05d125bc5159340e875c4ac6ae9f6bdf67202",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
