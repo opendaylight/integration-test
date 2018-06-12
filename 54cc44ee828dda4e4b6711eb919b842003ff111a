@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6debd3b2_daa32e23",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-12T23:20:14Z",
+      "side": 1,
+      "message": "would you please add these with a good descriptive name\nin to variables/netvirt/netvirt.robot? then use those\nvariables here instead? it will be good to start building\nthat up for others to use. But, the better thing is when\na table number changes down the road, we will only have\nto worry about looking in that one place.",
+      "range": {
+        "startLine": 32,
+        "startChar": 18,
+        "endLine": 32,
+        "endChar": 35
+      },
+      "revId": "54cc44ee828dda4e4b6711eb919b842003ff111a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37415b2b_24f89984",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-12T23:20:14Z",
+      "side": 1,
+      "message": "oh, where is [Documentation]. is this just counting\nthe number of lines we get when we do a dump-flows and\ngrep for a table number?\n\nalso, I wonder if this keyword blelongs in the ovsmanager robot lib?",
+      "revId": "54cc44ee828dda4e4b6711eb919b842003ff111a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2dca0fc1_32e66999",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-12T23:20:14Z",
+      "side": 1,
+      "message": "did you know about this guy?\n  https://github.com/opendaylight/integration-test/blob/master/csit/libraries/SetupUtils.robot#L47",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 75
+      },
+      "revId": "54cc44ee828dda4e4b6711eb919b842003ff111a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
