@@ -84,6 +84,16 @@ _whitelist = [
          "ConflictingModificationAppliedException: Node children was modified by other transaction",
          "removeOrUpdateVpnToDpnList: Error removing from dpnToVpnList for vpn "
      ]},
+    {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1270",
+     "id": "OptimisticLockFailedException",
+     "context": [
+         "OptimisticLockFailedException",
+         "VpnInterfaceOpListener",
+         "Direct Exception (not failed Future) when executing job, won't even retry: JobEntry{key='VPNINTERFACE-",
+         "Optimistic lock failed for path /(urn:opendaylight:netvirt:l3vpn?revision=2013-09-11)" +
+         "vpn-instance-op-data/vpn-instance-op-data-entry/vpn-instance-op-data-entry" +
+         "[{(urn:opendaylight:netvirt:l3vpn?revision=2013-09-11)vrf-id="
+     ]},
     {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1281",
      "id": "OptimisticLockFailedException",
      "context": [
