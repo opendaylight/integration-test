@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba125fdb_f8f2c5b4",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-12T22:54:23Z",
+      "side": 1,
+      "message": "put these in alpha order please.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 60
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a65e4d5d_7d8adad2",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-12T22:54:23Z",
+      "side": 1,
+      "message": "you\u0027re not doing anything with ${nslist} so don\u0027t even assign it. applies on line 77 as well.",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 19
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "666c3ac2_d197baf4",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-12T22:54:23Z",
+      "side": 1,
+      "message": "where do we \"stop\" this stuff too? this suite is planning to be in our main job and likely more suites to follow. We\nprobably don\u0027t want to have the extra stuff running with a\nchance of polluting other tests.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 69
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "486f8377_38b2ef31",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-12T22:54:23Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure we don\u0027t need this.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 42
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22d2c28f_83e78474",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-12T22:54:23Z",
+      "side": 1,
+      "message": "whoops",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 39
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
