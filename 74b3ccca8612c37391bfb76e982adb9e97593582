@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc371580_512e03f0",
+        "filename": "csit/scripts/set_itm_direct_tunnels.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-12T19:14:25Z",
+      "side": 1,
+      "message": "here is the problem - the file is named interfacemanger-impl-0.5.0-SNAPSHOT-config.xml, so the search is interfacemanager-*-config.xml",
+      "range": {
+        "startLine": 7,
+        "startChar": 56,
+        "endLine": 7,
+        "endChar": 59
+      },
+      "revId": "74b3ccca8612c37391bfb76e982adb9e97593582",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
