@@ -22,6 +22,30 @@
       "revId": "74b3ccca8612c37391bfb76e982adb9e97593582",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c65e7d4b_67c45b36",
+        "filename": "csit/scripts/set_itm_direct_tunnels.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-12T19:15:33Z",
+      "side": 1,
+      "message": "thank you :)",
+      "parentUuid": "dc371580_512e03f0",
+      "range": {
+        "startLine": 7,
+        "startChar": 56,
+        "endLine": 7,
+        "endChar": 59
+      },
+      "revId": "74b3ccca8612c37391bfb76e982adb9e97593582",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
