@@ -57,7 +57,7 @@ Reconfigure_ODL_To_Accept_Connection
 Start_ExaBgp_Peer
     [Documentation]    Starts exabgp
     SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
-    BGPcliKeywords.Start_Console_Tool    ${EXA_CMD}    ${DEFAULT_EXA_CFG}
+    BGPcliKeywords.Start_Console_Tool    ${EXA_CMD}    ${DEFAULT_EXA_CFG} > exa_ha_restart.log 2>&1
 
 Verify ExaBgp Connected
     [Documentation]    Verifies exabgp's presence in operational ds.
@@ -96,6 +96,7 @@ Verify_ExaBgp_Still_Connected
 Stop_ExaBgp_Peer
     [Documentation]    Stops exabgp tool by sending ctrl+c
     BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    BGPcliKeywords.Store_File_To_Workspace    exa_ha_restart.log    exa_ha_restart.log
     SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
 
 Delete_Bgp_Peer_Configuration
