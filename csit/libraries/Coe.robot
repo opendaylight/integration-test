@@ -36,7 +36,7 @@ Start Suite
     Coe.Verify Watcher Is Running
     BuiltIn.Wait Until Keyword Succeeds    40s    2s    Coe.Check Node Status Is Ready
     Coe.Label Nodes
-    Genius.Verify Tunnel Status as UP    default-transport-zone
+    Genius.Verify Tunnel Status as UP
     Coe.Derive Coe Data Models
 
 Configuration Playbook
