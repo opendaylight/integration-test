@@ -206,3 +206,10 @@ OvsManager__Enable_Slaves_For_Switch
     \    ${role}=    Collections.Get From Dictionary    ${cntl_value}    role
     \    ${connected}=    Collections.Get From Dictionary    ${cntl_value}    is_connected
     \    Run Keyword If    ${connected}==${False}    Reconnect Switch To Controller And Verify Connected    ${switch}    ${cntl_id}    verify_connected=${verify_connected}
+
+Get JSON Elements From URI
+    [Arguments]    Returns elements from JSON Get Request
+    [Documentation]    Get
+    ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    ${value}    RequestsLibrary.To Json    ${resp.content}
+    [Return]    ${value}
