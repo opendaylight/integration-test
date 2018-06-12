@@ -34,6 +34,63 @@
       "revId": "88df27474999d00552fcaba032840abc09dc9ab3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9902fcdb_392f0726",
+        "filename": "csit/scripts/set_itm_direct_tunnels.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-12T18:24:31Z",
+      "side": 1,
+      "message": "add :\nENABLE_ITM_DIRECT_TUNNELS\u003d${ENABLE_ITM_DIRECT_TUNNELS:-false}",
+      "revId": "88df27474999d00552fcaba032840abc09dc9ab3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f2e5279_9fc25b2f",
+        "filename": "csit/scripts/set_itm_direct_tunnels.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-12T18:24:31Z",
+      "side": 1,
+      "message": "the file should be found if the feature is loaded. I think netvirt simply include odl-genius feature and that should load the config file.",
+      "range": {
+        "startLine": 7,
+        "startChar": 56,
+        "endLine": 7,
+        "endChar": 59
+      },
+      "revId": "88df27474999d00552fcaba032840abc09dc9ab3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a59971fb_09cec086",
+        "filename": "csit/scripts/set_itm_direct_tunnels.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-12T18:24:31Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "88df27474999d00552fcaba032840abc09dc9ab3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
