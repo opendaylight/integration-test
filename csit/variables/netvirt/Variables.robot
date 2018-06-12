@@ -77,3 +77,4 @@ ${ELAN_BASETABLE}    48
 ${ELAN_SMACTABLE}    50
 ${ELAN_DMACTABLE}    51
 ${ELAN_UNKNOWNMACTABLE}    52
+${PSEUDO_GET_CONFIGURATION_URI}    restconf/operational/neutron:neutron/hostconfigs/hostconfig

@@ -374,3 +374,16 @@ Stop OVS
     [Documentation]    Stop the OVS node.
     ${output} =    Utils.Run Command On Mininet    ${ovs_ip}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
     BuiltIn.Log    ${output}
+
+Get OVS External Ids Configuration
+    [Arguments]    ${conn_id}    ${os_compute_ip}
+    [Documentation]    Returns the nodes OVS External Ids
+    ${ovsuuid} =    OVSDB.Get OVSDB UUID    ${os_compute_ip}
+    BuiltIn.Set Suite Variable    ${ovsuuid}
+    ${cmd} =    Set Variable    sudo ovs-vsctl get Open_vSwitch ${ovsuuid} external_ids
+    SSHLibrary.Switch Connection    ${conn_id}
+    ${output} =    Write Commands Until Expected Prompt    ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
+    @{list} =    Split String    ${output}
+    @{list1} =    Get Slice From List    ${list}    0    -1
+    ${external_id_output} =    BuiltIn.Catenate    @{list1}
+    [Return]    ${external_id_output}
