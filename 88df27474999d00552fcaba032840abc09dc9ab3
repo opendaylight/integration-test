@@ -16,6 +16,24 @@
       "revId": "88df27474999d00552fcaba032840abc09dc9ab3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0836f5b5_ac608b7c",
+        "filename": "csit/libraries/netvirt/genius-ifm-config.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-12T18:18:03Z",
+      "side": 1,
+      "message": "This is not needed. The file is installed when the feature loads.",
+      "parentUuid": "a9f2f1a3_a3e4a51d",
+      "revId": "88df27474999d00552fcaba032840abc09dc9ab3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
