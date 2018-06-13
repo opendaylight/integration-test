@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cad26a62_2b300985",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T19:18:29Z",
+      "side": 1,
+      "message": "instead of 51 and 36, you should be using the variable\nnames. having said that, I don\u0027t even see you using this\ntable_ids below anyway. maybe it just needs to be removed.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 26
+      },
+      "revId": "b02aeb9f95ec9ce79b9c3ea2e4ccd258844a74bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
