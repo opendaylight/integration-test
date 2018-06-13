@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac392f05_896daa7c",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-13T21:53:41Z",
+      "side": 1,
+      "message": "remove this and just use INTEGRATION_BRIDGE in the other files where OVS_BRIDGE is used?",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 12
+      },
+      "revId": "3cf0e1e828b70b224d79f1dc9cf60d1ce14aa783",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
