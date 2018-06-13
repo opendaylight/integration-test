@@ -94,6 +94,69 @@
     },
     {
       "key": {
+        "uuid": "b4a09c0f_84530c35",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 6513
+      },
+      "writtenOn": "2018-06-13T12:09:37Z",
+      "side": 1,
+      "message": "Please use bgpvpn commands to create VPN.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 24
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "586077f1_1373f76f",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 6513
+      },
+      "writtenOn": "2018-06-13T12:09:37Z",
+      "side": 1,
+      "message": "Please use bgpvpn commands to associate VPN to Network",
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ecdae22_4e0bb19e",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 6513
+      },
+      "writtenOn": "2018-06-13T12:09:37Z",
+      "side": 1,
+      "message": "Please club this with BGP configurations on ODL keyword.",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 60
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22d2c28f_83e78474",
         "filename": "csit/testplans/netvirt-1node-openstack.txt",
         "patchSetId": 22
