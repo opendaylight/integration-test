@@ -15,8 +15,6 @@
 This script is used to parse logs, construct JSON BODY and push
 it to ELK DB.
 
-Usage: python construct_json.py host:port
-
 JSON body similar to following is constructed from robot files, jenkins environment
 and plot files available in workspace available post-build.
 {
@@ -58,101 +56,94 @@ import xml.etree.ElementTree as ET
 from elasticsearch import Elasticsearch, RequestsHttpConnection, exceptions
 import yaml
 
-# ELK DB host and port to be passed as ':' separated argument
 
-if len(sys.argv) > 1:
-    if ':' in sys.argv[1]:
-        ELK_DB_HOST = sys.argv[1].split(':')[0]
-        ELK_DB_PORT = sys.argv[1].split(':')[1]
-else:
-    print('Usage: python push_to_elk.py host:port')
-    print('Unable to publish data to ELK. Exiting.')
-    sys.exit()
+def construct_json():
+    """Construct json body"""
+    BODY = {}
 
-# Construct json body
+    try:
+        es = Elasticsearch(
+            hosts=[{'host': ELK_DB_HOST, 'port': int(ELK_DB_PORT)}],
+            connection_class=RequestsHttpConnection
+        )
+    except Exception as e:
+        print('Unexpected Error Occurred. Exiting')
+        print(e)
 
-BODY = {}
+    print(es.info())
 
-try:
-    es = Elasticsearch(
-        hosts=[{'host': ELK_DB_HOST, 'port': int(ELK_DB_PORT)}],
-        connection_class=RequestsHttpConnection
-    )
-except Exception as e:
-    print('Unexpected Error Occurred. Exiting')
-    print(e)
+    ts = time.time()
+    formatted_ts = \
+        datetime.fromtimestamp(ts).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+    BODY['@timestamp'] = formatted_ts
 
-print(es.info())
+    # Plots are obtained from csv files (present in archives directory in $WORKSPACE).
 
-ts = time.time()
-formatted_ts = \
-    datetime.fromtimestamp(ts).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-BODY['@timestamp'] = formatted_ts
+    csv_files = glob.glob('archives/*.csv')
+    BODY['project'] = 'opendaylight'
+    BODY['subject'] = 'test'
 
-# Plots are obtained from csv files (present in archives directory in $WORKSPACE).
+    # If there are no csv files, then it is a functional test.
+    # Parse csv files and fill perfomance parameter values
 
-csv_files = glob.glob('archives/*.csv')
-BODY['project'] = 'opendaylight'
-BODY['subject'] = 'test'
+    if len(csv_files) == 0:
+        BODY['test-type'] = 'functional'
+    else:
+        BODY['test-type'] = 'performance'
+        BODY['plots'] = {}
+        for f in csv_files:
+            key = (f.split('/')[-1])[:-4]
+            BODY['plots'][key] = {}
+            with open(f) as file:
+                lines = file.readlines()
+            props = lines[0].strip().split(',')
+            vals = lines[1].strip().split(',')
+            BODY['plots'][key][props[0]] = float(vals[0])
+            BODY['plots'][key][props[1]] = float(vals[1])
+            BODY['plots'][key][props[2]] = float(vals[2])
 
-# If there are no csv files, then it is a functional test.
-# Parse csv files and fill perfomance parameter values
+    # Fill the required parameters whose values are obtained from environment.
 
-if len(csv_files) == 0:
-    BODY['test-type'] = 'functional'
-else:
-    BODY['test-type'] = 'performance'
-    BODY['plots'] = {}
-    for f in csv_files:
-        key = (f.split('/')[-1])[:-4]
-        BODY['plots'][key] = {}
-        with open(f) as file:
-            lines = file.readlines()
-        props = lines[0].strip().split(',')
-        vals = lines[1].strip().split(',')
-        BODY['plots'][key][props[0]] = float(vals[0])
-        BODY['plots'][key][props[1]] = float(vals[1])
-        BODY['plots'][key][props[2]] = float(vals[2])
+    BODY['jenkins-silo'] = os.environ['SILO']
+    BODY['test-name'] = os.environ['JOB_NAME']
+    BODY['test-run'] = os.environ['BUILD_NUMBER']
 
-# Fill the required parameters whose values are obtained from environment.
+    # Parsing robot log for statistics on no of start-time, pass/fail tests and duration.
 
-BODY['jenkins-silo'] = os.environ['SILO']
-BODY['test-name'] = os.environ['JOB_NAME']
-BODY['test-run'] = os.environ['BUILD_NUMBER']
+    robot_log = os.environ['WORKSPACE'] + '/output.xml'
+    tree = ET.parse(robot_log)
+    BODY['id'] = '{}-{}'.format(os.environ['JOB_NAME'],
+                                os.environ['BUILD_NUMBER'])
+    BODY['start-time'] = tree.getroot().attrib['generated']
+    BODY['pass-tests'] = tree.getroot().find('statistics')[0][1].get('pass')
+    BODY['fail-tests'] = tree.getroot().find('statistics')[0][1].get('fail')
+    endtime = tree.getroot().find('suite').find('status').get('endtime')
+    starttime = tree.getroot().find('suite').find('status').get('starttime')
+    elap_time = datetime.strptime(endtime, '%Y%m%d %H:%M:%S.%f') \
+        - datetime.strptime(starttime, '%Y%m%d %H:%M:%S.%f')
+    BODY['duration'] = str(elap_time)
 
-# Parsing robot log for statistics on no of start-time, pass/fail tests and duration.
+    print(json.dumps(BODY, indent=4))
 
-robot_log = os.environ['WORKSPACE'] + '/output.xml'
-tree = ET.parse(robot_log)
-BODY['id'] = '{}-{}'.format(os.environ['JOB_NAME'],
-                            os.environ['BUILD_NUMBER'])
-BODY['start-time'] = tree.getroot().attrib['generated']
-BODY['pass-tests'] = tree.getroot().find('statistics')[0][1].get('pass')
-BODY['fail-tests'] = tree.getroot().find('statistics')[0][1].get('fail')
-endtime = tree.getroot().find('suite').find('status').get('endtime')
-starttime = tree.getroot().find('suite').find('status').get('starttime')
-elap_time = datetime.strptime(endtime, '%Y%m%d %H:%M:%S.%f') \
-    - datetime.strptime(starttime, '%Y%m%d %H:%M:%S.%f')
-BODY['duration'] = str(elap_time)
+    return BODY
 
-print(json.dumps(BODY, indent=4))
 
-# Try to send request to ELK DB.
-
-try:
-    index = '{}-{}'.format(BODY['project'], BODY['subject'])
-    ES_ID = '{}-{}'.format(BODY['test-name'], BODY['test-run'])
-    res = es.index(index=index, doc_type=BODY['test-type'], id=ES_ID, body=BODY)
-    print(json.dumps(res, indent=4))
-except Exception as e:
-    print(e)
-    print('Unable to push data to ElasticSearch')
-
-# Function to convert JSON object to string.
-# Python puts 'true' as 'True' etc. which need handling.
+def push_to_elastic(BODY, ELK_DB_HOST, ELK_DB_PORT):
+    """Parse JSON BODY to construct PUT_URL"""
+    try:
+        index = '{}-{}'.format(BODY['project'], BODY['subject'])
+        ES_ID = '{}-{}'.format(BODY['test-name'], BODY['test-run'])
+        res = es.index(index=index, doc_type=BODY['test-type'], id=ES_ID, body=BODY)
+        print(json.dumps(res, indent=4))
+    except Exception as e:
+        print(e)
+        print('Unable to push data to ElasticSearch')
 
 
 def JSONToString(jobj):
+    """Function to convert JSON object to string.
+    Python puts 'true' as 'True' etc. which need handling"""
+
     retval = str(jobj)
     retval = retval.replace('\'', '"')
     retval = retval.replace(': ', ':')
@@ -163,13 +154,13 @@ def JSONToString(jobj):
     return retval
 
 
-# This function takes
-# testname (string, eg: 'openflowplugin-csit-1node-periodic-bulkomatic-perf-daily-only-carbon'),
-# fieldlist (list of fields, eg: ['pass-tests', 'failed-tests']),
-# plotkey (string, eg: 'rate')
-# as parameters and constructs a visualization object in JSON format
-
 def getVisualization(testname, fieldlist, plotkey=''):
+    """This function takes
+    testname (string, eg: 'openflowplugin-csit-1node-periodic-bulkomatic-perf-daily-only-carbon'),
+    fieldlist (list of fields, eg: ['pass-tests', 'failed-tests']),
+    plotkey (string, eg: 'rate')
+    as parameters and constructs a visualization object in JSON format"""
+
     vis = {}
     vis['title'] = testname
     if plotkey != '':
@@ -307,115 +298,115 @@ def getVisualization(testname, fieldlist, plotkey=''):
     return vis
 
 
-vis_ids = []
-if BODY['test-type'] == 'performance':
+def publish_dashboard(BODY, ELK_DB_HOST, ELK_DB_PORT):
+    """Publish the Kibana Dashboard"""
 
-    # Create visualizations for performance tests
-    # One visualization for one plot
+    vis_ids = []
+    if BODY['test-type'] == 'performance':
 
-    for key in BODY['plots']:
-        fieldlist = []
-        for subkey in BODY['plots'][key]:
-            fieldlist.append('plots.' + key + '.' + subkey)
-        vis = getVisualization(BODY['test-name'], fieldlist, key)
-        vis_ids.append(BODY['test-name'] + '-' + key)
-        print(json.dumps(vis, indent=4))
-        try:
-            ES_ID = '{}-{}'.format(BODY['test-name'], key)
-            res = es.index(index='.kibana', doc_type='visualization', id=ES_ID, body=BODY)
-            print(json.dumps(res, indent=4))
-        except Exception as e:
-            print(e)
-            print('Unable to push visualization to Kibana')
+        # Create visualizations for performance tests
+        # One visualization for one plot
 
+        for key in BODY['plots']:
+            fieldlist = []
+            for subkey in BODY['plots'][key]:
+                fieldlist.append('plots.' + key + '.' + subkey)
+            vis = getVisualization(BODY['test-name'], fieldlist, key)
+            vis_ids.append(BODY['test-name'] + '-' + key)
+            print(json.dumps(vis, indent=4))
+            try:
+                ES_ID = '{}-{}'.format(BODY['test-name'], key)
+                res = es.index(index='.kibana', doc_type='visualization', id=ES_ID, body=BODY)
+                print(json.dumps(res, indent=4))
+            except Exception as e:
+                print(e)
+                print('Unable to push visualization to Kibana')
 
-vis = getVisualization(BODY['test-name'],
-                       ['pass-tests', 'failed-tests'])
-vis_ids.append(BODY['test-name'])
+    vis = getVisualization(BODY['test-name'], ['pass-tests', 'failed-tests'])
+    vis_ids.append(BODY['test-name'])
 
-print(json.dumps(vis, indent=4))
-try:
-    ES_ID = BODY['test-name']
-    res = es.index(index='.kibana', doc_type='visualization', id=ES_ID, body=vis)
-    print(json.dumps(res, indent=4))
-except Exception as e:
-    print(e)
-    print('Unable to push dashboard to Kibana')
+    print(json.dumps(vis, indent=4))
+    try:
+        ES_ID = BODY['test-name']
+        res = es.index(index='.kibana', doc_type='visualization', id=ES_ID, body=vis)
+        print(json.dumps(res, indent=4))
+    except Exception as e:
+        print(e)
+        print('Unable to push dashboard to Kibana')
 
-# Create dashboard and add above created visualizations to it
+    # Create dashboard and add above created visualizations to it
 
-DASHBOARD_NAME = BODY['test-name'].split('-')[0]
-dashboard = {}
-dashboard['title'] = DASHBOARD_NAME
-dashboard['description'] = 'Dashboard for visualizing ' \
-    + DASHBOARD_NAME
-dashboard['uiStateJSON'] = '{}'
-dashboard['optionsJSON'] = '{"darkTheme":false}'
-dashboard['version'] = 1
-dashboard['timeRestore'] = False
-dashboard['kibanaSavedObjectMeta'] = {
-    'searchSourceJSON': '{"filter":[{"query":{"query_string":{"query":"*","analyze_wildcard":true}}}],'
-    '"highlightAll":true,"version":true}'
-}
+    DASHBOARD_NAME = BODY['test-name'].split('-')[0]
+    dashboard = {}
+    dashboard['title'] = DASHBOARD_NAME
+    dashboard['description'] = 'Dashboard for visualizing ' \
+        + DASHBOARD_NAME
+    dashboard['uiStateJSON'] = '{}'
+    dashboard['optionsJSON'] = '{"darkTheme":false}'
+    dashboard['version'] = 1
+    dashboard['timeRestore'] = False
+    dashboard['kibanaSavedObjectMeta'] = {
+        'searchSourceJSON': '{"filter":[{"query":{"query_string":{"query":"*","analyze_wildcard":true}}}],'
+        '"highlightAll":true,"version":true}'
+    }
 
-# Check if visualizations already present in dashboard. If present, don't add, else, add at end
+    # Check if visualizations already present in dashboard. If present, don't add, else, add at end
 
-ES_ID = DASHBOARD_NAME
-try:
-    res = es.get(index='.kibana', doc_type='dashboard', id=ES_ID)
-    print(json.dumps(res, indent=4))
-    # No exeception occured means dashboard found
-    dashboard_found = True
-except exceptions.NotFoundError as e:
-    print('No visualizations found')
-    dashboard_found = False
-except Exception as e:
-    print(e)
-    print('Error Occurred')
-
-vis_ids_present = set()
-panelsJSON = []
-
-
-if dashboard_found:
-    panelsJSON = yaml.safe_load(res['_source']['panelsJSON'])
-    for vis in panelsJSON:
-        vis_ids_present.add(vis['id'])
-
-size_x = 6
-size_y = 3
-xpos = (len(vis_ids_present) % 2) * 6 + 1
-ypos = (len(vis_ids_present) / 2) * 3 + 1
-for (i, vis_id) in enumerate(vis_ids):
-    if (not dashboard_found or vis_id not in vis_ids_present):
-        panelJSON = {
-            'size_x': size_x,
-            'size_y': size_y,
-            'panelIndex': len(vis_ids_present) + i,
-            'type': 'visualization',
-            'id': vis_id,
-            'col': xpos,
-            'row': ypos,
-        }
-        xpos += size_x
-        if xpos > 12:
-            xpos = 1
-            ypos += size_y
-        panelsJSON.append(panelJSON)
-    else:
-        print('visualization ' + vis_id + ' already present in dashboard')
-
-dashboard['panelsJSON'] = JSONToString(panelsJSON)
-
-print(json.dumps(dashboard, indent=4))
-
-try:
     ES_ID = DASHBOARD_NAME
-    res = es.index(index='.kibana', doc_type='dashboard', id=ES_ID, body=dashboard)
-    print(json.dumps(res, indent=4))
-except exceptions.TransportError as et:
-    print(et)
-    print('Elasticsearch returned an error')
-except Exception as e:
-    print(e)
-    print('Unexpected error occurred. Unable to push dashboard to Kibana')
+    try:
+        res = es.get(index='.kibana', doc_type='dashboard', id=ES_ID)
+        print(json.dumps(res, indent=4))
+        # No exeception occured means dashboard found
+        dashboard_found = True
+    except exceptions.NotFoundError as e:
+        print('No visualizations found')
+        dashboard_found = False
+    except Exception as e:
+        print(e)
+        print('Error Occurred')
+
+    vis_ids_present = set()
+    panelsJSON = []
+
+    if dashboard_found:
+        panelsJSON = yaml.safe_load(res['_source']['panelsJSON'])
+        for vis in panelsJSON:
+            vis_ids_present.add(vis['id'])
+
+    size_x = 6
+    size_y = 3
+    xpos = (len(vis_ids_present) % 2) * 6 + 1
+    ypos = (len(vis_ids_present) / 2) * 3 + 1
+    for (i, vis_id) in enumerate(vis_ids):
+        if (not dashboard_found or vis_id not in vis_ids_present):
+            panelJSON = {
+                'size_x': size_x,
+                'size_y': size_y,
+                'panelIndex': len(vis_ids_present) + i,
+                'type': 'visualization',
+                'id': vis_id,
+                'col': xpos,
+                'row': ypos,
+            }
+            xpos += size_x
+            if xpos > 12:
+                xpos = 1
+                ypos += size_y
+            panelsJSON.append(panelJSON)
+        else:
+            print('visualization ' + vis_id + ' already present in dashboard')
+
+    dashboard['panelsJSON'] = JSONToString(panelsJSON)
+
+    print(json.dumps(dashboard, indent=4))
+
+    try:
+        ES_ID = DASHBOARD_NAME
+        res = es.index(index='.kibana', doc_type='dashboard', id=ES_ID, body=dashboard)
+        print(json.dumps(res, indent=4))
+    except exceptions.TransportError as et:
+        print(et)
+        print('Elasticsearch returned an error')
+    except Exception as e:
+        print(e)
+        print('Unexpected error occurred. Unable to push dashboard to Kibana')
