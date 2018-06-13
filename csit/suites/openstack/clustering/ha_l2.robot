@@ -28,7 +28,7 @@ ${SECURITY_GROUP}    cl2_sg
 
 *** Test Cases ***
 Create All Controller Sessions
-    [Documentation]    Create sessions for all three contorllers.
+    [Documentation]    Create sessions for all three controllers.
     ClusterManagement.ClusterManagement Setup
 
 Create Network net_1
