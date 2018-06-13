@@ -44,6 +44,8 @@ ${GC_LOG_PATH}    ${KARAF_HOME}/data/log
 ${JAVA_HOME}      ${EMPTY}    # releng/builder scripts should provide correct value
 ${JOLOKIA_CONF_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
 ${JOLOKIA_OPER_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-operational,type=DistributedOperationalDatastore
+${JOLOKIA_CONFIG_LOCAL_SHARDS_URI}    jolokia/read/org.opendaylight.controller:type=DistributedConfigDatastore,Category=ShardManager,name=shard-manager-config/LocalShards
+${JOLOKIA_OPER_LOCAL_SHARDS_URI}    jolokia/read/org.opendaylight.controller:type=DistributedOperationalDatastore,Category=ShardManager,name=shard-manager-operational/LocalShards
 ${JOLOKIA_READ_URI}    jolokia/read/org.opendaylight.controller
 # Bug 9044 workaround: delete etc/host.key before restart.
 @{ODL_DEFAULT_DATA_PATHS}    tmp/    data/    cache/    snapshots/    journal/    etc/opendaylight/current/    etc/host.key
