@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "983ca10b_b2d12523",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T22:02:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25dc3543_03ef9382",
+      "range": {
+        "startLine": 381,
+        "startChar": 101,
+        "endLine": 381,
+        "endChar": 107
+      },
+      "revId": "cd463d6ab327fea89e48088d8b92e27ca4f7c8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d95ba10_adfde385",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 118
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-13T20:03:04Z",
       "side": 1,
       "message": "Delete Groups On Bridge",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 390,
+        "endChar": 13
+      },
+      "revId": "cd463d6ab327fea89e48088d8b92e27ca4f7c8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afbab382_8d3b5f9f",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T22:02:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d95ba10_adfde385",
       "range": {
         "startLine": 390,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f59aca5b_86fd1b0c",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T22:02:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35c025a2_b4b901cd",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 9
+      },
+      "revId": "cd463d6ab327fea89e48088d8b92e27ca4f7c8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84883d10_74650207",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 118
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-13T20:03:04Z",
       "side": 1,
       "message": "Delete Ports On Bridge By Type",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 20
+      },
+      "revId": "cd463d6ab327fea89e48088d8b92e27ca4f7c8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f313ad2_1e4b2ad8",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T22:02:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84883d10_74650207",
       "range": {
         "startLine": 403,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "281a48b9_e42dbf5b",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T22:02:36Z",
+      "side": 1,
+      "message": "actually, while working on an update I see that this keyword\nis not even used, so i removed it.",
+      "parentUuid": "a497eab1_7c26fa43",
+      "range": {
+        "startLine": 413,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 16
+      },
+      "revId": "cd463d6ab327fea89e48088d8b92e27ca4f7c8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48125139_7999e842",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 118
@@ -128,6 +248,30 @@
       "writtenOn": "2018-06-13T20:03:04Z",
       "side": 1,
       "message": "we almost already have this in the netvirt variables\nfile. use that, or add this more specific one there.\n\nit\u0027s called ${NETWORK_URL} and is ${CONFIG_API}/neutron:neutron/networks/",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 56
+      },
+      "revId": "cd463d6ab327fea89e48088d8b92e27ca4f7c8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c18c5835_ca43b243",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T22:02:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48125139_7999e842",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -233,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "8b5952cd_13481250",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T22:02:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36c65371_6f7bf7b0",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 78
+      },
+      "revId": "cd463d6ab327fea89e48088d8b92e27ca4f7c8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "924a3205_f001d712",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 118
@@ -279,6 +447,30 @@
     },
     {
       "key": {
+        "uuid": "9fe331b6_e42dcd78",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T22:02:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "094e5690_aa53012d",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 28
+      },
+      "revId": "cd463d6ab327fea89e48088d8b92e27ca4f7c8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02b18e31_19b57142",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 118
@@ -296,6 +488,24 @@
     },
     {
       "key": {
+        "uuid": "233cf6b0_2b703354",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T22:02:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02b18e31_19b57142",
+      "revId": "cd463d6ab327fea89e48088d8b92e27ca4f7c8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "163910f1_0c6af137",
         "filename": "csit/variables/Variables.robot",
         "patchSetId": 118
@@ -307,6 +517,30 @@
       "writtenOn": "2018-06-13T20:03:04Z",
       "side": 1,
       "message": "we have these already:\n\n${NODE_START_COMMAND}\n${NODE_STOP_COMMAND}\n\nfrom the clustermanagement lib",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 28
+      },
+      "revId": "cd463d6ab327fea89e48088d8b92e27ca4f7c8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61c50621_7548f774",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T22:02:36Z",
+      "side": 1,
+      "message": "during latest update, I realize these are not even used.",
+      "parentUuid": "163910f1_0c6af137",
       "range": {
         "startLine": 133,
         "startChar": 0,
