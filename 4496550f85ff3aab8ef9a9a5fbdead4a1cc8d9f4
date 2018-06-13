@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9c6f94ce_4f821121",
+        "filename": "csit/suites/openstack/connectivity/l3.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 4269
+      },
+      "writtenOn": "2018-06-13T05:21:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88ecadce_edb21c1f",
+      "range": {
+        "startLine": 19,
+        "startChar": 54,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "4496550f85ff3aab8ef9a9a5fbdead4a1cc8d9f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2eb8bbe_e398692e",
         "filename": "csit/suites/openstack/connectivity/l3.robot",
         "patchSetId": 12
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8ea32764_a34df243",
+        "filename": "csit/suites/openstack/connectivity/l3.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 4269
+      },
+      "writtenOn": "2018-06-13T05:21:55Z",
+      "side": 1,
+      "message": "This makes it easier  to add to the new router where we are looping the subnet list.",
+      "parentUuid": "e2eb8bbe_e398692e",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 11
+      },
+      "revId": "4496550f85ff3aab8ef9a9a5fbdead4a1cc8d9f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39fd1a25_8b1a4322",
         "filename": "csit/suites/openstack/connectivity/l3.robot",
         "patchSetId": 12
@@ -59,6 +107,24 @@
       "writtenOn": "2018-06-13T01:38:21Z",
       "side": 1,
       "message": "can we not use the existing net1 and vms rather than creating a bunch of extra ones?",
+      "revId": "4496550f85ff3aab8ef9a9a5fbdead4a1cc8d9f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4f87134_6f086d83",
+        "filename": "csit/suites/openstack/connectivity/l3.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 4269
+      },
+      "writtenOn": "2018-06-13T05:21:55Z",
+      "side": 1,
+      "message": "The vm in each compute should be in different vlan and they should be the only vlan. So two vlan networks are required. Didn\u0027t want to use the existing as it would have already created some of the ports which connects the vlan physical interface.",
+      "parentUuid": "39fd1a25_8b1a4322",
       "revId": "4496550f85ff3aab8ef9a9a5fbdead4a1cc8d9f4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
