@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88ecadce_edb21c1f",
+        "filename": "csit/suites/openstack/connectivity/l3.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-13T01:38:21Z",
+      "side": 1,
+      "message": "this is named wrong, the l3_ is to indicate the l3 suite.",
+      "range": {
+        "startLine": 19,
+        "startChar": 54,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "4496550f85ff3aab8ef9a9a5fbdead4a1cc8d9f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2eb8bbe_e398692e",
+        "filename": "csit/suites/openstack/connectivity/l3.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-13T01:38:21Z",
+      "side": 1,
+      "message": "I think we can just keep the subnets as the only list so that it matches the networks list, and also matches the cidrs list",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 11
+      },
+      "revId": "4496550f85ff3aab8ef9a9a5fbdead4a1cc8d9f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39fd1a25_8b1a4322",
+        "filename": "csit/suites/openstack/connectivity/l3.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-13T01:38:21Z",
+      "side": 1,
+      "message": "can we not use the existing net1 and vms rather than creating a bunch of extra ones?",
+      "revId": "4496550f85ff3aab8ef9a9a5fbdead4a1cc8d9f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
