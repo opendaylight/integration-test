@@ -1,3 +1,6 @@
+*** Settings ***
+Resource          ../../variables/netvirt/Variables.robot
+
 *** Variables ***
 #Configurable Variables
 ${OS_IP}          ${OS_CONTROL_NODE_IP}
@@ -38,7 +41,6 @@ ${NS_TAP3}        TAP3
 ${NS2_TAP1}       TAP4
 ${NS3_TAP1}       TAP5
 ${NS4_TAP1}       TAP6
-${OVS_BRIDGE}     br-int
 ${OVS_PORT_1}     OVSPORT1
 ${OVS_PORT_2}     OVSPORT2
 ${OVS2_PORT_1}    OVSPORT3
@@ -62,7 +64,7 @@ ${CREATE_OVS_PORT}    sudo ovs-vsctl add-port
 ${CREATE_OVSDB}    sudo ovsdb-tool create /etc/openvswitch/ovs.db ${OVS_HOME}/vswitch.ovsschema
 ${DEL_OVS_BRIDGE}    sudo ovs-vsctl del-br
 ${DETACH_VSWITCHD}    sudo ovs-vswitchd --pidfile --detach
-${GET_DPNID}      printf "%d\\n" 0x`sudo ovs-ofctl show -O Openflow13 br-int | head -1 | awk -F "dpid:" '{print $2}'`
+${GET_DPNID}      printf "%d\\n" 0x`sudo ovs-ofctl show -O Openflow13 ${INTEGRATION_BRIDGE} | head -1 | awk -F "dpid:" '{print $2}'`
 ${GET_PORT_URL}    neutron:neutron/ports/port
 ${GREP_OVS}       ps -ef | grep ovs
 ${GREP_OVSDB_DUMP_MANAGER_TABLE}    sudo ovsdb-client dump hardware_vtep -f csv | grep -A2 "Manager table"

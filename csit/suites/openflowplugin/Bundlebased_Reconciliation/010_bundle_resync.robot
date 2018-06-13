@@ -9,6 +9,7 @@ Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/FlowLib.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/netvirt/Variables.robot
 Resource          ../../../libraries/DataModels.robot
 
 *** Variables ***
@@ -29,7 +30,7 @@ TC01_Reconciliation check after switch restart
     Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo service openvswitch-switch restart
     Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Operational Flow    ${True}    ${data}
     Log    Check if static flow is removed in the switch
-    ${Ovs1Flow}    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl dump-flows br-int -OOpenflow13
+    ${Ovs1Flow}    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenflow13
     Should Not Contain    ${Ovs1Flow}    ${STATIC_FLOW}
     Log    Check if flows are pushed as bundle messages
     ${Resyncdone_msg}=    BuiltIn.Set Variable    "Completing bundle based reconciliation for device ID:${switch_idx}"
@@ -44,7 +45,7 @@ TC02_Reconcilation check with new switch added
     Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo service openvswitch-switch restart
     Wait Until Keyword Succeeds    30s    1s    FlowLib.Check Operational Flow    ${True}    ${data}
     Log    Check if static flow is removed in the switch
-    ${Ovs1Flow}    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-ofctl dump-flows br-int -OOpenflow13
+    ${Ovs1Flow}    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenflow13
     Should Not Contain    ${Ovs1Flow}    ${STATIC_FLOW}
     Log    Check if flows are pushed as bundle messages
     ${Resyncdone_msg}=    BuiltIn.Set Variable    "Completing bundle based reconciliation for device ID:${switch_idx}"
@@ -83,17 +84,17 @@ End Suite
 Configure DPN
     [Arguments]    ${ip}
     [Documentation]    Add the bridge in the DPN specified and set manager,controller for the bridge
-    Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl add-br br-int
+    Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl add-br ${INTEGRATION_BRIDGE}
     Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
-    Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl set-controller br-int tcp:${ODL_SYSTEM_IP}:6653
-    Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl set bridge br-int protocols=OpenFlow13
+    Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl set-controller ${INTEGRATION_BRIDGE} tcp:${ODL_SYSTEM_IP}:6653
+    Utils.Run Command On Remote System    ${ip}    sudo ovs-vsctl set bridge ${INTEGRATION_BRIDGE} protocols=OpenFlow13
     DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${DATA_MODELS}
 
 Push Static Flow
     [Arguments]    ${ip}
     [Documentation]    Add Static Flow in the DPN specified
-    Utils.Run Command On Remote System    ${ip}    sudo ovs-ofctl dump-flows br-int -OOpenflow13
-    Utils.Run Command On Remote System    ${ip}    sudo ovs-ofctl add-flow br-int table=91,ipv6,actions=dec_ttl -OOpenflow13
+    Utils.Run Command On Remote System    ${ip}    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenflow13
+    Utils.Run Command On Remote System    ${ip}    sudo ovs-ofctl add-flow ${INTEGRATION_BRIDGE} table=91,ipv6,actions=dec_ttl -OOpenflow13
 
 Push Flow Via Restcall
     [Arguments]    ${switch_idx}    ${flowfile}

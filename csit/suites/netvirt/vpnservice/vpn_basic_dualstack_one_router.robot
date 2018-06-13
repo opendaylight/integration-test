@@ -398,8 +398,8 @@ Create Multiple L3VPN
 Verify GWMAC Flow Entry On Flow Table
     [Arguments]    ${cnIp}
     [Documentation]    Verify GWMAC Table, ARP Response table and Dispatcher table.
-    ${flow_output} =    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    ${group_output} =    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-groups br-int
+    ${flow_output} =    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
+    ${group_output} =    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-groups ${INTEGRATION_BRIDGE}
     BuiltIn.Should Contain    ${flow_output}    table=${DISPATCHER_TABLE}
     ${dispatcher_table} =    Get Lines Containing String    ${flow_output}    table=${DISPATCHER_TABLE}
     BuiltIn.Should Contain    ${dispatcher_table}    goto_table:${GWMAC_TABLE}
