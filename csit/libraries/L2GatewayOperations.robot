@@ -216,7 +216,7 @@ Start Command In Hwvtep
     Log    ${conn_id}
     Flexible SSH Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
     Start Command    ${command}
-    ${output}=    Exec Command    ${conn_id}    sudo ovs-ofctl dump-flows br-int -O Openflow13
+    ${output}=    Exec Command    ${conn_id}    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -O Openflow13
     Log    ${output}
     close connection
 
@@ -278,7 +278,7 @@ Exec Command
 Verify Elan Flow Entries
     [Arguments]    ${ip}    ${srcMacAddrs}    ${destMacAddrs}
     [Documentation]    Verify Flows Are Present For ELAN service
-    ${flow_output} =    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    ${flow_output} =    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
     Log    ${flow_output}
     Should Contain    ${flow_output}    table=50
     ${sMac_output} =    Get Lines Containing String    ${flow_output}    table=50

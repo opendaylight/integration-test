@@ -11,6 +11,7 @@ ${CIRROS_master}    cirros-0.3.5-x86_64-disk
 ${PRE_CLEAN_OPENSTACK_ALL}    False
 ${EXTERNAL_NET_NAME}    external-net
 ${EXTERNAL_SUBNET_NAME}    external-subnet
+${INTEGRATION_BRIDGE}    br-int
 ${EXTERNAL_GATEWAY}    10.10.10.250
 ${EXTERNAL_SUBNET}    10.10.10.0/24
 ${EXTERNAL_SUBNET_ALLOCATION_POOL}    start=10.10.10.2,end=10.10.10.249

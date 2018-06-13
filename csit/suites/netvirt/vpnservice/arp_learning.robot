@@ -233,7 +233,7 @@ Verify Ping On Different Networks
 Verify Flows Are Present
     [Arguments]    ${ip}
     [Documentation]    Verify Flows Are Present
-    ${flow_output}=    Utils.Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    ${flow_output}=    Utils.Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
     BuiltIn.Log    ${flow_output}
     ${resp} =    BuiltIn.Should Contain    ${flow_output}    table=50
     ${resp} =    BuiltIn.Should Contain    ${flow_output}    table=21,

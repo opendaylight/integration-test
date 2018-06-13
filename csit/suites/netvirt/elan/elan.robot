@@ -166,7 +166,7 @@ MultipleElan Testsuite Cleanup
 
 Verify Flows Are Present For ELAN Service
     [Arguments]    ${ip}    ${smacs}    ${dmacs}
-    ${flow_output} =    Utils.Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    ${flow_output} =    Utils.Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
     BuiltIn.Should Contain    ${flow_output}    table=${ELAN_SMACTABLE}
     ${smac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_SMACTABLE}
     Builtin.Log    ${smac_output}
@@ -183,7 +183,7 @@ Verify Flows Are Present For ELAN Service
 
 Verify Flows Are Removed For ELAN Service
     [Arguments]    ${ip}    ${smacs}
-    ${flow_output} =    Utils.Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    ${flow_output} =    Utils.Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
     BuiltIn.Should Contain    ${flow_output}    table=${ELAN_SMACTABLE}
     ${smac_output} =    String.Get Lines Containing String    ${flow_output}    table=${ELAN_SMACTABLE}
     Builtin.Log    ${smac_output}

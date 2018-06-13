@@ -9,6 +9,7 @@ Resource          ClusterManagement.robot
 Resource          Utils.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
 Resource          ../variables/Variables.robot
+Resource          ../variables/netvirt/Variables.robot
 
 *** Variables ***
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../variables/ovsdb
@@ -139,7 +140,7 @@ Get OVSDB UUID
     [Return]    ${uuid}
 
 Collect OVSDB Debugs
-    [Arguments]    ${switch}=br-int
+    [Arguments]    ${switch}=${INTEGRATION_BRIDGE}
     [Documentation]    Used to log useful test debugs for OVSDB related system tests.
     ${output} =    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
     BuiltIn.Log    ${output}
@@ -198,7 +199,7 @@ Add Multiple Managers to OVS
 Get DPID
     [Arguments]    ${ip}
     [Documentation]    Returns the dpnid from the system at the given ip address using ovs-ofctl assuming br-int is present.
-    ${output} =    Utils.Run Command On Remote System    ${ip}    sudo ovs-ofctl show -O Openflow13 br-int | head -1 | awk -F "dpid:" '{print $2}'
+    ${output} =    Utils.Run Command On Remote System    ${ip}    sudo ovs-ofctl show -O Openflow13 ${INTEGRATION_BRIDGE} | head -1 | awk -F "dpid:" '{print $2}'
     ${dpnid} =    BuiltIn.Convert To Integer    ${output}    16
     BuiltIn.Log    ${dpnid}
     [Return]    ${dpnid}
@@ -228,8 +229,8 @@ Get Default Gateway
 Get Port Number
     [Arguments]    ${subportid}    ${ip_addr}
     [Documentation]    Get the port number for the given sub-port id
-    ${command} =    Set Variable    sudo ovs-ofctl -O OpenFlow13 show br-int | grep ${subportid} | awk '{print$1}'
-    BuiltIn.Log    sudo ovs-ofctl -O OpenFlow13 show br-int | grep ${subportid} | awk '{print$1}'
+    ${command} =    Set Variable    sudo ovs-ofctl -O OpenFlow13 show ${INTEGRATION_BRIDGE} | grep ${subportid} | awk '{print$1}'
+    BuiltIn.Log    sudo ovs-ofctl -O OpenFlow13 show ${INTEGRATION_BRIDGE} | grep ${subportid} | awk '{print$1}'
     ${output} =    Utils.Run Command On Remote System    ${ip_addr}    ${command}
     ${port_number} =    BuiltIn.Should Match Regexp    ${output}    [0-9]+
     [Return]    ${port_number}
@@ -237,7 +238,7 @@ Get Port Number
 Get Port Metadata
     [Arguments]    ${ip_addr}    ${port}
     [Documentation]    Get the Metadata for a given port
-    ${cmd} =    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 br-int| grep table=0 | grep in_port=${port}
+    ${cmd} =    Set Variable    sudo ovs-ofctl dump-flows -O Openflow13 ${INTEGRATION_BRIDGE} | grep table=0 | grep in_port=${port}
     ${output} =    Utils.Run Command On Remote System    ${ip_addr}    ${cmd}
     @{list_any_matches} =    String.Get_Regexp_Matches    ${output}    metadata:(\\w{12})    1
     ${metadata} =    Builtin.Convert To String    @{list_any_matches}
