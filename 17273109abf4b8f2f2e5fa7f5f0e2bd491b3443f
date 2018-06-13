@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "267ea302_703a385f",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 123
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-13T22:59:41Z",
+      "side": 1,
+      "message": "crap, I forgot we won\u0027t stack unless netvirt is up...\n\nthinking...",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 70
+      },
+      "revId": "17273109abf4b8f2f2e5fa7f5f0e2bd491b3443f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
