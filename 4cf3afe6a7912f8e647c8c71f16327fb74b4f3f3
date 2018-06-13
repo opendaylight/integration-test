@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68207b1e_1e86b6f9",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-13T19:38:22Z",
+      "side": 1,
+      "message": "This doesn\u0027t make sense to me but non-blocker",
+      "range": {
+        "startLine": 144,
+        "startChar": 90,
+        "endLine": 144,
+        "endChar": 111
+      },
+      "revId": "4cf3afe6a7912f8e647c8c71f16327fb74b4f3f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "600e83ca_80e78e98",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-13T19:38:22Z",
+      "side": 1,
+      "message": "Extra space, non-blocker",
+      "range": {
+        "startLine": 312,
+        "startChar": 48,
+        "endLine": 312,
+        "endChar": 49
+      },
+      "revId": "4cf3afe6a7912f8e647c8c71f16327fb74b4f3f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5ad09ee_d00c8a26",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-13T19:38:22Z",
+      "side": 1,
+      "message": "Is this intentional?",
+      "range": {
+        "startLine": 368,
+        "startChar": 38,
+        "endLine": 368,
+        "endChar": 40
+      },
+      "revId": "4cf3afe6a7912f8e647c8c71f16327fb74b4f3f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed2e1c_729e0e63",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-13T19:38:22Z",
+      "side": 1,
+      "message": "Is this intentional?",
+      "range": {
+        "startLine": 376,
+        "startChar": 38,
+        "endLine": 376,
+        "endChar": 40
+      },
+      "revId": "4cf3afe6a7912f8e647c8c71f16327fb74b4f3f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c6e5b04_c9fd4033",
+        "filename": "csit/libraries/L2gwUtils.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-13T19:38:22Z",
+      "side": 1,
+      "message": "It\u0027s very inconsistent when you use a period or not, non-blocker",
+      "range": {
+        "startLine": 36,
+        "startChar": 64,
+        "endLine": 36,
+        "endChar": 65
+      },
+      "revId": "4cf3afe6a7912f8e647c8c71f16327fb74b4f3f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a1ceb63_7469daf4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-13T19:38:22Z",
+      "side": 1,
+      "message": "Not sure if you want a space here",
+      "range": {
+        "startLine": 764,
+        "startChar": 27,
+        "endLine": 764,
+        "endChar": 28
+      },
+      "revId": "4cf3afe6a7912f8e647c8c71f16327fb74b4f3f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c1fa448_6930e5d3",
+        "filename": "csit/suites/l2gw/02_Dynamic_Node_Addition_Multi_Segment_Network.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-13T19:38:22Z",
+      "side": 1,
+      "message": "You call these \"TC\u003cnumber\u003e\" elsewhere. Maybe good to be consistent, or maybe better to just not have the prefix at all and just use the names to ID",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 2
+      },
+      "revId": "4cf3afe6a7912f8e647c8c71f16327fb74b4f3f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
