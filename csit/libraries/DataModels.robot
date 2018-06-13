@@ -3,6 +3,7 @@ Documentation     Library to deal with mdsal data models. Initially, as a common
 ...               debug a list of data models.
 Library           RequestsLibrary
 Resource          ../variables/netvirt/Variables.robot
+Resource          ClusterManagement.robot
 
 *** Variables ***
 @{internal_data_models}    ${EMPTY}
@@ -18,9 +19,10 @@ Get Model Dump
     # pass a timeout to restconf
     Create Session    model_dump_session    http://${controller_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=1    max_retries=0
     : FOR    ${model}    IN    @{data_models}
-    \    ${resp}=    RequestsLibrary.Get Request    model_dump_session    restconf/${model}
-    \    ${pretty_output}=    To Json    ${resp.content}    pretty_print=True
-    \    Log    ${pretty_output}
+    \    Dump URL    model_dump_session    restconf/${model}
+    Dump URL    model_dump_session    ${JOLOKIA_CONFIG_LOCAL_SHARDS_URI}
+    Dump URL    model_dump_session    ${JOLOKIA_OPER_LOCAL_SHARDS_URI}
+
 
 Verify No Ingress Dispatcher Non-Default Flow Entries
     [Arguments]    ${ovs_ip}
@@ -34,3 +36,9 @@ Verify Flows Are Cleaned Up On All OpenStack Nodes
     Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_CONTROL_NODE_IP}
     Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_COMPUTE_1_IP}
     Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_COMPUTE_2_IP}
+
+Dump URL
+    [Arguments]    ${model_dump_session}    ${url}
+    ${resp}=    RequestsLibrary.Get Request    ${model_dump_session}    ${url}
+    ${pretty_output}=    To Json    ${resp.content}    pretty_print=True
+    Log    ${pretty_output}
