@@ -5,6 +5,7 @@ Resource          Utils.robot
 Resource          TemplatedRequests.robot
 Resource          KarafKeywords.robot
 Resource          ../variables/Variables.robot
+Resource          ../variables/netvirt/Variables.robot
 Library           Collections
 Library           String
 Library           OperatingSystem
@@ -109,7 +110,7 @@ ITM Delete Tunnel
 Verify Flows Are Present For L3VPN
     [Arguments]    ${ip}    ${vm_ips}
     [Documentation]    Verify Flows Are Present For L3VPN
-    ${flow_output}=    Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    ${flow_output}=    Run Command On Remote System And Log    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
     Should Contain    ${flow_output}    table=${ODL_FLOWTABLE_L3VPN}
     ${l3vpn_table} =    Get Lines Containing String    ${flow_output}    table=${ODL_FLOWTABLE_L3VPN},
     Log    ${l3vpn_table}
@@ -128,7 +129,7 @@ Verify GWMAC Entry On ODL
 Verify GWMAC Flow Entry Removed From Flow Table
     [Arguments]    ${cnIp}
     [Documentation]    Verify the GWMAC Table, ARP Response table and Dispatcher table.
-    ${flow_output}=    Run Command On Remote System And Log    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    ${flow_output}=    Run Command On Remote System And Log    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
     Should Contain    ${flow_output}    table=${GWMAC_TABLE}
     ${gwmac_table} =    Get Lines Containing String    ${flow_output}    table=${GWMAC_TABLE}
     Log    ${gwmac_table}
@@ -218,8 +219,8 @@ Verify IPv6 GWMAC Flow Entry On Flow Table
 Verify GWMAC Flow Entry On Flow Table
     [Arguments]    ${cnIp}    ${ipv}=ipv4
     [Documentation]    Verify the GWMAC Table, ARP Response table and Dispatcher table.
-    ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    ${group_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-groups br-int
+    ${flow_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
+    ${group_output}=    Run Command On Remote System    ${cnIp}    sudo ovs-ofctl -O OpenFlow13 dump-groups ${INTEGRATION_BRIDGE}
     Should Contain    ${flow_output}    table=${DISPATCHER_TABLE}
     ${dispatcher_table} =    Get Lines Containing String    ${flow_output}    table=${DISPATCHER_TABLE}
     Should Contain    ${dispatcher_table}    goto_table:${GWMAC_TABLE}

@@ -21,21 +21,21 @@ Add Ovs Bridge Manager Controller And Verify
     [Documentation]    Keyword to set OVS manager and controller to ${ODL_IP} for the OVS IP connected in ${conn_id} and verify the entries in OVSDB NETWORK TOPOLOGY and NETSTAT results.
     ${output}=    Exec Command    ${conn_id}    ${OVS_RESTART}
     ${output}=    Exec Command    ${conn_id}    ${OVS_DEL_MGR}
-    ${output}=    Exec Command    ${conn_id}    ${OVS_DEL_CTRLR} ${OVS_BRIDGE}
-    ${output}=    Exec Command    ${conn_id}    ${DEL_OVS_BRIDGE} ${OVS_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_DEL_CTRLR} ${INTEGRATION_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${DEL_OVS_BRIDGE} ${INTEGRATION_BRIDGE}
     ${output}=    Exec Command    ${conn_id}    ${OVS_SHOW}
     Should Not Contain    ${output}    Manager
     Should Not Contain    ${output}    Controller
-    ${output}=    Exec Command    ${conn_id}    ${CREATE_OVS_BRIDGE} ${OVS_BRIDGE}
-    ${output}=    Exec Command    ${conn_id}    ${SET_FAIL_MODE} ${OVS_BRIDGE} secure
+    ${output}=    Exec Command    ${conn_id}    ${CREATE_OVS_BRIDGE} ${INTEGRATION_BRIDGE}
+    ${output}=    Exec Command    ${conn_id}    ${SET_FAIL_MODE} ${INTEGRATION_BRIDGE} secure
     ${output}=    Exec Command    ${conn_id}    ${OVS_SET_MGR}:${ODL_IP}:${OVSDBPORT}
-    ${output}=    Exec Command    ${conn_id}    ${OVS_SET_CTRLR} ${OVS_BRIDGE} tcp:${ODL_IP}:${ODL_OF_PORT}
+    ${output}=    Exec Command    ${conn_id}    ${OVS_SET_CTRLR} ${INTEGRATION_BRIDGE} tcp:${ODL_IP}:${ODL_OF_PORT}
     Wait Until Keyword Succeeds    60s    2s    Verify Strings In Command Output    ${conn_id}    ${OVS_SHOW}    Manager "tcp:${ODL_IP}:${OVSDBPORT}"
     ...    Controller "tcp:${ODL_IP}:${ODL_OF_PORT}"
     ${output}=    Exec Command    ${conn_id}    ${NETSTAT}
     Wait Until Keyword Succeeds    30s    2s    Validate Regexp In String    ${output}    ${NETSTAT_OVSDB_REGEX}
     Wait Until Keyword Succeeds    30s    2s    Validate Regexp In String    ${output}    ${NETSTAT_OF_REGEX}
-    @{list_to_check}=    Create List    bridge/${OVS_BRIDGE}    bridge/${hwvtep_bridge}
+    @{list_to_check}=    Create List    bridge/${INTEGRATION_BRIDGE}    bridge/${hwvtep_bridge}
     Wait Until Keyword Succeeds    30s    2s    Check For Elements At URI    ${OVSDB_NETWORK_TOPOLOGY}    ${list_to_check}    session
 
 Create Itm Tunnel Between Hwvtep and Ovs
@@ -216,7 +216,7 @@ Start Command In Hwvtep
     Log    ${conn_id}
     Flexible SSH Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
     Start Command    ${command}
-    ${output}=    Exec Command    ${conn_id}    sudo ovs-ofctl dump-flows br-int -O Openflow13
+    ${output}=    Exec Command    ${conn_id}    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -O Openflow13
     Log    ${output}
     close connection
 
@@ -278,7 +278,7 @@ Exec Command
 Verify Elan Flow Entries
     [Arguments]    ${ip}    ${srcMacAddrs}    ${destMacAddrs}
     [Documentation]    Verify Flows Are Present For ELAN service
-    ${flow_output} =    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    ${flow_output} =    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
     Log    ${flow_output}
     Should Contain    ${flow_output}    table=50
     ${sMac_output} =    Get Lines Containing String    ${flow_output}    table=50

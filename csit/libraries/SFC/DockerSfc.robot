@@ -1,5 +1,6 @@
 *** Settings ***
 Library           SSHLibrary
+Resource          ../../variables/netvirt/Variables.robot
 
 *** Variables ***
 
@@ -63,7 +64,7 @@ Multiple Docker Exec
 
 Get Flows In Docker Containers
     ${docker_list}=    DockerSfc.Get Docker Names As List
-    ${docker_flows}    DockerSfc.Multiple Docker Exec    ${docker_list}    ovs-ofctl dump-flows -OOpenflow13 br-int    OFPST_FLOW
+    ${docker_flows}    DockerSfc.Multiple Docker Exec    ${docker_list}    ovs-ofctl dump-flows -OOpenflow13 ${INTEGRATION_BRIDGE}    OFPST_FLOW
     [Return]    ${docker_flows}
 
 Get Docker Bridge Subnet

@@ -41,8 +41,8 @@ ${L3VPN_RD}       ["100:31"]
 ${SECURITY_GROUP}    l2l3_gw_mac_arp_sg
 ${TABLE_NO_0}     table=0
 ${TABLE_NO_220}    table=220
-${DUMP_FLOWS}     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-${GROUP_FLOWS}    sudo ovs-ofctl -O OpenFlow13 dump-groups br-int
+${DUMP_FLOWS}     sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
+${GROUP_FLOWS}    sudo ovs-ofctl -O OpenFlow13 dump-groups ${INTEGRATION_BRIDGE}
 ${ARP_REQUEST_OPERATIONAL_CODE}    1
 ${ARP_RESPONSE_OPERATIONAL_CODE}    2
 
