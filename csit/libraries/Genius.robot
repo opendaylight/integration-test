@@ -19,7 +19,7 @@ ${genius_config_dir}    ${CURDIR}/../variables/genius
 ${Bridge-1}       BR1
 ${Bridge-2}       BR2
 ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
-@{DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE
+@{GENIUS_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE
 
 *** Keywords ***
 Genius Suite Setup
@@ -34,7 +34,7 @@ Genius Suite Teardown
 
 Start Suite
     [Documentation]    Initial setup for Genius test suites
-    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    Check System Status
+    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    Check System Status    @{GENIUS_DIAG_SERVICES}
     Log    Start the tests
     ${conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${conn_id_1}
@@ -91,11 +91,11 @@ check establishment
     [Return]    ${check_establishment}
 
 Check Service Status
-    [Arguments]    ${odl_ip}    ${system_ready_state}    ${service_state}
+    [Arguments]    ${odl_ip}    ${system_ready_state}    ${service_state}    @{service_list}
     [Documentation]    Issues the karaf shell command showSvcStatus to verify the ready and service states are the same as the arguments passed
     ${service_status_output}    Issue_Command_On_Karaf_Console    showSvcStatus    ${odl_ip}    8101
     Should Contain    ${service_status_output}    ${system_ready_state}
-    : FOR    ${service}    IN    @{DIAG_SERVICES}
+    : FOR    ${service}    IN    @{service_list}
     \    Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
 
 Create Vteps
@@ -244,9 +244,10 @@ Verify Tunnel Status as UP
     Should Be Equal As Strings    ${Actual_Tunnel_Count}    ${Expected_Tunnel_Count}
 
 Check System Status
+    [Arguments]    @{service_list}
     [Documentation]    This keyword will verify whether all the services are in operational and all nodes are active based on the number of odl systems
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL
+    \    Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL    @{service_list}
 
 Verify Tunnel Status
     [Arguments]    ${tunnel_names}    ${tunnel_status}
