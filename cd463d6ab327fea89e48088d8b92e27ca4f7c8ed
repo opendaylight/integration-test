@@ -424,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "b18827d8_25ea1fc0",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 118
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-06-14T10:45:04Z",
+      "side": 1,
+      "message": "Well, sort of. It\u0027s the closest we can get right now. Networking-odl decides to do a full sync when the canary net is not present, then it pushes all objects into the journal and then the canary network. It is still possible that something ahead of the canary network on the jounral queue could get pushed first but it won\u0027t be by much.",
+      "parentUuid": "924a3205_f001d712",
+      "range": {
+        "startLine": 66,
+        "startChar": 48,
+        "endLine": 66,
+        "endChar": 75
+      },
+      "revId": "cd463d6ab327fea89e48088d8b92e27ca4f7c8ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "094e5690_aa53012d",
         "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
         "patchSetId": 118
