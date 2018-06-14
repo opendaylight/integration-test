@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "963d23a0_bc6e1c9c",
+        "filename": "csit/suites/netvirt/VniBasedL2Switching/VniBasedL2Switching.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-14T08:29:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c9e9546_7b8af281",
+      "revId": "a4813543812af01326b92004719980417826060d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "266c9529_531bfcad",
         "filename": "csit/suites/netvirt/VniBasedL2Switching/VniBasedL2Switching.robot",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-30T03:52:56Z",
       "side": 1,
       "message": "Qualify with the library where it comes from. \nPreferred to used OpenstackOperations.Get Port Mac instead, does the exact job. Apply wherever applicable",
+      "revId": "a4813543812af01326b92004719980417826060d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e3794c9_ccb94f7f",
+        "filename": "csit/suites/netvirt/VniBasedL2Switching/VniBasedL2Switching.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-14T08:29:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "266c9529_531bfcad",
       "revId": "a4813543812af01326b92004719980417826060d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d8c8433a_21a26095",
+        "filename": "csit/suites/netvirt/VniBasedL2Switching/VniBasedL2Switching.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-14T08:29:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a64692f_d56b990a",
+      "revId": "a4813543812af01326b92004719980417826060d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05edd9eb_83ca7a0a",
         "filename": "csit/suites/netvirt/VniBasedL2Switching/VniBasedL2Switching.robot",
         "patchSetId": 1
@@ -64,6 +118,30 @@
       "writtenOn": "2018-05-30T03:52:56Z",
       "side": 1,
       "message": "Just a thought, not mandatory. Can Get Tunnel Id For Ingress and Get Ingress Packet Count be clubbed ?",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 24
+      },
+      "revId": "a4813543812af01326b92004719980417826060d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24b23aaa_e0738eb0",
+        "filename": "csit/suites/netvirt/VniBasedL2Switching/VniBasedL2Switching.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-14T08:29:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05edd9eb_83ca7a0a",
       "range": {
         "startLine": 109,
         "startChar": 0,
@@ -110,6 +188,30 @@
       "writtenOn": "2018-05-30T03:52:56Z",
       "side": 1,
       "message": "Where is this keyword defined?",
+      "range": {
+        "startLine": 156,
+        "startChar": 78,
+        "endLine": 156,
+        "endChar": 97
+      },
+      "revId": "a4813543812af01326b92004719980417826060d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "887b1d4c_fb330b43",
+        "filename": "csit/suites/netvirt/VniBasedL2Switching/VniBasedL2Switching.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-14T08:29:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "574d3363_021374b1",
       "range": {
         "startLine": 156,
         "startChar": 78,
