@@ -22,6 +22,30 @@
       "revId": "9fe7d2133d7212b35dc0e17e435030b886f1bbaf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3d9f5ad_3b5fbadb",
+        "filename": "csit/suites/netvirt/upgrade/upgrade.robot",
+        "patchSetId": 124
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5357
+      },
+      "writtenOn": "2018-06-14T10:41:12Z",
+      "side": 1,
+      "message": "Yes. That\u0027s the way it should be. Not quite sure why the install was here. I had removed it in a previous patchset, not sure how it got back in, did you pull the most recent patchset? (I made that mistake already once today but fixed it)",
+      "parentUuid": "0d0f3c0c_71bfbee1",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 44
+      },
+      "revId": "9fe7d2133d7212b35dc0e17e435030b886f1bbaf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
