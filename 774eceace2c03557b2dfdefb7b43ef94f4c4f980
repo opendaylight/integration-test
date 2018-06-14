@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c546204d_a7abc640",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-14T18:06:45Z",
+      "side": 1,
+      "message": "remove this keyword from here since it is added in OvsManager",
+      "revId": "774eceace2c03557b2dfdefb7b43ef94f4c4f980",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "442939fe_d9a7e979",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-14T18:06:45Z",
+      "side": 1,
+      "message": "correct the extra whitespaces",
+      "range": {
+        "startLine": 50,
+        "startChar": 40,
+        "endLine": 50,
+        "endChar": 41
+      },
+      "revId": "774eceace2c03557b2dfdefb7b43ef94f4c4f980",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c53abd9_32ed3e06",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-14T18:06:45Z",
+      "side": 1,
+      "message": "correct this",
+      "range": {
+        "startLine": 101,
+        "startChar": 33,
+        "endLine": 101,
+        "endChar": 80
+      },
+      "revId": "774eceace2c03557b2dfdefb7b43ef94f4c4f980",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7bd6b0f_e2e607d9",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-14T18:06:45Z",
+      "side": 1,
+      "message": "correct it",
+      "range": {
+        "startLine": 104,
+        "startChar": 34,
+        "endLine": 104,
+        "endChar": 81
+      },
+      "revId": "774eceace2c03557b2dfdefb7b43ef94f4c4f980",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "577f052d_92176381",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-14T18:06:45Z",
+      "side": 1,
+      "message": "Can we use Get Port Mac from OpenstackOperation.robot instead of this keyword?",
+      "revId": "774eceace2c03557b2dfdefb7b43ef94f4c4f980",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4655729_ab8aec14",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-14T18:06:45Z",
+      "side": 1,
+      "message": "remove whitespace",
+      "range": {
+        "startLine": 225,
+        "startChar": 35,
+        "endLine": 225,
+        "endChar": 42
+      },
+      "revId": "774eceace2c03557b2dfdefb7b43ef94f4c4f980",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "772998f1_0db1fbc6",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-14T18:06:45Z",
+      "side": 1,
+      "message": "delete this log statement",
+      "range": {
+        "startLine": 228,
+        "startChar": 4,
+        "endLine": 228,
+        "endChar": 20
+      },
+      "revId": "774eceace2c03557b2dfdefb7b43ef94f4c4f980",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13f570fd_8aaccbcc",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-14T18:06:45Z",
+      "side": 1,
+      "message": "delete this log statement",
+      "range": {
+        "startLine": 231,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 25
+      },
+      "revId": "774eceace2c03557b2dfdefb7b43ef94f4c4f980",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
