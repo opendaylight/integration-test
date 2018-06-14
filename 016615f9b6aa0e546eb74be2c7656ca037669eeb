@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "14363b0e_b9d57a7e",
+        "filename": "csit/suites/netvirt/VniBasedL2Switching/VniBasedL2Switching.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-14T08:29:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcd9f9ac_d4884729",
+      "revId": "016615f9b6aa0e546eb74be2c7656ca037669eeb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff7ef44b_be7007a9",
         "filename": "csit/suites/netvirt/VniBasedL2Switching/VniBasedL2Switching.robot",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-30T09:27:36Z",
       "side": 1,
       "message": "use as OpenstackOperations.Get Port Mac",
+      "revId": "016615f9b6aa0e546eb74be2c7656ca037669eeb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fbace5a0_7ff55d56",
+        "filename": "csit/suites/netvirt/VniBasedL2Switching/VniBasedL2Switching.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-14T08:29:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff7ef44b_be7007a9",
       "revId": "016615f9b6aa0e546eb74be2c7656ca037669eeb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
