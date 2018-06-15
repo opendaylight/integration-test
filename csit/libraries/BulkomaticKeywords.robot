@@ -6,6 +6,7 @@ Resource          Utils.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
+${ADD_BULK_RPC_API}    /restconf/operations/sal-bulk-flow:flow-rpc-add-multiple
 ${ADD_BULK_CONFIG_NODES_API}    /restconf/operations/sal-bulk-flow:flow-test
 ${GET_BULK_CONFIG_NODES_API}    /restconf/operations/sal-bulk-flow:read-flow-test
 ${ADD_TABLE_NODEs_API}    /restconf/operations/sal-bulk-flow:table-test
@@ -27,12 +28,17 @@ Operation Status Check
 Wait Until Write Finishes
     [Arguments]    ${controller_index}    ${timeout}
     [Documentation]    Wait Until Write operation status is OK in member ${controller_index}.
-    Wait Until Keyword Succeeds    ${timeout}    1s    BulkomaticKeywords.Operation Status Check    ${jolokia_write_op_status}    ${controller_index}
+    Wait Until Keyword Succeeds    ${timeout}    2s    BulkomaticKeywords.Operation Status Check    ${jolokia_write_op_status}    ${controller_index}
 
 Wait Until Read Finishes
     [Arguments]    ${controller_index}    ${timeout}
     [Documentation]    Wait Until Read operation status is OK in member ${controller_index}.
-    Wait Until Keyword Succeeds    ${timeout}    1s    BulkomaticKeywords.Operation Status Check    ${jolokia_read_op_status}    ${controller_index}
+    Wait Until Keyword Succeeds    ${timeout}    2s    BulkomaticKeywords.Operation Status Check    ${jolokia_read_op_status}    ${controller_index}
+
+Add Bulk Flow RPC
+    [Arguments]    ${json_body_add}    ${controller_index}
+    [Documentation]    Add Bulk Flow in member ${controller_index} according to \${json_body_add}.
+    ${resp}    ClusterManagement.Post As Json To Member    ${ADD_BULK_RPC_API}    ${json_body_add}    ${controller_index}
 
 Add Bulk Flow
     [Arguments]    ${json_body_add}    ${controller_index}
@@ -110,6 +116,19 @@ Set DPN And Flow Count In Json Add
     ${get_string}=    Set Variable    "sal-bulk-flow:batch-size" : "1"
     ${put_string}=    Set Variable    "sal-bulk-flow:batch-size" : "${flows_count}"
     ${json_body_add}    Replace String Using Regexp    ${json_body_add}    ${get_string}    ${put_string}
+    Log    ${json_body_add}
+    [Return]    ${json_body_add}
+
+Set Flow Count In Json Add RPC
+    [Arguments]    ${json_config}    ${flows_count}
+    [Documentation]    Set new DPN count and flows count per DPN in the Bulkomatic Add json file.
+    ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/${json_config}
+    ${get_string}=    Set Variable    "sal-bulk-flow:flow-count" : "100"
+    ${put_string}=    Set Variable    "sal-bulk-flow:flow-count" : "${flows_count}"
+    ${str}    Replace String Using Regexp    ${body}    ${get_string}    ${put_string}
+    ${get_string}=    Set Variable    "sal-bulk-flow:rpc-batch-size" : "100"
+    ${put_string}=    Set Variable    "sal-bulk-flow:rpc-batch-size" : "${flows_count}"
+    ${json_body_add}    Replace String Using Regexp    ${str}    ${get_string}    ${put_string}
     Log    ${json_body_add}
     [Return]    ${json_body_add}
 

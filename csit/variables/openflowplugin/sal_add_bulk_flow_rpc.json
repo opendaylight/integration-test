@@ -1,0 +1,7 @@
+{
+	"input":
+	{
+		"sal-bulk-flow:flow-count" : "100",
+		"sal-bulk-flow:rpc-batch-size" : "100"
+	}
+}

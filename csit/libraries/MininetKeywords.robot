@@ -36,33 +36,35 @@ Start Mininet Multiple Controllers
     [Arguments]    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller_index_list}=${EMPTY}    ${options}=--topo tree,1    ${custom}=${EMPTY}    ${ofversion}=13    ${ofport}=${ODL_OF_PORT}
     ...    ${protocol}=tcp    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start Mininet with custom topology and connect to list of controllers in ${controller_index_list} or all if no list is provided.
+    Log    Create controller configuration
     ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
+    ${controller_opt}=    Set Variable
+    : FOR    ${index}    IN    @{index_list}
+    \    ${controller_opt}=    Catenate    ${controller_opt}    ${SPACE}${protocol}:${ODL_SYSTEM_${index}_IP}:${ofport}
+    \    Log    ${controller_opt}
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
-    ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System
+    ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System    ${mininet}    ${timeout}
     Set Suite Variable    ${mininet_conn_id}
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Run Keyword If    '${protocol}' == 'ssl'    Install Certificates In Mininet
     Log    Start mininet ${options}
     SSHLibrary.Write    sudo mn ${options}
     SSHLibrary.Read Until    mininet>
-    Log    Create controller configuration
-    ${controller_opt}=    Set Variable
-    : FOR    ${index}    IN    @{index_list}
-    \    ${controller_opt}=    Catenate    ${controller_opt}    ${SPACE}${protocol}:${ODL_SYSTEM_${index}_IP}:${ofport}
-    \    Log    ${controller_opt}
     Log    Open extra SSH connection to configure the OVS bridges
     SSHKeywords.Open_Connection_To_Tools_System
     ${num_bridges}    SSHLibrary.Execute Command    sudo ovs-vsctl show | grep Bridge | wc -l
     ${num_bridges}=    Convert To Integer    ${num_bridges}
     Log    Configure OVS controllers ${controller_opt} in all bridges
+    ${bridges}=    Create List
     : FOR    ${i}    IN RANGE    1    ${num_bridges+1}
     \    ${bridge}=    SSHLibrary.Execute Command    sudo ovs-vsctl show | grep Bridge | cut -c 12- | sort | head -${i} | tail -1
-    \    SSHLibrary.Execute Command    sudo ovs-vsctl set bridge ${bridge} protocols=OpenFlow${ofversion}
+    \    SSHLibrary.Execute Command    sudo ovs-vsctl del-controller ${bridge} && sudo ovs-vsctl set bridge ${bridge} protocols=OpenFlow${ofversion}
+    \    Append To List    ${bridges}    ${bridge}
+    : FOR    ${bridge}    IN    @{bridges}
     \    SSHLibrary.Execute Command    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
-    Log    Check OVS configuratiom
-    ${output}=    SSHLibrary.Execute Command    sudo ovs-vsctl show
-    Log    ${output}
+    \    Sleep    ${delay}
+    \    SSHLibrary.Execute Command    sudo ovs-vsctl del-controller ${bridge} && sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
     SSHLibrary.Close Connection
     [Return]    ${mininet_conn_id}
 
@@ -213,3 +215,11 @@ Install Certificates In Mininet
     SSHLibrary.Execute Command    sudo ovs-vsctl set-ssl /etc/openvswitch/${switch_private_key} /etc/openvswitch/${switch_certificate} /etc/openvswitch/${controller_ca_list}
     ${std_out}=    SSHLibrary.Execute Command    .    sudo ovs-vsctl get-ssl
     Log    ${std_out}
+
+Disconnect Controller Mininet
+    [Arguments]    ${action}=break
+    [Documentation]    Break and restore controller to mininet connection via iptables.
+    ${rule} =    BuiltIn.Set Variable    OUTPUT -p all --source ${TOOLS_SYSTEM_IP} --destination ${ODL_SYSTEM_IP} -j DROP
+    ${command} =    BuiltIn.Set Variable If    '${action}'=='restore'    sudo /sbin/iptables -D ${rule}    sudo /sbin/iptables -I ${rule}
+    Utils.Run Command On Mininet    cmd=${command}
+    ${command} =    BuiltIn.Set Variable    sudo /sbin/iptables -L -n

@@ -16,7 +16,7 @@ ${operation_timeout}    250s
 ${oper_ds_timeout}    400s
 ${mininet_timeout}    120s
 ${flow_count_per_switch}    1000
-${switch_count}    100
+${switch_count}    32
 ${karaf_log_level}    log:set WARN
 ${orig_json_config_add}    sal_add_bulk_flow_config.json
 ${orig_json_config_get}    sal_get_bulk_flow_config.json
@@ -41,9 +41,12 @@ Start Mininet And verify Switches
     [Documentation]    Start mininet, controller OF port 6653 should be enabled for TLS while port 6633 should be for TCP.
     ${ofport}    Set Variable If    '${enable_openflow_tls}' == 'True'    6653    6633
     ${protocol}    Set Variable If    '${enable_openflow_tls}' == 'True'    ssl    tcp
+    MininetKeywords.Disconnect Controller Mininet    break
     ${mininet_conn_id}=    MininetKeywords.Start Mininet Multiple Controllers    options=--topo linear,${switch_count}    ofport=${ofport}    protocol=${protocol}
+    MininetKeywords.Disconnect Controller Mininet    restore
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     BuiltIn.Wait Until Keyword Succeeds    ${mininet_timeout}    2s    ClusterOpenFlow.Verify_Switch_Connections_Running_On_Member    ${switch_count}    1
+    Sleep    5
     Comment    Fail the entire suite if switches cannot connect
     [Teardown]    Run Keyword If Test Failed    Fatal Error
 
