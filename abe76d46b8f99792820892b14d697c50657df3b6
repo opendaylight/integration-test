@@ -1,0 +1,596 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24b80252_31672a93",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "follow common naming convention: ex: sg_net1_vm1",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 27
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c65c0e33_93d66113",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "Better to be in uppercase, because all the other name are uppercase",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 21
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b40c820_9065142d",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "remove commented code",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 33
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de0232ca_ef80d950",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "use ${INTEGRATION_BRIDGE} from netvirt/Variables.robotv",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 20
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5862973_0c31cd7f",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "remove please",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 95
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8476018a_177b32b5",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "Documentation and test case name are of no difference;  put detailed information of Documentation or remove the same",
+      "range": {
+        "startLine": 52,
+        "startChar": 16,
+        "endLine": 53,
+        "endChar": 19
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fdf6affc_64e01652",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "Remove CR156",
+      "range": {
+        "startLine": 133,
+        "startChar": 38,
+        "endLine": 133,
+        "endChar": 44
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c701a62e_dbd84d91",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "Is this required here? otherwise remove it",
+      "range": {
+        "startLine": 163,
+        "startChar": 9,
+        "endLine": 163,
+        "endChar": 29
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9289796_23dc11bd",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 171,
+        "startChar": 9,
+        "endLine": 171,
+        "endChar": 29
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6fead40_8ec253a4",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "remove white space",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 4
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c53ed71_62548843",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "remove please",
+      "range": {
+        "startLine": 203,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 43
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "281c8010_cc43fd93",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "Unused keyword?  if required also why cant we use Get VM IP keyword in OpenstackOperations.robot?",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 9
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79be03d1_35a3e84f",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "Looks like more suitable to add it in library",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 28
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "470b6e38_8913b43d",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "remove commented out statements",
+      "range": {
+        "startLine": 240,
+        "startChar": 2,
+        "endLine": 240,
+        "endChar": 36
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a33d14c_6c1dc2da",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "remove commented code",
+      "range": {
+        "startLine": 256,
+        "startChar": 1,
+        "endLine": 260,
+        "endChar": 21
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7011f02c_a05e332b",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "remove please",
+      "range": {
+        "startLine": 263,
+        "startChar": 4,
+        "endLine": 263,
+        "endChar": 26
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e39207f3_6ef9086b",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "use the keyword available in OpenstackOPerations.robot -\u003e Get Port Id",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 11
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "373a7733_e042aec0",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "use the keyword available in OpenstackOperations.robot -\u003e Get Sub Port Id",
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5f8d411_450e00fd",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "No sleeps",
+      "range": {
+        "startLine": 296,
+        "startChar": 4,
+        "endLine": 296,
+        "endChar": 15
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8567ac_c8fb24e1",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "remove log statement",
+      "range": {
+        "startLine": 299,
+        "startChar": 4,
+        "endLine": 299,
+        "endChar": 17
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d733391d_3244447f",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "Correct documentation part.",
+      "range": {
+        "startLine": 306,
+        "startChar": 4,
+        "endLine": 306,
+        "endChar": 61
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b65354e5_98203b2d",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "Is this keyword required? why cant you directly use the Get port Number keyword instead of this?",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 308,
+        "endChar": 26
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6954141f_e8c24656",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "remove output",
+      "range": {
+        "startLine": 316,
+        "startChar": 4,
+        "endLine": 316,
+        "endChar": 20
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ec979a35_636cc3ba",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "remove all these logs",
+      "range": {
+        "startLine": 330,
+        "startChar": 4,
+        "endLine": 330,
+        "endChar": 23
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3832ae87_5504fb4d",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "for this entire thing can we just use OpenstackOperations.Get Sub Port Id?",
+      "range": {
+        "startLine": 350,
+        "startChar": 3,
+        "endLine": 353,
+        "endChar": 3
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65a69753_0a2451d1",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "more suitable for OpenstackOperations.robot.",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 47
+      },
+      "revId": "abe76d46b8f99792820892b14d697c50657df3b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
