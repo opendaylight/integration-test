@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8b92b102_555413a0",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T22:21:13Z",
+      "side": 1,
+      "message": "someone else is trying to write a keyword to get packet\ncounts too:\n\nhttps://git.opendaylight.org/gerrit/#/c/72510/4/csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot@80\n\nI\u0027m sure we can get a common keyword that works for\neveryone.",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 30
+      },
+      "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75c7c932_2afcf2f9",
         "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
         "patchSetId": 13
@@ -13,6 +36,24 @@
       "writtenOn": "2018-06-15T09:48:26Z",
       "side": 1,
       "message": "we can use either of one ${DEFAULT_NETVIRT_BRIDGE} from variables.robot   br-int or the one declared here",
+      "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e17bdd1d_0a9e8817",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T22:21:13Z",
+      "side": 1,
+      "message": "I kept seeing this thing show up too much so I got\nthis in recently:\n\nhttps://git.opendaylight.org/gerrit/#/c/72968/\n\njust use ${INTEGRATION_BRIDGE} wherever you need it and\ndelete this line entirely.",
+      "parentUuid": "75c7c932_2afcf2f9",
       "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -42,6 +83,92 @@
     },
     {
       "key": {
+        "uuid": "a60628c2_b43a639e",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T22:21:13Z",
+      "side": 1,
+      "message": "what are we doing here? are you just extracting the 100:31\npart from ${L3VPN_RD}. that\u0027s what it looks like.\n\nif that\u0027s the case, go write this in your Variables\nsection:\n\n${VRF_ID}    100:31\n${L3VPN_RD}    [\"${VRF_ID}\"]\n\nand remove these three noisy lines",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 43
+      },
+      "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98d4dece_518e0578",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T22:21:13Z",
+      "side": 1,
+      "message": "are you missing an \u0027e\u0027 here?",
+      "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da87a8fe_bf8a3a0b",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T22:21:13Z",
+      "side": 1,
+      "message": "put a space between the pipes so it\u0027s easier to read.\n\napplies elsewhere",
+      "range": {
+        "startLine": 113,
+        "startChar": 84,
+        "endLine": 113,
+        "endChar": 146
+      },
+      "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30569f9c_7ce04f7d",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T22:21:13Z",
+      "side": 1,
+      "message": "I saw this originally and thought it was some feature I \ndidn\u0027t know about (passing multiple items to the Should\nContain keyword), but I don\u0027t think it works. at least\nI tried this:\n\nShould Contain With Multiple Items\n    Should Contain    this is a random string    is    a    random\n    Should Contain    this is a random string    is    a    xxxxxx\n    Should Contain    this is a random string    is    x    random\n    Should Contain    this is a random string    xx    a    random\n\n\nThe 2nd step should fail, because xxxxxx is not in \"this is a random string\"\nbut the step that fails is only the last one.\n\ncan you double check this and change accordingly. it might apply elsewhere.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 116
+      },
+      "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02974348_dfb81cd8",
         "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
         "patchSetId": 13
@@ -58,6 +185,29 @@
         "startChar": 35,
         "endLine": 225,
         "endChar": 42
+      },
+      "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0661236_d6ffe4f6",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T22:21:13Z",
+      "side": 1,
+      "message": "use ${INTEGRATION_BRIDGE} wherever you need it and\ndelete this line.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 35
       },
       "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
