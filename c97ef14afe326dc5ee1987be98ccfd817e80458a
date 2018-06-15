@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4676e071_1d1a8b6f",
+        "filename": "csit/suites/openstack/securitygroup/Securitygroup_Broadcast.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T05:16:34Z",
+      "side": 1,
+      "message": "white spaces to be removed",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 4
+      },
+      "revId": "c97ef14afe326dc5ee1987be98ccfd817e80458a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
