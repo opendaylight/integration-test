@@ -55,13 +55,14 @@ Start Mininet Multiple Controllers
     SSHKeywords.Open_Connection_To_Tools_System    ip_address=${mininet}    timeout=${timeout}
     ${num_bridges}    SSHLibrary.Execute Command    sudo ovs-vsctl show | grep Bridge | wc -l
     ${num_bridges}=    Convert To Integer    ${num_bridges}
-    Log    Configure OVS controllers ${controller_opt} in all bridges
     ${bridges}=    Create List
     : FOR    ${i}    IN RANGE    1    ${num_bridges+1}
     \    ${bridge}=    SSHLibrary.Execute Command    sudo ovs-vsctl show | grep Bridge | cut -c 12- | sort | head -${i} | tail -1
+    \    SSHLibrary.Execute Command    sudo ovs-vsctl del-controller ${bridge} && sudo ovs-vsctl set bridge ${bridge} protocols=OpenFlow${ofversion}
     \    Collections.Append To List    ${bridges}    ${bridge}
+    Log    Configure OVS controllers ${controller_opt} in all bridges
     : FOR    ${bridge}    IN    @{bridges}
-    \    SSHLibrary.Execute Command    sudo ovs-vsctl set bridge ${bridge} protocols=OpenFlow${ofversion} && sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
+    \    SSHLibrary.Execute Command    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
     Log    Check OVS configuratiom
     ${output}=    SSHLibrary.Execute Command    sudo ovs-vsctl show
     Log    ${output}
