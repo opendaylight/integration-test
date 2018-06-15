@@ -2,6 +2,92 @@
   "comments": [
     {
       "key": {
+        "uuid": "01379b83_68bff5ca",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-15T00:35:22Z",
+      "side": 1,
+      "message": "what is the reason for commenting out this part? The current postplan script passes in the host:ip as a single string that needs to be split.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 3
+      },
+      "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70f27e1a_44dc60dc",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-15T00:35:22Z",
+      "side": 1,
+      "message": "Add a period for the first line comment.",
+      "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3978010_185feb4d",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-15T00:35:22Z",
+      "side": 1,
+      "message": "might as well move all this uppercase stuff to lowercase.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 8
+      },
+      "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3927e5b_ca5f6c5f",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-15T00:35:22Z",
+      "side": 1,
+      "message": "are these xml files guaranteed to be relatively small? I see the test file which is small. But this function reads the whole file into memory I believe so larger files might be problematic.",
+      "range": {
+        "startLine": 117,
+        "startChar": 14,
+        "endLine": 117,
+        "endChar": 19
+      },
+      "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c62d5a10_de7db9aa",
         "filename": "csit/scripts/push_to_elk.py",
         "patchSetId": 12
@@ -19,6 +105,23 @@
     },
     {
       "key": {
+        "uuid": "00694484_4ed66961",
+        "filename": "csit/scripts/testfiles/output.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-15T00:35:22Z",
+      "side": 1,
+      "message": "would be nice if you could leave this extension as .xml. I believe Daniel\u0027s comment was to name this file something like test_output.xml so that it would not match output.xml.",
+      "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea263cb3_e90a4086",
         "filename": "tox.ini",
         "patchSetId": 12
@@ -30,6 +133,46 @@
       "writtenOn": "2018-06-14T22:17:58Z",
       "side": 1,
       "message": "remove training space",
+      "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5fe1901_7327e7fb",
+        "filename": "tox.ini",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-15T00:35:22Z",
+      "side": 1,
+      "message": "put these in alpha order",
+      "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "750efbe5_50367dc1",
+        "filename": "tox.ini",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-15T00:35:22Z",
+      "side": 1,
+      "message": "is pyaml used?",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 9
+      },
       "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
