@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5bf5ccf6_f3ba9965",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 8162
+      },
+      "writtenOn": "2018-06-15T07:56:20Z",
+      "side": 1,
+      "message": "If I import with this part uncommented, the part somehow executes and errors out. As mentioned previously, I will write a new file which provide an interface to this file.",
+      "parentUuid": "01379b83_68bff5ca",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 3
+      },
+      "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70f27e1a_44dc60dc",
         "filename": "csit/scripts/push_to_elk.py",
         "patchSetId": 12
@@ -122,6 +146,24 @@
     },
     {
       "key": {
+        "uuid": "c2071c33_63ef85eb",
+        "filename": "csit/scripts/testfiles/output.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8162
+      },
+      "writtenOn": "2018-06-15T07:56:20Z",
+      "side": 1,
+      "message": "The problem is that git does not allow adding files with \".xml\" extensions. It is being enforced in \".gitignore\" file. So I guess this is what we can do at most.",
+      "parentUuid": "00694484_4ed66961",
+      "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea263cb3_e90a4086",
         "filename": "tox.ini",
         "patchSetId": 12
@@ -167,6 +209,30 @@
       "writtenOn": "2018-06-15T00:35:22Z",
       "side": 1,
       "message": "is pyaml used?",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 9
+      },
+      "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "720e4034_1e5c2cee",
+        "filename": "tox.ini",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8162
+      },
+      "writtenOn": "2018-06-15T07:56:20Z",
+      "side": 1,
+      "message": "It is being used in push_to_elk.py, to load some yaml from the dashboard.",
+      "parentUuid": "750efbe5_50367dc1",
       "range": {
         "startLine": 35,
         "startChar": 4,
