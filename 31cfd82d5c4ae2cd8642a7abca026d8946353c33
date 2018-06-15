@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f562d4c3_9400d5bf",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "hope you wont push this.",
+      "range": {
+        "startLine": 1008,
+        "startChar": 4,
+        "endLine": 1008,
+        "endChar": 86
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a74a8399_c7e0c07f",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "please remove this if not using",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b89bc3e1_dd887bd1",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "alphabetical order preferred",
+      "range": {
+        "startLine": 12,
+        "startChar": 40,
+        "endLine": 20,
+        "endChar": 63
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cce7b721_478e1eda",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "make it unique, either upper case or lower case",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 5
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0165ff03_ce00c07a",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "should be lower case ; also prefixed with suite info for ex: traffic_net1_vm1. applicable for all the remaining variables",
+      "range": {
+        "startLine": 33,
+        "startChar": 20,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2926094a_c6376b24",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "keep this with the other similar variables.. eg; number of nets",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d53d417_09261a6c",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "use ${INTEGRATION_BRIDGE} from netvirt/Variables.robot",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 20
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88f63072_49ca3045",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "make a detailed documentation, or remove it since it is same as the testcase name",
+      "range": {
+        "startLine": 52,
+        "startChar": 11,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "382be801_6e907d11",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "remove this log statement. seems to be meaningless",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bc26693_97d21d56",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "remove sleep",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 17
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18a9d7a5_334fb6a1",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "use the Bet Vm Ip address keyword availabe in Openstack operations.robot file",
+      "range": {
+        "startLine": 56,
+        "startChar": 46,
+        "endLine": 58,
+        "endChar": 66
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f93c7f6_436003fe",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "remove commented code",
+      "range": {
+        "startLine": 69,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 14
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55c469a3_e849e3ed",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "sleep needs be removed",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 16
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8374b3a3_8fec3ba2",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "OpenstackOperations.",
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ff6fa3a_d29eb51b",
+        "filename": "csit/suites/netvirt/ACL_Enhancements/BasicTrafficTest/TrafficTest.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T06:01:59Z",
+      "side": 1,
+      "message": "use the keyword already available in OpenstackOperations.robot",
+      "range": {
+        "startLine": 751,
+        "startChar": 0,
+        "endLine": 758,
+        "endChar": 23
+      },
+      "revId": "31cfd82d5c4ae2cd8642a7abca026d8946353c33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
