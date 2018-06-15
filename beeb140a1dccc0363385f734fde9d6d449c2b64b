@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7123f67_2d078c72",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T21:16:21Z",
+      "side": 1,
+      "message": "whoops, we want this before the \"Should Not Contain\"\n\nin robot, when something fails, the rest of that keyword\u0027s\nlogic is skipped. So, in the case that the Should Not\nContain fails, when you most likely would want to see\nthe ${return} in the logs, you wouldn\u0027t. just put it before.",
+      "range": {
+        "startLine": 212,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 20
+      },
+      "revId": "beeb140a1dccc0363385f734fde9d6d449c2b64b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98acda60_6032190f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T21:16:21Z",
+      "side": 1,
+      "message": "change this to:\n\n  \"tunnel-interface-names\" in \"${resp.conent}\"\n\nand delete line 282\n\nshould give you the same logic and reads a little more \nclear and simple to me.\n\nbut, even if you like the current two lines, you\nneed to add BuiltIn.Should Contain to line 282 (not the\nupper case \u0027C\u0027)",
+      "range": {
+        "startLine": 283,
+        "startChar": 45,
+        "endLine": 283,
+        "endChar": 79
+      },
+      "revId": "beeb140a1dccc0363385f734fde9d6d449c2b64b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb0ff43f_5e86766f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T21:16:21Z",
+      "side": 1,
+      "message": "replace these two lines with:\n\nVerify Tunnel Delete on DS    tun\n\n\nbasically this keyword ends up being a special case wrapper\nfor your more general keyword.",
+      "range": {
+        "startLine": 294,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 50
+      },
+      "revId": "beeb140a1dccc0363385f734fde9d6d449c2b64b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
