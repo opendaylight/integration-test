@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e10fceff_4990f6c6",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T19:40:11Z",
+      "side": 1,
+      "message": "change to this:\n\nRun Keywords    OpenStackOperatoins.OpenStack Suite Teardown\n...    AND    SetupUtils.Setup_Logging_For_Debug_Purposes_On_List_Or_All    INFO    ${TEST_LOG_COMPONENTS}\n\nWe need to make sure we don\u0027t accidentally leave TRACE\ndebugging on for suites that may follow this one.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 62
+      },
+      "revId": "13166276ae4e3143c43098904d7532b3d14ed952",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f8df561_82f9074c",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T19:40:11Z",
+      "side": 1,
+      "message": "whichever of these test cases will hit \"NETVIRT-1277\"\nplease add a [Tag] to it with that string",
+      "revId": "13166276ae4e3143c43098904d7532b3d14ed952",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "032264d5_30e4a0e6",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T19:40:11Z",
+      "side": 1,
+      "message": "unless you have some bigger plans for Kwargs, I\nthink you should make this ${port_mac}\u003d\"\"\n\nso, that will default to an empty string if nothing\nis passed.\n\nbelow in the grep, if you use that empty string it\nwill match every line and give you what you want\n(I tested locally).\n\nthat allows you to remove all the extra conditional\nlogic that makes this a little noisy to read (imho).\n\nso, looking at below code, you would have line 86 only\nbut add the \"| wc -l\" to it. then remove lines 87-88.\n\nsame logic will work for the keyword on line 95 as well.",
+      "range": {
+        "startLine": 81,
+        "startChar": 55,
+        "endLine": 81,
+        "endChar": 64
+      },
+      "revId": "13166276ae4e3143c43098904d7532b3d14ed952",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "689c42ad_fe6d0560",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-15T19:40:11Z",
+      "side": 1,
+      "message": "change this keyword name and docs to better reflect what\u0027s\ngoing on here. maybe a good name is \"Verify Flow Counts Are Same\" and include something about what the port_mac is \nused for in the documentation. Hard for me to figure out\nand obviously it\u0027s an important piece.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 97
+      },
+      "revId": "13166276ae4e3143c43098904d7532b3d14ed952",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
