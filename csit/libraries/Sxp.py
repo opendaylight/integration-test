@@ -963,7 +963,6 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bi
     <version>$version</version>
     <description>ODL SXP Controller</description>
     <source-ip>$ip</source-ip>
-    <master-database></master-database>
 </input>''')
     data = templ.substitute(
         {'ip': node_ip or node_id, 'id': node_id, 'port': port, 'password': password,
