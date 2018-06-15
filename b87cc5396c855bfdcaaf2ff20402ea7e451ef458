@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "092144a8_a19d4306",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-06-15T15:22:46Z",
+      "side": 1,
+      "message": "I guess you will need that in the patch to al least verify the push_to_elastic functionality in sandbox.",
+      "parentUuid": "5bf5ccf6_f3ba9965",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 3
+      },
+      "revId": "b87cc5396c855bfdcaaf2ff20402ea7e451ef458",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70f27e1a_44dc60dc",
         "filename": "csit/scripts/push_to_elk.py",
         "patchSetId": 12
