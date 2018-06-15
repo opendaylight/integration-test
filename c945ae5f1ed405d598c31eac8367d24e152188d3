@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75c7c932_2afcf2f9",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T09:48:26Z",
+      "side": 1,
+      "message": "we can use either of one ${DEFAULT_NETVIRT_BRIDGE} from variables.robot   br-int or the one declared here",
+      "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7c83912_12f7faec",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T09:48:26Z",
+      "side": 1,
+      "message": "white space need to be removed",
+      "range": {
+        "startLine": 50,
+        "startChar": 40,
+        "endLine": 50,
+        "endChar": 41
+      },
+      "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02974348_dfb81cd8",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-06-15T09:48:26Z",
+      "side": 1,
+      "message": "remove white space",
+      "range": {
+        "startLine": 225,
+        "startChar": 35,
+        "endLine": 225,
+        "endChar": 42
+      },
+      "revId": "c945ae5f1ed405d598c31eac8367d24e152188d3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
