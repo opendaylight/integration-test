@@ -85,6 +85,29 @@
       "revId": "13166276ae4e3143c43098904d7532b3d14ed952",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c5811a6_fd19edb3",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-16T16:01:59Z",
+      "side": 1,
+      "message": "I think you accidentally removed this.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 31
+      },
+      "revId": "13166276ae4e3143c43098904d7532b3d14ed952",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
