@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47ba946a_fabf7717",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:34:12Z",
+      "side": 1,
+      "message": "Utils.Write...",
+      "range": {
+        "startLine": 216,
+        "startChar": 19,
+        "endLine": 216,
+        "endChar": 24
+      },
+      "revId": "7b72f80f07ccc2a4fdbe873c107fed7df0c02564",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34e841bd_6a602d80",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:34:12Z",
+      "side": 1,
+      "message": "String.Split String",
+      "range": {
+        "startLine": 217,
+        "startChar": 17,
+        "endLine": 217,
+        "endChar": 29
+      },
+      "revId": "7b72f80f07ccc2a4fdbe873c107fed7df0c02564",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a014387f_621d3bd6",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:34:12Z",
+      "side": 1,
+      "message": "BuiltIn.Set Variable\nis this even needed? just use return @{list}[0]",
+      "range": {
+        "startLine": 218,
+        "startChar": 18,
+        "endLine": 218,
+        "endChar": 30
+      },
+      "revId": "7b72f80f07ccc2a4fdbe873c107fed7df0c02564",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a2974a1_4ba38963",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:34:12Z",
+      "side": 1,
+      "message": "why is this even needed? default log level is already INFO.",
+      "range": {
+        "startLine": 9,
+        "startChar": 36,
+        "endLine": 9,
+        "endChar": 83
+      },
+      "revId": "7b72f80f07ccc2a4fdbe873c107fed7df0c02564",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
