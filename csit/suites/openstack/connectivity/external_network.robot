@@ -143,8 +143,7 @@ Ping Vm Instance2 Floating IP From Vm Instance1 With Floating IP (Hairpinning)
 
 Connectivity Tests To Vm Instance2 Floating IP From Vm Instance3 With Floating IP (FIP-FIP in the same compute node)
     [Documentation]    Check reachability of VM instance floating IP from another VM instance with FIP (FIP-FIP in the same compute node)
-    # pass this test until ovs 2.9 is ready
-    BuiltIn.Pass Execution
+    BuiltIn.Pass Execution    pass this test until ovs 2.9 is ready
     ${dst_ip} =    BuiltIn.Create List    @{VM_FLOATING_IPS}[1]
     OpenStackOperations.Test Netcat Operations From Vm Instance    @{NETWORKS}[0]    @{NET1_FIP_VM_IPS}[2]    ${dst_ip}
 
