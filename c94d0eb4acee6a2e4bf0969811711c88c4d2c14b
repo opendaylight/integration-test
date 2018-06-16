@@ -1,0 +1,250 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8340fd2a_e7ab0836",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "network",
+      "range": {
+        "startLine": 1091,
+        "startChar": 31,
+        "endLine": 1091,
+        "endChar": 38
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83f78ca2_6e812c12",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "this and conn_id should not be needed. The openstack cli is a local cli application and not an ssh driven command.",
+      "range": {
+        "startLine": 1092,
+        "startChar": 4,
+        "endLine": 1092,
+        "endChar": 14
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b344447b_58b70d61",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "String.",
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e7b0da0_eb92244b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "BuiltIn.\nprobablt don\u0027t need this and can simply return @{list}[0]",
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e120df0_8b85bc0f",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "are these two statements needed? Typically we don\u0027t log at the beginning of the tests since we always log at the end of the test. These two statements will cause a redundant log.",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61bf69cd_7f7308ac",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "move up",
+      "range": {
+        "startLine": 24,
+        "startChar": 37,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0100c6de_bac2c6d1",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "this seems more readable as two constants rather than a list",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 11
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f34bdf5_c3a3a495",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "move all the constants to uppercase. Follow naming conventions in the other suites, like uppercase NETWORKS, SUBNETS. No need to include VNI_ in the name.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 14
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd74f10d_67094732",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "use a different range as 81. is used by elan.robot already",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 25
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ae02520_6beaf0a6",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "fully qualify all keywords, Utils.",
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fdd44d9_c511e2b0",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "fully qualify all keywords, String.",
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40721674_2d0c5291",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T16:47:55Z",
+      "side": 1,
+      "message": "I prefer this as an initial test case. Rename this keyword and then create a test case that calls this keyword.",
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
