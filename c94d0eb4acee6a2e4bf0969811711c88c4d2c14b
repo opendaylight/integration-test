@@ -263,6 +263,24 @@
       "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dbafdf2_123ff14b",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-16T17:51:44Z",
+      "side": 1,
+      "message": "good point. My goal was to keep the suites all consistent so it is easier to follow the suites.\n\nWe have the cleanup end of suite, so guess it makes sense to have a similar setup. Would be nice to have a keyword that takes a list of resources and then creates them for the suite. Not needed for this review, but I think that would be best long-term. I started patch like that a few months ago.\n\nCould also use ExitOnFailure and that will exit on a test failure, though that will punt on any failure. Or could use \"Run Keyword if  \u0027${PREV TEST STATUS}\u0027\u003d\u003d\u0027FAILED\u0027\"    Fail\" and that will punt the subsequent test.",
+      "parentUuid": "515dfe6c_6a600e18",
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
