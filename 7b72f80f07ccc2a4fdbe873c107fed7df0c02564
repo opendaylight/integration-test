@@ -91,6 +91,30 @@
       "revId": "7b72f80f07ccc2a4fdbe873c107fed7df0c02564",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89f8f0e0_e7874f52",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-16T16:41:12Z",
+      "side": 1,
+      "message": "line 107 in suite setup is turning it up to TRACE\n\nI asked for this here:\n  https://git.opendaylight.org/gerrit/#/c/72510/8/csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot@8",
+      "parentUuid": "1a2974a1_4ba38963",
+      "range": {
+        "startLine": 9,
+        "startChar": 36,
+        "endLine": 9,
+        "endChar": 83
+      },
+      "revId": "7b72f80f07ccc2a4fdbe873c107fed7df0c02564",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
