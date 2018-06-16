@@ -245,6 +245,24 @@
       "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "515dfe6c_6a600e18",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-16T17:14:35Z",
+      "side": 1,
+      "message": "can I disagree here?\n\nif we do this basic stuff in the suite setup and it fails, robot will skip running the rest of the test cases which\nare doomed to fail anyway. And, as they are failing they\nlikely end up doing the full polling time on any WUKS. This\nis the kind of thing that eats up lots of time in our jobs\nand sometimes it\u0027s so bad that we hit the 6 hour job time\nlimit and we lose logs when jenkins kills it...",
+      "parentUuid": "40721674_2d0c5291",
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
