@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aacde14b_24905a76",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-18T18:57:31Z",
+      "side": 1,
+      "message": "the term \"keyword\" here confused me as I was thinking you\nwere trying to parse robot suites looking for robot\nkeywords. Would it make more sense to use \"String\".",
+      "range": {
+        "startLine": 113,
+        "startChar": 97,
+        "endLine": 113,
+        "endChar": 104
+      },
+      "revId": "cf781a436dfc0d2bb507be2f4bf70bec762718ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92ae04c7_e69d6245",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-18T18:57:31Z",
+      "side": 1,
+      "message": "if you wanted to, you could use the robot grep and do\nsomething like:\n\n${matches} \u003d    Grep File    ${file_name}    ${string}\n${count} \u003d    Get Line Count    ${matches}",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 52
+      },
+      "revId": "cf781a436dfc0d2bb507be2f4bf70bec762718ae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
