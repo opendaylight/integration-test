@@ -32,10 +32,10 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Force Tags        critical
 Library           SSHLibrary    timeout=10s
+Library           OperatingSystem
 Library           RequestsLibrary
+Library           String
 Resource          ../../../libraries/BGPcliKeywords.robot
-Resource          ../../../libraries/BGPSpeaker.robot
-Resource          ../../../libraries/FailFast.robot
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/KillPythonTool.robot
 Resource          ../../../libraries/PrefixCounting.robot
@@ -93,15 +93,15 @@ Reconfigure_ODL_To_Accept_BGP_Application_Peer
 Connect_BGP_Peer
     [Documentation]    Start BGP peer tool
     SSHLibrary.Switch Connection    bgp_peer_console
-    Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
+    BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
+    BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
 
 BGP_Application_Peer_Prefill_Routes
     [Documentation]    Start BGP application peer tool and prefill routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    Start_Console_Tool    ${BGP_APP_PEER_INITIAL_COMMAND} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
-    Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
-    Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_prefill.log
+    BGPcliKeywords.Start_Console_Tool    ${BGP_APP_PEER_INITIAL_COMMAND} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    BGPcliKeywords.Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
+    BGPcliKeywords.Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_prefill.log
 
 Wait_For_Ipv4_Topology_Is_Prefilled
     [Documentation]    Wait until example-ipv4-topology reaches the target prfix count.
@@ -110,14 +110,15 @@ Wait_For_Ipv4_Topology_Is_Prefilled
 Check_Bgp_Peer_Updates_For_Prefilled_Routes
     [Documentation]    Count the routes introduced by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_nlri_prefix_counter: ${PREFILL}    2
+    ${count}    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_For_Keyword_In_File    bgp_peer.log    total_received_nlri_prefix_counter: ${PREFILL}
+    BuiltIn.Log    ${count}
 
 BGP_Application_Peer_Introduce_Single_Routes
     [Documentation]    Start BGP application peer tool and introduce routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    Start_Console_Tool    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
-    Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
-    Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_singles.log
+    BGPcliKeywords.Start_Console_Tool    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    BGPcliKeywords.Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
+    BGPcliKeywords.Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_singles.log
 
 Wait_For_Ipv4_Topology_Is_Filled
     [Documentation]    Wait until example-ipv4-topology reaches the target prfix count.
@@ -126,31 +127,31 @@ Wait_For_Ipv4_Topology_Is_Filled
 Check_Bgp_Peer_Updates_For_All_Routes
     [Documentation]    Count the routes introduced by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}    2
+    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_For_Keyword_In_File    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}
 
 Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer tool
     SSHLibrary.Switch Connection    bgp_peer_console
-    Stop_Console_Tool
-    Store_File_To_Workspace    bgp_peer.log    bgp_peer_reconnect.log
+    BGPcliKeywords.Stop_Console_Tool
+    BGPcliKeywords.Store_File_To_Workspace    bgp_peer.log    bgp_peer_reconnect.log
 
 Reconnect_BGP_Peer
     [Documentation]    Start BGP peer tool
     SSHLibrary.Switch Connection    bgp_peer_console
-    Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
+    BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
+    BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
 
 Check_Bgp_Peer_Updates_For_Reintroduced_Routes
     [Documentation]    Count the routes introduced by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}    2
+    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_For_Keyword_In_File    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}
 
 BGP_Application_Peer_Delete_All_Routes
     [Documentation]    Start BGP application peer tool and delete all routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} --stream=${ODL_STREAM} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
-    Wait_Until_Console_Tool_Finish    ${bgp_emptying_timeout}
-    Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_delete_all.log
+    BGPcliKeywords.Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} --stream=${ODL_STREAM} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
+    BGPcliKeywords.Wait_Until_Console_Tool_Finish    ${bgp_emptying_timeout}
+    BGPcliKeywords.Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_delete_all.log
 
 Wait_For_Stable_Topology_After_Deletion
     [Documentation]    Wait until example-ipv4-topology becomes stable again.
@@ -163,13 +164,13 @@ Check_For_Empty_Ipv4_Topology_After_Deleting
 Check_Bgp_Peer_Updates_For_Prefix_Withdrawals
     [Documentation]    Count the routes withdrawn by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-    BuiltIn.Wait Until Keyword Succeeds    ${bgp_emptying_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_withdrawn_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}    2
+    BuiltIn.Wait Until Keyword Succeeds    ${bgp_emptying_timeout}    1s    Check_For_Keyword_In_File    bgp_peer.log    total_received_withdrawn_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}
 
 Stop_BGP_Peer
     [Documentation]    Stop BGP peer tool
     SSHLibrary.Switch Connection    bgp_peer_console
-    Stop_Console_Tool
-    Store_File_To_Workspace    bgp_peer.log    bgp_peer_reconnect.log
+    BGPcliKeywords.Stop_Console_Tool
+    BGPcliKeywords.Store_File_To_Workspace    bgp_peer.log    bgp_peer_reconnect.log
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
@@ -180,10 +181,6 @@ Delete_Bgp_Application_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer-app    IP=${BGP_APP_PEER_ID}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_application_peer    mapping=${mapping}
-
-Check_Bug_4791
-    [Documentation]    Check controller's log for errors
-    Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    Failed to send message Update
 
 *** Keywords ***
 Setup_Everything
@@ -235,3 +232,10 @@ Open_BGP_Aplicationp_Peer_Console
     [Documentation]    Create a session for BGP peer.
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=bgp_app_peer_console
     SSHKeywords.Flexible_Mininet_Login
+
+Check_For_Keyword_In_File
+    [Arguments]    ${file_name}    ${string}    ${threshold}=2
+    [Documentation]    Check file for ${string} and returns number of occurences
+    ${matches} =    OperatingSystem.Grep_File    ${file_name}    ${string}
+    ${count} =    String.Get_Line_Count    ${matches}
+    BuiltIn.Should_Be_True    ${count} >= ${threshold}
