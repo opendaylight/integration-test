@@ -2,6 +2,63 @@
   "comments": [
     {
       "key": {
+        "uuid": "8f75f42d_60f432a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-18T12:04:59Z",
+      "side": 1,
+      "message": "For what? More descriptive",
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27a9e09f_c554cb73",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-18T12:04:59Z",
+      "side": 1,
+      "message": "The changes to this file aren\u0027t related to adding unit tests, are they? Should split into logically coherent, atomic changes.",
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4ba35ba_ca57de20",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-18T12:04:59Z",
+      "side": 1,
+      "message": "This renaming should be done in a distinct patch, just clutters this changeset",
+      "range": {
+        "startLine": 15,
+        "startChar": 50,
+        "endLine": 15,
+        "endChar": 54
+      },
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "826b457f_7db993a9",
         "filename": "csit/scripts/test_push_to_elk.py",
         "patchSetId": 14
@@ -66,6 +123,70 @@
         "startChar": 21,
         "endLine": 30,
         "endChar": 50
+      },
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9e64587_54e7cbcd",
+        "filename": "csit/scripts/test_push_to_elk.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-18T12:04:59Z",
+      "side": 1,
+      "message": "Any reason to not import it with the rest of the imports?",
+      "parentUuid": "d2625cf6_e774e03e",
+      "range": {
+        "startLine": 30,
+        "startChar": 21,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e53598e_a3ba45e6",
+        "filename": "csit/scripts/testfiles/output.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-18T12:04:59Z",
+      "side": 1,
+      "message": "Run this through a formatter. Also, this is XML - why .txt extension?",
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b708909_a6dca684",
+        "filename": "tox.ini",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-18T12:04:59Z",
+      "side": 1,
+      "message": "Make this more descriptive, like \u003cwhatever these test\u003e_unittests",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 18
       },
       "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
