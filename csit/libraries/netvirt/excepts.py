@@ -101,6 +101,20 @@ _whitelist = [
          "ConflictingModificationAppliedException: Node children was modified by other transaction",
          "Direct Exception (not failed Future) when executing job, won't even retry: JobEntry{key='VPNINTERFACE-"
      ]},
+    {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1304",
+     "id": "ModifiedNodeDoesNotExistException",
+     "context": [
+         "ModifiedNodeDoesNotExistException",
+         "Data validation failed for path /(urn:opendaylight:netvirt:fibmanager?revision=2015-03-30)fibEntries/" +
+         "vrfTables/vrfTables[{(urn:opendaylight:netvirt:fibmanager?revision=2015-03-30)routeDistinguisher="
+     ]},
+    {"issue": "https://jira.opendaylight.org/browse/NETVIRT-1304",
+     "id": "TransactionCommitFailedException",
+     "context": [
+         "TransactionCommitFailedException",
+         "Data validation failed for path /(urn:opendaylight:netvirt:fibmanager?revision=2015-03-30)fibEntries/" +
+         "vrfTables/vrfTables[{(urn:opendaylight:netvirt:fibmanager?revision=2015-03-30)routeDistinguisher="
+     ]},
     {"issue": "https://jira.opendaylight.org/browse/NEUTRON-157",
      "id": "ConflictingModificationAppliedException",
      "context": [
