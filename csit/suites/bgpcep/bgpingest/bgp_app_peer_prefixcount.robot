@@ -110,7 +110,8 @@ Wait_For_Ipv4_Topology_Is_Prefilled
 Check_Bgp_Peer_Updates_For_Prefilled_Routes
     [Documentation]    Count the routes introduced by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_nlri_prefix_counter: ${PREFILL}    2
+    ${count}    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    BGPcliKeywords.Check_File_For_Occurence    bgp_peer.log    total_received_nlri_prefix_counter: ${PREFILL}
+    BuiltIn.Log    ${count}
 
 BGP_Application_Peer_Introduce_Single_Routes
     [Documentation]    Start BGP application peer tool and introduce routes.
@@ -126,7 +127,8 @@ Wait_For_Ipv4_Topology_Is_Filled
 Check_Bgp_Peer_Updates_For_All_Routes
     [Documentation]    Count the routes introduced by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}    2
+    ${count}    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    BGPcliKeywords.Check_File_For_Occurence    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}
+    BuiltIn.Log    ${count}
 
 Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer tool
@@ -143,7 +145,8 @@ Reconnect_BGP_Peer
 Check_Bgp_Peer_Updates_For_Reintroduced_Routes
     [Documentation]    Count the routes introduced by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}    2
+    ${count}    BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    BGPcliKeywords.Check_File_For_Occurence    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}
+    BuiltIn.Log    ${count}
 
 BGP_Application_Peer_Delete_All_Routes
     [Documentation]    Start BGP application peer tool and delete all routes.
@@ -163,7 +166,8 @@ Check_For_Empty_Ipv4_Topology_After_Deleting
 Check_Bgp_Peer_Updates_For_Prefix_Withdrawals
     [Documentation]    Count the routes withdrawn by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-    BuiltIn.Wait Until Keyword Succeeds    ${bgp_emptying_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_withdrawn_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}    2
+    ${count}    BuiltIn.Wait Until Keyword Succeeds    ${bgp_emptying_timeout}    1s    BGPcliKeywords.Check_File_For_Occurence    bgp_peer.log    total_received_withdrawn_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}
+    BuiltIn.Log    ${count}
 
 Stop_BGP_Peer
     [Documentation]    Stop BGP peer tool
