@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "dede5f61_d9c512aa",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8162
+      },
+      "writtenOn": "2018-06-18T14:33:00Z",
+      "side": 1,
+      "message": "The changes here mostly modularize the script. If I don\u0027t convert to functions, I am not sure how to call and test a certain part of a script.\n\nI will push the renaming part as a new patch.",
+      "parentUuid": "27a9e09f_c554cb73",
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4ba35ba_ca57de20",
         "filename": "csit/scripts/push_to_elk.py",
         "patchSetId": 14
@@ -165,6 +183,24 @@
       "writtenOn": "2018-06-18T12:04:59Z",
       "side": 1,
       "message": "Run this through a formatter. Also, this is XML - why .txt extension?",
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54734c56_b2c009e6",
+        "filename": "csit/scripts/testfiles/output.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8162
+      },
+      "writtenOn": "2018-06-18T14:33:00Z",
+      "side": 1,
+      "message": "As discussed the other day, Git did not allow, pushing XML files.",
+      "parentUuid": "9e53598e_a3ba45e6",
       "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
