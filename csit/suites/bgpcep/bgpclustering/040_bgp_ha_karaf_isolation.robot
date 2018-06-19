@@ -10,8 +10,9 @@ Documentation     BGP functional HA testing with one exabgp peer.
 ...               This suite uses exabgp. It is configured to have 3 peers (all 3 nodes of odl).
 ...               Bgp implemented with singleton accepts only one incomming conection. Exabgp
 ...               logs will show that one peer will be connected and two will fail.
-...               After killing karaf which owned connection new owner should be elected and
+...               After isolating karaf which owned connection, new owner should be elected and
 ...               this new owner should accept incomming bgp connection.
+...               TODO: Add similar keywords from all bgpclustering-ha tests into same libraries
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -37,12 +38,12 @@ ${RIB_INSTANCE}    example-bgp-rib
 *** Test Cases ***
 Get_Example_Bgp_Rib_Owner
     [Documentation]    Find an odl node which is able to accept incomming connection.
-    ${rib_owner}    ${rib_candidates}=    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Get_Owner_And_Successors_For_Device    example-bgp-rib
-    ...    org.opendaylight.mdsal.ServiceEntityType    1
+    ${rib_owner}    ${rib_candidates}=    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ClusterManagement.Get_Owner_And_Successors_For_Device    example-bgp-rib
+    ...    Bgpcep    1
     BuiltIn.Set Suite variable    ${rib_owner}
     BuiltIn.Log    ${ODL_SYSTEM_${rib_owner}_IP}
     BuiltIn.Set Suite variable    ${rib_candidates}
-    ${session}=    Resolve_Http_Session_For_Member    member_index=${rib_owner}
+    ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${rib_owner}
     BuiltIn.Set_Suite_Variable    ${living_session}    ${session}
     BuiltIn.Set_Suite_Variable    ${living_node}    ${rib_owner}
 
@@ -56,11 +57,11 @@ Reconfigure_ODL_To_Accept_Connection
 Start_ExaBgp_Peer
     [Documentation]    Starts exabgp
     SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
-    BGPcliKeywords.Start_Console_Tool    ${EXA_CMD}    ${DEFAULT_EXA_CFG}
+    BGPcliKeywords.Start_Console_Tool    ${EXA_CMD}    ${DEFAULT_EXA_CFG} > exa_ha_isolation.log 2>&1
 
 Verify_ExaBgp_Connected
     [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Isolate_Current_Owner_Member
     [Documentation]    Isolating cluster node which is connected with exabgp.
@@ -74,11 +75,11 @@ Isolate_Current_Owner_Member
 
 Verify_New_Rib_Owner
     [Documentation]    Verifies if new owner of example-bgp-rib is elected.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_New_Rib_Owner_Elected    ${old_rib_owner}    ${living_node}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    Verify_New_Rib_Owner_Elected    ${old_rib_owner}    ${living_node}
 
 Verify_ExaBgp_Reconnected
     [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Rejoin_Isolated_Member
     [Documentation]    Rejoin isolated node
@@ -90,11 +91,12 @@ Verify_New_Candidate
 
 Verify_ExaBgp_Still_Connected
     [Documentation]    Verifies exabgp's presence in operational ds
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    5s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Stop_ExaBgp_Peer
-    [Documentation]    Stops exabgp
+    [Documentation]    Stops exabgp tool by sending ctrl+c
     BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
+    BGPcliKeywords.Store_File_To_Workspace    exa_ha_isolation.log    exa_ha_isolation.log
     SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
 
 Delete_Bgp_Peer_Configuration
@@ -123,11 +125,11 @@ Teardown_Everything
 Verify_New_Rib_Owner_Elected
     [Arguments]    ${old_owner}    ${node_to_ask}
     [Documentation]    Verifies new owner was elected
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    Bgpcep    ${node_to_ask}
     BuiltIn.Should_Not_Be_Equal    ${old_owner}    ${owner}
 
 Verify_New_Rib_Candidate_Present
     [Arguments]    ${candidate}    ${node_to_ask}
     [Documentation]    Verifies candidate's presence.
-    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    ${node_to_ask}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    Bgpcep    ${node_to_ask}
     BuiltIn.Should_Contain    ${candidates}    ${candidate}
