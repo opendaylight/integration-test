@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9020d82_fef7ce00",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-19T00:10:39Z",
+      "side": 0,
+      "message": "this was not even working like this. not sure what\u0027s\nwrong with the tests that this could be broken but we\nhave no failures showing up:\n\nhttps://logs.opendaylight.org/releng/vex-yul-odl-jenkins-1/netvirt-csit-1node-openstack-queens-upstream-stateful-fluorine/685/robot-plugin/log_07_vpn_basic.html.gz#s1-t8-k4-k1-k4",
+      "range": {
+        "startLine": 190,
+        "startChar": 19,
+        "endLine": 190,
+        "endChar": 74
+      },
+      "revId": "a920a8f0bd691566a044044d7bca66da0d5fe3d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
