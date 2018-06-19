@@ -64,9 +64,6 @@ ${HOLDTIME}       180
 ${HOLDTIME_CHANGE_COUNT}    ${HOLDTIME}
 ${HOLDTIME_CHANGE_COUNT_SINGLE}    ${HOLDTIME_CHANGE_COUNT}
 ${INSERT}         1
-${KARAF_LOG_LEVEL}    INFO
-${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
-${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
 ${PREFILL}        0
 ${REPETITIONS}    1
 ${REPETITIONS_CHANGE_COUNT}    ${REPETITIONS}
@@ -104,10 +101,6 @@ Reconfigure_Data_Change_Counter
 Verify_Data_Change_Counter_Ready
     [Documentation]    Data change counter might have been slower to start than ipv4 topology, wait for it.
     BuiltIn.Wait_Until_Keyword_Succeeds    5s    1s    ChangeCounter.Get_Change_Count
-
-Change_Karaf_Logging_Levels
-    [Documentation]    We may want to set more verbose logging here after configuration is done.
-    KarafKeywords.Set_Bgpcep_Log_Levels    bgpcep_level=${KARAF_BGPCEP_LOG_LEVEL}    protocol_level=${KARAF_PROTOCOL_LOG_LEVEL}
 
 Start_Talking_BGP_Speaker
     [Documentation]    Start Python speaker to connect to ODL.
@@ -204,10 +197,6 @@ Check_For_Empty_Ipv4_Topology_After_Listening
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
-Restore_Karaf_Logging_Levels
-    [Documentation]    Set logging on bgpcep and protocol to the global value.
-    KarafKeywords.Set_Bgpcep_Log_Levels    bgpcep_level=${KARAF_LOG_LEVEL}    protocol_level=${KARAF_LOG_LEVEL}
-
 Restore_Data_Change_Counter_Configuration
     [Documentation]    Configure data change counter back to count transactions affecting example-linkstate-topology.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -242,7 +231,6 @@ Setup_Everything
     ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT_SINGLE} * (${COUNT_CHANGE_COUNT_SINGLE} * 9.0 / 10000 + 20)
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${bgp_filling_timeout*3.0/4}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
