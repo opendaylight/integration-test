@@ -426,9 +426,10 @@ Get Tunnel Id And Packet Count
     ${full_cmd} =    BuiltIn.Run Keyword If    "${direction}" == "Egress"    BuiltIn.Catenate    ${base_cmd}    | grep ${dst_mac} | awk '{split($7,a,"[:-]"); print a[2]}'
     ...    ELSE    BuiltIn.Catenate    ${base_cmd} | awk '{split($6,a,"[,=]"); {print a[4]}}'
     SSHLibrary.Switch Connection    ${conn_id}
+    Utils.Write Commands Until Expected Prompt    ${base_cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
     ${output} =    Utils.Write Commands Until Expected Prompt    ${full_cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
     @{list} =    String.Split String    ${output}
-    ${output} =    Set Variable    @{list}[0]
+    ${output} =    Set Variable    ${list[0]}
     ${tunnel_id} =    Convert To Integer    ${output}    16
     ${full_cmd} =    BuiltIn.Run Keyword If    "${direction}" == "Egress"    BuiltIn.Catenate    ${base_cmd}    | grep ${dst_mac} | awk '{split($4,a,"[=,]"); {print a[2]}}'
     ...    ELSE    BuiltIn.Catenate    ${base_cmd} | awk '{split($4,a,"[=,]"); {print a[2]}}'
