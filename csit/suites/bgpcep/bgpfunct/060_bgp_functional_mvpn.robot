@@ -11,6 +11,8 @@ Documentation     Functional test for bgp - mvpn
 ...               and particular files are stored as *.hex files. There are 7 different
 ...               types of routes used for auto-discovery of multicast network. Also 4 more routes
 ...               with new attributes specific for mvpn.
+...               L3vpn-mcast routes are also tested in this suite, because they do complement
+...               mvpn funcitonality. Both ipv4 and ipv6 are checked.
 Suite Setup       Start_Suite
 Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -20,7 +22,6 @@ Library           String
 Library           ../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ../../../libraries/BGPcliKeywords.robot
 Resource          ../../../libraries/BGPSpeaker.robot
-Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
@@ -28,8 +29,6 @@ Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${HOLDTIME}       180
-${APP_PEER_NAME}    example-bgp-peer-app
-${BGP_DIR}        ${CURDIR}/../../../variables/bgpfunctional
 ${CONFIG_SESSION}    config-session
 ${MVPN_DIR}       ${CURDIR}/../../../variables/bgpfunctional/mvpn
 ${PLAY_SCRIPT}    ${CURDIR}/../../../../tools/fastbgp/play.py
@@ -144,6 +143,22 @@ Play_To_Odl_intra_source_as_4
     [Template]    Play_To_Odl_Template
     intra_source_as_4
 
+Odl_To_Play_l3vpn_mcast
+    [Template]    Odl_To_Play_Template
+    l3vpn_mcast
+
+Play_To_Odl_l3vpn_mcast
+    [Template]    Play_To_Odl_Template
+    l3vpn_mcast
+
+Odl_To_Play_l3vpn_mcast_ipv6
+    [Template]    Odl_To_Play_Template
+    l3vpn_mcast_ipv6
+
+Play_To_Odl_l3vpn_mcast_ipv6
+    [Template]    Play_To_Odl_Template
+    l3vpn_mcast_ipv6
+
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -178,7 +193,7 @@ Stop_Suite
 
 Start_Bgp_Peer
     [Documentation]    Starts bgp peer and verifies that the peer runs.
-    BGPSpeaker.Start_BGP_Speaker    --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --debug --mvpn --wfr 1
+    BGPSpeaker.Start_BGP_Speaker    --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --debug --mvpn --l3vpn_mcast --wfr 1
     BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
 
 Odl_To_Play_Template
@@ -210,8 +225,9 @@ Play_To_Odl_Template
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${MVPN_DIR}/${totest}/rib    mapping=${MVPN_LOC_RIB}    session=${CONFIG_SESSION}
     ...    verify=True
     BgpRpcClient.play_send    ${withdraw_hex}
-    ${ipv}    BuiltIn.Set_Variable_If    '${totest}' == 'intra_ipv6'    ipv6    ipv4
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${MVPN_DIR}/empty_routes_${ipv}    mapping=${MVPN_LOC_RIB}    session=${CONFIG_SESSION}
+    ${ipv} =    Set Variable If    '${totest}' == 'intra_ipv6'    ipv6    '${totest}' == 'l3vpn_mcast'    l3vpn_mcast    '${totest}' == 'l3vpn_mcast_ipv6'
+    ...    l3vpn_mcast_ipv6    ipv4
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${MVPN_DIR}/empty_routes/${ipv}    mapping=${MVPN_LOC_RIB}    session=${CONFIG_SESSION}
     ...    verify=True
     [Teardown]    BgpRpcClient.play_send    ${withdraw_hex}
 
