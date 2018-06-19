@@ -77,6 +77,30 @@
     },
     {
       "key": {
+        "uuid": "22ff5218_5fb1f3f6",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 8162
+      },
+      "writtenOn": "2018-06-19T06:00:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4ba35ba_ca57de20",
+      "range": {
+        "startLine": 15,
+        "startChar": 50,
+        "endLine": 15,
+        "endChar": 54
+      },
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "826b457f_7db993a9",
         "filename": "csit/scripts/test_push_to_elk.py",
         "patchSetId": 14
@@ -172,6 +196,30 @@
     },
     {
       "key": {
+        "uuid": "bd4dbe82_0fe04888",
+        "filename": "csit/scripts/test_push_to_elk.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8162
+      },
+      "writtenOn": "2018-06-19T06:00:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9e64587_54e7cbcd",
+      "range": {
+        "startLine": 30,
+        "startChar": 21,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e53598e_a3ba45e6",
         "filename": "csit/scripts/testfiles/output.txt",
         "patchSetId": 14
@@ -218,6 +266,30 @@
       "writtenOn": "2018-06-18T12:04:59Z",
       "side": 1,
       "message": "Make this more descriptive, like \u003cwhatever these test\u003e_unittests",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "866a1939_805d430b",
+        "filename": "tox.ini",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8162
+      },
+      "writtenOn": "2018-06-19T06:00:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b708909_a6dca684",
       "range": {
         "startLine": 31,
         "startChar": 9,
