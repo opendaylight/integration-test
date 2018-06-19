@@ -28,8 +28,6 @@ Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${HOLDTIME}       180
-${APP_PEER_NAME}    example-bgp-peer-app
-${BGP_DIR}        ${CURDIR}/../../../variables/bgpfunctional
 ${CONFIG_SESSION}    config-session
 ${MVPN_DIR}       ${CURDIR}/../../../variables/bgpfunctional/mvpn
 ${PLAY_SCRIPT}    ${CURDIR}/../../../../tools/fastbgp/play.py
