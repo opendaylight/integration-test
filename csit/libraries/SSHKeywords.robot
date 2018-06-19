@@ -30,9 +30,9 @@ Open_Connection_To_ODL_System
     [Return]    ${odl_connection}
 
 Open_Connection_To_Tools_System
-    [Arguments]    ${ip_address}=${TOOLS_SYSTEM_IP}    ${timeout}=10s
+    [Arguments]    ${ip_address}=${TOOLS_SYSTEM_IP}    ${timeout}=10s    ${prompt}=${TOOLS_SYSTEM_PROMPT}
     [Documentation]    Open a connection to the tools system at ${ip_address} and return its identifier.
-    ${tools_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${timeout}
+    ${tools_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${prompt}    timeout=${timeout}
     Flexible_Mininet_Login
     [Return]    ${tools_connection}
 
