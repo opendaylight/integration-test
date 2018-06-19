@@ -1093,3 +1093,10 @@ Restart DevStack Service
     ${output}    ${rc} =    SSHLibrary.Execute Command    sudo systemctl restart devstack@${service_name}.service    return_rc=True    return_stdout=True
     BuiltIn.Log    ${output}
     BuiltIn.Should Be True    '${rc}' == '0'
+
+Get Network Segmentation Id
+    [Arguments]    ${conn_id}    ${network_name}
+    [Documentation]    Returns network segmentation id for the given network name.
+    ${output} =    OpenStack CLI    openstack network show ${network_name} | grep segmentation_id | awk '{print $4}'
+    @{list} =    String.Split String    ${output}
+    [Return]    ${list[0]}
