@@ -10,8 +10,9 @@ Documentation     BGP functional HA testing with one exabgp peer.
 ...               This suite uses exabgp. It is configured to have 3 peers (all 3 nodes of odl).
 ...               Bgp implemented with singleton accepts only one incomming conection. Exabgp
 ...               logs will show that one peer will be connected and two will fail.
-...               After killing karaf which owned connection new owner should be elected and
+...               After isolating karaf which owned connection, new owner should be elected and
 ...               this new owner should accept incomming bgp connection.
+...               TODO: Add similar keywords from all bgpclustering-ha tests into same libraries
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -42,7 +43,7 @@ Get_Example_Bgp_Rib_Owner
     BuiltIn.Set Suite variable    ${rib_owner}
     BuiltIn.Log    ${ODL_SYSTEM_${rib_owner}_IP}
     BuiltIn.Set Suite variable    ${rib_candidates}
-    ${session}=    Resolve_Http_Session_For_Member    member_index=${rib_owner}
+    ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${rib_owner}
     BuiltIn.Set_Suite_Variable    ${living_session}    ${session}
     BuiltIn.Set_Suite_Variable    ${living_node}    ${rib_owner}
 
@@ -93,7 +94,7 @@ Verify_ExaBgp_Still_Connected
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
 Stop_ExaBgp_Peer
-    [Documentation]    Stops exabgp
+    [Documentation]    Stops exabgp tool by sending ctrl+c
     BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
     SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
 
