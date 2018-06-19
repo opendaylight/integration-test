@@ -56,9 +56,6 @@ ${HOLDTIME}       180
 ${HOLDTIME_PREFIX_COUNT}    ${HOLDTIME}
 ${HOLDTIME_PREFIX_COUNT_SINGLE}    ${HOLDTIME_PREFIX_COUNT}
 ${INSERT}         1
-${KARAF_LOG_LEVEL}    INFO
-${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
-${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
 ${PREFILL}        0
 ${REPETITIONS}    1
 ${REPETITIONS_PREFIX_COUNT}    ${REPETITIONS}
@@ -87,10 +84,6 @@ Reconfigure_ODL_To_Accept_Connection
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME_PREFIX_COUNT_SINGLE}    PEER_PORT=${BGP_TOOL_PORT}
     ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
-
-Change_Karaf_Logging_Levels
-    [Documentation]    We may want to set more verbose logging here after configuration is done.
-    KarafKeywords.Set_Bgpcep_Log_Levels    bgpcep_level=${KARAF_BGPCEP_LOG_LEVEL}    protocol_level=${KARAF_PROTOCOL_LOG_LEVEL}
 
 Start_Talking_BGP_Speaker
     [Documentation]    Start Python speaker to connect to ODL.
@@ -186,10 +179,6 @@ Check_For_Empty_Ipv4_Topology_After_Listening
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
-Restore_Karaf_Logging_Levels
-    [Documentation]    Set logging on bgpcep and protocol to the global value.
-    KarafKeywords.Set_Bgpcep_Log_Levels    bgpcep_level=${KARAF_LOG_LEVEL}    protocol_level=${KARAF_LOG_LEVEL}
-
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -217,7 +206,6 @@ Setup_Everything
     # TODO: Replace 20 with some formula from period and repetitions.
     ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_SINGLE} * (${COUNT_PREFIX_COUNT_SINGLE} * 9.0 / 10000 + 20)
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
