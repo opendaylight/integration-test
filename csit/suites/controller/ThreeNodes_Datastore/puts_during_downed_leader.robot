@@ -44,16 +44,16 @@ Start_Adding_Cars_To_Follower
     ${session} =    Resolve_Http_Session_For_Member    member_index=${car_leader_index}
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Ensure_Cars_Being_Configured    ${session}
 
-Isolate_Current_Car_Leader
+Kill_Current_Car_Leader
     [Documentation]    Isolating cluster node which is the car shard leader.
-    ClusterManagement.Isolate_Member_From_List_Or_All    ${car_leader_index}
+    ClusterManagement.Stop_Single_Member    ${car_leader_index}
     BuiltIn.Set Suite variable    ${old_car_leader}    ${car_leader_index}
     BuiltIn.Set Suite variable    ${old_car_followers}    ${car_follower_indices}
 
 Verify_New_Car_Leader_Elected
     [Documentation]    Verify new owner of the car shard is elected.
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${SHARD_NAME}    ${SHARD_TYPE}    ${True}
-    ...    ${old_car_leader}    member_index_list=${old_car_followers}    verify_restconf=False
+    ...    ${old_car_leader}    member_index_list=${old_car_followers}
     CarPeople.Set_Tmp_Variables_For_Shard_For_Nodes    ${old_car_followers}    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}
 
 Verify_Cars_Configured
@@ -62,9 +62,9 @@ Verify_Cars_Configured
     ${session} =    Resolve_Http_Session_For_Member    member_index=${new_leader_index}
     Verify_Cars_Count    ${ITEM_COUNT}    ${session}
 
-Rejoin_Isolated_Member
+Start_Killed_Member
     [Documentation]    Rejoin isolated node
-    ClusterManagement.Rejoin_Member_From_List_Or_All    ${old_car_leader}
+    ClusterManagement.Start_Single_Member    ${old_car_leader}
 
 Delete Cars
     [Documentation]    Remove cars from the datastore
