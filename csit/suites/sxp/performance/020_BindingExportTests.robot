@@ -157,6 +157,7 @@ Simple Export
     \    ${ELEMENT}    Wait Until Keyword Succeeds    120    1    Check Bindings Exported
     \    Append To List    ${ITEMS}    ${ELEMENT}
     \    Test Clean
+    Log    ${ITEMS}
     ${export_speed}    Get Average Of Items    ${ITEMS}
     [Return]    ${export_speed}
 
@@ -171,17 +172,20 @@ Forwarding Export
     \    ${ELEMENT}    Wait Until Keyword Succeeds    360    1    Check Bindings Exported
     \    Append To List    ${ITEMS}    ${ELEMENT}
     \    Test Clean
+    Log    ${ITEMS}
     ${export_speed}    Get Average Of Items    ${ITEMS}
     [Return]    ${export_speed}
 
 Check Bindings Exported
     [Documentation]    Checking if bindings were exported and return export speed
     ${all_exported}    ExportLibrary.All Exported
+    Should Be True    ${all_exported}
     ${bindings_exported}    ExportLibrary.Get Bindings Exchange Count
     Log    ${bindings_exported}
-    Should Be True    ${all_exported}
     ${export_time}    ExportLibrary.Get Export Time
+    Log    ${export_time}
     ${export_speed}    Evaluate    ${bindings_exported}/${export_time}
+    Log    ${export_speed}
     [Return]    ${export_speed}
 
 Setup Filter
