@@ -1,0 +1,35 @@
+{
+    "bgp-l3vpn-mcast:l3vpn-mcast-routes-ipv6": {
+        "l3vpn-mcast-route": [
+            {
+                "route-key": "mAXdcQABrBAALABlKgILgAAAAAE=",
+                "path-id": 0,
+                "attributes": {
+                    "ipv6-next-hop": {
+                        "global": "2001:db8:1::7"
+                    },
+                    "as-path": {},
+                    "extended-communities": [
+                        {
+                            "vrf-route-import-extended-community": {
+                                "inet4-specific-extended-community-common": {
+                                    "local-administrator": "MTA=",
+                                    "global-administrator": "10.0.0.1"
+                                }
+                            },
+                            "transitive": true
+                        }
+                    ],
+                    "local-pref": {
+                        "pref": 100
+                    },
+                    "origin": {
+                        "value": "igp"
+                    }
+                },
+                "route-distinguisher": "172.16.0.44:101",
+                "prefix": "2001:db8:1::6/24"
+            }
+        ]
+    }
+}
