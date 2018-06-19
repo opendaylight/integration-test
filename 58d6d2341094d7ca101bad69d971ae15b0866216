@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4e41c41_0331a698",
+        "filename": "csit/configplans/netvirt-1node-openstack.txt",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-19T23:43:52Z",
+      "side": 1,
+      "message": "when this completes, what state will the environment be in?\njust some software installed on the different nodes, but\nnothing is running correct?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "58d6d2341094d7ca101bad69d971ae15b0866216",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77955a9d_d88beaea",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 24
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-19T23:43:52Z",
+      "side": 1,
+      "message": "whoops",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 39
+      },
+      "revId": "58d6d2341094d7ca101bad69d971ae15b0866216",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
