@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ce89926_3f6c382d",
+        "filename": "csit/scripts/set_transaction_debugging.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4540
+      },
+      "writtenOn": "2018-06-19T08:29:52Z",
+      "side": 1,
+      "message": "The end of this script confused me until I noticed the name of the script we’re writing to ;-).",
+      "revId": "d37d0fde7e53cd6e5556699ed3f4c2af9fb1c130",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d4e7cee_86e5a8af",
+        "filename": "csit/scripts/set_transaction_debugging.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 4540
+      },
+      "writtenOn": "2018-06-19T08:29:52Z",
+      "side": 1,
+      "message": "The log message and file name should be updated to reflect the purpose of *this* script, shouldn’t they?",
+      "revId": "d37d0fde7e53cd6e5556699ed3f4c2af9fb1c130",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
