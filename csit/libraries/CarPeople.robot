@@ -71,7 +71,7 @@ Set_Tmp_Variables_For_Shard_For_Nodes
     ...    ${new_first_follower_session} - http session for the first follower node
     ...    ${new_leader_index} - index of the shard leader
     ...    ${new_followers_list} - list of followers indexes
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${member_index_list}
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    member_index_list=${member_index_list}    verify_restconf=False
     BuiltIn.Set_Suite_Variable    \${new_leader_index}    ${leader}
     BuiltIn.Set_Suite_Variable    \${new_followers_list}    ${follower_list}
     ${leader_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${leader}
