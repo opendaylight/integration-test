@@ -33,6 +33,24 @@
       "revId": "d37d0fde7e53cd6e5556699ed3f4c2af9fb1c130",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c66c5fa5_da398e27",
+        "filename": "csit/scripts/set_transaction_debugging.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-19T15:20:49Z",
+      "side": 1,
+      "message": "yes. copy/paste relic. I\u0027ll fix. shouldn\u0027t affect the  \nfunctionality though, so hoping the sandbox work is still\nvalid.",
+      "parentUuid": "4d4e7cee_86e5a8af",
+      "revId": "d37d0fde7e53cd6e5556699ed3f4c2af9fb1c130",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
