@@ -187,7 +187,7 @@ Get Fib Entries
 Get Gateway MAC And IP Address
     [Arguments]    ${router_Name}    ${ip_regex}=${IP_REGEX}
     [Documentation]    Get Gateway mac and IP Address
-    ${output} =    Write Commands Until Prompt    neutron router-port-list ${router_Name}    30s
+    ${output} =    OpenStack CLI    openstack port list --router ${router_Name}    30s
     @{MacAddr-list} =    Get Regexp Matches    ${output}    ${MAC_REGEX}
     @{IpAddr-list} =    Get Regexp Matches    ${output}    ${ip_regex}
     [Return]    ${MacAddr-list}    ${IpAddr-list}
