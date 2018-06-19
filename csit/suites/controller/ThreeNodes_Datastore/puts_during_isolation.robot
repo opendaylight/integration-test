@@ -42,7 +42,7 @@ Start_Adding_Cars_To_Follower
     ${follower_ip} =    ClusterManagement.Resolve_IP_Address_For_Member    member_index=${idx}
     Start Tool    ${ADDCMD}    --host ${follower_ip} ${TOOL_OPTIONS}
     ${session} =    Resolve_Http_Session_For_Member    member_index=${car_leader_index}
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Ensure_Cars_Being_Configured    ${session}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    Ensure_Cars_Being_Configured    ${session}
 
 Isolate_Current_Car_Leader
     [Documentation]    Isolating cluster node which is the car shard leader.
@@ -52,7 +52,7 @@ Isolate_Current_Car_Leader
 
 Verify_New_Car_Leader_Elected
     [Documentation]    Verify new owner of the car shard is elected.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ClusterManagement.Verify_Shard_Leader_Elected    ${SHARD_NAME}    ${SHARD_TYPE}    ${True}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    ClusterManagement.Verify_Shard_Leader_Elected    ${SHARD_NAME}    ${SHARD_TYPE}    ${True}
     ...    ${old_car_leader}    member_index_list=${old_car_followers}
     CarPeople.Set_Tmp_Variables_For_Shard_For_Nodes    ${old_car_followers}    shard_name=${SHARD_NAME}    shard_type=${SHARD_TYPE}
 
@@ -93,6 +93,10 @@ Start Suite
 Stop Suite
     [Documentation]    Stop the tool, remove virtual env and close ssh connection towards tools vm.
     Stop_Tool
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${new_leader_index}
+    # best effort to make sure cars are deleted in case more suites will run after this and the delete test case had trouble
+    ${rsp}=    RequestsLibrary.Delete Request    ${session}    ${CARURL}
+    BuiltIn.Log    ${rsp.status_code} : ${rsp.text}
     SSHKeywords.Virtual_Env_Delete
     Store_File_To_Workspace    ${out_file}    ${out_file}
     SSHLibrary.Close All Connections
