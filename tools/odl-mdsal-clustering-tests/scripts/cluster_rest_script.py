@@ -589,7 +589,7 @@ def add_car_with_retries(odl_ip, port, thread_count, item_count, auth, items_per
 
     logger.info("Add %s car(s) to %s:%s (%s per request)",
                 item_count, odl_ip, port, items_per_request)
-    retry_rcs = [401, 404, 503]
+    retry_rcs = [401, 404, 500, 503]
     res = _task_executor(_prepare_add_car, odl_ip=odl_ip, port=port,
                          thread_count=thread_count, item_count=item_count,
                          items_per_request=items_per_request, auth=auth,
