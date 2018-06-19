@@ -11,6 +11,7 @@ Documentation     Functional test for bgp - mvpn
 ...               and particular files are stored as *.hex files. There are 7 different
 ...               types of routes used for auto-discovery of multicast network. Also 4 more routes
 ...               with new attributes specific for mvpn.
+...               TODO: Unify Keywords with 070_bgp_functional_l3vpn_mcast.robot test suite
 Suite Setup       Start_Suite
 Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -20,7 +21,6 @@ Library           String
 Library           ../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ../../../libraries/BGPcliKeywords.robot
 Resource          ../../../libraries/BGPSpeaker.robot
-Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
@@ -209,7 +209,7 @@ Play_To_Odl_Template
     ...    verify=True
     BgpRpcClient.play_send    ${withdraw_hex}
     ${ipv}    BuiltIn.Set_Variable_If    '${totest}' == 'intra_ipv6'    ipv6    ipv4
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${MVPN_DIR}/empty_routes_${ipv}    mapping=${MVPN_LOC_RIB}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${MVPN_DIR}/${ipv}    mapping=${MVPN_LOC_RIB}    session=${CONFIG_SESSION}
     ...    verify=True
     [Teardown]    BgpRpcClient.play_send    ${withdraw_hex}
 
