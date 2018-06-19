@@ -425,7 +425,9 @@ Get Log File Name
     ...    log files if they happen to run in one job.
     ${name}=    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","-").replace("/","-").replace(".","-")
     ${suffix}=    BuiltIn.Set_Variable_If    '${testcase}' != ''    --${testcase}    ${EMPTY}
-    [Return]    ${testtool}--${name}${suffix}.log
+    ${date} =    DateTime.Get Current Date
+    ${timestamp} =    DateTime.Convert Date    ${date}    epoch
+    [Return]    ${testtool}--${name}${suffix}.${timestamp}.log
 
 Set_User_Configurable_Variable_Default
     [Arguments]    ${name}    ${value}
