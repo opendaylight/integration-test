@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a22a98fa_b9ff78a2",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-06-20T19:20:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba125fdb_f8f2c5b4",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 60
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a65e4d5d_7d8adad2",
         "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
         "patchSetId": 22
@@ -83,6 +107,30 @@
       "writtenOn": "2018-06-19T13:30:12Z",
       "side": 1,
       "message": "${nslist} removed from the code.",
+      "parentUuid": "a65e4d5d_7d8adad2",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 19
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00974fe0_7cc810db",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-06-20T19:20:44Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "a65e4d5d_7d8adad2",
       "range": {
         "startLine": 73,
@@ -214,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "f57f377d_172906d8",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-06-20T19:20:44Z",
+      "side": 1,
+      "message": "Removed from the Create Setup.",
+      "parentUuid": "486f8377_38b2ef31",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 42
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4a09c0f_84530c35",
         "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
         "patchSetId": 22
@@ -248,6 +320,30 @@
       "writtenOn": "2018-06-19T13:30:12Z",
       "side": 1,
       "message": "bgpvpn commands are not supported thats why I am using L3VPN.",
+      "parentUuid": "b4a09c0f_84530c35",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 24
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e835b3d_a9585a3d",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-06-20T19:20:44Z",
+      "side": 1,
+      "message": "bgpvpn commands are not supported for the create VPN.",
       "parentUuid": "b4a09c0f_84530c35",
       "range": {
         "startLine": 162,
@@ -296,6 +392,24 @@
     },
     {
       "key": {
+        "uuid": "dd7575bb_9911b0c3",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-06-20T19:20:44Z",
+      "side": 1,
+      "message": "bgpvpn commands are not supported for the create VPN.",
+      "parentUuid": "586077f1_1373f76f",
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ecdae22_4e0bb19e",
         "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
         "patchSetId": 22
@@ -330,6 +444,30 @@
       "writtenOn": "2018-06-19T13:30:12Z",
       "side": 1,
       "message": "This is my suite specific keyword and inside this keyword I am using BgpOperations keyword.",
+      "parentUuid": "9ecdae22_4e0bb19e",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 60
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62b239c2_868aa618",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 7443
+      },
+      "writtenOn": "2018-06-20T19:20:44Z",
+      "side": 1,
+      "message": "This is suite specific keyword because of that I have written inside the suite.",
       "parentUuid": "9ecdae22_4e0bb19e",
       "range": {
         "startLine": 223,
