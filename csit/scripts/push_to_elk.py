@@ -17,14 +17,18 @@ it to ELK DB.
 
 Usage: python construct_json.py host:port
 
-JSON body similar to following is constructed from robot files, jenkins environment
-and plot files available in workspace available post-build.
+JSON body similar to following is constructed from robot files,
+jenkins environment and plot files available in workspace
+available post-build.
 {
     "project": "opendaylight", <- fix string for ODL project
     "subject": "test", <- fix string for ODL test
-    "test-type": "performance", <- if there are csv files, otherwise "functional"
+    "test-type": "performance", <- if there are csv files,
+                                    otherwise "functional"
     "jenkins-silo": "releng" <- from Jenkins $SILO
-    "test-name": "openflowplugin-csit-1node-periodic-bulkomatic-perf-daily-only-carbon", <- from Jenkins $JOB_NAME
+    "test-name": "openflowplugin-csit-1node-periodic-
+                    bulkomatic-perf-daily-only-carbon",
+                    <- from Jenkins $JOB_NAME
     "test-run": 289, <- from Jenkins $BUILD_NUMBER
     "start-time": "20170612 16:50:04 GMT-07:00",  <- from robot log
     "duration": "00:01:05.942", <- from robot log
@@ -78,7 +82,8 @@ formatted_ts = \
     datetime.fromtimestamp(ts).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 BODY['@timestamp'] = formatted_ts
 
-# Plots are obtained from csv files (present in archives directory in $WORKSPACE).
+# Plots are obtained from csv files (present in archives
+# directory in $WORKSPACE).
 
 csv_files = glob.glob('archives/*.csv')
 BODY['project'] = 'opendaylight'
@@ -109,7 +114,8 @@ BODY['jenkins-silo'] = os.environ['SILO']
 BODY['test-name'] = os.environ['JOB_NAME']
 BODY['test-run'] = os.environ['BUILD_NUMBER']
 
-# Parsing robot log for statistics on no of start-time, pass/fail tests and duration.
+# Parsing robot log for statistics on no of start-time,
+# pass/fail tests and duration.
 
 robot_log = os.environ['WORKSPACE'] + '/output.xml'
 tree = ET.parse(robot_log)
@@ -129,7 +135,11 @@ BODY['duration'] = str(elap_time)
 PUT_URL_INDEX = '/{}-{}'.format(BODY['project'], BODY['subject'])
 PUT_URL_TYPE = '/{}'.format(BODY['test-type'])
 PUT_URL_ID = '/{}-{}'.format(BODY['test-name'], BODY['test-run'])
-PUT_URL = 'https://{}:{}{}{}{}'.format(ELK_DB_HOST, ELK_DB_PORT, PUT_URL_INDEX, PUT_URL_TYPE, PUT_URL_ID)
+PUT_URL = 'https://{}:{}{}{}{}'.format(ELK_DB_HOST,
+                                        ELK_DB_PORT,
+                                        PUT_URL_INDEX,
+                                        PUT_URL_TYPE,
+                                        PUT_URL_ID)
 print(PUT_URL)
 
 print(json.dumps(BODY, indent=4))
@@ -159,7 +169,8 @@ def JSONToString(jobj):
 
 
 # This function takes
-# testname (string, eg: 'openflowplugin-csit-1node-periodic-bulkomatic-perf-daily-only-carbon'),
+# testname (string,
+# eg: 'openflowplugin-csit-1node-periodic-bulkomatic-perf-daily-only-carbon'),
 # fieldlist (list of fields, eg: ['pass-tests', 'failed-tests']),
 # plotkey (string, eg: 'rate')
 # as parameters and constructs a visualization object in JSON format
@@ -207,7 +218,11 @@ def getVisualization(testname, fieldlist, plotkey=''):
 
     vis['kibanaSavedObjectMeta']['searchSourceJSON'] = \
         JSONToString(searchSourceJSON)
-    vis['uiStateJSON'] = '{"vis":{"legendOpen":true, "colors":{"pass-tests":"#7EB26D","failed-tests":"#E24D42"}}}'
+    vis['uiStateJSON'] = """
+                        {"vis":{"legendOpen":true,
+                        "colors":{"pass-tests":"#7EB26D",
+                                "failed-tests":"#E24D42"}}}
+                        """
     visState = {
         'title': vis['title'],
         'type': 'area',
@@ -277,7 +292,9 @@ def getVisualization(testname, fieldlist, plotkey=''):
             'interpolate': 'linear',
             'lineWidth': 2,
             'data': {
-                'id': str(len(visState['params']['seriesParams']) + 1) + '-' + vis['title'],
+                'id': str(len(visState['params']['seriesParams']) + 1) +
+                    '-' +
+                    vis['title'],
                 'label': field.split('.')[-1]
             },
             'valueAxis': 'ValueAxis-1',
@@ -285,7 +302,9 @@ def getVisualization(testname, fieldlist, plotkey=''):
         if plotkey != '':  # Performance plot
             seriesParam['type'] = 'line'
         agg = {
-            'id': str(len(visState['params']['seriesParams']) + 1) + '-' + vis['title'],
+            'id': str(len(visState['params']['seriesParams']) + 1) +
+            '-' +
+            vis['title'],
             'enabled': True,
             'type': 'sum',
             'schema': 'metric',
@@ -314,8 +333,11 @@ if BODY['test-type'] == 'performance':
             fieldlist.append('plots.' + key + '.' + subkey)
         vis = getVisualization(BODY['test-name'], fieldlist, key)
         vis_ids.append(BODY['test-name'] + '-' + key)
-        PUT_URL = \
-            'https://{}:{}/.kibana/visualization/{}-{}'.format(ELK_DB_HOST, ELK_DB_PORT, BODY['test-name'], key)
+        PUT_URL = 'https://{}:{}/.kibana/visualization/{}-{}'
+                    .format(ELK_DB_HOST,
+                            ELK_DB_PORT,
+                            BODY['test-name'],
+                            key)
         print(PUT_URL)
         print(json.dumps(vis, indent=4))
         try:
@@ -328,7 +350,10 @@ if BODY['test-type'] == 'performance':
 vis = getVisualization(BODY['test-name'],
                        ['pass-tests', 'failed-tests'])
 vis_ids.append(BODY['test-name'])
-PUT_URL = 'https://{}:{}/.kibana/visualization/{}'.format(ELK_DB_HOST, ELK_DB_PORT, BODY['test-name'])
+PUT_URL = 'https://{}:{}/.kibana/visualization/{}'
+            .format(ELK_DB_HOST,
+            ELK_DB_PORT,
+            BODY['test-name'])
 print(PUT_URL)
 print(json.dumps(vis, indent=4))
 try:
@@ -350,13 +375,18 @@ dashboard['optionsJSON'] = '{"darkTheme":false}'
 dashboard['version'] = 1
 dashboard['timeRestore'] = False
 dashboard['kibanaSavedObjectMeta'] = {
+    # seems to be a bug
     'searchSourceJSON': '{"filter":[{"query":{"query_string":{"query":"*","analyze_wildcard":true}}}],'
     '"highlightAll":true,"version":true}'
 }
 
-# Check if visualizations already present in dashboard. If present, don't add, else, add at end
+# Check if visualizations already present in dashboard.
+# If present, don't add, else, add at end
 
-GET_URL = 'https://{}:{}/.kibana/dashboard/{}'.format(ELK_DB_HOST, ELK_DB_PORT, DASHBOARD_NAME)
+GET_URL = 'https://{}:{}/.kibana/dashboard/{}'
+            .format(ELK_DB_HOST,
+                    ELK_DB_PORT,
+                    DASHBOARD_NAME)
 r = requests.get(GET_URL)
 response = r.json()
 dashboard_found = response['found']
@@ -393,7 +423,10 @@ for (i, vis_id) in enumerate(vis_ids):
         print('visualization ' + vis_id + ' already present in dashboard')
 
 dashboard['panelsJSON'] = JSONToString(panelsJSON)
-PUT_URL = 'https://{}:{}/.kibana/dashboard/{}'.format(ELK_DB_HOST, ELK_DB_PORT, DASHBOARD_NAME)
+PUT_URL = 'https://{}:{}/.kibana/dashboard/{}'
+            .format(ELK_DB_HOST,
+                    ELK_DB_PORT,
+                    DASHBOARD_NAME)
 print(PUT_URL)
 print(json.dumps(dashboard, indent=4))
 r = requests.put(PUT_URL, json=dashboard)

@@ -30,3 +30,4 @@ report.html
 **/*.log
 **/*.csv
 **/*.out
+.test-env
