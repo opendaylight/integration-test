@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0a2f209_fde06ebe",
+        "filename": "csit/scripts/set_transaction_debugging.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 4540
+      },
+      "writtenOn": "2018-06-20T11:57:16Z",
+      "side": 1,
+      "message": "This message is still wrong, isn’t it?",
+      "revId": "ca15b0560aff01bbbd15721b62b7127dabee9d18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
