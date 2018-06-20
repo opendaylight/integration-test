@@ -96,3 +96,7 @@ ${EGRESS_LEARN_ACL_FILTER_TABLE}    244
 ...               90    210    211    212    213    214    215
 ...               216    217    239    240    241    242    243
 ...               244    245    246    247
+${TRANSPORT_ZONE_ENDPOINT_URL}    ${CONFIG_API}/itm:transport-zones/transport-zone
+${GENIUS_VAR_DIR}    ${CURDIR}/../../variables/genius/
+${TEP_NOT_HOSTED_ZONE_URL}    ${OPERATIONAL_API}/itm:not-hosted-transport-zones/
+${TUNNEL_CONF_LIST_URL}   ${CONFIG_API}/itm-state:tunnel-list

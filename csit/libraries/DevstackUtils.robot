@@ -31,7 +31,7 @@ Devstack Suite Setup
     DevstackUtils.Get DevStack Nodes Data
     RequestsLibrary.Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     SSHLibrary.Set Default Configuration    timeout=${DEFAULT_DEVSTACK_PROMPT_TIMEOUT}
-    BuiltIn.Run Keyword If    0 < ${NUM_OS_SYSTEM}    DevstackUtils.Open Connection    OS_CNTL_CONN_ID    ${OS_CONTROL_NODE_IP}
+    BuiltIn.Run Keyword If    0 < ${NUM_OS_SYSTEM}    DevstackUtils.Open Connection    OS_CNTL_CONN_ID    ${ODL_SYSTEM_IP}
     BuiltIn.Run Keyword If    1 < ${NUM_OS_SYSTEM}    DevstackUtils.Open Connection    OS_CMP1_CONN_ID    ${OS_COMPUTE_1_IP}
     BuiltIn.Run Keyword If    2 < ${NUM_OS_SYSTEM}    DevstackUtils.Open Connection    OS_CMP2_CONN_ID    ${OS_COMPUTE_2_IP}
 
