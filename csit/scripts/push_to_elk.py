@@ -69,8 +69,8 @@ def construct_json():
     except Exception as e:
         print('Unexpected Error Occurred. Exiting')
         print(e)
-
-    print(es.info())
+    finally:
+        print(es.info())
 
     ts = time.time()
     formatted_ts = \
@@ -110,8 +110,8 @@ def construct_json():
 
     # Parsing robot log for statistics on no of start-time, pass/fail tests and duration.
 
-    robot_log = os.environ['WORKSPACE'] + '/output.xml'
-    tree = ET.parse(robot_log)
+    robot_log = glob.glob('{}/*output.xml'.format(os.environ['WORKSPACE']))
+    tree = ET.parse(robot_log[0])
     BODY['id'] = '{}-{}'.format(os.environ['JOB_NAME'],
                                 os.environ['BUILD_NUMBER'])
     BODY['start-time'] = tree.getroot().attrib['generated']
