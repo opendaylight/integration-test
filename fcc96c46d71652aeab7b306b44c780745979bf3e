@@ -36,6 +36,57 @@
     },
     {
       "key": {
+        "uuid": "ee477347_829de184",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-20T09:40:09Z",
+      "side": 1,
+      "message": "Create Vteps should be part of start suite",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "521ba776_379e68d5",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-20T09:40:09Z",
+      "side": 1,
+      "message": "Move all validation steps to a common keyword, and use it from all TCs, irrespective of the ODL instance being taken down",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "31f05a2c_583d6ed6",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-20T09:40:09Z",
+      "side": 1,
+      "message": "All creations should be part of start suite.",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c1c778b_da3c1da2",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 1
