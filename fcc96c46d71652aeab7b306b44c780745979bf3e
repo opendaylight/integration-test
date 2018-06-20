@@ -87,6 +87,23 @@
     },
     {
       "key": {
+        "uuid": "f72ed306_d66bd4e2",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-20T09:41:09Z",
+      "side": 1,
+      "message": "why are we creating this every now and then??? Our intention is to create once, and verify if the created interface remains the same even if you bring ODL down/up",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c1c778b_da3c1da2",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 1
