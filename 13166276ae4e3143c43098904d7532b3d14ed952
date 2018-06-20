@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "72a1dd97_49f2ccfc",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-20T02:21:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e10fceff_4990f6c6",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 62
+      },
+      "revId": "13166276ae4e3143c43098904d7532b3d14ed952",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f8df561_82f9074c",
         "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
         "patchSetId": 8
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "f285bd11_120d4c48",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-20T02:21:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f8df561_82f9074c",
+      "revId": "13166276ae4e3143c43098904d7532b3d14ed952",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "032264d5_30e4a0e6",
         "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
         "patchSetId": 8
@@ -53,6 +95,30 @@
       "writtenOn": "2018-06-15T19:40:11Z",
       "side": 1,
       "message": "unless you have some bigger plans for Kwargs, I\nthink you should make this ${port_mac}\u003d\"\"\n\nso, that will default to an empty string if nothing\nis passed.\n\nbelow in the grep, if you use that empty string it\nwill match every line and give you what you want\n(I tested locally).\n\nthat allows you to remove all the extra conditional\nlogic that makes this a little noisy to read (imho).\n\nso, looking at below code, you would have line 86 only\nbut add the \"| wc -l\" to it. then remove lines 87-88.\n\nsame logic will work for the keyword on line 95 as well.",
+      "range": {
+        "startLine": 81,
+        "startChar": 55,
+        "endLine": 81,
+        "endChar": 64
+      },
+      "revId": "13166276ae4e3143c43098904d7532b3d14ed952",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62e31437_bf955813",
+        "filename": "csit/suites/netvirt/aclservicerecovery/aclservicerecovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-20T02:21:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "032264d5_30e4a0e6",
       "range": {
         "startLine": 81,
         "startChar": 55,
@@ -99,6 +165,30 @@
       "writtenOn": "2018-06-16T16:01:59Z",
       "side": 1,
       "message": "I think you accidentally removed this.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 31
+      },
+      "revId": "13166276ae4e3143c43098904d7532b3d14ed952",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f4935aa_c70d33e6",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-20T02:21:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c5811a6_fd19edb3",
       "range": {
         "startLine": 14,
         "startChar": 0,
