@@ -7,9 +7,11 @@ Library           Collections
 *** Variables ***
 ${SH_BR_CMD}      ovs-vsctl list Bridge
 ${SH_CNTL_CMD}    ovs-vsctl list Controller
+${SHOW_OVS_VERSION}    sudo ovs-vsctl show | grep version
+${GET_LOCAL_IP}    sudo ovs-vsctl list Open_vSwitch | grep other_config | grep -oE "\\b([0-9]{1,3}\\.){3}[0-9]{1,3}\\b"
 ${ovs_switch_data}    ${None}
 ${lprompt}        mininet>
-${lcmd_prefix}    sh
+{lcmd_prefix}     sh
 
 *** Keywords ***
 Initialize If Shell Used
@@ -216,3 +218,19 @@ Get Dump Flows Count
     ${output} =    Utils.Write Commands Until Expected Prompt    ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
     @{list} =    String.Split String    ${output}
     [Return]    ${list[0]}
+
+Check Ovs Version Is Higher Than
+    [Arguments]    ${ovs_version}    @{nodes}
+    [Documentation]    Get ovs version and verify greater than required version
+    : FOR    ${ip}    IN    @{nodes}
+    \    ${output} =    Utils.Run Command On Remote System    ${ip}    ${SHOW_OVS_VERSION}
+    \    ${version} =    String.Get Regexp Matches    ${output}    \[0-9].\[0-9]
+    \    ${result} =    BuiltIn.Convert To Number    ${version[0]}
+    \    BuiltIn.Should Be True    ${result} > ${ovs_version}
+
+Get OVS Local Ip
+    [Arguments]    ${ip}
+    [Documentation]    Get local ip of compute node ovsdb
+    ${cmd-output} =    Utils.Run Command On Remote System    ${ip}    ${GET_LOCAL_IP}
+    ${localip} =    String.Get Regexp Matches    ${cmd-output}    (\[0-9]+\.\[0-9]+\.\[0-9]+\.\[0-9]+)
+    [Return]    @{localip}[0]

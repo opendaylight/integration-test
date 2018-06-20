@@ -87,3 +87,7 @@ ${INGRESS_ACL_REMOTE_ACL_TABLE}    211
 ${EGRESS_ACL_TABLE}    240
 ${EGRESS_LPORT_DISPATCHER_TABLE}    220
 ${EGRESS_LEARN_ACL_FILTER_TABLE}    244
+${GET_TRANSPORT_ZONE}    ${CONFIG_API}/itm:transport-zones/transport-zone
+${GENIUS_VAR_DIR}    ${CURDIR}/../../variables/genius/
+${TEPNOTHOSTED_ZONE}    ${OPERATIONAL_API}/itm:not-hosted-transport-zones/
+${TUNNEL_CONF_LIST}    ${CONFIG_API}/itm-state:tunnel-list
