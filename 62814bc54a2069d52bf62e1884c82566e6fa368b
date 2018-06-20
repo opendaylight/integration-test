@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "173f1a56_3e8ea00a",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T18:38:44Z",
+      "side": 1,
+      "message": "make sure these are unique to this suite (I know at least sg_net_1 is not)\n\nmake sure there are not any variables already available in \nthe common var files.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 83
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee15c8d2_bdc7cea9",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T18:38:44Z",
+      "side": 1,
+      "message": "better name is Get Broadcast Packet Count",
+      "range": {
+        "startLine": 44,
+        "startChar": 39,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7a8de4b_44d86f0a",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T18:38:44Z",
+      "side": 1,
+      "message": "all of these lines look very similar to the TC above and below. Can you create a local keyword to do all this\ncommon work that only requires a few args to be passed\nin when you call it?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 64
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9988d4bb_87100a36",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T18:38:44Z",
+      "side": 1,
+      "message": "what is this doing? getting a substring from the metadata\nstring? This keyword name and the keyword documentation\nshould make it clear. I think that\u0027s what I\u0027m reading\nin the lines below. If that\u0027s write, maybe you should use:\n\nGet Metadata Substring",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 15
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
