@@ -55,9 +55,9 @@ Create and Verify VTEP
 
 Verify VTEP After Restarting OVS
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting OVS
-    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    20    2    Genius.Verify Tunnel Status as UP    TZA
     OVSDB.Restart OVSDB    ${TOOLS_SYSTEM_IP}
-    Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    20    2    Genius.Verify Tunnel Status as UP    TZA
 
 Verify VTEP After Restarting Controller
     [Documentation]    Verify Testcase, Verifying tunnel state by restarting CONTROLLER
@@ -75,7 +75,7 @@ Verify Tunnels By Disabling BFD
     OVSDB.Stop OVS    ${TOOLS_SYSTEM_IP}
     Genius.Verify Tunnel Status    ${tunnels_on_OVS}    UNKNOWN
     OVSDB.Start OVS    ${TOOLS_SYSTEM_IP}
-    Genius.Verify Tunnel Status as UP    TZA
+    Wait Until Keyword Succeeds    20    2    Genius.Verify Tunnel Status as UP    TZA
 
 Verify Tunnels By Enabling BFD
     [Documentation]    This test case will check the tunnel exists by bringing up/down a switch and check tunnels exist by enabling BFD
