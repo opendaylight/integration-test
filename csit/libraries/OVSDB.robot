@@ -382,3 +382,12 @@ Get Bridge Data
     ${uuid} =    String.Get Line    ${result}    0
     ${line}    ${bridge_name}    Builtin.Should Match Regexp    ${result}    Bridge "(\\w+)"
     [Return]    ${uuid}    ${bridge_name}
+
+Check Ovs Version Is Higher Than
+    [Arguments]    @{compute_nodes}
+    [Documentation]    Get ovs version on compute and verify compatibility
+    : FOR    ${ ip}    IN    @{compute_nodes}
+    \    ${output} =    Utils.Run Command On Remote System    ${ip}    ${SHOW_OVS_VERSION}
+    \    ${version} =    String.Get Regexp Matches    ${output}    \[0-9].\[0-9]
+    \    ${result} =    BuiltIn.Convert To Number    ${version[0]}
+    \    BuiltIn.Should Be True    ${result} > 2.6
