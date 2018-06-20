@@ -273,6 +273,24 @@
     },
     {
       "key": {
+        "uuid": "3013e6e1_6d108de2",
+        "filename": "csit/scripts/testfiles/output.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-20T02:49:41Z",
+      "side": 1,
+      "message": "So as I said, git for sure will allow any file. The error is because there is a rule to ignore output.xml in the .gitignore file. The solution isn\u0027t to incorrectly call it output.txt, it\u0027s to give it a more descriptive filename that doesn\u0027t collide with something we want to ignore.",
+      "parentUuid": "e4c3a310_843e45f1",
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b708909_a6dca684",
         "filename": "tox.ini",
         "patchSetId": 14
