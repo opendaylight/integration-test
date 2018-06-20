@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "318dd66f_302c794f",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-06-20T18:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a4e090c_05e10cc7",
+      "revId": "c2c50bd13e435f825bf8c0ac53b9c5d096247153",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "deb1c40e_c6591e74",
         "filename": "csit/libraries/MultiPathOperations.robot",
         "patchSetId": 67
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "c2a6868f_11e5ef39",
+        "filename": "csit/libraries/MultiPathOperations.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-06-20T18:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deb1c40e_c6591e74",
+      "range": {
+        "startLine": 68,
+        "startChar": 18,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "c2c50bd13e435f825bf8c0ac53b9c5d096247153",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69f6787b_9235fdff",
         "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
         "patchSetId": 67
@@ -53,6 +95,30 @@
       "writtenOn": "2018-06-07T20:48:51Z",
       "side": 1,
       "message": "Use a range up near the 110.x,like 111.x to keep all the multipatch stuff related.",
+      "range": {
+        "startLine": 25,
+        "startChar": 18,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "c2c50bd13e435f825bf8c0ac53b9c5d096247153",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ffd399e_de754185",
+        "filename": "csit/suites/netvirt/multipath/multipath_intra_dc.robot",
+        "patchSetId": 67
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-06-20T18:00:58Z",
+      "side": 1,
+      "message": "Actually, we are using extra routes with IPs 100.100.100.100 and 110.110.110.110. Hence using the subnet range of 10.10.1.0/24",
+      "parentUuid": "69f6787b_9235fdff",
       "range": {
         "startLine": 25,
         "startChar": 18,
