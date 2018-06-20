@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "127222b2_3c41a980",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T16:53:40Z",
+      "side": 1,
+      "message": "I\u0027m guessing some of these things are already there for\nyou in other variable files or libraries.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "110c62fd9f3523b97f61f388e418d154a78181c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d28db8d7_6ae7d168",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T16:53:40Z",
+      "side": 1,
+      "message": "this seems out of order.\n\ndon\u0027t use Suite Variables unless you have to.",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 45
+      },
+      "revId": "110c62fd9f3523b97f61f388e418d154a78181c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84c844bc_ed8dcd62",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T16:53:40Z",
+      "side": 1,
+      "message": "move to OVS lib.\n\nchange name to \"Check Ovs Version Is Higher Than\"\n\nmake the version an argument.\n\nJust run on a single device and let the caller put it\nin a loop on a list of ips.",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 42
+      },
+      "revId": "110c62fd9f3523b97f61f388e418d154a78181c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
