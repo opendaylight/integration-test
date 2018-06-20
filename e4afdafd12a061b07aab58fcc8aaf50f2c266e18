@@ -255,6 +255,24 @@
     },
     {
       "key": {
+        "uuid": "e4c3a310_843e45f1",
+        "filename": "csit/scripts/testfiles/output.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-20T02:48:12Z",
+      "side": 1,
+      "message": "\u003cTaseer\u003e taseer dfarrell07: would you mind giving a suggestion. the csit script loads an XML file. Git does not allow XML in the repository.\n3:43:57 PM so there is no way I can provide some dummy data\n4:22:47 PM \u003cdfarrell07\u003e Daniel Farrell Taseer: git will allow XML in the repo?\n4:23:03 PM Taseer: what makes you say otherwise?\n4:23:47 PM \u003cTaseer\u003e taseer The following paths are ignored by one of your .gitignore files:\n4:23:49 PM output.xml\n4:23:51 PM Use -f if you really want to add them.\n4:23:53 PM dfarrell07: ^\n4:24:44 PM \u003cdfarrell07\u003e Daniel Farrell Taseer: which repo is this? int/test\n4:24:49 PM \u003cTaseer\u003e taseer yes\n4:25:38 PM \u003cdfarrell07\u003e Daniel Farrell Taseer: this what\u0027s causing it https://git.opendaylight.org/gerrit/gitweb?p\u003dintegration/test.git;a\u003dblob;f\u003d.gitignore;h\u003de5f2933a9320fbfb0d957df37ed563466f3b700b;hb\u003drefs/heads/master#l23\n4:25:49 PM Taseer: so there\u0027s some file that we wanted to ignore by that name\n4:25:54 PM Taseer: just use a different file name\n4:26:24 PM \u003cTaseer\u003e taseer dfarrell07: okay. thanks\n4:26:27 PM \u003cdfarrell07\u003e Daniel Farrell Taseer: np :)\n4:30:45 PM \u003cTaseer\u003e taseer dfarrell07: the filename is hardcoded in the script. \u0027output.xml\u0027\n4:31:11 PM maybe, need to patch it\n4:38:30 PM \u003cdfarrell07\u003e Daniel Farrell Taseer: give it a more discriptive filename so it\u0027s unique for this usage, and clear to others",
+      "parentUuid": "54734c56_b2c009e6",
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b708909_a6dca684",
         "filename": "tox.ini",
         "patchSetId": 14
