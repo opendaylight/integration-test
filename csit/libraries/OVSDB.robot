@@ -383,6 +383,7 @@ Get Bridge Data
     ${line}    ${bridge_name}    Builtin.Should Match Regexp    ${result}    Bridge "(\\w+)"
     [Return]    ${uuid}    ${bridge_name}
 
+<<<<<<< HEAD
 Delete OVS Controller
     [Arguments]    ${ovs_ip}    ${bridge}=${INTEGRATION_BRIDGE}
     [Documentation]    Delete controller from OVS
@@ -417,3 +418,13 @@ Delete Ports On Bridge By Type
     \    BuiltIn.Log    ${del-ports}
     ${ports_present_after_delete} =    Get Ports From Bridge By Type    ${ovs_ip}    ${br}    ${type}
     BuiltIn.Log    ${ports_present_after_delete}
+=======
+Check Ovs Version Is Higher Than
+    [Arguments]    @{compute_nodes}    ${ovs_version}
+    [Documentation]    Get ovs version on compute and verify compatibility
+    : FOR    ${ ip}    IN    @{compute_nodes}
+    \    ${output} =    Utils.Run Command On Remote System    ${ip}    ${SHOW_OVS_VERSION}
+    \    ${version} =    String.Get Regexp Matches    ${output}    \[0-9].\[0-9]
+    \    ${result} =    BuiltIn.Convert To Number    ${version[0]}
+    \    BuiltIn.Should Be True    ${result} > ${ovs_version}
+>>>>>>> Add ITM Auto Tunnel suite
