@@ -87,3 +87,15 @@ ${INGRESS_ACL_REMOTE_ACL_TABLE}    211
 ${EGRESS_ACL_TABLE}    240
 ${EGRESS_LPORT_DISPATCHER_TABLE}    220
 ${EGRESS_LEARN_ACL_FILTER_TABLE}    244
+${GET_NETWORK_TOPOLOGY}    ${OPERATIONAL_API}/network-topology:network-topology/topology/ovsdb:1/
+${GET_DEFAULT_ZONE}    ${CONFIG_API}/itm:transport-zones/transport-zone
+${POST_URL}       ${CONFIG_API}/itm:transport-zones/
+${GET_LOCAL_IP}    sudo ovs-vsctl list Open_vSwitch | grep other_config | grep -oE "\\b([0-9]{1,3}\\.){3}[0-9]{1,3}\\b"
+${GET_TRANSPORT_ZONE}    ${CONFIG_API}/itm:transport-zones/transport-zone
+${GET_EXTERNAL_IDS}    sudo ovsdb-client dump -f list Open_vSwitch | grep external_ids
+${GENIUS_VAR_DIR}    ${CURDIR}/../../variables/genius/
+${TEPNOTHOSTED_ZONE}    ${OPERATIONAL_API}/itm:not-hosted-transport-zones/
+${TRANSPORT_ZONE}    TZA
+${TUNNEL_LIST}    ${OPERATIONAL_API}/itm-state:tunnels_state
+${TUNNEL_NAME}    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/
+${TUNNEL_CONF_LIST}    ${CONFIG_API}/itm-state:tunnel-list

@@ -417,3 +417,12 @@ Delete Ports On Bridge By Type
     \    BuiltIn.Log    ${del-ports}
     ${ports_present_after_delete} =    Get Ports From Bridge By Type    ${ovs_ip}    ${br}    ${type}
     BuiltIn.Log    ${ports_present_after_delete}
+
+Check Ovs Version Is Higher Than
+    [Arguments]    ${ovs_version}    @{compute_nodes}
+    [Documentation]    Get ovs version on compute and verify greater than required version
+    : FOR    ${ip}    IN    @{compute_nodes}
+    \    ${output} =    Utils.Run Command On Remote System    ${ip}    ${SHOW_OVS_VERSION}
+    \    ${version} =    String.Get Regexp Matches    ${output}    \[0-9].\[0-9]
+    \    ${result} =    BuiltIn.Convert To Number    ${version[0]}
+    \    BuiltIn.Should Be True    ${result} > ${ovs_version}
