@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "ed3a40be_84855726",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T16:49:48Z",
+      "side": 1,
+      "message": "add docs to your test cases",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "442d9fad_02210038",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 1
@@ -30,6 +47,52 @@
       "writtenOn": "2018-06-20T09:37:41Z",
       "side": 1,
       "message": "Please add HA Start Suite where you create Vteps and create ietf-interfaces.\n\nSubsequent testcases will have steps only to bring down ODL instances, and verification",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c55b1d9_cde5e5c7",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T16:49:48Z",
+      "side": 1,
+      "message": "do this in suite setup",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 45
+      },
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ce3d3af_3c4b932c",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T16:49:48Z",
+      "side": 1,
+      "message": "I\u0027ve seen these before? Are they common genius \nstuff? should we put them in a variables file? even if\nnot, they should just go up in the *** Variables ***\nsection with UPPER CASE NAMES",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 45
+      },
       "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +150,52 @@
     },
     {
       "key": {
+        "uuid": "647ea729_40ecefc4",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T16:49:48Z",
+      "side": 1,
+      "message": "nothing here?",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 34
+      },
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b69e2253_859d95b4",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T16:49:48Z",
+      "side": 1,
+      "message": "looks like you might have a lot of common code in this suite. just make a local keyword to do repeating things if you see it happening more than 2-3 times. it will save on LOC and\nmake it easier to read/review/maintain.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 52
+      },
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f72ed306_d66bd4e2",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 1
@@ -115,6 +224,29 @@
       "writtenOn": "2018-06-20T09:35:26Z",
       "side": 1,
       "message": "isn\u0027t the steps needed for verification the same for all TCs?",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b86b5f0_1871a213",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-20T16:49:48Z",
+      "side": 1,
+      "message": "I forget how this works, but maybe that pretty_print\u003dTrue\nis actually logging your response for free and you don\u0027t\nneed to add this log line?",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 22
+      },
       "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
