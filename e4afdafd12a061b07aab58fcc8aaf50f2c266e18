@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "8b7665c7_0c83067d",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-20T02:51:52Z",
+      "side": 1,
+      "message": "Do the changes to the code-under-test in one patch and add the tests in a follow-up patch.",
+      "parentUuid": "dede5f61_d9c512aa",
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4ba35ba_ca57de20",
         "filename": "csit/scripts/push_to_elk.py",
         "patchSetId": 14
@@ -89,6 +107,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "e4ba35ba_ca57de20",
+      "range": {
+        "startLine": 15,
+        "startChar": 50,
+        "endLine": 15,
+        "endChar": 54
+      },
+      "revId": "e4afdafd12a061b07aab58fcc8aaf50f2c266e18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1de3bf78_978e20a2",
+        "filename": "csit/scripts/push_to_elk.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-20T02:51:52Z",
+      "side": 1,
+      "message": "It\u0027s not done. The renaming should happen in a patch by itself.",
+      "parentUuid": "22ff5218_5fb1f3f6",
       "range": {
         "startLine": 15,
         "startChar": 50,
