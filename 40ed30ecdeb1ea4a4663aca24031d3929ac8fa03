@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29e15ac8_9e395e5e",
+        "filename": "tox.ini",
+        "patchSetId": 15
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2018-06-20T02:53:04Z",
+      "side": 1,
+      "message": "No, CSIT has lots of meaning in Int/Test, this is a very confusing name. What do these test test? Name it that.",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 14
+      },
+      "revId": "40ed30ecdeb1ea4a4663aca24031d3929ac8fa03",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
