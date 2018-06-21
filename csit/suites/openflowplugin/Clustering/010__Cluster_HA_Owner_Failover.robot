@@ -2,7 +2,6 @@
 Documentation     Test suite for Cluster HA - Device Owner failover
 Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown
 Suite Teardown    Delete All Sessions
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/ClusterOpenFlow.robot
