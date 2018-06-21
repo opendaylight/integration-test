@@ -16,6 +16,24 @@
       "revId": "73e0dab209e4d0224b92fd7232bf810733f0f7aa",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "31bce7b0_4a0af19e",
+        "filename": "csit/scripts/set_single_shard.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-06-21T23:39:00Z",
+      "side": 1,
+      "message": "As I said you do not need this, the csit job should run the script for you.",
+      "parentUuid": "346fc723_01bbfd28",
+      "revId": "73e0dab209e4d0224b92fd7232bf810733f0f7aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
