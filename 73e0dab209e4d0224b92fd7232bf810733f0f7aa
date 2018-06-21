@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "346fc723_01bbfd28",
+        "filename": "csit/scripts/set_single_shard.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-21T21:07:13Z",
+      "side": 1,
+      "message": "Luis, could you please tell me whether this line is correct? Or are we supposed to do this for 1 to N indices on all the nodes?",
+      "revId": "73e0dab209e4d0224b92fd7232bf810733f0f7aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
