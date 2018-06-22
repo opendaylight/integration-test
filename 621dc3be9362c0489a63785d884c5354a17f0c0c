@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "cd5e21b4_5a51ac69",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-22T11:46:22Z",
+      "side": 1,
+      "message": "the first for loop is for number of switches.\nsecond for loop is such that each switch connects to all three controllers",
+      "parentUuid": "626bbc52_e7f9860c",
+      "revId": "621dc3be9362c0489a63785d884c5354a17f0c0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cb4d560_af317313",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 3
