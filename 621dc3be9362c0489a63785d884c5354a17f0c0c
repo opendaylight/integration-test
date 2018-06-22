@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e412d517_fe763573",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-22T05:21:55Z",
+      "side": 1,
+      "message": "Can we add all the below verifications inside this TC as its verification steps? we can just have one keyword Verify OVS Configuration -\u003e with steps to verify tunnel status and ietf-interfaces.. and use that keyword inside this TC... Verifies alone cannot be spearate TCs",
+      "revId": "621dc3be9362c0489a63785d884c5354a17f0c0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5821108_7d655419",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-22T05:21:55Z",
+      "side": 1,
+      "message": "Same comment as above",
+      "revId": "621dc3be9362c0489a63785d884c5354a17f0c0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "626bbc52_e7f9860c",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-22T05:21:55Z",
+      "side": 1,
+      "message": "There is a for loop here, and then another for loop inside create bridge. what is that for?",
+      "revId": "621dc3be9362c0489a63785d884c5354a17f0c0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cb4d560_af317313",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-22T05:21:55Z",
+      "side": 1,
+      "message": "Keywords are all looking fine, but we should not duplicate them as most of them are already present in other suites. But for the time being, let us use this to run the tests and see how it goes. Please check Jamo\u0027s comments and see how to add a 3 node test plan",
+      "revId": "621dc3be9362c0489a63785d884c5354a17f0c0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
