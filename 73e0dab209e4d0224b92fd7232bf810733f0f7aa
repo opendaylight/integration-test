@@ -34,6 +34,24 @@
       "revId": "73e0dab209e4d0224b92fd7232bf810733f0f7aa",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "895db886_cc21465d",
+        "filename": "csit/scripts/set_single_shard.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-22T04:15:47Z",
+      "side": 1,
+      "message": "Could you point me to the script which does this.. I tried searching in test and builder repo to find which job executes this.. but couldn\u0027t find this. I want this to be run only for 3 node netvirt CSIT..",
+      "parentUuid": "31bce7b0_4a0af19e",
+      "revId": "73e0dab209e4d0224b92fd7232bf810733f0f7aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
