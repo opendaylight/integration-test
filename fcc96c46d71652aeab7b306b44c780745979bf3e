@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "0dcf433d_f146d283",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-22T11:46:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "442d9fad_02210038",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c55b1d9_cde5e5c7",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 1
@@ -64,6 +82,30 @@
       "writtenOn": "2018-06-20T16:49:48Z",
       "side": 1,
       "message": "do this in suite setup",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 45
+      },
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6cdb08f_9b13dfe7",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-22T11:46:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c55b1d9_cde5e5c7",
       "range": {
         "startLine": 13,
         "startChar": 0,
@@ -116,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "8c93dfdc_8753c916",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-22T11:46:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee477347_829de184",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "521ba776_379e68d5",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 1
@@ -144,6 +204,24 @@
       "writtenOn": "2018-06-20T09:40:09Z",
       "side": 1,
       "message": "All creations should be part of start suite.",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0206502c_fe2905d2",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-22T11:46:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31f05a2c_583d6ed6",
       "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -196,6 +274,30 @@
     },
     {
       "key": {
+        "uuid": "90d356dd_4bd1d614",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-22T11:46:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b69e2253_859d95b4",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 52
+      },
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f72ed306_d66bd4e2",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 1
@@ -213,6 +315,24 @@
     },
     {
       "key": {
+        "uuid": "f8cd5490_d1c75bc4",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-22T11:46:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f72ed306_d66bd4e2",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c1c778b_da3c1da2",
         "filename": "csit/suites/genius/ha_test.robot",
         "patchSetId": 1
@@ -224,6 +344,24 @@
       "writtenOn": "2018-06-20T09:35:26Z",
       "side": 1,
       "message": "isn\u0027t the steps needed for verification the same for all TCs?",
+      "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d161cc94_d0e24ff3",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7976
+      },
+      "writtenOn": "2018-06-22T11:46:22Z",
+      "side": 1,
+      "message": "yes it will be the same",
+      "parentUuid": "2c1c778b_da3c1da2",
       "revId": "fcc96c46d71652aeab7b306b44c780745979bf3e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
