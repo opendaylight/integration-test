@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "2a4bed4c_286305ad",
+        "filename": "csit/scripts/testfiles/test_output.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8162
+      },
+      "writtenOn": "2018-06-22T05:02:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cb76f10_9c18f32a",
+      "revId": "ea1036e64f0ac1ac612fcc7105de8530608e6be8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6062e518_db00a81b",
         "filename": "tox.ini",
         "patchSetId": 3
@@ -53,6 +71,30 @@
       "writtenOn": "2018-06-20T12:55:41Z",
       "side": 1,
       "message": "Cool, this work. Another option might be \"elk_push_*\".",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "ea1036e64f0ac1ac612fcc7105de8530608e6be8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "543580f6_8f60a676",
+        "filename": "tox.ini",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8162
+      },
+      "writtenOn": "2018-06-22T05:02:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6062e518_db00a81b",
       "range": {
         "startLine": 31,
         "startChar": 9,
