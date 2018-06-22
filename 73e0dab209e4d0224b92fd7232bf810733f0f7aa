@@ -52,6 +52,24 @@
       "revId": "73e0dab209e4d0224b92fd7232bf810733f0f7aa",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6f72a87_f9da3b86",
+        "filename": "csit/scripts/set_single_shard.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-06-22T04:20:18Z",
+      "side": 1,
+      "message": "Ignore the comment.. I got it in integration_deploy_controller_run_test.sh..",
+      "parentUuid": "895db886_cc21465d",
+      "revId": "73e0dab209e4d0224b92fd7232bf810733f0f7aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
