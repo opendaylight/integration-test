@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b6c0e0f2_06c730a4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-23T07:14:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8340fd2a_e7ab0836",
+      "range": {
+        "startLine": 1091,
+        "startChar": 31,
+        "endLine": 1091,
+        "endChar": 38
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83f78ca2_6e812c12",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 14
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-16T16:47:55Z",
       "side": 1,
       "message": "this and conn_id should not be needed. The openstack cli is a local cli application and not an ssh driven command.",
+      "range": {
+        "startLine": 1092,
+        "startChar": 4,
+        "endLine": 1092,
+        "endChar": 14
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15771566_81014a0e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-23T07:14:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83f78ca2_6e812c12",
       "range": {
         "startLine": 1092,
         "startChar": 4,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "c61806cd_5305d767",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-23T07:14:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b344447b_58b70d61",
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e7b0da0_eb92244b",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 14
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "0ada8f80_1b761fda",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-23T07:14:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e7b0da0_eb92244b",
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e120df0_8b85bc0f",
         "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
         "patchSetId": 14
@@ -93,6 +177,30 @@
       "writtenOn": "2018-06-16T16:47:55Z",
       "side": 1,
       "message": "are these two statements needed? Typically we don\u0027t log at the beginning of the tests since we always log at the end of the test. These two statements will cause a redundant log.",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00d94e20_c292dc7c",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-23T07:14:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e120df0_8b85bc0f",
       "range": {
         "startLine": 14,
         "startChar": 18,
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "41589838_2ba8b33a",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-23T07:14:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61bf69cd_7f7308ac",
+      "range": {
+        "startLine": 24,
+        "startChar": 37,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0100c6de_bac2c6d1",
         "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
         "patchSetId": 14
@@ -139,6 +271,30 @@
       "writtenOn": "2018-06-16T16:47:55Z",
       "side": 1,
       "message": "this seems more readable as two constants rather than a list",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 11
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f87149d_c1158dfc",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-23T07:14:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0100c6de_bac2c6d1",
       "range": {
         "startLine": 31,
         "startChar": 2,
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "fd908ecc_5ae09bea",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-23T07:14:53Z",
+      "side": 1,
+      "message": "Hi Sam.\nI had added VNI_ to uniqueness when we run multiple suites\nback to back. makes log parsing easier.\n\nReference:\nhttps://git.opendaylight.org/gerrit/#/c/71389/9/csit/suites/netvirt/AclServiceRecovery/AclServiceRecovery.robot@20",
+      "parentUuid": "1f34bdf5_c3a3a495",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 14
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd74f10d_67094732",
         "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
         "patchSetId": 14
@@ -185,6 +365,30 @@
       "writtenOn": "2018-06-16T16:47:55Z",
       "side": 1,
       "message": "use a different range as 81. is used by elan.robot already",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 25
+      },
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db05ce66_a8d32506",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-23T07:14:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd74f10d_67094732",
       "range": {
         "startLine": 36,
         "startChar": 23,
@@ -214,6 +418,24 @@
     },
     {
       "key": {
+        "uuid": "b543bb7d_07137255",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-23T07:14:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ae02520_6beaf0a6",
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fdd44d9_c511e2b0",
         "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
         "patchSetId": 14
@@ -225,6 +447,24 @@
       "writtenOn": "2018-06-16T16:47:55Z",
       "side": 1,
       "message": "fully qualify all keywords, String.",
+      "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7e082c6_70352204",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-23T07:14:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fdd44d9_c511e2b0",
       "revId": "c94d0eb4acee6a2e4bf0969811711c88c4d2c14b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
