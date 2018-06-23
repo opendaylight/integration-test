@@ -1,0 +1,227 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a30fa2a_1a41770a",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-23T13:01:42Z",
+      "side": 1,
+      "message": "use a range not in use by other suites, preferably something near the sg suites, like 55.0 and 56.0",
+      "range": {
+        "startLine": 24,
+        "startChar": 19,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "29496a27d4219cb7034538eb0f9978e03ea45be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12957f87_2cd81e15",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-23T13:01:42Z",
+      "side": 1,
+      "message": "_net_1_port_1, same for others",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "29496a27d4219cb7034538eb0f9978e03ea45be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1baab345_72c0cb53",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-23T13:01:42Z",
+      "side": 1,
+      "message": "whitespace, other places in file also",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "29496a27d4219cb7034538eb0f9978e03ea45be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ea1d1c5_e39abab1",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-23T13:01:42Z",
+      "side": 1,
+      "message": "} \u003d , same for all assignments in file",
+      "revId": "29496a27d4219cb7034538eb0f9978e03ea45be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3709f6e0_27255fca",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-23T13:01:42Z",
+      "side": 1,
+      "message": "lowercase if this are all local variables",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 9
+      },
+      "revId": "29496a27d4219cb7034538eb0f9978e03ea45be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "974238da_9ea62ff6",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-23T13:01:42Z",
+      "side": 1,
+      "message": "what is the purpose of this loop? Why can\u0027t Get VM IPs simply be used?",
+      "revId": "29496a27d4219cb7034538eb0f9978e03ea45be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3c23fe3_708235e9",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-23T13:01:42Z",
+      "side": 1,
+      "message": "tabs to spaces",
+      "revId": "29496a27d4219cb7034538eb0f9978e03ea45be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "937c1abf_1c5aded2",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-23T13:01:42Z",
+      "side": 1,
+      "message": "Collections.",
+      "revId": "29496a27d4219cb7034538eb0f9978e03ea45be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "399f9c7c_c562dadf",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-23T13:01:42Z",
+      "side": 1,
+      "message": "Get From List",
+      "range": {
+        "startLine": 122,
+        "startChar": 43,
+        "endLine": 122,
+        "endChar": 56
+      },
+      "revId": "29496a27d4219cb7034538eb0f9978e03ea45be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a93fbc7_79f9dea8",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-23T13:01:42Z",
+      "side": 1,
+      "message": "should this be moved up to the other sg suites?",
+      "revId": "29496a27d4219cb7034538eb0f9978e03ea45be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e176fda5_b7622db7",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-23T13:01:42Z",
+      "side": 1,
+      "message": "need to rebase this patch. these tables have already been included from another patch that was merged",
+      "range": {
+        "startLine": 83,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 25
+      },
+      "revId": "29496a27d4219cb7034538eb0f9978e03ea45be6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
