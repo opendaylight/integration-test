@@ -96,8 +96,8 @@ check establishment
 Check Service Status
     [Arguments]    ${odl_ip}    ${system_ready_state}    ${service_state}    @{service_list}
     [Documentation]    Issues the karaf shell command showSvcStatus to verify the ready and service states are the same as the arguments passed
-    ${service_status_output} =    Run Keyword If    ${NUM_ODL_SYSTEM}>1    Issue_Command_On_Karaf_Console    showSvcStatus -n ${odl_ip}    ${odl_ip}    8101
-    ...    ELSE    Issue_Command_On_Karaf_Console    showSvcStatus    ${odl_ip}    8101
+    ${service_status_output} =    Run Keyword If    ${NUM_ODL_SYSTEM} > 1    Issue_Command_On_Karaf_Console    showSvcStatus -n ${odl_ip}    ${odl_ip}    ${KARAF_SHELL_PORT}
+    ...    ELSE    Issue_Command_On_Karaf_Console    showSvcStatus    ${odl_ip}    ${KARAF_SHELL_PORT}
     Should Contain    ${service_status_output}    ${system_ready_state}
     : FOR    ${service}    IN    @{service_list}
     \    Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
