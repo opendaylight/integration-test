@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b1d6110b_0e601de4",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-25T13:01:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc1d5f81_6a35024f",
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c320fe14_bbc090c7",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2018-06-21T07:08:08Z",
       "side": 1,
       "message": "Remove this commented line",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 77
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c3eb935_eea88a48",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-25T13:01:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c320fe14_bbc090c7",
       "range": {
         "startLine": 31,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "0a4e277d_add71e68",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-25T13:01:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "173f1a56_3e8ea00a",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 83
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee15c8d2_bdc7cea9",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 3
@@ -76,6 +142,30 @@
       "writtenOn": "2018-06-20T18:38:44Z",
       "side": 1,
       "message": "better name is Get Broadcast Packet Count",
+      "range": {
+        "startLine": 44,
+        "startChar": 39,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9717fb1c_852d1f08",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-25T13:01:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee15c8d2_bdc7cea9",
       "range": {
         "startLine": 44,
         "startChar": 39,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "6a0d5efe_9929608a",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-25T13:01:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7a8de4b_44d86f0a",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 64
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd99228a_02fd3693",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 3
@@ -122,6 +236,30 @@
       "writtenOn": "2018-06-21T07:08:08Z",
       "side": 1,
       "message": "BuiltIn.Create List",
+      "range": {
+        "startLine": 102,
+        "startChar": 17,
+        "endLine": 102,
+        "endChar": 28
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb51a251_8848a02d",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-25T13:01:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd99228a_02fd3693",
       "range": {
         "startLine": 102,
         "startChar": 17,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "91a80380_901571e1",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-25T13:01:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26bb3150_b80904c0",
+      "range": {
+        "startLine": 139,
+        "startChar": 19,
+        "endLine": 139,
+        "endChar": 55
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94c1ef68_582ebd5a",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 3
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "315ad46c_d4875ae7",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-25T13:01:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94c1ef68_582ebd5a",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 78
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9988d4bb_87100a36",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 3
@@ -191,6 +377,30 @@
       "writtenOn": "2018-06-20T18:38:44Z",
       "side": 1,
       "message": "what is this doing? getting a substring from the metadata\nstring? This keyword name and the keyword documentation\nshould make it clear. I think that\u0027s what I\u0027m reading\nin the lines below. If that\u0027s write, maybe you should use:\n\nGet Metadata Substring",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 15
+      },
+      "revId": "62814bc54a2069d52bf62e1884c82566e6fa368b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73684c18_dfb526e9",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-25T13:01:18Z",
+      "side": 1,
+      "message": "Yes, we can use substring of metadata, but the submetata string is dynamically generated and we can not get the fixed length to extract substring from metadata. This keyword will get the exact match from table 220 where it will generate dynamically and matches over in antispoofing table. Hence wrote new keyword, prior to that I have tried with substring from metadata but eventually its failing in local test bed as submetadata is not having the fixed value/length",
+      "parentUuid": "9988d4bb_87100a36",
       "range": {
         "startLine": 163,
         "startChar": 0,
