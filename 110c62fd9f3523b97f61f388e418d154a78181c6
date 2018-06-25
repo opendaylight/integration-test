@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "adb583d4_f62691b2",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-06-25T11:44:52Z",
+      "side": 1,
+      "message": "changed variable name ,existing variable has only value vxlan. this string pattern is required to verify rest call.",
+      "parentUuid": "127222b2_3c41a980",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "110c62fd9f3523b97f61f388e418d154a78181c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d28db8d7_6ae7d168",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-20T16:53:40Z",
       "side": 1,
       "message": "this seems out of order.\n\ndon\u0027t use Suite Variables unless you have to.",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 45
+      },
+      "revId": "110c62fd9f3523b97f61f388e418d154a78181c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c9936b8_2794ea58",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-06-25T11:44:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d28db8d7_6ae7d168",
       "range": {
         "startLine": 106,
         "startChar": 0,
