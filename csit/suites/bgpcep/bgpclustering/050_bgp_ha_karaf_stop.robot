@@ -63,36 +63,6 @@ Verify_ExaBgp_Connected
     [Documentation]    Verifies exabgp's presence in operational ds.
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
 
-Stop_Current_Owner_Member
-    [Documentation]    Stopping karaf which is connected with exabgp.
-    Kill_Single_Member    ${rib_owner}
-    BuiltIn.Set Suite variable    ${old_rib_owner}    ${rib_owner}
-    BuiltIn.Set Suite variable    ${old_rib_candidates}    ${rib_candidates}
-    ${idx}=    Collections.Get From List    ${old_rib_candidates}    0
-    ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${idx}
-    BuiltIn.Set_Suite_Variable    ${living_session}    ${session}
-    BuiltIn.Set_Suite_Variable    ${living_node}    ${idx}
-
-Verify_New_Rib_Owner
-    [Documentation]    Verifies if new owner of example-bgp-rib is elected.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_New_Rib_Owner_Elected    ${old_rib_owner}    ${living_node}
-
-Verify_ExaBgp_Reconnected
-    [Documentation]    Verifies exabgp's presence in operational ds.
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
-
-Start_Stopped_Member
-    [Documentation]    Starting stopped node
-    Start_Single_Member    ${old_rib_owner}
-
-Verify_New_Candidate
-    [Documentation]    Verifies started node become candidate for example-bgp-rib
-    BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    Verify_New_Rib_Candidate_Present    ${old_rib_owner}    ${living_node}
-
-Verify_ExaBgp_Still_Connected
-    [Documentation]    Verifies exabgp's presence in operational ds
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    ExaBgpLib.Verify_ExaBgps_Connection    ${living_session}
-
 Stop_ExaBgp_Peer
     [Documentation]    Stops exabgp tool by sending ctrl+c
     BGPcliKeywords.Stop_Console_Tool_And_Wait_Until_Prompt
