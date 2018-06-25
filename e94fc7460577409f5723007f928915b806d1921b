@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5da0c145_30675336",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-25T20:19:59Z",
+      "side": 1,
+      "message": "why doesn\u0027t this also use the variable?",
+      "range": {
+        "startLine": 99,
+        "startChar": 154,
+        "endLine": 99,
+        "endChar": 158
+      },
+      "revId": "e94fc7460577409f5723007f928915b806d1921b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
