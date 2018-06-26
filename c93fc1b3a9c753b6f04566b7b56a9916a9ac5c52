@@ -286,6 +286,30 @@
     },
     {
       "key": {
+        "uuid": "3b3fefd4_de35b87a",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-26T08:43:18Z",
+      "side": 1,
+      "message": "I have run in two openstack versions (pike and queens) and in both the places I am not seeing any issue with \"OpenStackOperations.Create Nano Flavor\".",
+      "parentUuid": "9a1de6fe_7fcbcf11",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 42
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4a09c0f_84530c35",
         "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
         "patchSetId": 22
@@ -492,6 +516,30 @@
       "writtenOn": "2018-06-12T22:54:23Z",
       "side": 1,
       "message": "whoops",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 39
+      },
+      "revId": "c93fc1b3a9c753b6f04566b7b56a9916a9ac5c52",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6aae0ee1_fbc55fac",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 22
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-26T08:43:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22d2c28f_83e78474",
       "range": {
         "startLine": 11,
         "startChar": 0,
