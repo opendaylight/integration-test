@@ -44,8 +44,6 @@ Disconnect OVS
     : FOR    ${node}    IN    @{OS_ALL_IPS}
     \    OVSDB.Delete OVS Manager    ${node}
     \    OVSDB.Delete OVS Controller    ${node}
-    \    OVSDB.Delete Groups On Bridge    ${node}    ${INTEGRATION_BRIDGE}
-    \    OVSDB.Delete Ports On Bridge By Type    ${node}    ${INTEGRATION_BRIDGE}    ${TYPE}
 
 Wipe Local Data
     [Documentation]    Delete data/, journal/, snapshots/
