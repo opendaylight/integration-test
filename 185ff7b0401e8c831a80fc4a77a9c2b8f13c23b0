@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9df45b6_f07dab4c",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 3443
+      },
+      "writtenOn": "2018-06-26T15:31:06Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 987,
+        "startChar": 0,
+        "endLine": 996,
+        "endChar": 61
+      },
+      "revId": "185ff7b0401e8c831a80fc4a77a9c2b8f13c23b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
