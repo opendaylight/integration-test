@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d5400f1c_a7c2e0b5",
+        "filename": "csit/configplans/netvirt-1node-openstack.txt",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-06-26T08:43:18Z",
+      "side": 1,
+      "message": "Yes when this completed nothing will be affected and the software installed on the different nodes.",
+      "parentUuid": "a4e41c41_0331a698",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "58d6d2341094d7ca101bad69d971ae15b0866216",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77955a9d_d88beaea",
         "filename": "csit/testplans/netvirt-1node-openstack.txt",
         "patchSetId": 24
