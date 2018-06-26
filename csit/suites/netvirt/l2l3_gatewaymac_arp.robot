@@ -39,7 +39,6 @@ ${REQ_ROUTER}     l2l3_gw_mac_arp_rtr1
 ${VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261112
 ${VPN_NAME}       l2l3_gw_mac_arp_vpn1
 ${VPN_REST}       ${CONFIG_API}/odl-l3vpn:vpn-instance-to-vpn-id/
-#${L3VPN_RD}      ["100:31"]
 ${VRF_ID}         100:31
 ${L3VPN_RD}       ["${VRF_ID}"]
 ${SECURITY_GROUP}    l2l3_gw_mac_arp_sg
@@ -67,9 +66,6 @@ Verify the pipeline flow from dispatcher table 17 (L3VPN) to table 19
     ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${DUMP_FLOWS} | grep ${TABLE_NO_0}
     BuiltIn.Should Contain    ${flow_output}    in_port=${port_num_1}    goto_table:${DISPATCHER_TABLE}
     ${metadata} =    OVSDB.Get Port Metadata    ${OS_COMPUTE_1_IP}    ${port_num_1}
-    # ${RD} =    String.Get Regexp Matches    ${L3VPN_RD}    ([0-9]+:[0-9]+)
-    # ${VRF_ID} =    Collections.Get From List    ${RD}    0
-    # BuiltIn.Set Suite Variable    ${VRF_ID}
     ${vpn_id} =    VpnOperations.VPN Get L3VPN ID    ${VRF_ID}
     ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${DUMP_FLOWS} | grep table=${DISPATCHER_TABLE} | grep ${vpn_id}
     BuiltIn.Should Contain    ${flow_output}    ${vpn_id}    goto_table:${GWMAC_TABLE}
