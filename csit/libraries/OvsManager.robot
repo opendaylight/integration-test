@@ -207,6 +207,7 @@ OvsManager__Enable_Slaves_For_Switch
     \    ${connected}=    Collections.Get From Dictionary    ${cntl_value}    is_connected
     \    Run Keyword If    ${connected}==${False}    Reconnect Switch To Controller And Verify Connected    ${switch}    ${cntl_id}    verify_connected=${verify_connected}
 
+<<<<<<< 45ed553c59fe85825b1bb810f0a59eef40fb9255
 Get Dump Flows Count
     [Arguments]    ${conn_id}    ${acl_sr_table_id}    ${port_mac}=""
     [Documentation]    Count the number of dump flows for a given table id
@@ -216,3 +217,14 @@ Get Dump Flows Count
     ${output} =    Utils.Write Commands Until Expected Prompt    ${cmd}    ${DEFAULT_LINUX_PROMPT_STRICT}
     @{list} =    String.Split String    ${output}
     [Return]    ${list[0]}
+=======
+Get Packet Count From Table
+    [Arguments]    ${system_ip}    ${br_name}    ${table_no}    ${addtioanal_args}=${EMPTY}
+    [Documentation]    Return packet count for the specific table no.
+    ${flow_output} =    Utils.Run Command On Remote System    ${system_ip}    sudo ovs-ofctl dump-flows -O Openflow13 ${br_name} | grep ${table_no} ${addtioanal_args}
+    @{output} =    String.Split String    ${flow_output}    \r\n
+    ${flow} =    Collections.Get From List    ${output}    0
+    ${packetcountlist} =    String.Get Regexp Matches    ${flow}    n_packets=([0-9]+),    1
+    ${packetcount} =    Collections.Get From List    ${packetcountlist}    0
+    [Return]    ${packetcount}
+>>>>>>> Add Mac Based L2L3 seggragation suite.
