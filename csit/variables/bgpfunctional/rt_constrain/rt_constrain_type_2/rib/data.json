@@ -1,0 +1,29 @@
+{
+    "bgp-route-target-constrain:route-target-constrain-routes": {
+        "route-target-constrain-route": [
+            {
+                "route-key": "AgIAAP3oAHs=",
+                "path-id": 0,
+                "attributes": {
+                    "ipv4-next-hop": {
+                        "global": "199.20.166.41"
+                    },
+                    "as-path": {},
+                    "origin": {
+                        "value": "igp"
+                    },
+                    "local-pref": {
+                        "pref": 100
+                    }
+                },
+                "as-4-route-target-extended-community": {
+                    "as-4-specific-common": {
+                        "local-administrator": 123,
+                        "as-number": 65000
+                    }
+                },
+                "origin-as": 64511
+            }
+        ]
+    }
+}
