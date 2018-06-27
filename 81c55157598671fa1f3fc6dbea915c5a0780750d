@@ -1,0 +1,210 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba6841cb_4e0763e6",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T19:56:27Z",
+      "side": 1,
+      "message": "_net_1_port_1",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5261b861_ac91663c",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T19:56:27Z",
+      "side": 1,
+      "message": "NET_2_PORTS",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 12
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f3e7c39_fa194a4e",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T19:56:27Z",
+      "side": 1,
+      "message": "@{NETWORKS}[${i}] same for SUBNET and SUBNET_CIDRS",
+      "range": {
+        "startLine": 59,
+        "startChar": 46,
+        "endLine": 59,
+        "endChar": 64
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7053f84a_27a2b587",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T19:56:27Z",
+      "side": 1,
+      "message": "probably a Collections or BuiltIn keyword to combine lists",
+      "range": {
+        "startLine": 74,
+        "startChar": 16,
+        "endLine": 74,
+        "endChar": 35
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f6e4400_b2498790",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T19:56:27Z",
+      "side": 1,
+      "message": "should validate vms all got ips,\n BuiltIn.Should Not Contain    ${vm_ips}    None",
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b87b35_a8efafa6",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T19:56:27Z",
+      "side": 1,
+      "message": "make ALL caps since this is global",
+      "range": {
+        "startLine": 76,
+        "startChar": 36,
+        "endLine": 76,
+        "endChar": 42
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339fa03_000f7b23",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T19:56:27Z",
+      "side": 1,
+      "message": "is this VM0 or 1? Index is 0. In the VM3_DPN1 next the index 3 is used, so the naming isn\u0027t consistent",
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50339d79_313c7de1",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T19:56:27Z",
+      "side": 1,
+      "message": "lowercase as these are local variables, only capitalize the SUITE variablies",
+      "range": {
+        "startLine": 79,
+        "startChar": 24,
+        "endLine": 79,
+        "endChar": 32
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7463ba1_07adea24",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T19:56:27Z",
+      "side": 1,
+      "message": "do we want to move this up to the other securitygroup tests so they are together?",
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59e6d952_800f775d",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T19:56:27Z",
+      "side": 1,
+      "message": "move up above DISPATCHER_TABLE",
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
