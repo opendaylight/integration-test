@@ -1,0 +1,24 @@
+{
+    "bgp-route-target-constrain:route-target-constrain-routes": {
+        "route-target-constrain-route": [
+            {
+                "route-key": "flow1",
+                "path-id": 0,
+                "attributes": {
+                    "ipv4-next-hop": {
+                        "global": "199.20.166.41"
+                    },
+                    "as-path": {},
+                    "origin": {
+                        "value": "igp"
+                    },
+                    "local-pref": {
+                        "pref": 100
+                    }
+                },
+                "route-target-constrain-default-route": {},
+                "origin-as": 65116
+            }
+        ]
+    }
+}
