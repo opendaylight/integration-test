@@ -1,10 +1,11 @@
 *** Settings ***
 Documentation     This library contains keywords related to the BGP functionality.
 Library           SSHLibrary
-Resource          Utils.robot
+Library           BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ../variables/Variables.robot
-Resource          TemplatedRequests.robot
+Resource          Utils.robot
 Resource          KillPythonTool.robot
+Resource          TemplatedRequests.robot
 
 *** Variables ***
 ${BGP_BMP_DIR}    ${CURDIR}/../variables/bgpfunctional/bmp_basic/filled_structure
@@ -12,6 +13,11 @@ ${BGP_BMP_FEAT_DIR}    ${CURDIR}/../variables/bgpfunctional/bmp_basic/empty_stru
 ${BGP_RIB_URI}    ${OPERATIONAL_API}/bgp-rib:bgp-rib/rib/example-bgp-rib
 ${BGP_TOPOLOGY_URI}    ${OPERATIONAL_TOPO_API}/topology/example-ipv4-topology
 ${VAR_BASE_BGP}    ${CURDIR}/../variables/bgpfunctional
+${RIB_NAME}       example-bgp-rib
+&{ADJ_RIB_IN}     PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}
+&{APP_PEER}       IP=${ODL_SYSTEM_IP}    BGP_RIB=${RIB_NAME}
+&{EFFECTIVE_RIB_IN}    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}
+&{LOC_RIB}        PATH=loc-rib    BGP_RIB=${RIB_NAME}
 
 *** Keywords ***
 Start Quagga Processes On ODL
@@ -298,3 +304,47 @@ Bmp_Monitor_Postcondition
     ${output}    BuiltIn.Wait_Until_Keyword_Succeeds    10x    5s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_DIR}    mapping=${mapping}
     ...    session=${session}    verify=True
     BuiltIn.Log    ${output}
+
+Odl_To_Play_Template
+    [Arguments]    ${totest}    ${dir}
+    ${announce_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
+    ${announce_hex} =    String.Remove_String    ${announce_hex}    \n
+    ${withdraw_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/withdraw_${totest}.hex
+    ${withdraw_hex} =    String.Remove_String    ${withdraw_hex}    \n
+    BgpRpcClient.play_clean
+    TemplatedRequests.Post_As_Xml_Templated    ${dir}/${totest}/app    mapping=${APP_PEER}    session=${CONFIG_SESSION}
+    ${update}    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Get_Update_Message
+    BuiltIn.Should_Be_Equal_As_Strings    ${update}    ${announce_hex}
+    BgpRpcClient.play_clean
+    Remove_Configured_Routes    ${totest}    ${dir}
+    ${update}    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Get_Update_Message
+    BuiltIn.Should_Be_Equal_As_Strings    ${update}    ${withdraw_hex}
+    [Teardown]    Remove_Configured_Routes    ${totest}    ${dir}
+
+Play_To_Odl_Template
+    [Arguments]    ${totest}    ${dir}    ${ipv}=ipv4
+    ${announce_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/announce_${totest}.hex
+    ${withdraw_hex} =    OperatingSystem.Get_File    ${dir}/${totest}/withdraw_${totest}.hex
+    BgpRpcClient.play_clean
+    BgpRpcClient.play_send    ${announce_hex}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${ADJ_RIB_IN}    session=${CONFIG_SESSION}
+    ...    verify=True
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${EFFECTIVE_RIB_IN}    session=${CONFIG_SESSION}
+    ...    verify=True
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/${totest}/rib    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
+    ...    verify=True
+    BgpRpcClient.play_send    ${withdraw_hex}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${dir}/empty_routes/${ipv}    mapping=${LOC_RIB}    session=${CONFIG_SESSION}
+    ...    verify=True
+    [Teardown]    BgpRpcClient.play_send    ${withdraw_hex}
+
+Get_Update_Message
+    [Documentation]    Returns hex update message.
+    ${update} =    BgpRpcClient.play_get
+    BuiltIn.Should_Not_Be_Equal    ${update}    ${Empty}
+    [Return]    ${update}
+
+Remove_Configured_Routes
+    [Arguments]    ${totest}    ${dir}
+    [Documentation]    Removes the route if present.
+    BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Delete_Templated    ${dir}/${totest}/app    mapping=${APP_PEER}    session=${CONFIG_SESSION}
