@@ -11,7 +11,6 @@ Documentation     Functional test for bgp - mvpn
 ...               and particular files are stored as *.hex files. There are 7 different
 ...               types of routes used for auto-discovery of multicast network. Also 4 more routes
 ...               with new attributes specific for mvpn.
-...               TODO: Unify Keywords with 070_bgp_functional_l3vpn_mcast.robot test suite
 Suite Setup       Start_Suite
 Suite Teardown    Stop_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -21,6 +20,7 @@ Library           String
 Library           ../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ../../../libraries/BGPcliKeywords.robot
 Resource          ../../../libraries/BGPSpeaker.robot
+Resource          ../../../libraries/BgpOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/SSHKeywords.robot
 Resource          ../../../libraries/TemplatedRequests.robot
@@ -32,9 +32,6 @@ ${CONFIG_SESSION}    config-session
 ${MVPN_DIR}       ${CURDIR}/../../../variables/bgpfunctional/mvpn
 ${PLAY_SCRIPT}    ${CURDIR}/../../../../tools/fastbgp/play.py
 ${RIB_NAME}       example-bgp-rib
-&{MVPN_ADJ_RIB_IN}    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/adj-rib-in    BGP_RIB=${RIB_NAME}
-&{MVPN_LOC_RIB}    PATH=loc-rib    BGP_RIB=${RIB_NAME}
-&{MVPN_EFFECTIVE_RIB_IN}    PATH=peer/bgp:%2F%2F${TOOLS_SYSTEM_IP}/effective-rib-in    BGP_RIB=${RIB_NAME}
 &{MVPN_APP_PEER}    IP=${ODL_SYSTEM_IP}    BGP_RIB=${RIB_NAME}
 &{MVPN_ODL_CONFIG}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_NAME}    PASSIVE_MODE=true
 
@@ -56,91 +53,95 @@ Start_Bgp_Peer
 
 Odl_To_Play_intra_as_ipmsi_ad
     [Template]    Odl_To_Play_Template
-    intra_as_ipmsi_ad
+    intra_as_ipmsi_ad    ${MVPN_DIR}
 
 Play_To_Odl_intra_as_ipmsi_ad
     [Template]    Play_To_Odl_Template
-    intra_as_ipmsi_ad
+    intra_as_ipmsi_ad    ${MVPN_DIR}
 
 Odl_To_Play_inter_as_ipmsi_ad
     [Template]    Odl_To_Play_Template
-    inter_as_ipmsi_ad
+    inter_as_ipmsi_ad    ${MVPN_DIR}
 
 Play_To_Odl_inter_as_ipmsi_ad
     [Template]    Play_To_Odl_Template
-    inter_as_ipmsi_ad
+    inter_as_ipmsi_ad    ${MVPN_DIR}
 
 Odl_To_Play_spmsi_ad
     [Template]    Odl_To_Play_Template
-    spmsi_ad
+    spmsi_ad    ${MVPN_DIR}
 
 Play_To_Odl_spmsi_ad
     [Template]    Play_To_Odl_Template
-    spmsi_ad
+    spmsi_ad    ${MVPN_DIR}
 
 Odl_To_Play_leaf_ad
     [Template]    Odl_To_Play_Template
-    leaf_ad
+    leaf_ad    ${MVPN_DIR}
 
 Play_To_Odl_leaf_ad
     [Template]    Play_To_Odl_Template
-    leaf_ad
+    leaf_ad    ${MVPN_DIR}
 
 Odl_To_Play_source_active_ad
     [Template]    Odl_To_Play_Template
-    source_active_ad
+    source_active_ad    ${MVPN_DIR}
 
 Play_To_Odl_source_active_ad
     [Template]    Play_To_Odl_Template
-    source_active_ad
+    source_active_ad    ${MVPN_DIR}
 
 Odl_To_Play_shared_tree_join
     [Template]    Odl_To_Play_Template
-    shared_tree_join
+    shared_tree_join    ${MVPN_DIR}
 
 Play_To_Odl_shared_tree_join
     [Template]    Play_To_Odl_Template
-    shared_tree_join
+    shared_tree_join    ${MVPN_DIR}
 
 Odl_To_Play_source_tree_join
     [Template]    Odl_To_Play_Template
-    source_tree_join
+    source_tree_join    ${MVPN_DIR}
 
 Play_To_Odl_source_tree_join
     [Template]    Play_To_Odl_Template
-    source_tree_join
+    source_tree_join    ${MVPN_DIR}
 
 Odl_To_Play_intra_pe_distinguisher
     [Template]    Odl_To_Play_Template
-    intra_pe_distinguisher
+    intra_pe_distinguisher    ${MVPN_DIR}
 
 Play_To_Odl_intra_pe_distinguisher
     [Template]    Play_To_Odl_Template
-    intra_pe_distinguisher
+    intra_pe_distinguisher    ${MVPN_DIR}
 
 Odl_To_Play_intra_vrf
     [Template]    Odl_To_Play_Template
-    intra_vrf
+    intra_vrf    ${MVPN_DIR}
 
 Play_To_Odl_intra_vrf
     [Template]    Play_To_Odl_Template
-    intra_vrf
+    intra_vrf    ${MVPN_DIR}
 
 Odl_To_Play_intra_source_as
     [Template]    Odl_To_Play_Template
-    intra_source_as
+    intra_source_as    ${MVPN_DIR}
 
 Play_To_Odl_intra_source_as
     [Template]    Play_To_Odl_Template
-    intra_source_as
+    intra_source_as    ${MVPN_DIR}
 
 Odl_To_Play_intra_source_as_4
     [Template]    Odl_To_Play_Template
-    intra_source_as_4
+    intra_source_as_4    ${MVPN_DIR}
 
 Play_To_Odl_intra_source_as_4
     [Template]    Play_To_Odl_Template
-    intra_source_as_4
+    intra_source_as_4    ${MVPN_DIR}
+
+Play_To_Odl_intra_ipv6
+    [Template]    Play_To_Odl_Template
+    intra_ipv6    ${MVPN_DIR}    ipv6
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker
@@ -178,48 +179,3 @@ Start_Bgp_Peer
     [Documentation]    Starts bgp peer and verifies that the peer runs.
     BGPSpeaker.Start_BGP_Speaker    --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --debug --mvpn --wfr 1
     BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
-
-Odl_To_Play_Template
-    [Arguments]    ${totest}
-    ${announce_hex} =    OperatingSystem.Get_File    ${MVPN_DIR}/${totest}/announce_${totest}.hex
-    ${announce_hex} =    String.Remove_String    ${announce_hex}    \n
-    ${withdraw_hex} =    OperatingSystem.Get_File    ${MVPN_DIR}/${totest}/withdraw_${totest}.hex
-    ${withdraw_hex} =    String.Remove_String    ${withdraw_hex}    \n
-    BgpRpcClient.play_clean
-    TemplatedRequests.Post_As_Xml_Templated    ${MVPN_DIR}/${totest}/app    mapping=${MVPN_APP_PEER}    session=${CONFIG_SESSION}
-    ${update}    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Get_Update_Message
-    BuiltIn.Should_Be_Equal_As_Strings    ${update}    ${announce_hex}
-    BgpRpcClient.play_clean
-    Remove_Configured_Routes    ${totest}
-    ${update}    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    Get_Update_Message
-    BuiltIn.Should_Be_Equal_As_Strings    ${update}    ${withdraw_hex}
-    [Teardown]    Remove_Configured_Routes    ${totest}
-
-Play_To_Odl_Template
-    [Arguments]    ${totest}
-    ${announce_hex} =    OperatingSystem.Get_File    ${MVPN_DIR}/${totest}/announce_${totest}.hex
-    ${withdraw_hex} =    OperatingSystem.Get_File    ${MVPN_DIR}/${totest}/withdraw_${totest}.hex
-    BgpRpcClient.play_clean
-    BgpRpcClient.play_send    ${announce_hex}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${MVPN_DIR}/${totest}/rib    mapping=${MVPN_ADJ_RIB_IN}    session=${CONFIG_SESSION}
-    ...    verify=True
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${MVPN_DIR}/${totest}/rib    mapping=${MVPN_EFFECTIVE_RIB_IN}    session=${CONFIG_SESSION}
-    ...    verify=True
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${MVPN_DIR}/${totest}/rib    mapping=${MVPN_LOC_RIB}    session=${CONFIG_SESSION}
-    ...    verify=True
-    BgpRpcClient.play_send    ${withdraw_hex}
-    ${ipv}    BuiltIn.Set_Variable_If    '${totest}' == 'intra_ipv6'    ipv6    ipv4
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    ${MVPN_DIR}/empty_routes/${ipv}    mapping=${MVPN_LOC_RIB}    session=${CONFIG_SESSION}
-    ...    verify=True
-    [Teardown]    BgpRpcClient.play_send    ${withdraw_hex}
-
-Get_Update_Message
-    [Documentation]    Returns hex update message.
-    ${update} =    BgpRpcClient.play_get
-    BuiltIn.Should_Not_Be_Equal    ${update}    ${Empty}
-    [Return]    ${update}
-
-Remove_Configured_Routes
-    [Arguments]    ${totest}
-    [Documentation]    Removes the route if present.
-    BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Delete_Templated    ${MVPN_DIR}/${totest}/app    mapping=${MVPN_APP_PEER}    session=${CONFIG_SESSION}
