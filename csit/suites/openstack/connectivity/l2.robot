@@ -9,6 +9,7 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/DataModels.robot
+Resource          ../../../libraries/ODLTools.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
@@ -32,6 +33,8 @@ Create VLAN Network net_1
     ${feature_check_status} =    OpenStackOperations.Is Feature Installed    ${legacy_feature_list}
     BuiltIn.Run Keyword If    '${feature_check_status}' == 'True'    OpenStackOperations.Create Network    @{NETWORKS}[0]
     ...    ELSE    OpenStackOperations.Create Network    @{NETWORKS}[0]    --provider-network-type vlan --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK} --provider-segment ${NET_1_VLAN_ID}
+    ODLTools.Version
+    ODLTools.Version 2
 
 Create Subnet For net_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
