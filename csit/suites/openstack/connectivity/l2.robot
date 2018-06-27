@@ -9,6 +9,7 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/DataModels.robot
+Resource          ../../../libraries/ODLTools.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
