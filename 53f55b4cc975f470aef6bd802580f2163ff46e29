@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a187f501_048c8114",
+        "filename": "csit/configplans/netvirt-1node-openstack-tempest.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T01:33:40Z",
+      "side": 1,
+      "message": "recognize this is a link to netvirt-1node-openstack.txt which is why that is listed below. The same configplans are used so it was easiest to just link to the file.",
+      "revId": "53f55b4cc975f470aef6bd802580f2163ff46e29",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ddf676d8_a4406331",
+        "filename": "csit/configplans/netvirt-3node-openstack-tempest.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T01:33:40Z",
+      "side": 1,
+      "message": "same comment, a link",
+      "revId": "53f55b4cc975f470aef6bd802580f2163ff46e29",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6b1145b_c1c67fb3",
+        "filename": "csit/testplans/netvirt-3node-openstack-tempest.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-27T01:33:40Z",
+      "side": 1,
+      "message": "link",
+      "revId": "53f55b4cc975f470aef6bd802580f2163ff46e29",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
