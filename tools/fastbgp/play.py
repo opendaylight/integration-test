@@ -1641,7 +1641,7 @@ class ReadTracker(object):
             return
 
         logger.debug("Route-Target-Constrain {}".format(self.l3vpn_mcast))
-        if self.l3vpn_mcast:
+        if self.rt_constrain:
             logger.debug("Skipping update decoding due to Route-Target-Constrain data expected")
             return
 
