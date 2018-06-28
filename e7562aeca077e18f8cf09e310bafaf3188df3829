@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3a28fe6_201765d2",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T15:27:35Z",
+      "side": 1,
+      "message": "whoops",
+      "range": {
+        "startLine": 1062,
+        "startChar": 0,
+        "endLine": 1062,
+        "endChar": 12
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d7911f1_97909501",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 1099,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T15:27:35Z",
+      "side": 1,
+      "message": "whoops",
+      "range": {
+        "startLine": 1099,
+        "startChar": 0,
+        "endLine": 1099,
+        "endChar": 7
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc975fc6_76b44a09",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T15:27:35Z",
+      "side": 1,
+      "message": "Set Instance Quota For Admin Project",
+      "range": {
+        "startLine": 1109,
+        "startChar": 0,
+        "endLine": 1109,
+        "endChar": 18
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2dff9683_f77a4b9e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T15:27:35Z",
+      "side": 1,
+      "message": "whoops",
+      "range": {
+        "startLine": 1116,
+        "startChar": 0,
+        "endLine": 1116,
+        "endChar": 39
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fc5a856_caadc835",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T15:27:35Z",
+      "side": 1,
+      "message": "how long does this script take?",
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15fee1a2_cb3c3b89",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T15:27:35Z",
+      "side": 1,
+      "message": "what\u0027s the need for these _1 values? they look to all be\nunique without these.",
+      "range": {
+        "startLine": 49,
+        "startChar": 46,
+        "endLine": 49,
+        "endChar": 48
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93832dfc_317a4a5a",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T15:27:35Z",
+      "side": 1,
+      "message": "this has the same name as the list variable above, using\nthe same string. Need to make this more clear.\n\nwhat are you doing with the list var anyway, since it\u0027s\njust a single item list?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 24
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66ff91b1_5b0b8911",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T15:27:35Z",
+      "side": 1,
+      "message": "until you run the full jobs for each of pike and queens, I\nam still not sure this is needed and wont break.",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 42
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
