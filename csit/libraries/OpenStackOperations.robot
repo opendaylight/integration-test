@@ -1005,6 +1005,7 @@ OpenStack Suite Setup
     BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
     BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
+    ClusterManagement.Dump_Local_Shards_For_Each_Member
 
 OpenStack Suite Teardown
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
