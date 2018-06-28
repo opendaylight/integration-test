@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a9c9860d_70f653bf",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 1097,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-28T11:55:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c099c573_9d641c34",
+      "range": {
+        "startLine": 1097,
+        "startChar": 0,
+        "endLine": 1097,
+        "endChar": 12
+      },
+      "revId": "d83a52ef8d62fc973894bcdcfa1de6c0911e1e7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b6e58e2_02951130",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 23
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-28T03:48:43Z",
       "side": 1,
       "message": "not using this.",
+      "range": {
+        "startLine": 1135,
+        "startChar": 19,
+        "endLine": 1135,
+        "endChar": 29
+      },
+      "revId": "d83a52ef8d62fc973894bcdcfa1de6c0911e1e7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d02cc219_b4b1bd04",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-28T11:55:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b6e58e2_02951130",
       "range": {
         "startLine": 1135,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "10607ba5_96470aca",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-28T11:55:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d201004a_b00300e2",
+      "range": {
+        "startLine": 45,
+        "startChar": 79,
+        "endLine": 45,
+        "endChar": 97
+      },
+      "revId": "d83a52ef8d62fc973894bcdcfa1de6c0911e1e7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "517e3976_157297b8",
         "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
         "patchSetId": 23
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-28T03:48:43Z",
       "side": 1,
       "message": "small nit. maybe name this base_cmd, and then cmd1 can be\nrenamed to full_cmd\n\nmakes it a little more clear. it\u0027s not easy to know what\ncmd1 is and how it\u0027s different than cmd",
+      "range": {
+        "startLine": 74,
+        "startChar": 6,
+        "endLine": 74,
+        "endChar": 9
+      },
+      "revId": "d83a52ef8d62fc973894bcdcfa1de6c0911e1e7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63078d9d_1c29e10b",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-28T11:55:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "517e3976_157297b8",
       "range": {
         "startLine": 74,
         "startChar": 6,
