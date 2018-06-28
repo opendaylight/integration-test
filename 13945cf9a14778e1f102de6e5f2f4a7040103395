@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84d50393_9548cf1b",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T23:41:48Z",
+      "side": 1,
+      "message": "remove this, since the below works.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 28
+      },
+      "revId": "13945cf9a14778e1f102de6e5f2f4a7040103395",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f466d23_c2f5104f",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T23:41:48Z",
+      "side": 1,
+      "message": "remove commented lines in the final patch",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 45
+      },
+      "revId": "13945cf9a14778e1f102de6e5f2f4a7040103395",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00f03494_e37f4839",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T23:41:48Z",
+      "side": 1,
+      "message": "I don\u0027t think this works to match on multiple items.\n\nplease double check if needed, but I remember checking myself\nlocally.\n\napplies elsewhere.",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 105
+      },
+      "revId": "13945cf9a14778e1f102de6e5f2f4a7040103395",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baf2745c_697f8443",
+        "filename": "csit/suites/netvirt/l2l3_gatewaymac_arp.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-06-28T23:41:48Z",
+      "side": 1,
+      "message": "you don\u0027t need this at all, I don\u0027t think...\n\ndoesn\u0027t this do what you want?\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OpenStackOperations.robot#L704-L710",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 30
+      },
+      "revId": "13945cf9a14778e1f102de6e5f2f4a7040103395",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
