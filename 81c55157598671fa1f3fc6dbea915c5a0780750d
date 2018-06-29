@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1890e049_bca909f5",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-29T05:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba6841cb_4e0763e6",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5261b861_ac91663c",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 15
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-27T19:56:27Z",
       "side": 1,
       "message": "NET_2_PORTS",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 12
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a775a33_af8ff976",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-29T05:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5261b861_ac91663c",
       "range": {
         "startLine": 27,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c1de125f_7e6c594f",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-29T05:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f3e7c39_fa194a4e",
+      "range": {
+        "startLine": 59,
+        "startChar": 46,
+        "endLine": 59,
+        "endChar": 64
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7053f84a_27a2b587",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 15
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-27T19:56:27Z",
       "side": 1,
       "message": "probably a Collections or BuiltIn keyword to combine lists",
+      "range": {
+        "startLine": 74,
+        "startChar": 16,
+        "endLine": 74,
+        "endChar": 35
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00d27a30_21c22ef4",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-29T05:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7053f84a_27a2b587",
       "range": {
         "startLine": 74,
         "startChar": 16,
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "f366d32a_9d32251a",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-29T05:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f6e4400_b2498790",
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77b87b35_a8efafa6",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 15
@@ -122,6 +236,30 @@
       "writtenOn": "2018-06-27T19:56:27Z",
       "side": 1,
       "message": "make ALL caps since this is global",
+      "range": {
+        "startLine": 76,
+        "startChar": 36,
+        "endLine": 76,
+        "endChar": 42
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0a50382_5f9d7cc3",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-29T05:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77b87b35_a8efafa6",
       "range": {
         "startLine": 76,
         "startChar": 36,
@@ -151,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "cc845348_f00dc789",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-29T05:36:09Z",
+      "side": 1,
+      "message": "I have combined the list and we are enabling the bcast on particular VMs so this is correct",
+      "parentUuid": "2339fa03_000f7b23",
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50339d79_313c7de1",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 15
@@ -162,6 +318,30 @@
       "writtenOn": "2018-06-27T19:56:27Z",
       "side": 1,
       "message": "lowercase as these are local variables, only capitalize the SUITE variablies",
+      "range": {
+        "startLine": 79,
+        "startChar": 24,
+        "endLine": 79,
+        "endChar": 32
+      },
+      "revId": "81c55157598671fa1f3fc6dbea915c5a0780750d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1f99c33_2ed5a33f",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-06-29T05:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50339d79_313c7de1",
       "range": {
         "startLine": 79,
         "startChar": 24,
