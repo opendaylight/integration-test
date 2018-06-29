@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "084a6136_2c6f6df9",
+        "filename": "csit/suites/netvirt/vnibasedl3forwarding/vnibasedl3forwarding.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-29T15:17:30Z",
+      "side": 1,
+      "message": "there are further testcase where i will be using the variable",
+      "parentUuid": "7915a2d2_92ee169b",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "95cfd12d2eb37b7b44f472cadab6dc56119c9d7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d459854_159c2e61",
         "filename": "csit/suites/netvirt/vnibasedl3forwarding/vnibasedl3forwarding.robot",
         "patchSetId": 7
@@ -59,6 +83,30 @@
       "writtenOn": "2018-06-21T06:56:29Z",
       "side": 1,
       "message": "vni_vpn_1",
+      "range": {
+        "startLine": 49,
+        "startChar": 18,
+        "endLine": 49,
+        "endChar": 41
+      },
+      "revId": "95cfd12d2eb37b7b44f472cadab6dc56119c9d7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20d09442_fc7b7419",
+        "filename": "csit/suites/netvirt/vnibasedl3forwarding/vnibasedl3forwarding.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-06-29T15:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d459854_159c2e61",
       "range": {
         "startLine": 49,
         "startChar": 18,
