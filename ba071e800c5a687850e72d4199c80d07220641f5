@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabd68a6_94a3ea3f",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-06-29T13:36:42Z",
+      "side": 1,
+      "message": "remove this line, it is already above",
+      "revId": "ba071e800c5a687850e72d4199c80d07220641f5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
