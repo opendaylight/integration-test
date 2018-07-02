@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e97f96a9_2f4d6643",
+        "filename": "csit/suites/netvirt/vnibasedIpv6forwarding/vnibasedIpv6forwarding.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-02T22:57:06Z",
+      "side": 1,
+      "message": "should be in a shared lib right? seems like already 3 of your patches could be using this keyword from a lib.",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 47
+      },
+      "revId": "68edafde3897709f6eabf3404b160274538f051f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
