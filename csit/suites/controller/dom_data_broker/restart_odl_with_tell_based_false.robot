@@ -32,8 +32,24 @@ Unset_Tell_Based_Protocol_Usage
     ClusterManagement.Check_Bash_Command_On_List_Or_All    cat ${DATASTORE_CFG}
     ClusterManagement.Clean_Directories_On_List_Or_All    tmp_dir=/tmp
 
+
+Get Match
+    [Arguments]    ${text}    ${regexp}    ${index}=0
+    [Documentation]    Wrapper around String.Get Regexp Matches to return None if not found or the first match if found.
+    @{matches} =    String.Get Regexp Matches    ${text}    ${regexp}
+    ${matches_length} =    BuiltIn.Get Length    ${matches}
+    BuiltIn.Set Suite Variable    ${OS_MATCH}    None
+    BuiltIn.Run Keyword If    ${matches_length} > ${index}    BuiltIn.Set Suite Variable    ${OS_MATCH}    @{matches}[${index}]
+    [Return]    ${OS_MATCH}
+
 Start_All_And_Sync
     [Documentation]    Start each member and wait for sync.
     ClusterManagement.Start_Members_From_List_Or_All
-    BuiltIn.Wait_Until_Keyword_Succeeds    300s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
-    ClusterManagement.Run_Bash_Command_On_List_Or_All    ps -ef | grep java
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ClusterManagement.Run_Bash_Command_On_List_Or_All    netstat -pnatu
+    ${index_list} =    List_Indices_Or_All
+    : FOR    ${index}    IN    @{index_list}
+    \    ${output} =    ClusterManagement.Check_Bash_Command_On_Member    command=sudo netstat -pnatu | grep 2550 | grep LISTEN    member_index=${index}
+    \    ${listening} =    Get Match    ${output}    LISTEN
+    \    BuiltIn.Run Keyword If    ${listening} is None     ClusterManagement.Check_Bash_Command_On_Member    command=pid=$(grep org.apache.karaf.main.Main | grep -v grep | tr -s ' ' | cut -f2 -d' '); sudo /usr/lib/jvm/java-1.8.0/bin/jstack -l ${pid}    member_index=${index}
+
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
