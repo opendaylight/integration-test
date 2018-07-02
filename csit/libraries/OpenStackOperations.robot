@@ -229,6 +229,15 @@ Create Vm Instance With Ports
     ${port2_id} =    OpenStackOperations.Get Port Id    ${port2_name}
     ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-group ${sg}
 
+Create Vm Instance With Ports On Compute Node
+    [Arguments]    ${port_name}    ${port2_name}    ${vm_instance_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano
+    ...    ${sg}=default
+    [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
+    ${image}    BuiltIn.Set Variable If    "${image}"=="${EMPTY}"    ${CIRROS_${OPENSTACK_BRANCH}}    ${image}
+    ${port_id} =    OpenStackOperations.Get Port Id    ${port_name}
+    ${port2_id} =    OpenStackOperations.Get Port Id    ${port2_name}
+    ${output} =    OpenStack CLI    openstack server create --image ${image} --flavor ${flavor} --nic port-id=${port_id} --nic port-id=${port2_id} ${vm_instance_name} --security-group ${sg} --availability-zone nova:${node_hostname}
+
 Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${node_hostname}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
@@ -307,6 +316,14 @@ Get VM IPs
     \    BuiltIn.Run Keyword If    "${status}" == "FAIL"    BuiltIn.Log    ${vm_console_output}
     OpenStackOperations.Copy DHCP Files From Control Node
     [Return]    @{vm_ips}    ${ips_and_console_log[1]}
+
+Get Two Port VM IP Address
+    [Arguments]    ${vm_name}
+    [Documentation]    Show information of a given two port VM and grep for two ip address. VM name should be sent as arguments.
+    ${cmd}    BuiltIn.Set Variable    openstack server show ${vm_name}
+    ${output} =    OpenStackOperations.OpenStack CLI    ${cmd} | grep "addresses" | awk '{print $4$5}'
+    @{vm_ips} =    String.Get Regexp Matches    ${output}    ${REGEX_IPV4}
+    [Return]    @{vm_ips}
 
 Get Subnet Gateway Ip
     [Arguments]    ${subnet_name}
@@ -414,10 +431,10 @@ Execute Command on VM Instance
     [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
     OpenStackOperations.Get ControlNode Connection
     ${net_id} =    OpenStackOperations.Get Net Id    ${net_name}
-    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    password:
-    ${output} =    Utils.Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    ${output} =    Utils.Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null    password:    timeout=60s
+    ${output} =    Utils.Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}    timeout=60s
     ${rcode} =    BuiltIn.Run Keyword And Return Status    OpenStackOperations.Check If Console Is VmInstance
-    ${output} =    BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}
+    ${output} =    BuiltIn.Run Keyword If    ${rcode}    Utils.Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}    timeout=60s
     [Teardown]    Exit From Vm Console
     [Return]    ${output}
 
@@ -622,8 +639,8 @@ Neutron Security Group Rule Create
     ${port_range_min}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    port_range_min    default=${None}
     ${protocol}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    protocol    default=${None}
     ${remote_group_id}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote_group_id    default=${None}
-    ${remote_ip_prefix}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote_ip_prefix    default=${None}
-    ${cmd} =    BuiltIn.Set Variable    openstack security group rule create ${Security_group_name}
+    ${remote-ip}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote-ip    default=${None}
+    ${cmd} =    BuiltIn.Set Variable    openstack security group rule create
     ${cmd} =    BuiltIn.Run Keyword If    '${description}'!='None'    BuiltIn.Catenate    ${cmd}    --description ${description}
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${cmd} =    BuiltIn.Run Keyword If    '${direction}'!='None'    BuiltIn.Catenate    ${cmd}    --${direction}
@@ -638,7 +655,7 @@ Neutron Security Group Rule Create
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${cmd} =    BuiltIn.Run Keyword If    '${remote_group_id}'!='None'    BuiltIn.Catenate    ${cmd}    --remote-group ${remote_group_id}
     ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${remote_ip_prefix}'!='None'    BuiltIn.Catenate    ${cmd}    --src-ip ${remote_ip_prefix}
+    ${cmd} =    BuiltIn.Run Keyword If    '${remote-ip}'!='None'    BuiltIn.Catenate    ${cmd}    --remote-ip ${remote-ip} ${Security_group_name}
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${output} =    OpenStack CLI    ${cmd}
     ${rule_id} =    BuiltIn.Should Match Regexp    ${output}    ${REGEX_UUID}
