@@ -779,6 +779,13 @@ Neutron Port List Rest
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
+Get Network Segmentation Id
+    [Arguments]    ${network_name}
+    [Documentation]    Returns network segmentation id for the given network name.
+    ${output} =    OpenStack CLI    openstack network show ${network_name} | grep segmentation_id | awk '{print $4}'
+    @{list} =    String.Split String    ${output}
+    [Return]    ${list[0]}
+
 Get Neutron Port Rest
     [Arguments]    ${port_id}
     [Documentation]    Keyword to get the specific port details in Neutron (Using REST).
