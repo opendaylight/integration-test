@@ -620,8 +620,8 @@ Neutron Security Group Rule Create
     ${port_range_min}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    port_range_min    default=${None}
     ${protocol}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    protocol    default=${None}
     ${remote_group_id}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote_group_id    default=${None}
-    ${remote_ip_prefix}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote_ip_prefix    default=${None}
-    ${cmd} =    BuiltIn.Set Variable    openstack security group rule create ${Security_group_name}
+    ${remote-ip}    BuiltIn.Run Keyword If    ${Kwargs}    Collections.Pop From Dictionary    ${Kwargs}    remote-ip    default=${None}
+    ${cmd} =    BuiltIn.Set Variable    openstack security group rule create
     ${cmd} =    BuiltIn.Run Keyword If    '${description}'!='None'    BuiltIn.Catenate    ${cmd}    --description ${description}
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${cmd} =    BuiltIn.Run Keyword If    '${direction}'!='None'    BuiltIn.Catenate    ${cmd}    --${direction}
@@ -636,7 +636,7 @@ Neutron Security Group Rule Create
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${cmd} =    BuiltIn.Run Keyword If    '${remote_group_id}'!='None'    BuiltIn.Catenate    ${cmd}    --remote-group ${remote_group_id}
     ...    ELSE    BuiltIn.Catenate    ${cmd}
-    ${cmd} =    BuiltIn.Run Keyword If    '${remote_ip_prefix}'!='None'    BuiltIn.Catenate    ${cmd}    --src-ip ${remote_ip_prefix}
+    ${cmd} =    BuiltIn.Run Keyword If    '${remote-ip}'!='None'    BuiltIn.Catenate    ${cmd}    --remote-ip ${remote-ip} ${Security_group_name} 
     ...    ELSE    BuiltIn.Catenate    ${cmd}
     ${output} =    OpenStack CLI    ${cmd}
     ${rule_id} =    BuiltIn.Should Match Regexp    ${output}    ${REGEX_UUID}
