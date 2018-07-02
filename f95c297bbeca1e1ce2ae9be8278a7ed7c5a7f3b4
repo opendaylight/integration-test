@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de3d570d_c5af8dd7",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-02T22:53:26Z",
+      "side": 1,
+      "message": "is this the same as what\u0027s in https://git.opendaylight.org/gerrit/#/c/73184\n\nput these kinds of things in a lib and share it.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 47
+      },
+      "revId": "f95c297bbeca1e1ce2ae9be8278a7ed7c5a7f3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71f409e2_eb172461",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-02T22:53:26Z",
+      "side": 1,
+      "message": "these need to be ALL CAPS since they are suite variables\nand that\u0027s one easy way to identify those. otherwise\nif you look in line 46 above, without knowing about this,\nyou have a hard time figuring out where those variables\nare coming from. being all caps is a hint to that.",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 47
+      },
+      "revId": "f95c297bbeca1e1ce2ae9be8278a7ed7c5a7f3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
