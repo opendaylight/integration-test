@@ -35,5 +35,10 @@ Unset_Tell_Based_Protocol_Usage
 Start_All_And_Sync
     [Documentation]    Start each member and wait for sync.
     ClusterManagement.Start_Members_From_List_Or_All
-    BuiltIn.Wait_Until_Keyword_Succeeds    300s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
-    ClusterManagement.Run_Bash_Command_On_List_Or_All    ps -ef | grep java
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ClusterManagement.Run_Bash_Command_On_List_Or_All    netstat -pnatu
+    ${index_list} =    List_Indices_Or_All
+    : FOR    ${index}    IN    @{index_list}
+    \    BuiltIn.Wait_Until_Keywork_Succeeds    60s    10s    Check_Bash_Command_On_Member    command="netstat -pnatu | grep 2550 | grep LISTEN"    member_index=${index}
+    \    BuiltIn.Run Keyword If    ${rc}>0    Check_Bash_Command_On_Member    command="pid=$(grep org.apache.karaf.main.Main | grep -v grep | tr -s ' ' | cut -f2 -d' '); /usr/lib/jvm/java-1.8.0/bin/jstack -l ${pid}"    member_index=${index}
+
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    10s    ShardStability.Shards_Stability_Get_Details    ${DEFAULT_SHARD_LIST}    verify_restconf=True
