@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4d6c80a_d0a63c15",
+        "filename": "csit/suites/coe/Pod_Connectivity.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-02T22:12:00Z",
+      "side": 1,
+      "message": "need a space here \": FOR\". that\u0027s where the -verify is \ncoming.",
+      "revId": "d681af5e0c69d5fa3c9802206e3168993729f7ee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
