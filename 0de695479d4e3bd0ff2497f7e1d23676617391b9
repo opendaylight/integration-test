@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0c7c650_57db8d7b",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-03T21:17:00Z",
+      "side": 1,
+      "message": "put all these in alpha order",
+      "range": {
+        "startLine": 4,
+        "startChar": 18,
+        "endLine": 4,
+        "endChar": 28
+      },
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09896e7d_87c9a0bc",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-03T21:17:00Z",
+      "side": 1,
+      "message": "all uppercase",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "121994fb_f109ea63",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-03T21:17:00Z",
+      "side": 1,
+      "message": "all caps if this is a suite variable",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "171913d0_58a890c3",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-03T21:17:00Z",
+      "side": 1,
+      "message": "BuiltIn.Log",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 7
+      },
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50daa6b0_5f6f707a",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-03T21:17:00Z",
+      "side": 1,
+      "message": "\u003d for all variable assignments",
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a0c553f_7f88b188",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-03T21:17:00Z",
+      "side": 1,
+      "message": "Utils. Similar for other keywords, make sure to fully qualify them",
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32b22180_6121b180",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-03T21:17:00Z",
+      "side": 1,
+      "message": "Utils.",
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b83cbbb_454eed8e",
+        "filename": "csit/suites/genius/ha_test.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-03T21:17:00Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bf28d55_07d5bdb7",
+        "filename": "csit/testplans/genius-verify3node.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-03T21:17:00Z",
+      "side": 1,
+      "message": "was this file created as a ln -s?",
+      "revId": "0de695479d4e3bd0ff2497f7e1d23676617391b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
