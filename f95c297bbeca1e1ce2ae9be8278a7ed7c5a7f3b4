@@ -45,6 +45,30 @@
       "revId": "f95c297bbeca1e1ce2ae9be8278a7ed7c5a7f3b4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7516d810_0ff26c93",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-03T13:29:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71f409e2_eb172461",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 47
+      },
+      "revId": "f95c297bbeca1e1ce2ae9be8278a7ed7c5a7f3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
