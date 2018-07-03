@@ -47,3 +47,35 @@ coe-minion2:
     controller_port: cport
     go_version: \1.10.2\
     conf_path: filepath
+
+coe-minion3:
+  hosts:
+    minion3_ip:
+  vars:
+    external_interface: enp0s9
+    overlay_ip: minion2_ip
+    external_ip: 192.168.50.14
+    subnet: 10.11.4.0/24
+    gateway: 10.11.4.1
+    manager_ip: odl_ip
+    manager_port: mport
+    controller_ip: odl_ip
+    controller_port: cport
+    go_version: \1.10.2\
+    conf_path: filepath
+
+coe-minion4:
+  hosts:
+    minion4_ip:
+  vars:
+    external_interface: enp0s9
+    overlay_ip: minion2_ip
+    external_ip: 192.168.50.15
+    subnet: 10.11.5.0/24
+    gateway: 10.11.5.1
+    manager_ip: odl_ip
+    manager_port: mport
+    controller_ip: odl_ip
+    controller_port: cport
+    go_version: \1.10.2\
+    conf_path: filepath
