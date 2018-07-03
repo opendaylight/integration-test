@@ -14,6 +14,7 @@ Variables         ../variables/coe/Modules.py
 Variables         ../variables/netvirt/Modules.py
 
 *** Variables ***
+${BUSY_BOX}       ${CURDIR}/../variables/coe/busy-box.yaml
 ${CNI_BINARY_FILE}    /opt/cni/bin/odlovs-cni
 ${CONFIG_FILE}    /etc/cni/net.d/odlovs-cni.conf
 ${CONFIG_FILE_TEMPLATE}    ${CURDIR}/../variables/coe/odlovs-cni.conf.j2
@@ -21,12 +22,15 @@ ${HOST_INVENTORY}    ${CURDIR}/../variables/coe/hosts.yaml
 ${K8s_MASTER_IP}    ${TOOLS_SYSTEM_1_IP}
 ${K8s_MINION1_IP}    ${TOOLS_SYSTEM_2_IP}
 ${K8s_MINION2_IP}    ${TOOLS_SYSTEM_3_IP}
+${K8s_MINION3_IP}    ${TOOLS_SYSTEM_4_IP}
+${K8s_MINION4_IP}    ${TOOLS_SYSTEM_5_IP}
 ${NODE_READY_STATUS}    \\sReady
 ${PLAYBOOK}       ${CURDIR}/../variables/coe/coe_play.yaml
 ${POD_RUNNING_STATUS}    \\sRunning
 ${WATCHER_COE}    ${CURDIR}/../variables/coe/coe.yaml
-@{NODE_IPs}       ${K8s_MASTER_IP}    ${K8s_MINION1_IP}    ${K8s_MINION2_IP}
+@{NODE_IPs}       ${K8s_MASTER_IP}    ${K8s_MINION1_IP}    ${K8s_MINION2_IP}    ${K8s_MINION3_IP}    ${K8s_MINION4_IP}
 @{COE_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN    OVSDB
+${VARIABLES_PATH}    ${CURDIR}/../variables/coe
 
 *** Keywords ***
 Start Suite
@@ -38,7 +42,7 @@ Start Suite
     BuiltIn.Wait Until Keyword Succeeds    40s    2s    Coe.Check Node Status Is Ready
     Coe.Label Nodes
     BuiltIn.Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{COE_DIAG_SERVICES}
-    Genius.Verify Tunnel Status as UP    default-transport-zone
+    BuiltIn.Wait Until Keyword Succeeds    65    2    Genius.Verify Tunnel Status as UP    default-transport-zone
     Coe.Derive Coe Data Models
 
 Configuration Playbook
@@ -47,6 +51,8 @@ Configuration Playbook
     ${hosts} =    String.Replace String    ${hosts}    master_ip    ${K8s_MASTER_IP}
     ${hosts} =    String.Replace String    ${hosts}    minion1_ip    ${K8s_MINION1_IP}
     ${hosts} =    String.Replace String    ${hosts}    minion2_ip    ${K8s_MINION2_IP}
+    ${hosts} =    String.Replace String    ${hosts}    minion3_ip    ${K8s_MINION3_IP}
+    ${hosts} =    String.Replace String    ${hosts}    minion4_ip    ${K8s_MINION4_IP}
     ${hosts} =    String.Replace String    ${hosts}    odl_ip    ${ODL_SYSTEM_IP}
     ${hosts} =    String.Replace String    ${hosts}    mport    ${OVSDBPORT}
     ${hosts} =    String.Replace String    ${hosts}    cport    ${ODL_OF_PORT_6653}
@@ -58,7 +64,7 @@ Configuration Playbook
     ${watcher} =    String.Replace String    ${watcher}    port    ${RESTCONFPORT}
     OperatingSystem.Create File    ${WATCHER_COE}    ${watcher}
     SSHKeywords.Copy_File_To_Remote_System    ${K8s_MASTER_IP}    ${WATCHER_COE}    ${USER_HOME}
-    OperatingSystem.Move File    ${PLAYBOOK}    ${USER_HOME}
+    OperatingSystem.Copy File    ${PLAYBOOK}    ${USER_HOME}
     ${play_output} =    OperatingSystem.Run    ansible-playbook ${USER_HOME}/coe_play.yaml -i ${USER_HOME}/hosts.yaml
     BuiltIn.Log    ${play_output}
 
@@ -66,16 +72,22 @@ Set Connection ids and Bridge
     [Documentation]    Sets the connection ids for all the nodes and get the bridge from configuration file .
     ${conn_id_1} =    SSHLibrary.Open Connection    ${K8s_MASTER_IP}
     SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
-    BuiltIn.Set Suite Variable    ${conn_id_1}
+    BuiltIn.Set Global Variable    ${conn_id_1}
     ${conn_id_2} =    SSHLibrary.Open Connection    ${K8s_MINION1_IP}
     SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
-    BuiltIn.Set Suite Variable    ${conn_id_2}
+    BuiltIn.Set Global Variable    ${conn_id_2}
     ${conn_id_3} =    SSHLibrary.Open Connection    ${K8s_MINION2_IP}
     SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
-    BuiltIn.Set Suite Variable    ${conn_id_3}
+    BuiltIn.Set Global Variable    ${conn_id_3}
+    ${conn_id_4} =    SSHLibrary.Open Connection    ${K8s_MINION3_IP}
+    SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    BuiltIn.Set Global Variable    ${conn_id_4}
+    ${conn_id_5} =    SSHLibrary.Open Connection    ${K8s_MINION4_IP}
+    SSHKeywords.Flexible_SSH_Login    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}
+    BuiltIn.Set Global Variable    ${conn_id_5}
     ${file} =    OperatingSystem.Get File    ${CONFIG_FILE_TEMPLATE}
     ${line}    ${bridge} =    Should Match Regexp    ${file}    "ovsBridge": "(\\w.*)"
-    BuiltIn.Set Suite Variable    ${bridge}
+    BuiltIn.Set Global Variable    ${bridge}
 
 Verify Config Files
     [Documentation]    Checks if the configuration files are present in all nodes
@@ -98,13 +110,13 @@ Check Node Status Is Ready
 
 Label Nodes
     [Documentation]    Create labels for minions so that random allocation of pods to minions is avoided
-    ${nodes} =    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl get nodes
-    ${node_1} =    String.Get Line    ${nodes}    2
-    ${minion_1} =    BuiltIn.Should Match Regexp    ${node_1}    ^\\w+-.*-\\d+
-    ${node_2} =    String.Get Line    ${nodes}    3
-    ${minion_2} =    BuiltIn.Should Match Regexp    ${node_2}    ^\\w+-.*-\\d+
-    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl label nodes ${minion_1} disktype=ssd
-    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl label nodes ${minion_2} disktype=ssl
+    ${i} =    BuiltIn.Set Variable    1
+    ${lines} =    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get nodes
+    @{lines} =    String.Split To Lines    ${lines}    2
+    : FOR    ${status}    IN    @{lines}
+    \    ${minion} =    BuiltIn.Should Match Regexp    ${status}    ^\\w+-.*-\\d+
+    \    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl label nodes ${minion} disktype=ss${i}
+    \    ${i} =    BuiltIn.Evaluate    ${i}+1
     Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get nodes --show-labels
 
 Derive Coe Data Models
@@ -124,6 +136,8 @@ Tear Down
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_1}    ${bridge}
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_2}    ${bridge}
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_3}    ${bridge}
+    OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_4}    ${bridge}
+    OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_5}    ${bridge}
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${ODL_SYSTEM_IP}    ${coe_data_models}
     Coe.DumpConfig File
     Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl get nodes    ${DEFAULT_USER}    ${DEFAULT_PASSWORD}    ${DEFAULT_LINUX_PROMPT_STRICT}
@@ -184,3 +198,53 @@ Kube reset
     : FOR    ${nodes}    IN    @{NODE_IPs}
     \    ${kube} =    Utils.Run Command On Remote System And Log    ${nodes}    sudo kubeadm reset
     \    BuiltIn.Should Contain    ${kube}    Stopping the kubelet service.
+
+Create Pods
+    [Arguments]    ${label}    ${yaml}    ${name}
+    [Documentation]    Creates pods using the labels of the nodes and busy box names passed as arguments.
+    ${busybox} =    OperatingSystem.Get File    ${BUSY_BOX}
+    ${busybox} =    String.Replace String    ${busybox}    string    ${label}
+    ${busybox} =    String.Replace String    ${busybox}    busyboxname    ${name}
+    OperatingSystem.Create File    ${VARIABLES_PATH}/${yaml}    ${busybox}
+    SSHKeywords.Move_file_To_Remote_System    ${K8s_MASTER_IP}    ${VARIABLES_PATH}/${yaml}    ${USER_HOME}
+    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl create -f ${yaml}
+
+Collect Pod Names and Ping
+    [Documentation]    This keyword collects the pod names and checks connectivity between each and every pod with respect to one another.
+    ${lines} =    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl get pods -o wide
+    @{lines} =    String.Split To Lines    ${lines}    1
+    : FOR    ${status}    IN    @{lines}
+    \    ${pod_name} =    Builtin.Should Match Regexp    ${status}    ^\\w+-\\w+
+    \    Ping Pods    ${pod_name}    @{lines}
+
+Ping Pods
+    [Arguments]    ${pod_name}    @{lines}
+    [Documentation]    Ping pods to check connectivity between them
+    : FOR    ${pod ip}    IN    @{lines}
+    \    Comment    ${status} =    Run Keyword And Return Status    Should Contain    ${pod ip}    ${pod_name}
+    \    Comment    BuiltIn.Continue For Loop If    ${status} == True
+    \    ${pod_ip} =    Builtin.Should Match Regexp    ${pod ip}    \\d+.\\d+.\\d+.\\d+
+    \    ${ping} =    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl exec -it ${pod_name} -- ping -c 3 ${pod_ip}
+    \    Builtin.Should Match Regexp    ${ping}    ${PING_REGEXP}
+
+Coe Suite Setup
+    @{suite names}    Get Regexp Matches    ${SUITES}    coe\\/(\\w+).robot    1
+    @{suite names updated}    Create List
+    : FOR    ${suites}    IN    @{suite names}
+    \    ${suites}    Replace String    ${suites}    _    ${SPACE}
+    \    Append To List    ${suite names updated}    ${suites}
+    ${first suite} =    Set Variable    ${suite names updated[0]}
+    ${line}    ${current suite}    Should Match Regexp    ${SUITE_NAME}    .txt.(\\w.*)
+    ${status} =    BuiltIn.Evaluate    '${first suite}' == '${current suite}'
+    Run Keyword If    '${status}' == 'True'    Coe.Start Suite
+
+Coe Suite Teardown
+    @{suite names}    Get Regexp Matches    ${SUITES}    coe\\/(\\w+).robot    1
+    @{suite names updated}    Create List
+    : FOR    ${suites}    IN    @{suite names}
+    \    ${suites}    Replace String    ${suites}    _    ${SPACE}
+    \    Append To List    ${suite names updated}    ${suites}
+    ${last suite} =    Set Variable    ${suite names updated[-1]}
+    ${line}    ${current suite}    Should Match Regexp    ${SUITE_NAME}    .txt.(\\w.*)
+    ${status} =    BuiltIn.Evaluate    '${last suite}' == '${current suite}'
+    Run Keyword If    '${status}' == 'True'    Coe.Stop Suite
