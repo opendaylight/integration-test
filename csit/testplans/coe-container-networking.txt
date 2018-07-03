@@ -1,3 +1,3 @@
 # Place the suites in run order:
-integration/test/csit/suites/coe/Pod_Connectivity.robot
-
+integration/test/csit/suites/coe/Basic_Pod_Connectivity_Tests.robot
+integration/test/csit/suites/coe/Scalability_of_Pods.robot
