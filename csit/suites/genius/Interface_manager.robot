@@ -24,7 +24,7 @@ ${trunk_member_json}    l2vlan_member.json
 *** Test Cases ***
 Create l2vlan transparent interface
     [Documentation]    This testcase creates a l2vlan transparent interface between 2 dpns.
-    Create Interface    ${trunk_json}    transparent
+    Genius.Create Interface    ${trunk_json}    transparent
     @{l2vlan}    create list    l2vlan-trunk    l2vlan    transparent    l2vlan    true
     Check For Elements At URI    ${CONFIG_API}/ietf-interfaces:interfaces/    ${l2vlan}
     Wait Until Keyword Succeeds    50    5    get operational interface    ${interface_name}
@@ -38,7 +38,7 @@ Delete l2vlan transparent interface
 
 Create l2vlan trunk interface
     [Documentation]    This testcase creates a l2vlan trunk interface between 2 DPNs.
-    Create Interface    ${trunk_json}    trunk
+    Genius.Create Interface    ${trunk_json}    trunk
     @{l2vlan}    create list    l2vlan-trunk    l2vlan    trunk    tap8ed70586-6c    true
     Check For Elements At URI    ${CONFIG_API}/ietf-interfaces:interfaces/    ${l2vlan}
     Wait Until Keyword Succeeds    50    5    get operational interface    ${interface_name}
@@ -150,16 +150,3 @@ ovs check for member interface creation
     should contain    ${ovs-check}    table=0
     should contain    ${ovs-check}    dl_vlan=1000
     should contain    ${ovs-check}    actions=pop_vlan
-
-Create Interface
-    [Arguments]    ${json_file}    ${interface_mode}
-    [Documentation]    Creates an trunk/transparent interface based on input provided to the json body
-    ${body}    OperatingSystem.Get File    ${genius_config_dir}/${json_file}
-    log    ${genius_config_dir}/${json_file}
-    ${body}    replace string    ${body}    "l2vlan-mode":"trunk"    "l2vlan-mode":"${interface_mode}"
-    log    "l2vlan-mode":"${interface_mode}"
-    log    ${body}
-    ${post_resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/    data=${body}
-    Log    ${post_resp.content}
-    Log    ${post_resp.status_code}
-    Should Be Equal As Strings    ${post_resp.status_code}    204

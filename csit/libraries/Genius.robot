@@ -245,12 +245,12 @@ Check ITM Tunnel State
     Should Not Contain    ${resp.content}    ${tunnel1}    ${tunnel2}
 
 Verify Tunnel Status as UP
-    [Arguments]    ${Transport_zone}
+    [Arguments]    ${Transport_zone}    ${odl_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Verify that the number of tunnels are UP
-    ${No_of_Teps}    Issue_Command_On_Karaf_Console    ${TEP_SHOW}
+    ${No_of_Teps}    Issue_Command_On_Karaf_Console    ${TEP_SHOW}    ${odl_ip}
     ${Lines_of_TZA}    Get Lines Containing String    ${No_of_Teps}    ${Transport_zone}
     ${Expected_Node_Count}    Get Line Count    ${Lines_of_TZA}
-    ${no_of_tunnels}    Issue_Command_On_Karaf_Console    ${TEP_SHOW_STATE}
+    ${no_of_tunnels}    Issue_Command_On_Karaf_Console    ${TEP_SHOW_STATE}    ${odl_ip}
     ${lines_of_VXLAN}    Get Lines Containing String    ${no_of_tunnels}    VXLAN
     Should Contain    ${no_of_tunnels}    ${STATE_UP}
     Should Not Contain    ${no_of_tunnels}    ${STATE_DOWN}
@@ -324,3 +324,16 @@ SRM Stop Suite
     Delete All Vteps
     Genius Suite Debugs    ${data_models}
     Genius Suite Teardown
+
+Create Interface
+    [Arguments]    ${json_file}    ${interface_mode}
+    [Documentation]    Creates an trunk/transparent interface based on input provided to the json body.
+    ${body} =    OperatingSystem.Get File    ${genius_config_dir}/${json_file}
+    BuiltIn.log    ${genius_config_dir}/${json_file}
+    ${body} =    String.Replace String    ${body}    "l2vlan-mode":"trunk"    "l2vlan-mode":"${interface_mode}"
+    BuiltIn.log    "l2vlan-mode":"${interface_mode}"
+    BuiltIn.log    ${body}
+    ${post_resp} =    RequestsLibrary.Post Request    session    ${CONFIG_API}/ietf-interfaces:interfaces/    data=${body}
+    BuiltIn.log    ${post_resp.content}
+    BuiltIn.log    ${post_resp.status_code}
+    BuiltIn.Should Be Equal As Strings    ${post_resp.status_code}    204
