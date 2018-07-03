@@ -14,6 +14,7 @@ Variables         ../variables/coe/Modules.py
 Variables         ../variables/netvirt/Modules.py
 
 *** Variables ***
+${BUSY_BOX}       ${CURDIR}/../variables/coe/busy-box.yaml
 ${CNI_BINARY_FILE}    /opt/cni/bin/odlovs-cni
 ${CONFIG_FILE}    /etc/cni/net.d/odlovs-cni.conf
 ${CONFIG_FILE_TEMPLATE}    ${CURDIR}/../variables/coe/odlovs-cni.conf.j2
@@ -27,6 +28,7 @@ ${POD_RUNNING_STATUS}    \\sRunning
 ${WATCHER_COE}    ${CURDIR}/../variables/coe/coe.yaml
 @{NODE_IPs}       ${K8s_MASTER_IP}    ${K8s_MINION1_IP}    ${K8s_MINION2_IP}
 @{COE_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN    OVSDB
+${VARIABLES_PATH}    ${CURDIR}/../variables/coe
 
 *** Keywords ***
 Start Suite
@@ -184,3 +186,33 @@ Kube reset
     : FOR    ${nodes}    IN    @{NODE_IPs}
     \    ${kube} =    Utils.Run Command On Remote System And Log    ${nodes}    sudo kubeadm reset
     \    BuiltIn.Should Contain    ${kube}    Stopping the kubelet service.
+
+Create Pods
+    [Arguments]    ${label}    ${yaml}    ${name}
+    [Documentation]    Creates pods using the labels of the nodes and busy box names passed as arguments.
+    ${busybox} =    OperatingSystem.Get File    ${BUSY_BOX}
+    ${busybox} =    String.Replace String    ${busybox}    string    ${label}
+    ${busybox} =    String.Replace String    ${busybox}    busyboxname    ${name}
+    OperatingSystem.Create File    ${VARIABLES_PATH}/${yaml}    ${busybox}
+    SSHKeywords.Move_file_To_Remote_System    ${K8s_MASTER_IP}    ${VARIABLES_PATH}/${yaml}    ${USER_HOME}
+    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl create -f ${yaml}
+
+Collect Pod Names and Ping
+    [Documentation]    This keyword collects the pod names and checks connectivity between each and every pod with respect to one another.
+    ${lines} =    Utils.Run Command On Remote System    ${K8s_MASTER_IP}    kubectl get pods -o wide
+    @{lines} =    String.Split To Lines    ${lines}    1
+    : FOR    ${status}    IN    @{lines}
+    \    ${pod_name} =    Builtin.Should Match Regexp    ${status}    ^\\w+
+    \    Ping Pods    ${pod_name}    ${lines}
+
+Ping Pods
+    [Arguments]    ${pod_name}    ${lines}
+    [Documentation]    Ping pods to check connectivity between them
+    ${lines} =    String.Remove String Using Regexp    ${lines}    ${pod_name}.*
+    @{lines} =    String.Split To Lines    ${lines}    1
+    : FOR    ${status}    IN    @{lines}
+    \    ${length}=    BuiltIn.Get Length    ${status}
+    \    BuiltIn.Continue For Loop If    ${length} == 0
+    \    ${pod_ip} =    Builtin.Should Match Regexp    ${status}    \\d+.\\d+.\\d+.\\d+
+    \    ${ping} =    Utils.Run Command On Remote System And Log    ${K8s_MASTER_IP}    kubectl exec -it ${pod_name} -- ping -c 3 ${pod_ip}
+    \    Builtin.Should Match Regexp    ${ping}    ${PING_REGEXP}
