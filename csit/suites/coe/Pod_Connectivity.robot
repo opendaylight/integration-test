@@ -17,6 +17,7 @@ ${BUSY_BOX}       ${CURDIR}/../../variables/coe/busy-box.yaml
 ${VARIABLES_PATH}    ${CURDIR}/../../variables/coe
 @{BB_NAMES}       busybox1    busybox2    busybox3    busybox4
 @{BUSY_BOXES}     busy-box-1.yaml    busy-box-2.yaml    busy-box-3.yaml    busy-box-4.yaml
+${NO_OF_PODS}     10
 
 *** Test Cases ***
 Verify L2 Connectivity Between Pods
@@ -32,6 +33,21 @@ Verify L3 Connectivity Between Pods
     ...    For the pod to be eligible to run on a node, the node must have each of the indicated key-value pairs as labels.
     Create Pods    ssd    ${BUSY_BOXES[2]}    ${BB_NAMES[2]}
     Create Pods    ssl    ${BUSY_BOXES[3]}    ${BB_NAMES[3]}
+    BuiltIn.Wait Until Keyword Succeeds    55s    2s    Coe.Check Pod Status Is Running
+    Ping Pods
+
+Verify Connectivity Between n Pods
+    : FOR    ${i}    INRANGE    1    ${NO_OF_PODS}+1
+    \    Create Pods    ssd    busybox${i}.yaml    busybox${i}
+    \    Create Pods    ssl    busybox${i}.yaml    busybox${i}
+    BuiltIn.Wait Until Keyword Succeeds    55s    2s    Coe.Check Pod Status Is Running
+    Ping Pods
+
+test
+    :FOR    ${i}    INRANGE    1    ${NO_OF_PODS}+1
+    \    Create Pods    ssd    busybox${i}.yaml    busybox${i}
+    :FOR    ${i}    INRANGE    11    21
+    \    Create Pods    ssl    busybox${i}.yaml    busybox${i}
     BuiltIn.Wait Until Keyword Succeeds    55s    2s    Coe.Check Pod Status Is Running
     Ping Pods
 
