@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1058896b_cd210b36",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-03T10:29:33Z",
+      "side": 1,
+      "message": "My mistake. Removed",
+      "parentUuid": "d3a28fe6_201765d2",
+      "range": {
+        "startLine": 1062,
+        "startChar": 0,
+        "endLine": 1062,
+        "endChar": 12
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d7911f1_97909501",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 28
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-28T15:27:35Z",
       "side": 1,
       "message": "whoops",
+      "range": {
+        "startLine": 1099,
+        "startChar": 0,
+        "endLine": 1099,
+        "endChar": 7
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18944cd3_6d754dca",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 1099,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-03T10:29:33Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "4d7911f1_97909501",
       "range": {
         "startLine": 1099,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e834774d_cee77665",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-03T10:29:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc975fc6_76b44a09",
+      "range": {
+        "startLine": 1109,
+        "startChar": 0,
+        "endLine": 1109,
+        "endChar": 18
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2dff9683_f77a4b9e",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 28
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-28T15:27:35Z",
       "side": 1,
       "message": "whoops",
+      "range": {
+        "startLine": 1116,
+        "startChar": 0,
+        "endLine": 1116,
+        "endChar": 39
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8148312_7c86c938",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-03T10:29:33Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "2dff9683_f77a4b9e",
       "range": {
         "startLine": 1116,
         "startChar": 0,
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "e4a74f09_ef286fd6",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-03T10:29:33Z",
+      "side": 1,
+      "message": "For one node it takes 50 to 55 secs.",
+      "parentUuid": "1fc5a856_caadc835",
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15fee1a2_cb3c3b89",
         "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
         "patchSetId": 28
@@ -122,6 +236,30 @@
       "writtenOn": "2018-06-28T15:27:35Z",
       "side": 1,
       "message": "what\u0027s the need for these _1 values? they look to all be\nunique without these.",
+      "range": {
+        "startLine": 49,
+        "startChar": 46,
+        "endLine": 49,
+        "endChar": 48
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f1ed994_b65a0dcf",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-03T10:29:33Z",
+      "side": 1,
+      "message": "Removed the _1 values for the variables.",
+      "parentUuid": "15fee1a2_cb3c3b89",
       "range": {
         "startLine": 49,
         "startChar": 46,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "c027ee22_59a88cf9",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-03T10:29:33Z",
+      "side": 1,
+      "message": "This is the L3VPN Route distinguisher value. So changed the name as L3VPN_RD now and using ${L3VPN_RD} in suite.\n\nRemoved @{DCGW_RD}.",
+      "parentUuid": "93832dfc_317a4a5a",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 24
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66ff91b1_5b0b8911",
         "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
         "patchSetId": 28
@@ -168,6 +330,30 @@
       "writtenOn": "2018-06-28T15:27:35Z",
       "side": 1,
       "message": "until you run the full jobs for each of pike and queens, I\nam still not sure this is needed and wont break.",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 42
+      },
+      "revId": "e7562aeca077e18f8cf09e310bafaf3188df3829",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ccee0e0_9437105c",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-03T10:29:33Z",
+      "side": 1,
+      "message": "I have run the script without using this keyword in fluorine and it got failed with the error :\n${output} \u003d No flavor with a name or ID of \u0027m1.nano\u0027 exists. \nWhile creating VM.\nLog link :\nhttps://logs.opendaylight.org/sandbox/vex-yul-odl-jenkins-2/netvirt-csit-hwvtep-1node-openstack-queens-anujupstream-stateful-fluorine/1/robot-plugin/log_full.html.gz\n\nSo, using this keyword.",
+      "parentUuid": "66ff91b1_5b0b8911",
       "range": {
         "startLine": 160,
         "startChar": 4,
