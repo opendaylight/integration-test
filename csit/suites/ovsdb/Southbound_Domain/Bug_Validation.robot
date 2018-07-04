@@ -45,14 +45,8 @@ Bug 7414 Same Endpoint Name
     # send one rest request to create a TP endpoint on each ovs (same name)
     ${body} =    OVSDB.Modify Multi Port Body    vtep1    vtep1    ${bridge}
     # check that each ovs has the correct endpoint
-    ${ovs_1_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
-    BuiltIn.Log    ${ovs_1_output}
-    ${ovs_2_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl show
-    BuiltIn.Log    ${ovs_2_output}
-    BuiltIn.Should Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
-    BuiltIn.Should Not Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    BuiltIn.Should Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    BuiltIn.Should Not Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     [Teardown]    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
     ...    AND    Test Teardown
 
@@ -77,14 +71,8 @@ Bug 7414 Different Endpoint Name
     # send one rest request to create a TP endpoint on each ovs (different name)
     ${body} =    OVSDB.Modify Multi Port Body    vtep1    vtep2    ${bridge}
     # check that each ovs has the correct endpoint
-    ${ovs_1_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
-    BuiltIn.Log    ${ovs_1_output}
-    ${ovs_2_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl show
-    BuiltIn.Log    ${ovs_2_output}
-    BuiltIn.Should Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
-    BuiltIn.Should Not Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    BuiltIn.Should Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    BuiltIn.Should Not Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_IP}     ${TOOLS_SYSTEM_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_2_IP}     ${TOOLS_SYSTEM_IP}
     [Teardown]    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
     ...    AND    Test Teardown
 
@@ -252,3 +240,11 @@ Test Teardown
 Clean All Ovs Nodes
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
+
+*** Keywords ***
+Verify TEP Creation on OVS
+    [Arguments]    ${local_ip}    ${remote_ip}
+    ${ovs_output} =    Utils.Run Command On Remote System    ${local_ip}    sudo ovs-vsctl show
+    BuiltIn.Log    ${ovs_output}
+    BuiltIn.Should Contain    ${ovs_output}    local_ip="${local_ip}", remote_ip="${remote_ip}"
+    BuiltIn.Should Not Contain    ${ovs_output}    local_ip="${remote_ip}", remote_ip="${local_ip}"
