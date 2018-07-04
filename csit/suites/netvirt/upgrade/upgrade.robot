@@ -62,6 +62,7 @@ Start ODL
 Wait For Full Sync
     [Documentation]    Wait for networking_odl to sync neutron configuration
     Wait Until Keyword Succeeds    90s    5s    Canary Network Should Exist
+    Set Upgrade Flag
 
 Set OVS Manager And Controller
     [Documentation]    Set controller and manager on each OpenStack node and check that egress flows are present
@@ -145,3 +146,8 @@ Canary Network Should Exist
 Upgrade Suite Teardown
     Set Custom Component Logging To    INFO
     OpenStackOperations.OpenStack Suite Teardown
+
+Set Upgrade Flag
+    ${resp}=    RequestsLibrary.Put Request    session    /restconf/config/genius-mdsalutil:config    {"config":{"upgradeInProgress":true}}
+    Builtin.Log     ${resp.status_code}
+
