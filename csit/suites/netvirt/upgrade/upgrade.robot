@@ -27,6 +27,7 @@ ${ROUTER}         upgrade_router_1
 ${TYPE}           tun
 ${PASSIVE_MANAGER}    ptcp:6641:127.0.0.1
 @{DEBUG_LOG_COMPONENTS}    org.opendaylight.ovsdb    org.opendaylight.ovsdb.lib    org.opendaylight.netvirt    org.opendaylight.genius
+${UPDATE_FLAG_PATH}    /restconf/config/genius-mdsalutil:config
 
 *** Test Cases ***
 Create Setup And Verify Instance Connectivity
@@ -63,11 +64,19 @@ Wait For Full Sync
     [Documentation]    Wait for networking_odl to sync neutron configuration
     Wait Until Keyword Succeeds    90s    5s    Canary Network Should Exist
 
+Set Upgrade Flag
+    ${resp}=   RequestsLibrary.Put Request    session    ${UPDATE_FLAG_PATH}    {"config":{"upgradeInProgress":true}}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+
 Set OVS Manager And Controller
     [Documentation]    Set controller and manager on each OpenStack node and check that egress flows are present
     : FOR    ${node}    IN    @{OS_ALL_IPS}
     \    Run Command On Remote System    ${node}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDBPORT} ${PASSIVE_MANAGER}
     Wait Until Keyword Succeeds    180s    15s    Check OVS Nodes Have Egress Flows
+
+UnSet Upgrade Flag
+    ${resp}=   RequestsLibrary.Put Request    session    ${UPDATE_FLAG_PATH}    {"config":{"upgradeInProgress":false}}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
 
 Check Connectivity With Previously Created Resources And br-int Info
     [Documentation]    Check that pre-existing instance connectivity still works after the new controller is brought
