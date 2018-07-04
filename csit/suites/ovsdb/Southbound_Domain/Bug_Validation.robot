@@ -45,16 +45,10 @@ Bug 7414 Same Endpoint Name
     # send one rest request to create a TP endpoint on each ovs (same name)
     ${body} =    OVSDB.Modify Multi Port Body    vtep1    vtep1    ${bridge}
     # check that each ovs has the correct endpoint
-    ${ovs_1_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
-    BuiltIn.Log    ${ovs_1_output}
-    ${ovs_2_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl show
-    BuiltIn.Log    ${ovs_2_output}
-    BuiltIn.Should Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
-    BuiltIn.Should Not Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    BuiltIn.Should Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    BuiltIn.Should Not Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
-    [Teardown]    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
-    ...    AND    Test Teardown
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
+    [Teardown]    Test Teardown
+    ...    AND    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
 
 Bug 7414 Different Endpoint Name
     [Documentation]    This test case is supplemental to the other test case for bug 7414. Even when the other
@@ -77,16 +71,10 @@ Bug 7414 Different Endpoint Name
     # send one rest request to create a TP endpoint on each ovs (different name)
     ${body} =    OVSDB.Modify Multi Port Body    vtep1    vtep2    ${bridge}
     # check that each ovs has the correct endpoint
-    ${ovs_1_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
-    BuiltIn.Log    ${ovs_1_output}
-    ${ovs_2_output} =    Utils.Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl show
-    BuiltIn.Log    ${ovs_2_output}
-    BuiltIn.Should Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
-    BuiltIn.Should Not Contain    ${ovs_1_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    BuiltIn.Should Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_2_IP}", remote_ip="${TOOLS_SYSTEM_IP}"
-    BuiltIn.Should Not Contain    ${ovs_2_output}    local_ip="${TOOLS_SYSTEM_IP}", remote_ip="${TOOLS_SYSTEM_2_IP}"
-    [Teardown]    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
-    ...    AND    Test Teardown
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}
+    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify TEP Creation on OVS    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
+    [Teardown]    Test Teardown
+    ...    AND    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}    data=${body}
 
 Bug 5221
     [Documentation]    In the case that an ovs node is rebooted, or the ovs service is
@@ -107,9 +95,9 @@ Bug 5221
     Utils.Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
     # Depending on when the retry timers are firing, it may take some 10s of seconds to reconnect, so setting to 30 to cover that.
     BuiltIn.Wait Until Keyword Succeeds    30s    2s    Utils.Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}    pretty_print_json=True
-    [Teardown]    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634%2Fbridge%2F${bridge}
+    [Teardown]    Test Teardown
+    ...    AND    BuiltIn.Run Keywords    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634%2Fbridge%2F${bridge}
     ...    AND    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:6634
-    ...    AND    Test Teardown
 
 Bug 5177
     [Documentation]    This test case will recreate the bug using the same basic steps as
@@ -252,3 +240,10 @@ Test Teardown
 Clean All Ovs Nodes
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
+
+Verify TEP Creation on OVS
+    [Arguments]    ${local_ip}    ${remote_ip}
+    ${ovs_output} =    Utils.Run Command On Remote System    ${local_ip}    sudo ovs-vsctl show
+    BuiltIn.Log    ${ovs_output}
+    BuiltIn.Should Contain    ${ovs_output}    local_ip="${local_ip}", remote_ip="${remote_ip}"
+    BuiltIn.Should Not Contain    ${ovs_output}    local_ip="${remote_ip}", remote_ip="${local_ip}"
