@@ -245,8 +245,8 @@ Test Setup
     SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 
 Test Teardown
-    Clean All Ovs Nodes
     OVSDB.Log Config And Operational Topology
+    Clean All Ovs Nodes
     Utils.Report_Failure_Due_To_Bug    ${TEST_TAGS}
 
 Clean All Ovs Nodes
