@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de7addd3_bb075124",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-05T23:01:58Z",
+      "side": 1,
+      "message": "Add pseudo port binding suite",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "86d445766e5795c608e78c66995f47bb5c5f3133",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba7ffa2b_e59ed833",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-05T23:01:58Z",
+      "side": 1,
+      "message": "any reason for this? I didn\u0027t see one. remove, if that\u0027s\nthe case.",
+      "range": {
+        "startLine": 425,
+        "startChar": 0,
+        "endLine": 425,
+        "endChar": 44
+      },
+      "revId": "86d445766e5795c608e78c66995f47bb5c5f3133",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49df7706_e54db321",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-05T23:01:58Z",
+      "side": 1,
+      "message": "add space and \u003d so it\u0027s like:\n\n  ${resp} \u003d    Requests...\n\napplies elsewhere.",
+      "revId": "86d445766e5795c608e78c66995f47bb5c5f3133",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7713154_bc93bc8a",
+        "filename": "csit/suites/netvirt/pseudoportbinding/pseudoportbinding.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-05T23:01:58Z",
+      "side": 1,
+      "message": "make these vars ALL CAPS so it\u0027s easier to follow\nin the code below.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 48
+      },
+      "revId": "86d445766e5795c608e78c66995f47bb5c5f3133",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "192b4071_ffbc9424",
+        "filename": "csit/suites/netvirt/pseudoportbinding/pseudoportbinding.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-05T23:01:58Z",
+      "side": 1,
+      "message": "s/extrenal/external",
+      "range": {
+        "startLine": 43,
+        "startChar": 32,
+        "endLine": 43,
+        "endChar": 48
+      },
+      "revId": "86d445766e5795c608e78c66995f47bb5c5f3133",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce01febc_e1db88f7",
+        "filename": "csit/suites/netvirt/pseudoportbinding/pseudoportbinding.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-05T23:01:58Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed. as such, you probably don\u0027t\nneed the ${conn_id} arg either.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 46
+      },
+      "revId": "86d445766e5795c608e78c66995f47bb5c5f3133",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
