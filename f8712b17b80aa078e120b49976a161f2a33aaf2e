@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1a3430_1b9f9018",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-05T17:44:31Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 386,
+        "startChar": 0,
+        "endLine": 386,
+        "endChar": 12
+      },
+      "revId": "f8712b17b80aa078e120b49976a161f2a33aaf2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ecfa844_2d401034",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-05T17:44:31Z",
+      "side": 1,
+      "message": "Somehow i feel there is a slight mismatch between testcase anme and the documentation part",
+      "range": {
+        "startLine": 425,
+        "startChar": 23,
+        "endLine": 425,
+        "endChar": 74
+      },
+      "revId": "f8712b17b80aa078e120b49976a161f2a33aaf2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e6bac97_73d9f896",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-05T17:44:31Z",
+      "side": 1,
+      "message": "Would be better if we rename the variables to itm_vtep_sg or similar.. applicable to elsewhere",
+      "range": {
+        "startLine": 31,
+        "startChar": 21,
+        "endLine": 31,
+        "endChar": 27
+      },
+      "revId": "f8712b17b80aa078e120b49976a161f2a33aaf2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
