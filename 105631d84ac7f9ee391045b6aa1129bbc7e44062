@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fcad2e7_eaae4509",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-07-05T18:22:53Z",
+      "side": 1,
+      "message": "can move the suite under respective tdd-wip.txt testplan file",
+      "revId": "105631d84ac7f9ee391045b6aa1129bbc7e44062",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
