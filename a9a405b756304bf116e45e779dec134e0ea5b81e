@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9b49c31_f1080b5b",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-05T22:51:21Z",
+      "side": 1,
+      "message": "can we think of a better name so it more reflects that this is\nlooking at instance console logs for the ip address?",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 11
+      },
+      "revId": "a9a405b756304bf116e45e779dec134e0ea5b81e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2126caee_ade1fe52",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-05T22:51:21Z",
+      "side": 1,
+      "message": "put these at the end of the list",
+      "range": {
+        "startLine": 23,
+        "startChar": 18,
+        "endLine": 23,
+        "endChar": 38
+      },
+      "revId": "a9a405b756304bf116e45e779dec134e0ea5b81e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c5b99c1_fc1002fa",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-05T22:51:21Z",
+      "side": 1,
+      "message": "@{PORTS}[2]",
+      "range": {
+        "startLine": 45,
+        "startChar": 36,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "a9a405b756304bf116e45e779dec134e0ea5b81e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6899fa2f_c6c63c6a",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-05T22:51:21Z",
+      "side": 1,
+      "message": "@{PORTS}][3]\n\nif you are feeling like making things a little better\nyou can change all the instances of \"source_vm_port\" to\n@{PORTS}[0], etc.",
+      "range": {
+        "startLine": 46,
+        "startChar": 36,
+        "endLine": 46,
+        "endChar": 44
+      },
+      "revId": "a9a405b756304bf116e45e779dec134e0ea5b81e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
