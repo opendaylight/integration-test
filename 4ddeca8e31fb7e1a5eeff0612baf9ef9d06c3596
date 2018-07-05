@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3517ac30_ee4a9c0c",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-07-05T13:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a89dde8_51e16349",
+      "range": {
+        "startLine": 76,
+        "startChar": 36,
+        "endLine": 76,
+        "endChar": 42
+      },
+      "revId": "4ddeca8e31fb7e1a5eeff0612baf9ef9d06c3596",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ee82b67_573175b2",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 18
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-03T04:30:04Z",
       "side": 1,
       "message": "delete this part. you aren\u0027t doing anything with this var\nanyway.\n\napplies below as well.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 34
+      },
+      "revId": "4ddeca8e31fb7e1a5eeff0612baf9ef9d06c3596",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b9bbb2c_ac7c1c89",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-07-05T13:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ee82b67_573175b2",
       "range": {
         "startLine": 78,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f49e8f77_ca8e09ea",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-07-05T13:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c464620_1765880f",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 24
+      },
+      "revId": "4ddeca8e31fb7e1a5eeff0612baf9ef9d06c3596",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34c38dec_b5973949",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 18
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "a98f708e_71f147c4",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-07-05T13:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34c38dec_b5973949",
+      "revId": "4ddeca8e31fb7e1a5eeff0612baf9ef9d06c3596",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15d6f0a6_daeae50a",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 18
@@ -99,6 +189,30 @@
       "writtenOn": "2018-07-03T04:30:04Z",
       "side": 1,
       "message": "these keywords are so similar, it feels better to make\nthem one keyword.\n\nhow about:\n\nGet Bcast Packet Count Diff After Ping\n    [Arguments]    ${OS_COMPUTE_IP}    ${EGRESS_ACL_TABLE}    ${SRC_VM_IP}    ${BCAST_IP}\n    # Do all the work here, using ${SRC_VM_IP} instead of the @{VM_IPS}[] in line 142\n    [Return]    ${pkt_diff}\n\nThen your test cases will just have an extra line each to either\ncheck ${pkt_diff}\u003d\u003d0 or ${pkt_diff}\u003d\u003d${PACKET_COUNT}",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 36
+      },
+      "revId": "4ddeca8e31fb7e1a5eeff0612baf9ef9d06c3596",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b81d63e9_ec1ea1df",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-07-05T13:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15d6f0a6_daeae50a",
       "range": {
         "startLine": 138,
         "startChar": 0,
