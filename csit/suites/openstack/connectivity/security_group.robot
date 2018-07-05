@@ -163,7 +163,7 @@ Test Connection when Rules Change Dynamically
     Read    delay=10s
     Write_Bare_Ctrl_C
     ${output}=    Read Until    packet loss
-    Should Not Contain    ${output}    received, 0% packet loss
+    Should Not Contain    ${output}    ${PING_REGEXP}
 
 No Ping From DHCP To Vm Instance1 With Additional Security Group Rules Removed
     [Documentation]    Check non-reachability of vm instances by pinging to them.
