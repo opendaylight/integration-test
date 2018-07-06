@@ -23,16 +23,21 @@
       file:
         path: "{{ ansible_env.HOME }}/go/bin"
         state: directory
-    - name: Install glide
-      shell: curl https://glide.sh/get | sh
+    - name: Install dep
+      shell: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
       args:
-        creates: "{{ gopath }}/bin/glide"
+        creates: "{{ gopath }}/bin/dep"
     - name: Fetch COE git repository
       git:
         repo: 'https://git.opendaylight.org/gerrit/p/coe.git'
         dest: "{{ coe_path }}"
-    - name: Fetch odl-cni dependencies with glide
-      shell: glide install -v
+    - name: Fetch COE dep patch
+      shell: git config --add user.name "vagrant" && git config --add user.email "coe@local" && git fetch https://git.opendaylight.org/gerrit/coe refs/changes/55/72855/4 && git cherry-pick FETCH_HEAD && touch /tmp/coe-patched
+      args:
+        chdir: "{{ coe_path }}"
+        creates: /tmp/coe-patched
+    - name: Fetch odl-cni dependencies with dep
+      shell: dep ensure -vendor-only
       args:
         chdir: "{{ coe_path }}/odlCNIPlugin/odlovs-cni"
         creates: "{{ coe_path }}/odlCNIPlugin/odlovs-cni/vendor"
@@ -58,8 +63,8 @@
     GOPATH: "{{ gopath }}"
     GOROOT: /usr/local/go
   tasks:
-    - name: Fetch watcher dependencies with glide
-      shell: glide install -v
+    - name: Fetch watcher dependencies with dep
+      shell: dep ensure -vendor-only
       args:
         chdir: "{{ coe_path }}/watcher"
         creates: "{{ coe_path }}/watcher/vendor"
