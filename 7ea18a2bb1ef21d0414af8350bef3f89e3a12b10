@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "8fbb25d4_592e82d7",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-06T21:59:32Z",
+      "side": 1,
+      "message": "I should have also added, most other places we use a ping count of -c 3. No idea why we chose three, but wondered if we should just stay with three to be consistent.",
+      "parentUuid": "9f5f2886_d42dc446",
+      "range": {
+        "startLine": 68,
+        "startChar": 62,
+        "endLine": 68,
+        "endChar": 80
+      },
+      "revId": "7ea18a2bb1ef21d0414af8350bef3f89e3a12b10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c05a1599_161c3a1b",
         "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
         "patchSetId": 36
