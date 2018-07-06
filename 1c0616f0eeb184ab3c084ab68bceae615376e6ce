@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af3c9bd3_6e264c67",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-06T15:41:49Z",
+      "side": 1,
+      "message": "OpenStackOperations.Get Net Id",
+      "revId": "1c0616f0eeb184ab3c084ab68bceae615376e6ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ef2f8f8_adc11874",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 35
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-06T15:41:49Z",
+      "side": 1,
+      "message": "is there another patch that does the same scripting? I recall reviewing a patch where I requested facter not be used and the comment was agreed.",
+      "range": {
+        "startLine": 8,
+        "startChar": 14,
+        "endLine": 8,
+        "endChar": 20
+      },
+      "revId": "1c0616f0eeb184ab3c084ab68bceae615376e6ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5698bf2d_3ffad271",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-06T15:41:49Z",
+      "side": 1,
+      "message": "for is \u003ctag\u003e_sg. So something like mc_sg. Follow same convention for all the vars, mc_net_1, mc_sub_1, mc_net_1_vm_1, mc_net_1_1port_1",
+      "range": {
+        "startLine": 27,
+        "startChar": 21,
+        "endLine": 27,
+        "endChar": 40
+      },
+      "revId": "1c0616f0eeb184ab3c084ab68bceae615376e6ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5f0cab5_6dd67ca6",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-06T15:41:49Z",
+      "side": 1,
+      "message": "Using index [0] is selecting a single index so why have a for loop? Or was the intention to go through all vm_ips in VM_IP_NET1?",
+      "range": {
+        "startLine": 57,
+        "startChar": 31,
+        "endLine": 57,
+        "endChar": 47
+      },
+      "revId": "1c0616f0eeb184ab3c084ab68bceae615376e6ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f248334d_5497701b",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-06T15:41:49Z",
+      "side": 1,
+      "message": "lowercase for local vars, uppercase for suite and global vars",
+      "range": {
+        "startLine": 113,
+        "startChar": 15,
+        "endLine": 113,
+        "endChar": 18
+      },
+      "revId": "1c0616f0eeb184ab3c084ab68bceae615376e6ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
