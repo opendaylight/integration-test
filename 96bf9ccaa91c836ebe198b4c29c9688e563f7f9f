@@ -22,6 +22,30 @@
       "revId": "96bf9ccaa91c836ebe198b4c29c9688e563f7f9f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18453ec9_57be6525",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-06T20:52:54Z",
+      "side": 1,
+      "message": "it still dumps the shard list in single node.. do u want me to check in sandbox once?  I did not run a single node job with this I guess",
+      "parentUuid": "8882d584_8dca5639",
+      "range": {
+        "startLine": 1008,
+        "startChar": 4,
+        "endLine": 1008,
+        "endChar": 55
+      },
+      "revId": "96bf9ccaa91c836ebe198b4c29c9688e563f7f9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
