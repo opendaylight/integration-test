@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "92c7b2a2_cb9d91da",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-06T22:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61086220_57f646f4",
+      "revId": "7ea18a2bb1ef21d0414af8350bef3f89e3a12b10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48d2af94_7157fc2a",
         "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
         "patchSetId": 36
@@ -114,6 +132,54 @@
     },
     {
       "key": {
+        "uuid": "f9b9ba2a_caf129db",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-06T22:07:10Z",
+      "side": 1,
+      "message": "Changed it to 3 for consistency.",
+      "parentUuid": "9f5f2886_d42dc446",
+      "range": {
+        "startLine": 68,
+        "startChar": 62,
+        "endLine": 68,
+        "endChar": 80
+      },
+      "revId": "7ea18a2bb1ef21d0414af8350bef3f89e3a12b10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd28297a_e41ba0e5",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-06T22:07:10Z",
+      "side": 1,
+      "message": "I am sending 5 ping packets and expecting packets diff should be equal or more.\nIt should not be less than 5.",
+      "parentUuid": "48d2af94_7157fc2a",
+      "range": {
+        "startLine": 68,
+        "startChar": 62,
+        "endLine": 68,
+        "endChar": 80
+      },
+      "revId": "7ea18a2bb1ef21d0414af8350bef3f89e3a12b10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c05a1599_161c3a1b",
         "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
         "patchSetId": 36
@@ -125,6 +191,30 @@
       "writtenOn": "2018-07-06T21:51:46Z",
       "side": 1,
       "message": "${}[] - do the same for all list variables",
+      "range": {
+        "startLine": 83,
+        "startChar": 97,
+        "endLine": 83,
+        "endChar": 117
+      },
+      "revId": "7ea18a2bb1ef21d0414af8350bef3f89e3a12b10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cffd78d9_8c616bb8",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-06T22:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c05a1599_161c3a1b",
       "range": {
         "startLine": 83,
         "startChar": 97,
