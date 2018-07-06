@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a6c9a4bc_ef2c7cdf",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-06T21:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f7c874f_44e2ea17",
+      "range": {
+        "startLine": 438,
+        "startChar": 41,
+        "endLine": 438,
+        "endChar": 51
+      },
+      "revId": "65dcd6217d423a4d5013e6715e7f99d77fd132a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b70b5787_7e03b32b",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 35
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-06T21:31:09Z",
       "side": 1,
       "message": "try to use the form: ${list}[0]",
+      "range": {
+        "startLine": 1102,
+        "startChar": 16,
+        "endLine": 1102,
+        "endChar": 26
+      },
+      "revId": "65dcd6217d423a4d5013e6715e7f99d77fd132a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f13b6a3_70e10648",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 1102,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-06T21:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b70b5787_7e03b32b",
       "range": {
         "startLine": 1102,
         "startChar": 16,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "c3fec61b_8d241ddd",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-06T21:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af21f546_54a85664",
+      "revId": "65dcd6217d423a4d5013e6715e7f99d77fd132a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1abc2d8_226939e5",
         "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
         "patchSetId": 35
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "ac197e16_d74a3540",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-06T21:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1abc2d8_226939e5",
+      "revId": "65dcd6217d423a4d5013e6715e7f99d77fd132a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8064457_2a7f4566",
         "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
         "patchSetId": 35
@@ -93,6 +177,30 @@
       "writtenOn": "2018-07-06T21:31:09Z",
       "side": 1,
       "message": "all the vars, ${VNI_NET_1_PORTS}[0]",
+      "range": {
+        "startLine": 81,
+        "startChar": 61,
+        "endLine": 81,
+        "endChar": 82
+      },
+      "revId": "65dcd6217d423a4d5013e6715e7f99d77fd132a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0027a4ce_1f9ab310",
+        "filename": "csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-06T21:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8064457_2a7f4566",
       "range": {
         "startLine": 81,
         "startChar": 61,
