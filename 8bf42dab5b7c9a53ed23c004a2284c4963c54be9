@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f8cde11_01a21127",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-06T19:07:14Z",
+      "side": 1,
+      "message": "small \u0027p\u0027",
+      "range": {
+        "startLine": 32,
+        "startChar": 62,
+        "endLine": 32,
+        "endChar": 63
+      },
+      "revId": "8bf42dab5b7c9a53ed23c004a2284c4963c54be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7453a87f_2b04e5f0",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-06T19:07:14Z",
+      "side": 1,
+      "message": "instead of \u00272\u0027 here, you could use len(${NETWORKS})",
+      "range": {
+        "startLine": 61,
+        "startChar": 33,
+        "endLine": 61,
+        "endChar": 34
+      },
+      "revId": "8bf42dab5b7c9a53ed23c004a2284c4963c54be9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
