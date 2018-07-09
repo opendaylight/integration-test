@@ -199,6 +199,14 @@ Get Router Id
     ${router_id} =    Collections.Get from List    ${splitted_output}    0
     [Return]    ${router_id}
 
+Get Vni Value
+    [Arguments]    ${router}    ${router_id}
+    [Documentation]    Returns vni value for a given router or router id.
+    ${id} =    BuiltIn.Run Keyword If    "${router_id}"=="${EMPTY}"    OpenStackOperations.Get Router Id    ${router}
+    ...    ELSE    BuiltIn.Set Variable    ${router_id}
+    ${router_vni_value} =    OpenStackOperations.Get Router VNI Value With Restconf    ${id}
+    [Return]    ${router_vni_value}
+
 Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default    ${min}=1
     ...    ${max}=1
@@ -801,6 +809,31 @@ Update Port Rest
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
+
+Get Router VNI Value With Restconf
+    [Arguments]    ${id}
+    [Documentation]    Keyword to get the vni id of router or bgpvpn (Using REST).
+    ${resp} =    RequestsLibrary.Get Request    session    ${VNI_IDS_URL}/${id}
+    ${output} =    RequestsLibrary.To JSON    ${resp.content}
+    Utils.Log Content    ${resp.content}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    ${content} =    Collections.Get From Dictionary    ${output}    id-entries
+    ${output} =    Collections.Get From List    ${content}    0
+    ${content} =    Collections.Get From Dictionary    ${output}    id-value
+    ${router_vni_value} =    Collections.Get From List    ${content}    0
+    [Return]    ${router_vni_value}
+
+Get Napt Switch Id Rest
+    [Documentation]    Keyword to get the Napt switch (Using REST) DPN Id.
+    ${resp} =    RequestsLibrary.Get Request    session    ${NAPT_SWITCH_URL}
+    ${output} =    RequestsLibrary.To JSON    ${resp.content}
+    Utils.Log Content    ${resp.content}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${content} =    Collections.Get From Dictionary    ${output}    napt-switches
+    ${output} =    Collections.Get From Dictionary    ${content}    router-to-napt-switch
+    ${output} =    Collections.Get From List    ${content}    0
+    ${napt_switch_id} =    Collections.Get From Dictionary    ${output}    primary-switch-id
+    [Return]    ${napt_switch_id}
 
 Get Neutron Network Rest
     [Arguments]    ${net_id}
