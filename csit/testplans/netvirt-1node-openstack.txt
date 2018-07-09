@@ -10,4 +10,5 @@ integration/test/csit/suites/netvirt/elan/elan.robot
 integration/test/csit/suites/netvirt/vpnservice/arp_learning.robot
 integration/test/csit/suites/netvirt/l2l3_gatewaymac_arp.robot
 integration/test/csit/suites/netvirt/vnibasedl2switching/vnibasedl2switching.robot
+integration/test/csit/suites/netvirt/vnibasebNatforwarding/vnibasedNatforwarding.robot
 integration/test/csit/suites/integration/Create_JVM_Plots.robot
