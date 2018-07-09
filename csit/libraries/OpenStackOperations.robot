@@ -197,6 +197,27 @@ Get Router Id
     ${router_id} =    Collections.Get from List    ${splitted_output}    0
     [Return]    ${router_id}
 
+Get Vni Value
+    [Arguments]    ${router}=${EMPTY}    ${router_id}=${EMPTY}
+    [Documentation]    Returns vni value for a given router or router id.
+    ${router_id} =    BuiltIn.Run Keyword If    "${router_id}"=="${EMPTY}"    OpenStackOperations.Get Router Id    ${router}
+    ${resp}    OpenStackOperations.Get VNI Rest    ${router_id}
+    BuiltIn.Should be Equal As Strings    ${resp.status_code}    200
+    ${result}    BuiltIn.To JSON    ${resp.content}
+    BuiltIn.Log    ${resp.content}
+    ${content}    BuiltIn.Get From Dictionary    ${result}    id-value
+    ${router_vni_value}    BuiltIn.Get From List    ${content}    0
+    [Return]    ${router_vni_value}
+
+Get Napt Switch Id
+    [Documentation]    Keyword to get the Napt switch id.
+    ${resp.content}    OpenStackOperations.Get Napt Switch Rest
+    ${result}    BuiltIn.To JSON    ${resp.content}
+    BuiltIn.Log    ${resp.content}
+    ${content}    BuiltIn.Get From Dictionary    ${result}    primary-switch-id
+    ${napt_switch_id}    BuiltIn.Get From List    ${content}    0
+    [Return]    ${napt_switch_id}
+
 Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default    ${min}=1
     ...    ${max}=1
@@ -796,10 +817,26 @@ Update Port Rest
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
+Get VNI Rest
+    [Arguments]    ${id}
+    [Documentation]    Keyword to get the vni id of router or bgpvpn (Using REST).
+    ${resp} =    RequestsLibrary.Get Request    session    ${VNI_URL}/${id}
+    BuiltIn.Log    ${resp.content}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    [Return]    ${resp.content}
+
 Get Neutron Network Rest
     [Arguments]    ${net_id}
     [Documentation]    Keyword to get the specific network details in Neutron (Using REST).
     ${resp} =    RequestsLibrary.Get Request    session    ${NETWORK_URL}/network/${net_id}
+    BuiltIn.Log    ${resp.content}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    [Return]    ${resp.content}
+
+Get Napt Switch Rest
+    [Arguments]    ${net_id}
+    [Documentation]    Keyword to get the Napt switch (Using REST).
+    ${resp} =    RequestsLibrary.Get Request    session    ${NAPT_SWITCH}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
