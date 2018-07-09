@@ -37,6 +37,8 @@ ${ARP_PUNT_RESPONSE_REGEX}    arp actions=CONTROLLER:65535,learn
 ${ARP_REQUEST_REGEX}    arp,arp_op=1 actions=group:\\d+
 ${ARP_REQUEST_GROUP_REGEX}    actions=CONTROLLER:65535,bucket=actions=resubmit\\(,${ELAN_BASETABLE}\\),bucket=actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
 ${ARP_REQUEST_GROUP_REGEX_FLUORINE}    actions=resubmit\\(,${ARP_RESPONSE_TABLE}\\)
+${NAPT_SWITCH}    ${CONFIG_API}/odl-nat:napt-switches
+${VNI_URL}        ${CONFIG_API}/id-manager:id-pools/id-pool/opendaylight-vni-ranges/id-entries
 ${ARP_CHECK_TABLE}    43
 ${ARP_PUNT_TABLE}    195
 ${ARP_LEARN_TABLE}    196
@@ -80,6 +82,7 @@ ${LEARNT_VIP}     ${OPERATIONAL_API}/odl-l3vpn:learnt-vpn-vip-to-port-data/
 ${DISPATCHER_TABLE}    17
 ${GWMAC_TABLE}    19
 ${L3_TABLE}       21
+${PSNAT_TABLE}    26
 ${INTERNAL_TUNNEL_TABLE}    36
 ${IPV6_TABLE}     45
 ${ELAN_BASETABLE}    48
