@@ -26,7 +26,7 @@ ${PLAYBOOK}       ${CURDIR}/../variables/coe/coe_play.yaml
 ${POD_RUNNING_STATUS}    \\sRunning
 ${WATCHER_COE}    ${CURDIR}/../variables/coe/coe.yaml
 @{NODE_IPs}       ${K8s_MASTER_IP}    ${K8s_MINION1_IP}    ${K8s_MINION2_IP}
-@{COE_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN
+@{COE_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN    OVSDB
 
 *** Keywords ***
 Start Suite
@@ -37,7 +37,7 @@ Start Suite
     Coe.Verify Watcher Is Running
     BuiltIn.Wait Until Keyword Succeeds    40s    2s    Coe.Check Node Status Is Ready
     Coe.Label Nodes
-    BuiltIn.Wait Until Keyword Succeeds    60    2    Genius.Check System Status    @{COE_DIAG_SERVICES}
+    BuiltIn.Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{COE_DIAG_SERVICES}
     Genius.Verify Tunnel Status as UP    default-transport-zone
     Coe.Derive Coe Data Models
 

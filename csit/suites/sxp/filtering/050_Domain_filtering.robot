@@ -32,12 +32,12 @@ Update Messages Test
     Add Filters
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing
     : FOR    ${node}    IN RANGE    2    5
-    \    Delete Binding    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
-    \    Delete Binding    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
+    \    Delete Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
+    \    Delete Bindings    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing After Update
     : FOR    ${node}    IN RANGE    2    5
-    \    Add Binding    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
-    \    Add Binding    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing
 
 Local Binding Non Transitivity Test
@@ -56,13 +56,13 @@ Local Binding Update Test
     Wait Until Keyword Succeeds    15    1    Check Initialized Local
     Add Filters
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing Local
-    Delete Binding    20    20.20.20.5/32    127.0.0.1    ${DOMAIN_1}
-    Delete Binding    30    30.30.30.5/32    127.0.0.1    ${DOMAIN_2}
-    Delete Binding    40    40.40.40.5/32    127.0.0.1    ${DOMAIN_3}
+    Delete Bindings    20    20.20.20.5/32    127.0.0.1    ${DOMAIN_1}
+    Delete Bindings    30    30.30.30.5/32    127.0.0.1    ${DOMAIN_2}
+    Delete Bindings    40    40.40.40.5/32    127.0.0.1    ${DOMAIN_3}
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing After Update Local
-    Add Binding    20    20.20.20.5/32    127.0.0.1    ${DOMAIN_1}
-    Add Binding    30    30.30.30.5/32    127.0.0.1    ${DOMAIN_2}
-    Add Binding    40    40.40.40.5/32    127.0.0.1    ${DOMAIN_3}
+    Add Bindings    20    20.20.20.5/32    127.0.0.1    ${DOMAIN_1}
+    Add Bindings    30    30.30.30.5/32    127.0.0.1    ${DOMAIN_2}
+    Add Bindings    40    40.40.40.5/32    127.0.0.1    ${DOMAIN_3}
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing Local
 
 Binding Replacement Test
@@ -70,12 +70,12 @@ Binding Replacement Test
     ...    after shared binding is removed the original binding must be propagated to Peers
     [Tags]    SXP    Domains    Filtering
     Wait Until Keyword Succeeds    15    1    Check Initialized After Update
-    Add Binding    400    35.35.35.35/32    127.0.0.4
-    Add Binding    450    35.35.35.35/32    127.0.0.1    ${DOMAIN_3}
+    Add Bindings    400    35.35.35.35/32    127.0.0.4
+    Add Bindings    450    35.35.35.35/32    127.0.0.1    ${DOMAIN_3}
     Wait Until Keyword Succeeds    15    1    Check After Update Part One
     Add Filters After Update
     Wait Until Keyword Succeeds    15    1    Check After Update Part Two
-    Delete Binding    450    35.35.35.35/32    127.0.0.1    ${DOMAIN_3}
+    Delete Bindings    450    35.35.35.35/32    127.0.0.1    ${DOMAIN_3}
     Wait Until Keyword Succeeds    15    1    Check After Update Part Three
 
 *** Keywords ***
@@ -83,24 +83,24 @@ Setup Nodes Local
     [Documentation]    Setups Multi domain topology consisting of 3 specific domains and 1 default, data will be shared by filter.
     Setup SXP Environment    10
     : FOR    ${node}    IN RANGE    2    5
-    \    Add Binding    ${node}0    ${node}0.${node}0.${node}0.${node}0/32    127.0.0.${node}
-    \    Add Binding    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
-    \    Add Binding    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
-    \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.${node}0.${node}0.${node}0/32    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
     \    Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.${node}
     : FOR    ${node}    IN RANGE    5    10
     \    Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.${node}
     Add Domain    ${DOMAIN_1}
     Add Domain    ${DOMAIN_2}
     Add Domain    ${DOMAIN_3}
-    Add Binding    20    20.20.20.5/32    127.0.0.1    ${DOMAIN_1}
-    Add Binding    20    20.20.5.5/32    127.0.0.1    ${DOMAIN_1}
-    Add Binding    30    30.30.30.5/32    127.0.0.1    ${DOMAIN_2}
-    Add Binding    30    30.30.5.5/32    127.0.0.1    ${DOMAIN_2}
-    Add Binding    40    40.40.40.5/32    127.0.0.1    ${DOMAIN_3}
-    Add Binding    40    40.40.5.5/32    127.0.0.1    ${DOMAIN_3}
-    Add Binding    300    25.25.25.25/32    127.0.0.4
-    Add Binding    500    35.35.35.35/32
+    Add Bindings    20    20.20.20.5/32    127.0.0.1    ${DOMAIN_1}
+    Add Bindings    20    20.20.5.5/32    127.0.0.1    ${DOMAIN_1}
+    Add Bindings    30    30.30.30.5/32    127.0.0.1    ${DOMAIN_2}
+    Add Bindings    30    30.30.5.5/32    127.0.0.1    ${DOMAIN_2}
+    Add Bindings    40    40.40.40.5/32    127.0.0.1    ${DOMAIN_3}
+    Add Bindings    40    40.40.5.5/32    127.0.0.1    ${DOMAIN_3}
+    Add Bindings    300    25.25.25.25/32    127.0.0.4
+    Add Bindings    500    35.35.35.35/32
     # NO DOMAIN
     Add Connection    ${version}    speaker    127.0.0.8    64999
     Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    speaker    127.0.0.8

@@ -80,11 +80,11 @@ Verify Connection
     ${resp}    Get Connections    ${node}    ${session}    ${domain}
     Should Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
 
-Add Binding
-    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
-    [Documentation]    Add binding via RPC to Master DB of node
-    ${DATA}    Add Entry Xml    ${sgt}    ${prefix}    ${node}    ${domain}
-    Post To Controller    ${session}    add-entry    ${DATA}
+Add Bindings
+    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
+    [Documentation]    Add/Update one or more bindings via RPC to Master DB of the node
+    ${DATA}    Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
+    Post To Controller    ${session}    add-bindings    ${DATA}
 
 Get Bindings
     [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global    ${scope}=all
@@ -115,31 +115,13 @@ Clean Binding
     [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}=global
     [Documentation]    Used for nester FOR loop
     : FOR    ${prefix}    IN    @{prefixes}
-    \    Delete Binding Default    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
+    \    Delete Bindings    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
 
-Update Binding
-    [Arguments]    ${sgtOld}    ${prefixOld}    ${sgtNew}    ${prefixNew}    ${node}=127.0.0.1    ${session}=session
-    ...    ${domain}=global
-    [Documentation]    Updates value of binding via RPC in Master DB of node
-    ${DATA}    Update Binding Xml    ${sgtOld}    ${prefixOld}    ${sgtNew}    ${prefixNew}    ${node}
-    ...    ${domain}
-    Post To Controller    ${session}    update-entry    ${DATA}
-
-Delete Binding Default
-    [Arguments]    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
-    [Documentation]    Delete binding via RPC
-    Delete Binding    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
-
-Delete Binding Be
-    [Arguments]    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
-    [Documentation]    Delete binding via RPC
-    Delete Binding    ${sgt['sgt']}    ${prefix['ip-prefix']}    ${node}    ${domain}    ${session}
-
-Delete Binding
-    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
-    [Documentation]    Delete binding via RPC from Master DB of node
-    ${DATA}    Delete Binding Xml    ${sgt}    ${prefix}    ${node}    ${domain}
-    Post To Controller    ${session}    delete-entry    ${DATA}
+Delete Bindings
+    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
+    [Documentation]    Delete one or more bindings via RPC from Master DB of node
+    ${DATA}    Delete Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
+    Post To Controller    ${session}    delete-bindings    ${DATA}
 
 Add PeerGroup
     [Arguments]    ${name}    ${peers}=    ${node}=127.0.0.1    ${session}=session
@@ -254,14 +236,14 @@ Setup Topology Complex
     \    ...    ${PASSWORD}
     \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both
     \    ...    127.0.0.${node}
-    \    Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    Add Binding    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    Add Binding    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
-    Add Binding    10    10.10.10.10/32    127.0.0.1
-    Add Binding    10    10.10.10.0/24    127.0.0.1
-    Add Binding    10    10.10.0.0/16    127.0.0.1
-    Add Binding    10    10.0.0.0/8    127.0.0.1
+    \    Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    Add Bindings    10    10.10.10.10/32    127.0.0.1
+    Add Bindings    10    10.10.10.0/24    127.0.0.1
+    Add Bindings    10    10.10.0.0/16    127.0.0.1
+    Add Bindings    10    10.0.0.0/8    127.0.0.1
 
 Verify Snapshot Was Pushed
     [Arguments]    ${snapshot_string}=22-sxp-controller-one-node.xml
@@ -300,18 +282,6 @@ Delete Domain
     [Documentation]    Delete Domain via RPC
     ${DATA}    Delete Domain Xml    ${node}    ${domain_name}
     Post To Controller    ${session}    delete-domain    ${DATA}
-
-Add Bindings
-    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
-    [Documentation]    Add bindings via RPC to Master DB of node
-    ${DATA}    Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
-    Post To Controller    ${session}    add-bindings    ${DATA}
-
-Delete Bindings
-    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
-    [Documentation]    Delete bindings via RPC from Master DB of node
-    ${DATA}    Delete Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
-    Post To Controller    ${session}    delete-bindings    ${DATA}
 
 Add Bindings Range
     [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1

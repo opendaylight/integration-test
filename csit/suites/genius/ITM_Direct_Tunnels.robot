@@ -2,6 +2,7 @@
 Documentation     This test suite is to by-pass interface manager and create/delete the tunnels between the switches directly inorder for ITM to scale and build mesh among more number of switches.
 Suite Setup       ITM Direct Tunnels Start Suite
 Suite Teardown    ITM Direct Tunnels Stop Suite
+Test Setup        Genius Test Setup
 Test Teardown     Genius Test Teardown    ${data_models}
 Library           OperatingSystem
 Library           String
@@ -64,7 +65,7 @@ Verify VTEP After Restarting Controller
     Genius.Verify Tunnel Status as UP    TZA
     ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
-    Wait Until Keyword Succeeds    60    3    Genius.Check System Status
+    Wait Until Keyword Succeeds    60    3    ClusterManagement.Check Status Of Services Is OPERATIONAL
     Wait Until Keyword Succeeds    30    3    Genius.Verify Tunnel Status as UP    TZA
 
 Verify Tunnels By Disabling BFD

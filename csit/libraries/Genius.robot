@@ -2,17 +2,18 @@
 Documentation     This suite is a common keywords file for genius project.
 Library           Collections
 Library           OperatingSystem
+Library           re
 Library           RequestsLibrary
 Library           SSHLibrary
-Library           re
 Library           string
-Resource          KarafKeywords.robot
-Resource          Utils.robot
-Resource          ../variables/Variables.robot
-Resource          OVSDB.robot
-Resource          ../variables/netvirt/Variables.robot
-Resource          VpnOperations.robot
+Resource          ClusterManagement.robot
 Resource          DataModels.robot
+Resource          KarafKeywords.robot
+Resource          OVSDB.robot
+Resource          Utils.robot
+Resource          VpnOperations.robot
+Resource          ../variables/Variables.robot
+Resource          ../variables/netvirt/Variables.robot
 
 *** Variables ***
 @{itm_created}    TZA
@@ -20,7 +21,7 @@ ${genius_config_dir}    ${CURDIR}/../variables/genius
 ${Bridge-1}       BR1
 ${Bridge-2}       BR2
 ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
-@{GENIUS_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE
+@{GENIUS_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    OVSDB
 ${vlan}           0
 ${gateway-ip}     0.0.0.0
 
@@ -37,13 +38,14 @@ Genius Suite Teardown
 
 Start Suite
     [Documentation]    Initial setup for Genius test suites
-    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    Check System Status    @{GENIUS_DIAG_SERVICES}
+    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{GENIUS_DIAG_SERVICES}
     Log    Start the tests
     ${conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${conn_id_1}
     KarafKeywords.Setup_Karaf_Keywords
     ${karaf_debug_enabled}    BuiltIn.Get_Variable_Value    ${KARAF_DEBUG}    ${False}
     BuiltIn.run_keyword_if    ${karaf_debug_enabled}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius
+    BuiltIn.Run Keyword And Ignore Error    KarafKeywords.Log_Test_Suite_Start_To_Controller_Karaf
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Log    ${conn_id_1}
     Execute Command    sudo ovs-vsctl add-br BR1
@@ -92,15 +94,6 @@ check establishment
     ${check_establishment}    Execute Command    netstat -anp | grep ${port}
     Should contain    ${check_establishment}    ESTABLISHED
     [Return]    ${check_establishment}
-
-Check Service Status
-    [Arguments]    ${odl_ip}    ${system_ready_state}    ${service_state}    @{service_list}
-    [Documentation]    Issues the karaf shell command showSvcStatus to verify the ready and service states are the same as the arguments passed
-    ${service_status_output} =    Run Keyword If    ${NUM_ODL_SYSTEM} > 1    Issue_Command_On_Karaf_Console    showSvcStatus -n ${odl_ip}    ${odl_ip}    ${KARAF_SHELL_PORT}
-    ...    ELSE    Issue_Command_On_Karaf_Console    showSvcStatus    ${odl_ip}    ${KARAF_SHELL_PORT}
-    Should Contain    ${service_status_output}    ${system_ready_state}
-    : FOR    ${service}    IN    @{service_list}
-    \    Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
 
 Create Vteps
     [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
@@ -162,6 +155,10 @@ Delete All Vteps
     ${output} =    Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Wait Until Keyword Succeeds    30    5    Verify All Tunnel Delete on DS
 
+Genius Test Setup
+    [Documentation]    Genius test case setup
+    BuiltIn.Run Keyword And Ignore Error    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+
 Genius Test Teardown
     [Arguments]    ${data_models}
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_1}    BR1
@@ -172,13 +169,14 @@ ITM Direct Tunnels Start Suite
     [Documentation]    start suite for itm scalability
     ClusterManagement.ClusterManagement_Setup
     ClusterManagement.Stop_Members_From_List_Or_All
-    ClusterManagement.Clean_Journals_Data_And_Snapshots_On_List_Or_All
-    Run Command On Remote System And Log    ${ODL_SYSTEM_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Run Command On Remote System And Log    ${ODL_SYSTEM_${i+1}_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
     ClusterManagement.Start_Members_From_List_Or_All
     Genius Suite Setup
 
 ITM Direct Tunnels Stop Suite
-    Run Command On Remote System And Log    ${ODL_SYSTEM_IP}    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Run Command On Remote System And Log    ${ODL_SYSTEM_${i+1}_IP}    sed -i -- 's/<itm-direct-tunnels>true/<itm-direct-tunnels>false/g' ${GENIUS_IFM_CONFIG_FLAG}
     Genius Suite Teardown
 
 Verify Tunnel Monitoring is on
@@ -244,12 +242,6 @@ Verify Tunnel Status as UP
     ${Expected_Tunnel_Count}    Set Variable    ${Expected_Node_Count*${Expected_Node_Count - 1}}
     Should Be Equal As Strings    ${Actual_Tunnel_Count}    ${Expected_Tunnel_Count}
 
-Check System Status
-    [Arguments]    @{service_list}
-    [Documentation]    This keyword will verify whether all the services are in operational and all nodes are active based on the number of odl systems
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL    @{service_list}
-
 Verify Tunnel Status
     [Arguments]    ${tunnel_names}    ${tunnel_status}
     [Documentation]    Verifies if all tunnels in the input, has the expected status(UP/DOWN/UNKNOWN)
@@ -308,8 +300,10 @@ SRM Start Suite
     ${tunnel} =    BuiltIn.Wait Until Keyword Succeeds    40    20    Genius.Get Tunnel    ${dpn_Id_1}    ${dpn_Id_2}
     ...    odl-interface:tunnel-type-vxlan
     BuiltIn.Wait Until Keyword Succeeds    60s    5s    Genius.Verify Tunnel Status as UP    TZA
+    Genius Test Teardown    ${data_models}
 
 SRM Stop Suite
     [Documentation]    Stop suite for service recovery.
     Delete All Vteps
+    Genius Test Teardown    ${data_models}
     Genius Suite Teardown

@@ -82,7 +82,7 @@ Setup SXP Cluster Bindings
     [Arguments]    ${node}    ${session}
     [Documentation]    Setup initial bindings to SXP device
     : FOR    ${i}    IN RANGE    1    ${BINDINGS}
-    \    Add Binding    ${i}0    ${i}.${i}.${i}.${i}/32    node=${node}    session=${session}
+    \    Add Bindings    ${i}0    ${i}.${i}.${i}.${i}/32    node=${node}    session=${session}
 
 Isolate SXP Controller
     [Arguments]    ${controller_index}    ${peer_mode}

@@ -134,30 +134,30 @@ Setup Nodes
     \    ...    ${password}
     \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both
     \    ...    127.0.0.${node}
-    \    Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    Add Binding    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    Add Binding    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
     Add Connection    ${version}    both    127.0.0.5    64999    127.0.0.3    ${password}
     Add Connection    ${version}    both    127.0.0.3    64999    127.0.0.5    ${password}
     Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both    127.0.0.5
     ...    64999    127.0.0.3
-    Add Binding    50    10.10.10.50/32    127.0.0.5
-    Add Binding    50    10.10.50.0/24    127.0.0.5
-    Add Binding    50    10.50.0.0/16    127.0.0.5
-    Add Binding    50    50.0.0.0/8    127.0.0.5
-    Add Binding    10    10.10.10.10/32    127.0.0.1
-    Add Binding    10    10.10.10.0/24    127.0.0.1
-    Add Binding    10    10.10.0.0/16    127.0.0.1
-    Add Binding    10    10.0.0.0/8    127.0.0.1
+    Add Bindings    50    10.10.10.50/32    127.0.0.5
+    Add Bindings    50    10.10.50.0/24    127.0.0.5
+    Add Bindings    50    10.50.0.0/16    127.0.0.5
+    Add Bindings    50    50.0.0.0/8    127.0.0.5
+    Add Bindings    10    10.10.10.10/32    127.0.0.1
+    Add Bindings    10    10.10.10.0/24    127.0.0.1
+    Add Bindings    10    10.10.0.0/16    127.0.0.1
+    Add Bindings    10    10.0.0.0/8    127.0.0.1
 
 Setup Nodes Legacy Par One
     [Arguments]    ${version}=version3    ${password}=none
     : FOR    ${node}    IN RANGE    1    6
-    \    Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    Add Binding    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    Add Binding    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
     Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.2    ${password}
     Add Connection    ${version}    speaker    127.0.0.2    64999    127.0.0.1    ${password}
     Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    speaker    127.0.0.2
@@ -175,10 +175,10 @@ Setup Nodes Legacy Par One
 Setup Nodes Legacy Par Two
     [Arguments]    ${version}=version3    ${password}=none
     : FOR    ${node}    IN RANGE    1    6
-    \    Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    Add Binding    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    Add Binding    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2    ${password}
     Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.1    ${password}
     Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    listener    127.0.0.2

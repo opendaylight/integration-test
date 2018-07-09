@@ -50,7 +50,7 @@ Setup Custom SXP Cluster
     [Documentation]    Setup custom SXP cluster topology
     Setup SXP Cluster    ${mode}
     : FOR    ${i}    IN RANGE    1    25
-    \    Add Binding    ${i}0    ${i}.${i}.${i}.${i}/32    node=${node}    session=${session}
+    \    Add Bindings    ${i}0    ${i}.${i}.${i}.${i}/32    node=${node}    session=${session}
 
 Check Bindings
     [Arguments]    ${node}    ${session}

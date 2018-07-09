@@ -44,6 +44,8 @@ ${GC_LOG_PATH}    ${KARAF_HOME}/data/log
 ${JAVA_HOME}      ${EMPTY}    # releng/builder scripts should provide correct value
 ${JOLOKIA_CONF_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
 ${JOLOKIA_OPER_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-operational,type=DistributedOperationalDatastore
+${JOLOKIA_CONFIG_LOCAL_SHARDS_URI}    jolokia/read/org.opendaylight.controller:type=DistributedConfigDatastore,Category=ShardManager,name=shard-manager-config/LocalShards
+${JOLOKIA_OPER_LOCAL_SHARDS_URI}    jolokia/read/org.opendaylight.controller:type=DistributedOperationalDatastore,Category=ShardManager,name=shard-manager-operational/LocalShards
 ${JOLOKIA_READ_URI}    jolokia/read/org.opendaylight.controller
 # Bug 9044 workaround: delete etc/host.key before restart.
 @{ODL_DEFAULT_DATA_PATHS}    tmp/    data/    cache/    snapshots/    journal/    etc/opendaylight/current/    etc/host.key
@@ -95,6 +97,19 @@ Get_Sync_Status_Of_Member
     ${oper_text} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${JOLOKIA_OPER_SHARD_MANAGER_URI}    session=${session}
     ${oper_status} =    ClusterManagement__Parse_Sync_Status    shard_manager_text=${oper_text}
     [Return]    ${oper_status}
+
+Dump_Local_Shards_For_Each_Member
+    [Arguments]    ${member_index_list}=${EMPTY}
+    [Documentation]    Obtain IP, two GETs from jolokia URIs, return combined local shard list
+    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
+    : FOR    ${member_index}    IN    @{index_list}    # usually: 1, 2, 3.
+    \    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    \    ${conf_shard_list} =    Wait Until Keyword Succeeds    60    2    TemplatedRequests.Get_As_Json_From_Uri    uri=${JOLOKIA_CONFIG_LOCAL_SHARDS_URI}
+    \    ...    session=${session}
+    \    Log    ${conf_shard_list}
+    \    ${oper_shard_list} =    Wait Until Keyword Succeeds    60    2    TemplatedRequests.Get_As_Json_From_Uri    uri=${JOLOKIA_OPER_LOCAL_SHARDS_URI}
+    \    ...    session=${session}
+    \    Log    ${oper_shard_list}
 
 Verify_Leader_Exists_For_Each_Shard
     [Arguments]    ${shard_name_list}    ${shard_type}=operational    ${member_index_list}=${EMPTY}    ${verify_restconf}=True
@@ -424,13 +439,14 @@ Stop_Members_From_List_Or_All
     [Return]    ${updated_index_list}
 
 Start_Single_Member
-    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s
+    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s    ${check_system_status}=False    ${service_list}=@{EMPTY}
     [Documentation]    Convenience keyword that starts the specified member of the cluster.
     ${index_list} =    ClusterManagement__Build_List    ${member}
-    Start_Members_From_List_Or_All    ${index_list}    ${wait_for_sync}    ${timeout}
+    Start_Members_From_List_Or_All    ${index_list}    ${wait_for_sync}    ${timeout}    check_system_status=${check_system_status}    service_list=@{service_list}
 
 Start_Members_From_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${EMPTY}    ${export_java_home}=${EMPTY}    ${gc_log_dir}=${EMPTY}
+    ...    ${check_system_status}=False    ${service_list}=@{EMPTY}
     [Documentation]    If the list is empty, start all cluster members. Otherwise, start members based on present indices.
     ...    If ${wait_for_sync}, wait for cluster sync on listed members.
     ...    Optionally karaf_home can be overriden. Optionally specific JAVA_HOME is used for starting.
@@ -443,7 +459,8 @@ Start_Members_From_List_Or_All
     Run_Bash_Command_On_List_Or_All    command=${command} ${gc_options}    member_index_list=${member_index_list}
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
-    # TODO: Do we also want to check Shard Leaders here?
+    BuiltIn.Return_From_Keyword_If    not ${check_system_status}
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{service_list}
     [Teardown]    Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550
 
 Freeze_Single_Member
@@ -831,3 +848,18 @@ Return_Member_IP
     ${member_int} =    BuiltIn.Convert_To_Integer    ${member_index}
     ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_int}
     [Return]    ${member_ip}
+
+Check Service Status
+    [Arguments]    ${odl_ip}    ${system_ready_state}    ${service_state}    @{service_list}
+    [Documentation]    Issues the karaf shell command showSvcStatus to verify the ready and service states are the same as the arguments passed
+    ${service_status_output} =    BuiltIn.Run Keyword If    ${NUM_ODL_SYSTEM} > 1    KarafKeywords.Issue_Command_On_Karaf_Console    showSvcStatus -n ${odl_ip}    ${odl_ip}    ${KARAF_SHELL_PORT}
+    ...    ELSE    KarafKeywords.Issue_Command_On_Karaf_Console    showSvcStatus    ${odl_ip}    ${KARAF_SHELL_PORT}
+    BuiltIn.Should Contain    ${service_status_output}    ${system_ready_state}
+    : FOR    ${service}    IN    @{service_list}
+    \    BuiltIn.Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
+
+Check Status Of Services Is OPERATIONAL
+    [Arguments]    @{service_list}
+    [Documentation]    This keyword will verify whether all the services are operational in all the ODL nodes
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    ClusterManagement.Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL    @{service_list}

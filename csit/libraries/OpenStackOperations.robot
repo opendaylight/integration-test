@@ -9,6 +9,7 @@ Resource          DataModels.robot
 Resource          DevstackUtils.robot
 Resource          KarafKeywords.robot
 Resource          L2GatewayOperations.robot
+Resource          ODLTools.robot
 Resource          OVSDB.robot
 Resource          SetupUtils.robot
 Resource          SSHKeywords.robot
@@ -196,6 +197,14 @@ Get Router Id
     ${splitted_output} =    String.Split String    ${output}    ${EMPTY}
     ${router_id} =    Collections.Get from List    ${splitted_output}    0
     [Return]    ${router_id}
+
+Get Vni Value
+    [Arguments]    ${router}    ${router_id}
+    [Documentation]    Returns vni value for a given router or router id.
+    ${id} =    BuiltIn.Run Keyword If    "${router_id}"=="${EMPTY}"    OpenStackOperations.Get Router Id    ${router}
+    ...    ELSE    BuiltIn.Set Variable    ${router_id}
+    ${router_vni_value} =    OpenStackOperations.Get VNI Rest    ${id}
+    [Return]    ${router_vni_value}
 
 Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=${EMPTY}    ${flavor}=m1.nano    ${sg}=default    ${min}=1
@@ -551,6 +560,7 @@ Get Test Teardown Debugs
     [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}
     OpenStackOperations.Get OvsDebugInfo
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
+    BuiltIn.run Keyword And Ignore Error    ODLTools.Get EOS    ${HA_PROXY_IP}
     Run Keyword If    "${FAIL_ON_EXCEPTIONS}"=="True"    KarafKeywords.Fail If Exceptions Found During Test    ${test_name}
 
 Get Test Teardown Debugs For SFC
@@ -796,6 +806,33 @@ Update Port Rest
     BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
+Get VNI Rest
+    [Arguments]    ${id}
+    [Documentation]    Keyword to get the vni id of router or bgpvpn (Using REST).
+    ${resp} =    RequestsLibrary.Get Request    session    ${VNI_URL}/${id}
+    Utils.Log Content    ${resp.content}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    ${RESP_CODE}
+    ${result} =    RequestsLibrary.To JSON    ${resp.content}
+    Utils.Log Content    ${resp.content}
+    ${content} =    Collections.Get From Dictionary    ${result}    id-entries
+    ${result} =    Collections.Get From List    ${content}    0
+    ${content} =    Collections.Get From Dictionary    ${result}    id-value
+    ${router_vni_value} =    Collections.Get From List    ${content}    0
+    [Return]    ${router_vni_value}
+
+Get Napt Switch Id Rest
+    [Documentation]    Keyword to get the Napt switch (Using REST) DPN Id.
+    ${resp} =    RequestsLibrary.Get Request    session    ${NAPT_SWITCH}
+    Utils.Log Content    ${resp.content}
+    BuiltIn.Should Be Equal As Strings    ${resp.status_code}    200
+    ${result} =    RequestsLibrary.To JSON    ${resp.content}
+    Utils.Log Content    ${resp.content}
+    ${content} =    Collections.Get From Dictionary    ${result}    napt-switches
+    ${content} =    Collections.Get From Dictionary    ${content}    router-to-napt-switch
+    ${result} =    Collections.Get From List    ${content}    0
+    ${napt_switch_id} =    Collections.Get From Dictionary    ${result}    primary-switch-id
+    [Return]    ${napt_switch_id}
+
 Get Neutron Network Rest
     [Arguments]    ${net_id}
     [Documentation]    Keyword to get the specific network details in Neutron (Using REST).
@@ -1005,6 +1042,7 @@ OpenStack Suite Setup
     BuiltIn.Set Suite Variable    @{tcpdump_port_6653_conn_ids}
     BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
+    ClusterManagement.Dump_Local_Shards_For_Each_Member
 
 OpenStack Suite Teardown
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement

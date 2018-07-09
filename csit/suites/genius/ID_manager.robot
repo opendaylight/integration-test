@@ -2,6 +2,7 @@
 Documentation     Test Suite for IdManager
 Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}    timeout=5
 Suite Teardown    Delete All Sessions
+Test Setup        Genius Test Setup
 Test Teardown     Get Model Dump    ${ODL_SYSTEM_IP}    ${idmanager_data_models}
 Library           OperatingSystem
 Library           String
