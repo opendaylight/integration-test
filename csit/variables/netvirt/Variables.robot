@@ -76,9 +76,12 @@ ${MONITOR_INTERVAL_URL}    ${OPERATIONAL_API}/itm-config:tunnel-monitor-interval
 ${TUNNEL_TRANSPORTZONE}    ${CONFIG_API}/itm:transport-zones
 ${TUNNEL_INTERFACES}    ${CONFIG_API}/ietf-interfaces:interfaces/
 ${LEARNT_VIP}     ${OPERATIONAL_API}/odl-l3vpn:learnt-vpn-vip-to-port-data/
+${NAPT_SWITCH_URL}    ${CONFIG_API}/odl-nat:napt-switches
+${VNI_IDS_URL}        ${CONFIG_API}/id-manager:id-pools/id-pool/opendaylight-vni-ranges/id-entries
 ${DISPATCHER_TABLE}    17
 ${GWMAC_TABLE}    19
 ${L3_TABLE}       21
+${PSNAT_TABLE}    26
 ${INTERNAL_TUNNEL_TABLE}    36
 ${IPV6_TABLE}     45
 ${ELAN_BASETABLE}    48
