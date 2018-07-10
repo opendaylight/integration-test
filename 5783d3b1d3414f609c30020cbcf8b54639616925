@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f867ec55_80d454a1",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-10T22:44:55Z",
+      "side": 1,
+      "message": "not needed, if you follow my idea below.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "5783d3b1d3414f609c30020cbcf8b54639616925",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d85ead21_a84de1ab",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-10T22:44:55Z",
+      "side": 1,
+      "message": "it doesn\u0027t feel right to throw something Genius down here.\n\nI wonder if the Check System Status keyword is generic\nenough to put in the Utils lib now. It\u0027s really only\nsomething we need infrautils for. Other projects can\nuse it eventually, and we are only passing a service list\nto it.\n\nThen, I would say to just add another argument to the\n\"Start_Single_Member\" keyword to check status or not,\nlike we do with wait_for_sync",
+      "range": {
+        "startLine": 442,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 85
+      },
+      "revId": "5783d3b1d3414f609c30020cbcf8b54639616925",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
