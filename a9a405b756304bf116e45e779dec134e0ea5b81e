@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "0fe08fb1_aa87ce7a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-10T09:46:08Z",
+      "side": 1,
+      "message": "Update [Documentation] to reflect what the keyword really does",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 101
+      },
+      "revId": "a9a405b756304bf116e45e779dec134e0ea5b81e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be79deee_e4836486",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-10T09:46:08Z",
+      "side": 1,
+      "message": "Update [Documentation] to reflect what these keywords really do",
+      "range": {
+        "startLine": 893,
+        "startChar": 0,
+        "endLine": 901,
+        "endChar": 81
+      },
+      "revId": "a9a405b756304bf116e45e779dec134e0ea5b81e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2126caee_ade1fe52",
         "filename": "csit/suites/openstack/extensions/sfc.robot",
         "patchSetId": 14
@@ -87,6 +133,52 @@
         "startChar": 36,
         "endLine": 46,
         "endChar": 44
+      },
+      "revId": "a9a405b756304bf116e45e779dec134e0ea5b81e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9c269c7_b0d59fd3",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-10T09:46:08Z",
+      "side": 1,
+      "message": "I guess this was done back in the day under the assumption that the SFC encapsulation would be VXLAN and even so I guess this was never really working.\nAnyway, we will be using NSH. Since that is not IP traffic there is nothing we can do with routing. You will require a tool that act on these NSH packets (decrease service index and swap outer mac addresses). As we talked, suggestion is to use vxlan_tool.py from SFC repo. I am sure something quick could be done with scapy also. vxlan_tool.py supports blocking by tcp/udp port of the nsh payload, so one way of verifying that traffic goes through the SFs is by testing both blocking a non blocking scenarios.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 63
+      },
+      "revId": "a9a405b756304bf116e45e779dec134e0ea5b81e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7f63a35_952fdbe0",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-10T09:46:08Z",
+      "side": 1,
+      "message": "I am not sure of the original intention of the test. I guess that port 82 traffic is expected to work as it does not go through the chain. And traffic on port 80 is not expected to work because it goes through the chain that hypothetically blocks the traffic on purpose but that incidentally does because of the problem above. As mentioned it would be better if we actually verified that the traffic goes through the SFS, that can be achieved by doing differential tests were the SFs allow traffic and alternating each blocking it.",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 56
       },
       "revId": "a9a405b756304bf116e45e779dec134e0ea5b81e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
