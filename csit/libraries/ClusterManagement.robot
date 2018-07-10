@@ -37,6 +37,7 @@ Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot    # for Get_As_Json_From_Uri
 Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
 Resource          ../variables/Variables.robot
+Resource          Genius.robot
 
 *** Variables ***
 ${ENTITY_OWNER_URI}    restconf/operational/entity-owners:entity-owners
@@ -438,11 +439,21 @@ Stop_Members_From_List_Or_All
     Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550
     [Return]    ${updated_index_list}
 
+Start_Cluster_Member
+    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s    @{service_list}
+    Start_Single_Member    ${member}      ${wait_for_sync}    ${timeout}
+    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    Genius.Check System Status    @{service_list}
+
 Start_Single_Member
     [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s
     [Documentation]    Convenience keyword that starts the specified member of the cluster.
     ${index_list} =    ClusterManagement__Build_List    ${member}
     Start_Members_From_List_Or_All    ${index_list}    ${wait_for_sync}    ${timeout}
+
+Start_Cluster_Members
+    [Arguments]    ${member_index_list}=${EMPTY}    @{service_list}
+    Start_Members_From_List_Or_All    ${member_index_list}=${EMPTY}
+    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    Genius.Check System Status    @{service_list}
 
 Start_Members_From_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${EMPTY}    ${export_java_home}=${EMPTY}    ${gc_log_dir}=${EMPTY}
