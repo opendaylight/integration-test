@@ -1,6 +1,8 @@
 # Place the scripts in run order:
+# netvirt-3node-openstack-tempest.txt is linked to this file
 integration/test/csit/scripts/set_sg_mode.sh
 integration/test/csit/scripts/set_federation_rabbit.sh
 integration/test/csit/scripts/set_snat_mode.sh
 integration/test/csit/scripts/disable_ofp_stats.sh
 integration/test/csit/scripts/set_transaction_debugging.sh
+integration/test/csit/scripts/set_ovsdb_inactivity_probe.sh
