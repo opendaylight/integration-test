@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54fa9f66_96d8fee3",
+        "filename": "csit/scripts/set_ovsdb_inactivity_probe.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-10T17:22:33Z",
+      "side": 1,
+      "message": "wanna make this \"set_ovsdb_timeouts\" or something?",
+      "range": {
+        "startLine": 3,
+        "startChar": 19,
+        "endLine": 3,
+        "endChar": 34
+      },
+      "revId": "be9f93acee39d3a59009c9c6c5257777e8781e94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35ea2678_7c22e883",
+        "filename": "csit/scripts/set_ovsdb_inactivity_probe.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-10T17:22:33Z",
+      "side": 1,
+      "message": "is this line a noop? I must be missing something.",
+      "range": {
+        "startLine": 8,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 219
+      },
+      "revId": "be9f93acee39d3a59009c9c6c5257777e8781e94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22369dfb_16cb0f5a",
+        "filename": "csit/scripts/set_ovsdb_inactivity_probe.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-10T17:22:33Z",
+      "side": 1,
+      "message": "this one goes from 5s to 30s. I can see that.",
+      "range": {
+        "startLine": 9,
+        "startChar": 108,
+        "endLine": 9,
+        "endChar": 113
+      },
+      "revId": "be9f93acee39d3a59009c9c6c5257777e8781e94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
