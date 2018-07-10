@@ -16,6 +16,7 @@ Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    cl2_sg
@@ -82,7 +83,7 @@ Delete the Bridge Manually and Verify After Fail
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
-    ClusterManagement.Start Single Member    1
+    ClusterManagement.Start Single Member    member=1    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
 
 Create Bridge Manually and Verify After Recover
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -98,7 +99,7 @@ Delete the Bridge Manually and Verify After Recover
 
 Take Down ODL2
     [Documentation]    Kill the karaf in Second Controller
-    ClusterManagement.Kill Single Member    2
+    ClusterManagement.Kill Single Member    member=2    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
 
 Create Vm Instances For net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -126,7 +127,7 @@ Check Vm Instances Have Ip Address
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
-    ClusterManagement.Start Single Member    2
+    ClusterManagement.Start Single Member    member=2    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
 
 Ping Vm Instance1 In net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -170,7 +171,7 @@ Connectivity Tests From Vm Instance3 In net_1
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
-    ClusterManagement.Start Single Member    3
+    ClusterManagement.Start Single Member    member=3    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
 
 Take Down ODL1 and ODL2
     [Documentation]    Kill the karaf in First and Second Controller
@@ -190,7 +191,7 @@ Connectivity Tests From Vm Instance3 In net_2
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again.
-    ClusterManagement.Start Members From List Or All    ${CLUSTER_DOWN_LIST}
+    ClusterManagement.Start Members From List Or All    member_index_list=${CLUSTER_DOWN_LIST}    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
 
 Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names. Also remove the VM from the
