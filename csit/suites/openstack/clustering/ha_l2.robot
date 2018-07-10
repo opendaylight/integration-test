@@ -16,6 +16,7 @@ Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../libraries/Genius.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    cl2_sg
@@ -25,6 +26,7 @@ ${SECURITY_GROUP}    cl2_sg
 @{NET_2_VMS}      cl2_net_2_vm_1    cl2_net_2_vm_2    cl2_net_2_vm_3
 @{SUBNET_CIDRS}    26.0.0.0/24    27.0.0.0/24
 @{CLUSTER_DOWN_LIST}    ${1}    ${2}
+@{NETVIRT_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN    OVSDB
 
 *** Test Cases ***
 Create All Controller Sessions
@@ -83,6 +85,7 @@ Delete the Bridge Manually and Verify After Fail
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
     ClusterManagement.Start Single Member    1
+    BuiltIn.Wait Until Keyword Succeeds    60    2    Genius.Check System Status    @{NETVIRT_DIAG_SERVICES}
 
 Create Bridge Manually and Verify After Recover
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -127,6 +130,7 @@ Check Vm Instances Have Ip Address
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
     ClusterManagement.Start Single Member    2
+    BuiltIn.Wait Until Keyword Succeeds    60    2    Genius.Check System Status    @{NETVIRT_DIAG_SERVICES}
 
 Ping Vm Instance1 In net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -171,6 +175,7 @@ Connectivity Tests From Vm Instance3 In net_1
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
     ClusterManagement.Start Single Member    3
+    BuiltIn.Wait Until Keyword Succeeds    60    2    Genius.Check System Status    @{NETVIRT_DIAG_SERVICES}
 
 Take Down ODL1 and ODL2
     [Documentation]    Kill the karaf in First and Second Controller
@@ -191,6 +196,7 @@ Connectivity Tests From Vm Instance3 In net_2
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again.
     ClusterManagement.Start Members From List Or All    ${CLUSTER_DOWN_LIST}
+    BuiltIn.Wait Until Keyword Succeeds    60    2    Genius.Check System Status    @{NETVIRT_DIAG_SERVICES}
 
 Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names. Also remove the VM from the
