@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b37103e3_b7e66013",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-07-10T06:20:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ac49fba_77d3b2cf",
+      "revId": "d91d17f7ce3b9f4f868aeff35925a0c8eaae8bd3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86754842_28f13b8b",
         "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
         "patchSetId": 25
@@ -30,6 +48,24 @@
       "writtenOn": "2018-07-09T16:35:12Z",
       "side": 1,
       "message": "remove this line and the next as they are already called as part of OpenStackOperations.Suite Setup",
+      "revId": "d91d17f7ce3b9f4f868aeff35925a0c8eaae8bd3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7600280_79c7d409",
+        "filename": "csit/suites/openstack/securitygroup/security_group_l3bcast.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 8077
+      },
+      "writtenOn": "2018-07-10T06:20:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86754842_28f13b8b",
       "revId": "d91d17f7ce3b9f4f868aeff35925a0c8eaae8bd3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
