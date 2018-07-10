@@ -16,6 +16,7 @@ Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    cl3_sg
@@ -55,7 +56,7 @@ Create Subnets For net_2
 
 Bring Up Leader Of Default Shard
     [Documentation]    Bring up on cluster leader
-    ClusterManagement.Start Single Member    ${cluster_leader}
+    ClusterManagement.Start Cluster Member    ${cluster_leader}
 
 Add Ssh Allow All Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -99,7 +100,7 @@ Check Vm Instances Have Ip Address
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
-    ClusterManagement.Start Single Member    2
+    ClusterManagement.Start Cluster Member    2
 
 Take Down ODL3
     [Documentation]    Kill the karaf in Third Controller
@@ -127,7 +128,7 @@ Verify Created Routers
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
-    ClusterManagement.Start Single Member    3
+    ClusterManagement.Start Cluster Member    3
 
 Ping Vm Instance1 In net_2 From net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
@@ -178,7 +179,7 @@ Connectivity Tests From Vm Instance3 In net_1
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again
-    ClusterManagement.Start Members From List Or All    ${ODL_1_AND_2_DOWN}
+    ClusterManagement.Start Cluster_Members    ${ODL_1_AND_2_DOWN}    @{NETVIRT_DIAG_SERVICES}
 
 Take Down ODL2 and ODL3
     [Documentation]    Kill the karaf in First and Second Controller
@@ -205,7 +206,7 @@ Connectivity Tests From Vm Instance3 In net_2
 
 Bring Up ODL2 and ODL3
     [Documentation]    Bring up ODL2 and ODL3 again.
-    ClusterManagement.Start Members From List Or All    ${ODL_2_AND_3_DOWN}
+    ClusterManagement.Start Cluster_Members    ${ODL_2_AND_3_DOWN}    @{NETVIRT_DIAG_SERVICES}
 
 Take Down All Instances
     [Documentation]    Stop karaf on all controllers
