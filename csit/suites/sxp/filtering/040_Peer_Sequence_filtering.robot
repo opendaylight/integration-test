@@ -113,15 +113,15 @@ Outbound ACL Combinations Filtering
 Setup Nodes
     [Arguments]    ${version}=version4    ${password}=none
     [Documentation]    Setup Topology for PeerSequence tests
-    SxpLib.Add Binding    10    10.10.10.10/32    127.0.0.1
-    SxpLib.Add Binding    10    10.10.10.0/24    127.0.0.1
-    SxpLib.Add Binding    10    10.10.0.0/16    127.0.0.1
-    SxpLib.Add Binding    10    10.0.0.0/8    127.0.0.1
+    SxpLib.Add Bindings    10    10.10.10.10/32    127.0.0.1
+    SxpLib.Add Bindings    10    10.10.10.0/24    127.0.0.1
+    SxpLib.Add Bindings    10    10.10.0.0/16    127.0.0.1
+    SxpLib.Add Bindings    10    10.0.0.0/8    127.0.0.1
     : FOR    ${node}    IN RANGE    2    6
-    \    SxpLib.Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    SxpLib.Add Binding    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    SxpLib.Add Binding    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    SxpLib.Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
     SxpLib.Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.2    ${password}
     SxpLib.Add Connection    ${version}    speaker    127.0.0.2    64999    127.0.0.1    ${password}
     BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${version}    speaker    127.0.0.2
@@ -141,10 +141,10 @@ Setup Nodes Inbound Test
     [Arguments]    ${version}=version4    ${password}=none
     [Documentation]    Setup Topology for inbound PeerSequence and other filters tests
     : FOR    ${node}    IN RANGE    2    6
-    \    SxpLib.Add Binding    ${node}0    1.1.1.${node}/32    127.0.0.${node}
-    \    SxpLib.Add Binding    ${node}0    1.1.${node}.0/24    127.0.0.${node}
-    \    SxpLib.Add Binding    ${node}0    1.${node}.0.0/16    127.0.0.${node}
-    \    SxpLib.Add Binding    ${node}0    ${node}.0.0.0/8    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    1.1.1.${node}/32    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    1.1.${node}.0/24    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    1.${node}.0.0/16    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    ${node}.0.0.0/8    127.0.0.${node}
     SxpLib.Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2    ${password}
     SxpLib.Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.1    ${password}
     BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${version}    listener    127.0.0.2
@@ -167,15 +167,15 @@ Setup Nodes Inbound Test
 Setup Nodes Outbound Test
     [Arguments]    ${version}=version4    ${password}=none
     [Documentation]    Setup Topology for outbound PeerSequence and other filters tests
-    SxpLib.Add Binding    10    1.1.1.1/32    127.0.0.1
-    SxpLib.Add Binding    10    1.1.1.0/24    127.0.0.1
-    SxpLib.Add Binding    10    1.1.0.0/16    127.0.0.1
-    SxpLib.Add Binding    10    1.0.0.0/8    127.0.0.1
+    SxpLib.Add Bindings    10    1.1.1.1/32    127.0.0.1
+    SxpLib.Add Bindings    10    1.1.1.0/24    127.0.0.1
+    SxpLib.Add Bindings    10    1.1.0.0/16    127.0.0.1
+    SxpLib.Add Bindings    10    1.0.0.0/8    127.0.0.1
     : FOR    ${node}    IN RANGE    3    6
-    \    SxpLib.Add Binding    ${node}0    1.1.1.${node}/32    127.0.0.${node}
-    \    SxpLib.Add Binding    ${node}0    1.1.${node}.0/24    127.0.0.${node}
-    \    SxpLib.Add Binding    ${node}0    1.${node}.0.0/16    127.0.0.${node}
-    \    SxpLib.Add Binding    ${node}0    ${node}.0.0.0/8    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    1.1.1.${node}/32    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    1.1.${node}.0/24    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    1.${node}.0.0/16    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}0    ${node}.0.0.0/8    127.0.0.${node}
     SxpLib.Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.2    ${password}
     SxpLib.Add Connection    ${version}    speaker    127.0.0.2    64999    127.0.0.1    ${password}
     BuiltIn.Wait Until Keyword Succeeds    15    1    SxpLib.Verify Connection    ${version}    speaker    127.0.0.2
