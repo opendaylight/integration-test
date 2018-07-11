@@ -61,10 +61,26 @@ VPN Get L3VPN ID
     ${vpn_id_hex} =    BuiltIn.Convert To Hex    ${result}
     [Return]    ${vpn_id_hex.lower()}
 
+Verify L3VPN On ODL
+    [Arguments]    @{vpns}
+    [Documentation]    To verify L3VPN on ODL for given vpn ids
+    : FOR    ${vpn}    IN    @{vpns}
+    \    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${vpn}
+    \    BuiltIn.Should Contain    ${resp}    ${vpn}
+
 Associate L3VPN To Network
     [Arguments]    &{Kwargs}
     [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
     TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/assoc_l3vpn    mapping=${Kwargs}    session=default    http_timeout=${SESSION_TIMEOUT}
+
+Associate L3VPNs To Networks
+    [Arguments]    ${vpnid_list}    ${network_list}
+    [Documentation]    Associates multiple networks to L3VPN and verify the same
+    : FOR    ${network}    ${vpnid}    IN ZIP    ${network_list}    ${vpnid_list}
+    \    ${network_id} =    OpenStackOperations.Get Net Id    ${network}
+    \    VpnOperations.Associate L3VPN To Network    networkid=${network_id}    vpnid=${vpnid}
+    \    ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=${vpnid}
+    \    BuiltIn.Should Contain    ${resp}    ${network_id}
 
 Dissociate L3VPN From Networks
     [Arguments]    &{Kwargs}
