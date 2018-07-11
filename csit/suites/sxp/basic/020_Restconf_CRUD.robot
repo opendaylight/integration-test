@@ -19,7 +19,7 @@ Test Add Bindings
     Add Bindings    30    2001:0:0:0:0:0:0:0/128
     Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    30    2001:0:0:0:0:0:0:0/128
 
-Test Update Binding
+Test Update Bindings
     [Documentation]    Test if bindings can be updated to different SGT values for the same prefix
     [Tags]    Restconf CRUD    SXP
     Add Bindings    30    1.1.1.10/32
@@ -27,6 +27,16 @@ Test Update Binding
     Add Bindings    40    1.1.1.10/32
     Wait Until Keyword Succeeds    3x    250ms    Bindings Should Not Contain    30    1.1.1.10/32
     Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    40    10.10.10.10/32
+
+Test Delete Bindings
+    [Documentation]    Test if bindings are deleted from Master DB
+    [Tags]    Restconf CRUD    SXP
+    Add Bindings    52301    12.1.1.1/32
+    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    52301    12.1.1.1/32
+    Run Keyword And Expect Error    *    Delete Bindings    2631    12.1.1.1/32
+    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    52301    12.1.1.1/32
+    Delete Bindings    52301    12.1.1.1/32
+    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Not Contain    52301    12.1.1.1/32
 
 Test Add Connection
     [Documentation]    Test if connections are added to Node
@@ -37,16 +47,6 @@ Test Add Connection
     Add Connection    version1    listener    105.12.0.50    64000
     Wait Until Keyword Succeeds    3x    250ms    Connections Should Contain    105.12.0.50    64000    listener
     ...    version1
-
-Test Delete Binding
-    [Documentation]    Test if bindings are deleted from Master DB
-    [Tags]    Restconf CRUD    SXP
-    Add Bindings    52301    12.1.1.1/32
-    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    52301    12.1.1.1/32
-    Run Keyword And Expect Error    *    Delete Binding    2631    12.1.1.1/32
-    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    52301    12.1.1.1/32
-    Delete Binding    52301    12.1.1.1/32
-    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Not Contain    52301    12.1.1.1/32
 
 Test Delete Connection
     [Documentation]    Test if conncetions are removed from Node

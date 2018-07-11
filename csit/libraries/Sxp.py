@@ -632,30 +632,6 @@ def delete_connections_xml(address, port, node, domain_name):
     return data
 
 
-def delete_binding_xml(sgt, prefix, ip, domain_name):
-    """Generate xml for Delete Binding request
-
-    :param sgt: Source Group Tag
-    :type sgt: str
-    :param prefix: Ipv4/6 prefix
-    :type prefix: str
-    :param ip: Ipv4 address of node
-    :type ip: str
-    :param domain_name: Name of Domain
-    :type domain_name: str
-    :returns: String containing xml data for request
-
-    """
-    templ = Template('''<input>
-  <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
-  <sgt xmlns="urn:opendaylight:sxp:controller">$sgt</sgt>
-  <ip-prefix xmlns="urn:opendaylight:sxp:controller">$prefix</ip-prefix>
-  $domain
-</input>''')
-    data = templ.substitute({'sgt': sgt, 'prefix': prefix, 'ip': ip, 'domain': get_domain_name(domain_name)})
-    return data
-
-
 def add_peer_group_xml(name, peers, ip):
     """Generate xml for Add PeerGroups request
 
