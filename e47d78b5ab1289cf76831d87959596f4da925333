@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "062d4cf1_16e2b3a2",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-11T20:03:00Z",
+      "side": 1,
+      "message": "\u003d",
+      "revId": "e47d78b5ab1289cf76831d87959596f4da925333",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2390664_83bfb653",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-11T20:03:00Z",
+      "side": 1,
+      "message": "can other values beyond 200 be returned. Looks like everyone else is just using 200. There is a 200 variable defined somewhere that we should start using more often.",
+      "range": {
+        "startLine": 812,
+        "startChar": 65,
+        "endLine": 812,
+        "endChar": 68
+      },
+      "revId": "e47d78b5ab1289cf76831d87959596f4da925333",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db1d9c4f_8aa9e432",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-11T20:03:00Z",
+      "side": 1,
+      "message": "\u003d. Also just use the Utils.Log Content to log the output. So just ${output} \u003d    Utils.Log Content    ${resp.content}. Then remove the following Log.",
+      "revId": "e47d78b5ab1289cf76831d87959596f4da925333",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a76f792f_421f0c10",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-11T20:03:00Z",
+      "side": 1,
+      "message": "add \u003d . Do this for all the other places doing assignment.",
+      "revId": "e47d78b5ab1289cf76831d87959596f4da925333",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
