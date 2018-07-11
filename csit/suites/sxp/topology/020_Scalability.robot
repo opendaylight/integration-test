@@ -28,7 +28,7 @@ Text Bindings export
     [Tags]    SXP    Scalability
     : FOR    ${num}    IN RANGE    2    502
     \    ${ip}    Get Ip From Number    ${num}
-    \    Add Binding    ${num}    ${ip}/32    127.0.0.2
+    \    Add Bindings    ${num}    ${ip}/32    127.0.0.2
     Add Connection    version4    listener    127.0.0.2    64999    127.0.0.1
     Add Connection    version4    speaker    127.0.0.1    64999    127.0.0.2
     Wait Until Keyword Succeeds    15    1    Verify Connection    version4    listener    127.0.0.2
@@ -39,7 +39,7 @@ Setup Mega Topology
     [Arguments]    ${version}=version4
     : FOR    ${num}    IN RANGE    2    22
     \    ${ip}    Get Ip From Number    ${num}
-    \    Add Binding    ${num}    ${ip}/32    ${ip}
+    \    Add Bindings    ${num}    ${ip}/32    ${ip}
     \    Add Connection    ${version}    listener    ${ip}    64999    127.0.0.1
     \    Add Connection    ${version}    speaker    127.0.0.1    64999    ${ip}
     \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    listener
@@ -52,7 +52,7 @@ Setup Complex Mega Topology
     : FOR    ${num}    IN RANGE    22    32
     \    ${ip}    Get Ip From Number    ${num}
     \    ${second_ip}    Get Ip From Number    ${second_num}
-    \    Add Binding    ${num}    ${ip}/32    ${ip}
+    \    Add Bindings    ${num}    ${ip}/32    ${ip}
     \    Add Connection    ${version}    listener    ${ip}    64999    ${second_ip}
     \    Add Connection    ${version}    speaker    ${second_ip}    64999    ${ip}
     \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    listener

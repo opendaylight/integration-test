@@ -531,30 +531,6 @@ def find_binding_legacy(prefix_groups_json, sgt, prefix, source_, action):
     return found
 
 
-def add_entry_xml(sgt, prefix, ip, domain_name):
-    """Generate xml for Add Bindings request
-
-    :param sgt: Source Group Tag
-    :type sgt: str
-    :param prefix: Ipv4/6 prefix
-    :type prefix: str
-    :param ip: Ipv4 address of node
-    :type ip: str
-    :param domain_name: Name of Domain
-    :type domain_name: str
-    :returns: String containing xml data for request
-
-    """
-    templ = Template('''<input>
-  <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
-  $domain
-  <sgt xmlns="urn:opendaylight:sxp:controller">$sgt</sgt>
-  <ip-prefix xmlns="urn:opendaylight:sxp:controller">$prefix</ip-prefix>
-</input>''')
-    data = templ.substitute({'sgt': sgt, 'prefix': prefix, 'ip': ip, 'domain': get_domain_name(domain_name)})
-    return data
-
-
 def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bindings_timeout=0, security_mode=''):
     """Generate xml for Add Connection request
 

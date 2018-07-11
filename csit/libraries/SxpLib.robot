@@ -80,11 +80,11 @@ Verify Connection
     ${resp}    Get Connections    ${node}    ${session}    ${domain}
     Should Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
 
-Add Binding
-    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
-    [Documentation]    Add binding via RPC to Master DB of node
-    ${DATA}    Add Entry Xml    ${sgt}    ${prefix}    ${node}    ${domain}
-    Post To Controller    ${session}    add-entry    ${DATA}
+Add Bindings
+    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
+    [Documentation]    Add one or more bindings via RPC to Master DB of the node
+    ${DATA}    Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
+    Post To Controller    ${session}    add-bindings    ${DATA}
 
 Get Bindings
     [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global    ${scope}=all
@@ -254,14 +254,14 @@ Setup Topology Complex
     \    ...    ${PASSWORD}
     \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both
     \    ...    127.0.0.${node}
-    \    Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    Add Binding    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    Add Binding    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
-    Add Binding    10    10.10.10.10/32    127.0.0.1
-    Add Binding    10    10.10.10.0/24    127.0.0.1
-    Add Binding    10    10.10.0.0/16    127.0.0.1
-    Add Binding    10    10.0.0.0/8    127.0.0.1
+    \    Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    Add Bindings    10    10.10.10.10/32    127.0.0.1
+    Add Bindings    10    10.10.10.0/24    127.0.0.1
+    Add Bindings    10    10.10.0.0/16    127.0.0.1
+    Add Bindings    10    10.0.0.0/8    127.0.0.1
 
 Verify Snapshot Was Pushed
     [Arguments]    ${snapshot_string}=22-sxp-controller-one-node.xml
@@ -300,12 +300,6 @@ Delete Domain
     [Documentation]    Delete Domain via RPC
     ${DATA}    Delete Domain Xml    ${node}    ${domain_name}
     Post To Controller    ${session}    delete-domain    ${DATA}
-
-Add Bindings
-    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
-    [Documentation]    Add bindings via RPC to Master DB of node
-    ${DATA}    Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
-    Post To Controller    ${session}    add-bindings    ${DATA}
 
 Delete Bindings
     [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global

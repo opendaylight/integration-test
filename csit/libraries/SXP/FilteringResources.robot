@@ -6,10 +6,10 @@ Resource          ../SxpLib.robot
 Setup Nodes
     [Arguments]    ${version}=version4    ${password}=none
     : FOR    ${node}    IN RANGE    1    5
-    \    Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \    Add Binding    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
-    \    Add Binding    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
-    \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+    \    Add Bindings    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+    \    Add Bindings    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
     Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.2    ${password}
     Add Connection    ${version}    both    127.0.0.2    64999    127.0.0.1    ${password}
     Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both    127.0.0.2
