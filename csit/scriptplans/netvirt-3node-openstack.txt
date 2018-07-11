@@ -1,2 +1,3 @@
 # Place the scripts in run order:
+# all other netvirt scriptplans link to this file
 integration/test/csit/scripts/set_single_shard.sh

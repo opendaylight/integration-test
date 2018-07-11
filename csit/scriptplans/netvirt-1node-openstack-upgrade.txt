@@ -1,0 +1,11 @@
+# Place the scripts in run order:
+# netvirt-1node-openstack.txt is the target file with links to it from:
+# netvirt-1node-l2gw-openstack.txt
+# netvirt-1node-openstack-tempest.txt
+# netvirt-1node-tdd-wip-openstack.txt
+# netvirt-3node-l2gw-openstack.txt
+# netvirt-3node-openstack.txt
+# netvirt-3node-openstack-tempest.txt
+# netvirt-3node-tdd-wip-openstack.txt
+# netvirt-extensions-sfc.txt
+integration/test/csit/scripts/set_single_shard.sh
