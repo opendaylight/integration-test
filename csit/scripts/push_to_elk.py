@@ -17,14 +17,17 @@ it to ELK DB.
 
 Usage: python construct_json.py host:port
 
-JSON body similar to following is constructed from robot files, jenkins environment
+JSON body similar to following is \
+constructed from robot files, jenkins environment
 and plot files available in workspace available post-build.
 {
     "project": "opendaylight", <- fix string for ODL project
     "subject": "test", <- fix string for ODL test
-    "test-type": "performance", <- if there are csv files, otherwise "functional"
+    "test-type": "performance", <- if there are csv files, \
+                                     otherwise "functional"
     "jenkins-silo": "releng" <- from Jenkins $SILO
-    "test-name": "openflowplugin-csit-1node-periodic-bulkomatic-perf-daily-only-carbon", <- from Jenkins $JOB_NAME
+    "test-name": "openflowplugin-csit-1node-periodic \
+                -bulkomatic-perf-daily-only-carbon", <- from Jenkins $JOB_NAME
     "test-run": 289, <- from Jenkins $BUILD_NUMBER
     "start-time": "20170612 16:50:04 GMT-07:00",  <- from robot log
     "duration": "00:01:05.942", <- from robot log
@@ -58,7 +61,15 @@ import xml.etree.ElementTree as ET
 from elasticsearch import Elasticsearch, RequestsHttpConnection, exceptions
 import yaml
 
+# User defined libs
+import generate_visState as vis_gen
+import generate_dashVis as dash_gen
+
+
+def p(x):
+    print(json.dumps(x, indent=6, sort_keys=True))
 # ELK DB host and port to be passed as ':' separated argument
+
 
 if len(sys.argv) > 1:
     if ':' in sys.argv[1]:
@@ -81,15 +92,14 @@ try:
 except Exception as e:
     print('Unexpected Error Occurred. Exiting')
     print(e)
-
-print(es.info())
+# print(es.info())
 
 ts = time.time()
 formatted_ts = \
     datetime.fromtimestamp(ts).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 BODY['@timestamp'] = formatted_ts
 
-# Plots are obtained from csv files (present in archives directory in $WORKSPACE).
+# Plots are obtained from csv files ( in archives directory in $WORKSPACE).
 
 csv_files = glob.glob('archives/*.csv')
 BODY['project'] = 'opendaylight'
@@ -120,34 +130,43 @@ BODY['jenkins-silo'] = os.environ['SILO']
 BODY['test-name'] = os.environ['JOB_NAME']
 BODY['test-run'] = os.environ['BUILD_NUMBER']
 
-# Parsing robot log for statistics on no of start-time, pass/fail tests and duration.
+# Parsing robot log for stats on start-time, pass/fail tests and duration.
 
 robot_log = os.environ['WORKSPACE'] + '/output.xml'
 tree = ET.parse(robot_log)
 BODY['id'] = '{}-{}'.format(os.environ['JOB_NAME'],
                             os.environ['BUILD_NUMBER'])
 BODY['start-time'] = tree.getroot().attrib['generated']
-BODY['pass-tests'] = tree.getroot().find('statistics')[0][1].get('pass')
-BODY['fail-tests'] = tree.getroot().find('statistics')[0][1].get('fail')
+BODY['pass-tests'] = int(tree.getroot().find('statistics')[0][1].get('pass'))
+BODY['fail-tests'] = int(tree.getroot().find('statistics')[0][1].get('fail'))
 endtime = tree.getroot().find('suite').find('status').get('endtime')
 starttime = tree.getroot().find('suite').find('status').get('starttime')
 elap_time = datetime.strptime(endtime, '%Y%m%d %H:%M:%S.%f') \
     - datetime.strptime(starttime, '%Y%m%d %H:%M:%S.%f')
 BODY['duration'] = str(elap_time)
 
+BODY = {
+    'type': BODY['test-type'],
+    BODY['test-type']: BODY
+}
+
 print(json.dumps(BODY, indent=4))
 
 # Try to send request to ELK DB.
 
 try:
-    index = '{}-{}'.format(BODY['project'], BODY['subject'])
-    ES_ID = '{}-{}'.format(BODY['test-name'], BODY['test-run'])
-    res = es.index(index=index, doc_type=BODY['test-type'], id=ES_ID, body=BODY)
+    index = '{}-{}'.format(BODY[BODY['type']]['project'],
+                           BODY[BODY['type']]['subject'])
+    ES_ID = '{}:{}-{}'.format(BODY['type'], BODY[BODY['type']]
+                              ['test-name'], BODY[BODY['type']]['test-run'])
+    res = es.index(index=index, doc_type='doc', id=ES_ID, body=BODY)
     print(json.dumps(res, indent=4))
 except Exception as e:
     print(e)
     print('Unable to push data to ElasticSearch')
 
+
+# sys.exit()
 # Function to convert JSON object to string.
 # Python puts 'true' as 'True' etc. which need handling.
 
@@ -163,259 +182,128 @@ def JSONToString(jobj):
     return retval
 
 
-# This function takes
-# testname (string, eg: 'openflowplugin-csit-1node-periodic-bulkomatic-perf-daily-only-carbon'),
-# fieldlist (list of fields, eg: ['pass-tests', 'failed-tests']),
-# plotkey (string, eg: 'rate')
-# as parameters and constructs a visualization object in JSON format
+# Create and push index-pattern to be used by visualizations
 
-def getVisualization(testname, fieldlist, plotkey=''):
-    vis = {}
-    vis['title'] = testname
-    if plotkey != '':
-        vis['title'] += '-' + plotkey
-    vis['description'] = 'visualization of ' + plotkey \
-        + ' trends for testplan ' + testname
-    vis['version'] = 1
-    vis['kibanaSavedObjectMeta'] = {'searchSourceJSON': ''}
-    searchSourceJSON = {
-        'index': 'opendaylight-test',
-        'query': {
-            'query_string': {
-                'analyze_wildcard': True,
-                'query': '*'
-            }
-        },
-        'filter': [{
-            'meta': {
-                'index': 'opendaylight-test',
-                'negate': False,
-                'disabled': False,
-                'alias': None,
-                'type': 'phrase',
-                'key': 'test-name',
-                'value': testname,
-            },
-            'query': {
-                'match': {
-                    'test-name': {
-                        'query': testname,
-                        'type': 'phrase'
-                    }
-                }
-            },
-            '$state': {
-                'store': 'appState'
-            }
-        }]
+INDEX_PATTERN_BODY = {
+    "type": "index-pattern",
+    "index-pattern": {
+        "timeFieldName": "performance.@timestamp",
+        "title": '{}-{}'.format(BODY[BODY['type']]['project'],
+                                BODY[BODY['type']]['subject'])
     }
-
-    vis['kibanaSavedObjectMeta']['searchSourceJSON'] = \
-        JSONToString(searchSourceJSON)
-    vis['uiStateJSON'] = '{"vis":{"legendOpen":true, "colors":{"pass-tests":"#7EB26D","failed-tests":"#E24D42"}}}'
-    visState = {
-        'title': vis['title'],
-        'type': 'area',
-        'params': {
-            'addLegend': True,
-            'addTimeMarker': False,
-            'addTooltip': True,
-            'times': [],
-            'grid': {
-                'categoryLines': False,
-                'style': {
-                    'color': '#eee'
-                }
-            },
-            'legendPosition': 'right',
-            'seriesParams': [],
-            'categoryAxes': [{
-                'id': 'CategoryAxis-1',
-                'labels': {'show': True, 'truncate': 100},
-                'position': 'bottom',
-                'scale': {'type': 'linear'},
-                'show': True,
-                'style': {},
-                'title': {'text': 'Test run number'},
-                'type': 'category',
-            }],
-            'valueAxes': [{
-                'id': 'ValueAxis-1',
-                'labels': {
-                    'filter': False,
-                    'rotate': 0,
-                    'show': True,
-                    'truncate': 100,
-                },
-                'name': 'LeftAxis-1',
-                'position': 'left',
-                'scale': {'mode': 'normal', 'type': 'linear'},
-                'show': True,
-                'style': {},
-                'title': {'text': ''},
-                'type': 'value',
-            }],
-        },
-        'aggs': [{
-            'id': '2',
-            'enabled': True,
-            'type': 'histogram',
-            'schema': 'segment',
-            'params': {
-                'field': 'test-run',
-                'interval': 1,
-                'extended_bounds': {},
-                'customLabel': 'Test run number',
-            },
-        }],
-        'listeners': {},
-    }
-    if plotkey != '':  # Performance plot
-        visState['type'] = 'line'
-    for field in fieldlist:
-        seriesParam = {
-            'show': True,
-            'mode': 'normal',
-            'type': 'area',
-            'drawLinesBetweenPoints': True,
-            'showCircles': True,
-            'interpolate': 'linear',
-            'lineWidth': 2,
-            'data': {
-                'id': str(len(visState['params']['seriesParams']) + 1) + '-' + vis['title'],
-                'label': field.split('.')[-1]
-            },
-            'valueAxis': 'ValueAxis-1',
-        }
-        if plotkey != '':  # Performance plot
-            seriesParam['type'] = 'line'
-        agg = {
-            'id': str(len(visState['params']['seriesParams']) + 1) + '-' + vis['title'],
-            'enabled': True,
-            'type': 'sum',
-            'schema': 'metric',
-            'params': {
-                'field': field,
-                'customLabel': field.split('.')[-1]
-            },
-        }
-
-        visState['params']['seriesParams'].append(seriesParam)
-        visState['aggs'].append(agg)
-
-    vis['visState'] = JSONToString(visState)
-    return vis
-
-
-vis_ids = []
-if BODY['test-type'] == 'performance':
-
-    # Create visualizations for performance tests
-    # One visualization for one plot
-
-    for key in BODY['plots']:
-        fieldlist = []
-        for subkey in BODY['plots'][key]:
-            fieldlist.append('plots.' + key + '.' + subkey)
-        vis = getVisualization(BODY['test-name'], fieldlist, key)
-        vis_ids.append(BODY['test-name'] + '-' + key)
-        print(json.dumps(vis, indent=4))
-        try:
-            ES_ID = '{}-{}'.format(BODY['test-name'], key)
-            res = es.index(index='.kibana', doc_type='visualization', id=ES_ID, body=BODY)
-            print(json.dumps(res, indent=4))
-        except Exception as e:
-            print(e)
-            print('Unable to push visualization to Kibana')
-
-
-vis = getVisualization(BODY['test-name'],
-                       ['pass-tests', 'failed-tests'])
-vis_ids.append(BODY['test-name'])
-
-print(json.dumps(vis, indent=4))
-try:
-    ES_ID = BODY['test-name']
-    res = es.index(index='.kibana', doc_type='visualization', id=ES_ID, body=vis)
-    print(json.dumps(res, indent=4))
-except Exception as e:
-    print(e)
-    print('Unable to push dashboard to Kibana')
-
-# Create dashboard and add above created visualizations to it
-
-DASHBOARD_NAME = BODY['test-name'].split('-')[0]
-dashboard = {}
-dashboard['title'] = DASHBOARD_NAME
-dashboard['description'] = 'Dashboard for visualizing ' \
-    + DASHBOARD_NAME
-dashboard['uiStateJSON'] = '{}'
-dashboard['optionsJSON'] = '{"darkTheme":false}'
-dashboard['version'] = 1
-dashboard['timeRestore'] = False
-dashboard['kibanaSavedObjectMeta'] = {
-    'searchSourceJSON': '{"filter":[{"query":{"query_string":{"query":"*","analyze_wildcard":true}}}],'
-    '"highlightAll":true,"version":true}'
 }
 
-# Check if visualizations already present in dashboard. If present, don't add, else, add at end
 
-ES_ID = DASHBOARD_NAME
+KIBANA_CONFIG = {'config': {
+    'defaultIndex': 'pattern-for-{}-{}'.format(BODY[BODY['type']]['project'],
+                                               BODY[BODY['type']]['subject']),
+    'timepicker:timeDefaults': '{\n  "from": "now-5y",\n \
+                                "to": "now",\n  "mode": "quick"\n}',
+    'xPackMonitoring:showBanner': False},
+    'type': 'config',
+}
+
+res = es.index(index='.kibana', doc_type='doc',
+               id='config:6.2.4', body=KIBANA_CONFIG)
+
+
 try:
-    res = es.get(index='.kibana', doc_type='dashboard', id=ES_ID)
+    index = '.kibana'
+    ES_ID = 'index-pattern:pattern-for-{}-{}'.format(
+        BODY[BODY['type']]['project'], BODY[BODY['type']]['subject'])
+    res = es.index(index=index, doc_type='doc',
+                   id=ES_ID, body=INDEX_PATTERN_BODY)
+    p(json.dumps(INDEX_PATTERN_BODY, indent=4))
     print(json.dumps(res, indent=4))
-    # No exeception occured means dashboard found
-    dashboard_found = True
-except exceptions.NotFoundError as e:
-    print('No visualizations found')
-    dashboard_found = False
 except Exception as e:
     print(e)
-    print('Error Occurred')
-
-vis_ids_present = set()
-panelsJSON = []
+    # raise e
+    print('Unable to push data to ElasticSearch')
 
 
-if dashboard_found:
-    panelsJSON = yaml.safe_load(res['_source']['panelsJSON'])
-    for vis in panelsJSON:
-        vis_ids_present.add(vis['id'])
+# Create and push visualizations
+try:
+    viz_config_path = glob.glob('csit/scripts/viz_config.yaml')[0]
+except IndexError:
+    print('Visualization template file not found!')
 
-size_x = 6
-size_y = 3
-xpos = (len(vis_ids_present) % 2) * 6 + 1
-ypos = (len(vis_ids_present) / 2) * 3 + 1
-for (i, vis_id) in enumerate(vis_ids):
-    if (not dashboard_found or vis_id not in vis_ids_present):
-        panelJSON = {
-            'size_x': size_x,
-            'size_y': size_y,
-            'panelIndex': len(vis_ids_present) + i,
-            'type': 'visualization',
-            'id': vis_id,
-            'col': xpos,
-            'row': ypos,
+try:
+    dash_config_path = glob.glob('csit/scripts/dash_config.yaml')[0]
+except IndexError:
+    print('Dashboard configuration file not found!')
+
+with open(dash_config_path, 'r') as f:
+    dash_config = yaml.safe_load(f)
+
+with open(viz_config_path, 'r') as f:
+    viz_config = yaml.safe_load(f)
+
+SEARCH_SOURCE = {"index": None, "filter": [],
+                 "query": {"language": "lucene", "query": ""}}
+
+for _, i in dash_config['dashboard']['viz'].items():
+    intermediate_format, visState = vis_gen.generate(
+        i, viz_config[i['viz-template']])
+
+    # p(intermediate_format)
+    # p(visState)
+
+    SEARCH_SOURCE['index'] = intermediate_format['index_pattern']
+    VIZ_BODY = {
+        'type': 'visualization',
+        'visualization': {
+            "title": None,
+            "visState": None,
+            "uiStateJSON": "{}",
+            "description": None,
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+                "searchSourceJSON": JSONToString(SEARCH_SOURCE)
+            }
         }
-        xpos += size_x
-        if xpos > 12:
-            xpos = 1
-            ypos += size_y
-        panelsJSON.append(panelJSON)
-    else:
-        print('visualization ' + vis_id + ' already present in dashboard')
+    }
 
-dashboard['panelsJSON'] = JSONToString(panelsJSON)
+    VIZ_BODY['visualization']['title'] = intermediate_format['title']
+    VIZ_BODY['visualization']['visState'] = JSONToString(visState)
+    VIZ_BODY['visualization']['description'] = intermediate_format['desc']
 
-print(json.dumps(dashboard, indent=4))
-
-try:
-    ES_ID = DASHBOARD_NAME
-    res = es.index(index='.kibana', doc_type='dashboard', id=ES_ID, body=dashboard)
+    p(VIZ_BODY)
+    index = '.kibana'
+    ES_ID = 'visualization:{}'.format(i['id'])
+    res = es.index(index=index, doc_type='doc', id=ES_ID, body=VIZ_BODY)
     print(json.dumps(res, indent=4))
-except exceptions.TransportError as et:
-    print(et)
-    print('Elasticsearch returned an error')
-except Exception as e:
-    print(e)
-    print('Unexpected error occurred. Unable to push dashboard to Kibana')
+
+
+# Create and push dashboard
+
+
+for _, i in dash_config.items():
+    DASH_BODY = {
+        'type': 'dashboard',
+        'dashboard': {
+            'title': None,
+            'description': None,
+            'panelsJSON': None,
+            'optionsJSON': '{\"darkTheme\":false,\
+                            \"hidePanelTitles\":false,\"useMargins\":true}',
+            'version': 1,
+            'kibanaSavedObjectMeta': {
+                'searchSourceJSON': '{\"query\":{\"language\":\"lucene\", \
+                                     \"query\":\"\"}, \
+                                     \"filter\":[],\"highlightAll\" \
+                                      :true,\"version\":true}'
+            }
+        }
+    }
+
+    DASH_BODY['dashboard']['title'] = i['title']
+    DASH_BODY['dashboard']['description'] = i['desc']
+    DASH_BODY['dashboard']['panelsJSON'] = JSONToString(
+        dash_gen.generate(i['viz']))
+
+    p(DASH_BODY)
+
+    index = '.kibana'
+    ES_ID = 'dashboard:{}'.format(i['id'])
+    res = es.index(index=index, doc_type='doc', id=ES_ID, body=DASH_BODY)
+    print(json.dumps(res, indent=4))
