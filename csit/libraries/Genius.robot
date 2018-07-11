@@ -44,6 +44,7 @@ Start Suite
     KarafKeywords.Setup_Karaf_Keywords
     ${karaf_debug_enabled}    BuiltIn.Get_Variable_Value    ${KARAF_DEBUG}    ${False}
     BuiltIn.run_keyword_if    ${karaf_debug_enabled}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG org.opendaylight.genius
+    BuiltIn.Run Keyword And Ignore Error    KarafKeywords.Log_Test_Suite_Start_To_Controller_Karaf
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Log    ${conn_id_1}
     Execute Command    sudo ovs-vsctl add-br BR1
@@ -161,6 +162,10 @@ Delete All Vteps
     Log    "Before disconnecting CSS with controller"
     ${output} =    Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Wait Until Keyword Succeeds    30    5    Verify All Tunnel Delete on DS
+
+Genius Test Setup
+    [Documentation]    Genius test case setup
+    BuiltIn.Run Keyword And Ignore Error    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
 
 Genius Test Teardown
     [Arguments]    ${data_models}

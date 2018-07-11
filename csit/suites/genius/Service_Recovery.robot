@@ -3,6 +3,7 @@ Documentation     Test Suite for Service Recovery.
 ...               Find detailed test plan here, http://docs.opendaylight.org/en/latest/submodules/genius/docs/testplans/service-recovery.html
 Suite Setup       Genius.SRM Start Suite
 Suite Teardown    Genius.SRM Stop Suite
+Test Setup        Genius Test Setup
 Test Teardown     Genius Test Teardown    ${data_models}
 Library           re
 Resource          ../../libraries/DataModels.robot
