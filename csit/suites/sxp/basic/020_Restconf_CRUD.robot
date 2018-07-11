@@ -19,6 +19,16 @@ Test Add Bindings
     Add Bindings    30    2001:0:0:0:0:0:0:0/128
     Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    30    2001:0:0:0:0:0:0:0/128
 
+Test Update Bindings
+    [Documentation]    Test if bindings can be updated to different SGT values for the same prefix
+    [Tags]    Restconf CRUD    SXP
+    Add Bindings    30    1.1.1.10/32
+    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    30    1.1.1.10/32
+    Sleep    1s
+    Add Bindings    40    1.1.1.10/32
+    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Not Contain    30    1.1.1.10/32
+    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    40    1.1.1.10/32
+
 Test Add Connection
     [Documentation]    Test if connections are added to Node
     [Tags]    Restconf CRUD    SXP
@@ -51,15 +61,6 @@ Test Delete Connection
     Delete Connections    127.1.0.30    60000
     Wait Until Keyword Succeeds    3x    250ms    Connections Should Not Contain    127.1.0.30    60000    speaker
     ...    version4
-
-Test Update Binding
-    [Documentation]    Test if bindings can be updated to different values
-    [Tags]    Restconf CRUD    SXP
-    Add Bindings    3230    1.1.1.10/32
-    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    3230    1.1.1.10/32
-    Update Binding    3230    1.1.1.10/32    623    10.10.10.10/32
-    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Not Contain    3230    1.1.1.10/32
-    Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    623    10.10.10.10/32
 
 *** Keywords ***
 Clean Node
