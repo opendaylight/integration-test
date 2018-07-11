@@ -16,6 +16,7 @@ ${OVSDB_CONFIG_DIR}    ${CURDIR}/../variables/ovsdb
 ${OVSDB_NODE_PORT}    6634
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F
 ${SOUTHBOUND_NODE_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
+${DUMP_FLOWS}     sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
 
 *** Keywords ***
 Log Request
@@ -485,3 +486,27 @@ Verify Vni Packet Count After Traffic
     BuiltIn.Should Be True    ${diff_count_ingress_port1} >= ${DEFAULT_PING_COUNT}
     BuiltIn.Should Be True    ${diff_count_egress_port2} >= ${DEFAULT_PING_COUNT}
     BuiltIn.Should Be True    ${diff_count_ingress_port2} >= ${DEFAULT_PING_COUNT}
+
+Delete Flows From ODL
+    [Arguments]    ${dpnid}    ${table_id}    ${flow_element}
+    [Documentation]    delete the flows from the controller using REST
+    ${flow_id} =    Get OpenFlow Id    ${dpnid}    ${table_id}    ${flow_element}
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}/flow/${flow_id}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Verify Flows on ODL
+    [Arguments]    ${dpnid}    ${table_id}    ${flag}    @{flow_elements}
+    [Documentation]    To Verify whether the flows are deleted on the controller
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}
+    BuiltIn.Log    ${resp.content}
+    : FOR    ${flow_element}    IN    @{flow_elements}
+    \    BuiltIn.Run Keyword If    ${flag} == True    BuiltIn.Should Contain    ${resp.content}    ${flow_element}
+    \    ...    ELSE    BuiltIn.Should Not Contain    ${resp.content}    ${flow_element}
+
+Get OpenFlow Id
+    [Arguments]    ${dpnid}    ${table_id}    ${flow_element}
+    [Documentation]    To get the openflow id from the particular compute nodes
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}
+    BuiltIn.Log    ${resp.content}
+    @{flow_id} =    String.Get Regexp Matches    ${resp.content}    id\":\"(\\d+${flow_element})    1
+    [Return]    @{flow_id[0]}
