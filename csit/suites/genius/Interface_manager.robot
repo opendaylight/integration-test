@@ -2,6 +2,7 @@
 Documentation     Test Suite for Interface manager
 Suite Setup       Genius Suite Setup
 Suite Teardown    Genius Suite Teardown
+Test Setup        Genius Test Setup
 Test Teardown     Genius Test Teardown    ${data_models}
 Library           OperatingSystem
 Library           String

@@ -2,6 +2,7 @@
 Documentation     Test Suite for BFD tunnel monitoring
 Suite Setup       Genius Suite Setup
 Suite Teardown    BFD Suite Stop
+Test Setup        Genius Test Setup
 Test Teardown     Genius Test Teardown    ${data_models}
 Library           OperatingSystem
 Library           String
