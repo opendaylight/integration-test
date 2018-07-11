@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "808d57f7_39b0e6ae",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-11T21:11:18Z",
+      "side": 1,
+      "message": "for all list indexes, use this form: @{LIST}[0]. This applies to all index references in this file.",
+      "range": {
+        "startLine": 57,
+        "startChar": 89,
+        "endLine": 57,
+        "endChar": 107
+      },
+      "revId": "46c67eece7d29272ebee6d9807a0d372b76a051f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
