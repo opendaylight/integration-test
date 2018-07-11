@@ -608,42 +608,6 @@ def delete_connections_xml(address, port, node, domain_name):
     return data
 
 
-def update_binding_xml(sgt0, prefix0, sgt1, prefix1, ip, domain_name):
-    """Generate xml for Update Binding request
-
-    :param sgt0: Original Source Group Tag
-    :type sgt0: str
-    :param prefix0: Original Ipv4/6 prefix
-    :type prefix0: str
-    :param sgt1: New Source Group Tag
-    :type sgt1: str
-    :param prefix1: New Ipv4/6 prefix
-    :type prefix1: str
-    :param ip: Ipv4 address of node
-    :type ip: str
-    :param domain_name: Name of Domain
-    :type domain_name: str
-    :returns: String containing xml data for request
-
-    """
-    templ = Template('''<input>
-  <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
-  $domain
-  <original-binding xmlns="urn:opendaylight:sxp:controller">
-    <sgt>$sgt0</sgt>
-    <ip-prefix>$prefix0</ip-prefix>
-  </original-binding>
-  <new-binding xmlns="urn:opendaylight:sxp:controller">
-    <sgt>$sgt1</sgt>
-    <ip-prefix>$prefix1</ip-prefix>
-  </new-binding>
-</input>''')
-    data = templ.substitute(
-        {'sgt0': sgt0, 'sgt1': sgt1, 'prefix0': prefix0, 'prefix1': prefix1, 'ip': ip,
-         'domain': get_domain_name(domain_name)})
-    return data
-
-
 def delete_binding_xml(sgt, prefix, ip, domain_name):
     """Generate xml for Delete Binding request
 
