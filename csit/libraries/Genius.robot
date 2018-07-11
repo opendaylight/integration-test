@@ -308,8 +308,10 @@ SRM Start Suite
     ${tunnel} =    BuiltIn.Wait Until Keyword Succeeds    40    20    Genius.Get Tunnel    ${dpn_Id_1}    ${dpn_Id_2}
     ...    odl-interface:tunnel-type-vxlan
     BuiltIn.Wait Until Keyword Succeeds    60s    5s    Genius.Verify Tunnel Status as UP    TZA
+    Genius Test Teardown    ${data_models}
 
 SRM Stop Suite
     [Documentation]    Stop suite for service recovery.
     Delete All Vteps
+    Genius Test Teardown    ${data_models}
     Genius Suite Teardown
