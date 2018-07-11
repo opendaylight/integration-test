@@ -657,15 +657,19 @@ Delete All Security Group Rules
     \    ${output} =    OpenStack CLI    openstack security group rule delete ${rule}
 
 Create Allow All SecurityGroup
-    [Arguments]    ${sg_name}    ${ether_type}=IPv4
+    [Arguments]    ${sg_name}    ${ether_type}=IPv4    ${additional_args}=${EMPTY}
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
     OpenStackOperations.Neutron Security Group Create    ${sg_name}
     OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=tcp
+    ...    ${additional_args}
     OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=tcp
-    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    protocol=icmp
-    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    protocol=icmp
+    ...    ${additional_args}
+    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    protocol=icmp    ${additional_args}
+    OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    protocol=icmp    ${additional_args}
     OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=ingress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=udp
+    ...    ${additional_args}
     OpenStackOperations.Neutron Security Group Rule Create    ${sg_name}    direction=egress    ethertype=${ether_type}    port_range_max=65535    port_range_min=1    protocol=udp
+    ...    ${additional_args}
 
 Create Neutron Port With Additional Params
     [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
@@ -1101,3 +1105,18 @@ Get Network Segmentation Id
     ${output} =    OpenStack CLI    openstack network show ${network_name} | grep segmentation_id | awk '{print $4}'
     @{list} =    String.Split String    ${output}
     [Return]    @{list}[0]
+
+Get Admin Id From Projects
+    [Documentation]    Returns admin ID by reading it from existing project list
+    ${output} =    OpenStack CLI    openstack project list
+    ${split_output} =    String.Split String    ${output}
+    ${index} =    Collections.Get Index From List    ${split_output}    admin
+    ${id} =    BuiltIn.Set Variable    ${split_output[${index-2}]}
+    [Return]    ${id}
+
+Set Instance Quota For Admin Project
+    [Arguments]    ${num_instances}
+    [Documentation]    Set quota for the created instances using admin id
+    ${admin_id} =    OpenStackOperations.Get Admin Id From Projects
+    ${output} =    OpenStack CLI    openstack quota set --instances ${num_instances} ${admin_id}
+    [Return]    ${output}
