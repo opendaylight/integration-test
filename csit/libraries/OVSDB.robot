@@ -446,3 +446,18 @@ Verify Dump Flows For Specific Table
     : FOR    ${matching_str}    IN    @{matching_paras}
     \    BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${flow_output}    ${matching_str}
     \    ...    ELSE    BuiltIn.Should Not Contain    ${flow_output}    ${matching_str}
+
+Delete Flows From ODL
+    [Arguments]    ${dpnid}    ${table_id}    ${mac_addr}
+    [Documentation]    To delete the flows from the controller using REST
+    ${flow_id}    Get OpenFlow Id    ${dpnid}    ${table_id}    ${mac_addr}
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}/flow/${flow_id}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Verify Flows on ODL
+    [Arguments]    ${dpnid}    ${table_id}    ${mac_addr}    ${flag}=True
+    [Documentation]    To Verify whether the flows are deleted on the controller
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}
+    BuiltIn.Log    ${resp.content}
+    Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${resp.content}    ${mac_addr}
+    ...    ELSE    BuiltIn.Should Not Contain    ${resp.content}    ${mac_addr}
