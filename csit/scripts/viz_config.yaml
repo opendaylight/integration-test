@@ -1,0 +1,133 @@
+viz-tests:
+    title: openflowplugin-only-oxygen-performance-tests-stats
+    type: histogram
+    index_pattern: pattern-for-opendaylight-test
+    id: vis-tests-opendaylight
+    desc: Pass and Fails statistics of test cases
+    num_cat_axes: 1
+    value_axes:
+        1:
+            position: left
+            title: No. of test cases
+    seriesParams:
+        1:
+            data_type: histogram
+            mode: stacked
+            label: Pass tests
+            agg_id: 1 
+            value_axis: 1
+        2:
+            data_type: histogram
+            mode: stacked
+            label: Fail tests
+            agg_id: 2
+            value_axis: 1
+    aggs:
+        1:
+            field: performance.pass-tests
+            custom_label: Pass tests
+            schema: metric
+        2:
+            field: performance.fail-tests
+            custom_label: Fail tests
+            schema: metric   
+        3:
+            field: performance.test-run.keyword
+            custom_label: Build Number
+            schema: segment
+
+viz-rate:
+    title: openflowplugin-only-oxygen-performance-rate
+    type: line
+    index_pattern: pattern-for-opendaylight-test
+    id: vis-rate-opendaylight
+    desc: Flow Rate Stats of tests
+    num_cat_axes: 1
+    value_axes:
+        1:
+            position: left
+            title: flow_mods/sec
+    seriesParams:
+        1:
+            data_type: line
+            mode: normal
+            label: Config DS
+            agg_id: 1 
+            value_axis: 1
+        2:
+            data_type: line
+            mode: normal
+            label: Operational DS
+            agg_id: 2
+            value_axis: 1
+        3:
+            data_type: line
+            mode: normal
+            label: OVS Switch
+            agg_id: 4
+            value_axis: 1
+    aggs:
+        1:
+            field: performance.plots.rate.Config DS
+            custom_label: Config DS
+            schema: metric
+        2:
+            field: performance.plots.rate.Operational DS
+            custom_label: Operational DS
+            schema: metric
+        3:
+            field: performance.test-run.keyword
+            custom_label: Build Number
+            schema: segment
+        4:
+            field: performance.plots.rate.OVS Switch
+            custom_label: OVS Switch
+            schema: metric
+
+viz-time:
+    title: openflowplugin-only-oxygen-performance-time
+    type: line
+    index_pattern: pattern-for-opendaylight-test
+    id: vis-time-opendaylight
+    desc: Flow Time Stats of tests
+    num_cat_axes: 1
+    value_axes:
+        1:
+            position: left
+            title: seconds
+    seriesParams:
+        1:
+            data_type: line
+            mode: normal
+            label: Config DS
+            agg_id: 1 
+            value_axis: 1
+        2:
+            data_type: line
+            mode: normal
+            label: Operational DS
+            agg_id: 2
+            value_axis: 1
+        3:
+            data_type: line
+            mode: normal
+            label: OVS Switch
+            agg_id: 4
+            value_axis: 1
+    aggs:
+        1:
+            field: performance.plots.time.Config DS
+            custom_label: Config DS
+            schema: metric
+        2:
+            field: performance.plots.time.Operational DS
+            custom_label: Operational DS
+            schema: metric
+        3:
+            field: performance.test-run.keyword
+            custom_label: Build Number
+            schema: segment
+        4:
+            field: performance.plots.time.OVS Switch
+            custom_label: OVS Switch
+            schema: metric
