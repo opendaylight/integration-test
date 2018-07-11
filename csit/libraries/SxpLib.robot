@@ -82,7 +82,7 @@ Verify Connection
 
 Add Bindings
     [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
-    [Documentation]    Add one or more bindings via RPC to Master DB of the node
+    [Documentation]    Add/Update one or more bindings via RPC to Master DB of the node
     ${DATA}    Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
     Post To Controller    ${session}    add-bindings    ${DATA}
 
@@ -116,14 +116,6 @@ Clean Binding
     [Documentation]    Used for nester FOR loop
     : FOR    ${prefix}    IN    @{prefixes}
     \    Delete Binding Default    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
-
-Update Binding
-    [Arguments]    ${sgtOld}    ${prefixOld}    ${sgtNew}    ${prefixNew}    ${node}=127.0.0.1    ${session}=session
-    ...    ${domain}=global
-    [Documentation]    Updates value of binding via RPC in Master DB of node
-    ${DATA}    Update Binding Xml    ${sgtOld}    ${prefixOld}    ${sgtNew}    ${prefixNew}    ${node}
-    ...    ${domain}
-    Post To Controller    ${session}    update-entry    ${DATA}
 
 Delete Binding Default
     [Arguments]    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
