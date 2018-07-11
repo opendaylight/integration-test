@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c1856b9_9d1b523f",
+        "filename": "csit/suites/netvirt/pseudoportbinding/pseudoportbinding.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-11T19:52:26Z",
+      "side": 1,
+      "message": "add space before \u003d. this is in a few other places",
+      "revId": "c18e3725fee1f25ca25528912278d7df70323ae5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90d01376_09e3eb48",
+        "filename": "csit/suites/netvirt/pseudoportbinding/pseudoportbinding.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-11T19:52:26Z",
+      "side": 1,
+      "message": "BuiltIn. also in other places",
+      "revId": "c18e3725fee1f25ca25528912278d7df70323ae5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7cfc13c_3566b77b",
+        "filename": "csit/suites/netvirt/pseudoportbinding/pseudoportbinding.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-11T19:52:26Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 61,
+        "startChar": 74,
+        "endLine": 61,
+        "endChar": 78
+      },
+      "revId": "c18e3725fee1f25ca25528912278d7df70323ae5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50426bc9_4c224bb8",
+        "filename": "csit/suites/netvirt/pseudoportbinding/pseudoportbinding.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-11T19:52:26Z",
+      "side": 1,
+      "message": "rather than call OpenStack CLI directly, call ${output} \n \u003d    OpenstackOperations.Port Show, then work on the output to get what you want. Since  you need to do this more than once, make a keyword. You can then decide to keep that keyword here or put it into OpenStackOperations if it looks useful and generic.",
+      "revId": "c18e3725fee1f25ca25528912278d7df70323ae5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e01c054_e6afa52b",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-11T19:52:26Z",
+      "side": 1,
+      "message": "use ${OPERATIONAL_API}. Also move this up under the other URL\u0027s above. Change URI to URL to be consistent.",
+      "range": {
+        "startLine": 92,
+        "startChar": 29,
+        "endLine": 92,
+        "endChar": 49
+      },
+      "revId": "c18e3725fee1f25ca25528912278d7df70323ae5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
