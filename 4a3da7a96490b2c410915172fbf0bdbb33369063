@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48fb7fcd_9327f3c8",
+        "filename": "csit/variables/genius/Itm_creation_no_vlan.json",
+        "patchSetId": 68
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-07-11T07:06:10Z",
+      "side": 1,
+      "message": "robot scripts are generic, but jsons are what make it not generic. to be truly generic you need to generate your json, tweak it to add individual teps through robot, or use karaf cli to add/delete teps.",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
