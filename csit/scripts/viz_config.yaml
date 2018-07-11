@@ -1,0 +1,50 @@
+opendaylight-test-feature:
+    type: histogram
+    index_pattern: pattern-for-opendaylight-test
+    desc: Test Pass/Fail results
+    num_cat_axes: 1
+    value_axes:
+        1:
+            position: left
+            title: No. of test cases
+    series:
+        pass:
+            data_type: histogram
+            mode: stacked
+            field: performance.pass-tests
+            label: Pass tests
+            schema: metric
+            value_axis: 1
+        fail:
+            data_type: histogram
+            mode: stacked
+            field: performance.fail-tests
+            label: Fail tests
+            schema: metric
+            value_axis: 1
+        build:
+            field: performance.test-run.keyword
+            label: Build Number
+            schema: segment
+            not_in_seriesParams: true
+
+opendaylight-test-performance:
+    type: line
+    index_pattern: pattern-for-opendaylight-test
+    id: opendaylight-test-performance
+    num_cat_axes: 1
+    value_axes:
+        default:
+            position: left
+    seriesParams:
+        default:
+            data_type: line
+            mode: normal
+            value_axis: 1
+    aggs:
+        build:
+            field: performance.test-run.keyword
+            custom_label: Build Number
+            schema: segment
+        default:
+            schema: metric
