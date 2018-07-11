@@ -32,8 +32,8 @@ Update Messages Test
     Add Filters
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing
     : FOR    ${node}    IN RANGE    2    5
-    \    Delete Binding    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
-    \    Delete Binding    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
+    \    Delete Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
+    \    Delete Bindings    ${node}0    ${node}0.${node}0.0.0/16    127.0.0.${node}
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing After Update
     : FOR    ${node}    IN RANGE    2    5
     \    Add Bindings    ${node}0    ${node}0.${node}0.${node}0.0/24    127.0.0.${node}
@@ -56,9 +56,9 @@ Local Binding Update Test
     Wait Until Keyword Succeeds    15    1    Check Initialized Local
     Add Filters
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing Local
-    Delete Binding    20    20.20.20.5/32    127.0.0.1    ${DOMAIN_1}
-    Delete Binding    30    30.30.30.5/32    127.0.0.1    ${DOMAIN_2}
-    Delete Binding    40    40.40.40.5/32    127.0.0.1    ${DOMAIN_3}
+    Delete Bindings    20    20.20.20.5/32    127.0.0.1    ${DOMAIN_1}
+    Delete Bindings    30    30.30.30.5/32    127.0.0.1    ${DOMAIN_2}
+    Delete Bindings    40    40.40.40.5/32    127.0.0.1    ${DOMAIN_3}
     Wait Until Keyword Succeeds    15    1    Check Domain Sharing After Update Local
     Add Bindings    20    20.20.20.5/32    127.0.0.1    ${DOMAIN_1}
     Add Bindings    30    30.30.30.5/32    127.0.0.1    ${DOMAIN_2}
@@ -75,7 +75,7 @@ Binding Replacement Test
     Wait Until Keyword Succeeds    15    1    Check After Update Part One
     Add Filters After Update
     Wait Until Keyword Succeeds    15    1    Check After Update Part Two
-    Delete Binding    450    35.35.35.35/32    127.0.0.1    ${DOMAIN_3}
+    Delete Bindings    450    35.35.35.35/32    127.0.0.1    ${DOMAIN_3}
     Wait Until Keyword Succeeds    15    1    Check After Update Part Three
 
 *** Keywords ***
