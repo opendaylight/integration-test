@@ -1,5 +1,6 @@
 # Place the scripts in run order:
-# netvirt-1node-openstack-tempest.txt is linked to this file
+# netvirt-1node-openstack.txt is the target file with links to it from:
+# netvirt-1node-openstack-tempest.txt
 integration/test/csit/scripts/set_sg_mode.sh
 integration/test/csit/scripts/set_federation_rabbit.sh
 integration/test/csit/scripts/set_snat_mode.sh
