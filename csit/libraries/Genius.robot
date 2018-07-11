@@ -162,6 +162,10 @@ Delete All Vteps
     ${output} =    Issue Command On Karaf Console    ${TEP_SHOW}
     BuiltIn.Wait Until Keyword Succeeds    30    5    Verify All Tunnel Delete on DS
 
+Genius Test Setup
+    [Documentation]    Genius test case setup
+    BuiltIn.Run Keyword And Ignore Error    KarafKeywords.Log_Test_Suite_Start_To_Controller_Karaf
+
 Genius Test Teardown
     [Arguments]    ${data_models}
     OVSDB.Get DumpFlows And Ovsconfig    ${conn_id_1}    BR1
