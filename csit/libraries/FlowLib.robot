@@ -513,3 +513,11 @@ Delete Flow Via Restconf
     Log    ${resp.content}
     ${msg}=    Set Variable    Delete flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
+
+Get Flow Id
+    [Arguments]    ${dpnid}    ${table_id}    ${flow_element}
+    [Documentation]    This verifies specific flow-id for particular table-id matching from the flow element
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}
+    BuiltIn.Log    ${resp.content}
+    @{flow_id} =    String.Get Regexp Matches    ${resp.content}    id\":\"(\\d+${flow_element})    1
+    [Return]    @{flow_id}[0]
