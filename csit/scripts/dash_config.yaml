@@ -1,0 +1,26 @@
+dashboard-1:
+  id: openflowplugin-csit-1node-perf-dashboard
+  title: openflowplugin-csit-1node-perf-bulkomatic-only-oxygen-dashboard
+  desc: Dashboard for openflowplugin-csit-1node-perf-bulkomatic-only-oxygen
+  viz:
+    1:
+      id: vis-rate-opendaylight
+      co_ords:
+        h: 3
+        w: 6
+        x: 0
+        y: 3
+    2:
+      id: vis-time-opendaylight
+      co_ords:
+        h: 3
+        w: 6
+        x: 6
+        y: 3
+    3:
+      id: vis-tests-opendaylight
+      co_ords:
+        h: 3
+        w: 12
+        x: 0
+        y: 0
