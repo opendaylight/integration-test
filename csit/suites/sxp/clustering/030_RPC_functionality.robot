@@ -39,7 +39,7 @@ Isolate SXP Controller
     Wait Until Keyword Succeeds    30    1    Check Bindings Exist
     ${active_controller}    Get Active Controller
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Delete Binding    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${CLUSTER_NODE_ID}    session=controller${active_controller}
+    \    Delete Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${CLUSTER_NODE_ID}    session=controller${active_controller}
     Flush_Iptables_From_List_Or_All
     Wait Until Keyword Succeeds    240    1    Sync_Status_Should_Be_True    ${controller_index}
     Wait Until Keyword Succeeds    30    1    Check Bindings Does Not Exist

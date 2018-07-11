@@ -115,23 +115,13 @@ Clean Binding
     [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}=global
     [Documentation]    Used for nester FOR loop
     : FOR    ${prefix}    IN    @{prefixes}
-    \    Delete Binding Default    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
+    \    Delete Bindings    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
 
-Delete Binding Default
-    [Arguments]    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
-    [Documentation]    Delete binding via RPC
-    Delete Binding    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
-
-Delete Binding Be
-    [Arguments]    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
-    [Documentation]    Delete binding via RPC
-    Delete Binding    ${sgt['sgt']}    ${prefix['ip-prefix']}    ${node}    ${domain}    ${session}
-
-Delete Binding
-    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
-    [Documentation]    Delete binding via RPC from Master DB of node
-    ${DATA}    Delete Binding Xml    ${sgt}    ${prefix}    ${node}    ${domain}
-    Post To Controller    ${session}    delete-entry    ${DATA}
+Delete Bindings
+    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
+    [Documentation]    Delete one or more bindings via RPC from Master DB of node
+    ${DATA}    Delete Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
+    Post To Controller    ${session}    delete-bindings    ${DATA}
 
 Add PeerGroup
     [Arguments]    ${name}    ${peers}=    ${node}=127.0.0.1    ${session}=session
@@ -292,12 +282,6 @@ Delete Domain
     [Documentation]    Delete Domain via RPC
     ${DATA}    Delete Domain Xml    ${node}    ${domain_name}
     Post To Controller    ${session}    delete-domain    ${DATA}
-
-Delete Bindings
-    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
-    [Documentation]    Delete bindings via RPC from Master DB of node
-    ${DATA}    Delete Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
-    Post To Controller    ${session}    delete-bindings    ${DATA}
 
 Add Bindings Range
     [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1
