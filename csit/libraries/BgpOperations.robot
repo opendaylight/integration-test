@@ -26,6 +26,14 @@ Start Quagga Processes On ODL
     Write Commands Until Expected Prompt    netstat -nap | grep 7644    ${DEFAULT_LINUX_PROMPT_STRICT}
     Close Connection
 
+Restart BGP Processes On ODL
+    [Arguments]    ${odl_ip}
+    [Documentation]    To restart the bgpd , qthriftd processes on ODL VM
+    ${conn_id} =    Open_Connection_To_ODL_System    ip_address=${odl_ip}
+    Switch Connection    ${conn_id}
+    Write Commands Until Expected Prompt    sudo pkill -f bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Start Quagga Processes On ODL    ${odl_ip}
+
 Start Quagga Processes On DCGW
     [Arguments]    ${dcgw_ip}
     [Documentation]    To start the zrpcd, bgpd,and zebra processes on DCGW
@@ -45,6 +53,14 @@ Start Quagga Processes On DCGW
     Write Commands Until Expected Prompt    ps -ef | grep bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    ps -ef | grep zebra    ${DEFAULT_LINUX_PROMPT_STRICT}
     Write Commands Until Expected Prompt    netstat -nap | grep 7644    ${DEFAULT_LINUX_PROMPT_STRICT}
+
+Restart BGP Processes On DCGW
+    [Arguments]    ${dcgw_ip}
+    [Documentation]    To Restart the zrpcd, bgpd,and zebra processes on DCGW
+    ${dcgw_conn_id} =    Open_Connection_To_Tools_System    ip_address=${dcgw_ip}
+    Switch Connection    ${dcgw_conn_id}
+    Write Commands Until Expected Prompt    sudo pkill -f bgpd    ${DEFAULT_LINUX_PROMPT_STRICT}
+    Start Quagga Processes On DCGW    ${dcgw_ip}
 
 Show Quagga Configuration On ODL
     [Arguments]    ${odl_ip}    ${rd}
@@ -147,6 +163,45 @@ Delete BGP Config On Quagga
     ${output} =    Execute Command On Quagga Telnet Session    show running-config
     Execute Command On Quagga Telnet Session    exit
     [Return]    ${output}
+
+Create L3VPN on DCGW
+    [Arguments]    ${dcgw_ip}    ${as_id}    ${vpn_name}    ${rd}
+    [Documentation]    Creating L3VPN on DCGW
+    BgpOperations.Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
+    BgpOperations.Execute Command On Quagga Telnet Session    configure terminal
+    BgpOperations.Execute Command On Quagga Telnet Session    router bgp ${as_id}
+    BgpOperations.Execute Command On Quagga Telnet Session    vrf ${vpn_name}
+    BgpOperations.Execute Command On Quagga Telnet Session    rd ${rd}
+    BgpOperations.Execute Command On Quagga Telnet Session    rt export ${rd}
+    BgpOperations.Execute Command On Quagga Telnet Session    rt import ${rd}
+    BgpOperations.Execute Command On Quagga Telnet Session    end
+
+Delete L3VPN on DCGW
+    [Arguments]    ${dcgw_ip}    ${as_id}    @{vpns}
+    [Documentation]    Deleting L3VPN on DCGW
+    BgpOperations.Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
+    BgpOperations.Execute Command On Quagga Telnet Session    configure terminal
+    BgpOperations.Execute Command On Quagga Telnet Session    router bgp ${as_id}
+    : FOR    ${vpn}    IN    @{vpns}
+    \    BgpOperations.Execute Command On Quagga Telnet Session    no vrf ${vpn}
+    BgpOperations.Execute Command On Quagga Telnet Session    end
+
+Verify L3VPN On DCGW
+    [Arguments]    ${dcgw_ip}    ${vpn_name}    ${rd}
+    [Documentation]    Verify L3VPN vrf name and rd value on DCGW
+    ${output} =    BgpOperations.Execute Show Command On Quagga    ${dcgw_ip}    show running-config
+    BuiltIn.Should Contain    ${output}    vrf ${vpn_name}
+    BuiltIn.Should Contain    ${output}    rd ${rd}
+
+Add Routes On DCGW
+    [Arguments]    ${dcgw_ip}    ${rd}    ${network_ip}    ${label}
+    [Documentation]    Add routes on DCGW
+    BgpOperations.Create Quagga Telnet Session    ${dcgw_ip}    bgpd    sdncbgpc
+    BgpOperations.Execute Command On Quagga Telnet Session    configure terminal
+    BgpOperations.Execute Command On Quagga Telnet Session    router bgp ${AS_ID}
+    BgpOperations.Execute Command On Quagga Telnet Session    address-family vpnv4 unicast
+    BgpOperations.Execute Command On Quagga Telnet Session    network ${network_ip}/32 rd ${rd} tag ${label}
+    BgpOperations.Execute Command On Quagga Telnet Session    end
 
 Create BGP Configuration On ODL
     [Arguments]    &{Kwargs}
