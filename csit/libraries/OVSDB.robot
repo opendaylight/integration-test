@@ -16,6 +16,7 @@ ${OVSDB_CONFIG_DIR}    ${CURDIR}/../variables/ovsdb
 ${OVSDB_NODE_PORT}    6634
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F
 ${SOUTHBOUND_NODE_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_NODE_PORT}
+${DUMP_FLOWS}     sudo ovs-ofctl -O OpenFlow13 dump-flows ${INTEGRATION_BRIDGE}
 
 *** Keywords ***
 Log Request
@@ -446,3 +447,26 @@ Verify Dump Flows For Specific Table
     : FOR    ${matching_str}    IN    @{matching_paras}
     \    BuiltIn.Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${flow_output}    ${matching_str}
     \    ...    ELSE    BuiltIn.Should Not Contain    ${flow_output}    ${matching_str}
+
+Delete Flows From ODL
+    [Arguments]    ${dpnid}    ${table_id}    ${mac_addr}
+    [Documentation]    To delete the flows from the controller using REST
+    ${flow_id}    Get OpenFlow Id    ${dpnid}    ${table_id}    ${mac_addr}
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}/flow/${flow_id}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Verify Flows on ODL
+    [Arguments]    ${dpnid}    ${table_id}    ${mac_addr}    ${flag}=True
+    [Documentation]    To Verify whether the flows are deleted on the controller
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}
+    BuiltIn.Log    ${resp.content}
+    Run Keyword If    ${flag}==True    BuiltIn.Should Contain    ${resp.content}    ${mac_addr}
+    ...    ELSE    BuiltIn.Should Not Contain    ${resp.content}    ${mac_addr}
+
+Get OpenFlow Id
+    [Arguments]    ${dpnid}    ${table_id}    ${mac_addr}
+    [Documentation]    To get the openflow id from the particular compute nodes
+    ${resp} =   RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${dpnid}/table/${table_id}
+    BuiltIn.Log    ${resp.content}
+    @{flow_id} =    String.Get Regexp Matches    ${resp.content}    id\":\"(\\d+${mac_addr})    1
+    [Return]    ${flow_id[0]}
