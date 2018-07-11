@@ -153,8 +153,8 @@ Setup SXP Environment Local
     \    ${SSL}    BuiltIn.Create Dictionary    truststore=${ssl_stores}/csit-truststore-${node}    keystore=${ssl_stores}/csit-keystore-${node}    password=${password}
     \    ${rnd_retry_time} =    BuiltIn.Evaluate    random.randint(1, 5)    modules=random
     \    SxpLib.Add Node    127.0.0.${node}    ${EMPTY}    ssl_stores=${SSL}    retry_open_timer=${rnd_retry_time}
-    \    SxpLib.Add Binding    ${node}00    1.1.1.${node}/32    127.0.0.${node}
-    \    SxpLib.Add Binding    ${node}00    2.2.2.${node}/32    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}00    1.1.1.${node}/32    127.0.0.${node}
+    \    SxpLib.Add Bindings    ${node}00    2.2.2.${node}/32    127.0.0.${node}
 
 Verify Topology Bindings
     [Arguments]    ${node_range}

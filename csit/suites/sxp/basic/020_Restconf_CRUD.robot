@@ -10,13 +10,13 @@ Resource          ../../../libraries/SxpLib.robot
 *** Variables ***
 
 *** Test Cases ***
-Test Add Binding
+Test Add Bindings
     [Documentation]    Test if bindings are added to Master DB
     [Tags]    Restconf CRUD    SXP
     ${resp}    Get Bindings
-    Add Binding    5230    1.1.1.1/32
+    Add Bindings    5230    1.1.1.1/32
     Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    5230    1.1.1.1/32
-    Add Binding    30    2001:0:0:0:0:0:0:0/128
+    Add Bindings    30    2001:0:0:0:0:0:0:0/128
     Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    30    2001:0:0:0:0:0:0:0/128
 
 Test Add Connection
@@ -32,7 +32,7 @@ Test Add Connection
 Test Delete Binding
     [Documentation]    Test if bindings are deleted from Master DB
     [Tags]    Restconf CRUD    SXP
-    Add Binding    52301    12.1.1.1/32
+    Add Bindings    52301    12.1.1.1/32
     Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    52301    12.1.1.1/32
     Run Keyword And Expect Error    *    Delete Binding    2631    12.1.1.1/32
     Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    52301    12.1.1.1/32
@@ -55,7 +55,7 @@ Test Delete Connection
 Test Update Binding
     [Documentation]    Test if bindings can be updated to different values
     [Tags]    Restconf CRUD    SXP
-    Add Binding    3230    1.1.1.10/32
+    Add Bindings    3230    1.1.1.10/32
     Wait Until Keyword Succeeds    3x    250ms    Bindings Should Contain    3230    1.1.1.10/32
     Update Binding    3230    1.1.1.10/32    623    10.10.10.10/32
     Wait Until Keyword Succeeds    3x    250ms    Bindings Should Not Contain    3230    1.1.1.10/32

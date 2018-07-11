@@ -33,7 +33,7 @@ Isolate SXP Controller
     [Documentation]    Isolate one of cluster nodes and perform check that RPC changes were performed afterwards reverts isolation
     ${active_controller}    Get Active Controller
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Add Binding    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${CLUSTER_NODE_ID}    session=controller${active_controller}
+    \    Add Bindings    ${i+1}0    ${i+1}0.${i+1}0.${i+1}0.${i+1}0/32    node=${CLUSTER_NODE_ID}    session=controller${active_controller}
     Isolate_Member_From_List_Or_All    ${controller_index}
     Wait Until Keyword Succeeds    240    1    Sync_Status_Should_Be_False    ${controller_index}
     Wait Until Keyword Succeeds    30    1    Check Bindings Exist
