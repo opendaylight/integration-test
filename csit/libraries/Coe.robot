@@ -37,7 +37,7 @@ Start Suite
     Coe.Verify Watcher Is Running
     BuiltIn.Wait Until Keyword Succeeds    40s    2s    Coe.Check Node Status Is Ready
     Coe.Label Nodes
-    BuiltIn.Wait Until Keyword Succeeds    60    2    Genius.Check System Status    @{COE_DIAG_SERVICES}
+    BuiltIn.Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status of Services    @{COE_DIAG_SERVICES}
     Genius.Verify Tunnel Status as UP    default-transport-zone
     Coe.Derive Coe Data Models
 
