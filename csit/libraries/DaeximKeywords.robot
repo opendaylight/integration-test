@@ -88,9 +88,10 @@ Verify Json Files Not Present
     Builtin.Log    Did not Find all Json Files
 
 Schedule Export
-    [Arguments]    ${controller_index}    ${TIME}=500    ${exclude}=${FALSE}    ${MODULE}=${EMPTY}    ${STORE}=${EMPTY}    ${FLAG}=false
+    [Arguments]    ${controller_index}    ${TIME}=500    ${exclude}=${FALSE}    ${MODULE}=${EMPTY}    ${STORE}=${EMPTY}    ${FLAG}=false    ${INCLUDE}=${FALSE}
     [Documentation]    Schedule Export job
-    ${file}    Builtin.Set Variable If    ${exclude}    ${EXPORT_EXCLUDE_FILE}    ${EXPORT_FILE}
+    ${file}=    Builtin.Run Keyword If    ${INCLUDE}    Builtin.Set Variable    ${EXPORT_INCLUDE_FILE}
+    ...    ELSE    Builtin.Set Variable If    ${exclude}    ${EXPORT_EXCLUDE_FILE}    ${EXPORT_FILE}
     ${JSON1}    OperatingSystem.Get File    ${file}
     ${JSON2}    Builtin.Replace Variables    ${JSON1}
     Cleanup The Export Files    ${controller_index}
@@ -103,6 +104,19 @@ Schedule Exclude Export
     ${controller_index}    Builtin.Convert To Integer    ${controller_index}
     ${host}    ClusterManagement.Resolve IP Address For Member    ${controller_index}
     Schedule Export    ${controller_index}    500    ${TRUE}    ${module}    ${store}
+    Builtin.Wait Until Keyword Succeeds    10 sec    5 sec    Verify Export Status    complete    ${controller_index}
+    Verify Export Files    ${controller_index}
+    Copy Export Directory To Test VM    ${host}
+    ${export_file}    Builtin.Set Variable If    '${store}' == 'operational'    ${EXP_OPER_FILE}    ${EXP_DATA_FILE}
+    ${file_path}    OperatingSystem.Join Path    ${EXP_DIR}${host}    ${export_file}
+    [Return]    ${file_path}
+
+Schedule Include Export
+    [Arguments]    ${controller_index}    ${store}    ${module}
+    [Documentation]    Schedules a export with include option. Returns the file that has the included export.
+    ${controller_index}    Builtin.Convert To Integer    ${controller_index}
+    ${host}    ClusterManagement.Resolve IP Address For Member    ${controller_index}
+    Schedule Export    ${controller_index}    500    ${FALSE}    ${module}    ${store}    ${TRUE}
     Builtin.Wait Until Keyword Succeeds    10 sec    5 sec    Verify Export Status    complete    ${controller_index}
     Verify Export Files    ${controller_index}
     Copy Export Directory To Test VM    ${host}
