@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3be7f68e_a3b0df76",
+        "filename": "csit/libraries/ODLTools.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-07-12T13:29:30Z",
+      "side": 1,
+      "message": "is there an env for this? I think session\u0027s $auth is a list, do we need to get that from session?",
+      "range": {
+        "startLine": 16,
+        "startChar": 82,
+        "endLine": 16,
+        "endChar": 100
+      },
+      "revId": "51b36ea0f8bca657a2e810218365802db5e66686",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
