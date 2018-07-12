@@ -4,6 +4,7 @@ Documentation     Resource consisting purely of variable definitions useful for 
 *** Variables ***
 ${CANCEL_EXPORT_URL}    /restconf/operations/data-export-import:cancel-export
 ${EXPORT_FILE}    ${CURDIR}/schedule_export.json
+${EXPORT_INCLUDE_FILE}    ${CURDIR}/schedule_export_include.json
 ${EXP_DIR}        /tmp/Export
 ${EXPORT_EXCLUDE_FILE}    ${CURDIR}/schedule_export_exclude.json
 ${SCHEDULE_EXPORT_URL}    /restconf/operations/data-export-import:schedule-export
