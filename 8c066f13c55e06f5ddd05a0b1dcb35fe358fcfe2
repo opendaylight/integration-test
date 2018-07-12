@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "1c4cdae6_26d1763c",
+        "filename": "csit/suites/netvirt/vnibasedIpv6forwarding/vnibasedIpv6forwarding.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-12T14:54:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac6e01dc_dd7eabcd",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 33
+      },
+      "revId": "8c066f13c55e06f5ddd05a0b1dcb35fe358fcfe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79c79047_1862ee5a",
         "filename": "csit/suites/netvirt/vnibasedIpv6forwarding/vnibasedIpv6forwarding.robot",
         "patchSetId": 14
@@ -88,6 +112,30 @@
     },
     {
       "key": {
+        "uuid": "ff7b65a3_8b15e4b3",
+        "filename": "csit/suites/netvirt/vnibasedIpv6forwarding/vnibasedIpv6forwarding.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-12T14:54:05Z",
+      "side": 1,
+      "message": "removed the above test case as it\u0027s not valid.",
+      "parentUuid": "af10d24f_96b00cbf",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 137,
+        "endChar": 48
+      },
+      "revId": "8c066f13c55e06f5ddd05a0b1dcb35fe358fcfe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "530e18ae_0d9886c4",
         "filename": "csit/suites/netvirt/vnibasedIpv6forwarding/vnibasedIpv6forwarding.robot",
         "patchSetId": 14
@@ -99,6 +147,30 @@
       "writtenOn": "2018-07-06T18:46:28Z",
       "side": 1,
       "message": "is this the same keyword in the l3 vni suite?\n \nif so, move to a lib and share it. Even if it\u0027s slightly\ndifferent, put it in the lib and modify it to handle\nboth suite\u0027s needs.",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 40
+      },
+      "revId": "8c066f13c55e06f5ddd05a0b1dcb35fe358fcfe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd211a37_e49cc729",
+        "filename": "csit/suites/netvirt/vnibasedIpv6forwarding/vnibasedIpv6forwarding.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-12T14:54:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "530e18ae_0d9886c4",
       "range": {
         "startLine": 192,
         "startChar": 0,
