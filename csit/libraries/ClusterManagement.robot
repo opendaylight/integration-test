@@ -846,3 +846,18 @@ Return_Member_IP
     ${member_int} =    BuiltIn.Convert_To_Integer    ${member_index}
     ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_int}
     [Return]    ${member_ip}
+
+Check Service Status
+    [Arguments]    ${odl_ip}    ${system_ready_state}    ${service_state}    @{service_list}
+    [Documentation]    Issues the karaf shell command showSvcStatus to verify the ready and service states are the same as the arguments passed
+    ${service_status_output} =    BuiltIn.Run Keyword If    ${NUM_ODL_SYSTEM} > 1    KarafKeywords.Issue_Command_On_Karaf_Console    showSvcStatus -n ${odl_ip}    ${odl_ip}    ${KARAF_SHELL_PORT}
+    ...    ELSE    Issue_Command_On_Karaf_Console    showSvcStatus    ${odl_ip}    ${KARAF_SHELL_PORT}
+    BuiltIn.Should Contain    ${service_status_output}    ${system_ready_state}
+    : FOR    ${service}    IN    @{service_list}
+    \    BuiltIn.Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
+
+Check System Status
+    [Arguments]    @{service_list}
+    [Documentation]    This keyword will verify whether all the services are in operational and all nodes are active based on the number of odl systems
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    ClusterManagement.Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL    @{service_list}

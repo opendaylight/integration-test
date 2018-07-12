@@ -13,6 +13,7 @@ Resource          OVSDB.robot
 Resource          ../variables/netvirt/Variables.robot
 Resource          VpnOperations.robot
 Resource          DataModels.robot
+Resource          ClusterManagement.robot
 
 *** Variables ***
 @{itm_created}    TZA
@@ -37,7 +38,7 @@ Genius Suite Teardown
 
 Start Suite
     [Documentation]    Initial setup for Genius test suites
-    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    Check System Status    @{GENIUS_DIAG_SERVICES}
+    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check System Status    @{GENIUS_DIAG_SERVICES}
     Log    Start the tests
     ${conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${conn_id_1}
@@ -92,15 +93,6 @@ check establishment
     ${check_establishment}    Execute Command    netstat -anp | grep ${port}
     Should contain    ${check_establishment}    ESTABLISHED
     [Return]    ${check_establishment}
-
-Check Service Status
-    [Arguments]    ${odl_ip}    ${system_ready_state}    ${service_state}    @{service_list}
-    [Documentation]    Issues the karaf shell command showSvcStatus to verify the ready and service states are the same as the arguments passed
-    ${service_status_output} =    Run Keyword If    ${NUM_ODL_SYSTEM} > 1    Issue_Command_On_Karaf_Console    showSvcStatus -n ${odl_ip}    ${odl_ip}    ${KARAF_SHELL_PORT}
-    ...    ELSE    Issue_Command_On_Karaf_Console    showSvcStatus    ${odl_ip}    ${KARAF_SHELL_PORT}
-    Should Contain    ${service_status_output}    ${system_ready_state}
-    : FOR    ${service}    IN    @{service_list}
-    \    Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
 
 Create Vteps
     [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    ${vlan}    ${gateway-ip}
@@ -243,12 +235,6 @@ Verify Tunnel Status as UP
     ${Actual_Tunnel_Count}    Get Line Count    ${lines_of_VXLAN}
     ${Expected_Tunnel_Count}    Set Variable    ${Expected_Node_Count*${Expected_Node_Count - 1}}
     Should Be Equal As Strings    ${Actual_Tunnel_Count}    ${Expected_Tunnel_Count}
-
-Check System Status
-    [Arguments]    @{service_list}
-    [Documentation]    This keyword will verify whether all the services are in operational and all nodes are active based on the number of odl systems
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    Check Service Status    ${ODL_SYSTEM_${i+1}_IP}    ACTIVE    OPERATIONAL    @{service_list}
 
 Verify Tunnel Status
     [Arguments]    ${tunnel_names}    ${tunnel_status}
