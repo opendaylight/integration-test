@@ -31,11 +31,6 @@
       git:
         repo: 'https://git.opendaylight.org/gerrit/p/coe.git'
         dest: "{{ coe_path }}"
-    - name: Fetch COE dep patch
-      shell: git config --add user.name "vagrant" && git config --add user.email "coe@local" && git fetch https://git.opendaylight.org/gerrit/coe refs/changes/55/72855/4 && git cherry-pick FETCH_HEAD && touch /tmp/coe-patched
-      args:
-        chdir: "{{ coe_path }}"
-        creates: /tmp/coe-patched
     - name: Fetch odl-cni dependencies with dep
       shell: dep ensure -vendor-only
       args:
