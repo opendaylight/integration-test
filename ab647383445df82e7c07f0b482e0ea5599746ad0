@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4690c56_551c7794",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-12T13:24:02Z",
+      "side": 1,
+      "message": "Use CSIT rather than IT which is just java IT to most of us.",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "ab647383445df82e7c07f0b482e0ea5599746ad0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "daed10fb_14beca62",
+        "filename": "csit/testplans/daexim-basic.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-12T13:24:02Z",
+      "side": 1,
+      "message": "no need really to use this numbering convention as the test suites are being listed directly. No biggie, but we can clean up later.",
+      "range": {
+        "startLine": 4,
+        "startChar": 24,
+        "endLine": 4,
+        "endChar": 28
+      },
+      "revId": "ab647383445df82e7c07f0b482e0ea5599746ad0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
