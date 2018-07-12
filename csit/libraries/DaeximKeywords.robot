@@ -110,6 +110,19 @@ Schedule Exclude Export
     ${file_path}    OperatingSystem.Join Path    ${EXP_DIR}${host}    ${export_file}
     [Return]    ${file_path}
 
+Schedule Include Export
+    [Arguments]    ${controller_index}    ${store}    ${module}
+    [Documentation]    Schedules a export with include option. Returns the file that has the included export.
+    ${controller_index}    Builtin.Convert To Integer    ${controller_index}
+    ${host}    ClusterManagement.Resolve IP Address For Member    ${controller_index}
+    Schedule Export    ${controller_index}    500    ${TRUE}    ${module}    ${store}
+    Builtin.Wait Until Keyword Succeeds    10 sec    5 sec    Verify Export Status    complete    ${controller_index}
+    Verify Export Files    ${controller_index}
+    Copy Export Directory To Test VM    ${host}
+    ${export_file}    Builtin.Set Variable If    '${store}' == 'operational'    ${EXP_OPER_FILE}    ${EXP_DATA_FILE}
+    ${file_path}    OperatingSystem.Join Path    ${EXP_DIR}${host}    ${export_file}
+    [Return]    ${file_path}
+
 Cancel Export
     [Arguments]    ${controller_index}
     [Documentation]    Cancel the export job
