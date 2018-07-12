@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "55aa0710_e0df824a",
+        "filename": "csit/libraries/ODLTools.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-12T13:49:15Z",
+      "side": 1,
+      "message": "The right default is a odl ip, the tools vms are different nodes. Maybe this api should be expanded with this Get EOS as more private and wrapped with an api like: Get EOS From Controller cntl_index\u003d{0,1,2}. Then the index is converted to an ip and the next api called? There are a mixture of usage calls where we pass in an odl ip or just an index so just need to decide which makes more sense or implement both methods.",
+      "range": {
+        "startLine": 15,
+        "startChar": 32,
+        "endLine": 15,
+        "endChar": 47
+      },
+      "revId": "e4137a5db3114676441c267df678c49f9b726409",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06caefe6_c29da843",
         "filename": "csit/libraries/ODLTools.robot",
         "patchSetId": 2
