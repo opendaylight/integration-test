@@ -14,6 +14,7 @@ Resource          SetupUtils.robot
 Resource          SSHKeywords.robot
 Resource          Tcpdump.robot
 Resource          Utils.robot
+Resource          ODLTools.robot
 Resource          ../variables/Variables.robot
 Resource          ../variables/netvirt/Variables.robot
 Variables         ../variables/netvirt/Modules.py
@@ -551,6 +552,7 @@ Get Test Teardown Debugs
     [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}
     OpenStackOperations.Get OvsDebugInfo
     BuiltIn.Run Keyword And Ignore Error    DataModels.Get Model Dump    ${HA_PROXY_IP}    ${netvirt_data_models}
+    BuiltIn.run Keyword And Ignore Error    ODLTools.Get EOS ${HA_PROXY_IP}
     Run Keyword If    "${FAIL_ON_EXCEPTIONS}"=="True"    KarafKeywords.Fail If Exceptions Found During Test    ${test_name}
 
 Get Test Teardown Debugs For SFC
