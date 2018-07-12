@@ -172,7 +172,6 @@ ITM Direct Tunnels Start Suite
     [Documentation]    start suite for itm scalability
     ClusterManagement.ClusterManagement_Setup
     ClusterManagement.Stop_Members_From_List_Or_All
-    ClusterManagement.Clean_Journals_Data_And_Snapshots_On_List_Or_All
     Run Command On Remote System And Log    ${ODL_SYSTEM_IP}    sed -i -- 's/<itm-direct-tunnels>false/<itm-direct-tunnels>true/g' ${GENIUS_IFM_CONFIG_FLAG}
     ClusterManagement.Start_Members_From_List_Or_All
     Genius Suite Setup
