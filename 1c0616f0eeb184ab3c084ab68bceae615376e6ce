@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "72287825_313df4d7",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-13T09:07:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af3c9bd3_6e264c67",
+      "revId": "1c0616f0eeb184ab3c084ab68bceae615376e6ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ef2f8f8_adc11874",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 35
@@ -30,6 +48,30 @@
       "writtenOn": "2018-07-06T15:41:49Z",
       "side": 1,
       "message": "is there another patch that does the same scripting? I recall reviewing a patch where I requested facter not be used and the comment was agreed.",
+      "range": {
+        "startLine": 8,
+        "startChar": 14,
+        "endLine": 8,
+        "endChar": 20
+      },
+      "revId": "1c0616f0eeb184ab3c084ab68bceae615376e6ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e70eb92_f91303fb",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 35
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-13T09:07:51Z",
+      "side": 1,
+      "message": "Yes. I have checked the review comment, implemented the same comments here now.",
+      "parentUuid": "2ef2f8f8_adc11874",
       "range": {
         "startLine": 8,
         "startChar": 14,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "481a8a27_c3f72fa4",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-13T09:07:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5698bf2d_3ffad271",
+      "range": {
+        "startLine": 27,
+        "startChar": 21,
+        "endLine": 27,
+        "endChar": 40
+      },
+      "revId": "1c0616f0eeb184ab3c084ab68bceae615376e6ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5f0cab5_6dd67ca6",
         "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
         "patchSetId": 35
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "4cf564b5_23848341",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-13T09:07:51Z",
+      "side": 1,
+      "message": "Deleted the for loop as it is using a single element . Applies elsewhere.",
+      "parentUuid": "b5f0cab5_6dd67ca6",
+      "range": {
+        "startLine": 57,
+        "startChar": 31,
+        "endLine": 57,
+        "endChar": 47
+      },
+      "revId": "1c0616f0eeb184ab3c084ab68bceae615376e6ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f248334d_5497701b",
         "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
         "patchSetId": 35
@@ -99,6 +189,30 @@
       "writtenOn": "2018-07-06T15:41:49Z",
       "side": 1,
       "message": "lowercase for local vars, uppercase for suite and global vars",
+      "range": {
+        "startLine": 113,
+        "startChar": 15,
+        "endLine": 113,
+        "endChar": 18
+      },
+      "revId": "1c0616f0eeb184ab3c084ab68bceae615376e6ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62c2f38_b8d01937",
+        "filename": "csit/suites/netvirt/subnet_routing/subnet_routing_and_multicast.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-13T09:07:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f248334d_5497701b",
       "range": {
         "startLine": 113,
         "startChar": 15,
