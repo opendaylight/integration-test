@@ -21,7 +21,7 @@ ${genius_config_dir}    ${CURDIR}/../variables/genius
 ${Bridge-1}       BR1
 ${Bridge-2}       BR2
 ${DEFAULT_MONITORING_INTERVAL}    Tunnel Monitoring Interval (for VXLAN tunnels): 1000
-@{GENIUS_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE
+@{GENIUS_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    OVSDB
 ${vlan}           0
 ${gateway-ip}     0.0.0.0
 
