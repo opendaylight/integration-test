@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "064233a2_52313288",
+        "filename": "csit/libraries/Coe.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T01:50:16Z",
+      "side": 1,
+      "message": "Why Resource is not needed here, but in Genius.robot?",
+      "revId": "045d0724d71a1668d6575b11577db5aa15be3a0b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
