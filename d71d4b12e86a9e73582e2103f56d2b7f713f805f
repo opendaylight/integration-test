@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89287b7d_81526dee",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-13T20:29:59Z",
+      "side": 1,
+      "message": "Please add library prefix for both KWs: Run_Keyword_If_At_Least_Oxygen\nCheck_Status_Of_Services",
+      "revId": "d71d4b12e86a9e73582e2103f56d2b7f713f805f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1028a1c6_99894ca7",
+        "filename": "csit/suites/openstack/clustering/ha_l2.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-13T20:29:59Z",
+      "side": 1,
+      "message": "you do not really need to add the _ in the KWs, both space and underscore are well supported by robot. Some people prefer to use _ some other think it is less readable, just choose 1 style and keep that through the file.",
+      "revId": "d71d4b12e86a9e73582e2103f56d2b7f713f805f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "039d16b9_8e1a5f0f",
+        "filename": "csit/suites/openstack/clustering/ha_l3.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-13T20:29:59Z",
+      "side": 1,
+      "message": "same comment here",
+      "revId": "d71d4b12e86a9e73582e2103f56d2b7f713f805f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
