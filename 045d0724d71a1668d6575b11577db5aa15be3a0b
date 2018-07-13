@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ca0da0bf_c54043c0",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-13T10:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a23a1854_5cf4f6f6",
+      "revId": "045d0724d71a1668d6575b11577db5aa15be3a0b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "064233a2_52313288",
         "filename": "csit/libraries/Coe.robot",
         "patchSetId": 3
