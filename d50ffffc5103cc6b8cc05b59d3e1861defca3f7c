@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e54ac30a_ed0225fa",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-13T10:31:45Z",
+      "side": 1,
+      "message": "Can we make the keyword as Get Project Id ?\nand take \"admin\" as argument?",
+      "revId": "d50ffffc5103cc6b8cc05b59d3e1861defca3f7c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "781aeffc_52af8bcd",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-13T10:31:45Z",
+      "side": 1,
+      "message": "Command:project show admin -f value -c id \nshould directly fetch the id, We can avoid this string processing",
+      "revId": "d50ffffc5103cc6b8cc05b59d3e1861defca3f7c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "951a96c1_a02623ae",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-13T10:31:45Z",
+      "side": 1,
+      "message": "Pass project ID as argument",
+      "revId": "d50ffffc5103cc6b8cc05b59d3e1861defca3f7c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
