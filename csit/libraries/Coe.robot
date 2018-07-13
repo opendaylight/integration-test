@@ -26,7 +26,7 @@ ${PLAYBOOK}       ${CURDIR}/../variables/coe/coe_play.yaml
 ${POD_RUNNING_STATUS}    \\sRunning
 ${WATCHER_COE}    ${CURDIR}/../variables/coe/coe.yaml
 @{NODE_IPs}       ${K8s_MASTER_IP}    ${K8s_MINION1_IP}    ${K8s_MINION2_IP}
-@{COE_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN
+@{COE_DIAG_SERVICES}    OPENFLOW    IFM    ITM    DATASTORE    ELAN    OVSDB
 
 *** Keywords ***
 Start Suite
