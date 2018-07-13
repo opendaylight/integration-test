@@ -2,6 +2,312 @@
   "comments": [
     {
       "key": {
+        "uuid": "8df6bc18_fa7f900b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "no need for a bridge list, we can use the same bridge name on all switches, it won\u0027t cause any problem",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "045860eb_a8ee0dc2",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "you might have to rebase this after this moves to ClusterManagement",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "060da8f8_9b7aaf76",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "all global variables are supposed to be all CAPS?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff304131_bf9805a8",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "make it 6653? and defined it as some variable and use? it should be already there defined is what I feel. define as OPENFLOW_PORT",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73029a13_cb0a9395",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "OVSDB_PORT",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d1dcb57_cdd9652b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "what is this field? can we name it meaningfully?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1601c33_bd2f1cc9",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "whether connection is established on specific port",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74bcee7c_ffbfe36b",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "why is this checking only on TOOLS_SYSTEM_1_IP?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b73094d9_4654092d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "already migrated.",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8a44e62_1d4834d2",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "what is this line used for?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4abecd32_8b06efa2",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "why is this set as global variable?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ea590f3_2732627c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "Build Dpn List?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3647a6c0_78da749c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "OVS Interface Verification",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c92aec0_2a823b6f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "2 Dpn??",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "681ee4c1_4c5794de",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "Set Bridge Configuration",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2a3125a_4217629a",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "i did not understand what this updated list is doing here",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b4fed84_fdd522c2",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "This keyword fetches the list of operational tunnels from ODL",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c58067f6_73edee8c",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-13T02:23:20Z",
+      "side": 1,
+      "message": "why is this named as get port number, when it is actually verifying table 0 entries?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48fb7fcd_9327f3c8",
         "filename": "csit/variables/genius/Itm_creation_no_vlan.json",
         "patchSetId": 68
