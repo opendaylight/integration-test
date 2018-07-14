@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8666364e_3a56347f",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-14T17:56:30Z",
+      "side": 1,
+      "message": "@{list}[0]",
+      "revId": "6e14657528e88023f6b009ccdf2a35d558acae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf456691_1c63b101",
+        "filename": "csit/suites/netvirt/vnibasedl3forwarding/vnibasedl3forwarding.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-14T17:56:30Z",
+      "side": 1,
+      "message": "are these needed? the id is listed in the later commands when they are used - even better in the command it looks like name\u003dvpn1 | rd\u003d[\"2200:1\"] | exportrt\u003d[\"2200:1\",\"8800:1\"] | importrt\u003d[\"2200:1\",\"8800:1\"] |",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 32
+      },
+      "revId": "6e14657528e88023f6b009ccdf2a35d558acae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4038b4f9_9053e022",
+        "filename": "csit/suites/netvirt/vnibasedl3forwarding/vnibasedl3forwarding.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-14T17:56:30Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "revId": "6e14657528e88023f6b009ccdf2a35d558acae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4636df8_146d3541",
+        "filename": "csit/suites/netvirt/vnibasedl3forwarding/vnibasedl3forwarding.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-14T17:56:30Z",
+      "side": 1,
+      "message": "Builtin.",
+      "revId": "6e14657528e88023f6b009ccdf2a35d558acae70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
