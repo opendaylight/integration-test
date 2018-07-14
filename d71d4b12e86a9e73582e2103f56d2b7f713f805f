@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "bf412426_24102209",
+        "filename": "csit/suites/openstack/clustering/ha_l2.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-14T03:42:59Z",
+      "side": 1,
+      "message": "I am in the camp of no underscores and slowly moving things in that direction. Most of the suites in the openstack/netvirt are without underscores, though there might be some stragglers to clean up.",
+      "parentUuid": "1028a1c6_99894ca7",
+      "revId": "d71d4b12e86a9e73582e2103f56d2b7f713f805f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "039d16b9_8e1a5f0f",
         "filename": "csit/suites/openstack/clustering/ha_l3.robot",
         "patchSetId": 6
