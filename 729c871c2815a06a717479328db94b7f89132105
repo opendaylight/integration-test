@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a923847_c5164580",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-15T00:25:51Z",
+      "side": 1,
+      "message": "OK, I did not realize Check_Status_Of_Services was already in the library otherwise I would not have asked to add the library.",
+      "revId": "729c871c2815a06a717479328db94b7f89132105",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
