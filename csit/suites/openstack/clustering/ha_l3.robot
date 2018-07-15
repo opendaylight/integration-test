@@ -16,7 +16,6 @@ Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../variables/Variables.robot
-Resource          ../../../variables/netvirt/Variables.robot
 
 *** Variables ***
 ${SECURITY_GROUP}    cl3_sg
@@ -56,7 +55,7 @@ Create Subnets For net_2
 
 Bring Up Leader Of Default Shard
     [Documentation]    Bring up on cluster leader
-    ClusterManagement.Start Single Member    member=${cluster_leader}    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Start Single Member    ${cluster_leader}
 
 Add Ssh Allow All Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -74,11 +73,11 @@ Create Vm Instances For net_1
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
-    ClusterManagement.Start Single Member    member=1    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Start Single Member    1
 
 Take Down ODL2
     [Documentation]    Kill the karaf in Second Controller
-    ClusterManagement.Kill Single Member    member=2    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Kill Single Member    2
 
 Create Vm Instances For net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -100,11 +99,11 @@ Check Vm Instances Have Ip Address
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
-    ClusterManagement.Start Single Member    member=2    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Start Single Member    2
 
 Take Down ODL3
     [Documentation]    Kill the karaf in Third Controller
-    ClusterManagement.Kill Single Member    member=3    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Kill Single Member    3
 
 Create Router router_2
     [Documentation]    Create Router and Add Interface to the subnets.
@@ -128,7 +127,7 @@ Verify Created Routers
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
-    ClusterManagement.Start Single Member    member=3    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Start Single Member    3
 
 Ping Vm Instance1 In net_2 From net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
@@ -179,7 +178,7 @@ Connectivity Tests From Vm Instance3 In net_1
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again
-    ClusterManagement.Start Members From List Or All    member_index_list=${ODL_1_AND_2_DOWN}    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Start Members From List Or All    ${ODL_1_AND_2_DOWN}
 
 Take Down ODL2 and ODL3
     [Documentation]    Kill the karaf in First and Second Controller
@@ -206,7 +205,7 @@ Connectivity Tests From Vm Instance3 In net_2
 
 Bring Up ODL2 and ODL3
     [Documentation]    Bring up ODL2 and ODL3 again.
-    ClusterManagement.Start Members From List Or All    member_index_list=${ODL_2_AND_3_DOWN}    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Start Members From List Or All    ${ODL_2_AND_3_DOWN}
 
 Take Down All Instances
     [Documentation]    Stop karaf on all controllers
@@ -214,7 +213,7 @@ Take Down All Instances
 
 Bring Up All Instances
     [Documentation]    Bring up all controllers
-    ClusterManagement.Start Members From List Or All    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    ClusterManagement.Start Members From List Or All
 
 Connectivity Tests From Vm Instance2 In net_2 after recovering all nodes
     [Documentation]    ssh to the VM instance and test operations.
