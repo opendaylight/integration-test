@@ -439,14 +439,14 @@ Stop_Members_From_List_Or_All
     [Return]    ${updated_index_list}
 
 Start_Single_Member
-    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s    ${check_system_status}=False    @{service_list}=@{EMPTY}
+    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s    ${check_system_status}=False    ${service_list}=@{EMPTY}
     [Documentation]    Convenience keyword that starts the specified member of the cluster.
     ${index_list} =    ClusterManagement__Build_List    ${member}
     Start_Members_From_List_Or_All    ${index_list}    ${wait_for_sync}    ${timeout}    check_system_status=${check_system_status}    service_list=@{service_list}
 
 Start_Members_From_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${EMPTY}    ${export_java_home}=${EMPTY}    ${gc_log_dir}=${EMPTY}
-    ...    ${check_system_status}=False    @{service_list}=@{EMPTY}
+    ...    ${check_system_status}=False    ${service_list}=@{EMPTY}
     [Documentation]    If the list is empty, start all cluster members. Otherwise, start members based on present indices.
     ...    If ${wait_for_sync}, wait for cluster sync on listed members.
     ...    Optionally karaf_home can be overriden. Optionally specific JAVA_HOME is used for starting.
