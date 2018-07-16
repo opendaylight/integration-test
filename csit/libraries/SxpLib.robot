@@ -81,9 +81,9 @@ Verify Connection
     Should Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
 
 Add Bindings
-    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
+    [Arguments]    ${sgt}    ${prefixes}    ${origin}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Add/Update one or more bindings via RPC to Master DB of the node
-    ${DATA}    Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
+    ${DATA}    Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}    ${origin}
     Post To Controller    ${session}    add-bindings    ${DATA}
 
 Get Bindings
@@ -272,9 +272,9 @@ Clean SXP Session
     Delete All Sessions
 
 Add Domain
-    [Arguments]    ${domain_name}    ${node}=127.0.0.1    ${session}=session
-    [Documentation]    Add Domain via RPC
-    ${DATA}    Add Domain Xml    ${node}    ${domain_name}
+    [Arguments]    ${domain_name}    ${sgt}    ${prefixes}    ${origin}    ${node}=127.0.0.1    ${session}=session
+    [Documentation]    Add Domain with bindings via RPC
+    ${DATA}    Add Domain Xml    ${node}    ${domain_name}    ${sgt}    ${prefixes}    ${origin}
     Post To Controller    ${session}    add-domain    ${DATA}
 
 Delete Domain
