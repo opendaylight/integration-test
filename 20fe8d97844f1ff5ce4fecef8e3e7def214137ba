@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c936297_0be9493e",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-16T16:40:39Z",
+      "side": 1,
+      "message": "this should have been \"Check Status Of Services Is OPERATIONAL\"\n\nimho\n\nhttps://git.opendaylight.org/gerrit/#/c/74071/",
+      "range": {
+        "startLine": 859,
+        "startChar": 0,
+        "endLine": 859,
+        "endChar": 24
+      },
+      "revId": "20fe8d97844f1ff5ce4fecef8e3e7def214137ba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
