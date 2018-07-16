@@ -1144,6 +1144,7 @@ def find_binding_origin_with_priority(origins_json, origin, priority):
                 return True
     return False
 
+
 def parse_binding_origins(origins_json):
     """Parse JSON string into Array of Binding origins
 
