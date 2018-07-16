@@ -460,7 +460,7 @@ Start_Members_From_List_Or_All
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
     BuiltIn.Return_From_Keyword_If    not ${check_system_status}
-    CompareStream.Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status of Services    @{service_list}
+    CompareStream.Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{service_list}
     [Teardown]    Run_Bash_Command_On_List_Or_All    command=netstat -pnatu | grep 2550
 
 Freeze_Single_Member
@@ -858,7 +858,7 @@ Check Service Status
     : FOR    ${service}    IN    @{service_list}
     \    BuiltIn.Should Match Regexp    ${service_status_output}    ${service} +: ${service_state}
 
-Check Status of Services
+Check Status Of Services Is OPERATIONAL
     [Arguments]    @{service_list}
     [Documentation]    This keyword will verify whether all the services are operational in all the ODL nodes
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}

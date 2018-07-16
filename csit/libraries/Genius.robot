@@ -38,7 +38,7 @@ Genius Suite Teardown
 
 Start Suite
     [Documentation]    Initial setup for Genius test suites
-    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status of Services    @{GENIUS_DIAG_SERVICES}
+    Run_Keyword_If_At_Least_Oxygen    Wait Until Keyword Succeeds    60    2    ClusterManagement.Check Status Of Services Is OPERATIONAL    @{GENIUS_DIAG_SERVICES}
     Log    Start the tests
     ${conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${conn_id_1}
