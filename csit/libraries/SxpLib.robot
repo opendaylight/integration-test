@@ -16,9 +16,9 @@ ${REST_CONTEXT}    /restconf/operations/sxp-controller
 
 *** Keywords ***
 Post To Controller
-    [Arguments]    ${session}    ${path}    ${DATA}
+    [Arguments]    ${session}    ${path}    ${DATA}    ${rest_context}=${REST_CONTEXT}
     [Documentation]    Post request to Controller and checks response
-    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:${path}    data=${DATA}    headers=${HEADERS_XML}
+    ${resp}    Post Request    ${session}    ${rest_context}:${path}    data=${DATA}    headers=${HEADERS_XML}
     Log    ${resp.content}
     Log    ${session}
     Log    ${path}
