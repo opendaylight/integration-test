@@ -25,9 +25,9 @@ Post To Controller
     Log    ${DATA}
     Should be Equal As Strings    ${resp.status_code}    200
     ${content}    Evaluate    json.loads('''${resp.content}''')    json
-    ${output}    Get From Dictionary    ${content}    output
-    ${result}    Get From Dictionary    ${output}    result
-    Should Be True    ${result}    RPC result is False
+    ${content}    Get From Dictionary    ${content}    output
+    ${content}    Get From Dictionary    ${content}    result
+    Should Be True    ${content}    RPC result is False
 
 Add Node
     [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session    ${ip}=${EMPTY}
@@ -81,9 +81,9 @@ Verify Connection
     Should Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
 
 Add Bindings
-    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
+    [Arguments]    ${sgt}    ${prefixes}    ${origin}=LOCAL    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Add/Update one or more bindings via RPC to Master DB of the node
-    ${DATA}    Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
+    ${DATA}    Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}    ${origin}
     Post To Controller    ${session}    add-bindings    ${DATA}
 
 Get Bindings
@@ -94,33 +94,17 @@ Get Bindings
     [Return]    ${resp}
 
 Clean Bindings
-    [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global
+    [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global    ${scope}=local
     [Documentation]    Delete all bindings via RPC from Master DB of node
-    ${resp}    Get Bindings    ${node}    ${session}    ${domain}    local
+    ${resp}    Get Bindings    ${node}    ${session}    ${domain}    ${scope}
     @{bindings}    Parse Bindings    ${resp}
     : FOR    ${binding}    IN    @{bindings}
-    \    Clean Binding Default    ${binding}    ${node}    ${session}    ${domain}
-
-Clean Binding Default
-    [Arguments]    ${binding}    ${node}    ${session}    ${domain}
-    [Documentation]    Clean binding
-    Clean Binding    ${binding['sgt']}    ${binding['ip-prefix']}    ${node}    ${session}
-
-Clean Binding At Most Be
-    [Arguments]    ${binding}    ${node}    ${session}    ${domain}
-    [Documentation]    Clean binding
-    Clean Binding    ${binding}    ${binding['binding']}    ${node}    ${session}
-
-Clean Binding
-    [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}=global
-    [Documentation]    Used for nester FOR loop
-    : FOR    ${prefix}    IN    @{prefixes}
-    \    Delete Bindings    ${sgt}    ${prefix}    ${node}    ${domain}    ${session}
+    \    Delete Bindings    ${binding['sgt']}    ${binding['ip-prefix']}    ${node}    ${domain}    ${session}
 
 Delete Bindings
     [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
     [Documentation]    Delete one or more bindings via RPC from Master DB of node
-    ${DATA}    Delete Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
+    ${DATA}    Delete Bindings Xml    ${node}    ${domain}    ${sgt}    @{prefixes}
     Post To Controller    ${session}    delete-bindings    ${DATA}
 
 Add PeerGroup
@@ -178,13 +162,13 @@ Delete Domain Filter
     Post To Controller    ${session}    delete-domain-filter    ${DATA}
 
 Should Contain Binding
-    [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=any
+    [Arguments]    ${resp}    ${sgt}    ${prefix}
     [Documentation]    Tests if data contains specified binding
     ${out}    Find Binding    ${resp}    ${sgt}    ${prefix}
     Should Be True    ${out}    Doesn't have ${sgt} ${prefix}
 
 Should Not Contain Binding
-    [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=any
+    [Arguments]    ${resp}    ${sgt}    ${prefix}
     [Documentation]    Tests if data doesn't contains specified binding
     ${out}    Find Binding    ${resp}    ${sgt}    ${prefix}
     Should Not Be True    ${out}    Should't have ${sgt} ${prefix}
@@ -204,16 +188,16 @@ Should Not Contain Connection
     Should Not Be True    ${out}    Shouldn't have ${ip}:${port} ${mode} ${version}
 
 Bindings Should Contain
-    [Arguments]    ${sgt}    ${prefix}    ${db_source}=any
+    [Arguments]    ${sgt}    ${prefix}    ${domain}=global    ${scope}=all
     [Documentation]    Retrieves bindings and verifies they contain given binding
-    ${resp}    Get Bindings
-    Should Contain Binding    ${resp}    ${sgt}    ${prefix}    ${db_source}
+    ${resp}    Get Bindings    domain=${domain}    scope=${scope}
+    Should Contain Binding    ${resp}    ${sgt}    ${prefix}
 
 Bindings Should Not Contain
-    [Arguments]    ${sgt}    ${prefix}    ${db_source}=any
+    [Arguments]    ${sgt}    ${prefix}    ${domain}=global    ${scope}=all
     [Documentation]    Retrieves bindings and verifies they do not contain given binding
-    ${resp}    Get Bindings
-    Should Not Contain Binding    ${resp}    ${sgt}    ${prefix}    ${db_source}
+    ${resp}    Get Bindings    domain=${domain}    scope=${scope}
+    Should Not Contain Binding    ${resp}    ${sgt}    ${prefix}
 
 Connections Should Contain
     [Arguments]    ${ip}    ${port}    ${mode}    ${version}    ${state}=none
@@ -272,9 +256,9 @@ Clean SXP Session
     Delete All Sessions
 
 Add Domain
-    [Arguments]    ${domain_name}    ${node}=127.0.0.1    ${session}=session
-    [Documentation]    Add Domain via RPC
-    ${DATA}    Add Domain Xml    ${node}    ${domain_name}
+    [Arguments]    ${domain_name}    ${sgt}    ${prefixes}    ${origin}    ${node}=127.0.0.1    ${session}=session
+    [Documentation]    Add Domain with bindings via RPC
+    ${DATA}    Add Domain Xml    ${node}    ${domain_name}    ${sgt}    ${prefixes}    ${origin}
     Post To Controller    ${session}    add-domain    ${DATA}
 
 Delete Domain
