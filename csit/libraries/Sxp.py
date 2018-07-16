@@ -902,21 +902,44 @@ def delete_node_xml(node_id):
     return data
 
 
-def add_domain_xml(node_id, name):
+def add_domain_xml(node_id, name, sgt, prefixes, origin):
     """Generate xml for Add Domain request
 
     :param node_id: Id of node
     :type node_id: str
     :param name: Name of Domain
     :type name: str
+    :param sgt: Security group
+    :type sgt: int
+    :param prefixes: List of ip-prefixes
+    :type prefixes: str
+    :param origin: Origin of added bindings
+    :type origin: str
     :returns: String containing xml data for request
 
     """
-    templ = Template('''<input>
-  <node-id xmlns="urn:opendaylight:sxp:controller">$id</node-id>
-  <domain-name xmlns="urn:opendaylight:sxp:controller">$name</domain-name>
+    bindings = ''
+    for prefix in prefixes.split(','):
+        bindings += '\n' + '<ip-prefix>' + prefix + '</ip-prefix>' + '\n'
+
+    master_database = ''
+    if bindings:
+        master_database += '''<master-database>
+        <binding>
+            <sgt>$sgt</sgt>
+            $bindings
+        </binding>
+    </master-database>'''
+        master_database = Template(master_database).substitute(({'sgt': sgt, 'bindings': bindings}))
+
+    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    <node-id>$id</node-id>
+    <domain-name>$name</domain-name>
+    <origin>$origin</origin>
+    $master_database
 </input>''')
-    data = templ.substitute({'name': name, 'id': node_id})
+
+    data = templ.substitute({'name': name, 'id': node_id, 'origin': origin, 'master_database': master_database})
     return data
 
 
@@ -947,7 +970,7 @@ def get_domain_name(domain_name):
         return '<domain-name xmlns="urn:opendaylight:sxp:controller">' + domain_name + '</domain-name>'
 
 
-def add_bindings_xml(node_id, domain, sgt, prefixes):
+def add_bindings_xml(node_id, domain, sgt, prefixes, origin):
     """Generate xml for Add Bindings request
 
     :param node_id: Id of node
@@ -958,21 +981,26 @@ def add_bindings_xml(node_id, domain, sgt, prefixes):
     :type sgt: int
     :param prefixes: List of ip-prefixes
     :type prefixes: str
+    :param origin: Origin of added bindings
+    :type origin: str
     :returns: String containing xml data for request
 
     """
     bindings = ''
     for prefix in prefixes.split(','):
         bindings += '\n' + '<ip-prefix>' + prefix + '</ip-prefix>'
-    templ = Template('''<input>
-  <node-id xmlns="urn:opendaylight:sxp:controller">$id</node-id>
-  <domain-name xmlns="urn:opendaylight:sxp:controller">$name</domain-name>
-  <binding xmlns="urn:opendaylight:sxp:controller">
-      <sgt>$sgt</sgt>
-      $bindings
-  </binding>
+    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    <node-id>$id</node-id>
+    <domain-name>$name</domain-name>
+    <origin>$origin</origin>
+    <master-database>
+        <binding>
+            <sgt>$sgt</sgt>
+            $bindings
+        </binding>
+    </master-database>
 </input>''')
-    data = templ.substitute({'name': domain, 'id': node_id, 'sgt': sgt, 'bindings': bindings})
+    data = templ.substitute({'name': domain, 'id': node_id, 'sgt': sgt, 'bindings': bindings, 'origin': origin})
     return data
 
 
@@ -990,7 +1018,19 @@ def delete_bindings_xml(node_id, domain, sgt, prefixes):
     :returns: String containing xml data for request
 
     """
-    return add_bindings_xml(node_id, domain, sgt, prefixes)
+    bindings = ''
+    for prefix in prefixes.split(','):
+        bindings += '\n' + '<ip-prefix>' + prefix + '</ip-prefix>'
+    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    <node-id>$id</node-id>
+    <domain-name>$name</domain-name>
+    <binding>
+        <sgt>$sgt</sgt>
+        $bindings
+    </binding>
+</input>''')
+    data = templ.substitute({'name': domain, 'id': node_id, 'sgt': sgt, 'bindings': bindings})
+    return data
 
 
 def prefix_range(start, end):
