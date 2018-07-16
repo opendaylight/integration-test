@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbdfad9f_567b5ee0",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-16T08:49:03Z",
+      "side": 1,
+      "message": "Move it to vraiables",
+      "range": {
+        "startLine": 62,
+        "startChar": 56,
+        "endLine": 62,
+        "endChar": 60
+      },
+      "revId": "945c1ef4149fd8f28738ca81e6589b8aea231b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a04dcc5_68a1d5c2",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 8060
+      },
+      "writtenOn": "2018-07-16T08:49:03Z",
+      "side": 1,
+      "message": "change it to @{localip}[0]",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 29
+      },
+      "revId": "945c1ef4149fd8f28738ca81e6589b8aea231b18",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
