@@ -1057,3 +1057,104 @@ def route_definitions_xml(routes, old_routes=None):
     ''')
     data = templ.substitute({'routes': routes})
     return data
+
+
+def add_binding_origin_xml(origin, priority):
+    """Generate xml for Add Binding Origin request
+
+    :param origin: Origin type
+    :type origin: str
+    :param priority: Origin priority
+    :type priority: str
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''<input xmlns="urn:opendaylight:sxp:config:controller">
+    <origin>$origin</origin>
+    <priority>$priority</priority>
+</input>''')
+    data = templ.substitute({'origin': origin, 'priority': priority})
+    return data
+
+
+def update_binding_origin_xml(origin, priority):
+    """Generate xml for Update Binding Origin request
+
+    :param origin: Origin type
+    :type origin: str
+    :param priority: Origin priority
+    :type priority: str
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''<input xmlns="urn:opendaylight:sxp:config:controller">
+    <origin>$origin</origin>
+    <priority>$priority</priority>
+</input>''')
+    data = templ.substitute({'origin': origin, 'priority': priority})
+    return data
+
+
+def delete_binding_origin_xml(origin):
+    """Generate xml for Delete Binding Origin request
+
+    :param origin: Origin type
+    :type origin: str
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''<input xmlns="urn:opendaylight:sxp:config:controller">
+    <origin>$origin</origin>
+</input>''')
+    data = templ.substitute({'origin': origin})
+    return data
+
+
+def find_binding_origin(origins_json, origin):
+    """Test if Binding origin of specified value is contained in JSON
+
+    :param origins_json: JSON containing Binding origins
+    :type origins_json: str
+    :param origin: Origin to be found
+    :type origin: str
+    :returns: True if Binding origin of specified origin type was found, otherwise False.
+
+    """
+    for json_origin in parse_binding_origins(origins_json):
+        if json_origin['origin'] == origin:
+            return True
+    return False
+
+
+def find_binding_origin_with_priority(origins_json, origin, priority):
+    """Test if Binding origin of specified value is contained in JSON
+
+    :param origins_json: JSON containing Binding origins
+    :type origins_json: str
+    :param origin: Origin to be found
+    :type origin: str
+    :param priority: desired priority of origin
+    :type priority: str
+    :returns: True if Binding origin of specified origin type with desired priority was found, otherwise False.
+
+    """
+    for json_origin in parse_binding_origins(origins_json):
+        if json_origin['origin'] == origin:
+            if json_origin['priority'] == int(priority):
+                return True
+    return False
+
+
+def parse_binding_origins(origins_json):
+    """Parse JSON string into Array of Binding origins
+
+    :param origins_json: JSON containing Bindings
+    :type origins_json: str
+    :returns: Array containing Binding origins.
+
+    """
+    output = []
+    for origins in origins_json['binding-origins'].values():
+        for origin in origins:
+            output.append(origin)
+    return output
