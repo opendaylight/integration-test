@@ -16,18 +16,18 @@ ${REST_CONTEXT}    /restconf/operations/sxp-controller
 
 *** Keywords ***
 Post To Controller
-    [Arguments]    ${session}    ${path}    ${DATA}
+    [Arguments]    ${session}    ${path}    ${DATA}    ${rest_context}=${REST_CONTEXT}
     [Documentation]    Post request to Controller and checks response
-    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:${path}    data=${DATA}    headers=${HEADERS_XML}
+    ${resp}    Post Request    ${session}    ${rest_context}:${path}    data=${DATA}    headers=${HEADERS_XML}
     Log    ${resp.content}
     Log    ${session}
     Log    ${path}
     Log    ${DATA}
     Should be Equal As Strings    ${resp.status_code}    200
     ${content}    Evaluate    json.loads('''${resp.content}''')    json
-    ${content}    Get From Dictionary    ${content}    output
-    ${content}    Get From Dictionary    ${content}    result
-    Should Be True    ${content}
+    ${output}    Get From Dictionary    ${content}    output
+    ${result}    Get From Dictionary    ${output}    result
+    Should Be True    ${result}    RPC result is False
 
 Add Node
     [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session    ${ip}=${EMPTY}
