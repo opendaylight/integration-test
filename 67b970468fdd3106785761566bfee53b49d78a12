@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c58255ea_a17c1e66",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-16T11:43:21Z",
+      "side": 1,
+      "message": "don\u0027t you love Robot\u0027s schizophrenia with scalars and lists",
+      "range": {
+        "startLine": 442,
+        "startChar": 108,
+        "endLine": 442,
+        "endChar": 124
+      },
+      "revId": "67b970468fdd3106785761566bfee53b49d78a12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
