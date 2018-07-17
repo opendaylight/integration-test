@@ -1,2 +1,0 @@
-# Depends on system install of libcurl-devel and python-devel (or similar)
-pycurl --global-option="--with-nss"
