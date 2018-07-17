@@ -81,6 +81,7 @@ Check All Switches Connected To All Cluster Nodes
 Isolating Node Scenario
     [Arguments]    ${switch_name}
     [Documentation]    Disconnect and connect owner and successor and check switch data to be consistent
+    BuiltIn.Set Test Variable    ${isol_node}    ${Empty}
     ${idx}=    BuiltIn.Evaluate    str("${switch_name}"[1:])
     BuiltIn.Set Test Variable    ${idx}
     Isolate Switchs Old Owner    ${switch_name}
@@ -91,7 +92,6 @@ Isolating Node Scenario
 
 Isolate Switchs Old Owner
     [Arguments]    ${switch_name}
-    BuiltIn.Set Test Variable    ${isol_node}    ${Empty}
     ${old_owner}    ${old_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}
     ${old_master}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_owner}_IP}
     ${active_member}=    Collections.Get From List    ${old_successors}    0
@@ -123,13 +123,12 @@ Isolate Switchs Successor
     ${old_successor}=    Collections.Get From List    ${old_successors}    0
     ${old_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_successor}_IP}
     Isolate Controller From The Cluster    ${old_successor}
-    BuiltIn.Set Test Variable    ${isol_cntl}    ${old_slave}
+    BuiltIn.Set Test Variable    ${isol_node}    ${old_successor}
     ${tmp_candidates}=    BuiltIn.Create List    @{ClusterManagement__member_index_list}
     Collections.Remove Values From List    ${tmp_candidates}    ${old_successor}
     ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${tmp_candidates}
     ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${tmp_candidates}
     BuiltIn.Should Be Equal    ${owner}    ${old_owner}
-    BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
     BuiltIn.Set Test Variable    ${old_successors}
     BuiltIn.Set Test Variable    ${old_successor}
