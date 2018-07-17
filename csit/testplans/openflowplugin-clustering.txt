@@ -1,6 +1,6 @@
 # Place the suites in run order:
-integration/test/csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot
 integration/test/csit/suites/openflowplugin/Clustering/020__Cluster_HA_Owner_Restart.robot
+integration/test/csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot
 integration/test/csit/suites/openflowplugin/Clustering/030__Cluster_HA_Data_Recovery_Leader_Follower_Failover.robot
 integration/test/csit/suites/openflowplugin/Clustered_Reconciliation/010_Group_Flows.robot
 integration/test/csit/suites/openflowplugin/EntityOwnership/010_Switch_Disconnect.robot

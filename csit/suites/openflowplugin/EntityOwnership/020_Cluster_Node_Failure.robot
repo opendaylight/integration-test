@@ -88,7 +88,7 @@ Kill Switchs Old Owner
     BuiltIn.Set Test Variable    ${stopped_karaf}    ${old_owner}
     ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${old_successors}
     ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
-    ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${old_successors}
+    ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${old_successors}    after_stop=True
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Suite Variable    ${active_member}    ${owner}
     BuiltIn.Set Test Variable    ${old_owner}
@@ -115,7 +115,7 @@ Kill Switchs Successor
     ${tmp_candidates}=    BuiltIn.Create List    @{ClusterManagement__member_index_list}
     Collections.Remove Values From List    ${tmp_candidates}    ${old_successor}
     ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${tmp_candidates}
-    ${owner}    ${successor}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${tmp_candidates}
+    ${owner}    ${successor}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${tmp_candidates}    after_stop=True
     BuiltIn.Should Be Equal    ${owner}    ${old_owner}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
@@ -144,7 +144,7 @@ Verify New Master Controller Node
 Stop Controller Node And Verify
     [Arguments]    ${node}
     [Documentation]    Stops the given node
-    ClusterManagement.Kill Single Member    ${node}
+    ClusterManagement.Stop Single Member    ${node}
     [Teardown]    SSHLibrary.Switch Connection    ${mininet_conn_id}
 
 Start Controller Node And Verify

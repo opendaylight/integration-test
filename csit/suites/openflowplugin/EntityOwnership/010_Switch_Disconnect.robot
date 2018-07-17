@@ -69,6 +69,7 @@ Check All Switches Connected To All Cluster Nodes
 Reconnecting Switch Scenario
     [Arguments]    ${switch_name}
     [Documentation]    Disconnect and connect master and slave and check switch data to be consistent
+    BuiltIn.Set Test Variable    ${disc_cntl}    ${Empty}
     ${idx}=    BuiltIn.Evaluate    str("${switch_name}"[1:])
     BuiltIn.Set Test Variable    ${idx}
     Disconnect Switchs Old Master    ${switch_name}
@@ -79,13 +80,12 @@ Reconnecting Switch Scenario
 
 Disconnect Switchs Old Master
     [Arguments]    ${switch_name}
-    BuiltIn.Set Test Variable    ${disc_cntl}    ${Empty}
     ${old_owner}    ${old_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}
     ${old_master}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_owner}_IP}
     OvsManager.Disconnect Switch From Controller And Verify Disconnected    ${switch_name}    ${old_master}
     BuiltIn.Set Test Variable    ${disc_cntl}    ${old_master}
-    ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
     ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${old_successors}    after_stop=True
+    ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
     BuiltIn.Set Test Variable    ${old_successors}
