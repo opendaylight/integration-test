@@ -19,7 +19,7 @@ Start Mininet Single Controller
     [Arguments]    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${options}=--topo tree,1    ${custom}=${EMPTY}    ${ofversion}=13    ${ofport}=${ODL_OF_PORT}
     ...    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start Mininet with custom topology and connect to controller.
-    Log    Clear any existing mininet
+    Comment    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
     ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System    ip_address=${mininet}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
@@ -27,7 +27,10 @@ Start Mininet Single Controller
     Log    Start mininet ${options} to ${controller}
     SSHLibrary.Write    sudo mn --controller 'remote,ip=${controller},port=${ofport}' ${options} --switch ovsk,protocols=OpenFlow${ofversion}
     SSHLibrary.Read Until    mininet>
-    Log    Check OVS configuratiom
+    Comment    Set switch inactivity probe to 15 secs
+    #Write    sh x=`sudo ovs-vsctl --columns=_uuid list Controller | awk '{print $NF}'`; for i in $x; do sudo ovs-vsctl set Controller $i inactivity_probe=15; done
+    #Read Until    mininet>
+    Comment    Check OVS configuration
     SSHLibrary.Write    sh ovs-vsctl show
     SSHLibrary.Read Until    mininet>
     [Return]    ${mininet_conn_id}
@@ -37,7 +40,7 @@ Start Mininet Multiple Controllers
     ...    ${protocol}=tcp    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start Mininet with custom topology and connect to list of controllers in ${controller_index_list} or all if no list is provided.
     ${index_list} =    ClusterManagement.List Indices Or All    given_list=${controller_index_list}
-    Log    Clear any existing mininet
+    Comment    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
     ${mininet_conn_id}=    SSHKeywords.Open_Connection_To_Tools_System    ip_address=${mininet}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
@@ -46,12 +49,12 @@ Start Mininet Multiple Controllers
     Log    Start mininet ${options}
     SSHLibrary.Write    sudo mn ${options}
     SSHLibrary.Read Until    mininet>
-    Log    Create controller configuration
+    Comment    Create controller configuration
     ${controller_opt}=    Set Variable
     : FOR    ${index}    IN    @{index_list}
     \    ${controller_opt}=    Catenate    ${controller_opt}    ${SPACE}${protocol}:${ODL_SYSTEM_${index}_IP}:${ofport}
     \    Log    ${controller_opt}
-    Log    Open extra SSH connection to configure the OVS bridges
+    Comment    Open extra SSH connection to configure the OVS bridges
     SSHKeywords.Open_Connection_To_Tools_System    ip_address=${mininet}    timeout=${timeout}
     ${num_bridges}    SSHLibrary.Execute Command    sudo ovs-vsctl show | grep Bridge | wc -l
     ${num_bridges}=    Convert To Integer    ${num_bridges}
@@ -63,7 +66,9 @@ Start Mininet Multiple Controllers
     Log    Configure OVS controllers ${controller_opt} in all bridges
     : FOR    ${bridge}    IN    @{bridges}
     \    SSHLibrary.Execute Command    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
-    Log    Check OVS configuratiom
+    Comment    Set switch inactivity probe to 15 secs
+    #SSHLibrary.Execute Command    x=`sudo ovs-vsctl --columns=_uuid list Controller | awk '{print $NF}'`; for i in $x; do sudo ovs-vsctl set Controller $i inactivity_probe=15;
+    Comment    Check OVS configuratiom
     ${output}=    SSHLibrary.Execute Command    sudo ovs-vsctl show
     Log    ${output}
     SSHLibrary.Close Connection
@@ -95,7 +100,10 @@ Start Mininet Full Mesh
     Log    Start Mininet Full Mesh
     SSHLibrary.Write    sudo mn --controller=remote,ip=${controller},port=${ofport} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow${ofversion}
     SSHLibrary.Read Until    mininet>
-    Log    Check OVS configuratiom
+    Comment    Set switch inactivity probe to 15 secs
+    #Write    sh x=`sudo ovs-vsctl --columns=_uuid list Controller | awk '{print $NF}'`; for i in $x; do sudo ovs-vsctl set Controller $i inactivity_probe=15; done
+    #Read Until    mininet>
+    Comment    Check OVS configuratiom
     SSHLibrary.Write    sh ovs-vsctl show
     ${output}=    Read Until    mininet>
     # Ovsdb connection is sometimes lost after mininet is started. Checking if the connection is alive before proceeding.
