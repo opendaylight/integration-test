@@ -144,7 +144,7 @@ Verify New Master Controller Node
 Stop Controller Node And Verify
     [Arguments]    ${node}
     [Documentation]    Stops the given node
-    ClusterManagement.Kill Single Member    ${node}
+    ClusterManagement.Stop Single Member    ${node}
     [Teardown]    SSHLibrary.Switch Connection    ${mininet_conn_id}
 
 Start Controller Node And Verify
