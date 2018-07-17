@@ -43,8 +43,8 @@ Stop Mininet Connected To Follower Node1 and Exit
     Utils.Clean Mininet System
 
 Restart Leader From Cluster Node
-    [Documentation]    Kill Leader Node and Start it Up, Verify it is sync with other controller node.
-    ClusterManagement.Kill Single Member    ${inventory_leader}
+    [Documentation]    Stop Leader Node and Start it Up, Verify it is sync with other controller node.
+    ClusterManagement.Stop Single Member    ${inventory_leader}
     ClusterManagement.Start Single Member    ${inventory_leader}
 
 Get inventory Follower After Leader Restart
@@ -71,8 +71,8 @@ Stop Mininet Connected To Old Leader and Exit
     Utils.Clean Mininet System
 
 Restart Follower Node2
-    [Documentation]    Kill Follower Node2 and Start it Up, Verify it is sync with other controller node.
-    ClusterManagement.Kill Single Member    ${follower_node_2}
+    [Documentation]    Stop Follower Node2 and Start it Up, Verify it is sync with other controller node.
+    ClusterManagement.Stop Single Member    ${follower_node_2}
     ClusterManagement.Start Single Member    ${follower_node_2}
 
 Get inventory Follower After Follower Restart
@@ -99,8 +99,8 @@ Stop Mininet Connected To Leader and Exit
     Utils.Clean Mininet System
 
 Restart Full Cluster
-    [Documentation]    Kill all Cluster Nodes and Start it Up All.
-    ClusterManagement.Kill_Members_From_List_Or_All
+    [Documentation]    Stop all Cluster Nodes and Start it Up All.
+    ClusterManagement.Stop_Members_From_List_Or_All
     ClusterManagement.Start_Members_From_List_Or_All
 
 Get inventory Status After Cluster Restart
