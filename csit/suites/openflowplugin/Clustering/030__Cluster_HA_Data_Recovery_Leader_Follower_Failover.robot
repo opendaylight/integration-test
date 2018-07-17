@@ -31,6 +31,8 @@ Get inventory Leader Before Leader Restart
 Start Mininet Connect To Follower Node1
     [Documentation]    Start mininet with connection to Follower Node1.
     ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${follower_node_1}_IP}
+    Comment    Wait until switch is available in controller
+    Wait Until Keyword Succeeds    5s    1s    ClusterOpenFlow.Verify Switch Connections Running On Member    1    ${follower_node_1}
     Set Suite Variable    ${mininet_conn_id}
 
 Add Flows In Follower Node2 and Verify Before Leader Restart
