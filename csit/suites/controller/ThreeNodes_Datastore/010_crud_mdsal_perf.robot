@@ -17,6 +17,7 @@ Documentation     Test for measuring execution time of MD-SAL DataStore operatio
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
@@ -78,7 +79,8 @@ Purchase Cars
 Verify Purchases
     [Documentation]    Store logs and verify result
     Stop Tool
-    Store File To Workspace    cluster_rest_script.log    cluster_rest_script_purchase_cars.log
+    ${target_file}=    Add_Timestamp_to_Filename    cluster_rest_script_purchase_cars.log
+    Store File To Workspace    cluster_rest_script.log    ${target_file}
     Wait Until Keyword Succeeds    ${PROCEDURE_TIMEOUT}    1    Purchase Is Completed    ${ITEM_COUNT}
 
 Delete Cars
@@ -152,3 +154,10 @@ Store_File_To_Workspace
     ${output_log}=    SSHLibrary.Execute_Command    cat ${source_file_name}
     BuiltIn.Log    ${output_log}
     Create File    ${target_file_name}    ${output_log}
+
+
+Add_Timestamp_To_Filename
+    [Arguments]    ${source_file_name}
+    ${timestamp}=    Get Current Date    result_format=%Y%m%d-%H%M%S
+    ${filename}=    Set Variable    ${source_faile_name}_${timestamp}
+    return ${filename}
