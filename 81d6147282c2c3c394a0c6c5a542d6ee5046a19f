@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b512f69a_a2860086",
+        "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-18T12:14:36Z",
+      "side": 1,
+      "message": "To create instance with ports on a specific compute node?, I think you should also create the port in that host. I could be wrong. Can you please clarify this?",
+      "revId": "81d6147282c2c3c394a0c6c5a542d6ee5046a19f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
