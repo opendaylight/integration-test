@@ -78,7 +78,8 @@ Purchase Cars
 Verify Purchases
     [Documentation]    Store logs and verify result
     Stop Tool
-    Store File To Workspace    cluster_rest_script.log    cluster_rest_script_purchase_cars.log
+    ${target_file}=    Utils.Get_Log_File_Name    cluster_rest_script.log
+    Store File To Workspace    cluster_rest_script.log    ${target_file}
     Wait Until Keyword Succeeds    ${PROCEDURE_TIMEOUT}    1    Purchase Is Completed    ${ITEM_COUNT}
 
 Delete Cars
