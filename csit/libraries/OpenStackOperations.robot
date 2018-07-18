@@ -1008,6 +1008,7 @@ OpenStack Suite Setup
     BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
     ClusterManagement.Dump_Local_Shards_For_Each_Member
+    Verify Expected Default Tables On Nodes
 
 OpenStack Suite Teardown
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
@@ -1103,3 +1104,19 @@ Get Network Segmentation Id
     ${output} =    OpenStack CLI    openstack network show ${network_name} | grep segmentation_id | awk '{print $4}'
     @{list} =    String.Split String    ${output}
     [Return]    @{list}[0]
+
+Verify Expected Default Tables On Nodes
+    [Arguments]    $[node_ips]=@{OS_ALL_IPS}
+    [Documentation]    Verify if Table Miss Entries are programmed on all switches
+    : FOR    ${node_ip}    IN    @{node_ips}
+    \    Verify Expected Default Tables    ${node_ip}
+
+Verify Expected Default Tables
+    [Arguments]    ${ovs_ip}
+    [Documentation]    Verify if Table Miss Entries are programmed on specific OVS
+    ${flow_dump} =    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
+    BuiltIn.Log    ${flow_dump}
+    : FOR    ${table}    IN RANGE    @{DEFAULT_FLOW_TABLES}
+    \    Builtin.ShouldContain    ${flow_dump}    ${table}
+    \    ${table_specific_flows} =    String.Get Lines Containing String    ${flow_output}    table=${table}
+    \    Builtin.ShouldContain    ${table_specific_flows}    "priority=0"
