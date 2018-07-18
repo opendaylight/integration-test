@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c88abdad_19e438b2",
+        "filename": "csit/suites/netvirt/vnibasebNatforwarding/vnibasedNatforwarding.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-18T12:21:40Z",
+      "side": 1,
+      "message": "This seems to be a testcase like documentation for a keyword. Can you please mention what the keyword acheives when invoked.",
+      "revId": "45b0485dbc3c4ef0c6d318533255266cc6a7735a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2272afe9_ff89a188",
+        "filename": "csit/suites/netvirt/vnibasebNatforwarding/vnibasedNatforwarding.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-18T12:21:40Z",
+      "side": 1,
+      "message": "same comment as above",
+      "revId": "45b0485dbc3c4ef0c6d318533255266cc6a7735a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50c58341_147c2497",
+        "filename": "csit/suites/netvirt/vnibasebNatforwarding/vnibasedNatforwarding.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-18T12:21:40Z",
+      "side": 1,
+      "message": "This comment is very clear, thanks.",
+      "revId": "45b0485dbc3c4ef0c6d318533255266cc6a7735a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
