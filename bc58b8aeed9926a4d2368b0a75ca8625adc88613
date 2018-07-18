@@ -65,6 +65,24 @@
     },
     {
       "key": {
+        "uuid": "83b90075_10d1e784",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-18T17:21:57Z",
+      "side": 1,
+      "message": "even sam gave a comment \"space\", but i couldn\u0027t figure out whre the space is needed.. tox passed and sandbox run also passes..can you tell me where the space is needed?",
+      "parentUuid": "4cd721be_d7bc8ac7",
+      "revId": "bc58b8aeed9926a4d2368b0a75ca8625adc88613",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1cde89b_8b11f59e",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 8
