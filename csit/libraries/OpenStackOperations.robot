@@ -19,6 +19,9 @@ Resource          ../variables/Variables.robot
 Resource          ../variables/netvirt/Variables.robot
 Variables         ../variables/netvirt/Modules.py
 
+@{FLOW_TABLES}=    18    19    20    22    23    24    43    45    48    50    51    60    80    81    90    210    211
+    ...    212    213    214    215    216    217    239    240    241    242    243    244    245    246    247
+
 *** Keywords ***
 Get Tenant ID From Security Group
     [Documentation]    Returns tenant ID by reading it from existing default security-group.
@@ -1008,6 +1011,7 @@ OpenStack Suite Setup
     BuiltIn.Run Keyword If    "${PRE_CLEAN_OPENSTACK_ALL}"=="True"    OpenStack Cleanup All
     OpenStackOperations.Add OVS Logging On All OpenStack Nodes
     ClusterManagement.Dump_Local_Shards_For_Each_Member
+    Verify Table Miss Flows On Each OVS
 
 OpenStack Suite Teardown
     [Documentation]    Wrapper teardown keyword that can be used in any suite running in an openstack environement
@@ -1103,3 +1107,17 @@ Get Network Segmentation Id
     ${output} =    OpenStack CLI    openstack network show ${network_name} | grep segmentation_id | awk '{print $4}'
     @{list} =    String.Split String    ${output}
     [Return]    @{list}[0]
+
+Verify Table Miss Flows On Each OVS
+    [Documentation]    Verify if Table Miss Entries are programmed on all switches
+    : FOR    ${i}    IN RANGE    1    ${NUM_TOOLS_SYSTEM} +1
+    \    Verify Table Miss Flows    ${TOOLS_SYSTEM_${i}_IP}
+
+Verify Table Miss Flows
+    [Arguments]    ${ovs_ip}
+    [Documentation]    Verify if Table Miss Entries are programmed on specific OVS
+    : FOR    ${table}    IN RANGE    @{FLOW_TABLES}
+    \    ${output} =    Utils.Run Command On Mininet    ${ovs_ip}    ovs-ofctl -O openflow13 dump-flows br-int | grep table=${table}
+    \    BuiltIn.Log    ${output}
+    \    Builtin.Should Not Be Empty    ${output}
+    \    Builtin.ShouldContain    ${output}    "priority=0"
