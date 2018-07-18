@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "bd66a186_f46463ab",
+        "filename": "csit/configplans/netvirt-1node-tdd-wip-openstack.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T11:53:40Z",
+      "side": 1,
+      "message": "recognize there is now a default netvirt.txt config plan that ha some other config that should be used. I think the dcgw-setup.sh can be called in that plan also so we don\u0027t need this one.",
+      "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f58efa6_4dbdce9c",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 17
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T11:53:40Z",
+      "side": 1,
+      "message": "similar to Venkat\u0027s request about adding arguments we should chck the args and exit this script if dcgw is not used. That would allow us to include this script in the default configplan.txt and not have to create and maintain multiple plans.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 15
+      },
+      "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f472e9dc_c11b412c",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 17
@@ -72,6 +112,29 @@
     },
     {
       "key": {
+        "uuid": "5dd0c2d8_2592daa6",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 17
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T11:53:40Z",
+      "side": 1,
+      "message": "Copying and running...",
+      "range": {
+        "startLine": 70,
+        "startChar": 10,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd8c9fa9_f785a30b",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 17
@@ -101,6 +164,29 @@
       "side": 1,
       "message": "NO, we do not have such plan to create non-openstack job in netvirt project.",
       "parentUuid": "bd8c9fa9_f785a30b",
+      "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf4884a3_1b2e0195",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T11:53:40Z",
+      "side": 1,
+      "message": "Copying and running...",
+      "range": {
+        "startLine": 81,
+        "startChar": 10,
+        "endLine": 81,
+        "endChar": 17
+      },
       "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
