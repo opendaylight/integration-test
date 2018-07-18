@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f472e9dc_c11b412c",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 17
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-18T09:42:32Z",
+      "side": 1,
+      "message": "Instead of hardconding, Can we take QUAGGA_VERSION as argument to the dcgw-setup.sh. This way we can set quagga version as paramater to the job and control it later.",
+      "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c8fb3f6_12e17815",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 17
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-18T09:42:32Z",
+      "side": 1,
+      "message": "Why do we need this part? I don\u0027t think we employ Ubuntu VM\u0027s. Please correct If am wrong",
+      "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd8c9fa9_f785a30b",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 17
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-18T09:42:32Z",
+      "side": 1,
+      "message": "TOOLS_VM are mostly Mininet VM\u0027s in the non-openstack jobs. Are we planning some jobs without openstack?",
+      "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
