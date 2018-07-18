@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9bfc01f9_2cd09e28",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T02:52:13Z",
+      "side": 1,
+      "message": "Need *** Variables *** section and no \u003d. Should really just move this over into the netvirt/Variables.robot",
+      "revId": "d34a3e33bfd54fef4dba82b1bb129771002014be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4e02abd_3083b7e2",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T02:52:13Z",
+      "side": 1,
+      "message": "On Nodes to match other calls in this lib. Pass a list of ips, take the default of OS_ALL_IPS",
+      "range": {
+        "startLine": 1111,
+        "startChar": 24,
+        "endLine": 1111,
+        "endChar": 35
+      },
+      "revId": "d34a3e33bfd54fef4dba82b1bb129771002014be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b299c77_5b2c5209",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T02:52:13Z",
+      "side": 1,
+      "message": "ovs nodes are devstack nodes and not tools nodes. NUM_OS_SYSTEM is the count. But using the passed in ip list you don\u0027t need the count, just loop over the ips.",
+      "range": {
+        "startLine": 1113,
+        "startChar": 40,
+        "endLine": 1113,
+        "endChar": 56
+      },
+      "revId": "d34a3e33bfd54fef4dba82b1bb129771002014be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "121dba37_1bd7d963",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T02:52:13Z",
+      "side": 1,
+      "message": "think it would be better to do one dump-flow and then iterate over the tables and compare rather than doing numerous flow dumps which are all returning the same date.",
+      "range": {
+        "startLine": 1119,
+        "startChar": 37,
+        "endLine": 1119,
+        "endChar": 51
+      },
+      "revId": "d34a3e33bfd54fef4dba82b1bb129771002014be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8390595_6a5371c1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T02:52:13Z",
+      "side": 1,
+      "message": "use Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}",
+      "revId": "d34a3e33bfd54fef4dba82b1bb129771002014be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20ed5925_94b71e49",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T02:52:13Z",
+      "side": 1,
+      "message": "print the flow dump once after getting the flow dump, then iterate over each table comparing to the accepted list.",
+      "range": {
+        "startLine": 1121,
+        "startChar": 9,
+        "endLine": 1121,
+        "endChar": 33
+      },
+      "revId": "d34a3e33bfd54fef4dba82b1bb129771002014be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
