@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "69969cad_61b11f20",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-18T04:30:58Z",
+      "side": 1,
+      "message": "yeah, +1 to just putting this in the netvirt/Variables\nfile.\n\nAlso, these aren\u0027t all table-miss flow tables are they?\nthey are just the default list of tables that we should see\nhave at least one flow programmed after a deployment.\n\nif so, then something more like \"DEFAULT_TABLES_EXPECTED\"\nwould read better to me.",
+      "parentUuid": "9bfc01f9_2cd09e28",
+      "revId": "d34a3e33bfd54fef4dba82b1bb129771002014be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4e02abd_3083b7e2",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2018-07-18T02:52:13Z",
       "side": 1,
       "message": "On Nodes to match other calls in this lib. Pass a list of ips, take the default of OS_ALL_IPS",
+      "range": {
+        "startLine": 1111,
+        "startChar": 24,
+        "endLine": 1111,
+        "endChar": 35
+      },
+      "revId": "d34a3e33bfd54fef4dba82b1bb129771002014be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f8416c7_4124c4e3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-18T04:30:58Z",
+      "side": 1,
+      "message": "see my comment above, but isn\u0027t a better name for this\nkeyword \"Verify Expected Default Tables On Nodes\"\n\nwe also want to check control nodes too right?",
+      "parentUuid": "e4e02abd_3083b7e2",
       "range": {
         "startLine": 1111,
         "startChar": 24,
@@ -76,6 +118,30 @@
       "writtenOn": "2018-07-18T02:52:13Z",
       "side": 1,
       "message": "think it would be better to do one dump-flow and then iterate over the tables and compare rather than doing numerous flow dumps which are all returning the same date.",
+      "range": {
+        "startLine": 1119,
+        "startChar": 37,
+        "endLine": 1119,
+        "endChar": 51
+      },
+      "revId": "d34a3e33bfd54fef4dba82b1bb129771002014be",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34ac3ca1_710f3ba2",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-18T04:30:58Z",
+      "side": 1,
+      "message": "yeah, do a dump-flows once. We probably have a keyword that\ndoes something like this already, btw.\n\nthen take that output, and loop over the flow tables and\nwe can find a tight Should Match Regex pattern to use so\nthat it only matches on a single line.",
+      "parentUuid": "121dba37_1bd7d963",
       "range": {
         "startLine": 1119,
         "startChar": 37,
