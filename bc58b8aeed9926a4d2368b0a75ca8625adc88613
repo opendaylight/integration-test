@@ -151,6 +151,24 @@
       "revId": "bc58b8aeed9926a4d2368b0a75ca8625adc88613",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b5b420e_54c5729c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T18:37:47Z",
+      "side": 1,
+      "message": "I like this, I had meant to say earlier we should use a regex. I could see this being expanded for more specific flows later. This whole keyword or similar could be updated to take a list of flows to match which is where I think this should eventually end up. Pass in a list of regex matches and let it look for them.",
+      "parentUuid": "8ffe1d1e_529469f9",
+      "revId": "bc58b8aeed9926a4d2368b0a75ca8625adc88613",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
