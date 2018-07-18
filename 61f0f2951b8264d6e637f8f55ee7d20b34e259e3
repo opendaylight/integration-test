@@ -1,0 +1,387 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "301d1c7a_2db84634",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "move some of these up to be in alpha order. this file isn\u0027t totally clean yet but try to do best effort",
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "843ee869_04bf40d6",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "OpenStackOperations.",
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23824ad2_90f11b2a",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "lowercase for locals, uppercase for globals/suites vars",
+      "range": {
+        "startLine": 301,
+        "startChar": 54,
+        "endLine": 301,
+        "endChar": 63
+      },
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7fbe67c_5bce3afc",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "use all lowercase, no mixed case",
+      "range": {
+        "startLine": 306,
+        "startChar": 13,
+        "endLine": 306,
+        "endChar": 25
+      },
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80b270d2_70a44740",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "BuiltIn. - this applies all over this patch, fully qualify everything",
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "380c84d3_7960cd2f",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "lowercase for local vars, Builtin.",
+      "range": {
+        "startLine": 313,
+        "startChar": 12,
+        "endLine": 313,
+        "endChar": 13
+      },
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "096cf60e_e88b168f",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "use the constant, PING_REGEXP. Notice how it defines the string as \", 0% packet loss\" since 0% also matches 100%.",
+      "range": {
+        "startLine": 315,
+        "startChar": 33,
+        "endLine": 315,
+        "endChar": 47
+      },
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47cbb3be_cd74a67b",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "same comment for ping success, use the constants",
+      "range": {
+        "startLine": 320,
+        "startChar": 38,
+        "endLine": 320,
+        "endChar": 52
+      },
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cf69cf7_46aa3747",
+        "filename": "csit/libraries/L2GatewayOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "BuiltIn.",
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95fcd28b_ee080600",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "what does index 0 return? Does this break any users of this keyword since this behavior is now different?",
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f733f363_468ff50a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "are these constants only used here? If so, maybe just expand the string and keep it here.",
+      "range": {
+        "startLine": 735,
+        "startChar": 38,
+        "endLine": 735,
+        "endChar": 51
+      },
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "accb1030_62f63015",
+        "filename": "csit/suites/l2gw/01_L2gateway_Single_Segment_Network.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "drop the number prefix. also name the suite all lowercase. use l2gw for prefix",
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "184ab8e8_65492084",
+        "filename": "csit/suites/l2gw/01_L2gateway_Single_Segment_Network.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "drop the numbers",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 3
+      },
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c36b07af_566e1463",
+        "filename": "csit/suites/l2gw/__init__.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "incorporate this stuff into the robot files rather than adding the __init__",
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0a94651_ce54f141",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "we should make sure this doesn\u0027t break the existing suites.",
+      "range": {
+        "startLine": 161,
+        "startChar": 44,
+        "endLine": 161,
+        "endChar": 54
+      },
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b42d6b4_122671b6",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "there should be a var for the physnet1 already.",
+      "range": {
+        "startLine": 33,
+        "startChar": 19,
+        "endLine": 33,
+        "endChar": 27
+      },
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4857cbf5_6ff0216a",
+        "filename": "csit/variables/l2gw/Variables.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "move all the vars around to keep alpha order",
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa9f1394_431dab6b",
+        "filename": "csit/variables/l2gw/l2gw_datastore_dumps.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "move up",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29b96c88_5784e715",
+        "filename": "csit/variables/l2gw/l2gw_datastore_dumps.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-18T21:20:02Z",
+      "side": 1,
+      "message": "move up, might be others in this list but keep them inorder",
+      "revId": "61f0f2951b8264d6e637f8f55ee7d20b34e259e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
