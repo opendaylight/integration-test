@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4d1738df_bff24d32",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 17
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-07-18T11:13:55Z",
+      "side": 1,
+      "message": "Carbon version onward Quagga version 4 is required so will remove this variable",
+      "parentUuid": "f472e9dc_c11b412c",
+      "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c8fb3f6_12e17815",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 17
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2650daeb_f240e516",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 17
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-07-18T11:13:55Z",
+      "side": 1,
+      "message": "we are using Ubuntu VM\u0027s while creating job for tools_system_image since we tested Quagga functionality only with Ubuntu VMs, will change it to CentOS VMs and verify the same.\nwill remove case from script if not necessary.",
+      "parentUuid": "4c8fb3f6_12e17815",
+      "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd8c9fa9_f785a30b",
         "filename": "csit/scripts/dcgw-setup.sh",
         "patchSetId": 17
@@ -47,6 +83,24 @@
       "writtenOn": "2018-07-18T09:42:32Z",
       "side": 1,
       "message": "TOOLS_VM are mostly Mininet VM\u0027s in the non-openstack jobs. Are we planning some jobs without openstack?",
+      "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91177c3e_773717b0",
+        "filename": "csit/scripts/dcgw-setup.sh",
+        "patchSetId": 17
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 8073
+      },
+      "writtenOn": "2018-07-18T11:13:55Z",
+      "side": 1,
+      "message": "NO, we do not have such plan to create non-openstack job in netvirt project.",
+      "parentUuid": "bd8c9fa9_f785a30b",
       "revId": "0b933cf6f2eb6711ff417f5a1ba186f154d08486",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
