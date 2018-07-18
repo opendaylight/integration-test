@@ -39,6 +39,30 @@
       "revId": "eaebeda3acceef8e7f0ea50b4d6fedaf3c49a1b7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3274d786_64a856ce",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-18T14:35:56Z",
+      "side": 1,
+      "message": "when i check the default flows, there are some more which are not table miss flows. But simply checking not empty won\u0027t help. either we have not check for specific flows, or let us go ahead and with the current approach, where we atleast check for table miss flows, which are critical for ELAN. We can enhance as we move further to l3 suites",
+      "parentUuid": "27c478eb_9ec58fd3",
+      "range": {
+        "startLine": 1138,
+        "startChar": 62,
+        "endLine": 1138,
+        "endChar": 72
+      },
+      "revId": "eaebeda3acceef8e7f0ea50b4d6fedaf3c49a1b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
