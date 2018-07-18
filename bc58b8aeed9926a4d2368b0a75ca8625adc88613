@@ -83,6 +83,24 @@
     },
     {
       "key": {
+        "uuid": "582f41aa_7f09c0ac",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-18T17:28:00Z",
+      "side": 1,
+      "message": "make it:\n\n\"BuiltIn.Should Contain\"",
+      "parentUuid": "83b90075_10d1e784",
+      "revId": "bc58b8aeed9926a4d2368b0a75ca8625adc88613",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1cde89b_8b11f59e",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 8
@@ -94,6 +112,24 @@
       "writtenOn": "2018-07-18T17:14:50Z",
       "side": 1,
       "message": "space\n\nbut, instead of these three lines, I think we can do it\nin one shot with a regexp match.\n\nlet me figure this out locally and put a note here.",
+      "revId": "bc58b8aeed9926a4d2368b0a75ca8625adc88613",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ffe1d1e_529469f9",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-18T17:28:00Z",
+      "side": 1,
+      "message": "ok, this works:\n\nShould Match Regexp    ${flow_dump}    .*table\u003d${table}.*priority\u003d0\n\nthe match only looks at one line at a time, so the regex won\u0027t expand to cross\nmultiple lines (btw, there is a way to do that if we ever need to). So, only\nif we see the specific table and priority\u003d0 on the same line will it pass.\nthis reduces 3 lines to 1.",
+      "parentUuid": "c1cde89b_8b11f59e",
       "revId": "bc58b8aeed9926a4d2368b0a75ca8625adc88613",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
