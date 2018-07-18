@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fc1d44a_fd2be57c",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "Please rename all the variables with prefix as the feature name,e.g,acl_net_1, acl_net_2.\n\napply the same in other places too.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b991186_e2c3fcbf",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "Variables should be defined as : @{VM_NAMES}[0].\napply the comment in other places too.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73533387_b0c0243b",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "Prefix the keyword name with its library file.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8162b3a_a3b720ab",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "All the global variable should be in uppercase.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95df3b51_82203a29",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "Prefix this with its standard libray.\ne\u0027g,BuiltIn.Wait Until Keyword Succeeds.\n\nApply this comment in other places too.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "373fe011_09365118",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "Prefix all the robot keywords with its respective standard library.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "066bec89_4e51350c",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "the argument variable should be in lowercase.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b828e34_5cc4ed50",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "This keyword is already present in OpenStackOperations.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef733b9d_3cd70964",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "This keyword is already present in OpenStackOperations.robot.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c9ce815_1983e546",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "This keyword is already present in OVSDB.robot.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aad8964a_1e3dfb98",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "This keyword is already present in OVSDB.robot with name : Get Port Metadata.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4456d40c_63af3887",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "For all table check we have one keyword named : Verify Dump Flows For Specific Table in OVSDB.robot file.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27467804_b919176c",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "For cleanup, you can use OpenStack Cleanup All keword present in OpenstackOperations.robot file.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a87c40d3_371cc5f7",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "Use Get VM IP keyword presnt in OpenstackOperations robot file.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23b68919_f9364901",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 7360
+      },
+      "writtenOn": "2018-07-18T07:21:19Z",
+      "side": 1,
+      "message": "Use OvsManager.robot:Get Packet Count From Table for this.",
+      "revId": "11fb5fcb55d2e72279d6af71e4a6d4ce71d13741",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
