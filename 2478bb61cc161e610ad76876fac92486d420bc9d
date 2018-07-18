@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f59766be_cb761a2c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-18T09:26:55Z",
+      "side": 1,
+      "message": "Please fix this description. It can get ID for any project ID. With that I will merge the patch",
+      "revId": "2478bb61cc161e610ad76876fac92486d420bc9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
