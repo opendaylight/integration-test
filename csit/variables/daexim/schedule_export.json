@@ -1,6 +1,6 @@
  {
    "input": {
-    "data-export-import:run-at": "${TIME}",
-    "data-export-import:local-node-only": "${FLAG}"
+    "data-export-import:run-at": "${time}",
+    "data-export-import:local-node-only": "${flag}"
    }
  }
