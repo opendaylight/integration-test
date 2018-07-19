@@ -7,6 +7,7 @@ ${EXPORT_FILE}    ${CURDIR}/schedule_export.json
 ${EXPORT_INCLUDE_FILE}    ${CURDIR}/schedule_export_include.json
 ${EXP_DIR}        /tmp/Export
 ${EXPORT_EXCLUDE_FILE}    ${CURDIR}/schedule_export_exclude.json
+${EXPORT_INCEXCLUDE_FILE}    ${CURDIR}/schedule_export_include_exclude.json
 ${SCHEDULE_EXPORT_URL}    /restconf/operations/data-export-import:schedule-export
 ${EXP_DATA_FILE}    odl_backup_config.json
 ${EXP_OPER_FILE}    odl_backup_operational.json
