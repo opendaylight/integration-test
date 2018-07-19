@@ -99,6 +99,17 @@ Schedule Export
     ${response_json}    ClusterManagement.Post_As_Json_To_Member    ${SCHEDULE_EXPORT_URL}    ${JSON2}    ${controller_index}
     Builtin.Log    ${response_json}
 
+Schedule Export Include
+    [Arguments]    ${controller_index}    ${TIME}=500    ${exclude}=${FALSE}    ${MODULE}=${EMPTY}    ${STORE}=${EMPTY}    ${FLAG}=false
+    [Documentation]    Schedule Export job with inclusion
+    Builtin.Log Variables
+    ${file}=    Builtin.Set Variable If    ${exclude}    ${EXPORT_INCEXCLUDE_FILE}    ${EXPORT_INCLUDE_FILE}
+    ${JSON1}    OperatingSystem.Get File    ${file}
+    ${JSON2}    Builtin.Replace Variables    ${JSON1}
+    Cleanup The Export Files    ${controller_index}
+    ${response_json}    ClusterManagement.Post_As_Json_To_Member    ${SCHEDULE_EXPORT_URL}    ${JSON2}    ${controller_index}
+    Builtin.Log    ${response_json}
+
 Schedule Exclude Export
     [Arguments]    ${controller_index}    ${store}    ${module}
     [Documentation]    Schedules a export with exclude option. Returns the file that has the excluded export.
@@ -113,11 +124,11 @@ Schedule Exclude Export
     [Return]    ${file_path}
 
 Schedule Include Export
-    [Arguments]    ${controller_index}    ${store}    ${module}
+    [Arguments]    ${controller_index}    ${store}    ${module}    ${exclude}=${FALSE}
     [Documentation]    Schedules a export with include option. Returns the file that has the included export.
     ${controller_index}    Builtin.Convert To Integer    ${controller_index}
     ${host}    ClusterManagement.Resolve IP Address For Member    ${controller_index}
-    Schedule Export    ${controller_index}    500    ${FALSE}    ${module}    ${store}    ${TRUE}
+    Schedule Export Include    ${controller_index}    500    ${exclude}    ${module}    ${store}    ${TRUE}
     Builtin.Wait Until Keyword Succeeds    10 sec    5 sec    Verify Export Status    complete    ${controller_index}
     Verify Export Files    ${controller_index}
     Copy Export Directory To Test VM    ${host}

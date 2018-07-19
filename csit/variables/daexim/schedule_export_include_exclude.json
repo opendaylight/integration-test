@@ -1,0 +1,17 @@
+ {
+     "input": {
+         "data-export-import:run-at": ${TIME},
+         "data-export-import:included-modules" : [
+             {
+                 "module-name": "${MODULE}",
+                 "data-store": "${STORE}"
+             }
+         ],
+         "data-export-import:excluded-modules" : [
+             {
+                 "module-name": "${MODULE}",
+                 "data-store": "${STORE}"
+             }
+         ]
+     }
+ }
