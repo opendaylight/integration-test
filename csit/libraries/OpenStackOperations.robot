@@ -489,8 +489,8 @@ Show Router Interface
     [Return]    ${output}
 
 Add Router Gateway
-    [Arguments]    ${router_name}    ${external_network_name}
-    ${output} =    OpenStack CLI    openstack router set ${router_name} --external-gateway ${external_network_name}
+    [Arguments]    ${router_name}    ${external_network_name}    ${additional_args}=${EMPTY}
+    ${output} =    OpenStack CLI    openstack router set ${router_name} --external-gateway ${external_network_name} ${additional_args}
 
 Remove Interface
     [Arguments]    ${router_name}    ${interface_name}
@@ -511,6 +511,7 @@ Show Router
     [Arguments]    ${router_name}    ${options}
     [Documentation]    Show information of a given router. Router name and optional fields should be sent as arguments.
     ${output} =    OpenStack CLI    openstack router show ${router_name}
+    [Return]    ${output}
 
 Delete Router
     [Arguments]    ${router_name}
