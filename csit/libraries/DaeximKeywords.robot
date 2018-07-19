@@ -88,15 +88,15 @@ Verify Json Files Not Present
     Builtin.Log    Did not Find all Json Files
 
 Schedule Export
-    [Arguments]    ${controller_index}    ${TIME}=500    ${exclude}=${FALSE}    ${MODULE}=${EMPTY}    ${STORE}=${EMPTY}    ${FLAG}=false
-    ...    ${INCLUDE}=${FALSE}
+    [Arguments]    ${controller_index}    ${time}=500    ${exclude}=${FALSE}    ${module}=${EMPTY}    ${store}=${EMPTY}    ${flag}=false
+    ...    ${include}=${FALSE}
     [Documentation]    Schedule Export job
-    ${file}=    Builtin.Run Keyword If    ${INCLUDE}    Builtin.Set Variable    ${EXPORT_INCLUDE_FILE}
+    ${file}=    Builtin.Run Keyword If    ${include}    Builtin.Set Variable    ${EXPORT_INCLUDE_FILE}
     ...    ELSE    Builtin.Set Variable If    ${exclude}    ${EXPORT_EXCLUDE_FILE}    ${EXPORT_FILE}
-    ${JSON1}    OperatingSystem.Get File    ${file}
-    ${JSON2}    Builtin.Replace Variables    ${JSON1}
+    ${json1}    OperatingSystem.Get File    ${file}
+    ${json2}    Builtin.Replace Variables    ${json1}
     Cleanup The Export Files    ${controller_index}
-    ${response_json}    ClusterManagement.Post_As_Json_To_Member    ${SCHEDULE_EXPORT_URL}    ${JSON2}    ${controller_index}
+    ${response_json}    ClusterManagement.Post_As_Json_To_Member    ${SCHEDULE_EXPORT_URL}    ${json2}    ${controller_index}
     Builtin.Log    ${response_json}
 
 Schedule Exclude Export
@@ -113,11 +113,17 @@ Schedule Exclude Export
     [Return]    ${file_path}
 
 Schedule Include Export
-    [Arguments]    ${controller_index}    ${store}    ${module}
+    [Arguments]    ${controller_index}    ${store}    ${module}=${EMPTY}    ${exclude}=${FALSE}
     [Documentation]    Schedules a export with include option. Returns the file that has the included export.
     ${controller_index}    Builtin.Convert To Integer    ${controller_index}
     ${host}    ClusterManagement.Resolve IP Address For Member    ${controller_index}
-    Schedule Export    ${controller_index}    500    ${FALSE}    ${module}    ${store}    ${TRUE}
+    ${TIME}    Builtin.Set Variable    500
+    ${file}=    Builtin.Set Variable If    ${exclude}    ${EXPORT_INCEXCLUDE_FILE}    ${EXPORT_INCLUDE_FILE}
+    ${json1}    OperatingSystem.Get File    ${file}
+    ${json2}    Builtin.Replace Variables    ${json1}
+    Cleanup The Export Files    ${controller_index}
+    ${response_json}    ClusterManagement.Post_As_Json_To_Member    ${SCHEDULE_EXPORT_URL}    ${json2}    ${controller_index}
+    Builtin.Log    ${response_json}
     Builtin.Wait Until Keyword Succeeds    10 sec    5 sec    Verify Export Status    complete    ${controller_index}
     Verify Export Files    ${controller_index}
     Copy Export Directory To Test VM    ${host}
@@ -174,10 +180,10 @@ Mount Netconf Endpoint
     [Arguments]    ${endpoint}    ${host_index}
     [Documentation]    Mount a netconf endpoint
     ${ENDPOINT}    Builtin.Set Variable    ${endpoint}
-    ${JSON1}    OperatingSystem.Get File    ${CURDIR}/${NETCONF_PAYLOAD_JSON}
-    ${JSON2}    Builtin.Replace Variables    ${JSON1}
-    Builtin.Log    ${JSON2}
-    ${resp}    ClusterManagement.Put_As_Json_To_Member    ${NETCONF_MOUNT_URL}${endpoint}    ${JSON2}    ${host_index}
+    ${json1}    OperatingSystem.Get File    ${CURDIR}/${NETCONF_PAYLOAD_JSON}
+    ${json2}    Builtin.Replace Variables    ${json1}
+    Builtin.Log    ${json2}
+    ${resp}    ClusterManagement.Put_As_Json_To_Member    ${NETCONF_MOUNT_URL}${endpoint}    ${json2}    ${host_index}
     Builtin.Log    ${resp}
 
 Fetch Status Information From Netconf Endpoint
@@ -212,12 +218,12 @@ Verify Netconf Mount
 Schedule Import
     [Arguments]    ${host_index}    ${result}=true    ${reason}=${EMPTY}    ${mdlflag}=${MDL_DEF_FLAG}    ${strflag}=${STR_DEF_FLAG}
     [Documentation]    Schedule an Import API
-    ${MODELFLAG}    Builtin.Set Variable    ${mdlflag}
-    ${STOREFLAG}    Builtin.Set Variable    ${strflag}
-    ${JSON1}    OperatingSystem.Get File    ${CURDIR}/${IMPORT_PAYLOAD}
-    ${JSON2}    Builtin.Replace Variables    ${JSON1}
-    Builtin.Log    ${JSON2}
-    ${resp}    Builtin.Wait Until Keyword Succeeds    120 seconds    10 seconds    ClusterManagement.Post_As_Json_To_Member    ${IMPORT_URL}    ${JSON2}
+    ${modelflag}    Builtin.Set Variable    ${mdlflag}
+    ${storeflag}    Builtin.Set Variable    ${strflag}
+    ${json1}    OperatingSystem.Get File    ${CURDIR}/${IMPORT_PAYLOAD}
+    ${json2}    Builtin.Replace Variables    ${json1}
+    Builtin.Log    ${json2}
+    ${resp}    Builtin.Wait Until Keyword Succeeds    120 seconds    10 seconds    ClusterManagement.Post_As_Json_To_Member    ${IMPORT_URL}    ${json2}
     ...    ${host_index}
     Builtin.Log    ${resp}
     Builtin.Should Match Regexp    ${resp}    .*"result": ${result}
