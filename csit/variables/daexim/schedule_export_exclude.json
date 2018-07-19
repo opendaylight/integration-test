@@ -1,10 +1,10 @@
  {
      "input": {
-         "data-export-import:run-at": ${TIME},
+         "data-export-import:run-at": ${time},
          "data-export-import:excluded-modules" : [
              {
-                 "module-name": "${MODULE}",
-                 "data-store": "${STORE}"
+                 "module-name": "${module}",
+                 "data-store": "${store}"
              }
          ]
      }

@@ -1,6 +1,6 @@
 {
   "input" : {
-    "check-models" : "${MODELFLAG}",
-    "clear-stores" : "${STOREFLAG}"
+    "check-models" : "${modelflag}",
+    "clear-stores" : "${storeflag}"
   }
 }
