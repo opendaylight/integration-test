@@ -8,6 +8,11 @@ Resource          ../../libraries/DaeximKeywords.robot
 Create Module Include Export
     [Documentation]    schedule a basic export/backup with applied inclusion pattern
     [Tags]    include export
-    ${file1}    DaeximKeywords.Schedule Include Export    ${FIRST_CONTROLLER_INDEX}    config    network-topology
+    # Module is just included
+    ${file1}    DaeximKeywords.Schedule Include Export    ${FIRST_CONTROLLER_INDEX}    config    network-topology    ${FALSE}
     ${lines1}    OperatingSystem.Grep File    ${file1}    network-topology:
     Builtin.Should Not Be Empty    ${lines1}
+    # Module is both included and excluded
+    ${file1}    DaeximKeywords.Schedule Include Export    ${FIRST_CONTROLLER_INDEX}    config    network-topology    ${TRUE}
+    ${lines1}    OperatingSystem.Grep File    ${file1}    network-topology:
+    Builtin.Should Be Empty    ${lines1}
