@@ -6,6 +6,12 @@
                  "module-name": "${module}",
                  "data-store": "${store}"
              }
+         ],
+         "data-export-import:excluded-modules" : [
+             {
+                 "module-name": "${module}",
+                 "data-store": "${store}"
+             }
          ]
      }
  }

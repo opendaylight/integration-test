@@ -41,7 +41,7 @@ Cleanup The Export Files
     [Arguments]    ${host_index}
     [Documentation]    Verify if the export directory exists and delete the files if needed
     ${host_index}    Builtin.Convert To Integer    ${host_index}
-    Builtin.Run Keyword And Ignore Error    ClusterManagement.Delete_And_Check_Member_List_Or_All    ${TOPOLOGY_URL}    ${host_index}
+    Builtin.Run Keyword And Ignore Error    ClusterManagement.Delete And Check Member List Or All    ${TOPOLOGY_URL}    ${host_index}
     ${output1}    Builtin.Run Keyword and IgnoreError    ClusterManagement.Run Bash Command On Member    sudo rm -rf ${WORKSPACE}/${BUNDLEFOLDER}/daexim;clear    ${host_index}
     ${output2}    Builtin.Run Keyword and IgnoreError    ClusterManagement.Run Bash Command On Member    rm -rf ${WORKSPACE}/${BUNDLEFOLDER}/daexim;clear    ${host_index}
     ${output}    ClusterManagement.Run Bash Command On Member    ls -lart ${WORKSPACE}/${BUNDLEFOLDER}    ${host_index}
@@ -51,7 +51,7 @@ Cleanup The Export Files
 Verify Export Status
     [Arguments]    ${status}    ${controller_index}
     [Documentation]    Verify export status is as expected
-    ${response_json}    ClusterManagement.Post_As_Json_To_Member    ${STATUS_EXPORT_URL}    ${EMPTY}    ${controller_index}
+    ${response_json}    ClusterManagement.Post As Json To Member    ${STATUS_EXPORT_URL}    ${EMPTY}    ${controller_index}
     Builtin.Log    ${response_json}
     ${response_json}    Builtin.Convert To String    ${response_json}
     Verify Export Status Message    ${status}    ${response_json}
@@ -59,7 +59,7 @@ Verify Export Status
 Verify Scheduled Export Timestamp
     [Arguments]    ${controller_index}    ${time}
     [Documentation]    Verify export timestamp is as expected
-    ${response_json}    ClusterManagement.Post_As_Json_To_Member    ${STATUS_EXPORT_URL}    ${EMPTY}    ${controller_index}
+    ${response_json}    ClusterManagement.Post As Json To Member    ${STATUS_EXPORT_URL}    ${EMPTY}    ${controller_index}
     Builtin.Log    ${response_json}
     ${response_json}    Builtin.Convert To String    ${response_json}
     Builtin.Should Match Regexp    ${response_json}    .*"run-at": "${time}"
@@ -88,15 +88,15 @@ Verify Json Files Not Present
     Builtin.Log    Did not Find all Json Files
 
 Schedule Export
-    [Arguments]    ${controller_index}    ${TIME}=500    ${exclude}=${FALSE}    ${MODULE}=${EMPTY}    ${STORE}=${EMPTY}    ${FLAG}=false
-    ...    ${INCLUDE}=${FALSE}
+    [Arguments]    ${controller_index}    ${time}=500    ${exclude}=${FALSE}    ${module}=${EMPTY}    ${store}=${EMPTY}    ${flag}=false
+    ...    ${include}=${FALSE}
     [Documentation]    Schedule Export job
-    ${file}=    Builtin.Run Keyword If    ${INCLUDE}    Builtin.Set Variable    ${EXPORT_INCLUDE_FILE}
+    ${file} =    Builtin.Run Keyword If    ${include}    Builtin.Set Variable    ${EXPORT_INCLUDE_FILE}
     ...    ELSE    Builtin.Set Variable If    ${exclude}    ${EXPORT_EXCLUDE_FILE}    ${EXPORT_FILE}
-    ${JSON1}    OperatingSystem.Get File    ${file}
-    ${JSON2}    Builtin.Replace Variables    ${JSON1}
+    ${json}    OperatingSystem.Get File    ${file}
+    ${json}    Builtin.Replace Variables    ${json}
     Cleanup The Export Files    ${controller_index}
-    ${response_json}    ClusterManagement.Post_As_Json_To_Member    ${SCHEDULE_EXPORT_URL}    ${JSON2}    ${controller_index}
+    ${response_json}    ClusterManagement.Post As Json To Member    ${SCHEDULE_EXPORT_URL}    ${json}    ${controller_index}
     Builtin.Log    ${response_json}
 
 Schedule Exclude Export
@@ -113,11 +113,17 @@ Schedule Exclude Export
     [Return]    ${file_path}
 
 Schedule Include Export
-    [Arguments]    ${controller_index}    ${store}    ${module}
+    [Arguments]    ${controller_index}    ${store}    ${module}=${EMPTY}    ${exclude}=${FALSE}
     [Documentation]    Schedules a export with include option. Returns the file that has the included export.
     ${controller_index}    Builtin.Convert To Integer    ${controller_index}
     ${host}    ClusterManagement.Resolve IP Address For Member    ${controller_index}
-    Schedule Export    ${controller_index}    500    ${FALSE}    ${module}    ${store}    ${TRUE}
+    ${time}    Builtin.Set Variable    500
+    ${file} =    Builtin.Set Variable If    ${exclude}    ${EXPORT_INCEXCLUDE_FILE}    ${EXPORT_INCLUDE_FILE}
+    ${json}    OperatingSystem.Get File    ${file}
+    ${json}    Builtin.Replace Variables    ${json}
+    Cleanup The Export Files    ${controller_index}
+    ${response_json}    ClusterManagement.Post As Json To Member    ${SCHEDULE_EXPORT_URL}    ${json}    ${controller_index}
+    Builtin.Log    ${response_json}
     Builtin.Wait Until Keyword Succeeds    10 sec    5 sec    Verify Export Status    complete    ${controller_index}
     Verify Export Files    ${controller_index}
     Copy Export Directory To Test VM    ${host}
@@ -128,7 +134,7 @@ Schedule Include Export
 Cancel Export
     [Arguments]    ${controller_index}
     [Documentation]    Cancel the export job
-    ${response_json}    ClusterManagement.Post_As_Json_To_Member    ${CANCEL_EXPORT_URL}    ${EMPTY}    ${controller_index}
+    ${response_json}    ClusterManagement.Post As Json To Member    ${CANCEL_EXPORT_URL}    ${EMPTY}    ${controller_index}
     Builtin.Log    ${response_json}
 
 Return ConnnectionID
@@ -174,16 +180,16 @@ Mount Netconf Endpoint
     [Arguments]    ${endpoint}    ${host_index}
     [Documentation]    Mount a netconf endpoint
     ${ENDPOINT}    Builtin.Set Variable    ${endpoint}
-    ${JSON1}    OperatingSystem.Get File    ${CURDIR}/${NETCONF_PAYLOAD_JSON}
-    ${JSON2}    Builtin.Replace Variables    ${JSON1}
-    Builtin.Log    ${JSON2}
-    ${resp}    ClusterManagement.Put_As_Json_To_Member    ${NETCONF_MOUNT_URL}${endpoint}    ${JSON2}    ${host_index}
+    ${json}    OperatingSystem.Get File    ${CURDIR}/${NETCONF_PAYLOAD_JSON}
+    ${json}    Builtin.Replace Variables    ${json}
+    Builtin.Log    ${json}
+    ${resp}    ClusterManagement.Put As Json To Member    ${NETCONF_MOUNT_URL}${endpoint}    ${json}    ${host_index}
     Builtin.Log    ${resp}
 
 Fetch Status Information From Netconf Endpoint
     [Arguments]    ${endpoint}    ${host_index}
     [Documentation]    This keyword fetches netconf endpoint information
-    ${resp}    ClusterManagement.Get_From_Member    ${NTCF_TPLG_OPR_URL}${endpoint}    ${host_index}
+    ${resp}    ClusterManagement.Get From Member    ${NTCF_TPLG_OPR_URL}${endpoint}    ${host_index}
     ${output1}    Builtin.Set Variable    ${resp}
     ${output}    RequestsLibrary.To Json    ${output1}
     Builtin.Log    ${output}
@@ -212,12 +218,12 @@ Verify Netconf Mount
 Schedule Import
     [Arguments]    ${host_index}    ${result}=true    ${reason}=${EMPTY}    ${mdlflag}=${MDL_DEF_FLAG}    ${strflag}=${STR_DEF_FLAG}
     [Documentation]    Schedule an Import API
-    ${MODELFLAG}    Builtin.Set Variable    ${mdlflag}
-    ${STOREFLAG}    Builtin.Set Variable    ${strflag}
-    ${JSON1}    OperatingSystem.Get File    ${CURDIR}/${IMPORT_PAYLOAD}
-    ${JSON2}    Builtin.Replace Variables    ${JSON1}
-    Builtin.Log    ${JSON2}
-    ${resp}    Builtin.Wait Until Keyword Succeeds    120 seconds    10 seconds    ClusterManagement.Post_As_Json_To_Member    ${IMPORT_URL}    ${JSON2}
+    ${modelflag}    Builtin.Set Variable    ${mdlflag}
+    ${storeflag}    Builtin.Set Variable    ${strflag}
+    ${json}    OperatingSystem.Get File    ${CURDIR}/${IMPORT_PAYLOAD}
+    ${json}    Builtin.Replace Variables    ${json}
+    Builtin.Log    ${json}
+    ${resp}    Builtin.Wait Until Keyword Succeeds    120 seconds    10 seconds    ClusterManagement.Post As Json To Member    ${IMPORT_URL}    ${json}
     ...    ${host_index}
     Builtin.Log    ${resp}
     Builtin.Should Match Regexp    ${resp}    .*"result": ${result}
@@ -226,6 +232,6 @@ Schedule Import
 Cleanup Cluster Export Files
     [Arguments]    ${member_index_list}=${EMPTY}
     [Documentation]    This keyword cleansup export files of a cluster
-    ${index_list} =    List_Indices_Or_All    given_list=${member_index_list}
+    ${index_list} =    List Indices Or All    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    DaeximKeywords.Cleanup The Export Files    ${index}
