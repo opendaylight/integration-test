@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "80c0e180_c3e2eb9d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8df6bc18_fa7f900b",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "045860eb_a8ee0dc2",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 68
@@ -30,6 +48,24 @@
       "writtenOn": "2018-07-13T02:23:20Z",
       "side": 1,
       "message": "you might have to rebase this after this moves to ClusterManagement",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1dd7e88a_95f5663f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "sure",
+      "parentUuid": "045860eb_a8ee0dc2",
       "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "8e025448_6b3b6d05",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "060da8f8_9b7aaf76",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff304131_bf9805a8",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 68
@@ -64,6 +118,24 @@
       "writtenOn": "2018-07-13T02:23:20Z",
       "side": 1,
       "message": "make it 6653? and defined it as some variable and use? it should be already there defined is what I feel. define as OPENFLOW_PORT",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13930980_2fda9699",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff304131_bf9805a8",
       "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "74134b56_8d421a71",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73029a13_cb0a9395",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d1dcb57_cdd9652b",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 68
@@ -98,6 +188,24 @@
       "writtenOn": "2018-07-13T02:23:20Z",
       "side": 1,
       "message": "what is this field? can we name it meaningfully?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8cbcc97e_73405470",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "This is used to verify in network topology whether all the bridges, dpns and tunnels are present or not",
+      "parentUuid": "4d1dcb57_cdd9652b",
       "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "3c55f63c_5acb7a69",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1601c33_bd2f1cc9",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74bcee7c_ffbfe36b",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 68
@@ -132,6 +258,24 @@
       "writtenOn": "2018-07-13T02:23:20Z",
       "side": 1,
       "message": "why is this checking only on TOOLS_SYSTEM_1_IP?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cceb7d0_846318b7",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "updated to check in all the TOOLS_SYSTEM_IP\u0027s",
+      "parentUuid": "74bcee7c_ffbfe36b",
       "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "ef79f9b5_fd95d13f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "rebased",
+      "parentUuid": "b73094d9_4654092d",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8a44e62_1d4834d2",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 68
@@ -166,6 +328,24 @@
       "writtenOn": "2018-07-13T02:23:20Z",
       "side": 1,
       "message": "what is this line used for?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cfb30b6c_9a90be4d",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "We are getting first part of ip and using it we are getting subnet which we are using in set json",
+      "parentUuid": "a8a44e62_1d4834d2",
       "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "faf01d42_44cb3ddc",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "we are using it in delete all vteps",
+      "parentUuid": "4abecd32_8b06efa2",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ea590f3_2732627c",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 68
@@ -200,6 +398,24 @@
       "writtenOn": "2018-07-13T02:23:20Z",
       "side": 1,
       "message": "Build Dpn List?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b92f5d5_79360a84",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ea590f3_2732627c",
       "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "e625af39_f2b0f894",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3647a6c0_78da749c",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c92aec0_2a823b6f",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 68
@@ -234,6 +468,24 @@
       "writtenOn": "2018-07-13T02:23:20Z",
       "side": 1,
       "message": "2 Dpn??",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6baa183b_7d46145f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "Check Table0 Entry in a DPN",
+      "parentUuid": "3c92aec0_2a823b6f",
       "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "a11b4221_bfe3dfc0",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "681ee4c1_4c5794de",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2a3125a_4217629a",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 68
@@ -268,6 +538,24 @@
       "writtenOn": "2018-07-13T02:23:20Z",
       "side": 1,
       "message": "i did not understand what this updated list is doing here",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff1b66de_a6c8270f",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "to verify the remote ip of a tunnel in sudo ovs-vsctl show output",
+      "parentUuid": "f2a3125a_4217629a",
       "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -291,6 +579,24 @@
     },
     {
       "key": {
+        "uuid": "5e5cf24b_9550a892",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b4fed84_fdd522c2",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c58067f6_73edee8c",
         "filename": "csit/libraries/Genius.robot",
         "patchSetId": 68
@@ -302,6 +608,24 @@
       "writtenOn": "2018-07-13T02:23:20Z",
       "side": 1,
       "message": "why is this named as get port number, when it is actually verifying table 0 entries?",
+      "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93e3a59b_aea8bcb6",
+        "filename": "csit/libraries/Genius.robot",
+        "patchSetId": 68
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2018-07-19T06:32:53Z",
+      "side": 1,
+      "message": "we need to rename it. i just updated the previous one. renamed as Verify Table0 entry after fetching port number",
+      "parentUuid": "c58067f6_73edee8c",
       "revId": "4a3da7a96490b2c410915172fbf0bdbb33369063",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
