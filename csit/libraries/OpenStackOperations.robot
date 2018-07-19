@@ -1103,3 +1103,15 @@ Get Network Segmentation Id
     ${output} =    OpenStack CLI    openstack network show ${network_name} | grep segmentation_id | awk '{print $4}'
     @{list} =    String.Split String    ${output}
     [Return]    @{list}[0]
+
+Get Project Id
+    [Arguments]    ${project_name}
+    [Documentation]    Returns project ID for the given project name.
+    ${project_id} =    OpenStack CLI    openstack project show ${project_name} -f value -c id
+    [Return]    ${project_id}
+
+Set Instance Quota For Project
+    [Arguments]    ${num_instances}    ${project_id}
+    [Documentation]    Set quota for the created instances using the specific project id.
+    ${output} =    OpenStack CLI    openstack quota set --instances ${num_instances} ${project_id}
+    [Return]    ${output}
