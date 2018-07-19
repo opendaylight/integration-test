@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "962d9ea0_6674156d",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-19T17:08:47Z",
+      "side": 1,
+      "message": "I think you are missing an argument here, also can you fix the arguments/variables name? we only use upper case for global well known variables, otherwise use lower case.",
+      "revId": "f17bfd7ea691f4bf5d7031827143163719c8949b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
