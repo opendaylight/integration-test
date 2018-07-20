@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49452510_94c36da2",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-20T14:52:35Z",
+      "side": 1,
+      "message": "grep ${EMPTY} will return an error so this isn\u0027t good as is. Looks like the only user of this keyword is the l3bcast suite and that always has a submeta so maybe we should remove the \u003d${EMPTY} so other users don\u0027t mistakenly think they can pass nothing. Other option is to check if submeta is empty and produce cmd based on that check - so one command with | grep and the other without.",
+      "range": {
+        "startLine": 233,
+        "startChar": 139,
+        "endLine": 233,
+        "endChar": 152
+      },
+      "revId": "45e8191b89b674552945b3e2677a797187324517",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
