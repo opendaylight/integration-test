@@ -18,5 +18,6 @@ sfc_data_models = [
     'operational/ietf-interfaces:interfaces-state',
     'operational/network-topology:network-topology/topology/ovsdb:1',
     'operational/opendaylight-inventory:nodes',
-    'operational/rendered-service-path:rendered-service-path'
+    'operational/rendered-service-path:rendered-service-paths',
+    'operational/service-function-path:service-function-paths-state'
 ]
