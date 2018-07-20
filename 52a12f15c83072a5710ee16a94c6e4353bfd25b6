@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "18d1db9b_60b89fff",
+        "filename": "csit/libraries/SFC/SfcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63ac62ae_2cf4c30d",
+      "range": {
+        "startLine": 52,
+        "startChar": 46,
+        "endLine": 52,
+        "endChar": 58
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "075acaf1_e12bcd12",
         "filename": "csit/libraries/SFC/SfcKeywords.robot",
         "patchSetId": 2
@@ -82,6 +106,54 @@
       "writtenOn": "2018-07-20T12:02:46Z",
       "side": 1,
       "message": "sfp_state_list?",
+      "range": {
+        "startLine": 59,
+        "startChar": 47,
+        "endLine": 59,
+        "endChar": 62
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "300646f5_d22e4fed",
+        "filename": "csit/libraries/SFC/SfcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "075acaf1_e12bcd12",
+      "range": {
+        "startLine": 59,
+        "startChar": 11,
+        "endLine": 59,
+        "endChar": 21
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f12c7d1_76c41bb9",
+        "filename": "csit/libraries/SFC/SfcKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64241476_237f17d7",
       "range": {
         "startLine": 59,
         "startChar": 47,
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "d73d2834_f2ea7312",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee54d6d7_e2dde4b1",
+      "range": {
+        "startLine": 31,
+        "startChar": 57,
+        "endLine": 31,
+        "endChar": 101
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5b5850c_e10e9af6",
         "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
         "patchSetId": 2
@@ -151,6 +247,30 @@
       "writtenOn": "2018-07-20T12:02:46Z",
       "side": 1,
       "message": "same here \nSERVICE_FUNCTION_PATH_STATE_URI\u003d${SERVICE_FUNCTION_PATHS_STATE_URI}service-function-path-state",
+      "range": {
+        "startLine": 34,
+        "startChar": 50,
+        "endLine": 34,
+        "endChar": 112
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f99ccee_5f21ff5d",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5b5850c_e10e9af6",
       "range": {
         "startLine": 34,
         "startChar": 50,
@@ -186,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "3c06fdb6_1868d41f",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Im not getting anything from the URI other than the response status code, so this isnt necessary here.",
+      "parentUuid": "7be3fd21_f8b59908",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f97afe5d_3c415d07",
         "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
         "patchSetId": 2
@@ -197,6 +341,30 @@
       "writtenOn": "2018-07-20T12:02:46Z",
       "side": 1,
       "message": "Use Utils \"Remove All Elements At URI And Verify\"",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 60
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c30fa489_a3a83876",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Im doing something different here. Im deleting the SFP and checking/waiting that the SFP operational state is deleted. I\u0027ll create a util/keyword for this in SfcKeywords.",
+      "parentUuid": "f97afe5d_3c415d07",
       "range": {
         "startLine": 62,
         "startChar": 0,
@@ -232,6 +400,30 @@
     },
     {
       "key": {
+        "uuid": "8b566960_66299559",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Same comment as above.",
+      "parentUuid": "21735ff8_1eaae2f7",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 88
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acdbf284_5cd4a74f",
         "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
         "patchSetId": 2
@@ -243,6 +435,30 @@
       "writtenOn": "2018-07-20T12:02:46Z",
       "side": 1,
       "message": "Use Utils \"Add Elements To URI From File And Verify\"",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 119
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "699a1ac6_9db01a41",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Im doing something different here, Im creating the SFP and waiting for the RSPs to be created. I\u0027ll create a util/keyword for this.",
+      "parentUuid": "acdbf284_5cd4a74f",
       "range": {
         "startLine": 79,
         "startChar": 0,
@@ -278,6 +494,30 @@
     },
     {
       "key": {
+        "uuid": "bb2152a6_9de33fea",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Same comment as above.",
+      "parentUuid": "32c3af80_908b24cd",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 88
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6782d820_886ec909",
         "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
         "patchSetId": 2
@@ -289,6 +529,30 @@
       "writtenOn": "2018-07-20T12:02:46Z",
       "side": 1,
       "message": "Use Utils \"Add Elements To URI From File And Verify\"",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 119
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc5729c3_eecf71e4",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Same comment as above.",
+      "parentUuid": "6782d820_886ec909",
       "range": {
         "startLine": 100,
         "startChar": 0,
@@ -324,6 +588,30 @@
     },
     {
       "key": {
+        "uuid": "5e6c2f95_5cd9306d",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Same comment as above.",
+      "parentUuid": "9d41dba2_42bcfd41",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 88
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c6d70ff_b9b29c21",
         "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
         "patchSetId": 2
@@ -335,6 +623,30 @@
       "writtenOn": "2018-07-20T12:02:46Z",
       "side": 1,
       "message": "Use Utils \"Add Elements To URI From File And Verify\"",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 119
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "688b71ff_786f18c9",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-20T12:41:34Z",
+      "side": 1,
+      "message": "Same comment as above.",
+      "parentUuid": "1c6d70ff_b9b29c21",
       "range": {
         "startLine": 152,
         "startChar": 0,
