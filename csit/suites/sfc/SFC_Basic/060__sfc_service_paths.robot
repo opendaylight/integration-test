@@ -71,8 +71,8 @@ Delete A Non-existing Empty Service Function Path
     ${path}    Get From Dictionary    ${result}    service-function-paths
     Lists Should be Equal    ${path}    ${paths}
 
-Put one Service Function
-    [Documentation]    Put one Service Function
+Put One Service Function Path
+    [Documentation]    Put one Service Function Path
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATH400_URI}    ${SERVICE_FUNCTION_PATH400_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH400_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
