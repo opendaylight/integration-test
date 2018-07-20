@@ -330,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "45c094e4_56f24784",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-20T14:12:09Z",
+      "side": 1,
+      "message": "I know but\nCheck For Elements At URI {OPERATIONAL_RSP_URI} \"name\":\"${rsp_name}\"\nis exactly what you want to check right? \nIt handles the status code for you and is also the way this and other similar checks are being done throughout this file, but strangely not all the time so I would probably replace all of them for this approach",
+      "parentUuid": "3c06fdb6_1868d41f",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "52a12f15c83072a5710ee16a94c6e4353bfd25b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f97afe5d_3c415d07",
         "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
         "patchSetId": 2
