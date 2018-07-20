@@ -228,9 +228,9 @@ Get Packet Count From Table
     [Return]    ${packetcount}
 
 Get Packet Count In Table For IP
-    [Arguments]    ${os_compute_ip}    ${table_no}    ${ip_address}
+    [Arguments]    ${os_compute_ip}    ${table_no}    ${ip_address}    ${vm_submeta}=${EMPTY}    ${additional_args}=${EMPTY}
     [Documentation]    Capture packetcount for IP in Table
-    ${cmd} =    BuiltIn.Set Variable    sudo ovs-ofctl dump-flows br-int -OOpenFlow13 | grep table=${table_no} | grep ${ip_address}
+    ${cmd} =    BuiltIn.Set Variable    sudo ovs-ofctl dump-flows br-int -OOpenFlow13 | grep table=${table_no} | grep ${ip_address} ${additional_args}
     ${output} =    Utils.Run Command On Remote System And Log    ${os_compute_ip}    ${cmd}
     @{output_list} =    String.Split String    ${output}    \r\n
     ${flow} =    Collections.Get From List    ${output_list}    0
