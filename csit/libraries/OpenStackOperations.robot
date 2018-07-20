@@ -1102,16 +1102,23 @@ Get Network Segmentation Id
 Verify Expected Default Tables On Nodes
     [Arguments]    ${node_ips}=@{OS_ALL_IPS}
     [Documentation]    Verify if Default Table Entries are programmed on all Nodes
+    ${failed_node_list}    BuiltIn.Create List
     : FOR    ${node_ip}    IN    @{node_ips}
-    \    Verify Expected Default Tables    ${node_ip}
+    \    ${failed_table_list}    Verify Expected Default Tables    ${node_ip}
+    \    ${failed_table_list_size} =    BuiltIn.Get Length    ${failed_table_list}
+    \    BuiltIn.Run Keyword If   ${failed_table_list_size} > 0    Collections.Append To List    ${failed_node_list}    ${node_ip}
+    Builtin.Should Be Empty    ${failed_node_list}
 
 Verify Expected Default Tables
     [Arguments]    ${ovs_ip}
     [Documentation]    Verify if Default Table Entries are programmed on specific Node
     ${flow_dump} =    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     BuiltIn.Log    ${flow_dump}
+    ${failed_table_list}    BuiltIn.Create List
     : FOR    ${table}    IN    @{DEFAULT_FLOW_TABLES}
-    \    Builtin.Should Match Regexp    ${flow_dump}    .*table=${table}.*priority=0
+    \    Builtin.Run Keyword And Ignore Error    ${rc}    Builtin.Should Match Regexp    ${flow_dump}    .*table=${table}.*priority=0
+    \    BuiltIn.Run Keyword If    ${rc} == "FAIL"    Collections.Append To List    ${failed_table_list}    ${table}
+    [Return]    ${failed_table_list}
 
 Get Project Id
     [Arguments]    ${project_name}
