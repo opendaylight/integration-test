@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14f0ed2b_33e918be",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-20T16:22:26Z",
+      "side": 1,
+      "message": "here we should check the status of should match regexp, if fail, then add table to a list, then continue. So you need to ignore the failure but get the rc and then keep looping. Then after this loop check the size of list, if not 0 then fail. Might also want to do the same to the calling keyword so that we can also loop all three nodes. So have this keyword here return the list of failed tables. Then in the keyword above, it keeps going to the end and it checks if any of the lists are not 0 and fails.",
+      "range": {
+        "startLine": 1120,
+        "startChar": 9,
+        "endLine": 1120,
+        "endChar": 40
+      },
+      "revId": "bbb47e2ff993abe5bc196cbf1af6f2a6241c2935",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
