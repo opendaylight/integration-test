@@ -1109,7 +1109,7 @@ Verify Expected Default Tables On Nodes
     [Arguments]    ${node_ips}=@{OS_ALL_IPS}
     [Documentation]    Verify if Default Table Entries are programmed on all Nodes
     : FOR    ${node_ip}    IN    @{node_ips}
-    \    Verify Expected Default Tables    ${node_ip}
+    \    BuiltIn.Run Keyword And Ignore Error    Verify Expected Default Tables    ${node_ip}
 
 Verify Expected Default Tables
     [Arguments]    ${ovs_ip}
