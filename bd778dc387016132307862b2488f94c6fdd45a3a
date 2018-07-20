@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54fa73a4_331cb356",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-20T09:56:17Z",
+      "side": 1,
+      "message": "unused variable?",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 16
+      },
+      "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a366a4c6_17cbf2c0",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-20T09:56:17Z",
+      "side": 1,
+      "message": "prefix with suite info",
+      "range": {
+        "startLine": 27,
+        "startChar": 18,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf5062ef_f3ba3c82",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-20T09:56:17Z",
+      "side": 1,
+      "message": "Unused variable?",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 12
+      },
+      "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "effc7b7b_0555a060",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-20T09:56:17Z",
+      "side": 1,
+      "message": "mac address",
+      "range": {
+        "startLine": 136,
+        "startChar": 72,
+        "endLine": 136,
+        "endChar": 75
+      },
+      "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3de88f80_341fa77f",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-20T09:56:17Z",
+      "side": 1,
+      "message": "given interface",
+      "range": {
+        "startLine": 143,
+        "startChar": 50,
+        "endLine": 143,
+        "endChar": 66
+      },
+      "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7e6326a_6240b2a3",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-20T09:56:17Z",
+      "side": 1,
+      "message": "use the variable defined in the variable section.",
+      "range": {
+        "startLine": 144,
+        "startChar": 70,
+        "endLine": 144,
+        "endChar": 95
+      },
+      "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13308ac0_7af46d4f",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-20T09:56:17Z",
+      "side": 1,
+      "message": "dpn Id ?",
+      "range": {
+        "startLine": 149,
+        "startChar": 34,
+        "endLine": 149,
+        "endChar": 44
+      },
+      "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
