@@ -49,6 +49,26 @@ Verify Network Broadcast traffic between the VMs hosted in Multi Network
     Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
     ...    @{VM_IPS}[3]    different
 
+Verify Subnet Broadcast traffic between the VMs hosted on same compute node in Single Network
+    [Documentation]    Verify L3-Subnet Broadcast traffic between the VMs hosted on same compute node in Single Network
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE1_IP}    ${EGRESS_ACL_TABLE}    ${SUBNET1_BCAST_IP}
+    ...    ${vm_ip}    same    ${VM2_SUBMETA}
+
+Verify Subnet Broadcast traffic between the VMs hosted on Different compute node in Single Network
+    [Documentation]    Verify L3-Subnet Broadcast traffic between the VMs hosted on same compute node in Single Network
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE2_IP}    ${EGRESS_ACL_TABLE}    ${SUBNET1_BCAST_IP}
+    ...    ${vm_ip}    same    ${VM3_SUBMETA}
+
+Verify Subnet Broadcast traffic between the VMs hosted on same compute node in Multi Network
+    [Documentation]    Verify L3-Subnet Broadcast traffic between the VMs hosted on same compute node in Multi Network
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE1_IP}    ${EGRESS_ACL_TABLE}    ${SUBNET2_BCAST_IP}
+    ...    ${vm_ip}    different    ${VM4_SUBMETA}
+
+Verify Subnet Broadcast traffic between the VMs hosted on Different compute node in Multi Network
+    [Documentation]    Verify L3-Subnet Broadcast traffic between the VMs hosted on Different compute node in Multi Network
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE2_IP}    ${EGRESS_ACL_TABLE}    ${SUBNET2_BCAST_IP}
+    ...    ${vm_ip}    different    ${VM5_SUBMETA}
+
 *** Keywords ***
 Start Suite
     [Documentation]    Test Suite for Network and Subnet Broadcast with security group
@@ -72,7 +92,7 @@ Create Setup
     @{vms} =    BuiltIn.Create List    @{NET_1_VMS}[0]    @{NET_1_VMS}[1]    @{NET_1_VMS}[2]    @{NET_2_VMS}[0]    @{NET_2_VMS}[1]
     @{nodes} =    BuiltIn.Create List    ${OS_CMP1_HOSTNAME}    ${OS_CMP1_HOSTNAME}    ${OS_CMP2_HOSTNAME}    ${OS_CMP1_HOSTNAME}    ${OS_CMP2_HOSTNAME}
     : FOR    ${port}    ${vm}    ${node}    IN ZIP    ${ports}    ${vms}
-    ...    ${nodes}
+    ...    ${nodes}    IN
     \    OpenStackOperations.Create Vm Instance With Port On Compute Node    ${port}    ${vm}    ${node}    sg=@{SECURITY_GROUP}[0]
     @{vms} =    Collections.Combine Lists    ${NET_1_VMS}    ${NET_2_VMS}
     @{VM_IPS} =    OpenStackOperations.Get VM IPs    @{vms}
@@ -129,13 +149,13 @@ Get Submetadata
     \    Return From Keyword if    ${metadata_check_status} == True    ${meta}
 
 Verify L3Broadcast With Antispoofing Table
-    [Arguments]    ${OS_COMPUTE_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}    ${vm_ip}    ${subnet_var}
+    [Arguments]    ${OS_COMPUTE_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}    ${vm_ip}    ${subnet_var}    ${vm_submeta}=''
     [Documentation]    Verify the l3 broadcast requests are hitting to antispoofing table in same subnet
-    ${get_pkt_count_before_bcast} =    OvsManager.Get Packet Count In Table For IP    ${OS_COMPUTE_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
+    ${get_pkt_count_before_bcast} =    OvsManager.Get Packet Count In Table For IP    ${OS_COMPUTE_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}    ${vm_submeta}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    ${vm_ip}    ping -c ${PACKET_COUNT} ${BCAST_IP}
     BuiltIn.Should Contain    ${output}    ${PING_REGEXP}
-    ${bcast_egress} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_IP}    ${DUMP_FLOW} | grep table=${EGRESS_ACL_TABLE} | grep ${BCAST_IP}
-    ${get_pkt_count_after_bcast} =    OvsManager.Get Packet Count In Table For IP    ${OS_COMPUTE_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
+    ${bcast_egress} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_IP}    ${DUMP_FLOW} | grep table=${EGRESS_ACL_TABLE} | grep ${BCAST_IP} | grep ${vm_submeta}
+    ${get_pkt_count_after_bcast} =    OvsManager.Get Packet Count In Table For IP    ${OS_COMPUTE_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}    ${vm_submeta}
     ${pkt_diff} =    Evaluate    int(${get_pkt_count_after_bcast})-int(${get_pkt_count_before_bcast})
-    BuiltIn.Run Keyword If    '${subnet_var}' == 'same'    Should Be Equal As Numbers    ${pkt_diff}    ${PACKET_COUNT}
-    ...    ELSE    Should Be True    ${pkt_diff}==0
+    BuiltIn.Run Keyword If    '${subnet_var}' == 'same'    Should Be Equal As Numbers    ${pkt_diff}    ${PACKET_COUNT}    ELSE    Should Be True
+    ...    ${pkt_diff}==0
