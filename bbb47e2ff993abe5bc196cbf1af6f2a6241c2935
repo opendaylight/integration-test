@@ -46,6 +46,30 @@
       "revId": "bbb47e2ff993abe5bc196cbf1af6f2a6241c2935",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83c6bf02_7d4f5cee",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-22T20:53:07Z",
+      "side": 1,
+      "message": "That\u0027s half of what I am suggesting. The problem with just ignoring and continuing is that you will go through the whole list and never know which tables failed. Worse this test will never fail - even if there were failures since you ignored the failures and continued. So you need the rc, if fail add the table to the faillist and then keep going. The faillist keeps track of the tables that had a missing entry. After going through all the tables you then need to check the faillist to decide to fail the test or not.",
+      "parentUuid": "54b9f8f4_956a0a8e",
+      "range": {
+        "startLine": 1120,
+        "startChar": 9,
+        "endLine": 1120,
+        "endChar": 40
+      },
+      "revId": "bbb47e2ff993abe5bc196cbf1af6f2a6241c2935",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
