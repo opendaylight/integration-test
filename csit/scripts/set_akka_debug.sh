@@ -3,10 +3,15 @@
 cat > ${WORKSPACE}/set_akka_debug.sh <<EOF
 
   echo "Enable AKKA debug"
+  # light debug
   sed -i -e 's/akka {/akka {\nloglevel = "DEBUG"\nactor {\ndebug {\nautoreceive = on\nlifecycle = on\nunhandled = on\nfsm = on\nevent-stream = on\n}\n}/' ${AKKACONF}
-  echo "Dump ${AKKACONF}"
+  # heavy debug
+  #sed -i -e 's/akka {/akka {\nloglevel = "DEBUG"\nremote {\nlog-received-messages = on\nlog-sent-messages = on\n}\nactor {\ndebug {\nautoreceive = on\nlifecycle = on\nunhandled = on\nfsm = on\nevent-stream = on\n}\n}/' ${AKKACONF}
   cat ${AKKACONF}
-  echo "log4j.logger.akka.remote=DEBUG" >> ${LOGCONF}
+  echo "log4j2.logger.cluster.name=akka.cluster" >> ${LOGCONF}
+  echo "log4j2.logger.cluster.level=DEBUG" >> ${LOGCONF}
+  echo "log4j2.logger.remote.name=akka.remote" >> ${LOGCONF}
+  echo "log4j2.logger.remote.level=DEBUG" >> ${LOGCONF}
   echo "Dump ${LOGCONF}"
   cat ${LOGCONF}
 
