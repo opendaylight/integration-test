@@ -390,6 +390,329 @@
       "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12d2106f_cc456281",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "what is $k???",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f90e0403_99dbd1ff",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "u can iterate over DPN_ID_LIST instead of doing like this",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6094b7e_d60c7b05",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "rename k",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3ad9332_c8f95511",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "this is used in multiple places, make it a keyword",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "865b8937_3222e263",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "why is this not using TOOLS_SYSTEM_IPV6_LIST? Are you sure you have tested all these???",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6c1b06a_8f18e01f",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "see if we can get rid of connection ids, and use run on remote system",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c75a516_1b79a3d4",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "what is k? I see several of these steps repeated in several places. Make this a keyword.",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "679fb11b_173f6518",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "repeated verification. Make keyword",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41daa1ba_fc76ec4b",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "repeated verification. Make keyword",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a57cd44_ddc453b3",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "several steps are repeated across TCs",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e7ae6d2_83f48f6b",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "repeated verification. Make keyword",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "519b7028_8a39aa3b",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "IPV6_LIST?",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33393a52_f5134710",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "Between DPNs",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2fe38055_978b5a18",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "what are all these \u0027i\u0027s and \u0027k\u0027s.. i really doubt whether all these are working.. I don\u0027t even see a k here",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ca9f9f9_ab1b70e1",
+        "filename": "csit/suites/genius/Configure_ITM.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "rename k",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "417e7cc4_f59fbe8d",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "rename k..avoid repeated steps, and use keywords",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e2d4a86_b1160e7b",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "get rid of connection id list?",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ed67785_acc48502",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "DPNs",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5688ad95_f68ed091",
+        "filename": "csit/suites/genius/ITM_Direct_Tunnels.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:27:25Z",
+      "side": 1,
+      "message": "what is k here? Saw this repeated somewhere else.. if keyword is there, why not use it",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
