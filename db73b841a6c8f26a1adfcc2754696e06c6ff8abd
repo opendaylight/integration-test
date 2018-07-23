@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f0a2366b_b8534f4a",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-23T23:33:12Z",
+      "side": 1,
+      "message": "I\u0027m not understanding what this keyword does, which \nis usually something you can figure out with a good\nkeyword name and [documentation] block.\n\nso it Schedules an Export, and it can either be with inclusion or not?\n\nwhy wasn\u0027t the above keyword enough? Seems like maybe \na small enhancement there could do the trick?",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 23
+      },
+      "revId": "db73b841a6c8f26a1adfcc2754696e06c6ff8abd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6142065_79696147",
         "filename": "csit/libraries/DaeximKeywords.robot",
         "patchSetId": 10
@@ -49,6 +72,29 @@
       "side": 1,
       "message": "OK I missed the Replace_Variable KW, in that case I think it is fine to keep the arguments. Only thing remaining is according to our robot style guidelines we should use lower letters for arguments so can you change that?",
       "parentUuid": "b92b5b5f_2655c902",
+      "revId": "db73b841a6c8f26a1adfcc2754696e06c6ff8abd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3914aafb_a9da5b37",
+        "filename": "csit/suites/daexim/040-export-inclusions.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-23T23:33:12Z",
+      "side": 1,
+      "message": "do you want two different tags, or just one tag called\n\"include export\". if the former, use four spaces to\nseparate.",
+      "range": {
+        "startLine": 10,
+        "startChar": 14,
+        "endLine": 10,
+        "endChar": 28
+      },
       "revId": "db73b841a6c8f26a1adfcc2754696e06c6ff8abd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
