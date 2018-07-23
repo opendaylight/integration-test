@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6142065_79696147",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-23T20:34:12Z",
+      "side": 1,
+      "message": "What are the arguments MODULE, STORE and FLAG do here? I do not see how these are used by the KW, maybe I am missing something here.",
+      "revId": "db73b841a6c8f26a1adfcc2754696e06c6ff8abd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
