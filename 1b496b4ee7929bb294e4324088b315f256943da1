@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42813eb7_af758074",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-23T11:03:46Z",
+      "side": 1,
+      "message": "I don\u0027t know how this plays with the fact that we are disabling port security on its neutron ports. Maybe we need to disable port security on the ports after this, or maybe we need a keyword to create this instance without security group, or maybe it\u0027s fine as it is. Let\u0027s keep an eye on it.",
+      "range": {
+        "startLine": 48,
+        "startChar": 98,
+        "endLine": 48,
+        "endChar": 118
+      },
+      "revId": "1b496b4ee7929bb294e4324088b315f256943da1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23fcaaa3_2c343737",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-23T11:03:46Z",
+      "side": 1,
+      "message": "I understand that you want both the http request and response to go through the chain (as you add a 600ms delay but then check check for a \u003e1 second delay total), so you need to create the flow classifier passing also the destination_vm_port as --logical-destination-port",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 132
+      },
+      "revId": "1b496b4ee7929bb294e4324088b315f256943da1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d340d969_964bb307",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-23T11:03:46Z",
+      "side": 1,
+      "message": "What do you want all these extra flow classifiers for?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 132
+      },
+      "revId": "1b496b4ee7929bb294e4324088b315f256943da1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9bd18c3_19078bef",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-23T11:03:46Z",
+      "side": 1,
+      "message": "I think that you might not want to attack FC_81 to the chain, since after you are checking that requests on port 81 have no delay.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 82
+      },
+      "revId": "1b496b4ee7929bb294e4324088b315f256943da1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24c96263_4b2a5243",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-23T11:03:46Z",
+      "side": 1,
+      "message": "What do you need all these extra http servers for?",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 146
+      },
+      "revId": "1b496b4ee7929bb294e4324088b315f256943da1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5853afbc_ccfd96e6",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-23T11:03:46Z",
+      "side": 1,
+      "message": "I think you also want to delay traffic going out of port eth0 since you are adding 600ms delay but then check for a 1s delay.\n\nClarification: traffic from client to server goes into the SF on the first port of the port pair, and out through the second port of the port pair. traffic from server to client goes into the SF on the second port of the port pair, and out through the first port of the port pair.",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 149
+      },
+      "revId": "1b496b4ee7929bb294e4324088b315f256943da1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cbc5c20_2c8e83d5",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-23T11:03:46Z",
+      "side": 1,
+      "message": "You are checking here that there is no delay, yet you are making port 81 request go through the chain by attaching a FC_81 flow classifier above. So there will be delay, right?\n\nAfter this test, you can then update the port chain to add FC_81 flow classifier and check that there is a delay after that.",
+      "range": {
+        "startLine": 126,
+        "startChar": 4,
+        "endLine": 126,
+        "endChar": 49
+      },
+      "revId": "1b496b4ee7929bb294e4324088b315f256943da1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
