@@ -288,6 +288,108 @@
       "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e45e8ec4_c3cf9b2d",
+        "filename": "csit/scripts/set_genius_host.sh",
+        "patchSetId": 73
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:15:11Z",
+      "side": 1,
+      "message": "this file is already present in scriptplan..did you add it in a wrong place?",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36c46087_79508e36",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:15:11Z",
+      "side": 1,
+      "message": "what is this tunnels_on_ovs list used for? dont see it anywhere used",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f838e219_32635d10",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:15:11Z",
+      "side": 1,
+      "message": "make this a keyword..and see if we can get rid of connection_info and used run command on remote system",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ab169a8_b7a5d861",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:15:11Z",
+      "side": 1,
+      "message": "wherever for loops are there, make them keywords and reuse",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21bd4e57_c48b1b93",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:15:11Z",
+      "side": 1,
+      "message": "use TOOLS_SYSTEM_LIST",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "616b023d_24c5ae97",
+        "filename": "csit/suites/genius/BFD_monitoring.robot",
+        "patchSetId": 73
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-23T16:15:11Z",
+      "side": 1,
+      "message": "rename wherever you have used $items",
+      "revId": "012797a1c6cc4fcf8206b66ba4f61bb83bb05dbc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
