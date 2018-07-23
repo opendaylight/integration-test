@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c3cba37_daf29939",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-23T15:47:18Z",
+      "side": 1,
+      "message": "don\u0027t us any default as any default is wrong when there is a | grep ${vm_submeta} - that will always fail, so adding a default misleads the user to thinking they are fine not setting the value.",
+      "range": {
+        "startLine": 231,
+        "startChar": 85,
+        "endLine": 231,
+        "endChar": 87
+      },
+      "revId": "137a218c35f0f4426f3cd95934da2358cc928694",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
