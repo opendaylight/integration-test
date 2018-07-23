@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d907830c_b231a870",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-23T18:20:06Z",
+      "side": 1,
+      "message": "I am leaving at least 1 test to track the kill + start issue so I can properly mark it when it fails, I do not like current suite failing in different places for the same root cause, specially when this suite is used to verify patches.",
+      "parentUuid": "8f8f54a7_03cd09fb",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "7832a187c161ebaef76637f197a9155959c84089",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59964fe3_5579ebbc",
         "filename": "csit/suites/openflowplugin/Clustering/030__Cluster_HA_Data_Recovery_Leader_Follower_Failover.robot",
         "patchSetId": 15
@@ -36,6 +60,24 @@
       "writtenOn": "2018-07-23T11:50:08Z",
       "side": 1,
       "message": "just a clarification\nShould we check on follower_node_1 or follower_node_2? because flows are installed there?",
+      "revId": "7832a187c161ebaef76637f197a9155959c84089",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6901e38_cab4359f",
+        "filename": "csit/suites/openflowplugin/Clustering/030__Cluster_HA_Data_Recovery_Leader_Follower_Failover.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-23T18:20:06Z",
+      "side": 1,
+      "message": "it does not really matter, switches are connected to follower 1 while flows are installed in follower 2. As long as switch is visible to 1 instance, flow push should be fine.",
+      "parentUuid": "59964fe3_5579ebbc",
       "revId": "7832a187c161ebaef76637f197a9155959c84089",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
