@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a94bad0b_739fe977",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-23T23:16:25Z",
+      "side": 1,
+      "message": "if you do, then it has to be moved to the end of the argument list. You will also need to add some looping logic in the\nbody of this keyword itself.\n\nnot a bad idea though. makes things more scalable",
+      "parentUuid": "e76b024f_c4d9fc45",
+      "range": {
+        "startLine": 232,
+        "startChar": 18,
+        "endLine": 232,
+        "endChar": 49
+      },
+      "revId": "e4d788b0ce91280c8ab422ad27c8481202985fb5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9fe2b7f_e8ceb01b",
         "filename": "csit/suites/netvirt/host_route/host_route_handling.robot",
         "patchSetId": 27
