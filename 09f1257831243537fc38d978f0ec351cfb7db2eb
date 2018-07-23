@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6838a79_50f8d4e9",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-23T13:42:39Z",
+      "side": 1,
+      "message": "When you setup a symmetric chain, you will also need another vxlan tool instance forwarding the inverse path\n--interface eth1 --output eth0",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 174
+      },
+      "revId": "09f1257831243537fc38d978f0ec351cfb7db2eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
