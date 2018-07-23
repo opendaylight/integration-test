@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59964fe3_5579ebbc",
+        "filename": "csit/suites/openflowplugin/Clustering/030__Cluster_HA_Data_Recovery_Leader_Follower_Failover.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7779
+      },
+      "writtenOn": "2018-07-23T11:50:08Z",
+      "side": 1,
+      "message": "just a clarification\nShould we check on follower_node_1 or follower_node_2? because flows are installed there?",
+      "revId": "7832a187c161ebaef76637f197a9155959c84089",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
