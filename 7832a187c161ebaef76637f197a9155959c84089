@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8f8f54a7_03cd09fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-23T16:56:55Z",
+      "side": 1,
+      "message": "so, -2 from me just so we can discuss this here. the patch\nis fine to merge otherwise.\n\nI\u0027m usually not liking the workarounds in CSIT to avoid\nbugs. The bugs should get fixed. Are we certain we have\ngood CSIT somewhere that will hit the problems when we do\na kill -9 instead of the gentle \"shutdown\"?\n\nI want to make sure we keep the visibility and some kind\nof pressure to fix our problems.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "7832a187c161ebaef76637f197a9155959c84089",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59964fe3_5579ebbc",
         "filename": "csit/suites/openflowplugin/Clustering/030__Cluster_HA_Data_Recovery_Leader_Follower_Failover.robot",
         "patchSetId": 15
