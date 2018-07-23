@@ -16,6 +16,24 @@
       "revId": "db73b841a6c8f26a1adfcc2754696e06c6ff8abd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b92b5b5f_2655c902",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2018-07-23T20:42:56Z",
+      "side": 1,
+      "message": "They are used to replace placeholders in csit/variables/daexim/*.json",
+      "parentUuid": "b6142065_79696147",
+      "revId": "db73b841a6c8f26a1adfcc2754696e06c6ff8abd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
