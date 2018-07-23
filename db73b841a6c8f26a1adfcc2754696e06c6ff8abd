@@ -34,6 +34,24 @@
       "revId": "db73b841a6c8f26a1adfcc2754696e06c6ff8abd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa057956_58aa2373",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-23T20:54:11Z",
+      "side": 1,
+      "message": "OK I missed the Replace_Variable KW, in that case I think it is fine to keep the arguments. Only thing remaining is according to our robot style guidelines we should use lower letters for arguments so can you change that?",
+      "parentUuid": "b92b5b5f_2655c902",
+      "revId": "db73b841a6c8f26a1adfcc2754696e06c6ff8abd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
