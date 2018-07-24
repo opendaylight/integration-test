@@ -56,12 +56,14 @@ ${VNI_SECURITY_GROUP}    vni_sg
 *** Test Cases ***
 VNI Based L3 Forwarding
     [Documentation]    verify VNI id for L3 Unicast frames exchanged over OVS datapaths that are on different hypervisors
+    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    @{VNI_NET_0_PORTS}[0]    @{VNI_NET_1_PORTS}[0]    @{VNI_NETWORKS}[0]
     ...    @{VNI_NETWORKS}[1]    @{NET_0_VM_IPS}[0]    @{NET_1_VM_IPS}[0]    ${IP}
 
 VNI Based L3 Forwarding With BGPVPN Router Association
     [Documentation]    verify VNI id for L3 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     ...    With Router associated to a BGPVPN.
+    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     ${net_id} =    OpenStackOperations.Get Net Id    @{VNI_NETWORKS}[0]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
     VpnOperations.VPN Create L3VPN    vpnid=@{VNI_VPN_INSTANCE_IDS}[0]    name=@{VNI_VPN_NAMES}[0]    rd=@{VNI_RDS}[0]    exportrt=@{VNI_RDS}[0]    importrt=@{VNI_RDS}[0]    tenantid=${tenant_id}
@@ -77,6 +79,7 @@ VNI Based L3 Forwarding With BGPVPN Router Association
 VNI Based L3 Forwarding With BGPVPN Network Association
     [Documentation]    verify VNI id for L3 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     ...    With Networks associated to a BGPVPN.
+    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     OpenStackOperations.Create Network    @{VNI_NETWORKS}[2]
     OpenStackOperations.Create Network    @{VNI_NETWORKS}[3]
     OpenStackOperations.Create SubNet    @{VNI_NETWORKS}[2]    @{VNI_SUBNETS}[2]    @{VNI_SUBNET_CIDRS}[2]
@@ -113,6 +116,7 @@ VNI Based L3 Forwarding With BGPVPN Network Association
 VNI Based L3 Forwarding With BGPVPN With Irt Ert
     [Documentation]    verify VNI id for L3 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     ...    With two Networks associated to two BGPVPN.
+    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     OpenStackOperations.Create Network    @{VNI_NETWORKS}[4]
     OpenStackOperations.Create Network    @{VNI_NETWORKS}[5]
     OpenStackOperations.Create SubNet    @{VNI_NETWORKS}[4]    @{VNI_SUBNETS}[4]    @{VNI_SUBNET_CIDRS}[4]
@@ -155,6 +159,7 @@ Start Suite
     [Documentation]    Create Basic setup for the feature. Creates single network, subnet, two ports and two VMs.
     ...    Create Two VMs for TC1 : (VM1, N1, Compute1) and (VM2, N2, Compute2) and R1
     VpnOperations.Basic Suite Setup
+    BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
     OpenStackOperations.Create Allow All SecurityGroup    ${VNI_SECURITY_GROUP}
     OpenStackOperations.Create Network    @{VNI_NETWORKS}[0]
     OpenStackOperations.Create Network    @{VNI_NETWORKS}[1]
