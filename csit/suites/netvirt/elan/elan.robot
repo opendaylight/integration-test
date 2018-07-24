@@ -60,10 +60,10 @@ Verify Datapath for Single ELAN with Multiple DPN
 
 Verify Datapath After OVS Restart
     [Documentation]    Verify datapath after OVS restart
-    OVSDB.Restart OVSDB    ${OS_COMPUTE_1_IP}
-    OVSDB.Restart OVSDB    ${OS_COMPUTE_2_IP}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OVSDB.Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OVSDB.Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
+    : FOR    ${ip}    IN    @{OS_CMP_IPS}
+    \    OVSDB.Restart OVSDB    ${ip}
+    : FOR    ${ip}    IN    @{OS_CMP_IPS}
+    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    OVSDB.Verify OVS Reports Connected    tools_system=${ip}
     ${smac_cn1} =    BuiltIn.Create List    @{NET_1_MACS}[0]
     ${smac_cn2} =    BuiltIn.Create List    @{NET_1_MACS}[1]
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${NET_1_MACS}
