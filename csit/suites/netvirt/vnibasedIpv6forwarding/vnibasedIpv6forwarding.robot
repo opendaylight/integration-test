@@ -9,10 +9,9 @@ Documentation     Test Suite for vni-based-l2-l3-nat:
 ...               wire and instead, replaces them with VNIs supplied by the
 ...               tenant’s OpenStack.
 Suite Setup       Start Suite
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
-Test Setup        Run Keywords    OpenStackOperations.Get DumpFlows And Ovsconfig    ${OS_CMP1_CONN_ID}
-...               AND    OpenStackOperations.Get DumpFlows And Ovsconfig    ${OS_CMP2_CONN_ID}
-Test Teardown     OpenStackOperations.Get Test Teardown Debugs
+Suite Teardown    Stop Suite
+Test Setup        VpnOperations.VNI Test Setup
+Test Teardown     VpnOperations.VNI Test Teardown
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           String
@@ -55,12 +54,14 @@ ${NET3_ADDITIONAL_ARGS}    --ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mo
 *** Test Cases ***
 VNI Based IPv6 Forwarding
     [Documentation]    verify VNI id for IPv6 Unicast frames exchanged over OVS datapaths that are on different hypervisors
+    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Segmentation Id and Tunnel Id    @{VNI6_NET_0_PORTS}[0]    @{VNI6_NET_1_PORTS}[0]    @{VNI6_NETWORKS}[0]
     ...    @{VNI6_NETWORKS}[1]    @{VM_IP_NET0}[0]    @{VM_IP_NET1}[0]    ${IP}
 
 VNI Based IPv6 Forwarding With BGPVPN Router Association
     [Documentation]    verify VNI id for IPv6 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     ...    With Router associated to a BGPVPN.
+    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     ${net_id} =    OpenStackOperations.Get Net Id    @{VNI6_NETWORKS}[0]
     ${tenant_id} =    OpenStackOperations.Get Tenant ID From Network    ${net_id}
     VpnOperations.VPN Create L3VPN    vpnid=@{VNI6_VPN_INSTANCE_IDS}[0]    name=@{VNI6_VPN_NAMES}[0]    rd=@{VNI6_RDS}[0]    exportrt=@{VNI6_RDS}[0]    importrt=@{VNI6_RDS}[0]    tenantid=${tenant_id}
@@ -76,6 +77,7 @@ VNI Based IPv6 Forwarding With BGPVPN Router Association
 VNI Based IPv6 Forwarding With Two Routers And BGPVPN With Irt Ert
     [Documentation]    verify VNI id for IPv6 Unicast frames exchanged over OVS datapaths that are on different hypervisors
     ...    With Two Routers each associated to a BGPVPN and The Two BGPVPN is connected with irt and ert.
+    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     OpenStackOperations.Create Network    @{VNI6_NETWORKS}[2]
     OpenStackOperations.Create Network    @{VNI6_NETWORKS}[3]
     OpenStackOperations.Create SubNet    @{VNI6_NETWORKS}[2]    @{VNI6_SUBNETS}[2]    @{VNI6_SUBNET_CIDRS}[2]    ${NET2_ADDITIONAL_ARGS}
@@ -131,6 +133,7 @@ VNI Based IPv6 Forwarding With Two Routers And BGPVPN With Irt Ert
 Start Suite
     [Documentation]    Create Basic setup for the feature. Creates single network, subnet, two ports and two VMs.
     ...    Create Two VMs for TC1 : (VM1, N1, Compute1) and (VM2, N2, Compute2) and R1
+    BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
     VpnOperations.Basic Suite Setup
     OpenStackOperations.Create Allow All SecurityGroup    ${VNI6_SECURITY_GROUP}    IPv6
     OpenStackOperations.Create Network    @{VNI6_NETWORKS}[0]
@@ -171,3 +174,8 @@ Start Suite
     BuiltIn.Set Suite Variable    ${VM_IP_NET1}
     BuiltIn.Should Not Contain    ${VM_IP_NET0}    None
     BuiltIn.Should Not Contain    ${VM_IP_NET1}    None
+    Get OvsDebugInfo
+
+Stop Suite
+    BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
+    OpenStackOperations.OpenStack Suite Stop

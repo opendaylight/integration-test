@@ -136,6 +136,12 @@ Verify Flows Are Present For L3VPN
     : FOR    ${i}    IN    @{vm_ips}
     \    ${resp}=    Should Contain    ${l3vpn_table}    ${i}
 
+Verify Flows Are Present For L3VPN On All Compute Nodes
+    [Arguments]    ${vm_ips}
+    [Documentation]    Verify Flows Are Present For L3VPN On All Compute Nodes
+    : FOR    ${ip}    IN    @{OS_CMP_IPS}
+    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${ip}    ${vm_ips}
+
 Verify GWMAC Entry On ODL
     [Arguments]    ${GWMAC_ADDRS}
     [Documentation]    get ODL GWMAC table entry
@@ -155,6 +161,11 @@ Verify GWMAC Flow Entry Removed From Flow Table
     #Verify GWMAC address present in table 19
     : FOR    ${macAdd}    IN    @{GWMAC_ADDRS}
     \    Should Not Contain    ${gwmac_table}    dl_dst=${macAdd} actions=goto_table:${L3_TABLE}
+
+Verify GWMAC Flow Entry Removed From Flow Table On All Compute Nodes
+    [Documentation]    Verify the GWMAC Table, ARP Response table and Dispatcher table.
+    : FOR    ${ip}    IN    @{OS_CMP_IPS}
+    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify GWMAC Flow Entry Removed From Flow Table    ${ip}
 
 Verify ARP REQUEST in groupTable
     [Arguments]    ${group_output}    ${Group-ID}
@@ -264,8 +275,22 @@ Verify GWMAC Flow Entry On Flow Table
     BuiltIn.Run Keyword If    '${ipv}' == 'ipv4'    Verify IPv4 GWMAC Flow Entry On Flow Table    ${group_output}    ${group_id}    ${flow_output}
     ...    ELSE    Verify IPv6 GWMAC Flow Entry On Flow Table    ${flow_output}
 
+Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
+    [Arguments]    ${ipv}=ipv4
+    [Documentation]    Verify the GWMAC Table, ARP Response table and Dispatcher table.
+    : FOR    ${ip}    IN    @{OS_CMP_IPS}
+    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${ip}    ${ipv}
+
 Delete Multiple L3VPNs
     [Arguments]    @{vpns}
     [Documentation]    Delete three L3VPNs created using Multiple L3VPN Test
     : FOR    ${vpn}    IN    ${vpns}
     \    VPN Delete L3VPN    vpnid=${vpn}
+
+VNI Test Setup
+    BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
+    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+
+VNI Test Teardown
+    BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
+    OpenStackOperations.Get Test Teardown Debugs
