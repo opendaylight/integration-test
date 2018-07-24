@@ -33,6 +33,9 @@ ${ROUTER}         sgbcast_router
 ${DUMP_FLOW}      sudo ovs-ofctl dump-flows br-int -OOpenflow13
 ${DUMP_PORT_DESC}    sudo ovs-ofctl dump-ports-desc br-int -OOpenflow13
 ${PACKET_COUNT}    5
+${PACKET_COUNT_CMB}    10
+${PACKET_DIFF}    0
+${PACKET_DIFF_CMB}    0
 ${BCAST_IP}       255.255.255.255
 ${SUBNET1_BCAST_IP}    10.0.0.255
 ${SUBNET2_BCAST_IP}    20.0.0.255
@@ -41,12 +44,12 @@ ${ENABLE_BCAST}    echo 0 | sudo tee /proc/sys/net/ipv4/icmp_echo_ignore_broadca
 *** Test case ***
 Verify Network Broadcast traffic between the VMs hosted in Single Network
     [Documentation]    This TC is to verify Network Broadcast traffic between the VMs hosted in Same Network on same/different compute node
-    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_CMP1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
     ...    @{VM_IPS}[0]    same
 
 Verify Network Broadcast traffic between the VMs hosted in Multi Network
     [Documentation]    This TC is to verify Network Broadcast traffic between the VMs hosted in Different Network on same/different compute node.
-    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_CMP1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
     ...    @{VM_IPS}[3]    different
 
 *** Keywords ***
@@ -81,15 +84,15 @@ Create Setup
     OpenStackOperations.Execute Command on VM Instance    ${NETWORKS[0]}    @{VM_IPS}[0]    ${ENABLE_BCAST}
     OpenStackOperations.Execute Command on VM Instance    ${NETWORKS[1]}    @{VM_IPS}[3]    ${ENABLE_BCAST}
     ${vm1_in_port}    ${vm1_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_1_PORTS}[0]
-    ...    ${OS_COMPUTE_1_IP}
+    ...    ${OS_CMP1_IP}
     ${vm2_in_port}    ${vm2_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_1_PORTS}[1]
-    ...    ${OS_COMPUTE_1_IP}
+    ...    ${OS_CMP1_IP}
     ${vm3_in_port}    ${vm3_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_1_PORTS}[2]
-    ...    ${OS_COMPUTE_2_IP}
+    ...    ${OS_CMP2_IP}
     ${vm4_in_port}    ${vm4_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_2_PORTS}[0]
-    ...    ${OS_COMPUTE_1_IP}
+    ...    ${OS_CMP1_IP}
     ${vm5_in_port}    ${vm5_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_2_PORTS}[1]
-    ...    ${OS_COMPUTE_2_IP}
+    ...    ${OS_CMP2_IP}
     ${VM1_SUBMETA} =    Get Submetadata    ${vm1_meta}
     ${VM2_SUBMETA} =    Get Submetadata    ${vm2_meta}
     ${VM3_SUBMETA} =    Get Submetadata    ${vm3_meta}
@@ -119,9 +122,9 @@ Get VMs Metadata and In Port
 Get Submetadata
     [Arguments]    ${vm_metadata}
     [Documentation]    Get the submetadata of the VM
-    ${cmd1} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE1_IP}    ${DUMP_FLOW} | grep ${EGRESS_LPORT_DISPATCHER_TABLE} | grep write_metadata:
+    ${cmd1} =    Utils.Run Command On Remote System And Log    ${OS_CMP1_IP}    ${DUMP_FLOW} | grep ${EGRESS_LPORT_DISPATCHER_TABLE} | grep write_metadata:
     ${output1} =    String.Get Regexp Matches    ${cmd1}    reg6=(\\w+)    1
-    ${cmd2} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE2_IP}    ${DUMP_FLOW} | grep ${EGRESS_LPORT_DISPATCHER_TABLE} | grep write_metadata:
+    ${cmd2} =    Utils.Run Command On Remote System And Log    ${OS_CMP2_IP}    ${DUMP_FLOW} | grep ${EGRESS_LPORT_DISPATCHER_TABLE} | grep write_metadata:
     ${output2} =    String.Get Regexp Matches    ${cmd2}    reg6=(\\w+)    1
     ${metalist} =    Collections.Combine Lists    ${output1}    ${output2}
     : FOR    ${meta}    IN    @{metalist}
@@ -137,5 +140,7 @@ Verify L3Broadcast With Antispoofing Table
     ${bcast_egress} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE_IP}    ${DUMP_FLOW} | grep table=${EGRESS_ACL_TABLE} | grep ${BCAST_IP}
     ${get_pkt_count_after_bcast} =    OvsManager.Get Packet Count In Table For IP    ${OS_COMPUTE_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
     ${pkt_diff} =    Evaluate    int(${get_pkt_count_after_bcast})-int(${get_pkt_count_before_bcast})
-    BuiltIn.Run Keyword If    '${subnet_var}' == 'same'    Should Be Equal As Numbers    ${pkt_diff}    ${PACKET_COUNT}
-    ...    ELSE    Should Be True    ${pkt_diff}==0
+    ${pkt_diff_expected} =    BuiltIn.Set Variable If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    ${PACKET_DIFF_CMB}    ${PACKET_DIFF}
+    ${pkt_count} =    BuiltIn.Set Variable If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    ${PACKET_COUNT_CMB}    ${PACKET_COUNT}
+    BuiltIn.Run Keyword If    '${subnet_var}' == 'same'    Should Be Equal As Numbers    ${pkt_diff}    ${pkt_count}
+    ...    ELSE    Should Be True    ${pkt_diff} == ${pkt_diff_expected}

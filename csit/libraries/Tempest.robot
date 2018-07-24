@@ -36,7 +36,7 @@ Run Tempest Tests Without Debug
     BuiltIn.Return From Keyword If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}
     BuiltIn.Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
     BuiltIn.Return From Keyword If    "skip_if_${ODL_SNAT_MODE}" in @{TEST_TAGS}
-    ${tempest_conn_id} =    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    ${tempest_conn_id} =    SSHLibrary.Open Connection    ${OS_CNTL_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     DevstackUtils.Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     DevstackUtils.Write Commands Until Prompt    cd ${TEMPEST_DIRectory}
@@ -59,7 +59,7 @@ Run Tempest Tests With Debug
     BuiltIn.Return From Keyword If    "skip_if_${OPENSTACK_BRANCH}" in @{TEST_TAGS}
     BuiltIn.Return From Keyword If    "skip_if_${SECURITY_GROUP_MODE}" in @{TEST_TAGS}
     BuiltIn.Return From Keyword If    "skip_if_${ODL_SNAT_MODE}" in @{TEST_TAGS}
-    ${tempest_conn_id} =    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    ${tempest_conn_id} =    SSHLibrary.Open Connection    ${OS_CNTL_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     DevstackUtils.Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     DevstackUtils.Write Commands Until Prompt    cd ${TEMPEST_DIRectory}
@@ -91,7 +91,7 @@ Log In To Tempest Executor And Setup Test Environment
     OpenStackOperations.Create Network    ${EXTERNAL_NET_NAME}    --external --default --provider-network-type flat --provider-physical-network ${PUBLIC_PHYSICAL_NETWORK}
     OpenStackOperations.Create Subnet    ${EXTERNAL_NET_NAME}    ${EXTERNAL_SUBNET_NAME}    ${EXTERNAL_SUBNET}    --gateway ${EXTERNAL_GATEWAY} --allocation-pool ${EXTERNAL_SUBNET_ALLOCATION_POOL}
     OpenStackOperations.List Networks
-    ${control_node_conn_id} =    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    ${control_node_conn_id} =    SSHLibrary.Open Connection    ${OS_CNTL_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     SSHKeywords.Flexible SSH Login    ${OS_USER}
     DevstackUtils.Write Commands Until Prompt And Log    sudo pip install -U --verbose pip    timeout=120s
     DevstackUtils.Write Commands Until Prompt And Log    sudo pip install -U --verbose os-testr>=1.0.0    timeout=120s
@@ -134,4 +134,4 @@ Create Blacklist File
     : FOR    ${exclusion}    IN    @{${OPENSTACK_BRANCH}_EXCLUSION_REGEXES}
     \    OperatingSystem.Append To File    ${BLACKLIST_FILE}    ${exclusion}\n
     OperatingSystem.Log File    ${BLACKLIST_FILE}
-    SSHKeywords.Copy File To Remote System    ${OS_CONTROL_NODE_IP}    ${BLACKLIST_FILE}    ${BLACKLIST_FILE}
+    SSHKeywords.Copy File To Remote System    ${OS_CNTL_IP}    ${BLACKLIST_FILE}    ${BLACKLIST_FILE}
