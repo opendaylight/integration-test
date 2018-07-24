@@ -161,6 +161,7 @@ Restore Network and Verify After Fail
 Start Old Owner Instance
     [Documentation]    Start old Owner Instance and verify it is up
     ClusterManagement.Start Single Member    ${original_owner}
+    [Teardown]    Utils.Report Failure Due To Bug    CONTROLLER-1849    bug_tool=jira
 
 Check Shards Status After Recover
     [Documentation]    Create original cluster list and check Status for all shards in OpenFlow application.

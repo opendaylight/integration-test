@@ -43,7 +43,7 @@ Stop Mininet
     Close Connection
 
 Report_Failure_Due_To_Bug
-    [Arguments]    ${number}    ${include_bug_in_tags}=True
+    [Arguments]    ${number}    ${include_bug_in_tags}=True    ${bug_tool}=bugzilla
     [Documentation]    Report that a test failed due to a known Bugzilla bug whose
     ...    number is provided as an argument.
     ...    Not FAILED (incl. SKIPPED) test are not reported.
@@ -53,7 +53,7 @@ Report_Failure_Due_To_Bug
     ...    into the Robot log file.
     ${test_skipped}=    BuiltIn.Evaluate    len(re.findall('SKIPPED', """${TEST_MESSAGE}""")) > 0    modules=re
     BuiltIn.Return From Keyword If    ('${TEST_STATUS}' != 'FAIL') or ${test_skipped}
-    ${bug_url}=    BuiltIn.Set_Variable    https://bugs.opendaylight.org/show_bug.cgi?id=${number}
+    ${bug_url}=    BuiltIn.Set Variable If    "${bug_tool}"=="bugzilla"    https://bugs.opendaylight.org/show_bug.cgi?id=${number}    https://jira.opendaylight.org/browse/${number}
     ${msg}=    BuiltIn.Set_Variable    This test fails due to ${bug_url}
     ${newline}=    BuiltIn.Evaluate    chr(10)
     BuiltIn.Set Test Message    ${msg}${newline}${newline}${TEST_MESSAGE}
