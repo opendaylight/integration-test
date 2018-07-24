@@ -22,9 +22,9 @@ Resource          ${CURDIR}/../../../libraries/controller/DdbCommons.robot
 ${DATASTORE_CFG}    /${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.controller.cluster.datastore.cfg
 
 *** Test Cases ***
-Kill_All_Members
-    [Documentation]    Kill every odl node.
-    ClusterManagement.Kill_Members_From_List_Or_All
+Stop_All_Members
+    [Documentation]    Stop every odl node.
+    ClusterManagement.Stop_Members_From_List_Or_All
 
 Set_Tell_Based_Protocol_Usage
     [Documentation]    Un-comment the flag usage in config file. Also clean most data except data/log/.

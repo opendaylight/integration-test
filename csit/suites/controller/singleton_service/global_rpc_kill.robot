@@ -32,18 +32,18 @@ Get_Basic_Rpc_Test_Owner
     [Documentation]    Find a service owner and successors.
     Get_Present_Brt_Owner_And_Successors    1    store=${True}
 
-Rpc_Before_Killing_On_Owner
+Rpc_Before_Stopping_On_Owner
     [Documentation]    Run rpc on the service owner.
     Run_Rpc    ${brt_owner}
 
-Rpc_Before_Kill_On_Successors
+Rpc_Before_Stop_On_Successors
     [Documentation]    Run rpc on non owher cluster nodes.
     : FOR    ${idx}    IN    @{brt_successors}
     \    Run_Rpc    ${idx}
 
-Kill_Current_Owner_Member
-    [Documentation]    Kill cluster node which is the owner.
-    ClusterManagement.Kill_Single_Member    ${brt_owner}
+Stop_Current_Owner_Member
+    [Documentation]    Stop cluster node which is the owner.
+    ClusterManagement.Stop_Single_Member    ${brt_owner}
     BuiltIn.Set Suite variable    ${old_brt_owner}    ${brt_owner}
     BuiltIn.Set Suite variable    ${old_brt_successors}    ${brt_successors}
 
@@ -58,8 +58,8 @@ Rpc_On_Remained_Cluster_Nodes
     : FOR    ${idx}    IN    @{old_brt_successors}
     \    BuiltIn.Wait_Until_Keyword_Succeeds    60s    5s    Run_Rpc    ${idx}
 
-Restart_Killed_Member
-    [Documentation]    Restart killed node
+Restart_Stopped_Member
+    [Documentation]    Restart stopped node
     ClusterManagement.Start_Single_Member    ${old_brt_owner}
 
 Verify_New_Owner_Remained_After_Rejoin
