@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "039425c6_2a2cf255",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2018-07-24T01:56:42Z",
+      "side": 1,
+      "message": "is this correct argument?\n\n[Arguments]    ${testtool}    ${testcase}\u003d${EMPTY}",
+      "range": {
+        "startLine": 81,
+        "startChar": 50,
+        "endLine": 81,
+        "endChar": 73
+      },
+      "revId": "bb27b9ca86213a692714ebea9a87f1ad1848cc36",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
