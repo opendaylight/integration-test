@@ -34,6 +34,24 @@
       "revId": "5253df35c9bafd3e5d39e4ffaf7ec84f1b7de20b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "382bd615_fbe150e1",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-24T19:50:13Z",
+      "side": 1,
+      "message": "Should we create new KW for jira tickets?",
+      "parentUuid": "96e9da01_2e1cdbf9",
+      "revId": "5253df35c9bafd3e5d39e4ffaf7ec84f1b7de20b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
