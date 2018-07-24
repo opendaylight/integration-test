@@ -9,10 +9,9 @@ Documentation     Test Suite for vni-based-l2-l3-nat:
 ...               wire and instead, replaces them with VNIs supplied by the
 ...               tenant’s OpenStack.
 Suite Setup       Start Suite
-Suite Teardown    OpenStackOperations.OpenStack Suite Teardown
-Test Setup        Run Keywords    OpenStackOperations.Get DumpFlows And Ovsconfig    ${OS_CMP1_CONN_ID}
-...               AND    OpenStackOperations.Get DumpFlows And Ovsconfig    ${OS_CMP2_CONN_ID}
-Test Teardown     OpenStackOperations.Get Test Teardown Debugs
+Suite Teardown    Stop Suite
+Test Setup        VpnOperations.VNI Test Setup
+Test Teardown     VpnOperations.VNI Test Teardown
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           String
@@ -23,6 +22,7 @@ Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/VpnOperations.robot
 Resource          ../../../variables/netvirt/Variables.robot
 Resource          ../../../variables/Variables.robot
 
@@ -39,6 +39,7 @@ ${VNI_SECURITY_GROUP}    vni_l2_sg
 *** Test Cases ***
 VNI Based L2 Switching
     [Documentation]    verify VNI id for L2 Unicast frames exchanged over OVS datapaths that are on different hypervisors
+    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     ${port_mac1} =    OpenStackOperations.Get Port Mac    @{VNI_NET_1_PORTS}[0]
     ${port_mac2} =    OpenStackOperations.Get Port Mac    @{VNI_NET_1_PORTS}[1]
     ${segmentation_id} =    OpenStackOperations.Get Network Segmentation Id    @{VNI_NETWORKS}[0]
@@ -73,7 +74,8 @@ VNI Based L2 Switching
 *** Keywords ***
 Start Suite
     [Documentation]    Create Basic setup for the feature. Creates single network, subnet, two ports and two VMs.
-    OpenStackOperations.OpenStack Suite Setup
+    BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
+    VpnOperations.Basic Suite Setup
     OpenStackOperations.Create Allow All SecurityGroup    ${VNI_SECURITY_GROUP}
     OpenStackOperations.Create Network    @{VNI_NETWORKS}[0]
     OpenStackOperations.Create SubNet    @{VNI_NETWORKS}[0]    @{VNI_SUBNETS}[0]    @{VNI_SUBNET_CIDRS}[0]
@@ -86,3 +88,8 @@ Start Suite
     BuiltIn.Set Suite Variable    @{VNI_NET_1_VM_IPS}
     BuiltIn.Should Not Contain    ${VNI_NET_1_VM_IPS}    None
     BuiltIn.Should Not Contain    ${vni_net_1_dhcp_ip}    None
+    Get OvsDebugInfo
+
+Stop Suite
+    BuiltIn.Return From Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"
+    OpenStackOperations.OpenStack Suite Teardown
