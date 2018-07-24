@@ -54,22 +54,22 @@ ${PING_COUNT_VALUE}    0
 *** Test Cases ***
 Verify that table Miss entry for GWMAC table 19 points to table 17 dispatcher table
     [Documentation]    To Verify there should be an entry for table=17,in the table=19 DUMP_FLOWS
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${GWMAC_TABLE}    True    ${EMPTY}    priority=0    actions=resubmit(,17)
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${GWMAC_TABLE}    True    ${EMPTY}    priority=0    actions=resubmit(,17)
 
 Verify the pipeline flow from dispatcher table 17 (L3VPN) to table 19
     [Documentation]    To Verify the end to end pipeline flow from table=17 to table=19 DUMP_FLOWS
     ${subport_id_1} =    OpenStackOperations.Get Sub Port Id    ${PORT_LIST[0]}
     ${subport_id_2} =    OpenStackOperations.Get Sub Port Id    ${PORT_LIST[1]}
-    ${port_num_1} =    OVSDB.Get Port Number    ${subport_id_1}    ${OS_COMPUTE_1_IP}
-    ${port_num_2} =    OVSDB.Get Port Number    ${subport_id_2}    ${OS_COMPUTE_1_IP}
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${TABLE_NO_0}    True    ${EMPTY}    in_port=${port_num_1}    goto_table:${DISPATCHER_TABLE}
-    ${metadata} =    OVSDB.Get Port Metadata    ${OS_COMPUTE_1_IP}    ${port_num_1}
+    ${port_num_1} =    OVSDB.Get Port Number    ${subport_id_1}    ${OS_CMP1_IP}
+    ${port_num_2} =    OVSDB.Get Port Number    ${subport_id_2}    ${OS_CMP1_IP}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_0}    True    ${EMPTY}    in_port=${port_num_1}    goto_table:${DISPATCHER_TABLE}
+    ${metadata} =    OVSDB.Get Port Metadata    ${OS_CMP1_IP}    ${port_num_1}
     ${vpn_id} =    VpnOperations.VPN Get L3VPN ID    ${VRF_ID}
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${DISPATCHER_TABLE}    True    |grep ${vpn_id}    ${vpn_id}    goto_table:${GWMAC_TABLE}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${DISPATCHER_TABLE}    True    |grep ${vpn_id}    ${vpn_id}    goto_table:${GWMAC_TABLE}
     ${gw_mac_addr} =    OpenStackOperations.Get Port Mac Address From Ip    ${DEFAULT_GATEWAY_IPS[0]}
     Verify Flows Are Present For ARP    ${ARP_REQUEST_OPERATIONAL_CODE}    |grep ${metadata}
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${ARP_RESPONSE_TABLE}    True    ${EMPTY}    set_field:${gw_mac_addr}    resubmit(,220)
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${TABLE_NO_220}    True    ${EMPTY}    output:${port_num_2}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_RESPONSE_TABLE}    True    ${EMPTY}    set_field:${gw_mac_addr}    resubmit(,220)
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${TABLE_NO_220}    True    ${EMPTY}    output:${port_num_2}
 
 Verify that ARP requests and ARP response received on GWMAC table are punted to controller for learning ,resubmitted to table 17,sent to ARP responder
     [Documentation]    To verify the ARP Request and ARP response entry should be there after the dump_groups and dispatcher table should point to ARP responder
@@ -78,39 +78,39 @@ Verify that ARP requests and ARP response received on GWMAC table are punted to 
 
 Verify that table miss entry for table 17 should not point to table 81 arp table
     [Documentation]    To Verify there should not be an entry for the arp_responder_table in table=17
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${DISPATCHER_TABLE}    False    |grep priority=0    goto_table:${ARP_RESPONSE_TABLE}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${DISPATCHER_TABLE}    False    |grep priority=0    goto_table:${ARP_RESPONSE_TABLE}
 
 Verify that Multiple GWMAC entries in GWMAC table points to FIB table 21 (L3VPN pipeline)
     [Documentation]    To Verify the one or more default gateway mac enteries on the table=19 flows that points to FIB table 21
     ${gw_mac_addr_1} =    OpenStackOperations.Get Port Mac Address From Ip    ${DEFAULT_GATEWAY_IPS[0]}
     ${gw_mac_addr_2} =    OpenStackOperations.Get Port Mac Address From Ip    ${DEFAULT_GATEWAY_IPS[1]}
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${GWMAC_TABLE}    True    ${EMPTY}    dl_dst=${gw_mac_addr_1}    actions=goto_table:${L3_TABLE}
-    ${pkt_count_before_ping} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${GWMAC_TABLE}    True    ${EMPTY}    dl_dst=${gw_mac_addr_1}    actions=goto_table:${L3_TABLE}
+    ${pkt_count_before_ping} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ping -c 8 @{NET_2_VM_IPS}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
-    ${pkt_count_after_ping} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_1_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
+    ${pkt_count_after_ping} =    OvsManager.Get Packet Count From Table    ${OS_CMP1_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
     ${pkt_diff} =    Evaluate    int(${pkt_count_after_ping})-int(${pkt_count_before_ping})
     BuiltIn.Should Be True    ${pkt_diff} > ${PING_COUNT_VALUE}
-    ${pkt_count_before_ping} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_2_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
+    ${pkt_count_before_ping} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{REQ_NETWORKS}[0]    @{NET_2_VM_IPS}[0]    ping -c 8 @{NET_1_VM_IPS}[1]
     BuiltIn.Should Contain    ${output}    64 bytes
-    ${pkt_count_after_ping} =    OvsManager.Get Packet Count From Table    ${OS_COMPUTE_2_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
+    ${pkt_count_after_ping} =    OvsManager.Get Packet Count From Table    ${OS_CMP2_IP}    ${INTEGRATION_BRIDGE}    table=${GWMAC_TABLE} | grep dl_dst=${gw_mac_addr_1}
     ${pkt_diff} =    Evaluate    int(${pkt_count_after_ping})-int(${pkt_count_before_ping})
     BuiltIn.Should Be True    ${pkt_diff} > ${PING_COUNT_VALUE}
 
 Verify table miss entry of ARP responder table points to drop actions
     [Documentation]    To Verify the default flow entry of table=81 drops when openflow controller connected to compute node
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${ARP_RESPONSE_TABLE}    True    |grep priority=0    actions=drop
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${ARP_RESPONSE_TABLE}    True    |grep priority=0    actions=drop
 
 Verify ARP eth_type entries and actions for ARP request and ARP response are populated on GWMAC table
     [Documentation]    To Verify the entry of ARP request(arp=1) and ARP response(arp=2) in table=19
-    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${GWMAC_TABLE}    True    ${EMPTY}    arp_op=${ARP_REQUEST_OPERATIONAL_CODE}    ${RESUBMIT_VALUE}
+    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${GWMAC_TABLE}    True    ${EMPTY}    arp_op=${ARP_REQUEST_OPERATIONAL_CODE}    ${RESUBMIT_VALUE}
 
 Verify GWMAC entires are populated with Neutron Router MAC address per network in GWMAC table
     [Documentation]    To Verify gateway mac entires are populated with neutron router mac address for network with vpn dissociation from router
     VpnOperations.Dissociate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID}
     ${gw_mac_addr} =    OpenStackOperations.Get Port Mac Address From Ip    ${DEFAULT_GATEWAY_IPS[1]}
-    BuiltIn.Wait Until Keyword Succeeds    60s    15s    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${GWMAC_TABLE}    True
+    BuiltIn.Wait Until Keyword Succeeds    60s    15s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${GWMAC_TABLE}    True
     ...    ${EMPTY}    dl_dst=${gw_mac_addr}    actions=goto_table:${L3_TABLE}
     ${output} =    VpnOperations.Get Fib Entries    session
     BuiltIn.Should Match Regexp    ${output}    .*@{DEFAULT_GATEWAY_IPS}[1]/32.*${NEXTHOP}
@@ -119,7 +119,7 @@ Verify GWMAC entires are populated with port MAC address for network with vpn as
     [Documentation]    To Verify gateway mac entires are populated with port MAC address for network with vpn association to router
     VpnOperations.Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID}
     ${gw_mac_addr} =    OpenStackOperations.Get Port Mac Address From Ip    ${DEFAULT_GATEWAY_IPS[1]}
-    BuiltIn.Wait Until Keyword Succeeds    60s    15s    OVSDB.Verify Dump Flows For Specific Table    ${OS_COMPUTE_1_IP}    ${GWMAC_TABLE}    True
+    BuiltIn.Wait Until Keyword Succeeds    60s    15s    OVSDB.Verify Dump Flows For Specific Table    ${OS_CMP1_IP}    ${GWMAC_TABLE}    True
     ...    ${EMPTY}    dl_dst=${gw_mac_addr}    actions=goto_table:${L3_TABLE}
     ${output} =    VpnOperations.Get Fib Entries    session
     BuiltIn.Should Match Regexp    ${output}    .*${VRF_ID}.*${REQ_SUBNET_CIDR[0]}
@@ -198,12 +198,12 @@ Add Interfaces To Routers
 Verify Flows Are Present For ARP
     [Arguments]    ${arp_op_code}    ${additional_args}=${EMPTY}
     [Documentation]    Verify Flows Are Present For ARP entry
-    ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${DUMP_FLOWS} | grep table=${GWMAC_TABLE}
+    ${flow_output} =    Utils.Run Command On Remote System    ${OS_CMP1_IP}    ${DUMP_FLOWS} | grep table=${GWMAC_TABLE}
     BuiltIn.Should Contain    ${flow_output}    arp,arp_op=${arp_op_code} ${RESUBMIT_VALUE}
-    ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${DUMP_FLOWS} | grep table=${DISPATCHER_TABLE} ${additional_args}
+    ${flow_output} =    Utils.Run Command On Remote System    ${OS_CMP1_IP}    ${DUMP_FLOWS} | grep table=${DISPATCHER_TABLE} ${additional_args}
     BuiltIn.Should Contain    ${flow_output}    goto_table:${ARP_CHECK_TABLE}
-    ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${DUMP_FLOWS} | grep table=${ARP_CHECK_TABLE}
+    ${flow_output} =    Utils.Run Command On Remote System    ${OS_CMP1_IP}    ${DUMP_FLOWS} | grep table=${ARP_CHECK_TABLE}
     @{group_id} =    String.Get Regexp Matches    ${flow_output}    group:(\\d+)    1
     BuiltIn.Should Contain    ${flow_output}    arp,arp_op=1 actions=group:${group_id[0]}
-    ${flow_output} =    Utils.Run Command On Remote System    ${OS_COMPUTE_1_IP}    ${GROUP_FLOWS} | grep group_id=${group_id[0]}
+    ${flow_output} =    Utils.Run Command On Remote System    ${OS_CMP1_IP}    ${GROUP_FLOWS} | grep group_id=${group_id[0]}
     BuiltIn.Should Contain    ${flow_output}    bucket=actions=resubmit(,81)

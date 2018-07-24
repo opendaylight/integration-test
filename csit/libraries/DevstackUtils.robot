@@ -71,6 +71,7 @@ Set Node Data For AllinOne Setup
     BuiltIn.Set Suite Variable    ${OS_CMP1_CONN_ID}    ${OS_CNTL_CONN_ID}
     BuiltIn.Set Suite Variable    ${OS_CMP2_CONN_ID}    ${OS_CNTL_CONN_ID}
     BuiltIn.Set Suite Variable    @{OS_ALL_CONN_IDS}    ${OS_CNTL_CONN_ID}
+    BuiltIn.Set Suite Variable    @{OS_CMP_CONN_IDS}    ${OS_CNTL_CONN_ID}
 
 Set Node Data For Control And Compute Node Setup
     [Documentation]    Assign global variables for DevStack nodes where the control node is also the compute
@@ -81,8 +82,9 @@ Set Node Data For Control And Compute Node Setup
     BuiltIn.Set Suite Variable    ${OS_CMP1_CONN_ID}    ${OS_CNTL_CONN_ID}
     DevstackUtils.Open Connection    OS_CMP2_CONN_ID    ${OS_COMPUTE_1_IP}
     BuiltIn.Set Suite Variable    @{OS_ALL_CONN_IDS}    ${OS_CNTL_CONN_ID}    ${OS_CMP2_CONN_ID}
+    BuiltIn.Set Suite Variable    @{OS_CMP_CONN_IDS}    ${OS_CNTL_CONN_ID}    ${OS_CMP2_CONN_ID}
 
-Set Node Data For Control Only Node Setup
+Set Node Data For Control And Two Compute Node Setup
     [Documentation]    Assign global variables for DevStack nodes where the control node is different than the compute
     BuiltIn.Set Suite Variable    ${OS_CMP1_IP}    ${OS_COMPUTE_1_IP}
     BuiltIn.Set Suite Variable    ${OS_CMP2_IP}    ${OS_COMPUTE_2_IP}
@@ -91,13 +93,14 @@ Set Node Data For Control Only Node Setup
     DevstackUtils.Open Connection    OS_CMP1_CONN_ID    ${OS_COMPUTE_1_IP}
     DevstackUtils.Open Connection    OS_CMP2_CONN_ID    ${OS_COMPUTE_2_IP}
     BuiltIn.Set Suite Variable    @{OS_ALL_CONN_IDS}    ${OS_CNTL_CONN_ID}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}
+    BuiltIn.Set Suite Variable    @{OS_CMP_CONN_IDS}    ${OS_CMP1_CONN_ID}    ${OS_CMP2_CONN_ID}
 
 Get DevStack Nodes Data
     [Documentation]    Assign global variables for DevStack nodes
     BuiltIn.Set Suite Variable    ${OS_CNTL_IP}    ${OS_CONTROL_NODE_IP}
     DevstackUtils.Open Connection    OS_CNTL_CONN_ID    ${OS_CNTL_IP}
-    BuiltIn.Run Keyword If    ${NUM_OS_SYSTEM} == 1    DevstackUtils.Set Node Data For AllinOne Setup
-    ...    ELSE IF    ${NUM_OS_SYSTEM} == 2    DevstackUtils.Set Node Data For Control And Compute Node Setup
-    ...    ELSE IF    ${NUM_OS_SYSTEM} == 3    DevstackUtils.Set Node Data For Control Only Node Setup
+    BuiltIn.Run Keyword If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    DevstackUtils.Set Node Data For AllinOne Setup
+    ...    ELSE IF    "${OS_DEPLOY}" == "1cmb-0ctl-1cmp"    DevstackUtils.Set Node Data For Control And Compute Node Setup
+    ...    ELSE IF    "${OS_DEPLOY}" == "0cmb-1ctl-2cmp"    DevstackUtils.Set Node Data For Control And Two Compute Node Setup
     DevstackUtils.Get DevStack Hostnames
     DevstackUtils.Log Devstack Nodes Data
