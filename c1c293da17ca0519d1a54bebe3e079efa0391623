@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12b680f7_47aaa07d",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-24T15:39:14Z",
+      "side": 1,
+      "message": "The use of upper/lower is still weird. I know this was not you but whoever wrote this test before you, but would it be possible to change the variables in the json files to lower case so that you can use lower case in all variables within the KW? See https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Variable_naming",
+      "revId": "c1c293da17ca0519d1a54bebe3e079efa0391623",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
