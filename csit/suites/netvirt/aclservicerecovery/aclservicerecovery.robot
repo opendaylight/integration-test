@@ -39,7 +39,7 @@ ${TEST_LOG_LEVEL}    trace
 ACL Service Recovery CLI
     [Documentation]    This test case covers ACL service recovery.
     ${count_before} =    OvsManager.Get Dump Flows Count    ${OS_CMP1_CONN_ID}    ${INGRESS_ACL_REMOTE_ACL_TABLE}
-    ${node_id} =    OVSDB.Get DPID    ${OS_COMPUTE_1_IP}
+    ${node_id} =    OVSDB.Get DPID    ${OS_CMP1_IP}
     ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/flow-node-inventory:table/${INGRESS_ACL_REMOTE_ACL_TABLE}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    30s    5s    Verify ACL Flows Should Not Contain    ${OS_CMP1_CONN_ID}    ${INGRESS_ACL_REMOTE_ACL_TABLE}
@@ -50,7 +50,7 @@ ACL Service Recovery CLI
 ACL Instance Recovery CLI
     [Documentation]    This test case covers ACL instance recovery.
     ${count_before} =    OvsManager.Get Dump Flows Count    ${OS_CMP1_CONN_ID}    ${EGRESS_LEARN_ACL_FILTER_TABLE}
-    ${node_id} =    OVSDB.Get DPID    ${OS_COMPUTE_1_IP}
+    ${node_id} =    OVSDB.Get DPID    ${OS_CMP1_IP}
     Write Commands Until Expected Prompt    sudo ovs-ofctl del-flows br-int -OOpenflow13 "table=${EGRESS_LEARN_ACL_FILTER_TABLE},icmp"    ${DEFAULT_LINUX_PROMPT_STRICT}
     Wait Until Keyword Succeeds    30s    5s    Verify ACL Flows Should Not Contain    ${OS_CMP1_CONN_ID}    ${EGRESS_LEARN_ACL_FILTER_TABLE}    icmp
     ${output} =    OpenStack CLI    openstack security group show ${acl_sr_security_group} | awk '/ id / {print $4}'
@@ -67,7 +67,7 @@ ACL Interface Recovery CLI
     @{list} =    Split String    ${output}
     ${port_mac}    Set Variable    ${list[0]}
     ${count_before} =    OvsManager.Get Dump Flows Count    ${OS_CMP1_CONN_ID}    ${EGRESS_ACL_TABLE}    port_mac=${port_mac}
-    ${node_id}    OVSDB.Get DPID    ${OS_COMPUTE_1_IP}
+    ${node_id}    OVSDB.Get DPID    ${OS_CMP1_IP}
     Write Commands Until Expected Prompt    sudo ovs-ofctl del-flows br-int -OOpenflow13 "table=${EGRESS_ACL_TABLE},dl_dst=${port_mac}"    ${DEFAULT_LINUX_PROMPT_STRICT}
     Wait Until Keyword Succeeds    30s    5s    Verify ACL Flows Should Not Contain    ${OS_CMP1_CONN_ID}    ${EGRESS_ACL_TABLE}    ${port_mac}
     ${output} =    OpenStack CLI    openstack port show ${acl_sr_net_1_ports[0]} |awk '/ id / {print$4}'
