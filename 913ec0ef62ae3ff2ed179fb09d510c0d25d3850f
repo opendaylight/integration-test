@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65473403_2e16839e",
+        "filename": "csit/suites/coe/Pod_Connectivity.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-24T14:27:41Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 39,
+        "startChar": 28,
+        "endLine": 39,
+        "endChar": 30
+      },
+      "revId": "913ec0ef62ae3ff2ed179fb09d510c0d25d3850f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2a20dc3_d3a7b5f4",
+        "filename": "csit/suites/coe/Pod_Connectivity.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-24T14:27:41Z",
+      "side": 1,
+      "message": "IN RANGE",
+      "range": {
+        "startLine": 40,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "913ec0ef62ae3ff2ed179fb09d510c0d25d3850f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f953f325_1a32ea68",
+        "filename": "csit/suites/coe/Pod_Connectivity.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-24T14:27:41Z",
+      "side": 1,
+      "message": "this name should be more descriptive, maybe Ping All Pods. The word matrix implies a structure rather than an action - keywords should have well-named actions to make it easy to infer what the do.",
+      "range": {
+        "startLine": 57,
+        "startChar": 1,
+        "endLine": 57,
+        "endChar": 10
+      },
+      "revId": "913ec0ef62ae3ff2ed179fb09d510c0d25d3850f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
