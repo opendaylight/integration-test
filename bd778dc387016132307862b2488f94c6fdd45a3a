@@ -48,6 +48,40 @@
     },
     {
       "key": {
+        "uuid": "9bcba09f_ff912220",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-07-24T18:27:34Z",
+      "side": 1,
+      "message": "duplicate values",
+      "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcdb2111_0f6f85c3",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-07-24T18:27:34Z",
+      "side": 1,
+      "message": "should be there in netvirt/Variables.robot right ??",
+      "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf5062ef_f3ba3c82",
         "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
         "patchSetId": 11
@@ -65,6 +99,23 @@
         "endLine": 43,
         "endChar": 12
       },
+      "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9523e44c_d0ea889a",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-07-24T18:27:34Z",
+      "side": 1,
+      "message": "can we put these in loop ?",
       "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -134,6 +185,23 @@
         "endLine": 144,
         "endChar": 95
       },
+      "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a97346a4_f1bd0ed9",
+        "filename": "csit/suites/netvirt/elan/Elan_service_interface_recovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 7392
+      },
+      "writtenOn": "2018-07-24T18:27:34Z",
+      "side": 1,
+      "message": "unused keyword??",
       "revId": "bd778dc387016132307862b2488f94c6fdd45a3a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
