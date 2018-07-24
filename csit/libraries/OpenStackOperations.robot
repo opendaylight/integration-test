@@ -544,9 +544,8 @@ Get ControlNode Connection
 
 Get OvsDebugInfo
     [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
-    BuiltIn.Run Keyword If    0 < ${NUM_OS_SYSTEM}    OpenStackOperations.Get DumpFlows And Ovsconfig    ${OS_CNTL_CONN_ID}
-    BuiltIn.Run Keyword If    1 < ${NUM_OS_SYSTEM}    OpenStackOperations.Get DumpFlows And Ovsconfig    ${OS_CMP1_CONN_ID}
-    BuiltIn.Run Keyword If    2 < ${NUM_OS_SYSTEM}    OpenStackOperations.Get DumpFlows And Ovsconfig    ${OS_CMP2_CONN_ID}
+    : FOR    ${conn_id}    IN    @{OS_ALL_CONN_IDS}
+    \    OpenStackOperations.Get DumpFlows And Ovsconfig    ${conn_id}
 
 Get Test Teardown Debugs
     [Arguments]    ${test_name}=${SUITE_NAME}.${TEST_NAME}
@@ -1036,15 +1035,13 @@ Is Feature Installed
 
 Add OVS Logging On All OpenStack Nodes
     [Documentation]    Add higher levels of OVS logging to all the OpenStack nodes
-    BuiltIn.Run Keyword If    0 < ${NUM_OS_SYSTEM}    OVSDB.Add OVS Logging    ${OS_CNTL_CONN_ID}
-    BuiltIn.Run Keyword If    1 < ${NUM_OS_SYSTEM}    OVSDB.Add OVS Logging    ${OS_CMP1_CONN_ID}
-    BuiltIn.Run Keyword If    2 < ${NUM_OS_SYSTEM}    OVSDB.Add OVS Logging    ${OS_CMP2_CONN_ID}
+    : FOR    ${conn_id}    IN    @{OS_ALL_CONN_IDS}
+    \    OVSDB.Add OVS Logging    ${conn_id}
 
 Reset OVS Logging On All OpenStack Nodes
     [Documentation]    Reset the OVS logging to all the OpenStack nodes
-    BuiltIn.Run Keyword If    0 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CNTL_CONN_ID}
-    BuiltIn.Run Keyword If    1 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CMP1_CONN_ID}
-    BuiltIn.Run Keyword If    2 < ${NUM_OS_SYSTEM}    OVSDB.Reset OVS Logging    ${OS_CMP2_CONN_ID}
+    : FOR    ${conn_id}    IN    @{OS_ALL_CONN_IDS}
+    \    OVSDB.Reset OVS Logging    ${conn_id}
 
 Start Packet Capture On Nodes
     [Arguments]    ${tag}    ${filter}    @{ips}

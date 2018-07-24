@@ -31,6 +31,5 @@ Verify No Ingress Dispatcher Non-Default Flow Entries
 
 Verify Flows Are Cleaned Up On All OpenStack Nodes
     [Documentation]    Verify flows are cleaned up from all OpenStack nodes
-    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_CONTROL_NODE_IP}
-    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_COMPUTE_1_IP}
-    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${OS_COMPUTE_2_IP}
+    : FOR    ${ip}    IN    @{OS_ALL_IPS}
+    \    Run Keyword And Continue On Failure    Verify No Ingress Dispatcher Non-Default Flow Entries    ${ip}
