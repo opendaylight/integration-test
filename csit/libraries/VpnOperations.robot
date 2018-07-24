@@ -136,6 +136,12 @@ Verify Flows Are Present For L3VPN
     : FOR    ${i}    IN    @{vm_ips}
     \    ${resp}=    Should Contain    ${l3vpn_table}    ${i}
 
+Verify Flows Are Present For L3VPN On All Compute Nodes
+    [Arguments]    ${vm_ips}
+    [Documentation]    Verify Flows Are Present For L3VPN On All Compute Nodes
+    : FOR    ${ip}    IN    @{OS_CMP_IPS}
+    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${ip}    ${vm_ips}
+
 Verify GWMAC Entry On ODL
     [Arguments]    ${GWMAC_ADDRS}
     [Documentation]    get ODL GWMAC table entry
@@ -263,6 +269,10 @@ Verify GWMAC Flow Entry On Flow Table
     ${groupID} =    Split String    ${match}    separator=:
     BuiltIn.Run Keyword If    '${ipv}' == 'ipv4'    Verify IPv4 GWMAC Flow Entry On Flow Table    ${group_output}    ${group_id}    ${flow_output}
     ...    ELSE    Verify IPv6 GWMAC Flow Entry On Flow Table    ${flow_output}
+
+Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
+    : FOR    ${ip}    IN    @{OS_CMP_IPS}
+    \    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${ip}
 
 Delete Multiple L3VPNs
     [Arguments]    @{vpns}

@@ -176,8 +176,7 @@ Check L3_Datapath Traffic Across Networks With Router
     : FOR    ${VM}    IN    ${vm_instances}
     \    BuiltIn.Wait Until Keyword Succeeds    30s    5s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM}
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    VpnOperations.Verify GWMAC Entry On ODL    ${GW_MAC_ADDRS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+    Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
     BuiltIn.Log    L3 Datapath test across the networks using router
     ${dst_ipv4_list1} =    BuiltIn.Create List    ${NET_1_VM_IPV4[1]}    @{NET_2_VM_IPV4}
     Test Operations From Vm Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[0]}    ${dst_ipv4_list1}
@@ -282,11 +281,9 @@ Verify L3VPN Datapath With Router Association
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    Utils.Check For Elements At URI    ${VPN_IFACES_URL}    ${VM_IPS}
     ${RD} =    Strip String    ${RDS[0]}    characters="[]
     BuiltIn.Wait Until Keyword Succeeds    60s    15s    Utils.Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${VM_IPS}
-    BuiltIn.Wait Until Keyword Succeeds    60s    5s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IPS}
-    BuiltIn.Wait Until Keyword Succeeds    60s    5s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${VM_IPS}
+    Verify Flows Are Present For L3VPN On All Compute Nodes    ${VM_IPS}
     BuiltIn.Wait Until Keyword Succeeds    30s    5s    VpnOperations.Verify GWMAC Entry On ODL    ${GW_MAC_ADDRS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    30s    5s    Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+    Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
     BuiltIn.Log    L3 Datapath test across the networks using L3VPN
     ${dst_ipv4_list1} =    BuiltIn.Create List    ${NET_1_VM_IPV4[1]}    @{NET_2_VM_IPV4}
     Test Operations From Vm Instance    @{NETWORKS}[0]    ${NET_1_VM_IPV4[0]}    ${dst_ipv4_list1}

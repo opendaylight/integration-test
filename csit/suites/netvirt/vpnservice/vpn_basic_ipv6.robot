@@ -131,8 +131,7 @@ Check L3_Datapath Traffic Across Networks With Router
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET10}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${VM_IP_NET20}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}    ipv6
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}    ipv6
+    Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
     ${dst_ip_list} =    BuiltIn.Create List    @{VM_IP_NET10}[1]    @{VM_IP_NET20}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{VM_IP_NET10}[0]    ${dst_ip_list}
     ${dst_ip_list} =    BuiltIn.Create List    @{VM_IP_NET20}[1]    @{VM_IP_NET10}
@@ -194,15 +193,13 @@ Associate L3VPN To Routers
 
 Verify L3VPN Datapath With Router Association
     BuiltIn.Log    Verify VPN interfaces, FIB entries and Flow table
-    ${vm_instances} =    BuiltIn.Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_instances}
+    ${vm_ips} =    BuiltIn.Create List    @{VM_IP_NET10}    @{VM_IP_NET20}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_ips}
     ${RD} =    Strip String    @{RDS}[0]    characters="[]
-    BuiltIn.Wait Until Keyword Succeeds    60s    15s    Utils.Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
-    BuiltIn.Wait Until Keyword Succeeds    60s    15s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
-    BuiltIn.Wait Until Keyword Succeeds    60s    15s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    BuiltIn.Wait Until Keyword Succeeds    60s    15s    Utils.Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_ips}
+    Verify Flows Are Present For L3VPN On All Compute Nodes    ${vm_ips}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}    ipv6
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}    ipv6
+    Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
     BuiltIn.Log    Check datapath from network1 to network2
     ${dst_ip_list} =    BuiltIn.Create List    @{VM_IP_NET10}[1]    @{VM_IP_NET20}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{VM_IP_NET10}[0]    ${dst_ip_list}
