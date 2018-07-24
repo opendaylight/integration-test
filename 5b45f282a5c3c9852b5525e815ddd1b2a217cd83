@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a27c248e_934710c6",
+        "filename": "csit/libraries/SxpBindingOriginsLib.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5872
+      },
+      "writtenOn": "2018-07-24T15:12:24Z",
+      "side": 1,
+      "message": "I would rename this to something more appropriate. \"Clean\" implies only delete operations. Perhaps \"Setup Default Origins Configuration\" ?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "5b45f282a5c3c9852b5525e815ddd1b2a217cd83",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
