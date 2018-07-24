@@ -42,7 +42,7 @@ Stop Mininet
     Read Until    ${prompt}
     Close Connection
 
-Report_Failure_Due_To_Bug
+Report Failure Due To Bug
     [Arguments]    ${number}    ${include_bug_in_tags}=True
     [Documentation]    Report that a test failed due to a known Bugzilla bug whose
     ...    number is provided as an argument.
@@ -53,12 +53,14 @@ Report_Failure_Due_To_Bug
     ...    into the Robot log file.
     ${test_skipped}=    BuiltIn.Evaluate    len(re.findall('SKIPPED', """${TEST_MESSAGE}""")) > 0    modules=re
     BuiltIn.Return From Keyword If    ('${TEST_STATUS}' != 'FAIL') or ${test_skipped}
-    ${bug_url}=    BuiltIn.Set_Variable    https://bugs.opendaylight.org/show_bug.cgi?id=${number}
+    Comment    Jira tickets are {PROJECT}-{NUMBER} while Bugzilla tickets are {NUMBER}
+    ${match}    BuiltIn.Run Keyword And Return Status    Should Contain    ${number}    -
+    ${bug_url}=    BuiltIn.Set Variable If    "${match}"=="FAIL"    https://bugs.opendaylight.org/show_bug.cgi?id=${number}    https://jira.opendaylight.org/browse/${number}
     ${msg}=    BuiltIn.Set_Variable    This test fails due to ${bug_url}
     ${newline}=    BuiltIn.Evaluate    chr(10)
     BuiltIn.Set Test Message    ${msg}${newline}${newline}${TEST_MESSAGE}
     BuiltIn.Log    ${msg}
-    BuiltIn.Run_Keyword_If    "${include_bug_in_tags}"=="True"    Set Tags    ${bug_url}
+    BuiltIn.Run Keyword If    "${include_bug_in_tags}"=="True"    Set Tags    ${bug_url}
 
 Report_Failure_And_Point_To_Linked_Bugs
     [Documentation]    Report that a test failed and point to linked Bugzilla bug(s).
