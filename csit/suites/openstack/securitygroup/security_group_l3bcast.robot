@@ -81,15 +81,15 @@ Create Setup
     OpenStackOperations.Execute Command on VM Instance    ${NETWORKS[0]}    @{VM_IPS}[0]    ${ENABLE_BCAST}
     OpenStackOperations.Execute Command on VM Instance    ${NETWORKS[1]}    @{VM_IPS}[3]    ${ENABLE_BCAST}
     ${vm1_in_port}    ${vm1_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_1_PORTS}[0]
-    ...    ${OS_COMPUTE_1_IP}
+    ...    ${OS_CMP1_IP}
     ${vm2_in_port}    ${vm2_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_1_PORTS}[1]
-    ...    ${OS_COMPUTE_1_IP}
+    ...    ${OS_CMP1_IP}
     ${vm3_in_port}    ${vm3_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_1_PORTS}[2]
-    ...    ${OS_COMPUTE_2_IP}
+    ...    ${OS_CMP2_IP}
     ${vm4_in_port}    ${vm4_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_2_PORTS}[0]
-    ...    ${OS_COMPUTE_1_IP}
+    ...    ${OS_CMP1_IP}
     ${vm5_in_port}    ${vm5_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_2_PORTS}[1]
-    ...    ${OS_COMPUTE_2_IP}
+    ...    ${OS_CMP2_IP}
     ${VM1_SUBMETA} =    Get Submetadata    ${vm1_meta}
     ${VM2_SUBMETA} =    Get Submetadata    ${vm2_meta}
     ${VM3_SUBMETA} =    Get Submetadata    ${vm3_meta}
