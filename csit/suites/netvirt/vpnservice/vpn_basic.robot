@@ -112,14 +112,12 @@ Add Interfaces To Router
     BuiltIn.Set Suite Variable    ${GWIP_ADDRS}
 
 Check L3_Datapath Traffic Across Networks With Router
-    @{tcpdump_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_vpn    ${EMPTY}    ${OS_CONTROL_NODE_IP}    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+    @{tcpdump_conn_ids} =    OpenStackOperations.Start Packet Capture On Nodes    tcpdump_vpn    ${EMPTY}    ${OS_ALL_IPS}
     ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${FIB_ENTRY_URL}    ${vm_ips}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_ips}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_ips}
+    Verify Flows Are Present For L3VPN On All Compute Nodes    ${vm_ips}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+    Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
     ${dst_ip_list} =    BuiltIn.Create List    @{NET_1_VM_IPS}[1]    @{NET_2_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
     ${dst_ip_list} =    BuiltIn.Create List    @{NET_2_VM_IPS}[1]    @{NET_1_VM_IPS}
@@ -180,15 +178,13 @@ Associate L3VPN To Routers
     BuiltIn.Should Contain    ${resp}    ${router_id}
 
 Verify L3VPN Datapath With Router Association
-    ${vm_instances} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_instances}
+    ${vm_ips} =    BuiltIn.Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
+    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Utils.Check For Elements At URI    ${VPN_IFACES_URL}    ${vm_ips}
     ${RD} =    Strip String    @{RDS}[0]    characters="[]
-    BuiltIn.Wait Until Keyword Succeeds    60s    15s    Utils.Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_instances}
-    BuiltIn.Wait Until Keyword Succeeds    60s    15s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
-    BuiltIn.Wait Until Keyword Succeeds    60s    15s    VpnOperations.Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    BuiltIn.Wait Until Keyword Succeeds    60s    15s    Utils.Check For Elements At URI    ${CONFIG_API}/odl-fib:fibEntries/vrfTables/${RD}/    ${vm_ips}
+    Verify Flows Are Present For L3VPN On All Compute Nodes    ${vm_ips}
     BuiltIn.Wait Until Keyword Succeeds    30s    15s    VpnOperations.Verify GWMAC Entry On ODL    ${GWMAC_ADDRS}
-    BuiltIn.Wait Until Keyword Succeeds    30s    15s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    30s    15s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+    Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
     BuiltIn.Log    Check datapath from network1 to network2
     ${dst_ip_list} =    BuiltIn.Create List    @{NET_1_VM_IPS}[1]    @{NET_2_VM_IPS}
     OpenStackOperations.Test Operations From Vm Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
@@ -207,8 +203,7 @@ Delete Router Failure When Associated With L3VPN
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements At URI    ${ROUTER_URL}    ${router_list}
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Contain    ${resp}    ${router_id}
-    BuiltIn.Wait Until Keyword Succeeds    30s    15s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    30s    15s    VpnOperations.Verify GWMAC Flow Entry On Flow Table    ${OS_COMPUTE_2_IP}
+    Verify GWMAC Flow Entry On Flow Table On All Compute Nodes
 
 Remove Router Interfaces
     ${router_id} =    OpenStackOperations.Get Router Id    ${ROUTER}
@@ -233,8 +228,7 @@ Delete Router
     BuiltIn.Wait Until Keyword Succeeds    3s    1s    Utils.Check For Elements Not At URI    ${ROUTER_URL}    ${router_list}
     ${resp} =    VpnOperations.VPN Get L3VPN    vpnid=@{VPN_INSTANCE_IDS}[0]
     BuiltIn.Should Not Contain    ${resp}    ${ROUTER}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    VpnOperations.Verify GWMAC Flow Entry Removed From Flow Table    ${OS_COMPUTE_2_IP}
+    Verify GWMAC Flow Entry Removed From Flow Table On All Compute Nodes
 
 Delete Router With NonExistentRouter Name
     [Documentation]    Delete router with nonExistentRouter name
