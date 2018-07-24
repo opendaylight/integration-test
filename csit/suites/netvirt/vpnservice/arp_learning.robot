@@ -115,13 +115,13 @@ Verify Setup
 
 Verify GARP Requests
     [Documentation]    Verify that GARP request are sent to controller
+    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     BuiltIn.Set Test Variable    ${fib_entry_1}    @{NET_1_VM_IPS}[0]
     BuiltIn.Set Test Variable    ${fib_entry_3}    @{NET_1_VM_IPS}[1]
-    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Flows Are Present    ${OS_COMPUTE_1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Flows Are Present    ${OS_COMPUTE_2_IP}
+    Verify Flows Are Present On All Compute Nodes
     ${output} =    VpnOperations.Get Fib Entries    session
-    ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_3}\/32".*"${OS_COMPUTE_2_IP}\\"
-    ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_1}\/32".*"${OS_COMPUTE_1_IP}\\"
+    ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_3}\/32".*"${OS_CMP2_IP}\\"
+    ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_1}\/32".*"${OS_CMP1_IP}\\"
     ${rx_packet1_before} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ifconfig eth0
     ${rx_packet0_before} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ifconfig eth0
     ${config_extra_route_ip1} =    BuiltIn.Catenate    sudo ifconfig ${SUB_IF} @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
@@ -135,17 +135,17 @@ Verify GARP Requests
     ${rx_packet0_after} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ifconfig eth0
     BuiltIn.Should Not Be Equal    ${rx_packet0_before}    ${rx_packet0_after}
     BuiltIn.Should Not Be Equal    ${rx_packet1_before}    ${rx_packet1_after}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present    ${OS_COMPUTE_1_IP}
-    BuiltIn.Wait Until Keyword Succeeds    30s    10s    Verify Flows Are Present    ${OS_COMPUTE_2_IP}
+    Verify Flows Are Present On All Compute Nodes
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    Verify Learnt IP    ${FIB_ENTRY_2}    session
     ${output} =    VpnOperations.Get Fib Entries    session
-    ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_3}\\/32".*"${OS_COMPUTE_2_IP}\\"
-    ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_1}\\/32".*"${OS_COMPUTE_1_IP}\\"
-    ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_2}\\/32".*"${OS_COMPUTE_2_IP}\\"
+    ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_3}\\/32".*"${OS_CMP2_IP}\\"
+    ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${fib_entry_1}\\/32".*"${OS_CMP1_IP}\\"
+    ${resp} =    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_2}\\/32".*"${OS_CMP2_IP}\\"
     Verify Ping To Sub Interface    ${FIB_ENTRY_2}
 
 Verify MIP Migration
     [Documentation]    Verify that after migration of movable ip across compute nodes, the controller updates the routes
+    BuiltIn.Pass Execution If    "${OS_DEPLOY}" == "1cmb-0ctl-0cmp"    "Test is not supported for combo node"
     ${unconfig_extra_route_ip1} =    BuiltIn.Catenate    sudo ifconfig ${SUB_IF} down
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ${unconfig_extra_route_ip1}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[1]    ifconfig
@@ -161,7 +161,7 @@ Verify MIP Migration
     BuiltIn.Wait Until Keyword Succeeds    5s    1s    Verify Learnt IP    ${FIB_ENTRY_2}    session
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${RPING_MIP_IP}
     ${output}    VpnOperations.Get Fib Entries    session
-    ${resp}=    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_2}\\/32".*"${OS_COMPUTE_1_IP}\\"
+    ${resp}=    BuiltIn.Should Match Regexp    ${output}    destPrefix\\":\\"${FIB_ENTRY_2}\\/32".*"${OS_CMP1_IP}\\"
     Verify Ping To Sub Interface    ${FIB_ENTRY_2}
     ${unconfig_extra_route_ip1} =    BuiltIn.Catenate    sudo ifconfig ${SUB_IF} down
     ${output} =    OpenStackOperations.Execute Command on VM Instance    @{NETWORKS}[0]    @{NET_1_VM_IPS}[0]    ${unconfig_extra_route_ip1}
@@ -242,6 +242,11 @@ Verify Flows Are Present
     ${resp} =    Should Match regexp    ${flow_output}    table=0.*goto_table:17
     : FOR    ${ip}    IN    @{vm_ips}
     \    ${resp} =    Should Match regexp    ${flow_output}    table=21.*nw_dst=${ip}
+
+Verify Flows Are Present On All Compute Nodes
+    [Documentation]    Verify Flows Are Present On All Compute Nodes
+    : FOR    ${ip}    IN    @{OS_CMP_IPS}
+    \    BuiltIn.Wait Until Keyword Succeeds    10s    2s    Verify Flows Are Present    ${ip}
 
 Verify Ping To Sub Interface
     [Arguments]    ${sub_interface_ip}

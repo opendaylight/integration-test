@@ -54,15 +54,15 @@ Add Ssh Allow All Rule
 
 Create Bridge Manually and Verify Before Fail
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Bridge Manually And Verify    ${OS_CONTROL_NODE_IP}
+    ClusterOvsdb.Create Sample Bridge Manually And Verify    ${OS_CNTL_IP}
 
 Add Tap Device Manually and Verify Before Fail
     [Documentation]    Add tap devices to the bridge with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${OS_CONTROL_NODE_IP}
+    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${OS_CNTL_IP}
 
 Delete the Bridge Manually and Verify Before Fail
     [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${OS_CONTROL_NODE_IP}
+    ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${OS_CNTL_IP}
 
 Take Down ODL1
     [Documentation]    Kill the karaf in First Controller
@@ -71,15 +71,15 @@ Take Down ODL1
 
 Create Bridge Manually and Verify After Fail
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Bridge Manually And Verify    ${OS_CONTROL_NODE_IP}    ${new_cluster_list}
+    ClusterOvsdb.Create Sample Bridge Manually And Verify    ${OS_CNTL_IP}    ${new_cluster_list}
 
 Add Tap Device Manually and Verify After Fail
     [Documentation]    Add tap devices to the bridge with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${OS_CONTROL_NODE_IP}    ${new_cluster_list}
+    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${OS_CNTL_IP}    ${new_cluster_list}
 
 Delete the Bridge Manually and Verify After Fail
     [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${OS_CONTROL_NODE_IP}    ${new_cluster_list}
+    ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${OS_CNTL_IP}    ${new_cluster_list}
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
@@ -87,15 +87,15 @@ Bring Up ODL1
 
 Create Bridge Manually and Verify After Recover
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Bridge Manually And Verify    ${OS_CONTROL_NODE_IP}
+    ClusterOvsdb.Create Sample Bridge Manually And Verify    ${OS_CNTL_IP}
 
 Add Tap Device Manually and Verify After Recover
     [Documentation]    Add tap devices to the bridge with OVS command and verify it gets applied from all instances.
-    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${OS_CONTROL_NODE_IP}
+    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${OS_CNTL_IP}
 
 Delete the Bridge Manually and Verify After Recover
     [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${OS_CONTROL_NODE_IP}
+    ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${OS_CNTL_IP}
 
 Take Down ODL2
     [Documentation]    Kill the karaf in Second Controller
