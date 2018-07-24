@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3859cbcd_914c250c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-24T23:41:51Z",
+      "side": 1,
+      "message": "move this up as output of Log Content and then remove the To JSon and following log content. Also typically call it output rather than result.",
+      "range": {
+        "startLine": 815,
+        "startChar": 4,
+        "endLine": 815,
+        "endChar": 15
+      },
+      "revId": "ff90b40cfeb5565002326a5e2b0f7eb1776c9670",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd63ba17_1480c967",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-24T23:41:51Z",
+      "side": 1,
+      "message": "same comment as above",
+      "range": {
+        "startLine": 828,
+        "startChar": 4,
+        "endLine": 828,
+        "endChar": 17
+      },
+      "revId": "ff90b40cfeb5565002326a5e2b0f7eb1776c9670",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
