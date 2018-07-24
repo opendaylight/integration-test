@@ -41,12 +41,12 @@ ${ENABLE_BCAST}    echo 0 | sudo tee /proc/sys/net/ipv4/icmp_echo_ignore_broadca
 *** Test case ***
 Verify Network Broadcast traffic between the VMs hosted in Single Network
     [Documentation]    This TC is to verify Network Broadcast traffic between the VMs hosted in Same Network on same/different compute node
-    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_CMP1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
     ...    @{VM_IPS}[0]    same
 
 Verify Network Broadcast traffic between the VMs hosted in Multi Network
     [Documentation]    This TC is to verify Network Broadcast traffic between the VMs hosted in Different Network on same/different compute node.
-    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_COMPUTE1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify L3Broadcast With Antispoofing Table    ${OS_CMP1_IP}    ${EGRESS_ACL_TABLE}    ${BCAST_IP}
     ...    @{VM_IPS}[3]    different
 
 *** Keywords ***
@@ -81,15 +81,15 @@ Create Setup
     OpenStackOperations.Execute Command on VM Instance    ${NETWORKS[0]}    @{VM_IPS}[0]    ${ENABLE_BCAST}
     OpenStackOperations.Execute Command on VM Instance    ${NETWORKS[1]}    @{VM_IPS}[3]    ${ENABLE_BCAST}
     ${vm1_in_port}    ${vm1_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_1_PORTS}[0]
-    ...    ${OS_COMPUTE_1_IP}
+    ...    ${OS_CMP1_IP}
     ${vm2_in_port}    ${vm2_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_1_PORTS}[1]
-    ...    ${OS_COMPUTE_1_IP}
+    ...    ${OS_CMP1_IP}
     ${vm3_in_port}    ${vm3_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_1_PORTS}[2]
-    ...    ${OS_COMPUTE_2_IP}
+    ...    ${OS_CMP2_IP}
     ${vm4_in_port}    ${vm4_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_2_PORTS}[0]
-    ...    ${OS_COMPUTE_1_IP}
+    ...    ${OS_CMP1_IP}
     ${vm5_in_port}    ${vm5_meta} =    BuiltIn.Wait Until Keyword Succeeds    60s    10s    Get VMs Metadata and In Port    @{NET_2_PORTS}[1]
-    ...    ${OS_COMPUTE_2_IP}
+    ...    ${OS_CMP2_IP}
     ${VM1_SUBMETA} =    Get Submetadata    ${vm1_meta}
     ${VM2_SUBMETA} =    Get Submetadata    ${vm2_meta}
     ${VM3_SUBMETA} =    Get Submetadata    ${vm3_meta}
@@ -119,7 +119,7 @@ Get VMs Metadata and In Port
 Get Submetadata
     [Arguments]    ${vm_metadata}
     [Documentation]    Get the submetadata of the VM
-    ${cmd1} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE1_IP}    ${DUMP_FLOW} | grep ${EGRESS_LPORT_DISPATCHER_TABLE} | grep write_metadata:
+    ${cmd1} =    Utils.Run Command On Remote System And Log    ${OS_CMP1_IP}    ${DUMP_FLOW} | grep ${EGRESS_LPORT_DISPATCHER_TABLE} | grep write_metadata:
     ${output1} =    String.Get Regexp Matches    ${cmd1}    reg6=(\\w+)    1
     ${cmd2} =    Utils.Run Command On Remote System And Log    ${OS_COMPUTE2_IP}    ${DUMP_FLOW} | grep ${EGRESS_LPORT_DISPATCHER_TABLE} | grep write_metadata:
     ${output2} =    String.Get Regexp Matches    ${cmd2}    reg6=(\\w+)    1
