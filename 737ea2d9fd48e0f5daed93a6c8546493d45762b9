@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd3c6861_9bbef824",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-07-24T07:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69e69850_46f4fcfe",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 78
+      },
+      "revId": "737ea2d9fd48e0f5daed93a6c8546493d45762b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee9e943c_719a6ece",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-16T08:49:03Z",
       "side": 1,
       "message": "Move it to variables/netvirt/Variables.robot",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 58
+      },
+      "revId": "737ea2d9fd48e0f5daed93a6c8546493d45762b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3ee1b98_3c63ceca",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-07-24T07:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee9e943c_719a6ece",
       "range": {
         "startLine": 34,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4146bd7b_e360b592",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-07-24T07:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c09b6e7a_3483a781",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 11
+      },
+      "revId": "737ea2d9fd48e0f5daed93a6c8546493d45762b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a3d7a31_01cecdb9",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2018-07-16T08:49:03Z",
       "side": 1,
       "message": "Move it to the above variables section",
+      "range": {
+        "startLine": 62,
+        "startChar": 56,
+        "endLine": 62,
+        "endChar": 60
+      },
+      "revId": "737ea2d9fd48e0f5daed93a6c8546493d45762b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aafc1599_7f876a10",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-07-24T07:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a3d7a31_01cecdb9",
       "range": {
         "startLine": 62,
         "startChar": 56,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "df7a79d8_51da1993",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-07-24T07:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ec26bf0_44a02e2e",
+      "range": {
+        "startLine": 77,
+        "startChar": 36,
+        "endLine": 77,
+        "endChar": 42
+      },
+      "revId": "737ea2d9fd48e0f5daed93a6c8546493d45762b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de2d7a08_94dc83ae",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 9
@@ -128,6 +248,30 @@
       "writtenOn": "2018-07-16T08:49:03Z",
       "side": 1,
       "message": "Suite variables should be Uppercase",
+      "range": {
+        "startLine": 80,
+        "startChar": 36,
+        "endLine": 80,
+        "endChar": 42
+      },
+      "revId": "737ea2d9fd48e0f5daed93a6c8546493d45762b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8034bb5c_2279e5e5",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-07-24T07:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de2d7a08_94dc83ae",
       "range": {
         "startLine": 80,
         "startChar": 36,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "cdcdb469_cae05ee5",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-07-24T07:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cc7726d_1b6d7267",
+      "range": {
+        "startLine": 121,
+        "startChar": 112,
+        "endLine": 121,
+        "endChar": 113
+      },
+      "revId": "737ea2d9fd48e0f5daed93a6c8546493d45762b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9c2edb5_415a1652",
         "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
         "patchSetId": 9
@@ -174,6 +342,53 @@
       "writtenOn": "2018-07-16T08:49:03Z",
       "side": 1,
       "message": "change it to @{localip}[0]",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 29
+      },
+      "revId": "737ea2d9fd48e0f5daed93a6c8546493d45762b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25adc89f_b7b10cf0",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-07-24T07:45:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9c2edb5_415a1652",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 29
+      },
+      "revId": "737ea2d9fd48e0f5daed93a6c8546493d45762b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f89dbae_3d58cdf4",
+        "filename": "csit/suites/genius/ITM_Vtep_Auto_Tunnel.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7648
+      },
+      "writtenOn": "2018-07-24T07:45:27Z",
+      "side": 1,
+      "message": "done",
       "range": {
         "startLine": 137,
         "startChar": 16,
