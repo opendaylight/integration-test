@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb67a7b3_68110076",
+        "filename": "csit/libraries/SxpBindingOriginsLib.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T15:05:29Z",
+      "side": 1,
+      "message": "use a more meaningful name. REST_CONTEXT is too generic",
+      "range": {
+        "startLine": 7,
+        "startChar": 2,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "07f91b263303b58579cfe53f738d0f88a7aa4fba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61809d00_6d33d3ed",
+        "filename": "csit/libraries/SxpBindingOriginsLib.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T15:05:29Z",
+      "side": 1,
+      "message": "most projects and int/test code is using the syntax of\n${resp} \u003d\n\nit will make things more consistent for this repo if we\nkeep working to use that standard.",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "07f91b263303b58579cfe53f738d0f88a7aa4fba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44a95049_759ab4fd",
+        "filename": "csit/libraries/SxpBindingOriginsLib.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T15:05:29Z",
+      "side": 1,
+      "message": "lower case for local vars. only use upper if it\u0027s a suite/global variable and try to never use suite/global\nvars anyway",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 10
+      },
+      "revId": "07f91b263303b58579cfe53f738d0f88a7aa4fba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7e9b171_e0928be5",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T15:05:29Z",
+      "side": 1,
+      "message": "REST_CONTEXT is too generic, but even after a name change\nwe don\u0027t want/need it in two places. that\u0027s error\nprone. Maybe it\u0027s time for an SXP variables file, if not\none already?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 54
+      },
+      "revId": "07f91b263303b58579cfe53f738d0f88a7aa4fba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3705fc20_df47f76c",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T15:05:29Z",
+      "side": 1,
+      "message": "${output} \u003d\n\nplease.",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 13
+      },
+      "revId": "07f91b263303b58579cfe53f738d0f88a7aa4fba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bee461a3_46ade66f",
+        "filename": "csit/suites/sxp/binding-origin/010_Binding_Origins_Configuration.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T15:05:29Z",
+      "side": 1,
+      "message": "does it work to use:\n@{DEFAULT_AND_CLUSTER}    @{DEFAULT_ORIGINS}    @{CLUSTER}",
+      "range": {
+        "startLine": 12,
+        "startChar": 26,
+        "endLine": 12,
+        "endChar": 53
+      },
+      "revId": "07f91b263303b58579cfe53f738d0f88a7aa4fba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
