@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "086604f0_b6c1d0ba",
+        "filename": "csit/libraries/SFC/SfcKeywords.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-25T15:45:30Z",
+      "side": 1,
+      "message": "I see now, code is different that what I reviewed :P",
+      "parentUuid": "682de8fc_e1b45a08",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 120
+      },
+      "revId": "6af1dae7d7b18a246e55ea8cf1d01d69abc768e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed0abd82_dcf86dbc",
         "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
         "patchSetId": 7
@@ -107,6 +131,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "ed0abd82_dcf86dbc",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "6af1dae7d7b18a246e55ea8cf1d01d69abc768e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48f9cb3f_3b72199d",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-25T15:45:30Z",
+      "side": 1,
+      "message": "Agreed that we will improve on this on a further patch.",
+      "parentUuid": "89eb55c4_a679547c",
       "range": {
         "startLine": 60,
         "startChar": 0,
