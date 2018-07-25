@@ -16,6 +16,24 @@
       "revId": "c1c293da17ca0519d1a54bebe3e079efa0391623",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc78a361_1950c3d0",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2446
+      },
+      "writtenOn": "2018-07-25T10:54:43Z",
+      "side": 1,
+      "message": "I made modifications according to guidelines. Please check.",
+      "parentUuid": "12b680f7_47aaa07d",
+      "revId": "c1c293da17ca0519d1a54bebe3e079efa0391623",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
