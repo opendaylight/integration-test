@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da3c2c03_563505c1",
+        "filename": "csit/libraries/DataModels.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T05:13:40Z",
+      "side": 1,
+      "message": "thank you",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 41
+      },
+      "revId": "b74870e697221aa7967a564b2374d58bc8bdf2d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "895e0b15_0efbe0b4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T05:13:40Z",
+      "side": 1,
+      "message": "oh, I see what you did, and why you removed those\nconn creations in the devstack lib",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 548,
+        "endChar": 70
+      },
+      "revId": "b74870e697221aa7967a564b2374d58bc8bdf2d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
