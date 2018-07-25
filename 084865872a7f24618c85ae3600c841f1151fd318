@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9ddd671_6cbe7139",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T22:14:09Z",
+      "side": 1,
+      "message": "instead of making suite variables, would it be ok to\njust pass the counts as arguments to \"Verify Vni Packet Count After Traffic\". safer that way.",
+      "revId": "084865872a7f24618c85ae3600c841f1151fd318",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
