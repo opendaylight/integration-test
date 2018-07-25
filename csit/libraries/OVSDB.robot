@@ -470,6 +470,11 @@ Verify Vni Segmentation Id and Tunnel Id
     ...    ELSE    BuiltIn.Set Variable    ping6 -c ${DEFAULT_PING_COUNT} ${vm2_ip}
     ${output} =    OpenStackOperations.Execute Command on VM Instance    ${net1}    ${vm1_ip}    ${ping_cmd}
     BuiltIn.Should Contain    ${output}    64 bytes
+    BuiltIn.Wait Until Keyword Succeeds    60s    5s    OVSDB.Verify Vni Packet Count After Traffic
+
+Verify Vni Packet Count After Traffic
+    [Arguments]    ${before_count_egress_port1}    ${before_count_egress_port2}    ${before_count_ingress_port1}    ${before_count_ingress_port2}
+    [Documentation]    Verify the packet count after the traffic sent
     ${tun_id}    ${after_count_egress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${L3_TABLE}    direction=${EGRESS}    tun_id=${segmentation_id1}
     ...    dst_mac=${port_mac1}
     ${tun_id}    ${after_count_ingress_port2} =    OVSDB.Get Tunnel Id And Packet Count    ${OS_CMP2_CONN_ID}    ${INTERNAL_TUNNEL_TABLE}    direction=${INGRESS}    tun_id=${segmentation_id2}
