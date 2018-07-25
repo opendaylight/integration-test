@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "682de8fc_e1b45a08",
+        "filename": "csit/libraries/SFC/SfcKeywords.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-25T14:44:21Z",
+      "side": 1,
+      "message": "What Im trying to do here (there is a more recent version) is more specific than could be useful in a generic Keyword.",
+      "parentUuid": "618cb08a_ba50844a",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 120
+      },
+      "revId": "6af1dae7d7b18a246e55ea8cf1d01d69abc768e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed0abd82_dcf86dbc",
         "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
         "patchSetId": 7
@@ -59,6 +83,30 @@
       "writtenOn": "2018-07-23T08:56:50Z",
       "side": 1,
       "message": "Well, what I mean is that instead of doing the request and then checking the status code youserlf, you have a library method that does that for you, so these two lines\n\n    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSP_URI}${rsp_name}\n    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}\n\ncould be replaced with\n\nCheck For Elements at URI    ${OPERATIONAL_RSPS_URI} \n    \"rsp_name\":${rsp_name}\n\nIf you don\u0027t care about the contents at all, you can alternatively use\n\nGet Data From URI    ${OPERATIONAL_RSP_URI}${rsp_name}",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "6af1dae7d7b18a246e55ea8cf1d01d69abc768e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89eb55c4_a679547c",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-25T14:44:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed0abd82_dcf86dbc",
       "range": {
         "startLine": 60,
         "startChar": 0,
