@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8d8aabf_d862b615",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-25T02:44:42Z",
+      "side": 1,
+      "message": "Please add the library (e.g. Sxp.) containing the KW. This applies to other KWs. Also I am not sure why ${DATA} is in upper case, upper is normally reserved for global variables that do not change through the test. See https://wiki.opendaylight.org/view/CrossProject:Integration_Group:Test_Code_Guidelines#Variable_naming",
+      "revId": "a771eededd4e3d55c79b2f601d49b2fc7afbb9a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ea80656_fa38f18d",
+        "filename": "csit/suites/sxp/binding-origin/020_Binding_Origins_Checks.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2018-07-25T02:44:42Z",
+      "side": 1,
+      "message": "FYI you can use KW Comment instead of #",
+      "revId": "a771eededd4e3d55c79b2f601d49b2fc7afbb9a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
