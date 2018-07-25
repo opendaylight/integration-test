@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0355c14_3f7e71c2",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T17:37:08Z",
+      "side": 1,
+      "message": "I know it\u0027s not your code, but no need to use the json1\njson2 temp vars. just json is enough.\n\nnbd, just fyi",
+      "range": {
+        "startLine": 96,
+        "startChar": 6,
+        "endLine": 96,
+        "endChar": 11
+      },
+      "revId": "d002101ba3c182ae17962f0f51a65dc6fee5d152",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d15752e_67797eb9",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T17:37:08Z",
+      "side": 1,
+      "message": "lower case and add space \u003d after, so:\n\n${time} \u003d\n\napplies elsewhere",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 10
+      },
+      "revId": "d002101ba3c182ae17962f0f51a65dc6fee5d152",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fccb7f0f_348b5b6d",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T17:37:08Z",
+      "side": 1,
+      "message": "space",
+      "revId": "d002101ba3c182ae17962f0f51a65dc6fee5d152",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "746fe5e1_2c72235a",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-25T17:37:08Z",
+      "side": 1,
+      "message": "just use json only in these lines. add space \u003d for these\nvariable assignments.",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 12
+      },
+      "revId": "d002101ba3c182ae17962f0f51a65dc6fee5d152",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
