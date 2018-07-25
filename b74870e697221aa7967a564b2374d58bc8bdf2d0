@@ -45,6 +45,30 @@
       "revId": "b74870e697221aa7967a564b2374d58bc8bdf2d0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38b98501_4ac19fc7",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-25T12:21:05Z",
+      "side": 1,
+      "message": "yeah and this is the majority of the changes required in the int/test stuff. It\u0027s simply moving from always doing 1ctl-2cmp to an all loop that is setup based on the configuration. Each new patch will work the next suite and do these type of conversions.",
+      "parentUuid": "895e0b15_0efbe0b4",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 548,
+        "endChar": 70
+      },
+      "revId": "b74870e697221aa7967a564b2374d58bc8bdf2d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }

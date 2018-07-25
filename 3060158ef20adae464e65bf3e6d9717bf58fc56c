@@ -22,6 +22,30 @@
       "revId": "3060158ef20adae464e65bf3e6d9717bf58fc56c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7faad4fe_793fa88d",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-25T12:21:05Z",
+      "side": 0,
+      "message": "No, notice down below these lines were moved into the three different configs. This code here assumes we always have 1ctl and 2cmp, but the code down below has three different patchs: 1. allinone - 1cmb-0ctl-0cmp, 2. 1cmb-0ctl-1cmp, 3. 0cmb-1ctl-2cmp. So just moved the open connection logic into those three blocks and set the values as needed.",
+      "parentUuid": "9e8701b0_827bb722",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 124
+      },
+      "revId": "3060158ef20adae464e65bf3e6d9717bf58fc56c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
