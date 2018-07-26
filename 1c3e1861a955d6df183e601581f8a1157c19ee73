@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a2e7ead_9b1f08ff",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-26T20:24:46Z",
+      "side": 1,
+      "message": "this is backward, isn\u0027t it. It\u0027s always bugged me.",
+      "range": {
+        "startLine": 88,
+        "startChar": 26,
+        "endLine": 88,
+        "endChar": 35
+      },
+      "revId": "1c3e1861a955d6df183e601581f8a1157c19ee73",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
