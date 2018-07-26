@@ -1102,6 +1102,8 @@ Get Network Segmentation Id
 Verify Expected Default Tables On Nodes
     [Arguments]    ${node_ips}=@{OS_ALL_IPS}
     [Documentation]    Verify if Default Table Entries are programmed on all Nodes
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}
+    Utils.Log Content    ${resp.content}
     : FOR    ${node_ip}    IN    @{node_ips}
     \    Verify Expected Default Tables    ${node_ip}
 
@@ -1110,8 +1112,6 @@ Verify Expected Default Tables
     [Documentation]    Verify if Default Table Entries are programmed on specific Node
     ${flow_dump} =    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     BuiltIn.Log    ${flow_dump}
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}
-    Utils.Log Content    ${resp.content}
     : FOR    ${table}    IN    @{DEFAULT_FLOW_TABLES}
     \    Builtin.Should Match Regexp    ${flow_dump}    .*table=${table}.*priority=0
 
