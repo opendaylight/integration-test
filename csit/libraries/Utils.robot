@@ -382,6 +382,14 @@ Get Data From URI
     Builtin.Log    ${response.text}
     Builtin.Fail    The request failed with code ${response.status_code}
 
+Get URI And Verify
+    [Arguments]    ${uri}    ${session}=session    ${headers}=${NONE}
+    [Documentation]    Issue a GET request and verify a successfull HTTP return.
+    ...    Issues a GET request for ${uri} in ${session} using headers from ${headers}.
+    ${response} =    RequestsLibrary.Get Request    ${session}    ${uri}    ${headers}
+    Builtin.Log    ${response.status_code}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
 No Content From URI
     [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
     [Documentation]    Issue a GET request and return on error 404 (No content) or will fail and log the content.
