@@ -64,6 +64,7 @@ Verify Datapath After OVS Restart
     OVSDB.Restart OVSDB    ${OS_COMPUTE_2_IP}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    OVSDB.Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
     BuiltIn.Wait Until Keyword Succeeds    30s    10s    OVSDB.Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
+    OpenStackOperations.Verify Expected Default Tables On Nodes
     ${smac_cn1} =    BuiltIn.Create List    @{NET_1_MACS}[0]
     ${smac_cn2} =    BuiltIn.Create List    @{NET_1_MACS}[1]
     BuiltIn.Wait Until Keyword Succeeds    60s    10s    Verify Flows Are Present For ELAN Service    ${OS_COMPUTE_1_IP}    ${smac_cn1}    ${NET_1_MACS}

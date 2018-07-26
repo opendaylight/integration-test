@@ -215,6 +215,7 @@ Take Down All Instances
 Bring Up All Instances
     [Documentation]    Bring up all controllers
     ClusterManagement.Start Members From List Or All    check_system_status=True    service_list=@{NETVIRT_DIAG_SERVICES}
+    OpenStackOperations.Verify Expected Default Tables On Nodes
 
 Connectivity Tests From Vm Instance2 In net_2 after recovering all nodes
     [Documentation]    ssh to the VM instance and test operations.
