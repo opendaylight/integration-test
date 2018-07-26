@@ -9,7 +9,7 @@
             {
               "rule-name": "ACE1",
               "actions": {
-                "service-function-acl:rendered-service-path": "RSP1"
+                "service-function-acl:rendered-service-path": "$RSP1"
               },
               "matches": {
                 "destination-ipv4-network": "192.168.2.0/24",
@@ -34,7 +34,7 @@
             {
               "rule-name": "ACE2",
               "actions": {
-                "service-function-acl:rendered-service-path": "RSP1-Reverse"
+                "service-function-acl:rendered-service-path": "$RSP1_Reverse"
               },
               "matches": {
                 "destination-ipv4-network": "192.168.2.0/24",

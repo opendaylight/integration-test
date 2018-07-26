@@ -1,16 +1,11 @@
 *** Settings ***
 Documentation     Common Keywords for the SFC Test suites.
 Library           Collections
-Resource          ../../../libraries/Utils.robot
+Resource          ../Utils.robot
 
 *** Variables ***
 
 *** Keywords ***
-Post Elements To URI As JSON
-    [Arguments]    ${uri}    ${data}
-    ${resp} =    RequestsLibrary.Post Request    session    ${uri}    data=${data}    headers=${headers}
-    BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-
 Get JSON Elements From URI
     [Arguments]    ${uri}
     ${resp} =    RequestsLibrary.Get Request    session    ${uri}
@@ -19,8 +14,8 @@ Get JSON Elements From URI
 Check Classifier Flows
     ${flowList} =    DockerSfc.Get Flows In Docker Containers
     BuiltIn.log    ${flowList}
-    BuiltIn.Should Contain Match    ${flowList}    *actions=pop_nsh*
-    BuiltIn.Should Contain Match    ${flowList}    *actions=push_nsh*
+    BuiltIn.Should Contain    ${flowList}    *actions=pop_nsh*
+    BuiltIn.Should Contain    ${flowList}    *actions=push_nsh*
 
 Check Service Function Types Added
     [Arguments]    ${elements}
