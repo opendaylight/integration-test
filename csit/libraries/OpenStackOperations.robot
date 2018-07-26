@@ -1104,12 +1104,8 @@ Verify Expected Default Tables On Nodes
     [Documentation]    Verify if Default Table Entries are programmed on all Nodes
     ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}
     Utils.Log Content    ${resp.content}
-    ${failed_node_list} =    BuiltIn.Create List
     : FOR    ${node_ip}    IN    @{node_ips}
-    \    ${failed_table_list} =    Verify Expected Default Tables    ${node_ip}
-    \    ${failed_table_list_size} =    BuiltIn.Get Length    ${failed_table_list}
-    \    BuiltIn.Run Keyword If    ${failed_table_list_size} > 0    Collections.Append To List    ${failed_node_list}    ${node_ip}
-    Builtin.Should Be Empty    ${failed_node_list}
+    \    Verify Expected Default Tables    ${node_ip}
 
 Verify Expected Default Tables
     [Arguments]    ${ovs_ip}
@@ -1118,9 +1114,7 @@ Verify Expected Default Tables
     BuiltIn.Log    ${flow_dump}
     ${failed_table_list} =    BuiltIn.Create List
     : FOR    ${table}    IN    @{DEFAULT_FLOW_TABLES}
-    \    Builtin.Run Keyword And Ignore Error    ${rc}    Builtin.Should Match Regexp    ${flow_dump}    .*table=${table}.*priority=0
-    \    BuiltIn.Run Keyword If    ${rc} == "FAIL"    Collections.Append To List    ${failed_table_list}    ${table}
-    [Return]    ${failed_table_list}
+    \    Builtin.Should Match Regexp    ${flow_dump}    .*table=${table}.*priority=0
 
 Get Project Id
     [Arguments]    ${project_name}
