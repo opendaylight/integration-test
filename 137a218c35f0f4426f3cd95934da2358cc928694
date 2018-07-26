@@ -46,6 +46,30 @@
       "revId": "137a218c35f0f4426f3cd95934da2358cc928694",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97483e3f_c763ab49",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-26T13:08:29Z",
+      "side": 1,
+      "message": "grep with an empty string returns an error. No idea how that returns in robot, but it will be misleading to users so the \u0027\u0027 should not be a default since it isn\u0027t a valid default.\n\necho \"test\" | grep test | grep \nUsage: grep [OPTION]... PATTERN [FILE]...\nTry \u0027grep --help\u0027 for more information.",
+      "parentUuid": "5019bf9d_cb7e2281",
+      "range": {
+        "startLine": 231,
+        "startChar": 85,
+        "endLine": 231,
+        "endChar": 87
+      },
+      "revId": "137a218c35f0f4426f3cd95934da2358cc928694",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
