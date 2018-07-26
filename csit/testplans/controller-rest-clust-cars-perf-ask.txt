@@ -7,6 +7,3 @@
 # Place the suites in run order:
 integration/test/csit/suites/controller/ThreeNodes_Datastore/010_crud_mdsal_perf.robot
 integration/test/csit/suites/controller/ThreeNodes_Datastore/puts_during_isolation.robot
-integration/test/csit/suites/controller/dom_data_broker/restart_odl_with_tell_based_true.robot
-integration/test/csit/suites/controller/ThreeNodes_Datastore/010_crud_mdsal_perf.robot
-integration/test/csit/suites/controller/ThreeNodes_Datastore/puts_during_isolation.robot
