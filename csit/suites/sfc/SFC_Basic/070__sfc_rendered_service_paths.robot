@@ -21,8 +21,7 @@ Basic Environment Setup Tests
     BuiltIn.Wait Until Keyword Succeeds    60s    2s    SfcKeywords.Check Service Function Types Added    ${SERVICE_FUNCTION_NAMES}
     Utils.Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     # Creates SFPs: SFC1-100, SFC1-200, SFC1-300, SFC2-100, and SFC2-200
-    ${created_sfps} =    BuiltIn.Create List    "SFC1-100"    "SFC1-200"    "SFC1-300"    "SFC2-100"    "SFC2-200"
-    SfcKeywords.Create Sfp And Wait For Rsp Creation    ${SERVICE_FUNCTION_PATHS_FILE}    ${created_sfps}
+    SfcKeywords.Create Sfp And Wait For Rsp Creation    ${SERVICE_FUNCTION_PATHS_FILE}
 
 Get Rendered Service Path By Name
     [Documentation]    Get The Rendered Service Path Created in "Basic Environment Setup Tests" By Name Via RESTConf APIs
@@ -67,8 +66,7 @@ Generate RSPs with Random Schedule Algorithm type
     Utils.Add Elements To URI From File    ${SERVICE_RANDOM_SCHED_TYPE_URI}    ${SERVICE_RANDOM_SCHED_TYPE_FILE}
     SfcKeywords.Delete All Sfps And Wait For Rsps Deletion
     # Create the SFPs which will create the RSPs with the Random scheduler
-    ${created_sfps} =    BuiltIn.Create List    "SFC1-100"    "SFC1-200"    "SFC1-300"    "SFC2-100"    "SFC2-200"
-    SfcKeywords.Create Sfp And Wait For Rsp Creation    ${SERVICE_FUNCTION_PATHS_FILE}    ${created_sfps}
+    SfcKeywords.Create Sfp And Wait For Rsp Creation    ${SERVICE_FUNCTION_PATHS_FILE}
     ${sfp_name} =    BuiltIn.Set Variable    SFC1-100
     ${rsp_name} =    SfcKeywords.Get Rendered Service Path Name    ${sfp_name}
     ${elements} =    BuiltIn.Create List    "hop-number":0    "service-index":255    "service-function-name":"dpi
@@ -85,8 +83,7 @@ Generate RSPs with Round Robin Schedule Algorithm type
     Utils.Add Elements To URI From File    ${SERVICE_ROUNDROBIN_SCHED_TYPE_URI}    ${SERVICE_ROUNDROBIN_SCHED_TYPE_FILE}
     SfcKeywords.Delete All Sfps And Wait For Rsps Deletion
     # Create the SFPs which will create the RSPs with the Random scheduler
-    ${created_sfps} =    BuiltIn.Create List    "SFC1-100"    "SFC1-200"    "SFC1-300"    "SFC2-100"    "SFC2-200"
-    SfcKeywords.Create Sfp And Wait For Rsp Creation    ${SERVICE_FUNCTION_PATHS_FILE}    ${created_sfps}
+    SfcKeywords.Create Sfp And Wait For Rsp Creation    ${SERVICE_FUNCTION_PATHS_FILE}
     ${rsp1_name} =    SfcKeywords.Get Rendered Service Path Name    SFC1-100
     ${rsp2_name} =    SfcKeywords.Get Rendered Service Path Name    SFC1-200
     ${rsp3_name} =    SfcKeywords.Get Rendered Service Path Name    SFC1-300
@@ -132,8 +129,7 @@ Generate RSPs with Shortest Path Schedule Algorithm type
     Utils.Add Elements To URI From File    ${SERVICE_SHORTESTPATH_SCHED_TYPE_URI}    ${SERVICE_SHORTESTPATH_SCHED_TYPE_FILE}
     SfcKeywords.Delete All Sfps And Wait For Rsps Deletion
     # Create the SFPs which will create the RSPs with the Random scheduler
-    ${created_sfps} =    BuiltIn.Create List    "SFC1-100"    "SFC1-200"    "SFC1-300"    "SFC2-100"    "SFC2-200"
-    SfcKeywords.Create Sfp And Wait For Rsp Creation    ${SERVICE_FUNCTION_PATHS_FILE}    ${created_sfps}
+    SfcKeywords.Create Sfp And Wait For Rsp Creation    ${SERVICE_FUNCTION_PATHS_FILE}
     ${rsp1_name} =    SfcKeywords.Get Rendered Service Path Name    SFC1-100
     ${rsp2_name} =    SfcKeywords.Get Rendered Service Path Name    SFC1-200
     ${rsp3_name} =    SfcKeywords.Get Rendered Service Path Name    SFC1-300

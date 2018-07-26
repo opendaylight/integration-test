@@ -2,7 +2,6 @@
 # Generic Service Chains and Function URIs
 ${REST_CONFIG}    /restconf/config
 ${REST_OPER}      /restconf/operational
-${REST_RPC}       /restconf/operations
 ${SERVICE_FUNCTION_TYPES_URI}    ${REST_CONFIG}/service-function-type:service-function-types/
 ${SERVICE_FUNCTIONS_URI}    ${REST_CONFIG}/service-function:service-functions/
 ${SERVICE_FUNCTION_URI}    ${REST_CONFIG}/service-function:service-functions/service-function/
@@ -25,7 +24,4 @@ ${SERVICE_SHORTESTPATH_SCHED_TYPE_URI}    ${SERVICE_SCHED_TYPE_URI_BASE}shortest
 ${SERVICE_METADATA_URI}    ${REST_CONFIG}/service-function-path-metadata:service-function-metadata/
 ${OPERATIONAL_RSPS_URI}    ${REST_OPER}/rendered-service-path:rendered-service-paths/
 ${OPERATIONAL_RSP_URI}    ${OPERATIONAL_RSPS_URI}rendered-service-path/
-${OPERATIONS_CREATE_RSP_URI}    ${REST_RPC}/rendered-service-path:create-rendered-path/
-${OPERATIONS_DELETE_RSP_URI}    ${REST_RPC}/rendered-service-path:delete-rendered-path/
-${RENDERED_SERVICE_PATHS_URI}    ${REST_CONFIG}/rendered-service-path:rendered-service-paths/
 ${OVSDB_TOPOLOGY_URI}    ${REST_OPER}/network-topology:network-topology/topology/ovsdb:1
