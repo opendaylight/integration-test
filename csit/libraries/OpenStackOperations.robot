@@ -1116,7 +1116,7 @@ Verify Expected Default Tables
     [Documentation]    Verify if Default Table Entries are programmed on specific Node
     ${flow_dump} =    Utils.Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows ${INTEGRATION_BRIDGE} -OOpenFlow13    ${DEFAULT_LINUX_PROMPT_STRICT}
     BuiltIn.Log    ${flow_dump}
-    ${failed_table_list}    BuiltIn.Create List
+    ${failed_table_list} =    BuiltIn.Create List
     : FOR    ${table}    IN    @{DEFAULT_FLOW_TABLES}
     \    Builtin.Run Keyword And Ignore Error    ${rc}    Builtin.Should Match Regexp    ${flow_dump}    .*table=${table}.*priority=0
     \    BuiltIn.Run Keyword If    ${rc} == "FAIL"    Collections.Append To List    ${failed_table_list}    ${table}
