@@ -16,35 +16,31 @@ Resource          ../../../libraries/DataModels.robot
 Resource          ../../../libraries/SFC/DockerSfc.robot
 Variables         ../../../variables/sfc/Modules.py
 
-*** Variables ***
-${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFP1","name":"RSP1"}}
-${CREATE_RSP_FAILURE_INPUT}    {"input":{"parent-service-function-path":"SFC1-empty","name":"RSP1-empty-Path-1"}}
-@{SF_NAMES}       "name":"firewall-1"    "name":"dpi-1"
-@{INTERFACE_NAMES}    v-ovsnsn6g1    v-ovsnsn1g1
-
 *** Test Cases ***
 Basic Environment Setup Tests
-    [Documentation]    Prepare Basic Test Environment
+    [Documentation]    Prepare Basic Test Environment. Full Deploy
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Added    ${SF_NAMES}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_METADATA_URI}    ${SERVICE_METADATA_FILE}
-    Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
+    Create Sfp And Wait For Rsp Creation    ${SERVICE_FUNCTION_PATHS_FILE}    ${CREATED_SFPS}
     Add Elements To URI From File    ${SERVICE_FUNCTION_ACLS_URI}    ${SERVICE_FUNCTION_ACLS_FILE}
 
-Create and Get Rendered Service Path
-    [Documentation]    Create and Get Rendered Service Path Through RESTConf APIs
-    Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${elements}=    Create List    RSP1    "parent-service-function-path":"SFP1"    "hop-number":0    "service-index":255    "hop-number":1
+Get Rendered Service Path By Name
+    [Documentation]    Get Rendered Service Path By Name Through RESTConf APIs. Full Deploy
+    # The RSP should be symetric, so 2 should be created for the SFP
+    ${rsp_name} =    Get Rendered Service Path Name    ${SFP_NAME}
+    Get URI And Verify    ${OPERATIONAL_RSP_URI}${rsp_name}
+    ${rsp_name_rev} =    Get Rendered Service Path Name    ${SFP_NAME}    True
+    Get URI And Verify    ${OPERATIONAL_RSP_URI}${rsp_name_rev}
+    ${elements}=    Create List    ${rsp_name}    "parent-service-function-path":"${SFP_NAME}"    "hop-number":0    "service-index":255    "hop-number":1
     ...    "service-index":254
     Check For Elements At URI    ${OPERATIONAL_RSPS_URI}    ${elements}
 
 Create and Get Classifiers
-    [Documentation]    Apply json file descriptions of ACLs and Classifiers
+    [Documentation]    Apply json file descriptions of ACLs and Classifiers. Full Deploy
     Add Elements To URI From File    ${SERVICE_CLASSIFIERS_URI}    ${SERVICE_CLASSIFIERS_FILE}
     ${classifiers}=    Create List    "service-function-classifiers"    "service-function-classifier"    "type":"ietf-access-control-list:ipv4-acl"    "scl-service-function-forwarder"
     Append To List    ${classifiers}    "name":"Classifier2"    "name":"ACL2"
@@ -58,22 +54,25 @@ Init Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    timeout=3s
     SSHKeywords.Flexible Mininet Login
-    ${docker_cidr}=    DockerSfc.Get Docker Bridge Subnet
-    ${docker_nw}=    SfcUtils.Get Network From Cidr    ${docker_cidr}
-    ${docker_mask}=    SfcUtils.Get Mask From Cidr    ${docker_cidr}
-    ${route_to_docker_net}=    Set Variable    sudo route add -net ${docker_nw} netmask ${docker_mask} gw ${TOOLS_SYSTEM_IP}
+    ${docker_cidr} =    DockerSfc.Get Docker Bridge Subnet
+    ${docker_nw} =    SfcUtils.Get Network From Cidr    ${docker_cidr}
+    ${docker_mask} =    SfcUtils.Get Mask From Cidr    ${docker_cidr}
+    ${route_to_docker_net} =    Set Variable    sudo route add -net ${docker_nw} netmask ${docker_mask} gw ${TOOLS_SYSTEM_IP}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${route_to_docker_net}    ${ODL_SYSTEM_USER}    prompt=${ODL_SYSTEM_PROMPT}
     SSHLibrary.Put File    ${CURDIR}/docker-ovs.sh    .    mode=0755
     SSHLibrary.Put File    ${CURDIR}/Dockerfile    .    mode=0755
     SSHLibrary.Put File    ${CURDIR}/setup-docker-image.sh    .    mode=0755
-    ${result}    SSHLibrary.Execute Command    ./setup-docker-image.sh > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
+    ${result} =    SSHLibrary.Execute Command    ./setup-docker-image.sh > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
     log    ${result}
     Should be equal as integers    ${result[2]}    0
+    Set Suite Variable    @{INTERFACE_NAMES}    v-ovsnsn6g1    v-ovsnsn1g1
     DockerSfc.Docker Ovs Start    nodes=6    guests=1    tunnel=vxlan-gpe    odl_ip=${ODL_SYSTEM_IP}
     Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${OVSDB_TOPOLOGY_URI}    ${INTERFACE_NAMES}
-    ${docker_name_list}=    DockerSfc.Get Docker Names As List
+    ${docker_name_list} =    DockerSfc.Get Docker Names As List
     Set Suite Variable    ${DOCKER_NAMES_LIST}    ${docker_name_list}
     log    ${ODL_STREAM}
+    Set Suite Variable    ${SFP_NAME}    SFP1
+    Set Suite Variable    @{CREATED_SFPS}    ${SFP_NAME}
     Set Suite Variable    ${CONFIG_DIR}    ${CURDIR}/../../../variables/sfc/master/full-deploy
     Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ${CONFIG_DIR}/service-functions.json
     Set Suite Variable    ${SERVICE_FORWARDERS_FILE}    ${CONFIG_DIR}/service-function-forwarders.json
@@ -83,6 +82,7 @@ Init Suite
     Set Suite Variable    ${SERVICE_METADATA_FILE}    ${CONFIG_DIR}/service-function-metadata.json
     Set Suite Variable    ${SERVICE_FUNCTION_ACLS_FILE}    ${CONFIG_DIR}/service-function-acls.json
     Set Suite Variable    ${SERVICE_CLASSIFIERS_FILE}    ${CONFIG_DIR}/service-function-classifiers.json
+    Set Suite Variable    @{SF_NAMES}    "firewall-1"    "dpi-1"
     Switch Ips In Json Files    ${CONFIG_DIR}    ${DOCKER_NAMES_LIST}
 
 Cleanup Suite
@@ -90,12 +90,12 @@ Cleanup Suite
     Get Model Dump    ${ODL_SYSTEM_IP}    ${sfc_data_models}
     Remove All Elements At URI    ${SERVICE_CLASSIFIERS_URI}
     Remove All Elements At URI    ${SERVICE_FUNCTION_ACLS_URI}
+    Delete Sfp And Wait For Rsps Deletion    ${SFP_NAME}
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
     Wait Until Keyword Succeeds    60s    2s    Check Service Function Types Removed    ${SF_NAMES}
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Remove All Elements At URI    ${SERVICE_NODES_URI}
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
-    Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
     Remove All Elements At URI    ${SERVICE_METADATA_URI}
     DockerSfc.Docker Ovs Clean    log_file=myFile4.log
     Delete All Sessions
