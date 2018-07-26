@@ -1,0 +1,590 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c00902a6_4decc7aa",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "If we use it like this , all the affected testcases will fail correct?",
+      "range": {
+        "startLine": 225,
+        "startChar": 75,
+        "endLine": 225,
+        "endChar": 91
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4f7e8066_9d999d08",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "why this change required?",
+      "range": {
+        "startLine": 626,
+        "startChar": 7,
+        "endLine": 626,
+        "endChar": 15
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98349c0f_1ecea089",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "Already available in one of the variable variable file; chaeck Variables.robot",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "efa1b5ba_5c5fbbd2",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "Unused variable",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc183e2a_1156d30d",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "unused variable?",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 9
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9bde9b7_3c82dacd",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "Unused variable?",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 9
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2157e35_4b8de984",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "can we add it as  presetup part?",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a923e76_096bbc22",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "shoudl we really wait for 60 sec here ?",
+      "range": {
+        "startLine": 49,
+        "startChar": 60,
+        "endLine": 49,
+        "endChar": 77
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34a0b49d_f3581d45",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "If not using elsewhere , please remove it",
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c146c69_ada2ce08",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "If not using elsewhere , please remove it",
+      "range": {
+        "startLine": 63,
+        "startChar": 37,
+        "endLine": 63,
+        "endChar": 49
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9671d7e3_3b7aa082",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "same comment as above",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 46
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7a44b35_ddf0798e",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "SSHLibrary require here?",
+      "range": {
+        "startLine": 67,
+        "startChar": 56,
+        "endLine": 67,
+        "endChar": 118
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e356db5_1784de40",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "Required couple of BuiltIn? Also is \".\" requires after Should?",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 19
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a79af0d_d0f636c8",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "Documentation is same as the TC name; either remove it or add a detailed one",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 78
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8cfab7f_25e4b15b",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "${cmd}\u003d   **, also can we have a meaningful variable name here?",
+      "range": {
+        "startLine": 84,
+        "startChar": 5,
+        "endLine": 84,
+        "endChar": 10
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "614c7e8e_83a62cae",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "should.Be?",
+      "range": {
+        "startLine": 99,
+        "startChar": 24,
+        "endLine": 99,
+        "endChar": 29
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4595dd56_693bd4e3",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "Is this log meaningful here?",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 41
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1155e785_fd7569b5",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "${cmd}\u003d   BuiltIn ; applicable to wherever required",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 114,
+        "endChar": 19
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67cddd6f_47a4d663",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "Same comment as previous documentation section",
+      "range": {
+        "startLine": 126,
+        "startChar": 4,
+        "endLine": 126,
+        "endChar": 94
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a7abaa7_4b5f217a",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "${cmd}\u003d   BuiltIn.",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 15
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc8d518d_f2f785f2",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "OpenStackOperations.",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 39
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "944e2250_0eae1d4b",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "OpenStackOperations.",
+      "range": {
+        "startLine": 178,
+        "startChar": 9,
+        "endLine": 178,
+        "endChar": 22
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dd8191a_93d43cb7",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "Not a meaningful name ;",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 10
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "673da924_b8efaf21",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "OpenStackOperations.",
+      "range": {
+        "startLine": 195,
+        "startChar": 19,
+        "endLine": 195,
+        "endChar": 32
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60101249_f1cf478a",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "please add it in Openstackoperations.robot",
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bbd9a1a6_46c533d0",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T04:37:09Z",
+      "side": 1,
+      "message": "why commented out? If not required remove it",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 63
+      },
+      "revId": "c7af2a3d2d77a03d0b6aad730efd5264d3433cf1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
