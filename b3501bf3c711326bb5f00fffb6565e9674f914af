@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08653656_ad4272d4",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-26T15:22:50Z",
+      "side": 1,
+      "message": "81?",
+      "range": {
+        "startLine": 73,
+        "startChar": 154,
+        "endLine": 73,
+        "endChar": 159
+      },
+      "revId": "b3501bf3c711326bb5f00fffb6565e9674f914af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5522555_c08c3ea6",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-26T15:22:50Z",
+      "side": 1,
+      "message": "Now that we use vxlan_tool --block, we dont need the dealy so we can remove this?",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 148
+      },
+      "revId": "b3501bf3c711326bb5f00fffb6565e9674f914af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1955e2bd_aab86498",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-26T15:22:50Z",
+      "side": 1,
+      "message": "81?",
+      "range": {
+        "startLine": 126,
+        "startChar": 44,
+        "endLine": 126,
+        "endChar": 46
+      },
+      "revId": "b3501bf3c711326bb5f00fffb6565e9674f914af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe9b9a70_c35a8193",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-26T15:22:50Z",
+      "side": 1,
+      "message": "FC_81 instead of FC_80?",
+      "range": {
+        "startLine": 136,
+        "startChar": 48,
+        "endLine": 136,
+        "endChar": 90
+      },
+      "revId": "b3501bf3c711326bb5f00fffb6565e9674f914af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fe08b1e_c598c8ef",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-26T15:22:50Z",
+      "side": 1,
+      "message": "81",
+      "range": {
+        "startLine": 149,
+        "startChar": 28,
+        "endLine": 149,
+        "endChar": 30
+      },
+      "revId": "b3501bf3c711326bb5f00fffb6565e9674f914af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ecb6036_0584ac54",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-26T15:22:50Z",
+      "side": 1,
+      "message": "This code is the same as \"Test Communication From Vm Instance1 In net_1 Port 80 via SF\" keyword which the only difference of exchanges ports 80 \u003c-\u003e 81. It coul dbe made common under a single util keyword somehow.",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 38
+      },
+      "revId": "b3501bf3c711326bb5f00fffb6565e9674f914af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1925febf_12644a92",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-26T15:22:50Z",
+      "side": 1,
+      "message": "You only need to create a single flow classifier with an additional parameter:\n--logical-destination-port dest_vm_port",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 152
+      },
+      "revId": "b3501bf3c711326bb5f00fffb6565e9674f914af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aee12ab1_3ed5618b",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-26T15:22:50Z",
+      "side": 1,
+      "message": "You only need to create a single port chain with an additional parameter:\n--chain-parameters symmetric\u003dtrue",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 108
+      },
+      "revId": "b3501bf3c711326bb5f00fffb6565e9674f914af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7982f574_ce7aa1b9",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-26T15:22:50Z",
+      "side": 1,
+      "message": "The port pairs and port pair groups dont need to be deleted.",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 108
+      },
+      "revId": "b3501bf3c711326bb5f00fffb6565e9674f914af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3962e08_3c466e72",
+        "filename": "csit/suites/openstack/extensions/sfc.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 6230
+      },
+      "writtenOn": "2018-07-26T15:22:50Z",
+      "side": 1,
+      "message": "vxlan_tool is blocking on destination port. So for server -\u003e client traffic, destination port will be the tcp port on client side. Use curl\u0027s --local-port option to chose one.",
+      "range": {
+        "startLine": 211,
+        "startChar": 114,
+        "endLine": 211,
+        "endChar": 116
+      },
+      "revId": "b3501bf3c711326bb5f00fffb6565e9674f914af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
