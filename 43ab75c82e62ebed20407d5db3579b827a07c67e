@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b27d2e2_6cef9fee",
+        "filename": "csit/testplans/coe-container-networking.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 817
+      },
+      "writtenOn": "2018-07-26T18:21:30Z",
+      "side": 1,
+      "message": "Pods_Basic_Connectivity_Tests and Pods_Scalability_Tests",
+      "revId": "43ab75c82e62ebed20407d5db3579b827a07c67e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
