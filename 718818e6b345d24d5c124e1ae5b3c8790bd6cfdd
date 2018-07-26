@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4a4402df_d4a89d17",
+        "filename": "csit/libraries/SFC/SfcKeywords.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-26T08:04:00Z",
+      "side": 1,
+      "message": "I got an error on this one that the parameter was not of type list. I didnt get the error on the above kw, since its not called. I changed the above kw, since I will use it in a subsequent patch.",
+      "parentUuid": "5651e8e4_d08e477f",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 61
+      },
+      "revId": "718818e6b345d24d5c124e1ae5b3c8790bd6cfdd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1a59020_97397e3f",
         "filename": "csit/libraries/SFC/SfcKeywords.robot",
         "patchSetId": 20
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-25T15:49:09Z",
       "side": 1,
       "message": "we have a syntax format we are asking people to use going\nforward (which you are in other places already), but change\nthese to be like:\n\n${resp} \u003d\n\njust for consistency.",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 11
+      },
+      "revId": "718818e6b345d24d5c124e1ae5b3c8790bd6cfdd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34a840d3_5f8ebf7b",
+        "filename": "csit/libraries/SFC/SfcKeywords.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-26T08:04:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1a59020_97397e3f",
       "range": {
         "startLine": 50,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a32fae6_5911f60b",
+        "filename": "csit/libraries/SFC/SfcKeywords.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-26T08:04:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34c73675_595c41b1",
+      "range": {
+        "startLine": 74,
+        "startChar": 23,
+        "endLine": 74,
+        "endChar": 45
+      },
+      "revId": "718818e6b345d24d5c124e1ae5b3c8790bd6cfdd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f678965e_1b433876",
         "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
         "patchSetId": 20
@@ -82,6 +154,30 @@
       "writtenOn": "2018-07-25T15:49:09Z",
       "side": 1,
       "message": "do you want this to be 2?",
+      "range": {
+        "startLine": 24,
+        "startChar": 100,
+        "endLine": 24,
+        "endChar": 101
+      },
+      "revId": "718818e6b345d24d5c124e1ae5b3c8790bd6cfdd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3f1fc82_f9d54aa9",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-26T08:04:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f678965e_1b433876",
       "range": {
         "startLine": 24,
         "startChar": 100,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "11c437a4_8d165fef",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-26T08:04:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fae26d00_f241520a",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "718818e6b345d24d5c124e1ae5b3c8790bd6cfdd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fea8844d_435b9d3a",
         "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
         "patchSetId": 20
@@ -128,6 +248,30 @@
       "writtenOn": "2018-07-25T15:49:09Z",
       "side": 1,
       "message": "2?",
+      "range": {
+        "startLine": 91,
+        "startChar": 100,
+        "endLine": 91,
+        "endChar": 101
+      },
+      "revId": "718818e6b345d24d5c124e1ae5b3c8790bd6cfdd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5c8844d_1a504bdd",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-26T08:04:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fea8844d_435b9d3a",
       "range": {
         "startLine": 91,
         "startChar": 100,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a138b809_bb15796c",
+        "filename": "csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-26T08:04:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2af0f11_f1f23dc2",
+      "range": {
+        "startLine": 139,
+        "startChar": 100,
+        "endLine": 139,
+        "endChar": 101
+      },
+      "revId": "718818e6b345d24d5c124e1ae5b3c8790bd6cfdd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "815d6ed1_1649017f",
         "filename": "csit/variables/sfc/Modules.py",
         "patchSetId": 20
@@ -180,6 +348,24 @@
     },
     {
       "key": {
+        "uuid": "22858ddb_913e91ea",
+        "filename": "csit/variables/sfc/Modules.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-26T08:04:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "815d6ed1_1649017f",
+      "revId": "718818e6b345d24d5c124e1ae5b3c8790bd6cfdd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6cdd6cb_173fde7b",
         "filename": "csit/variables/sfc/Variables.robot",
         "patchSetId": 20
@@ -191,6 +377,24 @@
       "writtenOn": "2018-07-25T15:49:09Z",
       "side": 1,
       "message": "would you mind refactoring this so that none of\nthe variables end with the trailing slash? it makes\nit more readable to have it like:\n\n${URI_X}    /this/is/one/endpoint\n${URI_Y}    ${URI_X}/with/extra/stuff\n\nThanks.",
+      "revId": "718818e6b345d24d5c124e1ae5b3c8790bd6cfdd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "648b92ae_55f752ed",
+        "filename": "csit/variables/sfc/Variables.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2018-07-26T08:04:00Z",
+      "side": 1,
+      "message": "I agree that would be better. This would be a big change, since all the SFC CSIT files would need to be changed. I would prefer to do this in a separate patch, if you dont mind.",
+      "parentUuid": "e6cdd6cb_173fde7b",
       "revId": "718818e6b345d24d5c124e1ae5b3c8790bd6cfdd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
