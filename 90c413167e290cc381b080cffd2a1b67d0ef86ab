@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bedf3bd5_5701e51e",
+        "filename": "csit/testplans/controller-rest-clust-cars-perf.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-26T18:23:36Z",
+      "side": 1,
+      "message": "per my comment in the releng/builder patch, I would\nprefer to be explicit and call this *-ask",
+      "revId": "90c413167e290cc381b080cffd2a1b67d0ef86ab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
