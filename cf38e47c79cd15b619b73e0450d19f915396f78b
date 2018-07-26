@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fd6302b_257fbc93",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T17:55:32Z",
+      "side": 1,
+      "message": "This also we can add it in the create setup rt?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 169
+      },
+      "revId": "cf38e47c79cd15b619b73e0450d19f915396f78b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0a01eaf_2843ad9b",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T17:55:32Z",
+      "side": 1,
+      "message": "correct this -\u003e cmd -\u003e arping_cli",
+      "range": {
+        "startLine": 72,
+        "startChar": 13,
+        "endLine": 72,
+        "endChar": 16
+      },
+      "revId": "cf38e47c79cd15b619b73e0450d19f915396f78b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "554b6b75_0366906c",
+        "filename": "csit/suites/openstack/securitygroup/acl.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 7377
+      },
+      "writtenOn": "2018-07-26T17:55:32Z",
+      "side": 1,
+      "message": "same set of code used used in couple of TC, please add keyword here and use it instead",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 1
+      },
+      "revId": "cf38e47c79cd15b619b73e0450d19f915396f78b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
