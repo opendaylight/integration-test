@@ -319,22 +319,22 @@ Remove All Elements If Exist
     Run Keyword If    '${resp.status_code}'!='404'    Remove All Elements At URI    ${uri}    ${session}
 
 Add Elements To URI From File
+    [Documentation]    Put data from a file to a URI
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add Elements To URI From File And Verify
+    [Documentation]    Put data from a file to a URI and verify the HTTP response
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     ${body}    OperatingSystem.Get File    ${data_file}
-    ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    ${session}    ${dest_uri}
-    Should Not Be Equal    ${resp.status_code}    404
+    Add Elements to URI And Verify    ${dest_uri}    ${body}    ${headers}    ${session}
 
 Add Elements To URI And Verify
-    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
-    ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    ${data_file}    headers=${headers}
+    [Documentation]    Put data to a URI and verify the HTTP response
+    [Arguments]    ${dest_uri}    ${data}    ${headers}=${headers}    ${session}=session
+    ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    ${data}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${resp}    RequestsLibrary.Get Request    ${session}    ${dest_uri}
     Should Not Be Equal    ${resp.status_code}    404
@@ -381,6 +381,14 @@ Get Data From URI
     Builtin.Return_From_Keyword_If    ${response.status_code} == 200    ${response.text}
     Builtin.Log    ${response.text}
     Builtin.Fail    The request failed with code ${response.status_code}
+
+Get URI And Verify
+    [Arguments]    ${uri}    ${session}=session    ${headers}=${NONE}
+    [Documentation]    Issue a GET request and verify a successfull HTTP return.
+    ...    Issues a GET request for ${uri} in ${session} using headers from ${headers}.
+    ${response} =    RequestsLibrary.Get Request    ${session}    ${uri}    ${headers}
+    Builtin.Log    ${response.status_code}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${response.status_code}
 
 No Content From URI
     [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
