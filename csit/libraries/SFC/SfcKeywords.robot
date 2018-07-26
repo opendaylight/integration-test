@@ -1,16 +1,11 @@
 *** Settings ***
 Documentation     Common Keywords for the SFC Test suites.
 Library           Collections
-Resource          ../../../libraries/Utils.robot
+Resource          ../Utils.robot
 
 *** Variables ***
 
 *** Keywords ***
-Post Elements To URI As JSON
-    [Arguments]    ${uri}    ${data}
-    ${resp} =    RequestsLibrary.Post Request    session    ${uri}    data=${data}    headers=${headers}
-    BuiltIn.Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-
 Get JSON Elements From URI
     [Arguments]    ${uri}
     ${resp} =    RequestsLibrary.Get Request    session    ${uri}
@@ -19,8 +14,8 @@ Get JSON Elements From URI
 Check Classifier Flows
     ${flowList} =    DockerSfc.Get Flows In Docker Containers
     BuiltIn.log    ${flowList}
-    BuiltIn.Should Contain Match    ${flowList}    *actions=pop_nsh*
-    BuiltIn.Should Contain Match    ${flowList}    *actions=push_nsh*
+    BuiltIn.Should Contain    ${flowList}    *actions=pop_nsh*
+    BuiltIn.Should Contain    ${flowList}    *actions=push_nsh*
 
 Check Service Function Types Added
     [Arguments]    ${elements}
@@ -71,11 +66,18 @@ Get Rendered Service Path Name
     [Return]    ${value}
 
 Create Sfp And Wait For Rsp Creation
-    [Arguments]    ${sfp_file_name}    ${created_sfps}
+    [Arguments]    ${sfp_file_name}
     [Documentation]    Given an SFP name, create it and wait for the associated RSPs to be created
     Utils.Add Elements To URI From File And Verify    ${SERVICE_FUNCTION_PATHS_URI}    ${sfp_file_name}
-    BuiltIn.Run Keyword If    len(${created_sfps}) > 0    BuiltIn.Wait Until Keyword Succeeds    60s    2s    Utils.Check For Elements At URI    ${SERVICE_FUNCTION_PATHS_STATE_URI}
-    ...    ${created_sfps}
+    &{sfp_dict} =    Utils.Json Parse From File    ${sfp_file_name}
+    @{sfp_json_list} =    &{sfp_dict}[service-function-paths][service-function-path]
+    # Each SFP state entry will have either 2 or 3 name elements, 2 for non-symmetric 3 for symmetric RSP
+    : FOR    ${sfp_entry_dict}    IN    @{sfp_json_list}
+    \    ${sfp_name} =    Collections.Get_From_Dictionary    ${sfp_entry_dict}    name
+    \    ${status}    ${symmetric} =    BuiltIn.Run Keyword And Ignore Error    Collections.Get_From_Dictionary    ${sfp_entry_dict}    symmetric
+    \    ${symmetric} =    BuiltIn.Set Variable If    "${status}" == "FAIL"    False    ${symmetric}
+    \    ${num_names} =    BuiltIn.Set Variable If    "${symmetric}" == "False"    2    3
+    \    BuiltIn.Wait Until Keyword Succeeds    60s    2s    Utils.Check For Specific Number Of Elements At URI   ${SERVICE_FUNCTION_PATH_STATE_URI}${sfp_name}    name    ${num_names}
 
 Delete Sfp And Wait For Rsps Deletion
     [Arguments]    ${sfp_name}
