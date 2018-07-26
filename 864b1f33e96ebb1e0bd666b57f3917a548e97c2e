@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96befe80_1aeac9c3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1105,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-26T11:24:18Z",
+      "side": 1,
+      "message": "\u003d",
+      "revId": "864b1f33e96ebb1e0bd666b57f3917a548e97c2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "345ab351_966aebc7",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-26T11:24:18Z",
+      "side": 1,
+      "message": "\u003d",
+      "revId": "864b1f33e96ebb1e0bd666b57f3917a548e97c2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a116a9c7_2891e754",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2018-07-26T11:24:18Z",
+      "side": 1,
+      "message": "is the list of failed tables shown? I think the earlier Append To list will dump the list already and the Return will dump the value also so we don\u0027t need to log it. Let\u0027s see what the sandbox looks like.",
+      "revId": "864b1f33e96ebb1e0bd666b57f3917a548e97c2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
