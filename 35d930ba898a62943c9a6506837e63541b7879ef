@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12b6ef42_b7e8b6f2",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2018-07-26T18:18:23Z",
+      "side": 1,
+      "message": "space \u003d\n\napply it everywhere though. like line 120 below, etc.",
+      "revId": "35d930ba898a62943c9a6506837e63541b7879ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
