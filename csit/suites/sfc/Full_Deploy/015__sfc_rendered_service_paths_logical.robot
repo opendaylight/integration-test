@@ -12,6 +12,21 @@ Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 
+*** Variables ***
+${VERSION_DIR}    master
+${TEST_DIR}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}
+${SERVICE_FUNCTIONS_FILE}    ${TEST_DIR}/service-functions-logicalsff.json
+${SERVICE_FORWARDERS_FILE}    ${TEST_DIR}/service-function-forwarders-logicallsff.json
+${SERVICE_CHAINS_FILE}    ${TEST_DIR}/service-function-chains-logicalsff.json
+${SERVICE_FUNCTION_PATHS_FILE}    ${TEST_DIR}/service-function-paths-logicalsff.json
+${CREATE_RSP1_INPUT}    {"input":{"name": "RSP1","parent-service-function-path": "SFP1","symmetric": "true"}}
+${CREATE_RSP2_INPUT}    {"input":{"name": "RSP2","parent-service-function-path": "SFP2","symmetric": "true"}}
+${CREATE_RSP_FAILURE_INPUT}    {"input":{"name": "RSP1","parent-service-function-path": "SFP3","symmetric": "true"}}
+${DELETE_RSP1_INPUT}    {"input":{"name":"RSP1"}}
+${DELETE_RSP1_REVERSE_INPUT}    {"input":{"name":"RSP1-Reverse"}}
+${DELETE_RSP2_INPUT}    {"input":{"name":"RSP2"}}
+@{SF_NAMES}       "name":"firewall-1"    "name":"dpi-1"
+
 *** Test Cases ***
 Basic Environment Setup Tests
     [Documentation]    Prepare Basic Test Environment. Logical SFF
@@ -25,9 +40,9 @@ Get Rendered Service Path By Name
     [Documentation]    Get Rendered Service Path By Name Through RESTConf APIs. Logical SFF
     # The RSP should be symetric, so 2 should be created for the SFP
     ${rsp_name} =    SfcKeywords.Get Rendered Service Path Name    ${SFP_NAME}
-    Utils.Get URI And Verify    ${OPERATIONAL_RSP_URI}${rsp_name}
+    Utils.Get URI And Verify    ${OPERATIONAL_RSP_URI}/${rsp_name}
     ${rsp_name_rev} =    SfcKeywords.Get Rendered Service Path Name    ${SFP_NAME}
-    Utils.Get URI And Verify    ${OPERATIONAL_RSP_URI}${rsp_name_rev}
+    Utils.Get URI And Verify    ${OPERATIONAL_RSP_URI}/${rsp_name_rev}
     ${elements} =    Create List    "parent-service-function-path":"${SFP_NAME}"    "hop-number":0    "service-index":255    "hop-number":1    "service-index":254
     Utils.Check For Elements At URI    ${OPERATIONAL_RSPS_URI}    ${elements}
 
