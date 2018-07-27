@@ -60,7 +60,7 @@ Stop Packet Capture on Node
     SSHLibrary.Switch Connection    ${conn_id}
     ${stdout} =    SSHLibrary.Execute Command    sudo ps -elf | grep tcpdump
     Log    ${stdout}
-    ${stdout}    ${stderr} =    SSHLibrary.Execute Command    sudo pkill -f tcpdump    return_stderr=True
+    ${stdout}    ${stderr} =    SSHLibrary.Execute Command    sudo pkill -nf tcpdump    return_stderr=True
     Log    ${stderr}
     Log    ${stdout}
     ${stdout} =    SSHLibrary.Execute Command    sudo xz -9ekvv /tmp/*.pcap
