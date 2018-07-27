@@ -1,4 +1,5 @@
 *** Settings ***
+Resource          ${CURDIR}/../CompareStream.robot
 
 *** Variables ***
 
@@ -17,8 +18,10 @@ Get JSON Elements From URI
 Check Classifier Flows
     ${flowList}=    DockerSfc.Get Flows In Docker Containers
     log    ${flowList}
-    Should Contain Match    ${flowList}    *actions=pop_nsh*
-    Should Contain Match    ${flowList}    *actions=push_nsh*
+    ${expected_nsh_pop}=    Set_Variable_If_At_Most    oxygen    *actions=pop_nsh*    *actions=decap(nsh*
+    ${expected_nsh_push}=    Set_Variable_If_At_Most    oxygen    *actions=push_nsh*    *actions=encap(nsh*
+    Should Contain Match    ${flowList}    ${expected_nsh_pop} 
+    Should Contain Match    ${flowList}    ${expected_nsh_push}
 
 Check Service Function Types Added
     [Arguments]    ${elements}
