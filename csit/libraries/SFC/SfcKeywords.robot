@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Common Keywords for the SFC Test suites.
 Library           Collections
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
@@ -19,8 +20,10 @@ Get JSON Elements From URI
 Check Classifier Flows
     ${flowList} =    DockerSfc.Get Flows In Docker Containers
     BuiltIn.log    ${flowList}
-    BuiltIn.Should Contain Match    ${flowList}    *actions=pop_nsh*
-    BuiltIn.Should Contain Match    ${flowList}    *actions=push_nsh*
+    ${expected_nsh_pop}=    Set_Variable_If_At_Most    oxygen    *actions=pop_nsh*    *actions=decap(nsh*
+    ${expected_nsh_push}=    Set_Variable_If_At_Most    oxygen    *actions=push_nsh*    *actions=encap(nsh*
+    Should Contain Match    ${flowList}    ${expected_nsh_pop} 
+    Should Contain Match    ${flowList}    ${expected_nsh_push}
 
 Check Service Function Types Added
     [Arguments]    ${elements}

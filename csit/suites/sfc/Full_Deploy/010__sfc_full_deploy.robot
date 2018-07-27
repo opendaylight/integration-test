@@ -63,7 +63,7 @@ Init Suite
     SSHLibrary.Put File    ${CURDIR}/docker-ovs.sh    .    mode=0755
     SSHLibrary.Put File    ${CURDIR}/Dockerfile    .    mode=0755
     SSHLibrary.Put File    ${CURDIR}/setup-docker-image.sh    .    mode=0755
-    ${result} =    SSHLibrary.Execute Command    ./setup-docker-image.sh > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
+    ${result} =    SSHLibrary.Execute Command    ./setup-docker-image.sh ${ODL_STREAM} > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
     BuiltIn.log    ${result}
     BuiltIn.Should be equal as integers    ${result[2]}    0
     BuiltIn.Set Suite Variable    @{INTERFACE_NAMES}    v-ovsnsn6g1    v-ovsnsn1g1
