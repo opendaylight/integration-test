@@ -58,8 +58,9 @@ BFD_TC01 Verify by default BFD monitoring is enabled on Controller
 
 BFD_TC02 Verify that BFD tunnel monitoring interval is set with appropriate default value i.e.,1000
     [Documentation]    This will verify BFD tunnel monitoring default interval
-    ${output}=    Issue Command On Karaf Console    ${TEP_SHOW}
-    Should Contain    ${output}    ${DEFAULT_MONITORING_INTERVAL}
+    ${output} =    Issue Command On Karaf Console    ${TEP_SHOW}
+    ${tunnel_monitoring} =    Get Lines Containing String    ${output}    Tunnel Monitoring Interval
+    Should Be Equal    ${tunnel_monitoring}    ${DEFAULT_MONITORING_INTERVAL}
     Wait Until Keyword Succeeds    10s    2s    Verify Config Ietf Interface Output    ${INTERFACE_DS_MONI_TRUE}    ${INTERFACE_DS_MONI_INT_1000}    ${TUNNEL_MONI_PROTO}
 
 BFD_TC04 Verify that in controller tunnel status is up when ITM tunnel interface is brought up.
