@@ -37,20 +37,20 @@ Get one Service Function Chain
     [Documentation]    Get one Service Function Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     ${elements}=    Create List    SFC1    dpi-abstract1    napt44-abstract1    firewall-abstract1
-    Check For Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1    ${elements}
+    Check For Elements At URI    ${SERVICE_CHAIN_URI}/SFC1    ${elements}
 
 Get A Non-existing Service Function Chain
     [Documentation]    Get A Non-existing Service Function Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}service-function-chain/non-existing-sfc
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAIN_URI}/non-existing-sfc
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function Chain
     [Documentation]    Delete A Service Function Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}service-function-chain/SFC1
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAIN_URI}/SFC1
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1
+    Remove All Elements At URI    ${SERVICE_CHAIN_URI}/SFC1
     ${elements}=    Create List    SFC1    dpi-abstract1    napt44-abstract1    firewall-abstract1
     Check For Elements Not At URI    ${SERVICE_CHAINS_URI}    ${elements}
 
@@ -60,7 +60,7 @@ Delete A Non-existing Service Function Chain
     ${body}    OperatingSystem.Get File    ${SERVICE_CHAINS_FILE}
     ${jsonbody}    To Json    ${body}
     ${chains}    Get From Dictionary    ${jsonbody}    service-function-chains
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_CHAINS_URI}service-function-chain/non-existing-sfc
+    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_CHAIN_URI}/non-existing-sfc
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -79,31 +79,31 @@ Get one Service Function From Chain
     [Documentation]    Get one Service Function From Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     ${elements}=    Create List    dpi-abstract1    "order":0    "type":"dpi"
-    Check For Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/sfc-service-function/dpi-abstract1    ${elements}
+    Check For Elements At URI    ${SERVICE_CHAIN_URI}/SFC1/sfc-service-function/dpi-abstract1    ${elements}
 
 Get A Non-existing Service Function From Chain
     [Documentation]    Get A Non-existing Service Function From Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/sfc-service-function/non-existing-sft
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAIN_URI}/SFC1/sfc-service-function/non-existing-sft
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function From Chain
     [Documentation]    Delete A Service Function From Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/sfc-service-function/dpi-abstract1
+    Remove All Elements At URI    ${SERVICE_CHAIN_URI}/SFC1/sfc-service-function/dpi-abstract1
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.content}    SFC1
     ${elements}=    Create List    dpi-abstract1    service-function-type:dpi
-    Check For Elements Not At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/    ${elements}
+    Check For Elements Not At URI    ${SERVICE_CHAIN_URI}/SFC1    ${elements}
 
 Delete A Non-existing Service Function From Chain
     [Documentation]    Delete A Non existing Service Function From Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/sfc-service-function/non-existing-sft
+    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_CHAIN_URI}/SFC1/sfc-service-function/non-existing-sft
     Should Be Equal As Strings    ${resp.status_code}    404
     ${elements}=    Create List    dpi-abstract1    napt44-abstract1    firewall-abstract1
-    Check For Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1    ${elements}
+    Check For Elements At URI    ${SERVICE_CHAIN_URI}/SFC1    ${elements}
     Check For Elements At URI    ${SERVICE_CHAINS_URI}    ${elements}
 
 Put one Service Function into Chain
@@ -121,9 +121,9 @@ Init Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
     Set Suite Variable    ${VERSION_DIR}    master
-    Set Suite Variable    ${SERVICE_CHAINS_URI}    /restconf/config/service-function-chain:service-function-chains/
-    Set Suite Variable    ${SERVICE_CHAINS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-chains.json
-    Set Suite Variable    ${SERVICE_CHAIN100_URI}    /restconf/config/service-function-chain:service-function-chains/service-function-chain/SFC100
-    Set Suite Variable    ${SERVICE_CHAIN100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sfc_chain_100.json
-    Set Suite Variable    ${SERVICE_CHAIN100_SFIDS_URI}    /restconf/config/service-function-chain:service-function-chains/service-function-chain/SFC100/sfc-service-function/ids-abstract100
-    Set Suite Variable    ${SERVICE_CHAIN100_SFIDS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sfc_chain_100_sfids.json
+    Set Suite Variable    ${TEST_DIR}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}
+    Set Suite Variable    ${SERVICE_CHAINS_FILE}    ${TEST_DIR}/service-function-chains.json
+    Set Suite Variable    ${SERVICE_CHAIN100_URI}    ${SERVICE_CHAIN_URI}/SFC100
+    Set Suite Variable    ${SERVICE_CHAIN100_FILE}    ${TEST_DIR}/sfc_chain_100.json
+    Set Suite Variable    ${SERVICE_CHAIN100_SFIDS_URI}    ${SERVICE_CHAIN100_URI}/sfc-service-function/ids-abstract100
+    Set Suite Variable    ${SERVICE_CHAIN100_SFIDS_FILE}    ${TEST_DIR}/sfc_chain_100_sfids.json
