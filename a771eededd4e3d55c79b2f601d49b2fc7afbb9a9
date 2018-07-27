@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "734f4011_627aa28d",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2018-07-27T10:17:08Z",
+      "side": 1,
+      "message": "Done in: https://git.opendaylight.org/gerrit/#/c/74559/",
+      "parentUuid": "a8d8aabf_d862b615",
+      "revId": "a771eededd4e3d55c79b2f601d49b2fc7afbb9a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ea80656_fa38f18d",
         "filename": "csit/suites/sxp/binding-origin/020_Binding_Origins_Checks.robot",
         "patchSetId": 26
@@ -30,6 +48,24 @@
       "writtenOn": "2018-07-25T02:44:42Z",
       "side": 1,
       "message": "FYI you can use KW Comment instead of #",
+      "revId": "a771eededd4e3d55c79b2f601d49b2fc7afbb9a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82df4530_1c85c562",
+        "filename": "csit/suites/sxp/binding-origin/020_Binding_Origins_Checks.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8144
+      },
+      "writtenOn": "2018-07-27T10:17:08Z",
+      "side": 1,
+      "message": "Good idea",
+      "parentUuid": "9ea80656_fa38f18d",
       "revId": "a771eededd4e3d55c79b2f601d49b2fc7afbb9a9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
